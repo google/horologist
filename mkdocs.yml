@@ -1,0 +1,48 @@
+# Project information
+site_name: 'Horologist'
+site_description: 'A group of libraries to help write Wear OS apps.'
+site_author: 'Google'
+site_url: 'https://google.github.io/horologist/'
+edit_uri: 'tree/main/docs/'
+remote_branch: gh-pages
+
+docs_dir: docs-gen
+
+# Repository
+repo_name: 'Horologist'
+repo_url: 'https://github.com/google/horologist'
+
+# Navigation
+nav:
+  - 'Overview': index.md
+  - 'Snapshots': using-snapshot-version.md
+  - 'Contributing': contributing.md
+  - 'Maintainers':
+    - 'Update guide': updating.md
+
+# Configuration
+theme:
+  name: 'material'
+  language: 'en'
+  icon:
+    logo: material/music-clef-treble
+  palette:
+    primary: 'black'
+    accent: 'deep orange'
+  font:
+    text: 'Roboto'
+    code: 'JetBrains Mono'
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - attr_list
+  - codehilite:
+      guess_lang: false
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.betterem
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.details

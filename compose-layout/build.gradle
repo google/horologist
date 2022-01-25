@@ -41,6 +41,7 @@ android {
 
     buildFeatures {
         buildConfig false
+        compose true
     }
 
     kotlinOptions {
@@ -90,9 +91,12 @@ dependencies {
 
     implementation libs.wearcompose.material
     implementation libs.wearcompose.foundation
+    implementation "androidx.window:window:1.0.0-rc01"
 
     implementation libs.compose.ui.tooling
+    implementation 'androidx.wear:wear:1.2.0'
     debugImplementation libs.compose.ui.toolingpreview
+    debugImplementation "androidx.activity:activity-compose:1.4.0"
 }
 
 apply plugin: "com.vanniktech.maven.publish"

@@ -18,25 +18,35 @@ package com.google.android.horologist.compose.layout
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.wear.compose.material.Text
 
 @Preview(
     device = Devices.WEAR_OS_LARGE_ROUND,
     showSystemUi = true,
+    backgroundColor = 0xff000000,
+    showBackground = true
 )
 @Preview(
     device = Devices.WEAR_OS_SQUARE,
     showSystemUi = true,
+    backgroundColor = 0xff000000,
+    showBackground = true
 )
 @Composable
 fun Preview() {
     Box(modifier = Modifier.fillMaxSize()) {
-        Box(modifier = Modifier.fillMaxRectangle().background(Color.Blue)) {
+        Column(modifier = Modifier.fillMaxSize().fillMaxRectangle().background(Color.Blue)) {
+            Text("Top")
+            Spacer(modifier = Modifier.weight(1f))
+            Text("Bottom")
         }
     }
 }

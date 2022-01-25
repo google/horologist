@@ -25,6 +25,16 @@ import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlin.math.sqrt
+
+/**
+ * A [Modifier] for adding padding for round devices for rectangular content.
+ *
+ * If the device is round, an equal amount of padding required to inset the content inside the
+ * circle.
+ *
+ * This method assumes that the layout will fill the entire screen, and that there are no oval
+ * devices.
+ */
 @Stable
 fun Modifier.fillMaxRectangle() = composed(
   inspectorInfo = debugInspectorInfo {

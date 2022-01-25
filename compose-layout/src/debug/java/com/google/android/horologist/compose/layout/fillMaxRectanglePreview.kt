@@ -41,7 +41,7 @@ import androidx.wear.compose.material.Text
     showBackground = true
 )
 @Composable
-fun Preview() {
+public fun Preview() {
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxSize().fillMaxRectangle().background(Color.Blue)) {
             Text("Top")

@@ -36,7 +36,7 @@ import kotlin.math.sqrt
  * devices.
  */
 @Stable
-fun Modifier.fillMaxRectangle() = composed(
+public fun Modifier.fillMaxRectangle(): Modifier = composed(
   inspectorInfo = debugInspectorInfo {
     name = "fillMaxRectangle"
   }

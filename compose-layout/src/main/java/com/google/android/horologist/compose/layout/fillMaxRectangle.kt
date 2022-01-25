@@ -15,6 +15,7 @@
  */
 
 package com.google.android.horologist.compose.layout
+
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier

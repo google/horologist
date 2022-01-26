@@ -28,9 +28,8 @@ android {
     compileSdkVersion 31
 
     defaultConfig {
-        minSdkVersion 26
-        // targetSdkVersion has no effect for libraries. This is only used for the test APK
-        targetSdkVersion 31
+        minSdk 26
+        targetSdk 30
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -46,7 +45,6 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
-        freeCompilerArgs += '-Xexplicit-api=strict'
         freeCompilerArgs += "-opt-in=androidx.wear.compose.material.ExperimentalWearMaterialApi"
     }
 
@@ -87,17 +85,28 @@ android {
     }
 }
 
+project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).configureEach { task ->
+    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+    if (!task.name.endsWith("TestKotlin")) {
+        task.kotlinOptions.freeCompilerArgs.add("-Xexplicit-api=strict")
+    }
+}
+
 dependencies {
     implementation libs.kotlin.stdlib
 
     implementation libs.wearcompose.material
     implementation libs.wearcompose.foundation
-    implementation "androidx.window:window:1.0.0-rc01"
 
     implementation libs.compose.ui.tooling
-    implementation 'androidx.wear:wear:1.2.0'
+    implementation libs.androidx.wear
     debugImplementation libs.compose.ui.toolingpreview
-    debugImplementation "androidx.activity:activity-compose:1.4.0"
+    debugImplementation libs.androidx.activity.compose
+
+    androidTestImplementation libs.compose.ui.test.junit4
+    debugImplementation libs.compose.ui.test.manifest
+    androidTestImplementation libs.espresso.core
+    androidTestImplementation libs.junit
 }
 
 apply plugin: "com.vanniktech.maven.publish"

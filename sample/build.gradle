@@ -23,8 +23,8 @@ android {
 
     defaultConfig {
         applicationId "com.google.android.horologist.sample"
-        minSdkVersion 26
-        targetSdkVersion 31
+        minSdk 26
+        targetSdk 30
 
         versionCode 1
         versionName "1.0"
@@ -41,13 +41,18 @@ android {
         compose true
     }
 
+    kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs += "-opt-in=androidx.wear.compose.material.ExperimentalWearMaterialApi"
+    }
+
     composeOptions {
         kotlinCompilerExtensionVersion libs.versions.compose.get()
     }
 }
 
 dependencies {
-    implementation project(':dummy')
+    implementation project(':compose-layout')
 
     implementation libs.compose.ui.tooling
     implementation libs.compose.ui.util
@@ -57,6 +62,7 @@ dependencies {
 
     implementation libs.wearcompose.material
     implementation libs.wearcompose.foundation
+    implementation libs.wearcompose.navigation
 
     implementation libs.androidx.core
     implementation libs.androidx.fragment

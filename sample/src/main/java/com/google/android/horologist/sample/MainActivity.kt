@@ -14,16 +14,20 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalWearMaterialApi::class)
+
 package com.google.android.horologist.sample
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.wear.compose.material.ExperimentalWearMaterialApi
-import androidx.wear.compose.material.Text
-import com.google.android.horologist.dummy.DummyClass
+import androidx.wear.compose.material.Scaffold
+import androidx.wear.compose.material.TimeText
+import androidx.wear.compose.navigation.SwipeDismissableNavHost
+import androidx.wear.compose.navigation.composable
+import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,10 +40,22 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-@OptIn(ExperimentalWearMaterialApi::class)
 fun WearApp() {
-    Column {
-        Text(DummyClass().hello())
-        Text("More features coming soon")
+    val swipeDismissableNavController = rememberSwipeDismissableNavController()
+
+    Scaffold(
+        timeText = { TimeText() },
+    ) {
+        SwipeDismissableNavHost(
+            navController = swipeDismissableNavController,
+            startDestination = Screen.Menu.route,
+        ) {
+            composable(Screen.Menu.route) {
+                MenuScreen(navigateToRoute = { swipeDismissableNavController.navigate(it) })
+            }
+            composable(Screen.FillMaxRectangle.route) {
+                FillMaxRectangle()
+            }
+        }
     }
 }

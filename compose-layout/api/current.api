@@ -1,0 +1,9 @@
+// Signature format: 4.0
+package com.google.android.horologist.compose.layout {
+
+  public final class FillMaxRectangleKt {
+    method @androidx.compose.runtime.Stable public static androidx.compose.ui.Modifier fillMaxRectangle(androidx.compose.ui.Modifier);
+  }
+
+}
+

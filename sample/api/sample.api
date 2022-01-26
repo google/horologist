@@ -1,0 +1,25 @@
+public final class com/google/android/horologist/sample/BuildConfig {
+	public static final field APPLICATION_ID Ljava/lang/String;
+	public static final field BUILD_TYPE Ljava/lang/String;
+	public static final field DEBUG Z
+	public static final field VERSION_CODE I
+	public static final field VERSION_NAME Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public final class com/google/android/horologist/sample/ComposableSingletons$MainActivityKt {
+	public static final field INSTANCE Lcom/google/android/horologist/sample/ComposableSingletons$MainActivityKt;
+	public static field lambda-1 Lkotlin/jvm/functions/Function2;
+	public fun <init> ()V
+	public final fun getLambda-1$sample_release ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class com/google/android/horologist/sample/MainActivity : androidx/activity/ComponentActivity {
+	public static final field $stable I
+	public fun <init> ()V
+}
+
+public final class com/google/android/horologist/sample/MainActivityKt {
+	public static final fun WearApp (Landroidx/compose/runtime/Composer;I)V
+}
+

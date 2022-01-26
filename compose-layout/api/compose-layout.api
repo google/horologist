@@ -1,0 +1,4 @@
+public final class com/google/android/horologist/compose/layout/FillMaxRectangleKt {
+	public static final fun fillMaxRectangle (Landroidx/compose/ui/Modifier;)Landroidx/compose/ui/Modifier;
+}
+

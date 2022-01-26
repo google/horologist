@@ -43,7 +43,7 @@ import androidx.wear.compose.material.Text
 @Composable
 public fun Preview() {
     Box(modifier = Modifier.fillMaxSize()) {
-        Column(modifier = Modifier.fillMaxSize().fillMaxRectangle().background(Color.Blue)) {
+        Column(modifier = Modifier.fillMaxRectangle().background(Color.Blue)) {
             Text("Top")
             Spacer(modifier = Modifier.weight(1f))
             Text("Bottom")

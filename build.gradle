@@ -38,6 +38,7 @@ buildscript {
 plugins {
     id "com.diffplug.spotless" version "5.9.0"
     id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
+    id 'org.jetbrains.kotlinx.binary-compatibility-validator' version '0.8.0'
 }
 
 apply plugin: 'org.jetbrains.dokka'

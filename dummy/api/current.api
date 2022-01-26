@@ -1,6 +1,0 @@
-// Signature format: 4.0
-package com.google.android.horologist.dummy {
-  public class DummyClass {
-    method public String hello();
-  }
-}

@@ -20,10 +20,6 @@ plugins {
     id 'org.jetbrains.dokka'
 }
 
-kotlin {
-    explicitApi()
-}
-
 android {
     compileSdkVersion 31
 
@@ -87,7 +83,7 @@ android {
 
 project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).configureEach { task ->
     // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!task.name.endsWith("TestKotlin")) {
+    if (!task.name.endsWith("TestKotlin") && !task.name.startsWith("compileDebug")) {
         task.kotlinOptions.freeCompilerArgs.add("-Xexplicit-api=strict")
     }
 }

@@ -25,7 +25,6 @@ gradleEnterprise {
     }
 }
 
-include ':dummy'
 include ':sample'
 include ':compose-layout'
 

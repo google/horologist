@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.dummy
+package com.google.android.horologist.sample
 
-class DummyClass {
-    fun hello() = "Hello, world"
+sealed class Screen(
+    val route: String
+) {
+    object Menu : Screen("menu")
+    object FillMaxRectangle : Screen("fmr")
 }

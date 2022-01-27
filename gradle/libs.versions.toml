@@ -31,6 +31,7 @@ compose-animation-animation = { module = "androidx.compose.animation:animation",
 
 wearcompose-material = { module = "androidx.wear.compose:compose-material", version.ref = "wearcompose" }
 wearcompose-foundation = { module = "androidx.wear.compose:compose-foundation", version.ref = "wearcompose" }
+wearcompose-navigation = { module = "androidx.wear.compose:compose-navigation", version.ref = "wearcompose" }
 
 androidx-wear = "androidx.wear:wear:1.2.0"
 

@@ -21,7 +21,9 @@ package com.google.android.horologist.sample
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeText
@@ -51,7 +53,10 @@ fun WearApp() {
             startDestination = Screen.Menu.route,
         ) {
             composable(Screen.Menu.route) {
-                MenuScreen(navigateToRoute = { swipeDismissableNavController.navigate(it) })
+                MenuScreen(
+                    modifier = Modifier.fillMaxSize(),
+                    navigateToRoute = { swipeDismissableNavController.navigate(it) },
+                )
             }
             composable(Screen.FillMaxRectangle.route) {
                 FillMaxRectangle()

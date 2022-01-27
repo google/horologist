@@ -16,15 +16,15 @@
 
 package com.google.android.horologist.sample
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
@@ -32,11 +32,11 @@ import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
 
 @Composable
-fun MenuScreen(navigateToRoute: (String) -> Unit) {
+fun MenuScreen(modifier: Modifier = Modifier, navigateToRoute: (String) -> Unit) {
     ScalingLazyColumn(
-        contentPadding = PaddingValues(vertical = 24.dp, horizontal = 8.dp),
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        autoCentering = true,
     ) {
         item {
             FillMaxRectangleChip(navigateToRoute)
@@ -46,11 +46,13 @@ fun MenuScreen(navigateToRoute: (String) -> Unit) {
 
 @Composable
 fun SampleChip(
+    modifier: Modifier = Modifier,
     onClick: () -> Unit,
     label: String,
     content: @Composable () -> Unit
 ) {
     Chip(
+        modifier = modifier,
         onClick = onClick,
         colors = ChipDefaults.primaryChipColors(),
     ) {
@@ -61,4 +63,21 @@ fun SampleChip(
             }
         }
     }
+}
+
+@Preview(
+    device = Devices.WEAR_OS_LARGE_ROUND,
+    showSystemUi = true,
+    backgroundColor = 0xff000000,
+    showBackground = true
+)
+@Preview(
+    device = Devices.WEAR_OS_SQUARE,
+    showSystemUi = true,
+    backgroundColor = 0xff000000,
+    showBackground = true
+)
+@Composable
+fun MenuScreenPreview() {
+    MenuScreen(modifier = Modifier.fillMaxSize(), navigateToRoute = {})
 }

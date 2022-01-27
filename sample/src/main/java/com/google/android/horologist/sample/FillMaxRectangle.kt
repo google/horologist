@@ -26,6 +26,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.compose.layout.fillMaxRectangle
 
@@ -42,17 +45,44 @@ fun FillMaxRectangleChip(navigateToRoute: (String) -> Unit) {
         onClick = { navigateToRoute(Screen.FillMaxRectangle.route) },
         label = "Fill Max Rectangle",
         content = {
-            Box(
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .background(Color.Black)
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Box(modifier = Modifier
-                    .background(Color.Red)
-                    .size(24.dp))
+            if (LocalConfiguration.current.isScreenRound) {
+                Box(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .background(Color.Black)
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .background(Color.Red)
+                            .size(24.dp)
+                    )
+                }
+            } else {
+                Box(
+                    modifier = Modifier
+                        .background(Color.Red)
+                        .fillMaxSize()
+                )
             }
         }
     )
+}
+
+@Preview(
+    device = Devices.WEAR_OS_LARGE_ROUND,
+    showSystemUi = true,
+    backgroundColor = 0xff000000,
+    showBackground = true
+)
+@Preview(
+    device = Devices.WEAR_OS_SQUARE,
+    showSystemUi = true,
+    backgroundColor = 0xff000000,
+    showBackground = true
+)
+@Composable
+fun FillMaxReactanglePreview() {
+    FillMaxRectangle()
 }

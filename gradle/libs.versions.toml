@@ -1,6 +1,6 @@
 [versions]
-compose = "1.2.0-alpha01"
-wearcompose = "1.0.0-alpha14"
+compose = "1.2.0-alpha02"
+wearcompose = "1.0.0-alpha15"
 composesnapshot = "-" # a single character = no snapshot
 
 # gradlePlugin and lint need to be updated together
@@ -12,7 +12,7 @@ kotlin = "1.6.10"
 coroutines = "1.5.2"
 
 androidxtest = "1.4.0"
-androidxnavigation = "2.4.0-beta01"
+androidxnavigation = "2.4.0"
 androidxtiles = "1.0.0"
 
 [libraries]

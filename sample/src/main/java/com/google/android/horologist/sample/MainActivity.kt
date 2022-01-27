@@ -59,7 +59,7 @@ fun WearApp() {
                 )
             }
             composable(Screen.FillMaxRectangle.route) {
-                FillMaxRectangle()
+                FillMaxRectangleScreen()
             }
         }
     }

@@ -30,6 +30,7 @@ import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.google.android.horologist.systemui.VolumeScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +61,9 @@ fun WearApp() {
             }
             composable(Screen.FillMaxRectangle.route) {
                 FillMaxRectangleScreen()
+            }
+            composable(Screen.Volume.route) {
+                VolumeScreen()
             }
         }
     }

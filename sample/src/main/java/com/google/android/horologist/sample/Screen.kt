@@ -21,4 +21,5 @@ sealed class Screen(
 ) {
     object Menu : Screen("menu")
     object FillMaxRectangle : Screen("fmr")
+    object Volume : Screen("volume")
 }

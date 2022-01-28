@@ -83,6 +83,12 @@ allprojects {
             maven { url "https://androidx.dev/snapshots/builds/$composeSnapshot/artifacts/repository/" }
         }
     }
+
+    plugins.withId("com.vanniktech.maven.publish") {
+        mavenPublish {
+            sonatypeHost = "DEFAULT"
+        }
+    }
 }
 
 subprojects {
@@ -138,14 +144,7 @@ subprojects {
     if (signingPropsFile.exists()) {
         def localProperties = new Properties()
         signingPropsFile.withInputStream { is -> localProperties.load(is) }
-        localProperties.each { prop ->
-            if (prop.key == "signing.secretKeyRingFile") {
-                // If this is the key ring, treat it as a relative path
-                project.ext.set(prop.key, rootProject.file(prop.value).absolutePath)
-            } else {
-                project.ext.set(prop.key, prop.value)
-            }
-        }
+        localProperties.each { prop -> project.ext.set(prop.key, prop.value) }
     }
 
     // If we have a POM Artifact ID, we should generate API files

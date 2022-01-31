@@ -21,4 +21,7 @@ sealed class Screen(
 ) {
     object Menu : Screen("menu")
     object FillMaxRectangle : Screen("fmr")
+    object FadeAway : Screen("fadeAway")
+    object FadeAwaySLC : Screen("fadeAwaySLC")
+    object FadeAwayColumn : Screen("fadeAwayColumn")
 }

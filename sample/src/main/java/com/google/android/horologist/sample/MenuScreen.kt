@@ -30,16 +30,29 @@ import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.rememberScalingLazyListState
 
 @Composable
 fun MenuScreen(modifier: Modifier = Modifier, navigateToRoute: (String) -> Unit) {
+    val scrollState = rememberScalingLazyListState(initialCenterItemIndex = 1)
+
     ScalingLazyColumn(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         autoCentering = true,
+        state = scrollState
     ) {
         item {
             FillMaxRectangleChip(navigateToRoute)
+        }
+        item {
+            FadeAwayChip("Fade Away") { navigateToRoute(Screen.FadeAway.route) }
+        }
+        item {
+            FadeAwayChip("Fade Away SLC") { navigateToRoute(Screen.FadeAwaySLC.route) }
+        }
+        item {
+            FadeAwayChip("Fade Away Column") { navigateToRoute(Screen.FadeAwayColumn.route) }
         }
     }
 }

@@ -19,6 +19,8 @@ package com.google.android.horologist.sample
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
@@ -28,6 +30,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.TimeText
+import androidx.wear.compose.material.TimeTextDefaults
 
 @Composable
 fun FillMaxRectangleChip(navigateToRoute: (String) -> Unit) {
@@ -55,6 +61,37 @@ fun FillMaxRectangleChip(navigateToRoute: (String) -> Unit) {
                         .background(Color.Red)
                         .fillMaxSize()
                 )
+            }
+        }
+    )
+}
+
+@Composable
+fun FadeAwayChip(
+    label: String,
+    navigateToRoute: () -> Unit
+) {
+    SampleChip(
+        onClick = { navigateToRoute() },
+        label = label,
+        content = {
+            Box(modifier = Modifier.fillMaxSize().let {
+                if (LocalConfiguration.current.isScreenRound)
+                    it.clip(CircleShape)
+                else
+                    it
+            }
+            ) {
+                Box(
+                    modifier = Modifier
+                        .requiredSize(150.dp)
+                        .offset(y = 55.dp)
+                        .background(MaterialTheme.colors.surface)
+                ) {
+                    TimeText(
+                        timeTextStyle = TimeTextDefaults.timeTextStyle().copy(fontSize = 6.sp)
+                    )
+                }
             }
         }
     )

@@ -38,17 +38,17 @@ import kotlin.math.sqrt
  */
 @Stable
 public fun Modifier.fillMaxRectangle(): Modifier = composed(
-  inspectorInfo = debugInspectorInfo {
-    name = "fillMaxRectangle"
-  }
+    inspectorInfo = debugInspectorInfo {
+        name = "fillMaxRectangle"
+    }
 ) {
-  val isRound = LocalConfiguration.current.isScreenRound
-  var inset: Dp = 0.dp
-  if (isRound) {
-    val screenHeightDp = LocalConfiguration.current.screenHeightDp
-    val screenWidthDp = LocalConfiguration.current.smallestScreenWidthDp
-    val maxSquareEdge = (sqrt(((screenHeightDp * screenWidthDp) / 2).toDouble()))
-    inset = Dp(((screenHeightDp - maxSquareEdge) / 2).toFloat())
-  }
-  fillMaxSize().padding(all = inset)
+    val isRound = LocalConfiguration.current.isScreenRound
+    var inset: Dp = 0.dp
+    if (isRound) {
+        val screenHeightDp = LocalConfiguration.current.screenHeightDp
+        val screenWidthDp = LocalConfiguration.current.smallestScreenWidthDp
+        val maxSquareEdge = (sqrt(((screenHeightDp * screenWidthDp) / 2).toDouble()))
+        inset = Dp(((screenHeightDp - maxSquareEdge) / 2).toFloat())
+    }
+    fillMaxSize().padding(all = inset)
 }

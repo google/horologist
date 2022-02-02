@@ -27,9 +27,11 @@ import com.google.android.horologist.compose.layout.fillMaxRectangle
 
 @Composable
 fun FillMaxRectangleScreen() {
-    Box(modifier = Modifier
-        .fillMaxRectangle()
-        .background(Color.Red))
+    Box(
+        modifier = Modifier
+            .fillMaxRectangle()
+            .background(Color.Red)
+    )
 }
 
 @Preview(

@@ -41,3 +41,5 @@ package-list-coil-base
 docs-gen
 site
 *.bak
+checksum.txt
+

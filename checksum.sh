@@ -16,7 +16,11 @@
 
 RESULT_FILE=$1
 
-if [ -f $RESULT_FILE ]; then
+if [[ -z "$RESULT_FILE" ]]; then
+  echo "RESULT_FILE is empty"
+  exit 1
+fi
+if [[ -f $RESULT_FILE ]]; then
   rm $RESULT_FILE
 fi
 touch $RESULT_FILE

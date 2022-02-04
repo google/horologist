@@ -30,13 +30,16 @@ import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.google.android.horologist.sample.theme.WearAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            WearApp()
+            WearAppTheme {
+                WearApp()
+            }
         }
     }
 }
@@ -60,6 +63,9 @@ fun WearApp() {
             }
             composable(Screen.FillMaxRectangle.route) {
                 FillMaxRectangleScreen()
+            }
+            composable(Screen.ListUi.route) {
+                ListScreen()
             }
         }
     }

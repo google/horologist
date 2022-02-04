@@ -14,10 +14,23 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.sample
+package com.google.android.horologist.sample.theme
 
-enum class Screen(val route: String) {
-    Menu("menu"),
-    FillMaxRectangle("fmr"),
-    ListUi("listUi");
+import androidx.compose.runtime.Composable
+import androidx.wear.compose.material.MaterialTheme
+
+/**
+ * Custom Theme for Wear App
+ */
+@Composable
+fun WearAppTheme(
+    content: @Composable () -> Unit
+) {
+    MaterialTheme(
+        colors = wearColorPalette,
+        typography = WearTypography,
+        // For shapes, we generally recommend using the default Material Wear shapes which are
+        // optimized for round and non-round devices.
+        content = content
+    )
 }

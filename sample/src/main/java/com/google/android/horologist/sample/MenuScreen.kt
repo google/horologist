@@ -41,6 +41,12 @@ fun MenuScreen(modifier: Modifier = Modifier, navigateToRoute: (String) -> Unit)
         item {
             FillMaxRectangleChip(navigateToRoute)
         }
+        item {
+            Chip(
+                label = { Text("List UI Demo") },
+                onClick = { navigateToRoute(Screen.ListUi.route) }
+            )
+        }
     }
 }
 

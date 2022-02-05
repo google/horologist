@@ -43,7 +43,8 @@ fun paddingValues(
     )
 
 fun paddingValues(
-    context: Context, configuration: Configuration,
+    context: Context,
+    configuration: Configuration,
     @DimenRes startPercentId: Int = 0,
     @DimenRes topPercentId: Int = 0,
     @DimenRes endPercentId: Int = 0,
@@ -66,8 +67,10 @@ fun paddingValues(
 }
 
 fun paddingValues(
-    context: Context, configuration: Configuration,
-    @DimenRes horizontalPercentId: Int = 0, @DimenRes verticalPercentId: Int = 0
+    context: Context,
+    configuration: Configuration,
+    @DimenRes horizontalPercentId: Int = 0,
+    @DimenRes verticalPercentId: Int = 0
 ): PaddingValues {
     val horizontalPercent =
         if (horizontalPercentId == 0) 0f else context.floatDimensionResource(horizontalPercentId)

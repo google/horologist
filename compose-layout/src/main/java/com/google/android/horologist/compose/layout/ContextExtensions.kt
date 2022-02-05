@@ -19,7 +19,6 @@ package com.google.android.horologist.compose.layout
 import android.content.Context
 import android.util.TypedValue
 import androidx.annotation.DimenRes
-import kotlin.math.roundToInt
 
 fun Context.floatDimensionResource(@DimenRes id: Int): Float {
     val typedValue = TypedValue()

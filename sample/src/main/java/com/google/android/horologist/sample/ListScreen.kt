@@ -18,9 +18,9 @@ package com.google.android.horologist.sample
 
 import androidx.annotation.DimenRes
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Apps
@@ -55,10 +55,10 @@ import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
 import androidx.wear.compose.material.items
 import androidx.wear.compose.material.rememberScalingLazyListState
-import com.google.android.horologist.sample.theme.WearAppTheme
+import com.google.android.horologist.compose.layout.TopPaddingStrategy
 import com.google.android.horologist.compose.layout.paddingValues
 import com.google.android.horologist.compose.layout.topPaddingForTopmostRect
-import com.google.android.horologist.compose.layout.TopPaddingStrategy
+import com.google.android.horologist.sample.theme.WearAppTheme
 
 private val ITEM_LIST = listOf(
     MenuItem(Icons.Default.Cloud, "Connectivity"),
@@ -115,7 +115,7 @@ fun ListScreen(
             ToggleChipItem(
                 checked = (topPaddingStrategy == TopPaddingStrategy.FixedPadding),
                 onCheckedChange = {
-                    topPaddingStrategy = if (topPaddingStrategy  == TopPaddingStrategy.FixedPadding)
+                    topPaddingStrategy = if (topPaddingStrategy == TopPaddingStrategy.FixedPadding)
                         TopPaddingStrategy.FitToTopPadding
                     else
                         TopPaddingStrategy.FixedPadding

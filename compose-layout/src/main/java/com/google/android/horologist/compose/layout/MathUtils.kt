@@ -24,7 +24,8 @@ import kotlin.math.sqrt
  * Ref. https://www.google.com/search?q=pythagorean+theorem
  */
 fun calculateVerticalOffsetForRect(
-    viewportDiameter: Int, childViewWidth: Int
+    viewportDiameter: Int,
+    childViewWidth: Int
 ): Float {
     val radius = viewportDiameter / 2.0
     val result = radius - sqrt(radius.pow(2) - (childViewWidth / 2.0).pow(2))
@@ -36,7 +37,9 @@ fun calculateVerticalOffsetForRect(
  * in a round viewport.
  */
 fun calculateVerticalOffsetForChip(
-    viewportDiameter: Double, childViewHeight: Double, childViewWidth: Double
+    viewportDiameter: Double,
+    childViewHeight: Double,
+    childViewWidth: Double
 ): Double {
     val radius = viewportDiameter / 2.0
     return radius -

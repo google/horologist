@@ -23,6 +23,7 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import kotlin.math.max
 import kotlin.math.roundToInt
 
 // TODO add comment
@@ -47,34 +48,38 @@ fun Modifier.topPaddingForTopmostRect(
 ): Modifier =
     composed {
         val context = LocalContext.current
-        val defaultTopMargin = remember {
-            context.pixelFromFloatDimension(defaultTopMarginPercentId)
+        val defaultTopMarginPercent = remember {
+            context.floatDimensionResource(defaultTopMarginPercentId)
         }
-        topPaddingForTopmostRect(defaultTopMargin, paddingStrategy)
+        topPaddingForTopmostRect(defaultTopMarginPercent, paddingStrategy)
     }
 
 /**
  * Apply a space along top edge of the rectangular content which is placed on the topmost of
  * a screen. When the part of the content is cropped by the display, add extra padding.
- * @param defaultTopMargin
+ * @param defaultTopMarginPercent
  * @param paddingStrategy
  */
 fun Modifier.topPaddingForTopmostRect(
-    defaultTopMargin: Float,
+    defaultTopMarginPercent: Float,
     paddingStrategy: TopPaddingStrategy = TopPaddingStrategy.FixedPadding,
 ): Modifier =
     composed {
+        require(defaultTopMarginPercent in 0f..1f)
         val context = LocalContext.current
         val configuration = LocalConfiguration.current
-        val screenWidth = remember { context.resources.displayMetrics.widthPixels }
+        val displayMetrics = remember { context.resources.displayMetrics }
+        val defaultTopMargin = defaultTopMarginPercent * displayMetrics.heightPixels
 
         layout { measurable, constraints ->
             val placeable = measurable.measure(constraints)
             val topMargin =
                 if (configuration.isScreenRound) {
-                    val fitToTopMargin = calculateVerticalOffsetForRect(screenWidth, placeable.width)
+                    val fitToTopMargin = calculateVerticalOffsetForRect(
+                        displayMetrics.widthPixels, placeable.width
+                    )
                     when (paddingStrategy) {
-                        TopPaddingStrategy.FixedPadding -> defaultTopMargin
+                        TopPaddingStrategy.FixedPadding -> max(defaultTopMargin, fitToTopMargin)
                         TopPaddingStrategy.FitToTopPadding -> fitToTopMargin
                     }
                 } else {

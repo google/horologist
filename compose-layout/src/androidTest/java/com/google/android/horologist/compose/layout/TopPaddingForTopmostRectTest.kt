@@ -18,50 +18,108 @@ package com.google.android.horologist.compose.layout
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertTopPositionInRootIsEqualTo
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Text
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 class TopPaddingForTopmostRectTest {
+    companion object {
+        private const val tag = "tag"
+        private const val roundTopPaddingPercent = 0.0938f
+        private const val rectTopPaddingPercent = 0.052f
+    }
+
     @get:Rule
     val composeTestRule = createComposeRule()
 
+    @Ignore("Cannot achieve the same content width of Text composable with Placeable")
     @Test
-    fun topPaddingForTopmostRect_fitToTopMarginInCircle() {
-        // TODO ForceMode
+    fun fitToTopMarginInRoundDisplay() {
         val roundTopPadding = 0.0938f
+        var screenHeight = 0f
+        var isRoundDisplay = false
+
         composeTestRule.setContent {
+            isRoundDisplay = LocalConfiguration.current.isScreenRound
+            screenHeight = LocalConfiguration.current.screenHeightDp.toFloat()
             SampleText(
-                topPadding = roundTopPadding, paddingStrategy = TopPaddingStrategy.FitToTopPadding
+                topPaddingPercent = roundTopPadding, paddingStrategy = TopPaddingStrategy.FitToTopPadding
             )
         }
-        val layoutInfo = composeTestRule.onRoot().fetchSemanticsNode().layoutInfo
-        val topMargin = (layoutInfo.height * roundTopPadding / layoutInfo.density.density + 0.5f).dp
+        if (!isRoundDisplay) return
 
-        composeTestRule.onNodeWithTag("text")
-            .assertTopPositionInRootIsEqualTo(topMargin)
+        val layoutInfo = composeTestRule.onRoot().fetchSemanticsNode().layoutInfo
+        val contentInfo = composeTestRule.onNodeWithTag(tag).fetchSemanticsNode().layoutInfo
+
+        val radius = screenHeight / 2f
+        val contentWidth = contentInfo.coordinates.size.width / layoutInfo.density.density
+        val expectedTopMargin = radius - sqrt(radius.pow(2) - (contentWidth / 2).pow(2))
+
+        composeTestRule.onNodeWithTag(tag)
+            .assertTopPositionInRootIsEqualTo(Dp(expectedTopMargin))
+    }
+
+    @Test
+    fun fixedTopMarginInRoundDisplay() {
+        var isRoundDisplay = false
+        composeTestRule.setContent {
+            isRoundDisplay = LocalConfiguration.current.isScreenRound
+            SampleText(
+                topPaddingPercent = roundTopPaddingPercent,
+                paddingStrategy = TopPaddingStrategy.FixedPadding
+            )
+        }
+        if (!isRoundDisplay) return
+        val layoutInfo = composeTestRule.onRoot().fetchSemanticsNode().layoutInfo
+
+        composeTestRule.onNodeWithTag(tag)
+            .assertTopPositionInRootIsEqualTo(
+                (layoutInfo.height * roundTopPaddingPercent / composeTestRule.density.density).dp
+            )
+    }
+
+    @Test
+    fun fixedTopMarginInRectDisplay() {
+        var isRoundDisplay = true
+        composeTestRule.setContent {
+            isRoundDisplay = LocalConfiguration.current.isScreenRound
+            SampleText(
+                topPaddingPercent = rectTopPaddingPercent,
+                paddingStrategy = TopPaddingStrategy.FixedPadding
+            )
+        }
+        if (isRoundDisplay) return
+        val layoutInfo = composeTestRule.onRoot().fetchSemanticsNode().layoutInfo
+
+        composeTestRule.onNodeWithTag(tag)
+            .assertTopPositionInRootIsEqualTo(
+                (layoutInfo.height * rectTopPaddingPercent / composeTestRule.density.density).dp
+            )
     }
 
     @Composable
-    private fun SampleText(topPadding: Float, paddingStrategy: TopPaddingStrategy) {
+    private fun SampleText(topPaddingPercent: Float, paddingStrategy: TopPaddingStrategy) {
         Box(modifier = Modifier.fillMaxSize()) {
             Text(
-                text = "Test Text",
+                text = "Hello, world!",
                 modifier = Modifier
-                    .topPaddingForTopmostRect(topPadding, paddingStrategy)
-                    .height(48.dp)
+                    .topPaddingForTopmostRect(topPaddingPercent, paddingStrategy)
+                    .testTag(tag)
                     .wrapContentHeight()
-                    .testTag("text")
             )
         }
     }

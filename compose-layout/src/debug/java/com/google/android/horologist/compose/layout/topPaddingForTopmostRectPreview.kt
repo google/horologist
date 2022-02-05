@@ -32,19 +32,45 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Text
 
 @Preview(
-    name = "Small round watch (Fit)", device = Devices.WEAR_OS_SMALL_ROUND,
+    name = "Small round (Fixed)", device = Devices.WEAR_OS_SMALL_ROUND,
     showSystemUi = true, backgroundColor = 0xff000000, showBackground = true
 )
 @Preview(
-    name = "Large round watch (Fit)", device = Devices.WEAR_OS_LARGE_ROUND,
+    name = "Large round (Fixed)", device = Devices.WEAR_OS_LARGE_ROUND,
     showSystemUi = true, backgroundColor = 0xff000000, showBackground = true
 )
 @Preview(
-    name = "Square watch (Fit)", device = Devices.WEAR_OS_SQUARE,
+    name = "Square (Fixed)", device = Devices.WEAR_OS_SQUARE,
     showSystemUi = true, backgroundColor = 0xff000000, showBackground = true
 )
 @Preview(
-    name = "Rectangle watch (Fit)", device = Devices.WEAR_OS_RECT,
+    name = "Rectangle (Fixed)", device = Devices.WEAR_OS_RECT,
+    showSystemUi = true, backgroundColor = 0xff000000, showBackground = true
+)
+@Composable
+fun TopPaddingForTopmostRectListPreview() {
+    val topPadding = if (LocalConfiguration.current.isScreenRound) 0.0938f else 0.052f
+    val paddingStrategy = TopPaddingStrategy.FixedPadding
+    Box(modifier = Modifier.fillMaxSize()) {
+        Text(
+            text = "Hello World!",
+            modifier = Modifier
+                .border(1.dp, Color.Green)
+                .topPaddingForTopmostRect(topPadding, paddingStrategy)
+                .border(1.dp, Color.Blue)
+                .padding(horizontal = 16.dp)
+                .height(48.dp)
+                .wrapContentHeight()
+        )
+    }
+}
+
+@Preview(
+    name = "Small round (Fit)", device = Devices.WEAR_OS_SMALL_ROUND,
+    showSystemUi = true, backgroundColor = 0xff000000, showBackground = true
+)
+@Preview(
+    name = "Large round (Fit)", device = Devices.WEAR_OS_LARGE_ROUND,
     showSystemUi = true, backgroundColor = 0xff000000, showBackground = true
 )
 @Composable
@@ -55,6 +81,7 @@ fun TopPaddingForTopmostRectFitPreview() {
         Text(
             text = "Hello World!",
             modifier = Modifier
+                .border(1.dp, Color.Green)
                 .topPaddingForTopmostRect(topPadding, paddingStrategy)
                 .border(1.dp, Color.Blue)
                 .padding(horizontal = 16.dp)

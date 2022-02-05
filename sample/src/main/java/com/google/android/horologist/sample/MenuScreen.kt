@@ -28,24 +28,28 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.TimeText
 
 @Composable
 fun MenuScreen(modifier: Modifier = Modifier, navigateToRoute: (String) -> Unit) {
-    ScalingLazyColumn(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        autoCentering = true,
-    ) {
-        item {
-            FillMaxRectangleChip(navigateToRoute)
-        }
-        item {
-            Chip(
-                label = { Text("List UI Demo") },
-                onClick = { navigateToRoute(Screen.ListUi.route) }
-            )
+    Scaffold(timeText = { TimeText() }) {
+        ScalingLazyColumn(
+            modifier = modifier,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            autoCentering = true,
+        ) {
+            item {
+                FillMaxRectangleChip(navigateToRoute)
+            }
+            item {
+                Chip(
+                    label = { Text("List UI Demo") },
+                    onClick = { navigateToRoute(Screen.ListUi.route) }
+                )
+            }
         }
     }
 }

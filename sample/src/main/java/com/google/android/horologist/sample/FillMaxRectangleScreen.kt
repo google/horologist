@@ -23,15 +23,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.wear.compose.material.Scaffold
+import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.compose.layout.fillMaxRectangle
 
 @Composable
 fun FillMaxRectangleScreen() {
-    Box(
-        modifier = Modifier
-            .fillMaxRectangle()
-            .background(Color.Red)
-    )
+    Scaffold(timeText = { TimeText() }) {
+        Box(
+            modifier = Modifier
+                .fillMaxRectangle()
+                .background(Color.Red)
+        )
+    }
 }
 
 @Preview(

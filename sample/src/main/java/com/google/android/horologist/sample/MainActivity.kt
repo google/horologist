@@ -47,26 +47,21 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun WearApp() {
     val swipeDismissableNavController = rememberSwipeDismissableNavController()
-
-    Scaffold(
-        timeText = { TimeText() },
+    SwipeDismissableNavHost(
+        navController = swipeDismissableNavController,
+        startDestination = Screen.Menu.route,
     ) {
-        SwipeDismissableNavHost(
-            navController = swipeDismissableNavController,
-            startDestination = Screen.Menu.route,
-        ) {
-            composable(Screen.Menu.route) {
-                MenuScreen(
-                    modifier = Modifier.fillMaxSize(),
-                    navigateToRoute = { swipeDismissableNavController.navigate(it) },
-                )
-            }
-            composable(Screen.FillMaxRectangle.route) {
-                FillMaxRectangleScreen()
-            }
-            composable(Screen.ListUi.route) {
-                ListScreen()
-            }
+        composable(Screen.Menu.route) {
+            MenuScreen(
+                modifier = Modifier.fillMaxSize(),
+                navigateToRoute = { swipeDismissableNavController.navigate(it) },
+            )
+        }
+        composable(Screen.FillMaxRectangle.route) {
+            FillMaxRectangleScreen()
+        }
+        composable(Screen.ListUi.route) {
+            ListScreen()
         }
     }
 }

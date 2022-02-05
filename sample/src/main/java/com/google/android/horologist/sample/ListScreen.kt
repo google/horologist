@@ -17,10 +17,10 @@
 package com.google.android.horologist.sample
 
 import androidx.annotation.DimenRes
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Apps
@@ -49,6 +49,7 @@ import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.ToggleChip
 import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
@@ -74,12 +75,13 @@ data class MenuItem(
 
 /**
  * List UI Demo, which implements Settings app demo.
- * Refer the Figma design resource: https://developer.android.com/training/wearables/design/download
+ * Refer to the Figma design resource: https://developer.android.com/training/wearables/design/download
  */
 @Composable
 fun ListScreen() {
     val scrollState = rememberScalingLazyListState()
     Scaffold(
+        timeText = { TimeText() },
         positionIndicator = { PositionIndicator(scrollState) },
         vignette = { Vignette(vignettePosition = VignettePosition.TopAndBottom) }
     ) {
@@ -139,6 +141,7 @@ fun ListTextHeader(
         text,
         modifier = Modifier
             .topPaddingForTopmostRect(topMarginPercentId, paddingStrategy)
+            .padding(horizontal = 16.dp)
             .height(48.dp)
             .wrapContentHeight(),
         color = MaterialTheme.colors.onBackground,

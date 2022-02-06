@@ -23,7 +23,7 @@ import kotlin.math.sqrt
  * Return vertical padding for rectangular content in a round viewport.
  * Ref. https://www.google.com/search?q=pythagorean+theorem
  */
-fun calculateVerticalOffsetForRect(
+public fun calculateVerticalOffsetForRect(
     viewportDiameter: Int,
     childViewWidth: Int
 ): Float {
@@ -36,7 +36,7 @@ fun calculateVerticalOffsetForRect(
  * Return vertical padding for Chip content, a round rect which has half-round edges,
  * in a round viewport.
  */
-fun calculateVerticalOffsetForChip(
+public fun calculateVerticalOffsetForChip(
     viewportDiameter: Double,
     childViewHeight: Double,
     childViewWidth: Double

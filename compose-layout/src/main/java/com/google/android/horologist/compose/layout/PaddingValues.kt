@@ -28,12 +28,12 @@ import androidx.compose.ui.unit.Dp
 
 @ReadOnlyComposable
 @Composable
-fun paddingValues(
+public fun paddingValues(
     @DimenRes startPercentId: Int = 0,
     @DimenRes topPercentId: Int = 0,
     @DimenRes endPercentId: Int = 0,
     @DimenRes bottomPercentId: Int = 0,
-) =
+): PaddingValues =
     paddingValues(
         LocalContext.current, LocalConfiguration.current,
         startPercentId = startPercentId,
@@ -42,7 +42,7 @@ fun paddingValues(
         bottomPercentId = bottomPercentId
     )
 
-fun paddingValues(
+public fun paddingValues(
     context: Context,
     configuration: Configuration,
     @DimenRes startPercentId: Int = 0,
@@ -66,7 +66,7 @@ fun paddingValues(
     )
 }
 
-fun paddingValues(
+public fun paddingValues(
     context: Context,
     configuration: Configuration,
     @DimenRes horizontalPercentId: Int = 0,

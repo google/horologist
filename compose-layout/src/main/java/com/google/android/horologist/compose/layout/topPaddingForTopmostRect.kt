@@ -17,6 +17,7 @@
 package com.google.android.horologist.compose.layout
 
 import androidx.annotation.DimenRes
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -29,7 +30,7 @@ import kotlin.math.roundToInt
 // TODO add comment
 /**
  */
-enum class TopPaddingStrategy {
+public enum class TopPaddingStrategy {
     /**  */
     FitToTopPadding,
     /**  */
@@ -42,7 +43,8 @@ enum class TopPaddingStrategy {
  * @param defaultTopMarginPercentId percentage of top padding defined in dimens.xml.
  * @param paddingStrategy
  */
-fun Modifier.topPaddingForTopmostRect(
+@Stable
+public fun Modifier.topPaddingForTopmostRect(
     @DimenRes defaultTopMarginPercentId: Int,
     paddingStrategy: TopPaddingStrategy = TopPaddingStrategy.FixedPadding,
 ): Modifier =
@@ -60,7 +62,8 @@ fun Modifier.topPaddingForTopmostRect(
  * @param defaultTopMarginPercent
  * @param paddingStrategy
  */
-fun Modifier.topPaddingForTopmostRect(
+@Stable
+public fun Modifier.topPaddingForTopmostRect(
     defaultTopMarginPercent: Float,
     paddingStrategy: TopPaddingStrategy = TopPaddingStrategy.FixedPadding,
 ): Modifier =

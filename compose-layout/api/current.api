@@ -1,9 +1,34 @@
 // Signature format: 4.0
 package com.google.android.horologist.compose.layout {
 
+  public final class ContextExtensionsKt {
+    method public static float floatDimensionResource(android.content.Context, @DimenRes int id);
+    method public static float pixelFromFloatDimension(android.content.Context, @DimenRes int id, optional boolean isVertical);
+  }
+
   public final class FillMaxRectangleKt {
     method @androidx.compose.runtime.Stable public static androidx.compose.ui.Modifier fillMaxRectangle(androidx.compose.ui.Modifier);
   }
 
-}
+  public final class MathUtilsKt {
+    method public static double calculateVerticalOffsetForChip(double viewportDiameter, double childViewHeight, double childViewWidth);
+    method public static float calculateVerticalOffsetForRect(int viewportDiameter, int childViewWidth);
+  }
 
+  public final class PaddingValuesKt {
+    method @androidx.compose.runtime.Composable @androidx.compose.runtime.ReadOnlyComposable public static androidx.compose.foundation.layout.PaddingValues paddingValues(optional @DimenRes int startPercentId, optional @DimenRes int topPercentId, optional @DimenRes int endPercentId, optional @DimenRes int bottomPercentId);
+    method public static androidx.compose.foundation.layout.PaddingValues paddingValues(android.content.Context context, android.content.res.Configuration configuration, optional @DimenRes int startPercentId, optional @DimenRes int topPercentId, optional @DimenRes int endPercentId, optional @DimenRes int bottomPercentId);
+    method public static androidx.compose.foundation.layout.PaddingValues paddingValues(android.content.Context context, android.content.res.Configuration configuration, optional @DimenRes int horizontalPercentId, optional @DimenRes int verticalPercentId);
+  }
+
+  public final class TopPaddingForTopmostRectKt {
+    method @androidx.compose.runtime.Stable public static androidx.compose.ui.Modifier topPaddingForTopmostRect(androidx.compose.ui.Modifier, @DimenRes int defaultTopMarginPercentId, optional com.google.android.horologist.compose.layout.TopPaddingStrategy paddingStrategy);
+    method @androidx.compose.runtime.Stable public static androidx.compose.ui.Modifier topPaddingForTopmostRect(androidx.compose.ui.Modifier, float defaultTopMarginPercent, optional com.google.android.horologist.compose.layout.TopPaddingStrategy paddingStrategy);
+  }
+
+  public enum TopPaddingStrategy {
+    enum_constant public static final com.google.android.horologist.compose.layout.TopPaddingStrategy FitToTopPadding;
+    enum_constant public static final com.google.android.horologist.compose.layout.TopPaddingStrategy FixedPadding;
+  }
+
+}

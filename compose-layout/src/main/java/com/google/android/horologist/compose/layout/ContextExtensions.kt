@@ -20,14 +20,14 @@ import android.content.Context
 import android.util.TypedValue
 import androidx.annotation.DimenRes
 
-fun Context.floatDimensionResource(@DimenRes id: Int): Float {
+public fun Context.floatDimensionResource(@DimenRes id: Int): Float {
     val typedValue = TypedValue()
     resources.getValue(id, typedValue, true)
     return typedValue.float
 }
 
 /** Loads a float dimension resource and returns its pixel-converted value. */
-fun Context.pixelFromFloatDimension(@DimenRes id: Int, isVertical: Boolean = true): Float {
+public fun Context.pixelFromFloatDimension(@DimenRes id: Int, isVertical: Boolean = true): Float {
     val floatValue = floatDimensionResource(id)
     val screenSize = if (isVertical)
         resources.displayMetrics.heightPixels

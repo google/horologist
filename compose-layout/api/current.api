@@ -1,9 +1,62 @@
 // Signature format: 4.0
 package com.google.android.horologist.compose.layout {
 
+  @androidx.compose.runtime.Stable public final class Dimensions {
+    ctor public Dimensions(optional com.google.android.horologist.compose.layout.MarginsPercent minMargins, optional com.google.android.horologist.compose.layout.MarginsPercent columnMargins);
+    method public com.google.android.horologist.compose.layout.Dimensions copy(optional com.google.android.horologist.compose.layout.MarginsPercent minMargins, optional com.google.android.horologist.compose.layout.MarginsPercent columnMargins);
+    method public com.google.android.horologist.compose.layout.MarginsPercent getColumnMargins();
+    method public com.google.android.horologist.compose.layout.MarginsPercent getMinMargins();
+    property public final com.google.android.horologist.compose.layout.MarginsPercent columnMargins;
+    property public final com.google.android.horologist.compose.layout.MarginsPercent minMargins;
+  }
+
+  public final class DimensionsKt {
+    method public static com.google.android.horologist.compose.layout.Dimensions rectangleDimensions(optional com.google.android.horologist.compose.layout.MarginsPercent minMargins, optional com.google.android.horologist.compose.layout.MarginsPercent columnMargins);
+    method public static com.google.android.horologist.compose.layout.Dimensions roundDimensions(optional com.google.android.horologist.compose.layout.MarginsPercent minMargins, optional com.google.android.horologist.compose.layout.MarginsPercent columnMargins);
+  }
+
   public final class FillMaxRectangleKt {
     method @androidx.compose.runtime.Stable public static androidx.compose.ui.Modifier fillMaxRectangle(androidx.compose.ui.Modifier);
   }
 
-}
+  public final class MarginsPercent {
+    ctor public MarginsPercent(float start, float top, float end, float bottom);
+    method public float component1-KU-9PrY();
+    method public float component2-KU-9PrY();
+    method public float component3-KU-9PrY();
+    method public float component4-KU-9PrY();
+    method public com.google.android.horologist.compose.layout.MarginsPercent copy-rBHDuxg(float start, float top, float end, float bottom);
+    method public float getBottom();
+    method public float getEnd();
+    method public float getStart();
+    method public float getTop();
+    method @androidx.compose.runtime.Composable public androidx.compose.foundation.layout.PaddingValues paddingValues();
+    property public final float bottom;
+    property public final float end;
+    property public final float start;
+    property public final float top;
+  }
 
+  @kotlin.jvm.JvmInline public final class Percent {
+    ctor public Percent(float value);
+    method public float getValue();
+    property public final float value;
+  }
+
+  public final class WearMaterialTheme {
+    method @androidx.compose.runtime.Composable @androidx.compose.runtime.ReadOnlyComposable public androidx.wear.compose.material.Colors getColors();
+    method @androidx.compose.runtime.Composable @androidx.compose.runtime.ReadOnlyComposable public com.google.android.horologist.compose.layout.Dimensions getDimensions();
+    method @androidx.compose.runtime.Composable @androidx.compose.runtime.ReadOnlyComposable public androidx.wear.compose.material.Shapes getShapes();
+    method @androidx.compose.runtime.Composable @androidx.compose.runtime.ReadOnlyComposable public androidx.wear.compose.material.Typography getTypography();
+    property @androidx.compose.runtime.Composable @androidx.compose.runtime.ReadOnlyComposable public final androidx.wear.compose.material.Colors colors;
+    property @androidx.compose.runtime.Composable @androidx.compose.runtime.ReadOnlyComposable public final com.google.android.horologist.compose.layout.Dimensions dimensions;
+    property @androidx.compose.runtime.Composable @androidx.compose.runtime.ReadOnlyComposable public final androidx.wear.compose.material.Shapes shapes;
+    property @androidx.compose.runtime.Composable @androidx.compose.runtime.ReadOnlyComposable public final androidx.wear.compose.material.Typography typography;
+    field public static final com.google.android.horologist.compose.layout.WearMaterialTheme INSTANCE;
+  }
+
+  public final class WearMaterialThemeKt {
+    method @androidx.compose.runtime.Composable public static void WearMaterialTheme(optional androidx.wear.compose.material.Colors colors, optional androidx.wear.compose.material.Typography typography, optional androidx.wear.compose.material.Shapes shapes, optional com.google.android.horologist.compose.layout.Dimensions dimensions, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+  }
+
+}

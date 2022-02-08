@@ -23,14 +23,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.WearMaterialTheme
-import com.google.android.horologist.compose.layout.rectangleDimensions
-import com.google.android.horologist.compose.layout.roundDimensions
 import com.google.android.horologist.sample.theme.MaterialAlmondDark
+import com.google.android.horologist.sample.theme.WearAppTheme
 
 @Composable
 fun MarginsDemoScreen() {
@@ -41,7 +39,9 @@ fun MarginsDemoScreen() {
             .background(MaterialAlmondDark)
     ) {
         Text(
-            modifier = Modifier.fillMaxSize().wrapContentSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .wrapContentSize(),
             text = paddingValues.toString()
         )
     }
@@ -69,12 +69,7 @@ fun MarginsDemoScreen() {
 )
 @Composable
 fun MarginsDemoPreview() {
-    WearMaterialTheme(
-        dimensions = if (LocalConfiguration.current.isScreenRound)
-            roundDimensions()
-        else
-            rectangleDimensions()
-    ) {
+    WearAppTheme {
         MarginsDemoScreen()
     }
 }

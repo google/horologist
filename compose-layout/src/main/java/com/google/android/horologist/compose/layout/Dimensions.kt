@@ -54,7 +54,7 @@ public class Dimensions(
     /**
      * Returns a copy of this Dimensions, optionally overriding some of the values.
      */
-    fun copy(
+    public fun copy(
         minMargins: MarginsPercent = this.minMargins,
         columnMargins: MarginsPercent = this.columnMargins,
     ): Dimensions = Dimensions(

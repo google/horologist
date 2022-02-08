@@ -18,8 +18,8 @@ package com.google.android.horologist.sample.theme
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalConfiguration
-import com.google.android.horologist.compose.layout.Percent
 import com.google.android.horologist.compose.layout.MarginsPercent
+import com.google.android.horologist.compose.layout.Percent
 import com.google.android.horologist.compose.layout.WearMaterialTheme
 import com.google.android.horologist.compose.layout.rectangleDimensions
 import com.google.android.horologist.compose.layout.roundDimensions

@@ -18,17 +18,11 @@ package com.google.android.horologist.compose.layout
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Stable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 
 @JvmInline
-public value class Percent(val value: Float) {
+public value class Percent(public val value: Float) {
     init {
         check(value in 0f..1f)
     }

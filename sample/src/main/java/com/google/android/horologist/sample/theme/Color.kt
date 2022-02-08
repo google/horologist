@@ -14,12 +14,21 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.sample
+package com.google.android.horologist.sample.theme
 
-enum class Screen(
-    val route: String
-) {
-    Menu("menu"),
-    FillMaxRectangle("fmr"),
-    MarginsPercent("mp"),
-}
+import androidx.compose.ui.graphics.Color
+import androidx.wear.compose.material.Colors
+
+val MaterialBlue = Color(0xFFAECBFA)
+val MaterialBlueDark = Color(0xFF202124)
+val MaterialAlmondDark = Color(0xFF262523)
+val MaterialGray400 = Color(0xFFBDC1C6)
+
+/**
+ * Custom color palette for Wear OS App.
+ */
+internal val wearColorPalette: Colors = Colors(
+    primary = MaterialBlue,
+    surface = MaterialAlmondDark,
+    onBackground = MaterialGray400,
+)

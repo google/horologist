@@ -61,6 +61,9 @@ fun WearApp() {
             composable(Screen.FillMaxRectangle.route) {
                 FillMaxRectangleScreen()
             }
+            composable(Screen.MarginsPercent.route) {
+                MarginsDemoScreen()
+            }
         }
     }
 }

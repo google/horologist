@@ -4,6 +4,7 @@ compose = "1.2.0-alpha02"
 gradlePlugin = "7.1.1"
 kotlin = "1.6.10"
 wearcompose = "1.0.0-alpha15"
+composesnapshot = "-" # a single character = no snapshot
 
 [libraries]
 affectedmoduledetector = "com.dropbox.affectedmoduledetector:affectedmoduledetector:0.1.3"

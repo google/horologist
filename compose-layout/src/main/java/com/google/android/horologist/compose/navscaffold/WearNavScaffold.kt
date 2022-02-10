@@ -40,7 +40,7 @@ import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.compose.layout.fadeAway
 
 @Composable
-fun WearNavScaffold(
+public fun WearNavScaffold(
     navController: NavHostController = rememberSwipeDismissableNavController(),
     startDestination: String,
     builder: NavGraphBuilder.() -> Unit
@@ -101,13 +101,13 @@ fun WearNavScaffold(
     }
 }
 
-data class ScaffoldContext<T : ScrollableState>(
+public data class ScaffoldContext<T : ScrollableState>(
     val backStackEntry: NavBackStackEntry,
     val scrollableState: T,
     val viewModel: NavScaffoldViewModel,
 )
 
-fun NavGraphBuilder.scalingLazyColumnComposable(
+public fun NavGraphBuilder.scalingLazyColumnComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
@@ -129,7 +129,7 @@ fun NavGraphBuilder.scalingLazyColumnComposable(
     }
 }
 
-fun NavGraphBuilder.scrollStateComposable(
+public fun NavGraphBuilder.scrollStateComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
@@ -151,7 +151,7 @@ fun NavGraphBuilder.scrollStateComposable(
     }
 }
 
-fun NavGraphBuilder.wearNavComposable(
+public fun NavGraphBuilder.wearNavComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),

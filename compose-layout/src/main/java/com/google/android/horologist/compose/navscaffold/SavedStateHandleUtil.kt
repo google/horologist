@@ -24,7 +24,7 @@ import androidx.lifecycle.SavedStateHandle
 
 // Interop between SavedStateHandle and Compose Saver/SaveableStateRegistry
 // Can be removed after https://issuetracker.google.com/195689777
-fun <T : Any> SavedStateHandle.saveable(
+internal fun <T : Any> SavedStateHandle.saveable(
     key: String,
     saver: Saver<T, out Any> = autoSaver(),
     init: () -> T,

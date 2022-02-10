@@ -18,7 +18,7 @@ package com.google.android.horologist.compose.navscaffold
 
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.ScrollableState
-import androidx.compose.foundation.gestures.scrollBy
+import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -31,15 +31,15 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun Modifier.scrollable(
+public fun Modifier.scrollable(
     focusRequester: FocusRequester,
     scrollState: ScrollableState
-) = composed {
+): Modifier = composed {
     val coroutineScope = rememberCoroutineScope()
 
     this.onRotaryScrollEvent { event ->
         coroutineScope.launch {
-            scrollState.scrollBy(event.verticalScrollPixels)
+            scrollState.animateScrollBy(event.verticalScrollPixels)
         }
         true
     }

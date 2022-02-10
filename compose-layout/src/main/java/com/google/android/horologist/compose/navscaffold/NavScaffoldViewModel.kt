@@ -26,13 +26,13 @@ import androidx.lifecycle.ViewModel
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.VignettePosition
 
-class NavScaffoldViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
+public class NavScaffoldViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
     internal var scrollType by mutableStateOf<ScrollType?>(null)
 
     private lateinit var _scrollState: ScrollState
     private lateinit var _scalingLazyListState: ScalingLazyListState
 
-    val scrollableState: ScrollableState?
+    public val scrollableState: ScrollableState?
         get() = when (scrollType) {
             ScrollType.ScalingLazyColumn -> scalingLazyListState
             ScrollType.ScrollState -> scrollState
@@ -51,14 +51,14 @@ class NavScaffoldViewModel(private val savedStateHandle: SavedStateHandle) : Vie
             return _scalingLazyListState
         }
 
-    var vignettePosition: VignetteMode by mutableStateOf(VignetteMode.Off)
+    public var vignettePosition: VignetteMode by mutableStateOf(VignetteMode.Off)
 
-    var timeTextMode by mutableStateOf(TimeTextMode.FadeAway)
+    public var timeTextMode: TimeTextMode by mutableStateOf(TimeTextMode.FadeAway)
 
-    var positionIndicatorMode by mutableStateOf(PositionIndicatorMode.WhileScrolling)
+    public var positionIndicatorMode: PositionIndicatorMode by mutableStateOf(PositionIndicatorMode.WhileScrolling)
 
     internal var focusRequested: Boolean = false
-    val focusRequester: FocusRequester by lazy {
+    public val focusRequester: FocusRequester by lazy {
         focusRequested = true
         FocusRequester()
     }
@@ -101,17 +101,17 @@ class NavScaffoldViewModel(private val savedStateHandle: SavedStateHandle) : Vie
         None, ScalingLazyColumn, ScrollState
     }
 
-    enum class TimeTextMode {
+    public enum class TimeTextMode {
         On, Off, FadeAway
     }
 
-    enum class PositionIndicatorMode {
+    public enum class PositionIndicatorMode {
         On, Off, WhileScrolling
     }
 
-    sealed interface VignetteMode {
-        object Off : VignetteMode
-        data class On(val position: VignettePosition) : VignetteMode
+    public sealed interface VignetteMode {
+        public object Off : VignetteMode
+        public data class On(val position: VignettePosition) : VignetteMode
         // TODO add smart, scroll aware?
     }
 }

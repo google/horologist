@@ -29,13 +29,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import androidx.wear.compose.material.ScalingLazyListState
 
-fun Modifier.fadeAway(scrollState: ScrollState) = composed {
+public fun Modifier.fadeAway(scrollState: ScrollState): Modifier = composed {
     val y = scrollState.value / LocalDensity.current.density
 
     fadeEffect(y, fade = false)
 }
 
-fun Modifier.fadeAway(scrollState: LazyListState) = composed {
+public fun Modifier.fadeAway(scrollState: LazyListState): Modifier = composed {
     val y = scrollState.firstVisibleItemScrollOffset / LocalDensity.current.density
 
     if (scrollState.firstVisibleItemIndex == 0) {
@@ -45,7 +45,7 @@ fun Modifier.fadeAway(scrollState: LazyListState) = composed {
     }
 }
 
-fun Modifier.fadeAway(scrollState: ScalingLazyListState) = composed {
+public fun Modifier.fadeAway(scrollState: ScalingLazyListState): Modifier = composed {
     val y = scrollState.centerItemScrollOffset / LocalDensity.current.density
 
     if (scrollState.centerItemIndex == 0) {

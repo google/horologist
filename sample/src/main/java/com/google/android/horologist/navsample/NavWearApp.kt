@@ -17,10 +17,7 @@
 package com.google.android.horologist.navsample
 
 import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.VignettePosition
 import androidx.wear.compose.navigation.composable
@@ -44,7 +41,7 @@ fun NavWearApp() {
             scrollStateBuilder = { ScalingLazyListState() }
         ) {
             NavMenuScreen(
-                navigateToRoute = { swipeDismissableNavController.navigate(it) },
+                navigateToRoute = { route -> swipeDismissableNavController.navigate(route) },
                 scrollState = it.scrollableState,
                 focusRequester = it.viewModel.focusRequester
             )
@@ -62,7 +59,7 @@ fun NavWearApp() {
         }
 
         scrollStateComposable(NavScreen.Column.route, scrollStateBuilder = { ScrollState(0) }) {
-            BigColumn(modifier = Modifier.padding(top = 30.dp), scrollState = it.scrollableState, focusRequester = it.viewModel.focusRequester)
+            BigColumn(scrollState = it.scrollableState, focusRequester = it.viewModel.focusRequester)
         }
 
         wearNavComposable(NavScreen.Volume.route) { _, viewModel ->

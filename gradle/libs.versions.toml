@@ -1,14 +1,15 @@
 [versions]
+affectedmoduledetector = "0.1.3"
 androidxtiles = "1.1.0-alpha01"
 compose = "1.2.0-alpha02"
+composesnapshot = "-"
 gradlePlugin = "7.1.1"
 kotlin = "1.6.10"
-wearcompose = "1.0.0-alpha15"
-composesnapshot = "-" # a single character = no snapshot
 ktlint = "0.42.1"
+wearcompose = "1.0.0-alpha16"
 
 [libraries]
-affectedmoduledetector = "com.dropbox.affectedmoduledetector:affectedmoduledetector:0.1.3"
+affectedmoduledetector = { module = "com.dropbox.affectedmoduledetector:affectedmoduledetector", version.ref = "affectedmoduledetector" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 androidx-activity-compose = "androidx.activity:activity-compose:1.4.0"

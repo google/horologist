@@ -1,22 +1,31 @@
 [versions]
 affectedmoduledetector = "0.1.3"
 androidxtiles = "1.1.0-alpha01"
-compose = "1.2.0-alpha02"
+compose = "1.2.0-alpha01"
 composesnapshot = "-"
 gradlePlugin = "7.1.1"
 kotlin = "1.6.10"
 ktlint = "0.42.1"
 wearcompose = "1.0.0-alpha16"
+androidxActivity = "1.4.0"
+androidxCore = "1.7.0"
+androidxFragment = "1.4.0"
+androidxLifecycle = "2.4.0"
+androidxWear = "1.2.0"
+dokka = "1.6.10"
+espresso = "3.4.0"
+junit = "4.13.2"
+metalava = "0.2.1"
 
 [libraries]
 affectedmoduledetector = { module = "com.dropbox.affectedmoduledetector:affectedmoduledetector", version.ref = "affectedmoduledetector" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
-androidx-activity-compose = "androidx.activity:activity-compose:1.4.0"
-androidx-core = "androidx.core:core-ktx:1.7.0"
-androidx-fragment = "androidx.fragment:fragment-ktx:1.4.0"
-androidx-lifecycle-runtime = "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
-androidx-wear = "androidx.wear:wear:1.2.0"
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
+androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
+androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidxFragment" }
+androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
+androidx-wear = { module = "androidx.wear:wear", version.ref = "androidxWear" }
 androidx-wear-tiles = { module = "androidx.wear.tiles:tiles", version.ref = "androidxtiles" }
 compose-foundation-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-material-iconsext = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
@@ -25,13 +34,15 @@ compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", ve
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-toolingpreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "compose" }
-dokka = "org.jetbrains.dokka:dokka-gradle-plugin:1.6.10"
-espresso-core = "androidx.test.espresso:espresso-core:3.4.0"
+dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
+espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.18.0"
-junit = "junit:junit:4.13.2"
+junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
-metalavaGradle = "me.tylerbwong.gradle:metalava-gradle:0.2.1"
+metalavaGradle = { module = "me.tylerbwong.gradle:metalava-gradle", version.ref = "metalava" }
 wearcompose-foundation = { module = "androidx.wear.compose:compose-foundation", version.ref = "wearcompose" }
 wearcompose-material = { module = "androidx.wear.compose:compose-material", version.ref = "wearcompose" }
 wearcompose-navigation = { module = "androidx.wear.compose:compose-navigation", version.ref = "wearcompose" }
+
+

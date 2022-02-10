@@ -242,22 +242,6 @@ subprojects {
     }
 }
 
-configurations {
-    metadataRulesConfig {
-        resolutionStrategy {
-            componentSelection {
-                all { ComponentSelection selection ->
-                    if (selection.candidate.group != "androidx.wear.compose" && selection.candidate.group != "androidx.wear.tiles") {
-                        if (selection.candidate.version.contains("alpha")) {
-                            selection.reject("don't use alpha candidates")
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
 versionCatalogUpdate {
     keep {
         keepUnusedVersions = true

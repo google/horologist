@@ -97,6 +97,7 @@ dependencies {
     implementation libs.wearcompose.navigation
 
     implementation libs.compose.ui.tooling
+    implementation libs.compose.ui.util
     implementation libs.androidx.wear
     implementation libs.androidx.lifecycle.viewmodel.compose
     debugImplementation libs.compose.ui.toolingpreview

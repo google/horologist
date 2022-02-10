@@ -19,42 +19,65 @@ package com.google.android.horologist.navsample
 import androidx.compose.foundation.ScrollState
 import androidx.compose.runtime.Composable
 import androidx.wear.compose.material.ScalingLazyListState
+import androidx.wear.compose.material.VignettePosition
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
-import com.google.android.horologist.compose.navscaffold.NavScaffold
-import com.google.android.horologist.compose.navscaffold.scaffoldComposable
+import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
+import com.google.android.horologist.compose.navscaffold.WearNavScaffold
+import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
+import com.google.android.horologist.compose.navscaffold.scrollStateComposable
+import com.google.android.horologist.compose.navscaffold.wearNavComposable
 
 @Composable
 fun NavWearApp() {
     val swipeDismissableNavController = rememberSwipeDismissableNavController()
 
-    NavScaffold(
+    WearNavScaffold(
         startDestination = NavScreen.Menu.route,
         navController = swipeDismissableNavController
     ) {
-        scaffoldComposable(
+        scalingLazyColumnComposable(
             NavScreen.Menu.route,
             scrollStateBuilder = { ScalingLazyListState() }
-        ) { (_, scrollState) ->
+        ) {
             NavMenuScreen(
                 navigateToRoute = { swipeDismissableNavController.navigate(it) },
-                scrollState = scrollState,
+                scrollState = it.scrollableState,
+                focusRequester = it.viewModel.focusRequester
             )
         }
-        scaffoldComposable(
+
+        scalingLazyColumnComposable(
             NavScreen.ScalingLazyColumn.route,
             scrollStateBuilder = { ScalingLazyListState() }
-        ) { (_, scrollState) ->
-            BigScalingLazyColumn(scrollState = scrollState)
-        }
-        scaffoldComposable(
-            NavScreen.Column.route,
-            scrollStateBuilder = { ScrollState(0) }) { (_, scrollState) ->
+        ) {
+            it.viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+            it.viewModel.vignettePosition = NavScaffoldViewModel.VignetteMode.On(VignettePosition.TopAndBottom)
+            it.viewModel.positionIndicatorMode = NavScaffoldViewModel.PositionIndicatorMode.On
 
-            BigColumn(scrollState = scrollState)
+            BigScalingLazyColumn(scrollState = it.scrollableState, focusRequester = it.viewModel.focusRequester)
         }
-        composable(NavScreen.Volume.route) {
+
+        scrollStateComposable(NavScreen.Column.route, scrollStateBuilder = { ScrollState(0) }) {
+            BigColumn(scrollState = it.scrollableState, focusRequester = it.viewModel.focusRequester)
+        }
+
+        wearNavComposable(NavScreen.Volume.route) { _, viewModel ->
+            viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+
             FillerScreen(label = "Volume")
+        }
+
+        composable(NavScreen.Pager.route) {
+            FillerScreen(label = "Pager (TODO)")
+        }
+
+        composable(NavScreen.Volume.route) {
+            FillerScreen(label = "Normal (TODO)")
+        }
+
+        composable(NavScreen.NoScrolling.route) {
+            FillerScreen(label = "No Scrolling")
         }
     }
 }

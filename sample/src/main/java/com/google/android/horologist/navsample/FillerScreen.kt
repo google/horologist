@@ -24,11 +24,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.compose.navscaffold.scrollable
 
 @Composable
 fun FillerScreen(modifier: Modifier = Modifier, label: String) {
@@ -40,10 +43,12 @@ fun FillerScreen(modifier: Modifier = Modifier, label: String) {
 @Composable
 fun BigScalingLazyColumn(
     modifier: Modifier = Modifier,
-    scrollState: ScalingLazyListState
+    scrollState: ScalingLazyListState,
+    focusRequester: FocusRequester = remember { FocusRequester() }
 ) {
     ScalingLazyColumn(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize()
+            .scrollable(focusRequester, scrollState),
         state = scrollState,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -56,12 +61,15 @@ fun BigScalingLazyColumn(
 @Composable
 fun BigColumn(
     modifier: Modifier = Modifier,
-    scrollState: ScrollState
+    scrollState: ScrollState,
+    focusRequester: FocusRequester = remember { FocusRequester() }
 ) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .verticalScroll(scrollState),
+            .verticalScroll(scrollState)
+            .scrollable(focusRequester, scrollState)
+        ,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         (1..100).forEach {

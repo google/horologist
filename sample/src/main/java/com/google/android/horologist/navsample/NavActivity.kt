@@ -21,11 +21,7 @@ package com.google.android.horologist.navsample
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.Composable
 import androidx.wear.compose.material.ExperimentalWearMaterialApi
-import androidx.wear.compose.navigation.composable
-import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
-import com.google.android.horologist.compose.navscaffold.NavScaffold
 
 class NavActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

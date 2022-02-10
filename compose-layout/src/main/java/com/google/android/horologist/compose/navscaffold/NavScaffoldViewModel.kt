@@ -16,72 +16,102 @@
 package com.google.android.horologist.compose.navscaffold
 
 import androidx.compose.foundation.ScrollState
-import androidx.compose.runtime.State
+import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.focus.FocusRequester
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.VignettePosition
 
 class NavScaffoldViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
-    private var _scrollType by mutableStateOf<ScrollType?>(null)
+    internal var scrollType by mutableStateOf<ScrollType?>(null)
 
-    val scrollType: ScrollType
-        get() = _scrollType ?: ScrollType.None
+    private lateinit var _scrollState: ScrollState
+    private lateinit var _scalingLazyListState: ScalingLazyListState
 
-    internal var scrollState: ScrollState? = null
-    internal var scalingLazyListState: ScalingLazyListState? = null
-
-    val vignettePosition: VignettePosition? = VignettePosition.TopAndBottom
-
-    fun scalingLazyListState(
-        creator: () -> ScalingLazyListState = {
-            ScalingLazyListState()
-        }
-    ): ScalingLazyListState {
-        check(_scrollType == null || _scrollType == ScrollType.SLC)
-
-        if (scalingLazyListState == null) {
-            scalingLazyListState = savedStateHandle.saveable(
-                key = "navScaffold.scalingLazyListState",
-                saver = ScalingLazyListState.Saver
-            ) {
-                creator()
-            }
-
-            _scrollType = ScrollType.SLC
+    val scrollableState: ScrollableState?
+        get() = when (scrollType) {
+            ScrollType.ScalingLazyColumn -> scalingLazyListState
+            ScrollType.ScrollState -> scrollState
+            else -> null
         }
 
-        return scalingLazyListState!!
+    internal val scrollState: ScrollState
+        get() {
+            check(scrollType == ScrollType.ScrollState)
+            return _scrollState
+        }
+
+    internal val scalingLazyListState: ScalingLazyListState
+        get() {
+            check(scrollType == ScrollType.ScalingLazyColumn)
+            return _scalingLazyListState
+        }
+
+    var vignettePosition: VignetteMode by mutableStateOf(VignetteMode.Off)
+
+    var timeTextMode by mutableStateOf(TimeTextMode.FadeAway)
+
+    var positionIndicatorMode by mutableStateOf(PositionIndicatorMode.WhileScrolling)
+
+    internal var focusRequested: Boolean = false
+    val focusRequester: FocusRequester by lazy {
+        focusRequested = true
+        FocusRequester()
     }
 
-    fun scrollState(
-        creator: () -> ScrollState = {
-            ScrollState(0)
-        }
-    ): ScrollState {
-        check(_scrollType == null || _scrollType == ScrollType.SS)
+    internal fun initialiseScrollState(scrollStateBuilder: () -> ScrollState): ScrollState {
+        check(scrollType == null || scrollType == ScrollType.ScrollState)
 
-        if (scrollState == null) {
-            scrollState = savedStateHandle.saveable(
-                key = "navScaffold.scrollState",
+        if (scrollType == null) {
+            scrollType = ScrollType.ScrollState
+
+            _scrollState = savedStateHandle.saveable(
+                key = "navScaffold.ScrollState",
                 saver = ScrollState.Saver
             ) {
-                creator()
+                scrollStateBuilder()
             }
-
-            _scrollType = ScrollType.SS
         }
-        return scrollState!!
+
+        return _scrollState
     }
 
-    fun <T> initialise(scrollStateBuilder: () -> T): T {
-        TODO("Not yet implemented")
+    internal fun initialiseScalingLazyListState(scrollableStateBuilder: () -> ScalingLazyListState): ScalingLazyListState {
+        check(scrollType == null || scrollType == ScrollType.ScalingLazyColumn)
+
+        if (scrollType == null) {
+            scrollType = ScrollType.ScalingLazyColumn
+
+            _scalingLazyListState = savedStateHandle.saveable(
+                key = "navScaffold.ScalingLazyListState",
+                saver = ScalingLazyListState.Saver
+            ) {
+                scrollableStateBuilder()
+            }
+        }
+
+        return _scalingLazyListState
     }
 
-    enum class ScrollType {
-        None, SLC, SS
+    internal enum class ScrollType {
+        None, ScalingLazyColumn, ScrollState
+    }
+
+    enum class TimeTextMode {
+        On, Off, FadeAway
+    }
+
+    enum class PositionIndicatorMode {
+        On, Off, WhileScrolling
+    }
+
+    sealed interface VignetteMode {
+        object Off : VignetteMode
+        data class On(val position: VignettePosition) : VignetteMode
+        // TODO add smart, scroll aware?
     }
 }

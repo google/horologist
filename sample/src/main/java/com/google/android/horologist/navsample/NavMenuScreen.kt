@@ -17,21 +17,25 @@
 package com.google.android.horologist.navsample
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
+import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.sample.SampleChip
 
 @Composable
 fun NavMenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
-    scrollState: ScalingLazyListState
+    scrollState: ScalingLazyListState,
+    focusRequester: FocusRequester = remember { FocusRequester() }
 ) {
     ScalingLazyColumn(
+        modifier = modifier.scrollable(focusRequester, scrollState),
         state = scrollState,
-        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         autoCentering = true,
     ) {

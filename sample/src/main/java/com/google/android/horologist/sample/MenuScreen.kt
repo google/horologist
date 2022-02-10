@@ -49,7 +49,7 @@ fun SampleChip(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     label: String,
-    content: @Composable () -> Unit
+    content: (@Composable () -> Unit)? = null
 ) {
     Chip(
         modifier = modifier,
@@ -58,8 +58,10 @@ fun SampleChip(
     ) {
         Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
             Text(modifier = Modifier.weight(1f), text = label)
-            Box(modifier = Modifier.size(36.dp)) {
-                content()
+            if (content != null) {
+                Box(modifier = Modifier.size(36.dp)) {
+                    content()
+                }
             }
         }
     }

@@ -94,9 +94,11 @@ dependencies {
 
     implementation libs.wearcompose.material
     implementation libs.wearcompose.foundation
+    implementation libs.wearcompose.navigation
 
     implementation libs.compose.ui.tooling
     implementation libs.androidx.wear
+    implementation libs.androidx.lifecycle.viewmodel.compose
     debugImplementation libs.compose.ui.toolingpreview
     debugImplementation libs.androidx.activity.compose
 

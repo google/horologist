@@ -18,8 +18,11 @@ package com.google.android.horologist.navsample
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.runtime.Composable
+import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ScalingLazyListState
+import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.VignettePosition
+import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
@@ -51,15 +54,34 @@ fun NavWearApp() {
             NavScreen.ScalingLazyColumn.route,
             scrollStateBuilder = { ScalingLazyListState() }
         ) {
-            it.viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
-            it.viewModel.vignettePosition = NavScaffoldViewModel.VignetteMode.On(VignettePosition.TopAndBottom)
-            it.viewModel.positionIndicatorMode = NavScaffoldViewModel.PositionIndicatorMode.On
+            it.viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.FadeAway
+            it.viewModel.vignettePosition =
+                NavScaffoldViewModel.VignetteMode.On(VignettePosition.TopAndBottom)
+            it.viewModel.positionIndicatorMode =
+                NavScaffoldViewModel.PositionIndicatorMode.On
 
-            BigScalingLazyColumn(scrollState = it.scrollableState, focusRequester = it.viewModel.focusRequester)
+            BigScalingLazyColumn(
+                scrollState = it.scrollableState,
+                focusRequester = it.viewModel.focusRequester
+            )
         }
 
-        scrollStateComposable(NavScreen.Column.route, scrollStateBuilder = { ScrollState(0) }) {
-            BigColumn(scrollState = it.scrollableState, focusRequester = it.viewModel.focusRequester)
+        scrollStateComposable(
+            NavScreen.Column.route,
+            scrollStateBuilder = { ScrollState(0) }
+        ) {
+            BigColumn(
+                scrollState = it.scrollableState,
+                focusRequester = it.viewModel.focusRequester
+            )
+        }
+
+        wearNavComposable(NavScreen.Dialog.route) { _, viewModel ->
+            viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+
+            Alert(title = { Text("Error") }) {
+                Chip(onClick = {}, label = { Text("Hello") })
+            }
         }
 
         wearNavComposable(NavScreen.Volume.route) { _, viewModel ->

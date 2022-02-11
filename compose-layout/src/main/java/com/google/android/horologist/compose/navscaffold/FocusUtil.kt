@@ -29,6 +29,16 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
 import kotlinx.coroutines.launch
 
+/**
+ * Adds Rotary support (for devices that have a rotating bezel) to scrollable screens.
+ * The screen containing the scrollable item must request focus as appropriate, usually
+ *
+ * ```
+ * LaunchedEffect(Unit) {
+ *   focusRequester.requestFocus()
+ * }
+ * ```
+ */
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 public fun Modifier.scrollable(

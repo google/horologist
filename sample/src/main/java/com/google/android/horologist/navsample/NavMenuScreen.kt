@@ -69,5 +69,11 @@ fun NavMenuScreen(
                 label = "No scrolling"
             )
         }
+        item {
+            SampleChip(
+                onClick = { navigateToRoute(NavScreen.Dialog.route) },
+                label = "Dialog"
+            )
+        }
     }
 }

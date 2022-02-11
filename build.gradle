@@ -242,6 +242,13 @@ subprojects {
     }
 }
 
+tasks.named("dependencyUpdates").configure {
+    rejectVersionIf {
+        (it.candidate.version ==~ /.*-alpha.*/ && !(it.currentVersion ==~ /.*-alpha.*/)) ||
+          (it.candidate.version ==~ /.*-beta.*/ && !(it.currentVersion ==~ /.*-(beta|alpha).*/))
+    }
+}
+
 versionCatalogUpdate {
     keep {
         keepUnusedVersions = true

@@ -65,7 +65,6 @@ fun FillMaxRectangleChip(navigateToRoute: (String) -> Unit) {
     )
 }
 
-
 @Composable
 fun VolumeScreenChip(navigateToRoute: (String) -> Unit) {
     SampleChip(

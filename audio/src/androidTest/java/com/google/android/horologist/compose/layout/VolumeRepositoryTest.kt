@@ -16,8 +16,6 @@
 
 package com.google.android.horologist.compose.layout
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.testing.TestLifecycleOwner
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.android.horologist.system.VolumeRepository
 import com.google.common.truth.Truth.assertThat
@@ -27,7 +25,6 @@ class VolumeRepositoryTest {
     @Test
     fun testVolumeRepository() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        val lifecycleOwner = TestLifecycleOwner()
 
         VolumeRepository.fromContext(context).use { repository ->
             if (repository.volumeState.value.isMax) {
@@ -42,7 +39,7 @@ class VolumeRepositoryTest {
 
             assertThat(newVolume.current).isGreaterThan(startingVolume.current)
 
-            lifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
+            repository.close()
         }
     }
 }

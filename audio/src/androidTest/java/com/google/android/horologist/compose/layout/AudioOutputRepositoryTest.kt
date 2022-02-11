@@ -16,8 +16,6 @@
 
 package com.google.android.horologist.compose.layout
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.testing.TestLifecycleOwner
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.android.horologist.system.AudioOutput
 import com.google.android.horologist.system.AudioOutputRepository
@@ -28,15 +26,14 @@ class AudioOutputRepositoryTest {
     @Test
     fun testAudioOutputRepository() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        val lifecycleOwner = TestLifecycleOwner()
 
         AudioOutputRepository.fromContext(context).use { repository ->
             assertThat(repository.audioOutput.value).isNotNull()
             assertThat(repository.available.value).isNotEmpty()
 
-            lifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
+            repository.close()
 
-            assertThat(repository.audioOutput.value).isEqualTo(AudioOutput.None)
+            assertThat(repository.audioOutput.value.javaClass).isEqualTo(AudioOutput.None)
             assertThat(repository.available.value).isEmpty()
         }
     }

@@ -33,7 +33,7 @@ class AudioOutputRepositoryTest {
 
             repository.close()
 
-            assertThat(repository.audioOutput.value.javaClass).isEqualTo(AudioOutput.None)
+            assertThat(repository.audioOutput.value).isEqualTo(AudioOutput.None)
             assertThat(repository.available.value).isEmpty()
         }
     }

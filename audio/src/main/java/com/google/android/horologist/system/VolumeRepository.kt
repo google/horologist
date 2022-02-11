@@ -32,6 +32,8 @@ public class VolumeRepository(
 ) : AutoCloseable {
     private val _volume = MutableStateFlow(readVolumeState())
 
+    private var registered = false
+
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             refresh()
@@ -40,7 +42,7 @@ public class VolumeRepository(
 
     init {
         val filter = IntentFilter(VOLUME_ACTION)
-        application.registerReceiver(receiver, filter)
+        registered = application.registerReceiver(receiver, filter) != null
     }
 
     public val volumeState: StateFlow<VolumeState>
@@ -79,7 +81,10 @@ public class VolumeRepository(
     }
 
     override fun close() {
-        application.unregisterReceiver(receiver)
+        if (registered) {
+            application.unregisterReceiver(receiver)
+            registered = false
+        }
     }
 
     public companion object {

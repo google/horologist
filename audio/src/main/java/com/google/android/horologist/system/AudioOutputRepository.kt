@@ -30,17 +30,17 @@ import kotlinx.coroutines.flow.StateFlow
  * Audio Output Repository for identifying available audio devices in a simple manner
  * such as []
  */
-class AudioOutputRepository(
+public class AudioOutputRepository(
     private val audioManager: AudioManager,
     private val application: Context
 ) : AutoCloseable {
     private val _available = MutableStateFlow(listOf<AudioOutput>())
     private val _output = MutableStateFlow<AudioOutput>(AudioOutput.None)
 
-    val audioOutput: StateFlow<AudioOutput>
+    public val audioOutput: StateFlow<AudioOutput>
         get() = _output
 
-    val available: StateFlow<List<AudioOutput>>
+    public val available: StateFlow<List<AudioOutput>>
         get() = _available
 
     private val callback = object : AudioDeviceCallback() {
@@ -80,7 +80,7 @@ class AudioOutputRepository(
 
         val currentAvailable = _available.value.toMutableList()
 
-        val audioOutputs = addedDevices.mapNotNull { AudioOutput.fromDevice(it) }
+        val audioOutputs = addedDevices.mapNotNull { fromDevice(it) }
 
         audioOutputs.forEach { output ->
             if (currentAvailable.find { it.id == output.id } == null) {
@@ -101,18 +101,40 @@ class AudioOutputRepository(
         _available.value = listOf()
     }
 
-    fun launchOutputSelection(closeOnConnect: Boolean) {
+    public fun launchOutputSelection(closeOnConnect: Boolean) {
         application.launchBluetoothSettings(closeOnConnect)
     }
 
     companion object {
-        fun fromContext(application: Context): AudioOutputRepository {
+        public fun fromContext(application: Context): AudioOutputRepository {
             val audioManager = application.getSystemService(Context.AUDIO_SERVICE) as AudioManager
 
             return AudioOutputRepository(audioManager, application)
         }
 
-        fun List<AudioOutput>.findBluetooth(): AudioOutput =
+        internal fun fromDevice(audioDevice: AudioDeviceInfo): AudioOutput? {
+            if (audioDevice.isSink) {
+                val type = audioDevice.type
+                val name = audioDevice.productName.toString()
+                return when (type) {
+                    AudioDeviceInfo.TYPE_BUILTIN_SPEAKER -> AudioOutput.WatchSpeaker(
+                        audioDevice.id,
+                        name,
+                        audioDevice
+                    )
+                    AudioDeviceInfo.TYPE_BLUETOOTH_A2DP -> AudioOutput.BluetoothHeadset(
+                        audioDevice.id,
+                        name,
+                        audioDevice
+                    )
+                    else -> AudioOutput.Unknown(audioDevice.id, name, audioDevice)
+                }
+            }
+
+            return null
+        }
+
+        internal fun List<AudioOutput>.findBluetooth(): AudioOutput =
             find { it is AudioOutput.BluetoothHeadset } ?: firstOrNull() ?: AudioOutput.None
     }
 }

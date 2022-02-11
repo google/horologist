@@ -26,11 +26,11 @@ import android.provider.Settings
  *
  * https://developer.android.com/training/wearables/overlays/audio?hl=ca
  */
-object BluetoothSettings {
+public object BluetoothSettings {
     /**
      * Open the bluetooth settings activity and optionally close after connection established.
      */
-    fun Context.launchBluetoothSettings(closeOnConnect: Boolean = true) {
+    public fun Context.launchBluetoothSettings(closeOnConnect: Boolean = true) {
         val intent = with(Intent(Settings.ACTION_BLUETOOTH_SETTINGS)) {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             putExtra("EXTRA_CONNECTION_ONLY", true)
@@ -42,5 +42,5 @@ object BluetoothSettings {
         startActivity(intent)
     }
 
-    const val FILTER_TYPE_AUDIO = 1
+    internal const val FILTER_TYPE_AUDIO = 1
 }

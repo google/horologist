@@ -25,10 +25,15 @@ import android.media.AudioManager
  * See [AudioManager.getStreamMaxVolume]
  * See [AudioManager.STREAM_MUSIC]
  */
-data class VolumeState(val current: Int, val min: Int, val max: Int, val isMute: Boolean) {
-    val isMax: Boolean
+public data class VolumeState(
+    public val current: Int,
+    public val min: Int,
+    public val max: Int,
+    public val isMute: Boolean
+) {
+    public val isMax: Boolean
         get() = current >= max
 
-    val isMin: Boolean
+    public val isMin: Boolean
         get() = current <= max
 }

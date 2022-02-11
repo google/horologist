@@ -26,7 +26,7 @@ import androidx.activity.ComponentActivity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class VolumeRepository(
+public class VolumeRepository(
     private val audioManager: AudioManager,
     private val application: Context
 ) : AutoCloseable {
@@ -43,7 +43,7 @@ class VolumeRepository(
         application.registerReceiver(receiver, filter)
     }
 
-    val volumeState: StateFlow<VolumeState>
+    public val volumeState: StateFlow<VolumeState>
         get() = _volume
 
     private fun refresh() {
@@ -60,7 +60,7 @@ class VolumeRepository(
         return VolumeState(streamVolume, minVolume, maxValue, isMuted)
     }
 
-    fun increaseVolume() {
+    public fun increaseVolume() {
         audioManager.adjustStreamVolume(
             AudioManager.STREAM_MUSIC,
             AudioManager.ADJUST_RAISE,
@@ -69,7 +69,7 @@ class VolumeRepository(
         refresh()
     }
 
-    fun decreaseVolume() {
+    public fun decreaseVolume() {
         audioManager.adjustStreamVolume(
             AudioManager.STREAM_MUSIC,
             AudioManager.ADJUST_LOWER,
@@ -83,13 +83,13 @@ class VolumeRepository(
     }
 
     companion object {
-        fun fromContext(application: Context): VolumeRepository {
+        public fun fromContext(application: Context): VolumeRepository {
             val audioManager =
                 application.getSystemService(ComponentActivity.AUDIO_SERVICE) as AudioManager
 
             return VolumeRepository(audioManager, application)
         }
 
-        const val VOLUME_ACTION = "android.media.VOLUME_CHANGED_ACTION"
+        internal const val VOLUME_ACTION = "android.media.VOLUME_CHANGED_ACTION"
     }
 }

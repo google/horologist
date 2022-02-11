@@ -18,54 +18,30 @@ package com.google.android.horologist.system
 
 import android.media.AudioDeviceInfo
 
-sealed interface AudioOutput {
-    val id: Int?
-    val name: String
+public sealed interface AudioOutput {
+    public val id: Int?
+    public val name: String
 
-    object None : AudioOutput {
+    public object None : AudioOutput {
         override val name: String = "None"
         override val id: Int? = null
     }
 
-    data class BluetoothHeadset(
+    public data class BluetoothHeadset(
         override val id: Int,
         override val name: String,
         val audioDevice: AudioDeviceInfo? = null
     ) : AudioOutput
 
-    data class WatchSpeaker(
+    public data class WatchSpeaker(
         override val id: Int,
         override val name: String,
         val audioDevice: AudioDeviceInfo? = null
     ) : AudioOutput
 
-    data class Unknown(
+    public data class Unknown(
         override val id: Int,
         override val name: String,
         val audioDevice: AudioDeviceInfo? = null
     ) : AudioOutput
-
-    companion object {
-        fun fromDevice(audioDevice: AudioDeviceInfo): AudioOutput? {
-            if (audioDevice.isSink) {
-                val type = audioDevice.type
-                val name = audioDevice.productName.toString()
-                return when (type) {
-                    AudioDeviceInfo.TYPE_BUILTIN_SPEAKER -> WatchSpeaker(
-                        audioDevice.id,
-                        name,
-                        audioDevice
-                    )
-                    AudioDeviceInfo.TYPE_BLUETOOTH_A2DP -> BluetoothHeadset(
-                        audioDevice.id,
-                        name,
-                        audioDevice
-                    )
-                    else -> Unknown(audioDevice.id, name, audioDevice)
-                }
-            }
-
-            return null
-        }
-    }
 }

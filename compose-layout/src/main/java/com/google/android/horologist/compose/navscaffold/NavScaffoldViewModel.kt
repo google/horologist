@@ -78,7 +78,7 @@ public class NavScaffoldViewModel(
      * scroll is in progress.
      */
     public var positionIndicatorMode: PositionIndicatorMode
-        by mutableStateOf(PositionIndicatorMode.WhileScrolling)
+        by mutableStateOf(PositionIndicatorMode.On)
 
     internal var focusRequested: Boolean = false
 
@@ -163,7 +163,7 @@ public class NavScaffoldViewModel(
      * scroll is in progress.
      */
     public enum class PositionIndicatorMode {
-        On, Off, WhileScrolling
+        On, Off
     }
 
     /**

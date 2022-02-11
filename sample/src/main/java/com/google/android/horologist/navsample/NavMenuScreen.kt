@@ -53,26 +53,26 @@ fun NavMenuScreen(
         }
         item {
             SampleChip(
+                onClick = { navigateToRoute(NavScreen.Dialog.route) },
+                label = "Dialog"
+            )
+        }
+        item {
+            SampleChip(
                 onClick = { navigateToRoute(NavScreen.Pager.route) },
-                label = "Pager"
+                label = "Pager (TODO)"
             )
         }
         item {
             SampleChip(
                 onClick = { navigateToRoute(NavScreen.Volume.route) },
-                label = "Volume (custom scrolling)"
+                label = "Volume (custom scrolling) (TODO)"
             )
         }
         item {
             SampleChip(
                 onClick = { navigateToRoute(NavScreen.NoScrolling.route) },
-                label = "No scrolling"
-            )
-        }
-        item {
-            SampleChip(
-                onClick = { navigateToRoute(NavScreen.Dialog.route) },
-                label = "Dialog"
+                label = "No scrolling (TODO)"
             )
         }
     }

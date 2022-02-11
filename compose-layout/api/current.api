@@ -2,7 +2,6 @@
 package com.google.android.horologist.compose.layout {
 
   public final class FadeAwayKt {
-    method @androidx.compose.foundation.ExperimentalFoundationApi public static androidx.compose.ui.Modifier fadeAwayLazyGrid(androidx.compose.ui.Modifier, kotlin.jvm.functions.Function0<androidx.compose.foundation.lazy.LazyGridState> scrollStateFn);
   }
 
   public final class FillMaxRectangleKt {
@@ -37,7 +36,6 @@ package com.google.android.horologist.compose.navscaffold {
   public enum NavScaffoldViewModel.PositionIndicatorMode {
     enum_constant public static final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode Off;
     enum_constant public static final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode On;
-    enum_constant public static final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode WhileScrolling;
   }
 
   public enum NavScaffoldViewModel.TimeTextMode {

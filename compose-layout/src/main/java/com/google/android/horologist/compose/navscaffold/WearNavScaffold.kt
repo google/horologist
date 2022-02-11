@@ -60,7 +60,6 @@ public fun WearNavScaffold(
 ) {
     val currentBackStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
     val viewModel: NavScaffoldViewModel? = currentBackStackEntry?.let { viewModel(it) }
-    val scrollableState: ScrollableState? = viewModel?.scrollableState
 
     Scaffold(
         timeText = {
@@ -100,26 +99,22 @@ public fun WearNavScaffold(
         positionIndicator = {
             val mode = viewModel?.positionIndicatorMode
 
-            if (mode != NavScaffoldViewModel.PositionIndicatorMode.Off) {
-                if (mode == NavScaffoldViewModel.PositionIndicatorMode.On ||
-                    scrollableState?.isScrollInProgress == true
-                ) {
-                    when (viewModel.scrollType) {
-                        NavScaffoldViewModel.ScrollType.ScrollState ->
-                            PositionIndicator(
-                                scrollState = viewModel.scrollableState as ScrollState
-                            )
-                        NavScaffoldViewModel.ScrollType.ScalingLazyColumn ->
-                            PositionIndicator(
-                                scalingLazyListState =
-                                viewModel.scrollableState as ScalingLazyListState
-                            )
-                        NavScaffoldViewModel.ScrollType.LazyList ->
-                            PositionIndicator(
-                                lazyListState = viewModel.scrollableState as LazyListState
-                            )
-                        else -> {}
-                    }
+            if (mode == NavScaffoldViewModel.PositionIndicatorMode.On) {
+                when (viewModel.scrollType) {
+                    NavScaffoldViewModel.ScrollType.ScrollState ->
+                        PositionIndicator(
+                            scrollState = viewModel.scrollableState as ScrollState
+                        )
+                    NavScaffoldViewModel.ScrollType.ScalingLazyColumn ->
+                        PositionIndicator(
+                            scalingLazyListState =
+                            viewModel.scrollableState as ScalingLazyListState
+                        )
+                    NavScaffoldViewModel.ScrollType.LazyList ->
+                        PositionIndicator(
+                            lazyListState = viewModel.scrollableState as LazyListState
+                        )
+                    else -> {}
                 }
             }
         },

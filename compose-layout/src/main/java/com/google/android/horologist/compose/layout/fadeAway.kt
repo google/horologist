@@ -16,11 +16,10 @@
 
 package com.google.android.horologist.compose.layout
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.lazy.LazyGridState
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.alpha
@@ -66,38 +65,28 @@ internal fun Modifier.fadeAwayLazyList(scrollStateFn: () -> LazyListState): Modi
  *
  * The logic assumes the first item is large enough to fully fade away the item, if this is not the
  * case then a custom implementation should be used.
+ *
+ * @param initialIndex The initial index must match that provided to [ScalingLazyListState].
+ * @param initialOffset The initial offset must match that provided to [ScalingLazyListState].
  */
-internal fun Modifier.fadeAwayScalingLazyList(scrollStateFn: () -> ScalingLazyListState): Modifier =
+internal fun Modifier.fadeAwayScalingLazyList(
+    initialIndex: Int = 1,
+    initialOffset: Int = 0,
+    scrollStateFn: () -> ScalingLazyListState,
+): Modifier =
     composed {
-        val scrollState = scrollStateFn()
-        // TODO with alpha16, we should grab the initial values or ask user to provide
-        // them.
-        if (scrollState.centerItemIndex == 0) {
+        val scrollState = remember { scrollStateFn() }
+
+        if (scrollState.centerItemIndex == initialIndex && scrollState.centerItemScrollOffset > initialOffset) {
             val y = scrollState.centerItemScrollOffset / LocalDensity.current.density
 
             fadeEffect(y, fade = true)
-        } else {
+        } else if (scrollState.centerItemIndex > initialIndex) {
             alpha(0.0f)
+        } else {
+            this
         }
     }
-
-/**
- * Scroll Away the item based on a lazy grid, like a LazyColumn. Does not include fading or scaling.
- *
- * The logic assumes the first item is large enough to fully fade away the item, if this is not the
- * case then a custom implementation should be used.
- */
-@ExperimentalFoundationApi
-internal fun Modifier.fadeAwayLazyGrid(scrollStateFn: () -> LazyGridState): Modifier = composed {
-    val scrollState = scrollStateFn()
-    if (scrollState.firstVisibleItemIndex == 0) {
-        val y = scrollState.firstVisibleItemScrollOffset / LocalDensity.current.density
-
-        fadeEffect(y, fade = true)
-    } else {
-        alpha(0.0f)
-    }
-}
 
 private fun Modifier.fadeEffect(y: Float, fade: Boolean) = composed {
     if (fade) {

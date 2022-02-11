@@ -54,8 +54,8 @@ android {
 
 dependencies {
     implementation projects.composeLayout
-    implementation projects.system
-    implementation projects.systemUi
+    implementation projects.audio
+    implementation projects.audioUi
 
     implementation libs.compose.ui.tooling
     implementation libs.compose.ui.util

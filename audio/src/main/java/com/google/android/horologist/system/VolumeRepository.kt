@@ -82,7 +82,7 @@ public class VolumeRepository(
         application.unregisterReceiver(receiver)
     }
 
-    companion object {
+    public companion object {
         public fun fromContext(application: Context): VolumeRepository {
             val audioManager =
                 application.getSystemService(ComponentActivity.AUDIO_SERVICE) as AudioManager

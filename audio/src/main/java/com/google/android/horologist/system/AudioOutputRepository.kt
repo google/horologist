@@ -105,7 +105,7 @@ public class AudioOutputRepository(
         application.launchBluetoothSettings(closeOnConnect)
     }
 
-    companion object {
+    public companion object {
         public fun fromContext(application: Context): AudioOutputRepository {
             val audioManager = application.getSystemService(Context.AUDIO_SERVICE) as AudioManager
 

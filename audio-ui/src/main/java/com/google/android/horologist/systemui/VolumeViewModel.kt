@@ -43,7 +43,8 @@ public class VolumeViewModel(application: Application) : AndroidViewModel(applic
 
     public val audioOutput: StateFlow<AudioOutput> = audioOutputRepository.audioOutput
 
-    public val volumeScrollableState = VolumeScrollableState(volumeRepository)
+    public val volumeScrollableState: VolumeScrollableState =
+        VolumeScrollableState(volumeRepository)
 
     public fun increaseVolume() {
         volumeRepository.increaseVolume()

@@ -88,7 +88,7 @@ internal fun Modifier.fadeAwayScalingLazyList(scrollStateFn: () -> ScalingLazyLi
  * case then a custom implementation should be used.
  */
 @ExperimentalFoundationApi
-public fun Modifier.fadeAwayLazyGrid(scrollStateFn: () -> LazyGridState): Modifier = composed {
+internal fun Modifier.fadeAwayLazyGrid(scrollStateFn: () -> LazyGridState): Modifier = composed {
     val scrollState = scrollStateFn()
     if (scrollState.firstVisibleItemIndex == 0) {
         val y = scrollState.firstVisibleItemScrollOffset / LocalDensity.current.density

@@ -69,7 +69,7 @@ android {
 }
 
 dependencies {
-    implementation project(':compose-layout')
+    implementation projects.composeLayout
 
     implementation libs.compose.ui.tooling
     implementation libs.compose.ui.util

@@ -18,7 +18,7 @@ package com.google.android.horologist.compose.layout
 
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.audio.AudioOutputRepository
+import com.google.android.horologist.audio.SystemAudioOutputRepository
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
@@ -27,7 +27,7 @@ class AudioOutputRepositoryTest {
     fun testAudioOutputRepository() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
 
-        AudioOutputRepository.fromContext(context).use { repository ->
+        SystemAudioOutputRepository.fromContext(context).use { repository ->
             assertThat(repository.audioOutput.value).isNotNull()
             assertThat(repository.available.value).isNotEmpty()
 

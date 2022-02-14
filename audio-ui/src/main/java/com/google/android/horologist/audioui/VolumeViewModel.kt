@@ -16,11 +16,14 @@
 
 package com.google.android.horologist.audioui
 
-import android.app.Application
+import android.content.Context
 import android.media.AudioManager
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.AudioOutputRepository
+import com.google.android.horologist.audio.SystemAudioOutputRepository
+import com.google.android.horologist.audio.SystemVolumeRepository
 import com.google.android.horologist.audio.VolumeRepository
 import com.google.android.horologist.audio.VolumeState
 import kotlinx.coroutines.flow.StateFlow
@@ -35,10 +38,10 @@ import kotlinx.coroutines.flow.StateFlow
  * See [AudioManager.setStreamVolume]
  * See [AudioManager.STREAM_MUSIC]
  */
-public class VolumeViewModel(application: Application) : AndroidViewModel(application) {
-    internal val volumeRepository = VolumeRepository.fromContext(application)
-    internal val audioOutputRepository = AudioOutputRepository.fromContext(application)
-
+public open class VolumeViewModel(
+    internal val volumeRepository: VolumeRepository,
+    internal val audioOutputRepository: AudioOutputRepository
+): ViewModel() {
     public val volumeState: StateFlow<VolumeState> = volumeRepository.volumeState
 
     public val audioOutput: StateFlow<AudioOutput> = audioOutputRepository.audioOutput
@@ -61,5 +64,20 @@ public class VolumeViewModel(application: Application) : AndroidViewModel(applic
     override fun onCleared() {
         volumeRepository.close()
         audioOutputRepository.close()
+    }
+
+    companion object {
+        @Suppress("UNCHECKED_CAST")
+        fun systemFactory(application: Context): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                check(modelClass == VolumeViewModel::class.java)
+
+                val volumeRepository = SystemVolumeRepository.fromContext(application)
+                val audioOutputRepository = SystemAudioOutputRepository.fromContext(application)
+
+                // onCleared will release repositories
+                return VolumeViewModel(volumeRepository, audioOutputRepository) as T
+            }
+        }
     }
 }

@@ -17,28 +17,53 @@
 package com.google.android.horologist.audio
 
 import android.media.AudioDeviceInfo
+import android.media.AudioManager
 
-public sealed interface AudioOutput {
+/**
+ * A device capable of playing audio.
+ *
+ * This interface is intentionally open to allow other targets to be defined in future.
+ */
+public interface AudioOutput {
+    /**
+     * The id from [AudioManager] if applicable.
+     */
     public val id: Int?
+
+    /**
+     * The user meaningful display name for the device.
+     */
     public val name: String
 
+    /**
+     * No current device.
+     */
     public object None : AudioOutput {
         override val name: String = "None"
         override val id: Int? = null
     }
 
+    /**
+     * A bluetooth headset paired with the watch.
+     */
     public data class BluetoothHeadset(
         override val id: Int,
         override val name: String,
         val audioDevice: AudioDeviceInfo? = null
     ) : AudioOutput
 
+    /**
+     * The one device watch speaker.
+     */
     public data class WatchSpeaker(
         override val id: Int,
         override val name: String,
         val audioDevice: AudioDeviceInfo? = null
     ) : AudioOutput
 
+    /**
+     * An unknown device provided by the [AudioManager]
+     */
     public data class Unknown(
         override val id: Int,
         override val name: String,

@@ -17,7 +17,7 @@
 package com.google.android.horologist.compose.layout
 
 import androidx.test.platform.app.InstrumentationRegistry
-import com.google.android.horologist.audio.VolumeRepository
+import com.google.android.horologist.audio.SystemVolumeRepository
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
@@ -26,7 +26,7 @@ class VolumeRepositoryTest {
     fun testVolumeRepository() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
 
-        VolumeRepository.fromContext(context).use { repository ->
+        SystemVolumeRepository.fromContext(context).use { repository ->
             if (repository.volumeState.value.isMax) {
                 repository.decreaseVolume()
             }

@@ -50,6 +50,6 @@ fun VolumeScreenPreview() {
         audioOutput = audioOutput,
         increaseVolume = { /*TODO*/ },
         decreaseVolume = { /*TODO*/ },
-        onAudioOutputClick = {}
+        onAudioOutputClick = {},
     )
 }

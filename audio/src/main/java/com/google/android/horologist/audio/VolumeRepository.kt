@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.StateFlow
  * A state repository for audio volume, typically the system AudioManager,
  * but possibly a remote app in paired situations.
  */
-public interface VolumeRepository: AutoCloseable {
+public interface VolumeRepository : AutoCloseable {
     val volumeState: StateFlow<VolumeState>
     fun increaseVolume()
     fun decreaseVolume()

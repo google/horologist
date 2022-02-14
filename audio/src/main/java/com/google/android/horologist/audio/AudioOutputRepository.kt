@@ -25,15 +25,15 @@ public interface AudioOutputRepository : AutoCloseable {
     /**
      * The current audio output.
      */
-    val audioOutput: StateFlow<AudioOutput>
+    public val audioOutput: StateFlow<AudioOutput>
 
     /**
      * The list of available audio output devices.
      */
-    val available: StateFlow<List<AudioOutput>>
+    public val available: StateFlow<List<AudioOutput>>
 
     /**
      * Action to launch output selection by the user.
      */
-    fun launchOutputSelection(closeOnConnect: Boolean)
+    public fun launchOutputSelection(closeOnConnect: Boolean)
 }

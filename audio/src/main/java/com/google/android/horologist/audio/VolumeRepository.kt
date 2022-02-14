@@ -23,7 +23,18 @@ import kotlinx.coroutines.flow.StateFlow
  * but possibly a remote app in paired situations.
  */
 public interface VolumeRepository : AutoCloseable {
-    val volumeState: StateFlow<VolumeState>
-    fun increaseVolume()
-    fun decreaseVolume()
+    /**
+     * The current volume state, including volume, min, max.
+     */
+    public val volumeState: StateFlow<VolumeState>
+
+    /**
+     * Increase the volume of the current audio output.
+     */
+    public fun increaseVolume()
+
+    /**
+     * Decrease the volume of the current audio output.
+     */
+    public fun decreaseVolume()
 }

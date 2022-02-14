@@ -22,7 +22,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,16 +41,14 @@ import kotlinx.coroutines.delay
  */
 @Composable
 public fun VolumePositionIndicator(
-    volumeState: State<VolumeState>,
+    volumeState: VolumeState,
     autoHide: Boolean = true
 ) {
-    val volume by volumeState
-
     var actuallyVisible by remember { mutableStateOf(!autoHide) }
     var isInitial by remember { mutableStateOf(true) }
 
     if (autoHide) {
-        LaunchedEffect(volume) {
+        LaunchedEffect(volumeState) {
             if (isInitial) {
                 isInitial = false
             } else {
@@ -73,9 +70,9 @@ public fun VolumePositionIndicator(
             exit = fadeOut()
         ) {
             PositionIndicator(
-                value = { volume.current.toFloat() },
-                range = volume.min.toFloat().rangeTo(
-                    volume.max.toFloat()
+                value = { volumeState.current.toFloat() },
+                range = volumeState.min.toFloat().rangeTo(
+                    volumeState.max.toFloat()
                 ),
                 reverseDirection = true
             )

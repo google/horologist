@@ -78,7 +78,7 @@ public fun VolumeScreen(
     showVolumeIndicator: Boolean = true,
     focusRequester: FocusRequester = remember { FocusRequester() }
 ) {
-    val volumeState = volumeViewModel.volumeState.collectAsState()
+    val volumeState by volumeViewModel.volumeState.collectAsState()
     val audioOutput by volumeViewModel.audioOutput.collectAsState()
     val coroutineScope = rememberCoroutineScope()
 
@@ -95,7 +95,7 @@ public fun VolumeScreen(
                 }
                 .focusRequester(focusRequester)
                 .focusable(),
-            volume = volumeState.value,
+            volume = volumeState,
             audioOutput = audioOutput,
             increaseVolume = { volumeViewModel.increaseVolume() },
             decreaseVolume = { volumeViewModel.decreaseVolume() },

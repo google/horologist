@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.system
+package com.google.android.horologist.audio
 
 import android.content.BroadcastReceiver
 import android.content.Context

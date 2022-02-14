@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.systemui
+package com.google.android.horologist.audioui
 
 import androidx.compose.foundation.MutatePriority
 import androidx.compose.foundation.gestures.ScrollScope
 import androidx.compose.foundation.gestures.ScrollableState
-import com.google.android.horologist.system.VolumeRepository
+import com.google.android.horologist.audio.VolumeRepository
 
 /**
  * ScrollableState integration for VolumeControl to scroll events

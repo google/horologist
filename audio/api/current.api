@@ -1,5 +1,5 @@
 // Signature format: 4.0
-package com.google.android.horologist.system {
+package com.google.android.horologist.audio {
 
   public sealed interface AudioOutput {
     method public Integer? getId();
@@ -8,12 +8,12 @@ package com.google.android.horologist.system {
     property public abstract String name;
   }
 
-  public static final class AudioOutput.BluetoothHeadset implements com.google.android.horologist.system.AudioOutput {
+  public static final class AudioOutput.BluetoothHeadset implements com.google.android.horologist.audio.AudioOutput {
     ctor public AudioOutput.BluetoothHeadset(int id, String name, optional android.media.AudioDeviceInfo? audioDevice);
     method public int component1();
     method public String component2();
     method public android.media.AudioDeviceInfo? component3();
-    method public com.google.android.horologist.system.AudioOutput.BluetoothHeadset copy(int id, String name, android.media.AudioDeviceInfo? audioDevice);
+    method public com.google.android.horologist.audio.AudioOutput.BluetoothHeadset copy(int id, String name, android.media.AudioDeviceInfo? audioDevice);
     method public android.media.AudioDeviceInfo? getAudioDevice();
     method public int getId();
     method public String getName();
@@ -22,20 +22,20 @@ package com.google.android.horologist.system {
     property public String name;
   }
 
-  public static final class AudioOutput.None implements com.google.android.horologist.system.AudioOutput {
+  public static final class AudioOutput.None implements com.google.android.horologist.audio.AudioOutput {
     method public Integer? getId();
     method public String getName();
     property public Integer? id;
     property public String name;
-    field public static final com.google.android.horologist.system.AudioOutput.None INSTANCE;
+    field public static final com.google.android.horologist.audio.AudioOutput.None INSTANCE;
   }
 
-  public static final class AudioOutput.Unknown implements com.google.android.horologist.system.AudioOutput {
+  public static final class AudioOutput.Unknown implements com.google.android.horologist.audio.AudioOutput {
     ctor public AudioOutput.Unknown(int id, String name, optional android.media.AudioDeviceInfo? audioDevice);
     method public int component1();
     method public String component2();
     method public android.media.AudioDeviceInfo? component3();
-    method public com.google.android.horologist.system.AudioOutput.Unknown copy(int id, String name, android.media.AudioDeviceInfo? audioDevice);
+    method public com.google.android.horologist.audio.AudioOutput.Unknown copy(int id, String name, android.media.AudioDeviceInfo? audioDevice);
     method public android.media.AudioDeviceInfo? getAudioDevice();
     method public int getId();
     method public String getName();
@@ -44,12 +44,12 @@ package com.google.android.horologist.system {
     property public String name;
   }
 
-  public static final class AudioOutput.WatchSpeaker implements com.google.android.horologist.system.AudioOutput {
+  public static final class AudioOutput.WatchSpeaker implements com.google.android.horologist.audio.AudioOutput {
     ctor public AudioOutput.WatchSpeaker(int id, String name, optional android.media.AudioDeviceInfo? audioDevice);
     method public int component1();
     method public String component2();
     method public android.media.AudioDeviceInfo? component3();
-    method public com.google.android.horologist.system.AudioOutput.WatchSpeaker copy(int id, String name, android.media.AudioDeviceInfo? audioDevice);
+    method public com.google.android.horologist.audio.AudioOutput.WatchSpeaker copy(int id, String name, android.media.AudioDeviceInfo? audioDevice);
     method public android.media.AudioDeviceInfo? getAudioDevice();
     method public int getId();
     method public String getName();
@@ -61,35 +61,35 @@ package com.google.android.horologist.system {
   public final class AudioOutputRepository implements java.lang.AutoCloseable {
     ctor public AudioOutputRepository(android.media.AudioManager audioManager, android.content.Context application);
     method public void close();
-    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.system.AudioOutput> getAudioOutput();
-    method public kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.system.AudioOutput>> getAvailable();
+    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> getAudioOutput();
+    method public kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.audio.AudioOutput>> getAvailable();
     method public void launchOutputSelection(boolean closeOnConnect);
-    property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.system.AudioOutput> audioOutput;
-    property public final kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.system.AudioOutput>> available;
-    field public static final com.google.android.horologist.system.AudioOutputRepository.Companion Companion;
+    property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> audioOutput;
+    property public final kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.audio.AudioOutput>> available;
+    field public static final com.google.android.horologist.audio.AudioOutputRepository.Companion Companion;
   }
 
   public static final class AudioOutputRepository.Companion {
-    method public com.google.android.horologist.system.AudioOutputRepository fromContext(android.content.Context application);
+    method public com.google.android.horologist.audio.AudioOutputRepository fromContext(android.content.Context application);
   }
 
   public final class BluetoothSettings {
     method public void launchBluetoothSettings(android.content.Context, optional boolean closeOnConnect);
-    field public static final com.google.android.horologist.system.BluetoothSettings INSTANCE;
+    field public static final com.google.android.horologist.audio.BluetoothSettings INSTANCE;
   }
 
   public final class VolumeRepository implements java.lang.AutoCloseable {
     ctor public VolumeRepository(android.media.AudioManager audioManager, android.content.Context application);
     method public void close();
     method public void decreaseVolume();
-    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.system.VolumeState> getVolumeState();
+    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.VolumeState> getVolumeState();
     method public void increaseVolume();
-    property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.system.VolumeState> volumeState;
-    field public static final com.google.android.horologist.system.VolumeRepository.Companion Companion;
+    property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.VolumeState> volumeState;
+    field public static final com.google.android.horologist.audio.VolumeRepository.Companion Companion;
   }
 
   public static final class VolumeRepository.Companion {
-    method public com.google.android.horologist.system.VolumeRepository fromContext(android.content.Context application);
+    method public com.google.android.horologist.audio.VolumeRepository fromContext(android.content.Context application);
   }
 
   public final class VolumeState {
@@ -98,7 +98,7 @@ package com.google.android.horologist.system {
     method public int component2();
     method public int component3();
     method public boolean component4();
-    method public com.google.android.horologist.system.VolumeState copy(int current, int min, int max, boolean isMute);
+    method public com.google.android.horologist.audio.VolumeState copy(int current, int min, int max, boolean isMute);
     method public int getCurrent();
     method public int getMax();
     method public int getMin();

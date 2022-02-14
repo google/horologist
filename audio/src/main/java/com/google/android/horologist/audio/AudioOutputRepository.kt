@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.system
+package com.google.android.horologist.audio
 
 import android.content.Context
 import android.media.AudioDeviceCallback
@@ -22,13 +22,12 @@ import android.media.AudioDeviceInfo
 import android.media.AudioManager
 import android.os.Handler
 import android.os.Looper
-import com.google.android.horologist.system.BluetoothSettings.launchBluetoothSettings
+import com.google.android.horologist.audio.BluetoothSettings.launchBluetoothSettings
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 /**
- * Audio Output Repository for identifying available audio devices in a simple manner
- * such as []
+ * Audio Output Repository for identifying available audio devices in a simple manner.
  */
 public class AudioOutputRepository(
     private val audioManager: AudioManager,

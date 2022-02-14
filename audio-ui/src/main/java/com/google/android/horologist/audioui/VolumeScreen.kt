@@ -16,7 +16,7 @@
 
 @file:OptIn(ExperimentalComposeUiApi::class)
 
-package com.google.android.horologist.systemui
+package com.google.android.horologist.audioui
 
 import android.media.AudioManager
 import androidx.compose.foundation.focusable
@@ -53,8 +53,8 @@ import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.InlineSlider
 import androidx.wear.compose.material.Stepper
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.system.AudioOutput
-import com.google.android.horologist.system.VolumeState
+import com.google.android.horologist.audio.AudioOutput
+import com.google.android.horologist.audio.VolumeState
 import kotlinx.coroutines.launch
 
 /**
@@ -78,7 +78,7 @@ public fun VolumeScreen(
     showVolumeIndicator: Boolean = true,
     focusRequester: FocusRequester = remember { FocusRequester() }
 ) {
-    val volumeState by volumeViewModel.volumeState.collectAsState()
+    val volumeState = volumeViewModel.volumeState.collectAsState()
     val audioOutput by volumeViewModel.audioOutput.collectAsState()
     val coroutineScope = rememberCoroutineScope()
 
@@ -95,14 +95,14 @@ public fun VolumeScreen(
                 }
                 .focusRequester(focusRequester)
                 .focusable(),
-            volume = volumeState,
+            volume = volumeState.value,
             audioOutput = audioOutput,
             increaseVolume = { volumeViewModel.increaseVolume() },
             decreaseVolume = { volumeViewModel.decreaseVolume() },
             onAudioOutputClick = { volumeViewModel.launchOutputSelection() },
         )
         if (showVolumeIndicator) {
-            VolumePositionIndicator(volumeRepository = volumeViewModel.volumeRepository)
+            VolumePositionIndicator(volumeState = volumeState)
         }
     }
 }

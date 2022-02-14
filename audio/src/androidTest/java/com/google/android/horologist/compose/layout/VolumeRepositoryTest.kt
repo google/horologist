@@ -17,7 +17,7 @@
 package com.google.android.horologist.compose.layout
 
 import androidx.test.platform.app.InstrumentationRegistry
-import com.google.android.horologist.system.VolumeRepository
+import com.google.android.horologist.audio.VolumeRepository
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 

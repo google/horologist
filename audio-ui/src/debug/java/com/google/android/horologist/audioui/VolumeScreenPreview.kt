@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.systemui
+package com.google.android.horologist.audioui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.android.horologist.system.AudioOutput
-import com.google.android.horologist.system.VolumeState
+import com.google.android.horologist.audio.AudioOutput
+import com.google.android.horologist.audio.VolumeState
 
 @Preview(
     device = Devices.WEAR_OS_LARGE_ROUND,

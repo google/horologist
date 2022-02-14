@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.systemui
+package com.google.android.horologist.audioui
 
 import android.app.Application
 import android.media.AudioManager
 import androidx.lifecycle.AndroidViewModel
-import com.google.android.horologist.system.AudioOutput
-import com.google.android.horologist.system.AudioOutputRepository
-import com.google.android.horologist.system.VolumeRepository
-import com.google.android.horologist.system.VolumeState
+import com.google.android.horologist.audio.AudioOutput
+import com.google.android.horologist.audio.AudioOutputRepository
+import com.google.android.horologist.audio.VolumeRepository
+import com.google.android.horologist.audio.VolumeState
 import kotlinx.coroutines.flow.StateFlow
 
 /**

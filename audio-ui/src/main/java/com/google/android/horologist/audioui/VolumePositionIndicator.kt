@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.systemui
+package com.google.android.horologist.audioui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -22,7 +22,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,7 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.wear.compose.material.PositionIndicator
-import com.google.android.horologist.system.VolumeRepository
+import com.google.android.horologist.audio.VolumeState
 import kotlinx.coroutines.delay
 
 /**
@@ -42,15 +42,16 @@ import kotlinx.coroutines.delay
  */
 @Composable
 public fun VolumePositionIndicator(
-    volumeRepository: VolumeRepository,
+    volumeState: State<VolumeState>,
     autoHide: Boolean = true
 ) {
-    val volumeState by volumeRepository.volumeState.collectAsState()
+    val volume by volumeState
+
     var actuallyVisible by remember { mutableStateOf(!autoHide) }
     var isInitial by remember { mutableStateOf(true) }
 
     if (autoHide) {
-        LaunchedEffect(volumeState) {
+        LaunchedEffect(volume) {
             if (isInitial) {
                 isInitial = false
             } else {
@@ -72,9 +73,9 @@ public fun VolumePositionIndicator(
             exit = fadeOut()
         ) {
             PositionIndicator(
-                value = { volumeState.current.toFloat() },
-                range = volumeState.min.toFloat().rangeTo(
-                    volumeState.max.toFloat()
+                value = { volume.current.toFloat() },
+                range = volume.min.toFloat().rangeTo(
+                    volume.max.toFloat()
                 ),
                 reverseDirection = true
             )

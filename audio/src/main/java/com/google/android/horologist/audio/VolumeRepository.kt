@@ -14,12 +14,27 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.sample
+package com.google.android.horologist.audio
 
-sealed class Screen(
-    val route: String
-) {
-    object Menu : Screen("menu")
-    object FillMaxRectangle : Screen("fmr")
-    object Volume : Screen("volume")
+import kotlinx.coroutines.flow.StateFlow
+
+/**
+ * A state repository for audio volume, typically the system AudioManager,
+ * but possibly a remote app in paired situations.
+ */
+public interface VolumeRepository : AutoCloseable {
+    /**
+     * The current volume state, including volume, min, max.
+     */
+    public val volumeState: StateFlow<VolumeState>
+
+    /**
+     * Increase the volume of the current audio output.
+     */
+    public fun increaseVolume()
+
+    /**
+     * Decrease the volume of the current audio output.
+     */
+    public fun decreaseVolume()
 }

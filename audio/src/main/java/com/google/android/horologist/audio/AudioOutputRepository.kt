@@ -14,12 +14,26 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.sample
+package com.google.android.horologist.audio
 
-sealed class Screen(
-    val route: String
-) {
-    object Menu : Screen("menu")
-    object FillMaxRectangle : Screen("fmr")
-    object Volume : Screen("volume")
+import kotlinx.coroutines.flow.StateFlow
+
+/**
+ * Audio Output Repository for identifying available audio devices in a simple manner.
+ */
+public interface AudioOutputRepository : AutoCloseable {
+    /**
+     * The current audio output.
+     */
+    public val audioOutput: StateFlow<AudioOutput>
+
+    /**
+     * The list of available audio output devices.
+     */
+    public val available: StateFlow<List<AudioOutput>>
+
+    /**
+     * Action to launch output selection by the user.
+     */
+    public fun launchOutputSelection(closeOnConnect: Boolean)
 }

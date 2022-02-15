@@ -66,9 +66,10 @@ public open class VolumeViewModel(
         audioOutputRepository.close()
     }
 
-    companion object {
+    public companion object {
         @Suppress("UNCHECKED_CAST")
-        fun systemFactory(application: Context): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+        public fun systemFactory(application: Context): ViewModelProvider.Factory = object :
+            ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 check(modelClass == VolumeViewModel::class.java)
 

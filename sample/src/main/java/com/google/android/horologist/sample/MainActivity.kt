@@ -23,13 +23,17 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.google.android.horologist.audioui.VolumeScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +64,15 @@ fun WearApp() {
             }
             composable(Screen.FillMaxRectangle.route) {
                 FillMaxRectangleScreen()
+            }
+            composable(Screen.Volume.route) {
+                val focusRequester = remember { FocusRequester() }
+
+                VolumeScreen(focusRequester = focusRequester)
+
+                LaunchedEffect(Unit) {
+                    focusRequester.requestFocus()
+                }
             }
         }
     }

@@ -1,84 +1,51 @@
 [versions]
-compose = "1.2.0-alpha02"
-wearcompose = "1.0.0-alpha15"
-composesnapshot = "-" # a single character = no snapshot
-
-# gradlePlugin and lint need to be updated together
-gradlePlugin = "7.1.0"
-lint = "30.0.4"
-
-ktlint = "0.42.1"
+affectedmoduledetector = "0.1.3"
+androidxActivity = "1.4.0"
+androidxCore = "1.7.0"
+androidxFragment = "1.4.1"
+androidxLifecycle = "2.4.1"
+androidxWear = "1.2.0"
+androidxtiles = "1.1.0-alpha02"
+compose = "1.2.0-alpha03"
+composesnapshot = "-"
+dokka = "1.6.10"
+espresso = "3.4.0"
+gradlePlugin = "7.1.1"
+junit = "4.13.2"
 kotlin = "1.6.10"
-coroutines = "1.5.2"
-
-androidxtest = "1.4.0"
-androidxnavigation = "2.4.0"
-androidxtiles = "1.0.0"
+ktlint = "0.42.1"
+metalava = "0.2.1"
+truth = "1.1.2"
+wearcompose = "1.0.0-alpha16"
 
 [libraries]
-compose-ui-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
-compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "compose" }
-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
-compose-ui-toolingpreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
-
+affectedmoduledetector = { module = "com.dropbox.affectedmoduledetector:affectedmoduledetector", version.ref = "affectedmoduledetector" }
+android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
+android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
+androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
+androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidxFragment" }
+androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
+androidx-lifecycle-testing = { module = "androidx.lifecycle:lifecycle-runtime-testing", version.ref = "androidxLifecycle" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
+androidx-wear = { module = "androidx.wear:wear", version.ref = "androidxWear" }
+androidx-wear-tiles = { module = "androidx.wear.tiles:tiles", version.ref = "androidxtiles" }
+compose-foundation-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
+compose-material-iconscore = { module = "androidx.compose.material:material-icons-core", version.ref = "compose" }
+compose-material-iconsext = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
 compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
-compose-foundation-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
-compose-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "compose" }
-compose-material-material = { module = "androidx.compose.material:material", version.ref = "compose" }
-compose-material-iconsext = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
-compose-animation-animation = { module = "androidx.compose.animation:animation", version.ref = "compose" }
-
-wearcompose-material = { module = "androidx.wear.compose:compose-material", version.ref = "wearcompose" }
-wearcompose-foundation = { module = "androidx.wear.compose:compose-foundation", version.ref = "wearcompose" }
-wearcompose-navigation = { module = "androidx.wear.compose:compose-navigation", version.ref = "wearcompose" }
-
-androidx-wear = "androidx.wear:wear:1.2.0"
-
-android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+compose-ui-toolingpreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "compose" }
+dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
+espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.18.0"
-metalavaGradle = "me.tylerbwong.gradle:metalava-gradle:0.2.1"
-
-kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
-kotlin-stdlibJdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
-kotlin-metadataJvm = "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.3.0"
-
-kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
-kotlin-coroutines-jdk8 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8", version.ref = "coroutines" }
-kotlin-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "coroutines" }
-kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
-
-dokka = "org.jetbrains.dokka:dokka-gradle-plugin:1.5.0"
-
-androidx-appcompat = "androidx.appcompat:appcompat:1.3.1"
-androidx-core = "androidx.core:core-ktx:1.5.0"
-androidx-activity-compose = "androidx.activity:activity-compose:1.4.0"
-androidx-fragment = "androidx.fragment:fragment-ktx:1.3.6"
-androidx-dynamicanimation = "androidx.dynamicanimation:dynamicanimation-ktx:1.0.0-alpha03"
-androidx-lifecycle-runtime = "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
-androidx-lifecycle-viewmodel-compose = "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0"
-
-androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxnavigation" }
-androidx-navigation-testing = { module = "androidx.navigation:navigation-testing", version.ref = "androidxnavigation" }
-
-androidx-wear-tiles = { module = "androidx.wear.tiles:tiles", version.ref = "androidxtiles" }
-
-androidx-test-core = { module = "androidx.test:core-ktx", version.ref = "androidxtest" }
-androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidxtest" }
-androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidxtest" }
-androidx-test-orchestrator = { module = "androidx.test:orchestrator", version.ref = "androidxtest" }
-androidx-test-uiAutomator = "androidx.test.uiautomator:uiautomator:2.2.0"
-
-junit = "junit:junit:4.13"
-espresso-core = "androidx.test.espresso:espresso-core:3.4.0"
-truth = "com.google.truth:truth:1.1.2"
-robolectric = "org.robolectric:robolectric:4.5.1"
-
-affectedmoduledetector = "com.dropbox.affectedmoduledetector:affectedmoduledetector:0.1.2"
-
-android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
-android-tools-lint-lint = { module = "com.android.tools.lint:lint", version.ref = "lint" }
-android-tools-lint-api = { module = "com.android.tools.lint:lint-api", version.ref = "lint" }
-android-tools-lint-tests = { module = "com.android.tools.lint:lint-tests", version.ref = "lint" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+metalavaGradle = { module = "me.tylerbwong.gradle:metalava-gradle", version.ref = "metalava" }
+truth = { module = "com.google.truth:truth", version.ref = "truth" }
+wearcompose-foundation = { module = "androidx.wear.compose:compose-foundation", version.ref = "wearcompose" }
+wearcompose-material = { module = "androidx.wear.compose:compose-material", version.ref = "wearcompose" }
+wearcompose-navigation = { module = "androidx.wear.compose:compose-navigation", version.ref = "wearcompose" }

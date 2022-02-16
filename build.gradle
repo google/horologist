@@ -38,6 +38,8 @@ buildscript {
 plugins {
     id "com.diffplug.spotless" version "5.9.0"
     id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
+    id "com.github.ben-manes.versions" version "0.41.0"
+    id "nl.littlerobots.version-catalog-update" version "0.3.0"
 }
 
 apply plugin: 'org.jetbrains.dokka'
@@ -136,6 +138,12 @@ subprojects {
             freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
             // Enable default methods in interfaces
             freeCompilerArgs += "-Xjvm-default=all"
+
+            // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+            if (!compile.name.endsWith("TestKotlin") && !compile.name.startsWith("compileDebug") && project.name != "sample") {
+                // Enable explicit API mode
+                compile.kotlinOptions.freeCompilerArgs.add("-Xexplicit-api=strict")
+            }
         }
     }
 
@@ -230,5 +238,18 @@ subprojects {
                 }
             }
         }
+    }
+}
+
+tasks.named("dependencyUpdates").configure {
+    rejectVersionIf {
+        (it.candidate.version ==~ /.*-alpha.*/ && !(it.currentVersion ==~ /.*-alpha.*/)) ||
+          (it.candidate.version ==~ /.*-beta.*/ && !(it.currentVersion ==~ /.*-(beta|alpha).*/))
+    }
+}
+
+versionCatalogUpdate {
+    keep {
+        keepUnusedVersions = true
     }
 }

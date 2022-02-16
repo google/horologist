@@ -14,5 +14,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-rm -f release/*.gpg
 rm -f release/*.properties

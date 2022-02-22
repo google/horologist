@@ -2,5 +2,6 @@
   "extends": [
     "config:base"
   ],
-  "repositories": ["yschimke/horologist"]
+  "repositories": ["yschimke/horologist"],
+  "renovateFork": true
 }

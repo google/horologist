@@ -170,7 +170,7 @@ internal fun VolumeScreen(
             )
         }
         if (showVolumeIndicator) {
-            VolumePositionIndicator(volumeState = volume)
+            VolumeProgressIndicator(modifier = Modifier.fillMaxSize(), volumeState = volume)
         }
     }
 }

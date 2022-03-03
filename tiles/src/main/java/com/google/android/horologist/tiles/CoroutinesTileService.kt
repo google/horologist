@@ -36,7 +36,7 @@ import kotlinx.coroutines.guava.future
  * Also acts like a LifecycleService, allowing lifecycleScope,
  * and general lifecycle operations.
  */
-abstract class CoroutinesTileService : TileService(), LifecycleOwner {
+public abstract class CoroutinesTileService : TileService(), LifecycleOwner {
     // Code from LifecycleService
 
     @Suppress("LeakingThis")
@@ -54,7 +54,7 @@ abstract class CoroutinesTileService : TileService(), LifecycleOwner {
      * This runs a suspending function inside the lifecycleScope
      * of the service on the Main thread.
      */
-    abstract suspend fun tileRequest(requestParams: TileRequest): Tile
+    public abstract suspend fun tileRequest(requestParams: TileRequest): Tile
 
     final override fun onResourcesRequest(
         requestParams: ResourcesRequest
@@ -69,7 +69,7 @@ abstract class CoroutinesTileService : TileService(), LifecycleOwner {
      * This runs a suspending function inside the lifecycleScope
      * of the service on the Main thread.
      */
-    abstract suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources
+    public abstract suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources
 
     @CallSuper
     override fun onCreate() {

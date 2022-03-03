@@ -46,6 +46,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name="com.google.android.horologist.tiles.ExampleTileService"
+            android:description="Example Tile"
+            android:exported="true"
+            android:icon="@drawable/ic_person"
+            android:label="Example Tile"
+            android:permission="com.google.android.wearable.permission.BIND_TILE_PROVIDER">
+            <intent-filter>
+                <action android:name="androidx.wear.tiles.action.BIND_TILE_PROVIDER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="androidx.wear.tiles.PREVIEW"
+                android:resource="@drawable/tile_messaging" />
+        </service>
     </application>
 
 </manifest>

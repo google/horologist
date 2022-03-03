@@ -38,8 +38,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,11 +47,11 @@
         </activity>
 
         <service
-            android:name="com.google.android.horologist.tiles.ExampleTileService"
-            android:description="Example Tile"
+            android:name=".tiles.ExampleTileService"
+            android:description="@string/tile_description"
             android:exported="true"
             android:icon="@drawable/ic_person"
-            android:label="Example Tile"
+            android:label="@string/tile_basic_title"
             android:permission="com.google.android.wearable.permission.BIND_TILE_PROVIDER">
             <intent-filter>
                 <action android:name="androidx.wear.tiles.action.BIND_TILE_PROVIDER" />
@@ -62,6 +61,14 @@
                 android:name="androidx.wear.tiles.PREVIEW"
                 android:resource="@drawable/tile_messaging" />
         </service>
+
+        <receiver android:name=".tiles.ExampleBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -1,11 +1,11 @@
 /*
- * Copyright 2021 The Android Open Source Project
+ * Copyright (C) 2017 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     https://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,28 +32,41 @@ import kotlinx.coroutines.guava.future
 
 /**
  * Base class for a Kotlin and Coroutines friendly TileService.
+ * Also acts like a LifecycleService, allowing lifecycleScope,
+ * and general lifecycle operations.
  */
 abstract class CoroutinesTileService : TileService(), LifecycleOwner {
+    // Code from LifecycleService
+
+    @Suppress("LeakingThis")
     private val mDispatcher = ServiceLifecycleDispatcher(this)
 
-    override fun onTileRequest(
+    final override fun onTileRequest(
         requestParams: TileRequest
     ): ListenableFuture<Tile> = lifecycleScope.future {
         tileRequest(requestParams)
     }
 
+    /**
+     * See [onTileRequest] for most details.
+     *
+     * This runs a suspending function inside the lifecycleScope
+     * of the service on the Main thread.
+     */
     abstract suspend fun tileRequest(requestParams: TileRequest): Tile
 
-    override fun onResourcesRequest(requestParams: ResourcesRequest)
+    final override fun onResourcesRequest(requestParams: ResourcesRequest)
         : ListenableFuture<Resources> = lifecycleScope.future {
         resourcesRequest(requestParams)
     }
 
     /**
+     * See [onResourcesRequest] for most details.
      *
+     * This runs a suspending function inside the lifecycleScope
+     * of the service on the Main thread.
      */
-    open suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources =
-        Resources.Builder().setVersion(FIXED_RESOURCES_VERSION).build()
+    abstract suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources
 
     @CallSuper
     override fun onCreate() {
@@ -64,12 +77,12 @@ abstract class CoroutinesTileService : TileService(), LifecycleOwner {
     @CallSuper
     override fun onBind(intent: Intent): IBinder? {
         mDispatcher.onServicePreSuperOnBind()
-        return null
+        return super.onBind(intent)
     }
 
     @Suppress("DEPRECATION")
     @CallSuper
-    override fun onStart(intent: Intent?, startId: Int) {
+    final override fun onStart(intent: Intent?, startId: Int) {
         mDispatcher.onServicePreSuperOnStart()
         super.onStart(intent, startId)
     }
@@ -79,7 +92,7 @@ abstract class CoroutinesTileService : TileService(), LifecycleOwner {
     // it results in mDispatcher.onServicePreSuperOnStart() call, because
     // super.onStartCommand calls onStart().
     @CallSuper
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+    final override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         return super.onStartCommand(intent, flags, startId)
     }
 
@@ -91,9 +104,5 @@ abstract class CoroutinesTileService : TileService(), LifecycleOwner {
 
     override fun getLifecycle(): Lifecycle {
         return mDispatcher.lifecycle
-    }
-
-    companion object {
-        const val FIXED_RESOURCES_VERSION = "1"
     }
 }

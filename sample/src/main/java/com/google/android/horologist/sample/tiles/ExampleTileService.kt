@@ -14,22 +14,35 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.tiles
+package com.google.android.horologist.sample.tiles
 
+import android.content.Context
+import android.os.BatteryManager
 import androidx.wear.tiles.LayoutElementBuilders.Column
 import androidx.wear.tiles.LayoutElementBuilders.HORIZONTAL_ALIGN_CENTER
 import androidx.wear.tiles.LayoutElementBuilders.Layout
 import androidx.wear.tiles.LayoutElementBuilders.LayoutElement
 import androidx.wear.tiles.LayoutElementBuilders.Text
 import androidx.wear.tiles.RequestBuilders
+import androidx.wear.tiles.ResourceBuilders
 import androidx.wear.tiles.TileBuilders.Tile
 import androidx.wear.tiles.TimelineBuilders.Timeline
 import androidx.wear.tiles.TimelineBuilders.TimelineEntry
+import com.google.android.horologist.tiles.CoroutinesTileService
 
 class ExampleTileService : CoroutinesTileService() {
+    private lateinit var batteryManager: BatteryManager
+
+    override fun onCreate() {
+        super.onCreate()
+
+        batteryManager =
+            applicationContext.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
+    }
+
     override suspend fun tileRequest(requestParams: RequestBuilders.TileRequest): Tile {
         return Tile.Builder()
-            .setResourcesVersion(FIXED_RESOURCES_VERSION)
+            .setResourcesVersion("1")
             .setTimeline(
                 Timeline.Builder()
                     .addTimelineEntry(
@@ -45,11 +58,15 @@ class ExampleTileService : CoroutinesTileService() {
             .build()
     }
 
+    override suspend fun resourcesRequest(
+        requestParams: RequestBuilders.ResourcesRequest
+    ): ResourceBuilders.Resources = ResourceBuilders.Resources.Builder().setVersion("1").build()
+
     fun mainLayout(): LayoutElement {
         return Column.Builder()
             .addContent(
                 Text.Builder()
-                    .setText("ABC")
+                    .setText("Charging: " + batteryManager.isCharging)
                     .build()
             )
             .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)

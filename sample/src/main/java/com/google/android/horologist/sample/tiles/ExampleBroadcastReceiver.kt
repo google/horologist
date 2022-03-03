@@ -23,8 +23,9 @@ import androidx.wear.tiles.TileService.getUpdater
 
 class ExampleBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        if (intent.action == Intent.ACTION_POWER_CONNECTED
-            || intent.action == Intent.ACTION_POWER_DISCONNECTED) {
+        if (intent.action == Intent.ACTION_POWER_CONNECTED ||
+            intent.action == Intent.ACTION_POWER_DISCONNECTED
+        ) {
             forceTileUpdate(context.applicationContext)
         }
     }

@@ -59,7 +59,7 @@
 
             <meta-data
                 android:name="androidx.wear.tiles.PREVIEW"
-                android:resource="@drawable/tile_messaging" />
+                android:resource="@drawable/sample_tile" />
         </service>
 
         <receiver android:name=".tiles.ExampleBroadcastReceiver"

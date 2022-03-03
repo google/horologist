@@ -94,7 +94,7 @@ dependencies {
     implementation libs.kotlinx.coroutines.guava
 
     implementation libs.androidx.wear.tiles
-    implementation("androidx.lifecycle:lifecycle-service:2.4.1")
+    implementation(libs.androidx.lifecycle.service)
 
     androidTestImplementation libs.androidx.lifecycle.testing
     androidTestImplementation libs.truth

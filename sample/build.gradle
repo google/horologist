@@ -74,5 +74,7 @@ dependencies {
     implementation libs.androidx.activity.compose
     implementation libs.androidx.wear.tiles
 
+    implementation "androidx.work:work-runtime-ktx:2.7.1"
+
     implementation libs.kotlin.stdlib
 }

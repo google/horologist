@@ -29,6 +29,7 @@ import androidx.wear.tiles.TileBuilders.Tile
 import androidx.wear.tiles.TimelineBuilders.Timeline
 import androidx.wear.tiles.TimelineBuilders.TimelineEntry
 import com.google.android.horologist.tiles.CoroutinesTileService
+import java.time.LocalTime
 
 class ExampleTileService : CoroutinesTileService() {
     private lateinit var batteryManager: BatteryManager
@@ -67,6 +68,11 @@ class ExampleTileService : CoroutinesTileService() {
             .addContent(
                 Text.Builder()
                     .setText("Charging: " + batteryManager.isCharging)
+                    .build()
+            )
+            .addContent(
+                Text.Builder()
+                    .setText("Time: " + LocalTime.now())
                     .build()
             )
             .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)

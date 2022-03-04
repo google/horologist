@@ -18,4 +18,11 @@
     package="com.google.android.horologist.tiles">
 
     <uses-feature android:name="android.hardware.type.watch" />
+
+    <application>
+        <service
+            android:name=".TileUpdateService"
+            android:exported="false">
+        </service>
+    </application>
 </manifest>

@@ -96,6 +96,8 @@ dependencies {
     implementation libs.androidx.wear.tiles
     implementation(libs.androidx.lifecycle.service)
 
+    implementation "androidx.work:work-runtime-ktx:2.7.1"
+
     androidTestImplementation libs.androidx.lifecycle.testing
     androidTestImplementation libs.truth
     androidTestImplementation libs.compose.ui.test.junit4

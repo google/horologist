@@ -20,13 +20,51 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import androidx.wear.tiles.TileService.getUpdater
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.OutOfQuotaPolicy
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
+import com.google.android.horologist.tiles.TileUpdateService
+import com.google.android.horologist.tiles.TileUpdateWorker
 
 class ExampleBroadcastReceiver : BroadcastReceiver() {
+    val direct = false
+    val service = false
+    val work = true
+
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action == Intent.ACTION_POWER_CONNECTED ||
             intent.action == Intent.ACTION_POWER_DISCONNECTED
         ) {
-            forceTileUpdate(context.applicationContext)
+            if (direct) {
+                println("direct")
+                forceTileUpdate(context.applicationContext)
+            }
+
+            if (service) {
+                println("service")
+                context.startService(Intent(context, TileUpdateService::class.java).apply {
+                    this.putExtra("TILE_CLASS", ExampleTileService::class.qualifiedName)
+                })
+            }
+
+            if (work) {
+                println("work")
+                val tileWorkRequest: WorkRequest =
+                    OneTimeWorkRequestBuilder<TileUpdateWorker>()
+                        .setExpedited(OutOfQuotaPolicy.DROP_WORK_REQUEST)
+                        .setInputData(
+                            Data.Builder()
+                                .putString("TILE_CLASS", ExampleTileService::class.qualifiedName)
+                                .build()
+                        )
+                        .build()
+
+                WorkManager
+                    .getInstance(context)
+                    .enqueue(tileWorkRequest)
+            }
         }
     }
 

@@ -96,9 +96,14 @@ dependencies {
     implementation libs.androidx.wear.tiles
     implementation(libs.androidx.lifecycle.service)
 
+    testImplementation libs.androidx.wear.tiles.testing
+    testImplementation libs.espresso.core
+    testImplementation libs.junit
+    testImplementation libs.truth
+    testImplementation libs.robolectric
+
     androidTestImplementation libs.androidx.lifecycle.testing
     androidTestImplementation libs.truth
-    androidTestImplementation libs.compose.ui.test.junit4
     debugImplementation libs.compose.ui.test.manifest
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.junit

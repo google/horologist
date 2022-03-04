@@ -32,6 +32,7 @@ androidx-lifecycle-testing = { module = "androidx.lifecycle:lifecycle-runtime-te
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
 androidx-wear = { module = "androidx.wear:wear", version.ref = "androidxWear" }
 androidx-wear-tiles = { module = "androidx.wear.tiles:tiles", version.ref = "androidxtiles" }
+androidx-wear-tiles-testing = { module = "androidx.wear.tiles:tiles-testing", version.ref = "androidxtiles" }
 compose-foundation-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-material-iconscore = { module = "androidx.compose.material:material-icons-core", version.ref = "compose" }
 compose-material-iconsext = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
@@ -48,6 +49,7 @@ kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", ve
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "kotlinxCoroutine" }
 metalavaGradle = { module = "me.tylerbwong.gradle:metalava-gradle", version.ref = "metalava" }
+robolectric = "org.robolectric:robolectric:4.7.3"
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 wearcompose-foundation = { module = "androidx.wear.compose:compose-foundation", version.ref = "wearcompose" }
 wearcompose-material = { module = "androidx.wear.compose:compose-material", version.ref = "wearcompose" }

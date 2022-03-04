@@ -13,7 +13,7 @@ espresso = "3.4.0"
 gradlePlugin = "7.1.1"
 junit = "4.13.2"
 kotlin = "1.6.10"
-kotlinx = "1.6.0"
+kotlinxCoroutine = "1.6.0"
 ktlint = "0.42.1"
 metalava = "0.2.1"
 truth = "1.1.2"
@@ -46,7 +46,7 @@ gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.18.0"
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
-kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "kotlinx" }
+kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "kotlinxCoroutine" }
 metalavaGradle = { module = "me.tylerbwong.gradle:metalava-gradle", version.ref = "metalava" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 wearcompose-foundation = { module = "androidx.wear.compose:compose-foundation", version.ref = "wearcompose" }

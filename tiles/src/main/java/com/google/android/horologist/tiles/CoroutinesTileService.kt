@@ -19,6 +19,7 @@ package com.google.android.horologist.tiles
 import android.content.Intent
 import android.os.IBinder
 import androidx.annotation.CallSuper
+import androidx.concurrent.futures.CallbackToFutureAdapter
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ServiceLifecycleDispatcher
@@ -29,7 +30,7 @@ import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
 import androidx.wear.tiles.TileService
 import com.google.common.util.concurrent.ListenableFuture
-import kotlinx.coroutines.guava.future
+import kotlinx.coroutines.launch
 
 /**
  * Base class for a Kotlin and Coroutines friendly TileService.
@@ -44,8 +45,20 @@ public abstract class CoroutinesTileService : TileService(), LifecycleOwner {
 
     final override fun onTileRequest(
         requestParams: TileRequest
-    ): ListenableFuture<Tile> = lifecycleScope.future {
-        tileRequest(requestParams)
+    ): ListenableFuture<Tile> {
+        return CallbackToFutureAdapter.getFuture { completer ->
+            val job = lifecycleScope.launch {
+                try {
+                    completer.set(tileRequest(requestParams))
+                } catch (e: Exception) {
+                    completer.setException(e)
+                }
+            }
+
+            completer.addCancellationListener({ job.cancel() }, Runnable::run)
+
+            "Tile Service Function"
+        }
     }
 
     /**
@@ -58,10 +71,19 @@ public abstract class CoroutinesTileService : TileService(), LifecycleOwner {
 
     final override fun onResourcesRequest(
         requestParams: ResourcesRequest
-    ): ListenableFuture<Resources> =
-        lifecycleScope.future {
-            resourcesRequest(requestParams)
+    ): ListenableFuture<Resources> = CallbackToFutureAdapter.getFuture { completer ->
+        val job = lifecycleScope.launch {
+            try {
+                completer.set(resourcesRequest(requestParams))
+            } catch (e: Exception) {
+                completer.setException(e)
+            }
         }
+
+        completer.addCancellationListener({
+            job.cancel()
+        }, Runnable::run)
+    }
 
     /**
      * See [onResourcesRequest] for most details.

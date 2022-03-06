@@ -91,7 +91,7 @@ dependencies {
 
     implementation libs.androidx.wear
     implementation libs.androidx.lifecycle.runtime
-    implementation libs.kotlinx.coroutines.guava
+    implementation libs.androidx.concurrent.future
 
     implementation libs.androidx.wear.tiles
     implementation(libs.androidx.lifecycle.service)

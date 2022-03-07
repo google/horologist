@@ -26,9 +26,20 @@ import androidx.wear.tiles.ResourceBuilders
 import androidx.wear.tiles.TileBuilders.Tile
 import androidx.wear.tiles.TimelineBuilders.Timeline
 import androidx.wear.tiles.TimelineBuilders.TimelineEntry
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.seconds
 
 public class TestTileService : CoroutinesTileService() {
+    var delayDuration = 0.seconds
+    var started = 0
+    var cancelled = 0
+    var completed = 0
+
     override suspend fun tileRequest(requestParams: RequestBuilders.TileRequest): Tile {
+        started++
+
+        delay(delayDuration)
+
         return Tile.Builder()
             .setResourcesVersion(FAKE_VERSION)
             .setTimeline(
@@ -43,7 +54,9 @@ public class TestTileService : CoroutinesTileService() {
                     )
                     .build()
             )
-            .build()
+            .build().also {
+                completed++
+            }
     }
 
     override suspend fun resourcesRequest(

@@ -25,6 +25,7 @@ android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref 
 android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
 androidx-concurrent-future = "androidx.concurrent:concurrent-futures:1.1.0"
+androidx-concurrent-future-ktx = "androidx.concurrent:concurrent-futures-ktx:1.1.0"
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
 androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidxFragment" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
@@ -49,6 +50,7 @@ junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "kotlinxCoroutine" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutine" }
 metalavaGradle = { module = "me.tylerbwong.gradle:metalava-gradle", version.ref = "metalava" }
 robolectric = "org.robolectric:robolectric:4.7.3"
 truth = { module = "com.google.truth:truth", version.ref = "truth" }

@@ -78,6 +78,8 @@ public abstract class CoroutinesTileService : TileService(), LifecycleOwner {
         val job = lifecycleScope.launch {
             try {
                 completer.set(resourcesRequest(requestParams))
+            } catch (e: CancellationException) {
+                completer.setCancelled()
             } catch (e: Exception) {
                 completer.setException(e)
             }

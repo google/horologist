@@ -30,6 +30,7 @@ import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
 import androidx.wear.tiles.TileService
 import com.google.common.util.concurrent.ListenableFuture
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 
 /**
@@ -50,6 +51,8 @@ public abstract class CoroutinesTileService : TileService(), LifecycleOwner {
             val job = lifecycleScope.launch {
                 try {
                     completer.set(tileRequest(requestParams))
+                } catch (e: CancellationException) {
+                    completer.setCancelled()
                 } catch (e: Exception) {
                     completer.setException(e)
                 }

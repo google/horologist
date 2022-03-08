@@ -5,8 +5,8 @@ package com.google.android.horologist.tiles {
     ctor public CoroutinesTileService();
     method public androidx.lifecycle.Lifecycle getLifecycle();
     method protected final com.google.common.util.concurrent.ListenableFuture<androidx.wear.tiles.ResourceBuilders.Resources> onResourcesRequest(androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams);
-    method @CallSuper public final void onStart(android.content.Intent? intent, int startId);
-    method @CallSuper public final int onStartCommand(android.content.Intent? intent, int flags, int startId);
+    method public final void onStart(android.content.Intent? intent, int startId);
+    method public final int onStartCommand(android.content.Intent? intent, int flags, int startId);
     method protected final com.google.common.util.concurrent.ListenableFuture<androidx.wear.tiles.TileBuilders.Tile> onTileRequest(androidx.wear.tiles.RequestBuilders.TileRequest requestParams);
     method public abstract suspend Object? resourcesRequest(androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.ResourceBuilders.Resources> p);
     method public abstract suspend Object? tileRequest(androidx.wear.tiles.RequestBuilders.TileRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.TileBuilders.Tile> p);

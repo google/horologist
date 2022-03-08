@@ -60,7 +60,7 @@ public abstract class CoroutinesTileService : TileService(), LifecycleOwner {
 
             completer.addCancellationListener({ job.cancel() }, Runnable::run)
 
-            "Tile Service Function"
+            "Tile Request"
         }
     }
 
@@ -88,6 +88,8 @@ public abstract class CoroutinesTileService : TileService(), LifecycleOwner {
         completer.addCancellationListener({
             job.cancel()
         }, Runnable::run)
+
+        "Resource Request"
     }
 
     /**

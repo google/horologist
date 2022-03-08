@@ -94,7 +94,7 @@ dependencies {
     implementation libs.androidx.concurrent.future
 
     implementation libs.androidx.wear.tiles
-    implementation(libs.androidx.lifecycle.service)
+    implementation libs.androidx.lifecycle.service
 
     testImplementation libs.androidx.wear.tiles.testing
     testImplementation libs.espresso.core

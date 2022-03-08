@@ -31,6 +31,7 @@ import androidx.wear.tiles.TileBuilders.Tile
 import androidx.wear.tiles.TileService
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 
 /**
@@ -76,6 +77,8 @@ public abstract class CoroutinesTileService : TileService(), LifecycleOwner {
         requestParams: ResourcesRequest
     ): ListenableFuture<Resources> = CallbackToFutureAdapter.getFuture { completer ->
         val job = lifecycleScope.launch {
+            this.ensureActive()
+
             try {
                 completer.set(resourcesRequest(requestParams))
             } catch (e: CancellationException) {
@@ -113,7 +116,6 @@ public abstract class CoroutinesTileService : TileService(), LifecycleOwner {
     }
 
     @Suppress("DEPRECATION")
-    @CallSuper
     final override fun onStart(intent: Intent?, startId: Int) {
         mDispatcher.onServicePreSuperOnStart()
         super.onStart(intent, startId)
@@ -123,7 +125,6 @@ public abstract class CoroutinesTileService : TileService(), LifecycleOwner {
     // In usual service super.onStartCommand is no-op, but in LifecycleService
     // it results in mDispatcher.onServicePreSuperOnStart() call, because
     // super.onStartCommand calls onStart().
-    @CallSuper
     final override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         return super.onStartCommand(intent, flags, startId)
     }

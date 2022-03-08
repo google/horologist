@@ -30,6 +30,7 @@ import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -69,6 +70,7 @@ public class CoroutinesCancelTileTest {
     }
 
     @Test
+    @Ignore
     fun tileProviderCanBeCancelled() = fakeCoroutineScope.runTest {
         tileService.delayDuration = 3.seconds
 
@@ -82,7 +84,7 @@ public class CoroutinesCancelTileTest {
 
         assertThat(tileService.started).isEqualTo(1)
         assertThat(tileService.completed).isEqualTo(0)
-        // unable to increment after cancellation
-//        assertThat(tileService.cancelled).isEqualTo(1)
+        // Fails on https://issuetracker.google.com/issues/223047254
+        assertThat(tileService.cancelled).isEqualTo(1)
     }
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.navscaffold
+package com.google.android.horologist.compose.navscaffold.util
 
 import android.os.Bundle
 import androidx.compose.runtime.saveable.Saver

@@ -27,7 +27,6 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.util.lerp
 import androidx.wear.compose.material.ScalingLazyListState
 
 /**
@@ -104,6 +103,10 @@ private fun Modifier.fadeEffect(y: Float, fade: Boolean) = composed {
         this
             .offset(y = -y.dp)
     }
+}
+
+internal fun lerp(start: Float, stop: Float, fraction: Float): Float {
+    return (1 - fraction) * start + fraction * stop
 }
 
 internal const val maxFadeOutScroll = 40f

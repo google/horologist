@@ -35,6 +35,7 @@ import androidx.wear.compose.material.VignettePosition
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode.Off
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode.On
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode.WhenScrollable
+import com.google.android.horologist.compose.navscaffold.util.saveable
 
 /**
  * A ViewModel that backs the WearNavScaffold to allow each composable to interact and effect
@@ -43,9 +44,10 @@ import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.Vi
  * A ViewModel is used to allow the same current instance to be shared between the WearNavScaffold
  * and the composable screen via [NavHostController.currentBackStackEntry].
  */
-public class NavScaffoldViewModel(
+open class NavScaffoldViewModel(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+    var initialIndex: Int? = null
     internal var scrollType by mutableStateOf<ScrollType?>(null)
 
     private lateinit var _scrollableState: ScrollableState
@@ -120,7 +122,9 @@ public class NavScaffoldViewModel(
                 key = "navScaffold.ScalingLazyListState",
                 saver = ScalingLazyListState.Saver
             ) {
-                scrollableStateBuilder()
+                scrollableStateBuilder().also {
+                    initialIndex = it.centerItemIndex
+                }
             }
         }
 

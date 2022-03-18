@@ -18,15 +18,14 @@ package com.google.android.horologist.compose.navscaffold
 
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.ScrollableState
-import androidx.compose.foundation.gestures.animateScrollBy
+import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.input.rotary.onRotaryScrollEvent
+import androidx.compose.ui.input.rotary.onPreRotaryScrollEvent
 import kotlinx.coroutines.launch
 
 /**
@@ -39,20 +38,17 @@ import kotlinx.coroutines.launch
  * }
  * ```
  */
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-public fun Modifier.scrollable(
-    focusRequester: FocusRequester,
-    scrollState: ScrollableState
-): Modifier = composed {
-    val coroutineScope = rememberCoroutineScope()
+fun Modifier.scrollableColumn(focusRequester: FocusRequester, scrollableState: ScrollableState) =
+    composed {
+        val coroutineScope = rememberCoroutineScope()
 
-    this.onRotaryScrollEvent { event ->
-        coroutineScope.launch {
-            scrollState.animateScrollBy(event.verticalScrollPixels)
+        onPreRotaryScrollEvent {
+            coroutineScope.launch {
+                scrollableState.scrollBy(it.verticalScrollPixels)
+            }
+            true
         }
-        true
+            .focusRequester(focusRequester)
+            .focusable()
     }
-        .focusRequester(focusRequester)
-        .focusable()
-}

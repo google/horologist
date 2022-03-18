@@ -18,10 +18,12 @@ package com.google.android.horologist.compose.navscaffold
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.gestures.ScrollableState
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NamedNavArgument
@@ -56,80 +58,97 @@ import com.google.android.horologist.compose.layout.fadeAwayScalingLazyList
 public fun WearNavScaffold(
     navController: NavHostController = rememberSwipeDismissableNavController(),
     startDestination: String,
-    builder: NavGraphBuilder.() -> Unit
+    snackbar: @Composable () -> Unit = {},
+    builder: NavGraphBuilder.() -> Unit,
 ) {
     val currentBackStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
     val viewModel: NavScaffoldViewModel? = currentBackStackEntry?.let { viewModel(it) }
 
     Scaffold(
         timeText = {
-            val mode = viewModel?.timeTextMode
-
-            when (mode) {
-                NavScaffoldViewModel.TimeTextMode.FadeAway -> {
-                    when (viewModel.scrollType) {
-                        NavScaffoldViewModel.ScrollType.ScrollState ->
-                            TimeText(
-                                modifier = Modifier.fadeAway {
-                                    viewModel.scrollableState as ScrollState
-                                }
-                            )
-                        NavScaffoldViewModel.ScrollType.ScalingLazyColumn ->
-                            TimeText(
-                                modifier = Modifier.fadeAwayScalingLazyList {
+            key(currentBackStackEntry?.destination?.route) {
+                when (viewModel?.timeTextMode) {
+                    NavScaffoldViewModel.TimeTextMode.FadeAway -> {
+                        when (viewModel.scrollType) {
+                            NavScaffoldViewModel.ScrollType.ScrollState ->
+                                TimeText(
+                                    modifier = Modifier.fadeAway {
+                                        viewModel.scrollableState as ScrollState
+                                    }
+                                )
+                            NavScaffoldViewModel.ScrollType.ScalingLazyColumn -> {
+                                val scalingLazyListState =
                                     viewModel.scrollableState as ScalingLazyListState
-                                }
-                            )
-                        NavScaffoldViewModel.ScrollType.LazyList ->
-                            TimeText(
-                                modifier = Modifier.fadeAwayLazyList {
-                                    viewModel.scrollableState as LazyListState
-                                }
-                            )
-                        else -> {}
+
+                                TimeText(
+                                    modifier = Modifier.fadeAwayScalingLazyList(viewModel.initialIndex!!) {
+                                        scalingLazyListState
+                                    }
+                                )
+                            }
+                            NavScaffoldViewModel.ScrollType.LazyList ->
+                                TimeText(
+                                    modifier = Modifier.fadeAwayLazyList {
+                                        viewModel.scrollableState as LazyListState
+                                    }
+                                )
+                            else -> {}
+                        }
                     }
-                }
-                NavScaffoldViewModel.TimeTextMode.On -> {
-                    TimeText()
-                }
-                else -> {
+                    NavScaffoldViewModel.TimeTextMode.On -> {
+                        TimeText()
+                    }
+                    else -> {
+                    }
                 }
             }
         },
         positionIndicator = {
-            val mode = viewModel?.positionIndicatorMode
+            key(currentBackStackEntry?.destination?.route) {
+                val mode = viewModel?.positionIndicatorMode
 
-            if (mode == NavScaffoldViewModel.PositionIndicatorMode.On) {
-                when (viewModel.scrollType) {
-                    NavScaffoldViewModel.ScrollType.ScrollState ->
-                        PositionIndicator(
-                            scrollState = viewModel.scrollableState as ScrollState
-                        )
-                    NavScaffoldViewModel.ScrollType.ScalingLazyColumn ->
-                        PositionIndicator(
-                            scalingLazyListState =
-                            viewModel.scrollableState as ScalingLazyListState
-                        )
-                    NavScaffoldViewModel.ScrollType.LazyList ->
-                        PositionIndicator(
-                            lazyListState = viewModel.scrollableState as LazyListState
-                        )
-                    else -> {}
+                if (mode == NavScaffoldViewModel.PositionIndicatorMode.On) {
+                    when (viewModel.scrollType) {
+                        NavScaffoldViewModel.ScrollType.ScrollState ->
+                            PositionIndicator(
+                                scrollState = viewModel.scrollableState as ScrollState
+                            )
+                        NavScaffoldViewModel.ScrollType.ScalingLazyColumn -> {
+                            val scalingLazyListState =
+                                viewModel.scrollableState as ScalingLazyListState
+
+                            PositionIndicator(
+                                scalingLazyListState = scalingLazyListState
+                            )
+                        }
+                        NavScaffoldViewModel.ScrollType.LazyList ->
+                            PositionIndicator(
+                                lazyListState = viewModel.scrollableState as LazyListState
+                            )
+                        else -> {}
+                    }
                 }
             }
         },
         vignette = {
-            val vignettePosition = viewModel?.vignettePosition
-            if (vignettePosition is NavScaffoldViewModel.VignetteMode.On) {
-                Vignette(vignettePosition = vignettePosition.position)
+            key(currentBackStackEntry?.destination?.route) {
+                val viewModel: NavScaffoldViewModel? = currentBackStackEntry?.let { viewModel(it) }
+                val vignettePosition = viewModel?.vignettePosition
+                if (vignettePosition is NavScaffoldViewModel.VignetteMode.On) {
+                    Vignette(vignettePosition = vignettePosition.position)
+                }
             }
         }
     ) {
-        SwipeDismissableNavHost(
-            navController = navController,
-            startDestination = startDestination,
-        ) {
-            builder()
+        Box {
+            SwipeDismissableNavHost(
+                navController = navController,
+                startDestination = startDestination,
+            ) {
+                builder()
+            }
+
+            snackbar()
         }
     }
 }

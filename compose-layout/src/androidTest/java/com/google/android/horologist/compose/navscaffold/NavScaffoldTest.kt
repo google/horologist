@@ -82,11 +82,12 @@ class NavScaffoldTest {
 
     private fun NavGraphBuilder.scrollingList(
         route: String,
-        bScrollState1: ScalingLazyListState
+        scrollState: ScalingLazyListState
     ) {
         scalingLazyColumnComposable(
             route = route,
-            scrollStateBuilder = { bScrollState1 }) {
+            scrollStateBuilder = { scrollState }
+        ) {
             ScalingLazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()

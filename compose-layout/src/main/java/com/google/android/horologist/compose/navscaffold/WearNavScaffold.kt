@@ -19,7 +19,7 @@ package com.google.android.horologist.compose.navscaffold
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -58,7 +58,7 @@ import com.google.android.horologist.compose.layout.fadeAwayScalingLazyList
  */
 @Composable
 public fun WearNavScaffold(
-    modifier: Modifier = Modifier.fillMaxWidth(),
+    modifier: Modifier = Modifier,
     navController: NavHostController = rememberSwipeDismissableNavController(),
     startDestination: String,
     snackbar: @Composable () -> Unit = {},
@@ -70,29 +70,35 @@ public fun WearNavScaffold(
     val viewModel: NavScaffoldViewModel? = currentBackStackEntry?.let { viewModel(it) }
 
     Scaffold(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         timeText = {
             key(currentBackStackEntry?.destination?.route) {
                 when (viewModel?.timeTextMode) {
                     NavScaffoldViewModel.TimeTextMode.FadeAway -> {
                         when (viewModel.scrollType) {
                             NavScaffoldViewModel.ScrollType.ScrollState -> {
-                                timeText(Modifier.fadeAway {
-                                    viewModel.scrollableState as ScrollState
-                                })
+                                timeText(
+                                    Modifier.fadeAway {
+                                        viewModel.scrollableState as ScrollState
+                                    }
+                                )
                             }
                             NavScaffoldViewModel.ScrollType.ScalingLazyColumn -> {
                                 val scalingLazyListState =
                                     viewModel.scrollableState as ScalingLazyListState
 
-                                timeText(Modifier.fadeAwayScalingLazyList(viewModel.initialIndex!!) {
-                                    scalingLazyListState
-                                })
+                                timeText(
+                                    Modifier.fadeAwayScalingLazyList(viewModel.initialIndex!!) {
+                                        scalingLazyListState
+                                    }
+                                )
                             }
                             NavScaffoldViewModel.ScrollType.LazyList -> {
-                                timeText(Modifier.fadeAwayLazyList {
-                                    viewModel.scrollableState as LazyListState
-                                })
+                                timeText(
+                                    Modifier.fadeAwayLazyList {
+                                        viewModel.scrollableState as LazyListState
+                                    }
+                                )
                             }
                             else -> {}
                         }

@@ -18,4 +18,14 @@ dependencies {
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap]. These are updated on every commit.
 
-  [snap]: https://oss.sonatype.org/content/repositories/snapshots/com/google/horologist/horologist-compose-layout/
+```groovy
+repositories {
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+}
+
+dependencies {
+    implementation "com.google.android.horologist:horologist-compose-layout:<version>-SNAPSHOT"
+}
+```
+
+  [snap]: https://oss.sonatype.org/content/repositories/snapshots/com/google/android/horologist/horologist-compose-layout/

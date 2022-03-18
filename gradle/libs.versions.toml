@@ -1,31 +1,32 @@
 [versions]
-affectedmoduledetector = "0.1.3"
+affectedmoduledetector = "0.1.4"
+androidx-concurrent = "1.1.0"
 androidxActivity = "1.4.0"
 androidxCore = "1.7.0"
 androidxFragment = "1.4.1"
 androidxLifecycle = "2.4.1"
 androidxWear = "1.2.0"
-androidxtiles = "1.1.0-alpha02"
-compose = "1.2.0-alpha03"
+androidxtiles = "1.1.0-alpha03"
+compose = "1.2.0-alpha05"
 composesnapshot = "-"
 dokka = "1.6.10"
 espresso = "3.4.0"
-gradlePlugin = "7.1.1"
+gradlePlugin = "7.1.2"
 junit = "4.13.2"
 kotlin = "1.6.10"
 kotlinxCoroutine = "1.6.0"
 ktlint = "0.42.1"
 metalava = "0.2.1"
-truth = "1.1.2"
-wearcompose = "1.0.0-alpha16"
+truth = "1.1.3"
+wearcompose = "1.0.0-alpha18"
 
 [libraries]
 affectedmoduledetector = { module = "com.dropbox.affectedmoduledetector:affectedmoduledetector", version.ref = "affectedmoduledetector" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
-androidx-concurrent-future = "androidx.concurrent:concurrent-futures:1.1.0"
-androidx-concurrent-future-ktx = "androidx.concurrent:concurrent-futures-ktx:1.1.0"
+androidx-concurrent-future = { module = "androidx.concurrent:concurrent-futures", version.ref = "androidx-concurrent" }
+androidx-concurrent-future-ktx = { module = "androidx.concurrent:concurrent-futures-ktx", version.ref = "androidx-concurrent" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
 androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidxFragment" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
@@ -45,11 +46,10 @@ compose-ui-toolingpreview = { module = "androidx.compose.ui:ui-tooling-preview",
 compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "compose" }
 dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
-gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.18.0"
+gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.19.0"
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
-kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutine" }
 metalavaGradle = { module = "me.tylerbwong.gradle:metalava-gradle", version.ref = "metalava" }
 robolectric = "org.robolectric:robolectric:4.7.3"

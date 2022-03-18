@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalComposeUiApi::class)
-
 package com.google.android.horologist.sample
 
 import androidx.compose.foundation.focusable
@@ -29,7 +27,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -40,15 +37,19 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.ScalingLazyColumn
+import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberScalingLazyListState
 import kotlinx.coroutines.launch
 
 @Composable
-fun MenuScreen(modifier: Modifier = Modifier, navigateToRoute: (String) -> Unit) {
-    val scrollState = rememberScalingLazyListState()
+fun MenuScreen(
+    modifier: Modifier = Modifier,
+    navigateToRoute: (String) -> Unit,
+    scrollState: ScalingLazyListState = rememberScalingLazyListState(),
+    focusRequester: FocusRequester = remember { FocusRequester() }
+) {
     val coroutineScope = rememberCoroutineScope()
-    val focusRequester = remember { FocusRequester() }
     ScalingLazyColumn(
         modifier = modifier
             .onRotaryScrollEvent {
@@ -60,7 +61,6 @@ fun MenuScreen(modifier: Modifier = Modifier, navigateToRoute: (String) -> Unit)
             .focusRequester(focusRequester)
             .focusable(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        autoCentering = true,
         state = scrollState
     ) {
         item {
@@ -81,7 +81,7 @@ fun SampleChip(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     label: String,
-    content: @Composable () -> Unit
+    content: (@Composable () -> Unit)? = null
 ) {
     Chip(
         modifier = modifier,
@@ -90,8 +90,10 @@ fun SampleChip(
     ) {
         Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
             Text(modifier = Modifier.weight(1f), text = label)
-            Box(modifier = Modifier.size(36.dp), contentAlignment = Alignment.Center) {
-                content()
+            if (content != null) {
+                Box(modifier = Modifier.size(36.dp), contentAlignment = Alignment.Center) {
+                    content()
+                }
             }
         }
     }

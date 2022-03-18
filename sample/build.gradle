@@ -38,6 +38,8 @@ android {
             manifestPlaceholders.schemeSuffix = "-debug"
         }
         release {
+            isDefault = true
+
             manifestPlaceholders.schemeSuffix = ""
 
             minifyEnabled true

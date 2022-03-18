@@ -38,20 +38,18 @@ import kotlinx.coroutines.launch
  * }
  * ```
  */
-@Composable
 public fun Modifier.scrollableColumn(
     focusRequester: FocusRequester,
     scrollableState: ScrollableState
-): Modifier =
-    composed {
-        val coroutineScope = rememberCoroutineScope()
+): Modifier = composed {
+    val coroutineScope = rememberCoroutineScope()
 
-        onPreRotaryScrollEvent {
-            coroutineScope.launch {
-                scrollableState.scrollBy(it.verticalScrollPixels)
-            }
-            true
+    onPreRotaryScrollEvent {
+        coroutineScope.launch {
+            scrollableState.scrollBy(it.verticalScrollPixels)
         }
-            .focusRequester(focusRequester)
-            .focusable()
+        true
     }
+        .focusRequester(focusRequester)
+        .focusable()
+}

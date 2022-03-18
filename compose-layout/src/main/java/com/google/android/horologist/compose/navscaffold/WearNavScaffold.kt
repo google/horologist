@@ -19,6 +19,7 @@ package com.google.android.horologist.compose.navscaffold
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -57,47 +58,47 @@ import com.google.android.horologist.compose.layout.fadeAwayScalingLazyList
  */
 @Composable
 public fun WearNavScaffold(
+    modifier: Modifier = Modifier.fillMaxWidth(),
     navController: NavHostController = rememberSwipeDismissableNavController(),
     startDestination: String,
     snackbar: @Composable () -> Unit = {},
+    timeText: @Composable (Modifier) -> Unit = { NavTimeText(modifier = it) },
+    positionIndicator: @Composable (NavScaffoldViewModel) -> Unit = { NavPositionIndicator(it) },
     builder: NavGraphBuilder.() -> Unit,
 ) {
     val currentBackStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
     val viewModel: NavScaffoldViewModel? = currentBackStackEntry?.let { viewModel(it) }
 
     Scaffold(
+        modifier = modifier,
         timeText = {
             key(currentBackStackEntry?.destination?.route) {
                 when (viewModel?.timeTextMode) {
                     NavScaffoldViewModel.TimeTextMode.FadeAway -> {
                         when (viewModel.scrollType) {
-                            NavScaffoldViewModel.ScrollType.ScrollState ->
-                                TimeText(
-                                    modifier = Modifier.fadeAway {
-                                        viewModel.scrollableState as ScrollState
-                                    }
-                                )
+                            NavScaffoldViewModel.ScrollType.ScrollState -> {
+                                timeText(Modifier.fadeAway {
+                                    viewModel.scrollableState as ScrollState
+                                })
+                            }
                             NavScaffoldViewModel.ScrollType.ScalingLazyColumn -> {
                                 val scalingLazyListState =
                                     viewModel.scrollableState as ScalingLazyListState
 
-                                TimeText(
-                                    modifier = Modifier.fadeAwayScalingLazyList(viewModel.initialIndex!!) {
-                                        scalingLazyListState
-                                    }
-                                )
+                                timeText(Modifier.fadeAwayScalingLazyList(viewModel.initialIndex!!) {
+                                    scalingLazyListState
+                                })
                             }
-                            NavScaffoldViewModel.ScrollType.LazyList ->
-                                TimeText(
-                                    modifier = Modifier.fadeAwayLazyList {
-                                        viewModel.scrollableState as LazyListState
-                                    }
-                                )
+                            NavScaffoldViewModel.ScrollType.LazyList -> {
+                                timeText(Modifier.fadeAwayLazyList {
+                                    viewModel.scrollableState as LazyListState
+                                })
+                            }
                             else -> {}
                         }
                     }
                     NavScaffoldViewModel.TimeTextMode.On -> {
-                        TimeText()
+                        timeText(Modifier)
                     }
                     else -> {
                     }
@@ -109,25 +110,7 @@ public fun WearNavScaffold(
                 val mode = viewModel?.positionIndicatorMode
 
                 if (mode == NavScaffoldViewModel.PositionIndicatorMode.On) {
-                    when (viewModel.scrollType) {
-                        NavScaffoldViewModel.ScrollType.ScrollState ->
-                            PositionIndicator(
-                                scrollState = viewModel.scrollableState as ScrollState
-                            )
-                        NavScaffoldViewModel.ScrollType.ScalingLazyColumn -> {
-                            val scalingLazyListState =
-                                viewModel.scrollableState as ScalingLazyListState
-
-                            PositionIndicator(
-                                scalingLazyListState = scalingLazyListState
-                            )
-                        }
-                        NavScaffoldViewModel.ScrollType.LazyList ->
-                            PositionIndicator(
-                                lazyListState = viewModel.scrollableState as LazyListState
-                            )
-                        else -> {}
-                    }
+                    positionIndicator(viewModel)
                 }
             }
         },
@@ -150,6 +133,36 @@ public fun WearNavScaffold(
 
             snackbar()
         }
+    }
+}
+
+@Composable
+private fun NavTimeText(modifier: Modifier) {
+    TimeText(
+        modifier = modifier
+    )
+}
+
+@Composable
+private fun NavPositionIndicator(viewModel: NavScaffoldViewModel) {
+    when (viewModel.scrollType) {
+        NavScaffoldViewModel.ScrollType.ScrollState ->
+            PositionIndicator(
+                scrollState = viewModel.scrollableState as ScrollState
+            )
+        NavScaffoldViewModel.ScrollType.ScalingLazyColumn -> {
+            val scalingLazyListState =
+                viewModel.scrollableState as ScalingLazyListState
+
+            PositionIndicator(
+                scalingLazyListState = scalingLazyListState
+            )
+        }
+        NavScaffoldViewModel.ScrollType.LazyList ->
+            PositionIndicator(
+                lazyListState = viewModel.scrollableState as LazyListState
+            )
+        else -> {}
     }
 }
 

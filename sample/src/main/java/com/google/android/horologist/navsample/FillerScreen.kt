@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.compose.navscaffold.scrollable
+import com.google.android.horologist.compose.navscaffold.scrollableColumn
 
 @Composable
 fun FillerScreen(modifier: Modifier = Modifier, label: String) {
@@ -50,7 +50,7 @@ fun BigScalingLazyColumn(
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .scrollable(focusRequester, scrollState),
+            .scrollableColumn(focusRequester, scrollState),
         state = scrollState,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -70,7 +70,7 @@ fun BigColumn(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
-            .scrollable(focusRequester, scrollState),
+            .scrollableColumn(focusRequester, scrollState),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.size(30.dp))

@@ -61,6 +61,8 @@ android {
         jvmTarget = "1.8"
         // Allow for widescale experimental APIs in Alpha libraries we build upon
         freeCompilerArgs += "-opt-in=androidx.wear.compose.material.ExperimentalWearMaterialApi"
+        freeCompilerArgs += "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi"
+        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     }
 
     composeOptions {

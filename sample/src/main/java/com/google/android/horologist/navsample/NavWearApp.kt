@@ -18,6 +18,9 @@ package com.google.android.horologist.navsample
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
@@ -25,6 +28,7 @@ import androidx.wear.compose.material.VignettePosition
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.google.android.horologist.audioui.VolumeScreen
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
 import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
@@ -41,7 +45,7 @@ fun NavWearApp() {
     ) {
         scalingLazyColumnComposable(
             NavScreen.Menu.route,
-            scrollStateBuilder = { ScalingLazyListState() }
+            scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 0) }
         ) {
             NavMenuScreen(
                 navigateToRoute = { route -> swipeDismissableNavController.navigate(route) },
@@ -80,7 +84,9 @@ fun NavWearApp() {
             viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
 
             Alert(title = { Text("Error") }) {
-                Chip(onClick = {}, label = { Text("Hello") })
+                item {
+                    Chip(onClick = {}, label = { Text("Hello") })
+                }
             }
         }
 
@@ -95,7 +101,13 @@ fun NavWearApp() {
         }
 
         composable(NavScreen.Volume.route) {
-            FillerScreen(label = "Normal (TODO)")
+            val focusRequester = remember { FocusRequester() }
+
+            VolumeScreen(focusRequester = focusRequester)
+
+            LaunchedEffect(Unit) {
+                focusRequester.requestFocus()
+            }
         }
 
         composable(NavScreen.NoScrolling.route) {

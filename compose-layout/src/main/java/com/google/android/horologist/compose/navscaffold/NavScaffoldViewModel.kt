@@ -28,10 +28,12 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.PositionIndicator
+import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
+import androidx.wear.compose.navigation.composable
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode.Off
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode.On
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode.WhenScrollable
@@ -87,13 +89,14 @@ open class NavScaffoldViewModel(
     /**
      * A [FocusRequester] to be passed into Scrollable composables.
      * If this is accessed within [NavGraphBuilder.composable] then
+     * it is considered active and wired up to screen changes.
      */
     public val focusRequester: FocusRequester by lazy {
         focusRequested = true
         FocusRequester()
     }
 
-    internal fun initialiseScrollState(scrollStateBuilder: () -> ScrollState): ScrollState {
+    internal fun initializeScrollState(scrollStateBuilder: () -> ScrollState): ScrollState {
         check(scrollType == null || scrollType == ScrollType.ScrollState)
 
         if (scrollType == null) {
@@ -110,7 +113,7 @@ open class NavScaffoldViewModel(
         return _scrollableState as ScrollState
     }
 
-    internal fun initialiseScalingLazyListState(
+    internal fun initializeScalingLazyListState(
         scrollableStateBuilder: () -> ScalingLazyListState
     ): ScalingLazyListState {
         check(scrollType == null || scrollType == ScrollType.ScalingLazyColumn)
@@ -131,7 +134,7 @@ open class NavScaffoldViewModel(
         return _scrollableState as ScalingLazyListState
     }
 
-    internal fun initialiseLazyList(
+    internal fun initializeLazyList(
         scrollableStateBuilder: () -> LazyListState
     ): LazyListState {
         check(scrollType == null || scrollType == ScrollType.LazyList)

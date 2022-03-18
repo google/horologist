@@ -25,6 +25,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
@@ -132,7 +133,6 @@ public fun WearNavScaffold(
         },
         vignette = {
             key(currentBackStackEntry?.destination?.route) {
-                val viewModel: NavScaffoldViewModel? = currentBackStackEntry?.let { viewModel(it) }
                 val vignettePosition = viewModel?.vignettePosition
                 if (vignettePosition is NavScaffoldViewModel.VignetteMode.On) {
                     Vignette(vignettePosition = vignettePosition.position)
@@ -179,7 +179,7 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
     composable(route, arguments, deepLinks) {
         val viewModel: NavScaffoldViewModel = viewModel(it)
 
-        val scrollState = viewModel.initialiseScalingLazyListState(scrollStateBuilder)
+        val scrollState = viewModel.initializeScalingLazyListState(scrollStateBuilder)
 
         content(ScaffoldContext(it, scrollState, viewModel))
 
@@ -206,7 +206,7 @@ public fun NavGraphBuilder.scrollStateComposable(
     composable(route, arguments, deepLinks) {
         val viewModel: NavScaffoldViewModel = viewModel(it)
 
-        val scrollState = viewModel.initialiseScrollState(scrollStateBuilder)
+        val scrollState = viewModel.initializeScrollState(scrollStateBuilder)
 
         content(ScaffoldContext(it, scrollState, viewModel))
 
@@ -233,7 +233,7 @@ public fun NavGraphBuilder.lazyListComposable(
     composable(route, arguments, deepLinks) {
         val viewModel: NavScaffoldViewModel = viewModel(it)
 
-        val scrollState = viewModel.initialiseLazyList(lazyListStateBuilder)
+        val scrollState = viewModel.initializeLazyList(lazyListStateBuilder)
 
         content(ScaffoldContext(it, scrollState, viewModel))
 

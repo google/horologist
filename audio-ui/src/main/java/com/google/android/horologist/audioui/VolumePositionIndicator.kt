@@ -41,7 +41,7 @@ import kotlinx.coroutines.delay
  */
 @Composable
 public fun VolumePositionIndicator(
-    volumeState: VolumeState,
+    volumeState: () -> VolumeState,
     autoHide: Boolean = true
 ) {
     var actuallyVisible by remember { mutableStateOf(!autoHide) }
@@ -70,9 +70,12 @@ public fun VolumePositionIndicator(
             exit = fadeOut()
         ) {
             PositionIndicator(
-                value = { volumeState.current.toFloat() },
-                range = volumeState.min.toFloat().rangeTo(
-                    volumeState.max.toFloat()
+                value = {
+                    val vs = volumeState()
+                    vs.current.toFloat()
+                },
+                range = volumeState().min.toFloat().rangeTo(
+                    volumeState().max.toFloat()
                 ),
                 reverseDirection = true
             )

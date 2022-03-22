@@ -183,10 +183,8 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
 
         content(ScaffoldContext(it, scrollState, viewModel))
 
-        if (viewModel.focusRequested) {
-            LaunchedEffect(Unit) {
-                viewModel.focusRequester.requestFocus()
-            }
+        LaunchedEffect(Unit) {
+            viewModel.requestFocus()
         }
     }
 }
@@ -210,10 +208,8 @@ public fun NavGraphBuilder.scrollStateComposable(
 
         content(ScaffoldContext(it, scrollState, viewModel))
 
-        if (viewModel.focusRequested) {
-            LaunchedEffect(Unit) {
-                viewModel.focusRequester.requestFocus()
-            }
+        LaunchedEffect(Unit) {
+            viewModel.requestFocus()
         }
     }
 }
@@ -237,10 +233,8 @@ public fun NavGraphBuilder.lazyListComposable(
 
         content(ScaffoldContext(it, scrollState, viewModel))
 
-        if (viewModel.focusRequested) {
-            LaunchedEffect(Unit) {
-                viewModel.focusRequester.requestFocus()
-            }
+        LaunchedEffect(Unit) {
+            viewModel.requestFocus()
         }
     }
 }

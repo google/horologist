@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.compose.navscaffold
 
+import android.util.Log
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.lazy.LazyListState
@@ -150,6 +151,16 @@ public open class NavScaffoldViewModel(
         }
 
         return _scrollableState as LazyListState
+    }
+
+    public fun requestFocus() {
+        if (focusRequested) {
+            try {
+                focusRequester.requestFocus()
+            } catch (ise: IllegalStateException) {
+                Log.w("horologist", "Focus Requestor not installed", ise)
+            }
+        }
     }
 
     internal enum class ScrollType {

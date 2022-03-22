@@ -46,7 +46,7 @@ fun VolumeScreenPreview() {
     val audioOutput = AudioOutput.BluetoothHeadset(id = 1, name = "EarBuds")
 
     VolumeScreen(
-        volume = volume,
+        volume = { volume },
         audioOutput = audioOutput,
         increaseVolume = { /*TODO*/ },
         decreaseVolume = { /*TODO*/ },

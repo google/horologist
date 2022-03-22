@@ -48,7 +48,8 @@ public fun VolumePositionIndicator(
     var isInitial by remember { mutableStateOf(true) }
 
     if (autoHide) {
-        LaunchedEffect(volumeState) {
+        val current = volumeState().current
+        LaunchedEffect(current) {
             if (isInitial) {
                 isInitial = false
             } else {

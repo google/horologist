@@ -41,6 +41,7 @@ import kotlinx.coroutines.delay
  */
 @Composable
 public fun VolumePositionIndicator(
+    modifier: Modifier = Modifier,
     volumeState: () -> VolumeState,
     autoHide: Boolean = true
 ) {
@@ -71,9 +72,9 @@ public fun VolumePositionIndicator(
             exit = fadeOut()
         ) {
             PositionIndicator(
+                modifier = modifier,
                 value = {
-                    val vs = volumeState()
-                    vs.current.toFloat()
+                    volumeState().current.toFloat()
                 },
                 range = volumeState().min.toFloat().rangeTo(
                     volumeState().max.toFloat()

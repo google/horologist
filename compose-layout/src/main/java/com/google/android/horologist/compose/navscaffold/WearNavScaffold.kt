@@ -63,7 +63,6 @@ public fun WearNavScaffold(
     startDestination: String,
     snackbar: @Composable () -> Unit = {},
     timeText: @Composable (Modifier) -> Unit = { NavTimeText(modifier = it) },
-    positionIndicator: @Composable (NavScaffoldViewModel) -> Unit = { NavPositionIndicator(it) },
     builder: NavGraphBuilder.() -> Unit,
 ) {
     val currentBackStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
@@ -116,7 +115,7 @@ public fun WearNavScaffold(
                 val mode = viewModel?.positionIndicatorMode
 
                 if (mode == NavScaffoldViewModel.PositionIndicatorMode.On) {
-                    positionIndicator(viewModel)
+                    NavPositionIndicator(viewModel)
                 }
             }
         },

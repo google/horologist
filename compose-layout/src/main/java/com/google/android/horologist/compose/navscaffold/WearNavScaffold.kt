@@ -21,10 +21,13 @@ import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
@@ -187,6 +190,8 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
         val scrollState = viewModel.initializeScalingLazyListState(scrollStateBuilder)
 
         content(ScaffoldContext(it, scrollState, viewModel))
+
+        it.resumeAsNeeded(viewModel)
     }
 }
 
@@ -208,6 +213,8 @@ public fun NavGraphBuilder.scrollStateComposable(
         val scrollState = viewModel.initializeScrollState(scrollStateBuilder)
 
         content(ScaffoldContext(it, scrollState, viewModel))
+
+        it.resumeAsNeeded(viewModel)
     }
 }
 
@@ -229,6 +236,8 @@ public fun NavGraphBuilder.lazyListComposable(
         val scrollState = viewModel.initializeLazyList(lazyListStateBuilder)
 
         content(ScaffoldContext(it, scrollState, viewModel))
+
+        it.resumeAsNeeded(viewModel)
     }
 }
 
@@ -247,5 +256,21 @@ public fun NavGraphBuilder.wearNavComposable(
         val viewModel: NavScaffoldViewModel = viewModel(factory = NavScaffoldViewModel.Factory)
 
         content(it, viewModel)
+
+        it.resumeAsNeeded(viewModel)
+    }
+}
+
+@Composable
+private fun NavBackStackEntry.resumeAsNeeded(
+    viewModel: NavScaffoldViewModel
+) {
+    // Wire up to NavBackStackEntry lifecycle
+    // events to make sure this composable handles
+    // events like scrolling.
+    LaunchedEffect(Unit) {
+        this@resumeAsNeeded.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+            viewModel.resumed()
+        }
     }
 }

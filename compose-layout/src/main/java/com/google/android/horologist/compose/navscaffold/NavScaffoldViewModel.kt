@@ -25,14 +25,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.focus.FocusRequester
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.VIEW_MODEL_STORE_OWNER_KEY
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.createSavedStateHandle
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
-import androidx.lifecycle.whenResumed
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.PositionIndicator
@@ -45,7 +41,6 @@ import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.Vi
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode.On
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode.WhenScrollable
 import com.google.android.horologist.compose.navscaffold.util.saveable
-import kotlinx.coroutines.launch
 
 /**
  * A ViewModel that backs the WearNavScaffold to allow each composable to interact and effect
@@ -56,20 +51,11 @@ import kotlinx.coroutines.launch
  */
 public open class NavScaffoldViewModel(
     private val savedStateHandle: SavedStateHandle,
-    private val owner: NavBackStackEntry,
 ) : ViewModel() {
     internal var initialIndex: Int? = null
     internal var scrollType by mutableStateOf<ScrollType?>(null)
 
     private lateinit var _scrollableState: ScrollableState
-
-    init {
-        viewModelScope.launch {
-            owner.whenResumed {
-                requestFocus()
-            }
-        }
-    }
 
     /**
      * Returns the scrollable state for this composable or null if the scaffold should
@@ -170,7 +156,7 @@ public open class NavScaffoldViewModel(
         return _scrollableState as LazyListState
     }
 
-    public fun requestFocus() {
+    public fun resumed() {
         if (focusRequested) {
             try {
                 focusRequester.requestFocus()
@@ -215,10 +201,8 @@ public open class NavScaffoldViewModel(
         override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
             check(modelClass == NavScaffoldViewModel::class.java)
 
-            val owner = extras[VIEW_MODEL_STORE_OWNER_KEY] as NavBackStackEntry
-
             val savedStateHandle = extras.createSavedStateHandle()
-            return NavScaffoldViewModel(savedStateHandle, owner) as T
+            return NavScaffoldViewModel(savedStateHandle) as T
         }
     }
 }

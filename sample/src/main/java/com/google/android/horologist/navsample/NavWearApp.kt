@@ -21,13 +21,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.focus.FocusRequester
+import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.VignettePosition
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.navigation.composable
-import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.audioui.VolumeScreen
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
@@ -36,19 +36,17 @@ import com.google.android.horologist.compose.navscaffold.scrollStateComposable
 import com.google.android.horologist.compose.navscaffold.wearNavComposable
 
 @Composable
-fun NavWearApp() {
-    val swipeDismissableNavController = rememberSwipeDismissableNavController()
-
+fun NavWearApp(navController: NavHostController) {
     WearNavScaffold(
         startDestination = NavScreen.Menu.route,
-        navController = swipeDismissableNavController
+        navController = navController
     ) {
         scalingLazyColumnComposable(
             NavScreen.Menu.route,
             scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 0) }
         ) {
             NavMenuScreen(
-                navigateToRoute = { route -> swipeDismissableNavController.navigate(route) },
+                navigateToRoute = { route -> navController.navigate(route) },
                 scrollState = it.scrollableState,
                 focusRequester = it.viewModel.focusRequester
             )

@@ -99,6 +99,9 @@ dependencies {
     debugImplementation libs.compose.ui.toolingpreview
     debugImplementation libs.androidx.activity.compose
 
+    implementation libs.androidx.navigation.compose
+    implementation libs.androidx.navigation.ui.ktx
+
     androidTestImplementation libs.compose.ui.test.junit4
     debugImplementation libs.compose.ui.test.manifest
     androidTestImplementation libs.espresso.core

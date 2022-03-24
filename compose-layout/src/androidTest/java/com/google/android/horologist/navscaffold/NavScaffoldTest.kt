@@ -63,6 +63,7 @@ class NavScaffoldTest {
                                 it.viewModel.focusRequester,
                                 it.scrollableState
                             )
+                            .fillMaxSize()
                             .testTag("columna"),
                         state = it.scrollableState,
                         horizontalAlignment = Alignment.CenterHorizontally,

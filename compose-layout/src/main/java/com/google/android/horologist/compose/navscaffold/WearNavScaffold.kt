@@ -21,7 +21,6 @@ import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
@@ -63,7 +62,11 @@ public fun WearNavScaffold(
     builder: NavGraphBuilder.() -> Unit,
 ) {
     val currentBackStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
-    val viewModel: NavScaffoldViewModel? = currentBackStackEntry?.let { viewModel(it) }
+
+    val viewModel: NavScaffoldViewModel? = currentBackStackEntry?.let { viewModel(
+        viewModelStoreOwner = it,
+        factory = NavScaffoldViewModel.Factory
+    ) }
 
     Scaffold(
         timeText = {
@@ -182,10 +185,6 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
         val scrollState = viewModel.initializeScalingLazyListState(scrollStateBuilder)
 
         content(ScaffoldContext(it, scrollState, viewModel))
-
-        LaunchedEffect(Unit) {
-            viewModel.requestFocus()
-        }
     }
 }
 
@@ -207,10 +206,6 @@ public fun NavGraphBuilder.scrollStateComposable(
         val scrollState = viewModel.initializeScrollState(scrollStateBuilder)
 
         content(ScaffoldContext(it, scrollState, viewModel))
-
-        LaunchedEffect(Unit) {
-            viewModel.requestFocus()
-        }
     }
 }
 
@@ -232,10 +227,6 @@ public fun NavGraphBuilder.lazyListComposable(
         val scrollState = viewModel.initializeLazyList(lazyListStateBuilder)
 
         content(ScaffoldContext(it, scrollState, viewModel))
-
-        LaunchedEffect(Unit) {
-            viewModel.requestFocus()
-        }
     }
 }
 
@@ -251,7 +242,7 @@ public fun NavGraphBuilder.wearNavComposable(
     content: @Composable (NavBackStackEntry, NavScaffoldViewModel) -> Unit
 ) {
     composable(route, arguments, deepLinks) {
-        val viewModel: NavScaffoldViewModel = viewModel(it)
+        val viewModel: NavScaffoldViewModel = viewModel(factory = NavScaffoldViewModel.Factory)
 
         content(it, viewModel)
     }

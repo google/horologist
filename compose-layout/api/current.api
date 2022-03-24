@@ -13,7 +13,7 @@ package com.google.android.horologist.compose.layout {
 package com.google.android.horologist.compose.navscaffold {
 
   public class NavScaffoldViewModel extends androidx.lifecycle.ViewModel {
-    ctor public NavScaffoldViewModel(androidx.lifecycle.SavedStateHandle savedStateHandle);
+    ctor public NavScaffoldViewModel(androidx.lifecycle.SavedStateHandle savedStateHandle, androidx.navigation.NavBackStackEntry owner);
     method public final androidx.compose.ui.focus.FocusRequester getFocusRequester();
     method public final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode getPositionIndicatorMode();
     method public final androidx.compose.foundation.gestures.ScrollableState? getScrollableState();
@@ -28,6 +28,10 @@ package com.google.android.horologist.compose.navscaffold {
     property public final androidx.compose.foundation.gestures.ScrollableState? scrollableState;
     property public final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode timeTextMode;
     property public final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode vignettePosition;
+  }
+
+  public static final class NavScaffoldViewModel.Factory implements androidx.lifecycle.ViewModelProvider.Factory {
+    field public static final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.Factory INSTANCE;
   }
 
   public enum NavScaffoldViewModel.PositionIndicatorMode {

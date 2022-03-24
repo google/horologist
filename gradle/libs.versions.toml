@@ -18,7 +18,7 @@ kotlinxCoroutine = "1.6.0"
 ktlint = "0.42.1"
 metalava = "0.2.1"
 truth = "1.1.3"
-wearcompose = "1.0.0-alpha18"
+wearcompose = "1.0.0-alpha19"
 
 [libraries]
 affectedmoduledetector = { module = "com.dropbox.affectedmoduledetector:affectedmoduledetector", version.ref = "affectedmoduledetector" }

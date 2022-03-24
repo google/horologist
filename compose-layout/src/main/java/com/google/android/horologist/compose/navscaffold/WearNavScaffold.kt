@@ -63,10 +63,12 @@ public fun WearNavScaffold(
 ) {
     val currentBackStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
 
-    val viewModel: NavScaffoldViewModel? = currentBackStackEntry?.let { viewModel(
-        viewModelStoreOwner = it,
-        factory = NavScaffoldViewModel.Factory
-    ) }
+    val viewModel: NavScaffoldViewModel? = currentBackStackEntry?.let {
+        viewModel(
+            viewModelStoreOwner = it,
+            factory = NavScaffoldViewModel.Factory
+        )
+    }
 
     Scaffold(
         timeText = {

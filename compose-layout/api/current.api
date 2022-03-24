@@ -13,13 +13,13 @@ package com.google.android.horologist.compose.layout {
 package com.google.android.horologist.compose.navscaffold {
 
   public class NavScaffoldViewModel extends androidx.lifecycle.ViewModel {
-    ctor public NavScaffoldViewModel(androidx.lifecycle.SavedStateHandle savedStateHandle, androidx.navigation.NavBackStackEntry owner);
+    ctor public NavScaffoldViewModel(androidx.lifecycle.SavedStateHandle savedStateHandle);
     method public final androidx.compose.ui.focus.FocusRequester getFocusRequester();
     method public final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode getPositionIndicatorMode();
     method public final androidx.compose.foundation.gestures.ScrollableState? getScrollableState();
     method public final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode getTimeTextMode();
     method public final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode getVignettePosition();
-    method public final void requestFocus();
+    method public final void resumed();
     method public final void setPositionIndicatorMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode positionIndicatorMode);
     method public final void setTimeTextMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode timeTextMode);
     method public final void setVignettePosition(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode vignettePosition);

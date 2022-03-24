@@ -107,7 +107,9 @@ public fun WearNavScaffold(
                                     }
                                 )
                             }
-                            else -> {}
+                            else -> {
+                                timeText(Modifier)
+                            }
                         }
                     }
                     NavScaffoldViewModel.TimeTextMode.On -> {
@@ -209,7 +211,7 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
 
         content(ScaffoldContext(it, scrollState, viewModel))
 
-        it.resumeAsNeeded(viewModel)
+        it.ResumeAsNeeded(viewModel)
     }
 }
 
@@ -232,7 +234,7 @@ public fun NavGraphBuilder.scrollStateComposable(
 
         content(ScaffoldContext(it, scrollState, viewModel))
 
-        it.resumeAsNeeded(viewModel)
+        it.ResumeAsNeeded(viewModel)
     }
 }
 
@@ -255,7 +257,7 @@ public fun NavGraphBuilder.lazyListComposable(
 
         content(ScaffoldContext(it, scrollState, viewModel))
 
-        it.resumeAsNeeded(viewModel)
+        it.ResumeAsNeeded(viewModel)
     }
 }
 
@@ -275,19 +277,19 @@ public fun NavGraphBuilder.wearNavComposable(
 
         content(it, viewModel)
 
-        it.resumeAsNeeded(viewModel)
+        it.ResumeAsNeeded(viewModel)
     }
 }
 
 @Composable
-private fun NavBackStackEntry.resumeAsNeeded(
+private fun NavBackStackEntry.ResumeAsNeeded(
     viewModel: NavScaffoldViewModel
 ) {
     // Wire up to NavBackStackEntry lifecycle
     // events to make sure this composable handles
     // events like scrolling.
     LaunchedEffect(Unit) {
-        this@resumeAsNeeded.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+        this@ResumeAsNeeded.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
             viewModel.resumed()
         }
     }

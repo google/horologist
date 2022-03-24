@@ -19,7 +19,6 @@ package com.google.android.horologist.audioui
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -27,7 +26,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
 import androidx.wear.compose.material.PositionIndicator
 import com.google.android.horologist.audio.VolumeState
 import kotlinx.coroutines.delay
@@ -41,14 +39,16 @@ import kotlinx.coroutines.delay
  */
 @Composable
 public fun VolumePositionIndicator(
-    volumeState: VolumeState,
+    volumeState: () -> VolumeState,
+    modifier: Modifier = Modifier,
     autoHide: Boolean = true
 ) {
     var actuallyVisible by remember { mutableStateOf(!autoHide) }
     var isInitial by remember { mutableStateOf(true) }
 
     if (autoHide) {
-        LaunchedEffect(volumeState) {
+        val current = volumeState().current
+        LaunchedEffect(current) {
             if (isInitial) {
                 isInitial = false
             } else {
@@ -59,23 +59,19 @@ public fun VolumePositionIndicator(
         }
     }
 
-    // Position Indicator is hardcoded to right side,
-    // so workaround it.
-    Box(
-        modifier = Modifier.rotate(180f)
+    AnimatedVisibility(
+        visible = actuallyVisible,
+        enter = fadeIn(),
+        exit = fadeOut()
     ) {
-        AnimatedVisibility(
-            visible = actuallyVisible,
-            enter = fadeIn(),
-            exit = fadeOut()
-        ) {
-            PositionIndicator(
-                value = { volumeState.current.toFloat() },
-                range = volumeState.min.toFloat().rangeTo(
-                    volumeState.max.toFloat()
-                ),
-                reverseDirection = true
-            )
-        }
+        PositionIndicator(
+            modifier = modifier,
+            value = {
+                volumeState().current.toFloat()
+            },
+            range = volumeState().min.toFloat().rangeTo(
+                volumeState().max.toFloat()
+            ),
+        )
     }
 }

@@ -46,7 +46,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material.ButtonDefaults
@@ -74,11 +73,7 @@ import kotlinx.coroutines.launch
 @Composable
 public fun VolumeScreen(
     modifier: Modifier = Modifier,
-    volumeViewModel: VolumeViewModel = viewModel(
-        factory = VolumeViewModel.systemFactory(
-            LocalContext.current.applicationContext
-        )
-    ),
+    volumeViewModel: VolumeViewModel = viewModel(factory = VolumeViewModel.Factory),
     showVolumeIndicator: Boolean = true,
     focusRequester: FocusRequester = remember { FocusRequester() }
 ) {
@@ -87,7 +82,7 @@ public fun VolumeScreen(
 
     VolumeScreen(
         modifier = modifier,
-        volume = volumeState,
+        volume = { volumeState },
         audioOutput = audioOutput,
         increaseVolume = { volumeViewModel.increaseVolume() },
         decreaseVolume = { volumeViewModel.decreaseVolume() },
@@ -101,7 +96,7 @@ public fun VolumeScreen(
 @Composable
 internal fun VolumeScreen(
     modifier: Modifier = Modifier,
-    volume: VolumeState,
+    volume: () -> VolumeState,
     audioOutput: AudioOutput,
     increaseVolume: () -> Unit,
     decreaseVolume: () -> Unit,
@@ -110,7 +105,6 @@ internal fun VolumeScreen(
     focusRequester: FocusRequester = remember { FocusRequester() },
     scrollableState: ScrollableState? = null
 ) {
-
     Box(
         modifier = modifier.fillMaxSize().run {
             if (scrollableState != null) {
@@ -131,10 +125,10 @@ internal fun VolumeScreen(
     ) {
         Stepper(
             modifier = modifier,
-            value = volume.current.toFloat(),
-            onValueChange = { if (it > volume.current) increaseVolume() else decreaseVolume() },
-            steps = volume.max - 1,
-            valueRange = (0f..volume.max.toFloat()),
+            value = volume().current.toFloat(),
+            onValueChange = { if (it > volume().current) increaseVolume() else decreaseVolume() },
+            steps = volume().max - 1,
+            valueRange = (0f..volume().max.toFloat()),
             increaseIcon = {
                 Icon(
                     modifier = Modifier

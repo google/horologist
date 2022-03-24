@@ -43,3 +43,4 @@ site
 *.bak
 checksum.txt
 
+/localbin/

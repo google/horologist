@@ -19,6 +19,7 @@ package com.google.android.horologist.compose.navscaffold {
     method public final androidx.compose.foundation.gestures.ScrollableState? getScrollableState();
     method public final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode getTimeTextMode();
     method public final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode getVignettePosition();
+    method public final void resumed();
     method public final void setPositionIndicatorMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode positionIndicatorMode);
     method public final void setTimeTextMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode timeTextMode);
     method public final void setVignettePosition(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode vignettePosition);
@@ -27,6 +28,10 @@ package com.google.android.horologist.compose.navscaffold {
     property public final androidx.compose.foundation.gestures.ScrollableState? scrollableState;
     property public final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode timeTextMode;
     property public final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode vignettePosition;
+  }
+
+  public static final class NavScaffoldViewModel.Factory implements androidx.lifecycle.ViewModelProvider.Factory {
+    field public static final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.Factory INSTANCE;
   }
 
   public enum NavScaffoldViewModel.PositionIndicatorMode {

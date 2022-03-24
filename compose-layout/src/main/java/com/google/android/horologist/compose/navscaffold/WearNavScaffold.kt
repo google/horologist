@@ -27,6 +27,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
@@ -66,7 +68,13 @@ public fun WearNavScaffold(
     builder: NavGraphBuilder.() -> Unit,
 ) {
     val currentBackStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
-    val viewModel: NavScaffoldViewModel? = currentBackStackEntry?.let { viewModel(it) }
+
+    val viewModel: NavScaffoldViewModel? = currentBackStackEntry?.let {
+        viewModel(
+            viewModelStoreOwner = it,
+            factory = NavScaffoldViewModel.Factory
+        )
+    }
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -201,11 +209,7 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
 
         content(ScaffoldContext(it, scrollState, viewModel))
 
-        if (viewModel.focusRequested) {
-            LaunchedEffect(Unit) {
-                viewModel.focusRequester.requestFocus()
-            }
-        }
+        it.resumeAsNeeded(viewModel)
     }
 }
 
@@ -228,11 +232,7 @@ public fun NavGraphBuilder.scrollStateComposable(
 
         content(ScaffoldContext(it, scrollState, viewModel))
 
-        if (viewModel.focusRequested) {
-            LaunchedEffect(Unit) {
-                viewModel.focusRequester.requestFocus()
-            }
-        }
+        it.resumeAsNeeded(viewModel)
     }
 }
 
@@ -255,11 +255,7 @@ public fun NavGraphBuilder.lazyListComposable(
 
         content(ScaffoldContext(it, scrollState, viewModel))
 
-        if (viewModel.focusRequested) {
-            LaunchedEffect(Unit) {
-                viewModel.focusRequester.requestFocus()
-            }
-        }
+        it.resumeAsNeeded(viewModel)
     }
 }
 
@@ -275,8 +271,24 @@ public fun NavGraphBuilder.wearNavComposable(
     content: @Composable (NavBackStackEntry, NavScaffoldViewModel) -> Unit
 ) {
     composable(route, arguments, deepLinks) {
-        val viewModel: NavScaffoldViewModel = viewModel(it)
+        val viewModel: NavScaffoldViewModel = viewModel(factory = NavScaffoldViewModel.Factory)
 
         content(it, viewModel)
+
+        it.resumeAsNeeded(viewModel)
+    }
+}
+
+@Composable
+private fun NavBackStackEntry.resumeAsNeeded(
+    viewModel: NavScaffoldViewModel
+) {
+    // Wire up to NavBackStackEntry lifecycle
+    // events to make sure this composable handles
+    // events like scrolling.
+    LaunchedEffect(Unit) {
+        this@resumeAsNeeded.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+            viewModel.resumed()
+        }
     }
 }

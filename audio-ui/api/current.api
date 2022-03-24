@@ -2,7 +2,7 @@
 package com.google.android.horologist.audioui {
 
   public final class VolumePositionIndicatorKt {
-    method @androidx.compose.runtime.Composable public static void VolumePositionIndicator(com.google.android.horologist.audio.VolumeState volumeState, optional boolean autoHide);
+    method @androidx.compose.runtime.Composable public static void VolumePositionIndicator(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.VolumeState> volumeState, optional androidx.compose.ui.Modifier modifier, optional boolean autoHide);
   }
 
   public final class VolumeScreenKt {
@@ -28,11 +28,10 @@ package com.google.android.horologist.audioui {
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> audioOutput;
     property public final com.google.android.horologist.audioui.VolumeScrollableState volumeScrollableState;
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.VolumeState> volumeState;
-    field public static final com.google.android.horologist.audioui.VolumeViewModel.Companion Companion;
   }
 
-  public static final class VolumeViewModel.Companion {
-    method public androidx.lifecycle.ViewModelProvider.Factory systemFactory(android.content.Context application);
+  public static final class VolumeViewModel.Factory implements androidx.lifecycle.ViewModelProvider.Factory {
+    field public static final com.google.android.horologist.audioui.VolumeViewModel.Factory INSTANCE;
   }
 
 }

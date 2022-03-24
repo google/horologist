@@ -96,4 +96,10 @@ dependencies {
     implementation libs.androidx.wear.tiles
 
     implementation libs.kotlin.stdlib
+
+    androidTestImplementation libs.compose.ui.test.junit4
+    androidTestImplementation libs.espresso.core
+    androidTestImplementation libs.junit
+    androidTestImplementation "androidx.test.ext:junit:1.1.3"
+    androidTestImplementation "androidx.test.ext:junit-ktx:1.1.3"
 }

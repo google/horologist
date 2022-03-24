@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.compose.navscaffold
 
+import android.util.Log
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.lazy.LazyListState
@@ -25,6 +26,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.focus.FocusRequester
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
+import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.PositionIndicator
@@ -46,7 +50,7 @@ import com.google.android.horologist.compose.navscaffold.util.saveable
  * and the composable screen via [NavHostController.currentBackStackEntry].
  */
 public open class NavScaffoldViewModel(
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     internal var initialIndex: Int? = null
     internal var scrollType by mutableStateOf<ScrollType?>(null)
@@ -152,6 +156,16 @@ public open class NavScaffoldViewModel(
         return _scrollableState as LazyListState
     }
 
+    public fun resumed() {
+        if (focusRequested) {
+            try {
+                focusRequester.requestFocus()
+            } catch (ise: IllegalStateException) {
+                Log.w("horologist", "Focus Requestor not installed", ise)
+            }
+        }
+    }
+
     internal enum class ScrollType {
         None, ScalingLazyColumn, ScrollState, LazyList
     }
@@ -180,5 +194,15 @@ public open class NavScaffoldViewModel(
         public object WhenScrollable : VignetteMode
         public object Off : VignetteMode
         public data class On(val position: VignettePosition) : VignetteMode
+    }
+
+    public object Factory : ViewModelProvider.Factory {
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+            check(modelClass == NavScaffoldViewModel::class.java)
+
+            val savedStateHandle = extras.createSavedStateHandle()
+            return NavScaffoldViewModel(savedStateHandle) as T
+        }
     }
 }

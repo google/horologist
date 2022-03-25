@@ -19,6 +19,7 @@ package com.google.android.horologist.compose.navscaffold
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -59,9 +60,11 @@ import com.google.android.horologist.compose.layout.fadeAwayScalingLazyList
  */
 @Composable
 public fun WearNavScaffold(
+    modifier: Modifier = Modifier,
     navController: NavHostController = rememberSwipeDismissableNavController(),
     startDestination: String,
     snackbar: @Composable () -> Unit = {},
+    timeText: @Composable (Modifier) -> Unit = { NavTimeText(modifier = it) },
     builder: NavGraphBuilder.() -> Unit,
 ) {
     val currentBackStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
@@ -74,38 +77,43 @@ public fun WearNavScaffold(
     }
 
     Scaffold(
+        modifier = modifier.fillMaxSize(),
         timeText = {
             key(currentBackStackEntry?.destination?.route) {
                 when (viewModel?.timeTextMode) {
                     NavScaffoldViewModel.TimeTextMode.FadeAway -> {
                         when (viewModel.scrollType) {
-                            NavScaffoldViewModel.ScrollType.ScrollState ->
-                                TimeText(
-                                    modifier = Modifier.fadeAway {
+                            NavScaffoldViewModel.ScrollType.ScrollState -> {
+                                timeText(
+                                    Modifier.fadeAway {
                                         viewModel.scrollableState as ScrollState
                                     }
                                 )
+                            }
                             NavScaffoldViewModel.ScrollType.ScalingLazyColumn -> {
                                 val scalingLazyListState =
                                     viewModel.scrollableState as ScalingLazyListState
 
-                                TimeText(
-                                    modifier = Modifier.fadeAwayScalingLazyList(viewModel.initialIndex!!) {
+                                timeText(
+                                    Modifier.fadeAwayScalingLazyList(viewModel.initialIndex!!) {
                                         scalingLazyListState
                                     }
                                 )
                             }
-                            NavScaffoldViewModel.ScrollType.LazyList ->
-                                TimeText(
-                                    modifier = Modifier.fadeAwayLazyList {
+                            NavScaffoldViewModel.ScrollType.LazyList -> {
+                                timeText(
+                                    Modifier.fadeAwayLazyList {
                                         viewModel.scrollableState as LazyListState
                                     }
                                 )
-                            else -> {}
+                            }
+                            else -> {
+                                timeText(Modifier)
+                            }
                         }
                     }
                     NavScaffoldViewModel.TimeTextMode.On -> {
-                        TimeText()
+                        timeText(Modifier)
                     }
                     else -> {
                     }
@@ -117,25 +125,7 @@ public fun WearNavScaffold(
                 val mode = viewModel?.positionIndicatorMode
 
                 if (mode == NavScaffoldViewModel.PositionIndicatorMode.On) {
-                    when (viewModel.scrollType) {
-                        NavScaffoldViewModel.ScrollType.ScrollState ->
-                            PositionIndicator(
-                                scrollState = viewModel.scrollableState as ScrollState
-                            )
-                        NavScaffoldViewModel.ScrollType.ScalingLazyColumn -> {
-                            val scalingLazyListState =
-                                viewModel.scrollableState as ScalingLazyListState
-
-                            PositionIndicator(
-                                scalingLazyListState = scalingLazyListState
-                            )
-                        }
-                        NavScaffoldViewModel.ScrollType.LazyList ->
-                            PositionIndicator(
-                                lazyListState = viewModel.scrollableState as LazyListState
-                            )
-                        else -> {}
-                    }
+                    NavPositionIndicator(viewModel)
                 }
             }
         },
@@ -158,6 +148,33 @@ public fun WearNavScaffold(
 
             snackbar()
         }
+    }
+}
+
+@Composable
+private fun NavTimeText(modifier: Modifier) {
+    TimeText(
+        modifier = modifier
+    )
+}
+
+@Composable
+private fun NavPositionIndicator(viewModel: NavScaffoldViewModel) {
+    when (viewModel.scrollType) {
+        NavScaffoldViewModel.ScrollType.ScrollState ->
+            PositionIndicator(
+                scrollState = viewModel.scrollableState as ScrollState
+            )
+        NavScaffoldViewModel.ScrollType.ScalingLazyColumn -> {
+            PositionIndicator(
+                scalingLazyListState = viewModel.scrollableState as ScalingLazyListState
+            )
+        }
+        NavScaffoldViewModel.ScrollType.LazyList ->
+            PositionIndicator(
+                lazyListState = viewModel.scrollableState as LazyListState
+            )
+        else -> {}
     }
 }
 
@@ -191,7 +208,7 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
 
         content(ScaffoldContext(it, scrollState, viewModel))
 
-        it.resumeAsNeeded(viewModel)
+        it.ResumeAsNeeded(viewModel)
     }
 }
 
@@ -214,7 +231,7 @@ public fun NavGraphBuilder.scrollStateComposable(
 
         content(ScaffoldContext(it, scrollState, viewModel))
 
-        it.resumeAsNeeded(viewModel)
+        it.ResumeAsNeeded(viewModel)
     }
 }
 
@@ -237,7 +254,7 @@ public fun NavGraphBuilder.lazyListComposable(
 
         content(ScaffoldContext(it, scrollState, viewModel))
 
-        it.resumeAsNeeded(viewModel)
+        it.ResumeAsNeeded(viewModel)
     }
 }
 
@@ -257,19 +274,19 @@ public fun NavGraphBuilder.wearNavComposable(
 
         content(it, viewModel)
 
-        it.resumeAsNeeded(viewModel)
+        it.ResumeAsNeeded(viewModel)
     }
 }
 
 @Composable
-private fun NavBackStackEntry.resumeAsNeeded(
+private fun NavBackStackEntry.ResumeAsNeeded(
     viewModel: NavScaffoldViewModel
 ) {
     // Wire up to NavBackStackEntry lifecycle
     // events to make sure this composable handles
     // events like scrolling.
     LaunchedEffect(Unit) {
-        this@resumeAsNeeded.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+        this@ResumeAsNeeded.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
             viewModel.resumed()
         }
     }

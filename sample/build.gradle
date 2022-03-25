@@ -38,6 +38,8 @@ android {
             manifestPlaceholders.schemeSuffix = "-debug"
         }
         release {
+            isDefault = true
+
             manifestPlaceholders.schemeSuffix = ""
 
             minifyEnabled true
@@ -98,6 +100,6 @@ dependencies {
     androidTestImplementation libs.compose.ui.test.junit4
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.junit
-    androidTestImplementation "androidx.test.ext:junit:1.1.3"
-    androidTestImplementation "androidx.test.ext:junit-ktx:1.1.3"
+    androidTestImplementation libs.androidx.test.ext
+    androidTestImplementation libs.androidx.test.ext.ktx
 }

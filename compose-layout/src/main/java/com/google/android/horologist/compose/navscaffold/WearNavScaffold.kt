@@ -60,9 +60,9 @@ import com.google.android.horologist.compose.layout.fadeAwayScalingLazyList
  */
 @Composable
 public fun WearNavScaffold(
+    startDestination: String,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberSwipeDismissableNavController(),
-    startDestination: String,
     snackbar: @Composable () -> Unit = {},
     timeText: @Composable (Modifier) -> Unit = { NavTimeText(modifier = it) },
     builder: NavGraphBuilder.() -> Unit,

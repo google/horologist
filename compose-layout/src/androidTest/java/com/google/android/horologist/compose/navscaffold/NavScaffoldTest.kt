@@ -29,6 +29,7 @@ import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.lifecycle.ViewModelProvider
@@ -163,6 +164,7 @@ class NavScaffoldTest {
                         modifier = Modifier
                             .testTag("columnb")
                             .fillMaxSize()
+                            .scrollableColumn(it.viewModel.focusRequester, it.scrollableState)
                             .verticalScroll(it.scrollableState)
                     ) {
                         (1..100).forEach { i ->
@@ -176,7 +178,7 @@ class NavScaffoldTest {
         val columnA = composeTestRule.onNodeWithTag("columna")
         val columnB = composeTestRule.onNodeWithTag("columnb")
 
-        columnA.assertIsDisplayed()
+        columnA.assertIsDisplayed().assertIsFocused()
         columnB.assertDoesNotExist()
 
         composeTestRule.runOnUiThread {
@@ -185,7 +187,15 @@ class NavScaffoldTest {
         composeTestRule.waitForIdle()
 
         columnA.assertDoesNotExist()
-        columnB.assertIsDisplayed()
+        columnB.assertIsDisplayed().assertIsFocused()
+
+        composeTestRule.runOnUiThread {
+            navController.popBackStack()
+        }
+        composeTestRule.waitForIdle()
+
+        columnA.assertIsDisplayed().assertIsFocused()
+        columnB.assertDoesNotExist()
     }
 
     @Test

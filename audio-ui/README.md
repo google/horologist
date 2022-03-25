@@ -4,6 +4,13 @@
 
 For more information, visit the documentation: https://google.github.io/horologist/compose-layout
 
+A volume screen, showing the current audio output (headphones, speakers) and
+allowing to change the button with a stepper or bezel.
+
+```kotlin
+VolumeScreen(focusRequester = focusRequester)
+```
+
 ## Download
 
 ```groovy
@@ -18,4 +25,4 @@ dependencies {
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap]. These are updated on every commit.
 
-  [snap]: https://oss.sonatype.org/content/repositories/snapshots/com/google/horologist/horologist-audio-ui/
+  [snap]: https://oss.sonatype.org/content/repositories/snapshots/com/google/android/horologist/horologist-audio-ui/

@@ -4,6 +4,24 @@
 
 For more information, visit the documentation: https://google.github.io/horologist/audio
 
+Domain model for Volume and Audio Output.
+
+```kotlin
+val volumeRepository = SystemVolumeRepository.fromContext(application)
+val audioOutputRepository = SystemAudioOutputRepository.fromContext(application)
+
+volumeRepository.increaseVolume()
+
+val volumeState: StateFlow<VolumeState> = volumeRepository.volumeState
+
+val audioOutput: StateFlow<AudioOutput> = audioOutputRepository.audioOutput
+
+val output = audioOutput.value
+if (output is AudioOutput.BluetoothHeadset) {
+  println(output.name)
+}
+```
+
 ## Download
 
 ```groovy
@@ -18,4 +36,4 @@ dependencies {
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap]. These are updated on every commit.
 
-  [snap]: https://oss.sonatype.org/content/repositories/snapshots/com/google/horologist/horologist-audio/
+  [snap]: https://oss.sonatype.org/content/repositories/snapshots/com/google/android/horologist/horologist-audio/

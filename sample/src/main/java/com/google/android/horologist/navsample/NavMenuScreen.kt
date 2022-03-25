@@ -60,7 +60,7 @@ fun NavMenuScreen(
         item {
             SampleChip(
                 onClick = { navigateToRoute(NavScreen.Pager.route) },
-                label = "Pager (TODO)"
+                label = "Pager"
             )
         }
         item {

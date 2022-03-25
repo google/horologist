@@ -46,7 +46,8 @@ android {
         freeCompilerArgs += "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi"
         freeCompilerArgs += "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi"
         freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
-        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+        freeCompilerArgs += "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
+        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
     }
 
     composeOptions {
@@ -89,9 +90,11 @@ android {
 dependencies {
     implementation libs.kotlin.stdlib
 
-    implementation libs.wearcompose.material
-    implementation libs.wearcompose.foundation
-    implementation libs.wearcompose.navigation
+    api libs.wearcompose.material
+    api libs.wearcompose.foundation
+    api libs.wearcompose.navigation
+
+    api "com.google.accompanist:accompanist-pager:0.24.5-alpha"
 
     implementation libs.compose.ui.tooling
     implementation libs.compose.ui.util

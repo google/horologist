@@ -211,7 +211,8 @@ class NavScaffoldTest {
                                         .testTag("timeText")
                                         .onGloballyPositioned {
                                             bounds = it.boundsInWindow()
-                                        }, text = "\uD83D\uDD23"
+                                        },
+                                    text = "\uD83D\uDD23"
                                 )
                             }
                         },
@@ -221,7 +222,8 @@ class NavScaffoldTest {
                                     .testTag("timeText")
                                     .onGloballyPositioned {
                                         bounds = it.boundsInWindow()
-                                    }, text = "\uD83D\uDD23"
+                                    },
+                                text = "\uD83D\uDD23"
                             )
                         }
                     )

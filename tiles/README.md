@@ -9,7 +9,9 @@ Provides a CoroutinesTileService, which also acts as a LifecycleService.
 ```kotlin
 class ExampleTileService : CoroutinesTileService() {
     override suspend fun tileRequest(requestParams: RequestBuilders.TileRequest): Tile {
-        return Tile.Builder().build()
+        return Tile.Builder()
+            // create your tile here
+            .build()
     }
 
     override suspend fun resourcesRequest(
@@ -33,4 +35,4 @@ dependencies {
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
 These are updated on every commit.
 
-[snap]: https://oss.sonatype.org/content/repositories/snapshots/com/google/horologist/horologist-tiles/
+  [snap]: https://oss.sonatype.org/content/repositories/snapshots/com/google/android/horologist/horologist-tiles/

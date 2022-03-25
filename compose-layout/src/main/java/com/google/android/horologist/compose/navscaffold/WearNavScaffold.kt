@@ -166,11 +166,8 @@ private fun NavPositionIndicator(viewModel: NavScaffoldViewModel) {
                 scrollState = viewModel.scrollableState as ScrollState
             )
         NavScaffoldViewModel.ScrollType.ScalingLazyColumn -> {
-            val scalingLazyListState =
-                viewModel.scrollableState as ScalingLazyListState
-
             PositionIndicator(
-                scalingLazyListState = scalingLazyListState
+                scalingLazyListState = viewModel.scrollableState as ScalingLazyListState
             )
         }
         NavScaffoldViewModel.ScrollType.LazyList ->

@@ -99,3 +99,38 @@ package com.google.android.horologist.compose.navscaffold.util {
 
 }
 
+package com.google.android.horologist.compose.pager {
+
+  public final class PageScreenIndicatorState implements androidx.wear.compose.material.PageIndicatorState {
+    ctor public PageScreenIndicatorState(com.google.accompanist.pager.PagerState state);
+    method public int getPageCount();
+    method public float getPageOffset();
+    method public int getSelectedPage();
+    method public com.google.accompanist.pager.PagerState getState();
+    property public int pageCount;
+    property public float pageOffset;
+    property public int selectedPage;
+    property public final com.google.accompanist.pager.PagerState state;
+  }
+
+  public final class PagerScreenKt {
+    method @androidx.compose.runtime.Composable public static void PagerScreen(int count, optional androidx.compose.ui.Modifier modifier, optional com.google.accompanist.pager.PagerState state, kotlin.jvm.functions.Function2<? super com.google.accompanist.pager.PagerScope,? super java.lang.Integer,kotlin.Unit> content);
+  }
+
+  public interface PagerScreenScope extends androidx.lifecycle.LifecycleOwner com.google.accompanist.pager.PagerScope {
+  }
+
+  public final class PagerScreenScopeImpl implements com.google.android.horologist.compose.pager.PagerScreenScope {
+    ctor public PagerScreenScopeImpl(com.google.accompanist.pager.PagerScope scope);
+    method public int getCurrentPage();
+    method public float getCurrentPageOffset();
+    method public androidx.lifecycle.Lifecycle getLifecycle();
+    method public androidx.lifecycle.LifecycleRegistry getLifecycleRegistry();
+    method public void setLifecycleRegistry(androidx.lifecycle.LifecycleRegistry lifecycleRegistry);
+    property public int currentPage;
+    property public float currentPageOffset;
+    property public final androidx.lifecycle.LifecycleRegistry lifecycleRegistry;
+  }
+
+}
+

@@ -19,29 +19,34 @@ package com.google.android.horologist.compose.pager
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
+import androidx.lifecycle.lifecycleScope
 import androidx.wear.compose.material.HorizontalPageIndicator
 import androidx.wear.compose.material.PageIndicatorState
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerScope
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
+import kotlinx.coroutines.launch
 
 @Composable
 fun PagerScreen(
     count: Int,
     modifier: Modifier = Modifier,
     state: PagerState = rememberPagerState(),
-    content: @Composable (PagerScreenScope.(Int) -> Unit)
+    content: @Composable (PagerScope.(Int) -> Unit)
 ) {
+    val coroutineScope = LocalLifecycleOwner.current.lifecycleScope
     val scopes = remember(Unit) {
         mutableMapOf<Int, PagerScreenScopeImpl>()
     }
@@ -51,15 +56,22 @@ fun PagerScreen(
             val scope = PagerScreenScopeImpl(this)
 
             DisposableEffect(Unit) {
-                scope.lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
+                coroutineScope.launch {
+                    scope.lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
+                    if (state.currentPage == it) {
+                        scope.lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
+                    }
+                }
                 scopes[it] = scope
                 onDispose {
-                    scope.lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+                    coroutineScope.launch {
+                        scope.lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+                    }
                     scopes.remove(it)
                 }
             }
 
-            with(scope) {
+            CompositionLocalProvider(LocalLifecycleOwner.provides(scope)) {
                 content(it)
             }
         }
@@ -76,7 +88,9 @@ fun PagerScreen(
             if (last != null) {
                 scopes[last]?.lifecycleRegistry?.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
             }
-            scopes[it]!!.lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
+            if (scopes.containsKey(it)) {
+                scopes[it]!!.lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
+            }
             last = it
         }
     }
@@ -84,7 +98,7 @@ fun PagerScreen(
 
 interface PagerScreenScope : LifecycleOwner, PagerScope
 
-class PagerScreenScopeImpl(private val scope: PagerScope): PagerScreenScope {
+class PagerScreenScopeImpl(private val scope: PagerScope) : PagerScreenScope {
     var lifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this)
 
     override fun getLifecycle(): Lifecycle {
@@ -98,7 +112,7 @@ class PagerScreenScopeImpl(private val scope: PagerScope): PagerScreenScope {
         get() = scope.currentPageOffset
 }
 
-class PageScreenIndicatorState(val state: PagerState): PageIndicatorState {
+class PageScreenIndicatorState(val state: PagerState) : PageIndicatorState {
     override val pageCount: Int
         get() = state.pageCount
 

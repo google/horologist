@@ -106,11 +106,9 @@ package com.google.android.horologist.compose.pager {
     method public int getPageCount();
     method public float getPageOffset();
     method public int getSelectedPage();
-    method public com.google.accompanist.pager.PagerState getState();
     property public int pageCount;
     property public float pageOffset;
     property public int selectedPage;
-    property public final com.google.accompanist.pager.PagerState state;
   }
 
   public final class PagerScreenKt {

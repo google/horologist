@@ -50,7 +50,7 @@ import kotlinx.coroutines.launch
  * to page events.
  */
 @Composable
-fun PagerScreen(
+public fun PagerScreen(
     count: Int,
     modifier: Modifier = Modifier,
     state: PagerState = rememberPagerState(),
@@ -142,7 +142,7 @@ internal class PagerScreenScopeImpl(private val scope: PagerScope) : LifecycleOw
  * n.b. Currently fails for 0 pageCount, so enclose the HorizontalPageIndicator
  * in an if statement.
  */
-public class PageScreenIndicatorState(val state: PagerState) : PageIndicatorState {
+public class PageScreenIndicatorState(private val state: PagerState) : PageIndicatorState {
     override val pageCount: Int
         get() = state.pageCount
 

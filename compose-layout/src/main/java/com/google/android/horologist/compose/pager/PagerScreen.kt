@@ -42,6 +42,13 @@ import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 
+/**
+ * A Wear Material Compliant Pager screen.
+ *
+ * Combines the Accompanist Pager, with the Wear Compose HorizontalPageIndicator.
+ * Also uses lifecycle, which allows attaching logic such requesting focus
+ * to page events.
+ */
 @Composable
 fun PagerScreen(
     count: Int,
@@ -50,6 +57,7 @@ fun PagerScreen(
     content: @Composable (PagerScope.(Int) -> Unit)
 ) {
     val coroutineScope = LocalLifecycleOwner.current.lifecycleScope
+
     val scopes = remember(Unit) {
         mutableMapOf<Int, PagerScreenScopeImpl>()
     }
@@ -59,6 +67,10 @@ fun PagerScreen(
             val scope =
                 remember { scopes.getOrPut(page) { PagerScreenScopeImpl(this@HorizontalPager) } }
 
+            /**
+             * When page is initially composed or released send lifecycle events,
+             * these logically happen around the individual page resume/pause events.
+             */
             DisposableEffect(Unit) {
                 coroutineScope.launch {
                     scope.lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -75,6 +87,9 @@ fun PagerScreen(
                 }
             }
 
+            /**
+             * Wire up lifecycle owner so that subscriptions on dormant pages are not running.
+             */
             CompositionLocalProvider(LocalLifecycleOwner.provides(scope)) {
                 content(page)
             }
@@ -88,6 +103,8 @@ fun PagerScreen(
 
     LaunchedEffect(Unit) {
         var last: Int? = null
+        // When currentPage changes, send the appropriate lifecycle events to
+        // resume the new target page, and pause the previous.
         snapshotFlow { state.currentPage }.collect { page ->
             if (last != null) {
                 scopes[last]?.lifecycleRegistry?.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
@@ -100,9 +117,11 @@ fun PagerScreen(
     }
 }
 
-interface PagerScreenScope : LifecycleOwner, PagerScope
-
-class PagerScreenScopeImpl(private val scope: PagerScope) : PagerScreenScope {
+/**
+ * The scopes for each page, combining Accompanist PagerScope and a custom
+ * lifecycle.
+ */
+internal class PagerScreenScopeImpl(private val scope: PagerScope) : LifecycleOwner, PagerScope {
     var lifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this)
 
     override fun getLifecycle(): Lifecycle {
@@ -116,7 +135,14 @@ class PagerScreenScopeImpl(private val scope: PagerScope) : PagerScreenScope {
         get() = scope.currentPageOffset
 }
 
-class PageScreenIndicatorState(val state: PagerState) : PageIndicatorState {
+/**
+ * Bridge between Accompanist PagerState and the Wear Compose
+ * PageIndicatorState.
+ *
+ * n.b. Currently fails for 0 pageCount, so enclose the HorizontalPageIndicator
+ * in an if statement.
+ */
+public class PageScreenIndicatorState(val state: PagerState) : PageIndicatorState {
     override val pageCount: Int
         get() = state.pageCount
 
@@ -127,8 +153,11 @@ class PageScreenIndicatorState(val state: PagerState) : PageIndicatorState {
         get() = state.currentPage
 }
 
+/**
+ * Utility to Focus the page when it is resumed.
+ */
 @Composable
-fun FocusOnResume(focusRequester: FocusRequester) {
+public fun FocusOnResume(focusRequester: FocusRequester) {
     val lifecycleOwner = LocalLifecycleOwner.current
     LaunchedEffect(Unit) {
         lifecycleOwner.repeatOnLifecycle(state = Lifecycle.State.RESUMED) {

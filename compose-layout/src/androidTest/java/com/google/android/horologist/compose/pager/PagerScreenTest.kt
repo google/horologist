@@ -34,6 +34,7 @@ import androidx.lifecycle.whenResumed
 import androidx.wear.compose.material.Text
 import com.google.accompanist.pager.PagerState
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
@@ -67,6 +68,7 @@ class PagerScreenTest {
 
         assertThat(state.currentPage).isEqualTo(0)
         assertThat(state.pageCount).isEqualTo(5)
+        assertThat(resumedScreen).isEqualTo(0)
 
         val text0 = composeTestRule.onNodeWithTag("text0")
         val text1 = composeTestRule.onNodeWithTag("text1")
@@ -82,6 +84,7 @@ class PagerScreenTest {
         assertThat(resumedScreen).isEqualTo(0)
 
         state.scrollToPage(page = 1)
+        delay(1000)
         composeTestRule.awaitIdle()
 
         text0.assertIsNotDisplayed()

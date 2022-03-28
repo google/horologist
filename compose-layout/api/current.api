@@ -106,11 +106,9 @@ package com.google.android.horologist.compose.pager {
     method public int getPageCount();
     method public float getPageOffset();
     method public int getSelectedPage();
-    method public com.google.accompanist.pager.PagerState getState();
     property public int pageCount;
     property public float pageOffset;
     property public int selectedPage;
-    property public final com.google.accompanist.pager.PagerState state;
   }
 
   public final class PagerScreenKt {
@@ -125,11 +123,8 @@ package com.google.android.horologist.compose.pager {
     method public int getCurrentPage();
     method public float getCurrentPageOffset();
     method public androidx.lifecycle.Lifecycle getLifecycle();
-    method public androidx.lifecycle.LifecycleRegistry getLifecycleRegistry();
-    method public void setLifecycleRegistry(androidx.lifecycle.LifecycleRegistry lifecycleRegistry);
     property public int currentPage;
     property public float currentPageOffset;
-    property public final androidx.lifecycle.LifecycleRegistry lifecycleRegistry;
   }
 
 }

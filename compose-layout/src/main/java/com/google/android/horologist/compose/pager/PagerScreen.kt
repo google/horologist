@@ -40,7 +40,7 @@ import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 
 @Composable
-fun PagerScreen(
+public fun PagerScreen(
     count: Int,
     modifier: Modifier = Modifier,
     state: PagerState = rememberPagerState(),
@@ -96,10 +96,10 @@ fun PagerScreen(
     }
 }
 
-interface PagerScreenScope : LifecycleOwner, PagerScope
+public interface PagerScreenScope : LifecycleOwner, PagerScope
 
-class PagerScreenScopeImpl(private val scope: PagerScope) : PagerScreenScope {
-    var lifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this)
+public class PagerScreenScopeImpl(private val scope: PagerScope) : PagerScreenScope {
+    internal var lifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this)
 
     override fun getLifecycle(): Lifecycle {
         return lifecycleRegistry
@@ -112,7 +112,7 @@ class PagerScreenScopeImpl(private val scope: PagerScope) : PagerScreenScope {
         get() = scope.currentPageOffset
 }
 
-class PageScreenIndicatorState(val state: PagerState) : PageIndicatorState {
+public class PageScreenIndicatorState(private val state: PagerState) : PageIndicatorState {
     override val pageCount: Int
         get() = state.pageCount
 

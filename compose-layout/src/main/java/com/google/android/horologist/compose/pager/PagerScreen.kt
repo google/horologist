@@ -19,22 +19,23 @@ package com.google.android.horologist.compose.pager
 import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.wear.compose.material.HorizontalPageIndicator
 import androidx.wear.compose.material.PageIndicatorState
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerScope
@@ -62,15 +63,15 @@ public fun PagerScreen(
         mutableMapOf<Int, PagerScreenScopeImpl>()
     }
 
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    val shape = if (LocalConfiguration.current.isScreenRound) CircleShape else null
+
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
         HorizontalPager(modifier = modifier, count = count, state = state) { page ->
             val scope =
                 remember { scopes.getOrPut(page) { PagerScreenScopeImpl(this@HorizontalPager) } }
 
-            /**
-             * When page is initially composed or released send lifecycle events,
-             * these logically happen around the individual page resume/pause events.
-             */
             DisposableEffect(Unit) {
                 coroutineScope.launch {
                     scope.lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -87,17 +88,17 @@ public fun PagerScreen(
                 }
             }
 
-            /**
-             * Wire up lifecycle owner so that subscriptions on dormant pages are not running.
-             */
             CompositionLocalProvider(LocalLifecycleOwner.provides(scope)) {
-                content(page)
+                Box(modifier = Modifier.fillMaxSize().run {
+                    if (shape != null) {
+                        clip(shape)
+                    } else {
+                        this
+                    }
+                }) {
+                    content(page)
+                }
             }
-        }
-
-        val pagerScreenState = remember { PageScreenIndicatorState(state) }
-        if (pagerScreenState.pageCount > 0) {
-            HorizontalPageIndicator(pageIndicatorState = pagerScreenState)
         }
     }
 

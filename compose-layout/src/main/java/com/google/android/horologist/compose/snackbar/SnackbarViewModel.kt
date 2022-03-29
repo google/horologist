@@ -17,9 +17,12 @@
 package com.google.android.horologist.compose.snackbar
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Scaffold
+import com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi
 import com.google.android.horologist.compose.snackbar.material.SnackbarDuration
 import com.google.android.horologist.compose.snackbar.material.SnackbarHostState
 import kotlinx.coroutines.launch
@@ -31,10 +34,11 @@ import kotlinx.coroutines.launch
  * A ViewModel is used to allow the same current instance to be shared between the WearNavScaffold
  * and the composable screen via [NavHostController.currentBackStackEntry].
  */
-open class SnackbarViewModel(
-    val snackbarManager: SnackbarManager
+@ExperimentalComposeLayoutApi
+public open class SnackbarViewModel(
+    private val snackbarManager: SnackbarManager
 ) : ViewModel() {
-    val snackbarHostState = SnackbarHostState()
+    public val snackbarHostState = SnackbarHostState()
 
     init {
         viewModelScope.launch {
@@ -47,6 +51,24 @@ open class SnackbarViewModel(
                     snackbarManager.setMessageShown(it.id)
                 }
             }
+        }
+    }
+
+    public fun showMessage(message: UiMessage) {
+        snackbarManager.showMessage(message)
+    }
+
+    public fun showMessage(message: String) {
+        snackbarManager.showMessage(message)
+    }
+
+    public object Factory : ViewModelProvider.Factory {
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+            check(modelClass == SnackbarViewModel::class.java)
+
+            val snackbarManager = SnackbarManager()
+            return SnackbarViewModel(snackbarManager) as T
         }
     }
 }

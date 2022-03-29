@@ -71,8 +71,8 @@ fun NavMenuScreen(
         }
         item {
             SampleChip(
-                onClick = { navigateToRoute(NavScreen.NoScrolling.route) },
-                label = "No scrolling (TODO)"
+                onClick = { navigateToRoute(NavScreen.Snackbar.route) },
+                label = "Snackbar"
             )
         }
     }

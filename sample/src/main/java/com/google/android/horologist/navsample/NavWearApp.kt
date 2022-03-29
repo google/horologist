@@ -17,17 +17,19 @@
 package com.google.android.horologist.navsample
 
 import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
-import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.VignettePosition
 import androidx.wear.compose.material.dialog.Alert
-import androidx.wear.compose.navigation.composable
 import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.audioui.VolumeScreen
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
@@ -36,12 +38,22 @@ import com.google.android.horologist.compose.navscaffold.scalingLazyColumnCompos
 import com.google.android.horologist.compose.navscaffold.scrollStateComposable
 import com.google.android.horologist.compose.navscaffold.wearNavComposable
 import com.google.android.horologist.compose.pager.PagerScreen
+import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
+import com.google.android.horologist.compose.snackbar.SnackbarViewModel
 
 @Composable
 fun NavWearApp(navController: NavHostController) {
+    val snackbarViewModel = viewModel<SnackbarViewModel>(factory = SnackbarViewModel.Factory)
+
     WearNavScaffold(
         startDestination = NavScreen.Menu.route,
-        navController = navController
+        navController = navController,
+        snackbar = {
+            DialogSnackbarHost(
+                modifier = Modifier.fillMaxSize(),
+                hostState = snackbarViewModel.snackbarHostState
+            )
+        }
     ) {
         scalingLazyColumnComposable(
             NavScreen.Menu.route,
@@ -90,31 +102,25 @@ fun NavWearApp(navController: NavHostController) {
             }
         }
 
-        wearNavComposable(NavScreen.Volume.route) { _, viewModel ->
-            viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
-
-            FillerScreen(label = "Volume")
+        wearNavComposable(NavScreen.Snackbar.route) { _, _ ->
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Button(onClick = { snackbarViewModel.showMessage("Test") }) {
+                    Text(text = "Test")
+                }
+            }
         }
 
-        composable(NavScreen.Pager.route) {
+        wearNavComposable(NavScreen.Pager.route) { _, viewModel ->
+            viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+
             val state = rememberPagerState()
             PagerScreen(count = 10, state = state) {
                 Text(text = "Screen $it")
             }
         }
 
-        composable(NavScreen.Volume.route) {
-            val focusRequester = remember { FocusRequester() }
-
-            VolumeScreen(focusRequester = focusRequester)
-
-            LaunchedEffect(Unit) {
-                focusRequester.requestFocus()
-            }
-        }
-
-        composable(NavScreen.NoScrolling.route) {
-            FillerScreen(label = "No Scrolling")
+        wearNavComposable(NavScreen.Volume.route) { _, viewModel ->
+            VolumeScreen(focusRequester = viewModel.focusRequester)
         }
     }
 }

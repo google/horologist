@@ -24,6 +24,6 @@ sealed class NavScreen(
     object Column : NavScreen("column")
     object Volume : NavScreen("volume")
     object Pager : NavScreen("pager")
-    object NoScrolling : NavScreen("noscrolling")
+    object Snackbar : NavScreen("snackbar")
     object Dialog : NavScreen("dialog")
 }

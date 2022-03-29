@@ -124,3 +124,80 @@ package com.google.android.horologist.compose.pager {
 
 }
 
+package com.google.android.horologist.compose.snackbar {
+
+  public final class DialogSnackbarHostKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi public static void DialogSnackbarHost(optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.compose.snackbar.material.SnackbarHostState hostState);
+  }
+
+  @com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi public final class SnackbarManager {
+    ctor public SnackbarManager();
+    method public void showMessage(com.google.android.horologist.compose.snackbar.UiMessage message);
+    method public void showMessage(String message);
+  }
+
+  @com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi public class SnackbarViewModel extends androidx.lifecycle.ViewModel {
+    ctor public SnackbarViewModel(com.google.android.horologist.compose.snackbar.SnackbarManager snackbarManager);
+    method public final com.google.android.horologist.compose.snackbar.material.SnackbarHostState getSnackbarHostState();
+    method public final void showMessage(com.google.android.horologist.compose.snackbar.UiMessage message);
+    method public final void showMessage(String message);
+    property public final com.google.android.horologist.compose.snackbar.material.SnackbarHostState snackbarHostState;
+  }
+
+  public static final class SnackbarViewModel.Factory implements androidx.lifecycle.ViewModelProvider.Factory {
+    field public static final com.google.android.horologist.compose.snackbar.SnackbarViewModel.Factory INSTANCE;
+  }
+
+  @com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi public final class UiMessage {
+    ctor public UiMessage(String message, optional String id, optional boolean error);
+    method public String component1();
+    method public String component2();
+    method public boolean component3();
+    method public com.google.android.horologist.compose.snackbar.UiMessage copy(String message, String id, boolean error);
+    method public boolean getError();
+    method public String getId();
+    method public String getMessage();
+    property public final boolean error;
+    property public final String id;
+    property public final String message;
+  }
+
+}
+
+package com.google.android.horologist.compose.snackbar.material {
+
+  public interface SnackbarData {
+    method public void dismiss();
+    method public String? getActionLabel();
+    method public com.google.android.horologist.compose.snackbar.material.SnackbarDuration getDuration();
+    method public String getMessage();
+    method public void performAction();
+    property public abstract String? actionLabel;
+    property public abstract com.google.android.horologist.compose.snackbar.material.SnackbarDuration duration;
+    property public abstract String message;
+  }
+
+  public enum SnackbarDuration {
+    enum_constant public static final com.google.android.horologist.compose.snackbar.material.SnackbarDuration Indefinite;
+    enum_constant public static final com.google.android.horologist.compose.snackbar.material.SnackbarDuration Long;
+    enum_constant public static final com.google.android.horologist.compose.snackbar.material.SnackbarDuration Short;
+  }
+
+  @androidx.compose.runtime.Stable public final class SnackbarHostState {
+    ctor public SnackbarHostState();
+    method public com.google.android.horologist.compose.snackbar.material.SnackbarData? getCurrentSnackbarData();
+    method public suspend Object? showSnackbar(String message, optional String? actionLabel, optional com.google.android.horologist.compose.snackbar.material.SnackbarDuration duration, optional kotlin.coroutines.Continuation<? super com.google.android.horologist.compose.snackbar.material.SnackbarResult> p);
+    property public final com.google.android.horologist.compose.snackbar.material.SnackbarData? currentSnackbarData;
+  }
+
+  public final class SnackbarHostStateKt {
+    method @androidx.compose.runtime.Composable public static void SnackbarHost(com.google.android.horologist.compose.snackbar.material.SnackbarHostState hostState, optional androidx.compose.ui.Modifier modifier, kotlin.jvm.functions.Function1<? super com.google.android.horologist.compose.snackbar.material.SnackbarData,kotlin.Unit> snackbar);
+  }
+
+  public enum SnackbarResult {
+    enum_constant public static final com.google.android.horologist.compose.snackbar.material.SnackbarResult ActionPerformed;
+    enum_constant public static final com.google.android.horologist.compose.snackbar.material.SnackbarResult Dismissed;
+  }
+
+}
+

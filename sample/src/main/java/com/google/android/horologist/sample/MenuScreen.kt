@@ -17,7 +17,6 @@
 package com.google.android.horologist.sample
 
 import androidx.compose.foundation.focusable
-import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,12 +24,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.input.rotary.onRotaryScrollEvent
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,8 +37,7 @@ import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberScalingLazyListState
-import androidx.wear.compose.material.rememberScalingLazyListState
-import kotlinx.coroutines.launch
+import com.google.android.horologist.compose.navscaffold.scrollableColumn
 
 @Composable
 fun MenuScreen(
@@ -50,15 +46,9 @@ fun MenuScreen(
     scrollState: ScalingLazyListState = rememberScalingLazyListState(),
     focusRequester: FocusRequester = remember { FocusRequester() }
 ) {
-    val coroutineScope = rememberCoroutineScope()
     ScalingLazyColumn(
         modifier = modifier
-            .onRotaryScrollEvent {
-                coroutineScope.launch {
-                    scrollState.scrollBy(it.verticalScrollPixels)
-                }
-                true
-            }
+            .scrollableColumn(focusRequester, scrollState)
             .focusRequester(focusRequester)
             .focusable(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -68,6 +58,9 @@ fun MenuScreen(
             FillMaxRectangleChip(navigateToRoute)
         }
         item {
+            VolumeScreenChip(navigateToRoute)
+        }
+        item {
             FadeAwayChip("Fade Away") { navigateToRoute(Screen.FadeAway.route) }
         }
         item {
@@ -75,9 +68,6 @@ fun MenuScreen(
         }
         item {
             FadeAwayChip("Fade Away Column") { navigateToRoute(Screen.FadeAwayColumn.route) }
-        }
-        item {
-            VolumeScreenChip(navigateToRoute)
         }
     }
 

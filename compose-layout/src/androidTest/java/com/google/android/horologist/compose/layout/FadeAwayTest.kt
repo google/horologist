@@ -18,77 +18,27 @@ package com.google.android.horologist.compose.layout
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.requiredSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.performScrollToIndex
-import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.PositionIndicator
-import androidx.wear.compose.material.Scaffold
-import androidx.wear.compose.material.TimeText
+import com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi
 import org.junit.Assert.assertEquals
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import kotlin.math.roundToInt
 
+@OptIn(ExperimentalComposeLayoutApi::class)
 class FadeAwayTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
     @Test
-    @Ignore
-    fun testScroll() {
-        val scrollState = ScrollState(initial = 0)
-
-        composeTestRule.setContent {
-            Scaffold(
-                timeText = {
-                    TimeText(modifier = Modifier.fadeAway(scrollState))
-                },
-                positionIndicator = {
-                    PositionIndicator(scrollState = scrollState)
-                }
-            ) {
-                Box(Modifier.requiredSize(100.dp)) {
-                    LazyColumn(
-                        modifier = Modifier
-                            .testTag("column")
-                            .verticalScroll(scrollState)
-                    ) {
-                        repeat(3) { i ->
-                            item {
-                                ExampleCard(Modifier.requiredSize(50.dp), i)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        val column = composeTestRule.onNodeWithTag("column")
-        val card = composeTestRule.onNodeWithTag("card.0")
-        val cardSemanticsNode = card.fetchSemanticsNode()
-
-        assertEquals(0.0f, cardSemanticsNode.positionInRoot.y)
-
-        column.performScrollToIndex(1)
-
-        assertEquals(0.0f, cardSemanticsNode.positionInRoot.y)
-    }
-
-    @Test
     fun testColumn() {
         val scrollState = ScrollState(initial = 0)
 
-        val modifier = Modifier.fadeAway(scrollState)
+        val modifier = Modifier.fadeAway(scrollStateFn = { scrollState })
 
         var positionY = 0
 

@@ -26,8 +26,11 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,66 +44,97 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.compose.layout.fadeAway
+import com.google.android.horologist.compose.layout.fadeAwayLazyList
+import com.google.android.horologist.compose.layout.fadeAwayScalingLazyList
+import com.google.android.horologist.compose.navscaffold.scrollableColumn
 
 @Composable
 fun FadeAwayScreenLazyColumn() {
     val scrollState = rememberLazyListState()
+    val focusRequester = remember { FocusRequester() }
 
     Scaffold(
+        modifier = Modifier.fillMaxSize(),
         timeText = {
-            TimeText(modifier = Modifier.fadeAway(scrollState))
+            TimeText(modifier = Modifier.fadeAwayLazyList(scrollStateFn = { scrollState }))
         },
         positionIndicator = {
             PositionIndicator(lazyListState = scrollState)
         }
     ) {
-        LazyColumn(state = scrollState) {
+        LazyColumn(
+            modifier = Modifier.scrollableColumn(focusRequester, scrollState),
+            state = scrollState
+        ) {
             items(3) { i ->
                 val modifier = Modifier.fillParentMaxHeight(0.5f)
                 ExampleCard(modifier = modifier, i = i)
             }
         }
     }
+
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+    }
 }
 
 @Composable
-fun FadeAwayScreenSLC() {
+fun FadeAwayScreenScalingLazyColumn() {
     val scrollState = rememberScalingLazyListState()
+    val focusRequester = remember { FocusRequester() }
 
     Scaffold(
+        modifier = Modifier.fillMaxSize(),
         timeText = {
-            TimeText(modifier = Modifier.fadeAway(scrollState))
+            TimeText(modifier = Modifier.fadeAwayScalingLazyList(scrollStateFn = { scrollState }))
         },
         positionIndicator = {
             PositionIndicator(scalingLazyListState = scrollState)
         }
     ) {
-        ScalingLazyColumn(state = scrollState) {
+        ScalingLazyColumn(
+            modifier = Modifier.scrollableColumn(focusRequester, scrollState),
+            state = scrollState
+        ) {
             items(3) { i ->
                 ExampleCard(Modifier.fillParentMaxHeight(0.5f), i)
             }
         }
+    }
+
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
     }
 }
 
 @Composable
 fun FadeAwayScreenColumn() {
     val scrollState = rememberScrollState()
+    val focusRequester = remember { FocusRequester() }
 
     Scaffold(
+        modifier = Modifier.fillMaxSize(),
         timeText = {
-            TimeText(modifier = Modifier.fadeAway(scrollState))
+            TimeText(modifier = Modifier.fadeAway(scrollStateFn = { scrollState }))
         },
         positionIndicator = {
             PositionIndicator(scrollState = scrollState)
         }
     ) {
-        Column(modifier = Modifier.verticalScroll(scrollState)) {
+        Column(
+            modifier = Modifier
+                .scrollableColumn(focusRequester, scrollState)
+                .verticalScroll(scrollState)
+        ) {
             val modifier = Modifier.height(LocalConfiguration.current.screenHeightDp.dp / 2)
             repeat(3) { i ->
                 ExampleCard(modifier, i)
             }
         }
+    }
+
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
     }
 }
 

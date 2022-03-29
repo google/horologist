@@ -65,7 +65,11 @@ public fun WearNavScaffold(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberSwipeDismissableNavController(),
     snackbar: @Composable () -> Unit = {},
-    timeText: @Composable (Modifier) -> Unit = { NavTimeText(modifier = it) },
+    timeText: @Composable (Modifier) -> Unit = {
+        TimeText(
+            modifier = it
+        )
+    },
     builder: NavGraphBuilder.() -> Unit,
 ) {
     val currentBackStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
@@ -150,13 +154,6 @@ public fun WearNavScaffold(
             snackbar()
         }
     }
-}
-
-@Composable
-private fun NavTimeText(modifier: Modifier) {
-    TimeText(
-        modifier = modifier
-    )
 }
 
 @ExperimentalComposeLayoutApi

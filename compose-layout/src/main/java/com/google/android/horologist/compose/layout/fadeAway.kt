@@ -39,6 +39,8 @@ public fun Modifier.fadeAway(scrollStateFn: () -> ScrollState): Modifier = compo
     val scrollState = scrollStateFn()
     val y = scrollState.value / LocalDensity.current.density
 
+    println("ScrollState $y")
+
     fadeEffect(y, fade = false)
 }
 
@@ -99,11 +101,14 @@ private fun Modifier.fadeEffect(y: Float, fade: Boolean) = composed {
         val height = LocalConfiguration.current.screenHeightDp
         val translationY = (-y).coerceAtMost(0f) - ((height - height * fadeOut) / 2)
 
+        println("offset ${translationY.dp}")
+
         this
             .offset(y = translationY.dp)
             .scale(fadeOut)
             .alpha(fadeOut)
     } else {
+        println("offset ${-y.dp}")
         this
             .offset(y = -y.dp)
     }

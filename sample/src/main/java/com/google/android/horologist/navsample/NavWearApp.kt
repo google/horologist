@@ -28,12 +28,14 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.VignettePosition
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.navigation.composable
+import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.audioui.VolumeScreen
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
 import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
 import com.google.android.horologist.compose.navscaffold.scrollStateComposable
 import com.google.android.horologist.compose.navscaffold.wearNavComposable
+import com.google.android.horologist.compose.pager.PagerScreen
 
 @Composable
 fun NavWearApp(navController: NavHostController) {
@@ -95,7 +97,10 @@ fun NavWearApp(navController: NavHostController) {
         }
 
         composable(NavScreen.Pager.route) {
-            FillerScreen(label = "Pager (TODO)")
+            val state = rememberPagerState()
+            PagerScreen(count = 10, state = state) {
+                Text(text = "Screen $it")
+            }
         }
 
         composable(NavScreen.Volume.route) {

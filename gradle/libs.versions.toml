@@ -23,6 +23,7 @@ wearcompose = "1.0.0-alpha19"
 
 [libraries]
 affectedmoduledetector = { module = "com.dropbox.affectedmoduledetector:affectedmoduledetector", version.ref = "affectedmoduledetector" }
+accompanist-pager = "com.google.accompanist:accompanist-pager:0.24.5-alpha"
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }

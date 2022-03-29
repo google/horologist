@@ -65,7 +65,8 @@ android {
         freeCompilerArgs += "-opt-in=androidx.wear.compose.material.ExperimentalWearMaterialApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi"
         freeCompilerArgs += "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi"
-        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+        freeCompilerArgs += "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
     }
 
     composeOptions {

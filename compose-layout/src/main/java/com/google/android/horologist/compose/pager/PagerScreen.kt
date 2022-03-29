@@ -89,13 +89,15 @@ public fun PagerScreen(
             }
 
             CompositionLocalProvider(LocalLifecycleOwner.provides(scope)) {
-                Box(modifier = Modifier.fillMaxSize().run {
-                    if (shape != null) {
-                        clip(shape)
-                    } else {
-                        this
+                Box(
+                    modifier = Modifier.fillMaxSize().run {
+                        if (shape != null) {
+                            clip(shape)
+                        } else {
+                            this
+                        }
                     }
-                }) {
+                ) {
                     content(page)
                 }
             }

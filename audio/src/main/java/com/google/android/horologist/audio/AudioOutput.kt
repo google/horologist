@@ -24,6 +24,7 @@ import android.media.AudioManager
  *
  * This interface is intentionally open to allow other targets to be defined in future.
  */
+@ExperimentalAudioApi
 public interface AudioOutput {
     /**
      * The id from [AudioManager] if applicable.

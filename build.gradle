@@ -40,6 +40,7 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
     id "com.github.ben-manes.versions" version "0.41.0"
     id "nl.littlerobots.version-catalog-update" version "0.3.0"
+    id "org.jetbrains.kotlin.kapt" version '1.6.10' apply false
 }
 
 apply plugin: 'org.jetbrains.dokka'
@@ -96,6 +97,7 @@ allprojects {
 
 subprojects {
     apply plugin: 'com.diffplug.spotless'
+
     spotless {
         kotlin {
             target "**/*.kt"

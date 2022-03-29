@@ -115,9 +115,10 @@ public abstract class CoroutinesTileService : TileService(), LifecycleOwner {
         return super.onBind(intent)
     }
 
-    @Suppress("DEPRECATION")
+    @Deprecated("Use onStartCommand")
     final override fun onStart(intent: Intent?, startId: Int) {
         mDispatcher.onServicePreSuperOnStart()
+        @Suppress("DEPRECATION")
         super.onStart(intent, startId)
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,25 +16,8 @@
 
 package com.google.android.horologist.audio
 
-import android.media.AudioManager
-
-/**
- * Data class holding the current state of the volume system.
- *
- * See [AudioManager.getStreamVolume]
- * See [AudioManager.getStreamMaxVolume]
- * See [AudioManager.STREAM_MUSIC]
- */
-@ExperimentalAudioApi
-public data class VolumeState(
-    public val current: Int,
-    public val min: Int,
-    public val max: Int,
-    public val isMute: Boolean
-) {
-    public val isMax: Boolean
-        get() = current >= max
-
-    public val isMin: Boolean
-        get() = current <= max
-}
+@RequiresOptIn(
+    message = "Horologist Audio is experimental. The API may be changed in the future."
+)
+@Retention(AnnotationRetention.BINARY)
+public annotation class ExperimentalAudioApi

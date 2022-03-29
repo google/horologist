@@ -73,7 +73,7 @@ public class SnackbarHostState {
     /**
      * The current [SnackbarData] being shown by the [SnackbarHost], of `null` if none.
      */
-    public var currentSnackbarData by mutableStateOf<SnackbarData?>(null)
+    public var currentSnackbarData: SnackbarData? by mutableStateOf(null)
         private set
 
     /**

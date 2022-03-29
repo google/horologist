@@ -38,7 +38,7 @@ import kotlinx.coroutines.launch
 public open class SnackbarViewModel(
     private val snackbarManager: SnackbarManager
 ) : ViewModel() {
-    public val snackbarHostState = SnackbarHostState()
+    public val snackbarHostState: SnackbarHostState = SnackbarHostState()
 
     init {
         viewModelScope.launch {

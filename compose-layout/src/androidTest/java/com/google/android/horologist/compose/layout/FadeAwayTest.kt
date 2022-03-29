@@ -43,10 +43,11 @@ class FadeAwayTest {
         var positionY = 0
 
         composeTestRule.setContent {
-            Box(modifier = modifier
-                .onGloballyPositioned { coordinates: LayoutCoordinates ->
-                    positionY = coordinates.positionInRoot().y.roundToInt()
-                }
+            Box(
+                modifier = modifier
+                    .onGloballyPositioned { coordinates: LayoutCoordinates ->
+                        positionY = coordinates.positionInRoot().y.roundToInt()
+                    }
             )
         }
 

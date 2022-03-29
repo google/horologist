@@ -79,7 +79,6 @@ fun VolumeScreenChip(navigateToRoute: (String) -> Unit) {
     )
 }
 
-
 @Composable
 fun FadeAwayChip(
     label: String,
@@ -89,12 +88,14 @@ fun FadeAwayChip(
         onClick = { navigateToRoute() },
         label = label,
         content = {
-            Box(modifier = Modifier.fillMaxSize().let {
-                if (LocalConfiguration.current.isScreenRound)
-                    it.clip(CircleShape)
-                else
-                    it
-            }, contentAlignment = Alignment.Center
+            Box(
+                modifier = Modifier.fillMaxSize().let {
+                    if (LocalConfiguration.current.isScreenRound)
+                        it.clip(CircleShape)
+                    else
+                        it
+                },
+                contentAlignment = Alignment.Center
             ) {
                 Text(text = "10:10 AM", fontSize = 6f.sp)
             }

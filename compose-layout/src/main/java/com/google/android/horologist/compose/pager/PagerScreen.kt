@@ -36,6 +36,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.wear.compose.material.HorizontalPageIndicator
 import androidx.wear.compose.material.PageIndicatorState
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerScope
@@ -74,7 +75,7 @@ public fun PagerScreen(
 
             DisposableEffect(Unit) {
                 coroutineScope.launch {
-                    scope.lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
+                    scope.lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)
                     if (state.currentPage == page) {
                         scope.lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
                     }
@@ -101,6 +102,11 @@ public fun PagerScreen(
                     content(page)
                 }
             }
+        }
+
+        val pagerScreenState = remember { PageScreenIndicatorState(state) }
+        if (pagerScreenState.pageCount > 0) {
+            HorizontalPageIndicator(pageIndicatorState = pagerScreenState)
         }
     }
 

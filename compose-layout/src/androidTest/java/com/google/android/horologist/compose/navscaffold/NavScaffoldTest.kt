@@ -51,6 +51,7 @@ import org.junit.Assert.assertSame
 import org.junit.Rule
 import org.junit.Test
 
+@OptIn(ExperimentalComposeLayoutApi::class)
 class NavScaffoldTest {
     @get:Rule
     val composeTestRule = createComposeRule()

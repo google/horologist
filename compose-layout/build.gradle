@@ -94,7 +94,7 @@ dependencies {
     api libs.wearcompose.foundation
     api libs.wearcompose.navigation
 
-    api "com.google.accompanist:accompanist-pager:0.24.5-alpha"
+    api libs.accompanist.pager
 
     implementation libs.compose.ui.tooling
     implementation libs.compose.ui.util

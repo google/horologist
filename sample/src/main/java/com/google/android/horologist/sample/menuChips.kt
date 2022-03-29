@@ -30,7 +30,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.Text
 
 @Composable
 fun FillMaxRectangleChip(navigateToRoute: (String) -> Unit) {
@@ -73,6 +75,30 @@ fun VolumeScreenChip(navigateToRoute: (String) -> Unit) {
                 imageVector = Icons.Default.VolumeUp,
                 contentDescription = "Volume Screen"
             )
+        }
+    )
+}
+
+@Composable
+fun FadeAwayChip(
+    label: String,
+    navigateToRoute: () -> Unit
+) {
+    SampleChip(
+        onClick = { navigateToRoute() },
+        label = label,
+        content = {
+            Box(
+                modifier = Modifier.fillMaxSize().let {
+                    if (LocalConfiguration.current.isScreenRound)
+                        it.clip(CircleShape)
+                    else
+                        it
+                },
+                contentAlignment = Alignment.Center
+            ) {
+                Text(text = "10:10 AM", fontSize = 6f.sp)
+            }
         }
     )
 }

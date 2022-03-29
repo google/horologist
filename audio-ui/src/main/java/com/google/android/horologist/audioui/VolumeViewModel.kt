@@ -23,6 +23,7 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.AudioOutputRepository
+import com.google.android.horologist.audio.ExperimentalAudioApi
 import com.google.android.horologist.audio.SystemAudioOutputRepository
 import com.google.android.horologist.audio.SystemVolumeRepository
 import com.google.android.horologist.audio.VolumeRepository
@@ -39,6 +40,7 @@ import kotlinx.coroutines.flow.StateFlow
  * See [AudioManager.setStreamVolume]
  * See [AudioManager.STREAM_MUSIC]
  */
+@ExperimentalAudioApi
 public open class VolumeViewModel(
     internal val volumeRepository: VolumeRepository,
     internal val audioOutputRepository: AudioOutputRepository
@@ -67,6 +69,7 @@ public open class VolumeViewModel(
         audioOutputRepository.close()
     }
 
+    @ExperimentalAudioApi
     public object Factory : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {

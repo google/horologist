@@ -26,6 +26,7 @@ import androidx.activity.ComponentActivity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
+@ExperimentalAudioApi
 public class SystemVolumeRepository(
     private val audioManager: AudioManager,
     private val application: Context

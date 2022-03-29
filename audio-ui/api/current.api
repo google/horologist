@@ -2,7 +2,7 @@
 package com.google.android.horologist.audioui {
 
   public final class VolumePositionIndicatorKt {
-    method @androidx.compose.runtime.Composable public static void VolumePositionIndicator(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.VolumeState> volumeState, optional androidx.compose.ui.Modifier modifier, optional boolean autoHide);
+    method @androidx.compose.runtime.Composable public static void VolumePositionIndicator(kotlin.jvm.functions.Function0<? extends error.NonExistentClass> volumeState, optional androidx.compose.ui.Modifier modifier, optional boolean autoHide);
   }
 
   public final class VolumeScreenKt {
@@ -10,7 +10,7 @@ package com.google.android.horologist.audioui {
   }
 
   public final class VolumeScrollableState implements androidx.compose.foundation.gestures.ScrollableState {
-    ctor public VolumeScrollableState(com.google.android.horologist.audio.VolumeRepository volumeRepository);
+    ctor public VolumeScrollableState(error.NonExistentClass volumeRepository);
     method public float dispatchRawDelta(float delta);
     method public boolean isScrollInProgress();
     method public suspend Object? scroll(androidx.compose.foundation.MutatePriority scrollPriority, kotlin.jvm.functions.Function2<? super androidx.compose.foundation.gestures.ScrollScope,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> block, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
@@ -18,16 +18,16 @@ package com.google.android.horologist.audioui {
   }
 
   public class VolumeViewModel extends androidx.lifecycle.ViewModel {
-    ctor public VolumeViewModel(com.google.android.horologist.audio.VolumeRepository volumeRepository, com.google.android.horologist.audio.AudioOutputRepository audioOutputRepository);
+    ctor public VolumeViewModel(error.NonExistentClass volumeRepository, error.NonExistentClass audioOutputRepository);
     method public final void decreaseVolume();
-    method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> getAudioOutput();
+    method public final kotlinx.coroutines.flow.StateFlow<error.NonExistentClass> getAudioOutput();
     method public final com.google.android.horologist.audioui.VolumeScrollableState getVolumeScrollableState();
-    method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.VolumeState> getVolumeState();
+    method public final kotlinx.coroutines.flow.StateFlow<error.NonExistentClass> getVolumeState();
     method public final void increaseVolume();
     method public final void launchOutputSelection();
-    property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> audioOutput;
+    property public final kotlinx.coroutines.flow.StateFlow<error.NonExistentClass> audioOutput;
     property public final com.google.android.horologist.audioui.VolumeScrollableState volumeScrollableState;
-    property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.VolumeState> volumeState;
+    property public final kotlinx.coroutines.flow.StateFlow<error.NonExistentClass> volumeState;
   }
 
   public static final class VolumeViewModel.Factory implements androidx.lifecycle.ViewModelProvider.Factory {

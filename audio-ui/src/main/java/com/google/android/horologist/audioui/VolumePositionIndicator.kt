@@ -38,7 +38,8 @@ import kotlinx.coroutines.delay
  * for 2 seconds after any volume change, including when a new
  * output device is selected.
  */
-@ExperimentalAudioApi
+@ExperimentalAudioUiApi
+@OptIn(ExperimentalAudioApi::class)
 @Composable
 public fun VolumePositionIndicator(
     volumeState: () -> VolumeState,

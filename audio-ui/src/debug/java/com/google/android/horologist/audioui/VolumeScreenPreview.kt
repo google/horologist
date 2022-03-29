@@ -41,7 +41,7 @@ import com.google.android.horologist.audio.VolumeState
     backgroundColor = 0xff000000,
     showBackground = true
 )
-@OptIn(ExperimentalAudioApi::class)
+@OptIn(ExperimentalAudioApi::class, ExperimentalAudioUiApi::class)
 @Composable
 fun VolumeScreenPreview() {
     val volume = VolumeState(5, 0, 10, isMute = false)

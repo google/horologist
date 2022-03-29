@@ -40,7 +40,8 @@ import kotlinx.coroutines.flow.StateFlow
  * See [AudioManager.setStreamVolume]
  * See [AudioManager.STREAM_MUSIC]
  */
-@ExperimentalAudioApi
+@ExperimentalAudioUiApi
+@OptIn(ExperimentalAudioApi::class)
 public open class VolumeViewModel(
     internal val volumeRepository: VolumeRepository,
     internal val audioOutputRepository: AudioOutputRepository
@@ -69,7 +70,7 @@ public open class VolumeViewModel(
         audioOutputRepository.close()
     }
 
-    @ExperimentalAudioApi
+    @ExperimentalAudioUiApi
     public object Factory : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {

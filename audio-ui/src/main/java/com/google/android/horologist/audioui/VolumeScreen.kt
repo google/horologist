@@ -71,7 +71,8 @@ import kotlinx.coroutines.launch
  * See [VolumeViewModel]
  * See [AudioManager.STREAM_MUSIC]
  */
-@ExperimentalAudioApi
+@ExperimentalAudioUiApi
+@OptIn(ExperimentalAudioApi::class)
 @Composable
 public fun VolumeScreen(
     modifier: Modifier = Modifier,
@@ -95,7 +96,8 @@ public fun VolumeScreen(
     )
 }
 
-@ExperimentalAudioApi
+@ExperimentalAudioUiApi
+@OptIn(ExperimentalAudioApi::class)
 @Composable
 internal fun VolumeScreen(
     modifier: Modifier = Modifier,
@@ -172,7 +174,8 @@ internal fun VolumeScreen(
     }
 }
 
-@ExperimentalAudioApi
+@ExperimentalAudioUiApi
+@OptIn(ExperimentalAudioApi::class)
 @Composable
 private fun AudioOutput.icon(): ImageVector {
     return when (this) {

@@ -31,7 +31,7 @@ import com.google.android.horologist.audio.VolumeState
 import org.junit.Rule
 import org.junit.Test
 
-@OptIn(ExperimentalAudioApi::class)
+@OptIn(ExperimentalAudioApi::class, ExperimentalAudioUiApi::class)
 class VolumePositionIndicatorTest {
     @get:Rule
     val composeTestRule = createComposeRule().apply {

@@ -166,7 +166,7 @@ package com.google.android.horologist.compose.snackbar {
 
 package com.google.android.horologist.compose.snackbar.material {
 
-  public interface SnackbarData {
+  @com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi public interface SnackbarData {
     method public void dismiss();
     method public String? getActionLabel();
     method public com.google.android.horologist.compose.snackbar.material.SnackbarDuration getDuration();
@@ -177,13 +177,13 @@ package com.google.android.horologist.compose.snackbar.material {
     property public abstract String message;
   }
 
-  public enum SnackbarDuration {
+  @com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi public enum SnackbarDuration {
     enum_constant public static final com.google.android.horologist.compose.snackbar.material.SnackbarDuration Indefinite;
     enum_constant public static final com.google.android.horologist.compose.snackbar.material.SnackbarDuration Long;
     enum_constant public static final com.google.android.horologist.compose.snackbar.material.SnackbarDuration Short;
   }
 
-  @androidx.compose.runtime.Stable public final class SnackbarHostState {
+  @androidx.compose.runtime.Stable @com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi public final class SnackbarHostState {
     ctor public SnackbarHostState();
     method public com.google.android.horologist.compose.snackbar.material.SnackbarData? getCurrentSnackbarData();
     method public suspend Object? showSnackbar(String message, optional String? actionLabel, optional com.google.android.horologist.compose.snackbar.material.SnackbarDuration duration, optional kotlin.coroutines.Continuation<? super com.google.android.horologist.compose.snackbar.material.SnackbarResult> p);
@@ -191,10 +191,10 @@ package com.google.android.horologist.compose.snackbar.material {
   }
 
   public final class SnackbarHostStateKt {
-    method @androidx.compose.runtime.Composable public static void SnackbarHost(com.google.android.horologist.compose.snackbar.material.SnackbarHostState hostState, optional androidx.compose.ui.Modifier modifier, kotlin.jvm.functions.Function1<? super com.google.android.horologist.compose.snackbar.material.SnackbarData,kotlin.Unit> snackbar);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi public static void SnackbarHost(com.google.android.horologist.compose.snackbar.material.SnackbarHostState hostState, optional androidx.compose.ui.Modifier modifier, kotlin.jvm.functions.Function1<? super com.google.android.horologist.compose.snackbar.material.SnackbarData,kotlin.Unit> snackbar);
   }
 
-  public enum SnackbarResult {
+  @com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi public enum SnackbarResult {
     enum_constant public static final com.google.android.horologist.compose.snackbar.material.SnackbarResult ActionPerformed;
     enum_constant public static final com.google.android.horologist.compose.snackbar.material.SnackbarResult Dismissed;
   }

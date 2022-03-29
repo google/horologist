@@ -24,4 +24,5 @@ sealed class Screen(
     object FadeAway : Screen("fadeAway")
     object FadeAwaySLC : Screen("fadeAwaySLC")
     object FadeAwayColumn : Screen("fadeAwayColumn")
+    object Volume : Screen("volume")
 }

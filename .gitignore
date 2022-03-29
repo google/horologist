@@ -17,6 +17,7 @@ captures
 .idea/jarRepositories.xml
 .idea/deploymentTargetDropDown.xml
 .idea/misc.xml
+/.idea/androidTestResultsUserPreferences.xml
 gradle.xml
 *.iml
 
@@ -41,3 +42,6 @@ package-list-coil-base
 docs-gen
 site
 *.bak
+checksum.txt
+
+/localbin/

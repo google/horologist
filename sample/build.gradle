@@ -32,6 +32,24 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            manifestPlaceholders.schemeSuffix = "-debug"
+        }
+        release {
+            isDefault = true
+
+            manifestPlaceholders.schemeSuffix = ""
+
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            signingConfig = signingConfigs.getByName("debug")
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -45,6 +63,8 @@ android {
         jvmTarget = "1.8"
         // Allow for widescale experimental APIs in Alpha libraries we build upon
         freeCompilerArgs += "-opt-in=androidx.wear.compose.material.ExperimentalWearMaterialApi"
+        freeCompilerArgs += "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi"
+        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     }
 
     composeOptions {
@@ -53,7 +73,10 @@ android {
 }
 
 dependencies {
-    implementation project(':compose-layout')
+    implementation projects.composeLayout
+    implementation projects.audio
+    implementation projects.audioUi
+    implementation projects.tiles
 
     implementation libs.compose.ui.tooling
     implementation libs.compose.ui.util
@@ -68,8 +91,15 @@ dependencies {
     implementation libs.androidx.core
     implementation libs.androidx.fragment
     implementation libs.androidx.lifecycle.runtime
+    implementation libs.androidx.lifecycle.viewmodel.compose
     implementation libs.androidx.activity.compose
     implementation libs.androidx.wear.tiles
 
     implementation libs.kotlin.stdlib
+
+    androidTestImplementation libs.compose.ui.test.junit4
+    androidTestImplementation libs.espresso.core
+    androidTestImplementation libs.junit
+    androidTestImplementation libs.androidx.test.ext
+    androidTestImplementation libs.androidx.test.ext.ktx
 }

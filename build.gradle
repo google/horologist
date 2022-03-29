@@ -38,6 +38,8 @@ buildscript {
 plugins {
     id "com.diffplug.spotless" version "5.9.0"
     id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
+    id "com.github.ben-manes.versions" version "0.41.0"
+    id "nl.littlerobots.version-catalog-update" version "0.3.0"
 }
 
 apply plugin: 'org.jetbrains.dokka'
@@ -81,6 +83,13 @@ allprojects {
         def composeSnapshot = libs.versions.composesnapshot.get()
         if (composeSnapshot.length() > 1) {
             maven { url "https://androidx.dev/snapshots/builds/$composeSnapshot/artifacts/repository/" }
+        }
+    }
+
+    plugins.withId("com.vanniktech.maven.publish") {
+        mavenPublish {
+            androidVariantToPublish = "release"
+            sonatypeHost = "DEFAULT"
         }
     }
 }
@@ -130,6 +139,12 @@ subprojects {
             freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
             // Enable default methods in interfaces
             freeCompilerArgs += "-Xjvm-default=all"
+
+            // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+            if (!compile.name.endsWith("TestKotlin") && !compile.name.startsWith("compileDebug") && project.name != "sample") {
+                // Enable explicit API mode
+                compile.kotlinOptions.freeCompilerArgs.add("-Xexplicit-api=strict")
+            }
         }
     }
 
@@ -138,14 +153,7 @@ subprojects {
     if (signingPropsFile.exists()) {
         def localProperties = new Properties()
         signingPropsFile.withInputStream { is -> localProperties.load(is) }
-        localProperties.each { prop ->
-            if (prop.key == "signing.secretKeyRingFile") {
-                // If this is the key ring, treat it as a relative path
-                project.ext.set(prop.key, rootProject.file(prop.value).absolutePath)
-            } else {
-                project.ext.set(prop.key, prop.value)
-            }
-        }
+        localProperties.each { prop -> project.ext.set(prop.key, prop.value) }
     }
 
     // If we have a POM Artifact ID, we should generate API files
@@ -231,5 +239,18 @@ subprojects {
                 }
             }
         }
+    }
+}
+
+tasks.named("dependencyUpdates").configure {
+    rejectVersionIf {
+        (it.candidate.version ==~ /.*-alpha.*/ && !(it.currentVersion ==~ /.*-alpha.*/)) ||
+          (it.candidate.version ==~ /.*-beta.*/ && !(it.currentVersion ==~ /.*-(beta|alpha).*/))
+    }
+}
+
+versionCatalogUpdate {
+    keep {
+        keepUnusedVersions = true
     }
 }

@@ -19,6 +19,7 @@ package com.google.android.horologist.compose.layout
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.alpha
@@ -26,34 +27,65 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.util.lerp
 import androidx.wear.compose.material.ScalingLazyListState
 
-fun Modifier.fadeAway(scrollState: ScrollState) = composed {
+/**
+ * Scroll Away the item based on a regular scrolling item, like a Column.
+ * Does not include fading or scaling.
+ */
+internal fun Modifier.fadeAway(scrollStateFn: () -> ScrollState): Modifier = composed {
+    val scrollState = scrollStateFn()
     val y = scrollState.value / LocalDensity.current.density
 
     fadeEffect(y, fade = false)
 }
 
-fun Modifier.fadeAway(scrollState: LazyListState) = composed {
-    val y = scrollState.firstVisibleItemScrollOffset / LocalDensity.current.density
-
+/**
+ * Scroll Away the item based on a lazy list, like a LazyColumn. Does not include fading or scaling.
+ *
+ * The logic assumes the first item is large enough to fully fade away the item, if this is not the
+ * case then a custom implementation should be used.
+ */
+internal fun Modifier.fadeAwayLazyList(scrollStateFn: () -> LazyListState): Modifier = composed {
+    val scrollState = scrollStateFn()
     if (scrollState.firstVisibleItemIndex == 0) {
+        val y = scrollState.firstVisibleItemScrollOffset / LocalDensity.current.density
+
         fadeEffect(y, fade = false)
     } else {
         alpha(0.0f)
     }
 }
 
-fun Modifier.fadeAway(scrollState: ScalingLazyListState) = composed {
-    val y = scrollState.centerItemScrollOffset / LocalDensity.current.density
+/**
+ * Scroll Away the item based on a ScalingLazyColumn. The item is scaled
+ * and faded roughly in line with the default scaling params of ScalingLazyColumn,
+ * if this is not the case, a custom implementation should be used.
+ *
+ * The logic assumes the first item is large enough to fully fade away the item, if this is not the
+ * case then a custom implementation should be used.
+ *
+ * @param initialIndex The initial index must match that provided to [ScalingLazyListState].
+ * @param initialOffset The initial offset must match that provided to [ScalingLazyListState].
+ */
+internal fun Modifier.fadeAwayScalingLazyList(
+    initialIndex: Int = 1,
+    initialOffset: Int = 0,
+    scrollStateFn: () -> ScalingLazyListState,
+): Modifier =
+    composed {
+        val scrollState = remember { scrollStateFn() }
 
-    if (scrollState.centerItemIndex == 0) {
-        fadeEffect(y, fade = true)
-    } else {
-        alpha(0.0f)
+        if (scrollState.centerItemIndex == initialIndex && scrollState.centerItemScrollOffset > initialOffset) {
+            val y = scrollState.centerItemScrollOffset / LocalDensity.current.density
+
+            fadeEffect(y, fade = true)
+        } else if (scrollState.centerItemIndex > initialIndex) {
+            alpha(0.0f)
+        } else {
+            this
+        }
     }
-}
 
 private fun Modifier.fadeEffect(y: Float, fade: Boolean) = composed {
     if (fade) {
@@ -71,6 +103,10 @@ private fun Modifier.fadeEffect(y: Float, fade: Boolean) = composed {
         this
             .offset(y = -y.dp)
     }
+}
+
+internal fun lerp(start: Float, stop: Float, fraction: Float): Float {
+    return (1 - fraction) * start + fraction * stop
 }
 
 internal const val maxFadeOutScroll = 40f

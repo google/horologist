@@ -43,6 +43,10 @@ android {
         jvmTarget = "1.8"
         // Allow for widescale experimental APIs in Alpha libraries we build upon
         freeCompilerArgs += "-opt-in=androidx.wear.compose.material.ExperimentalWearMaterialApi"
+        freeCompilerArgs += "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi"
+        freeCompilerArgs += "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi"
+        freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     }
 
     composeOptions {
@@ -82,28 +86,27 @@ android {
     }
 }
 
-project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).configureEach { task ->
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!task.name.endsWith("TestKotlin") && !task.name.startsWith("compileDebug")) {
-        task.kotlinOptions.freeCompilerArgs.add("-Xexplicit-api=strict")
-    }
-}
-
 dependencies {
     implementation libs.kotlin.stdlib
 
     implementation libs.wearcompose.material
     implementation libs.wearcompose.foundation
+    implementation libs.wearcompose.navigation
 
     implementation libs.compose.ui.tooling
     implementation libs.compose.ui.util
     implementation libs.androidx.wear
+    implementation libs.androidx.lifecycle.viewmodel.compose
     debugImplementation libs.compose.ui.toolingpreview
     debugImplementation libs.androidx.activity.compose
+
+    implementation libs.androidx.navigation.compose
+    implementation libs.androidx.navigation.ui.ktx
 
     androidTestImplementation libs.compose.ui.test.junit4
     debugImplementation libs.compose.ui.test.manifest
     androidTestImplementation libs.espresso.core
+    androidTestImplementation libs.truth
     androidTestImplementation libs.junit
 }
 

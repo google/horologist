@@ -23,12 +23,19 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
+import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.google.android.horologist.audioui.VolumeScreen
+import com.google.android.horologist.compose.navscaffold.WearNavScaffold
+import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,19 +51,31 @@ class MainActivity : ComponentActivity() {
 fun WearApp() {
     val swipeDismissableNavController = rememberSwipeDismissableNavController()
 
-    Scaffold {
-        SwipeDismissableNavHost(
-            navController = swipeDismissableNavController,
-            startDestination = Screen.Menu.route,
+    WearNavScaffold(
+        startDestination = Screen.Menu.route,
+        navController = swipeDismissableNavController
+    ) {
+        scalingLazyColumnComposable(
+            route = Screen.Menu.route,
+            scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 0) }
         ) {
-            composable(Screen.Menu.route) {
-                MenuScreen(
-                    modifier = Modifier.fillMaxSize(),
-                    navigateToRoute = { swipeDismissableNavController.navigate(it) },
-                )
-            }
-            composable(Screen.FillMaxRectangle.route) {
-                FillMaxRectangleScreen()
+            MenuScreen(
+                modifier = Modifier.fillMaxSize(),
+                navigateToRoute = { swipeDismissableNavController.navigate(it) },
+                scrollState = it.scrollableState,
+                focusRequester = it.viewModel.focusRequester
+            )
+        }
+        composable(Screen.FillMaxRectangle.route) {
+            FillMaxRectangleScreen()
+        }
+        composable(Screen.Volume.route) {
+            val focusRequester = remember { FocusRequester() }
+
+            VolumeScreen(focusRequester = focusRequester)
+
+            LaunchedEffect(Unit) {
+                focusRequester.requestFocus()
             }
             composable(Screen.FadeAway.route) {
                 FadeAwayScreenLazyColumn()

@@ -58,6 +58,7 @@ import com.google.android.horologist.compose.layout.fadeAwayScalingLazyList
  * These should be used to build the [ScrollableState] or [FocusRequester] as well as
  * configure the behaviour of [TimeText], [PositionIndicator] or [Vignette].
  */
+@ExperimentalComposeLayoutApi
 @Composable
 public fun WearNavScaffold(
     startDestination: String,
@@ -158,6 +159,7 @@ private fun NavTimeText(modifier: Modifier) {
     )
 }
 
+@ExperimentalComposeLayoutApi
 @Composable
 private fun NavPositionIndicator(viewModel: NavScaffoldViewModel) {
     when (viewModel.scrollType) {
@@ -183,6 +185,7 @@ private fun NavPositionIndicator(viewModel: NavScaffoldViewModel) {
  *
  * The [viewModel] can be used to customise the scaffold behaviour.
  */
+@ExperimentalComposeLayoutApi
 public data class ScaffoldContext<T : ScrollableState>(
     val backStackEntry: NavBackStackEntry,
     val scrollableState: T,
@@ -194,6 +197,7 @@ public data class ScaffoldContext<T : ScrollableState>(
  *
  * The scalingLazyListState must be taken from the [ScaffoldContext].
  */
+@ExperimentalComposeLayoutApi
 public fun NavGraphBuilder.scalingLazyColumnComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
@@ -217,6 +221,7 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
  *
  * The scrollState must be taken from the [ScaffoldContext].
  */
+@ExperimentalComposeLayoutApi
 public fun NavGraphBuilder.scrollStateComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
@@ -240,6 +245,7 @@ public fun NavGraphBuilder.scrollStateComposable(
  *
  * The scrollState must be taken from the [ScaffoldContext].
  */
+@ExperimentalComposeLayoutApi
 public fun NavGraphBuilder.lazyListComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
@@ -263,6 +269,7 @@ public fun NavGraphBuilder.lazyListComposable(
  * [NavScaffoldViewModel] are passed into the [content] block so that
  * the Scaffold may be customised, such as disabling TimeText.
  */
+@ExperimentalComposeLayoutApi
 public fun NavGraphBuilder.wearNavComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
@@ -278,6 +285,7 @@ public fun NavGraphBuilder.wearNavComposable(
     }
 }
 
+@ExperimentalComposeLayoutApi
 @Composable
 private fun NavBackStackEntry.ResumeAsNeeded(
     viewModel: NavScaffoldViewModel

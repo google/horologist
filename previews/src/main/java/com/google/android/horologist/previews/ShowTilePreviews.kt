@@ -16,8 +16,12 @@
 
 package com.google.android.horologist.previews
 
+import android.content.res.Resources
+import android.graphics.Color.GREEN
+import android.util.DisplayMetrics
 import android.widget.FrameLayout
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
@@ -29,37 +33,56 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.wear.compose.material.Text
+import androidx.wear.tiles.DeviceParametersBuilders
+import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.ResourceBuilders
+import androidx.wear.tiles.StateBuilders
 import androidx.wear.tiles.TileBuilders.Tile
 import androidx.wear.tiles.renderer.TileRenderer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
+import kotlin.math.roundToInt
 
 @Composable
 fun ShowTilePreviews(
     tile: () -> Tile,
+    modifier: Modifier = Modifier,
     resources: () -> ResourceBuilders.Resources = { emptyResources() },
 ) {
-    Column(modifier = Modifier
-        .size(250.dp, 600.dp)
-        .background(Color.DarkGray)) {
+    Column(
+        modifier = modifier
+            .size(250.dp, 600.dp)
+            .background(Color.DarkGray)
+    ) {
 
         Text(text = "Square Small")
 
-        Box(modifier = Modifier
-            .size(198.dp)
+        Box(
+            modifier = Modifier
+                .size(198.dp)
 //            .clip(CircleShape)
-            .background(Color.Black)) {
-            ShowSingleTilePreview(tile(), resources())
+                .background(Color.Black)
+        ) {
+            ShowSingleTilePreview(
+                modifier = Modifier.border(1.dp, androidx.compose.ui.graphics.Color.Red),
+                tile = tile(),
+                resources = resources()
+            )
         }
 
         Text(text = "Circle Large")
 
-        Box(modifier = Modifier
-            .size(224.dp)
-            .clip(CircleShape)
-            .background(Color.Black)) {
-            ShowSingleTilePreview(tile(), resources())
+        Box(
+            modifier = Modifier
+                .size(224.dp)
+                .clip(CircleShape)
+                .background(Color.Black)
+        ) {
+            ShowSingleTilePreview(
+                modifier = Modifier.border(1.dp, androidx.compose.ui.graphics.Color.Red),
+                tile = tile(),
+                resources = resources()
+            )
         }
     }
 }
@@ -67,25 +90,51 @@ fun ShowTilePreviews(
 @Composable
 fun ShowSingleTilePreview(
     tile: Tile,
-    resources: ResourceBuilders.Resources
+    resources: ResourceBuilders.Resources,
+    modifier: Modifier = Modifier
 ) {
-    AndroidView(factory = { context ->
-        FrameLayout(context).also {
-            val tileRenderer = TileRenderer(
-                /* uiContext = */ context,
-                /* layout = */ tile.timeline?.timelineEntries?.first()?.layout!!,
-                /* resources = */ resources,
-                /* loadActionExecutor = */ Dispatchers.IO.asExecutor(),
-                /* loadActionListener = */ {}
-            )
+    AndroidView(
+        modifier = modifier,
+        factory = { context ->
+            FrameLayout(context).also {
+                val tileRenderer = TileRenderer(
+                    /* uiContext = */ context,
+                    /* layout = */ tile.timeline?.timelineEntries?.first()?.layout!!,
+                    /* resources = */ resources,
+                    /* loadActionExecutor = */ Dispatchers.IO.asExecutor(),
+                    /* loadActionListener = */ {}
+                )
 
-            tileRenderer.inflate(it)
+                it.setBackgroundColor(GREEN)
+
+                tileRenderer.inflate(it)
+            }
         }
-    })
+    )
 }
 
 fun emptyResources(): ResourceBuilders.Resources {
     return ResourceBuilders.Resources.Builder()
         .setVersion("1")
+        .build()
+}
+
+fun requestParams(resources: Resources) = RequestBuilders.TileRequest.Builder()
+    .setDeviceParameters(buildDeviceParameters(resources))
+    .setState(StateBuilders.State.Builder().build())
+    .build()
+
+fun buildDeviceParameters(resources: Resources): DeviceParametersBuilders.DeviceParameters {
+    val displayMetrics: DisplayMetrics = resources.displayMetrics
+    val isScreenRound: Boolean = resources.configuration.isScreenRound
+    return DeviceParametersBuilders.DeviceParameters.Builder()
+        .setScreenWidthDp((displayMetrics.widthPixels / displayMetrics.density).roundToInt())
+        .setScreenHeightDp((displayMetrics.heightPixels / displayMetrics.density).roundToInt())
+        .setScreenDensity(displayMetrics.density)
+        .setScreenShape(
+            if (isScreenRound) DeviceParametersBuilders.SCREEN_SHAPE_ROUND
+            else DeviceParametersBuilders.SCREEN_SHAPE_RECT
+        )
+        .setDevicePlatform(DeviceParametersBuilders.DEVICE_PLATFORM_WEAR_OS)
         .build()
 }

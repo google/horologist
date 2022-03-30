@@ -16,13 +16,13 @@
 
 package com.google.android.horologist.previews
 
-import android.content.res.Resources
 import android.graphics.Color
-import android.util.DisplayMetrics
+import androidx.compose.foundation.border
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.wear.tiles.ColorBuilders.ColorProp
-import androidx.wear.tiles.DeviceParametersBuilders
 import androidx.wear.tiles.DimensionBuilders.ExpandedDimensionProp
 import androidx.wear.tiles.LayoutElementBuilders.Box
 import androidx.wear.tiles.LayoutElementBuilders.HORIZONTAL_ALIGN_CENTER
@@ -31,12 +31,9 @@ import androidx.wear.tiles.LayoutElementBuilders.Text
 import androidx.wear.tiles.LayoutElementBuilders.VERTICAL_ALIGN_CENTER
 import androidx.wear.tiles.ModifiersBuilders.Background
 import androidx.wear.tiles.ModifiersBuilders.Modifiers
-import androidx.wear.tiles.RequestBuilders
-import androidx.wear.tiles.StateBuilders
 import androidx.wear.tiles.TileBuilders.Tile
 import androidx.wear.tiles.TimelineBuilders.Timeline
 import androidx.wear.tiles.TimelineBuilders.TimelineEntry
-import kotlin.math.roundToInt
 
 @Preview(
     backgroundColor = 0xff000000,
@@ -44,7 +41,11 @@ import kotlin.math.roundToInt
 )
 @Composable
 fun SamplePreview() {
-    ShowTilePreviews({ sampleTile() })
+    ShowTilePreviews(
+        tile = { sampleTile() },
+        resources = { emptyResources() },
+        modifier = Modifier.border(1.dp, androidx.compose.ui.graphics.Color.Red)
+    )
 }
 
 fun sampleTile(): Tile {
@@ -61,16 +62,24 @@ fun sampleTile(): Tile {
                                         .setWidth(ExpandedDimensionProp.Builder().build())
                                         .setVerticalAlignment(VERTICAL_ALIGN_CENTER)
                                         .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)
-                                        .setModifiers(Modifiers.Builder()
-                                            .setBackground(Background.Builder()
-                                                .setColor(ColorProp.Builder()
-                                                    .setArgb(Color.BLUE)
-                                                    .build())
-                                                .build())
-                                            .build())
-                                        .addContent(Text.Builder()
-                                            .setText("Hey")
-                                            .build())
+                                        .setModifiers(
+                                            Modifiers.Builder()
+                                                .setBackground(
+                                                    Background.Builder()
+                                                        .setColor(
+                                                            ColorProp.Builder()
+                                                                .setArgb(Color.BLUE)
+                                                                .build()
+                                                        )
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
+                                        .addContent(
+                                            Text.Builder()
+                                                .setText("Hey")
+                                                .build()
+                                        )
                                         .build()
                                 )
                                 .build()
@@ -81,25 +90,5 @@ fun sampleTile(): Tile {
         )
         .setResourcesVersion("1")
         .setFreshnessIntervalMillis(300000)
-        .build()
-}
-
-private fun requestParams(resources: Resources) = RequestBuilders.TileRequest.Builder()
-    .setDeviceParameters(buildDeviceParameters(resources))
-    .setState(StateBuilders.State.Builder().build())
-    .build()
-
-fun buildDeviceParameters(resources: Resources): DeviceParametersBuilders.DeviceParameters {
-    val displayMetrics: DisplayMetrics = resources.displayMetrics
-    val isScreenRound: Boolean = resources.configuration.isScreenRound
-    return DeviceParametersBuilders.DeviceParameters.Builder()
-        .setScreenWidthDp((displayMetrics.widthPixels / displayMetrics.density).roundToInt())
-        .setScreenHeightDp((displayMetrics.heightPixels / displayMetrics.density).roundToInt())
-        .setScreenDensity(displayMetrics.density)
-        .setScreenShape(
-            if (isScreenRound) DeviceParametersBuilders.SCREEN_SHAPE_ROUND
-            else DeviceParametersBuilders.SCREEN_SHAPE_RECT
-        )
-        .setDevicePlatform(DeviceParametersBuilders.DEVICE_PLATFORM_WEAR_OS)
         .build()
 }

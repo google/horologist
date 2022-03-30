@@ -149,15 +149,12 @@ package com.google.android.horologist.compose.snackbar {
   }
 
   @com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi public final class UiMessage {
-    ctor public UiMessage(String message, optional String id, optional boolean error);
+    ctor public UiMessage(String message, optional String id);
     method public String component1();
     method public String component2();
-    method public boolean component3();
-    method public com.google.android.horologist.compose.snackbar.UiMessage copy(String message, String id, boolean error);
-    method public boolean getError();
+    method public com.google.android.horologist.compose.snackbar.UiMessage copy(String message, String id);
     method public String getId();
     method public String getMessage();
-    property public final boolean error;
     property public final String id;
     property public final String message;
   }

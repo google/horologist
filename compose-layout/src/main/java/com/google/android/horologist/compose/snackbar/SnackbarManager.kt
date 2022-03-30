@@ -16,23 +16,22 @@
 
 package com.google.android.horologist.compose.snackbar
 
+import androidx.compose.runtime.mutableStateListOf
 import com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 
+/**
+ * Coordination point for message producers and the single message consumer.
+ */
 @ExperimentalComposeLayoutApi
 public class SnackbarManager {
-    private val _messages: MutableStateFlow<List<UiMessage>> = MutableStateFlow(emptyList())
-    internal val messages: StateFlow<List<UiMessage>> get() = _messages.asStateFlow()
+    internal val messages = mutableStateListOf<UiMessage>()
 
     public fun showMessage(message: UiMessage) {
-        _messages.update { currentMessages -> currentMessages + message }
+        messages.add(message)
     }
 
     internal fun setMessageShown(messageId: String) {
-        _messages.update { currentMessages -> currentMessages.filterNot { it.id == messageId } }
+        messages.removeIf { it.id == messageId }
     }
 
     public fun showMessage(message: String) {

@@ -16,23 +16,20 @@
 
 package com.google.android.horologist.compose.snackbar
 
+import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
-import androidx.navigation.NavHostController
-import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi
 import com.google.android.horologist.compose.snackbar.material.SnackbarDuration
 import com.google.android.horologist.compose.snackbar.material.SnackbarHostState
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 
 /**
- * A ViewModel that backs the WearNavScaffold to allow each composable to interact and effect
- * the [Scaffold] positionIndicator, vignette and timeText.
- *
- * A ViewModel is used to allow the same current instance to be shared between the WearNavScaffold
- * and the composable screen via [NavHostController.currentBackStackEntry].
+ * A ViewModel the maintainer the SnackbarHostState, and a reference to the Manager
+ * for both processes snackbars sequentially and also showing a message.
  */
 @ExperimentalComposeLayoutApi
 public open class SnackbarViewModel(
@@ -42,14 +39,13 @@ public open class SnackbarViewModel(
 
     init {
         viewModelScope.launch {
-            snackbarManager.messages.collect { currentMessages ->
-                currentMessages.firstOrNull()?.let {
-                    snackbarHostState.showSnackbar(
-                        message = it.message,
-                        duration = SnackbarDuration.Short
-                    )
-                    snackbarManager.setMessageShown(it.id)
-                }
+            val messages = snapshotFlow { snackbarManager.messages.firstOrNull() }.filterNotNull()
+            messages.collect { message ->
+                snackbarHostState.showSnackbar(
+                    message = message.message,
+                    duration = SnackbarDuration.Short
+                )
+                snackbarManager.setMessageShown(message.id)
             }
         }
     }

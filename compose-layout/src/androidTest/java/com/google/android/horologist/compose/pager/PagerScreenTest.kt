@@ -33,6 +33,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.lifecycle.whenResumed
 import androidx.wear.compose.material.Text
 import com.google.accompanist.pager.PagerState
+import com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -41,6 +42,7 @@ import kotlinx.coroutines.withContext
 import org.junit.Rule
 import org.junit.Test
 
+@OptIn(ExperimentalComposeLayoutApi::class)
 class PagerScreenTest {
     @get:Rule
     val composeTestRule = createComposeRule()

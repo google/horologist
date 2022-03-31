@@ -23,7 +23,7 @@ android {
 
     defaultConfig {
         applicationId "com.google.android.horologist.sample"
-        minSdk 26
+        minSdk 25
         targetSdk 30
 
         versionCode 1

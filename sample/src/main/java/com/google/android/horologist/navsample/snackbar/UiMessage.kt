@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.navsample
+package com.google.android.horologist.navsample.snackbar
 
-sealed class NavScreen(
-    val route: String
-) {
-    object Menu : NavScreen("menu")
-    object ScalingLazyColumn : NavScreen("scalinglazycolumn")
-    object Column : NavScreen("column")
-    object Volume : NavScreen("volume")
-    object Pager : NavScreen("pager")
-    object Snackbar : NavScreen("snackbar")
-    object Dialog : NavScreen("dialog")
-}
+import com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi
+import java.util.UUID
+
+@ExperimentalComposeLayoutApi
+public data class UiMessage(
+    val message: String,
+    val id: String = UUID.randomUUID().toString(),
+)

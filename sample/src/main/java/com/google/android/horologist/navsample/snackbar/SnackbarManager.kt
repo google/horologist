@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.snackbar
+package com.google.android.horologist.navsample.snackbar
 
 import androidx.compose.runtime.mutableStateListOf
 import com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi

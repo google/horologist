@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.snackbar
+package com.google.android.horologist.navsample.snackbar
 
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
@@ -22,8 +22,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi
-import com.google.android.horologist.compose.snackbar.material.SnackbarDuration
-import com.google.android.horologist.compose.snackbar.material.SnackbarHostState
+import com.google.android.horologist.compose.snackbar.SnackbarDuration
+import com.google.android.horologist.compose.snackbar.SnackbarHostState
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 

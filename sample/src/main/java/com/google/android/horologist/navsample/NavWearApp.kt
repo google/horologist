@@ -39,7 +39,7 @@ import com.google.android.horologist.compose.navscaffold.scrollStateComposable
 import com.google.android.horologist.compose.navscaffold.wearNavComposable
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
-import com.google.android.horologist.compose.snackbar.SnackbarViewModel
+import com.google.android.horologist.navsample.snackbar.SnackbarViewModel
 
 @Composable
 fun NavWearApp(navController: NavHostController) {

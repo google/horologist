@@ -19,8 +19,6 @@ package com.google.android.horologist.compose.snackbar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.platform.LocalAccessibilityManager
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
@@ -29,32 +27,32 @@ import com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayo
 
 @ExperimentalComposeLayoutApi
 @Composable
-public fun DialogSnackbarHost(
+public fun TestSnackbar(
+    data: SnackbarData,
     modifier: Modifier = Modifier,
-    hostState: SnackbarHostState,
 ) {
-    val accessibilityManager = LocalAccessibilityManager.current
-    SnackbarHost(
-        modifier = modifier.alpha(0.9f),
-        snackbar = {
-            val duration = it.duration.toMillis(
-                it.actionLabel != null,
-                accessibilityManager
-            )
-            Confirmation(onTimeout = { it.dismiss() }, durationMillis = duration) {
-            Text(
-                modifier = Modifier.align(CenterHorizontally),
-                text = it.message,
-                style = MaterialTheme.typography.display3
-            )
-            Button(
-                modifier = Modifier.align(CenterHorizontally),
-                onClick = { it.dismiss() }
-            ) {
-                Text(text = "Dismiss")
-            }
+    val duration = data.duration.toMillis(data.actionLabel != null, null)
+    Confirmation(
+        modifier = modifier,
+        onTimeout = { data.dismiss() },
+        durationMillis = duration
+    ) {
+        Text(
+            modifier = Modifier.align(CenterHorizontally),
+            text = data.message,
+            style = MaterialTheme.typography.display3
+        )
+        Button(
+            modifier = Modifier.align(CenterHorizontally),
+            onClick = { data.performAction() }
+        ) {
+            Text(text = "press")
         }
-        },
-        hostState = hostState,
-    )
+        Button(
+            modifier = Modifier.align(CenterHorizontally),
+            onClick = { data.dismiss() }
+        ) {
+            Text(text = "dismiss")
+        }
+    }
 }

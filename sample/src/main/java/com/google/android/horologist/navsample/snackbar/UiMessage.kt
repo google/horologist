@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.snackbar
+package com.google.android.horologist.navsample.snackbar
 
 import com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi
 import java.util.UUID

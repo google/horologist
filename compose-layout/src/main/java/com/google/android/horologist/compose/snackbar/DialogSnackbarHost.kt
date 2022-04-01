@@ -40,7 +40,10 @@ public fun DialogSnackbarHost(
             val duration = it.duration.toMillis(
                 it.actionLabel != null, accessibilityManager
             )
-            Confirmation(onTimeout = { it.dismiss() }, durationMillis = duration) {
+            Confirmation(
+                onTimeout = { it.dismiss() },
+                durationMillis = duration
+            ) {
                 Text(
                     modifier = Modifier.align(CenterHorizontally),
                     text = it.message,

@@ -110,6 +110,8 @@ dependencies {
     implementation libs.androidx.wear
     implementation libs.androidx.lifecycle.viewmodel.compose
 
+    debugImplementation libs.androidx.customview
+    debugImplementation libs.androidx.customview.pooling
     debugImplementation libs.compose.ui.toolingpreview
     debugImplementation libs.androidx.activity.compose
 

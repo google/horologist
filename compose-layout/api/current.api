@@ -127,7 +127,7 @@ package com.google.android.horologist.compose.pager {
 package com.google.android.horologist.compose.snackbar {
 
   public final class DialogSnackbarHostKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi public static void DialogSnackbarHost(optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.compose.snackbar.SnackbarHostState hostState);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi public static void DialogSnackbarHost(com.google.android.horologist.compose.snackbar.SnackbarHostState hostState, optional androidx.compose.ui.Modifier modifier);
   }
 
   @com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi public interface SnackbarData {

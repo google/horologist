@@ -30,30 +30,26 @@ import com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayo
 @ExperimentalComposeLayoutApi
 @Composable
 public fun DialogSnackbarHost(
-    modifier: Modifier = Modifier,
     hostState: SnackbarHostState,
+    modifier: Modifier = Modifier,
 ) {
     val accessibilityManager = LocalAccessibilityManager.current
     SnackbarHost(
         modifier = modifier.alpha(0.9f),
         snackbar = {
             val duration = it.duration.toMillis(
-                it.actionLabel != null,
-                accessibilityManager
+                it.actionLabel != null, accessibilityManager
             )
             Confirmation(onTimeout = { it.dismiss() }, durationMillis = duration) {
-            Text(
-                modifier = Modifier.align(CenterHorizontally),
-                text = it.message,
-                style = MaterialTheme.typography.display3
-            )
-            Button(
-                modifier = Modifier.align(CenterHorizontally),
-                onClick = { it.dismiss() }
-            ) {
-                Text(text = "Dismiss")
+                Text(
+                    modifier = Modifier.align(CenterHorizontally),
+                    text = it.message,
+                    style = MaterialTheme.typography.display3
+                )
+                Button(modifier = Modifier.align(CenterHorizontally), onClick = { it.dismiss() }) {
+                    Text(text = "Dismiss")
+                }
             }
-        }
         },
         hostState = hostState,
     )

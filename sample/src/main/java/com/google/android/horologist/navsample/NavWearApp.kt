@@ -50,8 +50,8 @@ fun NavWearApp(navController: NavHostController) {
         navController = navController,
         snackbar = {
             DialogSnackbarHost(
-                modifier = Modifier.fillMaxSize(),
-                hostState = snackbarViewModel.snackbarHostState
+                hostState = snackbarViewModel.snackbarHostState,
+                modifier = Modifier.fillMaxSize()
             )
         }
     ) {

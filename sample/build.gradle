@@ -23,7 +23,8 @@ android {
 
     defaultConfig {
         applicationId "com.google.android.horologist.sample"
-        minSdk 25
+        // Min because of Tiles
+        minSdk 26
         targetSdk 30
 
         versionCode 1

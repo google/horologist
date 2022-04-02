@@ -14,21 +14,23 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.sample
+package com.google.android.horologist.compose.devices
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import com.google.android.horologist.compose.DeviceLocals
+public interface Haptics {
+    public fun performScrollTick()
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    public fun performScrollClick()
 
-        setContent {
-            DeviceLocals {
-                WearApp()
-            }
+    public fun performScrollHeavyClick()
+
+    public object None : Haptics {
+        override fun performScrollTick() {
+        }
+
+        override fun performScrollClick() {
+        }
+
+        override fun performScrollHeavyClick() {
         }
     }
 }

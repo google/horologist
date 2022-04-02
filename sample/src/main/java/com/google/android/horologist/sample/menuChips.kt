@@ -102,3 +102,14 @@ fun FadeAwayChip(
         }
     )
 }
+
+@Composable
+fun HapticsChip(navigateToRoute: (String) -> Unit) {
+    SampleChip(
+        onClick = { navigateToRoute(Screen.Haptics.route) },
+        label = "Haptics",
+        content = {
+
+        }
+    )
+}

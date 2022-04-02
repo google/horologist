@@ -38,8 +38,8 @@ buildscript {
 plugins {
     id "com.diffplug.spotless" version "5.9.0"
     id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
-    id "com.github.ben-manes.versions" version "0.41.0"
-    id "nl.littlerobots.version-catalog-update" version "0.3.0"
+    id "com.github.ben-manes.versions" version "0.41.0" apply false
+    id "nl.littlerobots.version-catalog-update" version "0.3.0" apply false
     id "org.jetbrains.kotlin.kapt" version '1.6.10' apply false
 }
 
@@ -244,15 +244,20 @@ subprojects {
     }
 }
 
-tasks.named("dependencyUpdates").configure {
-    rejectVersionIf {
-        (it.candidate.version ==~ /.*-alpha.*/ && !(it.currentVersion ==~ /.*-alpha.*/)) ||
-          (it.candidate.version ==~ /.*-beta.*/ && !(it.currentVersion ==~ /.*-(beta|alpha).*/))
-    }
-}
+if (project.plugins.findPlugin('nl.littlerobots.version-catalog-update') == null) {
+    apply plugin: "com.github.ben-manes.versions"
+    apply plugin: "nl.littlerobots.version-catalog-update"
 
-versionCatalogUpdate {
-    keep {
-        keepUnusedVersions = true
+    tasks.named("dependencyUpdates").configure {
+        rejectVersionIf {
+            (it.candidate.version ==~ /.*-alpha.*/ && !(it.currentVersion ==~ /.*-alpha.*/)) ||
+                    (it.candidate.version ==~ /.*-beta.*/ && !(it.currentVersion ==~ /.*-(beta|alpha).*/))
+        }
+    }
+
+    versionCatalogUpdate {
+        keep {
+            keepUnusedVersions = true
+        }
     }
 }

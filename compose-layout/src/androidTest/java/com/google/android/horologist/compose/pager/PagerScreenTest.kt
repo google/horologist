@@ -14,25 +14,35 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalTestApi::class)
+
 package com.google.android.horologist.compose.pager
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.performRotaryScrollInput
 import androidx.lifecycle.whenResumed
 import androidx.wear.compose.material.Text
 import com.google.accompanist.pager.PagerState
+import com.google.android.horologist.compose.devices.LocalHaptics
+import com.google.android.horologist.compose.devices.LocalRotaryInput
+import com.google.android.horologist.compose.devices.RotaryInput
 import com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
@@ -99,5 +109,57 @@ class PagerScreenTest {
         text3.assertDoesNotExist()
         text4.assertDoesNotExist()
         assertThat(resumedScreen).isEqualTo(1)
+    }
+
+    @Test
+    fun testHaptics() = runTest {
+        // Test pager scrolling sends haptic events
+
+        val state = PagerState()
+        val focusRequester = FocusRequester()
+
+        val haptics = TestHaptics()
+        val rotaryInput = RotaryInput.Emulator
+
+        composeTestRule.setContent {
+            CompositionLocalProvider(
+                LocalHaptics provides haptics,
+                LocalRotaryInput provides rotaryInput
+            ) {
+                PagerScreen(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .pageScrollable(
+                            state = state,
+                            focusRequester = { focusRequester }),
+                    count = 5,
+                    state = state
+                ) { i ->
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        Text(modifier = Modifier.testTag("text$i"), text = "Text $i")
+                    }
+                }
+            }
+        }
+
+        composeTestRule.runOnIdle {
+            focusRequester.requestFocus()
+        }
+
+        assertThat(state.currentPage).isEqualTo(0)
+        assertThat(state.pageCount).isEqualTo(5)
+
+        composeTestRule.onRoot().performRotaryScrollInput {
+            rotateToScrollVertically(1.25f * rotaryInput.rotaryPixelsForPageChange)
+        }
+        composeTestRule.waitForIdle()
+
+        composeTestRule.onRoot().performRotaryScrollInput {
+            rotateToScrollVertically(1.25f * rotaryInput.rotaryPixelsForPageChange)
+        }
+        composeTestRule.waitForIdle()
+
+        assertThat(state.currentPage).isEqualTo(2)
+        assertThat(haptics.hapticEvents).containsExactly("performScrollTick", "performScrollTick")
     }
 }

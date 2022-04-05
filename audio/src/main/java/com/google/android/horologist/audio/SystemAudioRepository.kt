@@ -138,7 +138,7 @@ private inline val MediaRouter.devices: List<AudioOutput>
 @ExperimentalAudioApi
 private inline val RouteInfo.volumeState: VolumeState
     get() {
-        return VolumeState(current = volume, min = 0, max = volumeMax, isMute = false)
+        return VolumeState(current = volume, max = volumeMax)
     }
 
 @ExperimentalAudioApi

@@ -22,13 +22,8 @@ package com.google.android.horologist.audio
 @ExperimentalAudioApi
 public data class VolumeState(
     public val current: Int,
-    public val min: Int,
-    public val max: Int,
-    public val isMute: Boolean
+    public val max: Int
 ) {
     public val isMax: Boolean
         get() = current >= max
-
-    public val isMin: Boolean
-        get() = current <= max
 }

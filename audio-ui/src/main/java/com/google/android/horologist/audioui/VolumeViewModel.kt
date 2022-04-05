@@ -25,8 +25,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.AudioOutputRepository
 import com.google.android.horologist.audio.ExperimentalAudioApi
-import com.google.android.horologist.audio.SystemAudioOutputRepository
-import com.google.android.horologist.audio.SystemVolumeRepository
+import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.audio.VolumeRepository
 import com.google.android.horologist.audio.VolumeState
 import kotlinx.coroutines.flow.StateFlow
@@ -80,13 +79,11 @@ public open class VolumeViewModel(
 
             val application = extras[APPLICATION_KEY]!!
 
-            val volumeRepository = SystemVolumeRepository.fromContext(application)
-            val audioOutputRepository = SystemAudioOutputRepository.fromContext(application)
+            val audioRepository = SystemAudioRepository.fromContext(application)
             val vibrator: Vibrator = application.getSystemService(Vibrator::class.java)
 
-            return VolumeViewModel(volumeRepository, audioOutputRepository, onCleared = {
-                volumeRepository.close()
-                audioOutputRepository.close()
+            return VolumeViewModel(audioRepository, audioRepository, onCleared = {
+                audioRepository.close()
             }, vibrator) as T
         }
     }

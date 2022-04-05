@@ -39,6 +39,7 @@ androidx-lifecycle-testing = { module = "androidx.lifecycle:lifecycle-runtime-te
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidxNavigation" }
+androidx-test-rules = "androidx.test:rules:1.4.0"
 androidx-test-ext = "androidx.test.ext:junit:1.1.3"
 androidx-test-ext-ktx = "androidx.test.ext:junit-ktx:1.1.3"
 androidx-wear = { module = "androidx.wear:wear", version.ref = "androidxWear" }

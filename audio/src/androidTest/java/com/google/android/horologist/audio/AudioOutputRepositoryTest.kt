@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.audio
 
+import androidx.test.annotation.UiThreadTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -23,6 +24,7 @@ import org.junit.Test
 @OptIn(ExperimentalAudioApi::class)
 class AudioOutputRepositoryTest {
     @Test
+    @UiThreadTest
     fun testAudioOutputRepository() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
 

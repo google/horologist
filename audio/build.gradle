@@ -98,6 +98,7 @@ dependencies {
     implementation libs.androidx.lifecycle.runtime
 
     androidTestImplementation libs.androidx.lifecycle.testing
+    androidTestImplementation libs.androidx.test.rules
     androidTestImplementation libs.truth
     androidTestImplementation libs.compose.ui.test.junit4
     debugImplementation libs.compose.ui.test.manifest

@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.layout
+package com.google.android.horologist.audio
 
 import androidx.test.platform.app.InstrumentationRegistry
-import com.google.android.horologist.audio.ExperimentalAudioApi
-import com.google.android.horologist.audio.SystemVolumeRepository
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 

@@ -22,7 +22,7 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
 @OptIn(ExperimentalAudioApi::class)
-class AudioOutputRepositoryTest {
+class SystemAudioOutputRepositoryTest {
     @Test
     @UiThreadTest
     fun testAudioOutputRepository() {

@@ -2,50 +2,50 @@
 package com.google.android.horologist.audio {
 
   @com.google.android.horologist.audio.ExperimentalAudioApi public interface AudioOutput {
-    method public Integer? getId();
+    method public String getId();
     method public String getName();
-    property public abstract Integer? id;
+    property public abstract String id;
     property public abstract String name;
   }
 
   public static final class AudioOutput.BluetoothHeadset implements com.google.android.horologist.audio.AudioOutput {
-    ctor public AudioOutput.BluetoothHeadset(int id, String name);
-    method public int component1();
+    ctor public AudioOutput.BluetoothHeadset(String id, String name);
+    method public String component1();
     method public String component2();
-    method public com.google.android.horologist.audio.AudioOutput.BluetoothHeadset copy(int id, String name);
-    method public int getId();
+    method public com.google.android.horologist.audio.AudioOutput.BluetoothHeadset copy(String id, String name);
+    method public String getId();
     method public String getName();
-    property public int id;
+    property public String id;
     property public String name;
   }
 
   public static final class AudioOutput.None implements com.google.android.horologist.audio.AudioOutput {
-    method public Integer? getId();
+    method public String getId();
     method public String getName();
-    property public Integer? id;
+    property public String id;
     property public String name;
     field public static final com.google.android.horologist.audio.AudioOutput.None INSTANCE;
   }
 
   public static final class AudioOutput.Unknown implements com.google.android.horologist.audio.AudioOutput {
-    ctor public AudioOutput.Unknown(int id, String name);
-    method public int component1();
+    ctor public AudioOutput.Unknown(String id, String name);
+    method public String component1();
     method public String component2();
-    method public com.google.android.horologist.audio.AudioOutput.Unknown copy(int id, String name);
-    method public int getId();
+    method public com.google.android.horologist.audio.AudioOutput.Unknown copy(String id, String name);
+    method public String getId();
     method public String getName();
-    property public int id;
+    property public String id;
     property public String name;
   }
 
   public static final class AudioOutput.WatchSpeaker implements com.google.android.horologist.audio.AudioOutput {
-    ctor public AudioOutput.WatchSpeaker(int id, String name);
-    method public int component1();
+    ctor public AudioOutput.WatchSpeaker(String id, String name);
+    method public String component1();
     method public String component2();
-    method public com.google.android.horologist.audio.AudioOutput.WatchSpeaker copy(int id, String name);
-    method public int getId();
+    method public com.google.android.horologist.audio.AudioOutput.WatchSpeaker copy(String id, String name);
+    method public String getId();
     method public String getName();
-    property public int id;
+    property public String id;
     property public String name;
   }
 

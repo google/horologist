@@ -66,7 +66,7 @@ public class SystemAudioOutputRepository(
         val currentAvailable = _available.value.toMutableList()
 
         removedDevices.forEach { audioDevice ->
-            changed = changed or currentAvailable.removeIf { it.id == audioDevice.id }
+            changed = changed or currentAvailable.removeIf { it.id == audioDevice.id.toString() }
         }
 
         if (changed) {
@@ -118,14 +118,14 @@ public class SystemAudioOutputRepository(
                 val name = audioDevice.productName.toString()
                 return when (type) {
                     AudioDeviceInfo.TYPE_BUILTIN_SPEAKER -> AudioOutput.WatchSpeaker(
-                        audioDevice.id,
+                        audioDevice.id.toString(),
                         name
                     )
                     AudioDeviceInfo.TYPE_BLUETOOTH_A2DP -> AudioOutput.BluetoothHeadset(
-                        audioDevice.id,
+                        audioDevice.id.toString(),
                         name
                     )
-                    else -> AudioOutput.Unknown(audioDevice.id, name)
+                    else -> AudioOutput.Unknown(audioDevice.id.toString(), name)
                 }
             }
 

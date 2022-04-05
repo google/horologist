@@ -26,7 +26,7 @@ public interface AudioOutput {
     /**
      * A unique audio output id.
      */
-    public val id: Int?
+    public val id: String
 
     /**
      * The user meaningful display name for the device.
@@ -38,14 +38,14 @@ public interface AudioOutput {
      */
     public object None : AudioOutput {
         override val name: String = "None"
-        override val id: Int? = null
+        override val id: String = "None"
     }
 
     /**
      * A bluetooth headset paired with the watch.
      */
     public data class BluetoothHeadset(
-        override val id: Int,
+        override val id: String,
         override val name: String
     ) : AudioOutput
 
@@ -53,7 +53,7 @@ public interface AudioOutput {
      * The one device watch speaker.
      */
     public data class WatchSpeaker(
-        override val id: Int,
+        override val id: String,
         override val name: String
     ) : AudioOutput
 
@@ -61,7 +61,7 @@ public interface AudioOutput {
      * An unknown audio output device
      */
     public data class Unknown(
-        override val id: Int,
+        override val id: String,
         override val name: String
     ) : AudioOutput
 }

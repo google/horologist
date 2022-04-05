@@ -17,11 +17,10 @@
 package com.google.android.horologist.audio
 
 import android.content.Context
-import android.media.AudioDeviceCallback
-import android.media.AudioDeviceInfo
-import android.media.AudioManager
-import android.os.Handler
-import android.os.Looper
+import androidx.mediarouter.media.MediaControlIntent
+import androidx.mediarouter.media.MediaRouteSelector
+import androidx.mediarouter.media.MediaRouter
+import androidx.mediarouter.media.MediaRouter.RouteInfo
 import com.google.android.horologist.audio.BluetoothSettings.launchBluetoothSettings
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -31,11 +30,12 @@ import kotlinx.coroutines.flow.StateFlow
  */
 @ExperimentalAudioApi
 public class SystemAudioOutputRepository(
-    private val audioManager: AudioManager,
-    private val application: Context
+    private val application: Context,
+    private val mediaRouter: MediaRouter,
+    selector: MediaRouteSelector = MediaRouteSelector.Builder().build()
 ) : AudioOutputRepository {
-    private val _available = MutableStateFlow(listOf<AudioOutput>())
-    private val _output = MutableStateFlow<AudioOutput>(AudioOutput.None)
+    private val _available = MutableStateFlow(mediaRouter.devices)
+    private val _output = MutableStateFlow(mediaRouter.output)
 
     override val audioOutput: StateFlow<AudioOutput>
         get() = _output
@@ -43,60 +43,39 @@ public class SystemAudioOutputRepository(
     override val available: StateFlow<List<AudioOutput>>
         get() = _available
 
-    private val callback = object : AudioDeviceCallback() {
-        override fun onAudioDevicesAdded(addedDevices: Array<out AudioDeviceInfo>) {
-            addDevices(addedDevices.toList())
+    private val callback = object : MediaRouter.Callback() {
+        override fun onRouteAdded(router: MediaRouter, route: RouteInfo) {
+            update()
         }
 
-        override fun onAudioDevicesRemoved(removedDevices: Array<out AudioDeviceInfo>) {
-            removeDevices(removedDevices)
+        override fun onRouteRemoved(router: MediaRouter, route: RouteInfo) {
+            update()
+        }
+
+        override fun onRouteSelected(router: MediaRouter, route: RouteInfo, reason: Int) {
+            update()
         }
     }
 
     init {
-        addDevices(audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS).toList())
-
-        val handler = Handler(Looper.getMainLooper())
-        audioManager.registerAudioDeviceCallback(callback, handler)
+        mediaRouter.addCallback(
+            MediaRouteSelector.Builder()
+                .addControlCategory(MediaControlIntent.CATEGORY_LIVE_AUDIO)
+                .addSelector(selector)
+                .build(),
+            callback
+        )
+        update()
     }
 
-    private fun removeDevices(removedDevices: Array<out AudioDeviceInfo>) {
-        var changed = false
-
-        val currentAvailable = _available.value.toMutableList()
-
-        removedDevices.forEach { audioDevice ->
-            changed = changed or currentAvailable.removeIf { it.id == audioDevice.id.toString() }
-        }
-
-        if (changed) {
-            _available.value = currentAvailable
-            _output.value = currentAvailable.findBluetooth()
-        }
-    }
-
-    private fun addDevices(addedDevices: List<AudioDeviceInfo>) {
-        var added: AudioOutput? = null
-
-        val currentAvailable = _available.value.toMutableList()
-
-        val audioOutputs = addedDevices.mapNotNull { fromDevice(it) }
-
-        audioOutputs.forEach { output ->
-            if (currentAvailable.find { it.id == output.id } == null) {
-                currentAvailable.add(output)
-                added = output
-            }
-        }
-
-        if (added != null) {
-            _available.value = currentAvailable
-            _output.value = currentAvailable.findBluetooth()
-        }
+    private fun update() {
+        mediaRouter.fixInconsistency()
+        _available.value = mediaRouter.devices
+        _output.value = mediaRouter.output
     }
 
     override fun close() {
-        audioManager.unregisterAudioDeviceCallback(callback)
+        mediaRouter.removeCallback(callback)
         _output.value = AudioOutput.None
         _available.value = listOf()
     }
@@ -107,32 +86,44 @@ public class SystemAudioOutputRepository(
 
     public companion object {
         public fun fromContext(application: Context): SystemAudioOutputRepository {
-            val audioManager = application.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-
-            return SystemAudioOutputRepository(audioManager, application)
+            return SystemAudioOutputRepository(
+                application,
+                MediaRouter.getInstance(application)
+            )
         }
-
-        internal fun fromDevice(audioDevice: AudioDeviceInfo): AudioOutput? {
-            if (audioDevice.isSink) {
-                val type = audioDevice.type
-                val name = audioDevice.productName.toString()
-                return when (type) {
-                    AudioDeviceInfo.TYPE_BUILTIN_SPEAKER -> AudioOutput.WatchSpeaker(
-                        audioDevice.id.toString(),
-                        name
-                    )
-                    AudioDeviceInfo.TYPE_BLUETOOTH_A2DP -> AudioOutput.BluetoothHeadset(
-                        audioDevice.id.toString(),
-                        name
-                    )
-                    else -> AudioOutput.Unknown(audioDevice.id.toString(), name)
-                }
-            }
-
-            return null
-        }
-
-        internal fun List<AudioOutput>.findBluetooth(): AudioOutput =
-            find { it is AudioOutput.BluetoothHeadset } ?: firstOrNull() ?: AudioOutput.None
     }
 }
+
+private fun MediaRouter.fixInconsistency() {
+    if (selectedRoute !in routes) {
+        selectRoute(defaultRoute)
+    }
+}
+
+@ExperimentalAudioApi
+private inline val MediaRouter.output: AudioOutput
+    get() {
+        return selectedRoute.device
+    }
+
+@ExperimentalAudioApi
+private inline val MediaRouter.devices: List<AudioOutput>
+    get() {
+        return routes.map { it.device }
+    }
+
+@ExperimentalAudioApi
+private inline val RouteInfo.device: AudioOutput
+    get() {
+        return when {
+            isBluetooth -> {
+                AudioOutput.BluetoothHeadset(id, name)
+            }
+            isDefault -> {
+                AudioOutput.WatchSpeaker(id, name)
+            }
+            else -> {
+                AudioOutput.Unknown(id, name)
+            }
+        }
+    }

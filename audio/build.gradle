@@ -94,6 +94,7 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
 dependencies {
     implementation libs.kotlin.stdlib
 
+    implementation libs.androidx.mediarouter
     implementation libs.androidx.wear
     implementation libs.androidx.lifecycle.runtime
 

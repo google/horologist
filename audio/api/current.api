@@ -66,7 +66,7 @@ package com.google.android.horologist.audio {
   }
 
   @com.google.android.horologist.audio.ExperimentalAudioApi public final class SystemAudioOutputRepository implements com.google.android.horologist.audio.AudioOutputRepository {
-    ctor public SystemAudioOutputRepository(android.media.AudioManager audioManager, android.content.Context application);
+    ctor public SystemAudioOutputRepository(android.content.Context application, androidx.mediarouter.media.MediaRouter mediaRouter, optional androidx.mediarouter.media.MediaRouteSelector selector);
     method public void close();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> getAudioOutput();
     method public kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.audio.AudioOutput>> getAvailable();
@@ -78,6 +78,9 @@ package com.google.android.horologist.audio {
 
   public static final class SystemAudioOutputRepository.Companion {
     method public com.google.android.horologist.audio.SystemAudioOutputRepository fromContext(android.content.Context application);
+  }
+
+  public final class SystemAudioOutputRepositoryKt {
   }
 
   @com.google.android.horologist.audio.ExperimentalAudioApi public final class SystemVolumeRepository implements com.google.android.horologist.audio.VolumeRepository {

@@ -39,7 +39,7 @@ plugins {
     id "com.diffplug.spotless" version "5.9.0"
     id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
     id "com.github.ben-manes.versions" version "0.41.0"
-    id "nl.littlerobots.version-catalog-update" version "0.3.0"
+    id "nl.littlerobots.version-catalog-update" version "0.3.0" apply false
     id "org.jetbrains.kotlin.kapt" version '1.6.10' apply false
 }
 
@@ -249,6 +249,10 @@ tasks.named("dependencyUpdates").configure {
         (it.candidate.version ==~ /.*-alpha.*/ && !(it.currentVersion ==~ /.*-alpha.*/)) ||
           (it.candidate.version ==~ /.*-beta.*/ && !(it.currentVersion ==~ /.*-(beta|alpha).*/))
     }
+}
+
+if (!getPluginManager().hasPlugin("nl.littlerobots.version-catalog-update")) {
+    apply plugin: "nl.littlerobots.version-catalog-update"
 }
 
 versionCatalogUpdate {

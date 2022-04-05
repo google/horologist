@@ -119,15 +119,13 @@ public class SystemAudioOutputRepository(
                 return when (type) {
                     AudioDeviceInfo.TYPE_BUILTIN_SPEAKER -> AudioOutput.WatchSpeaker(
                         audioDevice.id,
-                        name,
-                        audioDevice
+                        name
                     )
                     AudioDeviceInfo.TYPE_BLUETOOTH_A2DP -> AudioOutput.BluetoothHeadset(
                         audioDevice.id,
-                        name,
-                        audioDevice
+                        name
                     )
-                    else -> AudioOutput.Unknown(audioDevice.id, name, audioDevice)
+                    else -> AudioOutput.Unknown(audioDevice.id, name)
                 }
             }
 

@@ -16,9 +16,6 @@
 
 package com.google.android.horologist.audio
 
-import android.media.AudioDeviceInfo
-import android.media.AudioManager
-
 /**
  * A device capable of playing audio.
  *
@@ -27,7 +24,7 @@ import android.media.AudioManager
 @ExperimentalAudioApi
 public interface AudioOutput {
     /**
-     * The id from [AudioManager] if applicable.
+     * A unique audio output id.
      */
     public val id: Int?
 
@@ -49,8 +46,7 @@ public interface AudioOutput {
      */
     public data class BluetoothHeadset(
         override val id: Int,
-        override val name: String,
-        val audioDevice: AudioDeviceInfo? = null
+        override val name: String
     ) : AudioOutput
 
     /**
@@ -58,16 +54,14 @@ public interface AudioOutput {
      */
     public data class WatchSpeaker(
         override val id: Int,
-        override val name: String,
-        val audioDevice: AudioDeviceInfo? = null
+        override val name: String
     ) : AudioOutput
 
     /**
-     * An unknown device provided by the [AudioManager]
+     * An unknown audio output device
      */
     public data class Unknown(
         override val id: Int,
-        override val name: String,
-        val audioDevice: AudioDeviceInfo? = null
+        override val name: String
     ) : AudioOutput
 }

@@ -9,15 +9,12 @@ package com.google.android.horologist.audio {
   }
 
   public static final class AudioOutput.BluetoothHeadset implements com.google.android.horologist.audio.AudioOutput {
-    ctor public AudioOutput.BluetoothHeadset(int id, String name, optional android.media.AudioDeviceInfo? audioDevice);
+    ctor public AudioOutput.BluetoothHeadset(int id, String name);
     method public int component1();
     method public String component2();
-    method public android.media.AudioDeviceInfo? component3();
-    method public com.google.android.horologist.audio.AudioOutput.BluetoothHeadset copy(int id, String name, android.media.AudioDeviceInfo? audioDevice);
-    method public android.media.AudioDeviceInfo? getAudioDevice();
+    method public com.google.android.horologist.audio.AudioOutput.BluetoothHeadset copy(int id, String name);
     method public int getId();
     method public String getName();
-    property public final android.media.AudioDeviceInfo? audioDevice;
     property public int id;
     property public String name;
   }
@@ -31,29 +28,23 @@ package com.google.android.horologist.audio {
   }
 
   public static final class AudioOutput.Unknown implements com.google.android.horologist.audio.AudioOutput {
-    ctor public AudioOutput.Unknown(int id, String name, optional android.media.AudioDeviceInfo? audioDevice);
+    ctor public AudioOutput.Unknown(int id, String name);
     method public int component1();
     method public String component2();
-    method public android.media.AudioDeviceInfo? component3();
-    method public com.google.android.horologist.audio.AudioOutput.Unknown copy(int id, String name, android.media.AudioDeviceInfo? audioDevice);
-    method public android.media.AudioDeviceInfo? getAudioDevice();
+    method public com.google.android.horologist.audio.AudioOutput.Unknown copy(int id, String name);
     method public int getId();
     method public String getName();
-    property public final android.media.AudioDeviceInfo? audioDevice;
     property public int id;
     property public String name;
   }
 
   public static final class AudioOutput.WatchSpeaker implements com.google.android.horologist.audio.AudioOutput {
-    ctor public AudioOutput.WatchSpeaker(int id, String name, optional android.media.AudioDeviceInfo? audioDevice);
+    ctor public AudioOutput.WatchSpeaker(int id, String name);
     method public int component1();
     method public String component2();
-    method public android.media.AudioDeviceInfo? component3();
-    method public com.google.android.horologist.audio.AudioOutput.WatchSpeaker copy(int id, String name, android.media.AudioDeviceInfo? audioDevice);
-    method public android.media.AudioDeviceInfo? getAudioDevice();
+    method public com.google.android.horologist.audio.AudioOutput.WatchSpeaker copy(int id, String name);
     method public int getId();
     method public String getName();
-    property public final android.media.AudioDeviceInfo? audioDevice;
     property public int id;
     property public String name;
   }

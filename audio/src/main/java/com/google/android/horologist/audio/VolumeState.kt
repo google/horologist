@@ -16,14 +16,8 @@
 
 package com.google.android.horologist.audio
 
-import android.media.AudioManager
-
 /**
  * Data class holding the current state of the volume system.
- *
- * See [AudioManager.getStreamVolume]
- * See [AudioManager.getStreamMaxVolume]
- * See [AudioManager.STREAM_MUSIC]
  */
 @ExperimentalAudioApi
 public data class VolumeState(

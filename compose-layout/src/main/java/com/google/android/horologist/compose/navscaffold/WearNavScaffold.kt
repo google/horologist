@@ -75,10 +75,7 @@ public fun WearNavScaffold(
     val currentBackStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
 
     val viewModel: NavScaffoldViewModel? = currentBackStackEntry?.let {
-        viewModel(
-            viewModelStoreOwner = it,
-            factory = NavScaffoldViewModel.Factory
-        )
+        viewModel(viewModelStoreOwner = it)
     }
 
     Scaffold(
@@ -274,7 +271,7 @@ public fun NavGraphBuilder.wearNavComposable(
     content: @Composable (NavBackStackEntry, NavScaffoldViewModel) -> Unit
 ) {
     composable(route, arguments, deepLinks) {
-        val viewModel: NavScaffoldViewModel = viewModel(factory = NavScaffoldViewModel.Factory)
+        val viewModel: NavScaffoldViewModel = viewModel()
 
         content(it, viewModel)
 

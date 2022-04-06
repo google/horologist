@@ -36,8 +36,10 @@ import com.google.android.horologist.audio.VolumeRepository
  */
 @ExperimentalAudioUiApi
 @OptIn(ExperimentalAudioApi::class)
-public class VolumeScrollableState(private val volumeRepository: VolumeRepository,
-                                   private val vibrator: Vibrator) : ScrollableState {
+public class VolumeScrollableState(
+    private val volumeRepository: VolumeRepository,
+    private val vibrator: Vibrator
+) : ScrollableState {
     override val isScrollInProgress: Boolean
         get() = true
 
@@ -76,16 +78,15 @@ public class VolumeScrollableState(private val volumeRepository: VolumeRepositor
         scrollableState.scroll(block = block)
     }
 
-    private fun performHaptics(){
+    private fun performHaptics() {
         if (VERSION.SDK_INT >= VERSION_CODES.R) {
             var effect: Int
             for (primitive in COMPOSITION_PRIMITIVES) {
                 effect = vibrator.areAllEffectsSupported(primitive)
-                if (effect == VIBRATION_EFFECT_SUPPORT_NO){
+                if (effect == VIBRATION_EFFECT_SUPPORT_NO) {
                     performStandardHaptics()
                     break
-                }
-                else if (effect == VIBRATION_EFFECT_SUPPORT_UNKNOWN) {
+                } else if (effect == VIBRATION_EFFECT_SUPPORT_UNKNOWN) {
                     notSupported()
                     break
                 }
@@ -107,10 +108,10 @@ public class VolumeScrollableState(private val volumeRepository: VolumeRepositor
     private val composition = createComposition()
 
     private val waveform = if (VERSION.SDK_INT >= VERSION_CODES.O) {
+        TODO("update with a more appropriate waveform")
         VibrationEffect.createWaveform(
-            longArrayOf(1000, 100, 1000, 100, 2000),
-            intArrayOf(128, 0, 255, 0, 96),
-            -1
+            longArrayOf(1000, 100, 1000, 100),
+            0
         )
     } else {
         TODO("VERSION.SDK_INT < O")
@@ -128,7 +129,7 @@ public class VolumeScrollableState(private val volumeRepository: VolumeRepositor
 
     private fun createComposition(): VibrationEffect? {
         if (VERSION.SDK_INT >= VERSION_CODES.R) {
-            val composition: VibrationEffect.Composition = VibrationEffect.startComposition()
+            val composition: Composition = VibrationEffect.startComposition()
             for (primitive in COMPOSITION_PRIMITIVES) {
                 composition.addPrimitive(primitive)
             }
@@ -139,12 +140,8 @@ public class VolumeScrollableState(private val volumeRepository: VolumeRepositor
 
     companion object {
         var COMPOSITION_PRIMITIVES: IntArray = intArrayOf(
-            VibrationEffect.Composition.PRIMITIVE_QUICK_RISE,
-            VibrationEffect.Composition.PRIMITIVE_CLICK,
-            VibrationEffect.Composition.PRIMITIVE_SPIN,
-            VibrationEffect.Composition.PRIMITIVE_THUD
+            Composition.PRIMITIVE_CLICK
         )
         private const val TAG = "VolumeScrollableState"
     }
-
 }

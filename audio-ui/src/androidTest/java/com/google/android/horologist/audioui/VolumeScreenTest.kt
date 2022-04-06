@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.audioui
 
-import TestHaptics
 import android.os.Vibrator
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.CompositionLocalProvider
@@ -30,28 +29,11 @@ import androidx.compose.ui.test.performRotaryScrollInput
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.android.horologist.audio.ExperimentalAudioApi
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.audioui.devices.RotaryInput
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 
-
-/*
- * Copyright 2022 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 @OptIn(ExperimentalAudioApi::class, ExperimentalAudioUiApi::class, ExperimentalTestApi::class, kotlinx.coroutines.ExperimentalCoroutinesApi::class)
 
 class VolumeScreenTest {
@@ -61,7 +43,8 @@ class VolumeScreenTest {
     @Test
     fun testHaptics() = runTest {
 
-        val volumeRepository = FakeVolumeRepository(VolumeState(50,0,100,false))
+        val rotaryPixelsForVolume = 136
+        val volumeRepository = FakeVolumeRepository(VolumeState(50, 0, 100, false))
         val audioOutputRepository = FakeAudioOutputRepository()
 
         val context = InstrumentationRegistry.getInstrumentation().targetContext
@@ -71,17 +54,11 @@ class VolumeScreenTest {
         val model = VolumeViewModel(volumeRepository, audioOutputRepository, onCleared = {
             volumeRepository.close()
             audioOutputRepository.close()
-        },vibrator)
+        }, vibrator)
         val focusRequester = FocusRequester()
 
-        val haptics = TestHaptics()
-        val rotaryInput = RotaryInput.Emulator
-
         composeTestRule.setContent {
-            CompositionLocalProvider(
-                LocalHaptics provides haptics,
-                LocalRotaryInput provides rotaryInput
-            ) {
+            CompositionLocalProvider() {
                 VolumeScreen(
                     modifier = Modifier
                         .fillMaxSize().focusRequester(focusRequester),
@@ -94,14 +71,13 @@ class VolumeScreenTest {
             focusRequester.requestFocus()
         }
 
-
         composeTestRule.onRoot().performRotaryScrollInput {
-            rotateToScrollVertically(1.25f * rotaryInput.rotaryPixelsForVolume)
+            rotateToScrollVertically(1.25f * rotaryPixelsForVolume)
         }
         composeTestRule.waitForIdle()
 
         composeTestRule.onRoot().performRotaryScrollInput {
-            rotateToScrollVertically(1.25f * rotaryInput.rotaryPixelsForVolume)
+            rotateToScrollVertically(1.25f * rotaryPixelsForVolume)
         }
         composeTestRule.waitForIdle()
 

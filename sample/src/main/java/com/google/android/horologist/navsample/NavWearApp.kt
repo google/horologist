@@ -114,8 +114,10 @@ fun NavWearApp(navController: NavHostController) {
             viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
 
             val state = rememberPagerState()
-            PagerScreen(count = 10, state = state) {
-                Text(text = "Screen $it")
+            PagerScreen(modifier = Modifier.fillMaxSize(), count = 10, state = state) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text(text = "Screen $it")
+                }
             }
         }
 

@@ -16,6 +16,14 @@
 
 package com.google.android.horologist.audioui
 
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
+import android.os.VibrationEffect
+import android.os.VibrationEffect.Composition
+import android.os.Vibrator
+import android.os.Vibrator.VIBRATION_EFFECT_SUPPORT_NO
+import android.os.Vibrator.VIBRATION_EFFECT_SUPPORT_UNKNOWN
+import android.util.Log
 import androidx.compose.foundation.MutatePriority
 import androidx.compose.foundation.gestures.ScrollScope
 import androidx.compose.foundation.gestures.ScrollableState
@@ -28,7 +36,8 @@ import com.google.android.horologist.audio.VolumeRepository
  */
 @ExperimentalAudioUiApi
 @OptIn(ExperimentalAudioApi::class)
-public class VolumeScrollableState(private val volumeRepository: VolumeRepository) : ScrollableState {
+public class VolumeScrollableState(private val volumeRepository: VolumeRepository,
+                                   private val vibrator: Vibrator) : ScrollableState {
     override val isScrollInProgress: Boolean
         get() = true
 
@@ -42,10 +51,12 @@ public class VolumeScrollableState(private val volumeRepository: VolumeRepositor
         val changed = when {
             totalDelta > 40f -> {
                 volumeRepository.increaseVolume()
+                performHaptics()
                 true
             }
             totalDelta < -40f -> {
                 volumeRepository.decreaseVolume()
+                performHaptics()
                 true
             }
             else -> false
@@ -64,4 +75,76 @@ public class VolumeScrollableState(private val volumeRepository: VolumeRepositor
     ) {
         scrollableState.scroll(block = block)
     }
+
+    private fun performHaptics(){
+        if (VERSION.SDK_INT >= VERSION_CODES.R) {
+            var effect: Int
+            for (primitive in COMPOSITION_PRIMITIVES) {
+                effect = vibrator.areAllEffectsSupported(primitive)
+                if (effect == VIBRATION_EFFECT_SUPPORT_NO){
+                    performStandardHaptics()
+                    break
+                }
+                else if (effect == VIBRATION_EFFECT_SUPPORT_UNKNOWN) {
+                    notSupported()
+                    break
+                }
+                performPremiumHaptics()
+            }
+        }
+    }
+
+    private fun performPremiumHaptics() {
+        if (VERSION.SDK_INT >= VERSION_CODES.O) {
+            vibrator.vibrate(composition)
+        }
+    }
+
+    private fun performStandardHaptics() {
+        perform(waveform)
+    }
+
+    private val composition = createComposition()
+
+    private val waveform = if (VERSION.SDK_INT >= VERSION_CODES.O) {
+        VibrationEffect.createWaveform(
+            longArrayOf(1000, 100, 1000, 100, 2000),
+            intArrayOf(128, 0, 255, 0, 96),
+            -1
+        )
+    } else {
+        TODO("VERSION.SDK_INT < O")
+    }
+
+    private fun perform(effect: VibrationEffect?) {
+        if (VERSION.SDK_INT >= VERSION_CODES.O) {
+            vibrator.vibrate(effect)
+        }
+    }
+
+    private fun notSupported() {
+        Log.i(TAG, "Effect not supported")
+    }
+
+    private fun createComposition(): VibrationEffect? {
+        if (VERSION.SDK_INT >= VERSION_CODES.R) {
+            val composition: VibrationEffect.Composition = VibrationEffect.startComposition()
+            for (primitive in COMPOSITION_PRIMITIVES) {
+                composition.addPrimitive(primitive)
+            }
+            return composition.compose()
+        }
+        return null
+    }
+
+    companion object {
+        var COMPOSITION_PRIMITIVES: IntArray = intArrayOf(
+            VibrationEffect.Composition.PRIMITIVE_QUICK_RISE,
+            VibrationEffect.Composition.PRIMITIVE_CLICK,
+            VibrationEffect.Composition.PRIMITIVE_SPIN,
+            VibrationEffect.Composition.PRIMITIVE_THUD
+        )
+        private const val TAG = "VolumeScrollableState"
+    }
+
 }

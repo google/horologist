@@ -17,6 +17,7 @@
 <resources>
     <string name="app_name">Horologist Sample</string>
     <string name="nav_activity">Nav Scaffold Sample</string>
+    <string name="scratch">Scratch</string>
     <string name="tile_basic_title">Basic tile</string>
     <string name="tile_description">Basic tile description</string>
     <string name="tile_text">Hello world</string>

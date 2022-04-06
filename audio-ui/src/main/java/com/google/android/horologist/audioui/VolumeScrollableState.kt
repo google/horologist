@@ -138,8 +138,8 @@ public class VolumeScrollableState(
         return null
     }
 
-    companion object {
-        var COMPOSITION_PRIMITIVES: IntArray = intArrayOf(
+    private companion object {
+        private var COMPOSITION_PRIMITIVES: IntArray = intArrayOf(
             Composition.PRIMITIVE_CLICK
         )
         private const val TAG = "VolumeScrollableState"

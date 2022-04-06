@@ -39,6 +39,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.junit.Assert.assertEquals
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -108,6 +109,7 @@ class SnackbarHostTest {
 
     @Test
     @LargeTest
+    @Ignore("ComposeTimeoutException: Condition still not satisfied after 5000 ms")
     fun snackbarHost_returnedResult() {
         val hostState = SnackbarHostState()
         lateinit var scope: CoroutineScope

@@ -2,59 +2,50 @@
 package com.google.android.horologist.audio {
 
   @com.google.android.horologist.audio.ExperimentalAudioApi public interface AudioOutput {
-    method public Integer? getId();
+    method public String getId();
     method public String getName();
-    property public abstract Integer? id;
+    property public abstract String id;
     property public abstract String name;
   }
 
   public static final class AudioOutput.BluetoothHeadset implements com.google.android.horologist.audio.AudioOutput {
-    ctor public AudioOutput.BluetoothHeadset(int id, String name, optional android.media.AudioDeviceInfo? audioDevice);
-    method public int component1();
+    ctor public AudioOutput.BluetoothHeadset(String id, String name);
+    method public String component1();
     method public String component2();
-    method public android.media.AudioDeviceInfo? component3();
-    method public com.google.android.horologist.audio.AudioOutput.BluetoothHeadset copy(int id, String name, android.media.AudioDeviceInfo? audioDevice);
-    method public android.media.AudioDeviceInfo? getAudioDevice();
-    method public int getId();
+    method public com.google.android.horologist.audio.AudioOutput.BluetoothHeadset copy(String id, String name);
+    method public String getId();
     method public String getName();
-    property public final android.media.AudioDeviceInfo? audioDevice;
-    property public int id;
+    property public String id;
     property public String name;
   }
 
   public static final class AudioOutput.None implements com.google.android.horologist.audio.AudioOutput {
-    method public Integer? getId();
+    method public String getId();
     method public String getName();
-    property public Integer? id;
+    property public String id;
     property public String name;
     field public static final com.google.android.horologist.audio.AudioOutput.None INSTANCE;
   }
 
   public static final class AudioOutput.Unknown implements com.google.android.horologist.audio.AudioOutput {
-    ctor public AudioOutput.Unknown(int id, String name, optional android.media.AudioDeviceInfo? audioDevice);
-    method public int component1();
+    ctor public AudioOutput.Unknown(String id, String name);
+    method public String component1();
     method public String component2();
-    method public android.media.AudioDeviceInfo? component3();
-    method public com.google.android.horologist.audio.AudioOutput.Unknown copy(int id, String name, android.media.AudioDeviceInfo? audioDevice);
-    method public android.media.AudioDeviceInfo? getAudioDevice();
-    method public int getId();
+    method public com.google.android.horologist.audio.AudioOutput.Unknown copy(String id, String name);
+    method public String getId();
     method public String getName();
-    property public final android.media.AudioDeviceInfo? audioDevice;
-    property public int id;
+    property public String id;
     property public String name;
   }
 
   public static final class AudioOutput.WatchSpeaker implements com.google.android.horologist.audio.AudioOutput {
-    ctor public AudioOutput.WatchSpeaker(int id, String name, optional android.media.AudioDeviceInfo? audioDevice);
-    method public int component1();
+    ctor public AudioOutput.WatchSpeaker(String id, String name);
+    method public String component1();
     method public String component2();
-    method public android.media.AudioDeviceInfo? component3();
-    method public com.google.android.horologist.audio.AudioOutput.WatchSpeaker copy(int id, String name, android.media.AudioDeviceInfo? audioDevice);
-    method public android.media.AudioDeviceInfo? getAudioDevice();
-    method public int getId();
+    method public com.google.android.horologist.audio.AudioOutput.WatchSpeaker copy(String id, String name);
+    method public String getId();
     method public String getName();
-    property public final android.media.AudioDeviceInfo? audioDevice;
-    property public int id;
+    property public String id;
     property public String name;
   }
 
@@ -75,7 +66,7 @@ package com.google.android.horologist.audio {
   }
 
   @com.google.android.horologist.audio.ExperimentalAudioApi public final class SystemAudioOutputRepository implements com.google.android.horologist.audio.AudioOutputRepository {
-    ctor public SystemAudioOutputRepository(android.media.AudioManager audioManager, android.content.Context application);
+    ctor public SystemAudioOutputRepository(android.content.Context application, androidx.mediarouter.media.MediaRouter mediaRouter, optional androidx.mediarouter.media.MediaRouteSelector selector);
     method public void close();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> getAudioOutput();
     method public kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.audio.AudioOutput>> getAvailable();
@@ -87,6 +78,9 @@ package com.google.android.horologist.audio {
 
   public static final class SystemAudioOutputRepository.Companion {
     method public com.google.android.horologist.audio.SystemAudioOutputRepository fromContext(android.content.Context application);
+  }
+
+  public final class SystemAudioOutputRepositoryKt {
   }
 
   @com.google.android.horologist.audio.ExperimentalAudioApi public final class SystemVolumeRepository implements com.google.android.horologist.audio.VolumeRepository {

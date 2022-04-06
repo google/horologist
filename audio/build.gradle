@@ -94,10 +94,12 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
 dependencies {
     implementation libs.kotlin.stdlib
 
+    implementation libs.androidx.mediarouter
     implementation libs.androidx.wear
     implementation libs.androidx.lifecycle.runtime
 
     androidTestImplementation libs.androidx.lifecycle.testing
+    androidTestImplementation libs.androidx.test.rules
     androidTestImplementation libs.truth
     androidTestImplementation libs.compose.ui.test.junit4
     debugImplementation libs.compose.ui.test.manifest

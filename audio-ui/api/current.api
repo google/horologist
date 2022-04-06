@@ -21,7 +21,7 @@ package com.google.android.horologist.audioui {
   }
 
   @com.google.android.horologist.audioui.ExperimentalAudioUiApi public class VolumeViewModel extends androidx.lifecycle.ViewModel {
-    ctor public VolumeViewModel(com.google.android.horologist.audio.VolumeRepository volumeRepository, com.google.android.horologist.audio.AudioOutputRepository audioOutputRepository);
+    ctor public VolumeViewModel(com.google.android.horologist.audio.VolumeRepository volumeRepository, com.google.android.horologist.audio.AudioOutputRepository audioOutputRepository, optional kotlin.jvm.functions.Function0<kotlin.Unit> onCleared);
     method public final void decreaseVolume();
     method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> getAudioOutput();
     method public final com.google.android.horologist.audioui.VolumeScrollableState getVolumeScrollableState();

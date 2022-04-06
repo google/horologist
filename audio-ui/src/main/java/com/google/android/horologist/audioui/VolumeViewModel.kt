@@ -44,7 +44,8 @@ import kotlinx.coroutines.flow.StateFlow
 @OptIn(ExperimentalAudioApi::class)
 public open class VolumeViewModel(
     internal val volumeRepository: VolumeRepository,
-    internal val audioOutputRepository: AudioOutputRepository
+    internal val audioOutputRepository: AudioOutputRepository,
+    private val onCleared: () -> Unit = {},
 ) : ViewModel() {
     public val volumeState: StateFlow<VolumeState> = volumeRepository.volumeState
 
@@ -66,8 +67,7 @@ public open class VolumeViewModel(
     }
 
     override fun onCleared() {
-        volumeRepository.close()
-        audioOutputRepository.close()
+        onCleared.invoke()
     }
 
     @ExperimentalAudioUiApi
@@ -81,8 +81,10 @@ public open class VolumeViewModel(
             val volumeRepository = SystemVolumeRepository.fromContext(application)
             val audioOutputRepository = SystemAudioOutputRepository.fromContext(application)
 
-            // onCleared will release repositories
-            return VolumeViewModel(volumeRepository, audioOutputRepository) as T
+            return VolumeViewModel(volumeRepository, audioOutputRepository, onCleared = {
+                volumeRepository.close()
+                audioOutputRepository.close()
+            }) as T
         }
     }
 }

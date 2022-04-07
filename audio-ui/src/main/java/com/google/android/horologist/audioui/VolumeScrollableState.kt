@@ -22,7 +22,6 @@ import android.os.VibrationEffect
 import android.os.VibrationEffect.EFFECT_CLICK
 import android.os.Vibrator
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.MutatePriority
 import androidx.compose.foundation.gestures.ScrollScope
 import androidx.compose.foundation.gestures.ScrollableState
@@ -79,14 +78,12 @@ public class VolumeScrollableState(
 
     private fun performHaptics() {
         if (VERSION.SDK_INT >= VERSION_CODES.R) {
+            val effect = VibrationEffect.createPredefined(EFFECT_CLICK)
             vibrator.vibrate(effect)
         } else {
             notSupported()
         }
     }
-
-    @RequiresApi(VERSION_CODES.Q)
-    private val effect = VibrationEffect.createPredefined(EFFECT_CLICK)
 
     private fun notSupported() {
         Log.i(TAG, "Effect not supported")

@@ -215,7 +215,7 @@ class NavScaffoldTest {
                 timeText = {
                     TimeText(
                         modifier = it,
-                        leadingCurvedContent = {
+                        startCurvedContent = {
                             curvedComposable {
                                 Text(
                                     modifier = Modifier
@@ -227,7 +227,7 @@ class NavScaffoldTest {
                                 )
                             }
                         },
-                        leadingLinearContent = {
+                        endLinearContent = {
                             Text(
                                 modifier = Modifier
                                     .testTag("timeText")

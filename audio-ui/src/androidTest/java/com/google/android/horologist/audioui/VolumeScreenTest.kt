@@ -81,7 +81,6 @@ class VolumeScreenTest {
         }
         composeTestRule.waitForIdle()
 
-        //  assertThat(haptics.hapticEvents).containsExactly("performScrollTick", "performScrollTick")
         assertThat(volumeRepository.volumeState.value.current).isEqualTo(52)
     }
 }

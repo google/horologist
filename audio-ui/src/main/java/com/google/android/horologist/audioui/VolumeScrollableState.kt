@@ -20,10 +20,12 @@ import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.VibrationEffect
 import android.os.VibrationEffect.Composition
+import android.os.VibrationEffect.EFFECT_CLICK
 import android.os.Vibrator
 import android.os.Vibrator.VIBRATION_EFFECT_SUPPORT_NO
 import android.os.Vibrator.VIBRATION_EFFECT_SUPPORT_UNKNOWN
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.MutatePriority
 import androidx.compose.foundation.gestures.ScrollScope
 import androidx.compose.foundation.gestures.ScrollableState
@@ -80,68 +82,20 @@ public class VolumeScrollableState(
 
     private fun performHaptics() {
         if (VERSION.SDK_INT >= VERSION_CODES.R) {
-            var effect: Int
-            for (primitive in COMPOSITION_PRIMITIVES) {
-                effect = vibrator.areAllEffectsSupported(primitive)
-                if (effect == VIBRATION_EFFECT_SUPPORT_NO) {
-                    performStandardHaptics()
-                    break
-                } else if (effect == VIBRATION_EFFECT_SUPPORT_UNKNOWN) {
-                    notSupported()
-                    break
-                }
-                performPremiumHaptics()
-            }
-        }
-    }
-
-    private fun performPremiumHaptics() {
-        if (VERSION.SDK_INT >= VERSION_CODES.O) {
-            vibrator.vibrate(composition)
-        }
-    }
-
-    private fun performStandardHaptics() {
-        perform(waveform)
-    }
-
-    private val composition = createComposition()
-
-    private val waveform = if (VERSION.SDK_INT >= VERSION_CODES.O) {
-        TODO("update with a more appropriate waveform")
-        VibrationEffect.createWaveform(
-            longArrayOf(1000, 100, 1000, 100),
-            0
-        )
-    } else {
-        TODO("VERSION.SDK_INT < O")
-    }
-
-    private fun perform(effect: VibrationEffect?) {
-        if (VERSION.SDK_INT >= VERSION_CODES.O) {
             vibrator.vibrate(effect)
+        } else{
+            notSupported()
         }
     }
+
+    @RequiresApi(VERSION_CODES.Q)
+    private val effect = VibrationEffect.createPredefined(EFFECT_CLICK)
 
     private fun notSupported() {
         Log.i(TAG, "Effect not supported")
     }
 
-    private fun createComposition(): VibrationEffect? {
-        if (VERSION.SDK_INT >= VERSION_CODES.R) {
-            val composition: Composition = VibrationEffect.startComposition()
-            for (primitive in COMPOSITION_PRIMITIVES) {
-                composition.addPrimitive(primitive)
-            }
-            return composition.compose()
-        }
-        return null
-    }
-
     private companion object {
-        private var COMPOSITION_PRIMITIVES: IntArray = intArrayOf(
-            Composition.PRIMITIVE_CLICK
-        )
         private const val TAG = "VolumeScrollableState"
     }
 }

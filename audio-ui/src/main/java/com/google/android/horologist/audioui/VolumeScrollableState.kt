@@ -19,11 +19,8 @@ package com.google.android.horologist.audioui
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.VibrationEffect
-import android.os.VibrationEffect.Composition
 import android.os.VibrationEffect.EFFECT_CLICK
 import android.os.Vibrator
-import android.os.Vibrator.VIBRATION_EFFECT_SUPPORT_NO
-import android.os.Vibrator.VIBRATION_EFFECT_SUPPORT_UNKNOWN
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.MutatePriority

@@ -18,4 +18,5 @@
     package="com.google.android.horologist.audio.ui">
 
     <uses-feature android:name="android.hardware.type.watch" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 </manifest>

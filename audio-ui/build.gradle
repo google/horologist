@@ -119,6 +119,7 @@ dependencies {
     debugImplementation libs.compose.ui.test.manifest
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.junit
+    androidTestImplementation libs.truth
 }
 
 apply plugin: "com.vanniktech.maven.publish"

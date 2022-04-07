@@ -80,7 +80,7 @@ public class VolumeScrollableState(
     private fun performHaptics() {
         if (VERSION.SDK_INT >= VERSION_CODES.R) {
             vibrator.vibrate(effect)
-        } else{
+        } else {
             notSupported()
         }
     }

@@ -38,6 +38,7 @@
 
         <activity
             android:name=".MainActivity"
+            android:icon="@mipmap/ic_launcher"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,6 +48,7 @@
 
         <activity
             android:name="com.google.android.horologist.navsample.NavActivity"
+            android:icon="@mipmap/ic_launcher_nav"
             android:exported="true"
             android:label="@string/nav_activity">
             <intent-filter>

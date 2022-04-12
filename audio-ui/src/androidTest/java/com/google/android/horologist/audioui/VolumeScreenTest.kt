@@ -44,7 +44,7 @@ class VolumeScreenTest {
     fun testHaptics() = runTest {
 
         val rotaryPixelsForVolume = 136
-        val volumeRepository = FakeVolumeRepository(VolumeState(50, 0, 100, false))
+        val volumeRepository = FakeVolumeRepository(VolumeState(50, 100))
         val audioOutputRepository = FakeAudioOutputRepository()
 
         val context = InstrumentationRegistry.getInstrumentation().targetContext

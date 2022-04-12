@@ -32,7 +32,7 @@ class FakeVolumeRepository @OptIn(ExperimentalAudioApi::class) constructor(initi
 
     override fun decreaseVolume() {
         val current = volumeState.value
-        volumeState.value = current.copy(current = (current.current - 1).coerceAtLeast(current.min))
+        volumeState.value = current.copy(current = (current.current - 1).coerceAtLeast(0))
     }
 
     override fun close() {

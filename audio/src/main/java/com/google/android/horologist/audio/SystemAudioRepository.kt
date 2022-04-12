@@ -26,16 +26,28 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 /**
- * Audio Output Repository for identifying available audio devices in a simple manner.
+ * Audio Repository for identifying and controlling available audio devices in a simple manner.
  */
 @ExperimentalAudioApi
-public class SystemAudioOutputRepository(
+public class SystemAudioRepository(
     private val application: Context,
     private val mediaRouter: MediaRouter,
     selector: MediaRouteSelector = MediaRouteSelector.Builder().build()
-) : AudioOutputRepository {
+) : AudioOutputRepository, VolumeRepository {
     private val _available = MutableStateFlow(mediaRouter.devices)
     private val _output = MutableStateFlow(mediaRouter.output)
+    private val _volume = MutableStateFlow(mediaRouter.volume)
+
+    override val volumeState: StateFlow<VolumeState>
+        get() = _volume
+
+    override fun increaseVolume() {
+        mediaRouter.selectedRoute.requestUpdateVolume(1)
+    }
+
+    override fun decreaseVolume() {
+        mediaRouter.selectedRoute.requestUpdateVolume(-1)
+    }
 
     override val audioOutput: StateFlow<AudioOutput>
         get() = _output
@@ -54,6 +66,11 @@ public class SystemAudioOutputRepository(
 
         override fun onRouteSelected(router: MediaRouter, route: RouteInfo, reason: Int) {
             update()
+        }
+
+        override fun onRouteVolumeChanged(router: MediaRouter?, route: RouteInfo?) {
+            mediaRouter.fixInconsistency()
+            _volume.value = mediaRouter.volume
         }
     }
 
@@ -85,8 +102,8 @@ public class SystemAudioOutputRepository(
     }
 
     public companion object {
-        public fun fromContext(application: Context): SystemAudioOutputRepository {
-            return SystemAudioOutputRepository(
+        public fun fromContext(application: Context): SystemAudioRepository {
+            return SystemAudioRepository(
                 application,
                 MediaRouter.getInstance(application)
             )
@@ -101,6 +118,12 @@ private fun MediaRouter.fixInconsistency() {
 }
 
 @ExperimentalAudioApi
+private inline val MediaRouter.volume: VolumeState
+    get() {
+        return defaultRoute.volumeState
+    }
+
+@ExperimentalAudioApi
 private inline val MediaRouter.output: AudioOutput
     get() {
         return selectedRoute.device
@@ -110,6 +133,12 @@ private inline val MediaRouter.output: AudioOutput
 private inline val MediaRouter.devices: List<AudioOutput>
     get() {
         return routes.map { it.device }
+    }
+
+@ExperimentalAudioApi
+private inline val RouteInfo.volumeState: VolumeState
+    get() {
+        return VolumeState(current = volume, max = volumeMax)
     }
 
 @ExperimentalAudioApi

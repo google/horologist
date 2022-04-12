@@ -7,14 +7,13 @@ For more information, visit the documentation: https://google.github.io/horologi
 Domain model for Volume and Audio Output.
 
 ```kotlin
-val volumeRepository = SystemVolumeRepository.fromContext(application)
-val audioOutputRepository = SystemAudioOutputRepository.fromContext(application)
+val audioRepository = SystemAudioRepository.fromContext(application)
 
-volumeRepository.increaseVolume()
+audioRepository.increaseVolume()
 
-val volumeState: StateFlow<VolumeState> = volumeRepository.volumeState
+val volumeState: StateFlow<VolumeState> = audioRepository.volumeState
 
-val audioOutput: StateFlow<AudioOutput> = audioOutputRepository.audioOutput
+val audioOutput: StateFlow<AudioOutput> = audioRepository.audioOutput
 
 val output = audioOutput.value
 if (output is AudioOutput.BluetoothHeadset) {

@@ -36,10 +36,15 @@ android {
 
     buildFeatures {
         buildConfig false
+        compose true
     }
 
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion libs.versions.compose.get()
     }
 
     lintOptions {
@@ -73,6 +78,17 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
 
 dependencies {
     implementation libs.kotlin.stdlib
+    implementation libs.androidx.wear
+    implementation libs.wearcompose.material
+    implementation libs.wearcompose.foundation
+    implementation libs.compose.ui.tooling
+    implementation libs.compose.material.iconscore
+    implementation libs.compose.material.iconsext
+
+    debugImplementation libs.androidx.customview
+    debugImplementation libs.androidx.customview.pooling
+    debugImplementation libs.compose.ui.test.manifest
+    debugImplementation libs.compose.ui.toolingpreview
 
     testImplementation libs.junit
 

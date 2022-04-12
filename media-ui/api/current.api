@@ -6,3 +6,24 @@ package com.google.android.horologist.mediaui {
 
 }
 
+package com.google.android.horologist.mediaui.components.controls {
+
+  public final class MediaButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.mediaui.ExperimentalMediaUiApi public static void MediaButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, boolean enabled, androidx.compose.ui.graphics.vector.ImageVector icon, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors);
+  }
+
+}
+
+package com.google.android.horologist.mediaui.components.semantics {
+
+  @com.google.android.horologist.mediaui.ExperimentalMediaUiApi public final class CustomSemanticsProperties {
+    method public androidx.compose.ui.graphics.vector.ImageVector getIconImageVector(androidx.compose.ui.semantics.SemanticsPropertyReceiver);
+    method public androidx.compose.ui.semantics.SemanticsPropertyKey<androidx.compose.ui.graphics.vector.ImageVector> getIconImageVectorKey();
+    method public void setIconImageVector(androidx.compose.ui.semantics.SemanticsPropertyReceiver, androidx.compose.ui.graphics.vector.ImageVector iconImageVector);
+    property public final androidx.compose.ui.semantics.SemanticsPropertyKey<androidx.compose.ui.graphics.vector.ImageVector> IconImageVectorKey;
+    property public final androidx.compose.ui.graphics.vector.ImageVector iconImageVector;
+    field public static final com.google.android.horologist.mediaui.components.semantics.CustomSemanticsProperties INSTANCE;
+  }
+
+}
+

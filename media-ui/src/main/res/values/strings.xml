@@ -3,4 +3,5 @@
     <string name="play_button_content_description">Play</string>
     <string name="seek_to_next_button_content_description">Next</string>
     <string name="seek_to_previous_button_content_description">Previous</string>
+    <string name="shuffle_button_content_description">Toggle Shuffle</string>
 </resources>

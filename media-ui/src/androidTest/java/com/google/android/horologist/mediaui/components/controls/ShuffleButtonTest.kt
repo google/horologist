@@ -23,9 +23,9 @@ import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.material.icons.filled.ShuffleOn
 import androidx.compose.ui.test.junit4.createComposeRule
 import com.google.android.horologist.mediaui.ExperimentalMediaUiApi
+import com.google.test.toolbox.hasIconImageVector
 import org.junit.Rule
 import org.junit.Test
-import toolbox.hasIconImageVector
 
 class ShuffleButtonTest {
 

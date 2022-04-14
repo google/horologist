@@ -84,7 +84,6 @@ class NavScaffoldTest {
                         ),
                     state = it.scrollableState,
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    autoCentering = true,
                 ) {
                     items(11) {
                         Text(text = "Item $it")
@@ -100,11 +99,12 @@ class NavScaffoldTest {
 
             WearNavScaffold(
                 startDestination = "a",
-                navController = navController
-            ) {
-                scrollingList("a", aScrollState)
-                scrollingList("b", bScrollState)
-            }
+                navController = navController,
+                builder = {
+                    scrollingList("a", aScrollState)
+                    scrollingList("b", bScrollState)
+                },
+            )
         }
 
         composeTestRule.awaitIdle()
@@ -133,47 +133,47 @@ class NavScaffoldTest {
 
             WearNavScaffold(
                 startDestination = "a",
-                navController = navController
-            ) {
-                scalingLazyColumnComposable(
-                    route = "a",
-                    scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 0) }
-                ) {
-                    ScalingLazyColumn(
-                        modifier = Modifier
-                            .scrollableColumn(
-                                it.viewModel.focusRequester,
-                                it.scrollableState
-                            )
-                            .fillMaxSize()
-                            .testTag("columna"),
-                        state = it.scrollableState,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        autoCentering = true,
+                navController = navController,
+                builder = {
+                    scalingLazyColumnComposable(
+                        route = "a",
+                        scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 0) }
                     ) {
-                        items(100) {
-                            Text("Item $it")
+                        ScalingLazyColumn(
+                            modifier = Modifier
+                                .scrollableColumn(
+                                    it.viewModel.focusRequester,
+                                    it.scrollableState
+                                )
+                                .fillMaxSize()
+                                .testTag("columna"),
+                            state = it.scrollableState,
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                        ) {
+                            items(100) {
+                                Text("Item $it")
+                            }
                         }
                     }
-                }
 
-                scrollStateComposable(
-                    route = "b",
-                    scrollStateBuilder = { ScrollState(0) }
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .testTag("columnb")
-                            .fillMaxSize()
-                            .scrollableColumn(it.viewModel.focusRequester, it.scrollableState)
-                            .verticalScroll(it.scrollableState)
+                    scrollStateComposable(
+                        route = "b",
+                        scrollStateBuilder = { ScrollState(0) }
                     ) {
-                        (1..100).forEach { i ->
-                            Text("$i")
+                        Column(
+                            modifier = Modifier
+                                .testTag("columnb")
+                                .fillMaxSize()
+                                .scrollableColumn(it.viewModel.focusRequester, it.scrollableState)
+                                .verticalScroll(it.scrollableState)
+                        ) {
+                            (1..100).forEach { i ->
+                                Text("$i")
+                            }
                         }
                     }
-                }
-            }
+                },
+            )
         }
 
         val columnA = composeTestRule.onNodeWithTag("columna")
@@ -238,22 +238,23 @@ class NavScaffoldTest {
                             )
                         }
                     )
-                }
-            ) {
-                wearNavComposable(
-                    route = "a",
-                ) { _, _ ->
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            modifier = Modifier.testTag("body"),
-                            text = "Lorem Ipsum"
-                        )
+                },
+                builder = {
+                    wearNavComposable(
+                        route = "a",
+                    ) { _, _ ->
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                modifier = Modifier.testTag("body"),
+                                text = "Lorem Ipsum"
+                            )
+                        }
                     }
-                }
-            }
+                },
+            )
         }
 
         composeTestRule.waitForIdle()

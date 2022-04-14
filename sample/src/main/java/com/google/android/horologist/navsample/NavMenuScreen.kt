@@ -37,7 +37,6 @@ fun NavMenuScreen(
         modifier = modifier.scrollableColumn(focusRequester, scrollState),
         state = scrollState,
         horizontalAlignment = Alignment.CenterHorizontally,
-        autoCentering = true,
     ) {
         item {
             SampleChip(

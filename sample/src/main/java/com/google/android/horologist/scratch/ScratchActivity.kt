@@ -19,25 +19,24 @@ package com.google.android.horologist.scratch
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.wear.compose.material.Button
-import androidx.wear.compose.material.HorizontalPageIndicator
-import androidx.wear.compose.material.Scaffold
+import androidx.compose.ui.focus.FocusRequester
+import androidx.wear.compose.material.Card
+import androidx.wear.compose.material.Chip
+import androidx.wear.compose.material.ScalingLazyColumn
+import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.navigation.SwipeDismissableNavHost
-import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.rememberPagerState
-import com.google.android.horologist.compose.pager.PageScreenIndicatorState
+import com.google.android.horologist.compose.navscaffold.WearNavScaffold
+import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
+import com.google.android.horologist.compose.navscaffold.scrollableColumn
 
 class ScratchActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,59 +51,196 @@ class ScratchActivity : ComponentActivity() {
 @Composable
 fun WearApp() {
     val navController = rememberSwipeDismissableNavController()
-
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
+    
+    WearNavScaffold(
+        startDestination = "Menu",
+        navController = navController,
     ) {
-        SwipeDismissableNavHost(
-            navController = navController,
-            startDestination = "start",
+        scalingLazyColumnComposable(
+            route = "Menu",
+            scrollStateBuilder = { ScalingLazyListState() }
         ) {
-            composable(route = "start") {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Button(onClick = { navController.navigate("second") }) {
-                        Text("Pager")
-                    }
+            ScalingLazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .scrollableColumn(
+                        focusRequester = it.viewModel.focusRequester,
+                        scrollableState = it.scrollableState
+                    ),
+                state = it.scrollableState,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                item {
+                    Chip(label = { Text("Example 0") },
+                        onClick = { navController.navigate("Example0") })
+                }
+                item {
+                    Chip(label = { Text("Example 1") },
+                        onClick = { navController.navigate("Example1") })
+                }
+                item {
+                    Chip(label = { Text("Example 2") },
+                        onClick = { navController.navigate("Example2") })
+                }
+                item {
+                    Chip(label = { Text("Example 3") },
+                        onClick = { navController.navigate("Example3") })
+                }
+                item {
+                    Chip(label = { Text("Toggle 0") },
+                        onClick = { navController.navigate("Toggle0") })
+                }
+                item {
+                    Chip(label = { Text("Toggle 1") },
+                        onClick = { navController.navigate("Toggle1") })
+                }
+                item {
+                    Chip(label = { Text("Toggle 2") },
+                        onClick = { navController.navigate("Toggle2") })
+                }
+                item {
+                    Chip(label = { Text("Toggle 3") },
+                        onClick = { navController.navigate("Toggle3") })
                 }
             }
-            composable(route = "second") {
-                val state = rememberPagerState()
-                val shape = if (LocalConfiguration.current.isScreenRound) CircleShape else null
-                Box(
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    HorizontalPager(
-                        modifier = Modifier.fillMaxSize(),
-                        count = 10,
-                        state = state
-                    ) { page ->
-                        Box(
-                            modifier = Modifier.fillMaxSize().run {
-                                if (shape != null) {
-                                    clip(shape)
-                                } else {
-                                    this
-                                }
-                            }
-                        ) {
-                            Box(
-                                modifier = Modifier.fillMaxSize(),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(text = "Screen $page")
-                            }
-                        }
-                    }
+        }
+        scalingLazyColumnComposable(
+            route = "Example0",
+            scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 0) }
+        ) {
+            ExampleScreen(Modifier.fillMaxSize(), it.viewModel.focusRequester, it.scrollableState)
+        }
+        scalingLazyColumnComposable(
+            route = "Example1",
+            scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 1) }
+        ) {
+            ExampleScreen(Modifier.fillMaxSize(), it.viewModel.focusRequester, it.scrollableState)
+        }
+        scalingLazyColumnComposable(
+            route = "Example2",
+            scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 2) }
+        ) {
+            ExampleScreen(Modifier.fillMaxSize(), it.viewModel.focusRequester, it.scrollableState)
+        }
+        scalingLazyColumnComposable(
+            route = "Example3",
+            scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 3) }
+        ) {
+            ExampleScreen(Modifier.fillMaxSize(), it.viewModel.focusRequester, it.scrollableState)
+        }
+        scalingLazyColumnComposable(
+            route = "Toggle0",
+            scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 0) }
+        ) {
+            ExampleToggleScreen(Modifier.fillMaxSize(),
+                it.viewModel.focusRequester,
+                it.scrollableState)
+        }
+        scalingLazyColumnComposable(
+            route = "Toggle1",
+            scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 1) }
+        ) {
+            ExampleToggleScreen(Modifier.fillMaxSize(),
+                it.viewModel.focusRequester,
+                it.scrollableState)
+        }
+        scalingLazyColumnComposable(
+            route = "Toggle2",
+            scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 2) }
+        ) {
+            ExampleToggleScreen(Modifier.fillMaxSize(),
+                it.viewModel.focusRequester,
+                it.scrollableState)
+        }
+        scalingLazyColumnComposable(
+            route = "Toggle3",
+            scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 3) }
+        ) {
+            ExampleToggleScreen(Modifier.fillMaxSize(),
+                it.viewModel.focusRequester,
+                it.scrollableState)
+        }
+    }
+}
 
-                    val pagerScreenState = remember { PageScreenIndicatorState(state = state) }
-                    if (pagerScreenState.pageCount > 0) {
-                        HorizontalPageIndicator(pageIndicatorState = pagerScreenState)
-                    }
+@Composable
+private fun ExampleScreen(
+    modifier: Modifier = Modifier,
+    focusRequester: FocusRequester,
+    scrollableState: ScalingLazyListState,
+) {
+    ScalingLazyColumn(
+        modifier = modifier
+            .fillMaxSize()
+            .scrollableColumn(
+                focusRequester = focusRequester,
+                scrollableState = scrollableState
+            ),
+        state = scrollableState,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        item {
+            CardI(0)
+        }
+        item {
+            CardI(1)
+        }
+        item {
+            CardI(2)
+        }
+        item {
+            CardI(3)
+        }
+    }
+}
+
+@Composable
+private fun ExampleToggleScreen(
+    modifier: Modifier = Modifier,
+    focusRequester: FocusRequester,
+    scrollableState: ScalingLazyListState,
+) {
+    val showAll = remember { mutableStateOf(false) }
+    ScalingLazyColumn(
+        modifier = modifier
+            .fillMaxSize()
+            .scrollableColumn(
+                focusRequester = focusRequester,
+                scrollableState = scrollableState
+            ),
+        state = scrollableState,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        if (showAll.value) {
+            item {
+                key(0) {
+                    CardI(0, onClick = { showAll.value = true })
                 }
             }
+            item {
+                key(1) {
+                    CardI(1, onClick = { showAll.value = true })
+                }
+            }
+            item {
+                key(2) {
+                    CardI(2, onClick = { showAll.value = true })
+                }
+            }
+        }
+        item {
+            key(3) {
+                CardI(3, onClick = { showAll.value = true })
+            }
+        }
+    }
+}
+
+@Composable
+private fun CardI(i: Int, onClick: () -> Unit = {}) {
+    Card(onClick = onClick) {
+        Column() {
+            Text(text = "Item $i")
         }
     }
 }

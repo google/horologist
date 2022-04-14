@@ -19,10 +19,10 @@
 package com.google.android.horologist.mediaui.components.controls
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Replay
-import androidx.compose.material.icons.filled.Replay10
-import androidx.compose.material.icons.filled.Replay30
-import androidx.compose.material.icons.filled.Replay5
+import androidx.compose.material.icons.filled.Forward10
+import androidx.compose.material.icons.filled.Forward30
+import androidx.compose.material.icons.filled.Forward5
+import androidx.compose.material.icons.filled.Redo
 import androidx.compose.ui.test.assertContentDescriptionEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import com.google.android.horologist.mediaui.ExperimentalMediaUiApi
@@ -30,7 +30,7 @@ import com.google.test.toolbox.hasIconImageVector
 import org.junit.Rule
 import org.junit.Test
 
-class SeekBackButtonTest {
+class SeekForwardButtonTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -39,7 +39,7 @@ class SeekBackButtonTest {
     fun givenIncrementIsFive_thenIconAndDescriptionAreFive() {
         // given
         composeTestRule.setContent {
-            SeekBackButton(
+            SeekForwardButton(
                 onClick = {},
                 true,
                 seekButtonIncrement = SeekButtonIncrement.Five,
@@ -48,15 +48,15 @@ class SeekBackButtonTest {
 
         // then
         composeTestRule
-            .onNode(hasIconImageVector(Icons.Default.Replay5))
-            .assertContentDescriptionEquals("Rewind 5 seconds")
+            .onNode(hasIconImageVector(Icons.Default.Forward5))
+            .assertContentDescriptionEquals("Forward 5 seconds")
     }
 
     @Test
     fun givenIncrementIsTen_thenIconAndDescriptionAreTen() {
         // given
         composeTestRule.setContent {
-            SeekBackButton(
+            SeekForwardButton(
                 onClick = {},
                 true,
                 seekButtonIncrement = SeekButtonIncrement.Ten,
@@ -65,15 +65,15 @@ class SeekBackButtonTest {
 
         // then
         composeTestRule
-            .onNode(hasIconImageVector(Icons.Default.Replay10))
-            .assertContentDescriptionEquals("Rewind 10 seconds")
+            .onNode(hasIconImageVector(Icons.Default.Forward10))
+            .assertContentDescriptionEquals("Forward 10 seconds")
     }
 
     @Test
     fun givenIncrementIsThirty_thenIconAndDescriptionAreThirty() {
         // given
         composeTestRule.setContent {
-            SeekBackButton(
+            SeekForwardButton(
                 onClick = {},
                 true,
                 seekButtonIncrement = SeekButtonIncrement.Thirty,
@@ -82,15 +82,15 @@ class SeekBackButtonTest {
 
         // then
         composeTestRule
-            .onNode(hasIconImageVector(Icons.Default.Replay30))
-            .assertContentDescriptionEquals("Rewind 30 seconds")
+            .onNode(hasIconImageVector(Icons.Default.Forward30))
+            .assertContentDescriptionEquals("Forward 30 seconds")
     }
 
     @Test
     fun givenIncrementIsOtherValue_thenIconIsDefaultAndDescriptionIsOtherValue() {
         // given
         composeTestRule.setContent {
-            SeekBackButton(
+            SeekForwardButton(
                 onClick = {},
                 true,
                 seekButtonIncrement = SeekButtonIncrement.Other(15),
@@ -99,15 +99,15 @@ class SeekBackButtonTest {
 
         // then
         composeTestRule
-            .onNode(hasIconImageVector(Icons.Default.Replay))
-            .assertContentDescriptionEquals("Rewind 15 seconds")
+            .onNode(hasIconImageVector(Icons.Default.Redo))
+            .assertContentDescriptionEquals("Forward 15 seconds")
     }
 
     @Test
     fun givenIncrementIsUnknown_thenIconAndDescriptionAreDefault() {
         // given
         composeTestRule.setContent {
-            SeekBackButton(
+            SeekForwardButton(
                 onClick = {},
                 true,
                 seekButtonIncrement = SeekButtonIncrement.Unknown,
@@ -116,7 +116,7 @@ class SeekBackButtonTest {
 
         // then
         composeTestRule
-            .onNode(hasIconImageVector(Icons.Default.Replay))
-            .assertContentDescriptionEquals("Rewind")
+            .onNode(hasIconImageVector(Icons.Default.Redo))
+            .assertContentDescriptionEquals("Forward")
     }
 }

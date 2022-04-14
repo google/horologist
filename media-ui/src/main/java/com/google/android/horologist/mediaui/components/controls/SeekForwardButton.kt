@@ -17,10 +17,10 @@
 package com.google.android.horologist.mediaui.components.controls
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Replay
-import androidx.compose.material.icons.filled.Replay10
-import androidx.compose.material.icons.filled.Replay30
-import androidx.compose.material.icons.filled.Replay5
+import androidx.compose.material.icons.filled.Forward10
+import androidx.compose.material.icons.filled.Forward30
+import androidx.compose.material.icons.filled.Forward5
+import androidx.compose.material.icons.filled.Redo
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -31,7 +31,7 @@ import com.google.android.horologist.mediaui.ExperimentalMediaUiApi
 
 @ExperimentalMediaUiApi
 @Composable
-public fun SeekBackButton(
+public fun SeekForwardButton(
     onClick: () -> Unit,
     enabled: Boolean,
     seekButtonIncrement: SeekButtonIncrement,
@@ -39,16 +39,17 @@ public fun SeekBackButton(
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
 ) {
     val icon = when (seekButtonIncrement) {
-        SeekButtonIncrement.Five -> Icons.Default.Replay5
-        SeekButtonIncrement.Ten -> Icons.Default.Replay10
-        SeekButtonIncrement.Thirty -> Icons.Default.Replay30
-        else -> Icons.Default.Replay
+        SeekButtonIncrement.Five -> Icons.Default.Forward5
+        SeekButtonIncrement.Ten -> Icons.Default.Forward10
+        SeekButtonIncrement.Thirty -> Icons.Default.Forward30
+        // Forward is a straight arrow
+        else -> Icons.Default.Redo
     }
 
     val contentDescription = when (seekButtonIncrement) {
-        SeekButtonIncrement.Unknown -> stringResource(id = R.string.seek_back_button_rewind)
+        SeekButtonIncrement.Unknown -> stringResource(id = R.string.seek_forward_button_forward)
         else -> stringResource(
-            id = R.string.seek_back_button_rewind_seconds,
+            id = R.string.seek_forward_button_forward_seconds,
             seekButtonIncrement.seconds
         )
     }

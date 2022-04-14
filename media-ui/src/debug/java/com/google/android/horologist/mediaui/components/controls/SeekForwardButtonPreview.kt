@@ -24,8 +24,8 @@ import com.google.android.horologist.mediaui.ExperimentalMediaUiApi
 
 @Preview(name = "5 seconds increment - Enabled")
 @Composable
-fun SeekBackButtonPreview5() {
-    SeekBackButton(
+fun SeekForwardButtonPreview5() {
+    SeekForwardButton(
         onClick = {},
         enabled = true,
         seekButtonIncrement = SeekButtonIncrement.Five
@@ -34,8 +34,8 @@ fun SeekBackButtonPreview5() {
 
 @Preview(name = "10 seconds increment - Disabled")
 @Composable
-fun SeekBackButtonPreview10() {
-    SeekBackButton(
+fun SeekForwardButtonPreview10() {
+    SeekForwardButton(
         onClick = {},
         enabled = false,
         seekButtonIncrement = SeekButtonIncrement.Ten
@@ -44,8 +44,8 @@ fun SeekBackButtonPreview10() {
 
 @Preview(name = "30 seconds increment - Enabled")
 @Composable
-fun SeekBackButtonPreview30() {
-    SeekBackButton(
+fun SeekForwardButtonPreview30() {
+    SeekForwardButton(
         onClick = {},
         enabled = true,
         seekButtonIncrement = SeekButtonIncrement.Thirty
@@ -54,8 +54,8 @@ fun SeekBackButtonPreview30() {
 
 @Preview(name = "Other amount of seconds increment - Disabled")
 @Composable
-fun SeekBackButtonPreviewOther() {
-    SeekBackButton(
+fun SeekForwardButtonPreviewOther() {
+    SeekForwardButton(
         onClick = {},
         enabled = false,
         seekButtonIncrement = SeekButtonIncrement.Other(15)
@@ -64,8 +64,8 @@ fun SeekBackButtonPreviewOther() {
 
 @Preview(name = "Unknown amount of seconds increment - Enabled")
 @Composable
-fun SeekBackButtonPreviewUnknown() {
-    SeekBackButton(
+fun SeekForwardButtonPreviewUnknown() {
+    SeekForwardButton(
         onClick = {},
         enabled = true,
         seekButtonIncrement = SeekButtonIncrement.Unknown

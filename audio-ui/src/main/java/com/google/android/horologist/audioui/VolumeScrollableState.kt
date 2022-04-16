@@ -16,6 +16,12 @@
 
 package com.google.android.horologist.audioui
 
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
+import android.os.VibrationEffect
+import android.os.VibrationEffect.EFFECT_CLICK
+import android.os.Vibrator
+import android.util.Log
 import androidx.compose.foundation.MutatePriority
 import androidx.compose.foundation.gestures.ScrollScope
 import androidx.compose.foundation.gestures.ScrollableState
@@ -28,7 +34,10 @@ import com.google.android.horologist.audio.VolumeRepository
  */
 @ExperimentalAudioUiApi
 @OptIn(ExperimentalAudioApi::class)
-public class VolumeScrollableState(private val volumeRepository: VolumeRepository) : ScrollableState {
+public class VolumeScrollableState(
+    private val volumeRepository: VolumeRepository,
+    private val vibrator: Vibrator
+) : ScrollableState {
     override val isScrollInProgress: Boolean
         get() = true
 
@@ -42,10 +51,12 @@ public class VolumeScrollableState(private val volumeRepository: VolumeRepositor
         val changed = when {
             totalDelta > 40f -> {
                 volumeRepository.increaseVolume()
+                performHaptics()
                 true
             }
             totalDelta < -40f -> {
                 volumeRepository.decreaseVolume()
+                performHaptics()
                 true
             }
             else -> false
@@ -63,5 +74,22 @@ public class VolumeScrollableState(private val volumeRepository: VolumeRepositor
         block: suspend ScrollScope.() -> Unit
     ) {
         scrollableState.scroll(block = block)
+    }
+
+    private fun performHaptics() {
+        if (VERSION.SDK_INT >= VERSION_CODES.R) {
+            val effect = VibrationEffect.createPredefined(EFFECT_CLICK)
+            vibrator.vibrate(effect)
+        } else {
+            notSupported()
+        }
+    }
+
+    private fun notSupported() {
+        Log.i(TAG, "Effect not supported")
+    }
+
+    private companion object {
+        private const val TAG = "VolumeScrollableState"
     }
 }

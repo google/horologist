@@ -13,7 +13,7 @@ package com.google.android.horologist.audioui {
   }
 
   @com.google.android.horologist.audioui.ExperimentalAudioUiApi public final class VolumeScrollableState implements androidx.compose.foundation.gestures.ScrollableState {
-    ctor public VolumeScrollableState(com.google.android.horologist.audio.VolumeRepository volumeRepository);
+    ctor public VolumeScrollableState(com.google.android.horologist.audio.VolumeRepository volumeRepository, android.os.Vibrator vibrator);
     method public float dispatchRawDelta(float delta);
     method public boolean isScrollInProgress();
     method public suspend Object? scroll(androidx.compose.foundation.MutatePriority scrollPriority, kotlin.jvm.functions.Function2<? super androidx.compose.foundation.gestures.ScrollScope,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> block, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
@@ -21,7 +21,7 @@ package com.google.android.horologist.audioui {
   }
 
   @com.google.android.horologist.audioui.ExperimentalAudioUiApi public class VolumeViewModel extends androidx.lifecycle.ViewModel {
-    ctor public VolumeViewModel(com.google.android.horologist.audio.VolumeRepository volumeRepository, com.google.android.horologist.audio.AudioOutputRepository audioOutputRepository, optional kotlin.jvm.functions.Function0<kotlin.Unit> onCleared);
+    ctor public VolumeViewModel(com.google.android.horologist.audio.VolumeRepository volumeRepository, com.google.android.horologist.audio.AudioOutputRepository audioOutputRepository, optional kotlin.jvm.functions.Function0<kotlin.Unit> onCleared, android.os.Vibrator vibrator);
     method public final void decreaseVolume();
     method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> getAudioOutput();
     method public final com.google.android.horologist.audioui.VolumeScrollableState getVolumeScrollableState();

@@ -16,25 +16,14 @@
 
 package com.google.android.horologist.audio
 
-import android.media.AudioManager
-
 /**
  * Data class holding the current state of the volume system.
- *
- * See [AudioManager.getStreamVolume]
- * See [AudioManager.getStreamMaxVolume]
- * See [AudioManager.STREAM_MUSIC]
  */
 @ExperimentalAudioApi
 public data class VolumeState(
     public val current: Int,
-    public val min: Int,
-    public val max: Int,
-    public val isMute: Boolean
+    public val max: Int
 ) {
     public val isMax: Boolean
         get() = current >= max
-
-    public val isMin: Boolean
-        get() = current <= max
 }

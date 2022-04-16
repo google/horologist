@@ -17,6 +17,7 @@
 package com.google.android.horologist.audioui
 
 import android.media.AudioManager
+import android.os.Vibrator
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -24,8 +25,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.AudioOutputRepository
 import com.google.android.horologist.audio.ExperimentalAudioApi
-import com.google.android.horologist.audio.SystemAudioOutputRepository
-import com.google.android.horologist.audio.SystemVolumeRepository
+import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.audio.VolumeRepository
 import com.google.android.horologist.audio.VolumeState
 import kotlinx.coroutines.flow.StateFlow
@@ -46,13 +46,14 @@ public open class VolumeViewModel(
     internal val volumeRepository: VolumeRepository,
     internal val audioOutputRepository: AudioOutputRepository,
     private val onCleared: () -> Unit = {},
+    vibrator: Vibrator
 ) : ViewModel() {
     public val volumeState: StateFlow<VolumeState> = volumeRepository.volumeState
 
     public val audioOutput: StateFlow<AudioOutput> = audioOutputRepository.audioOutput
 
     public val volumeScrollableState: VolumeScrollableState =
-        VolumeScrollableState(volumeRepository)
+        VolumeScrollableState(volumeRepository, vibrator)
 
     public fun increaseVolume() {
         volumeRepository.increaseVolume()
@@ -78,13 +79,12 @@ public open class VolumeViewModel(
 
             val application = extras[APPLICATION_KEY]!!
 
-            val volumeRepository = SystemVolumeRepository.fromContext(application)
-            val audioOutputRepository = SystemAudioOutputRepository.fromContext(application)
+            val audioRepository = SystemAudioRepository.fromContext(application)
+            val vibrator: Vibrator = application.getSystemService(Vibrator::class.java)
 
-            return VolumeViewModel(volumeRepository, audioOutputRepository, onCleared = {
-                volumeRepository.close()
-                audioOutputRepository.close()
-            }) as T
+            return VolumeViewModel(audioRepository, audioRepository, onCleared = {
+                audioRepository.close()
+            }, vibrator) as T
         }
     }
 }

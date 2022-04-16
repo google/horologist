@@ -19,16 +19,23 @@ package com.google.android.horologist.audio
 import androidx.test.annotation.UiThreadTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withContext
 import org.junit.Test
 
-@OptIn(ExperimentalAudioApi::class)
-class SystemAudioOutputRepositoryTest {
+@OptIn(ExperimentalCoroutinesApi::class, ExperimentalAudioApi::class)
+class SystemAudioRepositoryTest {
     @Test
     @UiThreadTest
     fun testAudioOutputRepository() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
 
-        SystemAudioOutputRepository.fromContext(context).use { repository ->
+        SystemAudioRepository.fromContext(context).use { repository ->
             assertThat(repository.audioOutput.value).isNotNull()
             assertThat(repository.available.value).isNotEmpty()
 
@@ -36,6 +43,30 @@ class SystemAudioOutputRepositoryTest {
 
             assertThat(repository.audioOutput.value).isEqualTo(AudioOutput.None)
             assertThat(repository.available.value).isEmpty()
+        }
+    }
+
+    @Test
+    fun testVolumeRepository() = runTest(dispatchTimeoutMs = 10000) {
+        withContext(Dispatchers.Main) {
+            val context = InstrumentationRegistry.getInstrumentation().targetContext
+            SystemAudioRepository.fromContext(context).use { repository ->
+                if (repository.volumeState.value.isMax) {
+                    repository.decreaseVolume()
+                }
+
+                val startingVolume = repository.volumeState.value.current
+
+                repository.increaseVolume()
+
+                val newVolume = repository.volumeState
+                    .map { it.current }
+                    .filter { it > startingVolume }
+                    .first()
+
+                assertThat(newVolume).isGreaterThan(startingVolume)
+                repository.close()
+            }
         }
     }
 }

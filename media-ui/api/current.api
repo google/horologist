@@ -1,0 +1,85 @@
+// Signature format: 4.0
+package com.google.android.horologist.mediaui {
+
+  @kotlin.RequiresOptIn(message="Horologist Media is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalMediaUiApi {
+  }
+
+}
+
+package com.google.android.horologist.mediaui.components.controls {
+
+  public final class MediaButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.mediaui.ExperimentalMediaUiApi public static void MediaButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, boolean enabled, androidx.compose.ui.graphics.vector.ImageVector icon, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors);
+  }
+
+  public final class PauseButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.mediaui.ExperimentalMediaUiApi public static void PauseButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, boolean enabled, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors);
+  }
+
+  public final class PlayButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.mediaui.ExperimentalMediaUiApi public static void PlayButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, boolean enabled, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors);
+  }
+
+  public final class SeekBackButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.mediaui.ExperimentalMediaUiApi public static void SeekBackButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, boolean enabled, com.google.android.horologist.mediaui.components.controls.SeekButtonIncrement seekButtonIncrement, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors);
+  }
+
+  public abstract sealed class SeekButtonIncrement {
+    method public int getSeconds();
+    property public int seconds;
+  }
+
+  public static final class SeekButtonIncrement.Five extends com.google.android.horologist.mediaui.components.controls.SeekButtonIncrement {
+    field public static final com.google.android.horologist.mediaui.components.controls.SeekButtonIncrement.Five INSTANCE;
+  }
+
+  public static final class SeekButtonIncrement.Other extends com.google.android.horologist.mediaui.components.controls.SeekButtonIncrement {
+    ctor public SeekButtonIncrement.Other(int seconds);
+    method public int component1();
+    method public com.google.android.horologist.mediaui.components.controls.SeekButtonIncrement.Other copy(int seconds);
+    property public int seconds;
+  }
+
+  public static final class SeekButtonIncrement.Ten extends com.google.android.horologist.mediaui.components.controls.SeekButtonIncrement {
+    field public static final com.google.android.horologist.mediaui.components.controls.SeekButtonIncrement.Ten INSTANCE;
+  }
+
+  public static final class SeekButtonIncrement.Thirty extends com.google.android.horologist.mediaui.components.controls.SeekButtonIncrement {
+    field public static final com.google.android.horologist.mediaui.components.controls.SeekButtonIncrement.Thirty INSTANCE;
+  }
+
+  public static final class SeekButtonIncrement.Unknown extends com.google.android.horologist.mediaui.components.controls.SeekButtonIncrement {
+    field public static final com.google.android.horologist.mediaui.components.controls.SeekButtonIncrement.Unknown INSTANCE;
+  }
+
+  public final class SeekForwardButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.mediaui.ExperimentalMediaUiApi public static void SeekForwardButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, boolean enabled, com.google.android.horologist.mediaui.components.controls.SeekButtonIncrement seekButtonIncrement, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors);
+  }
+
+  public final class SeekToNextButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.mediaui.ExperimentalMediaUiApi public static void SeekToNextButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, boolean enabled, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors);
+  }
+
+  public final class SeekToPreviousButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.mediaui.ExperimentalMediaUiApi public static void SeekToPreviousButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, boolean enabled, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors);
+  }
+
+  public final class ShuffleButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.mediaui.ExperimentalMediaUiApi public static void ShuffleButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, boolean enabled, boolean shuffleOn, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors);
+  }
+
+}
+
+package com.google.android.horologist.mediaui.components.semantics {
+
+  @com.google.android.horologist.mediaui.ExperimentalMediaUiApi public final class CustomSemanticsProperties {
+    method public androidx.compose.ui.graphics.vector.ImageVector getIconImageVector(androidx.compose.ui.semantics.SemanticsPropertyReceiver);
+    method public androidx.compose.ui.semantics.SemanticsPropertyKey<androidx.compose.ui.graphics.vector.ImageVector> getIconImageVectorKey();
+    method public void setIconImageVector(androidx.compose.ui.semantics.SemanticsPropertyReceiver, androidx.compose.ui.graphics.vector.ImageVector iconImageVector);
+    property public final androidx.compose.ui.semantics.SemanticsPropertyKey<androidx.compose.ui.graphics.vector.ImageVector> IconImageVectorKey;
+    property public final androidx.compose.ui.graphics.vector.ImageVector iconImageVector;
+    field public static final com.google.android.horologist.mediaui.components.semantics.CustomSemanticsProperties INSTANCE;
+  }
+
+}
+

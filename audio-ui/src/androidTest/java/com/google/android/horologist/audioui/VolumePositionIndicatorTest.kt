@@ -41,9 +41,7 @@ class VolumePositionIndicatorTest {
     private var volumeState by mutableStateOf(
         VolumeState(
             current = 50,
-            min = 0,
-            max = 100,
-            isMute = false
+            max = 100
         )
     )
 

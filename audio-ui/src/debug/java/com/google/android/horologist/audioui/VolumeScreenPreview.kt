@@ -44,7 +44,7 @@ import com.google.android.horologist.audio.VolumeState
 @OptIn(ExperimentalAudioApi::class, ExperimentalAudioUiApi::class)
 @Composable
 fun VolumeScreenPreview() {
-    val volume = VolumeState(5, 0, 10, isMute = false)
+    val volume = VolumeState(5, 10)
     val audioOutput = AudioOutput.BluetoothHeadset(id = "1", name = "EarBuds")
 
     VolumeScreen(

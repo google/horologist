@@ -117,6 +117,7 @@ dependencies {
     debugImplementation libs.androidx.activity.compose
 
     testImplementation libs.junit
+    testImplementation projects.paparazzi
 
     androidTestImplementation libs.compose.ui.test.junit4
     debugImplementation libs.compose.ui.test.manifest

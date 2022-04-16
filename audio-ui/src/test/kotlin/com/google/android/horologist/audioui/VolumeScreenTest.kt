@@ -14,42 +14,82 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalAudioUiApi::class, ExperimentalAudioApi::class)
+@file:OptIn(
+    ExperimentalAudioUiApi::class, ExperimentalAudioApi::class,
+)
 
 package com.google.android.horologist.audioui
 
-import app.cash.paparazzi.DeviceConfig.Companion.PIXEL_5
+import android.content.res.Configuration
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.wear.compose.material.Scaffold
+import androidx.wear.compose.material.TimeText
+import app.cash.paparazzi.HtmlReportWriter
 import app.cash.paparazzi.Paparazzi
+import app.cash.paparazzi.SnapshotHandler
+import app.cash.paparazzi.SnapshotVerifier
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ExperimentalAudioApi
 import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
+import com.google.android.horologist.paparazzi.WearSnapshotHandler
 import org.junit.Rule
 import org.junit.Test
 
 class VolumeScreenTest {
     @get:Rule
     val paparazzi = Paparazzi(
-        deviceConfig = PIXEL_5,
-        theme = "android:Theme.Material.Light.NoActionBar"
-        // ...see docs for more options
+        deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
+        theme = "android:ThemeOverlay.Material.Dark",
+        maxPercentDifference = 0.1,
+        snapshotHandler = WearSnapshotHandler(determineHandler(0.1))
     )
+
+    private val isVerifying: Boolean =
+        System.getProperty("paparazzi.test.verify")?.toBoolean() == true
+
+    private fun determineHandler(maxPercentDifference: Double): SnapshotHandler =
+        if (isVerifying) {
+            SnapshotVerifier(maxPercentDifference)
+        } else {
+            HtmlReportWriter()
+        }
 
     @Test
     fun compose() {
         paparazzi.snapshot {
-            VolumeScreen(
-                volume = {
-                    VolumeState(
-                        current = 50,
-                        min = 0,
-                        max = 100,
-                        isMute = false
+            RoundPreview {
+                Scaffold(timeText = { TimeText() }) {
+                    VolumeScreen(
+                        volume = {
+                            VolumeState(
+                                current = 50,
+                                max = 100,
+                            )
+                        },
+                        audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds"),
+                        increaseVolume = { },
+                        decreaseVolume = { },
+                        onAudioOutputClick = { }
                     )
-                },
-                audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds"),
-                increaseVolume = { },
-                decreaseVolume = { },
-                onAudioOutputClick = { })
+                }
+            }
+        }
+    }
+
+    @Composable
+    private fun RoundPreview(content: @Composable () -> Unit) {
+        val configuration =
+            LocalConfiguration.current.let {
+                Configuration(it).apply {
+                    screenLayout = (screenLayout or Configuration.SCREENLAYOUT_ROUND_YES)
+                }
+            }
+
+        CompositionLocalProvider(LocalConfiguration provides configuration) {
+            content()
         }
     }
 }

@@ -43,19 +43,9 @@ class VolumeScreenTest {
     val paparazzi = Paparazzi(
         deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
         theme = "android:ThemeOverlay.Material.Dark",
-        maxPercentDifference = 0.1,
+        maxPercentDifference = 0.0,
         snapshotHandler = WearSnapshotHandler(determineHandler(0.1))
     )
-
-    private val isVerifying: Boolean =
-        System.getProperty("paparazzi.test.verify")?.toBoolean() == true
-
-    private fun determineHandler(maxPercentDifference: Double): SnapshotHandler =
-        if (isVerifying) {
-            SnapshotVerifier(maxPercentDifference)
-        } else {
-            HtmlReportWriter()
-        }
 
     @Test
     fun compose() {
@@ -90,6 +80,19 @@ class VolumeScreenTest {
 
         CompositionLocalProvider(LocalConfiguration provides configuration) {
             content()
+        }
+    }
+
+    companion object {
+        private val isVerifying: Boolean =
+            System.getProperty("paparazzi.test.verify")?.toBoolean() == true
+
+        private fun determineHandler(maxPercentDifference: Double): SnapshotHandler {
+            return if (isVerifying) {
+                SnapshotVerifier(maxPercentDifference)
+            } else {
+                HtmlReportWriter()
+            }
         }
     }
 }

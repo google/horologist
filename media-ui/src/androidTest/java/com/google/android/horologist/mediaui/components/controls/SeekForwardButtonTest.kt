@@ -41,7 +41,6 @@ class SeekForwardButtonTest {
         composeTestRule.setContent {
             SeekForwardButton(
                 onClick = {},
-                true,
                 seekButtonIncrement = SeekButtonIncrement.Five,
             )
         }
@@ -58,7 +57,6 @@ class SeekForwardButtonTest {
         composeTestRule.setContent {
             SeekForwardButton(
                 onClick = {},
-                true,
                 seekButtonIncrement = SeekButtonIncrement.Ten,
             )
         }
@@ -75,7 +73,6 @@ class SeekForwardButtonTest {
         composeTestRule.setContent {
             SeekForwardButton(
                 onClick = {},
-                true,
                 seekButtonIncrement = SeekButtonIncrement.Thirty,
             )
         }
@@ -92,7 +89,6 @@ class SeekForwardButtonTest {
         composeTestRule.setContent {
             SeekForwardButton(
                 onClick = {},
-                true,
                 seekButtonIncrement = SeekButtonIncrement.Other(15),
             )
         }
@@ -109,7 +105,6 @@ class SeekForwardButtonTest {
         composeTestRule.setContent {
             SeekForwardButton(
                 onClick = {},
-                true,
                 seekButtonIncrement = SeekButtonIncrement.Unknown,
             )
         }

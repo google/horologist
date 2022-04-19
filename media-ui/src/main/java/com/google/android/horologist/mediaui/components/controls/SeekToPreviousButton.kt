@@ -30,16 +30,16 @@ import com.google.android.horologist.mediaui.ExperimentalMediaUiApi
 @Composable
 public fun SeekToPreviousButton(
     onClick: () -> Unit,
-    enabled: Boolean,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
 ) {
     MediaButton(
         onClick = onClick,
-        enabled = enabled,
         icon = Icons.Default.SkipPrevious,
         contentDescription = stringResource(id = R.string.seek_to_previous_button_content_description),
         modifier = modifier,
+        enabled = enabled,
         colors = colors,
     )
 }

@@ -38,7 +38,6 @@ class ShuffleButtonTest {
         composeTestRule.setContent {
             ShuffleButton(
                 onClick = {},
-                enabled = true,
                 shuffleOn = true,
             )
         }
@@ -53,7 +52,6 @@ class ShuffleButtonTest {
         composeTestRule.setContent {
             ShuffleButton(
                 onClick = {},
-                enabled = true,
                 shuffleOn = false,
             )
         }

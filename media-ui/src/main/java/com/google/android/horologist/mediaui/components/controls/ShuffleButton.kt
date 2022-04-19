@@ -35,9 +35,9 @@ import com.google.android.horologist.mediaui.components.semantics.CustomSemantic
 @Composable
 public fun ShuffleButton(
     onClick: () -> Unit,
-    enabled: Boolean,
     shuffleOn: Boolean,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
 ) {
     Button(

@@ -30,9 +30,8 @@ import com.google.android.horologist.mediaui.ExperimentalMediaUiApi
 fun MediaButtonPreviewPlayEnabled() {
     MediaButton(
         onClick = {},
-        enabled = true,
         icon = Icons.Default.PlayArrow,
-        "Play"
+        "Play",
     )
 }
 
@@ -41,8 +40,8 @@ fun MediaButtonPreviewPlayEnabled() {
 fun MediaButtonPreviewPauseDisabled() {
     MediaButton(
         onClick = {},
-        enabled = false,
         icon = Icons.Default.Pause,
-        "Pause"
+        "Pause",
+        enabled = false,
     )
 }

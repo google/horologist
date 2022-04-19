@@ -33,9 +33,9 @@ import com.google.android.horologist.mediaui.ExperimentalMediaUiApi
 @Composable
 public fun SeekForwardButton(
     onClick: () -> Unit,
-    enabled: Boolean,
     seekButtonIncrement: SeekButtonIncrement,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
 ) {
     val icon = when (seekButtonIncrement) {
@@ -56,10 +56,10 @@ public fun SeekForwardButton(
 
     MediaButton(
         onClick = onClick,
-        enabled = enabled,
         icon = icon,
         contentDescription = contentDescription,
         modifier = modifier,
+        enabled = enabled,
         colors = colors,
     )
 }

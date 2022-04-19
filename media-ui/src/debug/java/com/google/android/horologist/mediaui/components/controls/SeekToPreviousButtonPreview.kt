@@ -25,7 +25,7 @@ import com.google.android.horologist.mediaui.ExperimentalMediaUiApi
 @Preview(name = "Enabled")
 @Composable
 fun SeekToPreviousButtonPreviewEnabled() {
-    SeekToPreviousButton(onClick = {}, enabled = true)
+    SeekToPreviousButton(onClick = {})
 }
 
 @Preview(name = "Disabled")

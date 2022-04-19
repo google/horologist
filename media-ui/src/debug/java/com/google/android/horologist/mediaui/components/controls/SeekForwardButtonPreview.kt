@@ -27,8 +27,7 @@ import com.google.android.horologist.mediaui.ExperimentalMediaUiApi
 fun SeekForwardButtonPreview5() {
     SeekForwardButton(
         onClick = {},
-        enabled = true,
-        seekButtonIncrement = SeekButtonIncrement.Five
+        seekButtonIncrement = SeekButtonIncrement.Five,
     )
 }
 
@@ -37,8 +36,8 @@ fun SeekForwardButtonPreview5() {
 fun SeekForwardButtonPreview10() {
     SeekForwardButton(
         onClick = {},
-        enabled = false,
-        seekButtonIncrement = SeekButtonIncrement.Ten
+        seekButtonIncrement = SeekButtonIncrement.Ten,
+        enabled = false
     )
 }
 
@@ -47,8 +46,7 @@ fun SeekForwardButtonPreview10() {
 fun SeekForwardButtonPreview30() {
     SeekForwardButton(
         onClick = {},
-        enabled = true,
-        seekButtonIncrement = SeekButtonIncrement.Thirty
+        seekButtonIncrement = SeekButtonIncrement.Thirty,
     )
 }
 
@@ -57,8 +55,8 @@ fun SeekForwardButtonPreview30() {
 fun SeekForwardButtonPreviewOther() {
     SeekForwardButton(
         onClick = {},
-        enabled = false,
-        seekButtonIncrement = SeekButtonIncrement.Other(15)
+        seekButtonIncrement = SeekButtonIncrement.Other(15),
+        enabled = false
     )
 }
 
@@ -67,7 +65,6 @@ fun SeekForwardButtonPreviewOther() {
 fun SeekForwardButtonPreviewUnknown() {
     SeekForwardButton(
         onClick = {},
-        enabled = true,
-        seekButtonIncrement = SeekButtonIncrement.Unknown
+        seekButtonIncrement = SeekButtonIncrement.Unknown,
     )
 }

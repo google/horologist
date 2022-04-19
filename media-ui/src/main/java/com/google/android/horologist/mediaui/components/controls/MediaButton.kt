@@ -35,10 +35,10 @@ import com.google.android.horologist.mediaui.components.semantics.CustomSemantic
 @Composable
 public fun MediaButton(
     onClick: () -> Unit,
-    enabled: Boolean,
     icon: ImageVector,
     contentDescription: String,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
 ) {
     Button(

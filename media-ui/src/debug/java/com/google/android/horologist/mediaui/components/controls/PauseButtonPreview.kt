@@ -27,7 +27,6 @@ import com.google.android.horologist.mediaui.ExperimentalMediaUiApi
 fun PauseButtonPreviewEnabled() {
     PauseButton(
         onClick = {},
-        enabled = true
     )
 }
 

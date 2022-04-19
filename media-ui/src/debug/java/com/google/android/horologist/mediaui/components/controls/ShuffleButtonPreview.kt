@@ -27,8 +27,8 @@ import com.google.android.horologist.mediaui.ExperimentalMediaUiApi
 fun ShuffleButtonPreviewDisabledOff() {
     ShuffleButton(
         onClick = {},
-        enabled = false,
-        shuffleOn = false
+        shuffleOn = false,
+        enabled = false
     )
 }
 
@@ -37,8 +37,7 @@ fun ShuffleButtonPreviewDisabledOff() {
 fun ShuffleButtonPreviewEnabledOff() {
     ShuffleButton(
         onClick = {},
-        enabled = true,
-        shuffleOn = false
+        shuffleOn = false,
     )
 }
 
@@ -47,8 +46,8 @@ fun ShuffleButtonPreviewEnabledOff() {
 fun ShuffleButtonPreviewDisabledOn() {
     ShuffleButton(
         onClick = {},
-        enabled = false,
-        shuffleOn = true
+        shuffleOn = true,
+        enabled = false
     )
 }
 
@@ -57,7 +56,6 @@ fun ShuffleButtonPreviewDisabledOn() {
 fun ShuffleButtonPreviewEnabledOn() {
     ShuffleButton(
         onClick = {},
-        enabled = true,
-        shuffleOn = true
+        shuffleOn = true,
     )
 }

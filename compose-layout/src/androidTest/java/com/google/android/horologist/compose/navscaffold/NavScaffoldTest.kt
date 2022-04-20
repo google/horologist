@@ -156,24 +156,23 @@ class NavScaffoldTest {
                     }
                 }
 
-                    scrollStateComposable(
-                        route = "b",
-                        scrollStateBuilder = { ScrollState(0) }
+                scrollStateComposable(
+                    route = "b",
+                    scrollStateBuilder = { ScrollState(0) }
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .testTag("columnb")
+                            .fillMaxSize()
+                            .scrollableColumn(it.viewModel.focusRequester, it.scrollableState)
+                            .verticalScroll(it.scrollableState)
                     ) {
-                        Column(
-                            modifier = Modifier
-                                .testTag("columnb")
-                                .fillMaxSize()
-                                .scrollableColumn(it.viewModel.focusRequester, it.scrollableState)
-                                .verticalScroll(it.scrollableState)
-                        ) {
-                            (1..100).forEach { i ->
-                                Text("$i")
-                            }
+                        (1..100).forEach { i ->
+                            Text("$i")
                         }
                     }
-                },
-            )
+                }
+            }
         }
 
         val columnA = composeTestRule.onNodeWithTag("columna")

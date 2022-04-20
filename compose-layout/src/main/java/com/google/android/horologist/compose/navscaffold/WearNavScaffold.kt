@@ -41,9 +41,11 @@ import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
+import androidx.wear.compose.navigation.SwipeDismissableNavHostState
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.currentBackStackEntryAsState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.compose.layout.fadeAway
 import com.google.android.horologist.compose.layout.fadeAwayLazyList
 import com.google.android.horologist.compose.layout.fadeAwayScalingLazyList
@@ -70,6 +72,7 @@ public fun WearNavScaffold(
             modifier = it
         )
     },
+    state: SwipeDismissableNavHostState = rememberSwipeDismissableNavHostState(),
     builder: NavGraphBuilder.() -> Unit,
 ) {
     val currentBackStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
@@ -144,6 +147,7 @@ public fun WearNavScaffold(
             SwipeDismissableNavHost(
                 navController = navController,
                 startDestination = startDestination,
+                state = state,
             ) {
                 builder()
             }

@@ -30,6 +30,9 @@ import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.VignettePosition
 import androidx.wear.compose.material.dialog.Alert
+import androidx.wear.compose.material.edgeSwipeToDismiss
+import androidx.wear.compose.material.rememberSwipeToDismissBoxState
+import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.audioui.VolumeScreen
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
@@ -45,6 +48,9 @@ import com.google.android.horologist.navsample.snackbar.SnackbarViewModel
 fun NavWearApp(navController: NavHostController) {
     val snackbarViewModel = viewModel<SnackbarViewModel>(factory = SnackbarViewModel.Factory)
 
+    val swipeDismissState = rememberSwipeToDismissBoxState()
+    val navState = rememberSwipeDismissableNavHostState(swipeDismissState)
+
     WearNavScaffold(
         startDestination = NavScreen.Menu.route,
         navController = navController,
@@ -53,7 +59,8 @@ fun NavWearApp(navController: NavHostController) {
                 hostState = snackbarViewModel.snackbarHostState,
                 modifier = Modifier.fillMaxSize()
             )
-        }
+        },
+        state = navState
     ) {
         scalingLazyColumnComposable(
             NavScreen.Menu.route,
@@ -114,7 +121,13 @@ fun NavWearApp(navController: NavHostController) {
             viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
 
             val state = rememberPagerState()
-            PagerScreen(modifier = Modifier.fillMaxSize(), count = 10, state = state) {
+            PagerScreen(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .edgeSwipeToDismiss(swipeDismissState),
+                count = 10,
+                state = state
+            ) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Text(text = "Screen $it")
                 }

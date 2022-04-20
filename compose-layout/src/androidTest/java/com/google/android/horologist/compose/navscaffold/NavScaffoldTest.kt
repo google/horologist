@@ -99,11 +99,12 @@ class NavScaffoldTest {
 
             WearNavScaffold(
                 startDestination = "a",
-                navController = navController
-            ) {
-                scrollingList("a", aScrollState)
-                scrollingList("b", bScrollState)
-            }
+                navController = navController,
+                builder = {
+                    scrollingList("a", aScrollState)
+                    scrollingList("b", bScrollState)
+                },
+            )
         }
 
         composeTestRule.awaitIdle()
@@ -155,23 +156,24 @@ class NavScaffoldTest {
                     }
                 }
 
-                scrollStateComposable(
-                    route = "b",
-                    scrollStateBuilder = { ScrollState(0) }
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .testTag("columnb")
-                            .fillMaxSize()
-                            .scrollableColumn(it.viewModel.focusRequester, it.scrollableState)
-                            .verticalScroll(it.scrollableState)
+                    scrollStateComposable(
+                        route = "b",
+                        scrollStateBuilder = { ScrollState(0) }
                     ) {
-                        (1..100).forEach { i ->
-                            Text("$i")
+                        Column(
+                            modifier = Modifier
+                                .testTag("columnb")
+                                .fillMaxSize()
+                                .scrollableColumn(it.viewModel.focusRequester, it.scrollableState)
+                                .verticalScroll(it.scrollableState)
+                        ) {
+                            (1..100).forEach { i ->
+                                Text("$i")
+                            }
                         }
                     }
-                }
-            }
+                },
+            )
         }
 
         val columnA = composeTestRule.onNodeWithTag("columna")
@@ -236,22 +238,23 @@ class NavScaffoldTest {
                             )
                         }
                     )
-                }
-            ) {
-                wearNavComposable(
-                    route = "a",
-                ) { _, _ ->
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            modifier = Modifier.testTag("body"),
-                            text = "Lorem Ipsum"
-                        )
+                },
+                builder = {
+                    wearNavComposable(
+                        route = "a",
+                    ) { _, _ ->
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                modifier = Modifier.testTag("body"),
+                                text = "Lorem Ipsum"
+                            )
+                        }
                     }
-                }
-            }
+                },
+            )
         }
 
         composeTestRule.waitForIdle()

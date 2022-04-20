@@ -100,9 +100,7 @@ fun WearApp() {
                     }
 
                     val pagerScreenState = remember { PageScreenIndicatorState(state = state) }
-                    if (pagerScreenState.pageCount > 0) {
-                        HorizontalPageIndicator(pageIndicatorState = pagerScreenState)
-                    }
+                    HorizontalPageIndicator(pageIndicatorState = pagerScreenState)
                 }
             }
         }

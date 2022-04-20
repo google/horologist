@@ -84,7 +84,6 @@ class NavScaffoldTest {
                         ),
                     state = it.scrollableState,
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    autoCentering = true,
                 ) {
                     items(11) {
                         Text(text = "Item $it")
@@ -149,7 +148,6 @@ class NavScaffoldTest {
                             .testTag("columna"),
                         state = it.scrollableState,
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        autoCentering = true,
                     ) {
                         items(100) {
                             Text("Item $it")

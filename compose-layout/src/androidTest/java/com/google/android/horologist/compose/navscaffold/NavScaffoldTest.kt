@@ -37,6 +37,7 @@ import androidx.lifecycle.get
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.wear.compose.foundation.curvedComposable
+import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
@@ -100,11 +101,10 @@ class NavScaffoldTest {
             WearNavScaffold(
                 startDestination = "a",
                 navController = navController,
-                builder = {
-                    scrollingList("a", aScrollState)
-                    scrollingList("b", bScrollState)
-                },
-            )
+            ) {
+                scrollingList("a", aScrollState)
+                scrollingList("b", bScrollState)
+            }
         }
 
         composeTestRule.awaitIdle()
@@ -149,6 +149,7 @@ class NavScaffoldTest {
                             .testTag("columna"),
                         state = it.scrollableState,
                         horizontalAlignment = Alignment.CenterHorizontally,
+                        autoCentering = AutoCenteringParams(itemIndex = 0)
                     ) {
                         items(100) {
                             Text("Item $it")
@@ -238,22 +239,21 @@ class NavScaffoldTest {
                         }
                     )
                 },
-                builder = {
-                    wearNavComposable(
-                        route = "a",
-                    ) { _, _ ->
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                modifier = Modifier.testTag("body"),
-                                text = "Lorem Ipsum"
-                            )
-                        }
+            ) {
+                wearNavComposable(
+                    route = "a",
+                ) { _, _ ->
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            modifier = Modifier.testTag("body"),
+                            text = "Lorem Ipsum"
+                        )
                     }
-                },
-            )
+                }
+            }
         }
 
         composeTestRule.waitForIdle()

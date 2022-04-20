@@ -232,12 +232,12 @@ subprojects {
                         return
                     }
 
-//                    def depVersion = dependency.version
-//                    if (depVersion != null && depVersion.endsWith('SNAPSHOT')) {
-//                        throw new IllegalArgumentException(
-//                                "Using SNAPSHOT dependency with non-SNAPSHOT library version: $dependency"
-//                        )
-//                    }
+                    def depVersion = dependency.version
+                    if (depVersion != null && depVersion.endsWith('SNAPSHOT')) {
+                        throw new IllegalArgumentException(
+                                "Using SNAPSHOT dependency with non-SNAPSHOT library version: $dependency"
+                        )
+                    }
                 }
             }
         }

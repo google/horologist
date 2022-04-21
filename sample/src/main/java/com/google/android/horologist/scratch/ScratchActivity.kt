@@ -51,7 +51,7 @@ class ScratchActivity : ComponentActivity() {
 @Composable
 fun WearApp() {
     val navController = rememberSwipeDismissableNavController()
-    
+
     WearNavScaffold(
         startDestination = "Menu",
         navController = navController,
@@ -71,36 +71,52 @@ fun WearApp() {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 item {
-                    Chip(label = { Text("Example 0") },
-                        onClick = { navController.navigate("Example0") })
+                    Chip(
+                        label = { Text("Example 0") },
+                        onClick = { navController.navigate("Example0") }
+                    )
                 }
                 item {
-                    Chip(label = { Text("Example 1") },
-                        onClick = { navController.navigate("Example1") })
+                    Chip(
+                        label = { Text("Example 1") },
+                        onClick = { navController.navigate("Example1") }
+                    )
                 }
                 item {
-                    Chip(label = { Text("Example 2") },
-                        onClick = { navController.navigate("Example2") })
+                    Chip(
+                        label = { Text("Example 2") },
+                        onClick = { navController.navigate("Example2") }
+                    )
                 }
                 item {
-                    Chip(label = { Text("Example 3") },
-                        onClick = { navController.navigate("Example3") })
+                    Chip(
+                        label = { Text("Example 3") },
+                        onClick = { navController.navigate("Example3") }
+                    )
                 }
                 item {
-                    Chip(label = { Text("Toggle 0") },
-                        onClick = { navController.navigate("Toggle0") })
+                    Chip(
+                        label = { Text("Toggle 0") },
+                        onClick = { navController.navigate("Toggle0") }
+                    )
                 }
                 item {
-                    Chip(label = { Text("Toggle 1") },
-                        onClick = { navController.navigate("Toggle1") })
+                    Chip(
+                        label = { Text("Toggle 1") },
+                        onClick = { navController.navigate("Toggle1") }
+                    )
                 }
                 item {
-                    Chip(label = { Text("Toggle 2") },
-                        onClick = { navController.navigate("Toggle2") })
+                    Chip(
+                        label = { Text("Toggle 2") },
+                        onClick = { navController.navigate("Toggle2") }
+                    )
                 }
                 item {
-                    Chip(label = { Text("Toggle 3") },
-                        onClick = { navController.navigate("Toggle3") })
+                    Chip(
+                        label = { Text("Toggle 3") },
+                        onClick = { navController.navigate("Toggle3") }
+                    )
                 }
             }
         }
@@ -132,33 +148,41 @@ fun WearApp() {
             route = "Toggle0",
             scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 0) }
         ) {
-            ExampleToggleScreen(Modifier.fillMaxSize(),
+            ExampleToggleScreen(
+                Modifier.fillMaxSize(),
                 it.viewModel.focusRequester,
-                it.scrollableState)
+                it.scrollableState
+            )
         }
         scalingLazyColumnComposable(
             route = "Toggle1",
             scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 1) }
         ) {
-            ExampleToggleScreen(Modifier.fillMaxSize(),
+            ExampleToggleScreen(
+                Modifier.fillMaxSize(),
                 it.viewModel.focusRequester,
-                it.scrollableState)
+                it.scrollableState
+            )
         }
         scalingLazyColumnComposable(
             route = "Toggle2",
             scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 2) }
         ) {
-            ExampleToggleScreen(Modifier.fillMaxSize(),
+            ExampleToggleScreen(
+                Modifier.fillMaxSize(),
                 it.viewModel.focusRequester,
-                it.scrollableState)
+                it.scrollableState
+            )
         }
         scalingLazyColumnComposable(
             route = "Toggle3",
             scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 3) }
         ) {
-            ExampleToggleScreen(Modifier.fillMaxSize(),
+            ExampleToggleScreen(
+                Modifier.fillMaxSize(),
                 it.viewModel.focusRequester,
-                it.scrollableState)
+                it.scrollableState
+            )
         }
     }
 }

@@ -60,6 +60,9 @@ import androidx.wear.compose.material.PickerState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberPickerState
 
+/**
+ *
+ */
 @ExperimentalComposablesApi
 @Composable
 public fun TimePickerWithHoursMinutesSeconds(
@@ -306,11 +309,12 @@ private fun Separator(width: Dp, textStyle: TextStyle) {
     Spacer(Modifier.width(width))
 }
 
-@Composable internal fun PickerWithRSB(
+@Composable
+internal fun PickerWithRSB(
     state: PickerState,
     readOnly: Boolean,
     modifier: Modifier,
-    @Suppress("UNUSED_PARAMETER") focusRequester: FocusRequester,
+    focusRequester: FocusRequester,
     readOnlyLabel: @Composable (BoxScope.() -> Unit)? = null,
     flingBehavior: FlingBehavior = PickerDefaults.flingBehavior(state = state),
     option: @Composable PickerScope.(optionIndex: Int) -> Unit

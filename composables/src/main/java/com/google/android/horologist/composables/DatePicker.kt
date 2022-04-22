@@ -52,7 +52,7 @@ import java.util.Calendar
 @Composable
 public fun DatePicker(
     check: @Composable () -> Unit,
-    @Suppress("UNUSED_PARAMETER") onClick: () -> Unit
+    onClick: () -> Unit
 ) {
     // Omit scaling according to Settings > Display > Font size for this screen
     val typography = MaterialTheme.typography.copy(

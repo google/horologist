@@ -68,6 +68,7 @@ android {
         freeCompilerArgs += "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi"
         freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         freeCompilerArgs += "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.composables.ExperimentalComposablesApi"
     }
 
     composeOptions {

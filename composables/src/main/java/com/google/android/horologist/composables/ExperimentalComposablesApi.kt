@@ -14,18 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.sample
+package com.google.android.horologist.composables
 
-sealed class Screen(
-    val route: String
-) {
-    object Menu : Screen("menu")
-    object FillMaxRectangle : Screen("fmr")
-    object FadeAway : Screen("fadeAway")
-    object FadeAwaySLC : Screen("fadeAwaySLC")
-    object FadeAwayColumn : Screen("fadeAwayColumn")
-    object Volume : Screen("volume")
-    object DatePicker : Screen("datePicker")
-    object TimePicker : Screen("timePicker")
-    object TimeWithSecondsPicker : Screen("timeWithSecondsPicker")
-}
+@RequiresOptIn(
+    message = "Composables is experimental. The API may be changed in the future."
+)
+@Retention(AnnotationRetention.BINARY)
+public annotation class ExperimentalComposablesApi

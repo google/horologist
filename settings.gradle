@@ -27,6 +27,7 @@ gradleEnterprise {
 
 include ':sample'
 include ':compose-layout'
+include ':composables'
 include ':audio'
 include ':audio-ui'
 include ':tiles'

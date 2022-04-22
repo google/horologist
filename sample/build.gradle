@@ -80,6 +80,7 @@ dependencies {
     implementation projects.audio
     implementation projects.audioUi
     implementation projects.tiles
+    implementation projects.composables
 
     implementation libs.compose.ui.tooling
     implementation libs.compose.ui.util

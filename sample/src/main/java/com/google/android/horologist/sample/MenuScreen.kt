@@ -69,6 +69,15 @@ fun MenuScreen(
         item {
             FadeAwayChip("Fade Away Column") { navigateToRoute(Screen.FadeAwayColumn.route) }
         }
+        item {
+            TimePickerChip { navigateToRoute(Screen.TimePicker.route) }
+        }
+        item {
+            DatePickerChip { navigateToRoute(Screen.DatePicker.route) }
+        }
+        item {
+            TimeWithSecondsPickerChip { navigateToRoute(Screen.TimeWithSecondsPicker.route) }
+        }
     }
 
     LaunchedEffect(Unit) {

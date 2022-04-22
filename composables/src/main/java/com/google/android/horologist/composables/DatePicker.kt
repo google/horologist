@@ -16,8 +16,6 @@
 
 package com.google.android.horologist.composables
 
-
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -65,10 +63,12 @@ public fun DatePicker(
         val today = remember { Calendar.getInstance() }
         val yearState = rememberPickerState(
             initialNumberOfOptions = 3000,
-            initiallySelectedOption = today.get(Calendar.YEAR) - 1)
+            initiallySelectedOption = today.get(Calendar.YEAR) - 1
+        )
         val monthState = rememberPickerState(
             initialNumberOfOptions = 12,
-            initiallySelectedOption = today.get(Calendar.MONTH))
+            initiallySelectedOption = today.get(Calendar.MONTH)
+        )
         val monthCalendar = remember { Calendar.getInstance() }
         val maxDayInMonth by remember {
             derivedStateOf {

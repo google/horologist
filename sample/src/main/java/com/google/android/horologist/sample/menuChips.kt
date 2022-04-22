@@ -83,7 +83,6 @@ fun VolumeScreenChip(navigateToRoute: (String) -> Unit) {
     )
 }
 
-
 @Composable
 fun TimePickerChip(navigateToRoute: (String) -> Unit) {
     SampleChip(
@@ -105,7 +104,6 @@ fun TimePickerChip(navigateToRoute: (String) -> Unit) {
     )
 }
 
-
 @Composable
 fun DatePickerChip(navigateToRoute: (String) -> Unit) {
     SampleChip(
@@ -124,7 +122,6 @@ fun DatePickerChip(navigateToRoute: (String) -> Unit) {
         }
     )
 }
-
 
 @Composable
 fun TimeWithSecondsPickerChip(navigateToRoute: (String) -> Unit) {

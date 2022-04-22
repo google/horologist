@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.composables
 
-
 import android.view.MotionEvent
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.FlingBehavior
@@ -257,8 +256,6 @@ public fun TimePickerWith12HourClock(
     }
 }
 
-
-
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 internal fun TimePiece(
@@ -318,13 +315,12 @@ private fun Separator(width: Dp, textStyle: TextStyle) {
 ) {
     Picker(
         state = state,
-        modifier = modifier.focusRequester(focusRequester).focusable()
+        modifier = modifier.focusRequester(focusRequester).focusable(),
 //        .rsbScroll(
 //            scrollableState = state,
 //            flingBehavior = flingBehavior,
 //            focusRequester = focusRequester
 //        )
-        ,
         flingBehavior = flingBehavior,
         readOnly = readOnly,
         readOnlyLabel = readOnlyLabel,

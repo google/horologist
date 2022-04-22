@@ -26,7 +26,6 @@ import androidx.compose.ui.test.hasProgressBarRangeInfo
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.performClick
 import com.google.android.horologist.mediaui.ExperimentalMediaUiApi
-import com.google.common.truth.Truth.assertThat
 import com.google.test.toolbox.hasProgressBar
 import org.junit.Rule
 import org.junit.Test
@@ -58,7 +57,8 @@ class PlayPauseProgressButtonTest {
             .assertIsDisplayed()
             .performClick()
 
-        assertThat(clicked).isTrue()
+        // assert that the click event was assigned to the correct button
+        composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
 
         composeTestRule.onNode(hasAnyChild(hasContentDescription("Play")))
             .assertDoesNotExist()
@@ -86,7 +86,8 @@ class PlayPauseProgressButtonTest {
             .assertIsDisplayed()
             .performClick()
 
-        assertThat(clicked).isTrue()
+        // assert that the click event was assigned to the correct button
+        composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
 
         composeTestRule.onNode(hasAnyChild(hasContentDescription("Pause")))
             .assertDoesNotExist()

@@ -18,6 +18,10 @@ package com.google.android.horologist.mediaui.components {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.mediaui.ExperimentalMediaUiApi public static void PlayPauseProgressButton(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseClick, boolean playing, float percent, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional long progressColour);
   }
 
+  public final class TextMediaDisplayKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.mediaui.ExperimentalMediaUiApi public static void TextMediaDisplay(optional androidx.compose.ui.Modifier modifier, optional String? title, optional String? artist);
+  }
+
 }
 
 package com.google.android.horologist.mediaui.components.controls {

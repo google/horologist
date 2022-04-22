@@ -16,12 +16,11 @@
 
 @file:OptIn(ExperimentalMediaUiApi::class)
 
-package com.google.android.horologist.mediaui.components.controls
+package com.google.android.horologist.mediaui.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.mediaui.ExperimentalMediaUiApi
-import com.google.android.horologist.mediaui.components.PlayPauseProgressButton
 
 @Preview("Enabled - Playing - Progress 0%")
 @Composable

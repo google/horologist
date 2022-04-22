@@ -60,6 +60,7 @@ import androidx.wear.compose.material.PickerState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberPickerState
 
+@ExperimentalComposablesApi
 @Composable
 public fun TimePickerWithHoursMinutesSeconds(
     check: @Composable () -> Unit,
@@ -160,6 +161,7 @@ public fun TimePickerWithHoursMinutesSeconds(
     }
 }
 
+@ExperimentalComposablesApi
 @Composable
 public fun TimePickerWith12HourClock(
     check: @Composable () -> Unit,

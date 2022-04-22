@@ -306,7 +306,7 @@ private fun Separator(width: Dp, textStyle: TextStyle) {
     Spacer(Modifier.width(width))
 }
 
-@Composable fun PickerWithRSB(
+@Composable internal fun PickerWithRSB(
     state: PickerState,
     readOnly: Boolean,
     modifier: Modifier,

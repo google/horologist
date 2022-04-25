@@ -66,7 +66,7 @@ class TimePickerTest {
 
         composeTestRule.onNodeWithContentDescription("check").performClick()
 
-        assertThat(time).isEqualTo(LocalTime.of(11, 59, 0))
+        assertThat(time).isEqualTo(LocalTime.of(11, 59, 31))
     }
 
     @Test
@@ -92,6 +92,6 @@ class TimePickerTest {
 
         composeTestRule.onNodeWithContentDescription("check").performClick()
 
-        assertThat(time).isEqualTo(LocalTime.of(11, 59, 31))
+        assertThat(time).isEqualTo(LocalTime.of(11, 59, 0))
     }
 }

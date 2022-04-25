@@ -90,11 +90,11 @@ public fun TimePicker(
     )
     val minuteState = rememberPickerState(
         initialNumberOfOptions = 60,
-        initiallySelectedOption = initial.minute - 1
+        initiallySelectedOption = initial.minute
     )
     val secondsState = rememberPickerState(
         initialNumberOfOptions = 60,
-        initiallySelectedOption = initial.second - 1
+        initiallySelectedOption = initial.second
     )
     MaterialTheme(typography = typography) {
         var selectedColumn by remember { mutableStateOf(0) }
@@ -181,7 +181,7 @@ public fun TimePicker(
                     val time = LocalTime.of(
                         hourState.selectedOption,
                         minuteState.selectedOption,
-                        secondsState.selectedOption + 1
+                        secondsState.selectedOption
                     )
                     onClick(time)
                 }) {

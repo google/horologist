@@ -68,12 +68,12 @@ import java.time.temporal.ChronoField
  *
  * @param buttonIcon the button content.
  * @param onClick the button event handler.
- * @param the modifiers for the `Column` containing the UI elements.
+ * @param modifier the modifiers for the `Column` containing the UI elements.
  */
 @ExperimentalComposablesApi
 @Composable
 public fun TimePicker(
-    buttonIcon: @Composable () -> Unit,
+    buttonIcon: @Composable BoxScope.() -> Unit,
     onClick: (LocalTime) -> Unit,
     modifier: Modifier = Modifier,
     initial: LocalTime = LocalTime.now()
@@ -203,12 +203,12 @@ public fun TimePicker(
  *
  * @param buttonIcon the button content.
  * @param onClick the button event handler.
- * @param the modifiers for the `Column` containing the UI elements.
+ * @param modifier the modifiers for the `Column` containing the UI elements.
  */
 @ExperimentalComposablesApi
 @Composable
 public fun TimePickerWith12HourClock(
-    buttonIcon: @Composable () -> Unit,
+    buttonIcon: @Composable BoxScope.() -> Unit,
     onClick: (LocalTime) -> Unit,
     modifier: Modifier = Modifier,
     initial: LocalTime = LocalTime.now()

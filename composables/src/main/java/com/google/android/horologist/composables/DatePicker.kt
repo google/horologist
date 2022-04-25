@@ -17,6 +17,7 @@
 package com.google.android.horologist.composables
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -56,7 +57,7 @@ import java.time.temporal.TemporalAdjusters
 @ExperimentalComposablesApi
 @Composable
 public fun DatePicker(
-    buttonIcon: @Composable () -> Unit,
+    buttonIcon: @Composable BoxScope.() -> Unit,
     onClick: (LocalDate) -> Unit,
     modifier: Modifier = Modifier,
     initial: LocalDate = LocalDate.now()

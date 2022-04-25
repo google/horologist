@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Icon
 import com.google.android.horologist.composables.ExperimentalComposablesApi
 import com.google.android.horologist.composables.TimePicker
+import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
@@ -65,14 +66,14 @@ class TimePickerTest {
 
         composeTestRule.onNodeWithContentDescription("check").performClick()
 
-        assertThat(time).isEqualTo(LocalTime.of(11, 59, 31))
+        assertThat(time).isEqualTo(LocalTime.of(11, 59, 0))
     }
 
     @Test
     fun testTimeWithSeconds() {
         var time: LocalTime? = null
         composeTestRule.setContent {
-            TimePicker(
+            TimePickerWith12HourClock(
                 buttonIcon = {
                     Icon(
                         imageVector = Icons.Filled.Check,

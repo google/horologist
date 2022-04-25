@@ -38,8 +38,8 @@ import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.audioui.VolumeScreen
 import com.google.android.horologist.composables.DatePicker
+import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
-import com.google.android.horologist.composables.TimePickerWithHoursMinutesSeconds
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,7 +91,7 @@ fun WearApp() {
             }
             composable(Screen.DatePicker.route) {
                 DatePicker(
-                    check = {
+                    buttonIcon = {
                         Icon(
                             imageVector = Icons.Filled.Check,
                             contentDescription = "check",
@@ -101,13 +101,14 @@ fun WearApp() {
                         )
                     },
                     onClick = {
+                        println(it)
                         navController.popBackStack()
                     }
                 )
             }
             composable(Screen.TimePicker.route) {
                 TimePickerWith12HourClock(
-                    check = {
+                    buttonIcon = {
                         Icon(
                             imageVector = Icons.Filled.Check,
                             contentDescription = "check",
@@ -117,13 +118,14 @@ fun WearApp() {
                         )
                     },
                     onClick = {
+                        println(it)
                         navController.popBackStack()
                     }
                 )
             }
             composable(Screen.TimeWithSecondsPicker.route) {
-                TimePickerWithHoursMinutesSeconds(
-                    check = {
+                TimePicker(
+                    buttonIcon = {
                         Icon(
                             imageVector = Icons.Filled.Check,
                             contentDescription = "check",
@@ -133,6 +135,7 @@ fun WearApp() {
                         )
                     },
                     onClick = {
+                        println(it)
                         navController.popBackStack()
                     }
                 )

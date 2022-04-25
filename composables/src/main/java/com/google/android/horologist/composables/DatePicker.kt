@@ -17,6 +17,7 @@
 package com.google.android.horologist.composables
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -45,14 +46,21 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PickerState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberPickerState
-import java.text.SimpleDateFormat
-import java.util.Calendar
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.temporal.TemporalAdjusters
 
+/**
+ * Full screen date picker with day, month, year.
+ * Also includes a button, typically for submitting.
+ */
 @ExperimentalComposablesApi
 @Composable
 public fun DatePicker(
-    check: @Composable () -> Unit,
-    onClick: () -> Unit
+    buttonIcon: @Composable BoxScope.() -> Unit,
+    onClick: (LocalDate) -> Unit,
+    modifier: Modifier = Modifier,
+    initial: LocalDate = LocalDate.now()
 ) {
     // Omit scaling according to Settings > Display > Font size for this screen
     val typography = MaterialTheme.typography.copy(
@@ -61,26 +69,28 @@ public fun DatePicker(
         )
     )
     MaterialTheme(typography = typography) {
-        val today = remember { Calendar.getInstance() }
         val yearState = rememberPickerState(
             initialNumberOfOptions = 3000,
-            initiallySelectedOption = today.get(Calendar.YEAR) - 1
+            initiallySelectedOption = initial.year - 1
         )
         val monthState = rememberPickerState(
             initialNumberOfOptions = 12,
-            initiallySelectedOption = today.get(Calendar.MONTH)
+            initiallySelectedOption = initial.monthValue - 1
         )
-        val monthCalendar = remember { Calendar.getInstance() }
         val maxDayInMonth by remember {
             derivedStateOf {
-                monthCalendar.set(yearState.selectedOption + 1, monthState.selectedOption, 1)
-                val max = monthCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)
-                max
+                val firstDayOfMonth =
+                    LocalDate.of(
+                        yearState.selectedOption + 1,
+                        monthState.selectedOption + 1,
+                        1
+                    )
+                firstDayOfMonth.with(TemporalAdjusters.lastDayOfMonth()).dayOfMonth
             }
         }
         val dayState = rememberPickerState(
             initialNumberOfOptions = maxDayInMonth,
-            initiallySelectedOption = today.get(Calendar.DAY_OF_MONTH) - 1
+            initiallySelectedOption = initial.dayOfMonth - 1
         )
         val focusRequester1 = remember { FocusRequester() }
         val focusRequester2 = remember { FocusRequester() }
@@ -92,18 +102,15 @@ public fun DatePicker(
             }
         }
         val monthNames = remember {
-            val months = 0..11
+            val monthFormatter = DateTimeFormatter.ofPattern("MMM")
+            val months = 1..12
             months.map {
                 // Translate month index into 3-character month string e.g. Jan.
-                // Using deprecated Date constructor rather than LocalDate in order to avoid
-                // requirement for API 26+.
-                val calendar = Calendar.getInstance()
-                calendar.set(2022, it, 1)
-                SimpleDateFormat("MMM").format(calendar.time)
+                LocalDate.of(2022, it, 1).format(monthFormatter)
             }
         }
         var selectedColumn by remember { mutableStateOf(0) }
-        BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+        BoxWithConstraints(modifier = modifier.fillMaxSize()) {
             val boxConstraints = this
             Column(
                 verticalArrangement = Arrangement.Center,
@@ -121,7 +128,11 @@ public fun DatePicker(
                     maxLines = 1,
                 )
                 val weightsToCenterVertically = 0.5f
-                Spacer(Modifier.fillMaxWidth().weight(weightsToCenterVertically))
+                Spacer(
+                    Modifier
+                        .fillMaxWidth()
+                        .weight(weightsToCenterVertically)
+                )
                 val spacerWidth = 8.dp
                 val dayWidth = 54.dp
                 val monthWidth = 80.dp
@@ -131,7 +142,11 @@ public fun DatePicker(
                     1 -> (boxConstraints.maxWidth - monthWidth) / 2 - dayWidth - spacerWidth
                     else -> (boxConstraints.maxWidth - yearWidth) / 2 - monthWidth
                 }
-                Row(modifier = Modifier.fillMaxWidth().offset(offset)) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .offset(offset)
+                ) {
                     if (selectedColumn < 2) {
                         DatePickerImpl(
                             state = dayState,
@@ -163,11 +178,22 @@ public fun DatePicker(
                         )
                     }
                 }
-                Spacer(Modifier.fillMaxWidth().weight(weightsToCenterVertically))
+                Spacer(
+                    Modifier
+                        .fillMaxWidth()
+                        .weight(weightsToCenterVertically)
+                )
                 Button(
-                    onClick = onClick,
+                    onClick = {
+                        val date = LocalDate.of(
+                            yearState.selectedOption + 1,
+                            monthState.selectedOption + 1,
+                            dayState.selectedOption + 1
+                        )
+                        onClick(date)
+                    },
                 ) {
-                    check()
+                    buttonIcon()
                 }
                 Spacer(Modifier.height(12.dp))
             }

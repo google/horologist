@@ -59,21 +59,42 @@ import androidx.wear.compose.material.PickerScope
 import androidx.wear.compose.material.PickerState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberPickerState
+import java.time.LocalTime
+import java.time.temporal.ChronoField
 
 /**
+ * A full screen TimePicker with seconds.
+ * Also includes a button, typically for submitting.
  *
+ * @param buttonIcon the button content.
+ * @param onClick the button event handler.
+ * @param modifier the modifiers for the `Column` containing the UI elements.
  */
 @ExperimentalComposablesApi
 @Composable
-public fun TimePickerWithHoursMinutesSeconds(
-    check: @Composable () -> Unit,
-    onClick: () -> Unit
+public fun TimePicker(
+    buttonIcon: @Composable BoxScope.() -> Unit,
+    onClick: (LocalTime) -> Unit,
+    modifier: Modifier = Modifier,
+    initial: LocalTime = LocalTime.now()
 ) {
     // Omit scaling according to Settings > Display > Font size for this screen
     val typography = MaterialTheme.typography.copy(
         display3 = MaterialTheme.typography.display3.copy(
             fontSize = with(LocalDensity.current) { 30.dp.toSp() }
         )
+    )
+    val hourState = rememberPickerState(
+        initialNumberOfOptions = 24,
+        initiallySelectedOption = initial.hour
+    )
+    val minuteState = rememberPickerState(
+        initialNumberOfOptions = 60,
+        initiallySelectedOption = initial.minute
+    )
+    val secondsState = rememberPickerState(
+        initialNumberOfOptions = 60,
+        initiallySelectedOption = initial.second
     )
     MaterialTheme(typography = typography) {
         var selectedColumn by remember { mutableStateOf(0) }
@@ -82,7 +103,7 @@ public fun TimePickerWithHoursMinutesSeconds(
         val focusRequester1 = remember { FocusRequester() }
         val focusRequester2 = remember { FocusRequester() }
         val focusRequester3 = remember { FocusRequester() }
-        Box(modifier = Modifier.fillMaxSize()) {
+        Box(modifier = modifier.fillMaxSize()) {
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -99,7 +120,11 @@ public fun TimePickerWithHoursMinutesSeconds(
                     maxLines = 1,
                 )
                 val weightsToCenterVertically = 0.5f
-                Spacer(Modifier.fillMaxWidth().weight(weightsToCenterVertically))
+                Spacer(
+                    Modifier
+                        .fillMaxWidth()
+                        .weight(weightsToCenterVertically)
+                )
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
@@ -107,10 +132,7 @@ public fun TimePickerWithHoursMinutesSeconds(
                 ) {
                     PickerWithRSB(
                         readOnly = selectedColumn != 0,
-                        state = rememberPickerState(
-                            initialNumberOfOptions = 24,
-                            initiallySelectedOption = 6
-                        ),
+                        state = hourState,
                         focusRequester = focusRequester1,
                         modifier = Modifier.size(40.dp, 100.dp),
                     ) { hour: Int ->
@@ -124,7 +146,7 @@ public fun TimePickerWithHoursMinutesSeconds(
                     Separator(6.dp, textStyle)
                     PickerWithRSB(
                         readOnly = selectedColumn != 1,
-                        state = rememberPickerState(initialNumberOfOptions = 60),
+                        state = minuteState,
                         focusRequester = focusRequester2,
                         modifier = Modifier.size(40.dp, 100.dp),
                     ) { minute: Int ->
@@ -138,7 +160,7 @@ public fun TimePickerWithHoursMinutesSeconds(
                     Separator(6.dp, textStyle)
                     PickerWithRSB(
                         readOnly = selectedColumn != 2,
-                        state = rememberPickerState(initialNumberOfOptions = 60),
+                        state = secondsState,
                         focusRequester = focusRequester3,
                         modifier = Modifier.size(40.dp, 100.dp),
                     ) { second: Int ->
@@ -150,9 +172,20 @@ public fun TimePickerWithHoursMinutesSeconds(
                         )
                     }
                 }
-                Spacer(Modifier.fillMaxWidth().weight(weightsToCenterVertically))
-                Button(onClick = onClick) {
-                    check()
+                Spacer(
+                    Modifier
+                        .fillMaxWidth()
+                        .weight(weightsToCenterVertically)
+                )
+                Button(onClick = {
+                    val time = LocalTime.of(
+                        hourState.selectedOption,
+                        minuteState.selectedOption,
+                        secondsState.selectedOption
+                    )
+                    onClick(time)
+                }) {
+                    buttonIcon()
                 }
                 Spacer(Modifier.height(12.dp))
             }
@@ -164,11 +197,21 @@ public fun TimePickerWithHoursMinutesSeconds(
     }
 }
 
+/**
+ * A full screen TimePicker with hours and minutes and AM/PM selector.
+ * Also includes a button, typically for submitting.
+ *
+ * @param buttonIcon the button content.
+ * @param onClick the button event handler.
+ * @param modifier the modifiers for the `Column` containing the UI elements.
+ */
 @ExperimentalComposablesApi
 @Composable
 public fun TimePickerWith12HourClock(
-    check: @Composable () -> Unit,
-    onClick: () -> Unit
+    buttonIcon: @Composable BoxScope.() -> Unit,
+    onClick: (LocalTime) -> Unit,
+    modifier: Modifier = Modifier,
+    initial: LocalTime = LocalTime.now()
 ) {
     // Omit scaling according to Settings > Display > Font size for this screen,
     val typography = MaterialTheme.typography.copy(
@@ -176,21 +219,29 @@ public fun TimePickerWith12HourClock(
             fontSize = with(LocalDensity.current) { 40.dp.toSp() }
         )
     )
+    val hourState = rememberPickerState(
+        initialNumberOfOptions = 12,
+        initiallySelectedOption = initial[ChronoField.CLOCK_HOUR_OF_AMPM] - 1
+    )
+    val minuteState = rememberPickerState(
+        initialNumberOfOptions = 60,
+        initiallySelectedOption = initial.minute
+    )
+    var amPm by remember { mutableStateOf(initial[ChronoField.AMPM_OF_DAY]) }
     MaterialTheme(typography = typography) {
-        var morning by remember { mutableStateOf(true) }
         var selectedColumn by remember { mutableStateOf(0) }
         val textStyle = MaterialTheme.typography.display1
         val focusRequester1 = remember { FocusRequester() }
         val focusRequester2 = remember { FocusRequester() }
 
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(Modifier.height(8.dp))
             CompactChip(
-                onClick = { morning = !morning },
+                onClick = { amPm = 1 - amPm },
                 modifier = Modifier.size(width = 50.dp, height = 24.dp),
                 label = {
                     Row(
@@ -198,7 +249,7 @@ public fun TimePickerWith12HourClock(
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = if (morning) "AM" else "PM",
+                            text = if (amPm == 0) "AM" else "PM",
                             color = MaterialTheme.colors.onPrimary,
                             style = MaterialTheme.typography.button,
                         )
@@ -207,7 +258,11 @@ public fun TimePickerWith12HourClock(
                 colors = ChipDefaults.chipColors(backgroundColor = MaterialTheme.colors.secondary),
                 contentPadding = PaddingValues(vertical = 0.dp),
             )
-            Spacer(Modifier.fillMaxWidth().weight(0.5f))
+            Spacer(
+                Modifier
+                    .fillMaxWidth()
+                    .weight(0.5f)
+            )
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -216,10 +271,7 @@ public fun TimePickerWith12HourClock(
                 Spacer(Modifier.width(8.dp))
                 PickerWithRSB(
                     readOnly = selectedColumn != 0,
-                    state = rememberPickerState(
-                        initialNumberOfOptions = 12,
-                        initiallySelectedOption = 6
-                    ),
+                    state = hourState,
                     focusRequester = focusRequester1,
                     modifier = Modifier.size(64.dp, 100.dp),
                     readOnlyLabel = { LabelText("Hour") }
@@ -235,7 +287,7 @@ public fun TimePickerWith12HourClock(
 
                 PickerWithRSB(
                     readOnly = selectedColumn != 1,
-                    state = rememberPickerState(initialNumberOfOptions = 60),
+                    state = minuteState,
                     focusRequester = focusRequester2,
                     modifier = Modifier.size(64.dp, 100.dp),
                     readOnlyLabel = { LabelText("Min") }
@@ -249,9 +301,20 @@ public fun TimePickerWith12HourClock(
                 }
                 Spacer(Modifier.width(8.dp))
             }
-            Spacer(Modifier.fillMaxWidth().weight(0.5f))
-            Button(onClick = onClick) {
-                check()
+            Spacer(
+                Modifier
+                    .fillMaxWidth()
+                    .weight(0.5f)
+            )
+            Button(onClick = {
+                val time = LocalTime.of(
+                    hourState.selectedOption + 1,
+                    minuteState.selectedOption,
+                    0
+                ).with(ChronoField.AMPM_OF_DAY, amPm.toLong())
+                onClick(time)
+            }) {
+                buttonIcon()
             }
             Spacer(Modifier.height(8.dp))
             LaunchedEffect(selectedColumn) {
@@ -270,7 +333,9 @@ internal fun TimePiece(
     style: TextStyle,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
-        val modifier = Modifier.align(Alignment.Center).wrapContentSize()
+        val modifier = Modifier
+            .align(Alignment.Center)
+            .wrapContentSize()
         Text(
             text = text,
             maxLines = 1,
@@ -294,7 +359,9 @@ private fun BoxScope.LabelText(text: String) {
         text = text,
         style = MaterialTheme.typography.caption1,
         color = MaterialTheme.colors.onSurfaceVariant,
-        modifier = Modifier.align(Alignment.TopCenter).offset(y = 8.dp)
+        modifier = Modifier
+            .align(Alignment.TopCenter)
+            .offset(y = 8.dp)
     )
 }
 
@@ -321,7 +388,9 @@ internal fun PickerWithRSB(
 ) {
     Picker(
         state = state,
-        modifier = modifier.focusRequester(focusRequester).focusable(),
+        modifier = modifier
+            .focusRequester(focusRequester)
+            .focusable(),
 //        .rsbScroll(
 //            scrollableState = state,
 //            flingBehavior = flingBehavior,

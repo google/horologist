@@ -88,6 +88,14 @@ package com.google.android.horologist.mediaui.components.controls {
 
 }
 
+package com.google.android.horologist.mediaui.components.screens {
+
+  public final class PlayScreenKt {
+    method @androidx.compose.runtime.Composable public static void PlayScreen(kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit> mediaDisplay, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> controlButtons, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> buttons, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> background);
+  }
+
+}
+
 package com.google.android.horologist.mediaui.components.semantics {
 
   @com.google.android.horologist.mediaui.ExperimentalMediaUiApi public final class CustomSemanticsProperties {

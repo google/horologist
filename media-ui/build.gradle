@@ -78,6 +78,7 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
 }
 
 dependencies {
+    implementation projects.mediaData
     implementation libs.kotlin.stdlib
     implementation libs.androidx.wear
     implementation libs.wearcompose.material
@@ -85,6 +86,7 @@ dependencies {
     implementation libs.compose.ui.tooling
     implementation libs.compose.material.iconscore
     implementation libs.compose.material.iconsext
+    implementation libs.androidx.media3.common
 
     debugImplementation libs.androidx.customview
     debugImplementation libs.androidx.customview.pooling
@@ -92,6 +94,9 @@ dependencies {
     debugImplementation libs.compose.ui.toolingpreview
 
     testImplementation libs.junit
+    testImplementation libs.androidx.test.ext.ktx
+    testImplementation libs.truth
+    testImplementation libs.robolectric
 
     androidTestImplementation libs.compose.ui.test.junit4
     androidTestImplementation libs.truth

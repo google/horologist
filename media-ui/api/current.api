@@ -154,6 +154,25 @@ package com.google.android.horologist.media.ui.state {
 
 }
 
+package com.google.android.horologist.media.ui.state.mapper {
+
+  public final class MediaItemUiModelMapper {
+    method public com.google.android.horologist.media.ui.state.model.MediaItemUiModel map(androidx.media3.common.MediaItem mediaItem);
+    field public static final com.google.android.horologist.media.ui.state.mapper.MediaItemUiModelMapper INSTANCE;
+  }
+
+  public final class PlayerUiStateMapper {
+    method public com.google.android.horologist.media.ui.state.PlayerUiState map(androidx.media3.common.Player.Commands playerCommands, boolean shuffleEnabled, boolean isPlaying, androidx.media3.common.MediaItem? mediaItem, com.google.android.horologist.media.data.model.TrackPosition? trackPosition);
+    field public static final com.google.android.horologist.media.ui.state.mapper.PlayerUiStateMapper INSTANCE;
+  }
+
+  public final class TrackPositionUiModelMapper {
+    method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel map(com.google.android.horologist.media.data.model.TrackPosition trackPosition);
+    field public static final com.google.android.horologist.media.ui.state.mapper.TrackPositionUiModelMapper INSTANCE;
+  }
+
+}
+
 package com.google.android.horologist.media.ui.state.model {
 
   public final class MediaItemUiModel {

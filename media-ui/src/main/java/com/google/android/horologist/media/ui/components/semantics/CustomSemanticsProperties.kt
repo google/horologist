@@ -14,17 +14,20 @@
  * limitations under the License.
  */
 
-package com.google.test.toolbox
+package com.google.android.horologist.media.ui.components.semantics
 
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.semantics.SemanticsPropertyKey
+import androidx.compose.ui.semantics.SemanticsPropertyReceiver
 import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
-import com.google.android.horologist.media.ui.components.semantics.CustomSemanticsProperties.IconImageVectorKey
 
-@OptIn(ExperimentalMediaUiApi::class)
-fun hasIconImageVector(imageVector: ImageVector): SemanticsMatcher =
-    SemanticsMatcher.expectValue(IconImageVectorKey, imageVector)
+/**
+ * Custom semantic properties, mainly used for accessibility and testing.
+ */
+@ExperimentalMediaUiApi
+public object CustomSemanticsProperties {
 
-fun hasProgressBar(): SemanticsMatcher =
-    SemanticsMatcher.keyIsDefined(SemanticsProperties.ProgressBarRangeInfo)
+    public val IconImageVectorKey: SemanticsPropertyKey<ImageVector> =
+        SemanticsPropertyKey("IconImageVector")
+    public var SemanticsPropertyReceiver.iconImageVector: ImageVector by IconImageVectorKey
+}

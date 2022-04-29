@@ -109,3 +109,77 @@ package com.google.android.horologist.media.ui.screens {
 
 }
 
+package com.google.android.horologist.media.ui.state {
+
+  public final class PlayerUiState {
+    ctor public PlayerUiState(boolean playEnabled, boolean pauseEnabled, boolean seekBackEnabled, boolean seekForwardEnabled, boolean seekToPreviousEnabled, boolean seekToNextEnabled, boolean shuffleEnabled, boolean shuffleOn, boolean playPauseEnabled, boolean playing, com.google.android.horologist.media.ui.state.model.MediaItemUiModel? mediaItem, com.google.android.horologist.media.ui.state.model.TrackPositionUiModel? trackPosition);
+    method public boolean component1();
+    method public boolean component10();
+    method public com.google.android.horologist.media.ui.state.model.MediaItemUiModel? component11();
+    method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel? component12();
+    method public boolean component2();
+    method public boolean component3();
+    method public boolean component4();
+    method public boolean component5();
+    method public boolean component6();
+    method public boolean component7();
+    method public boolean component8();
+    method public boolean component9();
+    method public com.google.android.horologist.media.ui.state.PlayerUiState copy(boolean playEnabled, boolean pauseEnabled, boolean seekBackEnabled, boolean seekForwardEnabled, boolean seekToPreviousEnabled, boolean seekToNextEnabled, boolean shuffleEnabled, boolean shuffleOn, boolean playPauseEnabled, boolean playing, com.google.android.horologist.media.ui.state.model.MediaItemUiModel? mediaItem, com.google.android.horologist.media.ui.state.model.TrackPositionUiModel? trackPosition);
+    method public com.google.android.horologist.media.ui.state.model.MediaItemUiModel? getMediaItem();
+    method public boolean getPauseEnabled();
+    method public boolean getPlayEnabled();
+    method public boolean getPlayPauseEnabled();
+    method public boolean getPlaying();
+    method public boolean getSeekBackEnabled();
+    method public boolean getSeekForwardEnabled();
+    method public boolean getSeekToNextEnabled();
+    method public boolean getSeekToPreviousEnabled();
+    method public boolean getShuffleEnabled();
+    method public boolean getShuffleOn();
+    method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel? getTrackPosition();
+    property public final com.google.android.horologist.media.ui.state.model.MediaItemUiModel? mediaItem;
+    property public final boolean pauseEnabled;
+    property public final boolean playEnabled;
+    property public final boolean playPauseEnabled;
+    property public final boolean playing;
+    property public final boolean seekBackEnabled;
+    property public final boolean seekForwardEnabled;
+    property public final boolean seekToNextEnabled;
+    property public final boolean seekToPreviousEnabled;
+    property public final boolean shuffleEnabled;
+    property public final boolean shuffleOn;
+    property public final com.google.android.horologist.media.ui.state.model.TrackPositionUiModel? trackPosition;
+  }
+
+}
+
+package com.google.android.horologist.media.ui.state.model {
+
+  public final class MediaItemUiModel {
+    ctor public MediaItemUiModel(optional String? title, optional String? artist);
+    method public String? component1();
+    method public String? component2();
+    method public com.google.android.horologist.media.ui.state.model.MediaItemUiModel copy(String? title, String? artist);
+    method public String? getArtist();
+    method public String? getTitle();
+    property public final String? artist;
+    property public final String? title;
+  }
+
+  public final class TrackPositionUiModel {
+    ctor public TrackPositionUiModel(long current, long duration, float percent);
+    method public long component1();
+    method public long component2();
+    method public float component3();
+    method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel copy(long current, long duration, float percent);
+    method public long getCurrent();
+    method public long getDuration();
+    method public float getPercent();
+    property public final long current;
+    property public final long duration;
+    property public final float percent;
+  }
+
+}
+

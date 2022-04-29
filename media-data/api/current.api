@@ -1,0 +1,8 @@
+// Signature format: 4.0
+package com.google.android.horologist.media.data {
+
+  @kotlin.RequiresOptIn(message="Horologist Media is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalMediaDataApi {
+  }
+
+}
+

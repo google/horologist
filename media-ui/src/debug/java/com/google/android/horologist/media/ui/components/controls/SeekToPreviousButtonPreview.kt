@@ -14,17 +14,22 @@
  * limitations under the License.
  */
 
-package com.google.test.toolbox
+@file:OptIn(ExperimentalMediaUiApi::class)
 
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.test.SemanticsMatcher
+package com.google.android.horologist.media.ui.components.controls
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
-import com.google.android.horologist.media.ui.components.semantics.CustomSemanticsProperties.IconImageVectorKey
 
-@OptIn(ExperimentalMediaUiApi::class)
-fun hasIconImageVector(imageVector: ImageVector): SemanticsMatcher =
-    SemanticsMatcher.expectValue(IconImageVectorKey, imageVector)
+@Preview(name = "Enabled")
+@Composable
+fun SeekToPreviousButtonPreviewEnabled() {
+    SeekToPreviousButton(onClick = {})
+}
 
-fun hasProgressBar(): SemanticsMatcher =
-    SemanticsMatcher.keyIsDefined(SemanticsProperties.ProgressBarRangeInfo)
+@Preview(name = "Disabled")
+@Composable
+fun SeekToPreviousButtonPreviewDisabled() {
+    SeekToPreviousButton(onClick = {}, enabled = false)
+}

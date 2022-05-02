@@ -30,7 +30,7 @@ public object PlayerUiStateMapper {
 
     public fun map(
         playerCommands: Player.Commands,
-        shuffleEnabled: Boolean,
+        shuffleModeEnabled: Boolean,
         isPlaying: Boolean,
         mediaItem: MediaItem?,
         trackPosition: TrackPosition?,
@@ -45,7 +45,7 @@ public object PlayerUiStateMapper {
             seekToPreviousEnabled = playerCommands.contains(Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM),
             seekToNextEnabled = playerCommands.contains(Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM),
             shuffleEnabled = playerCommands.contains(Player.COMMAND_SET_SHUFFLE_MODE),
-            shuffleOn = shuffleEnabled,
+            shuffleOn = shuffleModeEnabled,
             playPauseEnabled = playPauseCommandAvailable,
             playing = isPlaying,
             mediaItem = mediaItem?.let(MediaItemUiModelMapper::map),

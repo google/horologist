@@ -82,6 +82,7 @@ dependencies {
     implementation projects.mediaData
     implementation libs.kotlin.stdlib
     implementation libs.androidx.wear
+    implementation libs.androidx.lifecycle.runtime
     implementation libs.androidx.lifecycle.viewmodelktx
     implementation libs.wearcompose.material
     implementation libs.wearcompose.foundation

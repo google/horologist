@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalMediaUiApi::class)
+
 package com.google.android.horologist.media.ui.state.mapper
 
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
+import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 

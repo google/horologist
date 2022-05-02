@@ -31,7 +31,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
 
+@ExperimentalMediaUiApi
 @Composable
 public fun PlayScreen(
     mediaDisplay: @Composable ColumnScope.() -> Unit,

@@ -14,9 +14,12 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalMediaUiApi::class)
+
 package com.google.android.horologist.media.ui.state.mapper
 
 import com.google.android.horologist.media.data.model.TrackPosition
+import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 

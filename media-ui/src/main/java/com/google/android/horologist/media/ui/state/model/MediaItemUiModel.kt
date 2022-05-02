@@ -16,6 +16,9 @@
 
 package com.google.android.horologist.media.ui.state.model
 
+import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
+
+@ExperimentalMediaUiApi
 public data class MediaItemUiModel(
     val title: String? = null,
     val artist: String? = null

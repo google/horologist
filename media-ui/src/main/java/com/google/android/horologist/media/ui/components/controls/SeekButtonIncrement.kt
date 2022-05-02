@@ -16,6 +16,9 @@
 
 package com.google.android.horologist.media.ui.components.controls
 
+import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
+
+@ExperimentalMediaUiApi
 public sealed class SeekButtonIncrement(
     public open val seconds: Int
 ) {

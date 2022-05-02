@@ -17,11 +17,13 @@
 package com.google.android.horologist.media.ui.state.mapper
 
 import androidx.media3.common.MediaItem
+import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 
 /**
  * Map a [MediaItem] into a [MediaItemUiModel]
  */
+@ExperimentalMediaUiApi
 public object MediaItemUiModelMapper {
 
     public fun map(mediaItem: MediaItem): MediaItemUiModel = MediaItemUiModel(

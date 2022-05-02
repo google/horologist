@@ -19,11 +19,13 @@ package com.google.android.horologist.media.ui.state.mapper
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import com.google.android.horologist.media.data.model.TrackPosition
+import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
 import com.google.android.horologist.media.ui.state.PlayerUiState
 
 /**
  * Map [Player.Commands] plus other set of properties into a [PlayerUiState]
  */
+@ExperimentalMediaUiApi
 public object PlayerUiStateMapper {
 
     public fun map(

@@ -32,6 +32,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
+import com.google.android.horologist.media.ui.state.PlayerViewModel
+
+@ExperimentalMediaUiApi
+@Composable
+public fun PlayScreen(
+    playerViewModel: PlayerViewModel,
+    mediaDisplay: @Composable ColumnScope.(PlayerViewModel) -> Unit,
+    controlButtons: @Composable RowScope.(PlayerViewModel) -> Unit,
+    buttons: @Composable RowScope.(PlayerViewModel) -> Unit,
+    modifier: Modifier = Modifier,
+    background: @Composable BoxScope.(PlayerViewModel) -> Unit = {}
+) {
+    PlayScreen(
+        mediaDisplay = { mediaDisplay(playerViewModel) },
+        controlButtons = { controlButtons(playerViewModel) },
+        buttons = { buttons(playerViewModel) },
+        modifier = modifier,
+        background = { background(playerViewModel) },
+    )
+}
 
 @ExperimentalMediaUiApi
 @Composable

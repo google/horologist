@@ -27,7 +27,7 @@ import androidx.wear.compose.material.ButtonDefaults
 import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.PlayerViewModel
-import com.google.android.horologist.media.ui.utils.rememberStateWithLifecycle
+import com.google.android.horologist.media.ui.utils.StateUtils.rememberStateWithLifecycle
 
 @ExperimentalMediaUiApi
 @Composable

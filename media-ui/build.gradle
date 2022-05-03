@@ -42,6 +42,7 @@ android {
 
     kotlinOptions {
         jvmTarget = '1.8'
+        freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
     }
 
     composeOptions {
@@ -81,6 +82,7 @@ dependencies {
     implementation projects.mediaData
     implementation libs.kotlin.stdlib
     implementation libs.androidx.wear
+    implementation libs.androidx.lifecycle.viewmodelktx
     implementation libs.wearcompose.material
     implementation libs.wearcompose.foundation
     implementation libs.compose.ui.tooling
@@ -95,6 +97,7 @@ dependencies {
 
     testImplementation libs.junit
     testImplementation libs.androidx.test.ext.ktx
+    testImplementation libs.kotlinx.coroutines.test
     testImplementation libs.truth
     testImplementation libs.robolectric
 

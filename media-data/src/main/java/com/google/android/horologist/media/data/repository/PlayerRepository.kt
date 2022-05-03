@@ -47,11 +47,11 @@ public interface PlayerRepository {
     public val currentMediaItem: StateFlow<MediaItem?>
 
     /**
-     * The current track position of the player.  This is not updated automatically
+     * The current track position of the player. This is not updated automatically
      * so [updatePosition] should be called within a ViewModel coroutineScope regularly
      * to update the UI while the activity is in the foreground.
      */
-    public val trackPosition: StateFlow<TrackPosition>
+    public val trackPosition: StateFlow<TrackPosition?>
 
     /**
      * The current value for shuffling of media items mode.

@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalMediaUiApi::class)
+
 package com.google.android.horologist.media.ui.state.mapper
 
 import androidx.media3.common.MediaItem
@@ -21,6 +23,7 @@ import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.horologist.media.data.model.TrackPosition
+import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.common.truth.Truth.assertThat
 import org.junit.Assert

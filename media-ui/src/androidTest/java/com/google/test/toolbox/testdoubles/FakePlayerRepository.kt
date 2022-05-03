@@ -44,6 +44,9 @@ class FakePlayerRepository : PlayerRepository {
     private var _shuffleModeEnabled = MutableStateFlow(false)
     override val shuffleModeEnabled: StateFlow<Boolean> = _shuffleModeEnabled
 
+    private var mediaItems: List<MediaItem>? = null
+    private var currentItemIndex = -1
+
     override fun prepareAndPlay(mediaItem: MediaItem, play: Boolean) {
         _currentMediaItem.value = mediaItem
         if (play) {
@@ -52,7 +55,11 @@ class FakePlayerRepository : PlayerRepository {
     }
 
     override fun prepareAndPlay(mediaItems: List<MediaItem>?, startIndex: Int, play: Boolean) {
-        mediaItems?.let { _currentMediaItem.value = it[startIndex] }
+        mediaItems?.let {
+            this.mediaItems = it
+            currentItemIndex = startIndex
+            _currentMediaItem.value = it[startIndex]
+        }
 
         if (play) {
             _playing.value = true
@@ -60,11 +67,13 @@ class FakePlayerRepository : PlayerRepository {
     }
 
     override fun seekToPreviousMediaItem() {
-        TODO("Not yet implemented")
+        currentItemIndex--
+        _currentMediaItem.value = mediaItems!![currentItemIndex]
     }
 
     override fun seekToNextMediaItem() {
-        TODO("Not yet implemented")
+        currentItemIndex++
+        _currentMediaItem.value = mediaItems!![currentItemIndex]
     }
 
     override fun getSeekBackIncrement(): Long? {
@@ -92,7 +101,9 @@ class FakePlayerRepository : PlayerRepository {
     }
 
     override fun updatePosition() {
-        TODO("Not yet implemented")
+        _trackPosition.value = _trackPosition.value?.let {
+            it.copy(current = it.current + 1)
+        } ?: TrackPosition(1, 10)
     }
 
     fun addCommand(@Command command: Int) {

@@ -38,7 +38,7 @@ class PlayerViewModelTest {
     }
 
     @Test
-    fun givenAConnectedPlayerRepository_thenPlayerUiStateHasPlayAndPauseEnabled() = runTest {
+    fun givenPlayerRepository_thenPlayerUiStateHasPlayAndPauseEnabled() = runTest {
         // when
         val result = sut.playerUiState.first()
 

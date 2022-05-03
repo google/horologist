@@ -56,7 +56,7 @@ public interface PlayerRepository {
     /**
      * The current value for shuffling of media items mode.
      */
-    public val shuffleEnabled: StateFlow<Boolean>
+    public val shuffleModeEnabled: StateFlow<Boolean>
 
     /**
      * Plays the mediaItem after preparing (buffering).

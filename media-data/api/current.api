@@ -36,7 +36,7 @@ package com.google.android.horologist.media.data.repository {
     method public kotlinx.coroutines.flow.StateFlow<androidx.media3.common.MediaItem> getCurrentMediaItem();
     method public Long? getSeekBackIncrement();
     method public Long? getSeekForwardIncrement();
-    method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getShuffleEnabled();
+    method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getShuffleModeEnabled();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.data.model.TrackPosition> getTrackPosition();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> isPlaying();
     method public void pause();
@@ -51,7 +51,7 @@ package com.google.android.horologist.media.data.repository {
     property public abstract kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Player.Commands> availableCommands;
     property public abstract kotlinx.coroutines.flow.StateFlow<androidx.media3.common.MediaItem> currentMediaItem;
     property public abstract kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> isPlaying;
-    property public abstract kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> shuffleEnabled;
+    property public abstract kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> shuffleModeEnabled;
     property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.data.model.TrackPosition> trackPosition;
   }
 

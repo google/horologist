@@ -46,6 +46,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material.ButtonDefaults
@@ -57,6 +58,7 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ExperimentalAudioApi
 import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.R
 import kotlinx.coroutines.launch
 
 /**
@@ -140,7 +142,7 @@ internal fun VolumeScreen(
                         .size(ButtonDefaults.DefaultButtonSize)
                         .padding(top = 8.dp),
                     imageVector = Icons.Default.VolumeUp,
-                    contentDescription = "Volume Up"
+                    contentDescription = stringResource(id = R.string.volume_screen_volume_up),
                 )
             },
             decreaseIcon = {
@@ -149,7 +151,7 @@ internal fun VolumeScreen(
                         .size(ButtonDefaults.DefaultButtonSize)
                         .padding(bottom = 8.dp),
                     imageVector = Icons.Default.VolumeDown,
-                    contentDescription = "Volume Down",
+                    contentDescription = stringResource(id = R.string.volume_screen_volume_down),
                 )
             },
         ) {

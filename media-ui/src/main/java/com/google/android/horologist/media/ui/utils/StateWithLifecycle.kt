@@ -25,20 +25,17 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import kotlinx.coroutines.flow.StateFlow
 
-internal object StateUtils {
-
-    @Composable
-    internal fun <T> rememberStateWithLifecycle(
-        flow: StateFlow<T>,
-        lifecycle: Lifecycle = LocalLifecycleOwner.current.lifecycle,
-        minActiveState: Lifecycle.State = Lifecycle.State.STARTED
-    ): State<T> {
-        val initialValue = remember(flow) { flow.value }
-        return remember(flow, lifecycle) {
-            flow.flowWithLifecycle(
-                lifecycle = lifecycle,
-                minActiveState = minActiveState
-            )
-        }.collectAsState(initial = initialValue)
-    }
+@Composable
+internal fun <T> rememberStateWithLifecycle(
+    flow: StateFlow<T>,
+    lifecycle: Lifecycle = LocalLifecycleOwner.current.lifecycle,
+    minActiveState: Lifecycle.State = Lifecycle.State.STARTED
+): State<T> {
+    val initialValue = remember(flow) { flow.value }
+    return remember(flow, lifecycle) {
+        flow.flowWithLifecycle(
+            lifecycle = lifecycle,
+            minActiveState = minActiveState
+        )
+    }.collectAsState(initial = initialValue)
 }

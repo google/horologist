@@ -31,7 +31,6 @@ package com.google.android.horologist.media.ui.components.controls {
   }
 
   public final class PauseButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalMediaUiApi public static void PauseButton(com.google.android.horologist.media.ui.state.PlayerViewModel playerViewModel, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalMediaUiApi public static void PauseButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors);
   }
 
@@ -217,13 +216,6 @@ package com.google.android.horologist.media.ui.state.model {
     property public final long current;
     property public final long duration;
     property public final float percent;
-  }
-
-}
-
-package com.google.android.horologist.media.ui.utils {
-
-  public final class StateWithLifecycleKt {
   }
 
 }

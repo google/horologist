@@ -23,11 +23,14 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.hasProgressBarRangeInfo
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
 import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
+import androidx.wear.compose.material.Text
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.common.truth.Truth
@@ -65,7 +68,10 @@ class PlayScreenTest {
         composeTestRule.setContent {
             PlayScreen(
                 playerViewModel = playerViewModel,
-                showProgress = showProgress
+                controlButtons = PlayScreenDefaults.defaultControlButtons(
+                    playerViewModel = playerViewModel,
+                    showProgress = showProgress
+                ),
             )
         }
 
@@ -240,5 +246,110 @@ class PlayScreenTest {
 
         // then
         button.assertIsEnabled()
+    }
+
+    @Test
+    fun givenMediaItem_thenCorrectTitleAndArtistAndIsDisplayed() {
+        // given
+        val playerRepository = FakePlayerRepository()
+        val artist = "artist"
+        val title = "title"
+        val mediaItem = MediaItem.Builder()
+            .setMediaMetadata(
+                MediaMetadata.Builder()
+                    .setArtist(artist)
+                    .setDisplayTitle(title)
+                    .build()
+            )
+            .build()
+        playerRepository.prepareAndPlay(mediaItem)
+
+        val playerViewModel = PlayerViewModel(playerRepository)
+
+        composeTestRule.setContent { PlayScreen(playerViewModel = playerViewModel) }
+
+        // then
+        composeTestRule.onNode(hasText(artist)).assertExists()
+        composeTestRule.onNode(hasText(title)).assertExists()
+    }
+
+    @Test
+    fun givenCustomMediaDisplay_thenCustomIsDisplayed() {
+        // given
+        val playerRepository = FakePlayerRepository()
+        val artist = "artist"
+        val title = "title"
+        val mediaItem = MediaItem.Builder()
+            .setMediaMetadata(
+                MediaMetadata.Builder()
+                    .setArtist(artist)
+                    .setDisplayTitle(title)
+                    .build()
+            )
+            .build()
+        playerRepository.prepareAndPlay(mediaItem)
+
+        val playerViewModel = PlayerViewModel(playerRepository)
+
+        composeTestRule.setContent {
+            PlayScreen(
+                playerViewModel = playerViewModel,
+                mediaDisplay = PlayScreenDefaults.customMediaDisplay { Text("Custom") }
+            )
+        }
+
+        // then
+        composeTestRule.onNode(hasText("Custom")).assertExists()
+
+        composeTestRule.onNode(hasText(artist)).assertDoesNotExist()
+        composeTestRule.onNode(hasText(title)).assertDoesNotExist()
+    }
+
+    @Test
+    fun givenCustomControlButtons_thenCustomIsDisplayed() {
+        // given
+        composeTestRule.setContent {
+            PlayScreen(
+                playerViewModel = PlayerViewModel(FakePlayerRepository()),
+                controlButtons = PlayScreenDefaults.customControlButtons { Text("Custom") }
+            )
+        }
+
+        // then
+        composeTestRule.onNode(hasText("Custom")).assertExists()
+
+        composeTestRule.onNodeWithContentDescription("Previous").assertDoesNotExist()
+        composeTestRule.onNodeWithContentDescription("Next").assertDoesNotExist()
+        composeTestRule.onNodeWithContentDescription("Play").assertDoesNotExist()
+        composeTestRule.onNodeWithContentDescription("Pause").assertDoesNotExist()
+        composeTestRule.onNode(hasProgressBar()).assertDoesNotExist()
+    }
+
+    @Test
+    fun givenCustomButtons_thenCustomIsDisplayed() {
+        // given
+        composeTestRule.setContent {
+            PlayScreen(
+                playerViewModel = PlayerViewModel(FakePlayerRepository()),
+                buttons = { Text("Custom") }
+            )
+        }
+
+        // then
+        composeTestRule.onNode(hasText("Custom")).assertExists()
+    }
+
+    @Test
+    fun givenCustomBackground_thenCustomIsDisplayed() {
+        // given
+        composeTestRule.setContent {
+            PlayScreen(
+                playerViewModel = PlayerViewModel(FakePlayerRepository()),
+                background = { Text("Custom") }
+            )
+        }
+
+        // then
+        composeTestRule.onNode(hasText("Custom")).assertExists()
     }
 }

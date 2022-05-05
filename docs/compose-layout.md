@@ -1,6 +1,6 @@
 # Compose Layout library
 
-Navigation Scaffold.
+## Navigation Scaffold.
 
 Syncs the TimeText, PositionIndicator and Scaffold to the current navigation destination
 state. The TimeText will scroll out of the way of content automatically.
@@ -55,7 +55,7 @@ WearNavScaffold(
 }
 ```
 
-Box Inset Layout.
+## Box Inset Layout.
 
 Use as a break glass for simple layout to fit within a safe square.
 
@@ -67,6 +67,12 @@ Box(
     // App Content here        
 }
 ```
+
+    ![](fill_max_rectangle.png){: loading=lazy width=70% align=center }
+
+## Fade Away Modifier
+
+    ![](fade_away.png){: loading=lazy width=70% align=center }
 
 ## Download
 

@@ -33,7 +33,7 @@ import androidx.media3.common.Player
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.PlayerViewModel
-import com.google.common.truth.Truth
+import com.google.common.truth.Truth.assertThat
 import com.google.test.toolbox.hasProgressBar
 import com.google.test.toolbox.testdoubles.FakePlayerRepository
 import org.junit.Rule
@@ -88,7 +88,7 @@ class PlayScreenTest {
 
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        Truth.assertThat(playerRepository.isPlaying.value).isFalse()
+        assertThat(playerRepository.isPlaying.value).isFalse()
 
         composeTestRule.setContent { PlayScreen(playerViewModel = playerViewModel) }
 
@@ -109,7 +109,7 @@ class PlayScreenTest {
 
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        Truth.assertThat(playerRepository.isPlaying.value).isTrue()
+        assertThat(playerRepository.isPlaying.value).isTrue()
 
         composeTestRule.setContent { PlayScreen(playerViewModel = playerViewModel) }
 

@@ -14,19 +14,23 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.sample
+package com.google.android.horologist.sample.media
 
-sealed class Screen(
-    val route: String
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.wear.compose.material.Scaffold
+import androidx.wear.compose.material.TimeText
+import com.google.android.horologist.media.ui.screens.PlayScreen
+
+@Composable
+fun MediaPlayerScreen(
+    mediaPlayerScreenViewModel: MediaPlayerScreenViewModel
 ) {
-    object Menu : Screen("menu")
-    object FillMaxRectangle : Screen("fmr")
-    object FadeAway : Screen("fadeAway")
-    object FadeAwaySLC : Screen("fadeAwaySLC")
-    object FadeAwayColumn : Screen("fadeAwayColumn")
-    object Volume : Screen("volume")
-    object DatePicker : Screen("datePicker")
-    object TimePicker : Screen("timePicker")
-    object TimeWithSecondsPicker : Screen("timeWithSecondsPicker")
-    object MediaPlayer : Screen("mediaPlayer")
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        timeText = { TimeText() }
+    ) {
+        PlayScreen(playerViewModel = mediaPlayerScreenViewModel)
+    }
 }

@@ -18,9 +18,10 @@ package com.google.android.horologist.media.data.model
 
 /**
  * Data class for representing the current track position, track length and
- * percent progress.  Track position and duration are measure in milliseconds.
+ * percent progress. Track position and duration are measure in milliseconds.
  */
 public data class TrackPosition(val current: Long, val duration: Long) {
+
     val percent: Float
         get() = current.toFloat() / duration.toFloat()
 

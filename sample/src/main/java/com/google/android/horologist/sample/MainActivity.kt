@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
@@ -40,19 +41,29 @@ import com.google.android.horologist.audioui.VolumeScreen
 import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
+import com.google.android.horologist.sample.di.SampleAppDI
+import com.google.android.horologist.sample.media.MediaPlayerScreen
+import com.google.android.horologist.sample.media.MediaPlayerScreenViewModel
 
 class MainActivity : ComponentActivity() {
+
+    lateinit var mediaPlayerScreenViewModelFactory: MediaPlayerScreenViewModel.Factory
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        SampleAppDI.inject(this)
+
         setContent {
-            WearApp()
+            WearApp(mediaPlayerScreenViewModelFactory)
         }
     }
 }
 
 @Composable
-fun WearApp() {
+fun WearApp(
+    mediaPlayerScreenViewModelFactory: MediaPlayerScreenViewModel.Factory
+) {
     val navController = rememberSwipeDismissableNavController()
 
     Scaffold(
@@ -139,6 +150,9 @@ fun WearApp() {
                         navController.popBackStack()
                     }
                 )
+            }
+            composable(Screen.MediaPlayer.route) {
+                MediaPlayerScreen(mediaPlayerScreenViewModel = viewModel(factory = mediaPlayerScreenViewModelFactory))
             }
         }
     }

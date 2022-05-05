@@ -19,32 +19,12 @@ package com.google.android.horologist.media.ui.components.controls
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
 import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.media.ui.state.PlayerViewModel
-import com.google.android.horologist.media.ui.utils.StateUtils.rememberStateWithLifecycle
-
-@ExperimentalMediaUiApi
-@Composable
-public fun PlayButton(
-    playerViewModel: PlayerViewModel,
-    modifier: Modifier = Modifier,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
-) {
-    val playerUiState by rememberStateWithLifecycle(flow = playerViewModel.playerUiState)
-
-    PlayButton(
-        onClick = { playerViewModel.prepareAndPlay() },
-        modifier = modifier,
-        enabled = playerUiState.playEnabled,
-        colors = colors
-    )
-}
 
 @ExperimentalMediaUiApi
 @Composable

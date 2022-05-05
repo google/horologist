@@ -23,7 +23,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,63 +33,6 @@ import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
 import com.google.android.horologist.media.ui.components.controls.SeekToPreviousButton
-import com.google.android.horologist.media.ui.state.PlayerViewModel
-import com.google.android.horologist.media.ui.utils.StateUtils.rememberStateWithLifecycle
-
-/**
- * Standard media control buttons, showing [SeekToPreviousButton], [PlayPauseProgressButton] and
- * [SeekToNextButton].
- */
-@ExperimentalMediaUiApi
-@Composable
-public fun MediaControlButtons(
-    playerViewModel: PlayerViewModel,
-    modifier: Modifier = Modifier,
-    showProgress: Boolean = true,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
-    progressColour: Color = MaterialTheme.colors.primaryVariant,
-) {
-    val playerUiState by rememberStateWithLifecycle(flow = playerViewModel.playerUiState)
-
-    val onPlayClick = { playerViewModel.prepareAndPlay() }
-    val onPauseClick = { playerViewModel.pause() }
-    val playPauseEnabled = playerUiState.playPauseEnabled
-    val playing = playerUiState.playing
-    val onSeekToPreviousButtonClick = { playerViewModel.seekToPreviousMediaItem() }
-    val seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled
-    val onSeekToNextButtonClick = { playerViewModel.seekToNextMediaItem() }
-    val seekToNextButtonEnabled = playerUiState.seekToNextEnabled
-
-    if (showProgress) {
-        MediaControlButtons(
-            onPlayClick = onPlayClick,
-            onPauseClick = onPauseClick,
-            playPauseEnabled = playPauseEnabled,
-            playing = playing,
-            percent = playerUiState.trackPosition?.percent ?: 0f,
-            onSeekToPreviousButtonClick = onSeekToPreviousButtonClick,
-            seekToPreviousButtonEnabled = seekToPreviousButtonEnabled,
-            onSeekToNextButtonClick = onSeekToNextButtonClick,
-            seekToNextButtonEnabled = seekToNextButtonEnabled,
-            modifier = modifier,
-            colors = colors,
-            progressColour = progressColour,
-        )
-    } else {
-        MediaControlButtons(
-            onPlayClick = onPlayClick,
-            onPauseClick = onPauseClick,
-            playPauseEnabled = playPauseEnabled,
-            playing = playing,
-            onSeekToPreviousButtonClick = onSeekToPreviousButtonClick,
-            seekToPreviousButtonEnabled = seekToPreviousButtonEnabled,
-            onSeekToNextButtonClick = onSeekToNextButtonClick,
-            seekToNextButtonEnabled = seekToNextButtonEnabled,
-            modifier = modifier,
-            colors = colors,
-        )
-    }
-}
 
 /**
  * Standard media control buttons, showing [SeekToPreviousButton], [PlayPauseProgressButton] and

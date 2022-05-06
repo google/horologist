@@ -68,6 +68,7 @@ android {
         freeCompilerArgs += "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi"
         freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         freeCompilerArgs += "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.composables.ExperimentalComposablesApi"
     }
 
     composeOptions {
@@ -80,6 +81,7 @@ dependencies {
     implementation projects.audio
     implementation projects.audioUi
     implementation projects.tiles
+    implementation projects.composables
 
     implementation libs.compose.ui.tooling
     implementation libs.compose.ui.util

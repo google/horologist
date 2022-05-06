@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
@@ -37,7 +38,7 @@ fun NavMenuScreen(
         modifier = modifier.scrollableColumn(focusRequester, scrollState),
         state = scrollState,
         horizontalAlignment = Alignment.CenterHorizontally,
-        autoCentering = true,
+        autoCentering = AutoCenteringParams(itemIndex = 0),
     ) {
         item {
             SampleChip(

@@ -68,7 +68,7 @@ public class SystemAudioRepository(
             update()
         }
 
-        override fun onRouteVolumeChanged(router: MediaRouter?, route: RouteInfo?) {
+        override fun onRouteVolumeChanged(router: MediaRouter, route: RouteInfo) {
             mediaRouter.fixInconsistency()
             _volume.value = mediaRouter.volume
         }

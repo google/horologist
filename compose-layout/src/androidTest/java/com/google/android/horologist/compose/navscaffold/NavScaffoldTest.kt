@@ -37,6 +37,7 @@ import androidx.lifecycle.get
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.wear.compose.foundation.curvedComposable
+import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
@@ -84,7 +85,6 @@ class NavScaffoldTest {
                         ),
                     state = it.scrollableState,
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    autoCentering = true,
                 ) {
                     items(11) {
                         Text(text = "Item $it")
@@ -100,7 +100,7 @@ class NavScaffoldTest {
 
             WearNavScaffold(
                 startDestination = "a",
-                navController = navController
+                navController = navController,
             ) {
                 scrollingList("a", aScrollState)
                 scrollingList("b", bScrollState)
@@ -149,7 +149,7 @@ class NavScaffoldTest {
                             .testTag("columna"),
                         state = it.scrollableState,
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        autoCentering = true,
+                        autoCentering = AutoCenteringParams(itemIndex = 0)
                     ) {
                         items(100) {
                             Text("Item $it")
@@ -238,7 +238,7 @@ class NavScaffoldTest {
                             )
                         }
                     )
-                }
+                },
             ) {
                 wearNavComposable(
                     route = "a",

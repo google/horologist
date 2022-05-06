@@ -17,7 +17,7 @@ gradlew clean publish --no-parallel --stacktrace
 release/signing-cleanup.sh
 ```
 
-The deployment then needs to be manually relased via the [Nexus Repository Manager](https://oss.sonatype.org/#stagingRepositories). See [Releasing Deployment from OSSRH](https://central.sonatype.org/publish/release/).
+The deployment then needs to be manually released via the [Nexus Repository Manager](https://oss.sonatype.org/#stagingRepositories). See [Releasing Deployment from OSSRH](https://central.sonatype.org/publish/release/).
 
 ## Snapshot release
 

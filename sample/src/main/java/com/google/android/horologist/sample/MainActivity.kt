@@ -20,16 +20,26 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.audioui.VolumeScreen
+import com.google.android.horologist.composables.DatePicker
+import com.google.android.horologist.composables.TimePicker
+import com.google.android.horologist.composables.TimePickerWith12HourClock
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,6 +88,57 @@ fun WearApp() {
             }
             composable(Screen.FadeAwayColumn.route) {
                 FadeAwayScreenColumn()
+            }
+            composable(Screen.DatePicker.route) {
+                DatePicker(
+                    buttonIcon = {
+                        Icon(
+                            imageVector = Icons.Filled.Check,
+                            contentDescription = "check",
+                            modifier = Modifier
+                                .size(24.dp)
+                                .wrapContentSize(align = Alignment.Center),
+                        )
+                    },
+                    onClick = {
+                        println(it)
+                        navController.popBackStack()
+                    }
+                )
+            }
+            composable(Screen.TimePicker.route) {
+                TimePickerWith12HourClock(
+                    buttonIcon = {
+                        Icon(
+                            imageVector = Icons.Filled.Check,
+                            contentDescription = "check",
+                            modifier = Modifier
+                                .size(24.dp)
+                                .wrapContentSize(align = Alignment.Center),
+                        )
+                    },
+                    onClick = {
+                        println(it)
+                        navController.popBackStack()
+                    }
+                )
+            }
+            composable(Screen.TimeWithSecondsPicker.route) {
+                TimePicker(
+                    buttonIcon = {
+                        Icon(
+                            imageVector = Icons.Filled.Check,
+                            contentDescription = "check",
+                            modifier = Modifier
+                                .size(24.dp)
+                                .wrapContentSize(align = Alignment.Center),
+                        )
+                    },
+                    onClick = {
+                        println(it)
+                        navController.popBackStack()
+                    }
+                )
             }
         }
     }

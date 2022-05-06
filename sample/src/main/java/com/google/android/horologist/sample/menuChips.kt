@@ -29,6 +29,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.Icon
@@ -80,6 +84,65 @@ fun VolumeScreenChip(navigateToRoute: (String) -> Unit) {
 }
 
 @Composable
+fun TimePickerChip(navigateToRoute: (String) -> Unit) {
+    SampleChip(
+        onClick = { navigateToRoute(Screen.TimePicker.route) },
+        label = "Time Picker",
+        content = {
+            Text(
+                text = buildAnnotatedString {
+                    withStyle(SpanStyle(color = Color.Yellow, fontWeight = FontWeight.Bold)) {
+                        append("10")
+                    }
+                    append(":")
+                    append("10")
+                    append(" AM")
+                },
+                fontSize = 6f.sp
+            )
+        }
+    )
+}
+
+@Composable
+fun DatePickerChip(navigateToRoute: (String) -> Unit) {
+    SampleChip(
+        onClick = { navigateToRoute(Screen.DatePicker.route) },
+        label = "Date Picker",
+        content = {
+            Text(
+                text = buildAnnotatedString {
+                    withStyle(SpanStyle(color = Color.Yellow, fontWeight = FontWeight.Bold)) {
+                        append("22")
+                    }
+                    append(" Apr")
+                },
+                fontSize = 6f.sp
+            )
+        }
+    )
+}
+
+@Composable
+fun TimeWithSecondsPickerChip(navigateToRoute: (String) -> Unit) {
+    SampleChip(
+        onClick = { navigateToRoute(Screen.TimeWithSecondsPicker.route) },
+        label = "Time With Seconds Picker",
+        content = {
+            Text(
+                text = buildAnnotatedString {
+                    withStyle(SpanStyle(color = Color.Yellow, fontWeight = FontWeight.Bold)) {
+                        append("10")
+                    }
+                    append(":30:59")
+                },
+                fontSize = 6f.sp
+            )
+        }
+    )
+}
+
+@Composable
 fun FadeAwayChip(
     label: String,
     navigateToRoute: () -> Unit
@@ -88,17 +151,7 @@ fun FadeAwayChip(
         onClick = { navigateToRoute() },
         label = label,
         content = {
-            Box(
-                modifier = Modifier.fillMaxSize().let {
-                    if (LocalConfiguration.current.isScreenRound)
-                        it.clip(CircleShape)
-                    else
-                        it
-                },
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = "10:10 AM", fontSize = 6f.sp)
-            }
+            Text(text = "10:10 AM", fontSize = 6f.sp)
         }
     )
 }

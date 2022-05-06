@@ -2,23 +2,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.google.android.horologist/horologist-tiles)](https://search.maven.org/search?q=g:com.google.android.horologist)
 
-For more information, visit the documentation: https://google.github.io/horologist/horologist-tiles
-
-Provides a CoroutinesTileService, which also acts as a LifecycleService.
-
-```kotlin
-class ExampleTileService : CoroutinesTileService() {
-    override suspend fun tileRequest(requestParams: RequestBuilders.TileRequest): Tile {
-        return Tile.Builder()
-            // create your tile here
-            .build()
-    }
-
-    override suspend fun resourcesRequest(
-        requestParams: RequestBuilders.ResourcesRequest
-    ): ResourceBuilders.Resources = ResourceBuilders.Resources.Builder().setVersion("1").build()
-}
-```
+For more information, visit the documentation: https://google.github.io/horologist/tiles
 
 ## Download
 

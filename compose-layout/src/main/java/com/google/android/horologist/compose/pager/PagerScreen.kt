@@ -107,9 +107,7 @@ public fun PagerScreen(
         }
 
         val pagerScreenState = remember { PageScreenIndicatorState(state) }
-        if (pagerScreenState.pageCount > 0) {
-            HorizontalPageIndicator(pageIndicatorState = pagerScreenState)
-        }
+        HorizontalPageIndicator(pageIndicatorState = pagerScreenState)
     }
 
     LaunchedEffect(Unit) {

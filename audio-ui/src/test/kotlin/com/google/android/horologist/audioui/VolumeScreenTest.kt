@@ -15,7 +15,7 @@
  */
 
 @file:OptIn(
-    ExperimentalAudioUiApi::class, ExperimentalAudioApi::class,
+    ExperimentalAudioUiApi::class, ExperimentalAudioApi::class, ExperimentalAudioUiApi::class,
 )
 
 package com.google.android.horologist.audioui
@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.wear.compose.material.Scaffold
+import androidx.wear.compose.material.TimeSource
 import androidx.wear.compose.material.TimeText
 import app.cash.paparazzi.HtmlReportWriter
 import app.cash.paparazzi.Paparazzi
@@ -51,7 +52,12 @@ class VolumeScreenTest {
     fun compose() {
         paparazzi.snapshot {
             RoundPreview {
-                Scaffold(timeText = { TimeText() }) {
+                Scaffold(timeText = { TimeText(
+                    timeSource = object : TimeSource {
+                        override val currentTime: String
+                            @Composable get() = "1:03 pm"
+                    }
+                ) }) {
                     VolumeScreen(
                         volume = {
                             VolumeState(

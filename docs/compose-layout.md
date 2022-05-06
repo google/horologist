@@ -68,11 +68,11 @@ Box(
 }
 ```
 
-    ![](fill_max_rectangle.png){: loading=lazy width=70% align=center }
+![](fill_max_rectangle.png){: loading=lazy width=70% align=center }
 
 ## Fade Away Modifier
 
-    ![](fade_away.png){: loading=lazy width=70% align=center }
+![](fade_away.png){: loading=lazy width=70% align=center }
 
 ## Download
 

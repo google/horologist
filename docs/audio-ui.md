@@ -9,7 +9,7 @@ allowing to change the button with a stepper or bezel.
 VolumeScreen(focusRequester = focusRequester)
 ```
 
-    ![](volume_screen.png){: loading=lazy width=70% align=center }
+![](volume_screen.png){: loading=lazy width=70% align=center }
 
 ## Download
 

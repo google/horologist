@@ -25,13 +25,13 @@ import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
-import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
+import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.semantics.CustomSemanticsProperties.iconImageVector
 
 /**
  * A base button for media controls.
  */
-@ExperimentalMediaUiApi
+@ExperimentalHorologistMediaUiApi
 @Composable
 public fun MediaButton(
     onClick: () -> Unit,

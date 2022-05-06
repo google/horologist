@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.audioui
+package com.google.android.horologist.media.ui
 
 @RequiresOptIn(
-    message = "Horologist Audio is experimental. The API may be changed in the future."
+    message = "Horologist Media is experimental. The API may be changed in the future."
 )
 @Retention(AnnotationRetention.BINARY)
-public annotation class ExperimentalAudioUiApi
+public annotation class ExperimentalHorologistMediaUiApi

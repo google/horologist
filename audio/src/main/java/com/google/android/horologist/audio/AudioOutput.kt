@@ -21,7 +21,7 @@ package com.google.android.horologist.audio
  *
  * This interface is intentionally open to allow other targets to be defined in future.
  */
-@ExperimentalAudioApi
+@ExperimentalHorologistAudioApi
 public interface AudioOutput {
     /**
      * A unique audio output id.

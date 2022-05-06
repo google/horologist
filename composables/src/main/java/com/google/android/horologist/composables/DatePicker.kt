@@ -54,7 +54,7 @@ import java.time.temporal.TemporalAdjusters
  * Full screen date picker with day, month, year.
  * Also includes a button, typically for submitting.
  */
-@ExperimentalComposablesApi
+@ExperimentalHorologistComposablesApi
 @Composable
 public fun DatePicker(
     buttonIcon: @Composable BoxScope.() -> Unit,

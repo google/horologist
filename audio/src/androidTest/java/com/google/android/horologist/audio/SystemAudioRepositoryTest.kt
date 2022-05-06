@@ -28,7 +28,7 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class, ExperimentalAudioApi::class)
+@OptIn(ExperimentalCoroutinesApi::class, ExperimentalHorologistAudioApi::class)
 class SystemAudioRepositoryTest {
     @Test
     @UiThreadTest

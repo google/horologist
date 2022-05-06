@@ -43,7 +43,7 @@ import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.dismiss
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
-import com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi
+import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -60,7 +60,7 @@ import kotlin.coroutines.resume
  * This state usually lives as a part of a [ScaffoldState] and provided to the [SnackbarHost]
  * automatically, but can be decoupled from it and live separately when desired.
  */
-@ExperimentalComposeLayoutApi
+@ExperimentalHorologistComposeLayoutApi
 @Stable
 public class SnackbarHostState {
     /**
@@ -151,7 +151,7 @@ public class SnackbarHostState {
  * @param snackbar the instance of the [Snackbar] to be shown at the appropriate time with
  * appearance based on the [SnackbarData] provided as a param
  */
-@ExperimentalComposeLayoutApi
+@ExperimentalHorologistComposeLayoutApi
 @Composable
 public fun SnackbarHost(
     hostState: SnackbarHostState,
@@ -184,7 +184,7 @@ public fun SnackbarHost(
  * @property actionLabel optional action label to show as button in the Snackbar
  * @property duration duration of the snackbar
  */
-@ExperimentalComposeLayoutApi
+@ExperimentalHorologistComposeLayoutApi
 public interface SnackbarData {
     public val message: String
     public val actionLabel: String?
@@ -204,7 +204,7 @@ public interface SnackbarData {
 /**
  * Possible results of the [SnackbarHostState.showSnackbar] call
  */
-@ExperimentalComposeLayoutApi
+@ExperimentalHorologistComposeLayoutApi
 public enum class SnackbarResult {
     /**
      * [Snackbar] that is shown has been dismissed either by timeout of by user
@@ -220,7 +220,7 @@ public enum class SnackbarResult {
 /**
  * Possible durations of the [Snackbar] in [SnackbarHost]
  */
-@ExperimentalComposeLayoutApi
+@ExperimentalHorologistComposeLayoutApi
 public enum class SnackbarDuration {
     /**
      * Show the Snackbar for a short period of time
@@ -239,7 +239,7 @@ public enum class SnackbarDuration {
 }
 
 // TODO: magic numbers adjustment
-@ExperimentalComposeLayoutApi
+@ExperimentalHorologistComposeLayoutApi
 internal fun SnackbarDuration.toMillis(
     hasAction: Boolean,
     accessibilityManager: AccessibilityManager?
@@ -263,7 +263,7 @@ internal fun SnackbarDuration.toMillis(
 // TODO: to be replaced with the public customizable implementation
 // it's basically tweaked nullable version of Crossfade
 @Composable
-@ExperimentalComposeLayoutApi
+@ExperimentalHorologistComposeLayoutApi
 private fun FadeInFadeOutWithScale(
     current: SnackbarData?,
     modifier: Modifier = Modifier,

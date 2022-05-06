@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalComposablesApi::class, ExperimentalComposablesApi::class)
+@file:OptIn(ExperimentalHorologistComposablesApi::class, ExperimentalHorologistComposablesApi::class)
 
 package com.google.android.horologist
 
@@ -36,7 +36,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.composables.ExperimentalComposablesApi
+import com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
 import org.junit.Rule

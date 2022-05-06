@@ -42,7 +42,7 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerScope
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
-import com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi
+import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import kotlinx.coroutines.launch
 
 /**
@@ -52,7 +52,7 @@ import kotlinx.coroutines.launch
  * Also uses lifecycle, which allows attaching logic such requesting focus
  * to page events.
  */
-@ExperimentalComposeLayoutApi
+@ExperimentalHorologistComposeLayoutApi
 @Composable
 public fun PagerScreen(
     count: Int,
@@ -151,7 +151,7 @@ internal class PagerScreenScopeImpl(private val scope: PagerScope) : LifecycleOw
  * n.b. Currently fails for 0 pageCount, so enclose the HorizontalPageIndicator
  * in an if statement.
  */
-@ExperimentalComposeLayoutApi
+@ExperimentalHorologistComposeLayoutApi
 public class PageScreenIndicatorState(private val state: PagerState) : PageIndicatorState {
     override val pageCount: Int
         get() = state.pageCount
@@ -166,7 +166,7 @@ public class PageScreenIndicatorState(private val state: PagerState) : PageIndic
 /**
  * Utility to Focus the page when it is resumed.
  */
-@ExperimentalComposeLayoutApi
+@ExperimentalHorologistComposeLayoutApi
 @Composable
 public fun FocusOnResume(focusRequester: FocusRequester) {
     val lifecycleOwner = LocalLifecycleOwner.current

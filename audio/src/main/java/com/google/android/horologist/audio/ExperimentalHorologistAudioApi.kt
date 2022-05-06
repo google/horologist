@@ -20,4 +20,4 @@ package com.google.android.horologist.audio
     message = "Horologist Audio is experimental. The API may be changed in the future."
 )
 @Retention(AnnotationRetention.BINARY)
-public annotation class ExperimentalAudioApi
+public annotation class ExperimentalHorologistAudioApi

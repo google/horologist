@@ -26,7 +26,7 @@ import android.provider.Settings
  *
  * https://developer.android.com/training/wearables/overlays/audio?hl=ca
  */
-@ExperimentalAudioApi
+@ExperimentalHorologistAudioApi
 public object BluetoothSettings {
     /**
      * Open the bluetooth settings activity and optionally close after connection established.

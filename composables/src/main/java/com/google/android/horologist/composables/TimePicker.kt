@@ -70,7 +70,7 @@ import java.time.temporal.ChronoField
  * @param onClick the button event handler.
  * @param modifier the modifiers for the `Column` containing the UI elements.
  */
-@ExperimentalComposablesApi
+@ExperimentalHorologistComposablesApi
 @Composable
 public fun TimePicker(
     buttonIcon: @Composable BoxScope.() -> Unit,
@@ -205,7 +205,7 @@ public fun TimePicker(
  * @param onClick the button event handler.
  * @param modifier the modifiers for the `Column` containing the UI elements.
  */
-@ExperimentalComposablesApi
+@ExperimentalHorologistComposablesApi
 @Composable
 public fun TimePickerWith12HourClock(
     buttonIcon: @Composable BoxScope.() -> Unit,

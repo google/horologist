@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.composables
+package com.google.android.horologist.audioui
 
 @RequiresOptIn(
-    message = "Composables is experimental. The API may be changed in the future."
+    message = "Horologist Audio is experimental. The API may be changed in the future."
 )
 @Retention(AnnotationRetention.BINARY)
-public annotation class ExperimentalComposablesApi
+public annotation class ExperimentalHorologistAudioUiApi

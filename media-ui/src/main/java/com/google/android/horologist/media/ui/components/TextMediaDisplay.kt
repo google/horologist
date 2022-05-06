@@ -28,12 +28,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
+import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
 /**
  * A simple text only display showing artist and title in two separated rows.
  */
-@ExperimentalMediaUiApi
+@ExperimentalHorologistMediaUiApi
 @Composable
 public fun TextMediaDisplay(
     modifier: Modifier = Modifier,

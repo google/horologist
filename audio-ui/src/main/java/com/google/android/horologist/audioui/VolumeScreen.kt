@@ -56,7 +56,7 @@ import androidx.wear.compose.material.InlineSlider
 import androidx.wear.compose.material.Stepper
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.audio.ExperimentalAudioApi
+import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.R
 import kotlinx.coroutines.launch
@@ -73,8 +73,8 @@ import kotlinx.coroutines.launch
  * See [VolumeViewModel]
  * See [AudioManager.STREAM_MUSIC]
  */
-@ExperimentalAudioUiApi
-@OptIn(ExperimentalAudioApi::class)
+@ExperimentalHorologistAudioUiApi
+@OptIn(ExperimentalHorologistAudioApi::class)
 @Composable
 public fun VolumeScreen(
     modifier: Modifier = Modifier,
@@ -98,8 +98,8 @@ public fun VolumeScreen(
     )
 }
 
-@ExperimentalAudioUiApi
-@OptIn(ExperimentalAudioApi::class)
+@ExperimentalHorologistAudioUiApi
+@OptIn(ExperimentalHorologistAudioApi::class)
 @Composable
 internal fun VolumeScreen(
     modifier: Modifier = Modifier,
@@ -176,8 +176,8 @@ internal fun VolumeScreen(
     }
 }
 
-@ExperimentalAudioUiApi
-@OptIn(ExperimentalAudioApi::class)
+@ExperimentalHorologistAudioUiApi
+@OptIn(ExperimentalHorologistAudioApi::class)
 @Composable
 private fun AudioOutput.icon(): ImageVector {
     return when (this) {

@@ -28,7 +28,7 @@ import kotlinx.coroutines.flow.StateFlow
 /**
  * Audio Repository for identifying and controlling available audio devices in a simple manner.
  */
-@ExperimentalAudioApi
+@ExperimentalHorologistAudioApi
 public class SystemAudioRepository(
     private val application: Context,
     private val mediaRouter: MediaRouter,
@@ -117,31 +117,31 @@ private fun MediaRouter.fixInconsistency() {
     }
 }
 
-@ExperimentalAudioApi
+@ExperimentalHorologistAudioApi
 private inline val MediaRouter.volume: VolumeState
     get() {
         return defaultRoute.volumeState
     }
 
-@ExperimentalAudioApi
+@ExperimentalHorologistAudioApi
 private inline val MediaRouter.output: AudioOutput
     get() {
         return selectedRoute.device
     }
 
-@ExperimentalAudioApi
+@ExperimentalHorologistAudioApi
 private inline val MediaRouter.devices: List<AudioOutput>
     get() {
         return routes.map { it.device }
     }
 
-@ExperimentalAudioApi
+@ExperimentalHorologistAudioApi
 private inline val RouteInfo.volumeState: VolumeState
     get() {
         return VolumeState(current = volume, max = volumeMax)
     }
 
-@ExperimentalAudioApi
+@ExperimentalHorologistAudioApi
 private inline val RouteInfo.device: AudioOutput
     get() {
         return when {

@@ -1,7 +1,7 @@
 // Signature format: 4.0
 package com.google.android.horologist.media.data {
 
-  @kotlin.RequiresOptIn(message="Horologist Media is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalMediaDataApi {
+  @kotlin.RequiresOptIn(message="Horologist Media is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistMediaDataApi {
   }
 
 }
@@ -31,7 +31,7 @@ package com.google.android.horologist.media.data.model {
 
 package com.google.android.horologist.media.data.repository {
 
-  @com.google.android.horologist.media.data.ExperimentalMediaDataApi public interface PlayerRepository {
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public interface PlayerRepository {
     method public kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Player.Commands> getAvailableCommands();
     method public kotlinx.coroutines.flow.StateFlow<androidx.media3.common.MediaItem> getCurrentMediaItem();
     method public Long? getSeekBackIncrement();

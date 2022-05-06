@@ -18,9 +18,9 @@ package com.google.android.horologist.media.ui.state
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.media.data.ExperimentalMediaDataApi
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.data.repository.PlayerRepository
-import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
+import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.mapper.PlayerUiStateMapper
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
@@ -29,8 +29,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
-@OptIn(ExperimentalMediaDataApi::class)
-@ExperimentalMediaUiApi
+@OptIn(ExperimentalHorologistMediaDataApi::class)
+@ExperimentalHorologistMediaUiApi
 public open class PlayerViewModel(
     private val playerRepository: PlayerRepository
 ) : ViewModel() {

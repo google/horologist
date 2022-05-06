@@ -27,14 +27,14 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performRotaryScrollInput
 import androidx.test.platform.app.InstrumentationRegistry
-import com.google.android.horologist.audio.ExperimentalAudioApi
+import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 
-@OptIn(ExperimentalAudioApi::class, ExperimentalAudioUiApi::class, ExperimentalTestApi::class, kotlinx.coroutines.ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalHorologistAudioApi::class, ExperimentalHorologistAudioUiApi::class, ExperimentalTestApi::class, kotlinx.coroutines.ExperimentalCoroutinesApi::class)
 
 class VolumeScreenTest {
     @get:Rule

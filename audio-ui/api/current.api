@@ -1,18 +1,18 @@
 // Signature format: 4.0
 package com.google.android.horologist.audioui {
 
-  @kotlin.RequiresOptIn(message="Horologist Audio is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalAudioUiApi {
+  @kotlin.RequiresOptIn(message="Horologist Audio is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistAudioUiApi {
   }
 
   public final class VolumePositionIndicatorKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.audioui.ExperimentalAudioUiApi public static void VolumePositionIndicator(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.VolumeState> volumeState, optional androidx.compose.ui.Modifier modifier, optional boolean autoHide);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.audioui.ExperimentalHorologistAudioUiApi public static void VolumePositionIndicator(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.VolumeState> volumeState, optional androidx.compose.ui.Modifier modifier, optional boolean autoHide);
   }
 
   public final class VolumeScreenKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.audioui.ExperimentalAudioUiApi public static void VolumeScreen(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.audioui.VolumeViewModel volumeViewModel, optional boolean showVolumeIndicator, optional androidx.compose.ui.focus.FocusRequester focusRequester);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.audioui.ExperimentalHorologistAudioUiApi public static void VolumeScreen(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.audioui.VolumeViewModel volumeViewModel, optional boolean showVolumeIndicator, optional androidx.compose.ui.focus.FocusRequester focusRequester);
   }
 
-  @com.google.android.horologist.audioui.ExperimentalAudioUiApi public final class VolumeScrollableState implements androidx.compose.foundation.gestures.ScrollableState {
+  @com.google.android.horologist.audioui.ExperimentalHorologistAudioUiApi public final class VolumeScrollableState implements androidx.compose.foundation.gestures.ScrollableState {
     ctor public VolumeScrollableState(com.google.android.horologist.audio.VolumeRepository volumeRepository, android.os.Vibrator vibrator);
     method public float dispatchRawDelta(float delta);
     method public boolean isScrollInProgress();
@@ -20,7 +20,7 @@ package com.google.android.horologist.audioui {
     property public boolean isScrollInProgress;
   }
 
-  @com.google.android.horologist.audioui.ExperimentalAudioUiApi public class VolumeViewModel extends androidx.lifecycle.ViewModel {
+  @com.google.android.horologist.audioui.ExperimentalHorologistAudioUiApi public class VolumeViewModel extends androidx.lifecycle.ViewModel {
     ctor public VolumeViewModel(com.google.android.horologist.audio.VolumeRepository volumeRepository, com.google.android.horologist.audio.AudioOutputRepository audioOutputRepository, optional kotlin.jvm.functions.Function0<kotlin.Unit> onCleared, android.os.Vibrator vibrator);
     method public final void decreaseVolume();
     method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> getAudioOutput();
@@ -33,7 +33,7 @@ package com.google.android.horologist.audioui {
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.VolumeState> volumeState;
   }
 
-  @com.google.android.horologist.audioui.ExperimentalAudioUiApi public static final class VolumeViewModel.Factory implements androidx.lifecycle.ViewModelProvider.Factory {
+  @com.google.android.horologist.audioui.ExperimentalHorologistAudioUiApi public static final class VolumeViewModel.Factory implements androidx.lifecycle.ViewModelProvider.Factory {
     field public static final com.google.android.horologist.audioui.VolumeViewModel.Factory INSTANCE;
   }
 

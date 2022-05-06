@@ -24,7 +24,9 @@ Subscribing to a Flow of changes in audio or output.
 [horologist-audio](./audio)
 [horologist-audio-ui](./audio-ui)
 
-### Why the name?
+---
+
+## Why the name?
 
 The name mirrors the [Accompanist](https://github.com/google/accompanist) name, and is also Watch related.
 

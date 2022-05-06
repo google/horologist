@@ -2,7 +2,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.google.android.horologist/horologist-tiles)](https://search.maven.org/search?q=g:com.google.android.horologist)
 
-For more information, visit the documentation: https://google.github.io/horologist/horologist-tiles
+For more information, visit the documentation: https://google.github.io/horologist/tiles
 
 ## Download
 

@@ -58,22 +58,12 @@ public fun PlayScreen(
     val playerUiState by rememberStateWithLifecycle(flow = playerViewModel.playerUiState)
 
     PlayScreen(
-        mediaDisplay = mediaDisplay.content(playerUiState),
-        controlButtons = controlButtons.content(playerUiState),
+        mediaDisplay = { with(mediaDisplay) { Content(playerUiState) } },
+        controlButtons = { with(controlButtons) { Content(playerUiState) } },
         buttons = { buttons(playerUiState) },
         modifier = modifier,
         background = { background(playerUiState) },
     )
-}
-
-/**
- * Represents the content of control buttons on [PlayScreen].
- */
-@ExperimentalHorologistMediaUiApi
-public interface PlayScreenControlButtons {
-
-    @Composable
-    public fun content(playerUiState: PlayerUiState): @Composable RowScope.() -> Unit
 }
 
 /**
@@ -83,7 +73,17 @@ public interface PlayScreenControlButtons {
 public interface PlayScreenMediaDisplay {
 
     @Composable
-    public fun content(playerUiState: PlayerUiState): @Composable ColumnScope.() -> Unit
+    public fun ColumnScope.Content(playerUiState: PlayerUiState)
+}
+
+/**
+ * Represents the content of control buttons on [PlayScreen].
+ */
+@ExperimentalHorologistMediaUiApi
+public interface PlayScreenControlButtons {
+
+    @Composable
+    public fun RowScope.Content(playerUiState: PlayerUiState)
 }
 
 /**
@@ -95,11 +95,13 @@ public object PlayScreenDefaults {
     public fun defaultMediaDisplay(): PlayScreenMediaDisplay = DefaultPlayScreenMediaDisplay()
 
     public fun customMediaDisplay(
-        content: @Composable ColumnScope.() -> Unit
+        content: @Composable () -> Unit
     ): PlayScreenMediaDisplay = object : PlayScreenMediaDisplay {
 
         @Composable
-        override fun content(playerUiState: PlayerUiState): @Composable ColumnScope.() -> Unit = content
+        override fun ColumnScope.Content(playerUiState: PlayerUiState) {
+            content()
+        }
     }
 
     public fun defaultControlButtons(
@@ -114,11 +116,13 @@ public object PlayScreenDefaults {
     )
 
     public fun customControlButtons(
-        content: @Composable RowScope.() -> Unit
+        content: @Composable () -> Unit
     ): PlayScreenControlButtons = object : PlayScreenControlButtons {
 
         @Composable
-        override fun content(playerUiState: PlayerUiState): @Composable (RowScope.() -> Unit) = content
+        override fun RowScope.Content(playerUiState: PlayerUiState) {
+            content()
+        }
     }
 }
 
@@ -129,7 +133,7 @@ public object PlayScreenDefaults {
 private class DefaultPlayScreenMediaDisplay : PlayScreenMediaDisplay {
 
     @Composable
-    override fun content(playerUiState: PlayerUiState): @Composable ColumnScope.() -> Unit = {
+    override fun ColumnScope.Content(playerUiState: PlayerUiState) {
         TextMediaDisplay(
             title = playerUiState.mediaItem?.title,
             artist = playerUiState.mediaItem?.artist
@@ -150,7 +154,7 @@ private class DefaultPlayScreenControlButtons(
 ) : PlayScreenControlButtons {
 
     @Composable
-    override fun content(playerUiState: PlayerUiState): @Composable RowScope.() -> Unit = {
+    override fun RowScope.Content(playerUiState: PlayerUiState) {
         MediaControlButtons(
             onPlayClick = onPlayClick,
             onPauseClick = onPauseClick,

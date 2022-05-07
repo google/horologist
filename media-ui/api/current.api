@@ -103,9 +103,25 @@ package com.google.android.horologist.media.ui.components.semantics {
 
 package com.google.android.horologist.media.ui.screens {
 
+  @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public interface PlayScreenControlButtons {
+    method @androidx.compose.runtime.Composable public void Content(androidx.compose.foundation.layout.RowScope, com.google.android.horologist.media.ui.state.PlayerUiState playerUiState);
+  }
+
+  @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class PlayScreenDefaults {
+    method public com.google.android.horologist.media.ui.screens.PlayScreenControlButtons customControlButtons(kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method public com.google.android.horologist.media.ui.screens.PlayScreenMediaDisplay customMediaDisplay(kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method public com.google.android.horologist.media.ui.screens.PlayScreenControlButtons defaultControlButtons(com.google.android.horologist.media.ui.state.PlayerViewModel playerViewModel, optional boolean showProgress);
+    method public com.google.android.horologist.media.ui.screens.PlayScreenMediaDisplay defaultMediaDisplay();
+    field public static final com.google.android.horologist.media.ui.screens.PlayScreenDefaults INSTANCE;
+  }
+
   public final class PlayScreenKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlayScreen(com.google.android.horologist.media.ui.state.PlayerViewModel playerViewModel, kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.ColumnScope,? super com.google.android.horologist.media.ui.state.PlayerViewModel,kotlin.Unit> mediaDisplay, kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.RowScope,? super com.google.android.horologist.media.ui.state.PlayerViewModel,kotlin.Unit> controlButtons, kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.RowScope,? super com.google.android.horologist.media.ui.state.PlayerViewModel,kotlin.Unit> buttons, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.BoxScope,? super com.google.android.horologist.media.ui.state.PlayerViewModel,kotlin.Unit> background);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlayScreen(com.google.android.horologist.media.ui.state.PlayerViewModel playerViewModel, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.media.ui.screens.PlayScreenMediaDisplay mediaDisplay, optional com.google.android.horologist.media.ui.screens.PlayScreenControlButtons controlButtons, optional kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.RowScope,? super com.google.android.horologist.media.ui.state.PlayerUiState,kotlin.Unit> buttons, optional kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.BoxScope,? super com.google.android.horologist.media.ui.state.PlayerUiState,kotlin.Unit> background);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlayScreen(kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit> mediaDisplay, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> controlButtons, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> buttons, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> background);
+  }
+
+  @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public interface PlayScreenMediaDisplay {
+    method @androidx.compose.runtime.Composable public void Content(androidx.compose.foundation.layout.ColumnScope, com.google.android.horologist.media.ui.state.PlayerUiState playerUiState);
   }
 
 }

@@ -106,7 +106,7 @@ public fun MediaControlButtons(
 
 @ExperimentalHorologistMediaUiApi
 @Composable
-private fun MediaControlButtons(
+internal fun MediaControlButtons(
     onPlayClick: () -> Unit,
     onPauseClick: () -> Unit,
     playPauseEnabled: Boolean,

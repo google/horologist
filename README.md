@@ -4,25 +4,50 @@ Horologist is a labs like environment for new Wear APIs. We use it to help fill 
 
 ---
 
-## Tiles
+## Media UI
 
-Kotlin favoured coroutines.
+Domain model for Media Player.
 
-[horologist-tiles](./tiles)
+- [horologist-media-data](./media-data)
+- [horologist-media-ui](./media-ui)
+
+## Composables
+
+High quality prebuilt composables, such as Time and Date pickers.
+
+- [horologist-composables](./composables)
+
+<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/date_picker.png" height="120" width="120" >
+
+<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/time_12h_picker.png" height="120" width="120" >
+
+<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/time_24h_picker.png" height="120" width="120" >
 
 ## Compose Layout
 
 Layout related functionality such as a Navigation Aware Scaffold.
 
-[horologist-compose-layout](./compose-layout)
+- [horologist-compose-layout](./compose-layout)
+
+<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/compose-layout/fill_max_rectangle.png" height="120" width="120" >
+
+<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/compose-layout/fade_away.png" height="120" width="120" >
 
 ## Audio and UI
 
 Domain model for Audio related functionality.  Volume Control, Output switching.
 Subscribing to a Flow of changes in audio or output.
 
-[horologist-audio](./audio)
-[horologist-audio-ui](./audio-ui)
+- [horologist-audio](./audio)
+- [horologist-audio-ui](./audio-ui)
+
+<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/audio-ui/volume_screen.png" height="120" width="120" >
+
+## Tiles
+
+Kotlin coroutines flavoured TileService.
+
+[horologist-tiles](./tiles)
 
 ---
 

@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -153,5 +154,13 @@ fun FadeAwayChip(
         content = {
             Text(text = "10:10 AM", fontSize = 6f.sp)
         }
+    )
+}
+
+@Composable
+fun MediaPlayerChip(navigateToRoute: () -> Unit) {
+    SampleChip(
+        onClick = { navigateToRoute() },
+        label = stringResource(id = R.string.chip_media_player_sample)
     )
 }

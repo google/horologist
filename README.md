@@ -1,28 +1,55 @@
 Horologist is a group of libraries that aim to supplement Wear OS developers with features that are commonly required by developers but not yet available.
 
-Horologist is a labs like environment for new Wear APIs. We use it to help fill known gaps in the Horologist toolkit, experiment with new APIs and to gather insight into the development experience of developing these library. The goal of these libraries is to upstream them into Jetpack, at which point they will be deprecated and removed from Horologist. Some libraries may be useful but specific enough that they do not ever graduate.
-
 ---
 
-## Tiles
+## 🎵 Media UI
 
-Kotlin favoured coroutines.
+UI and Data layers for media player. PlayScreen and individual UI components.
 
-[horologist-tiles](./tiles)
+- [horologist-media-ui](./media-ui)
+- [horologist-media-data](./media-data)
 
-## Compose Layout
+| PlayScreen |
+|---|
+| <img src="./docs/media-ui/playscreen.png" height="120" width="120" > |
+
+## 📅 Composables
+
+High quality prebuilt composables, such as Time and Date pickers.
+
+- [horologist-composables](./composables)
+
+DatePicker             |  TimePickerWith12HourClock |  TimePicker
+:-------------------------:|:-------------------------:|:-------------------------:
+<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/date_picker.png" height="120" width="120" >  |  <img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/time_12h_picker.png" height="120" width="120"> | <img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/time_24h_picker.png" height="120" width="120">
+
+## 📐 Compose Layout
 
 Layout related functionality such as a Navigation Aware Scaffold.
 
-[horologist-compose-layout](./compose-layout)
+- [horologist-compose-layout](./compose-layout)
 
-## Audio and UI
+fillMaxRectangle()             |  fadeAway()
+:-------------------------:|:-------------------------:
+<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/compose-layout/fill_max_rectangle.png" height="120" width="120" >  |  <img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/compose-layout/fade_away.png" height="120" width="120" >
 
-Domain model for Audio related functionality.  Volume Control, Output switching.
+## 🔊 Audio and UI
+
+Domain model for Audio related functionality. Volume Control, Output switching.
 Subscribing to a Flow of changes in audio or output.
 
-[horologist-audio](./audio)
-[horologist-audio-ui](./audio-ui)
+- [horologist-audio](./audio)
+- [horologist-audio-ui](./audio-ui)
+
+VolumeScreen            |  
+:-------------------------:|
+<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/audio-ui/volume_screen.png" height="120" width="120" > |
+
+## 🖽 Tiles
+
+Kotlin coroutines flavoured TileService.
+
+[horologist-tiles](./tiles)
 
 ---
 

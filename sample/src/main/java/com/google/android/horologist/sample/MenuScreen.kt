@@ -78,6 +78,9 @@ fun MenuScreen(
         item {
             TimeWithSecondsPickerChip { navigateToRoute(Screen.TimeWithSecondsPicker.route) }
         }
+        item {
+            MediaPlayerChip { navigateToRoute(Screen.MediaPlayer.route) }
+        }
     }
 
     LaunchedEffect(Unit) {

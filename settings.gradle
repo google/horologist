@@ -32,6 +32,7 @@ include ':audio'
 include ':audio-ui'
 include ':tiles'
 include ':media-ui'
+include ':paparazzi'
 include ':media-data'
 
 // Enable Gradle's version catalog support

@@ -19,6 +19,7 @@ plugins {
     id 'kotlin-android'
     id 'org.jetbrains.dokka'
     id "org.jetbrains.kotlin.kapt"
+    id 'app.cash.paparazzi'
 }
 
 android {
@@ -114,6 +115,9 @@ dependencies {
     debugImplementation libs.androidx.customview.pooling
     debugImplementation libs.compose.ui.toolingpreview
     debugImplementation libs.androidx.activity.compose
+
+    testImplementation libs.junit
+    testImplementation projects.paparazzi
 
     androidTestImplementation libs.compose.ui.test.junit4
     debugImplementation libs.compose.ui.test.manifest

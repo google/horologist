@@ -53,7 +53,19 @@ val themeValues = listOf(
             primary = Color(0xFF6DD58C),
             primaryVariant = Color(0xFF1EA446),
             secondary = Color(0xFFFFBB29),
-            secondaryVariant = Color(0xFFD68400)
+            secondaryVariant = Color(0xFFD68400),
+        )
+    ),
+    ThemeValues(
+        "Green and Red",
+        4,
+        Colors(
+            primary = Color(0xFF6DD58C),
+            primaryVariant = Color(0xFF1EA446),
+            secondary = Color(0xFFFFBB29),
+            secondaryVariant = Color(0xFFD68400),
+            onPrimary = Color.Red,
+            onSecondary = Color.White
         )
     ),
 )

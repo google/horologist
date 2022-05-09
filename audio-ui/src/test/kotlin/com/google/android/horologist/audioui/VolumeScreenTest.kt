@@ -57,14 +57,22 @@ class VolumeScreenTest(
         paparazzi.snapshot(name = "VolumeScreen_${themeValue.safeName}") {
             MaterialTheme(colors = themeValue.colors) {
                 RoundPreview {
-                    Scaffold(timeText = {
-                        TimeText(
-                            timeSource = object : TimeSource {
-                                override val currentTime: String
-                                    @Composable get() = "1:03 pm"
-                            }
-                        )
-                    }) {
+                    Scaffold(
+                        timeText = {
+                            TimeText(
+                                timeSource = object : TimeSource {
+                                    override val currentTime: String
+                                        @Composable get() = "1:03 pm"
+                                }
+                            )
+                        },
+                        positionIndicator = {
+                            VolumePositionIndicator(
+                                volumeState = { VolumeState(5, 10) },
+                                autoHide = false
+                            )
+                        }
+                    ) {
                         VolumeScreen(
                             volume = {
                                 VolumeState(

@@ -17,9 +17,9 @@ High quality prebuilt composables, such as Time and Date pickers.
 
 <img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/date_picker.png" height="120" width="120" >
 
-<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/time_12h_picker.png" height="120" width="120" style="float:left">
+<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/time_12h_picker.png" height="120" width="120">
 
-<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/time_24h_picker.png" height="120" width="120" style="float:left">
+<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/time_24h_picker.png" height="120" width="120">
 
 ## 📐 Compose Layout
 
@@ -29,7 +29,7 @@ Layout related functionality such as a Navigation Aware Scaffold.
 
 <img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/compose-layout/fill_max_rectangle.png" height="120" width="120" >
 
-<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/compose-layout/fade_away.png" height="120" width="120" style="float:left">
+<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/compose-layout/fade_away.png" height="120" width="120" >
 
 ## 🔊 Audio and UI
 

@@ -38,6 +38,7 @@ import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.audioui.VolumeScreen
+import com.google.android.horologist.audioui.VolumeViewModel
 import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
@@ -152,7 +153,10 @@ fun WearApp(
                 )
             }
             composable(Screen.MediaPlayer.route) {
-                MediaPlayerScreen(mediaPlayerScreenViewModel = viewModel(factory = mediaPlayerScreenViewModelFactory))
+                MediaPlayerScreen(
+                    mediaPlayerScreenViewModel = viewModel(factory = mediaPlayerScreenViewModelFactory),
+                    volumeViewModel = viewModel(factory = VolumeViewModel.Factory)
+                )
             }
         }
     }

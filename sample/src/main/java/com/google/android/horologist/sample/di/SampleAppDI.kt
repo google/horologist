@@ -28,14 +28,18 @@ object SampleAppDI {
 
     fun inject(mainActivity: MainActivity) {
         mainActivity.mediaPlayerScreenViewModelFactory =
-            getMediaPlayerScreenViewModelFactory(getPlayerRepositoryImpl(getMediaDataSource()))
+            getMediaPlayerScreenViewModelFactory(getPlayerRepositoryImplFactory(getMediaDataSource()))
     }
 
-    private fun getMediaPlayerScreenViewModelFactory(playerRepositoryImpl: PlayerRepositoryImpl): MediaPlayerScreenViewModel.Factory =
-        MediaPlayerScreenViewModel.Factory(playerRepositoryImpl)
+    private fun getMediaPlayerScreenViewModelFactory(
+        playerRepositoryImplFactory: PlayerRepositoryImpl.Factory
+    ): MediaPlayerScreenViewModel.Factory =
+        MediaPlayerScreenViewModel.Factory(playerRepositoryImplFactory)
 
-    private fun getPlayerRepositoryImpl(mediaDataSource: MediaDataSource): PlayerRepositoryImpl =
-        PlayerRepositoryImpl(mediaDataSource)
+    private fun getPlayerRepositoryImplFactory(
+        mediaDataSource: MediaDataSource
+    ): PlayerRepositoryImpl.Factory =
+        PlayerRepositoryImpl.Factory(mediaDataSource)
 
     private fun getMediaDataSource(): MediaDataSource = MediaDataSource()
 }

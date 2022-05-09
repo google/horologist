@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.sample.media
 
+import androidx.annotation.OptIn
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.Player.Command
@@ -199,7 +200,7 @@ class PlayerRepositoryImpl(
     }
 
     private fun addCommand(@Command command: Int) {
-        @androidx.annotation.OptIn(UnstableApi::class)
+        @OptIn(UnstableApi::class)
         _availableCommandsList.value = Player.Commands.Builder()
             .addAll(_availableCommandsList.value)
             .add(command)
@@ -207,7 +208,7 @@ class PlayerRepositoryImpl(
     }
 
     private fun removeCommand(@Command command: Int) {
-        @androidx.annotation.OptIn(UnstableApi::class)
+        @OptIn(UnstableApi::class)
         _availableCommandsList.value = Player.Commands.Builder()
             .addAll(_availableCommandsList.value)
             .remove(command)
@@ -218,5 +219,12 @@ class PlayerRepositoryImpl(
         private const val DURATION = 180L
 
         private val INITIAL_TRACK_POSITION = TrackPosition(0, DURATION)
+    }
+
+    class Factory(
+        private val mediaDataSource: MediaDataSource
+    ) {
+
+        fun create(): PlayerRepositoryImpl = PlayerRepositoryImpl(mediaDataSource)
     }
 }

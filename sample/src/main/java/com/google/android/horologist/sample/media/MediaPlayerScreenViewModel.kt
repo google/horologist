@@ -32,13 +32,13 @@ class MediaPlayerScreenViewModel(
     }
 
     class Factory(
-        private val playerRepository: PlayerRepositoryImpl
+        private val playerRepositoryFactory: PlayerRepositoryImpl.Factory
     ) : ViewModelProvider.Factory {
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
             if (modelClass.isAssignableFrom(MediaPlayerScreenViewModel::class.java)) {
-                return MediaPlayerScreenViewModel(playerRepository) as T
+                return MediaPlayerScreenViewModel(playerRepositoryFactory.create()) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

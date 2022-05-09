@@ -101,7 +101,7 @@ public fun VolumeScreen(
 @ExperimentalHorologistAudioUiApi
 @OptIn(ExperimentalHorologistAudioApi::class)
 @Composable
-internal fun VolumeScreen(
+public fun VolumeScreen(
     modifier: Modifier = Modifier,
     volume: () -> VolumeState,
     audioOutput: AudioOutput,

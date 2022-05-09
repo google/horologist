@@ -4,10 +4,14 @@ Horologist is a group of libraries that aim to supplement Wear OS developers wit
 
 ## 🎵 Media UI
 
-Domain model and UI for media player.
+UI and Data layers for media player. PlayScreen and individual UI components.
 
-- [horologist-media-data](./media-data)
 - [horologist-media-ui](./media-ui)
+- [horologist-media-data](./media-data)
+
+| PlayScreen |
+|---|
+| <img src="./docs/media-ui/playscreen.png" height="120" width="120" > |
 
 ## 📅 Composables
 
@@ -31,7 +35,7 @@ fillMaxRectangle()             |  fadeAway()
 
 ## 🔊 Audio and UI
 
-Domain model for Audio related functionality.  Volume Control, Output switching.
+Domain model for Audio related functionality. Volume Control, Output switching.
 Subscribing to a Flow of changes in audio or output.
 
 - [horologist-audio](./audio)

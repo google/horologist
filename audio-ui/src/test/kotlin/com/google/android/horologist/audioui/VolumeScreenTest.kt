@@ -52,12 +52,14 @@ class VolumeScreenTest {
     fun compose() {
         paparazzi.snapshot {
             RoundPreview {
-                Scaffold(timeText = { TimeText(
-                    timeSource = object : TimeSource {
-                        override val currentTime: String
-                            @Composable get() = "1:03 pm"
-                    }
-                ) }) {
+                Scaffold(timeText = {
+                    TimeText(
+                        timeSource = object : TimeSource {
+                            override val currentTime: String
+                                @Composable get() = "1:03 pm"
+                        }
+                    )
+                }) {
                     VolumeScreen(
                         volume = {
                             VolumeState(

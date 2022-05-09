@@ -16,10 +16,10 @@
 
 package com.google.android.horologist.navsample.snackbar
 
-import com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi
+import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import java.util.UUID
 
-@ExperimentalComposeLayoutApi
+@ExperimentalHorologistComposeLayoutApi
 public data class UiMessage(
     val message: String,
     val id: String = UUID.randomUUID().toString(),

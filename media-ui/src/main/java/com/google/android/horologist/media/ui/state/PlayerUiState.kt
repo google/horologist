@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.media.ui.state
 
-import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
+import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.PlayPauseButton
 import com.google.android.horologist.media.ui.components.controls.PauseButton
 import com.google.android.horologist.media.ui.components.controls.PlayButton
@@ -44,7 +44,7 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
  * @param mediaItem current [MediaItemUiModel]
  * @param trackPosition current [TrackPositionUiModel]
  */
-@ExperimentalMediaUiApi
+@ExperimentalHorologistMediaUiApi
 public data class PlayerUiState(
     val playEnabled: Boolean,
     val pauseEnabled: Boolean,

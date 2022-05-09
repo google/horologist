@@ -16,13 +16,13 @@
 
 package com.google.android.horologist.audioui
 
-import com.google.android.horologist.audio.ExperimentalAudioApi
+import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeRepository
 import com.google.android.horologist.audio.VolumeState
 import kotlinx.coroutines.flow.MutableStateFlow
 
-@OptIn(ExperimentalAudioApi::class)
-class FakeVolumeRepository @OptIn(ExperimentalAudioApi::class) constructor(initial: VolumeState) : VolumeRepository {
+@OptIn(ExperimentalHorologistAudioApi::class)
+class FakeVolumeRepository @OptIn(ExperimentalHorologistAudioApi::class) constructor(initial: VolumeState) : VolumeRepository {
     override val volumeState: MutableStateFlow<VolumeState> = MutableStateFlow(initial)
 
     override fun increaseVolume() {

@@ -17,12 +17,12 @@
 package com.google.android.horologist.navsample.snackbar
 
 import androidx.compose.runtime.mutableStateListOf
-import com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi
+import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 
 /**
  * Coordination point for message producers and the single message consumer.
  */
-@ExperimentalComposeLayoutApi
+@ExperimentalHorologistComposeLayoutApi
 public class SnackbarManager {
     internal val messages = mutableStateListOf<UiMessage>()
 

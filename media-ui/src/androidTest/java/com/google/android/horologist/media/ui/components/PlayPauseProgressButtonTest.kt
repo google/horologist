@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalMediaUiApi::class)
+@file:OptIn(ExperimentalHorologistMediaUiApi::class)
 
 package com.google.android.horologist.media.ui.components
 
@@ -25,7 +25,7 @@ import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasProgressBarRangeInfo
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.performClick
-import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
+import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.test.toolbox.hasProgressBar
 import org.junit.Rule
 import org.junit.Test

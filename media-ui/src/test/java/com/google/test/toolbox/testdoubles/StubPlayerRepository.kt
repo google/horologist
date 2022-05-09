@@ -18,13 +18,13 @@ package com.google.test.toolbox.testdoubles
 
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
-import com.google.android.horologist.media.data.ExperimentalMediaDataApi
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.data.model.TrackPosition
 import com.google.android.horologist.media.data.repository.PlayerRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-@OptIn(ExperimentalMediaDataApi::class)
+@OptIn(ExperimentalHorologistMediaDataApi::class)
 class StubPlayerRepository : PlayerRepository {
 
     override val availableCommands: StateFlow<Player.Commands>

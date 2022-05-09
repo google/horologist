@@ -26,10 +26,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
-import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
+import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 
-@ExperimentalMediaUiApi
+@ExperimentalHorologistMediaUiApi
 @Composable
 public fun SeekForwardButton(
     onClick: () -> Unit,

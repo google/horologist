@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.navscaffold
+package com.google.android.horologist.media.data
 
 @RequiresOptIn(
-    message = "Horologist Compose Layout is experimental. The API may be changed in the future."
+    message = "Horologist Media is experimental. The API may be changed in the future."
 )
 @Retention(AnnotationRetention.BINARY)
-public annotation class ExperimentalComposeLayoutApi
+public annotation class ExperimentalHorologistMediaDataApi

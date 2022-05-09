@@ -49,7 +49,7 @@ import com.google.android.horologist.compose.navscaffold.util.saveable
  * A ViewModel is used to allow the same current instance to be shared between the WearNavScaffold
  * and the composable screen via [NavHostController.currentBackStackEntry].
  */
-@ExperimentalComposeLayoutApi
+@ExperimentalHorologistComposeLayoutApi
 public open class NavScaffoldViewModel(
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {

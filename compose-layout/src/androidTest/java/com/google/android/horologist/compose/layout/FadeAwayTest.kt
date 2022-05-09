@@ -23,13 +23,13 @@ import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.test.junit4.createComposeRule
-import com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi
+import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import kotlin.math.roundToInt
 
-@OptIn(ExperimentalComposeLayoutApi::class)
+@OptIn(ExperimentalHorologistComposeLayoutApi::class)
 class FadeAwayTest {
     @get:Rule
     val composeTestRule = createComposeRule()

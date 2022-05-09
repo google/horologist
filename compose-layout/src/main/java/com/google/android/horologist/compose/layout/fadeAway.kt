@@ -28,13 +28,13 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ScalingLazyListState
-import com.google.android.horologist.compose.navscaffold.ExperimentalComposeLayoutApi
+import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 
 /**
  * Scroll Away the item based on a regular scrolling item, like a Column.
  * Does not include fading or scaling.
  */
-@ExperimentalComposeLayoutApi
+@ExperimentalHorologistComposeLayoutApi
 public fun Modifier.fadeAway(scrollStateFn: () -> ScrollState): Modifier = composed {
     val scrollState = scrollStateFn()
     val y = scrollState.value / LocalDensity.current.density
@@ -48,7 +48,7 @@ public fun Modifier.fadeAway(scrollStateFn: () -> ScrollState): Modifier = compo
  * The logic assumes the first item is large enough to fully fade away the item, if this is not the
  * case then a custom implementation should be used.
  */
-@ExperimentalComposeLayoutApi
+@ExperimentalHorologistComposeLayoutApi
 public fun Modifier.fadeAwayLazyList(scrollStateFn: () -> LazyListState): Modifier = composed {
     val scrollState = scrollStateFn()
     if (scrollState.firstVisibleItemIndex == 0) {
@@ -71,7 +71,7 @@ public fun Modifier.fadeAwayLazyList(scrollStateFn: () -> LazyListState): Modifi
  * @param initialIndex The initial index must match that provided to [ScalingLazyListState].
  * @param initialOffset The initial offset must match that provided to [ScalingLazyListState].
  */
-@ExperimentalComposeLayoutApi
+@ExperimentalHorologistComposeLayoutApi
 public fun Modifier.fadeAwayScalingLazyList(
     initialIndex: Int = 1,
     initialOffset: Int = 0,

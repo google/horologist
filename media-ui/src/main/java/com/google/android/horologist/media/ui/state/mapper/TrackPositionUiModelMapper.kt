@@ -17,13 +17,13 @@
 package com.google.android.horologist.media.ui.state.mapper
 
 import com.google.android.horologist.media.data.model.TrackPosition
-import com.google.android.horologist.media.ui.ExperimentalMediaUiApi
+import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
 /**
  * Map a [TrackPosition] into a [TrackPositionUiModel]
  */
-@ExperimentalMediaUiApi
+@ExperimentalHorologistMediaUiApi
 public object TrackPositionUiModelMapper {
 
     public fun map(trackPosition: TrackPosition): TrackPositionUiModel = TrackPositionUiModel(

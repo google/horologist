@@ -18,14 +18,14 @@ package com.google.android.horologist.media.data.repository
 
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
-import com.google.android.horologist.media.data.ExperimentalMediaDataApi
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.data.model.TrackPosition
 import kotlinx.coroutines.flow.StateFlow
 
 /**
  * Repository for the current [Player].
  */
-@ExperimentalMediaDataApi
+@ExperimentalHorologistMediaDataApi
 public interface PlayerRepository {
 
     /**

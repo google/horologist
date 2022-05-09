@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalAudioUiApi::class, ExperimentalAudioApi::class, ExperimentalAudioUiApi::class,
-)
+@file:OptIn(ExperimentalHorologistAudioUiApi::class, ExperimentalHorologistAudioApi::class)
 
 package com.google.android.horologist.audioui
 
@@ -32,7 +30,7 @@ import app.cash.paparazzi.Paparazzi
 import app.cash.paparazzi.SnapshotHandler
 import app.cash.paparazzi.SnapshotVerifier
 import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.audio.ExperimentalAudioApi
+import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler

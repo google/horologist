@@ -65,6 +65,8 @@ android {
         freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.audioui.ExperimentalHorologistAudioUiApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi"
         freeCompilerArgs += "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi"
         freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         freeCompilerArgs += "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
@@ -82,6 +84,8 @@ dependencies {
     implementation projects.audioUi
     implementation projects.tiles
     implementation projects.composables
+    implementation projects.mediaUi
+    implementation projects.mediaData
 
     implementation libs.compose.ui.tooling
     implementation libs.compose.ui.util
@@ -101,6 +105,8 @@ dependencies {
     implementation libs.androidx.wear.tiles
 
     implementation libs.kotlin.stdlib
+
+    implementation libs.androidx.media3.common
 
     androidTestImplementation libs.compose.ui.test.junit4
     androidTestImplementation libs.espresso.core

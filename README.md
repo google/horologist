@@ -15,11 +15,9 @@ High quality prebuilt composables, such as Time and Date pickers.
 
 - [horologist-composables](./composables)
 
-<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/date_picker.png" height="120" width="120" >
-
-<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/time_12h_picker.png" height="120" width="120">
-
-<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/time_24h_picker.png" height="120" width="120">
+DatePicker             |  TimePickerWith12HourClock |  TimePicker
+:-------------------------:|:-------------------------:|:-------------------------:
+<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/date_picker.png" height="120" width="120" >  |  <img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/time_12h_picker.png" height="120" width="120"> | <img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/time_24h_picker.png" height="120" width="120">
 
 ## 📐 Compose Layout
 
@@ -27,9 +25,9 @@ Layout related functionality such as a Navigation Aware Scaffold.
 
 - [horologist-compose-layout](./compose-layout)
 
-<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/compose-layout/fill_max_rectangle.png" height="120" width="120" >
-
-<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/compose-layout/fade_away.png" height="120" width="120" >
+fillMaxRectangle()             |  fadeAway()
+:-------------------------:|:-------------------------:
+<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/compose-layout/fill_max_rectangle.png" height="120" width="120" >  |  <img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/compose-layout/fade_away.png" height="120" width="120" >
 
 ## 🔊 Audio and UI
 
@@ -39,7 +37,9 @@ Subscribing to a Flow of changes in audio or output.
 - [horologist-audio](./audio)
 - [horologist-audio-ui](./audio-ui)
 
-<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/audio-ui/volume_screen.png" height="120" width="120" >
+VolumeScreen            |  
+:-------------------------:|
+<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/audio-ui/volume_screen.png" height="120" width="120" > |
 
 ## 🖽 Tiles
 

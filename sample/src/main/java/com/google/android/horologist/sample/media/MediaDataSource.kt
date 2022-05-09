@@ -20,7 +20,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 
 /**
- * Simple data source or a list of fake [MediaItem]s
+ * Simple data source for a list of fake [MediaItem]s
  */
 class MediaDataSource {
 

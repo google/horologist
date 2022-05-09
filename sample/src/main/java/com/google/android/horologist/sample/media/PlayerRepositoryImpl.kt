@@ -19,6 +19,7 @@ package com.google.android.horologist.sample.media
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.Player.Command
+import androidx.media3.common.util.UnstableApi
 import com.google.android.horologist.media.data.model.TrackPosition
 import com.google.android.horologist.media.data.repository.PlayerRepository
 import kotlinx.coroutines.CoroutineScope
@@ -184,6 +185,7 @@ class PlayerRepositoryImpl(
     }
 
     private fun addCommand(@Command command: Int) {
+        @androidx.annotation.OptIn(UnstableApi::class)
         _availableCommandsList.value = Player.Commands.Builder()
             .addAll(_availableCommandsList.value)
             .add(command)
@@ -191,6 +193,7 @@ class PlayerRepositoryImpl(
     }
 
     private fun removeCommand(@Command command: Int) {
+        @androidx.annotation.OptIn(UnstableApi::class)
         _availableCommandsList.value = Player.Commands.Builder()
             .addAll(_availableCommandsList.value)
             .remove(command)

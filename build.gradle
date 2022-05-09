@@ -232,6 +232,7 @@ subprojects {
                     }
 
                     def depVersion = dependency.version
+                    // TODO reenable https://github.com/google/horologist/issues/34
 //                    if (depVersion != null && depVersion.endsWith('SNAPSHOT')) {
 //                        throw new IllegalArgumentException(
 //                                "Using SNAPSHOT dependency with non-SNAPSHOT library version: $dependency"

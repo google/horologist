@@ -115,10 +115,24 @@ class PlayerRepositoryImpl(
     private fun pretendIsPlaying() {
         _playing.value = true
 
+        if (trackPosition.value?.current == DURATION) {
+            _trackPosition.value = INITIAL_TRACK_POSITION
+        }
+
         playingJob = coroutineScope.launch {
             repeat(DURATION.toInt()) {
-                updatePosition()
                 delay(1_000L)
+                updatePosition()
+            }
+            mediaItems?.let {
+                if (currentItemIndex < it.size - 1) {
+                    delay(1_000L)
+                    seekToNextMediaItem()
+                } else {
+                    pause()
+                }
+            } ?: run {
+                pause()
             }
         }
     }
@@ -181,7 +195,7 @@ class PlayerRepositoryImpl(
     override fun updatePosition() {
         _trackPosition.value = _trackPosition.value?.let {
             it.copy(current = it.current + 1)
-        } ?: INITIAL_TRACK_POSITION
+        } ?: INITIAL_TRACK_POSITION.copy(current = INITIAL_TRACK_POSITION.current + 1)
     }
 
     private fun addCommand(@Command command: Int) {

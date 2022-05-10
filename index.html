@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://google.github.io/horologist/">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.13">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.14">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.e411adfe.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.3de6f41f.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.cc9b2e1e.min.css">
@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#tiles" class="md-skip">
+        <a href="#media-ui" class="md-skip">
           Skip to content
         </a>
       
@@ -242,36 +242,44 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#tiles" class="md-nav__link">
-    Tiles
+  <a href="#media-ui" class="md-nav__link">
+    🎵 Media UI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#composables" class="md-nav__link">
+    📅 Composables
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#compose-layout" class="md-nav__link">
-    Compose Layout
+    📐 Compose Layout
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#audio-and-ui" class="md-nav__link">
-    Audio and UI
-  </a>
-  
-    <nav class="md-nav" aria-label="Audio and UI">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#why-the-name" class="md-nav__link">
-    Why the name?
+    🔊 Audio and UI
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#tiles" class="md-nav__link">
+    🖽 Tiles
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-the-name" class="md-nav__link">
+    Why the name?
+  </a>
   
 </li>
       
@@ -489,6 +497,20 @@
   
   
     <li class="md-nav__item">
+      <a href="media-ui/" class="md-nav__link">
+        Media UI Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="media-data/" class="md-nav__link">
         Media Data Guide
       </a>
@@ -503,8 +525,8 @@
   
   
     <li class="md-nav__item">
-      <a href="media-ui/" class="md-nav__link">
-        Media UI Guide
+      <a href="media-playscreen/" class="md-nav__link">
+        Stateful PlayScreen Guide
       </a>
     </li>
   
@@ -668,36 +690,44 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#tiles" class="md-nav__link">
-    Tiles
+  <a href="#media-ui" class="md-nav__link">
+    🎵 Media UI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#composables" class="md-nav__link">
+    📅 Composables
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#compose-layout" class="md-nav__link">
-    Compose Layout
+    📐 Compose Layout
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#audio-and-ui" class="md-nav__link">
-    Audio and UI
-  </a>
-  
-    <nav class="md-nav" aria-label="Audio and UI">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#why-the-name" class="md-nav__link">
-    Why the name?
+    🔊 Audio and UI
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#tiles" class="md-nav__link">
+    🖽 Tiles
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-the-name" class="md-nav__link">
+    Why the name?
+  </a>
   
 </li>
       
@@ -736,20 +766,89 @@
   <h1>Overview</h1>
 
 <p>Horologist is a group of libraries that aim to supplement Wear OS developers with features that are commonly required by developers but not yet available.</p>
-<p>Horologist is a labs like environment for new Wear APIs. We use it to help fill known gaps in the Horologist toolkit, experiment with new APIs and to gather insight into the development experience of developing these library. The goal of these libraries is to upstream them into Jetpack, at which point they will be deprecated and removed from Horologist. Some libraries may be useful but specific enough that they do not ever graduate.</p>
 <hr />
-<h2 id="tiles">Tiles<a class="headerlink" href="#tiles" title="Permanent link">&para;</a></h2>
-<p>Kotlin favoured coroutines.</p>
-<p><a href="./tiles">horologist-tiles</a></p>
-<h2 id="compose-layout">Compose Layout<a class="headerlink" href="#compose-layout" title="Permanent link">&para;</a></h2>
+<h2 id="media-ui">🎵 Media UI<a class="headerlink" href="#media-ui" title="Permanent link">&para;</a></h2>
+<p>UI and Data layers for media player. PlayScreen and individual UI components.</p>
+<ul>
+<li><a href="./media-ui">horologist-media-ui</a></li>
+<li><a href="./media-data">horologist-media-data</a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>PlayScreen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="./docs/media-ui/playscreen.png" height="120" width="120" ></td>
+</tr>
+</tbody>
+</table>
+<h2 id="composables">📅 Composables<a class="headerlink" href="#composables" title="Permanent link">&para;</a></h2>
+<p>High quality prebuilt composables, such as Time and Date pickers.</p>
+<ul>
+<li><a href="./composables">horologist-composables</a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">DatePicker</th>
+<th align="center">TimePickerWith12HourClock</th>
+<th align="center">TimePicker</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/date_picker.png" height="120" width="120" ></td>
+<td align="center"><img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/time_12h_picker.png" height="120" width="120"></td>
+<td align="center"><img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/time_24h_picker.png" height="120" width="120"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="compose-layout">📐 Compose Layout<a class="headerlink" href="#compose-layout" title="Permanent link">&para;</a></h2>
 <p>Layout related functionality such as a Navigation Aware Scaffold.</p>
-<p><a href="./compose-layout">horologist-compose-layout</a></p>
-<h2 id="audio-and-ui">Audio and UI<a class="headerlink" href="#audio-and-ui" title="Permanent link">&para;</a></h2>
-<p>Domain model for Audio related functionality.  Volume Control, Output switching.
+<ul>
+<li><a href="./compose-layout">horologist-compose-layout</a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">fillMaxRectangle()</th>
+<th align="center">fadeAway()</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/compose-layout/fill_max_rectangle.png" height="120" width="120" ></td>
+<td align="center"><img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/compose-layout/fade_away.png" height="120" width="120" ></td>
+</tr>
+</tbody>
+</table>
+<h2 id="audio-and-ui">🔊 Audio and UI<a class="headerlink" href="#audio-and-ui" title="Permanent link">&para;</a></h2>
+<p>Domain model for Audio related functionality. Volume Control, Output switching.
 Subscribing to a Flow of changes in audio or output.</p>
-<p><a href="./audio">horologist-audio</a>
-<a href="./audio-ui">horologist-audio-ui</a></p>
-<h3 id="why-the-name">Why the name?<a class="headerlink" href="#why-the-name" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="./audio">horologist-audio</a></li>
+<li><a href="./audio-ui">horologist-audio-ui</a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">VolumeScreen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/audio-ui/volume_screen.png" height="120" width="120" ></td>
+</tr>
+</tbody>
+</table>
+<h2 id="tiles">🖽 Tiles<a class="headerlink" href="#tiles" title="Permanent link">&para;</a></h2>
+<p>Kotlin coroutines flavoured TileService.</p>
+<p><a href="./tiles">horologist-tiles</a></p>
+<hr />
+<h2 id="why-the-name">Why the name?<a class="headerlink" href="#why-the-name" title="Permanent link">&para;</a></h2>
 <p>The name mirrors the <a href="https://github.com/google/accompanist">Accompanist</a> name, and is also Watch related.</p>
 <p>https://en.wiktionary.org/wiki/horologist</p>
 <blockquote>
@@ -827,7 +926,7 @@ limitations under the License.
     <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.ed9748b7.min.js"></script>
+      <script src="assets/javascripts/bundle.c2e1ee47.min.js"></script>
       
     
   </body>

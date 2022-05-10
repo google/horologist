@@ -155,7 +155,10 @@ fun WearApp(
             composable(Screen.MediaPlayer.route) {
                 MediaPlayerScreen(
                     mediaPlayerScreenViewModel = viewModel(factory = mediaPlayerScreenViewModelFactory),
-                    volumeViewModel = viewModel(factory = VolumeViewModel.Factory)
+                    volumeViewModel = viewModel(factory = VolumeViewModel.Factory),
+                    onVolumeClick = {
+                        navController.navigate(Screen.Volume.route)
+                    }
                 )
             }
         }

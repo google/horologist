@@ -35,6 +35,7 @@ import com.google.android.horologist.utils.rememberStateWithLifecycle
 fun MediaPlayerScreen(
     mediaPlayerScreenViewModel: MediaPlayerScreenViewModel,
     volumeViewModel: VolumeViewModel,
+    onVolumeClick: () -> Unit,
 ) {
     val playerFocusRequester = remember { FocusRequester() }
 
@@ -51,7 +52,12 @@ fun MediaPlayerScreen(
         },
         timeText = { TimeText() }
     ) {
-        PlayerScreen(playerViewModel = mediaPlayerScreenViewModel)
+        PlayerScreen(
+            playerViewModel = mediaPlayerScreenViewModel,
+            buttons = {
+                SettingsButtons(volumeViewModel = volumeViewModel, onVolumeClick = onVolumeClick)
+            }
+        )
     }
 
     FocusOnResume(playerFocusRequester)

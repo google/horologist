@@ -25,7 +25,6 @@ import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
-import org.junit.Assume.assumeTrue
 import org.junit.Rule
 import org.junit.Test
 

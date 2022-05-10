@@ -4,7 +4,7 @@ This is a guide on how to use the stateful `PlayScreen` with your own implementa
 
 ## Basic usage
 
-1. Implement PlayerRepository
+##### 1. Implement PlayerRepository
 
 ```kotlin
 class PlayerRepositoryImpl() : PlayerRepository {
@@ -12,7 +12,7 @@ class PlayerRepositoryImpl() : PlayerRepository {
 }
 ```
 
-2. Extend PlayerViewModel
+##### 2. Extend PlayerViewModel
 
 Pass your implementation of `PlayerRepository` as constructor parameter.
 
@@ -24,7 +24,7 @@ class MyCustomViewModel(
 }
 ```
 
-3. Add PlayScreen
+##### 3. Add PlayScreen
 
 Pass your `PlayerViewModel` extension as value to the constructor parameter.
 
@@ -36,4 +36,4 @@ PlayScreen(playerViewModel = myCustomViewModel)
 
 The following diagram shows the interactions between the classes.
 
-<img src="https://github.com/google/horologist/blob/main/docs/media/media_class_diagram.png" height="420" width="300" >
+![](media_class_diagram.png){: loading=lazy align=center }

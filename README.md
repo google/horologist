@@ -11,7 +11,7 @@ UI and Data layers for media player. PlayScreen and individual UI components.
 
 | PlayScreen |
 |---|
-| <img src="./docs/media-ui/playscreen.png" height="120" width="120" > |
+| <img src="https://raw.githubusercontent.com/google/horologist/main/docs/media-ui/playscreen.png" height="120" width="120" > |
 
 ## 📅 Composables
 
@@ -21,7 +21,7 @@ High quality prebuilt composables, such as Time and Date pickers.
 
 DatePicker             |  TimePickerWith12HourClock |  TimePicker
 :-------------------------:|:-------------------------:|:-------------------------:
-<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/date_picker.png" height="120" width="120" >  |  <img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/time_12h_picker.png" height="120" width="120"> | <img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/composables/time_24h_picker.png" height="120" width="120">
+<img src="https://raw.githubusercontent.com/google/horologist/main/docs/composables/date_picker.png" height="120" width="120" >  |  <img src="https://raw.githubusercontent.com/google/horologist/main/docs/composables/time_12h_picker.png" height="120" width="120"> | <img src="https://raw.githubusercontent.com/google/horologist/main/docs/composables/time_24h_picker.png" height="120" width="120">
 
 ## 📐 Compose Layout
 
@@ -31,7 +31,7 @@ Layout related functionality such as a Navigation Aware Scaffold.
 
 fillMaxRectangle()             |  fadeAway()
 :-------------------------:|:-------------------------:
-<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/compose-layout/fill_max_rectangle.png" height="120" width="120" >  |  <img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/compose-layout/fade_away.png" height="120" width="120" >
+<img src="https://raw.githubusercontent.com/google/horologist/main/docs/compose-layout/fill_max_rectangle.png" height="120" width="120" >  |  <img src="https://raw.githubusercontent.com/google/horologist/main/docs/compose-layout/fade_away.png" height="120" width="120" >
 
 ## 🔊 Audio and UI
 
@@ -43,7 +43,7 @@ Subscribing to a Flow of changes in audio or output.
 
 VolumeScreen            |  
 :-------------------------:|
-<img src="https://github.com/google/horologist/blob/6b4a07a4d5cf010838b151e345860dca92c5490a/docs/audio-ui/volume_screen.png" height="120" width="120" > |
+<img src="https://raw.githubusercontent.com/google/horologist/main/docs/audio-ui/volume_screen.png" height="120" width="120" > |
 
 ## 🖽 Tiles
 

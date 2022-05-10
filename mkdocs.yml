@@ -16,21 +16,22 @@ repo_url: 'https://github.com/google/horologist'
 nav:
   - 'Overview': index.md
   - 'Audio':
-    - 'Audio Guide': audio.md
-    - 'Audio UI Guide': audio-ui.md
+      - 'Audio Guide': audio.md
+      - 'Audio UI Guide': audio-ui.md
   - 'Composables':
       - 'Guide': composables.md
   - 'Compose Layout':
       - 'Guide': compose-layout.md
   - 'Media':
-      - 'Media Data Guide': media-data.md
       - 'Media UI Guide': media-ui.md
+      - 'Media Data Guide': media-data.md
+      - 'Stateful PlayScreen Guide': media-playscreen.md
   - 'Tiles':
       - 'Guide': tiles.md
   - 'Snapshots': using-snapshot-version.md
   - 'Contributing': contributing.md
   - 'Maintainers':
-    - 'Update guide': updating.md
+      - 'Update guide': updating.md
 
 # Configuration
 theme:

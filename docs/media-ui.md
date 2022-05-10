@@ -12,7 +12,10 @@ The previews of the composables can be found in the [debug][debug folder] folder
 
 ## State
 
-This library also provides a [state][state package] package with a [PlayerUiState][playeruistate] and its own UI [models][state models package] to represent the state of common components that are displayed on a player screen. They can be used with your own ViewModel implementation or with the [PlayerViewModel][playerviewmodel] provided.
+This library also provides a [state][state package] package with a [PlayerUiState][playeruistate] and its own UI [models][state models package] to represent the state of common components that are displayed on a player screen. 
+They can be used with your own ViewModel implementation or with the [PlayerViewModel][playerviewmodel] provided.
+
+There is a guide on the usage of the stateful `PlayScreen` [here][stateful playerscreen guide].
 
 ## Demo app
 
@@ -40,6 +43,7 @@ dependencies {
  [playeruistate]: https://github.com/google/horologist/blob/main/media-ui/src/main/java/com/google/android/horologist/media/ui/state/PlayerUiState.kt
  [state models package]: https://github.com/google/horologist/tree/main/media-ui/src/main/java/com/google/android/horologist/media/ui/state/model
  [playerviewmodel]: https://github.com/google/horologist/blob/main/media-ui/src/main/java/com/google/android/horologist/media/ui/state/PlayerViewModel.kt
+ [stateful playerscreen guide]: https://google.github.io/horologist/media-playscreen/
  [play screen]: https://github.com/google/horologist/blob/main/media-ui/src/main/java/com/google/android/horologist/media/ui/screens/PlayScreen.kt
  [sample app package]: https://github.com/google/horologist/tree/main/sample
  [media screen sample package]: https://github.com/google/horologist/tree/main/sample/src/main/java/com/google/android/horologist/sample/media

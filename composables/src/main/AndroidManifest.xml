@@ -16,7 +16,7 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.google.android.horologist.media.ui">
+    package="com.google.android.horologist.composables">
 
     <uses-feature android:name="android.hardware.type.watch" />
 </manifest>

@@ -24,8 +24,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
-import androidx.wear.compose.material.TimeSource
-import androidx.wear.compose.material.TimeText
 import app.cash.paparazzi.HtmlReportWriter
 import app.cash.paparazzi.Paparazzi
 import app.cash.paparazzi.SnapshotHandler
@@ -55,18 +53,10 @@ class VolumeScreenTest(
 
     @Test
     fun volumeScreenThemes() {
-        paparazzi.snapshot(name = "VolumeScreen_${themeValue.safeName}") {
+        paparazzi.snapshot(name = themeValue.safeName) {
             MaterialTheme(colors = themeValue.colors) {
                 RoundPreview {
                     Scaffold(
-                        timeText = {
-                            TimeText(
-                                timeSource = object : TimeSource {
-                                    override val currentTime: String
-                                        @Composable get() = "1:03 pm"
-                                }
-                            )
-                        },
                         positionIndicator = {
                             VolumePositionIndicator(
                                 volumeState = { VolumeState(5, 10) },
@@ -97,18 +87,10 @@ class VolumeScreenTest(
     fun volumeScreenOrangey() {
         assumeTrue(themeValue.colors == Orangey)
 
-        paparazzi.snapshot(name = "VolumeScreenWithIcons") {
+        paparazzi.snapshot {
             MaterialTheme(colors = Orangey) {
                 RoundPreview {
                     Scaffold(
-                        timeText = {
-                            TimeText(
-                                timeSource = object : TimeSource {
-                                    override val currentTime: String
-                                        @Composable get() = "1:03 pm"
-                                }
-                            )
-                        },
                         positionIndicator = {
                             VolumePositionIndicator(
                                 volumeState = { VolumeState(5, 10) },

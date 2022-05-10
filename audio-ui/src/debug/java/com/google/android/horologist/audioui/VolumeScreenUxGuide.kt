@@ -16,16 +16,27 @@
 
 package com.google.android.horologist.audioui
 
+import android.graphics.Color.WHITE
+import android.graphics.Paint
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun VolumeScreenUxGuide() {
+    val textPaint = remember {
+        Paint().apply {
+            textSize = 18f
+            color = WHITE
+        }
+    }
     Canvas(modifier = Modifier.fillMaxSize()) {
         val _18dp = 18.dp.toPx()
         val _25dp = 25.dp.toPx()
@@ -39,5 +50,14 @@ fun VolumeScreenUxGuide() {
         // 12 + 13 padding to button
         drawLine(Color.Red, Offset(0f, _25dp), Offset(width, _25dp))
         drawLine(Color.Red, Offset(0f, height - _25dp), Offset(width, height - _25dp))
+
+        this.drawIntoCanvas {
+            it.nativeCanvas.drawText("onBackground (30%)", _18dp, height / 2 - _18dp, textPaint)
+            it.nativeCanvas.drawText("secondary", _18dp, height / 2 + _18dp, textPaint)
+            it.nativeCanvas.drawText("surface", width / 2, height / 2 - _18dp, textPaint)
+            it.nativeCanvas.drawText("onSurface", width / 2, height / 2 + _18dp, textPaint)
+            it.nativeCanvas.drawText("onBackground (38%)", width / 2, height / 4, textPaint)
+            it.nativeCanvas.drawText("onBackground", width / 2, height * 3 / 4, textPaint)
+        }
     }
 }

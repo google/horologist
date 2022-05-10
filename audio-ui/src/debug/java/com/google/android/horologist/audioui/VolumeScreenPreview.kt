@@ -34,6 +34,38 @@ import com.google.android.horologist.audio.VolumeState
     backgroundColor = 0xff000000,
     showBackground = true
 )
+@Composable
+@OptIn(ExperimentalHorologistAudioUiApi::class)
+fun VolumeScreenGuide() {
+    val volume = VolumeState(10, 10)
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        Scaffold(
+            positionIndicator = {
+                VolumePositionIndicator(
+                    volumeState = { volume.copy(current = 5) },
+                    autoHide = false
+                )
+            }
+        ) {
+            VolumeScreen(
+                volume = { volume },
+                audioOutput = AudioOutput.BluetoothHeadset(id = "1", name = "PixelBuds"),
+                increaseVolume = { },
+                decreaseVolume = { },
+                onAudioOutputClick = {},
+            )
+        }
+        VolumeScreenUxGuide()
+    }
+}
+
+@Preview(
+    device = Devices.WEAR_OS_LARGE_ROUND,
+    showSystemUi = true,
+    backgroundColor = 0xff000000,
+    showBackground = true
+)
 @Preview(
     device = Devices.WEAR_OS_SMALL_ROUND,
     showSystemUi = true,
@@ -53,24 +85,21 @@ fun VolumeScreenPreview(
 ) {
     val volume = VolumeState(5, 10)
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        Scaffold(
-            positionIndicator = {
-                VolumePositionIndicator(
-                    volumeState = { VolumeState(5, 10) },
-                    autoHide = false
-                )
-            }
-        ) {
-            VolumeScreen(
-                volume = { volume },
-                audioOutput = audioOutput,
-                increaseVolume = { },
-                decreaseVolume = { },
-                onAudioOutputClick = {},
+    Scaffold(
+        positionIndicator = {
+            VolumePositionIndicator(
+                volumeState = { volume },
+                autoHide = false
             )
         }
-        VolumeScreenUxGuide()
+    ) {
+        VolumeScreen(
+            volume = { volume },
+            audioOutput = audioOutput,
+            increaseVolume = { },
+            decreaseVolume = { },
+            onAudioOutputClick = {},
+        )
     }
 }
 

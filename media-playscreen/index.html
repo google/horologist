@@ -744,12 +744,38 @@
 <h1 id="stateful-playscreen-guide">Stateful PlayScreen guide<a class="headerlink" href="#stateful-playscreen-guide" title="Permanent link">&para;</a></h1>
 <p>This is a guide on how to use the stateful <code>PlayScreen</code> with your own implementation of <code>PlayerRepository</code>.</p>
 <h2 id="basic-usage">Basic usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
-<h5 id="1-implement-playerrepository">1. Implement PlayerRepository<a class="headerlink" href="#1-implement-playerrepository" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">PlayerRepositoryImpl</span><span class="p">()</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">PlayerRepository</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<h3 id="1-implement-playerrepository">1. Implement PlayerRepository<a class="headerlink" href="#1-implement-playerrepository" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">PlayerRepositoryImpl</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">PlayerRepository</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="c1">// implement required properties and functions</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
-<h5 id="2-extend-playerviewmodel">2. Extend PlayerViewModel<a class="headerlink" href="#2-extend-playerviewmodel" title="Permanent link">&para;</a></h5>
+<p>In the sample implementation below, the repository listens to the events of <a href="https://developer.android.com/jetpack/androidx/releases/media3">Media3</a>'s 
+<code>Player</code> and update its property values accordingly (see <code>onIsPlayingChanged</code>). Its operations are 
+also called on the <code>Player</code> (see <code>setPlaybackSpeed</code>).</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">PlayerRepositoryImpl</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">player</span><span class="p">:</span><span class="w"> </span><span class="n">Player</span><span class="w"></span>
+<span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">PlayerRepository</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">_playing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MutableStateFlow</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">isPlaying</span><span class="p">:</span><span class="w"> </span><span class="n">StateFlow</span><span class="o">&lt;</span><span class="kt">Boolean</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_playing</span><span class="w"></span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">listener</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">object</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">Player</span><span class="p">.</span><span class="na">Listener</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">        </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onIsPlayingChanged</span><span class="p">(</span><span class="n">isPlaying</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">_playing</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">isPlaying</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">init</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">player</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">listener</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">setPlaybackSpeed</span><span class="p">(</span><span class="n">speed</span><span class="p">:</span><span class="w"> </span><span class="kt">Float</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">        </span><span class="n">player</span><span class="p">.</span><span class="na">setPlaybackSpeed</span><span class="p">(</span><span class="n">speed</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h3 id="2-extend-playerviewmodel">2. Extend PlayerViewModel<a class="headerlink" href="#2-extend-playerviewmodel" title="Permanent link">&para;</a></h3>
 <p>Pass your implementation of <code>PlayerRepository</code> as constructor parameter.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">MyCustomViewModel</span><span class="p">(</span><span class="w"></span>
 <span class="w">    </span><span class="n">playerRepository</span><span class="p">:</span><span class="w"> </span><span class="n">PlayerRepositoryImpl</span><span class="w"></span>
@@ -757,7 +783,7 @@
 <span class="w">    </span><span class="c1">// add custom implementation</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
-<h5 id="3-add-playscreen">3. Add PlayScreen<a class="headerlink" href="#3-add-playscreen" title="Permanent link">&para;</a></h5>
+<h3 id="3-add-playscreen">3. Add PlayScreen<a class="headerlink" href="#3-add-playscreen" title="Permanent link">&para;</a></h3>
 <p>Pass your <code>PlayerViewModel</code> extension as value to the constructor parameter.</p>
 <div class="highlight"><pre><span></span><code><span class="n">PlayScreen</span><span class="p">(</span><span class="n">playerViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myCustomViewModel</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>

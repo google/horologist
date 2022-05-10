@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.audioui
 
+import androidx.wear.compose.material.MaterialTheme
 import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
@@ -26,13 +27,8 @@ import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
 
-@RunWith(Parameterized::class)
-class VolumeScreenTest(
-    private val themeValue: ThemeValues
-) {
+class VolumeScreen2Test() {
     @get:Rule
     val paparazzi = Paparazzi(
         deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
@@ -42,25 +38,36 @@ class VolumeScreenTest(
     )
 
     @Test
-    fun volumeScreenThemes() {
+    fun volumeScreenAtMinimum() {
         val volumeState = VolumeState(
-            current = 50,
+            current = 0,
             max = 100,
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
-        paparazzi.snapshot(name = themeValue.safeName) {
+        paparazzi.snapshot {
             VolumeScreenTestCase(
-                colors = themeValue.colors,
+                colors = MaterialTheme.colors,
                 volumeState = volumeState,
                 audioOutput = audioOutput
             )
         }
     }
 
-    companion object {
-        @JvmStatic
-        @Parameterized.Parameters
-        fun colours() = themeValues
+    @Test
+    fun volumeScreenAtMaximum() {
+        val volumeState = VolumeState(
+            current = 100,
+            max = 100,
+        )
+        val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
+
+        paparazzi.snapshot {
+            VolumeScreenTestCase(
+                colors = MaterialTheme.colors,
+                volumeState = volumeState,
+                audioOutput = audioOutput
+            )
+        }
     }
 }

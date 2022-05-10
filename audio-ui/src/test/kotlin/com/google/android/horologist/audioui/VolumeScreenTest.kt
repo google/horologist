@@ -22,9 +22,8 @@ import android.content.res.Configuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
-import androidx.wear.compose.material.TimeSource
-import androidx.wear.compose.material.TimeText
 import app.cash.paparazzi.HtmlReportWriter
 import app.cash.paparazzi.Paparazzi
 import app.cash.paparazzi.SnapshotHandler
@@ -34,10 +33,16 @@ import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
+import org.junit.Assume.assumeTrue
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 
-class VolumeScreenTest {
+@RunWith(Parameterized::class)
+class VolumeScreenTest(
+    private val themeValue: ThemeValues
+) {
     @get:Rule
     val paparazzi = Paparazzi(
         deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
@@ -47,29 +52,66 @@ class VolumeScreenTest {
     )
 
     @Test
-    fun compose() {
-        paparazzi.snapshot {
-            RoundPreview {
-                Scaffold(timeText = {
-                    TimeText(
-                        timeSource = object : TimeSource {
-                            override val currentTime: String
-                                @Composable get() = "1:03 pm"
-                        }
-                    )
-                }) {
-                    VolumeScreen(
-                        volume = {
-                            VolumeState(
-                                current = 50,
-                                max = 100,
+    fun volumeScreenThemes() {
+        paparazzi.snapshot(name = themeValue.safeName) {
+            MaterialTheme(colors = themeValue.colors) {
+                RoundPreview {
+                    Scaffold(
+                        positionIndicator = {
+                            VolumePositionIndicator(
+                                volumeState = { VolumeState(5, 10) },
+                                autoHide = false
                             )
-                        },
-                        audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds"),
-                        increaseVolume = { },
-                        decreaseVolume = { },
-                        onAudioOutputClick = { }
-                    )
+                        }
+                    ) {
+                        VolumeScreen(
+                            volume = {
+                                VolumeState(
+                                    current = 50,
+                                    max = 100,
+                                )
+                            },
+                            audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds"),
+                            increaseVolume = { },
+                            decreaseVolume = { },
+                            onAudioOutputClick = { },
+                            showVolumeIndicator = false,
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun volumeScreenOrangey() {
+        assumeTrue(themeValue.colors == Orangey)
+
+        paparazzi.snapshot {
+            MaterialTheme(colors = Orangey) {
+                RoundPreview {
+                    Scaffold(
+                        positionIndicator = {
+                            VolumePositionIndicator(
+                                volumeState = { VolumeState(5, 10) },
+                                autoHide = false
+                            )
+                        }
+                    ) {
+                        VolumeScreen(
+                            volume = {
+                                VolumeState(
+                                    current = 50,
+                                    max = 100,
+                                )
+                            },
+                            audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds"),
+                            increaseVolume = { },
+                            decreaseVolume = { },
+                            onAudioOutputClick = { },
+                            showVolumeIndicator = false,
+                        )
+                    }
                 }
             }
         }
@@ -90,6 +132,10 @@ class VolumeScreenTest {
     }
 
     companion object {
+        @JvmStatic
+        @Parameterized.Parameters
+        fun colours() = themeValues
+
         private val isVerifying: Boolean =
             System.getProperty("paparazzi.test.verify")?.toBoolean() == true
 

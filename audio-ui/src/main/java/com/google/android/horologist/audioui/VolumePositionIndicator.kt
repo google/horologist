@@ -26,6 +26,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PositionIndicator
 import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
@@ -69,6 +70,8 @@ public fun VolumePositionIndicator(
     ) {
         PositionIndicator(
             modifier = modifier,
+            // RSB indicator uses secondary colors (surface/onSurface)
+            color = MaterialTheme.colors.secondary,
             value = {
                 volumeState().current.toFloat()
             },

@@ -28,7 +28,7 @@ import com.google.android.horologist.audioui.VolumePositionIndicator
 import com.google.android.horologist.audioui.VolumeViewModel
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.compose.pager.FocusOnResume
-import com.google.android.horologist.media.ui.screens.PlayScreen
+import com.google.android.horologist.media.ui.screens.PlayerScreen
 import com.google.android.horologist.utils.rememberStateWithLifecycle
 
 @Composable
@@ -51,7 +51,7 @@ fun MediaPlayerScreen(
         },
         timeText = { TimeText() }
     ) {
-        PlayScreen(playerViewModel = mediaPlayerScreenViewModel)
+        PlayerScreen(playerViewModel = mediaPlayerScreenViewModel)
     }
 
     FocusOnResume(playerFocusRequester)

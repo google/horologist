@@ -39,7 +39,7 @@ import com.google.test.toolbox.testdoubles.FakePlayerRepository
 import org.junit.Rule
 import org.junit.Test
 
-class PlayScreenTest {
+class PlayerScreenTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -50,7 +50,7 @@ class PlayScreenTest {
         val playerRepository = FakePlayerRepository()
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        composeTestRule.setContent { PlayScreen(playerViewModel = playerViewModel) }
+        composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
         // then
         composeTestRule.onNode(hasProgressBar())
@@ -66,9 +66,9 @@ class PlayScreenTest {
         val playerViewModel = PlayerViewModel(playerRepository)
 
         composeTestRule.setContent {
-            PlayScreen(
+            PlayerScreen(
                 playerViewModel = playerViewModel,
-                controlButtons = PlayScreenDefaults.defaultControlButtons(
+                controlButtons = PlayerScreenDefaults.defaultControlButtons(
                     playerViewModel = playerViewModel,
                     showProgress = showProgress
                 ),
@@ -90,7 +90,7 @@ class PlayScreenTest {
 
         assertThat(playerRepository.isPlaying.value).isFalse()
 
-        composeTestRule.setContent { PlayScreen(playerViewModel = playerViewModel) }
+        composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
         // when
         composeTestRule.onNodeWithContentDescription("Play")
@@ -111,7 +111,7 @@ class PlayScreenTest {
 
         assertThat(playerRepository.isPlaying.value).isTrue()
 
-        composeTestRule.setContent { PlayScreen(playerViewModel = playerViewModel) }
+        composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
         // when
         composeTestRule.onNodeWithContentDescription("Pause")
@@ -132,7 +132,7 @@ class PlayScreenTest {
 
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        composeTestRule.setContent { PlayScreen(playerViewModel = playerViewModel) }
+        composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
         // when
         composeTestRule.onNodeWithContentDescription("Previous")
@@ -153,7 +153,7 @@ class PlayScreenTest {
 
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        composeTestRule.setContent { PlayScreen(playerViewModel = playerViewModel) }
+        composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
         // when
         composeTestRule.onNodeWithContentDescription("Next")
@@ -169,7 +169,7 @@ class PlayScreenTest {
         val playerRepository = FakePlayerRepository()
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        composeTestRule.setContent { PlayScreen(playerViewModel = playerViewModel) }
+        composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
         // when
         playerRepository.updatePosition()
@@ -194,7 +194,7 @@ class PlayScreenTest {
 
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        composeTestRule.setContent { PlayScreen(playerViewModel = playerViewModel) }
+        composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
         val button = composeTestRule.onNodeWithContentDescription("Pause")
 
@@ -214,7 +214,7 @@ class PlayScreenTest {
         val playerRepository = FakePlayerRepository()
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        composeTestRule.setContent { PlayScreen(playerViewModel = playerViewModel) }
+        composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
         val button = composeTestRule.onNodeWithContentDescription("Previous")
 
@@ -234,7 +234,7 @@ class PlayScreenTest {
         val playerRepository = FakePlayerRepository()
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        composeTestRule.setContent { PlayScreen(playerViewModel = playerViewModel) }
+        composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
         val button = composeTestRule.onNodeWithContentDescription("Next")
 
@@ -266,7 +266,7 @@ class PlayScreenTest {
 
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        composeTestRule.setContent { PlayScreen(playerViewModel = playerViewModel) }
+        composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
         // then
         composeTestRule.onNode(hasText(artist)).assertExists()
@@ -292,9 +292,9 @@ class PlayScreenTest {
         val playerViewModel = PlayerViewModel(playerRepository)
 
         composeTestRule.setContent {
-            PlayScreen(
+            PlayerScreen(
                 playerViewModel = playerViewModel,
-                mediaDisplay = PlayScreenDefaults.customMediaDisplay { Text("Custom") }
+                mediaDisplay = PlayerScreenDefaults.customMediaDisplay { Text("Custom") }
             )
         }
 
@@ -309,9 +309,9 @@ class PlayScreenTest {
     fun givenCustomControlButtons_thenCustomIsDisplayed() {
         // given
         composeTestRule.setContent {
-            PlayScreen(
+            PlayerScreen(
                 playerViewModel = PlayerViewModel(FakePlayerRepository()),
-                controlButtons = PlayScreenDefaults.customControlButtons { Text("Custom") }
+                controlButtons = PlayerScreenDefaults.customControlButtons { Text("Custom") }
             )
         }
 
@@ -329,7 +329,7 @@ class PlayScreenTest {
     fun givenCustomButtons_thenCustomIsDisplayed() {
         // given
         composeTestRule.setContent {
-            PlayScreen(
+            PlayerScreen(
                 playerViewModel = PlayerViewModel(FakePlayerRepository()),
                 buttons = { Text("Custom") }
             )
@@ -343,7 +343,7 @@ class PlayScreenTest {
     fun givenCustomBackground_thenCustomIsDisplayed() {
         // given
         composeTestRule.setContent {
-            PlayScreen(
+            PlayerScreen(
                 playerViewModel = PlayerViewModel(FakePlayerRepository()),
                 background = { Text("Custom") }
             )

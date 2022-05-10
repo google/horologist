@@ -65,12 +65,12 @@ import com.google.android.horologist.media.ui.components.TextMediaDisplay
     showBackground = true
 )
 @Composable
-fun PlayScreenPreview() {
+fun PlayerScreenPreview() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         timeText = { TimeText() }
     ) {
-        PlayScreen(
+        PlayerScreen(
             mediaDisplay = {
                 TextMediaDisplay(
                     artist = "Journey",
@@ -120,12 +120,12 @@ fun PlayScreenPreview() {
     showBackground = true
 )
 @Composable
-fun PlayScreenPreviewCustomMediaDisplay() {
+fun PlayerScreenPreviewCustomMediaDisplay() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         timeText = { TimeText() }
     ) {
-        PlayScreen(
+        PlayerScreen(
             mediaDisplay = {
                 Text(
                     "RTÉ Lyric FM\nRTÉ",
@@ -184,12 +184,12 @@ fun PlayScreenPreviewCustomMediaDisplay() {
     showBackground = true
 )
 @Composable
-fun PlayScreenPreviewCustomBackground() {
+fun PlayerScreenPreviewCustomBackground() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         timeText = { TimeText() }
     ) {
-        PlayScreen(
+        PlayerScreen(
             mediaDisplay = {
                 TextMediaDisplay(
                     artist = "Casaca",

@@ -25,7 +25,7 @@ nav:
   - 'Media':
       - 'Media UI Guide': media-ui.md
       - 'Media Data Guide': media-data.md
-      - 'Stateful PlayScreen Guide': media-playscreen.md
+      - 'Stateful PlayerScreen Guide': media-playerscreen.md
   - 'Tiles':
       - 'Guide': tiles.md
   - 'Snapshots': using-snapshot-version.md

@@ -1,6 +1,6 @@
-# Stateful PlayScreen guide
+# Stateful PlayerScreen guide
 
-This is a guide on how to use the stateful `PlayScreen` with your own implementation of `PlayerRepository`.
+This is a guide on how to use the stateful `PlayerScreen` with your own implementation of `PlayerRepository`.
 
 ## Basic usage
 
@@ -54,12 +54,12 @@ class MyCustomViewModel(
 }
 ```
 
-### 3. Add PlayScreen
+### 3. Add PlayerScreen
 
 Pass your `PlayerViewModel` extension as value to the constructor parameter.
 
 ```kotlin
-PlayScreen(playerViewModel = myCustomViewModel)
+PlayerScreen(playerViewModel = myCustomViewModel)
 ```
 
 ## Class diagram

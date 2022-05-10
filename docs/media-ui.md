@@ -15,13 +15,13 @@ The previews of the composables can be found in the [debug][debug folder] folder
 This library also provides a [state][state package] package with a [PlayerUiState][playeruistate] and its own UI [models][state models package] to represent the state of common components that are displayed on a player screen. 
 They can be used with your own ViewModel implementation or with the [PlayerViewModel][playerviewmodel] provided.
 
-There is a guide on the usage of the stateful `PlayScreen` [here][stateful playerscreen guide].
+There is a guide on the usage of the stateful `PlayerScreen` [here][stateful playerscreen guide].
 
 ## Demo app
 
-A sample usage of [PlayScreen][play screen] can be found in the [sample][sample app package] app in this project, in the [media][media screen sample package] package.
+A sample usage of [PlayerScreen][player screen] can be found in the [sample][sample app package] app in this project, in the [media][media screen sample package] package.
 
-![](playscreen.png){: loading=lazy align=center }
+![](playerscreen.png){: loading=lazy align=center }
 
 ## Download
 
@@ -43,7 +43,7 @@ dependencies {
  [playeruistate]: https://github.com/google/horologist/blob/main/media-ui/src/main/java/com/google/android/horologist/media/ui/state/PlayerUiState.kt
  [state models package]: https://github.com/google/horologist/tree/main/media-ui/src/main/java/com/google/android/horologist/media/ui/state/model
  [playerviewmodel]: https://github.com/google/horologist/blob/main/media-ui/src/main/java/com/google/android/horologist/media/ui/state/PlayerViewModel.kt
- [stateful playerscreen guide]: https://google.github.io/horologist/media-playscreen/
- [play screen]: https://github.com/google/horologist/blob/main/media-ui/src/main/java/com/google/android/horologist/media/ui/screens/PlayScreen.kt
+ [stateful playerscreen guide]: https://google.github.io/horologist/media-playerscreen/
+ [player screen]: https://github.com/google/horologist/blob/main/media-ui/src/main/java/com/google/android/horologist/media/ui/screens/PlayerScreen.kt
  [sample app package]: https://github.com/google/horologist/tree/main/sample
  [media screen sample package]: https://github.com/google/horologist/tree/main/sample/src/main/java/com/google/android/horologist/sample/media

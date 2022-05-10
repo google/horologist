@@ -22,4 +22,6 @@
     <string name="tile_description">Basic tile description</string>
     <string name="tile_text">Hello world</string>
     <string name="chip_media_player_sample">Media Player Sample</string>
+    <string name="audio_output_content_description">Audio Output</string>
+    <string name="set_volume_content_description">Set Volume</string>
 </resources>

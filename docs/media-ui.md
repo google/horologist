@@ -21,7 +21,7 @@ There is a guide on the usage of the stateful `PlayScreen` [here][stateful playe
 
 A sample usage of [PlayScreen][play screen] can be found in the [sample][sample app package] app in this project, in the [media][media screen sample package] package.
 
-<img src="https://github.com/google/horologist/blob/main/docs/media-ui/playscreen.png" height="120" width="120" >
+![](playscreen.png){: loading=lazy align=center }
 
 ## Download
 

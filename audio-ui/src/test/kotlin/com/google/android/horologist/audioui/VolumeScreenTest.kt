@@ -19,9 +19,13 @@
 package com.google.android.horologist.audioui
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.wear.compose.material.Colors
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import app.cash.paparazzi.HtmlReportWriter
@@ -53,66 +57,106 @@ class VolumeScreenTest(
 
     @Test
     fun volumeScreenThemes() {
+        val volumeState = VolumeState(
+            current = 50,
+            max = 100,
+        )
+        val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
+
         paparazzi.snapshot(name = themeValue.safeName) {
-            MaterialTheme(colors = themeValue.colors) {
-                RoundPreview {
-                    Scaffold(
-                        positionIndicator = {
-                            VolumePositionIndicator(
-                                volumeState = { VolumeState(5, 10) },
-                                autoHide = false
-                            )
-                        }
-                    ) {
-                        VolumeScreen(
-                            volume = {
-                                VolumeState(
-                                    current = 50,
-                                    max = 100,
-                                )
-                            },
-                            audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds"),
-                            increaseVolume = { },
-                            decreaseVolume = { },
-                            onAudioOutputClick = { },
-                            showVolumeIndicator = false,
+            VolumeScreenTestCase(
+                colors = themeValue.colors,
+                volumeState = volumeState,
+                audioOutput = audioOutput
+            )
+        }
+    }
+
+    @Composable
+    private fun VolumeScreenTestCase(
+        colors: Colors,
+        volumeState: VolumeState,
+        audioOutput: AudioOutput.BluetoothHeadset
+    ) {
+        MaterialTheme(colors = colors) {
+            RoundPreview {
+                Scaffold(
+                    positionIndicator = {
+                        VolumePositionIndicator(
+                            volumeState = { volumeState },
+                            autoHide = false
                         )
                     }
+                ) {
+                    VolumeScreen(
+                        volume = { volumeState },
+                        audioOutput = audioOutput,
+                        increaseVolume = { },
+                        decreaseVolume = { },
+                        onAudioOutputClick = { },
+                        showVolumeIndicator = false,
+                    )
                 }
             }
         }
     }
 
     @Test
-    fun volumeScreenOrangey() {
-        assumeTrue(themeValue.colors == Orangey)
+    fun volumeScreenAtMinimum() {
+        assumeTrue(themeValue.index == 0)
+
+        val volumeState = VolumeState(
+            current = 0,
+            max = 100,
+        )
+        val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
         paparazzi.snapshot {
-            MaterialTheme(colors = Orangey) {
-                RoundPreview {
-                    Scaffold(
-                        positionIndicator = {
-                            VolumePositionIndicator(
-                                volumeState = { VolumeState(5, 10) },
-                                autoHide = false
-                            )
-                        }
-                    ) {
-                        VolumeScreen(
-                            volume = {
-                                VolumeState(
-                                    current = 50,
-                                    max = 100,
-                                )
-                            },
-                            audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds"),
-                            increaseVolume = { },
-                            decreaseVolume = { },
-                            onAudioOutputClick = { },
-                            showVolumeIndicator = false,
-                        )
-                    }
-                }
+            VolumeScreenTestCase(
+                colors = themeValue.colors,
+                volumeState = volumeState,
+                audioOutput = audioOutput
+            )
+        }
+    }
+
+    @Test
+    fun volumeScreenAtMaximum() {
+        assumeTrue(themeValue.index == 0)
+
+        val volumeState = VolumeState(
+            current = 100,
+            max = 100,
+        )
+        val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
+
+        paparazzi.snapshot {
+            VolumeScreenTestCase(
+                colors = themeValue.colors,
+                volumeState = volumeState,
+                audioOutput = audioOutput
+            )
+        }
+    }
+
+    @Test
+    fun volumeScreenWithGuides() {
+        assumeTrue(themeValue.index == 0)
+
+        val volumeState = VolumeState(
+            current = 50,
+            max = 100,
+        )
+        val audioOutput = AudioOutput.BluetoothHeadset("id", "Sennheiser Momentum Wireless")
+
+        paparazzi.snapshot {
+            Box(modifier = Modifier.fillMaxSize()) {
+                VolumeScreenTestCase(
+                    colors = themeValue.colors,
+                    volumeState = volumeState,
+                    audioOutput = audioOutput
+                )
+                VolumeScreenUxGuide()
             }
         }
     }

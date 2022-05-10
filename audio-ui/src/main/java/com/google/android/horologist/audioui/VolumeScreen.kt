@@ -24,7 +24,6 @@ import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -39,9 +38,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -49,17 +48,19 @@ import androidx.compose.ui.input.rotary.onRotaryScrollEvent
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.InlineSlider
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Stepper
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.R
+import com.google.android.horologist.audioui.VolumeScreenDefaults.DecreaseIcon
+import com.google.android.horologist.audioui.VolumeScreenDefaults.IncreaseIcon
 import kotlinx.coroutines.launch
 
 /**
@@ -82,8 +83,8 @@ public fun VolumeScreen(
     volumeViewModel: VolumeViewModel = viewModel(factory = VolumeViewModel.Factory),
     showVolumeIndicator: Boolean = true,
     focusRequester: FocusRequester = remember { FocusRequester() },
-    increaseIcon: (@Composable () -> Unit)? = null,
-    decreaseIcon: (@Composable () -> Unit)? = null,
+    increaseIcon: @Composable () -> Unit = { IncreaseIcon() },
+    decreaseIcon: @Composable () -> Unit = { DecreaseIcon() },
 ) {
     val volumeState by volumeViewModel.volumeState.collectAsState()
     val audioOutput by volumeViewModel.audioOutput.collectAsState()
@@ -107,14 +108,14 @@ public fun VolumeScreen(
 @OptIn(ExperimentalHorologistAudioApi::class)
 @Composable
 public fun VolumeScreen(
-    modifier: Modifier = Modifier,
     volume: () -> VolumeState,
     audioOutput: AudioOutput,
     increaseVolume: () -> Unit,
     decreaseVolume: () -> Unit,
     onAudioOutputClick: () -> Unit,
-    increaseIcon: (@Composable () -> Unit)? = null,
-    decreaseIcon: (@Composable () -> Unit)? = null,
+    modifier: Modifier = Modifier,
+    increaseIcon: @Composable () -> Unit = { IncreaseIcon() },
+    decreaseIcon: @Composable () -> Unit = { DecreaseIcon() },
     showVolumeIndicator: Boolean = true,
     focusRequester: FocusRequester = remember { FocusRequester() },
     scrollableState: ScrollableState? = null
@@ -137,41 +138,45 @@ public fun VolumeScreen(
             }
         },
     ) {
+        val volumeState = volume()
         Stepper(
-            modifier = modifier,
-            value = volume().current.toFloat(),
-            onValueChange = { if (it > volume().current) increaseVolume() else decreaseVolume() },
-            steps = volume().max - 1,
-            valueRange = (0f..volume().max.toFloat()),
-            increaseIcon = increaseIcon ?: {
-                Icon(
-                    modifier = Modifier
-                        .size(ButtonDefaults.DefaultButtonSize)
-                        .padding(top = 8.dp),
-                    imageVector = Icons.Default.VolumeUp,
-                    contentDescription = stringResource(id = R.string.volume_screen_volume_up),
-                )
+            value = volumeState.current.toFloat(),
+            onValueChange = { if (it > volumeState.current) increaseVolume() else decreaseVolume() },
+            steps = volumeState.max - 1,
+            valueRange = (0f..volumeState.max.toFloat()),
+            increaseIcon = {
+                if (volumeState.isMax) {
+                    Box(modifier = Modifier.alpha(0.38f)) {
+                        increaseIcon()
+                    }
+                } else {
+                    increaseIcon()
+                }
             },
-            decreaseIcon = decreaseIcon ?: {
-                Icon(
-                    modifier = Modifier
-                        .size(ButtonDefaults.DefaultButtonSize)
-                        .padding(bottom = 8.dp),
-                    imageVector = Icons.Default.VolumeDown,
-                    contentDescription = stringResource(id = R.string.volume_screen_volume_down),
-                )
+            decreaseIcon = {
+                if (volumeState.current == 0) {
+                    Box(modifier = Modifier.alpha(0.38f)) {
+                        decreaseIcon()
+                    }
+                } else {
+                    decreaseIcon()
+                }
             },
         ) {
             Chip(
                 modifier = Modifier
-                    .fillMaxWidth(0.9f)
-                    .align(Alignment.Center),
-                label = { Text(text = audioOutput.name) },
+                    .padding(horizontal = 18.dp),
+                label = {
+                    Text(
+                        text = audioOutput.name,
+                        maxLines = 2
+                    )
+                },
                 icon = {
                     Icon(
-                        modifier = Modifier,
                         imageVector = audioOutput.icon(),
                         contentDescription = audioOutput.name,
+                        tint = MaterialTheme.colors.onSurfaceVariant
                     )
                 },
                 onClick = onAudioOutputClick,
@@ -182,6 +187,28 @@ public fun VolumeScreen(
         if (showVolumeIndicator) {
             VolumePositionIndicator(volumeState = volume)
         }
+    }
+}
+
+public object VolumeScreenDefaults {
+    @Composable
+    public fun IncreaseIcon() {
+        Icon(
+            modifier = Modifier
+                .size(26.dp),
+            imageVector = Icons.Default.VolumeUp,
+            contentDescription = stringResource(id = R.string.volume_screen_volume_up),
+        )
+    }
+
+    @Composable
+    public fun DecreaseIcon() {
+        Icon(
+            modifier = Modifier
+                .size(26.dp),
+            imageVector = Icons.Default.VolumeDown,
+            contentDescription = stringResource(id = R.string.volume_screen_volume_down),
+        )
     }
 }
 

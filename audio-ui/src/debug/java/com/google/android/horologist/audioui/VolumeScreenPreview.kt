@@ -16,11 +16,16 @@
 
 package com.google.android.horologist.audioui
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
 
 @Preview(
@@ -41,17 +46,39 @@ import com.google.android.horologist.audio.VolumeState
     backgroundColor = 0xff000000,
     showBackground = true
 )
-@OptIn(ExperimentalHorologistAudioApi::class, ExperimentalHorologistAudioUiApi::class)
 @Composable
-fun VolumeScreenPreview() {
+@OptIn(ExperimentalHorologistAudioUiApi::class)
+fun VolumeScreenPreview(
+    @PreviewParameter(AudioOutputProvider::class) audioOutput: AudioOutput
+) {
     val volume = VolumeState(5, 10)
-    val audioOutput = AudioOutput.BluetoothHeadset(id = "1", name = "EarBuds")
 
-    VolumeScreen(
-        volume = { volume },
-        audioOutput = audioOutput,
-        increaseVolume = { /*TODO*/ },
-        decreaseVolume = { /*TODO*/ },
-        onAudioOutputClick = {},
+    Box(modifier = Modifier.fillMaxSize()) {
+        Scaffold(
+            positionIndicator = {
+                VolumePositionIndicator(
+                    volumeState = { VolumeState(5, 10) },
+                    autoHide = false
+                )
+            }
+        ) {
+            VolumeScreen(
+                volume = { volume },
+                audioOutput = audioOutput,
+                increaseVolume = { },
+                decreaseVolume = { },
+                onAudioOutputClick = {},
+            )
+        }
+        VolumeScreenUxGuide()
+    }
+}
+
+@OptIn(ExperimentalHorologistAudioUiApi::class)
+class AudioOutputProvider : PreviewParameterProvider<AudioOutput> {
+    override val values = sequenceOf(
+        AudioOutput.BluetoothHeadset(id = "1", name = "PixelBuds"),
+        AudioOutput.WatchSpeaker(id = "2", name = "Galaxy Watch 4"),
+        AudioOutput.BluetoothHeadset(id = "3", name = "Sennheiser Momentum Wireless"),
     )
 }

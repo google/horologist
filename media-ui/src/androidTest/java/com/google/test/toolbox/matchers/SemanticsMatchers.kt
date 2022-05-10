@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.google.test.toolbox
+package com.google.test.toolbox.matchers
 
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.components.semantics.CustomSemanticsProperties.IconImageVectorKey
+import com.google.android.horologist.media.ui.semantics.CustomSemanticsProperties.IconImageVectorKey
 
 @OptIn(ExperimentalHorologistMediaUiApi::class)
 fun hasIconImageVector(imageVector: ImageVector): SemanticsMatcher =

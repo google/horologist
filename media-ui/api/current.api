@@ -88,19 +88,6 @@ package com.google.android.horologist.media.ui.components.controls {
 
 }
 
-package com.google.android.horologist.media.ui.components.semantics {
-
-  @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class CustomSemanticsProperties {
-    method public androidx.compose.ui.graphics.vector.ImageVector getIconImageVector(androidx.compose.ui.semantics.SemanticsPropertyReceiver);
-    method public androidx.compose.ui.semantics.SemanticsPropertyKey<androidx.compose.ui.graphics.vector.ImageVector> getIconImageVectorKey();
-    method public void setIconImageVector(androidx.compose.ui.semantics.SemanticsPropertyReceiver, androidx.compose.ui.graphics.vector.ImageVector iconImageVector);
-    property public final androidx.compose.ui.semantics.SemanticsPropertyKey<androidx.compose.ui.graphics.vector.ImageVector> IconImageVectorKey;
-    property public final androidx.compose.ui.graphics.vector.ImageVector iconImageVector;
-    field public static final com.google.android.horologist.media.ui.components.semantics.CustomSemanticsProperties INSTANCE;
-  }
-
-}
-
 package com.google.android.horologist.media.ui.screens {
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public interface PlayerScreenControlButtons {
@@ -122,6 +109,19 @@ package com.google.android.horologist.media.ui.screens {
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public interface PlayerScreenMediaDisplay {
     method @androidx.compose.runtime.Composable public void Content(androidx.compose.foundation.layout.ColumnScope, com.google.android.horologist.media.ui.state.PlayerUiState playerUiState);
+  }
+
+}
+
+package com.google.android.horologist.media.ui.semantics {
+
+  @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class CustomSemanticsProperties {
+    method public androidx.compose.ui.graphics.vector.ImageVector getIconImageVector(androidx.compose.ui.semantics.SemanticsPropertyReceiver);
+    method public androidx.compose.ui.semantics.SemanticsPropertyKey<androidx.compose.ui.graphics.vector.ImageVector> getIconImageVectorKey();
+    method public void setIconImageVector(androidx.compose.ui.semantics.SemanticsPropertyReceiver, androidx.compose.ui.graphics.vector.ImageVector iconImageVector);
+    property public final androidx.compose.ui.semantics.SemanticsPropertyKey<androidx.compose.ui.graphics.vector.ImageVector> IconImageVectorKey;
+    property public final androidx.compose.ui.graphics.vector.ImageVector iconImageVector;
+    field public static final com.google.android.horologist.media.ui.semantics.CustomSemanticsProperties INSTANCE;
   }
 
 }

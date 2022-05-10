@@ -26,7 +26,7 @@ import androidx.compose.material.icons.filled.Replay5
 import androidx.compose.ui.test.assertContentDescriptionEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.test.toolbox.hasIconImageVector
+import com.google.test.toolbox.matchers.hasIconImageVector
 import org.junit.Rule
 import org.junit.Test
 

@@ -29,7 +29,7 @@ import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.media.ui.components.semantics.CustomSemanticsProperties.iconImageVector
+import com.google.android.horologist.media.ui.semantics.CustomSemanticsProperties.iconImageVector
 
 @ExperimentalHorologistMediaUiApi
 @Composable

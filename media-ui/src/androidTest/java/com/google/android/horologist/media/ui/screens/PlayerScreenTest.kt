@@ -34,7 +34,7 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.common.truth.Truth.assertThat
-import com.google.test.toolbox.hasProgressBar
+import com.google.test.toolbox.matchers.hasProgressBar
 import com.google.test.toolbox.testdoubles.FakePlayerRepository
 import org.junit.Rule
 import org.junit.Test

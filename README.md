@@ -4,14 +4,14 @@ Horologist is a group of libraries that aim to supplement Wear OS developers wit
 
 ## 🎵 Media UI
 
-UI and Data layers for media player. PlayScreen and individual UI components.
+UI and Data layers for media player. `PlayerScreen` and individual UI components.
 
 - [horologist-media-ui](./media-ui)
 - [horologist-media-data](./media-data)
 
-| PlayScreen |
-|---|
-| <img src="https://raw.githubusercontent.com/google/horologist/main/docs/media-ui/playscreen.png" height="120" width="120" > |
+| PlayerScreen                                                                                                                  |
+|-------------------------------------------------------------------------------------------------------------------------------|
+| <img src="https://raw.githubusercontent.com/google/horologist/main/docs/media-ui/playerscreen.png" height="120" width="120" > |
 
 ## 📅 Composables
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,10 +23,12 @@ import androidx.compose.material.icons.filled.VolumeMute
 import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
 import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.sample.R
 
 /**
  * Button to launch a screen to control the system volume.
@@ -35,9 +37,9 @@ import com.google.android.horologist.audio.VolumeState
  */
 @Composable
 fun SetVolumeButton(
-    modifier: Modifier = Modifier,
     onVolumeClick: () -> Unit,
-    volumeState: VolumeState
+    volumeState: VolumeState,
+    modifier: Modifier = Modifier,
 ) {
     Button(
         modifier = modifier.size(ButtonDefaults.SmallButtonSize),
@@ -50,6 +52,9 @@ fun SetVolumeButton(
             else -> Icons.Default.VolumeDown
         }
 
-        Icon(imageVector = imageVector, contentDescription = "Set Volume")
+        Icon(
+            imageVector = imageVector,
+            contentDescription = stringResource(R.string.set_volume_content_description)
+        )
     }
 }

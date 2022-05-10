@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +22,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.google.android.horologist.audio.BluetoothSettings.launchBluetoothSettings
 import com.google.android.horologist.audioui.VolumeViewModel
 import com.google.wear.media3.ui.components.actions.AudioOutputButton
 
@@ -34,11 +32,11 @@ import com.google.wear.media3.ui.components.actions.AudioOutputButton
  */
 @Composable
 fun SettingsButtons(
-    modifier: Modifier = Modifier,
     volumeViewModel: VolumeViewModel,
-    onVolumeClick: () -> Unit
+    onVolumeClick: () -> Unit,
+    onOutputClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    val context = LocalContext.current
     val volumeState = volumeViewModel.volumeState.collectAsState().value
 
     Row(modifier = modifier) {
@@ -48,7 +46,7 @@ fun SettingsButtons(
         )
         Spacer(modifier = Modifier.size(16.dp))
         AudioOutputButton(
-            onOutputClick = { context.launchBluetoothSettings() }
+            onOutputClick = onOutputClick
         )
     }
 }

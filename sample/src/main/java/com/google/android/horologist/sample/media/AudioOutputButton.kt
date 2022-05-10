@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,23 +21,28 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Radio
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
+import com.google.android.horologist.sample.R
 
 /**
  * A button to launch the system bluetooth settings to connect to a headset.
  */
 @Composable
 fun AudioOutputButton(
+    onOutputClick: () -> Unit,
     modifier: Modifier = Modifier,
-    onOutputClick: () -> Unit
 ) {
     Button(
         modifier = modifier.size(ButtonDefaults.SmallButtonSize),
         onClick = onOutputClick,
         colors = ButtonDefaults.iconButtonColors(),
     ) {
-        Icon(imageVector = Icons.Default.Radio, contentDescription = "Radio")
+        Icon(
+            imageVector = Icons.Default.Radio,
+            contentDescription = stringResource(R.string.audio_output_content_description)
+        )
     }
 }

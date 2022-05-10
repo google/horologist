@@ -36,11 +36,13 @@ fun MediaPlayerScreen(
     mediaPlayerScreenViewModel: MediaPlayerScreenViewModel,
     volumeViewModel: VolumeViewModel,
     onVolumeClick: () -> Unit,
+    onOutputClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val playerFocusRequester = remember { FocusRequester() }
 
     Scaffold(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .scrollableColumn(
                 focusRequester = playerFocusRequester,
@@ -55,7 +57,11 @@ fun MediaPlayerScreen(
         PlayerScreen(
             playerViewModel = mediaPlayerScreenViewModel,
             buttons = {
-                SettingsButtons(volumeViewModel = volumeViewModel, onVolumeClick = onVolumeClick)
+                SettingsButtons(
+                    volumeViewModel = volumeViewModel,
+                    onVolumeClick = onVolumeClick,
+                    onOutputClick = onOutputClick
+                )
             }
         )
     }

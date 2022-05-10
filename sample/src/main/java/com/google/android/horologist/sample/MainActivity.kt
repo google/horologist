@@ -30,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material.Icon
@@ -37,6 +38,7 @@ import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.google.android.horologist.audio.BluetoothSettings.launchBluetoothSettings
 import com.google.android.horologist.audioui.VolumeScreen
 import com.google.android.horologist.audioui.VolumeViewModel
 import com.google.android.horologist.composables.DatePicker
@@ -153,11 +155,16 @@ fun WearApp(
                 )
             }
             composable(Screen.MediaPlayer.route) {
+                val context = LocalContext.current
+
                 MediaPlayerScreen(
                     mediaPlayerScreenViewModel = viewModel(factory = mediaPlayerScreenViewModelFactory),
                     volumeViewModel = viewModel(factory = VolumeViewModel.Factory),
                     onVolumeClick = {
                         navController.navigate(Screen.Volume.route)
+                    },
+                    onOutputClick = {
+                        context.launchBluetoothSettings()
                     }
                 )
             }

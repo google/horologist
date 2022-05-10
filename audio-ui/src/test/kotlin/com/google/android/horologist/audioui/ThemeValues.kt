@@ -19,11 +19,18 @@ package com.google.android.horologist.audioui
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.Colors
 
-data class ThemeValues(val name:String, val index: Int, val colors: Colors) {
+data class ThemeValues(val name: String, val index: Int, val colors: Colors) {
     val safeName: String
         get() = name.replace("[^A-Za-z0-9]".toRegex(), "")
 }
- 
+
+val Orangey = Colors(
+    secondary = Color(0xFFED612B), // Used for RSB
+    surface = Color(0xFF202124), // Used for Device Chip
+    onPrimary = Color(0xFFED612B),
+    onSurface = Color(0xFFED612B),
+)
+
 val themeValues = listOf(
     ThemeValues("Blue (Default - AECBFA)", 0, Colors()),
     ThemeValues(
@@ -57,15 +64,27 @@ val themeValues = listOf(
         )
     ),
     ThemeValues(
-        "Green and Red",
+        "Blue with Text (7FCFFF)",
         4,
         Colors(
-            primary = Color(0xFF6DD58C),
-            primaryVariant = Color(0xFF1EA446),
-            secondary = Color(0xFFFFBB29),
-            secondaryVariant = Color(0xFFD68400),
-            onPrimary = Color.Red,
-            onSecondary = Color.White
+            primary = Color(0xFF7FCFFF),
+            primaryVariant = Color(0xFF3998D3),
+            onPrimary = Color(0xFF003355),
+            secondary = Color(0xFF6DD58C),
+            secondaryVariant = Color(0xFF1EA446),
+            onSecondary = Color(0xFF0A3818),
+            surface = Color(0xFF303030),
+            onSurface = Color(0xFFE3E3E3),
+            onSurfaceVariant = Color(0xFFC4C7C5),
+            background = Color.Black,
+            onBackground = Color.White,
+            error = Color(0xFFF2B8B5),
+            onError = Color(0xFF370906)
         )
+    ),
+    ThemeValues(
+        "Orange-y",
+        5,
+        Orangey
     ),
 )

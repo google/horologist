@@ -35,6 +35,7 @@ import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
+import org.junit.Assume.assumeTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -53,7 +54,8 @@ class VolumeScreenTest(
     )
 
     @Test
-    fun compose() {
+    fun volumeScreenThemes(
+    ) {
         paparazzi.snapshot(name = "VolumeScreen_${themeValue.safeName}") {
             MaterialTheme(colors = themeValue.colors) {
                 RoundPreview {
@@ -83,7 +85,50 @@ class VolumeScreenTest(
                             audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds"),
                             increaseVolume = { },
                             decreaseVolume = { },
-                            onAudioOutputClick = { }
+                            onAudioOutputClick = { },
+                            showVolumeIndicator = false,
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun volumeScreenOrangey() {
+        assumeTrue(themeValue.colors == Orangey)
+
+        paparazzi.snapshot(name = "VolumeScreenWithIcons") {
+            MaterialTheme(colors = Orangey) {
+                RoundPreview {
+                    Scaffold(
+                        timeText = {
+                            TimeText(
+                                timeSource = object : TimeSource {
+                                    override val currentTime: String
+                                        @Composable get() = "1:03 pm"
+                                }
+                            )
+                        },
+                        positionIndicator = {
+                            VolumePositionIndicator(
+                                volumeState = { VolumeState(5, 10) },
+                                autoHide = false
+                            )
+                        }
+                    ) {
+                        VolumeScreen(
+                            volume = {
+                                VolumeState(
+                                    current = 50,
+                                    max = 100,
+                                )
+                            },
+                            audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds"),
+                            increaseVolume = { },
+                            decreaseVolume = { },
+                            onAudioOutputClick = { },
+                            showVolumeIndicator = false,
                         )
                     }
                 }

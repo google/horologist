@@ -54,8 +54,7 @@ class VolumeScreenTest(
     )
 
     @Test
-    fun volumeScreenThemes(
-    ) {
+    fun volumeScreenThemes() {
         paparazzi.snapshot(name = "VolumeScreen_${themeValue.safeName}") {
             MaterialTheme(colors = themeValue.colors) {
                 RoundPreview {

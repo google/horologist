@@ -23,9 +23,11 @@ import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DeviceUnknown
 import androidx.compose.material.icons.filled.Headphones
@@ -165,9 +167,11 @@ public fun VolumeScreen(
         ) {
             Chip(
                 modifier = Modifier
-                    .padding(horizontal = 18.dp),
+                    .padding(horizontal = 18.dp)
+                    .width(intrinsicSize = IntrinsicSize.Max),
                 label = {
                     Text(
+                        modifier = Modifier.width(IntrinsicSize.Min),
                         text = audioOutput.name,
                         maxLines = 2
                     )

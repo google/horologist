@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.wear.media3.ui.components.actions
+package com.google.android.horologist.sample.media
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons

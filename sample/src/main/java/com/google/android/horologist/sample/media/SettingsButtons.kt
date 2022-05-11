@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
 
 /**
  * Settings buttons for a typical media app.

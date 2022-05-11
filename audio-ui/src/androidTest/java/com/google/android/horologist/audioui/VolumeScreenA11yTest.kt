@@ -64,7 +64,7 @@ class VolumeScreenA11yTest {
         val outputChip = composeTestRule.onNodeWithContentDescription("Pixelbuds")
         outputChip.assertIsDisplayed()
         outputChip.assertHasClickAction()
-        outputChip.assert(hasStateDescription("Connected 0%"))
+        outputChip.assert(hasStateDescription("Connected, Volume 0"))
         assertThat(outputChip.fetchSemanticsNode().config[SemanticsActions.OnClick].label).isEqualTo("Change Audio Output")
 
         val volumeDown = composeTestRule.onNodeWithContentDescription("Decrease Volume")

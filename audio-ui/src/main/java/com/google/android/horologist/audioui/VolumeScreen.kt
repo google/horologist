@@ -208,7 +208,7 @@ public fun VolumeScreen(
 @Composable
 private fun volumeDescription(volumeState: VolumeState, audioOutput: AudioOutput): String {
     return if (audioOutput is AudioOutput.BluetoothHeadset)
-        stringResource(id = R.string.volume_screen_connected, (volumeState.current.toFloat() / volumeState.max).toInt())
+        stringResource(id = R.string.volume_screen_connected, volumeState.current)
     else
         stringResource(id = R.string.volume_screen_not_connected)
 }

@@ -20,11 +20,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.google.android.horologist.audioui.VolumeViewModel
-import com.google.wear.media3.ui.components.actions.AudioOutputButton
+import com.google.android.horologist.audio.VolumeState
 
 /**
  * Settings buttons for a typical media app.
@@ -32,13 +30,11 @@ import com.google.wear.media3.ui.components.actions.AudioOutputButton
  */
 @Composable
 fun SettingsButtons(
-    volumeViewModel: VolumeViewModel,
+    volumeState: VolumeState,
     onVolumeClick: () -> Unit,
     onOutputClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val volumeState = volumeViewModel.volumeState.collectAsState().value
-
     Row(modifier = modifier) {
         SetVolumeButton(
             onVolumeClick = onVolumeClick,

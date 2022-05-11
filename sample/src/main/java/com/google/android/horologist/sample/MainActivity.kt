@@ -39,8 +39,8 @@ import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.audio.BluetoothSettings.launchBluetoothSettings
-import com.google.android.horologist.audioui.VolumeScreen
-import com.google.android.horologist.audioui.VolumeViewModel
+import com.google.android.horologist.audio.ui.VolumeScreen
+import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock

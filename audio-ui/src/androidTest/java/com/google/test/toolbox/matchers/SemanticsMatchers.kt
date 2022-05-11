@@ -14,23 +14,14 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.audioui
+package com.google.test.toolbox.matchers
 
-import android.content.res.Configuration
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.SemanticsMatcher.Companion.expectValue
+import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
+import com.google.android.horologist.audio.ui.semantics.CustomSemanticsProperties.IconImageVectorKey
 
-@Composable
-fun RoundPreview(content: @Composable () -> Unit) {
-    val configuration =
-        LocalConfiguration.current.let {
-            Configuration(it).apply {
-                screenLayout = (screenLayout or Configuration.SCREENLAYOUT_ROUND_YES)
-            }
-        }
-
-    CompositionLocalProvider(LocalConfiguration provides configuration) {
-        content()
-    }
-}
+@OptIn(ExperimentalHorologistAudioUiApi::class)
+fun hasIconImageVector(imageVector: ImageVector): SemanticsMatcher =
+    expectValue(IconImageVectorKey, imageVector)

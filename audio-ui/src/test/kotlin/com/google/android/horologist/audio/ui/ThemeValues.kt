@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.audioui
+package com.google.android.horologist.audio.ui
 
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.Colors

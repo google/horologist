@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 @file:OptIn(ExperimentalComposeUiApi::class)
 
-package com.google.android.horologist.audioui
+package com.google.android.horologist.audio.ui
 
 import android.media.AudioManager
 import androidx.compose.foundation.focusable
@@ -63,9 +63,8 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.audio.ui.R
-import com.google.android.horologist.audioui.VolumeScreenDefaults.DecreaseIcon
-import com.google.android.horologist.audioui.VolumeScreenDefaults.IncreaseIcon
+import com.google.android.horologist.audio.ui.VolumeScreenDefaults.DecreaseIcon
+import com.google.android.horologist.audio.ui.VolumeScreenDefaults.IncreaseIcon
 import kotlinx.coroutines.launch
 
 /**

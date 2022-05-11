@@ -20,4 +20,5 @@
     <string name="volume_screen_connected">Connected, Volume %1$d</string>
     <string name="volume_screen_not_connected">Not Connected</string>
     <string name="volume_screen_change_audio_output">Change Audio Output</string>
+    <string name="set_volume_content_description">Set Volume</string>
 </resources>

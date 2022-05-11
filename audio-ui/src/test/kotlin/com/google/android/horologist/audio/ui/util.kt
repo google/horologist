@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.audioui
+package com.google.android.horologist.audio.ui
 
 import app.cash.paparazzi.HtmlReportWriter
 import app.cash.paparazzi.SnapshotHandler

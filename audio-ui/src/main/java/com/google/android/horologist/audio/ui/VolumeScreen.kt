@@ -48,6 +48,9 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material.Chip
@@ -164,10 +167,18 @@ public fun VolumeScreen(
                 }
             },
         ) {
+            val stateDescriptionText = volumeDescription(volumeState, audioOutput)
+
+            val onClickLabel = stringResource(id = R.string.volume_screen_change_audio_output)
+
             Chip(
                 modifier = Modifier
                     .padding(horizontal = 18.dp)
-                    .width(intrinsicSize = IntrinsicSize.Max),
+                    .width(intrinsicSize = IntrinsicSize.Max)
+                    .semantics {
+                        stateDescription = stateDescriptionText
+                        onClick(onClickLabel) { onAudioOutputClick(); true }
+                    },
                 label = {
                     Text(
                         modifier = Modifier.width(IntrinsicSize.Min),
@@ -191,6 +202,14 @@ public fun VolumeScreen(
             VolumePositionIndicator(volumeState = volume)
         }
     }
+}
+
+@Composable
+private fun volumeDescription(volumeState: VolumeState, audioOutput: AudioOutput): String {
+    return if (audioOutput is AudioOutput.BluetoothHeadset)
+        stringResource(id = R.string.volume_screen_connected, volumeState.current)
+    else
+        stringResource(id = R.string.volume_screen_not_connected)
 }
 
 public object VolumeScreenDefaults {

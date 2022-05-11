@@ -55,18 +55,18 @@ class VolumeScreenA11yTest {
         val screen = composeTestRule.onRoot()
         screen.printToLog("VolumeScreen")
 
-        val volumeUp = composeTestRule.onNodeWithContentDescription("Increase Volume")
-        volumeUp.assertIsDisplayed()
-        volumeUp.assertHasClickAction()
+        composeTestRule.onNodeWithContentDescription("Increase Volume")
+            .assertIsDisplayed()
+            .assertHasClickAction()
 
-        val outputChip = composeTestRule.onNodeWithContentDescription("Pixelbuds")
-        outputChip.assertIsDisplayed()
-        outputChip.assertHasClickAction()
-        outputChip.assertHasStateDescription("Connected, Volume 0")
-        outputChip.assertHasClickLabel("Change Audio Output")
+        composeTestRule.onNodeWithContentDescription("Pixelbuds")
+            .assertIsDisplayed()
+            .assertHasClickAction()
+            .assertHasStateDescription("Connected, Volume 0")
+            .assertHasClickLabel("Change Audio Output")
 
-        val volumeDown = composeTestRule.onNodeWithContentDescription("Decrease Volume")
-        volumeDown.assertIsDisplayed()
-        volumeDown.assertHasClickAction()
+        composeTestRule.onNodeWithContentDescription("Decrease Volume")
+            .assertIsDisplayed()
+            .assertHasClickAction()
     }
 }

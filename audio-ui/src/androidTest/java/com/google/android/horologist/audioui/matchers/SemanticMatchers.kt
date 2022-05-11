@@ -20,12 +20,14 @@ import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.hasStateDescription
-import com.google.common.truth.Truth
+import com.google.common.truth.Truth.assertThat
 
-fun SemanticsNodeInteraction.assertHasStateDescription(value: String) {
+fun SemanticsNodeInteraction.assertHasStateDescription(value: String): SemanticsNodeInteraction {
     assert(hasStateDescription(value))
+    return this
 }
 
-fun SemanticsNodeInteraction.assertHasClickLabel(label: String) {
-    Truth.assertThat(fetchSemanticsNode().config[SemanticsActions.OnClick].label).isEqualTo(label)
+fun SemanticsNodeInteraction.assertHasClickLabel(label: String): SemanticsNodeInteraction {
+    assertThat(fetchSemanticsNode().config[SemanticsActions.OnClick].label).isEqualTo(label)
+    return this
 }

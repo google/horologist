@@ -17,11 +17,26 @@
 package com.google.test.toolbox.matchers
 
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.SemanticsMatcher.Companion.expectValue
+import androidx.compose.ui.test.SemanticsNodeInteraction
+import androidx.compose.ui.test.assert
+import androidx.compose.ui.test.hasStateDescription
 import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.semantics.CustomSemanticsProperties.IconImageVectorKey
+import com.google.common.truth.Truth
 
 @OptIn(ExperimentalHorologistAudioUiApi::class)
 fun hasIconImageVector(imageVector: ImageVector): SemanticsMatcher =
     expectValue(IconImageVectorKey, imageVector)
+
+fun SemanticsNodeInteraction.assertHasStateDescription(value: String): SemanticsNodeInteraction {
+    assert(hasStateDescription(value))
+    return this
+}
+
+fun SemanticsNodeInteraction.assertHasClickLabel(label: String): SemanticsNodeInteraction {
+    Truth.assertThat(fetchSemanticsNode().config[SemanticsActions.OnClick].label).isEqualTo(label)
+    return this
+}

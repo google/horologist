@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.audioui
+package com.google.android.horologist.audio.ui
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,8 +26,8 @@ import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.printToLog
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.audioui.matchers.assertHasClickLabel
-import com.google.android.horologist.audioui.matchers.assertHasStateDescription
+import com.google.test.toolbox.matchers.assertHasClickLabel
+import com.google.test.toolbox.matchers.assertHasStateDescription
 import org.junit.Rule
 import org.junit.Test
 

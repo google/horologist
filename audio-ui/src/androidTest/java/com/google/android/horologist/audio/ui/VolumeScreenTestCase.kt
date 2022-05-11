@@ -16,7 +16,7 @@
 
 @file:OptIn(ExperimentalHorologistAudioUiApi::class)
 
-package com.google.android.horologist.audioui
+package com.google.android.horologist.audio.ui
 
 import androidx.compose.runtime.Composable
 import androidx.wear.compose.material.Scaffold

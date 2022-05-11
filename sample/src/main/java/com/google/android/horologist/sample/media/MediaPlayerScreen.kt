@@ -40,6 +40,7 @@ fun MediaPlayerScreen(
     modifier: Modifier = Modifier,
 ) {
     val playerFocusRequester = remember { FocusRequester() }
+    val volumeState by rememberStateWithLifecycle(flow = volumeViewModel.volumeState)
 
     Scaffold(
         modifier = modifier
@@ -48,17 +49,14 @@ fun MediaPlayerScreen(
                 focusRequester = playerFocusRequester,
                 volumeViewModel.volumeScrollableState
             ),
-        positionIndicator = {
-            val volumeState by rememberStateWithLifecycle(flow = volumeViewModel.volumeState)
-            VolumePositionIndicator(volumeState = { volumeState })
-        },
+        positionIndicator = { VolumePositionIndicator(volumeState = { volumeState }) },
         timeText = { TimeText() }
     ) {
         PlayerScreen(
             playerViewModel = mediaPlayerScreenViewModel,
             buttons = {
                 SettingsButtons(
-                    volumeViewModel = volumeViewModel,
+                    volumeState = volumeState,
                     onVolumeClick = onVolumeClick,
                     onOutputClick = onOutputClick
                 )

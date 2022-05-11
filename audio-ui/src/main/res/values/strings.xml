@@ -17,4 +17,5 @@
 <resources>
     <string name="volume_screen_volume_up">Volume Up</string>
     <string name="volume_screen_volume_down">Volume Down</string>
+    <string name="set_volume_content_description">Set Volume</string>
 </resources>

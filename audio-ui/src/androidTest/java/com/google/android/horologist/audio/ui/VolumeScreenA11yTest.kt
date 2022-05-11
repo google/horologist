@@ -22,8 +22,6 @@ import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
-import androidx.compose.ui.test.onRoot
-import androidx.compose.ui.test.printToLog
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.test.toolbox.matchers.assertHasClickLabel
@@ -39,8 +37,8 @@ class VolumeScreenA11yTest {
     fun testLabelOrdering() {
         val volumeState by mutableStateOf(
             VolumeState(
-                current = 0,
-                max = 100,
+                current = 5,
+                max = 10,
             )
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
@@ -52,9 +50,6 @@ class VolumeScreenA11yTest {
             )
         }
 
-        val screen = composeTestRule.onRoot()
-        screen.printToLog("VolumeScreen")
-
         composeTestRule.onNodeWithContentDescription("Increase Volume")
             .assertIsDisplayed()
             .assertHasClickAction()
@@ -62,7 +57,7 @@ class VolumeScreenA11yTest {
         composeTestRule.onNodeWithContentDescription("Pixelbuds")
             .assertIsDisplayed()
             .assertHasClickAction()
-            .assertHasStateDescription("Connected, Volume 0")
+            .assertHasStateDescription("Connected, Volume 5")
             .assertHasClickLabel("Change Audio Output")
 
         composeTestRule.onNodeWithContentDescription("Decrease Volume")

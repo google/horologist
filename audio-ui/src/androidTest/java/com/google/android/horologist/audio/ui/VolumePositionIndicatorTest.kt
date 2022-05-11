@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.audioui
+package com.google.android.horologist.audio.ui
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

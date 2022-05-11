@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.audioui
+package com.google.android.horologist.audio.ui
 
 @RequiresOptIn(
     message = "Horologist Audio is experimental. The API may be changed in the future."

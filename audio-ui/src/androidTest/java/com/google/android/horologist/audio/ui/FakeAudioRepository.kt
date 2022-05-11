@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.audioui
+package com.google.android.horologist.audio.ui
 
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.AudioOutputRepository

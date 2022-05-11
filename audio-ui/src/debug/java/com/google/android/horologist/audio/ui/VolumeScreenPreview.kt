@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.audioui
+package com.google.android.horologist.audio.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

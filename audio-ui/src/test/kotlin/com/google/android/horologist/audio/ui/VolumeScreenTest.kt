@@ -16,7 +16,7 @@
 
 @file:OptIn(ExperimentalHorologistAudioApi::class)
 
-package com.google.android.horologist.audioui
+package com.google.android.horologist.audio.ui
 
 import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.audio.AudioOutput

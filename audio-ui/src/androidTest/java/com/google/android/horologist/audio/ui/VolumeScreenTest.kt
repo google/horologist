@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.audioui
+package com.google.android.horologist.audio.ui
 
 import android.os.Vibrator
 import androidx.compose.foundation.layout.fillMaxSize

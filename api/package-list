@@ -20,8 +20,8 @@ module:media-ui
 com.google.android.horologist.media.ui
 com.google.android.horologist.media.ui.components
 com.google.android.horologist.media.ui.components.controls
-com.google.android.horologist.media.ui.components.semantics
 com.google.android.horologist.media.ui.screens
+com.google.android.horologist.media.ui.semantics
 com.google.android.horologist.media.ui.state
 com.google.android.horologist.media.ui.state.mapper
 com.google.android.horologist.media.ui.state.model

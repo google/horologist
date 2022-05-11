@@ -12,14 +12,14 @@
         <meta name="author" content="Google">
       
       
-        <link rel="canonical" href="https://google.github.io/horologist/media-playscreen/">
+        <link rel="canonical" href="https://google.github.io/horologist/media-playerscreen/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.14">
     
     
       
-        <title>Stateful PlayScreen Guide - Horologist</title>
+        <title>Stateful PlayerScreen Guide - Horologist</title>
       
     
     
@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#stateful-playscreen-guide" class="md-skip">
+        <a href="#stateful-playerscreen-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Stateful PlayScreen Guide
+              Stateful PlayerScreen Guide
             
           </span>
         </div>
@@ -451,12 +451,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Stateful PlayScreen Guide
+          Stateful PlayerScreen Guide
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Stateful PlayScreen Guide
+        Stateful PlayerScreen Guide
       </a>
       
         
@@ -497,8 +497,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-add-playscreen" class="md-nav__link">
-    3. Add PlayScreen
+  <a href="#3-add-playerscreen" class="md-nav__link">
+    3. Add PlayerScreen
   </a>
   
 </li>
@@ -705,8 +705,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-add-playscreen" class="md-nav__link">
-    3. Add PlayScreen
+  <a href="#3-add-playerscreen" class="md-nav__link">
+    3. Add PlayerScreen
   </a>
   
 </li>
@@ -735,14 +735,14 @@
             <article class="md-content__inner md-typeset">
               
                 
-  <a href="https://github.com/google/horologist/tree/main/docs/media-playscreen.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/google/horologist/tree/main/docs/media-playerscreen.md" title="Edit this page" class="md-content__button md-icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
 
-<h1 id="stateful-playscreen-guide">Stateful PlayScreen guide<a class="headerlink" href="#stateful-playscreen-guide" title="Permanent link">&para;</a></h1>
-<p>This is a guide on how to use the stateful <code>PlayScreen</code> with your own implementation of <code>PlayerRepository</code>.</p>
+<h1 id="stateful-playerscreen-guide">Stateful PlayerScreen guide<a class="headerlink" href="#stateful-playerscreen-guide" title="Permanent link">&para;</a></h1>
+<p>This is a guide on how to use the stateful <code>PlayerScreen</code> with your own implementation of <code>PlayerRepository</code>.</p>
 <h2 id="basic-usage">Basic usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
 <h3 id="1-implement-playerrepository">1. Implement PlayerRepository<a class="headerlink" href="#1-implement-playerrepository" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">PlayerRepositoryImpl</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">PlayerRepository</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -783,9 +783,9 @@ also called on the <code>Player</code> (see <code>setPlaybackSpeed</code>).</p>
 <span class="w">    </span><span class="c1">// add custom implementation</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
-<h3 id="3-add-playscreen">3. Add PlayScreen<a class="headerlink" href="#3-add-playscreen" title="Permanent link">&para;</a></h3>
+<h3 id="3-add-playerscreen">3. Add PlayerScreen<a class="headerlink" href="#3-add-playerscreen" title="Permanent link">&para;</a></h3>
 <p>Pass your <code>PlayerViewModel</code> extension as value to the constructor parameter.</p>
-<div class="highlight"><pre><span></span><code><span class="n">PlayScreen</span><span class="p">(</span><span class="n">playerViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myCustomViewModel</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">PlayerScreen</span><span class="p">(</span><span class="n">playerViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myCustomViewModel</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 <h2 id="class-diagram">Class diagram<a class="headerlink" href="#class-diagram" title="Permanent link">&para;</a></h2>
 <p>The following diagram shows the interactions between the classes.</p>

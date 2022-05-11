@@ -18,18 +18,16 @@ package com.google.android.horologist.audioui
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.semantics.SemanticsActions
-import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.hasStateDescription
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.printToLog
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
-import com.google.common.truth.Truth.assertThat
+import com.google.android.horologist.audioui.matchers.assertHasClickLabel
+import com.google.android.horologist.audioui.matchers.assertHasStateDescription
 import org.junit.Rule
 import org.junit.Test
 
@@ -64,8 +62,8 @@ class VolumeScreenA11yTest {
         val outputChip = composeTestRule.onNodeWithContentDescription("Pixelbuds")
         outputChip.assertIsDisplayed()
         outputChip.assertHasClickAction()
-        outputChip.assert(hasStateDescription("Connected, Volume 0"))
-        assertThat(outputChip.fetchSemanticsNode().config[SemanticsActions.OnClick].label).isEqualTo("Change Audio Output")
+        outputChip.assertHasStateDescription("Connected, Volume 0")
+        outputChip.assertHasClickLabel("Change Audio Output")
 
         val volumeDown = composeTestRule.onNodeWithContentDescription("Decrease Volume")
         volumeDown.assertIsDisplayed()

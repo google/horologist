@@ -19,37 +19,30 @@
 package com.google.android.horologist.audioui
 
 import androidx.compose.runtime.Composable
-import androidx.wear.compose.material.Colors
-import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 
 @Composable
 fun VolumeScreenTestCase(
-    colors: Colors = MaterialTheme.colors,
     volumeState: VolumeState,
     audioOutput: AudioOutput.BluetoothHeadset
 ) {
-    MaterialTheme(colors = colors) {
-        RoundPreview {
-            Scaffold(
-                positionIndicator = {
-                    VolumePositionIndicator(
-                        volumeState = { volumeState },
-                        autoHide = false
-                    )
-                }
-            ) {
-                VolumeScreen(
-                    volume = { volumeState },
-                    audioOutput = audioOutput,
-                    increaseVolume = { },
-                    decreaseVolume = { },
-                    onAudioOutputClick = { },
-                    showVolumeIndicator = false,
-                )
-            }
+    Scaffold(
+        positionIndicator = {
+            VolumePositionIndicator(
+                volumeState = { volumeState },
+                autoHide = false
+            )
         }
+    ) {
+        VolumeScreen(
+            volume = { volumeState },
+            audioOutput = audioOutput,
+            increaseVolume = { },
+            decreaseVolume = { },
+            onAudioOutputClick = { },
+            showVolumeIndicator = false,
+        )
     }
 }

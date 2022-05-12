@@ -25,11 +25,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
+import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.R
 
 /**
  * A button to launch the system bluetooth settings to connect to a headset.
  */
+@ExperimentalHorologistAudioUiApi
 @Composable
 public fun AudioOutputButton(
     onOutputClick: () -> Unit,

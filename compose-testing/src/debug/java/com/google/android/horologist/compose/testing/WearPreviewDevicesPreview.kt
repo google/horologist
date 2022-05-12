@@ -28,7 +28,7 @@ import androidx.wear.compose.material.Text
 @Composable
 @Preview
 fun Preview() {
-    Box(modifier =  Modifier.background(Color.LightGray), contentAlignment = Alignment.Center) {
+    Box(modifier = Modifier.background(Color.LightGray), contentAlignment = Alignment.Center) {
         Text("Preview")
     }
 }

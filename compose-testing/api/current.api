@@ -1,15 +1,7 @@
 // Signature format: 4.0
-package com.google.android.horologist.tiles {
+package com.google.android.horologist.compose.testing {
 
-  public abstract class CoroutinesTileService extends androidx.wear.tiles.TileService implements androidx.lifecycle.LifecycleOwner {
-    ctor public CoroutinesTileService();
-    method public androidx.lifecycle.Lifecycle getLifecycle();
-    method protected final com.google.common.util.concurrent.ListenableFuture<androidx.wear.tiles.ResourceBuilders.Resources> onResourcesRequest(androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams);
-    method @Deprecated public final void onStart(android.content.Intent? intent, int startId);
-    method public final int onStartCommand(android.content.Intent? intent, int flags, int startId);
-    method protected final com.google.common.util.concurrent.ListenableFuture<androidx.wear.tiles.TileBuilders.Tile> onTileRequest(androidx.wear.tiles.RequestBuilders.TileRequest requestParams);
-    method public abstract suspend Object? resourcesRequest(androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.ResourceBuilders.Resources> p);
-    method public abstract suspend Object? tileRequest(androidx.wear.tiles.RequestBuilders.TileRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.TileBuilders.Tile> p);
+  @androidx.compose.ui.tooling.preview.Preview(device=androidx.compose.ui.tooling.preview.Devices.WEAR_OS_LARGE_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true) @androidx.compose.ui.tooling.preview.Preview(device=androidx.compose.ui.tooling.preview.Devices.WEAR_OS_SMALL_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true) @androidx.compose.ui.tooling.preview.Preview(device=androidx.compose.ui.tooling.preview.Devices.WEAR_OS_SQUARE, showSystemUi=true, backgroundColor=4278190080L, showBackground=true) public @interface WearPreviewDevices {
   }
 
 }

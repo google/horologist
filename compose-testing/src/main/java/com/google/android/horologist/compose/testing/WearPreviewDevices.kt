@@ -40,4 +40,4 @@ import androidx.compose.ui.tooling.preview.Preview
     showBackground = true,
     name = "Square"
 )
-annotation class WearPreviewDevices
+public annotation class WearPreviewDevices

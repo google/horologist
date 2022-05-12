@@ -67,4 +67,4 @@ import androidx.compose.ui.tooling.preview.Preview
     name = "Largest",
     fontScale = 1.24f
 )
-annotation class WearPreviewFontSizes
+public annotation class WearPreviewFontSizes

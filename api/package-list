@@ -4,7 +4,9 @@ $dokka.linkExtension:html
 module:audio
 com.google.android.horologist.audio
 module:audio-ui
-com.google.android.horologist.audioui
+com.google.android.horologist.audio.ui
+com.google.android.horologist.audio.ui.components.actions
+com.google.android.horologist.audio.ui.semantics
 module:composables
 com.google.android.horologist.composables
 module:compose-layout
@@ -12,6 +14,8 @@ com.google.android.horologist.compose.layout
 com.google.android.horologist.compose.navscaffold
 com.google.android.horologist.compose.pager
 com.google.android.horologist.compose.snackbar
+module:compose-testing
+com.google.android.horologist.compose.testing
 module:media-data
 com.google.android.horologist.media.data
 com.google.android.horologist.media.data.model

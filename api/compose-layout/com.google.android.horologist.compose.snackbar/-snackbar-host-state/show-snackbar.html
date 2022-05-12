@@ -1,51 +1,67 @@
+<!doctype html>
 <html>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>showSnackbar</title>
-</head><body><link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script src="https://unpkg.com/kotlin-playground@1" data-selector="code.runnablesample"></script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../scripts/main.js" async></script>
-  
-    <div id="container">
-      <div id="leftColumn"><a href="../../../index.html">
-            <div id="logo"></div>
-          </a>
-        <div id="paneSearch"></div>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+const savedDarkMode = storage ? JSON.parse(storage) : false
+if(savedDarkMode === true){
+    document.getElementsByTagName("html")[0].classList.add("theme-dark")
+}</script>
+<script src="https://unpkg.com/kotlin-playground@1"></script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>horologist</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
         <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <script type="text/javascript" src="../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
-
-        <div class="main-content" id="content" pageids="compose-layout::com.google.android.horologist.compose.snackbar/SnackbarHostState/showSnackbar/#kotlin.String#kotlin.String?#com.google.android.horologist.compose.snackbar.SnackbarDuration/PointingToDeclaration//-1355565138">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../index.html">compose-layout</a>/<a href="../index.html">com.google.android.horologist.compose.snackbar</a>/<a href="index.html">SnackbarHostState</a>/<a href="show-snackbar.html">showSnackbar</a></div>
-            <div class="pull-right d-flex">
-              <div id="searchBar"></div>
-            </div>
-          </div>
-          <div class="cover ">
-            <h1 class="cover"><span>show</span><wbr><span>Snackbar</span></h1>
-          </div>
-<div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">suspend fun <a href="show-snackbar.html">showSnackbar</a>(message: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, actionLabel: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, duration: <a href="../-snackbar-duration/index.html">SnackbarDuration</a> = SnackbarDuration.Short): <a href="../-snackbar-result/index.html">SnackbarResult</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageids="compose-layout::com.google.android.horologist.compose.snackbar/SnackbarHostState/showSnackbar/#kotlin.String#kotlin.String?#com.google.android.horologist.compose.snackbar.SnackbarDuration/PointingToDeclaration//-1355565138">
+  <div class="breadcrumbs"><a href="../../index.html">compose-layout</a><span class="delimiter">/</span><a href="../index.html">com.google.android.horologist.compose.snackbar</a><span class="delimiter">/</span><a href="index.html">SnackbarHostState</a><span class="delimiter">/</span><a href="show-snackbar.html">showSnackbar</a></div>
+  <div class="cover ">
+    <h1 class="cover"><span>show</span><wbr><span><span>Snackbar</span></span></h1>
   </div>
-<p class="paragraph">Shows or queues to be shown a Snackbar at the bottom of the Scaffold at which this state is attached and suspends until snackbar is disappeared.</p><p class="paragraph"><a href="index.html">SnackbarHostState</a> guarantees to show at most one snackbar at a time. If this function is called while another snackbar is already visible, it will be suspended until this snack bar is shown and subsequently addressed. If the caller is cancelled, the snackbar will be removed from display and/or the queue to be displayed.</p><p class="paragraph">All of this allows for granular control over the snackbar queue from within:</p><h4 class="">Return</h4><p class="paragraph"><a href="../-snackbar-result/-action-performed/index.html">SnackbarResult.ActionPerformed</a> if option action has been clicked or <a href="../-snackbar-result/-dismissed/index.html">SnackbarResult.Dismissed</a> if snackbar has been dismissed via timeout or by the user</p><h2 class="">Samples</h2><div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Samples"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release">androidx.compose.material.samples.ScaffoldWithCoroutinesSnackbar</div></div><h2 class="">Parameters</h2><div data-togglable="Parameters"><div class="platform-hinted WithExtraAttributes" data-platform-hinted="data-platform-hinted" data-togglable="Parameters"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex">message</span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">text to be shown in the Snackbar</p></div></div></div></div></div><div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex">actionLabel</span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">optional action label to show as button in the Snackbar</p></div></div></div></div></div><div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex">duration</span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">duration to control how long snackbar will be shown in <a href="../-snackbar-host.html">SnackbarHost</a>, either <a href="../-snackbar-duration/-short/index.html">SnackbarDuration.Short</a>, <a href="../-snackbar-duration/-long/index.html">SnackbarDuration.Long</a> or <a href="../-snackbar-duration/-indefinite/index.html">SnackbarDuration.Indefinite</a></p></div></div></div></div></div></div></div></div></div></div></div>
-          <h2 class="">Sources</h2>
-          <div class="table" data-togglable="Sources"><a data-name="-442480781%2FSource%2F-1407940826" anchor-label="https://github.com/google/horologist/blob/main/compose-layout/src/main/java/com/google/android/horologist/compose/snackbar/SnackbarHostState.kt#L79" id="-442480781%2FSource%2F-1407940826" data-filterable-set=":compose-layout:dokkaHtmlPartial/main"></a>
-            <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/main" data-filterable-set=":compose-layout:dokkaHtmlPartial/main">
-              <div class="main-subrow keyValue ">
-                <div class=""><span class="inline-flex"><a href="https://github.com/google/horologist/blob/main/compose-layout/src/main/java/com/google/android/horologist/compose/snackbar/SnackbarHostState.kt#L79">androidJvm source</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-442480781%2FSource%2F-1407940826"></span>
-                      <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                    </span></span></div>
-                <div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="show-snackbar.html"><span class="token function">showSnackbar</span></a><span class="token punctuation">(</span><span class="parameters wrapped"><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;message<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;actionLabel<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;duration<span class="token operator">: </span><a href="../-snackbar-duration/index.html">SnackbarDuration</a><span class="token operator"> = </span>SnackbarDuration.Short</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-snackbar-result/index.html">SnackbarResult</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Shows or queues to be shown a Snackbar at the bottom of the Scaffold at which this state is attached and suspends until snackbar is disappeared.</p><p class="paragraph"><a href="index.html">SnackbarHostState</a> guarantees to show at most one snackbar at a time. If this function is called while another snackbar is already visible, it will be suspended until this snack bar is shown and subsequently addressed. If the caller is cancelled, the snackbar will be removed from display and/or the queue to be displayed.</p><p class="paragraph">All of this allows for granular control over the snackbar queue from within:</p><h4 class="">Return</h4><p class="paragraph"><a href="../-snackbar-result/-action-performed/index.html">SnackbarResult.ActionPerformed</a> if option action has been clicked or <a href="../-snackbar-result/-dismissed/index.html">SnackbarResult.Dismissed</a> if snackbar has been dismissed via timeout or by the user</p><h2 class="">Samples</h2>androidx.compose.material.samples.ScaffoldWithCoroutinesSnackbar<h2 class="">Parameters</h2><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><span><span>message</span></span></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">text to be shown in the Snackbar</p></div></div></div></div></div><div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><span>action</span><wbr><span><span>Label</span></span></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">optional action label to show as button in the Snackbar</p></div></div></div></div></div><div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><span><span>duration</span></span></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">duration to control how long snackbar will be shown in <a href="../-snackbar-host.html">SnackbarHost</a>, either <a href="../-snackbar-duration/-short/index.html">SnackbarDuration.Short</a>, <a href="../-snackbar-duration/-long/index.html">SnackbarDuration.Long</a> or <a href="../-snackbar-duration/-indefinite/index.html">SnackbarDuration.Indefinite</a></p></div></div></div></div></div></div></div></div></div>
+  <h2 class="">Sources</h2>
+  <div class="table" data-togglable="Sources"><a data-name="-442480781%2FSource%2F-1407940826" anchor-label="https://github.com/google/horologist/blob/main/compose-layout/src/main/java/com/google/android/horologist/compose/snackbar/SnackbarHostState.kt#L79" id="-442480781%2FSource%2F-1407940826" data-filterable-set=":compose-layout:dokkaHtmlPartial/main"></a>
+    <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/main" data-filterable-set=":compose-layout:dokkaHtmlPartial/main">
+      <div class="main-subrow keyValue ">
+        <div class=""><span class="inline-flex">
+            <div><a href="https://github.com/google/horologist/blob/main/compose-layout/src/main/java/com/google/android/horologist/compose/snackbar/SnackbarHostState.kt#L79">androidJvm source</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-442480781%2FSource%2F-1407940826"></span>
+              <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+            </span></span></div>
+        <div></div>
       </div>
     </div>
-  
-</body></html>
+  </div>
+</div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+        </div>
+    </div>
+</div>
 
+</body></html>
 

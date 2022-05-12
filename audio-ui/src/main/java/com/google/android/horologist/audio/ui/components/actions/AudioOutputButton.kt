@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.sample.media
+package com.google.android.horologist.audio.ui.components.actions
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -25,19 +25,23 @@ import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
-import com.google.android.horologist.sample.R
+import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
+import com.google.android.horologist.audio.ui.R
 
 /**
  * A button to launch the system bluetooth settings to connect to a headset.
  */
+@ExperimentalHorologistAudioUiApi
 @Composable
-fun AudioOutputButton(
+public fun AudioOutputButton(
     onOutputClick: () -> Unit,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
 ) {
     Button(
-        modifier = modifier.size(ButtonDefaults.SmallButtonSize),
         onClick = onOutputClick,
+        modifier = modifier.size(ButtonDefaults.SmallButtonSize),
+        enabled = enabled,
         colors = ButtonDefaults.iconButtonColors(),
     ) {
         Icon(

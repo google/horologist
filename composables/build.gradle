@@ -86,8 +86,6 @@ dependencies {
     implementation libs.compose.material.iconscore
     implementation libs.compose.material.iconsext
 
-    debugImplementation libs.androidx.customview
-    debugImplementation libs.androidx.customview.pooling
     debugImplementation libs.compose.ui.test.manifest
     debugImplementation libs.compose.ui.toolingpreview
 

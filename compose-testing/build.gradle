@@ -19,7 +19,6 @@ plugins {
     id 'kotlin-android'
     id 'org.jetbrains.dokka'
     id "org.jetbrains.kotlin.kapt"
-    id 'app.cash.paparazzi'
 }
 
 android {
@@ -38,16 +37,10 @@ android {
 
     buildFeatures {
         buildConfig false
-        compose true
     }
 
     kotlinOptions {
         jvmTarget = "1.8"
-        // Allow for widescale experimental APIs in Alpha libraries we build upon
-        freeCompilerArgs += "-opt-in=androidx.wear.compose.material.ExperimentalWearMaterialApi"
-        freeCompilerArgs += "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi"
-        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
     }
 
     composeOptions {
@@ -99,31 +92,16 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
 }
 
 dependencies {
-    implementation projects.audio
     implementation libs.kotlin.stdlib
+
+    implementation libs.compose.ui.tooling
 
     implementation libs.wearcompose.material
     implementation libs.wearcompose.foundation
+    implementation libs.wearcompose.navigation
 
-    implementation libs.compose.material.iconscore
-    implementation libs.compose.material.iconsext
-
-    implementation libs.compose.ui.tooling
-    implementation libs.androidx.wear
-    implementation libs.androidx.lifecycle.viewmodel.compose
-
-    debugImplementation libs.compose.ui.toolingpreview
-    debugImplementation projects.composeTesting
-
-    testImplementation libs.junit
-    testImplementation projects.paparazzi
-    testImplementation projects.composeTesting
-
-    androidTestImplementation libs.compose.ui.test.junit4
     debugImplementation libs.compose.ui.test.manifest
-    androidTestImplementation libs.espresso.core
-    androidTestImplementation libs.junit
-    androidTestImplementation libs.truth
+    debugImplementation libs.compose.ui.toolingpreview
 }
 
 apply plugin: "com.vanniktech.maven.publish"

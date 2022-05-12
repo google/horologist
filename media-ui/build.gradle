@@ -91,8 +91,6 @@ dependencies {
     implementation libs.compose.material.iconsext
     implementation libs.androidx.media3.common
 
-    debugImplementation libs.androidx.customview
-    debugImplementation libs.androidx.customview.pooling
     debugImplementation libs.compose.ui.test.manifest
     debugImplementation libs.compose.ui.toolingpreview
 

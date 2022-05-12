@@ -46,6 +46,14 @@ package com.google.android.horologist.audio.ui {
 
 }
 
+package com.google.android.horologist.audio.ui.components {
+
+  public final class SettingsButtonsKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void SettingsButtons(com.google.android.horologist.audio.VolumeState volumeState, kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, kotlin.jvm.functions.Function0<kotlin.Unit> onOutputClick, optional androidx.compose.ui.Modifier modifier);
+  }
+
+}
+
 package com.google.android.horologist.audio.ui.components.actions {
 
   public final class AudioOutputButtonKt {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.sample.media
+package com.google.android.horologist.audio.ui.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.components.actions.AudioOutputButton
 import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
 
@@ -30,8 +31,9 @@ import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
  * Settings buttons for a typical media app.
  * Set Volume and Select Audio Output.
  */
+@ExperimentalHorologistAudioUiApi
 @Composable
-fun SettingsButtons(
+public fun SettingsButtons(
     volumeState: VolumeState,
     onVolumeClick: () -> Unit,
     onOutputClick: () -> Unit,

@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
-    name = "Small",
+    group = "Fonts - Small",
     fontScale = 0.94f
 )
 @Preview(
@@ -32,7 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
-    name = "Normal",
+    group = "Fonts - Normal",
     fontScale = 1f
 )
 @Preview(
@@ -40,7 +40,7 @@ import androidx.compose.ui.tooling.preview.Preview
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
-    name = "Medium",
+    group = "Fonts - Medium",
     fontScale = 1.06f
 )
 @Preview(
@@ -48,7 +48,7 @@ import androidx.compose.ui.tooling.preview.Preview
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
-    name = "Large",
+    group = "Fonts - Large",
     fontScale = 1.12f
 )
 @Preview(
@@ -56,7 +56,7 @@ import androidx.compose.ui.tooling.preview.Preview
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
-    name = "Larger",
+    group = "Fonts - Larger",
     fontScale = 1.18f
 )
 @Preview(
@@ -64,7 +64,7 @@ import androidx.compose.ui.tooling.preview.Preview
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
-    name = "Largest",
+    group = "Fonts - Largest",
     fontScale = 1.24f
 )
 public annotation class WearPreviewFontSizes

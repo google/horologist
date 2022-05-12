@@ -27,6 +27,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.compose.testing.WearPreviewDevices
+import com.google.android.horologist.compose.testing.WearPreviewFontSizes
 
 @Preview(
     device = Devices.WEAR_OS_LARGE_ROUND,
@@ -60,24 +62,8 @@ fun VolumeScreenGuide() {
     }
 }
 
-@Preview(
-    device = Devices.WEAR_OS_LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true
-)
-@Preview(
-    device = Devices.WEAR_OS_SMALL_ROUND,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true
-)
-@Preview(
-    device = Devices.WEAR_OS_SQUARE,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true
-)
+@WearPreviewDevices
+@WearPreviewFontSizes
 @Composable
 @OptIn(ExperimentalHorologistAudioUiApi::class)
 fun VolumeScreenPreview(

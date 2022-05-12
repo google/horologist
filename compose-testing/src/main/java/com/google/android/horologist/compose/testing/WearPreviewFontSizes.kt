@@ -20,24 +20,51 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 
 @Preview(
-    device = Devices.WEAR_OS_LARGE_ROUND,
+    device = Devices.WEAR_OS_SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
-    name = "Large Round"
+    name = "Small",
+    fontScale = 0.94f
 )
 @Preview(
     device = Devices.WEAR_OS_SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
-    name = "Small Round"
+    name = "Normal",
+    fontScale = 1f
 )
 @Preview(
-    device = Devices.WEAR_OS_SQUARE,
+    device = Devices.WEAR_OS_SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true,
-    name = "Square"
+    name = "Medium",
+    fontScale = 1.06f
 )
-annotation class WearPreviewDevices
+@Preview(
+    device = Devices.WEAR_OS_SMALL_ROUND,
+    showSystemUi = true,
+    backgroundColor = 0xff000000,
+    showBackground = true,
+    name = "Large",
+    fontScale = 1.12f
+)
+@Preview(
+    device = Devices.WEAR_OS_SMALL_ROUND,
+    showSystemUi = true,
+    backgroundColor = 0xff000000,
+    showBackground = true,
+    name = "Larger",
+    fontScale = 1.18f
+)
+@Preview(
+    device = Devices.WEAR_OS_SMALL_ROUND,
+    showSystemUi = true,
+    backgroundColor = 0xff000000,
+    showBackground = true,
+    name = "Largest",
+    fontScale = 1.24f
+)
+annotation class WearPreviewFontSizes

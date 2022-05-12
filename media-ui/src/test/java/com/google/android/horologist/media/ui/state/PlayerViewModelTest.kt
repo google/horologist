@@ -21,8 +21,8 @@ package com.google.android.horologist.media.ui.state
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
+import com.google.android.horologist.test.toolbox.testdoubles.StubPlayerRepository
 import com.google.common.truth.Truth.assertThat
-import com.google.test.toolbox.testdoubles.StubPlayerRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Before

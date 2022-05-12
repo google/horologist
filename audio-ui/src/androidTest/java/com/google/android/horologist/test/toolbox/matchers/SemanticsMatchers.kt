@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.test.toolbox.matchers
+package com.google.android.horologist.test.toolbox.matchers
 
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.SemanticsActions

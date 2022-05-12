@@ -23,7 +23,7 @@ import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.material.icons.filled.ShuffleOn
 import androidx.compose.ui.test.junit4.createComposeRule
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.test.toolbox.matchers.hasIconImageVector
+import com.google.android.horologist.test.toolbox.matchers.hasIconImageVector
 import org.junit.Rule
 import org.junit.Test
 

@@ -18,6 +18,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'org.jetbrains.dokka'
+    id 'app.cash.paparazzi'
 }
 
 android {
@@ -88,8 +89,11 @@ dependencies {
 
     debugImplementation libs.compose.ui.test.manifest
     debugImplementation libs.compose.ui.toolingpreview
+    debugImplementation projects.composeTesting
 
     testImplementation libs.junit
+    testImplementation projects.composeTesting
+    testImplementation projects.paparazzi
 
     androidTestImplementation libs.compose.ui.test.junit4
     androidTestImplementation libs.truth

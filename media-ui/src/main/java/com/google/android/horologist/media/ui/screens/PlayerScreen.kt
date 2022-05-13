@@ -156,16 +156,16 @@ private class DefaultPlayerScreenControlButtons(
     @Composable
     override fun RowScope.Content(playerUiState: PlayerUiState) {
         MediaControlButtons(
-            onPlayClick = onPlayClick,
-            onPauseClick = onPauseClick,
-            playPauseEnabled = playerUiState.playPauseEnabled,
+            onPlayButtonClick = onPlayClick,
+            onPauseButtonClick = onPauseClick,
+            playPauseButtonEnabled = playerUiState.playPauseEnabled,
             playing = playerUiState.playing,
-            percent = playerUiState.trackPosition?.percent ?: 0f,
             onSeekToPreviousButtonClick = onSeekToPreviousButtonClick,
             seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
             onSeekToNextButtonClick = onSeekToNextButtonClick,
             seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
             showProgress = showProgress,
+            percent = playerUiState.trackPosition?.percent ?: 0f,
         )
     }
 }

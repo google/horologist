@@ -41,9 +41,9 @@ import com.google.android.horologist.media.ui.components.controls.SeekToPrevious
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun MediaControlButtons(
-    onPlayClick: () -> Unit,
-    onPauseClick: () -> Unit,
-    playPauseEnabled: Boolean,
+    onPlayButtonClick: () -> Unit,
+    onPauseButtonClick: () -> Unit,
+    playPauseButtonEnabled: Boolean,
     playing: Boolean,
     percent: Float,
     onSeekToPreviousButtonClick: () -> Unit,
@@ -55,9 +55,9 @@ public fun MediaControlButtons(
     progressColour: Color = MaterialTheme.colors.primaryVariant,
 ) {
     MediaControlButtons(
-        onPlayClick = onPlayClick,
-        onPauseClick = onPauseClick,
-        playPauseEnabled = playPauseEnabled,
+        onPlayButtonClick = onPlayButtonClick,
+        onPauseButtonClick = onPauseButtonClick,
+        playPauseButtonEnabled = playPauseButtonEnabled,
         playing = playing,
         onSeekToPreviousButtonClick = onSeekToPreviousButtonClick,
         seekToPreviousButtonEnabled = seekToPreviousButtonEnabled,
@@ -65,8 +65,8 @@ public fun MediaControlButtons(
         seekToNextButtonEnabled = seekToNextButtonEnabled,
         showProgress = true,
         modifier = modifier,
-        colors = colors,
         percent = percent,
+        colors = colors,
         progressColour = progressColour
     )
 }
@@ -78,9 +78,9 @@ public fun MediaControlButtons(
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun MediaControlButtons(
-    onPlayClick: () -> Unit,
-    onPauseClick: () -> Unit,
-    playPauseEnabled: Boolean,
+    onPlayButtonClick: () -> Unit,
+    onPauseButtonClick: () -> Unit,
+    playPauseButtonEnabled: Boolean,
     playing: Boolean,
     onSeekToPreviousButtonClick: () -> Unit,
     seekToPreviousButtonEnabled: Boolean,
@@ -90,9 +90,9 @@ public fun MediaControlButtons(
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
 ) {
     MediaControlButtons(
-        onPlayClick = onPlayClick,
-        onPauseClick = onPauseClick,
-        playPauseEnabled = playPauseEnabled,
+        onPlayButtonClick = onPlayButtonClick,
+        onPauseButtonClick = onPauseButtonClick,
+        playPauseButtonEnabled = playPauseButtonEnabled,
         playing = playing,
         onSeekToPreviousButtonClick = onSeekToPreviousButtonClick,
         seekToPreviousButtonEnabled = seekToPreviousButtonEnabled,
@@ -107,9 +107,9 @@ public fun MediaControlButtons(
 @ExperimentalHorologistMediaUiApi
 @Composable
 internal fun MediaControlButtons(
-    onPlayClick: () -> Unit,
-    onPauseClick: () -> Unit,
-    playPauseEnabled: Boolean,
+    onPlayButtonClick: () -> Unit,
+    onPauseButtonClick: () -> Unit,
+    playPauseButtonEnabled: Boolean,
     playing: Boolean,
     onSeekToPreviousButtonClick: () -> Unit,
     seekToPreviousButtonEnabled: Boolean,
@@ -117,8 +117,8 @@ internal fun MediaControlButtons(
     seekToNextButtonEnabled: Boolean,
     showProgress: Boolean,
     modifier: Modifier = Modifier,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     percent: Float? = null,
+    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     progressColour: Color = MaterialTheme.colors.primaryVariant,
 ) {
     Row(
@@ -138,9 +138,9 @@ internal fun MediaControlButtons(
             checkNotNull(percent)
 
             PlayPauseProgressButton(
-                onPlayClick = onPlayClick,
-                onPauseClick = onPauseClick,
-                enabled = playPauseEnabled,
+                onPlayClick = onPlayButtonClick,
+                onPauseClick = onPauseButtonClick,
+                enabled = playPauseButtonEnabled,
                 playing = playing,
                 percent = percent,
                 modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
@@ -149,9 +149,9 @@ internal fun MediaControlButtons(
             )
         } else {
             PlayPauseButton(
-                onPlayClick = onPlayClick,
-                onPauseClick = onPauseClick,
-                enabled = playPauseEnabled,
+                onPlayClick = onPlayButtonClick,
+                onPauseClick = onPauseButtonClick,
+                enabled = playPauseButtonEnabled,
                 playing = playing,
                 modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
                 colors = colors,

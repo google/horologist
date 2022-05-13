@@ -26,9 +26,9 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 @Composable
 fun MediaControlButtonsPreview() {
     MediaControlButtons(
-        onPlayClick = {},
-        onPauseClick = {},
-        playPauseEnabled = true,
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = true,
         playing = true,
         percent = 0.25F,
         onSeekToNextButtonClick = {},
@@ -42,9 +42,9 @@ fun MediaControlButtonsPreview() {
 @Composable
 fun MediaControlButtonsPreviewNoProgress() {
     MediaControlButtons(
-        onPlayClick = {},
-        onPauseClick = {},
-        playPauseEnabled = false,
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = false,
         playing = false,
         onSeekToNextButtonClick = {},
         seekToNextButtonEnabled = false,

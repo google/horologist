@@ -79,9 +79,9 @@ fun PlayerScreenPreview() {
             },
             controlButtons = {
                 MediaControlButtons(
-                    onPlayClick = {},
-                    onPauseClick = {},
-                    playPauseEnabled = true,
+                    onPlayButtonClick = {},
+                    onPauseButtonClick = {},
+                    playPauseButtonEnabled = true,
                     playing = true,
                     percent = 0.25F,
                     onSeekToNextButtonClick = {},
@@ -135,9 +135,9 @@ fun PlayerScreenPreviewCustomMediaDisplay() {
             },
             controlButtons = {
                 MediaControlButtons(
-                    onPlayClick = {},
-                    onPauseClick = {},
-                    playPauseEnabled = true,
+                    onPlayButtonClick = {},
+                    onPauseButtonClick = {},
+                    playPauseButtonEnabled = true,
                     playing = true,
                     percent = 0.75F,
                     onSeekToNextButtonClick = {},
@@ -198,9 +198,9 @@ fun PlayerScreenPreviewCustomBackground() {
             },
             controlButtons = {
                 MediaControlButtons(
-                    onPlayClick = {},
-                    onPauseClick = {},
-                    playPauseEnabled = true,
+                    onPlayButtonClick = {},
+                    onPauseButtonClick = {},
+                    playPauseButtonEnabled = true,
                     playing = true,
                     onSeekToNextButtonClick = {},
                     seekToNextButtonEnabled = true,

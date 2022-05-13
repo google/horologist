@@ -29,7 +29,6 @@ import com.google.android.horologist.compose.testing.WearPreviewDevices
 import com.google.android.horologist.compose.testing.WearPreviewFontSizes
 import java.time.LocalTime
 
-
 @WearPreviewDevices
 @WearPreviewFontSizes
 @Composable

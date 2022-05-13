@@ -21,6 +21,7 @@ package com.google.android.horologist.media.ui.components
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
+import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.hasProgressBarRangeInfo
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -48,10 +49,8 @@ class PodcastControlButtonsWithProgressTest {
                 playing = playing,
                 percent = 0.25f,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Ten,
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
                 seekForwardButtonEnabled = true,
             )
         }
@@ -78,10 +77,8 @@ class PodcastControlButtonsWithProgressTest {
                 playing = playing,
                 percent = 0.25f,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Ten,
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
                 seekForwardButtonEnabled = true,
             )
         }
@@ -108,10 +105,8 @@ class PodcastControlButtonsWithProgressTest {
                 playing = playing,
                 percent = 0.25f,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Ten,
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
                 seekForwardButtonEnabled = true,
             )
         }
@@ -138,10 +133,8 @@ class PodcastControlButtonsWithProgressTest {
                 playing = playing,
                 percent = 0.25f,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Ten,
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
                 seekForwardButtonEnabled = true,
             )
         }
@@ -168,10 +161,8 @@ class PodcastControlButtonsWithProgressTest {
                 playing = false,
                 percent = 0.25f,
                 onSeekBackButtonClick = { clicked = true },
-                seekBackButtonIncrement = SeekButtonIncrement.Unknown,
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
                 seekForwardButtonEnabled = true,
             )
         }
@@ -198,10 +189,8 @@ class PodcastControlButtonsWithProgressTest {
                 playing = false,
                 percent = 0.25f,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Five,
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = { clicked = true },
-                seekForwardButtonIncrement = SeekButtonIncrement.Unknown,
                 seekForwardButtonEnabled = true,
             )
         }
@@ -228,10 +217,8 @@ class PodcastControlButtonsWithProgressTest {
                 playing = false,
                 percent = percent,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Ten,
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
                 seekForwardButtonEnabled = true,
             )
         }
@@ -255,10 +242,8 @@ class PodcastControlButtonsWithProgressTest {
                 playing = playing,
                 percent = 0.25f,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Ten,
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
                 seekForwardButtonEnabled = false,
             )
         }
@@ -266,6 +251,11 @@ class PodcastControlButtonsWithProgressTest {
         // then
         composeTestRule.onNodeWithContentDescription("Pause")
             .assertIsEnabled()
+
+        composeTestRule.onNodeWithContentDescription("Rewind")
+            .assertIsNotEnabled()
+        composeTestRule.onNodeWithContentDescription("Forward")
+            .assertIsNotEnabled()
     }
 
     @Test
@@ -282,10 +272,8 @@ class PodcastControlButtonsWithProgressTest {
                 playing = playing,
                 percent = 0.25f,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Ten,
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
                 seekForwardButtonEnabled = false,
             )
         }
@@ -293,6 +281,11 @@ class PodcastControlButtonsWithProgressTest {
         // then
         composeTestRule.onNodeWithContentDescription("Play")
             .assertIsEnabled()
+
+        composeTestRule.onNodeWithContentDescription("Rewind")
+            .assertIsNotEnabled()
+        composeTestRule.onNodeWithContentDescription("Forward")
+            .assertIsNotEnabled()
     }
 
     @Test
@@ -308,17 +301,21 @@ class PodcastControlButtonsWithProgressTest {
                 playing = false,
                 percent = 0.25f,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Unknown,
                 seekBackButtonEnabled = seekBackButtonEnabled,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
                 seekForwardButtonEnabled = false,
+                seekBackButtonIncrement = SeekButtonIncrement.Unknown,
             )
         }
 
         // then
         composeTestRule.onNodeWithContentDescription("Rewind")
             .assertIsEnabled()
+
+        composeTestRule.onNodeWithContentDescription("Play")
+            .assertIsNotEnabled()
+        composeTestRule.onNodeWithContentDescription("Forward")
+            .assertIsNotEnabled()
     }
 
     @Test
@@ -334,10 +331,8 @@ class PodcastControlButtonsWithProgressTest {
                 playing = false,
                 percent = 0.25f,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Five,
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Unknown,
                 seekForwardButtonEnabled = seekForwardButtonEnabled,
             )
         }
@@ -345,6 +340,11 @@ class PodcastControlButtonsWithProgressTest {
         // then
         composeTestRule.onNodeWithContentDescription("Forward")
             .assertIsEnabled()
+
+        composeTestRule.onNodeWithContentDescription("Play")
+            .assertIsNotEnabled()
+        composeTestRule.onNodeWithContentDescription("Rewind")
+            .assertIsNotEnabled()
     }
 
     @Test
@@ -360,11 +360,10 @@ class PodcastControlButtonsWithProgressTest {
                 playing = false,
                 percent = 0.25f,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = seekBackButtonIncrement,
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Unknown,
                 seekForwardButtonEnabled = false,
+                seekBackButtonIncrement = seekBackButtonIncrement,
             )
         }
 
@@ -389,11 +388,10 @@ class PodcastControlButtonsWithProgressTest {
                 playing = false,
                 percent = 0.25f,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Unknown,
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = seekForwardButtonIncrement,
                 seekForwardButtonEnabled = false,
+                seekForwardButtonIncrement = seekForwardButtonIncrement,
             )
         }
 

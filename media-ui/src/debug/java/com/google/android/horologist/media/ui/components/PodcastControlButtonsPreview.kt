@@ -33,11 +33,11 @@ fun PodcastControlButtonsPreview() {
         playing = true,
         percent = 0.25f,
         onSeekBackButtonClick = {},
-        seekBackButtonIncrement = SeekButtonIncrement.Ten,
         seekBackButtonEnabled = true,
         onSeekForwardButtonClick = {},
-        seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
         seekForwardButtonEnabled = true,
+        seekBackButtonIncrement = SeekButtonIncrement.Ten,
+        seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
     )
 }
 
@@ -50,10 +50,10 @@ fun PodcastControlButtonsPreviewNoProgress() {
         playPauseButtonEnabled = false,
         playing = false,
         onSeekBackButtonClick = {},
-        seekBackButtonIncrement = SeekButtonIncrement.Unknown,
         seekBackButtonEnabled = false,
         onSeekForwardButtonClick = {},
-        seekForwardButtonIncrement = SeekButtonIncrement.Five,
         seekForwardButtonEnabled = false,
+        seekBackButtonIncrement = SeekButtonIncrement.Unknown,
+        seekForwardButtonIncrement = SeekButtonIncrement.Five,
     )
 }

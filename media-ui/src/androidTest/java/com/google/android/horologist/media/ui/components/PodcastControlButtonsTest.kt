@@ -26,7 +26,7 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
-import com.google.test.toolbox.matchers.hasProgressBar
+import com.google.android.horologist.test.toolbox.matchers.hasProgressBar
 import org.junit.Rule
 import org.junit.Test
 
@@ -47,10 +47,8 @@ class PodcastControlButtonsTest {
                 playPauseButtonEnabled = true,
                 playing = playing,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Ten,
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
                 seekForwardButtonEnabled = true,
             )
         }
@@ -76,10 +74,8 @@ class PodcastControlButtonsTest {
                 playPauseButtonEnabled = true,
                 playing = playing,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Ten,
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
                 seekForwardButtonEnabled = true,
             )
         }
@@ -105,10 +101,8 @@ class PodcastControlButtonsTest {
                 playPauseButtonEnabled = true,
                 playing = playing,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Ten,
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
                 seekForwardButtonEnabled = true,
             )
         }
@@ -134,10 +128,8 @@ class PodcastControlButtonsTest {
                 playPauseButtonEnabled = true,
                 playing = playing,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Ten,
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
                 seekForwardButtonEnabled = true,
             )
         }
@@ -163,10 +155,8 @@ class PodcastControlButtonsTest {
                 playPauseButtonEnabled = true,
                 playing = false,
                 onSeekBackButtonClick = { clicked = true },
-                seekBackButtonIncrement = SeekButtonIncrement.Unknown,
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
                 seekForwardButtonEnabled = true,
             )
         }
@@ -192,10 +182,8 @@ class PodcastControlButtonsTest {
                 playPauseButtonEnabled = true,
                 playing = false,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Five,
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = { clicked = true },
-                seekForwardButtonIncrement = SeekButtonIncrement.Unknown,
                 seekForwardButtonEnabled = true,
             )
         }
@@ -219,10 +207,8 @@ class PodcastControlButtonsTest {
                 playPauseButtonEnabled = true,
                 playing = false,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Ten,
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
                 seekForwardButtonEnabled = true,
             )
         }
@@ -245,10 +231,8 @@ class PodcastControlButtonsTest {
                 playPauseButtonEnabled = playPauseButtonEnabled,
                 playing = playing,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Unknown,
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Unknown,
                 seekForwardButtonEnabled = false,
             )
         }
@@ -276,10 +260,8 @@ class PodcastControlButtonsTest {
                 playPauseButtonEnabled = playPauseButtonEnabled,
                 playing = playing,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Unknown,
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Unknown,
                 seekForwardButtonEnabled = false,
             )
         }
@@ -306,10 +288,8 @@ class PodcastControlButtonsTest {
                 playPauseButtonEnabled = false,
                 playing = false,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Unknown,
                 seekBackButtonEnabled = seekBackButtonEnabled,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Unknown,
                 seekForwardButtonEnabled = false,
             )
         }
@@ -336,10 +316,8 @@ class PodcastControlButtonsTest {
                 playPauseButtonEnabled = false,
                 playing = false,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Unknown,
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Unknown,
                 seekForwardButtonEnabled = seekForwardButtonEnabled,
             )
         }
@@ -366,11 +344,10 @@ class PodcastControlButtonsTest {
                 playPauseButtonEnabled = false,
                 playing = false,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = seekBackButtonIncrement,
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = SeekButtonIncrement.Unknown,
                 seekForwardButtonEnabled = false,
+                seekBackButtonIncrement = seekBackButtonIncrement,
             )
         }
 
@@ -394,11 +371,10 @@ class PodcastControlButtonsTest {
                 playPauseButtonEnabled = false,
                 playing = false,
                 onSeekBackButtonClick = {},
-                seekBackButtonIncrement = SeekButtonIncrement.Unknown,
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonIncrement = seekForwardButtonIncrement,
                 seekForwardButtonEnabled = false,
+                seekForwardButtonIncrement = seekForwardButtonIncrement
             )
         }
 

@@ -31,9 +31,10 @@ include ':composables'
 include ':audio'
 include ':audio-ui'
 include ':tiles'
+include ':media'
 include ':media-ui'
-include ':paparazzi'
 include ':media-data'
+include ':paparazzi'
 include ':compose-testing'
 
 // Enable Gradle's version catalog support

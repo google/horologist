@@ -26,7 +26,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -47,6 +50,7 @@ import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.android.horologist.sample.di.SampleAppDI
 import com.google.android.horologist.sample.media.MediaPlayerScreen
 import com.google.android.horologist.sample.media.MediaPlayerScreenViewModel
+import java.time.LocalDateTime
 
 class MainActivity : ComponentActivity() {
 
@@ -69,6 +73,8 @@ fun WearApp(
 ) {
     val navController = rememberSwipeDismissableNavController()
 
+    var time by remember { mutableStateOf(LocalDateTime.now()) }
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
     ) {
@@ -80,6 +86,7 @@ fun WearApp(
                 MenuScreen(
                     modifier = Modifier.fillMaxSize(),
                     navigateToRoute = { route -> navController.navigate(route) },
+                    time = time
                 )
             }
             composable(Screen.FillMaxRectangle.route) {
@@ -114,8 +121,9 @@ fun WearApp(
                                 .wrapContentSize(align = Alignment.Center),
                         )
                     },
+                    initial = time.toLocalDate(),
                     onClick = {
-                        println(it)
+                        time = time.toLocalTime().atDate(it)
                         navController.popBackStack()
                     }
                 )
@@ -131,8 +139,9 @@ fun WearApp(
                                 .wrapContentSize(align = Alignment.Center),
                         )
                     },
+                    initial = time.toLocalTime(),
                     onClick = {
-                        println(it)
+                        time = time.toLocalDate().atTime(it)
                         navController.popBackStack()
                     }
                 )
@@ -148,8 +157,9 @@ fun WearApp(
                                 .wrapContentSize(align = Alignment.Center),
                         )
                     },
+                    initial = time.toLocalTime(),
                     onClick = {
-                        println(it)
+                        time = time.toLocalDate().atTime(it)
                         navController.popBackStack()
                     }
                 )

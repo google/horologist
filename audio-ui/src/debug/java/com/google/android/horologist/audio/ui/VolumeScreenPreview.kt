@@ -111,7 +111,6 @@ fun VolumeScreenTheme(
                     onAudioOutputClick = {},
                 )
             }
-            VolumeScreenUxGuide()
         }
     }
 }

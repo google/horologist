@@ -1,16 +1,6 @@
 // Signature format: 4.0
 package com.google.android.horologist.compose.testing {
 
-  public final class HorologistLocales implements androidx.compose.ui.tooling.preview.PreviewParameterProvider<java.util.Locale> {
-    ctor public HorologistLocales();
-    method public kotlin.sequences.Sequence<java.util.Locale> getValues();
-    property public kotlin.sequences.Sequence<java.util.Locale> values;
-  }
-
-  public final class LocalePreviewKt {
-    method @androidx.compose.runtime.Composable public static void LocalePreview(java.util.Locale locale, kotlin.jvm.functions.Function0<kotlin.Unit> block);
-  }
-
   public final class ThemeValues {
     ctor public ThemeValues(String description, androidx.wear.compose.material.Colors colors);
     method public String component1();

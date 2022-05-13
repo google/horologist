@@ -1,0 +1,184 @@
+/*
+ * Copyright 2022 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.google.android.horologist.media.ui.components
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.ButtonColors
+import androidx.wear.compose.material.ButtonDefaults
+import androidx.wear.compose.material.MaterialTheme
+import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.components.controls.SeekBackButton
+import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
+import com.google.android.horologist.media.ui.components.controls.SeekForwardButton
+
+/**
+ * Standard Podcast control buttons, showing [SeekBackButton], [PlayPauseProgressButton] and
+ * [SeekForwardButton].
+ */
+@ExperimentalHorologistMediaUiApi
+@Composable
+public fun PodcastControlButtons(
+    onPlayButtonClick: () -> Unit,
+    onPauseButtonClick: () -> Unit,
+    playPauseButtonEnabled: Boolean,
+    playing: Boolean,
+    percent: Float,
+    onSeekBackButtonClick: () -> Unit,
+    seekBackButtonEnabled: Boolean,
+    onSeekForwardButtonClick: () -> Unit,
+    seekForwardButtonEnabled: Boolean,
+    modifier: Modifier = Modifier,
+    seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
+    seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
+    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+    progressColour: Color = MaterialTheme.colors.primaryVariant,
+) {
+    PodcastControlButtons(
+        onPlayButtonClick = onPlayButtonClick,
+        onPauseButtonClick = onPauseButtonClick,
+        playPauseButtonEnabled = playPauseButtonEnabled,
+        playing = playing,
+        onSeekBackButtonClick = onSeekBackButtonClick,
+        seekBackButtonIncrement = seekBackButtonIncrement,
+        seekBackButtonEnabled = seekBackButtonEnabled,
+        onSeekForwardButtonClick = onSeekForwardButtonClick,
+        seekForwardButtonIncrement = seekForwardButtonIncrement,
+        seekForwardButtonEnabled = seekForwardButtonEnabled,
+        showProgress = true,
+        modifier = modifier,
+        percent = percent,
+        colors = colors,
+        progressColour = progressColour
+    )
+}
+
+/**
+ * Standard Podcast control buttons with no progress indicator, showing [SeekBackButton],
+ * [PlayPauseProgressButton] and [SeekForwardButton].
+ */
+@ExperimentalHorologistMediaUiApi
+@Composable
+public fun PodcastControlButtons(
+    onPlayButtonClick: () -> Unit,
+    onPauseButtonClick: () -> Unit,
+    playPauseButtonEnabled: Boolean,
+    playing: Boolean,
+    onSeekBackButtonClick: () -> Unit,
+    seekBackButtonEnabled: Boolean,
+    onSeekForwardButtonClick: () -> Unit,
+    seekForwardButtonEnabled: Boolean,
+    modifier: Modifier = Modifier,
+    seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
+    seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
+    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+) {
+    PodcastControlButtons(
+        onPlayButtonClick = onPlayButtonClick,
+        onPauseButtonClick = onPauseButtonClick,
+        playPauseButtonEnabled = playPauseButtonEnabled,
+        playing = playing,
+        onSeekBackButtonClick = onSeekBackButtonClick,
+        seekBackButtonIncrement = seekBackButtonIncrement,
+        seekBackButtonEnabled = seekBackButtonEnabled,
+        onSeekForwardButtonClick = onSeekForwardButtonClick,
+        seekForwardButtonIncrement = seekForwardButtonIncrement,
+        seekForwardButtonEnabled = seekForwardButtonEnabled,
+        showProgress = false,
+        modifier = modifier,
+        colors = colors,
+    )
+}
+
+@ExperimentalHorologistMediaUiApi
+@Composable
+private fun PodcastControlButtons(
+    onPlayButtonClick: () -> Unit,
+    onPauseButtonClick: () -> Unit,
+    playPauseButtonEnabled: Boolean,
+    playing: Boolean,
+    onSeekBackButtonClick: () -> Unit,
+    seekBackButtonIncrement: SeekButtonIncrement,
+    seekBackButtonEnabled: Boolean,
+    onSeekForwardButtonClick: () -> Unit,
+    seekForwardButtonIncrement: SeekButtonIncrement,
+    seekForwardButtonEnabled: Boolean,
+    showProgress: Boolean,
+    modifier: Modifier = Modifier,
+    percent: Float? = null,
+    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+    progressColour: Color = MaterialTheme.colors.primaryVariant,
+) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceAround
+    ) {
+        Spacer(modifier = Modifier.size(6.dp))
+
+        SeekBackButton(
+            onClick = onSeekBackButtonClick,
+            seekButtonIncrement = seekBackButtonIncrement,
+            colors = colors,
+            enabled = seekBackButtonEnabled,
+        )
+
+        Spacer(modifier = Modifier.sizeIn(maxWidth = 12.dp))
+
+        if (showProgress) {
+            checkNotNull(percent)
+
+            PlayPauseProgressButton(
+                onPlayClick = onPlayButtonClick,
+                onPauseClick = onPauseButtonClick,
+                enabled = playPauseButtonEnabled,
+                playing = playing,
+                percent = percent,
+                colors = colors,
+                progressColour = progressColour
+            )
+        } else {
+            PlayPauseButton(
+                onPlayClick = onPlayButtonClick,
+                onPauseClick = onPauseButtonClick,
+                enabled = playPauseButtonEnabled,
+                playing = playing,
+                colors = colors,
+            )
+        }
+
+        Spacer(modifier = Modifier.sizeIn(maxWidth = 12.dp))
+
+        SeekForwardButton(
+            onClick = onSeekForwardButtonClick,
+            seekButtonIncrement = seekForwardButtonIncrement,
+            colors = colors,
+            enabled = seekForwardButtonEnabled,
+        )
+
+        Spacer(modifier = Modifier.size(6.dp))
+    }
+}

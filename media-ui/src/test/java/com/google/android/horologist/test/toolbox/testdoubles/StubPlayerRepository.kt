@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.test.toolbox.testdoubles
+package com.google.android.horologist.test.toolbox.testdoubles
 
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player

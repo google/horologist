@@ -24,8 +24,8 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
-import com.google.test.toolbox.matchers.assertHasClickLabel
-import com.google.test.toolbox.matchers.assertHasStateDescription
+import com.google.android.horologist.test.toolbox.matchers.assertHasClickLabel
+import com.google.android.horologist.test.toolbox.matchers.assertHasStateDescription
 import org.junit.Rule
 import org.junit.Test
 

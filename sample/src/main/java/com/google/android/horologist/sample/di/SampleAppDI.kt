@@ -16,9 +16,10 @@
 
 package com.google.android.horologist.sample.di
 
+import androidx.lifecycle.viewmodel.CreationExtras
+import com.google.android.horologist.navsample.NavActivity
 import com.google.android.horologist.sample.MainActivity
 import com.google.android.horologist.sample.media.MediaDataSource
-import com.google.android.horologist.sample.media.MediaPlayerScreenViewModel
 import com.google.android.horologist.sample.media.PlayerRepositoryImpl
 
 /**
@@ -27,14 +28,13 @@ import com.google.android.horologist.sample.media.PlayerRepositoryImpl
 object SampleAppDI {
 
     fun inject(mainActivity: MainActivity) {
-        mainActivity.mediaPlayerScreenViewModelFactory =
-            getMediaPlayerScreenViewModelFactory(getPlayerRepositoryImplFactory(getMediaDataSource()))
+        mainActivity.playerRepositoryImplFactory = getPlayerRepositoryImplFactory(getMediaDataSource())
     }
 
-    private fun getMediaPlayerScreenViewModelFactory(
-        playerRepositoryImplFactory: PlayerRepositoryImpl.Factory
-    ): MediaPlayerScreenViewModel.Factory =
-        MediaPlayerScreenViewModel.Factory(playerRepositoryImplFactory)
+    @Suppress("UNUSED_PARAMETER")
+    fun inject(navActivity: NavActivity) {
+        // inject dependencies
+    }
 
     private fun getPlayerRepositoryImplFactory(
         mediaDataSource: MediaDataSource
@@ -42,4 +42,6 @@ object SampleAppDI {
         PlayerRepositoryImpl.Factory(mediaDataSource)
 
     private fun getMediaDataSource(): MediaDataSource = MediaDataSource()
+
+    val PlayerRepositoryImplFactoryKey = object : CreationExtras.Key<PlayerRepositoryImpl.Factory> {}
 }

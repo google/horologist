@@ -45,7 +45,9 @@ import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
 import com.google.android.horologist.navsample.snackbar.SnackbarViewModel
 
 @Composable
-fun NavWearApp(navController: NavHostController) {
+fun NavWearApp(
+    navController: NavHostController,
+) {
     val snackbarViewModel = viewModel<SnackbarViewModel>(factory = SnackbarViewModel.Factory)
 
     val swipeDismissState = rememberSwipeToDismissBoxState()
@@ -120,13 +122,13 @@ fun NavWearApp(navController: NavHostController) {
         wearNavComposable(NavScreen.Pager.route) { _, viewModel ->
             viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
 
-            val state = rememberPagerState()
+            val pagerState = rememberPagerState()
             PagerScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .edgeSwipeToDismiss(swipeDismissState),
                 count = 10,
-                state = state
+                state = pagerState
             ) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Text(text = "Screen $it")

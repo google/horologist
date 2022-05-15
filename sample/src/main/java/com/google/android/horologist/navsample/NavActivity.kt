@@ -19,8 +19,11 @@ package com.google.android.horologist.navsample
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.lifecycle.viewmodel.CreationExtras
+import androidx.lifecycle.viewmodel.MutableCreationExtras
 import androidx.navigation.NavHostController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.google.android.horologist.sample.di.SampleAppDI
 
 class NavActivity : ComponentActivity() {
     lateinit var navController: NavHostController
@@ -28,10 +31,18 @@ class NavActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        SampleAppDI.inject(this)
+
         setContent {
             navController = rememberSwipeDismissableNavController()
 
             NavWearApp(navController)
+        }
+    }
+
+    override fun getDefaultViewModelCreationExtras(): CreationExtras {
+        return MutableCreationExtras(super.getDefaultViewModelCreationExtras()).apply {
+            // Add dependencies
         }
     }
 }

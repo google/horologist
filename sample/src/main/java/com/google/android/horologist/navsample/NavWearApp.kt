@@ -20,6 +20,7 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -43,13 +44,21 @@ import com.google.android.horologist.compose.navscaffold.wearNavComposable
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
 import com.google.android.horologist.navsample.snackbar.SnackbarViewModel
+import com.google.android.horologist.networks.NetworksViewModel
+import com.google.android.horologist.networks.ui.DataUsageTimeText
+import com.google.android.horologist.utils.rememberStateWithLifecycle
 
 @Composable
-fun NavWearApp(navController: NavHostController) {
+fun NavWearApp(
+    navController: NavHostController,
+) {
     val snackbarViewModel = viewModel<SnackbarViewModel>(factory = SnackbarViewModel.Factory)
+    val networksViewModel = viewModel<NetworksViewModel>(factory = NetworksViewModel.Factory)
 
     val swipeDismissState = rememberSwipeToDismissBoxState()
     val navState = rememberSwipeDismissableNavHostState(swipeDismissState)
+
+    val state by rememberStateWithLifecycle(networksViewModel.state)
 
     WearNavScaffold(
         startDestination = NavScreen.Menu.route,
@@ -58,6 +67,14 @@ fun NavWearApp(navController: NavHostController) {
             DialogSnackbarHost(
                 hostState = snackbarViewModel.snackbarHostState,
                 modifier = Modifier.fillMaxSize()
+            )
+        },
+        timeText = {
+            DataUsageTimeText(
+                modifier = it,
+                showData = true,
+                networkStatus = state.networks,
+                networkUsage = state.dataUsage
             )
         },
         state = navState
@@ -120,13 +137,13 @@ fun NavWearApp(navController: NavHostController) {
         wearNavComposable(NavScreen.Pager.route) { _, viewModel ->
             viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
 
-            val state = rememberPagerState()
+            val pagerState = rememberPagerState()
             PagerScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .edgeSwipeToDismiss(swipeDismissState),
                 count = 10,
-                state = state
+                state = pagerState
             ) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Text(text = "Screen $it")

@@ -35,6 +35,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.CreationExtras
+import androidx.lifecycle.viewmodel.MutableCreationExtras
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Scaffold
@@ -50,11 +52,11 @@ import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.android.horologist.sample.di.SampleAppDI
 import com.google.android.horologist.sample.media.MediaPlayerScreen
 import com.google.android.horologist.sample.media.MediaPlayerScreenViewModel
+import com.google.android.horologist.sample.media.PlayerRepositoryImpl
 import java.time.LocalDateTime
 
 class MainActivity : ComponentActivity() {
-
-    lateinit var mediaPlayerScreenViewModelFactory: MediaPlayerScreenViewModel.Factory
+    lateinit var playerRepositoryImplFactory: PlayerRepositoryImpl.Factory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,15 +64,19 @@ class MainActivity : ComponentActivity() {
         SampleAppDI.inject(this)
 
         setContent {
-            WearApp(mediaPlayerScreenViewModelFactory)
+            WearApp()
+        }
+    }
+
+    override fun getDefaultViewModelCreationExtras(): CreationExtras {
+        return MutableCreationExtras(super.getDefaultViewModelCreationExtras()).apply {
+            this[SampleAppDI.PlayerRepositoryImplFactoryKey] = playerRepositoryImplFactory
         }
     }
 }
 
 @Composable
-fun WearApp(
-    mediaPlayerScreenViewModelFactory: MediaPlayerScreenViewModel.Factory
-) {
+fun WearApp() {
     val navController = rememberSwipeDismissableNavController()
 
     var time by remember { mutableStateOf(LocalDateTime.now()) }
@@ -168,7 +174,7 @@ fun WearApp(
                 val context = LocalContext.current
 
                 MediaPlayerScreen(
-                    mediaPlayerScreenViewModel = viewModel(factory = mediaPlayerScreenViewModelFactory),
+                    mediaPlayerScreenViewModel = viewModel(factory = MediaPlayerScreenViewModel.Factory),
                     volumeViewModel = viewModel(factory = VolumeViewModel.Factory),
                     onVolumeClick = {
                         navController.navigate(Screen.Volume.route)

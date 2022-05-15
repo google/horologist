@@ -16,9 +16,14 @@
 
 package com.google.android.horologist.sample.di
 
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewmodel.CreationExtras
+import com.google.android.horologist.navsample.NavActivity
+import com.google.android.horologist.networks.data.DataRequestRepository
+import com.google.android.horologist.networks.logging.NetworkStatusLogger
+import com.google.android.horologist.networks.status.NetworkRepository
 import com.google.android.horologist.sample.MainActivity
 import com.google.android.horologist.sample.media.MediaDataSource
-import com.google.android.horologist.sample.media.MediaPlayerScreenViewModel
 import com.google.android.horologist.sample.media.PlayerRepositoryImpl
 
 /**
@@ -27,14 +32,17 @@ import com.google.android.horologist.sample.media.PlayerRepositoryImpl
 object SampleAppDI {
 
     fun inject(mainActivity: MainActivity) {
-        mainActivity.mediaPlayerScreenViewModelFactory =
-            getMediaPlayerScreenViewModelFactory(getPlayerRepositoryImplFactory(getMediaDataSource()))
+        mainActivity.playerRepositoryImplFactory = getPlayerRepositoryImplFactory(getMediaDataSource())
     }
 
-    private fun getMediaPlayerScreenViewModelFactory(
-        playerRepositoryImplFactory: PlayerRepositoryImpl.Factory
-    ): MediaPlayerScreenViewModel.Factory =
-        MediaPlayerScreenViewModel.Factory(playerRepositoryImplFactory)
+    fun inject(navActivity: NavActivity) {
+        navActivity.networkRepository = NetworkRepository.fromContext(
+            application = navActivity,
+            coroutineScope = navActivity.lifecycleScope,
+            logger = NetworkStatusLogger.Logging
+        )
+        navActivity.dataRequestRepository = DataRequestRepository.InMemoryDataRequestRepository
+    }
 
     private fun getPlayerRepositoryImplFactory(
         mediaDataSource: MediaDataSource
@@ -42,4 +50,8 @@ object SampleAppDI {
         PlayerRepositoryImpl.Factory(mediaDataSource)
 
     private fun getMediaDataSource(): MediaDataSource = MediaDataSource()
+
+    val PlayerRepositoryImplFactoryKey = object : CreationExtras.Key<PlayerRepositoryImpl.Factory> {}
+    val NetworkRepositoryKey = object : CreationExtras.Key<NetworkRepository> {}
+    val DataRequestRepositoryKey = object : CreationExtras.Key<DataRequestRepository> {}
 }

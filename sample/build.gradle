@@ -86,6 +86,7 @@ dependencies {
     implementation projects.composables
     implementation projects.mediaUi
     implementation projects.mediaData
+    implementation projects.networkAwareness
 
     implementation libs.compose.ui.tooling
     implementation libs.compose.ui.util

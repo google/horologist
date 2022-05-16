@@ -1,11 +1,11 @@
 /*
- * Copyright 2022 Google Inc. All rights reserved.
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,8 +19,8 @@ package com.google.android.horologist.networks.okhttp
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
-import com.google.android.horologist.networks.status.HighBandwidthRequester
 import com.google.android.horologist.networks.rules.NoSuitableNetwork
+import com.google.android.horologist.networks.status.HighBandwidthRequester
 import okhttp3.Interceptor
 import okhttp3.Response
 

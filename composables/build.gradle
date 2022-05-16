@@ -94,7 +94,6 @@ dependencies {
     debugImplementation projects.composeTools
 
     testImplementation libs.junit
-    testImplementation projects.composeTesting
     testImplementation projects.paparazzi
 
     androidTestImplementation libs.compose.ui.test.junit4

@@ -15,10 +15,15 @@
  */
 
 plugins {
-    id "org.jetbrains.kotlin.jvm"
+
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+    id 'org.jetbrains.dokka'
 }
 
-dependencies {
-    implementation libs.kotlin.stdlib
-    api 'app.cash.paparazzi:paparazzi:1.0.0-SNAPSHOT'
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
 }
+
+apply plugin: "com.vanniktech.maven.publish"

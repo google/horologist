@@ -19,9 +19,9 @@ package com.google.android.horologist.compose.testing
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.Colors
 
-data class ThemeValues(val description: String, val colors: Colors)
+public data class ThemeValues(val description: String, val colors: Colors)
 
-internal val initialThemeValues = ThemeValues(
+public internal val initialThemeValues = ThemeValues(
     "Lilac (D0BCFF)",
     Colors(
         primary = Color(0xFFD0BCFF),
@@ -31,7 +31,7 @@ internal val initialThemeValues = ThemeValues(
     )
 )
 
-internal val themeValues = listOf(
+public internal val themeValues = listOf(
     initialThemeValues,
     ThemeValues("Blue (Default AECBFA)", Colors()),
     ThemeValues(

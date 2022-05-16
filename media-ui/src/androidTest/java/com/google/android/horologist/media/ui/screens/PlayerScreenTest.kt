@@ -27,10 +27,10 @@ import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
-import androidx.media3.common.MediaItem
-import androidx.media3.common.MediaMetadata
-import androidx.media3.common.Player
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.media.model.Command
+import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.test.toolbox.matchers.hasProgressBar
@@ -84,11 +84,11 @@ class PlayerScreenTest {
     fun givenPlayerRepoIsNOTPlaying_whenPlayIsClicked_thenPlayerRepoIsPlaying() {
         // given
         val playerRepository = FakePlayerRepository()
-        playerRepository.addCommand(Player.COMMAND_PLAY_PAUSE)
+        playerRepository.addCommand(Command.PlayPause)
 
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        assertThat(playerRepository.isPlaying.value).isFalse()
+        assertThat(playerRepository.currentState.value).isNotEqualTo(PlayerState.Playing)
 
         composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
@@ -97,19 +97,21 @@ class PlayerScreenTest {
             .performClick()
 
         // then
-        composeTestRule.waitUntil(timeoutMillis = 1_000) { playerRepository.isPlaying.value }
+        composeTestRule.waitUntil(timeoutMillis = 1_000) {
+            playerRepository.currentState.value == PlayerState.Playing
+        }
     }
 
     @Test
     fun givenPlayerRepoIsPlaying_whenPauseIsClicked_thenPlayerRepoIsNOTPlaying() {
         // given
         val playerRepository = FakePlayerRepository()
-        playerRepository.addCommand(Player.COMMAND_PLAY_PAUSE)
-        playerRepository.prepareAndPlay()
+        playerRepository.addCommand(Command.PlayPause)
+        playerRepository.play()
 
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        assertThat(playerRepository.isPlaying.value).isTrue()
+        assertThat(playerRepository.currentState.value).isEqualTo(PlayerState.Playing)
 
         composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
@@ -118,7 +120,9 @@ class PlayerScreenTest {
             .performClick()
 
         // then
-        composeTestRule.waitUntil(timeoutMillis = 1_000) { !playerRepository.isPlaying.value }
+        composeTestRule.waitUntil(timeoutMillis = 1_000) {
+            playerRepository.currentState.value != PlayerState.Playing
+        }
     }
 
     @Test
@@ -126,11 +130,14 @@ class PlayerScreenTest {
         // given
         val playerRepository = FakePlayerRepository()
 
-        val mediaItem1 = MediaItem.Builder().build()
-        val mediaItem2 = MediaItem.Builder().build()
-        playerRepository.prepareAndPlay(listOf(mediaItem1, mediaItem2), 1)
+        val mediaItem1 = MediaItem("", "")
+        val mediaItem2 = MediaItem("", "")
+        playerRepository.setMediaItems(listOf(mediaItem1, mediaItem2))
+        playerRepository.play(1)
 
         val playerViewModel = PlayerViewModel(playerRepository)
+
+        assertThat(playerRepository.currentMediaItem.value).isEqualTo(mediaItem2)
 
         composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
@@ -139,7 +146,9 @@ class PlayerScreenTest {
             .performClick()
 
         // then
-        composeTestRule.waitUntil(timeoutMillis = 1_000) { playerRepository.currentMediaItem.value == mediaItem1 }
+        composeTestRule.waitUntil(timeoutMillis = 1_000) {
+            playerRepository.currentMediaItem.value == mediaItem1
+        }
     }
 
     @Test
@@ -147,11 +156,14 @@ class PlayerScreenTest {
         // given
         val playerRepository = FakePlayerRepository()
 
-        val mediaItem1 = MediaItem.Builder().build()
-        val mediaItem2 = MediaItem.Builder().build()
-        playerRepository.prepareAndPlay(listOf(mediaItem1, mediaItem2), 0)
+        val mediaItem1 = MediaItem("", "")
+        val mediaItem2 = MediaItem("", "")
+        playerRepository.setMediaItems(listOf(mediaItem1, mediaItem2))
+        playerRepository.play(0)
 
         val playerViewModel = PlayerViewModel(playerRepository)
+
+        assertThat(playerRepository.currentMediaItem.value).isEqualTo(mediaItem1)
 
         composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
@@ -160,7 +172,9 @@ class PlayerScreenTest {
             .performClick()
 
         // then
-        composeTestRule.waitUntil(timeoutMillis = 1_000) { playerRepository.currentMediaItem.value == mediaItem2 }
+        composeTestRule.waitUntil(timeoutMillis = 1_000) {
+            playerRepository.currentMediaItem.value == mediaItem2
+        }
     }
 
     @Test
@@ -190,7 +204,7 @@ class PlayerScreenTest {
     fun whenPlayPauseCommandBecomesAvailable_thenPlayPauseButtonGetsEnabled() {
         // given
         val playerRepository = FakePlayerRepository()
-        playerRepository.prepareAndPlay()
+        playerRepository.play()
 
         val playerViewModel = PlayerViewModel(playerRepository)
 
@@ -202,7 +216,7 @@ class PlayerScreenTest {
         button.assertIsNotEnabled()
 
         // when
-        playerRepository.addCommand(Player.COMMAND_PLAY_PAUSE)
+        playerRepository.addCommand(Command.PlayPause)
 
         // then
         button.assertIsEnabled()
@@ -222,7 +236,7 @@ class PlayerScreenTest {
         button.assertIsNotEnabled()
 
         // when
-        playerRepository.addCommand(Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM)
+        playerRepository.addCommand(Command.SkipToPreviousMediaItem)
 
         // then
         button.assertIsEnabled()
@@ -242,7 +256,7 @@ class PlayerScreenTest {
         button.assertIsNotEnabled()
 
         // when
-        playerRepository.addCommand(Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM)
+        playerRepository.addCommand(Command.SkipToNextMediaItem)
 
         // then
         button.assertIsEnabled()
@@ -254,15 +268,9 @@ class PlayerScreenTest {
         val playerRepository = FakePlayerRepository()
         val artist = "artist"
         val title = "title"
-        val mediaItem = MediaItem.Builder()
-            .setMediaMetadata(
-                MediaMetadata.Builder()
-                    .setArtist(artist)
-                    .setDisplayTitle(title)
-                    .build()
-            )
-            .build()
-        playerRepository.prepareAndPlay(mediaItem)
+        val mediaItem = MediaItem(title = title, artist = artist)
+        playerRepository.setMediaItem(mediaItem)
+        playerRepository.play()
 
         val playerViewModel = PlayerViewModel(playerRepository)
 
@@ -279,15 +287,9 @@ class PlayerScreenTest {
         val playerRepository = FakePlayerRepository()
         val artist = "artist"
         val title = "title"
-        val mediaItem = MediaItem.Builder()
-            .setMediaMetadata(
-                MediaMetadata.Builder()
-                    .setArtist(artist)
-                    .setDisplayTitle(title)
-                    .build()
-            )
-            .build()
-        playerRepository.prepareAndPlay(mediaItem)
+        val mediaItem = MediaItem(title = title, artist = artist)
+        playerRepository.setMediaItem(mediaItem)
+        playerRepository.play()
 
         val playerViewModel = PlayerViewModel(playerRepository)
 

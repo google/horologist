@@ -175,15 +175,14 @@ package com.google.android.horologist.media.ui.state {
   }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public class PlayerViewModel extends androidx.lifecycle.ViewModel {
-    ctor public PlayerViewModel(com.google.android.horologist.media.data.repository.PlayerRepository playerRepository);
+    ctor public PlayerViewModel(com.google.android.horologist.media.repository.PlayerRepository playerRepository);
     method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.ui.state.PlayerUiState> getPlayerUiState();
     method public final void pause();
-    method public final void prepareAndPlay();
+    method public final void play();
     method public final void seekBack();
     method public final void seekForward();
-    method public final void seekToNextMediaItem();
-    method public final void seekToPreviousMediaItem();
-    method public final void toggleShuffle();
+    method public final void skipToNextMediaItem();
+    method public final void skipToPreviousMediaItem();
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.ui.state.PlayerUiState> playerUiState;
     field public static final com.google.android.horologist.media.ui.state.PlayerViewModel.Companion Companion;
   }
@@ -196,17 +195,17 @@ package com.google.android.horologist.media.ui.state {
 package com.google.android.horologist.media.ui.state.mapper {
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class MediaItemUiModelMapper {
-    method public com.google.android.horologist.media.ui.state.model.MediaItemUiModel map(androidx.media3.common.MediaItem mediaItem);
+    method public com.google.android.horologist.media.ui.state.model.MediaItemUiModel map(com.google.android.horologist.media.model.MediaItem mediaItem);
     field public static final com.google.android.horologist.media.ui.state.mapper.MediaItemUiModelMapper INSTANCE;
   }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class PlayerUiStateMapper {
-    method public com.google.android.horologist.media.ui.state.PlayerUiState map(androidx.media3.common.Player.Commands playerCommands, boolean shuffleModeEnabled, boolean isPlaying, androidx.media3.common.MediaItem? mediaItem, com.google.android.horologist.media.data.model.TrackPosition? trackPosition);
+    method public com.google.android.horologist.media.ui.state.PlayerUiState map(com.google.android.horologist.media.model.PlayerState currentState, java.util.Set<? extends com.google.android.horologist.media.model.Command> availableCommands, com.google.android.horologist.media.model.MediaItem? mediaItem, com.google.android.horologist.media.model.MediaItemPosition? mediaItemPosition, boolean shuffleModeEnabled);
     field public static final com.google.android.horologist.media.ui.state.mapper.PlayerUiStateMapper INSTANCE;
   }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class TrackPositionUiModelMapper {
-    method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel map(com.google.android.horologist.media.data.model.TrackPosition trackPosition);
+    method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel map(com.google.android.horologist.media.model.MediaItemPosition mediaItemPosition);
     field public static final com.google.android.horologist.media.ui.state.mapper.TrackPositionUiModelMapper INSTANCE;
   }
 

@@ -16,19 +16,27 @@
 
 package com.google.android.horologist.media.ui.state.mapper
 
-import com.google.android.horologist.media.data.model.TrackPosition
+import com.google.android.horologist.media.model.MediaItemPosition
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
 /**
- * Map a [TrackPosition] into a [TrackPositionUiModel]
+ * Map a [MediaItemPosition] into a [TrackPositionUiModel]
  */
 @ExperimentalHorologistMediaUiApi
 public object TrackPositionUiModelMapper {
 
-    public fun map(trackPosition: TrackPosition): TrackPositionUiModel = TrackPositionUiModel(
-        current = trackPosition.current,
-        duration = trackPosition.duration,
-        percent = trackPosition.percent
-    )
+    public fun map(mediaItemPosition: MediaItemPosition): TrackPositionUiModel {
+        val (duration, percent) = if (mediaItemPosition is MediaItemPosition.KnownDuration) {
+            mediaItemPosition.duration.inWholeMilliseconds to mediaItemPosition.percent
+        } else {
+            0L to 0F
+        }
+
+        return TrackPositionUiModel(
+            current = mediaItemPosition.current.inWholeMilliseconds,
+            duration = duration,
+            percent = percent
+        )
+    }
 }

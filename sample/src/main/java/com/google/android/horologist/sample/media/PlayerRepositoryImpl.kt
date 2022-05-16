@@ -16,19 +16,19 @@
 
 package com.google.android.horologist.sample.media
 
-import androidx.annotation.OptIn
-import androidx.media3.common.MediaItem
-import androidx.media3.common.Player
-import androidx.media3.common.Player.Command
-import androidx.media3.common.util.UnstableApi
-import com.google.android.horologist.media.data.model.TrackPosition
-import com.google.android.horologist.media.data.repository.PlayerRepository
+import com.google.android.horologist.media.model.Command
+import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.media.model.MediaItemPosition
+import com.google.android.horologist.media.model.PlayerState
+import com.google.android.horologist.media.repository.PlayerRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 /**
  * A fake implementation of [PlayerRepository].
@@ -39,22 +39,22 @@ class PlayerRepositoryImpl(
     private val mediaDataSource: MediaDataSource
 ) : PlayerRepository {
 
-    private var _availableCommandsList = MutableStateFlow(Player.Commands.EMPTY)
-    override val availableCommands: StateFlow<Player.Commands> = _availableCommandsList
+    private val _availableCommands = MutableStateFlow<Set<Command>>(emptySet())
+    override val availableCommands: StateFlow<Set<Command>> = _availableCommands
 
-    private var _playing = MutableStateFlow(false)
-    override val isPlaying: StateFlow<Boolean> = _playing
+    private val _currentState: MutableStateFlow<PlayerState> = MutableStateFlow(PlayerState.Idle)
+    override val currentState: StateFlow<PlayerState> = _currentState
 
-    private var _currentMediaItem: MutableStateFlow<MediaItem?> = MutableStateFlow(null)
+    private val _currentMediaItem: MutableStateFlow<MediaItem?> = MutableStateFlow(null)
     override val currentMediaItem: StateFlow<MediaItem?> = _currentMediaItem
 
-    private var _trackPosition: MutableStateFlow<TrackPosition?> = MutableStateFlow(null)
-    override val trackPosition: StateFlow<TrackPosition?> = _trackPosition
+    private val _mediaItemPosition: MutableStateFlow<MediaItemPosition?> = MutableStateFlow(null)
+    override val mediaItemPosition: StateFlow<MediaItemPosition?> = _mediaItemPosition
 
     private var _shuffleModeEnabled = MutableStateFlow(false)
     override val shuffleModeEnabled: StateFlow<Boolean> = _shuffleModeEnabled
 
-    private var mediaItems: List<MediaItem>? = null
+    private var _mediaItems: List<MediaItem>? = null
     private var currentItemIndex = -1
 
     private lateinit var coroutineScope: CoroutineScope
@@ -66,7 +66,7 @@ class PlayerRepositoryImpl(
 
     fun fetchData() {
         mediaDataSource.fetchData().also {
-            mediaItems = it
+            _mediaItems = it
             currentItemIndex++
             _currentMediaItem.value = it[currentItemIndex]
             updateCommands()
@@ -74,61 +74,50 @@ class PlayerRepositoryImpl(
     }
 
     private fun updateCommands() {
-        mediaItems?.let {
-            addCommand(Player.COMMAND_PLAY_PAUSE)
+        val commands = mutableSetOf<Command>()
+        commands.addAll(_availableCommands.value)
+
+        _mediaItems?.let {
+            commands += Command.PlayPause
 
             if (currentItemIndex < it.size - 1) {
-                addCommand(Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM)
+                commands += Command.SkipToNextMediaItem
             } else {
-                removeCommand(Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM)
+                commands -= Command.SkipToNextMediaItem
             }
         } ?: run {
-            removeCommand(Player.COMMAND_PLAY_PAUSE)
+            commands -= Command.PlayPause
         }
 
         if (currentItemIndex > 0) {
-            addCommand(Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM)
+            commands += Command.SkipToPreviousMediaItem
         } else {
-            removeCommand(Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM)
+            commands -= Command.SkipToPreviousMediaItem
         }
+
+        _availableCommands.value = commands
     }
 
-    override fun prepareAndPlay(mediaItem: MediaItem, play: Boolean) {
-        _currentMediaItem.value = mediaItem
-
-        if (play) {
-            pretendIsPlaying()
-        }
+    override fun prepare() {
+        // do nothing
     }
 
-    override fun prepareAndPlay(mediaItems: List<MediaItem>?, startIndex: Int, play: Boolean) {
-        mediaItems?.let {
-            this.mediaItems = it
-            currentItemIndex = startIndex
-            _currentMediaItem.value = it[startIndex]
-        }
+    override fun play() {
+        _currentState.value = PlayerState.Playing
 
-        if (play) {
-            pretendIsPlaying()
-        }
-    }
-
-    private fun pretendIsPlaying() {
-        _playing.value = true
-
-        if (trackPosition.value?.current == DURATION) {
-            _trackPosition.value = INITIAL_TRACK_POSITION
+        if (_mediaItemPosition.value?.current == DURATION) {
+            _mediaItemPosition.value = INITIAL_MEDIA_ITEM_POSITION
         }
 
         playingJob = coroutineScope.launch {
-            repeat(DURATION.toInt()) {
-                delay(1_000L)
+            repeat(DURATION.inWholeSeconds.toInt()) {
+                delay(1.seconds.inWholeMilliseconds)
                 updatePosition()
             }
-            mediaItems?.let {
+            _mediaItems?.let {
                 if (currentItemIndex < it.size - 1) {
-                    delay(1_000L)
-                    seekToNextMediaItem()
+                    delay(1.seconds.inWholeMilliseconds)
+                    skipToNextMediaItem()
                 } else {
                     pause()
                 }
@@ -138,87 +127,122 @@ class PlayerRepositoryImpl(
         }
     }
 
-    override fun seekToPreviousMediaItem() {
-        val wasPlaying = _playing.value
+    override fun play(mediaItemIndex: Int) {
+        // do nothing
+    }
+
+    private fun updatePosition() {
+        _mediaItemPosition.value = _mediaItemPosition.value?.let {
+            MediaItemPosition.create(
+                current = it.current + 1.seconds,
+                duration = DURATION
+            )
+        } ?: MediaItemPosition.create(
+            current = INITIAL_MEDIA_ITEM_POSITION.current + 1.seconds,
+            duration = DURATION
+        )
+    }
+
+    override fun pause() {
+        _currentState.value = PlayerState.Ready
+        playingJob?.cancel()
+    }
+
+    override fun hasPreviousMediaItem(): Boolean = currentItemIndex > 0
+
+    override fun skipToPreviousMediaItem() {
+        val wasPlaying = _currentState.value == PlayerState.Playing
         if (wasPlaying) {
             playingJob?.cancel()
-            _playing.value = false
+            _currentState.value = PlayerState.Ready
         }
 
         currentItemIndex--
-        _currentMediaItem.value = mediaItems!![currentItemIndex]
-        _trackPosition.value = INITIAL_TRACK_POSITION
+        _currentMediaItem.value = _mediaItems!![currentItemIndex]
+        _mediaItemPosition.value = INITIAL_MEDIA_ITEM_POSITION
         updateCommands()
 
         if (wasPlaying) {
-            prepareAndPlay()
+            play()
         }
     }
 
-    override fun seekToNextMediaItem() {
-        val wasPlaying = _playing.value
+    override fun hasNextMediaItem(): Boolean =
+        _mediaItems?.let {
+            currentItemIndex < it.size - 2
+        } ?: false
+
+    override fun skipToNextMediaItem() {
+        val wasPlaying = _currentState.value == PlayerState.Playing
         if (wasPlaying) {
             playingJob?.cancel()
-            _playing.value = false
+            _currentState.value = PlayerState.Ready
         }
 
         currentItemIndex++
-        _currentMediaItem.value = mediaItems!![currentItemIndex]
-        _trackPosition.value = INITIAL_TRACK_POSITION
+        _currentMediaItem.value = _mediaItems!![currentItemIndex]
+        _mediaItemPosition.value = INITIAL_MEDIA_ITEM_POSITION
         updateCommands()
 
         if (wasPlaying) {
-            prepareAndPlay()
+            play()
         }
     }
 
-    override fun getSeekBackIncrement(): Long = 0
+    override fun getSeekBackIncrement(): Duration = 0.seconds // not implemented
 
     override fun seekBack() {
         // do nothing
     }
 
-    override fun getSeekForwardIncrement(): Long = 0
+    override fun getSeekForwardIncrement(): Duration = 0.seconds // not implemented
 
     override fun seekForward() {
         // do nothing
     }
 
-    override fun pause() {
-        _playing.value = false
-        playingJob?.cancel()
-    }
-
-    override fun toggleShuffle() {
+    override fun setShuffleModeEnabled(shuffleModeEnabled: Boolean) {
         // do nothing
     }
 
-    override fun updatePosition() {
-        _trackPosition.value = _trackPosition.value?.let {
-            it.copy(current = it.current + 1)
-        } ?: INITIAL_TRACK_POSITION.copy(current = INITIAL_TRACK_POSITION.current + 1)
+    override fun setMediaItem(mediaItem: MediaItem) {
+        // do nothing
     }
 
-    private fun addCommand(@Command command: Int) {
-        @OptIn(UnstableApi::class)
-        _availableCommandsList.value = Player.Commands.Builder()
-            .addAll(_availableCommandsList.value)
-            .add(command)
-            .build()
+    override fun setMediaItems(mediaItems: List<MediaItem>) {
+        // do nothing
     }
 
-    private fun removeCommand(@Command command: Int) {
-        @OptIn(UnstableApi::class)
-        _availableCommandsList.value = Player.Commands.Builder()
-            .addAll(_availableCommandsList.value)
-            .remove(command)
-            .build()
+    override fun addMediaItem(mediaItem: MediaItem) {
+        // do nothing
+    }
+
+    override fun addMediaItem(index: Int, mediaItem: MediaItem) {
+        // do nothing
+    }
+
+    override fun removeMediaItem(index: Int) {
+        // do nothing
+    }
+
+    override fun clearMediaItems() {
+        // do nothing
+    }
+
+    override fun getMediaItemCount(): Int = _mediaItems?.size ?: 0
+
+    override fun getMediaItemAt(index: Int): MediaItem? = null // not implemented
+
+    override fun getCurrentMediaItemIndex(): Int = 0 // not implemented
+
+    override fun release() {
+        // do nothing
     }
 
     companion object {
-        private const val DURATION = 180L
+        private val DURATION = 180.seconds
 
-        private val INITIAL_TRACK_POSITION = TrackPosition(0, DURATION)
+        private val INITIAL_MEDIA_ITEM_POSITION = MediaItemPosition.create(0.seconds, DURATION)
     }
 
     class Factory(

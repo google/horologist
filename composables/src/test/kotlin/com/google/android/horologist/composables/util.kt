@@ -14,11 +14,19 @@
  * limitations under the License.
  */
 
-plugins {
-    id "org.jetbrains.kotlin.jvm"
-}
+package com.google.android.horologist.composables
 
-dependencies {
-    implementation libs.kotlin.stdlib
-    api 'app.cash.paparazzi:paparazzi:1.0.0-SNAPSHOT'
+import app.cash.paparazzi.HtmlReportWriter
+import app.cash.paparazzi.SnapshotHandler
+import app.cash.paparazzi.SnapshotVerifier
+
+private val isVerifying: Boolean =
+    System.getProperty("paparazzi.test.verify")?.toBoolean() == true
+
+internal fun determineHandler(maxPercentDifference: Double): SnapshotHandler {
+    return if (isVerifying) {
+        SnapshotVerifier(maxPercentDifference)
+    } else {
+        HtmlReportWriter()
+    }
 }

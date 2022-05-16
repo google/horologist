@@ -21,7 +21,7 @@ import androidx.wear.compose.material.Colors
 
 public data class ThemeValues(val description: String, val colors: Colors)
 
-public internal val initialThemeValues = ThemeValues(
+public val initialThemeValues = ThemeValues(
     "Lilac (D0BCFF)",
     Colors(
         primary = Color(0xFFD0BCFF),
@@ -31,7 +31,7 @@ public internal val initialThemeValues = ThemeValues(
     )
 )
 
-public internal val themeValues = listOf(
+public val themeValues = listOf(
     initialThemeValues,
     ThemeValues("Blue (Default AECBFA)", Colors()),
     ThemeValues(

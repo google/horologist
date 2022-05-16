@@ -48,6 +48,7 @@ android {
         freeCompilerArgs += "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi"
         freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
         freeCompilerArgs += "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi"
         freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
     }
 
@@ -105,7 +106,7 @@ dependencies {
     implementation libs.compose.ui.util
     implementation libs.androidx.wear
     implementation libs.androidx.lifecycle.viewmodel.compose
-    debugImplementation projects.composeTesting
+    debugImplementation projects.composeTools
     debugImplementation libs.compose.ui.toolingpreview
     debugImplementation libs.androidx.activity.compose
 

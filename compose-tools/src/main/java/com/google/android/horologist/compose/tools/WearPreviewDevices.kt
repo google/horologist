@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.testing
+package com.google.android.horologist.compose.tools
 
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,6 +40,7 @@ import androidx.compose.ui.tooling.preview.Preview
     showBackground = true,
     group = "Devices - Square",
 )
+@ExperimentalHorologistComposeToolsApi
 public annotation class WearPreviewDevices
 
 @Preview(
@@ -49,6 +50,7 @@ public annotation class WearPreviewDevices
     showBackground = true,
     group = "Devices - Small Round",
 )
+@ExperimentalHorologistComposeToolsApi
 public annotation class WearSmallRoundDevicePreview
 
 @Preview(
@@ -58,6 +60,7 @@ public annotation class WearSmallRoundDevicePreview
     showBackground = true,
     group = "Devices - Large Round",
 )
+@ExperimentalHorologistComposeToolsApi
 public annotation class WearLargeRoundDevicePreview
 
 @Preview(
@@ -67,4 +70,5 @@ public annotation class WearLargeRoundDevicePreview
     showBackground = true,
     group = "Devices - Square",
 )
+@ExperimentalHorologistComposeToolsApi
 public annotation class WearSquareDevicePreview

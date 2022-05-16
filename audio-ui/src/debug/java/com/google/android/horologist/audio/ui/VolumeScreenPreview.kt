@@ -28,11 +28,11 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.compose.testing.ThemeValues
-import com.google.android.horologist.compose.testing.WearLargeRoundDevicePreview
-import com.google.android.horologist.compose.testing.WearPreviewDevices
-import com.google.android.horologist.compose.testing.WearPreviewFontSizes
-import com.google.android.horologist.compose.testing.WearPreviewThemes
+import com.google.android.horologist.compose.tools.ThemeValues
+import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
+import com.google.android.horologist.compose.tools.WearPreviewDevices
+import com.google.android.horologist.compose.tools.WearPreviewFontSizes
+import com.google.android.horologist.compose.tools.WearPreviewThemes
 
 @WearLargeRoundDevicePreview
 @Composable

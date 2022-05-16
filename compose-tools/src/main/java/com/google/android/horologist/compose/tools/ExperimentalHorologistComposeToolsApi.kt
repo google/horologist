@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.testing
+package com.google.android.horologist.compose.tools
 
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-
-public class WearPreviewThemes : PreviewParameterProvider<ThemeValues> {
-    public override val values: Sequence<ThemeValues>
-        get() = themeValues.asSequence()
-}
+@RequiresOptIn(
+    message = "Horologist Media is experimental. The API may be changed in the future."
+)
+@Retention(AnnotationRetention.BINARY)
+public annotation class ExperimentalHorologistComposeToolsApi

@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.testing
+package com.google.android.horologist.compose.tools
 
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.Colors
 
+@ExperimentalHorologistComposeToolsApi
 public data class ThemeValues(val description: String, val colors: Colors)
 
-public val initialThemeValues = ThemeValues(
+@ExperimentalHorologistComposeToolsApi
+public val initialThemeValues: ThemeValues = ThemeValues(
     "Lilac (D0BCFF)",
     Colors(
         primary = Color(0xFFD0BCFF),
@@ -31,7 +33,8 @@ public val initialThemeValues = ThemeValues(
     )
 )
 
-public val themeValues = listOf(
+@ExperimentalHorologistComposeToolsApi
+public val themeValues: List<ThemeValues> = listOf(
     initialThemeValues,
     ThemeValues("Blue (Default AECBFA)", Colors()),
     ThemeValues(

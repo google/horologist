@@ -34,7 +34,7 @@ public class DBDataRequestRepository(
     public val today: LocalDate = LocalDate.now()
 
     // TODO update on day roll
-    public val day = today.let { it.year * 1000 + it.dayOfYear }
+    public val day: Int = today.let { it.year * 1000 + it.dayOfYear }
 
     public val from: Instant = today.atStartOfDay().toInstant(ZoneOffset.UTC)
     public val to: Instant = today.plusDays(1).atStartOfDay().toInstant(ZoneOffset.UTC)

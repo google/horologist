@@ -89,8 +89,8 @@ public class NetworkSelectingCallFactory(
         }
     }
 
-    inner class ThisCall(private val delegate: Call) : Call {
-        override fun cancel() = delegate.cancel()
+    private inner class ThisCall(private val delegate: Call) : Call {
+        override fun cancel(): Unit = delegate.cancel()
 
         override fun clone(): Call = newCall(request())
 
@@ -111,7 +111,7 @@ public class NetworkSelectingCallFactory(
         override fun timeout(): Timeout = delegate.timeout()
     }
 
-    inner class FailedCall(private val request: Request) : Call {
+    private inner class FailedCall(private val request: Request) : Call {
         private var cancelled = false
         private var executed = false
 

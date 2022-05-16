@@ -17,11 +17,11 @@
 package com.google.android.horologist.networks.rules
 
 public sealed interface RequestCheck {
-    val isForbidden: Boolean
+    public val isForbidden: Boolean
 }
 
-public data class Fail(val reason: String) : RequestCheck {
-    override val isForbidden = true
+public data class Fail(public val reason: String) : RequestCheck {
+    override val isForbidden: Boolean = true
 }
 
 public object Allow : RequestCheck {

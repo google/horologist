@@ -31,7 +31,7 @@ public interface DataRequestRepository {
         private var cell = 0L
         private var unknown = 0L
 
-        public val _currentPeriodUsage =
+        public val _currentPeriodUsage: MutableStateFlow<DataUsageReport> =
             MutableStateFlow(DataUsageReport(dataByType = mapOf(), from = from, to = from))
 
         override fun currentPeriodUsage(): Flow<DataUsageReport> = _currentPeriodUsage

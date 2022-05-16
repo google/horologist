@@ -54,7 +54,7 @@ public interface NetworkStatusLogger {
     }
 
     public class InMemory : NetworkStatusLogger {
-        public val events = mutableListOf<String>()
+        public val events: MutableList<String> = mutableListOf<String>()
 
         override fun logNetworkEvent(event: String, error: Boolean) {
             events.add(event)

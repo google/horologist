@@ -18,17 +18,17 @@ package com.google.android.horologist.networks.data
 
 import java.time.Instant
 
-sealed class Status(val order: Int) {
-    object Available : Status(order = 1) {
+public sealed class Status(public val order: Int) {
+    public object Available : Status(order = 1) {
         override fun toString() = "Available"
     }
-    class Losing(val instant: Instant) : Status(order = 2) {
+    public class Losing(val instant: Instant) : Status(order = 2) {
         override fun toString() = "Losing"
     }
-    object Lost : Status(order = 3) {
+    public object Lost : Status(order = 3) {
         override fun toString() = "Lost"
     }
-    object Unknown : Status(order = 4) {
+    public object Unknown : Status(order = 4) {
         override fun toString() = "Unknown"
     }
 }

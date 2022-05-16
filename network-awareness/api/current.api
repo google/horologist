@@ -345,41 +345,13 @@ package com.google.android.horologist.networks.okhttp {
 
   public final class NetworkEstablishingInterceptor implements okhttp3.Interceptor {
     ctor public NetworkEstablishingInterceptor(com.google.android.horologist.networks.rules.NetworkingRulesEngine networkingRulesEngine, com.google.android.horologist.networks.status.HighBandwidthRequester highBandwidthRequester);
-    method public com.google.android.horologist.networks.status.HighBandwidthRequester getHighBandwidthRequester();
-    method public com.google.android.horologist.networks.rules.NetworkingRulesEngine getNetworkingRulesEngine();
     method public okhttp3.Response intercept(okhttp3.Interceptor.Chain chain);
     method public <T> T! withValidNetwork(com.google.android.horologist.networks.data.RequestType requestType, kotlin.jvm.functions.Function0<? extends T> block);
-    property public final com.google.android.horologist.networks.status.HighBandwidthRequester highBandwidthRequester;
-    property public final com.google.android.horologist.networks.rules.NetworkingRulesEngine networkingRulesEngine;
   }
 
   public final class NetworkSelectingCallFactory implements okhttp3.Call.Factory {
     ctor public NetworkSelectingCallFactory(com.google.android.horologist.networks.rules.NetworkingRulesEngine networkingRulesEngine, com.google.android.horologist.networks.status.HighBandwidthRequester highBandwidthRequester, com.google.android.horologist.networks.data.DataRequestRepository? dataRequestRepository, okhttp3.OkHttpClient rootClient);
     method public okhttp3.Call newCall(okhttp3.Request request);
-  }
-
-  public final class NetworkSelectingCallFactory.FailedCall implements okhttp3.Call {
-    ctor public NetworkSelectingCallFactory.FailedCall(okhttp3.Request request);
-    method public void cancel();
-    method public okhttp3.Call clone();
-    method public void enqueue(okhttp3.Callback responseCallback);
-    method public okhttp3.Response execute();
-    method public boolean isCanceled();
-    method public boolean isExecuted();
-    method public okhttp3.Request request();
-    method public okio.Timeout timeout();
-  }
-
-  public final class NetworkSelectingCallFactory.ThisCall implements okhttp3.Call {
-    ctor public NetworkSelectingCallFactory.ThisCall(okhttp3.Call delegate);
-    method public void cancel();
-    method public okhttp3.Call clone();
-    method public void enqueue(okhttp3.Callback responseCallback);
-    method public okhttp3.Response execute();
-    method public boolean isCanceled();
-    method public boolean isExecuted();
-    method public okhttp3.Request request();
-    method public okio.Timeout timeout();
   }
 
   public final class NetworkSpecificSocketFactory extends javax.net.SocketFactory {
@@ -393,17 +365,7 @@ package com.google.android.horologist.networks.okhttp {
 
   public final class OkHttpEventListenerFactory implements okhttp3.EventListener.Factory {
     ctor public OkHttpEventListenerFactory(com.google.android.horologist.networks.rules.NetworkingRulesEngine networkingRulesEngine, okhttp3.EventListener.Factory delegateEventListenerFactory, optional com.google.android.horologist.networks.data.DataRequestRepository? dataRequestRepository);
-    method public com.google.android.horologist.networks.okhttp.OkHttpEventListenerFactory.Listener create(okhttp3.Call call);
-    method public com.google.android.horologist.networks.data.DataRequestRepository? getDataRequestRepository();
-    method public okhttp3.EventListener.Factory getDelegateEventListenerFactory();
-    method public com.google.android.horologist.networks.rules.NetworkingRulesEngine getNetworkingRulesEngine();
-    property public final com.google.android.horologist.networks.data.DataRequestRepository? dataRequestRepository;
-    property public final okhttp3.EventListener.Factory delegateEventListenerFactory;
-    property public final com.google.android.horologist.networks.rules.NetworkingRulesEngine networkingRulesEngine;
-  }
-
-  public final class OkHttpEventListenerFactory.Listener extends com.google.android.horologist.networks.okhttp.DelegatingEventListener {
-    ctor public OkHttpEventListenerFactory.Listener(okhttp3.EventListener delegate);
+    method public okhttp3.EventListener create(okhttp3.Call call);
   }
 
   public final class OkhttpKt {
@@ -437,9 +399,7 @@ package com.google.android.horologist.networks.okhttp {
 
   public final class RequestVerifyingInterceptor implements okhttp3.Interceptor {
     ctor public RequestVerifyingInterceptor(com.google.android.horologist.networks.rules.NetworkingRulesEngine networkingRulesEngine);
-    method public com.google.android.horologist.networks.rules.NetworkingRulesEngine getNetworkingRulesEngine();
     method public okhttp3.Response intercept(okhttp3.Interceptor.Chain chain);
-    property public final com.google.android.horologist.networks.rules.NetworkingRulesEngine networkingRulesEngine;
   }
 
 }
@@ -489,15 +449,9 @@ package com.google.android.horologist.networks.rules {
   public final class NetworkingRulesEngine {
     ctor public NetworkingRulesEngine(com.google.android.horologist.networks.status.NetworkRepository networkRepository, optional com.google.android.horologist.networks.logging.NetworkStatusLogger logger, optional com.google.android.horologist.networks.rules.NetworkingRules networkingRules);
     method public com.google.android.horologist.networks.rules.RequestCheck checkValidRequest(com.google.android.horologist.networks.data.RequestType requestType, com.google.android.horologist.networks.data.NetworkType? currentNetworkType);
-    method public com.google.android.horologist.networks.logging.NetworkStatusLogger getLogger();
-    method public com.google.android.horologist.networks.status.NetworkRepository getNetworkRepository();
-    method public com.google.android.horologist.networks.rules.NetworkingRules getNetworkingRules();
     method public boolean isHighBandwidthRequest(com.google.android.horologist.networks.data.RequestType requestType);
     method public com.google.android.horologist.networks.data.NetworkStatus? preferredNetwork(com.google.android.horologist.networks.data.RequestType requestType);
     method public void reportConnectionFailure(java.net.InetSocketAddress inetSocketAddress, com.google.android.horologist.networks.data.NetworkType? networkType);
-    property public final com.google.android.horologist.networks.logging.NetworkStatusLogger logger;
-    property public final com.google.android.horologist.networks.status.NetworkRepository networkRepository;
-    property public final com.google.android.horologist.networks.rules.NetworkingRules networkingRules;
   }
 
   public final class NoSuitableNetwork extends java.io.IOException {

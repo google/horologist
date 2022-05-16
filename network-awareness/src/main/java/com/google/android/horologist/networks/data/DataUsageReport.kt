@@ -25,7 +25,7 @@ public data class DataUsageReport(
     public val to: Instant,
 ) {
     public companion object {
-        public val Empty = DataUsageReport(
+        public val Empty: DataUsageReport = DataUsageReport(
             dataByType = mapOf(),
             from = Instant.now().minus(1, ChronoUnit.DAYS),
             to = Instant.now()

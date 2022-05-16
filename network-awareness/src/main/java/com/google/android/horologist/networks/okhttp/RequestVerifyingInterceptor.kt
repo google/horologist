@@ -23,7 +23,9 @@ import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 import okhttp3.Interceptor
 import okhttp3.Response
 
-public class RequestVerifyingInterceptor(val networkingRulesEngine: NetworkingRulesEngine) : Interceptor {
+public class RequestVerifyingInterceptor(
+    private val networkingRulesEngine: NetworkingRulesEngine
+) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
 

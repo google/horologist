@@ -49,7 +49,7 @@ public class NetworkRepository(
 
     private var priorityNetwork: Network? = null
 
-    val networkStatus: MutableStateFlow<Networks>
+    public val networkStatus: MutableStateFlow<Networks>
     private var initialised = false
 
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {

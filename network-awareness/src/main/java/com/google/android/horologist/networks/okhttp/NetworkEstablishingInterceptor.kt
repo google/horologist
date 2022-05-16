@@ -25,8 +25,8 @@ import okhttp3.Interceptor
 import okhttp3.Response
 
 public class NetworkEstablishingInterceptor(
-    val networkingRulesEngine: NetworkingRulesEngine,
-    val highBandwidthRequester: HighBandwidthRequester
+    private val networkingRulesEngine: NetworkingRulesEngine,
+    private val highBandwidthRequester: HighBandwidthRequester
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()

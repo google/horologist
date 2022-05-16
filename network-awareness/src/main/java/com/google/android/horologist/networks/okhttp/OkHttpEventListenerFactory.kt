@@ -33,13 +33,17 @@ import java.net.InetSocketAddress
 import java.net.Proxy
 
 public class OkHttpEventListenerFactory(
-    val networkingRulesEngine: NetworkingRulesEngine,
-    val delegateEventListenerFactory: EventListener.Factory,
-    val dataRequestRepository: DataRequestRepository? = null,
+    private val networkingRulesEngine: NetworkingRulesEngine,
+    private val delegateEventListenerFactory: EventListener.Factory,
+    private val dataRequestRepository: DataRequestRepository? = null,
 ) : EventListener.Factory {
-    override fun create(call: Call) = Listener(delegateEventListenerFactory.create(call))
+    override fun create(call: Call): EventListener = Listener(
+        delegateEventListenerFactory.create(
+            call
+        )
+    )
 
-    inner class Listener(delegate: EventListener) : DelegatingEventListener(delegate) {
+    private inner class Listener(delegate: EventListener) : DelegatingEventListener(delegate) {
         private var bytesTransferred: Long = 0
 
         override fun connectFailed(

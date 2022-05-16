@@ -23,8 +23,8 @@ public sealed interface RequestType {
         }
     }
 
-    public class MediaRequest(val type: MediaRequestType) : RequestType {
-        public val name = "media-${type.toString().lowercase()}"
+    public class MediaRequest(public val type: MediaRequestType) : RequestType {
+        public val name: String = "media-${type.toString().lowercase()}"
         public enum class MediaRequestType {
             Stream, Download
         }

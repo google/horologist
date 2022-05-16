@@ -31,7 +31,7 @@ public class NetworkAwareCallFactory(
     }
 }
 
-public fun Request.withDefaultRequestType(defaultRequestType: RequestType) =
+public fun Request.withDefaultRequestType(defaultRequestType: RequestType): Request =
     if (requestTypeOrNull == null) {
         newBuilder()
             .requestType(defaultRequestType)

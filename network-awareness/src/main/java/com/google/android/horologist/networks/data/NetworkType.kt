@@ -58,9 +58,9 @@ public sealed interface NetworkType {
     }
 
     public companion object {
-        public val wifi = "wifi"
-        public val cell = "cell"
-        public val ble = "ble"
-        public val unknown = "unknown"
+        public val wifi: String = "wifi"
+        public val cell: String = "cell"
+        public val ble: String = "ble"
+        public val unknown: String = "unknown"
     }
 }

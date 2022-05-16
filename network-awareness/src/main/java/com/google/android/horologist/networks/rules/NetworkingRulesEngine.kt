@@ -28,9 +28,9 @@ import java.net.InetSocketAddress
  * and specific network actions, like opening a network socket.
  */
 public class NetworkingRulesEngine(
-    val networkRepository: NetworkRepository,
-    val logger: NetworkStatusLogger = NetworkStatusLogger.Logging,
-    val networkingRules: NetworkingRules = NetworkingRules.Conservative
+    internal val networkRepository: NetworkRepository,
+    internal val logger: NetworkStatusLogger = NetworkStatusLogger.Logging,
+    private val networkingRules: NetworkingRules = NetworkingRules.Conservative
 ) {
     public fun preferredNetwork(requestType: RequestType): NetworkStatus? {
         val networks = networkRepository.networkStatus.value

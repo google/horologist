@@ -25,8 +25,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Icon
-import com.google.android.horologist.compose.testing.WearPreviewDevices
-import com.google.android.horologist.compose.testing.WearPreviewFontSizes
+import com.google.android.horologist.compose.tools.WearPreviewDevices
+import com.google.android.horologist.compose.tools.WearPreviewFontSizes
 import java.time.LocalTime
 
 @WearPreviewDevices

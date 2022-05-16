@@ -31,20 +31,32 @@ package com.google.android.horologist.media.model {
     property public final String? title;
   }
 
-  public final class MediaItemPosition {
-    ctor public MediaItemPosition(long current, long duration);
-    method public long component1();
-    method public long component2();
-    method public com.google.android.horologist.media.model.MediaItemPosition copy(long current, long duration);
-    method public boolean equals(Object? other);
+  public abstract sealed class MediaItemPosition {
     method public long getCurrent();
+    property public long current;
+    field public static final com.google.android.horologist.media.model.MediaItemPosition.Companion Companion;
+  }
+
+  public static final class MediaItemPosition.Companion {
+    method public com.google.android.horologist.media.model.MediaItemPosition.KnownDuration create(long current, long duration);
+  }
+
+  public static final class MediaItemPosition.KnownDuration extends com.google.android.horologist.media.model.MediaItemPosition {
     method public long getDuration();
     method public float getPercent();
-    method public int hashCode();
-    method public String toString();
-    property public final long current;
+    property public long current;
     property public final long duration;
     property public final float percent;
+  }
+
+  public static final class MediaItemPosition.UnknownDuration extends com.google.android.horologist.media.model.MediaItemPosition {
+    ctor public MediaItemPosition.UnknownDuration(long current);
+    method public long component1();
+    method public com.google.android.horologist.media.model.MediaItemPosition.UnknownDuration copy(long current);
+    method public boolean equals(Object? other);
+    method public int hashCode();
+    method public String toString();
+    property public long current;
   }
 
   public enum PlayerState {
@@ -73,7 +85,6 @@ package com.google.android.horologist.media.repository {
     method public long getSeekBackIncrement();
     method public long getSeekForwardIncrement();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getShuffleModeEnabled();
-    method public boolean getShuffleModeEnabled();
     method public boolean hasNextMediaItem();
     method public boolean hasPreviousMediaItem();
     method public void pause();

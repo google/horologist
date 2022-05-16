@@ -116,11 +116,6 @@ public interface PlayerRepository {
     public fun setShuffleModeEnabled(shuffleModeEnabled: Boolean)
 
     /**
-     * Returns whether shuffling of [media items][MediaItem] is enabled.
-     */
-    public fun getShuffleModeEnabled(): Boolean
-
-    /**
      * Clears the playlist, adds the specified [media item][MediaItem] and resets the position to
      * the default position.
      */

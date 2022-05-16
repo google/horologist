@@ -39,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
@@ -52,7 +53,17 @@ import java.time.temporal.TemporalAdjusters
 
 /**
  * Full screen date picker with day, month, year.
- * Also includes a button, typically for submitting.
+ * Includes a slot for a button, typically for submitting.
+ *
+ * This component is designed to take most/all of the screen and utilizes large fonts. In order to
+ * ensure that it will draw properly on smaller screens it does not take account of user font size
+ * overrides for MaterialTheme.typography.display2 which is used to display the main picker
+ * value.
+ *
+ * @param buttonIcon the button content.
+ * @param onClick the button event handler.
+ * @param modifier the modifiers for the `Box` containing the UI elements.
+ * @param initial the initial value to seed the picker with.
  */
 @ExperimentalHorologistComposablesApi
 @Composable
@@ -119,9 +130,9 @@ public fun DatePicker(
                 Spacer(Modifier.height(16.dp))
                 Text(
                     text = when (selectedColumn) {
-                        0 -> "Day"
-                        1 -> "Month"
-                        else -> "Year"
+                        0 -> stringResource(R.string.picker_day)
+                        1 -> stringResource(R.string.picker_month)
+                        else -> stringResource(R.string.picker_year)
                     },
                     color = MaterialTheme.colors.secondary,
                     style = MaterialTheme.typography.button,

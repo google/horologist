@@ -46,6 +46,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.pointer.pointerInteropFilter
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -60,15 +61,22 @@ import androidx.wear.compose.material.PickerState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberPickerState
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoField
 
 /**
- * A full screen TimePicker with seconds.
- * Also includes a button, typically for submitting.
+ * A full screen TimePicker with hours, minutes and seconds.
+ * Includes a slot for a button, typically for submitting.
+ *
+ * This component is designed to take most/all of the screen and utilizes large fonts. In order to
+ * ensure that it will draw properly on smaller screens it does not take account of user font size
+ * overrides for MaterialTheme.typography.display3 which is used to display the main picker
+ * value.
  *
  * @param buttonIcon the button content.
  * @param onClick the button event handler.
- * @param modifier the modifiers for the `Column` containing the UI elements.
+ * @param modifier the modifiers for the `Box` containing the UI elements.
+ * @param initial the initial value to seed the picker with.
  */
 @ExperimentalHorologistComposablesApi
 @Composable
@@ -111,9 +119,9 @@ public fun TimePicker(
                 Spacer(Modifier.height(12.dp))
                 Text(
                     text = when (selectedColumn) {
-                        0 -> "Hour"
-                        1 -> "Minute"
-                        else -> "Second"
+                        0 -> stringResource(R.string.time_picker_hour)
+                        1 -> stringResource(R.string.time_picker_minute)
+                        else -> stringResource(R.string.time_picker_second)
                     },
                     color = optionColor,
                     style = MaterialTheme.typography.button,
@@ -201,9 +209,15 @@ public fun TimePicker(
  * A full screen TimePicker with hours and minutes and AM/PM selector.
  * Also includes a button, typically for submitting.
  *
+ * This component is designed to take most/all of the screen and utilizes large fonts. In order to
+ * ensure that it will draw properly on smaller screens it does not take account of user font size
+ * overrides for MaterialTheme.typography.display1 which is used to display the main picker
+ * value.
+ *
  * @param buttonIcon the button content.
  * @param onClick the button event handler.
  * @param modifier the modifiers for the `Column` containing the UI elements.
+ * @param initial the initial value to seed the picker with.
  */
 @ExperimentalHorologistComposablesApi
 @Composable
@@ -228,6 +242,12 @@ public fun TimePickerWith12HourClock(
         initiallySelectedOption = initial.minute
     )
     var amPm by remember { mutableStateOf(initial[ChronoField.AMPM_OF_DAY]) }
+    val amString = remember {
+        LocalTime.of(6, 0).format(DateTimeFormatter.ofPattern("a"))
+    }
+    val pmString = remember {
+        LocalTime.of(18, 0).format(DateTimeFormatter.ofPattern("a"))
+    }
     MaterialTheme(typography = typography) {
         var selectedColumn by remember { mutableStateOf(0) }
         val textStyle = MaterialTheme.typography.display1
@@ -249,7 +269,7 @@ public fun TimePickerWith12HourClock(
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = if (amPm == 0) "AM" else "PM",
+                            text = if (amPm == 0) amString else pmString,
                             color = MaterialTheme.colors.onPrimary,
                             style = MaterialTheme.typography.button,
                         )
@@ -274,7 +294,7 @@ public fun TimePickerWith12HourClock(
                     state = hourState,
                     focusRequester = focusRequester1,
                     modifier = Modifier.size(64.dp, 100.dp),
-                    readOnlyLabel = { LabelText("Hour") }
+                    readOnlyLabel = { LabelText(stringResource(R.string.time_picker_hour)) }
                 ) { hour: Int ->
                     TimePiece(
                         selected = selectedColumn == 0,
@@ -290,7 +310,7 @@ public fun TimePickerWith12HourClock(
                     state = minuteState,
                     focusRequester = focusRequester2,
                     modifier = Modifier.size(64.dp, 100.dp),
-                    readOnlyLabel = { LabelText("Min") }
+                    readOnlyLabel = { LabelText(stringResource(R.string.time_picker_min)) }
                 ) { minute: Int ->
                     TimePiece(
                         selected = selectedColumn == 1,

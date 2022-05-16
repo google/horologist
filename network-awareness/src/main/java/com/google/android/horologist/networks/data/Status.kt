@@ -20,15 +20,15 @@ import java.time.Instant
 
 public sealed class Status(public val order: Int) {
     public object Available : Status(order = 1) {
-        override fun toString() = "Available"
+        override fun toString(): String = "Available"
     }
-    public class Losing(val instant: Instant) : Status(order = 2) {
-        override fun toString() = "Losing"
+    public class Losing(public val instant: Instant) : Status(order = 2) {
+        override fun toString(): String = "Losing"
     }
     public object Lost : Status(order = 3) {
-        override fun toString() = "Lost"
+        override fun toString(): String = "Lost"
     }
     public object Unknown : Status(order = 4) {
-        override fun toString() = "Unknown"
+        override fun toString(): String = "Unknown"
     }
 }

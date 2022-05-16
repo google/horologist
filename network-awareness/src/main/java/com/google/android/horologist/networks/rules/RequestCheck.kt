@@ -25,5 +25,5 @@ public data class Fail(public val reason: String) : RequestCheck {
 }
 
 public object Allow : RequestCheck {
-    override val isForbidden = false
+    override val isForbidden: Boolean = false
 }

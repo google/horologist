@@ -29,6 +29,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
 import java.io.Closeable
+import java.util.Collections
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -38,7 +39,8 @@ public class HighBandwidthRequester(
     private val coroutineScope: CoroutineScope,
     private val logger: NetworkStatusLogger,
 ) {
-    private val listeners: MutableSet<HighbandwidthListener> = Collections.newSetFromMap(ConcurrentHashMap())
+    private val listeners: MutableSet<HighbandwidthListener> =
+        Collections.newSetFromMap(ConcurrentHashMap())
 
     private var activeNetwork: MutableStateFlow<Network?> = MutableStateFlow(null)
 

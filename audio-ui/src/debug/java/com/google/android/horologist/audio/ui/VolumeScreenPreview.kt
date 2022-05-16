@@ -14,30 +14,29 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistAudioUiApi::class, ExperimentalHorologistComposeToolsApi::class)
+
 package com.google.android.horologist.audio.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.compose.testing.WearPreviewDevices
-import com.google.android.horologist.compose.testing.WearPreviewFontSizes
+import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.compose.tools.ThemeValues
+import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
+import com.google.android.horologist.compose.tools.WearPreviewDevices
+import com.google.android.horologist.compose.tools.WearPreviewFontSizes
+import com.google.android.horologist.compose.tools.WearPreviewThemes
 
-@Preview(
-    device = Devices.WEAR_OS_LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true
-)
+@WearLargeRoundDevicePreview
 @Composable
-@OptIn(ExperimentalHorologistAudioUiApi::class)
 fun VolumeScreenGuide() {
     val volume = VolumeState(10, 10)
 
@@ -65,7 +64,6 @@ fun VolumeScreenGuide() {
 @WearPreviewDevices
 @WearPreviewFontSizes
 @Composable
-@OptIn(ExperimentalHorologistAudioUiApi::class)
 fun VolumeScreenPreview(
     @PreviewParameter(AudioOutputProvider::class) audioOutput: AudioOutput
 ) {
@@ -89,7 +87,35 @@ fun VolumeScreenPreview(
     }
 }
 
-@OptIn(ExperimentalHorologistAudioUiApi::class)
+@WearLargeRoundDevicePreview
+@Composable
+fun VolumeScreenTheme(
+    @PreviewParameter(WearPreviewThemes::class) themeValues: ThemeValues
+) {
+    val volume = VolumeState(10, 10)
+
+    MaterialTheme(themeValues.colors) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            Scaffold(
+                positionIndicator = {
+                    VolumePositionIndicator(
+                        volumeState = { volume.copy(current = 5) },
+                        autoHide = false
+                    )
+                }
+            ) {
+                VolumeScreen(
+                    volume = { volume },
+                    audioOutput = AudioOutput.BluetoothHeadset(id = "1", name = "PixelBuds"),
+                    increaseVolume = { },
+                    decreaseVolume = { },
+                    onAudioOutputClick = {},
+                )
+            }
+        }
+    }
+}
+
 class AudioOutputProvider : PreviewParameterProvider<AudioOutput> {
     override val values = sequenceOf(
         AudioOutput.BluetoothHeadset(id = "1", name = "PixelBuds"),

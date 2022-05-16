@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.testing
+package com.google.android.horologist.compose.tools
 
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -67,4 +67,5 @@ import androidx.compose.ui.tooling.preview.Preview
     group = "Fonts - Largest",
     fontScale = 1.24f
 )
+@ExperimentalHorologistComposeToolsApi
 public annotation class WearPreviewFontSizes

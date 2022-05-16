@@ -21,7 +21,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.google.android.horologist.media.ui.state.PlayerViewModel
-import com.google.android.horologist.sample.di.SampleAppDI
 
 class MediaPlayerScreenViewModel(
     playerRepository: PlayerRepositoryImpl
@@ -32,14 +31,14 @@ class MediaPlayerScreenViewModel(
         playerRepository.fetchData()
     }
 
-    object Factory: ViewModelProvider.Factory {
+    class Factory(
+        private val playerRepositoryFactory: PlayerRepositoryImpl.Factory
+    ) : ViewModelProvider.Factory {
+
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
             if (modelClass.isAssignableFrom(MediaPlayerScreenViewModel::class.java)) {
-                val playerRepository = extras[SampleAppDI.PlayerRepositoryImplFactoryKey]!!.create()
-                return MediaPlayerScreenViewModel(
-                    playerRepository
-                ) as T
+                return MediaPlayerScreenViewModel(playerRepositoryFactory.create()) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

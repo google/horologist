@@ -22,7 +22,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.status.NetworkRepository
-import com.google.android.horologist.sample.di.SampleAppDI
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
@@ -30,7 +29,7 @@ import kotlinx.coroutines.flow.stateIn
 public class NetworksViewModel(
     private val networkRepository: NetworkRepository,
     private val dataRequestRepository: DataRequestRepository,
-): ViewModel() {
+) : ViewModel() {
     val state =
         combine(
             networkRepository.networkStatus,
@@ -38,20 +37,26 @@ public class NetworksViewModel(
         ) { networkStatus, currentPeriodUsage ->
             NetworkStatusAppState(networks = networkStatus, dataUsage = currentPeriodUsage)
         }
-            .stateIn(viewModelScope,
+            .stateIn(
+                viewModelScope,
                 started = SharingStarted.WhileSubscribed(5000),
-                initialValue = NetworkStatusAppState(networks = networkRepository.networkStatus.value,
-                    dataUsage = null)
+                initialValue = NetworkStatusAppState(
+                    networks = networkRepository.networkStatus.value,
+                    dataUsage = null
+                )
             )
 
-    public object Factory : ViewModelProvider.Factory {
+    public class Factory(
+        private val networkRepository: NetworkRepository,
+        private val dataRequestRepository: DataRequestRepository,
+    ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
             check(modelClass == NetworksViewModel::class.java)
 
             return NetworksViewModel(
-                networkRepository = extras[SampleAppDI.NetworkRepositoryKey]!!,
-                dataRequestRepository = extras[SampleAppDI.DataRequestRepositoryKey]!!
+                networkRepository = networkRepository,
+                dataRequestRepository = dataRequestRepository
             ) as T
         }
     }

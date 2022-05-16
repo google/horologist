@@ -51,9 +51,10 @@ import com.google.android.horologist.utils.rememberStateWithLifecycle
 @Composable
 fun NavWearApp(
     navController: NavHostController,
+    networksViewModelFactory: NetworksViewModel.Factory
 ) {
     val snackbarViewModel = viewModel<SnackbarViewModel>(factory = SnackbarViewModel.Factory)
-    val networksViewModel = viewModel<NetworksViewModel>(factory = NetworksViewModel.Factory)
+    val networksViewModel = viewModel<NetworksViewModel>(factory = networksViewModelFactory)
 
     val swipeDismissState = rememberSwipeToDismissBoxState()
     val navState = rememberSwipeDismissableNavHostState(swipeDismissState)

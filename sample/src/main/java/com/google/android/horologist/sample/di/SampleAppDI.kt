@@ -16,33 +16,44 @@
 
 package com.google.android.horologist.sample.di
 
+import android.app.Activity
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewmodel.CreationExtras
 import com.google.android.horologist.navsample.NavActivity
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.status.NetworkRepository
 import com.google.android.horologist.sample.MainActivity
 import com.google.android.horologist.sample.media.MediaDataSource
+import com.google.android.horologist.sample.media.MediaPlayerScreenViewModel
 import com.google.android.horologist.sample.media.PlayerRepositoryImpl
+import kotlinx.coroutines.CoroutineScope
 
 /**
  * Simple DI implementation - to be replaced by hilt.
  */
 object SampleAppDI {
-
     fun inject(mainActivity: MainActivity) {
-        mainActivity.playerRepositoryImplFactory = getPlayerRepositoryImplFactory(getMediaDataSource())
+        mainActivity.mediaPlayerScreenViewModelFactory =
+            getMediaPlayerScreenViewModelFactory(getPlayerRepositoryImplFactory(getMediaDataSource()))
     }
 
     fun inject(navActivity: NavActivity) {
-        navActivity.networkRepository = NetworkRepository.fromContext(
-            application = navActivity,
-            coroutineScope = navActivity.lifecycleScope,
-            logger = NetworkStatusLogger.Logging
-        )
-        navActivity.dataRequestRepository = DataRequestRepository.InMemoryDataRequestRepository
+        navActivity.dataRequestRepository = getDataRequestRepository()
+        navActivity.networkRepository = getNetworkRepository(navActivity, navActivity.lifecycleScope)
     }
+
+    private fun getNetworkRepository(activity: Activity, coroutineScope: CoroutineScope): NetworkRepository {
+        return NetworkRepository.fromContext(activity, coroutineScope, NetworkStatusLogger.Logging)
+    }
+
+    private fun getDataRequestRepository(): DataRequestRepository {
+        return DataRequestRepository.InMemoryDataRequestRepository
+    }
+
+    private fun getMediaPlayerScreenViewModelFactory(
+        playerRepositoryImplFactory: PlayerRepositoryImpl.Factory
+    ): MediaPlayerScreenViewModel.Factory =
+        MediaPlayerScreenViewModel.Factory(playerRepositoryImplFactory)
 
     private fun getPlayerRepositoryImplFactory(
         mediaDataSource: MediaDataSource
@@ -50,8 +61,4 @@ object SampleAppDI {
         PlayerRepositoryImpl.Factory(mediaDataSource)
 
     private fun getMediaDataSource(): MediaDataSource = MediaDataSource()
-
-    val PlayerRepositoryImplFactoryKey = object : CreationExtras.Key<PlayerRepositoryImpl.Factory> {}
-    val NetworkRepositoryKey = object : CreationExtras.Key<NetworkRepository> {}
-    val DataRequestRepositoryKey = object : CreationExtras.Key<DataRequestRepository> {}
 }

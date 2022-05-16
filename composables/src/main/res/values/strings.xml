@@ -15,8 +15,6 @@
   -->
 
 <resources>
-    <string name="time_picker_am">AM</string>
-    <string name="time_picker_pm">PM</string>
     <string name="time_picker_hour">Hour</string>
     <string name="time_picker_min">Min</string>
     <string name="time_picker_minute">Minute</string>

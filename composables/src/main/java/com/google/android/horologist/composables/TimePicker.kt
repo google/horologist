@@ -61,6 +61,7 @@ import androidx.wear.compose.material.PickerState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberPickerState
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoField
 
 /**
@@ -241,6 +242,12 @@ public fun TimePickerWith12HourClock(
         initiallySelectedOption = initial.minute
     )
     var amPm by remember { mutableStateOf(initial[ChronoField.AMPM_OF_DAY]) }
+    val amString = remember {
+        LocalTime.of(6, 0).format(DateTimeFormatter.ofPattern("a"))
+    }
+    val pmString = remember {
+        LocalTime.of(18, 0).format(DateTimeFormatter.ofPattern("a"))
+    }
     MaterialTheme(typography = typography) {
         var selectedColumn by remember { mutableStateOf(0) }
         val textStyle = MaterialTheme.typography.display1
@@ -262,8 +269,7 @@ public fun TimePickerWith12HourClock(
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = if (amPm == 0) stringResource(R.string.time_picker_am)
-                            else stringResource(R.string.time_picker_pm),
+                            text = if (amPm == 0) amString else pmString,
                             color = MaterialTheme.colors.onPrimary,
                             style = MaterialTheme.typography.button,
                         )

@@ -45,3 +45,4 @@ site
 checksum.txt
 
 /localbin/
+/.java-version

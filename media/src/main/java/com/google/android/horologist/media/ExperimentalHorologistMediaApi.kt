@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-plugins {
-    id "org.jetbrains.kotlin.jvm"
-}
+package com.google.android.horologist.media
 
-dependencies {
-    implementation libs.kotlin.stdlib
-    api 'app.cash.paparazzi:paparazzi:1.0.0-SNAPSHOT'
-}
+@RequiresOptIn(
+    message = "Horologist Media is experimental. The API may be changed in the future."
+)
+@Retention(AnnotationRetention.BINARY)
+public annotation class ExperimentalHorologistMediaApi

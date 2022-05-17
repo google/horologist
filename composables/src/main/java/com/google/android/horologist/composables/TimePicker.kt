@@ -33,6 +33,8 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -53,6 +55,7 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.CompactChip
+import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Picker
 import androidx.wear.compose.material.PickerDefaults
@@ -73,18 +76,16 @@ import java.time.temporal.ChronoField
  * overrides for MaterialTheme.typography.display3 which is used to display the main picker
  * value.
  *
- * @param buttonIcon the button content.
- * @param onClick the button event handler.
+ * @param onValueConfirm the button event handler.
  * @param modifier the modifiers for the `Box` containing the UI elements.
- * @param initial the initial value to seed the picker with.
+ * @param value the initial value to seed the picker with.
  */
 @ExperimentalHorologistComposablesApi
 @Composable
 public fun TimePicker(
-    buttonIcon: @Composable BoxScope.() -> Unit,
-    onClick: (LocalTime) -> Unit,
+    onValueConfirm: (LocalTime) -> Unit,
     modifier: Modifier = Modifier,
-    initial: LocalTime = LocalTime.now()
+    value: LocalTime = LocalTime.now()
 ) {
     // Omit scaling according to Settings > Display > Font size for this screen
     val typography = MaterialTheme.typography.copy(
@@ -94,15 +95,15 @@ public fun TimePicker(
     )
     val hourState = rememberPickerState(
         initialNumberOfOptions = 24,
-        initiallySelectedOption = initial.hour
+        initiallySelectedOption = value.hour
     )
     val minuteState = rememberPickerState(
         initialNumberOfOptions = 60,
-        initiallySelectedOption = initial.minute
+        initiallySelectedOption = value.minute
     )
     val secondsState = rememberPickerState(
         initialNumberOfOptions = 60,
-        initiallySelectedOption = initial.second
+        initiallySelectedOption = value.second
     )
     MaterialTheme(typography = typography) {
         var selectedColumn by remember { mutableStateOf(0) }
@@ -191,9 +192,15 @@ public fun TimePicker(
                         minuteState.selectedOption,
                         secondsState.selectedOption
                     )
-                    onClick(time)
+                    onValueConfirm(time)
                 }) {
-                    buttonIcon()
+                    Icon(
+                        imageVector = Icons.Filled.Check,
+                        contentDescription = stringResource(id = R.string.picker_check_button),
+                        modifier = Modifier
+                            .size(24.dp)
+                            .wrapContentSize(align = Alignment.Center),
+                    )
                 }
                 Spacer(Modifier.height(12.dp))
             }
@@ -214,18 +221,16 @@ public fun TimePicker(
  * overrides for MaterialTheme.typography.display1 which is used to display the main picker
  * value.
  *
- * @param buttonIcon the button content.
- * @param onClick the button event handler.
+ * @param onValueConfirm the button event handler.
  * @param modifier the modifiers for the `Column` containing the UI elements.
- * @param initial the initial value to seed the picker with.
+ * @param value the initial value to seed the picker with.
  */
 @ExperimentalHorologistComposablesApi
 @Composable
 public fun TimePickerWith12HourClock(
-    buttonIcon: @Composable BoxScope.() -> Unit,
-    onClick: (LocalTime) -> Unit,
+    onValueConfirm: (LocalTime) -> Unit,
     modifier: Modifier = Modifier,
-    initial: LocalTime = LocalTime.now()
+    value: LocalTime = LocalTime.now()
 ) {
     // Omit scaling according to Settings > Display > Font size for this screen,
     val typography = MaterialTheme.typography.copy(
@@ -235,13 +240,15 @@ public fun TimePickerWith12HourClock(
     )
     val hourState = rememberPickerState(
         initialNumberOfOptions = 12,
-        initiallySelectedOption = initial[ChronoField.CLOCK_HOUR_OF_AMPM] - 1
+        initiallySelectedOption = value[ChronoField.CLOCK_HOUR_OF_AMPM] - 1
     )
     val minuteState = rememberPickerState(
         initialNumberOfOptions = 60,
-        initiallySelectedOption = initial.minute
+        initiallySelectedOption = value.minute
     )
-    var amPm by remember { mutableStateOf(initial[ChronoField.AMPM_OF_DAY]) }
+    var amPm by remember { mutableStateOf(value[ChronoField.AMPM_OF_DAY]) }
+    // TODO check the results of talkback with these internally localised values
+    // move to stringResources() otherwise.
     val amString = remember {
         LocalTime.of(6, 0).format(DateTimeFormatter.ofPattern("a"))
     }
@@ -332,9 +339,15 @@ public fun TimePickerWith12HourClock(
                     minuteState.selectedOption,
                     0
                 ).with(ChronoField.AMPM_OF_DAY, amPm.toLong())
-                onClick(time)
+                onValueConfirm(time)
             }) {
-                buttonIcon()
+                Icon(
+                    imageVector = Icons.Filled.Check,
+                    contentDescription = stringResource(id = R.string.picker_check_button),
+                    modifier = Modifier
+                        .size(24.dp)
+                        .wrapContentSize(align = Alignment.Center),
+                )
             }
             Spacer(Modifier.height(8.dp))
             LaunchedEffect(selectedColumn) {

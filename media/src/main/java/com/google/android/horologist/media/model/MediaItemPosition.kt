@@ -39,10 +39,10 @@ public sealed class MediaItemPosition(
             current: Duration,
             duration: Duration
         ): KnownDuration {
-            check(current.isNegative()) {
+            check(!current.isNegative()) {
                 "Current position can't be a negative value [current: $current] [duration: $duration]."
             }
-            check(!duration.isPositive()) {
+            check(duration.isPositive()) {
                 "Duration has to be greater than zero [current: $current] [duration: $duration]."
             }
             check(current <= duration) {

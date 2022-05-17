@@ -89,6 +89,7 @@ package com.google.android.horologist.media.repository {
     method public boolean hasPreviousMediaItem();
     method public void pause();
     method public void play();
+    method public void play(int mediaItemIndex);
     method public void prepare();
     method public void release();
     method public void removeMediaItem(int index);

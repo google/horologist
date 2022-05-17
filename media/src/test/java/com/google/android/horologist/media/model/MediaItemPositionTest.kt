@@ -16,12 +16,28 @@
 
 package com.google.android.horologist.media.model
 
+import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.assertThrows
 import org.junit.Test
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 class MediaItemPositionTest {
+
+    @Test
+    fun givenValidValues_whenCreateKnownPosition_thenCreateCorrectly() {
+        // given
+        val current = 1.seconds
+        val duration = 2.seconds
+
+        // when
+        val result = MediaItemPosition.create(current = current, duration = duration)
+
+        // then
+        assertThat(result.current).isEqualTo(current)
+        assertThat(result.duration).isEqualTo(duration)
+        assertThat(result.percent).isEqualTo(0.5f)
+    }
 
     @Test
     fun givenCurrentPositionIsNegative_whenCreateKnownPosition_thenExceptionIsThrown() {

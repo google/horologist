@@ -22,6 +22,7 @@ import com.google.android.horologist.media.model.MediaItem
 import com.google.android.horologist.media.model.MediaItemPosition
 import com.google.android.horologist.media.model.PlayerState
 import kotlinx.coroutines.flow.StateFlow
+import kotlin.time.Duration
 
 @ExperimentalHorologistMediaApi
 public interface PlayerRepository {
@@ -62,6 +63,11 @@ public interface PlayerRepository {
     public fun play()
 
     /**
+     * Play [media item][MediaItem] at given index as soon as player is ready.
+     */
+    public fun play(mediaItemIndex: Int)
+
+    /**
      * Pauses playback.
      */
     public fun pause()
@@ -88,10 +94,8 @@ public interface PlayerRepository {
 
     /**
      * Returns the [seekBack] increment.
-     *
-     * @return The seek back increment, in milliseconds.
      */
-    public fun getSeekBackIncrement(): Long
+    public fun getSeekBackIncrement(): Duration
 
     /**
      * Seeks back in the [current media item][currentMediaItem] by [seek back increment][getSeekBackIncrement].
@@ -100,10 +104,8 @@ public interface PlayerRepository {
 
     /**
      * Returns the [seekForward] increment.
-     *
-     * @return The seek forward increment, in milliseconds.
      */
-    public fun getSeekForwardIncrement(): Long
+    public fun getSeekForwardIncrement(): Duration
 
     /**
      * Seek forward in the [current media item][currentMediaItem] by [seek forward increment][getSeekForwardIncrement].

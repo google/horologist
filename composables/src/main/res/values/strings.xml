@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2022 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,8 +14,12 @@
   ~ limitations under the License.
   -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.google.android.horologist.compose.testing">
-
-    <uses-feature android:name="android.hardware.type.watch" />
-</manifest>
+<resources>
+    <string name="time_picker_hour">Hour</string>
+    <string name="time_picker_min">Min</string>
+    <string name="time_picker_minute">Minute</string>
+    <string name="time_picker_second">Second</string>
+    <string name="picker_day">Day</string>
+    <string name="picker_month">Month</string>
+    <string name="picker_year">Year</string>
+</resources>

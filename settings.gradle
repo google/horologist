@@ -34,8 +34,8 @@ include ':tiles'
 include ':media'
 include ':media-ui'
 include ':media-data'
+include ':compose-tools'
 include ':paparazzi'
-include ':compose-testing'
 include ':network-awareness'
 
 // Enable Gradle's version catalog support

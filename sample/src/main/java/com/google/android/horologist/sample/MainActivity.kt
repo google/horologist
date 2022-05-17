@@ -20,23 +20,16 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
@@ -112,17 +105,8 @@ fun WearApp(
             }
             composable(Screen.DatePicker.route) {
                 DatePicker(
-                    buttonIcon = {
-                        Icon(
-                            imageVector = Icons.Filled.Check,
-                            contentDescription = "check",
-                            modifier = Modifier
-                                .size(24.dp)
-                                .wrapContentSize(align = Alignment.Center),
-                        )
-                    },
-                    initial = time.toLocalDate(),
-                    onClick = {
+                    value = time.toLocalDate(),
+                    onValueConfirm = {
                         time = time.toLocalTime().atDate(it)
                         navController.popBackStack()
                     }
@@ -130,17 +114,8 @@ fun WearApp(
             }
             composable(Screen.TimePicker.route) {
                 TimePickerWith12HourClock(
-                    buttonIcon = {
-                        Icon(
-                            imageVector = Icons.Filled.Check,
-                            contentDescription = "check",
-                            modifier = Modifier
-                                .size(24.dp)
-                                .wrapContentSize(align = Alignment.Center),
-                        )
-                    },
-                    initial = time.toLocalTime(),
-                    onClick = {
+                    value = time.toLocalTime(),
+                    onValueConfirm = {
                         time = time.toLocalDate().atTime(it)
                         navController.popBackStack()
                     }
@@ -148,17 +123,8 @@ fun WearApp(
             }
             composable(Screen.TimeWithSecondsPicker.route) {
                 TimePicker(
-                    buttonIcon = {
-                        Icon(
-                            imageVector = Icons.Filled.Check,
-                            contentDescription = "check",
-                            modifier = Modifier
-                                .size(24.dp)
-                                .wrapContentSize(align = Alignment.Center),
-                        )
-                    },
-                    initial = time.toLocalTime(),
-                    onClick = {
+                    value = time.toLocalTime(),
+                    onValueConfirm = {
                         time = time.toLocalDate().atTime(it)
                         navController.popBackStack()
                     }

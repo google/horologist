@@ -22,4 +22,5 @@
     <string name="picker_day">Day</string>
     <string name="picker_month">Month</string>
     <string name="picker_year">Year</string>
+    <string name="picker_check_button">Check</string>
 </resources>

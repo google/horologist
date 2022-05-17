@@ -18,14 +18,6 @@
 
 package com.google.android.horologist.composables
 
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Icon
 import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
@@ -48,17 +40,8 @@ class DatePickerTest {
     fun datePickerInitial() {
         paparazzi.snapshot {
             DatePicker(
-                buttonIcon = {
-                    Icon(
-                        imageVector = Icons.Filled.Check,
-                        contentDescription = "check",
-                        modifier = Modifier
-                            .size(24.dp)
-                            .wrapContentSize(align = Alignment.Center),
-                    )
-                },
-                onClick = {},
-                initial = LocalDate.of(2022, 4, 25)
+                onValueConfirm = {},
+                value = LocalDate.of(2022, 4, 25)
             )
         }
     }

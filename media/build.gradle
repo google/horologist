@@ -22,8 +22,8 @@ plugins {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 dependencies {
@@ -31,6 +31,7 @@ dependencies {
     implementation libs.kotlinx.coroutines.core
 
     testImplementation libs.junit
+    testImplementation libs.truth
 }
 
 apply plugin: "com.vanniktech.maven.publish"

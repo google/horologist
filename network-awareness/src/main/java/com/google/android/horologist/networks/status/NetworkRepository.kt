@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,9 +48,9 @@ public class NetworkRepository(
     private val linkAddresses = ConcurrentHashMap<InetAddress, String>()
 
     private var priorityNetwork: Network? = null
+    private var initialised = false
 
     public val networkStatus: MutableStateFlow<Networks>
-    private var initialised = false
 
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
@@ -102,6 +102,7 @@ public class NetworkRepository(
         }
     }
 
+    // TODO consider deferring the init work here.
     init {
         // TODO check this ordering is ok? read before subscribe.
         @Suppress("DEPRECATION")

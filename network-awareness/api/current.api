@@ -25,9 +25,7 @@ package com.google.android.horologist.networks.data {
 
   public static final class DataRequestRepository.InMemoryDataRequestRepository implements com.google.android.horologist.networks.data.DataRequestRepository {
     method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.networks.data.DataUsageReport> currentPeriodUsage();
-    method public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.data.DataUsageReport> get_currentPeriodUsage();
     method public void storeRequest(com.google.android.horologist.networks.data.DataRequest dataRequest);
-    property public final kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.data.DataUsageReport> _currentPeriodUsage;
     field public static final com.google.android.horologist.networks.data.DataRequestRepository.InMemoryDataRequestRepository INSTANCE;
   }
 
@@ -89,6 +87,10 @@ package com.google.android.horologist.networks.data {
     property public abstract String? name;
     property public abstract String typeName;
     field public static final com.google.android.horologist.networks.data.NetworkType.Companion Companion;
+    field public static final String ble = "ble";
+    field public static final String cell = "cell";
+    field public static final String unknown = "unknown";
+    field public static final String wifi = "wifi";
   }
 
   public static final class NetworkType.Bluetooth implements com.google.android.horologist.networks.data.NetworkType {
@@ -121,14 +123,10 @@ package com.google.android.horologist.networks.data {
   }
 
   public static final class NetworkType.Companion {
-    method public String getBle();
-    method public String getCell();
-    method public String getUnknown();
-    method public String getWifi();
-    property public final String ble;
-    property public final String cell;
-    property public final String unknown;
-    property public final String wifi;
+    field public static final String ble = "ble";
+    field public static final String cell = "cell";
+    field public static final String unknown = "unknown";
+    field public static final String wifi = "wifi";
   }
 
   public static final class NetworkType.Unknown implements com.google.android.horologist.networks.data.NetworkType {
@@ -500,7 +498,7 @@ package com.google.android.horologist.networks.ui {
   public final class ColorKt {
   }
 
-  public final class CurveDataUsageKt {
+  public final class DataUsageKt {
   }
 
   public final class DataUsageTimeTextKt {

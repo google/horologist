@@ -17,7 +17,6 @@
 package com.google.android.horologist.sample.di
 
 import android.app.Activity
-import androidx.lifecycle.lifecycleScope
 import com.google.android.horologist.navsample.NavActivity
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
@@ -27,6 +26,8 @@ import com.google.android.horologist.sample.media.MediaDataSource
 import com.google.android.horologist.sample.media.MediaPlayerScreenViewModel
 import com.google.android.horologist.sample.media.PlayerRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
 
 /**
  * Simple DI implementation - to be replaced by hilt.
@@ -37,9 +38,12 @@ object SampleAppDI {
             getMediaPlayerScreenViewModelFactory(getPlayerRepositoryImplFactory(getMediaDataSource()))
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     fun inject(navActivity: NavActivity) {
+        // TODO these should be application scoped, and not the activity lifecycle.
+        // Do not use GlobalScope in real applition code.
         navActivity.dataRequestRepository = getDataRequestRepository()
-        navActivity.networkRepository = getNetworkRepository(navActivity, navActivity.lifecycleScope)
+        navActivity.networkRepository = getNetworkRepository(navActivity, GlobalScope)
     }
 
     private fun getNetworkRepository(activity: Activity, coroutineScope: CoroutineScope): NetworkRepository {

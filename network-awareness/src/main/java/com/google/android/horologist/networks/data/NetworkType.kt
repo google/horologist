@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,14 +53,14 @@ public sealed interface NetworkType {
         override val name: String? = unknown,
         override val metered: Boolean? = null
     ) : NetworkType {
-        override val typeName: String = "unknown"
+        override val typeName: String = unknown
         override val highBatteryUsage: Boolean? = null
     }
 
     public companion object {
-        public val wifi: String = "wifi"
-        public val cell: String = "cell"
-        public val ble: String = "ble"
-        public val unknown: String = "unknown"
+        public const val wifi: String = "wifi"
+        public const val cell: String = "cell"
+        public const val ble: String = "ble"
+        public const val unknown: String = "unknown"
     }
 }

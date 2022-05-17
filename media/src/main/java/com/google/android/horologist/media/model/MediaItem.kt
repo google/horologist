@@ -14,23 +14,12 @@
  * limitations under the License.
  */
 
-plugins {
+package com.google.android.horologist.media.model
 
-    id 'java-library'
-    id 'org.jetbrains.kotlin.jvm'
-    id 'org.jetbrains.dokka'
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
-}
-
-dependencies {
-
-    implementation libs.kotlinx.coroutines.core
-
-    testImplementation libs.junit
-}
-
-apply plugin: "com.vanniktech.maven.publish"
+/**
+ * Representation of a media item.
+ */
+public data class MediaItem(
+    val title: String? = null,
+    val artist: String
+)

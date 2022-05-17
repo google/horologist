@@ -14,23 +14,16 @@
  * limitations under the License.
  */
 
-plugins {
+package com.google.android.horologist.media.model
 
-    id 'java-library'
-    id 'org.jetbrains.kotlin.jvm'
-    id 'org.jetbrains.dokka'
+/**
+ * Commands that can be executed on a player.
+ */
+public enum class Command {
+    PlayPause,
+    SeekBack,
+    SeekForward,
+    SkipToPreviousMediaItem,
+    SkipToNextMediaItem,
+    SetShuffle
 }
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
-}
-
-dependencies {
-
-    implementation libs.kotlinx.coroutines.core
-
-    testImplementation libs.junit
-}
-
-apply plugin: "com.vanniktech.maven.publish"

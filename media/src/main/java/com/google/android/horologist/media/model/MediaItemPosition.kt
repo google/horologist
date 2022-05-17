@@ -16,38 +16,41 @@
 
 package com.google.android.horologist.media.model
 
+import kotlin.time.Duration
+
 /**
  * Represents the current [media item][MediaItem] position, duration and percent progress.
  * Current position and duration are measured in milliseconds.
  */
 public sealed class MediaItemPosition(
-    public open val current: Long,
+    public open val current: Duration,
 ) {
     public class KnownDuration internal constructor(
-        override val current: Long,
-        public val duration: Long,
+        override val current: Duration,
+        public val duration: Duration,
         public val percent: Float,
     ) : MediaItemPosition(current)
 
-    public data class UnknownDuration(override val current: Long) : MediaItemPosition(current)
+    public data class UnknownDuration(override val current: Duration) : MediaItemPosition(current)
 
     public companion object {
 
         public fun create(
-            current: Long,
-            duration: Long
+            current: Duration,
+            duration: Duration
         ): KnownDuration {
-            check(current >= 0) {
+            check(current.isNegative()) {
                 "Current position can't be a negative value [current: $current] [duration: $duration]."
             }
-            check(duration > 0) {
+            check(!duration.isPositive()) {
                 "Duration has to be greater than zero [current: $current] [duration: $duration]."
             }
             check(current <= duration) {
                 "Current position has to be greater than duration [current: $current] [duration: $duration]."
             }
 
-            val percent = current.toFloat() / duration.toFloat()
+            val percent =
+                current.inWholeMilliseconds.toFloat() / duration.inWholeMilliseconds.toFloat()
 
             return KnownDuration(current, duration, percent)
         }

@@ -72,9 +72,9 @@ public interface PlayerRepository {
     public fun hasPreviousMediaItem(): Boolean
 
     /**
-     * Seeks to the default position of previous [media item][MediaItem].
+     * Skips to the default position of previous [media item][MediaItem].
      */
-    public fun seekToPreviousMediaItem()
+    public fun skipToPreviousMediaItem()
 
     /**
      * Returns whether a next [media item][MediaItem] exists.
@@ -82,9 +82,9 @@ public interface PlayerRepository {
     public fun hasNextMediaItem(): Boolean
 
     /**
-     * Seeks to the default position of next [media item][MediaItem].
+     * Skips to the default position of next [media item][MediaItem].
      */
-    public fun seekToNextMediaItem()
+    public fun skipToNextMediaItem()
 
     /**
      * Returns the [seekBack] increment.

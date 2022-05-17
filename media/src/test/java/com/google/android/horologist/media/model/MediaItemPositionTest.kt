@@ -18,16 +18,18 @@ package com.google.android.horologist.media.model
 
 import org.junit.Assert.assertThrows
 import org.junit.Test
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 class MediaItemPositionTest {
 
     @Test
     fun givenCurrentPositionIsNegative_whenCreateKnownPosition_thenExceptionIsThrown() {
         // given
-        val current = -1L
+        val current = (-1).seconds
 
         // when
-        val whenBlock = { MediaItemPosition.create(current = current, duration = 10L) }
+        val whenBlock = { MediaItemPosition.create(current = current, duration = 10.seconds) }
 
         // then
         assertThrows(IllegalStateException::class.java) { whenBlock() }
@@ -36,10 +38,10 @@ class MediaItemPositionTest {
     @Test
     fun givenDurationIsZero_whenCreateKnownPosition_thenExceptionIsThrown() {
         // given
-        val duration = 0L
+        val duration = Duration.ZERO
 
         // when
-        val whenBlock = { MediaItemPosition.create(current = 0L, duration = duration) }
+        val whenBlock = { MediaItemPosition.create(current = Duration.ZERO, duration = duration) }
 
         // then
         assertThrows(IllegalStateException::class.java) { whenBlock() }
@@ -48,8 +50,8 @@ class MediaItemPositionTest {
     @Test
     fun givenCurrentPositionIsGreaterThanDuration_whenCreateKnownPosition_thenExceptionIsThrown() {
         // given
-        val current = 2L
-        val duration = 1L
+        val current = 2.seconds
+        val duration = 1.seconds
 
         // when
         val whenBlock = { MediaItemPosition.create(current = current, duration = duration) }

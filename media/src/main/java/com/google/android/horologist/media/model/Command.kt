@@ -23,7 +23,7 @@ public enum class Command {
     PlayPause,
     SeekBack,
     SeekForward,
-    SeekToPreviousMediaItem,
-    SeekToNextMediaItem,
+    SkipToPreviousMediaItem,
+    SkipToNextMediaItem,
     SetShuffle
 }

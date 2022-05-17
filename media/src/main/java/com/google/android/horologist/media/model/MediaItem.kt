@@ -21,5 +21,5 @@ package com.google.android.horologist.media.model
  */
 public data class MediaItem(
     val title: String? = null,
-    val artist: String? = null
+    val artist: String
 )

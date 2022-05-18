@@ -47,9 +47,9 @@ public fun SeekForwardButton(
     }
 
     val contentDescription = when (seekButtonIncrement) {
-        SeekButtonIncrement.Unknown -> stringResource(id = R.string.seek_forward_button_forward)
+        SeekButtonIncrement.Unknown -> stringResource(id = R.string.horologist_seek_forward_button_forward)
         else -> stringResource(
-            id = R.string.seek_forward_button_forward_seconds,
+            id = R.string.horologist_seek_forward_button_forward_seconds,
             seekButtonIncrement.seconds
         )
     }

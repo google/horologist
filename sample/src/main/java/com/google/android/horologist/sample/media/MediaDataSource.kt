@@ -34,8 +34,8 @@ class MediaDataSource {
 
     fun fetchData(): List<MediaItem> {
         return mutableListOf<MediaItem>().also {
-            for (song in songs) {
-                it.add(MediaItem(title = song.first, artist = song.second))
+            for ((title, artist) in songs) {
+                it.add(MediaItem(title = title, artist = artist))
             }
         }
     }

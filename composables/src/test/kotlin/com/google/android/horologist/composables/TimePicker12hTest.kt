@@ -40,8 +40,8 @@ class TimePicker12hTest {
     fun datePickerInitial() {
         paparazzi.snapshot {
             TimePickerWith12HourClock(
-                value = LocalTime.of(10, 10, 0),
-                onValueConfirm = {},
+                time = LocalTime.of(10, 10, 0),
+                onTimeConfirm = {},
             )
         }
     }

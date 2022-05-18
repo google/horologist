@@ -76,16 +76,16 @@ import java.time.temporal.ChronoField
  * overrides for MaterialTheme.typography.display3 which is used to display the main picker
  * value.
  *
- * @param onValueConfirm the button event handler.
+ * @param onTimeConfirm the button event handler.
  * @param modifier the modifiers for the `Box` containing the UI elements.
- * @param value the initial value to seed the picker with.
+ * @param time the initial value to seed the picker with.
  */
 @ExperimentalHorologistComposablesApi
 @Composable
 public fun TimePicker(
-    onValueConfirm: (LocalTime) -> Unit,
+    onTimeConfirm: (LocalTime) -> Unit,
     modifier: Modifier = Modifier,
-    value: LocalTime = LocalTime.now()
+    time: LocalTime = LocalTime.now()
 ) {
     // Omit scaling according to Settings > Display > Font size for this screen
     val typography = MaterialTheme.typography.copy(
@@ -95,15 +95,15 @@ public fun TimePicker(
     )
     val hourState = rememberPickerState(
         initialNumberOfOptions = 24,
-        initiallySelectedOption = value.hour
+        initiallySelectedOption = time.hour
     )
     val minuteState = rememberPickerState(
         initialNumberOfOptions = 60,
-        initiallySelectedOption = value.minute
+        initiallySelectedOption = time.minute
     )
     val secondsState = rememberPickerState(
         initialNumberOfOptions = 60,
-        initiallySelectedOption = value.second
+        initiallySelectedOption = time.second
     )
     MaterialTheme(typography = typography) {
         var selectedColumn by remember { mutableStateOf(0) }
@@ -120,9 +120,9 @@ public fun TimePicker(
                 Spacer(Modifier.height(12.dp))
                 Text(
                     text = when (selectedColumn) {
-                        0 -> stringResource(R.string.time_picker_hour)
-                        1 -> stringResource(R.string.time_picker_minute)
-                        else -> stringResource(R.string.time_picker_second)
+                        0 -> stringResource(R.string.horologist_time_picker_hour)
+                        1 -> stringResource(R.string.horologist_time_picker_minute)
+                        else -> stringResource(R.string.horologist_time_picker_second)
                     },
                     color = optionColor,
                     style = MaterialTheme.typography.button,
@@ -192,11 +192,11 @@ public fun TimePicker(
                         minuteState.selectedOption,
                         secondsState.selectedOption
                     )
-                    onValueConfirm(time)
+                    onTimeConfirm(time)
                 }) {
                     Icon(
                         imageVector = Icons.Filled.Check,
-                        contentDescription = stringResource(id = R.string.picker_check_button),
+                        contentDescription = stringResource(id = R.string.horologist_picker_confirm_button),
                         modifier = Modifier
                             .size(24.dp)
                             .wrapContentSize(align = Alignment.Center),
@@ -221,16 +221,16 @@ public fun TimePicker(
  * overrides for MaterialTheme.typography.display1 which is used to display the main picker
  * value.
  *
- * @param onValueConfirm the button event handler.
+ * @param onTimeConfirm the button event handler.
  * @param modifier the modifiers for the `Column` containing the UI elements.
- * @param value the initial value to seed the picker with.
+ * @param time the initial value to seed the picker with.
  */
 @ExperimentalHorologistComposablesApi
 @Composable
 public fun TimePickerWith12HourClock(
-    onValueConfirm: (LocalTime) -> Unit,
+    onTimeConfirm: (LocalTime) -> Unit,
     modifier: Modifier = Modifier,
-    value: LocalTime = LocalTime.now()
+    time: LocalTime = LocalTime.now()
 ) {
     // Omit scaling according to Settings > Display > Font size for this screen,
     val typography = MaterialTheme.typography.copy(
@@ -240,13 +240,13 @@ public fun TimePickerWith12HourClock(
     )
     val hourState = rememberPickerState(
         initialNumberOfOptions = 12,
-        initiallySelectedOption = value[ChronoField.CLOCK_HOUR_OF_AMPM] - 1
+        initiallySelectedOption = time[ChronoField.CLOCK_HOUR_OF_AMPM] - 1
     )
     val minuteState = rememberPickerState(
         initialNumberOfOptions = 60,
-        initiallySelectedOption = value.minute
+        initiallySelectedOption = time.minute
     )
-    var amPm by remember { mutableStateOf(value[ChronoField.AMPM_OF_DAY]) }
+    var amPm by remember { mutableStateOf(time[ChronoField.AMPM_OF_DAY]) }
     // TODO check the results of talkback with these internally localised values
     // move to stringResources() otherwise.
     val amString = remember {
@@ -301,7 +301,7 @@ public fun TimePickerWith12HourClock(
                     state = hourState,
                     focusRequester = focusRequester1,
                     modifier = Modifier.size(64.dp, 100.dp),
-                    readOnlyLabel = { LabelText(stringResource(R.string.time_picker_hour)) }
+                    readOnlyLabel = { LabelText(stringResource(R.string.horologist_time_picker_hour)) }
                 ) { hour: Int ->
                     TimePiece(
                         selected = selectedColumn == 0,
@@ -317,7 +317,7 @@ public fun TimePickerWith12HourClock(
                     state = minuteState,
                     focusRequester = focusRequester2,
                     modifier = Modifier.size(64.dp, 100.dp),
-                    readOnlyLabel = { LabelText(stringResource(R.string.time_picker_min)) }
+                    readOnlyLabel = { LabelText(stringResource(R.string.horologist_time_picker_min)) }
                 ) { minute: Int ->
                     TimePiece(
                         selected = selectedColumn == 1,
@@ -339,11 +339,11 @@ public fun TimePickerWith12HourClock(
                     minuteState.selectedOption,
                     0
                 ).with(ChronoField.AMPM_OF_DAY, amPm.toLong())
-                onValueConfirm(time)
+                onTimeConfirm(time)
             }) {
                 Icon(
                     imageVector = Icons.Filled.Check,
-                    contentDescription = stringResource(id = R.string.picker_check_button),
+                    contentDescription = stringResource(id = R.string.horologist_picker_confirm_button),
                     modifier = Modifier
                         .size(24.dp)
                         .wrapContentSize(align = Alignment.Center),

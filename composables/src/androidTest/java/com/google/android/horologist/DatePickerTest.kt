@@ -18,14 +18,9 @@
 
 package com.google.android.horologist
 
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertTextEquals
@@ -33,8 +28,6 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
@@ -52,19 +45,10 @@ class DatePickerTest {
         composeTestRule.setContent {
             if (date == null) {
                 DatePicker(
-                    buttonIcon = {
-                        Icon(
-                            imageVector = Icons.Filled.Check,
-                            contentDescription = "check",
-                            modifier = Modifier
-                                .size(24.dp)
-                                .wrapContentSize(align = Alignment.Center),
-                        )
-                    },
-                    onClick = {
+                    onDateConfirm = {
                         date = it
                     },
-                    initial = LocalDate.of(2022, 4, 25)
+                    date = LocalDate.of(2022, 4, 25)
                 )
             } else {
                 Text(modifier = Modifier.testTag("date"), text = "$date")

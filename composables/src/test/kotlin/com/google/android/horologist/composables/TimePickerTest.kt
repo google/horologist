@@ -40,8 +40,8 @@ class TimePickerTest {
     fun datePickerInitial() {
         paparazzi.snapshot {
             TimePicker(
-                value = LocalTime.of(10, 10, 0),
-                onValueConfirm = {},
+                time = LocalTime.of(10, 10, 0),
+                onTimeConfirm = {},
             )
         }
     }

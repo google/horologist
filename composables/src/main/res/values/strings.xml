@@ -15,12 +15,12 @@
   -->
 
 <resources>
-    <string name="time_picker_hour">Hour</string>
-    <string name="time_picker_min">Min</string>
-    <string name="time_picker_minute">Minute</string>
-    <string name="time_picker_second">Second</string>
-    <string name="picker_day">Day</string>
-    <string name="picker_month">Month</string>
-    <string name="picker_year">Year</string>
-    <string name="picker_check_button">Check</string>
+    <string name="horologist_time_picker_hour">Hour</string>
+    <string name="horologist_time_picker_min">Min</string>
+    <string name="horologist_time_picker_minute">Minute</string>
+    <string name="horologist_time_picker_second">Second</string>
+    <string name="horologist_picker_day">Day</string>
+    <string name="horologist_picker_month">Month</string>
+    <string name="horologist_picker_year">Year</string>
+    <string name="horologist_picker_confirm_button">Confirm</string>
 </resources>

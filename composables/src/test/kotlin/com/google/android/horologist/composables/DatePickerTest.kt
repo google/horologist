@@ -40,8 +40,8 @@ class DatePickerTest {
     fun datePickerInitial() {
         paparazzi.snapshot {
             DatePicker(
-                onValueConfirm = {},
-                value = LocalDate.of(2022, 4, 25)
+                onDateConfirm = {},
+                date = LocalDate.of(2022, 4, 25)
             )
         }
     }

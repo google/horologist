@@ -63,16 +63,16 @@ import java.time.temporal.TemporalAdjusters
  * overrides for MaterialTheme.typography.display2 which is used to display the main picker
  * value.
  *
- * @param onValueConfirm the button event handler.
+ * @param onDateConfirm the button event handler.
  * @param modifier the modifiers for the `Box` containing the UI elements.
- * @param value the initial value to seed the picker with.
+ * @param date the initial value to seed the picker with.
  */
 @ExperimentalHorologistComposablesApi
 @Composable
 public fun DatePicker(
-    onValueConfirm: (LocalDate) -> Unit,
+    onDateConfirm: (LocalDate) -> Unit,
     modifier: Modifier = Modifier,
-    value: LocalDate = LocalDate.now()
+    date: LocalDate = LocalDate.now()
 ) {
     // Omit scaling according to Settings > Display > Font size for this screen
     val typography = MaterialTheme.typography.copy(
@@ -83,11 +83,11 @@ public fun DatePicker(
     MaterialTheme(typography = typography) {
         val yearState = rememberPickerState(
             initialNumberOfOptions = 3000,
-            initiallySelectedOption = value.year - 1
+            initiallySelectedOption = date.year - 1
         )
         val monthState = rememberPickerState(
             initialNumberOfOptions = 12,
-            initiallySelectedOption = value.monthValue - 1
+            initiallySelectedOption = date.monthValue - 1
         )
         val maxDayInMonth by remember {
             derivedStateOf {
@@ -102,7 +102,7 @@ public fun DatePicker(
         }
         val dayState = rememberPickerState(
             initialNumberOfOptions = maxDayInMonth,
-            initiallySelectedOption = value.dayOfMonth - 1
+            initiallySelectedOption = date.dayOfMonth - 1
         )
         val focusRequester1 = remember { FocusRequester() }
         val focusRequester2 = remember { FocusRequester() }
@@ -131,9 +131,9 @@ public fun DatePicker(
                 Spacer(Modifier.height(16.dp))
                 Text(
                     text = when (selectedColumn) {
-                        0 -> stringResource(R.string.picker_day)
-                        1 -> stringResource(R.string.picker_month)
-                        else -> stringResource(R.string.picker_year)
+                        0 -> stringResource(R.string.horologist_picker_day)
+                        1 -> stringResource(R.string.horologist_picker_month)
+                        else -> stringResource(R.string.horologist_picker_year)
                     },
                     color = MaterialTheme.colors.secondary,
                     style = MaterialTheme.typography.button,
@@ -202,12 +202,12 @@ public fun DatePicker(
                             monthState.selectedOption + 1,
                             dayState.selectedOption + 1
                         )
-                        onValueConfirm(date)
+                        onDateConfirm(date)
                     },
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Check,
-                        contentDescription = stringResource(id = R.string.picker_check_button),
+                        contentDescription = stringResource(id = R.string.horologist_picker_confirm_button),
                         modifier = Modifier
                             .size(24.dp)
                             .wrapContentSize(align = Alignment.Center),

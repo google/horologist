@@ -32,7 +32,7 @@ fun TimePicker12hPreview() {
     // Due to a limitation with ScalingLazyColumn,
     // previews only work in interactive mode.
     TimePickerWith12HourClock(
-        value = LocalTime.of(10, 10, 0),
-        onValueConfirm = {}
+        time = LocalTime.of(10, 10, 0),
+        onTimeConfirm = {}
     )
 }

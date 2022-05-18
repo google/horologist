@@ -105,8 +105,8 @@ fun WearApp(
             }
             composable(Screen.DatePicker.route) {
                 DatePicker(
-                    value = time.toLocalDate(),
-                    onValueConfirm = {
+                    date = time.toLocalDate(),
+                    onDateConfirm = {
                         time = time.toLocalTime().atDate(it)
                         navController.popBackStack()
                     }
@@ -114,8 +114,8 @@ fun WearApp(
             }
             composable(Screen.TimePicker.route) {
                 TimePickerWith12HourClock(
-                    value = time.toLocalTime(),
-                    onValueConfirm = {
+                    time = time.toLocalTime(),
+                    onTimeConfirm = {
                         time = time.toLocalDate().atTime(it)
                         navController.popBackStack()
                     }
@@ -123,8 +123,8 @@ fun WearApp(
             }
             composable(Screen.TimeWithSecondsPicker.route) {
                 TimePicker(
-                    value = time.toLocalTime(),
-                    onValueConfirm = {
+                    time = time.toLocalTime(),
+                    onTimeConfirm = {
                         time = time.toLocalDate().atTime(it)
                         navController.popBackStack()
                     }

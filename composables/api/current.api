@@ -2,15 +2,15 @@
 package com.google.android.horologist.composables {
 
   public final class DatePickerKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void DatePicker(kotlin.jvm.functions.Function1<? super java.time.LocalDate,kotlin.Unit> onValueConfirm, optional androidx.compose.ui.Modifier modifier, optional java.time.LocalDate value);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void DatePicker(kotlin.jvm.functions.Function1<? super java.time.LocalDate,kotlin.Unit> onDateConfirm, optional androidx.compose.ui.Modifier modifier, optional java.time.LocalDate date);
   }
 
   @kotlin.RequiresOptIn(message="Composables is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistComposablesApi {
   }
 
   public final class TimePickerKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void TimePicker(kotlin.jvm.functions.Function1<? super java.time.LocalTime,kotlin.Unit> onValueConfirm, optional androidx.compose.ui.Modifier modifier, optional java.time.LocalTime value);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void TimePickerWith12HourClock(kotlin.jvm.functions.Function1<? super java.time.LocalTime,kotlin.Unit> onValueConfirm, optional androidx.compose.ui.Modifier modifier, optional java.time.LocalTime value);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void TimePicker(kotlin.jvm.functions.Function1<? super java.time.LocalTime,kotlin.Unit> onTimeConfirm, optional androidx.compose.ui.Modifier modifier, optional java.time.LocalTime time);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void TimePickerWith12HourClock(kotlin.jvm.functions.Function1<? super java.time.LocalTime,kotlin.Unit> onTimeConfirm, optional androidx.compose.ui.Modifier modifier, optional java.time.LocalTime time);
   }
 
 }

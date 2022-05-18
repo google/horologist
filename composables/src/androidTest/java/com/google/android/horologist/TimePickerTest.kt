@@ -46,10 +46,10 @@ class TimePickerTest {
         composeTestRule.setContent {
             if (time == null) {
                 TimePicker(
-                    onValueConfirm = {
+                    onTimeConfirm = {
                         time = it
                     },
-                    value = LocalTime.of(11, 59, 31)
+                    time = LocalTime.of(11, 59, 31)
                 )
             } else {
                 Text(modifier = Modifier.testTag("time"), text = "$time")
@@ -67,10 +67,10 @@ class TimePickerTest {
         composeTestRule.setContent {
             if (time == null) {
                 TimePickerWith12HourClock(
-                    onValueConfirm = {
+                    onTimeConfirm = {
                         time = it
                     },
-                    value = LocalTime.of(11, 59)
+                    time = LocalTime.of(11, 59)
                 )
             } else {
                 Text(modifier = Modifier.testTag("time"), text = "$time")

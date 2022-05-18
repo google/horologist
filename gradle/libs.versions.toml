@@ -10,6 +10,7 @@ androidxLifecycle = "2.5.0-rc01"
 androidxNavigation = "2.5.0-rc01"
 androidxWear = "1.2.0"
 androidxtiles = "1.1.0-alpha06"
+benManes = "0.41.0"
 compose = "1.2.0-beta01"
 composesnapshot = "-"
 dokka = "1.5.0"
@@ -22,7 +23,9 @@ ktlint = "0.42.1"
 com-squareup-okhttp3 = "4.9.3"
 metalava = "0.2.1"
 room = "2.4.2"
+spotless = "5.9.0"
 truth = "1.1.3"
+versionCatalogUpdate = "0.3.0"
 wearcompose = "1.0.0-beta01"
 
 [libraries]
@@ -80,3 +83,10 @@ truth = { module = "com.google.truth:truth", version.ref = "truth" }
 wearcompose-foundation = { module = "androidx.wear.compose:compose-foundation", version.ref = "wearcompose" }
 wearcompose-material = { module = "androidx.wear.compose:compose-material", version.ref = "wearcompose" }
 wearcompose-navigation = { module = "androidx.wear.compose:compose-navigation", version.ref = "wearcompose" }
+
+[plugins]
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlinGradle = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+benManes = { id = "com.github.ben-manes.versions", version.ref = "benManes" }
+versionCatalogUpdate = { id = "nl.littlerobots.version-catalog-update", version.ref = "versionCatalogUpdate" }

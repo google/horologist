@@ -56,7 +56,7 @@ class TimePickerTest {
             }
         }
 
-        composeTestRule.onNodeWithContentDescription("check").performClick()
+        composeTestRule.onNodeWithContentDescription("Confirm").performClick()
 
         composeTestRule.onNodeWithTag("time").assertTextEquals("11:59:31")
     }
@@ -77,7 +77,7 @@ class TimePickerTest {
             }
         }
 
-        composeTestRule.onNodeWithContentDescription("check").performClick()
+        composeTestRule.onNodeWithContentDescription("Confirm").performClick()
 
         composeTestRule.onNodeWithTag("time").assertTextEquals("11:59")
     }

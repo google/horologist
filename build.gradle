@@ -40,10 +40,10 @@ buildscript {
 
 plugins {
 
-    id "com.diffplug.spotless" version "5.9.0"
+    alias(libs.plugins.spotless)
     alias(libs.plugins.kotlinGradle) apply false
-    id "com.github.ben-manes.versions" version "0.41.0"
-    id "nl.littlerobots.version-catalog-update" version "0.3.0" apply false
+    alias(libs.plugins.benManes)
+    alias(libs.plugins.versionCatalogUpdate) apply false
     alias(libs.plugins.kapt) apply false
 }
 

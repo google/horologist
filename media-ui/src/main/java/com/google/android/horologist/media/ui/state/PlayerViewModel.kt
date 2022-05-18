@@ -18,8 +18,8 @@ package com.google.android.horologist.media.ui.state
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
-import com.google.android.horologist.media.data.repository.PlayerRepository
+import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.mapper.PlayerUiStateMapper
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
@@ -29,18 +29,18 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
-@OptIn(ExperimentalHorologistMediaDataApi::class)
+@OptIn(ExperimentalHorologistMediaApi::class)
 @ExperimentalHorologistMediaUiApi
 public open class PlayerViewModel(
     private val playerRepository: PlayerRepository
 ) : ViewModel() {
 
     public val playerUiState: StateFlow<PlayerUiState> = combine(
+        playerRepository.currentState,
         playerRepository.availableCommands,
-        playerRepository.shuffleModeEnabled,
-        playerRepository.isPlaying,
         playerRepository.currentMediaItem,
-        playerRepository.trackPosition,
+        playerRepository.mediaItemPosition,
+        playerRepository.shuffleModeEnabled,
         PlayerUiStateMapper::map
     ).stateIn(
         scope = viewModelScope,
@@ -48,20 +48,20 @@ public open class PlayerViewModel(
         initialValue = INITIAL_PLAYER_UI_STATE
     )
 
-    public fun prepareAndPlay() {
-        playerRepository.prepareAndPlay()
+    public fun play() {
+        playerRepository.play()
     }
 
     public fun pause() {
         playerRepository.pause()
     }
 
-    public fun seekToPreviousMediaItem() {
-        playerRepository.seekToPreviousMediaItem()
+    public fun skipToPreviousMediaItem() {
+        playerRepository.skipToPreviousMediaItem()
     }
 
-    public fun seekToNextMediaItem() {
-        playerRepository.seekToNextMediaItem()
+    public fun skipToNextMediaItem() {
+        playerRepository.skipToNextMediaItem()
     }
 
     public fun seekBack() {
@@ -70,10 +70,6 @@ public open class PlayerViewModel(
 
     public fun seekForward() {
         playerRepository.seekForward()
-    }
-
-    public fun toggleShuffle() {
-        playerRepository.toggleShuffle()
     }
 
     public companion object {

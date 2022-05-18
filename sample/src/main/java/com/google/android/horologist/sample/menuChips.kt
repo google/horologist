@@ -38,6 +38,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun FillMaxRectangleChip(navigateToRoute: (String) -> Unit) {
@@ -85,7 +87,10 @@ fun VolumeScreenChip(navigateToRoute: (String) -> Unit) {
 }
 
 @Composable
-fun TimePickerChip(navigateToRoute: (String) -> Unit) {
+fun TimePickerChip(
+    time: LocalDateTime,
+    navigateToRoute: (String) -> Unit
+) {
     SampleChip(
         onClick = { navigateToRoute(Screen.TimePicker.route) },
         label = "Time Picker",
@@ -93,10 +98,14 @@ fun TimePickerChip(navigateToRoute: (String) -> Unit) {
             Text(
                 text = buildAnnotatedString {
                     withStyle(SpanStyle(color = Color.Yellow, fontWeight = FontWeight.Bold)) {
-                        append("10")
+                        var hour = time.hour % 12
+                        if (hour == 0) {
+                            hour = 12
+                        }
+                        append(hour.toString())
                     }
                     append(":")
-                    append("10")
+                    append(time.minute.toString())
                     append(" AM")
                 },
                 fontSize = 6f.sp
@@ -106,7 +115,10 @@ fun TimePickerChip(navigateToRoute: (String) -> Unit) {
 }
 
 @Composable
-fun DatePickerChip(navigateToRoute: (String) -> Unit) {
+fun DatePickerChip(
+    time: LocalDateTime,
+    navigateToRoute: (String) -> Unit
+) {
     SampleChip(
         onClick = { navigateToRoute(Screen.DatePicker.route) },
         label = "Date Picker",
@@ -114,9 +126,9 @@ fun DatePickerChip(navigateToRoute: (String) -> Unit) {
             Text(
                 text = buildAnnotatedString {
                     withStyle(SpanStyle(color = Color.Yellow, fontWeight = FontWeight.Bold)) {
-                        append("22")
+                        append(time.dayOfMonth.toString())
                     }
-                    append(" Apr")
+                    append(" ${time.format(DateTimeFormatter.ofPattern("MMM"))}")
                 },
                 fontSize = 6f.sp
             )
@@ -125,7 +137,10 @@ fun DatePickerChip(navigateToRoute: (String) -> Unit) {
 }
 
 @Composable
-fun TimeWithSecondsPickerChip(navigateToRoute: (String) -> Unit) {
+fun TimeWithSecondsPickerChip(
+    time: LocalDateTime,
+    navigateToRoute: (String) -> Unit
+) {
     SampleChip(
         onClick = { navigateToRoute(Screen.TimeWithSecondsPicker.route) },
         label = "Time With Seconds Picker",
@@ -133,9 +148,9 @@ fun TimeWithSecondsPickerChip(navigateToRoute: (String) -> Unit) {
             Text(
                 text = buildAnnotatedString {
                     withStyle(SpanStyle(color = Color.Yellow, fontWeight = FontWeight.Bold)) {
-                        append("10")
+                        append(time.hour.toString())
                     }
-                    append(":30:59")
+                    append(":${time.minute}:${time.second}")
                 },
                 fontSize = 6f.sp
             )

@@ -20,20 +20,16 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
@@ -47,6 +43,7 @@ import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.android.horologist.sample.di.SampleAppDI
 import com.google.android.horologist.sample.media.MediaPlayerScreen
 import com.google.android.horologist.sample.media.MediaPlayerScreenViewModel
+import java.time.LocalDateTime
 
 class MainActivity : ComponentActivity() {
 
@@ -69,6 +66,8 @@ fun WearApp(
 ) {
     val navController = rememberSwipeDismissableNavController()
 
+    var time by remember { mutableStateOf(LocalDateTime.now()) }
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
     ) {
@@ -80,6 +79,7 @@ fun WearApp(
                 MenuScreen(
                     modifier = Modifier.fillMaxSize(),
                     navigateToRoute = { route -> navController.navigate(route) },
+                    time = time
                 )
             }
             composable(Screen.FillMaxRectangle.route) {
@@ -105,51 +105,27 @@ fun WearApp(
             }
             composable(Screen.DatePicker.route) {
                 DatePicker(
-                    buttonIcon = {
-                        Icon(
-                            imageVector = Icons.Filled.Check,
-                            contentDescription = "check",
-                            modifier = Modifier
-                                .size(24.dp)
-                                .wrapContentSize(align = Alignment.Center),
-                        )
-                    },
-                    onClick = {
-                        println(it)
+                    date = time.toLocalDate(),
+                    onDateConfirm = {
+                        time = time.toLocalTime().atDate(it)
                         navController.popBackStack()
                     }
                 )
             }
             composable(Screen.TimePicker.route) {
                 TimePickerWith12HourClock(
-                    buttonIcon = {
-                        Icon(
-                            imageVector = Icons.Filled.Check,
-                            contentDescription = "check",
-                            modifier = Modifier
-                                .size(24.dp)
-                                .wrapContentSize(align = Alignment.Center),
-                        )
-                    },
-                    onClick = {
-                        println(it)
+                    time = time.toLocalTime(),
+                    onTimeConfirm = {
+                        time = time.toLocalDate().atTime(it)
                         navController.popBackStack()
                     }
                 )
             }
             composable(Screen.TimeWithSecondsPicker.route) {
                 TimePicker(
-                    buttonIcon = {
-                        Icon(
-                            imageVector = Icons.Filled.Check,
-                            contentDescription = "check",
-                            modifier = Modifier
-                                .size(24.dp)
-                                .wrapContentSize(align = Alignment.Center),
-                        )
-                    },
-                    onClick = {
-                        println(it)
+                    time = time.toLocalTime(),
+                    onTimeConfirm = {
+                        time = time.toLocalDate().atTime(it)
                         navController.popBackStack()
                     }
                 )

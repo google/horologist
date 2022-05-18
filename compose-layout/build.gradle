@@ -105,7 +105,7 @@ dependencies {
     implementation libs.compose.ui.util
     implementation libs.androidx.wear
     implementation libs.androidx.lifecycle.viewmodel.compose
-    debugImplementation projects.composeTesting
+    debugImplementation projects.composeTools
     debugImplementation libs.compose.ui.toolingpreview
     debugImplementation libs.androidx.activity.compose
 

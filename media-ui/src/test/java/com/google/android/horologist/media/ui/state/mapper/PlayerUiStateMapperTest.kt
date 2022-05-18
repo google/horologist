@@ -18,18 +18,19 @@
 
 package com.google.android.horologist.media.ui.state.mapper
 
-import androidx.media3.common.MediaItem
-import androidx.media3.common.MediaMetadata
-import androidx.media3.common.Player
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.google.android.horologist.media.data.model.TrackPosition
+import com.google.android.horologist.media.model.Command
+import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.media.model.MediaItemPosition
+import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.common.truth.Truth.assertThat
-import org.junit.Assert
+import org.junit.Assert.assertNotNull
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
+import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
 @Config(manifest = Config.NONE)
@@ -38,15 +39,15 @@ class PlayerUiStateMapperTest {
     @Test
     fun givenNoCommandsAreAvailable_thenAllIsDisabled() {
         // given
-        val commands = Player.Commands.EMPTY
+        val commands = setOf<Command>()
 
         // when
         val result = PlayerUiStateMapper.map(
-            commands,
-            shuffleModeEnabled = false,
-            isPlaying = false,
+            currentState = PlayerState.Ready,
+            availableCommands = commands,
             mediaItem = null,
-            trackPosition = null
+            mediaItemPosition = null,
+            shuffleModeEnabled = false,
         )
 
         // then
@@ -71,15 +72,15 @@ class PlayerUiStateMapperTest {
     @Test
     fun givenPlayPauseCommandIsAvailable_thenPlayIsEnabled() {
         // given
-        val commands = Player.Commands.Builder().add(Player.COMMAND_PLAY_PAUSE).build()
+        val commands = setOf(Command.PlayPause)
 
         // when
         val result = PlayerUiStateMapper.map(
-            commands,
-            shuffleModeEnabled = false,
-            isPlaying = false,
+            currentState = PlayerState.Ready,
+            availableCommands = commands,
             mediaItem = null,
-            trackPosition = null
+            mediaItemPosition = null,
+            shuffleModeEnabled = false,
         )
 
         // then
@@ -89,15 +90,15 @@ class PlayerUiStateMapperTest {
     @Test
     fun givenPlayPauseCommandIsAvailable_thenPauseIsEnabled() {
         // given
-        val commands = Player.Commands.Builder().add(Player.COMMAND_PLAY_PAUSE).build()
+        val commands = setOf(Command.PlayPause)
 
         // when
         val result = PlayerUiStateMapper.map(
-            commands,
-            shuffleModeEnabled = false,
-            isPlaying = false,
+            currentState = PlayerState.Ready,
+            availableCommands = commands,
             mediaItem = null,
-            trackPosition = null
+            mediaItemPosition = null,
+            shuffleModeEnabled = false,
         )
 
         // then
@@ -107,15 +108,15 @@ class PlayerUiStateMapperTest {
     @Test
     fun givenSeekBackCommandIsAvailable_thenSeekBackIsEnabled() {
         // given
-        val commands = Player.Commands.Builder().add(Player.COMMAND_SEEK_BACK).build()
+        val commands = setOf(Command.SeekBack)
 
         // when
         val result = PlayerUiStateMapper.map(
-            commands,
-            shuffleModeEnabled = false,
-            isPlaying = false,
+            currentState = PlayerState.Ready,
+            availableCommands = commands,
             mediaItem = null,
-            trackPosition = null
+            mediaItemPosition = null,
+            shuffleModeEnabled = false,
         )
 
         // then
@@ -125,15 +126,15 @@ class PlayerUiStateMapperTest {
     @Test
     fun givenSeekForwardCommandIsAvailable_thenSeekForwardIsEnabled() {
         // given
-        val commands = Player.Commands.Builder().add(Player.COMMAND_SEEK_FORWARD).build()
+        val commands = setOf(Command.SeekForward)
 
         // when
         val result = PlayerUiStateMapper.map(
-            commands,
-            shuffleModeEnabled = false,
-            isPlaying = false,
+            currentState = PlayerState.Ready,
+            availableCommands = commands,
             mediaItem = null,
-            trackPosition = null
+            mediaItemPosition = null,
+            shuffleModeEnabled = false,
         )
 
         // then
@@ -141,18 +142,17 @@ class PlayerUiStateMapperTest {
     }
 
     @Test
-    fun givenSeekToPreviousMediaItemCommandIsAvailable_thenSeekToPreviousIsEnabled() {
+    fun givenSkipToPreviousMediaItemCommandIsAvailable_thenSeekToPreviousIsEnabled() {
         // given
-        val commands =
-            Player.Commands.Builder().add(Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM).build()
+        val commands = setOf(Command.SkipToPreviousMediaItem)
 
         // when
         val result = PlayerUiStateMapper.map(
-            commands,
-            shuffleModeEnabled = false,
-            isPlaying = false,
+            currentState = PlayerState.Ready,
+            availableCommands = commands,
             mediaItem = null,
-            trackPosition = null
+            mediaItemPosition = null,
+            shuffleModeEnabled = false,
         )
 
         // then
@@ -160,18 +160,17 @@ class PlayerUiStateMapperTest {
     }
 
     @Test
-    fun givenSeekToNextMediaItemCommandIsAvailable_thenSeekToNextIsEnabled() {
+    fun givenSkipToNextMediaItemCommandIsAvailable_thenSeekToNextIsEnabled() {
         // given
-        val commands =
-            Player.Commands.Builder().add(Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM).build()
+        val commands = setOf(Command.SkipToNextMediaItem)
 
         // when
         val result = PlayerUiStateMapper.map(
-            commands,
-            shuffleModeEnabled = false,
-            isPlaying = false,
+            currentState = PlayerState.Ready,
+            availableCommands = commands,
             mediaItem = null,
-            trackPosition = null
+            mediaItemPosition = null,
+            shuffleModeEnabled = false,
         )
 
         // then
@@ -181,16 +180,15 @@ class PlayerUiStateMapperTest {
     @Test
     fun givenSetShuffleModeCommandIsAvailable_thenShuffleIsEnabled() {
         // given
-        val commands =
-            Player.Commands.Builder().add(Player.COMMAND_SET_SHUFFLE_MODE).build()
+        val commands = setOf(Command.SetShuffle)
 
         // when
         val result = PlayerUiStateMapper.map(
-            commands,
-            shuffleModeEnabled = false,
-            isPlaying = false,
+            currentState = PlayerState.Ready,
+            availableCommands = commands,
             mediaItem = null,
-            trackPosition = null
+            mediaItemPosition = null,
+            shuffleModeEnabled = false,
         )
 
         // then
@@ -204,11 +202,11 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            Player.Commands.EMPTY,
-            shuffleModeEnabled = shuffleEnabled,
-            isPlaying = false,
+            currentState = PlayerState.Ready,
+            availableCommands = emptySet(),
             mediaItem = null,
-            trackPosition = null
+            mediaItemPosition = null,
+            shuffleModeEnabled = shuffleEnabled,
         )
 
         // then
@@ -222,11 +220,11 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            Player.Commands.EMPTY,
-            shuffleModeEnabled = shuffleEnabled,
-            isPlaying = false,
+            currentState = PlayerState.Ready,
+            availableCommands = emptySet(),
             mediaItem = null,
-            trackPosition = null
+            mediaItemPosition = null,
+            shuffleModeEnabled = shuffleEnabled,
         )
 
         // then
@@ -236,15 +234,15 @@ class PlayerUiStateMapperTest {
     @Test
     fun givenPlayPauseCommandIsAvailable_thenPlayPauseIsEnabled() {
         // given
-        val commands = Player.Commands.Builder().add(Player.COMMAND_PLAY_PAUSE).build()
+        val commands = setOf(Command.PlayPause)
 
         // when
         val result = PlayerUiStateMapper.map(
-            commands,
-            shuffleModeEnabled = false,
-            isPlaying = false,
+            currentState = PlayerState.Ready,
+            availableCommands = commands,
             mediaItem = null,
-            trackPosition = null
+            mediaItemPosition = null,
+            shuffleModeEnabled = false,
         )
 
         // then
@@ -254,37 +252,37 @@ class PlayerUiStateMapperTest {
     @Test
     fun givenIsNOTPlaying_thenPlayingIsFalse() {
         // given
-        val isPlaying = false
+        val state = PlayerState.Ready
 
         // when
         val result = PlayerUiStateMapper.map(
-            Player.Commands.EMPTY,
-            shuffleModeEnabled = false,
-            isPlaying = isPlaying,
+            currentState = state,
+            availableCommands = emptySet(),
             mediaItem = null,
-            trackPosition = null
+            mediaItemPosition = null,
+            shuffleModeEnabled = false,
         )
 
         // then
-        assertThat(result.playing).isEqualTo(isPlaying)
+        assertThat(result.playing).isFalse()
     }
 
     @Test
     fun givenIsPlaying_thenPlayingIsTrue() {
         // given
-        val isPlaying = true
+        val state = PlayerState.Playing
 
         // when
         val result = PlayerUiStateMapper.map(
-            Player.Commands.EMPTY,
-            shuffleModeEnabled = false,
-            isPlaying = isPlaying,
+            currentState = state,
+            availableCommands = emptySet(),
             mediaItem = null,
-            trackPosition = null
+            mediaItemPosition = null,
+            shuffleModeEnabled = false,
         )
 
         // then
-        assertThat(result.playing).isEqualTo(isPlaying)
+        assertThat(result.playing).isTrue()
     }
 
     @Test
@@ -292,50 +290,45 @@ class PlayerUiStateMapperTest {
         // given
         val title = "title"
         val artist = "artist"
-        val metadataBuilder = MediaMetadata.Builder()
-            .setDisplayTitle(title)
-            .setArtist(artist)
-
-        val mediaItem = MediaItem.Builder()
-            .setMediaMetadata(metadataBuilder.build())
-            .build()
+        val mediaItem = MediaItem(title = title, artist = artist)
 
         // when
         val result = PlayerUiStateMapper.map(
-            Player.Commands.EMPTY,
-            shuffleModeEnabled = false,
-            isPlaying = false,
+            currentState = PlayerState.Ready,
+            availableCommands = emptySet(),
             mediaItem = mediaItem,
-            trackPosition = null
+            mediaItemPosition = null,
+            shuffleModeEnabled = false,
         )
 
         // then
-        Assert.assertNotNull(result.mediaItem)
+        assertNotNull(result.mediaItem)
         val expectedMediaItem = result.mediaItem!!
         assertThat(expectedMediaItem.title).isEqualTo(title)
         assertThat(expectedMediaItem.artist).isEqualTo(artist)
     }
 
     @Test
-    fun givenTrackPosition_thenTrackPositionIsMappedCorrectly() {
+    fun givenMediaItemPosition_thenTrackPositionIsMappedCorrectly() {
         // given
-        val current = 1L
-        val duration = 2L
-        val trackPosition = TrackPosition(current, duration)
+        val current = 1.seconds
+        val duration = 2.seconds
+        val mediaItemPosition = MediaItemPosition.create(current, duration)
 
         // when
         val result = PlayerUiStateMapper.map(
-            Player.Commands.EMPTY,
-            shuffleModeEnabled = false,
-            isPlaying = false,
+            currentState = PlayerState.Ready,
+            availableCommands = emptySet(),
             mediaItem = null,
-            trackPosition = trackPosition
+            mediaItemPosition = mediaItemPosition,
+            shuffleModeEnabled = false,
         )
 
         // then
-        Assert.assertNotNull(result.trackPosition)
+        assertNotNull(result.trackPosition)
         val expectedTrackPosition = result.trackPosition!!
-        assertThat(expectedTrackPosition.current).isEqualTo(current)
+        assertThat(expectedTrackPosition.current).isEqualTo(current.inWholeMilliseconds)
+        assertThat(expectedTrackPosition.duration).isEqualTo(duration.inWholeMilliseconds)
         assertThat(expectedTrackPosition.percent).isEqualTo(0.5f)
     }
 }

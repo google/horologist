@@ -16,61 +16,44 @@
 
 package com.google.android.horologist.test.toolbox.testdoubles
 
-import androidx.media3.common.MediaItem
-import androidx.media3.common.Player
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
-import com.google.android.horologist.media.data.model.TrackPosition
-import com.google.android.horologist.media.data.repository.PlayerRepository
+import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+import com.google.android.horologist.media.model.Command
+import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.media.model.MediaItemPosition
+import com.google.android.horologist.media.model.PlayerState
+import com.google.android.horologist.media.repository.PlayerRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
-@OptIn(ExperimentalHorologistMediaDataApi::class)
+@OptIn(ExperimentalHorologistMediaApi::class)
 class StubPlayerRepository : PlayerRepository {
 
-    override val availableCommands: StateFlow<Player.Commands>
-        get() = MutableStateFlow(Player.Commands.EMPTY)
+    override val availableCommands: StateFlow<Set<Command>>
+        get() = MutableStateFlow(emptySet())
 
-    override val isPlaying: StateFlow<Boolean>
-        get() = MutableStateFlow(false)
+    override val currentState: StateFlow<PlayerState>
+        get() = MutableStateFlow(PlayerState.Idle)
 
     override val currentMediaItem: StateFlow<MediaItem?>
         get() = MutableStateFlow(null)
 
-    override val trackPosition: StateFlow<TrackPosition?>
+    override val mediaItemPosition: StateFlow<MediaItemPosition?>
         get() = MutableStateFlow(null)
 
     override val shuffleModeEnabled: StateFlow<Boolean>
         get() = MutableStateFlow(false)
 
-    override fun prepareAndPlay(mediaItem: MediaItem, play: Boolean) {
+    override fun prepare() {
         // do nothing
     }
 
-    override fun prepareAndPlay(
-        mediaItems: List<MediaItem>?,
-        startIndex: Int,
-        play: Boolean
-    ) {
+    override fun play() {
         // do nothing
     }
 
-    override fun seekToPreviousMediaItem() {
-        // do nothing
-    }
-
-    override fun seekToNextMediaItem() {
-        // do nothing
-    }
-
-    override fun getSeekBackIncrement(): Long = SEEK_INCREMENT
-
-    override fun seekBack() {
-        // do nothing
-    }
-
-    override fun getSeekForwardIncrement(): Long = SEEK_INCREMENT
-
-    override fun seekForward() {
+    override fun play(mediaItemIndex: Int) {
         // do nothing
     }
 
@@ -78,15 +61,65 @@ class StubPlayerRepository : PlayerRepository {
         // do nothing
     }
 
-    override fun toggleShuffle() {
+    override fun hasPreviousMediaItem(): Boolean = false
+
+    override fun skipToPreviousMediaItem() {
         // do nothing
     }
 
-    override fun updatePosition() {
+    override fun hasNextMediaItem(): Boolean = false
+
+    override fun skipToNextMediaItem() {
         // do nothing
     }
 
-    companion object {
-        const val SEEK_INCREMENT = 15000L
+    override fun getSeekBackIncrement(): Duration = 0.seconds
+
+    override fun seekBack() {
+        // do nothing
+    }
+
+    override fun getSeekForwardIncrement(): Duration = 0.seconds
+
+    override fun seekForward() {
+        // do nothing
+    }
+
+    override fun setShuffleModeEnabled(shuffleModeEnabled: Boolean) {
+        // do nothing
+    }
+
+    override fun setMediaItem(mediaItem: MediaItem) {
+        // do nothing
+    }
+
+    override fun setMediaItems(mediaItems: List<MediaItem>) {
+        // do nothing
+    }
+
+    override fun addMediaItem(mediaItem: MediaItem) {
+        // do nothing
+    }
+
+    override fun addMediaItem(index: Int, mediaItem: MediaItem) {
+        // do nothing
+    }
+
+    override fun removeMediaItem(index: Int) {
+        // do nothing
+    }
+
+    override fun clearMediaItems() {
+        // do nothing
+    }
+
+    override fun getMediaItemCount(): Int = 0
+
+    override fun getMediaItemAt(index: Int): MediaItem? = null
+
+    override fun getCurrentMediaItemIndex(): Int = -1
+
+    override fun release() {
+        // do nothing
     }
 }

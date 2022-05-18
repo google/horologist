@@ -16,35 +16,26 @@
 
 package com.google.android.horologist.sample.media
 
-import androidx.media3.common.MediaItem
-import androidx.media3.common.MediaMetadata
+import com.google.android.horologist.media.model.MediaItem
 
 /**
  * Simple data source for a list of fake [MediaItem]s
  */
 class MediaDataSource {
 
+    // the stage is set, the green flag, drops!
     private val songs = listOf(
-        Pair("Highway Star", "Deep Purple"),
-        Pair("Paranoid", "Black Sabbath"),
-        Pair("Peter Gunn", "Henry Mancini"),
-        Pair("Bad to the Bone", "George Thorogood and the Destroyers"),
-        Pair("Born to Be Wild", "Steppenwolf"),
+        "Highway Star" to "Deep Purple",
+        "Paranoid" to "Black Sabbath",
+        "Peter Gunn" to "Henry Mancini",
+        "Bad to the Bone" to "George Thorogood and the Destroyers",
+        "Born to Be Wild" to "Steppenwolf",
     )
 
     fun fetchData(): List<MediaItem> {
         return mutableListOf<MediaItem>().also {
-            for (song in songs) {
-                it.add(
-                    MediaItem.Builder()
-                        .setMediaMetadata(
-                            MediaMetadata.Builder()
-                                .setDisplayTitle(song.first)
-                                .setArtist(song.second)
-                                .build()
-                        )
-                        .build()
-                )
+            for ((title, artist) in songs) {
+                it.add(MediaItem(title = title, artist = artist))
             }
         }
     }

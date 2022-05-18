@@ -38,11 +38,13 @@ import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
+import java.time.LocalDateTime
 
 @Composable
 fun MenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
+    time: LocalDateTime,
     scrollState: ScalingLazyListState = rememberScalingLazyListState(),
     focusRequester: FocusRequester = remember { FocusRequester() }
 ) {
@@ -70,13 +72,13 @@ fun MenuScreen(
             FadeAwayChip("Fade Away Column") { navigateToRoute(Screen.FadeAwayColumn.route) }
         }
         item {
-            TimePickerChip { navigateToRoute(Screen.TimePicker.route) }
+            TimePickerChip(time) { navigateToRoute(Screen.TimePicker.route) }
         }
         item {
-            DatePickerChip { navigateToRoute(Screen.DatePicker.route) }
+            DatePickerChip(time) { navigateToRoute(Screen.DatePicker.route) }
         }
         item {
-            TimeWithSecondsPickerChip { navigateToRoute(Screen.TimeWithSecondsPicker.route) }
+            TimeWithSecondsPickerChip(time) { navigateToRoute(Screen.TimeWithSecondsPicker.route) }
         }
         item {
             MediaPlayerChip { navigateToRoute(Screen.MediaPlayer.route) }
@@ -125,5 +127,5 @@ fun SampleChip(
 )
 @Composable
 fun MenuScreenPreview() {
-    MenuScreen(modifier = Modifier.fillMaxSize(), navigateToRoute = {})
+    MenuScreen(modifier = Modifier.fillMaxSize(), navigateToRoute = {}, time = LocalDateTime.now())
 }

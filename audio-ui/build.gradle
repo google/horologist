@@ -113,11 +113,10 @@ dependencies {
     implementation libs.androidx.lifecycle.viewmodel.compose
 
     debugImplementation libs.compose.ui.toolingpreview
-    debugImplementation projects.composeTesting
+    debugImplementation projects.composeTools
 
     testImplementation libs.junit
     testImplementation projects.paparazzi
-    testImplementation projects.composeTesting
 
     androidTestImplementation libs.compose.ui.test.junit4
     debugImplementation libs.compose.ui.test.manifest

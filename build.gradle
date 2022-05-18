@@ -39,6 +39,7 @@ buildscript {
 }
 
 plugins {
+
     id "com.diffplug.spotless" version "5.9.0"
     alias(libs.plugins.kotlinGradle) apply false
     id "com.github.ben-manes.versions" version "0.41.0"

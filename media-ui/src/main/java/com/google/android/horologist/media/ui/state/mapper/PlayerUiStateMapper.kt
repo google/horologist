@@ -16,40 +16,41 @@
 
 package com.google.android.horologist.media.ui.state.mapper
 
-import androidx.media3.common.MediaItem
-import androidx.media3.common.Player
-import com.google.android.horologist.media.data.model.TrackPosition
+import com.google.android.horologist.media.model.Command
+import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.media.model.MediaItemPosition
+import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.PlayerUiState
 
 /**
- * Map [Player.Commands] plus other set of properties into a [PlayerUiState]
+ * Map [PlayerState], [Command] plus other set of properties into a [PlayerUiState].
  */
 @ExperimentalHorologistMediaUiApi
 public object PlayerUiStateMapper {
 
     public fun map(
-        playerCommands: Player.Commands,
-        shuffleModeEnabled: Boolean,
-        isPlaying: Boolean,
+        currentState: PlayerState,
+        availableCommands: Set<Command>,
         mediaItem: MediaItem?,
-        trackPosition: TrackPosition?,
+        mediaItemPosition: MediaItemPosition?,
+        shuffleModeEnabled: Boolean,
     ): PlayerUiState {
-        val playPauseCommandAvailable = playerCommands.contains(Player.COMMAND_PLAY_PAUSE)
+        val playPauseCommandAvailable = availableCommands.contains(Command.PlayPause)
 
         return PlayerUiState(
             playEnabled = playPauseCommandAvailable,
             pauseEnabled = playPauseCommandAvailable,
-            seekBackEnabled = playerCommands.contains(Player.COMMAND_SEEK_BACK),
-            seekForwardEnabled = playerCommands.contains(Player.COMMAND_SEEK_FORWARD),
-            seekToPreviousEnabled = playerCommands.contains(Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM),
-            seekToNextEnabled = playerCommands.contains(Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM),
-            shuffleEnabled = playerCommands.contains(Player.COMMAND_SET_SHUFFLE_MODE),
+            seekBackEnabled = availableCommands.contains(Command.SeekBack),
+            seekForwardEnabled = availableCommands.contains(Command.SeekForward),
+            seekToPreviousEnabled = availableCommands.contains(Command.SkipToPreviousMediaItem),
+            seekToNextEnabled = availableCommands.contains(Command.SkipToNextMediaItem),
+            shuffleEnabled = availableCommands.contains(Command.SetShuffle),
             shuffleOn = shuffleModeEnabled,
             playPauseEnabled = playPauseCommandAvailable,
-            playing = isPlaying,
+            playing = currentState == PlayerState.Playing,
             mediaItem = mediaItem?.let(MediaItemUiModelMapper::map),
-            trackPosition = trackPosition?.let(TrackPositionUiModelMapper::map)
+            trackPosition = mediaItemPosition?.let(TrackPositionUiModelMapper::map)
         )
     }
 }

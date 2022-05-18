@@ -17,7 +17,6 @@
 package com.google.android.horologist.composables
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,6 +27,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -43,6 +45,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
+import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PickerState
 import androidx.wear.compose.material.Text
@@ -60,18 +63,16 @@ import java.time.temporal.TemporalAdjusters
  * overrides for MaterialTheme.typography.display2 which is used to display the main picker
  * value.
  *
- * @param buttonIcon the button content.
- * @param onClick the button event handler.
+ * @param onDateConfirm the button event handler.
  * @param modifier the modifiers for the `Box` containing the UI elements.
- * @param initial the initial value to seed the picker with.
+ * @param date the initial value to seed the picker with.
  */
 @ExperimentalHorologistComposablesApi
 @Composable
 public fun DatePicker(
-    buttonIcon: @Composable BoxScope.() -> Unit,
-    onClick: (LocalDate) -> Unit,
+    onDateConfirm: (LocalDate) -> Unit,
     modifier: Modifier = Modifier,
-    initial: LocalDate = LocalDate.now()
+    date: LocalDate = LocalDate.now()
 ) {
     // Omit scaling according to Settings > Display > Font size for this screen
     val typography = MaterialTheme.typography.copy(
@@ -82,11 +83,11 @@ public fun DatePicker(
     MaterialTheme(typography = typography) {
         val yearState = rememberPickerState(
             initialNumberOfOptions = 3000,
-            initiallySelectedOption = initial.year - 1
+            initiallySelectedOption = date.year - 1
         )
         val monthState = rememberPickerState(
             initialNumberOfOptions = 12,
-            initiallySelectedOption = initial.monthValue - 1
+            initiallySelectedOption = date.monthValue - 1
         )
         val maxDayInMonth by remember {
             derivedStateOf {
@@ -101,7 +102,7 @@ public fun DatePicker(
         }
         val dayState = rememberPickerState(
             initialNumberOfOptions = maxDayInMonth,
-            initiallySelectedOption = initial.dayOfMonth - 1
+            initiallySelectedOption = date.dayOfMonth - 1
         )
         val focusRequester1 = remember { FocusRequester() }
         val focusRequester2 = remember { FocusRequester() }
@@ -130,9 +131,9 @@ public fun DatePicker(
                 Spacer(Modifier.height(16.dp))
                 Text(
                     text = when (selectedColumn) {
-                        0 -> stringResource(R.string.picker_day)
-                        1 -> stringResource(R.string.picker_month)
-                        else -> stringResource(R.string.picker_year)
+                        0 -> stringResource(R.string.horologist_picker_day)
+                        1 -> stringResource(R.string.horologist_picker_month)
+                        else -> stringResource(R.string.horologist_picker_year)
                     },
                     color = MaterialTheme.colors.secondary,
                     style = MaterialTheme.typography.button,
@@ -196,15 +197,21 @@ public fun DatePicker(
                 )
                 Button(
                     onClick = {
-                        val date = LocalDate.of(
+                        val confirmedDate = LocalDate.of(
                             yearState.selectedOption + 1,
                             monthState.selectedOption + 1,
                             dayState.selectedOption + 1
                         )
-                        onClick(date)
+                        onDateConfirm(confirmedDate)
                     },
                 ) {
-                    buttonIcon()
+                    Icon(
+                        imageVector = Icons.Filled.Check,
+                        contentDescription = stringResource(id = R.string.horologist_picker_confirm_button),
+                        modifier = Modifier
+                            .size(24.dp)
+                            .wrapContentSize(align = Alignment.Center),
+                    )
                 }
                 Spacer(Modifier.height(12.dp))
             }

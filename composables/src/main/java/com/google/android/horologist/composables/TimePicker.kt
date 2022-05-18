@@ -187,12 +187,12 @@ public fun TimePicker(
                         .weight(weightsToCenterVertically)
                 )
                 Button(onClick = {
-                    val time = LocalTime.of(
+                    val confirmedTime = LocalTime.of(
                         hourState.selectedOption,
                         minuteState.selectedOption,
                         secondsState.selectedOption
                     )
-                    onTimeConfirm(time)
+                    onTimeConfirm(confirmedTime)
                 }) {
                     Icon(
                         imageVector = Icons.Filled.Check,
@@ -334,12 +334,12 @@ public fun TimePickerWith12HourClock(
                     .weight(0.5f)
             )
             Button(onClick = {
-                val time = LocalTime.of(
+                val confirmedTime = LocalTime.of(
                     hourState.selectedOption + 1,
                     minuteState.selectedOption,
                     0
                 ).with(ChronoField.AMPM_OF_DAY, amPm.toLong())
-                onTimeConfirm(time)
+                onTimeConfirm(confirmedTime)
             }) {
                 Icon(
                     imageVector = Icons.Filled.Check,

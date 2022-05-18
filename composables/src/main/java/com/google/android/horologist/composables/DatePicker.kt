@@ -197,12 +197,12 @@ public fun DatePicker(
                 )
                 Button(
                     onClick = {
-                        val date = LocalDate.of(
+                        val confirmedDate = LocalDate.of(
                             yearState.selectedOption + 1,
                             monthState.selectedOption + 1,
                             dayState.selectedOption + 1
                         )
-                        onDateConfirm(date)
+                        onDateConfirm(confirmedDate)
                     },
                 ) {
                     Icon(

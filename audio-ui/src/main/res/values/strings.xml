@@ -15,11 +15,11 @@
   -->
 
 <resources>
-    <string name="volume_screen_volume_up">Increase Volume</string>
-    <string name="volume_screen_volume_down">Decrease Volume</string>
-    <string name="volume_screen_connected">Connected, Volume %1$d</string>
-    <string name="volume_screen_not_connected">Not Connected</string>
-    <string name="volume_screen_change_audio_output">Change Audio Output</string>
-    <string name="set_volume_content_description">Set Volume</string>
-    <string name="audio_output_content_description">Audio Output</string>
+    <string name="horologist_volume_screen_volume_up">Increase Volume</string>
+    <string name="horologist_volume_screen_volume_down">Decrease Volume</string>
+    <string name="horologist_volume_screen_connected">Connected, Volume %1$d</string>
+    <string name="horologist_volume_screen_not_connected">Not Connected</string>
+    <string name="horologist_volume_screen_change_audio_output">Change Audio Output</string>
+    <string name="horologist_set_volume_content_description">Set Volume</string>
+    <string name="horologist_audio_output_content_description">Audio Output</string>
 </resources>

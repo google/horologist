@@ -49,7 +49,7 @@ public fun ShuffleButton(
         val icon = if (shuffleOn) Icons.Default.ShuffleOn else Icons.Default.Shuffle
         Icon(
             imageVector = icon,
-            contentDescription = stringResource(id = R.string.shuffle_button_content_description),
+            contentDescription = stringResource(id = R.string.horologist_shuffle_button_content_description),
             modifier = Modifier.semantics { iconImageVector = icon },
         )
     }

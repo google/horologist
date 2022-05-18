@@ -37,7 +37,7 @@ public fun PauseButton(
     MediaButton(
         onClick = onClick,
         icon = Icons.Default.Pause,
-        contentDescription = stringResource(id = R.string.pause_button_content_description),
+        contentDescription = stringResource(id = R.string.horologist_pause_button_content_description),
         modifier = modifier,
         enabled = enabled,
         colors = colors,

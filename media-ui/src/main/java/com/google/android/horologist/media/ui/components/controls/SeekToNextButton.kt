@@ -37,7 +37,7 @@ public fun SeekToNextButton(
     MediaButton(
         onClick = onClick,
         icon = Icons.Default.SkipNext,
-        contentDescription = stringResource(id = R.string.seek_to_next_button_content_description),
+        contentDescription = stringResource(id = R.string.horologist_seek_to_next_button_content_description),
         modifier = modifier,
         enabled = enabled,
         colors = colors,

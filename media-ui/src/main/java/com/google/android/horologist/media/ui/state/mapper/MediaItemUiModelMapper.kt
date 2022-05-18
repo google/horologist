@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.media.ui.state.mapper
 
-import androidx.media3.common.MediaItem
+import com.google.android.horologist.media.model.MediaItem
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 
@@ -27,7 +27,7 @@ import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 public object MediaItemUiModelMapper {
 
     public fun map(mediaItem: MediaItem): MediaItemUiModel = MediaItemUiModel(
-        title = mediaItem.mediaMetadata.displayTitle?.toString(),
-        artist = mediaItem.mediaMetadata.artist?.toString()
+        title = mediaItem.title,
+        artist = mediaItem.artist
     )
 }

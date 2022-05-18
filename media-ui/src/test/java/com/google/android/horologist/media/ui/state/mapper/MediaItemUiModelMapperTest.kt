@@ -18,8 +18,7 @@
 
 package com.google.android.horologist.media.ui.state.mapper
 
-import androidx.media3.common.MediaItem
-import androidx.media3.common.MediaMetadata
+import com.google.android.horologist.media.model.MediaItem
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -31,13 +30,7 @@ class MediaItemUiModelMapperTest {
         // given
         val title = "title"
         val artist = "artist"
-        val metadataBuilder = MediaMetadata.Builder()
-            .setDisplayTitle(title)
-            .setArtist(artist)
-
-        val mediaItem = MediaItem.Builder()
-            .setMediaMetadata(metadataBuilder.build())
-            .build()
+        val mediaItem = MediaItem(title = title, artist = artist)
 
         // when
         val result = MediaItemUiModelMapper.map(mediaItem)

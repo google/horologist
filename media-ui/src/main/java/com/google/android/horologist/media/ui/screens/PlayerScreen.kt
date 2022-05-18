@@ -108,10 +108,10 @@ public object PlayerScreenDefaults {
         playerViewModel: PlayerViewModel,
         showProgress: Boolean = true
     ): PlayerScreenControlButtons = DefaultPlayerScreenControlButtons(
-        onPlayClick = { playerViewModel.prepareAndPlay() },
+        onPlayClick = { playerViewModel.play() },
         onPauseClick = { playerViewModel.pause() },
-        onSeekToPreviousButtonClick = { playerViewModel.seekToPreviousMediaItem() },
-        onSeekToNextButtonClick = { playerViewModel.seekToNextMediaItem() },
+        onSeekToPreviousButtonClick = { playerViewModel.skipToPreviousMediaItem() },
+        onSeekToNextButtonClick = { playerViewModel.skipToNextMediaItem() },
         showProgress = showProgress
     )
 

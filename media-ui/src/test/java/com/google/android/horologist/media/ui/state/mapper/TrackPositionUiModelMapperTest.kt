@@ -18,26 +18,27 @@
 
 package com.google.android.horologist.media.ui.state.mapper
 
-import com.google.android.horologist.media.data.model.TrackPosition
+import com.google.android.horologist.media.model.MediaItemPosition
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
+import kotlin.time.Duration.Companion.seconds
 
 class TrackPositionUiModelMapperTest {
 
     @Test
-    fun givenTrackPosition_thenMapsCorrectly() {
+    fun givenMediaItemPosition_thenMapsCorrectly() {
         // given
-        val current = 1L
-        val duration = 2L
-        val trackPosition = TrackPosition(current, duration)
+        val current = 1.seconds
+        val duration = 2.seconds
+        val mediaItemPosition = MediaItemPosition.create(current, duration)
 
         // when
-        val result = TrackPositionUiModelMapper.map(trackPosition)
+        val result = TrackPositionUiModelMapper.map(mediaItemPosition)
 
         // then
-        assertThat(result.current).isEqualTo(current)
-        assertThat(result.duration).isEqualTo(duration)
+        assertThat(result.current).isEqualTo(current.inWholeMilliseconds)
+        assertThat(result.duration).isEqualTo(duration.inWholeMilliseconds)
         assertThat(result.percent).isEqualTo(0.5f)
     }
 }

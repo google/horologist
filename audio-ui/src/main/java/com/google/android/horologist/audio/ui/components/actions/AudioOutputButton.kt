@@ -46,7 +46,7 @@ public fun AudioOutputButton(
     ) {
         Icon(
             imageVector = Icons.Default.Radio,
-            contentDescription = stringResource(R.string.audio_output_content_description)
+            contentDescription = stringResource(R.string.horologist_audio_output_content_description)
         )
     }
 }

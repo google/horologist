@@ -58,7 +58,7 @@ public fun SetVolumeButton(
 
         Icon(
             imageVector = imageVector,
-            contentDescription = stringResource(R.string.set_volume_content_description),
+            contentDescription = stringResource(R.string.horologist_set_volume_content_description),
             modifier = Modifier.semantics { iconImageVector = imageVector }
         )
     }

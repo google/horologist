@@ -37,7 +37,7 @@ public fun SeekToPreviousButton(
     MediaButton(
         onClick = onClick,
         icon = Icons.Default.SkipPrevious,
-        contentDescription = stringResource(id = R.string.seek_to_previous_button_content_description),
+        contentDescription = stringResource(id = R.string.horologist_seek_to_previous_button_content_description),
         modifier = modifier,
         enabled = enabled,
         colors = colors,

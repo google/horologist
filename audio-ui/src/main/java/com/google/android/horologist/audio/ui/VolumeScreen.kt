@@ -170,7 +170,7 @@ public fun VolumeScreen(
         ) {
             val stateDescriptionText = volumeDescription(volumeState, audioOutput)
 
-            val onClickLabel = stringResource(id = R.string.volume_screen_change_audio_output)
+            val onClickLabel = stringResource(id = R.string.horologist_volume_screen_change_audio_output)
 
             Chip(
                 modifier = Modifier
@@ -209,9 +209,9 @@ public fun VolumeScreen(
 @Composable
 private fun volumeDescription(volumeState: VolumeState, audioOutput: AudioOutput): String {
     return if (audioOutput is AudioOutput.BluetoothHeadset)
-        stringResource(id = R.string.volume_screen_connected, volumeState.current)
+        stringResource(id = R.string.horologist_volume_screen_connected, volumeState.current)
     else
-        stringResource(id = R.string.volume_screen_not_connected)
+        stringResource(id = R.string.horologist_volume_screen_not_connected)
 }
 
 public object VolumeScreenDefaults {
@@ -221,7 +221,7 @@ public object VolumeScreenDefaults {
             modifier = Modifier
                 .size(26.dp),
             imageVector = Icons.Default.VolumeUp,
-            contentDescription = stringResource(id = R.string.volume_screen_volume_up),
+            contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_up),
         )
     }
 
@@ -231,7 +231,7 @@ public object VolumeScreenDefaults {
             modifier = Modifier
                 .size(26.dp),
             imageVector = Icons.Default.VolumeDown,
-            contentDescription = stringResource(id = R.string.volume_screen_volume_down),
+            contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_down),
         )
     }
 }

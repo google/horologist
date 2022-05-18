@@ -37,7 +37,7 @@ public fun PlayButton(
     MediaButton(
         onClick = onClick,
         icon = Icons.Default.PlayArrow,
-        contentDescription = stringResource(id = R.string.play_button_content_description),
+        contentDescription = stringResource(id = R.string.horologist_play_button_content_description),
         modifier = modifier,
         enabled = enabled,
         colors = colors,

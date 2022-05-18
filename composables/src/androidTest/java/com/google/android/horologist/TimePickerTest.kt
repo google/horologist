@@ -18,14 +18,9 @@
 
 package com.google.android.horologist
 
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertTextEquals
@@ -33,8 +28,6 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
 import com.google.android.horologist.composables.TimePicker
@@ -53,26 +46,17 @@ class TimePickerTest {
         composeTestRule.setContent {
             if (time == null) {
                 TimePicker(
-                    buttonIcon = {
-                        Icon(
-                            imageVector = Icons.Filled.Check,
-                            contentDescription = "check",
-                            modifier = Modifier
-                                .size(24.dp)
-                                .wrapContentSize(align = Alignment.Center),
-                        )
-                    },
-                    onClick = {
+                    onTimeConfirm = {
                         time = it
                     },
-                    initial = LocalTime.of(11, 59, 31)
+                    time = LocalTime.of(11, 59, 31)
                 )
             } else {
                 Text(modifier = Modifier.testTag("time"), text = "$time")
             }
         }
 
-        composeTestRule.onNodeWithContentDescription("check").performClick()
+        composeTestRule.onNodeWithContentDescription("Confirm").performClick()
 
         composeTestRule.onNodeWithTag("time").assertTextEquals("11:59:31")
     }
@@ -83,26 +67,17 @@ class TimePickerTest {
         composeTestRule.setContent {
             if (time == null) {
                 TimePickerWith12HourClock(
-                    buttonIcon = {
-                        Icon(
-                            imageVector = Icons.Filled.Check,
-                            contentDescription = "check",
-                            modifier = Modifier
-                                .size(24.dp)
-                                .wrapContentSize(align = Alignment.Center),
-                        )
-                    },
-                    onClick = {
+                    onTimeConfirm = {
                         time = it
                     },
-                    initial = LocalTime.of(11, 59)
+                    time = LocalTime.of(11, 59)
                 )
             } else {
                 Text(modifier = Modifier.testTag("time"), text = "$time")
             }
         }
 
-        composeTestRule.onNodeWithContentDescription("check").performClick()
+        composeTestRule.onNodeWithContentDescription("Confirm").performClick()
 
         composeTestRule.onNodeWithTag("time").assertTextEquals("11:59")
     }

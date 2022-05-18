@@ -18,15 +18,7 @@
 
 package com.google.android.horologist.composables
 
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Icon
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.compose.tools.WearPreviewFontSizes
@@ -40,16 +32,7 @@ fun TimePickerPreview() {
     // Due to a limitation with ScalingLazyColumn,
     // previews only work in interactive mode.
     TimePicker(
-        buttonIcon = {
-            Icon(
-                imageVector = Icons.Filled.Check,
-                contentDescription = "check",
-                modifier = Modifier
-                    .size(24.dp)
-                    .wrapContentSize(align = Alignment.Center),
-            )
-        },
-        initial = LocalTime.of(10, 10, 0),
-        onClick = { }
+        time = LocalTime.of(10, 10, 0),
+        onTimeConfirm = { }
     )
 }

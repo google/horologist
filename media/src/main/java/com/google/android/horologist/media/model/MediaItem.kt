@@ -20,6 +20,8 @@ package com.google.android.horologist.media.model
  * Representation of a media item.
  */
 public data class MediaItem(
+    val id: String,
+    val uri: String,
     val title: String? = null,
     val artist: String
 )

@@ -27,6 +27,7 @@ import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 public object MediaItemUiModelMapper {
 
     public fun map(mediaItem: MediaItem): MediaItemUiModel = MediaItemUiModel(
+        id = mediaItem.id,
         title = mediaItem.title,
         artist = mediaItem.artist
     )

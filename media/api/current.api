@@ -18,17 +18,23 @@ package com.google.android.horologist.media.model {
   }
 
   public final class MediaItem {
-    ctor public MediaItem(optional String? title, String artist);
-    method public String? component1();
+    ctor public MediaItem(String id, String uri, optional String? title, String artist);
+    method public String component1();
     method public String component2();
-    method public com.google.android.horologist.media.model.MediaItem copy(String? title, String artist);
+    method public String? component3();
+    method public String component4();
+    method public com.google.android.horologist.media.model.MediaItem copy(String id, String uri, String? title, String artist);
     method public boolean equals(Object? other);
     method public String getArtist();
+    method public String getId();
     method public String? getTitle();
+    method public String getUri();
     method public int hashCode();
     method public String toString();
     property public final String artist;
+    property public final String id;
     property public final String? title;
+    property public final String uri;
   }
 
   public abstract sealed class MediaItemPosition {

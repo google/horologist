@@ -1,138 +1,117 @@
-<!doctype html>
 <html>
-<head>
+  <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>VolumeScrollableState</title>
-<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
-    <script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
-const savedDarkMode = storage ? JSON.parse(storage) : false
-if(savedDarkMode === true){
-    document.getElementsByTagName("html")[0].classList.add("theme-dark")
-}</script>
-<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
-<link href="../../../styles/style.css" rel="Stylesheet">
-<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
-<link href="../../../styles/main.css" rel="Stylesheet">
-<link href="../../../styles/prism.css" rel="Stylesheet">
-<link href="../../../styles/logo-styles.css" rel="Stylesheet">
-<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
-<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
-<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
-<script type="text/javascript" src="../../../scripts/main.js" defer></script>
-<script type="text/javascript" src="../../../scripts/prism.js" async></script></head>
-<body>
-<div class="navigation-wrapper" id="navigation-wrapper">
-    <div id="leftToggler"><span class="icon-toggler"></span></div>
-    <div class="library-name">
-<a href="../../../index.html">
-<span>horologist</span>            </a>    </div>
-    <div>
-    </div>
-    <div class="pull-right d-flex">
-        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
-        <div id="searchBar"></div>
-    </div>
-</div>
-<div id="container">
-    <div id="leftColumn">
+</head><body><link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../scripts/main.js" async></script>
+  
+    <div id="container">
+      <div id="leftColumn"><a href="../../../index.html">
+            <div id="logo"></div>
+          </a>
+        <div id="paneSearch"></div>
         <div id="sideMenu"></div>
-    </div>
-    <div id="main">
-<div class="main-content" id="content" pageids="audio-ui::com.google.android.horologist.audio.ui/VolumeScrollableState///PointingToDeclaration//-699457272">
-  <div class="breadcrumbs"><a href="../../index.html">audio-ui</a><span class="delimiter">/</span><a href="../index.html">com.google.android.horologist.audio.ui</a><span class="delimiter">/</span><a href="index.html">VolumeScrollableState</a></div>
-  <div class="cover ">
-    <h1 class="cover"><span>Volume</span><wbr><span>Scrollable</span><wbr><span><span>State</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":audio-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">VolumeScrollableState</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">volumeRepository<span class="token operator">: </span><a href="../../../audio/com.google.android.horologist.audio/-volume-repository/index.html">VolumeRepository</a><span class="token punctuation">, </span></span><span class="parameter ">vibrator<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/os/Vibrator.html">Vibrator</a></span></span><span class="token punctuation">)</span> : <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/ScrollableState.html">ScrollableState</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">ScrollableState integration for VolumeControl to scroll events via RSB/Bezel to trigger volume changes.</p></div></div>
-  </div>
-  <div class="tabbedcontent">
-    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Sources">Sources</button></div>
-    <div class="tabs-section-body">
-      <h2 class="tabbedcontent">Constructors</h2>
-      <div class="table" data-togglable="Constructors"><a data-name="-704664328%2FConstructors%2F-699457272" anchor-label="VolumeScrollableState" id="-704664328%2FConstructors%2F-699457272" data-filterable-set=":audio-ui:dokkaHtmlPartial/release"></a>
-        <div class="table-row" data-filterable-current=":audio-ui:dokkaHtmlPartial/release" data-filterable-set=":audio-ui:dokkaHtmlPartial/release">
-          <div class="main-subrow keyValue TabbedContent">
-            <div class=""><span class="inline-flex">
-                <div><a href="-volume-scrollable-state.html"><span>Volume</span><wbr><span>Scrollable</span><wbr><span><span>State</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-704664328%2FConstructors%2F-699457272"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":audio-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-volume-scrollable-state.html"><span class="token function">VolumeScrollableState</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">volumeRepository<span class="token operator">: </span><a href="../../../audio/com.google.android.horologist.audio/-volume-repository/index.html">VolumeRepository</a><span class="token punctuation">, </span></span><span class="parameter ">vibrator<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/os/Vibrator.html">Vibrator</a></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-      <h2 class="">Functions</h2>
-      <div class="table" data-togglable="Functions"><a data-name="221864671%2FFunctions%2F-699457272" anchor-label="dispatchRawDelta" id="221864671%2FFunctions%2F-699457272" data-filterable-set=":audio-ui:dokkaHtmlPartial/release"></a>
-        <div class="table-row" data-filterable-current=":audio-ui:dokkaHtmlPartial/release" data-filterable-set=":audio-ui:dokkaHtmlPartial/release">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="dispatch-raw-delta.html"><span>dispatch</span><wbr><span>Raw</span><wbr><span><span>Delta</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="221864671%2FFunctions%2F-699457272"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":audio-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="dispatch-raw-delta.html"><span class="token function">dispatchRawDelta</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">delta<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="1843787765%2FFunctions%2F-699457272" anchor-label="scroll" id="1843787765%2FFunctions%2F-699457272" data-filterable-set=":audio-ui:dokkaHtmlPartial/release"></a>
-        <div class="table-row" data-filterable-current=":audio-ui:dokkaHtmlPartial/release" data-filterable-set=":audio-ui:dokkaHtmlPartial/release">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="scroll.html"><span><span>scroll</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1843787765%2FFunctions%2F-699457272"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":audio-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="scroll.html"><span class="token function">scroll</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scrollPriority<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/MutatePriority.html">MutatePriority</a><span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/ScrollScope.html">ScrollScope</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <h2 class="">Properties</h2>
-      <div class="table" data-togglable="Properties"><a data-name="1489907983%2FProperties%2F-699457272" anchor-label="isScrollInProgress" id="1489907983%2FProperties%2F-699457272" data-filterable-set=":audio-ui:dokkaHtmlPartial/release"></a>
-        <div class="table-row" data-filterable-current=":audio-ui:dokkaHtmlPartial/release" data-filterable-set=":audio-ui:dokkaHtmlPartial/release">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="is-scroll-in-progress.html">isScrollInProgress</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1489907983%2FProperties%2F-699457272"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":audio-ui:dokkaHtmlPartial/release"><a data-name="1489907983%2FProperties%2F-699457272" anchor-label="isScrollInProgress" id="1489907983%2FProperties%2F-699457272" data-filterable-set=":audio-ui:dokkaHtmlPartial/release"></a><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="is-scroll-in-progress.html">isScrollInProgress</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <h2 class="">Sources</h2>
-      <div class="table" data-togglable="Sources"><a data-name="-165059769%2FSource%2F-1313919988" anchor-label="https://github.com/google/horologist/blob/main/audio-ui/src/main/java/com/google/android/horologist/audio/ui/VolumeScrollableState.kt#L31" id="-165059769%2FSource%2F-1313919988" data-filterable-set=":audio-ui:dokkaHtmlPartial/main"></a>
-        <div class="table-row" data-filterable-current=":audio-ui:dokkaHtmlPartial/main" data-filterable-set=":audio-ui:dokkaHtmlPartial/main">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="https://github.com/google/horologist/blob/main/audio-ui/src/main/java/com/google/android/horologist/audio/ui/VolumeScrollableState.kt#L31">androidJvm source</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-165059769%2FSource%2F-1313919988"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
-        </div>
-    </div>
-</div>
+      <div id="main">
+        <script type="text/javascript" src="../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
 
+        <div class="main-content" id="content" pageids="audio-ui::com.google.android.horologist.audio.ui/VolumeScrollableState///PointingToDeclaration//-699457272">
+          <div class="navigation-wrapper" id="navigation-wrapper">
+            <div class="breadcrumbs"><a href="../../index.html">audio-ui</a>/<a href="../index.html">com.google.android.horologist.audio.ui</a>/<a href="index.html">VolumeScrollableState</a></div>
+            <div class="pull-right d-flex">
+              <div id="searchBar"></div>
+            </div>
+          </div>
+          <div class="cover ">
+            <h1 class="cover"><span>Volume</span><wbr><span>Scrollable</span><wbr><span>State</span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":audio-ui:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="index.html">VolumeScrollableState</a>(volumeRepository: <a href="../../../audio/com.google.android.horologist.audio/-volume-repository/index.html">VolumeRepository</a>, vibrator: <a href="https://developer.android.com/reference/kotlin/android/os/Vibrator.html">Vibrator</a>) : <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/ScrollableState.html">ScrollableState</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">ScrollableState integration for VolumeControl to scroll events via RSB/Bezel to trigger volume changes.</p></div></div>
+          </div>
+          <div class="tabbedcontent">
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Sources">Sources</button></div>
+            <div class="tabs-section-body">
+              <h2 class="tabbedcontent">Constructors</h2>
+              <div class="table" data-togglable="Constructors"><a data-name="-704664328%2FConstructors%2F-699457272" anchor-label="VolumeScrollableState" id="-704664328%2FConstructors%2F-699457272" data-filterable-set=":audio-ui:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":audio-ui:dokkaHtmlPartial/release" data-filterable-set=":audio-ui:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue TabbedContent">
+                    <div class=""><span class="inline-flex"><a href="-volume-scrollable-state.html">VolumeScrollableState</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-704664328%2FConstructors%2F-699457272"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":audio-ui:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="-volume-scrollable-state.html">VolumeScrollableState</a>(volumeRepository: <a href="../../../audio/com.google.android.horologist.audio/-volume-repository/index.html">VolumeRepository</a>, vibrator: <a href="https://developer.android.com/reference/kotlin/android/os/Vibrator.html">Vibrator</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Functions</h2>
+              <div class="table" data-togglable="Functions"><a data-name="221864671%2FFunctions%2F-699457272" anchor-label="dispatchRawDelta" id="221864671%2FFunctions%2F-699457272" data-filterable-set=":audio-ui:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":audio-ui:dokkaHtmlPartial/release" data-filterable-set=":audio-ui:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="dispatch-raw-delta.html">dispatchRawDelta</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="221864671%2FFunctions%2F-699457272"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":audio-ui:dokkaHtmlPartial/release" data-filterable-set=":audio-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":audio-ui:dokkaHtmlPartial/release"><div class="symbol monospace">open override fun <a href="dispatch-raw-delta.html">dispatchRawDelta</a>(delta: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1843787765%2FFunctions%2F-699457272" anchor-label="scroll" id="1843787765%2FFunctions%2F-699457272" data-filterable-set=":audio-ui:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":audio-ui:dokkaHtmlPartial/release" data-filterable-set=":audio-ui:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="scroll.html">scroll</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1843787765%2FFunctions%2F-699457272"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":audio-ui:dokkaHtmlPartial/release" data-filterable-set=":audio-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":audio-ui:dokkaHtmlPartial/release"><div class="symbol monospace">open suspend override fun <a href="scroll.html">scroll</a>(scrollPriority: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/MutatePriority.html">MutatePriority</a>, block: suspend <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/ScrollScope.html">ScrollScope</a>.() -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Properties</h2>
+              <div class="table" data-togglable="Properties"><a data-name="1489907983%2FProperties%2F-699457272" anchor-label="isScrollInProgress" id="1489907983%2FProperties%2F-699457272" data-filterable-set=":audio-ui:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":audio-ui:dokkaHtmlPartial/release" data-filterable-set=":audio-ui:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="is-scroll-in-progress.html">isScrollInProgress</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1489907983%2FProperties%2F-699457272"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":audio-ui:dokkaHtmlPartial/release"><a data-name="1489907983%2FProperties%2F-699457272" anchor-label="isScrollInProgress" id="1489907983%2FProperties%2F-699457272" data-filterable-set=":audio-ui:dokkaHtmlPartial/release"></a><div class="symbol monospace">open override val <a href="is-scroll-in-progress.html">isScrollInProgress</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Sources</h2>
+              <div class="table" data-togglable="Sources"><a data-name="-165059769%2FSource%2F-1313919988" anchor-label="https://github.com/google/horologist/blob/main/audio-ui/src/main/java/com/google/android/horologist/audio/ui/VolumeScrollableState.kt#L31" id="-165059769%2FSource%2F-1313919988" data-filterable-set=":audio-ui:dokkaHtmlPartial/main"></a>
+                <div class="table-row" data-filterable-current=":audio-ui:dokkaHtmlPartial/main" data-filterable-set=":audio-ui:dokkaHtmlPartial/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="https://github.com/google/horologist/blob/main/audio-ui/src/main/java/com/google/android/horologist/audio/ui/VolumeScrollableState.kt#L31">androidJvm source</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-165059769%2FSource%2F-1313919988"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+    </div>
+  
 </body></html>
+
 

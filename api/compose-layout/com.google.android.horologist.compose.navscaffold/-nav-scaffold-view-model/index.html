@@ -1,320 +1,307 @@
-<!doctype html>
 <html>
-<head>
+  <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>NavScaffoldViewModel</title>
-<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
-    <script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
-const savedDarkMode = storage ? JSON.parse(storage) : false
-if(savedDarkMode === true){
-    document.getElementsByTagName("html")[0].classList.add("theme-dark")
-}</script>
-<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
-<link href="../../../styles/style.css" rel="Stylesheet">
-<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
-<link href="../../../styles/main.css" rel="Stylesheet">
-<link href="../../../styles/prism.css" rel="Stylesheet">
-<link href="../../../styles/logo-styles.css" rel="Stylesheet">
-<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
-<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
-<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
-<script type="text/javascript" src="../../../scripts/main.js" defer></script>
-<script type="text/javascript" src="../../../scripts/prism.js" async></script></head>
-<body>
-<div class="navigation-wrapper" id="navigation-wrapper">
-    <div id="leftToggler"><span class="icon-toggler"></span></div>
-    <div class="library-name">
-<a href="../../../index.html">
-<span>horologist</span>            </a>    </div>
-    <div>
-    </div>
-    <div class="pull-right d-flex">
-        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
-        <div id="searchBar"></div>
-    </div>
-</div>
-<div id="container">
-    <div id="leftColumn">
+</head><body><link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../scripts/main.js" async></script>
+  
+    <div id="container">
+      <div id="leftColumn"><a href="../../../index.html">
+            <div id="logo"></div>
+          </a>
+        <div id="paneSearch"></div>
         <div id="sideMenu"></div>
-    </div>
-    <div id="main">
-<div class="main-content" id="content" pageids="compose-layout::com.google.android.horologist.compose.navscaffold/NavScaffoldViewModel///PointingToDeclaration//-1355565138">
-  <div class="breadcrumbs"><a href="../../index.html">compose-layout</a><span class="delimiter">/</span><a href="../index.html">com.google.android.horologist.compose.navscaffold</a><span class="delimiter">/</span><a href="index.html">NavScaffoldViewModel</a></div>
-  <div class="cover ">
-    <h1 class="cover"><span>Nav</span><wbr><span>Scaffold</span><wbr><span>View</span><wbr><span><span>Model</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">NavScaffoldViewModel</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">savedStateHandle<span class="token operator">: </span><a href="https://developer.android.com/reference/androidx/lifecycle/SavedStateHandle.html">SavedStateHandle</a></span></span><span class="token punctuation">)</span> : <a href="https://developer.android.com/reference/androidx/lifecycle/ViewModel.html">ViewModel</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">A ViewModel that backs the WearNavScaffold to allow each composable to interact and effect the <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/package-summary.html">Scaffold</a> positionIndicator, vignette and timeText.</p><p class="paragraph">A ViewModel is used to allow the same current instance to be shared between the WearNavScaffold and the composable screen via <a href="https://developer.android.com/reference/androidx/navigation/NavHostController.html#currentbackstackentry">NavHostController.currentBackStackEntry</a>.</p></div></div>
-  </div>
-  <div class="tabbedcontent">
-    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Sources">Sources</button></div>
-    <div class="tabs-section-body">
-      <h2 class="tabbedcontent">Constructors</h2>
-      <div class="table" data-togglable="Constructors"><a data-name="965695114%2FConstructors%2F-1355565138" anchor-label="NavScaffoldViewModel" id="965695114%2FConstructors%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-        <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-          <div class="main-subrow keyValue TabbedContent">
-            <div class=""><span class="inline-flex">
-                <div><a href="-nav-scaffold-view-model.html"><span>Nav</span><wbr><span>Scaffold</span><wbr><span>View</span><wbr><span><span>Model</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="965695114%2FConstructors%2F-1355565138"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-nav-scaffold-view-model.html"><span class="token function">NavScaffoldViewModel</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">savedStateHandle<span class="token operator">: </span><a href="https://developer.android.com/reference/androidx/lifecycle/SavedStateHandle.html">SavedStateHandle</a></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-      <h2 class="">Types</h2>
-      <div class="table" data-togglable="Types"><a data-name="-240956421%2FClasslikes%2F-1355565138" anchor-label="Factory" id="-240956421%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-        <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="-factory/index.html"><span><span>Factory</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-240956421%2FClasslikes%2F-1355565138"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">object </span><a href="-factory/index.html">Factory</a> : <a href="https://developer.android.com/reference/androidx/lifecycle/ViewModelProvider.Factory.html">ViewModelProvider.Factory</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="1283882300%2FClasslikes%2F-1355565138" anchor-label="PositionIndicatorMode" id="1283882300%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-        <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="-position-indicator-mode/index.html"><span>Position</span><wbr><span>Indicator</span><wbr><span><span>Mode</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1283882300%2FClasslikes%2F-1355565138"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-position-indicator-mode/index.html">PositionIndicatorMode</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-position-indicator-mode/index.html">NavScaffoldViewModel.PositionIndicatorMode</a><span class="token operator">&gt; </span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">The configuration of <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/package-summary.html">PositionIndicator</a>.  The default is to show a scroll bar while the scroll is in progress.</p></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="355135328%2FClasslikes%2F-1355565138" anchor-label="TimeTextMode" id="355135328%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-        <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="-time-text-mode/index.html"><span>Time</span><wbr><span>Text</span><wbr><span><span>Mode</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="355135328%2FClasslikes%2F-1355565138"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-time-text-mode/index.html">TimeTextMode</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-time-text-mode/index.html">NavScaffoldViewModel.TimeTextMode</a><span class="token operator">&gt; </span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">The configuration of <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/package-summary.html">TimeText</a>, defaults to FadeAway which will move the time text above the screen to avoid overlapping with the content moving up.</p></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="-236320832%2FClasslikes%2F-1355565138" anchor-label="VignetteMode" id="-236320832%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-        <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="-vignette-mode/index.html"><span>Vignette</span><wbr><span><span>Mode</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-236320832%2FClasslikes%2F-1355565138"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-vignette-mode/index.html">VignetteMode</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">The configuration of <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/package-summary.html">Vignette</a>, <a href="-vignette-mode/-when-scrollable/index.html">WhenScrollable</a>, <a href="-vignette-mode/-off/index.html">Off</a>, <a href="-vignette-mode/-on/index.html">On</a> and if so whether top and bottom. Defaults to on for scrollable screens.</p></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <h2 class="">Functions</h2>
-      <div class="table" data-togglable="Functions"><a data-name="264516373%2FFunctions%2F-1355565138" anchor-label="addCloseable" id="264516373%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-        <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="index.html#264516373%2FFunctions%2F-1355565138"><span>add</span><wbr><span><span>Closeable</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="264516373%2FFunctions%2F-1355565138"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html#264516373%2FFunctions%2F-1355565138"><span class="token function">addCloseable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation">@</span><a href="https://developer.android.com/reference/androidx/annotation/NonNull.html"><span class="token annotation">NonNull</span></a>&nbsp;</span>p0<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/io/Closeable.html">Closeable</a></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="-1936886459%2FFunctions%2F-1355565138" anchor-label="clear" id="-1936886459%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-        <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="index.html#-1936886459%2FFunctions%2F-1355565138"><span><span>clear</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1936886459%2FFunctions%2F-1355565138"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation">@</span><a href="https://developer.android.com/reference/androidx/annotation/MainThread.html"><span class="token annotation">MainThread</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html#-1936886459%2FFunctions%2F-1355565138"><span class="token function">clear</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="-215894976%2FFunctions%2F-1355565138" anchor-label="getTag" id="-215894976%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-        <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="index.html#-215894976%2FFunctions%2F-1355565138"><span>get</span><wbr><span><span>Tag</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-215894976%2FFunctions%2F-1355565138"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#-215894976%2FFunctions%2F-1355565138">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span><a href="index.html#-215894976%2FFunctions%2F-1355565138"><span class="token function">getTag</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p0<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html#-215894976%2FFunctions%2F-1355565138">T</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="-1930136507%2FFunctions%2F-1355565138" anchor-label="onCleared" id="-1930136507%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-        <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="index.html#-1930136507%2FFunctions%2F-1355565138"><span>on</span><wbr><span><span>Cleared</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1930136507%2FFunctions%2F-1355565138"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html#-1930136507%2FFunctions%2F-1355565138"><span class="token function">onCleared</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="-1646439109%2FFunctions%2F-1355565138" anchor-label="resumed" id="-1646439109%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-        <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="resumed.html"><span><span>resumed</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1646439109%2FFunctions%2F-1355565138"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="resumed.html"><span class="token function">resumed</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="-1567230750%2FFunctions%2F-1355565138" anchor-label="setTagIfAbsent" id="-1567230750%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-        <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="index.html#-1567230750%2FFunctions%2F-1355565138"><span>set</span><wbr><span>Tag</span><wbr><span>If</span><wbr><span><span>Absent</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1567230750%2FFunctions%2F-1355565138"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#-1567230750%2FFunctions%2F-1355565138">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span><a href="index.html#-1567230750%2FFunctions%2F-1355565138"><span class="token function">setTagIfAbsent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p0<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">p1<span class="token operator">: </span><a href="index.html#-1567230750%2FFunctions%2F-1355565138">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html#-1567230750%2FFunctions%2F-1355565138">T</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <h2 class="">Properties</h2>
-      <div class="table" data-togglable="Properties"><a data-name="-394531420%2FProperties%2F-1355565138" anchor-label="focusRequester" id="-394531420%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-        <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="focus-requester.html">focusRequester</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-394531420%2FProperties%2F-1355565138"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><a data-name="-394531420%2FProperties%2F-1355565138" anchor-label="focusRequester" id="-394531420%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="focus-requester.html">focusRequester</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/focus/FocusRequester.html">FocusRequester</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-394531420%2FProperties%2F-1355565138" anchor-label="focusRequester" id="-394531420%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><p class="paragraph">A <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/focus/FocusRequester.html">FocusRequester</a> to be passed into Scrollable composables. If this is accessed within <a href="../wear-nav-composable.html">NavGraphBuilder.wearNavComposable</a> then it is considered active and wired up to screen changes.</p></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="551527657%2FProperties%2F-1355565138" anchor-label="positionIndicatorMode" id="551527657%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-        <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="position-indicator-mode.html">positionIndicatorMode</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="551527657%2FProperties%2F-1355565138"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><a data-name="551527657%2FProperties%2F-1355565138" anchor-label="positionIndicatorMode" id="551527657%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="position-indicator-mode.html">positionIndicatorMode</a><span class="token operator">: </span><a href="-position-indicator-mode/index.html">NavScaffoldViewModel.PositionIndicatorMode</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="551527657%2FProperties%2F-1355565138" anchor-label="positionIndicatorMode" id="551527657%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><p class="paragraph">The configuration of <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/package-summary.html">PositionIndicator</a>.  The default is to show a scroll bar while the scroll is in progress.</p></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="1763207752%2FProperties%2F-1355565138" anchor-label="scrollableState" id="1763207752%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-        <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="scrollable-state.html">scrollableState</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1763207752%2FProperties%2F-1355565138"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><a data-name="1763207752%2FProperties%2F-1355565138" anchor-label="scrollableState" id="1763207752%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="scrollable-state.html">scrollableState</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/ScrollableState.html">ScrollableState</a><span class="token operator">?</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="1763207752%2FProperties%2F-1355565138" anchor-label="scrollableState" id="1763207752%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><p class="paragraph">Returns the scrollable state for this composable or null if the scaffold should not consider this element to be scrollable.</p></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="459622827%2FProperties%2F-1355565138" anchor-label="timeTextMode" id="459622827%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-        <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="time-text-mode.html">timeTextMode</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="459622827%2FProperties%2F-1355565138"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><a data-name="459622827%2FProperties%2F-1355565138" anchor-label="timeTextMode" id="459622827%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="time-text-mode.html">timeTextMode</a><span class="token operator">: </span><a href="-time-text-mode/index.html">NavScaffoldViewModel.TimeTextMode</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="459622827%2FProperties%2F-1355565138" anchor-label="timeTextMode" id="459622827%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><p class="paragraph">The configuration of <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/package-summary.html">TimeText</a>, defaults to FadeAway which will move the time text above the screen to avoid overlapping with the content moving up.</p></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="1161147589%2FProperties%2F-1355565138" anchor-label="vignettePosition" id="1161147589%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-        <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="vignette-position.html">vignettePosition</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1161147589%2FProperties%2F-1355565138"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><a data-name="1161147589%2FProperties%2F-1355565138" anchor-label="vignettePosition" id="1161147589%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="vignette-position.html">vignettePosition</a><span class="token operator">: </span><a href="-vignette-mode/index.html">NavScaffoldViewModel.VignetteMode</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="1161147589%2FProperties%2F-1355565138" anchor-label="vignettePosition" id="1161147589%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><p class="paragraph">The configuration of <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/package-summary.html">Vignette</a>, <a href="-vignette-mode/-when-scrollable/index.html">WhenScrollable</a>, <a href="-vignette-mode/-off/index.html">Off</a>, <a href="-vignette-mode/-on/index.html">On</a> and if so whether top and bottom. Defaults to on for scrollable screens.</p></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <h2 class="">Sources</h2>
-      <div class="table" data-togglable="Sources"><a data-name="663156599%2FSource%2F-1407940826" anchor-label="https://github.com/google/horologist/blob/main/compose-layout/src/main/java/com/google/android/horologist/compose/navscaffold/NavScaffoldViewModel.kt#L45" id="663156599%2FSource%2F-1407940826" data-filterable-set=":compose-layout:dokkaHtmlPartial/main"></a>
-        <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/main" data-filterable-set=":compose-layout:dokkaHtmlPartial/main">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="https://github.com/google/horologist/blob/main/compose-layout/src/main/java/com/google/android/horologist/compose/navscaffold/NavScaffoldViewModel.kt#L45">androidJvm source</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="663156599%2FSource%2F-1407940826"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
-        </div>
-    </div>
-</div>
+      <div id="main">
+        <script type="text/javascript" src="../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
 
+        <div class="main-content" id="content" pageids="compose-layout::com.google.android.horologist.compose.navscaffold/NavScaffoldViewModel///PointingToDeclaration//-1355565138">
+          <div class="navigation-wrapper" id="navigation-wrapper">
+            <div class="breadcrumbs"><a href="../../index.html">compose-layout</a>/<a href="../index.html">com.google.android.horologist.compose.navscaffold</a>/<a href="index.html">NavScaffoldViewModel</a></div>
+            <div class="pull-right d-flex">
+              <div id="searchBar"></div>
+            </div>
+          </div>
+          <div class="cover ">
+            <h1 class="cover"><span>Nav</span><wbr><span>Scaffold</span><wbr><span>View</span><wbr><span>Model</span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">open class <a href="index.html">NavScaffoldViewModel</a>(savedStateHandle: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/SavedStateHandle.html">SavedStateHandle</a>) : <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/ViewModel.html">ViewModel</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">A ViewModel that backs the WearNavScaffold to allow each composable to interact and effect the <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/package-summary.html">Scaffold</a> positionIndicator, vignette and timeText.</p><p class="paragraph">A ViewModel is used to allow the same current instance to be shared between the WearNavScaffold and the composable screen via <a href="https://developer.android.com/reference/kotlin/androidx/navigation/NavHostController.html#currentbackstackentry">NavHostController.currentBackStackEntry</a>.</p></div></div>
+          </div>
+          <div class="tabbedcontent">
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Sources">Sources</button></div>
+            <div class="tabs-section-body">
+              <h2 class="tabbedcontent">Constructors</h2>
+              <div class="table" data-togglable="Constructors"><a data-name="965695114%2FConstructors%2F-1355565138" anchor-label="NavScaffoldViewModel" id="965695114%2FConstructors%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue TabbedContent">
+                    <div class=""><span class="inline-flex"><a href="-nav-scaffold-view-model.html">NavScaffoldViewModel</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="965695114%2FConstructors%2F-1355565138"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="-nav-scaffold-view-model.html">NavScaffoldViewModel</a>(savedStateHandle: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/SavedStateHandle.html">SavedStateHandle</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Types</h2>
+              <div class="table" data-togglable="Types"><a data-name="-240956421%2FClasslikes%2F-1355565138" anchor-label="Factory" id="-240956421%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="-factory/index.html">Factory</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-240956421%2FClasslikes%2F-1355565138"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">object <a href="-factory/index.html">Factory</a> : <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/ViewModelProvider.Factory.html">ViewModelProvider.Factory</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1283882300%2FClasslikes%2F-1355565138" anchor-label="PositionIndicatorMode" id="1283882300%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="-position-indicator-mode/index.html">PositionIndicatorMode</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1283882300%2FClasslikes%2F-1355565138"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">enum <a href="-position-indicator-mode/index.html">PositionIndicatorMode</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a>&lt;<a href="-position-indicator-mode/index.html">NavScaffoldViewModel.PositionIndicatorMode</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="1283882300%2FClasslikes%2F-1355565138" anchor-label="PositionIndicatorMode" id="1283882300%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="1283882300%2FClasslikes%2F-1355565138" anchor-label="PositionIndicatorMode" id="1283882300%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>The configuration of <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/package-summary.html">PositionIndicator</a>.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="355135328%2FClasslikes%2F-1355565138" anchor-label="TimeTextMode" id="355135328%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="-time-text-mode/index.html">TimeTextMode</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="355135328%2FClasslikes%2F-1355565138"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">enum <a href="-time-text-mode/index.html">TimeTextMode</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a>&lt;<a href="-time-text-mode/index.html">NavScaffoldViewModel.TimeTextMode</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="355135328%2FClasslikes%2F-1355565138" anchor-label="TimeTextMode" id="355135328%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="355135328%2FClasslikes%2F-1355565138" anchor-label="TimeTextMode" id="355135328%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>The configuration of <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/package-summary.html">TimeText</a>, defaults to FadeAway which will move the time text above the screen to avoid overlapping with the content moving up.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-236320832%2FClasslikes%2F-1355565138" anchor-label="VignetteMode" id="-236320832%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="-vignette-mode/index.html">VignetteMode</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-236320832%2FClasslikes%2F-1355565138"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">interface <a href="-vignette-mode/index.html">VignetteMode</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-236320832%2FClasslikes%2F-1355565138" anchor-label="VignetteMode" id="-236320832%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-236320832%2FClasslikes%2F-1355565138" anchor-label="VignetteMode" id="-236320832%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>The configuration of <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/package-summary.html">Vignette</a>, <a href="-vignette-mode/-when-scrollable/index.html">WhenScrollable</a>, <a href="-vignette-mode/-off/index.html">Off</a>, <a href="-vignette-mode/-on/index.html">On</a> and if so whether top and bottom.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Functions</h2>
+              <div class="table" data-togglable="Functions"><a data-name="264516373%2FFunctions%2F-1355565138" anchor-label="addCloseable" id="264516373%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="index.html#264516373%2FFunctions%2F-1355565138">addCloseable</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="264516373%2FFunctions%2F-1355565138"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">open fun <a href="index.html#264516373%2FFunctions%2F-1355565138">addCloseable</a>(<span>@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/NonNull.html">NonNull</a>()&nbsp;</span>p0: <a href="https://developer.android.com/reference/kotlin/java/io/Closeable.html">Closeable</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1936886459%2FFunctions%2F-1355565138" anchor-label="clear" id="-1936886459%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="index.html#-1936886459%2FFunctions%2F-1355565138">clear</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1936886459%2FFunctions%2F-1355565138"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/MainThread.html">MainThread</a>()</div></div>fun <a href="index.html#-1936886459%2FFunctions%2F-1355565138">clear</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-215894976%2FFunctions%2F-1355565138" anchor-label="getTag" id="-215894976%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="index.html#-215894976%2FFunctions%2F-1355565138">getTag</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-215894976%2FFunctions%2F-1355565138"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">open fun &lt;<a href="index.html#-215894976%2FFunctions%2F-1355565138">T</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="index.html#-215894976%2FFunctions%2F-1355565138">getTag</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="index.html#-215894976%2FFunctions%2F-1355565138">T</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1930136507%2FFunctions%2F-1355565138" anchor-label="onCleared" id="-1930136507%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="index.html#-1930136507%2FFunctions%2F-1355565138">onCleared</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1930136507%2FFunctions%2F-1355565138"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">open fun <a href="index.html#-1930136507%2FFunctions%2F-1355565138">onCleared</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1646439109%2FFunctions%2F-1355565138" anchor-label="resumed" id="-1646439109%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="resumed.html">resumed</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1646439109%2FFunctions%2F-1355565138"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="resumed.html">resumed</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1567230750%2FFunctions%2F-1355565138" anchor-label="setTagIfAbsent" id="-1567230750%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="index.html#-1567230750%2FFunctions%2F-1355565138">setTagIfAbsent</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1567230750%2FFunctions%2F-1355565138"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">open fun &lt;<a href="index.html#-1567230750%2FFunctions%2F-1355565138">T</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="index.html#-1567230750%2FFunctions%2F-1355565138">setTagIfAbsent</a>(p0: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, p1: <a href="index.html#-1567230750%2FFunctions%2F-1355565138">T</a>): <a href="index.html#-1567230750%2FFunctions%2F-1355565138">T</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Properties</h2>
+              <div class="table" data-togglable="Properties"><a data-name="-394531420%2FProperties%2F-1355565138" anchor-label="focusRequester" id="-394531420%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="focus-requester.html">focusRequester</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-394531420%2FProperties%2F-1355565138"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><a data-name="-394531420%2FProperties%2F-1355565138" anchor-label="focusRequester" id="-394531420%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="symbol monospace">val <a href="focus-requester.html">focusRequester</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/focus/FocusRequester.html">FocusRequester</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-394531420%2FProperties%2F-1355565138" anchor-label="focusRequester" id="-394531420%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>A <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/focus/FocusRequester.html">FocusRequester</a> to be passed into Scrollable composables.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="551527657%2FProperties%2F-1355565138" anchor-label="positionIndicatorMode" id="551527657%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="position-indicator-mode.html">positionIndicatorMode</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="551527657%2FProperties%2F-1355565138"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><a data-name="551527657%2FProperties%2F-1355565138" anchor-label="positionIndicatorMode" id="551527657%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="symbol monospace">var <a href="position-indicator-mode.html">positionIndicatorMode</a>: <a href="-position-indicator-mode/index.html">NavScaffoldViewModel.PositionIndicatorMode</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="551527657%2FProperties%2F-1355565138" anchor-label="positionIndicatorMode" id="551527657%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>The configuration of <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/package-summary.html">PositionIndicator</a>.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1763207752%2FProperties%2F-1355565138" anchor-label="scrollableState" id="1763207752%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="scrollable-state.html">scrollableState</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1763207752%2FProperties%2F-1355565138"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><a data-name="1763207752%2FProperties%2F-1355565138" anchor-label="scrollableState" id="1763207752%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="symbol monospace">val <a href="scrollable-state.html">scrollableState</a>: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/ScrollableState.html">ScrollableState</a>?<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="1763207752%2FProperties%2F-1355565138" anchor-label="scrollableState" id="1763207752%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>Returns the scrollable state for this composable or null if the scaffold should not consider this element to be scrollable.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="459622827%2FProperties%2F-1355565138" anchor-label="timeTextMode" id="459622827%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="time-text-mode.html">timeTextMode</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="459622827%2FProperties%2F-1355565138"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><a data-name="459622827%2FProperties%2F-1355565138" anchor-label="timeTextMode" id="459622827%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="symbol monospace">var <a href="time-text-mode.html">timeTextMode</a>: <a href="-time-text-mode/index.html">NavScaffoldViewModel.TimeTextMode</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="459622827%2FProperties%2F-1355565138" anchor-label="timeTextMode" id="459622827%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>The configuration of <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/package-summary.html">TimeText</a>, defaults to FadeAway which will move the time text above the screen to avoid overlapping with the content moving up.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1161147589%2FProperties%2F-1355565138" anchor-label="vignettePosition" id="1161147589%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="vignette-position.html">vignettePosition</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1161147589%2FProperties%2F-1355565138"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><a data-name="1161147589%2FProperties%2F-1355565138" anchor-label="vignettePosition" id="1161147589%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="symbol monospace">var <a href="vignette-position.html">vignettePosition</a>: <a href="-vignette-mode/index.html">NavScaffoldViewModel.VignetteMode</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="1161147589%2FProperties%2F-1355565138" anchor-label="vignettePosition" id="1161147589%2FProperties%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>The configuration of <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/package-summary.html">Vignette</a>, <a href="-vignette-mode/-when-scrollable/index.html">WhenScrollable</a>, <a href="-vignette-mode/-off/index.html">Off</a>, <a href="-vignette-mode/-on/index.html">On</a> and if so whether top and bottom.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Sources</h2>
+              <div class="table" data-togglable="Sources"><a data-name="663156599%2FSource%2F-1407940826" anchor-label="https://github.com/google/horologist/blob/main/compose-layout/src/main/java/com/google/android/horologist/compose/navscaffold/NavScaffoldViewModel.kt#L45" id="663156599%2FSource%2F-1407940826" data-filterable-set=":compose-layout:dokkaHtmlPartial/main"></a>
+                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/main" data-filterable-set=":compose-layout:dokkaHtmlPartial/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="https://github.com/google/horologist/blob/main/compose-layout/src/main/java/com/google/android/horologist/compose/navscaffold/NavScaffoldViewModel.kt#L45">androidJvm source</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="663156599%2FSource%2F-1407940826"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+    </div>
+  
 </body></html>
+
 

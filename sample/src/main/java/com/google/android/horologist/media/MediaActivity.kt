@@ -23,7 +23,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -37,14 +36,10 @@ import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.audio.BluetoothSettings.launchBluetoothSettings
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.audio.ui.VolumeViewModel
-import com.google.android.horologist.composables.DatePicker
-import com.google.android.horologist.composables.TimePicker
-import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.android.horologist.sample.Screen
 import com.google.android.horologist.sample.di.SampleAppDI
 import com.google.android.horologist.sample.media.MediaPlayerScreen
 import com.google.android.horologist.sample.media.MediaPlayerScreenViewModel
-import java.time.LocalDateTime
 
 class MediaActivity : ComponentActivity() {
 

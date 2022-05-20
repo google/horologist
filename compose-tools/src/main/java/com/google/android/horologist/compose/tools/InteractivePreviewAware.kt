@@ -42,6 +42,7 @@ val LocalStaticPreview: ProvidableCompositionLocal<Boolean> = compositionLocalOf
  * correctly.
  */
 @Composable
+@ExperimentalHorologistComposeToolsApi
 fun InteractivePreviewAware(block: @Composable () -> Unit) {
     if (LocalInspectionMode.current) {
         var interactive by remember { mutableStateOf(false) }

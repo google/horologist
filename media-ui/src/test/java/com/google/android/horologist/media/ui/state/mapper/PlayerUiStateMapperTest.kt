@@ -288,9 +288,15 @@ class PlayerUiStateMapperTest {
     @Test
     fun givenMediaItem_thenMediaItemIsMappedCorrectly() {
         // given
+        val id = "id"
         val title = "title"
         val artist = "artist"
-        val mediaItem = MediaItem(title = title, artist = artist)
+        val mediaItem = MediaItem(
+            id = id,
+            uri = "http://www.example.com",
+            title = title,
+            artist = artist
+        )
 
         // when
         val result = PlayerUiStateMapper.map(
@@ -304,6 +310,7 @@ class PlayerUiStateMapperTest {
         // then
         assertNotNull(result.mediaItem)
         val expectedMediaItem = result.mediaItem!!
+        assertThat(expectedMediaItem.id).isEqualTo(id)
         assertThat(expectedMediaItem.title).isEqualTo(title)
         assertThat(expectedMediaItem.artist).isEqualTo(artist)
     }

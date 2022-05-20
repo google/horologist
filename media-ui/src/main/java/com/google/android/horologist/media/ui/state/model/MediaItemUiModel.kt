@@ -20,6 +20,7 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
 @ExperimentalHorologistMediaUiApi
 public data class MediaItemUiModel(
+    val id: String,
     val title: String? = null,
     val artist: String? = null
 )

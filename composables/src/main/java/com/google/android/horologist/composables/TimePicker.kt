@@ -69,7 +69,6 @@ import java.time.temporal.ChronoField
 
 /**
  * A full screen TimePicker with hours, minutes and seconds.
- * Includes a slot for a button, typically for submitting.
  *
  * This component is designed to take most/all of the screen and utilizes large fonts. In order to
  * ensure that it will draw properly on smaller screens it does not take account of user font size
@@ -214,7 +213,6 @@ public fun TimePicker(
 
 /**
  * A full screen TimePicker with hours and minutes and AM/PM selector.
- * Also includes a button, typically for submitting.
  *
  * This component is designed to take most/all of the screen and utilizes large fonts. In order to
  * ensure that it will draw properly on smaller screens it does not take account of user font size

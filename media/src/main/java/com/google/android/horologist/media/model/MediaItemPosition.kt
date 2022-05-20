@@ -16,12 +16,14 @@
 
 package com.google.android.horologist.media.model
 
+import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import kotlin.time.Duration
 
 /**
  * Represents the current [media item][MediaItem] position, duration and percent progress.
  * Current position and duration are measured in milliseconds.
  */
+@ExperimentalHorologistMediaApi
 public sealed class MediaItemPosition(
     public open val current: Duration,
 ) {

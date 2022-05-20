@@ -16,12 +16,16 @@
 
 package com.google.android.horologist.media.model
 
+import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+
 /**
  * Representation of a media item.
  */
+@ExperimentalHorologistMediaApi
 public data class MediaItem(
     val id: String,
     val uri: String,
     val title: String? = null,
-    val artist: String
+    val artist: String,
+    val artworkUri: String? = null,
 )

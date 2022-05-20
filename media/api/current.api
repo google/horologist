@@ -8,7 +8,7 @@ package com.google.android.horologist.media {
 
 package com.google.android.horologist.media.model {
 
-  public enum Command {
+  @com.google.android.horologist.media.ExperimentalHorologistMediaApi public enum Command {
     enum_constant public static final com.google.android.horologist.media.model.Command PlayPause;
     enum_constant public static final com.google.android.horologist.media.model.Command SeekBack;
     enum_constant public static final com.google.android.horologist.media.model.Command SeekForward;
@@ -17,27 +17,30 @@ package com.google.android.horologist.media.model {
     enum_constant public static final com.google.android.horologist.media.model.Command SkipToPreviousMediaItem;
   }
 
-  public final class MediaItem {
-    ctor public MediaItem(String id, String uri, optional String? title, String artist);
+  @com.google.android.horologist.media.ExperimentalHorologistMediaApi public final class MediaItem {
+    ctor public MediaItem(String id, String uri, optional String? title, String artist, optional String? artworkUri);
     method public String component1();
     method public String component2();
     method public String? component3();
     method public String component4();
-    method public com.google.android.horologist.media.model.MediaItem copy(String id, String uri, String? title, String artist);
+    method public String? component5();
+    method public com.google.android.horologist.media.model.MediaItem copy(String id, String uri, String? title, String artist, String? artworkUri);
     method public boolean equals(Object? other);
     method public String getArtist();
+    method public String? getArtworkUri();
     method public String getId();
     method public String? getTitle();
     method public String getUri();
     method public int hashCode();
     method public String toString();
     property public final String artist;
+    property public final String? artworkUri;
     property public final String id;
     property public final String? title;
     property public final String uri;
   }
 
-  public abstract sealed class MediaItemPosition {
+  @com.google.android.horologist.media.ExperimentalHorologistMediaApi public abstract sealed class MediaItemPosition {
     method public long getCurrent();
     property public long current;
     field public static final com.google.android.horologist.media.model.MediaItemPosition.Companion Companion;
@@ -65,7 +68,7 @@ package com.google.android.horologist.media.model {
     property public long current;
   }
 
-  public enum PlayerState {
+  @com.google.android.horologist.media.ExperimentalHorologistMediaApi public enum PlayerState {
     enum_constant public static final com.google.android.horologist.media.model.PlayerState Ended;
     enum_constant public static final com.google.android.horologist.media.model.PlayerState Idle;
     enum_constant public static final com.google.android.horologist.media.model.PlayerState Loading;

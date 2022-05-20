@@ -31,11 +31,13 @@ class MediaItemUiModelMapperTest {
         val id = "id"
         val title = "title"
         val artist = "artist"
+        val artworkUri = "artworkUri"
         val mediaItem = MediaItem(
             id = id,
             uri = "http://www.example.com",
             title = title,
-            artist = artist
+            artist = artist,
+            artworkUri = artworkUri
         )
 
         // when
@@ -45,5 +47,6 @@ class MediaItemUiModelMapperTest {
         assertThat(result.id).isEqualTo(id)
         assertThat(result.title).isEqualTo(title)
         assertThat(result.artist).isEqualTo(artist)
+        assertThat(result.artworkUri).isEqualTo(artworkUri)
     }
 }

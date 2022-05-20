@@ -29,6 +29,7 @@ public object MediaItemUiModelMapper {
     public fun map(mediaItem: MediaItem): MediaItemUiModel = MediaItemUiModel(
         id = mediaItem.id,
         title = mediaItem.title,
-        artist = mediaItem.artist
+        artist = mediaItem.artist,
+        artworkUri = mediaItem.artworkUri
     )
 }

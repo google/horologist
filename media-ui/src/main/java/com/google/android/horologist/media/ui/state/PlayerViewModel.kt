@@ -18,7 +18,6 @@ package com.google.android.horologist.media.ui.state
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.mapper.PlayerUiStateMapper
@@ -29,7 +28,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
-@OptIn(ExperimentalHorologistMediaApi::class)
 @ExperimentalHorologistMediaUiApi
 public open class PlayerViewModel(
     private val playerRepository: PlayerRepository

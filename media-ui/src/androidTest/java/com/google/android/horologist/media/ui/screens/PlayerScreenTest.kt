@@ -130,8 +130,8 @@ class PlayerScreenTest {
         // given
         val playerRepository = FakePlayerRepository()
 
-        val mediaItem1 = MediaItem("", "")
-        val mediaItem2 = MediaItem("", "")
+        val mediaItem1 = MediaItem(id = "", uri = "", title = "", artist = "")
+        val mediaItem2 = MediaItem(id = "", uri = "", title = "", artist = "")
         playerRepository.setMediaItems(listOf(mediaItem1, mediaItem2))
         playerRepository.play(1)
 
@@ -156,8 +156,8 @@ class PlayerScreenTest {
         // given
         val playerRepository = FakePlayerRepository()
 
-        val mediaItem1 = MediaItem("", "")
-        val mediaItem2 = MediaItem("", "")
+        val mediaItem1 = MediaItem(id = "", uri = "", title = "", artist = "")
+        val mediaItem2 = MediaItem(id = "", uri = "", title = "", artist = "")
         playerRepository.setMediaItems(listOf(mediaItem1, mediaItem2))
         playerRepository.play(0)
 
@@ -268,7 +268,7 @@ class PlayerScreenTest {
         val playerRepository = FakePlayerRepository()
         val artist = "artist"
         val title = "title"
-        val mediaItem = MediaItem(title = title, artist = artist)
+        val mediaItem = MediaItem(id = "", uri = "", title = title, artist = artist)
         playerRepository.setMediaItem(mediaItem)
         playerRepository.play()
 
@@ -287,7 +287,7 @@ class PlayerScreenTest {
         val playerRepository = FakePlayerRepository()
         val artist = "artist"
         val title = "title"
-        val mediaItem = MediaItem(title = title, artist = artist)
+        val mediaItem = MediaItem(id = "", uri = "", title = title, artist = artist)
         playerRepository.setMediaItem(mediaItem)
         playerRepository.play()
 

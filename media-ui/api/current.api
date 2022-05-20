@@ -214,13 +214,16 @@ package com.google.android.horologist.media.ui.state.mapper {
 package com.google.android.horologist.media.ui.state.model {
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class MediaItemUiModel {
-    ctor public MediaItemUiModel(optional String? title, optional String? artist);
-    method public String? component1();
+    ctor public MediaItemUiModel(String id, optional String? title, optional String? artist);
+    method public String component1();
     method public String? component2();
-    method public com.google.android.horologist.media.ui.state.model.MediaItemUiModel copy(String? title, String? artist);
+    method public String? component3();
+    method public com.google.android.horologist.media.ui.state.model.MediaItemUiModel copy(String id, String? title, String? artist);
     method public String? getArtist();
+    method public String getId();
     method public String? getTitle();
     property public final String? artist;
+    property public final String id;
     property public final String? title;
   }
 

@@ -28,14 +28,21 @@ class MediaItemUiModelMapperTest {
     @Test
     fun givenMediaItem_thenMapsCorrectly() {
         // given
+        val id = "id"
         val title = "title"
         val artist = "artist"
-        val mediaItem = MediaItem(title = title, artist = artist)
+        val mediaItem = MediaItem(
+            id = id,
+            uri = "http://www.example.com",
+            title = title,
+            artist = artist
+        )
 
         // when
         val result = MediaItemUiModelMapper.map(mediaItem)
 
         // then
+        assertThat(result.id).isEqualTo(id)
         assertThat(result.title).isEqualTo(title)
         assertThat(result.artist).isEqualTo(artist)
     }

@@ -17,6 +17,7 @@
 package com.google.android.horologist.sample.di
 
 import android.app.Activity
+import com.google.android.horologist.media.MediaActivity
 import com.google.android.horologist.navsample.NavActivity
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
@@ -33,6 +34,11 @@ import kotlinx.coroutines.GlobalScope
  * Simple DI implementation - to be replaced by hilt.
  */
 object SampleAppDI {
+    fun inject(mediaActivity: MediaActivity) {
+        mediaActivity.mediaPlayerScreenViewModelFactory =
+            getMediaPlayerScreenViewModelFactory(getPlayerRepositoryImplFactory(getMediaDataSource()))
+    }
+
     fun inject(mainActivity: MainActivity) {
         mainActivity.mediaPlayerScreenViewModelFactory =
             getMediaPlayerScreenViewModelFactory(getPlayerRepositoryImplFactory(getMediaDataSource()))

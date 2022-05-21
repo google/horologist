@@ -133,8 +133,10 @@ subprojects {
 
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach { compile ->
         kotlinOptions {
-            // Treat all Kotlin warnings as errors
-            allWarningsAsErrors = true
+            if (System.getenv("CI") == "true") {
+                // Treat all Kotlin warnings as errors
+                allWarningsAsErrors = true
+            }
             // Set JVM target to 1.8
             jvmTarget = "1.8"
             // Allow use of @OptIn

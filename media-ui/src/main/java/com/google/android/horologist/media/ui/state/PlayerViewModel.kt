@@ -73,9 +73,13 @@ public open class PlayerViewModel(
     }
 
     public companion object {
-        private val INITIAL_MEDIA_ITEM = MediaItemUiModel(null, null)
+        private val INITIAL_MEDIA_ITEM = MediaItemUiModel(id = "", title = null, artist = null)
 
-        private val INITIAL_TRACK_POSITION = TrackPositionUiModel(0, 0, 0f)
+        private val INITIAL_TRACK_POSITION = TrackPositionUiModel(
+            current = 0,
+            duration = 0,
+            percent = 0f
+        )
 
         private val INITIAL_PLAYER_UI_STATE = PlayerUiState(
             playEnabled = false,

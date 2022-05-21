@@ -32,11 +32,16 @@ class MediaDataSource {
         "Born to Be Wild" to "Steppenwolf",
     )
 
-    fun fetchData(): List<MediaItem> {
-        return mutableListOf<MediaItem>().also {
-            for ((title, artist) in songs) {
-                it.add(MediaItem(title = title, artist = artist))
-            }
+    fun fetchData(): List<MediaItem> = mutableListOf<MediaItem>().also {
+        songs.forEachIndexed { i, (title, artist) ->
+            it.add(
+                MediaItem(
+                    id = i.toString(),
+                    uri = "http://www.example.com/song/$i",
+                    title = title,
+                    artist = artist
+                )
+            )
         }
     }
 }

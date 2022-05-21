@@ -28,5 +28,6 @@ sealed class Screen(
     object DatePicker : Screen("datePicker")
     object TimePicker : Screen("timePicker")
     object TimeWithSecondsPicker : Screen("timeWithSecondsPicker")
+    object TimeWithoutSecondsPicker : Screen("timeWithoutSecondsPicker")
     object MediaPlayer : Screen("mediaPlayer")
 }

@@ -31,9 +31,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalInspectionMode
 
-val LocalInteractivePreview: ProvidableCompositionLocal<Boolean> = compositionLocalOf { false }
+public val LocalInteractivePreview: ProvidableCompositionLocal<Boolean> = compositionLocalOf { false }
 
-val LocalStaticPreview: ProvidableCompositionLocal<Boolean> = compositionLocalOf { false }
+public val LocalStaticPreview: ProvidableCompositionLocal<Boolean> = compositionLocalOf { false }
 
 /**
  * Utility to determine the preview mode and set LocalInteractivePreview or
@@ -43,7 +43,7 @@ val LocalStaticPreview: ProvidableCompositionLocal<Boolean> = compositionLocalOf
  */
 @Composable
 @ExperimentalHorologistComposeToolsApi
-fun InteractivePreviewAware(block: @Composable () -> Unit) {
+public fun InteractivePreviewAware(block: @Composable () -> Unit) {
     if (LocalInspectionMode.current) {
         var interactive by remember { mutableStateOf(false) }
 

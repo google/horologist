@@ -4,6 +4,12 @@ package com.google.android.horologist.compose.tools {
   @kotlin.RequiresOptIn(message="Horologist Media is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistComposeToolsApi {
   }
 
+  public final class InteractivePreviewAwareKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public static void InteractivePreviewAware(kotlin.jvm.functions.Function0<kotlin.Unit> block);
+    method public static androidx.compose.runtime.ProvidableCompositionLocal<java.lang.Boolean> getLocalInteractivePreview();
+    method public static androidx.compose.runtime.ProvidableCompositionLocal<java.lang.Boolean> getLocalStaticPreview();
+  }
+
   @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public final class ThemeValues {
     ctor public ThemeValues(String description, androidx.wear.compose.material.Colors colors);
     method public String component1();

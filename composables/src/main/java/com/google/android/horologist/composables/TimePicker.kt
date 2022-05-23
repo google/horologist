@@ -215,8 +215,7 @@ public fun TimePicker(
                 if (showSeconds) {
                     listOf(focusRequester1, focusRequester2, focusRequester3)[selectedColumn]
                         .requestFocus()
-                }
-                else {
+                } else {
                     listOf(focusRequester1, focusRequester2)[selectedColumn]
                         .requestFocus()
                 }

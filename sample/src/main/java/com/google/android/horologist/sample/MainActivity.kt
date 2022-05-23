@@ -130,6 +130,16 @@ fun WearApp(
                     }
                 )
             }
+            composable(Screen.TimeWithoutSecondsPicker.route) {
+                TimePicker(
+                    time = time.toLocalTime(),
+                    onTimeConfirm = {
+                        time = time.toLocalDate().atTime(it)
+                        navController.popBackStack()
+                    },
+                    showSeconds = false
+                )
+            }
             composable(Screen.MediaPlayer.route) {
                 val context = LocalContext.current
 

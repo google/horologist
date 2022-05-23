@@ -41,6 +41,28 @@ class TimePickerTest {
     val composeTestRule = createComposeRule()
 
     @Test
+    fun testTime() {
+        var time by mutableStateOf<LocalTime?>(null)
+        composeTestRule.setContent {
+            if (time == null) {
+                TimePicker(
+                    onTimeConfirm = {
+                        time = it
+                    },
+                    time = LocalTime.of(11, 59, 31),
+                    showSeconds = false
+                )
+            } else {
+                Text(modifier = Modifier.testTag("time"), text = "$time")
+            }
+        }
+
+        composeTestRule.onNodeWithContentDescription("Confirm").performClick()
+
+        composeTestRule.onNodeWithTag("time").assertTextEquals("11:59")
+    }
+
+    @Test
     fun testTimeWithSeconds() {
         var time by mutableStateOf<LocalTime?>(null)
         composeTestRule.setContent {

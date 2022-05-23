@@ -82,6 +82,9 @@ fun MenuScreen(
             TimeWithSecondsPickerChip(time) { navigateToRoute(Screen.TimeWithSecondsPicker.route) }
         }
         item {
+            TimeWithoutSecondsPickerChip(time) { navigateToRoute(Screen.TimeWithoutSecondsPicker.route) }
+        }
+        item {
             MediaPlayerChip { navigateToRoute(Screen.MediaPlayer.route) }
         }
     }

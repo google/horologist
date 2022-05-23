@@ -78,13 +78,18 @@ import java.time.temporal.ChronoField
  * @param onTimeConfirm the button event handler.
  * @param modifier the modifiers for the `Box` containing the UI elements.
  * @param time the initial value to seed the picker with.
+ * @param showSeconds flag to indicate whether to show seconds as well as hours and minutes. If true
+ * then the user will be able to select seconds as well as hours and minutes. If false then no
+ * seconds picker will be shown and the seconds will be set to 0 in the time returned in
+ * onTimeConfirm.
  */
 @ExperimentalHorologistComposablesApi
 @Composable
 public fun TimePicker(
     onTimeConfirm: (LocalTime) -> Unit,
     modifier: Modifier = Modifier,
-    time: LocalTime = LocalTime.now()
+    time: LocalTime = LocalTime.now(),
+    showSeconds: Boolean = true
 ) {
     // Omit scaling according to Settings > Display > Font size for this screen
     val typography = MaterialTheme.typography.copy(
@@ -165,19 +170,21 @@ public fun TimePicker(
                             style = textStyle,
                         )
                     }
-                    Separator(6.dp, textStyle)
-                    PickerWithRSB(
-                        readOnly = selectedColumn != 2,
-                        state = secondsState,
-                        focusRequester = focusRequester3,
-                        modifier = Modifier.size(40.dp, 100.dp),
-                    ) { second: Int ->
-                        TimePiece(
-                            selected = selectedColumn == 2,
-                            onSelected = { selectedColumn = 2 },
-                            text = "%02d".format(second),
-                            style = textStyle,
-                        )
+                    if (showSeconds) {
+                        Separator(6.dp, textStyle)
+                        PickerWithRSB(
+                            readOnly = selectedColumn != 2,
+                            state = secondsState,
+                            focusRequester = focusRequester3,
+                            modifier = Modifier.size(40.dp, 100.dp),
+                        ) { second: Int ->
+                            TimePiece(
+                                selected = selectedColumn == 2,
+                                onSelected = { selectedColumn = 2 },
+                                text = "%02d".format(second),
+                                style = textStyle,
+                            )
+                        }
                     }
                 }
                 Spacer(
@@ -186,10 +193,11 @@ public fun TimePicker(
                         .weight(weightsToCenterVertically)
                 )
                 Button(onClick = {
+                    val seconds = if (showSeconds) secondsState.selectedOption else 0
                     val confirmedTime = LocalTime.of(
                         hourState.selectedOption,
                         minuteState.selectedOption,
-                        secondsState.selectedOption
+                        seconds
                     )
                     onTimeConfirm(confirmedTime)
                 }) {
@@ -204,8 +212,13 @@ public fun TimePicker(
                 Spacer(Modifier.height(12.dp))
             }
             LaunchedEffect(selectedColumn) {
-                listOf(focusRequester1, focusRequester2, focusRequester3)[selectedColumn]
-                    .requestFocus()
+                if (showSeconds) {
+                    listOf(focusRequester1, focusRequester2, focusRequester3)[selectedColumn]
+                        .requestFocus()
+                } else {
+                    listOf(focusRequester1, focusRequester2)[selectedColumn]
+                        .requestFocus()
+                }
             }
         }
     }

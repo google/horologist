@@ -159,6 +159,28 @@ fun TimeWithSecondsPickerChip(
 }
 
 @Composable
+fun TimeWithoutSecondsPickerChip(
+    time: LocalDateTime,
+    navigateToRoute: (String) -> Unit
+) {
+    SampleChip(
+        onClick = { navigateToRoute(Screen.TimeWithoutSecondsPicker.route) },
+        label = "Time Without Seconds Picker",
+        content = {
+            Text(
+                text = buildAnnotatedString {
+                    withStyle(SpanStyle(color = Color.Yellow, fontWeight = FontWeight.Bold)) {
+                        append(time.hour.toString())
+                    }
+                    append(":${time.minute}")
+                },
+                fontSize = 6f.sp
+            )
+        }
+    )
+}
+
+@Composable
 fun FadeAwayChip(
     label: String,
     navigateToRoute: () -> Unit

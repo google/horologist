@@ -19,6 +19,7 @@
     package="com.google.android.horologist.sample">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-feature android:name="android.hardware.type.watch" />
 

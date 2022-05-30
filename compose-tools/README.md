@@ -1,4 +1,4 @@
-# Testing Library
+# Compose Tools Library
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.google.android.horologist/horologist-compose-tools)](https://search.maven.org/search?q=g:com.google.android.horologist)
 

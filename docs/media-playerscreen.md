@@ -20,14 +20,18 @@ also called on the `Player` (see `setPlaybackSpeed`).
 class PlayerRepositoryImpl(
     private val player: Player
 ) : PlayerRepository {
-    
-    private var _playing = MutableStateFlow(false)
-    override val isPlaying: StateFlow<Boolean> = _playing
+
+    private val _currentState: MutableStateFlow<PlayerState> = MutableStateFlow(PlayerState.Idle)
+    override val currentState: StateFlow<PlayerState> = _currentState
 
     private val listener = object : Player.Listener {
         
         override fun onIsPlayingChanged(isPlaying: Boolean) {
-            _playing.value = isPlaying
+            _currentState.value = if (isPlaying) { 
+                PlayerState.Playing
+            } else {
+                PlayerState.Ready
+            }
         }
     }
     

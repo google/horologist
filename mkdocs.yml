@@ -23,8 +23,9 @@ nav:
   - 'Compose Layout':
       - 'Guide': compose-layout.md
   - 'Media':
-      - 'Media UI Guide': media-ui.md
-      - 'Media Data Guide': media-data.md
+      - 'Domain Guide': media.md
+      - 'UI Guide': media-ui.md
+      - 'Data Guide': media-data.md
       - 'Stateful PlayerScreen Guide': media-playerscreen.md
   - 'Tiles':
       - 'Guide': tiles.md

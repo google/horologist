@@ -1,4 +1,6 @@
-# Composables library
+# Network Awareness library
+
+## :construction_worker: Early Development
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.google.android.horologist/horologist-network-awareness)](https://search.maven.org/search?q=g:com.google.android.horologist)
 

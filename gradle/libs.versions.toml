@@ -4,32 +4,32 @@ androidx-concurrent = "1.1.0"
 androidx-media3 = "1.0.0-alpha03"
 androidx-test-ext = "1.1.3"
 androidxActivity = "1.5.0-rc01"
-androidxCore = "1.8.0-rc02"
+androidxCore = "1.8.0"
 androidxFragment = "1.5.0-rc01"
 androidxLifecycle = "2.5.0-rc01"
 androidxNavigation = "2.5.0-rc01"
 androidxWear = "1.2.0"
-androidxtiles = "1.1.0-alpha07"
+androidxtiles = "1.1.0-alpha08"
 benManes = "0.42.0"
 com-squareup-okhttp3 = "4.9.3"
-compose = "1.2.0-beta02"
+compose = "1.2.0-beta03"
 composesnapshot = "-"
 dokka = "1.5.0"
 espresso = "3.4.0"
-gradlePlugin = "7.2.0"
+gradlePlugin = "7.2.1"
 junit = "4.13.2"
 kotlin = "1.6.21"
-kotlinxCoroutine = "1.6.1"
+kotlinxCoroutine = "1.6.2"
 ktlint = "0.42.1"
 metalava = "0.2.1"
 room = "2.4.2"
 spotless = "6.6.1"
 truth = "1.1.3"
 versionCatalogUpdate = "0.4.0"
-wearcompose = "1.0.0-beta02"
+wearcompose = "1.0.0-beta03"
 
 [libraries]
-accompanist-pager = "com.google.accompanist:accompanist-pager:0.24.8-beta"
+accompanist-pager = "com.google.accompanist:accompanist-pager:0.24.9-beta"
 affectedmoduledetector = { module = "com.dropbox.affectedmoduledetector:affectedmoduledetector", version.ref = "affectedmoduledetector" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
@@ -64,13 +64,15 @@ compose-ui-toolingpreview = { module = "androidx.compose.ui:ui-tooling-preview",
 compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "compose" }
 dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
-gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.19.0"
+gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.20.0"
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-kotlin-stdlib = "org.jetbrains.kotlin:kotlin-stdlib:1.6.21"
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutine" }
 metalavaGradle = { module = "me.tylerbwong.gradle:metalava-gradle", version.ref = "metalava" }
+paparazzi = "app.cash.paparazzi:paparazzi:1.0.0"
+paparazziPlugin = "app.cash.paparazzi:paparazzi-gradle-plugin:1.0.0"
 robolectric = "org.robolectric:robolectric:4.8.1"
 room-common = { module = "androidx.room:room-common", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }

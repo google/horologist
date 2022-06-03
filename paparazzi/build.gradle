@@ -20,5 +20,5 @@ plugins {
 
 dependencies {
     implementation libs.kotlin.stdlib
-    api 'app.cash.paparazzi:paparazzi:1.0.0-SNAPSHOT'
+    api libs.paparazzi
 }

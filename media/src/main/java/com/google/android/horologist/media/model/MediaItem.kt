@@ -28,4 +28,5 @@ public data class MediaItem(
     val title: String? = null,
     val artist: String,
     val artworkUri: String? = null,
+    val extras: Map<String, Any> = emptyMap()
 )

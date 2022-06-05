@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistAudioApi::class)
+@file:OptIn(ExperimentalHorologistMediaUiApi::class)
 
-package com.google.android.horologist.audio.ui
+package com.google.android.horologist.media.ui
 
 import app.cash.paparazzi.Paparazzi
-import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
-import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.themeValues
+import com.google.android.horologist.media.ui.state.PlayerUiState
+import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
 import com.google.android.horologist.paparazzi.determineHandler
@@ -33,7 +33,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
-class VolumeScreenTest(
+class MediaPlayerScreenTest(
     private val themeValue: ThemeValues
 ) {
     @get:Rule
@@ -45,19 +45,28 @@ class VolumeScreenTest(
     )
 
     @Test
-    fun volumeScreenThemes() {
-        val volumeState = VolumeState(
-            current = 50,
-            max = 100,
+    fun mediaPlayerScreen() {
+        val playerUiState = PlayerUiState(
+            playEnabled = true,
+            pauseEnabled = true,
+            seekBackEnabled = true,
+            seekForwardEnabled = true,
+            seekToPreviousEnabled = false,
+            seekToNextEnabled = true,
+            shuffleEnabled = false,
+            shuffleOn = false,
+            playPauseEnabled = true,
+            playing = true,
+            mediaItem = MediaItemUiModel(
+                id = "",
+                title = "Weather with You",
+                artist = "Crowded House"
+            ),
+            trackPosition = TrackPositionUiModel(current = 30, duration = 225, percent = 0.133f),
         )
-        val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
         paparazzi.snapshot(name = themeValue.safeName) {
-            VolumeScreenTestCase(
-                colors = themeValue.colors,
-                volumeState = volumeState,
-                audioOutput = audioOutput
-            )
+            MediaPlayerTestCase(colors = themeValue.colors, playerUiState = playerUiState)
         }
     }
 

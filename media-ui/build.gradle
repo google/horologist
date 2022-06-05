@@ -18,6 +18,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'org.jetbrains.dokka'
+    id 'app.cash.paparazzi'
 }
 
 android {
@@ -44,6 +45,8 @@ android {
         jvmTarget = '1.8'
         freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.media.ExperimentalHorologistMediaApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi"
     }
 
     composeOptions {
@@ -90,6 +93,7 @@ dependencies {
     implementation libs.compose.ui.tooling
     implementation libs.compose.material.iconscore
     implementation libs.compose.material.iconsext
+    implementation projects.audioUi
 
     debugImplementation libs.compose.ui.test.manifest
     debugImplementation libs.compose.ui.toolingpreview
@@ -99,6 +103,10 @@ dependencies {
     testImplementation libs.kotlinx.coroutines.test
     testImplementation libs.truth
     testImplementation libs.robolectric
+    testImplementation projects.paparazzi
+    testImplementation projects.composeTools
+    testImplementation projects.audio
+    testImplementation projects.audioUi
 
     androidTestImplementation libs.compose.ui.test.junit4
     androidTestImplementation libs.truth

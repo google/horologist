@@ -14,23 +14,19 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.audio.ui
+package com.google.android.horologist.paparazzi
 
-import android.content.res.Configuration
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.platform.LocalConfiguration
+import app.cash.paparazzi.HtmlReportWriter
+import app.cash.paparazzi.SnapshotHandler
+import app.cash.paparazzi.SnapshotVerifier
 
-@Composable
-fun RoundPreview(content: @Composable () -> Unit) {
-    val configuration =
-        LocalConfiguration.current.let {
-            Configuration(it).apply {
-                screenLayout = (screenLayout or Configuration.SCREENLAYOUT_ROUND_YES)
-            }
-        }
+public val isVerifying: Boolean =
+    System.getProperty("paparazzi.test.verify")?.toBoolean() == true
 
-    CompositionLocalProvider(LocalConfiguration provides configuration) {
-        content()
+public fun determineHandler(maxPercentDifference: Double): SnapshotHandler {
+    return if (isVerifying) {
+        SnapshotVerifier(maxPercentDifference)
+    } else {
+        HtmlReportWriter()
     }
 }

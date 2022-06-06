@@ -20,12 +20,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.Colors
 
 @ExperimentalHorologistComposeToolsApi
-data class ThemeValues(val name: String, val index: Int, val colors: Colors) {
+public data class ThemeValues(val name: String, val index: Int, val colors: Colors) {
     val safeName: String
         get() = name.replace("[^A-Za-z0-9]".toRegex(), "")
 }
 
-val Orangey = Colors(
+public val Orangey = Colors(
     secondary = Color(0xFFED612B), // Used for RSB
     surface = Color(0xFF202124), // Used for Device Chip
     onPrimary = Color(0xFFED612B),
@@ -33,7 +33,7 @@ val Orangey = Colors(
 )
 
 @ExperimentalHorologistComposeToolsApi
-val themeValues = listOf(
+public val themeValues = listOf(
     ThemeValues("Blue (Default - AECBFA)", 0, Colors()),
     ThemeValues(
         "Blue (7FCFFF)",

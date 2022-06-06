@@ -23,7 +23,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 
 @ExperimentalHorologistComposeToolsApi
 @Composable
-fun RoundPreview(content: @Composable () -> Unit) {
+public fun RoundPreview(content: @Composable () -> Unit) {
     val configuration =
         LocalConfiguration.current.let {
             Configuration(it).apply {

@@ -75,10 +75,14 @@ fun MediaPlayerTestCase(
     RoundPreview {
         MaterialTheme(colors = colors) {
             Scaffold(
-                timeText = { TimeText(timeSource = object : TimeSource {
-                    override val currentTime: String
-                        @Composable get() = "10:10"
-                }) }
+                timeText = {
+                    TimeText(
+                        timeSource = object : TimeSource {
+                            override val currentTime: String
+                                @Composable get() = "10:10"
+                        }
+                    )
+                }
             ) {
                 PlayerScreen(
                     modifier = Modifier.fillMaxSize(),

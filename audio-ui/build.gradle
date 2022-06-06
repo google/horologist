@@ -99,11 +99,11 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
 }
 
 dependencies {
-    implementation projects.audio
-    implementation libs.kotlin.stdlib
+    api projects.audio
+    api libs.kotlin.stdlib
 
     implementation libs.wearcompose.material
-    implementation libs.wearcompose.foundation
+    api libs.wearcompose.foundation
 
     implementation libs.compose.material.iconscore
     implementation libs.compose.material.iconsext

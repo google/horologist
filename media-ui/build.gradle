@@ -83,16 +83,17 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
 }
 
 dependencies {
-    implementation projects.media
+    api projects.media
     implementation libs.kotlin.stdlib
     implementation libs.androidx.wear
     implementation libs.androidx.lifecycle.runtime
     implementation libs.androidx.lifecycle.viewmodelktx
     implementation libs.wearcompose.material
-    implementation libs.wearcompose.foundation
+    api libs.wearcompose.foundation
     implementation libs.compose.ui.tooling
     implementation libs.compose.material.iconscore
     implementation libs.compose.material.iconsext
+    implementation projects.audio
     implementation projects.audioUi
 
     debugImplementation libs.compose.ui.test.manifest

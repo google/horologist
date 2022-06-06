@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.Colors
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
+import androidx.wear.compose.material.TimeSource
 import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.SettingsButtons
@@ -74,7 +75,10 @@ fun MediaPlayerTestCase(
     RoundPreview {
         MaterialTheme(colors = colors) {
             Scaffold(
-                timeText = { TimeText() }
+                timeText = { TimeText(timeSource = object : TimeSource {
+                    override val currentTime: String
+                        @Composable get() = "10:10"
+                }) }
             ) {
                 PlayerScreen(
                     modifier = Modifier.fillMaxSize(),

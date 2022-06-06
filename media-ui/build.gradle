@@ -18,6 +18,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'org.jetbrains.dokka'
+    id 'app.cash.paparazzi'
 }
 
 android {
@@ -44,6 +45,8 @@ android {
         jvmTarget = '1.8'
         freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.media.ExperimentalHorologistMediaApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi"
     }
 
     composeOptions {
@@ -80,25 +83,31 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
 }
 
 dependencies {
-    implementation projects.media
+    api projects.media
+    implementation projects.audio
+    implementation projects.audioUi
     implementation libs.kotlin.stdlib
     implementation libs.androidx.wear
     implementation libs.androidx.lifecycle.runtime
     implementation libs.androidx.lifecycle.viewmodelktx
     implementation libs.wearcompose.material
-    implementation libs.wearcompose.foundation
+    api libs.wearcompose.foundation
     implementation libs.compose.ui.tooling
     implementation libs.compose.material.iconscore
     implementation libs.compose.material.iconsext
 
     debugImplementation libs.compose.ui.test.manifest
     debugImplementation libs.compose.ui.toolingpreview
+    debugImplementation projects.composeTools
 
     testImplementation libs.junit
     testImplementation libs.androidx.test.ext.ktx
     testImplementation libs.kotlinx.coroutines.test
     testImplementation libs.truth
     testImplementation libs.robolectric
+    testImplementation projects.paparazzi
+    testImplementation projects.audio
+    testImplementation projects.audioUi
 
     androidTestImplementation libs.compose.ui.test.junit4
     androidTestImplementation libs.truth

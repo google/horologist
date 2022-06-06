@@ -17,7 +17,7 @@
 package com.google.android.horologist.media.ui
 
 @RequiresOptIn(
-    message = "Horologist Media is experimental. The API may be changed in the future."
+    message = "Horologist Media UI is experimental. The API may be changed in the future."
 )
 @Retention(AnnotationRetention.BINARY)
 public annotation class ExperimentalHorologistMediaUiApi

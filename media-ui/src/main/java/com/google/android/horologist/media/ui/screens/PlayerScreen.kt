@@ -49,17 +49,20 @@ import com.google.android.horologist.media.ui.utils.StateUtils.rememberStateWith
 public fun PlayerScreen(
     playerViewModel: PlayerViewModel,
     modifier: Modifier = Modifier,
-    mediaDisplay: PlayerScreenMediaDisplay = PlayerScreenDefaults.defaultMediaDisplay(),
-    controlButtons: PlayerScreenControlButtons =
-        PlayerScreenDefaults.defaultControlButtons(playerViewModel),
+    mediaDisplay: @Composable ColumnScope.(playerUiState: PlayerUiState) -> Unit = { playerUiState ->
+        DefaultPlayerScreenMediaDisplay(playerUiState)
+    },
+    controlButtons: @Composable RowScope.(playerUiState: PlayerUiState) -> Unit = { playerUiState ->
+        DefaultPlayerScreenControlButtons(playerViewModel, playerUiState)
+    },
     buttons: @Composable RowScope.(PlayerUiState) -> Unit = {},
     background: @Composable BoxScope.(PlayerUiState) -> Unit = {}
 ) {
     val playerUiState by rememberStateWithLifecycle(flow = playerViewModel.playerUiState)
 
     PlayerScreen(
-        mediaDisplay = { with(mediaDisplay) { Content(playerUiState) } },
-        controlButtons = { with(controlButtons) { Content(playerUiState) } },
+        mediaDisplay = { mediaDisplay(playerUiState) },
+        controlButtons = { controlButtons(playerUiState) },
         buttons = { buttons(playerUiState) },
         modifier = modifier,
         background = { background(playerUiState) },
@@ -67,107 +70,39 @@ public fun PlayerScreen(
 }
 
 /**
- * Represents the content of media display on [PlayerScreen].
- */
-@ExperimentalHorologistMediaUiApi
-public interface PlayerScreenMediaDisplay {
-
-    @Composable
-    public fun ColumnScope.Content(playerUiState: PlayerUiState)
-}
-
-/**
- * Represents the content of control buttons on [PlayerScreen].
- */
-@ExperimentalHorologistMediaUiApi
-public interface PlayerScreenControlButtons {
-
-    @Composable
-    public fun RowScope.Content(playerUiState: PlayerUiState)
-}
-
-/**
- * Contains the default values used by [PlayerScreen].
- */
-@ExperimentalHorologistMediaUiApi
-public object PlayerScreenDefaults {
-
-    public fun defaultMediaDisplay(): PlayerScreenMediaDisplay = DefaultPlayerScreenMediaDisplay()
-
-    public fun customMediaDisplay(
-        content: @Composable () -> Unit
-    ): PlayerScreenMediaDisplay = object : PlayerScreenMediaDisplay {
-
-        @Composable
-        override fun ColumnScope.Content(playerUiState: PlayerUiState) {
-            content()
-        }
-    }
-
-    public fun defaultControlButtons(
-        playerViewModel: PlayerViewModel,
-        showProgress: Boolean = true
-    ): PlayerScreenControlButtons = DefaultPlayerScreenControlButtons(
-        onPlayClick = { playerViewModel.play() },
-        onPauseClick = { playerViewModel.pause() },
-        onSeekToPreviousButtonClick = { playerViewModel.skipToPreviousMediaItem() },
-        onSeekToNextButtonClick = { playerViewModel.skipToNextMediaItem() },
-        showProgress = showProgress
-    )
-
-    public fun customControlButtons(
-        content: @Composable () -> Unit
-    ): PlayerScreenControlButtons = object : PlayerScreenControlButtons {
-
-        @Composable
-        override fun RowScope.Content(playerUiState: PlayerUiState) {
-            content()
-        }
-    }
-}
-
-/**
  * Default [PlayerScreenMediaDisplay] implementation.
  */
 @ExperimentalHorologistMediaUiApi
-private class DefaultPlayerScreenMediaDisplay : PlayerScreenMediaDisplay {
-
-    @Composable
-    override fun ColumnScope.Content(playerUiState: PlayerUiState) {
-        TextMediaDisplay(
-            title = playerUiState.mediaItem?.title,
-            artist = playerUiState.mediaItem?.artist
-        )
-    }
+@Composable
+public fun DefaultPlayerScreenMediaDisplay(playerUiState: PlayerUiState) {
+    TextMediaDisplay(
+        title = playerUiState.mediaItem?.title,
+        artist = playerUiState.mediaItem?.artist
+    )
 }
 
 /**
  * Default [PlayerScreenControlButtons] implementation.
  */
 @ExperimentalHorologistMediaUiApi
-private class DefaultPlayerScreenControlButtons(
-    private val onPlayClick: () -> Unit,
-    private val onPauseClick: () -> Unit,
-    private val onSeekToPreviousButtonClick: () -> Unit,
-    private val onSeekToNextButtonClick: () -> Unit,
-    private val showProgress: Boolean,
-) : PlayerScreenControlButtons {
-
-    @Composable
-    override fun RowScope.Content(playerUiState: PlayerUiState) {
-        MediaControlButtons(
-            onPlayButtonClick = onPlayClick,
-            onPauseButtonClick = onPauseClick,
-            playPauseButtonEnabled = playerUiState.playPauseEnabled,
-            playing = playerUiState.playing,
-            onSeekToPreviousButtonClick = onSeekToPreviousButtonClick,
-            seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
-            onSeekToNextButtonClick = onSeekToNextButtonClick,
-            seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
-            showProgress = showProgress,
-            percent = playerUiState.trackPosition?.percent ?: 0f,
-        )
-    }
+@Composable
+public fun DefaultPlayerScreenControlButtons(
+    playerViewModel: PlayerViewModel,
+    playerUiState: PlayerUiState,
+    showProgress: Boolean = true
+) {
+    MediaControlButtons(
+        onPlayButtonClick = { playerViewModel.play() },
+        onPauseButtonClick = { playerViewModel.pause() },
+        playPauseButtonEnabled = playerUiState.playPauseEnabled,
+        playing = playerUiState.playing,
+        onSeekToPreviousButtonClick = { playerViewModel.skipToPreviousMediaItem() },
+        seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
+        onSeekToNextButtonClick = { playerViewModel.skipToNextMediaItem() },
+        seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
+        showProgress = showProgress,
+        percent = playerUiState.trackPosition?.percent ?: 0f,
+    )
 }
 
 /**

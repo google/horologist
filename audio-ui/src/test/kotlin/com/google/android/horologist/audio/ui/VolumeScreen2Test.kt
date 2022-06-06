@@ -25,10 +25,11 @@ import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
+import com.google.android.horologist.paparazzi.determineHandler
 import org.junit.Rule
 import org.junit.Test
 
-class VolumeScreen2Test() {
+class VolumeScreen2Test {
     @get:Rule
     val paparazzi = Paparazzi(
         deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,

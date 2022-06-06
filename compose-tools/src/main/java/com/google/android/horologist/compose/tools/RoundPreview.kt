@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.audio.ui
+package com.google.android.horologist.compose.tools
 
 import android.content.res.Configuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalConfiguration
 
+@ExperimentalHorologistComposeToolsApi
 @Composable
-fun RoundPreview(content: @Composable () -> Unit) {
+public fun RoundPreview(content: @Composable () -> Unit) {
     val configuration =
         LocalConfiguration.current.let {
             Configuration(it).apply {

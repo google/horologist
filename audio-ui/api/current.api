@@ -1,7 +1,7 @@
 // Signature format: 4.0
 package com.google.android.horologist.audio.ui {
 
-  @kotlin.RequiresOptIn(message="Horologist Audio is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistAudioUiApi {
+  @kotlin.RequiresOptIn(message="Horologist Audio UI is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistAudioUiApi {
   }
 
   public final class VolumePositionIndicatorKt {

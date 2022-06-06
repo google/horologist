@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.audio.ui
+package com.google.android.horologist.paparazzi
 
 import app.cash.paparazzi.HtmlReportWriter
 import app.cash.paparazzi.SnapshotHandler
 import app.cash.paparazzi.SnapshotVerifier
 
-private val isVerifying: Boolean =
+public val isVerifying: Boolean =
     System.getProperty("paparazzi.test.verify")?.toBoolean() == true
 
-internal fun determineHandler(maxPercentDifference: Double): SnapshotHandler {
+public fun determineHandler(maxPercentDifference: Double): SnapshotHandler {
     return if (isVerifying) {
         SnapshotVerifier(maxPercentDifference)
     } else {

@@ -68,10 +68,13 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                controlButtons = PlayerScreenDefaults.defaultControlButtons(
-                    playerViewModel = playerViewModel,
-                    showProgress = showProgress
-                ),
+                controlButtons = { playerUiState ->
+                    DefaultPlayerScreenControlButtons(
+                        playerViewModel = playerViewModel,
+                        playerUiState = playerUiState,
+                        showProgress = showProgress
+                    )
+                }
             )
         }
 
@@ -296,7 +299,7 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                mediaDisplay = PlayerScreenDefaults.customMediaDisplay { Text("Custom") }
+                mediaDisplay = { Text("Custom") }
             )
         }
 
@@ -313,7 +316,7 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = PlayerViewModel(FakePlayerRepository()),
-                controlButtons = PlayerScreenDefaults.customControlButtons { Text("Custom") }
+                controlButtons = { Text("Custom") }
             )
         }
 

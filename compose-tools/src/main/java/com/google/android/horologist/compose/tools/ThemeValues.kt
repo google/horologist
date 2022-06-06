@@ -20,25 +20,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.Colors
 
 @ExperimentalHorologistComposeToolsApi
-public data class ThemeValues(val description: String, val colors: Colors)
+public data class ThemeValues(val name: String, val index: Int, val colors: Colors) {
+    val safeName: String
+        get() = name.replace("[^A-Za-z0-9]".toRegex(), "")
+}
 
-@ExperimentalHorologistComposeToolsApi
-public val initialThemeValues: ThemeValues = ThemeValues(
-    "Lilac (D0BCFF)",
-    Colors(
-        primary = Color(0xFFD0BCFF),
-        primaryVariant = Color(0xFF9A82DB),
-        secondary = Color(0xFF7FCFFF),
-        secondaryVariant = Color(0xFF3998D3)
-    )
+public val Orangey: Colors = Colors(
+    secondary = Color(0xFFED612B), // Used for RSB
+    surface = Color(0xFF202124), // Used for Device Chip
+    onPrimary = Color(0xFFED612B),
+    onSurface = Color(0xFFED612B),
 )
 
 @ExperimentalHorologistComposeToolsApi
 public val themeValues: List<ThemeValues> = listOf(
-    initialThemeValues,
-    ThemeValues("Blue (Default AECBFA)", Colors()),
+    ThemeValues("Blue (Default - AECBFA)", 0, Colors()),
     ThemeValues(
-        "Blue 2 (7FCFFF)",
+        "Blue (7FCFFF)",
+        1,
         Colors(
             primary = Color(0xFF7FCFFF),
             primaryVariant = Color(0xFF3998D3),
@@ -47,12 +46,47 @@ public val themeValues: List<ThemeValues> = listOf(
         )
     ),
     ThemeValues(
+        "Lilac (D0BCFF)",
+        2,
+        Colors(
+            primary = Color(0xFFD0BCFF),
+            primaryVariant = Color(0xFF9A82DB),
+            secondary = Color(0xFF7FCFFF),
+            secondaryVariant = Color(0xFF3998D3)
+        )
+    ),
+    ThemeValues(
         "Green (6DD58C)",
+        3,
         Colors(
             primary = Color(0xFF6DD58C),
             primaryVariant = Color(0xFF1EA446),
             secondary = Color(0xFFFFBB29),
-            secondaryVariant = Color(0xFFD68400)
+            secondaryVariant = Color(0xFFD68400),
         )
+    ),
+    ThemeValues(
+        "Blue with Text (7FCFFF)",
+        4,
+        Colors(
+            primary = Color(0xFF7FCFFF),
+            primaryVariant = Color(0xFF3998D3),
+            onPrimary = Color(0xFF003355),
+            secondary = Color(0xFF6DD58C),
+            secondaryVariant = Color(0xFF1EA446),
+            onSecondary = Color(0xFF0A3818),
+            surface = Color(0xFF303030),
+            onSurface = Color(0xFFE3E3E3),
+            onSurfaceVariant = Color(0xFFC4C7C5),
+            background = Color.Black,
+            onBackground = Color.White,
+            error = Color(0xFFF2B8B5),
+            onError = Color(0xFF370906)
+        )
+    ),
+    ThemeValues(
+        "Orange-y",
+        5,
+        Orangey
     ),
 )

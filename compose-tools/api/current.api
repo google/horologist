@@ -1,7 +1,7 @@
 // Signature format: 4.0
 package com.google.android.horologist.compose.tools {
 
-  @kotlin.RequiresOptIn(message="Horologist Media is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistComposeToolsApi {
+  @kotlin.RequiresOptIn(message="Horologist Compose Tools is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistComposeToolsApi {
   }
 
   public final class InteractivePreviewAwareKt {

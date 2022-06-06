@@ -1,7 +1,7 @@
 // Signature format: 4.0
 package com.google.android.horologist.media.ui {
 
-  @kotlin.RequiresOptIn(message="Horologist Media is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistMediaUiApi {
+  @kotlin.RequiresOptIn(message="Horologist Media UI is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistMediaUiApi {
   }
 
 }

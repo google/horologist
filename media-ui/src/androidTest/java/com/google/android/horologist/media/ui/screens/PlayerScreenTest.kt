@@ -18,7 +18,6 @@
 
 package com.google.android.horologist.media.ui.screens
 
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
@@ -34,7 +33,6 @@ import com.google.android.horologist.media.model.MediaItem
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.PlayerViewModel
-import com.google.android.horologist.media.ui.utils.StateUtils
 import com.google.android.horologist.test.toolbox.matchers.hasProgressBar
 import com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository
 import com.google.common.truth.Truth.assertThat
@@ -68,10 +66,15 @@ class PlayerScreenTest {
         val playerViewModel = PlayerViewModel(playerRepository)
 
         composeTestRule.setContent {
-            val playerUiState by StateUtils.rememberStateWithLifecycle(flow = playerViewModel.playerUiState)
-
             PlayerScreen(
                 playerViewModel = playerViewModel,
+                controlButtons = { playerUiState ->
+                    DefaultPlayerScreenControlButtons(
+                        playerViewModel = playerViewModel,
+                        playerUiState = playerUiState,
+                        showProgress = showProgress
+                    )
+                }
             )
         }
 

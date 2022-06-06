@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalConfiguration
 
+@ExperimentalHorologistComposeToolsApi
 @Composable
 fun RoundPreview(content: @Composable () -> Unit) {
     val configuration =

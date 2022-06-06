@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistAudioUiApi::class,
+@file:OptIn(
+    ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistAudioUiApi::class,
     ExperimentalHorologistAudioApi::class
 )
 
@@ -66,10 +67,11 @@ fun MediaPlayerTestCase(
         SettingsButtons(
             volumeState = VolumeState(5, 10),
             onVolumeClick = { /*TODO*/ },
-            onOutputClick = { })
+            onOutputClick = { }
+        )
     },
     background: @Composable BoxScope.() -> Unit = {
-       Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background))
+        Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background))
     },
     colors: Colors = MaterialTheme.colors,
 ) {

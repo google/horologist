@@ -19,6 +19,7 @@ package com.google.android.horologist.compose.tools
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.Colors
 
+@ExperimentalHorologistComposeToolsApi
 data class ThemeValues(val name: String, val index: Int, val colors: Colors) {
     val safeName: String
         get() = name.replace("[^A-Za-z0-9]".toRegex(), "")
@@ -31,6 +32,7 @@ val Orangey = Colors(
     onSurface = Color(0xFFED612B),
 )
 
+@ExperimentalHorologistComposeToolsApi
 val themeValues = listOf(
     ThemeValues("Blue (Default - AECBFA)", 0, Colors()),
     ThemeValues(
@@ -88,4 +90,3 @@ val themeValues = listOf(
         Orangey
     ),
 )
-

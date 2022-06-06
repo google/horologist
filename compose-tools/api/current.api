@@ -10,19 +10,28 @@ package com.google.android.horologist.compose.tools {
     method public static androidx.compose.runtime.ProvidableCompositionLocal<java.lang.Boolean> getLocalStaticPreview();
   }
 
+  public final class RoundPreviewKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public static void RoundPreview(kotlin.jvm.functions.Function0<kotlin.Unit> content);
+  }
+
   @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public final class ThemeValues {
-    ctor public ThemeValues(String description, androidx.wear.compose.material.Colors colors);
+    ctor public ThemeValues(String name, int index, androidx.wear.compose.material.Colors colors);
     method public String component1();
-    method public androidx.wear.compose.material.Colors component2();
-    method public com.google.android.horologist.compose.tools.ThemeValues copy(String description, androidx.wear.compose.material.Colors colors);
+    method public int component2();
+    method public androidx.wear.compose.material.Colors component3();
+    method public com.google.android.horologist.compose.tools.ThemeValues copy(String name, int index, androidx.wear.compose.material.Colors colors);
     method public androidx.wear.compose.material.Colors getColors();
-    method public String getDescription();
+    method public int getIndex();
+    method public String getName();
+    method public String getSafeName();
     property public final androidx.wear.compose.material.Colors colors;
-    property public final String description;
+    property public final int index;
+    property public final String name;
+    property public final String safeName;
   }
 
   public final class ThemeValuesKt {
-    method public static com.google.android.horologist.compose.tools.ThemeValues getInitialThemeValues();
+    method public static androidx.wear.compose.material.Colors getOrangey();
     method public static java.util.List<com.google.android.horologist.compose.tools.ThemeValues> getThemeValues();
   }
 

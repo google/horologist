@@ -25,7 +25,7 @@ public data class ThemeValues(val name: String, val index: Int, val colors: Colo
         get() = name.replace("[^A-Za-z0-9]".toRegex(), "")
 }
 
-public val Orangey = Colors(
+public val Orangey: Colors = Colors(
     secondary = Color(0xFFED612B), // Used for RSB
     surface = Color(0xFF202124), // Used for Device Chip
     onPrimary = Color(0xFFED612B),
@@ -33,7 +33,7 @@ public val Orangey = Colors(
 )
 
 @ExperimentalHorologistComposeToolsApi
-public val themeValues = listOf(
+public val themeValues: List<ThemeValues> = listOf(
     ThemeValues("Blue (Default - AECBFA)", 0, Colors()),
     ThemeValues(
         "Blue (7FCFFF)",

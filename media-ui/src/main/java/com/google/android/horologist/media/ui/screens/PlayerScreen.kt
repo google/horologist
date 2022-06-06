@@ -74,7 +74,7 @@ public fun PlayerScreen(
  */
 @ExperimentalHorologistMediaUiApi
 @Composable
-fun DefaultPlayerScreenMediaDisplay(playerUiState: PlayerUiState) {
+public fun DefaultPlayerScreenMediaDisplay(playerUiState: PlayerUiState) {
     TextMediaDisplay(
         title = playerUiState.mediaItem?.title,
         artist = playerUiState.mediaItem?.artist
@@ -86,7 +86,7 @@ fun DefaultPlayerScreenMediaDisplay(playerUiState: PlayerUiState) {
  */
 @ExperimentalHorologistMediaUiApi
 @Composable
-fun DefaultPlayerScreenControlButtons(
+public fun DefaultPlayerScreenControlButtons(
     playerViewModel: PlayerViewModel,
     playerUiState: PlayerUiState,
     showProgress: Boolean = true

@@ -47,7 +47,6 @@ android {
         freeCompilerArgs += "-opt-in=com.google.android.horologist.media.ExperimentalHorologistMediaApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi"
     }
 
     composeOptions {
@@ -99,6 +98,7 @@ dependencies {
 
     debugImplementation libs.compose.ui.test.manifest
     debugImplementation libs.compose.ui.toolingpreview
+    debugImplementation projects.composeTools
 
     testImplementation libs.junit
     testImplementation libs.androidx.test.ext.ktx
@@ -106,7 +106,6 @@ dependencies {
     testImplementation libs.truth
     testImplementation libs.robolectric
     testImplementation projects.paparazzi
-    testImplementation projects.composeTools
     testImplementation projects.audio
     testImplementation projects.audioUi
 

@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistAudioUiApi::class,
-    ExperimentalHorologistAudioApi::class
-)
+@file:OptIn(ExperimentalHorologistMediaUiApi::class)
 
 package com.google.android.horologist.media.ui
 
@@ -33,9 +30,7 @@ import androidx.wear.compose.material.Colors
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeText
-import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.media.ui.components.MediaControlButtons

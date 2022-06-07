@@ -10,6 +10,7 @@ androidxLifecycle = "2.5.0-rc01"
 androidxNavigation = "2.5.0-rc01"
 androidxWear = "1.2.0"
 androidxtiles = "1.1.0-alpha08"
+app-cash-paparazzi = "1.0.0"
 benManes = "0.42.0"
 com-squareup-okhttp3 = "4.9.3"
 compose = "1.2.0-beta03"
@@ -23,13 +24,13 @@ kotlinxCoroutine = "1.6.2"
 ktlint = "0.42.1"
 metalava = "0.2.1"
 room = "2.4.2"
-spotless = "6.6.1"
+spotless = "6.7.0"
 truth = "1.1.3"
 versionCatalogUpdate = "0.4.0"
 wearcompose = "1.0.0-beta03"
 
 [libraries]
-accompanist-pager = "com.google.accompanist:accompanist-pager:0.24.9-beta"
+accompanist-pager = "com.google.accompanist:accompanist-pager:0.24.10-beta"
 affectedmoduledetector = { module = "com.dropbox.affectedmoduledetector:affectedmoduledetector", version.ref = "affectedmoduledetector" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
@@ -71,8 +72,8 @@ kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutine" }
 metalavaGradle = { module = "me.tylerbwong.gradle:metalava-gradle", version.ref = "metalava" }
-paparazzi = "app.cash.paparazzi:paparazzi:1.0.0"
-paparazziPlugin = "app.cash.paparazzi:paparazzi-gradle-plugin:1.0.0"
+paparazzi = { module = "app.cash.paparazzi:paparazzi", version.ref = "app-cash-paparazzi" }
+paparazziPlugin = { module = "app.cash.paparazzi:paparazzi-gradle-plugin", version.ref = "app-cash-paparazzi" }
 robolectric = "org.robolectric:robolectric:4.8.1"
 room-common = { module = "androidx.room:room-common", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }

@@ -16,12 +16,17 @@
 
 package com.google.android.horologist.audio.ui.components
 
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
@@ -54,6 +59,17 @@ public fun SettingsButtons(
         Spacer(modifier = Modifier.size(8.dp))
         AudioOutputButton(
             onOutputClick = onOutputClick
+        )
+    }
+}
+
+public object SettingsButtonsDefaults {
+    @Composable
+    fun BrandIcon(@DrawableRes iconId: Int) {
+        Image(
+            modifier = Modifier.size(18.dp).clip(CircleShape),
+            painter = painterResource(id = iconId),
+            contentDescription = null
         )
     }
 }

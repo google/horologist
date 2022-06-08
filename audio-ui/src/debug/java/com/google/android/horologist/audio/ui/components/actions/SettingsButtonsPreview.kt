@@ -58,7 +58,7 @@ fun SettingsButtonsWithBrandIconPreview() {
         brandIcon = {
             Image(
                 modifier = Modifier.size(16.dp).clip(CircleShape),
-                painter = painterResource(id = R.drawable.ic_test),
+                painter = painterResource(id = R.drawable.ic_uamp),
                 contentDescription = null
             )
         }

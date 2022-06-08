@@ -39,6 +39,12 @@ package com.google.android.horologist.media.ui.components.background {
 
 package com.google.android.horologist.media.ui.components.controls {
 
+  public final class MediaButtonDefaults {
+    method @androidx.compose.runtime.Composable public androidx.wear.compose.material.ButtonColors getMediaButtonDefaultColors();
+    property @androidx.compose.runtime.Composable public final androidx.wear.compose.material.ButtonColors mediaButtonDefaultColors;
+    field public static final com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults INSTANCE;
+  }
+
   public final class MediaButtonKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void MediaButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, androidx.compose.ui.graphics.vector.ImageVector icon, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors);
   }

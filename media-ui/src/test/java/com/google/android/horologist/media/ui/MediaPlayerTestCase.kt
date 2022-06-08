@@ -18,8 +18,6 @@
 
 package com.google.android.horologist.media.ui
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
@@ -36,6 +34,7 @@ import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.media.ui.components.MediaControlButtons
+import com.google.android.horologist.media.ui.components.background.RadialBackground
 import com.google.android.horologist.media.ui.screens.DefaultPlayerScreenMediaDisplay
 import com.google.android.horologist.media.ui.screens.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
@@ -68,7 +67,7 @@ fun MediaPlayerTestCase(
         )
     },
     background: @Composable BoxScope.() -> Unit = {
-        Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background))
+        RadialBackground(color = MaterialTheme.colors.secondary)
     },
     colors: Colors = MaterialTheme.colors,
 ) {

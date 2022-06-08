@@ -19,13 +19,16 @@ package com.google.android.horologist.media.ui.components.controls
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.semantics
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults.mediaButtonDefaultColors
 import com.google.android.horologist.media.ui.semantics.CustomSemanticsProperties.iconImageVector
 
 /**
@@ -39,7 +42,7 @@ public fun MediaButton(
     contentDescription: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+    colors: ButtonColors = mediaButtonDefaultColors,
 ) {
     Button(
         onClick = onClick,
@@ -55,4 +58,14 @@ public fun MediaButton(
             contentDescription = contentDescription
         )
     }
+}
+
+public object MediaButtonDefaults {
+    public val mediaButtonDefaultColors: ButtonColors
+        @Composable
+        get() = ButtonDefaults.buttonColors(
+            backgroundColor = Color.Transparent,
+            contentColor = MaterialTheme.colors.onSurface,
+            disabledBackgroundColor = Color.Transparent
+        )
 }

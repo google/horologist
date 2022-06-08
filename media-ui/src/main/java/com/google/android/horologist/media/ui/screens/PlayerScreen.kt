@@ -41,6 +41,18 @@ import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.media.ui.utils.StateUtils.rememberStateWithLifecycle
 
+@OptIn(ExperimentalHorologistMediaUiApi::class)
+typealias MediaDisplay = @Composable ColumnScope.(playerUiState: PlayerUiState) -> Unit
+
+@OptIn(ExperimentalHorologistMediaUiApi::class)
+typealias ControlButtons = @Composable RowScope.(playerUiState: PlayerUiState) -> Unit
+
+@OptIn(ExperimentalHorologistMediaUiApi::class)
+typealias SettingsButtons = @Composable RowScope.(playerUiState: PlayerUiState) -> Unit
+
+@OptIn(ExperimentalHorologistMediaUiApi::class)
+typealias PlayerBackground = @Composable BoxScope.(playerUiState: PlayerUiState) -> Unit
+
 /**
  * Stateful version of [PlayerScreen] that provides default implementation for media display and
  * control buttons.
@@ -51,14 +63,14 @@ import com.google.android.horologist.media.ui.utils.StateUtils.rememberStateWith
 public fun PlayerScreen(
     playerViewModel: PlayerViewModel,
     modifier: Modifier = Modifier,
-    mediaDisplay: @Composable ColumnScope.(playerUiState: PlayerUiState) -> Unit = { playerUiState ->
+    mediaDisplay: MediaDisplay = { playerUiState ->
         DefaultPlayerScreenMediaDisplay(playerUiState)
     },
-    controlButtons: @Composable RowScope.(playerUiState: PlayerUiState) -> Unit = { playerUiState ->
+    controlButtons: ControlButtons = { playerUiState ->
         DefaultPlayerScreenControlButtons(playerViewModel, playerUiState)
     },
-    buttons: @Composable RowScope.(PlayerUiState) -> Unit = {},
-    background: @Composable BoxScope.(PlayerUiState) -> Unit = {}
+    buttons: SettingsButtons = {},
+    background: PlayerBackground = {}
 ) {
     val playerUiState by rememberStateWithLifecycle(flow = playerViewModel.playerUiState)
 

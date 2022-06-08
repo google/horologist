@@ -18,12 +18,18 @@
 
 package com.google.android.horologist.media.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Colors
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
@@ -63,7 +69,14 @@ fun MediaPlayerTestCase(
         SettingsButtons(
             volumeState = VolumeState(5, 10),
             onVolumeClick = { /*TODO*/ },
-            onOutputClick = { }
+            onOutputClick = { },
+            brandIcon = {
+                Image(
+                    modifier = Modifier.size(16.dp).clip(CircleShape),
+                    painter = painterResource(id = R.drawable.ic_uamp),
+                    contentDescription = null
+                )
+            },
         )
     },
     background: @Composable BoxScope.() -> Unit = {

@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.MaterialTheme
@@ -37,8 +38,11 @@ import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.compose.tools.ThemeValues
+import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.compose.tools.WearPreviewFontSizes
+import com.google.android.horologist.compose.tools.WearPreviewThemes
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.TextMediaDisplay
@@ -253,6 +257,21 @@ fun PlayerScreenPreviewCustomBackground() {
 @WearPreviewFontSizes
 @Composable
 fun PlayerScreenPreviewDevices() {
+    DefaultMediaDisplay()
+}
+
+@WearLargeRoundDevicePreview
+@Composable
+fun VolumeScreenTheme(
+    @PreviewParameter(WearPreviewThemes::class) themeValues: ThemeValues
+) {
+    MaterialTheme(themeValues.colors) {
+        DefaultMediaDisplay()
+    }
+}
+
+@Composable
+private fun DefaultMediaDisplay() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         timeText = { TimeText() }

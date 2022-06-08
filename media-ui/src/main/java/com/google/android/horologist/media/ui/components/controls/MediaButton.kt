@@ -61,7 +61,7 @@ public fun MediaButton(
 }
 
 public object MediaButtonDefaults {
-    val mediaButtonDefaultColors: ButtonColors
+    public val mediaButtonDefaultColors: ButtonColors
         @Composable
         get() = ButtonDefaults.buttonColors(
             backgroundColor = Color.Transparent,

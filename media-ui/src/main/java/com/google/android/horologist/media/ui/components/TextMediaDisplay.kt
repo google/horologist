@@ -48,7 +48,7 @@ public fun TextMediaDisplay(
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
-            style = MaterialTheme.typography.body1,
+            style = MaterialTheme.typography.button,
         )
         Spacer(modifier = Modifier.size(2.dp))
         Text(

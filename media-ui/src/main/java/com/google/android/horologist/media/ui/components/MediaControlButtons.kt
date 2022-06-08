@@ -31,6 +31,7 @@ import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults
 import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
 import com.google.android.horologist.media.ui.components.controls.SeekToPreviousButton
 
@@ -118,7 +119,7 @@ internal fun MediaControlButtons(
     showProgress: Boolean,
     modifier: Modifier = Modifier,
     percent: Float? = null,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
     progressColour: Color = MaterialTheme.colors.primaryVariant,
 ) {
     Row(

@@ -25,7 +25,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun RadialBackground(color: Color?) {
+public fun RadialBackground(color: Color?) {
     Box(
         modifier = Modifier
             .fillMaxSize()

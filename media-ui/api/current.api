@@ -29,6 +29,14 @@ package com.google.android.horologist.media.ui.components {
 
 }
 
+package com.google.android.horologist.media.ui.components.background {
+
+  public final class RadialBackgroundKt {
+    method @androidx.compose.runtime.Composable public static void RadialBackground(androidx.compose.ui.graphics.Color? color);
+  }
+
+}
+
 package com.google.android.horologist.media.ui.components.controls {
 
   public final class MediaButtonKt {

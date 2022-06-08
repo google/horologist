@@ -22,7 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ButtonColors
-import androidx.wear.compose.material.ButtonDefaults
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 
@@ -32,7 +31,7 @@ public fun SeekToPreviousButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
 ) {
     MediaButton(
         onClick = onClick,

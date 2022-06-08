@@ -30,7 +30,6 @@ import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeSource
 import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.audio.ui.R
 import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi

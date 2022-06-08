@@ -65,7 +65,7 @@ public fun SettingsButtons(
 
 public object SettingsButtonsDefaults {
     @Composable
-    fun BrandIcon(@DrawableRes iconId: Int) {
+    public fun BrandIcon(@DrawableRes iconId: Int) {
         Image(
             modifier = Modifier.size(18.dp).clip(CircleShape),
             painter = painterResource(id = iconId),

@@ -32,7 +32,7 @@ public val Orangey: Colors = Colors(
     onSurface = Color(0xFFED612B),
 )
 
-public val UampColors = Colors(
+public val UampColors: Colors = Colors(
     primary = Color(0xFF981F68),
     primaryVariant = Color(0xFF66003d),
     error = Color(0xFFE24444),

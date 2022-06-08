@@ -33,6 +33,7 @@ package com.google.android.horologist.compose.tools {
   public final class ThemeValuesKt {
     method public static androidx.wear.compose.material.Colors getOrangey();
     method public static java.util.List<com.google.android.horologist.compose.tools.ThemeValues> getThemeValues();
+    method public static androidx.wear.compose.material.Colors getUampColors();
   }
 
   @androidx.compose.ui.tooling.preview.Preview(device=androidx.compose.ui.tooling.preview.Devices.WEAR_OS_LARGE_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Devices - Large Round") @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public @interface WearLargeRoundDevicePreview {

@@ -42,16 +42,16 @@ import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.media.ui.utils.StateUtils.rememberStateWithLifecycle
 
 @OptIn(ExperimentalHorologistMediaUiApi::class)
-typealias MediaDisplay = @Composable ColumnScope.(playerUiState: PlayerUiState) -> Unit
+public typealias MediaDisplay = @Composable ColumnScope.(playerUiState: PlayerUiState) -> Unit
 
 @OptIn(ExperimentalHorologistMediaUiApi::class)
-typealias ControlButtons = @Composable RowScope.(playerUiState: PlayerUiState) -> Unit
+public typealias ControlButtons = @Composable RowScope.(playerUiState: PlayerUiState) -> Unit
 
 @OptIn(ExperimentalHorologistMediaUiApi::class)
-typealias SettingsButtons = @Composable RowScope.(playerUiState: PlayerUiState) -> Unit
+public typealias SettingsButtons = @Composable RowScope.(playerUiState: PlayerUiState) -> Unit
 
 @OptIn(ExperimentalHorologistMediaUiApi::class)
-typealias PlayerBackground = @Composable BoxScope.(playerUiState: PlayerUiState) -> Unit
+public typealias PlayerBackground = @Composable BoxScope.(playerUiState: PlayerUiState) -> Unit
 
 /**
  * Stateful version of [PlayerScreen] that provides default implementation for media display and

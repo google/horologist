@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class)
+@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistComposeToolsApi::class)
 
 package com.google.android.horologist.media.ui.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,17 +29,20 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Button
-import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.CircularProgressIndicator
-import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
+import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.components.SettingsButtons
+import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.compose.tools.WearPreviewDevices
+import com.google.android.horologist.compose.tools.WearPreviewFontSizes
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.TextMediaDisplay
+import com.google.android.horologist.media.ui.components.background.RadialBackground
 
 @Preview(
     group = "Large Round",
@@ -90,7 +91,13 @@ fun PlayerScreenPreview() {
                     seekToPreviousButtonEnabled = true,
                 )
             },
-            buttons = {},
+            buttons = {
+                SettingsButtons(
+                    volumeState = VolumeState(5, 10),
+                    onVolumeClick = { },
+                    onOutputClick = { }
+                )
+            },
         )
     }
 }
@@ -147,13 +154,11 @@ fun PlayerScreenPreviewCustomMediaDisplay() {
                 )
             },
             buttons = {
-                Button(
-                    onClick = { },
-                    colors = ButtonDefaults.iconButtonColors(),
-                    modifier = Modifier.size(ButtonDefaults.SmallButtonSize),
-                ) {
-                    Icon(imageVector = Icons.Default.VolumeUp, contentDescription = "Set Volume")
-                }
+                SettingsButtons(
+                    volumeState = VolumeState(5, 10),
+                    onVolumeClick = { },
+                    onOutputClick = { }
+                )
             },
         )
     }
@@ -208,7 +213,13 @@ fun PlayerScreenPreviewCustomBackground() {
                     seekToPreviousButtonEnabled = true,
                 )
             },
-            buttons = {},
+            buttons = {
+                SettingsButtons(
+                    volumeState = VolumeState(5, 10),
+                    onVolumeClick = { },
+                    onOutputClick = { }
+                )
+            },
             background = {
                 Box(modifier = Modifier.fillMaxSize()) {
                     CircularProgressIndicator(
@@ -233,6 +244,48 @@ fun PlayerScreenPreviewCustomBackground() {
                         indicatorColor = Color.Blue,
                     )
                 }
+            }
+        )
+    }
+}
+
+@WearPreviewDevices
+@WearPreviewFontSizes
+@Composable
+fun PlayerScreenPreviewDevices() {
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        timeText = { TimeText() }
+    ) {
+        PlayerScreen(
+            mediaDisplay = {
+                TextMediaDisplay(
+                    artist = "Journey",
+                    title = "Don't Stop Believin'"
+                )
+            },
+            controlButtons = {
+                MediaControlButtons(
+                    onPlayButtonClick = {},
+                    onPauseButtonClick = {},
+                    playPauseButtonEnabled = true,
+                    playing = true,
+                    percent = 0.25F,
+                    onSeekToNextButtonClick = {},
+                    seekToNextButtonEnabled = true,
+                    onSeekToPreviousButtonClick = {},
+                    seekToPreviousButtonEnabled = true,
+                )
+            },
+            buttons = {
+                SettingsButtons(
+                    volumeState = VolumeState(5, 10),
+                    onVolumeClick = { },
+                    onOutputClick = { }
+                )
+            },
+            background = {
+                RadialBackground(color = Color.Yellow)
             }
         )
     }

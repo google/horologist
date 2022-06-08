@@ -1,0 +1,86 @@
+// Signature format: 4.0
+package com.google.android.horologist.audio.ui {
+
+  @kotlin.RequiresOptIn(message="Horologist Audio UI is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistAudioUiApi {
+  }
+
+  public final class VolumePositionIndicatorKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void VolumePositionIndicator(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.VolumeState> volumeState, optional androidx.compose.ui.Modifier modifier, optional boolean autoHide);
+  }
+
+  public final class VolumeScreenDefaults {
+    method @androidx.compose.runtime.Composable public void DecreaseIcon();
+    method @androidx.compose.runtime.Composable public void IncreaseIcon();
+    field public static final com.google.android.horologist.audio.ui.VolumeScreenDefaults INSTANCE;
+  }
+
+  public final class VolumeScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void VolumeScreen(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.audio.ui.VolumeViewModel volumeViewModel, optional boolean showVolumeIndicator, optional androidx.compose.ui.focus.FocusRequester focusRequester, optional kotlin.jvm.functions.Function0<kotlin.Unit> increaseIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> decreaseIcon);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void VolumeScreen(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.VolumeState> volume, com.google.android.horologist.audio.AudioOutput audioOutput, kotlin.jvm.functions.Function0<kotlin.Unit> increaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> decreaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> onAudioOutputClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> increaseIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> decreaseIcon, optional boolean showVolumeIndicator, optional androidx.compose.ui.focus.FocusRequester focusRequester, optional androidx.compose.foundation.gestures.ScrollableState? scrollableState);
+  }
+
+  @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public final class VolumeScrollableState implements androidx.compose.foundation.gestures.ScrollableState {
+    ctor public VolumeScrollableState(com.google.android.horologist.audio.VolumeRepository volumeRepository, android.os.Vibrator vibrator);
+    method public float dispatchRawDelta(float delta);
+    method public boolean isScrollInProgress();
+    method public suspend Object? scroll(androidx.compose.foundation.MutatePriority scrollPriority, kotlin.jvm.functions.Function2<? super androidx.compose.foundation.gestures.ScrollScope,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> block, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    property public boolean isScrollInProgress;
+  }
+
+  @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public class VolumeViewModel extends androidx.lifecycle.ViewModel {
+    ctor public VolumeViewModel(com.google.android.horologist.audio.VolumeRepository volumeRepository, com.google.android.horologist.audio.AudioOutputRepository audioOutputRepository, optional kotlin.jvm.functions.Function0<kotlin.Unit> onCleared, android.os.Vibrator vibrator);
+    method public final void decreaseVolume();
+    method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> getAudioOutput();
+    method public final com.google.android.horologist.audio.ui.VolumeScrollableState getVolumeScrollableState();
+    method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.VolumeState> getVolumeState();
+    method public final void increaseVolume();
+    method public final void launchOutputSelection();
+    property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> audioOutput;
+    property public final com.google.android.horologist.audio.ui.VolumeScrollableState volumeScrollableState;
+    property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.VolumeState> volumeState;
+  }
+
+  @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static final class VolumeViewModel.Factory implements androidx.lifecycle.ViewModelProvider.Factory {
+    field public static final com.google.android.horologist.audio.ui.VolumeViewModel.Factory INSTANCE;
+  }
+
+}
+
+package com.google.android.horologist.audio.ui.components {
+
+  public final class SettingsButtonsDefaults {
+    method @androidx.compose.runtime.Composable public void BrandIcon(@DrawableRes int iconId);
+    field public static final com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults INSTANCE;
+  }
+
+  public final class SettingsButtonsKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void SettingsButtons(com.google.android.horologist.audio.VolumeState volumeState, kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, kotlin.jvm.functions.Function0<kotlin.Unit> onOutputClick, optional kotlin.jvm.functions.Function0<kotlin.Unit> brandIcon, optional androidx.compose.ui.Modifier modifier);
+  }
+
+}
+
+package com.google.android.horologist.audio.ui.components.actions {
+
+  public final class AudioOutputButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void AudioOutputButton(kotlin.jvm.functions.Function0<kotlin.Unit> onOutputClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled);
+  }
+
+  public final class SetVolumeButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void SetVolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, com.google.android.horologist.audio.VolumeState volumeState, optional androidx.compose.ui.Modifier modifier);
+  }
+
+}
+
+package com.google.android.horologist.audio.ui.semantics {
+
+  @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public final class CustomSemanticsProperties {
+    method public androidx.compose.ui.graphics.vector.ImageVector getIconImageVector(androidx.compose.ui.semantics.SemanticsPropertyReceiver);
+    method public androidx.compose.ui.semantics.SemanticsPropertyKey<androidx.compose.ui.graphics.vector.ImageVector> getIconImageVectorKey();
+    method public void setIconImageVector(androidx.compose.ui.semantics.SemanticsPropertyReceiver, androidx.compose.ui.graphics.vector.ImageVector iconImageVector);
+    property public final androidx.compose.ui.semantics.SemanticsPropertyKey<androidx.compose.ui.graphics.vector.ImageVector> IconImageVectorKey;
+    property public final androidx.compose.ui.graphics.vector.ImageVector iconImageVector;
+    field public static final com.google.android.horologist.audio.ui.semantics.CustomSemanticsProperties INSTANCE;
+  }
+
+}
+

@@ -1,0 +1,61 @@
+// Signature format: 4.0
+package com.google.android.horologist.compose.tools {
+
+  @kotlin.RequiresOptIn(message="Horologist Compose Tools is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistComposeToolsApi {
+  }
+
+  public final class InteractivePreviewAwareKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public static void InteractivePreviewAware(kotlin.jvm.functions.Function0<kotlin.Unit> block);
+    method public static androidx.compose.runtime.ProvidableCompositionLocal<java.lang.Boolean> getLocalInteractivePreview();
+    method public static androidx.compose.runtime.ProvidableCompositionLocal<java.lang.Boolean> getLocalStaticPreview();
+  }
+
+  public final class RoundPreviewKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public static void RoundPreview(kotlin.jvm.functions.Function0<kotlin.Unit> content);
+  }
+
+  @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public final class ThemeValues {
+    ctor public ThemeValues(String name, int index, androidx.wear.compose.material.Colors colors);
+    method public String component1();
+    method public int component2();
+    method public androidx.wear.compose.material.Colors component3();
+    method public com.google.android.horologist.compose.tools.ThemeValues copy(String name, int index, androidx.wear.compose.material.Colors colors);
+    method public androidx.wear.compose.material.Colors getColors();
+    method public int getIndex();
+    method public String getName();
+    method public String getSafeName();
+    property public final androidx.wear.compose.material.Colors colors;
+    property public final int index;
+    property public final String name;
+    property public final String safeName;
+  }
+
+  public final class ThemeValuesKt {
+    method public static androidx.wear.compose.material.Colors getOrangey();
+    method public static java.util.List<com.google.android.horologist.compose.tools.ThemeValues> getThemeValues();
+    method public static androidx.wear.compose.material.Colors getUampColors();
+  }
+
+  @androidx.compose.ui.tooling.preview.Preview(device=androidx.compose.ui.tooling.preview.Devices.WEAR_OS_LARGE_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Devices - Large Round") @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public @interface WearLargeRoundDevicePreview {
+  }
+
+  @androidx.compose.ui.tooling.preview.Preview(device=androidx.compose.ui.tooling.preview.Devices.WEAR_OS_LARGE_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Devices - Large Round") @androidx.compose.ui.tooling.preview.Preview(device=androidx.compose.ui.tooling.preview.Devices.WEAR_OS_SMALL_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Devices - Small Round") @androidx.compose.ui.tooling.preview.Preview(device=androidx.compose.ui.tooling.preview.Devices.WEAR_OS_SQUARE, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Devices - Square") @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public @interface WearPreviewDevices {
+  }
+
+  @androidx.compose.ui.tooling.preview.Preview(device=androidx.compose.ui.tooling.preview.Devices.WEAR_OS_SMALL_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Fonts - Small", fontScale=0.94f) @androidx.compose.ui.tooling.preview.Preview(device=androidx.compose.ui.tooling.preview.Devices.WEAR_OS_SMALL_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Fonts - Normal", fontScale=1.0f) @androidx.compose.ui.tooling.preview.Preview(device=androidx.compose.ui.tooling.preview.Devices.WEAR_OS_SMALL_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Fonts - Medium", fontScale=1.06f) @androidx.compose.ui.tooling.preview.Preview(device=androidx.compose.ui.tooling.preview.Devices.WEAR_OS_SMALL_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Fonts - Large", fontScale=1.12f) @androidx.compose.ui.tooling.preview.Preview(device=androidx.compose.ui.tooling.preview.Devices.WEAR_OS_SMALL_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Fonts - Larger", fontScale=1.18f) @androidx.compose.ui.tooling.preview.Preview(device=androidx.compose.ui.tooling.preview.Devices.WEAR_OS_SMALL_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Fonts - Largest", fontScale=1.24f) @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public @interface WearPreviewFontSizes {
+  }
+
+  @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public final class WearPreviewThemes implements androidx.compose.ui.tooling.preview.PreviewParameterProvider<com.google.android.horologist.compose.tools.ThemeValues> {
+    ctor public WearPreviewThemes();
+    method public kotlin.sequences.Sequence<com.google.android.horologist.compose.tools.ThemeValues> getValues();
+    property public kotlin.sequences.Sequence<com.google.android.horologist.compose.tools.ThemeValues> values;
+  }
+
+  @androidx.compose.ui.tooling.preview.Preview(device=androidx.compose.ui.tooling.preview.Devices.WEAR_OS_SMALL_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Devices - Small Round") @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public @interface WearSmallRoundDevicePreview {
+  }
+
+  @androidx.compose.ui.tooling.preview.Preview(device=androidx.compose.ui.tooling.preview.Devices.WEAR_OS_SQUARE, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Devices - Square") @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public @interface WearSquareDevicePreview {
+  }
+
+}
+

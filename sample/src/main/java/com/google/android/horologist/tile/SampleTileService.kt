@@ -20,13 +20,12 @@ import androidx.wear.tiles.RequestBuilders.ResourcesRequest
 import androidx.wear.tiles.RequestBuilders.TileRequest
 import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
-import coil.ImageLoader
+import coil.imageLoader
 import com.google.android.horologist.tiles.CoroutinesTileService
 import com.google.android.horologist.tiles.loadImageResource
 
 class SampleTileService : CoroutinesTileService() {
     private lateinit var renderer: SampleTileRenderer
-    private lateinit var imageLoader: ImageLoader
 
     private var count = 0
 
@@ -34,7 +33,6 @@ class SampleTileService : CoroutinesTileService() {
         super.onCreate()
 
         renderer = SampleTileRenderer(this)
-        imageLoader = ImageLoader(this)
     }
 
     override suspend fun tileRequest(requestParams: TileRequest): Tile {
@@ -42,15 +40,18 @@ class SampleTileService : CoroutinesTileService() {
             count++
         }
 
-        return renderer.renderTimeline(count, requestParams)
+        return renderer.renderTimeline(SampleTileRenderer.TileState(count), requestParams)
     }
 
     override suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources {
         val imageResource = imageLoader.loadImageResource(
             this,
-            "https://wordpress.org/openverse/image/34896de8-afb0-494c-af63-17b73fc14124/"
+            "https://live.staticflickr.com/564/20749461040_5ddeb85cab_b.jpg"
         )
 
-        return renderer.produceRequestedResources(imageResource, requestParams)
+        return renderer.produceRequestedResources(
+            SampleTileRenderer.ResourceState(imageResource),
+            requestParams
+        )
     }
 }

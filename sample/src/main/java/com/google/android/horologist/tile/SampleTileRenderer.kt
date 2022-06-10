@@ -19,6 +19,7 @@
 package com.google.android.horologist.tile
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
@@ -41,12 +42,16 @@ import com.google.android.horologist.compose.tools.ExperimentalHorologistCompose
 import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.compose.tools.WearPreviewFontSizes
+import com.google.android.horologist.sample.R
 import com.google.android.horologist.tiles.SingleTileLayoutRenderer
+import com.google.android.horologist.tiles.toImageResource
 
 class SampleTileRenderer(context: Context) :
-    SingleTileLayoutRenderer<Int, ImageResource?>(context) {
+    SingleTileLayoutRenderer<SampleTileRenderer.TileState, SampleTileRenderer.ResourceState>(
+        context
+    ) {
     override fun renderTile(
-        singleTileState: Int,
+        singleTileState: TileState,
         deviceParameters: DeviceParameters,
         theme: Colors
     ): LayoutElementBuilders.LayoutElement {
@@ -56,7 +61,7 @@ class SampleTileRenderer(context: Context) :
 
         return PrimaryLayout.Builder(deviceParameters)
             .setPrimaryLabelTextContent(
-                Text.Builder(context, "Count: $singleTileState")
+                Text.Builder(context, "Count: ${singleTileState.count}")
                     .setTypography(Typography.TYPOGRAPHY_CAPTION1)
                     .setColor(argb(theme.primary))
                     .build()
@@ -65,13 +70,13 @@ class SampleTileRenderer(context: Context) :
                 MultiButtonLayout.Builder()
                     .addButtonContent(
                         Button.Builder(context, clickable)
-                            .setIconContent("icon1")
+                            .setIconContent("image")
                             .setButtonColors(ButtonColors.secondaryButtonColors(theme))
                             .build()
                     )
                     .addButtonContent(
                         Button.Builder(context, clickable)
-                            .setIconContent("icon2")
+                            .setIconContent("image")
                             .setButtonColors(ButtonColors.secondaryButtonColors(theme))
                             .build()
                     )
@@ -86,14 +91,18 @@ class SampleTileRenderer(context: Context) :
     }
 
     override fun Resources.Builder.produceRequestedResources(
-        resourceResults: ImageResource?,
+        resourceResults: ResourceState,
         deviceParameters: DeviceParameters,
         resourceIds: MutableList<String>
     ) {
-        if (resourceResults != null) {
-            addIdToImageMapping("image", resourceResults)
+        if (resourceResults.image != null) {
+            addIdToImageMapping("image", resourceResults.image)
         }
     }
+
+    data class TileState(val count: Int)
+
+    data class ResourceState(val image: ImageResource?)
 }
 
 @WearPreviewDevices
@@ -102,9 +111,21 @@ class SampleTileRenderer(context: Context) :
 fun SampleTilePreview() {
     val context = LocalContext.current
 
+    val tileState = remember { SampleTileRenderer.TileState(0) }
+
+    val resourceState = remember {
+        val image =
+            BitmapFactory.decodeResource(context.resources, R.drawable.ic_uamp).toImageResource()
+        SampleTileRenderer.ResourceState(image)
+    }
+
     val renderer = remember {
         SampleTileRenderer(context)
     }
 
-    TileLayoutPreview(1, null, renderer)
+    TileLayoutPreview(
+        tileState,
+        resourceState,
+        renderer
+    )
 }

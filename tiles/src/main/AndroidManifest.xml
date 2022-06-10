@@ -15,10 +15,10 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.google.android.horologist.tiles"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.google.android.horologist.tiles">
 
     <uses-feature android:name="android.hardware.type.watch" />
 
-    <uses-sdk tools:overrideLibrary="androidx.wear.tiles.material, androidx.wear.tiles.renderer" />
+    <uses-sdk tools:overrideLibrary="androidx.wear.tiles.material, androidx.wear.tiles.renderer, androidx.wear.tiles.testing" />
 </manifest>

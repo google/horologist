@@ -27,9 +27,11 @@ import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.audio.ui.components.SettingsButtons
+import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.compose.pager.FocusOnResume
 import com.google.android.horologist.media.ui.screens.PlayerScreen
+import com.google.android.horologist.sample.R
 import com.google.android.horologist.utils.rememberStateWithLifecycle
 
 @Composable
@@ -59,7 +61,10 @@ fun MediaPlayerScreen(
                 SettingsButtons(
                     volumeState = volumeState,
                     onVolumeClick = onVolumeClick,
-                    onOutputClick = onOutputClick
+                    onOutputClick = onOutputClick,
+                    brandIcon = {
+                        SettingsButtonsDefaults.BrandIcon(R.drawable.ic_uamp)
+                    }
                 )
             }
         )

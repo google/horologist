@@ -37,6 +37,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.SettingsButtons
+import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
@@ -44,9 +45,11 @@ import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.compose.tools.WearPreviewFontSizes
 import com.google.android.horologist.compose.tools.WearPreviewThemes
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.TextMediaDisplay
 import com.google.android.horologist.media.ui.components.background.RadialBackground
+import com.google.android.horologist.media.ui.uamp.UampTheme
 
 @Preview(
     group = "Large Round",
@@ -99,7 +102,10 @@ fun PlayerScreenPreview() {
                 SettingsButtons(
                     volumeState = VolumeState(5, 10),
                     onVolumeClick = { },
-                    onOutputClick = { }
+                    onOutputClick = { },
+                    brandIcon = {
+                        SettingsButtonsDefaults.BrandIcon(R.drawable.ic_uamp)
+                    }
                 )
             },
         )
@@ -161,7 +167,10 @@ fun PlayerScreenPreviewCustomMediaDisplay() {
                 SettingsButtons(
                     volumeState = VolumeState(5, 10),
                     onVolumeClick = { },
-                    onOutputClick = { }
+                    onOutputClick = { },
+                    brandIcon = {
+                        SettingsButtonsDefaults.BrandIcon(R.drawable.ic_uamp)
+                    }
                 )
             },
         )
@@ -221,7 +230,10 @@ fun PlayerScreenPreviewCustomBackground() {
                 SettingsButtons(
                     volumeState = VolumeState(5, 10),
                     onVolumeClick = { },
-                    onOutputClick = { }
+                    onOutputClick = { },
+                    brandIcon = {
+                        SettingsButtonsDefaults.BrandIcon(R.drawable.ic_uamp)
+                    }
                 )
             },
             background = {
@@ -257,7 +269,9 @@ fun PlayerScreenPreviewCustomBackground() {
 @WearPreviewFontSizes
 @Composable
 fun PlayerScreenPreviewDevices() {
-    DefaultMediaDisplay()
+    UampTheme {
+        DefaultMediaDisplay()
+    }
 }
 
 @WearLargeRoundDevicePreview
@@ -271,7 +285,7 @@ fun VolumeScreenTheme(
 }
 
 @Composable
-private fun DefaultMediaDisplay() {
+fun DefaultMediaDisplay() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         timeText = { TimeText() }
@@ -300,7 +314,10 @@ private fun DefaultMediaDisplay() {
                 SettingsButtons(
                     volumeState = VolumeState(5, 10),
                     onVolumeClick = { },
-                    onOutputClick = { }
+                    onOutputClick = { },
+                    brandIcon = {
+                        SettingsButtonsDefaults.BrandIcon(R.drawable.ic_uamp)
+                    }
                 )
             },
             background = {

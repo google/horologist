@@ -22,9 +22,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalContext
@@ -40,9 +38,9 @@ import com.google.android.horologist.sample.Screen
 import com.google.android.horologist.sample.di.SampleAppDI
 import com.google.android.horologist.sample.media.MediaPlayerScreen
 import com.google.android.horologist.sample.media.MediaPlayerScreenViewModel
+import com.google.android.horologist.sample.media.UampTheme
 
 class MediaActivity : ComponentActivity() {
-
     lateinit var mediaPlayerScreenViewModelFactory: MediaPlayerScreenViewModel.Factory
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,35 +60,37 @@ fun WearApp(
 ) {
     val navController = rememberSwipeDismissableNavController()
 
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        SwipeDismissableNavHost(
-            navController = navController,
-            startDestination = Screen.MediaPlayer.route,
+    UampTheme {
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
         ) {
-            composable(Screen.Volume.route) {
-                val focusRequester = remember { FocusRequester() }
+            SwipeDismissableNavHost(
+                navController = navController,
+                startDestination = Screen.MediaPlayer.route,
+            ) {
+                composable(Screen.Volume.route) {
+                    val focusRequester = remember { FocusRequester() }
 
-                VolumeScreen(focusRequester = focusRequester)
+                    VolumeScreen(focusRequester = focusRequester)
 
-                LaunchedEffect(Unit) {
-                    focusRequester.requestFocus()
-                }
-            }
-            composable(Screen.MediaPlayer.route) {
-                val context = LocalContext.current
-
-                MediaPlayerScreen(
-                    mediaPlayerScreenViewModel = viewModel(factory = mediaPlayerScreenViewModelFactory),
-                    volumeViewModel = viewModel(factory = VolumeViewModel.Factory),
-                    onVolumeClick = {
-                        navController.navigate(Screen.Volume.route)
-                    },
-                    onOutputClick = {
-                        context.launchBluetoothSettings()
+                    LaunchedEffect(Unit) {
+                        focusRequester.requestFocus()
                     }
-                )
+                }
+                composable(Screen.MediaPlayer.route) {
+                    val context = LocalContext.current
+
+                    MediaPlayerScreen(
+                        mediaPlayerScreenViewModel = viewModel(factory = mediaPlayerScreenViewModelFactory),
+                        volumeViewModel = viewModel(factory = VolumeViewModel.Factory),
+                        onVolumeClick = {
+                            navController.navigate(Screen.Volume.route)
+                        },
+                        onOutputClick = {
+                            context.launchBluetoothSettings()
+                        }
+                    )
+                }
             }
         }
     }

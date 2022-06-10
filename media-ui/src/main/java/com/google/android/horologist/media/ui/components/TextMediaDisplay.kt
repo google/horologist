@@ -54,7 +54,7 @@ public fun TextMediaDisplay(
         Text(
             text = artist.orEmpty(),
             modifier = Modifier.fillMaxWidth(0.8f),
-            color = MaterialTheme.colors.primary,
+            color = MaterialTheme.colors.onBackground,
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,

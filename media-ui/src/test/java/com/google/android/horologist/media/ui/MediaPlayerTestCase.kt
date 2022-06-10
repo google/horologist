@@ -18,18 +18,12 @@
 
 package com.google.android.horologist.media.ui
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Colors
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
@@ -37,6 +31,7 @@ import androidx.wear.compose.material.TimeSource
 import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.SettingsButtons
+import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.media.ui.components.MediaControlButtons
@@ -71,11 +66,7 @@ fun MediaPlayerTestCase(
             onVolumeClick = { /*TODO*/ },
             onOutputClick = { },
             brandIcon = {
-                Image(
-                    modifier = Modifier.size(16.dp).clip(CircleShape),
-                    painter = painterResource(id = R.drawable.ic_uamp),
-                    contentDescription = null
-                )
+                SettingsButtonsDefaults.BrandIcon(R.drawable.ic_uamp)
             },
         )
     },

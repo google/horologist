@@ -12,5 +12,11 @@ package com.google.android.horologist.tiles {
     method public abstract suspend Object? tileRequest(androidx.wear.tiles.RequestBuilders.TileRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.TileBuilders.Tile> p);
   }
 
+  public final class ImagesKt {
+    method public static suspend Object? loadImage(coil.ImageLoader, android.content.Context context, Object? data, optional kotlin.jvm.functions.Function1<? super coil.request.ImageRequest.Builder,kotlin.Unit> configurer, optional kotlin.coroutines.Continuation<? super android.graphics.Bitmap> p);
+    method public static suspend Object? loadImageResource(coil.ImageLoader, android.content.Context context, Object? data, optional kotlin.jvm.functions.Function1<? super coil.request.ImageRequest.Builder,kotlin.Unit> configurer, optional kotlin.coroutines.Continuation<? super androidx.wear.tiles.ResourceBuilders.ImageResource> p);
+    method public static androidx.wear.tiles.ResourceBuilders.ImageResource toImageResource(android.graphics.Bitmap);
+  }
+
 }
 

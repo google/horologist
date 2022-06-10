@@ -27,7 +27,7 @@ import androidx.wear.tiles.TimelineBuilders
 import androidx.wear.tiles.material.Colors
 
 public abstract class SingleTileLayoutRenderer<T, R>(
-    val context: Context
+    public val context: Context
 ) : TileLayoutRenderer<T, R> {
     final override fun renderTimeline(
         tileState: T,
@@ -86,4 +86,4 @@ public abstract class SingleTileLayoutRenderer<T, R>(
     ): Unit
 }
 
-public const val PERMANENT_RESOURCES_VERSION = "0"
+public const val PERMANENT_RESOURCES_VERSION: String = "0"

@@ -47,7 +47,7 @@ import kotlinx.coroutines.asExecutor
 import kotlin.math.roundToInt
 
 @Composable
-fun <T, R> TileLayoutPreview(state: T, resourceState: R, renderer: TileLayoutRenderer<T, R>) {
+public fun <T, R> TileLayoutPreview(state: T, resourceState: R, renderer: TileLayoutRenderer<T, R>) {
     val context = LocalContext.current
     val resources = context.resources
 
@@ -63,7 +63,7 @@ fun <T, R> TileLayoutPreview(state: T, resourceState: R, renderer: TileLayoutRen
 }
 
 @Composable
-fun TilePreview(
+public fun TilePreview(
     tile: TileBuilders.Tile,
     tileResources: ResourceBuilders.Resources
 ) {
@@ -90,7 +90,7 @@ fun TilePreview(
 }
 
 @Composable
-fun LayoutPreview(
+public fun LayoutPreview(
     layout: LayoutElement,
     tileResources: ResourceBuilders.Resources = ResourceBuilders.Resources.Builder().build()
 ) {
@@ -145,7 +145,7 @@ private fun resourceParams(resources: Resources, version: String) =
     RequestBuilders.ResourcesRequest.Builder().setDeviceParameters(buildDeviceParameters(resources))
         .setVersion(version).build()
 
-fun buildDeviceParameters(resources: Resources): DeviceParametersBuilders.DeviceParameters {
+private fun buildDeviceParameters(resources: Resources): DeviceParametersBuilders.DeviceParameters {
     val displayMetrics: DisplayMetrics = resources.displayMetrics
     val isScreenRound: Boolean = resources.configuration.isScreenRound
     return DeviceParametersBuilders.DeviceParameters.Builder()

@@ -21,12 +21,12 @@ import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
 
 public interface TileLayoutRenderer<T, R> {
-    fun renderTimeline(
+    public fun renderTimeline(
         tileState: T,
         requestParams: RequestBuilders.TileRequest,
     ): Tile
 
-    fun produceRequestedResources(
+    public fun produceRequestedResources(
         resourceResults: R,
         requestParams: RequestBuilders.ResourcesRequest,
     ): Resources

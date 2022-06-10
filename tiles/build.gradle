@@ -101,6 +101,8 @@ dependencies {
     implementation libs.androidx.wear.tiles
     implementation libs.androidx.lifecycle.service
 
+    implementation libs.coil
+
     testImplementation libs.androidx.wear.tiles.testing
     testImplementation libs.espresso.core
     testImplementation libs.junit
@@ -110,6 +112,7 @@ dependencies {
     testImplementation libs.androidx.concurrent.future.ktx
 
     androidTestImplementation libs.androidx.lifecycle.testing
+    androidTestImplementation libs.kotlinx.coroutines.test
     androidTestImplementation libs.truth
     debugImplementation libs.compose.ui.test.manifest
     androidTestImplementation libs.espresso.core

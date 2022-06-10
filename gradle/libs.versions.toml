@@ -54,6 +54,7 @@ androidx-test-rules = "androidx.test:rules:1.4.0"
 androidx-wear = { module = "androidx.wear:wear", version.ref = "androidxWear" }
 androidx-wear-tiles = { module = "androidx.wear.tiles:tiles", version.ref = "androidxtiles" }
 androidx-wear-tiles-testing = { module = "androidx.wear.tiles:tiles-testing", version.ref = "androidxtiles" }
+coil = "io.coil-kt:coil-compose:2.1.0"
 com-squareup-okhttp3-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "com-squareup-okhttp3" }
 compose-foundation-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-material-iconscore = { module = "androidx.compose.material:material-icons-core", version.ref = "compose" }

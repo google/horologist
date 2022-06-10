@@ -1,5 +1,7 @@
 # Tiles Library
 
+## CoroutinesTileService
+
 Provides a CoroutinesTileService, which also acts as a LifecycleService.
 
 ```kotlin
@@ -13,6 +15,19 @@ class ExampleTileService : CoroutinesTileService() {
     override suspend fun resourcesRequest(
         requestParams: RequestBuilders.ResourcesRequest
     ): ResourceBuilders.Resources = ResourceBuilders.Resources.Builder().setVersion("1").build()
+}
+```
+
+## Coil Image Helpers
+
+Provides a suspending method to load an image from the network, convert to an RGB_565
+bitmap, and encode as a Tiles InlineImageResource.
+
+```kotlin
+val imageResource = imageLoader.loadImageResource(applicationContext, 
+    "https://raw.githubusercontent.com/google/horologist/main/docs/media-ui/playerscreen.png") {
+    // Show a local error image if missing
+    error(R.drawable.missingImage)
 }
 ```
 

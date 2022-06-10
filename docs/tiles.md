@@ -20,7 +20,7 @@ class ExampleTileService : CoroutinesTileService() {
 
 ## Coil Image Helpers
 
-Provides a suspending method to load an image from the network, convert to a RGB_565
+Provides a suspending method to load an image from the network, convert to an RGB_565
 bitmap, and encode as a Tiles InlineImageResource.
 
 ```kotlin

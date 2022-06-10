@@ -20,5 +20,9 @@
 
     <uses-feature android:name="android.hardware.type.watch" />
 
+    <!-- Tiles is API 26, but if we don't stop this here, then we can't run the sample app
+    on older devices (25).  We also don't want this to bleed into other modules via
+    compose-tools which is used just for testing.
+     -->
     <uses-sdk tools:overrideLibrary="androidx.wear.tiles.material, androidx.wear.tiles.renderer, androidx.wear.tiles.testing" />
 </manifest>

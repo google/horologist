@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.wear.compose.material.MaterialTheme
@@ -34,10 +35,11 @@ import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.compose.tools.WearPreviewFontSizes
 import com.google.android.horologist.compose.tools.WearPreviewThemes
+import com.google.android.horologist.compose.tools.WearSmallRoundDevicePreview
 
-@WearLargeRoundDevicePreview
+@WearSmallRoundDevicePreview
 @Composable
-fun VolumeScreenGuide() {
+fun VolumeScreenGuideWithLongText() {
     val volume = VolumeState(10, 10)
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -51,13 +53,12 @@ fun VolumeScreenGuide() {
         ) {
             VolumeScreen(
                 volume = { volume },
-                audioOutput = AudioOutput.BluetoothHeadset(id = "1", name = "PixelBuds"),
+                audioOutput = AudioOutput.BluetoothHeadset(id = "1", name = "Galaxy Watch 4"),
                 increaseVolume = { },
                 decreaseVolume = { },
                 onAudioOutputClick = {},
             )
         }
-        VolumeScreenUxGuide()
     }
 }
 

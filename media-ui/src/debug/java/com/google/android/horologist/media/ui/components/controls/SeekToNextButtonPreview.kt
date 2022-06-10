@@ -22,13 +22,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
-@Preview(name = "Enabled")
+@Preview(
+    name = "Enabled",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun SeekToNextButtonPreviewEnabled() {
     SeekToNextButton(onClick = {})
 }
 
-@Preview(name = "Disabled")
+@Preview(
+    name = "Disabled",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun SeekToNextButtonPreviewDisabled() {
     SeekToNextButton(onClick = {}, enabled = false)

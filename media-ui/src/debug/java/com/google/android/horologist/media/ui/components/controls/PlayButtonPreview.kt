@@ -22,7 +22,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
-@Preview(name = "Enabled")
+@Preview(
+    name = "Enabled",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun PlayButtonPreviewEnabled() {
     PlayButton(
@@ -30,7 +34,11 @@ fun PlayButtonPreviewEnabled() {
     )
 }
 
-@Preview(name = "Disabled")
+@Preview(
+    name = "Disabled",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun PlayButtonPreviewDisabled() {
     PlayButton(

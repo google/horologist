@@ -95,11 +95,16 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
 dependencies {
     implementation libs.kotlin.stdlib
 
+    implementation projects.tiles
+
     implementation libs.compose.ui.tooling
 
     implementation libs.wearcompose.material
     implementation libs.wearcompose.foundation
     implementation libs.wearcompose.navigation
+
+    implementation libs.androidx.wear.tiles
+    implementation libs.androidx.wear.tiles.renderer
 
     debugImplementation libs.compose.ui.test.manifest
     debugImplementation libs.compose.ui.toolingpreview

@@ -22,7 +22,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
-@Preview("Enabled - Playing")
+@Preview(
+    "Enabled - Playing",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun PlayPauseButtonPreviewPlaying() {
     PlayPauseButton(
@@ -33,7 +37,11 @@ fun PlayPauseButtonPreviewPlaying() {
     )
 }
 
-@Preview("Enabled - Not playing")
+@Preview(
+    "Enabled - Not playing",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun PlayPauseButtonPreviewNotPlaying() {
     PlayPauseButton(
@@ -44,7 +52,11 @@ fun PlayPauseButtonPreviewNotPlaying() {
     )
 }
 
-@Preview("Disabled - Playing")
+@Preview(
+    "Disabled - Playing",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun PlayPauseButtonPreviewDisabledPlaying() {
     PlayPauseButton(
@@ -55,7 +67,11 @@ fun PlayPauseButtonPreviewDisabledPlaying() {
     )
 }
 
-@Preview("Disabled - Not playing")
+@Preview(
+    "Disabled - Not playing",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun PlayPauseButtonPreviewDisabledNotPlaying() {
     PlayPauseButton(

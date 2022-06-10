@@ -22,7 +22,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
-@Preview(name = "5 seconds increment - Enabled")
+@Preview(
+    name = "5 seconds increment - Enabled",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun SeekBackButtonPreview5() {
     SeekBackButton(
@@ -31,7 +35,11 @@ fun SeekBackButtonPreview5() {
     )
 }
 
-@Preview(name = "10 seconds increment - Disabled")
+@Preview(
+    name = "10 seconds increment - Disabled",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun SeekBackButtonPreview10() {
     SeekBackButton(
@@ -41,7 +49,11 @@ fun SeekBackButtonPreview10() {
     )
 }
 
-@Preview(name = "30 seconds increment - Enabled")
+@Preview(
+    name = "30 seconds increment - Enabled",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun SeekBackButtonPreview30() {
     SeekBackButton(
@@ -50,7 +62,11 @@ fun SeekBackButtonPreview30() {
     )
 }
 
-@Preview(name = "Other amount of seconds increment - Disabled")
+@Preview(
+    name = "Other amount of seconds increment - Disabled",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun SeekBackButtonPreviewOther() {
     SeekBackButton(
@@ -60,7 +76,11 @@ fun SeekBackButtonPreviewOther() {
     )
 }
 
-@Preview(name = "Unknown amount of seconds increment - Enabled")
+@Preview(
+    name = "Unknown amount of seconds increment - Enabled",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun SeekBackButtonPreviewUnknown() {
     SeekBackButton(

@@ -23,7 +23,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 
-@Preview(name = "Other volume")
+@Preview(
+    name = "Other volume",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun SetVolumeButtonPreview() {
     SetVolumeButton(
@@ -32,7 +36,11 @@ fun SetVolumeButtonPreview() {
     )
 }
 
-@Preview(name = "Min volume")
+@Preview(
+    name = "Min volume",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun SetVolumeButtonPreviewMinVolume() {
     SetVolumeButton(
@@ -41,7 +49,11 @@ fun SetVolumeButtonPreviewMinVolume() {
     )
 }
 
-@Preview(name = "Max volume")
+@Preview(
+    name = "Max volume",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun SetVolumeButtonPreviewMaxVolume() {
     SetVolumeButton(

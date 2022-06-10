@@ -23,7 +23,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 
-@Preview("Enabled - Playing - With progress")
+@Preview(
+    "Enabled - Playing - With progress",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun PodcastControlButtonsPreview() {
     PodcastControlButtons(
@@ -41,7 +45,11 @@ fun PodcastControlButtonsPreview() {
     )
 }
 
-@Preview("Disabled - Not playing - Without progress")
+@Preview(
+    "Disabled - Not playing - Without progress",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun PodcastControlButtonsPreviewNoProgress() {
     PodcastControlButtons(

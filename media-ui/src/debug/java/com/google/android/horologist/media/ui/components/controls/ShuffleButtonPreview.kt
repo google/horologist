@@ -22,7 +22,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
-@Preview("Disabled - Off")
+@Preview(
+    "Disabled - Off",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun ShuffleButtonPreviewDisabledOff() {
     ShuffleButton(
@@ -32,7 +36,11 @@ fun ShuffleButtonPreviewDisabledOff() {
     )
 }
 
-@Preview("Enabled - Off")
+@Preview(
+    "Enabled - Off",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun ShuffleButtonPreviewEnabledOff() {
     ShuffleButton(
@@ -41,7 +49,11 @@ fun ShuffleButtonPreviewEnabledOff() {
     )
 }
 
-@Preview("Disabled - On")
+@Preview(
+    "Disabled - On",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun ShuffleButtonPreviewDisabledOn() {
     ShuffleButton(
@@ -51,7 +63,11 @@ fun ShuffleButtonPreviewDisabledOn() {
     )
 }
 
-@Preview("Enabled - On")
+@Preview(
+    "Enabled - On",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun ShuffleButtonPreviewEnabledOn() {
     ShuffleButton(

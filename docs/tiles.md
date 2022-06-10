@@ -24,7 +24,11 @@ Provides a suspending method to load an image from the network, convert to an RG
 bitmap, and encode as a Tiles InlineImageResource.
 
 ```kotlin
-val imageResource = imageLoader.loadImageResource(applicationContext, "https://raw.githubusercontent.com/google/horologist/main/docs/media-ui/playerscreen.png")
+val imageResource = imageLoader.loadImageResource(applicationContext, 
+    "https://raw.githubusercontent.com/google/horologist/main/docs/media-ui/playerscreen.png") {
+    // Show a local error image if missing
+    error(R.drawable.missingImage)
+}
 ```
 
 ## Download

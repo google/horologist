@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistComposeToolsApi::class)
+@file:OptIn(ExperimentalHorologistComposeToolsApi::class, ExperimentalHorologistTilesApi::class)
 
 package com.google.android.horologist.tile
 
@@ -23,6 +23,7 @@ import android.graphics.BitmapFactory
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.wear.tiles.ColorBuilders.argb
 import androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters
 import androidx.wear.tiles.LayoutElementBuilders
@@ -32,17 +33,18 @@ import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.material.Button
 import androidx.wear.tiles.material.ButtonColors
 import androidx.wear.tiles.material.ChipColors
-import androidx.wear.tiles.material.Colors
 import androidx.wear.tiles.material.CompactChip
 import androidx.wear.tiles.material.Text
 import androidx.wear.tiles.material.Typography
 import androidx.wear.tiles.material.layouts.MultiButtonLayout
 import androidx.wear.tiles.material.layouts.PrimaryLayout
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.compose.tools.LayoutPreview
 import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.compose.tools.WearPreviewFontSizes
 import com.google.android.horologist.sample.R
+import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
 import com.google.android.horologist.tiles.SingleTileLayoutRenderer
 import com.google.android.horologist.tiles.toImageResource
 
@@ -52,8 +54,7 @@ class SampleTileRenderer(context: Context) :
     ) {
     override fun renderTile(
         singleTileState: TileState,
-        deviceParameters: DeviceParameters,
-        theme: Colors
+        deviceParameters: DeviceParameters
     ): LayoutElementBuilders.LayoutElement {
         val clickable = Clickable.Builder()
             .setId("click")
@@ -69,16 +70,10 @@ class SampleTileRenderer(context: Context) :
             .setContent(
                 MultiButtonLayout.Builder()
                     .addButtonContent(
-                        Button.Builder(context, clickable)
-                            .setIconContent("image")
-                            .setButtonColors(ButtonColors.secondaryButtonColors(theme))
-                            .build()
+                        createButton(clickable)
                     )
                     .addButtonContent(
-                        Button.Builder(context, clickable)
-                            .setIconContent("image")
-                            .setButtonColors(ButtonColors.secondaryButtonColors(theme))
-                            .build()
+                        createButton(clickable)
                     )
                     .build()
             )
@@ -89,6 +84,13 @@ class SampleTileRenderer(context: Context) :
             )
             .build()
     }
+
+    internal fun createButton(
+        clickable: Clickable
+    ) = Button.Builder(context, clickable)
+        .setIconContent("image")
+        .setButtonColors(ButtonColors.secondaryButtonColors(theme))
+        .build()
 
     override fun Resources.Builder.produceRequestedResources(
         resourceResults: ResourceState,
@@ -129,3 +131,30 @@ fun SampleTilePreview() {
         renderer
     )
 }
+
+@IconSizePreview
+@Composable
+fun SampleButtonPreview() {
+    val context = LocalContext.current
+
+    val renderer = remember {
+        SampleTileRenderer(context)
+    }
+
+    val image = remember {
+        BitmapFactory.decodeResource(context.resources, R.drawable.ic_uamp).toImageResource()
+    }
+
+    val clickable = Clickable.Builder()
+        .setId("click")
+        .build()
+
+    LayoutPreview(renderer.createButton(clickable)) {
+        addIdToImageMapping("image", image)
+    }
+}
+
+@Preview(
+    backgroundColor = 0xff000000, showBackground = true, widthDp = 100, heightDp = 100
+)
+public annotation class IconSizePreview

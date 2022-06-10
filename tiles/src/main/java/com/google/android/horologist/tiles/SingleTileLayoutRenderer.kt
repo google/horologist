@@ -26,16 +26,24 @@ import androidx.wear.tiles.TileBuilders.Tile
 import androidx.wear.tiles.TimelineBuilders
 import androidx.wear.tiles.material.Colors
 
+/**
+ * A [TileLayoutRenderer] designed with typical but restrictive limitations, such as a single tile
+ * in the timeline, and fixed resources that will be updated by changing ids instead of version.
+ */
+@ExperimentalHorologistTilesApi
 public abstract class SingleTileLayoutRenderer<T, R>(
+    /**
+     * The context to avoid passing in through each render method.
+     */
     public val context: Context
 ) : TileLayoutRenderer<T, R> {
+    public val theme: Colors by lazy { createTheme() }
+
     final override fun renderTimeline(
         tileState: T,
         requestParams: RequestBuilders.TileRequest,
     ): Tile {
-        val theme = createTheme()
-
-        val rootLayout = renderTile(tileState, requestParams.deviceParameters!!, theme)
+        val rootLayout = renderTile(tileState, requestParams.deviceParameters!!)
 
         val singleTileTimeline = TimelineBuilders.Timeline.Builder()
             .addTimelineEntry(
@@ -55,12 +63,17 @@ public abstract class SingleTileLayoutRenderer<T, R>(
             .build()
     }
 
-    internal open fun createTheme(): Colors = Colors.DEFAULT
+    /**
+     * Create a material theme that should be applied to all components.
+     */
+    public open fun createTheme(): Colors = Colors.DEFAULT
 
+    /**
+     * Render a single tile as a LayoutElement, that will be the only item in the timeline.
+     */
     public abstract fun renderTile(
         singleTileState: T,
-        deviceParameters: DeviceParametersBuilders.DeviceParameters,
-        theme: Colors
+        deviceParameters: DeviceParametersBuilders.DeviceParameters
     ): LayoutElement
 
     final override fun produceRequestedResources(
@@ -79,6 +92,9 @@ public abstract class SingleTileLayoutRenderer<T, R>(
             .build()
     }
 
+    /**
+     * Add resources directly to the builder.
+     */
     public abstract fun Resources.Builder.produceRequestedResources(
         resourceResults: R,
         deviceParameters: DeviceParametersBuilders.DeviceParameters,
@@ -86,4 +102,7 @@ public abstract class SingleTileLayoutRenderer<T, R>(
     ): Unit
 }
 
+/**
+ * A constant for non updating resources where each id will always contain the same content.
+ */
 public const val PERMANENT_RESOURCES_VERSION: String = "0"

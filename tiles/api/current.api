@@ -12,27 +12,33 @@ package com.google.android.horologist.tiles {
     method public abstract suspend Object? tileRequest(androidx.wear.tiles.RequestBuilders.TileRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.TileBuilders.Tile> p);
   }
 
+  @kotlin.RequiresOptIn(message="Horologist Tiles is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistTilesApi {
+  }
+
   public final class ImagesKt {
     method public static suspend Object? loadImage(coil.ImageLoader, android.content.Context context, Object? data, optional kotlin.jvm.functions.Function1<? super coil.request.ImageRequest.Builder,kotlin.Unit> configurer, optional kotlin.coroutines.Continuation<? super android.graphics.Bitmap> p);
     method public static suspend Object? loadImageResource(coil.ImageLoader, android.content.Context context, Object? data, optional kotlin.jvm.functions.Function1<? super coil.request.ImageRequest.Builder,kotlin.Unit> configurer, optional kotlin.coroutines.Continuation<? super androidx.wear.tiles.ResourceBuilders.ImageResource> p);
     method public static androidx.wear.tiles.ResourceBuilders.ImageResource toImageResource(android.graphics.Bitmap);
   }
 
-  public abstract class SingleTileLayoutRenderer<T, R> implements com.google.android.horologist.tiles.TileLayoutRenderer<T,R> {
+  @com.google.android.horologist.tiles.ExperimentalHorologistTilesApi public abstract class SingleTileLayoutRenderer<T, R> implements com.google.android.horologist.tiles.TileLayoutRenderer<T,R> {
     ctor public SingleTileLayoutRenderer(android.content.Context context);
+    method public androidx.wear.tiles.material.Colors createTheme();
     method public final android.content.Context getContext();
+    method public final androidx.wear.tiles.material.Colors getTheme();
     method public final androidx.wear.tiles.ResourceBuilders.Resources produceRequestedResources(R? resourceResults, androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams);
     method public abstract void produceRequestedResources(androidx.wear.tiles.ResourceBuilders.Resources.Builder, R? resourceResults, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters, java.util.List<java.lang.String> resourceIds);
-    method public abstract androidx.wear.tiles.LayoutElementBuilders.LayoutElement renderTile(T? singleTileState, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters, androidx.wear.tiles.material.Colors theme);
+    method public abstract androidx.wear.tiles.LayoutElementBuilders.LayoutElement renderTile(T? singleTileState, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters);
     method public final androidx.wear.tiles.TileBuilders.Tile renderTimeline(T? tileState, androidx.wear.tiles.RequestBuilders.TileRequest requestParams);
     property public final android.content.Context context;
+    property public final androidx.wear.tiles.material.Colors theme;
   }
 
   public final class SingleTileLayoutRendererKt {
     field public static final String PERMANENT_RESOURCES_VERSION = "0";
   }
 
-  public interface TileLayoutRenderer<T, R> {
+  @com.google.android.horologist.tiles.ExperimentalHorologistTilesApi public interface TileLayoutRenderer<T, R> {
     method public androidx.wear.tiles.ResourceBuilders.Resources produceRequestedResources(R? resourceResults, androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams);
     method public androidx.wear.tiles.TileBuilders.Tile renderTimeline(T? tileState, androidx.wear.tiles.RequestBuilders.TileRequest requestParams);
   }

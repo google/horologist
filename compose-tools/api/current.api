@@ -37,9 +37,9 @@ package com.google.android.horologist.compose.tools {
   }
 
   public final class TilePreviewKt {
-    method @androidx.compose.runtime.Composable public static void LayoutPreview(androidx.wear.tiles.LayoutElementBuilders.LayoutElement layout, optional androidx.wear.tiles.ResourceBuilders.Resources tileResources);
-    method @androidx.compose.runtime.Composable public static <T, R> void TileLayoutPreview(T? state, R? resourceState, com.google.android.horologist.tiles.TileLayoutRenderer<T,R> renderer);
-    method @androidx.compose.runtime.Composable public static void TilePreview(androidx.wear.tiles.TileBuilders.Tile tile, androidx.wear.tiles.ResourceBuilders.Resources tileResources);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public static void LayoutPreview(androidx.wear.tiles.LayoutElementBuilders.LayoutElement layout, optional kotlin.jvm.functions.Function1<? super androidx.wear.tiles.ResourceBuilders.Resources.Builder,kotlin.Unit> tileResourcesFn);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public static <T, R> void TileLayoutPreview(T? state, R? resourceState, com.google.android.horologist.tiles.TileLayoutRenderer<T,R> renderer);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public static void TilePreview(androidx.wear.tiles.TileBuilders.Tile tile, androidx.wear.tiles.ResourceBuilders.Resources tileResources);
   }
 
   @androidx.compose.ui.tooling.preview.Preview(device=androidx.compose.ui.tooling.preview.Devices.WEAR_OS_LARGE_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Devices - Large Round") @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public @interface WearLargeRoundDevicePreview {

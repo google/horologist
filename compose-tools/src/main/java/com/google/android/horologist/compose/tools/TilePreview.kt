@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistTilesApi::class)
+
 package com.google.android.horologist.compose.tools
 
 import android.content.res.Resources
@@ -41,11 +43,18 @@ import androidx.wear.tiles.ResourceBuilders
 import androidx.wear.tiles.StateBuilders.State
 import androidx.wear.tiles.TileBuilders
 import androidx.wear.tiles.TimelineBuilders
+import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
 import com.google.android.horologist.tiles.TileLayoutRenderer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
 import kotlin.math.roundToInt
 
+/**
+ * Preview a [TileLayoutRenderer] by providing the complete state for tile and resources.
+ * Any bitmaps should be preloaded from test resources and passed in via [resourceState] as
+ * Bitmap or ImageResource.
+ */
+@ExperimentalHorologistComposeToolsApi
 @Composable
 public fun <T, R> TileLayoutPreview(state: T, resourceState: R, renderer: TileLayoutRenderer<T, R>) {
     val context = LocalContext.current
@@ -62,6 +71,10 @@ public fun <T, R> TileLayoutPreview(state: T, resourceState: R, renderer: TileLa
     TilePreview(tile, tileResources)
 }
 
+/**
+ * Preview a Tile by providing the final proto representation of tiles and resources.
+ */
+@ExperimentalHorologistComposeToolsApi
 @Composable
 public fun TilePreview(
     tile: TileBuilders.Tile,
@@ -89,10 +102,14 @@ public fun TilePreview(
     )
 }
 
+/**
+ * Preview a smaller tile component such as a Button, that is not full screen.
+ */
+@ExperimentalHorologistComposeToolsApi
 @Composable
 public fun LayoutPreview(
     layout: LayoutElement,
-    tileResources: ResourceBuilders.Resources = ResourceBuilders.Resources.Builder().build()
+    tileResourcesFn: ResourceBuilders.Resources.Builder.() -> Unit = {}
 ) {
     val tile = remember {
         TileBuilders.Tile.Builder()
@@ -132,6 +149,9 @@ public fun LayoutPreview(
             ).build()
     }
 
+    val tileResources = ResourceBuilders.Resources.Builder()
+        .apply(tileResourcesFn)
+        .build()
     TilePreview(tile, tileResources)
 }
 

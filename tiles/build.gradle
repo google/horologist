@@ -99,6 +99,7 @@ dependencies {
     implementation libs.androidx.concurrent.future
 
     implementation libs.androidx.wear.tiles
+    implementation libs.androidx.wear.tiles.material
     implementation libs.androidx.lifecycle.service
 
     implementation libs.coil

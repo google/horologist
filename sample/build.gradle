@@ -87,6 +87,8 @@ dependencies {
     implementation projects.media
     implementation projects.mediaUi
     implementation projects.networkAwareness
+    implementation projects.tiles
+    implementation projects.composeTools
 
     implementation libs.compose.ui.tooling
     implementation libs.compose.ui.util
@@ -104,6 +106,9 @@ dependencies {
     implementation libs.androidx.lifecycle.viewmodel.compose
     implementation libs.androidx.activity.compose
     implementation libs.androidx.wear.tiles
+    implementation libs.androidx.wear.tiles.material
+
+    implementation libs.coil
 
     implementation libs.kotlin.stdlib
 

@@ -25,6 +25,7 @@ import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -168,42 +169,52 @@ public fun VolumeScreen(
                 }
             },
         ) {
-            val stateDescriptionText = volumeDescription(volumeState, audioOutput)
-
-            val onClickLabel = stringResource(id = R.string.horologist_volume_screen_change_audio_output)
-
-            Chip(
-                modifier = Modifier
-                    .padding(horizontal = 18.dp)
-                    .width(intrinsicSize = IntrinsicSize.Max)
-                    .semantics {
-                        stateDescription = stateDescriptionText
-                        onClick(onClickLabel) { onAudioOutputClick(); true }
-                    },
-                label = {
-                    Text(
-                        modifier = Modifier.width(IntrinsicSize.Min),
-                        text = audioOutput.name,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                },
-                icon = {
-                    Icon(
-                        imageVector = audioOutput.icon(),
-                        contentDescription = audioOutput.name,
-                        tint = MaterialTheme.colors.onSurfaceVariant
-                    )
-                },
-                onClick = onAudioOutputClick,
-                // Device chip uses secondary colors (surface/onSurface)
-                colors = ChipDefaults.secondaryChipColors()
-            )
+            DeviceChip(volumeState, audioOutput, onAudioOutputClick)
         }
         if (showVolumeIndicator) {
             VolumePositionIndicator(volumeState = volume)
         }
     }
+}
+
+@ExperimentalHorologistAudioUiApi
+@Composable
+internal fun DeviceChip(
+    volumeState: VolumeState,
+    audioOutput: AudioOutput,
+    onAudioOutputClick: () -> Unit
+) {
+    val stateDescriptionText = volumeDescription(volumeState, audioOutput)
+
+    val onClickLabel = stringResource(id = R.string.horologist_volume_screen_change_audio_output)
+
+    Chip(
+        modifier = Modifier
+            .padding(horizontal = 18.dp)
+            .width(intrinsicSize = IntrinsicSize.Max)
+            .semantics {
+                stateDescription = stateDescriptionText
+                onClick(onClickLabel) { onAudioOutputClick(); true }
+            },
+        label = {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = audioOutput.name,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
+        },
+        icon = {
+            Icon(
+                imageVector = audioOutput.icon(),
+                contentDescription = audioOutput.name,
+                tint = MaterialTheme.colors.onSurfaceVariant
+            )
+        },
+        onClick = onAudioOutputClick,
+        // Device chip uses secondary colors (surface/onSurface)
+        colors = ChipDefaults.secondaryChipColors()
+    )
 }
 
 @Composable

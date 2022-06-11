@@ -14,29 +14,22 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistAudioApi::class, ExperimentalHorologistComposeToolsApi::class)
+@file:OptIn(ExperimentalHorologistAudioApi::class)
 
 package com.google.android.horologist.audio.ui
 
+import androidx.wear.compose.material.MaterialTheme
 import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
-import com.google.android.horologist.compose.tools.ThemeValues
-import com.google.android.horologist.compose.tools.themeValues
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
 import com.google.android.horologist.paparazzi.determineHandler
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
 
-@RunWith(Parameterized::class)
-class VolumeScreenTest(
-    private val themeValue: ThemeValues
-) {
+class VolumeScreenIndividualTest {
     @get:Rule
     val paparazzi = Paparazzi(
         deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
@@ -46,25 +39,53 @@ class VolumeScreenTest(
     )
 
     @Test
-    fun volumeScreenThemes() {
+    fun volumeScreenAtMinimum() {
         val volumeState = VolumeState(
-            current = 50,
+            current = 0,
             max = 100,
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
-        paparazzi.snapshot(name = themeValue.safeName) {
+        paparazzi.snapshot {
             VolumeScreenTestCase(
-                colors = themeValue.colors,
+                colors = MaterialTheme.colors,
                 volumeState = volumeState,
                 audioOutput = audioOutput
             )
         }
     }
 
-    companion object {
-        @JvmStatic
-        @Parameterized.Parameters
-        fun colours() = themeValues
+    @Test
+    fun volumeScreenAtMaximum() {
+        val volumeState = VolumeState(
+            current = 100,
+            max = 100,
+        )
+        val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
+
+        paparazzi.snapshot {
+            VolumeScreenTestCase(
+                colors = MaterialTheme.colors,
+                volumeState = volumeState,
+                audioOutput = audioOutput
+            )
+        }
+    }
+
+    @Test
+    fun volumeScreenWithLongTest() {
+        val volumeState = VolumeState(
+            current = 50,
+            max = 100,
+        )
+        val audioOutput = AudioOutput.BluetoothHeadset("id", "Galaxy Watch 4")
+
+        paparazzi.snapshot {
+            VolumeScreenTestCase(
+                colors = MaterialTheme.colors,
+                volumeState = volumeState,
+                audioOutput = audioOutput
+            )
+        }
     }
 }

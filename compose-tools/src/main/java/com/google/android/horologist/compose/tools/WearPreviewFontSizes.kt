@@ -67,5 +67,4 @@ import androidx.compose.ui.tooling.preview.Preview
     group = "Fonts - Largest",
     fontScale = 1.24f
 )
-@ExperimentalHorologistComposeToolsApi
 public annotation class WearPreviewFontSizes

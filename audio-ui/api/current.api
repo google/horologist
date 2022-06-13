@@ -48,6 +48,11 @@ package com.google.android.horologist.audio.ui {
 
 package com.google.android.horologist.audio.ui.components {
 
+  public final class DeviceChipKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void DeviceChip(com.google.android.horologist.audio.VolumeState volumeState, com.google.android.horologist.audio.AudioOutput audioOutput, kotlin.jvm.functions.Function0<kotlin.Unit> onAudioOutputClick, optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static androidx.compose.ui.graphics.vector.ImageVector icon(com.google.android.horologist.audio.AudioOutput);
+  }
+
   public final class SettingsButtonsDefaults {
     method @androidx.compose.runtime.Composable public void BrandIcon(@DrawableRes int iconId);
     field public static final com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults INSTANCE;

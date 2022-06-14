@@ -28,6 +28,11 @@ import kotlin.time.Duration
 public interface PlayerRepository {
 
     /**
+     * Returns whether the repository is currently connected to a working Player.
+     */
+    public val connected: StateFlow<Boolean>
+
+    /**
      * Returns the player's currently available [commands][Command].
      */
     public val availableCommands: StateFlow<Set<Command>>

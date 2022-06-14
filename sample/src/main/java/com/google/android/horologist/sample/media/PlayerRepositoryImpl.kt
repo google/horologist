@@ -39,6 +39,9 @@ class PlayerRepositoryImpl(
     private val mediaDataSource: MediaDataSource
 ) : PlayerRepository {
 
+    private val _connected = MutableStateFlow(true)
+    override val connected: StateFlow<Boolean> = _connected
+
     private val _availableCommands = MutableStateFlow<Set<Command>>(emptySet())
     override val availableCommands: StateFlow<Set<Command>> = _availableCommands
 

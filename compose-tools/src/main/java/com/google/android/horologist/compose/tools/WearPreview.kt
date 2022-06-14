@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.tools;
+package com.google.android.horologist.compose.tools
 
 import androidx.compose.ui.tooling.preview.Preview
 

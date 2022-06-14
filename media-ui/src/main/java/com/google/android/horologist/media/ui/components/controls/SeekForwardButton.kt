@@ -20,9 +20,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Forward10
 import androidx.compose.material.icons.filled.Forward30
 import androidx.compose.material.icons.filled.Forward5
-import androidx.compose.material.icons.filled.Redo
+import androidx.compose.material.icons.filled.Replay
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ButtonColors
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
@@ -41,8 +42,7 @@ public fun SeekForwardButton(
         SeekButtonIncrement.Five -> Icons.Default.Forward5
         SeekButtonIncrement.Ten -> Icons.Default.Forward10
         SeekButtonIncrement.Thirty -> Icons.Default.Forward30
-        // Forward is a straight arrow
-        else -> Icons.Default.Redo
+        else -> Icons.Default.Replay
     }
 
     val contentDescription = when (seekButtonIncrement) {
@@ -53,11 +53,20 @@ public fun SeekForwardButton(
         )
     }
 
+    val buttonModifier =
+        if (seekButtonIncrement == SeekButtonIncrement.Unknown ||
+            seekButtonIncrement is SeekButtonIncrement.Other
+        ) {
+            modifier.graphicsLayer(scaleX = -1f)
+        } else {
+            modifier
+        }
+
     MediaButton(
         onClick = onClick,
         icon = icon,
         contentDescription = contentDescription,
-        modifier = modifier,
+        modifier = buttonModifier,
         enabled = enabled,
         colors = colors,
     )

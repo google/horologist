@@ -24,6 +24,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.compose.layout.fillMaxRectangle
+import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.compose.tools.WearPreviewDevices
 
 @Composable
 fun FillMaxRectangleScreen() {
@@ -34,18 +36,8 @@ fun FillMaxRectangleScreen() {
     )
 }
 
-@Preview(
-    device = Devices.WEAR_OS_LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true
-)
-@Preview(
-    device = Devices.WEAR_OS_SQUARE,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true
-)
+@OptIn(ExperimentalHorologistComposeToolsApi::class)
+@WearPreviewDevices
 @Composable
 fun FillMaxRectanglePreview() {
     FillMaxRectangleScreen()

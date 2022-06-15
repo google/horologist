@@ -71,6 +71,7 @@ android {
         freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         freeCompilerArgs += "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.composables.ExperimentalHorologistComposablesApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi"
     }
 
     composeOptions {
@@ -110,7 +111,11 @@ dependencies {
 
     implementation libs.coil
 
+    implementation libs.lottie.compose
+
     implementation libs.kotlin.stdlib
+
+    debugImplementation projects.composeTools
 
     androidTestImplementation libs.compose.ui.test.junit4
     androidTestImplementation libs.espresso.core

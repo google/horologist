@@ -40,18 +40,17 @@ import kotlinx.coroutines.withContext
  */
 @ExperimentalHorologistMedia3BackendApi
 public class WearConfiguredPlayer(
+    player: Player,
     private val audioOutputRepository: AudioOutputRepository,
     private val audioOutputSelector: AudioOutputSelector,
     private val playbackRules: PlaybackRules,
     private val errorReporter: ErrorReporter,
-    player: Player,
-    coroutineScope: CoroutineScope,
 ) : ForwardingPlayer(player) {
-    init {
-        coroutineScope.launch(Dispatchers.Main) {
+    public fun CoroutineScope.startNoiseDetection() {
+        launch(Dispatchers.Main) {
             combine(
                 audioOutputRepository.audioOutput,
-                player.isPlayingFlow()
+                wrappedPlayer.isPlayingFlow()
             ) { audioOutput, isPlaying ->
                 Log.i("WearPlayer", "Playing status: $isPlaying $audioOutput")
                 Pair(audioOutput, isPlaying)

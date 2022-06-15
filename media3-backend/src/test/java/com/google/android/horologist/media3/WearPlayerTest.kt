@@ -32,12 +32,10 @@ import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.test.runTest
 import org.junit.After
-import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
-@Ignore
 @RunWith(RobolectricTestRunner::class)
 class WearPlayerTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
@@ -68,12 +66,11 @@ class WearPlayerTest {
         val audioOutputSelector = FakeAudioOutputSelector(null, audioOutputRepository)
 
         val wearConfiguredPlayer = WearConfiguredPlayer(
+            player,
             audioOutputRepository,
             audioOutputSelector,
             playbackRules,
             errorReporter,
-            player,
-            this
         )
 
         wearConfiguredPlayer.setMediaItem(mediaItem1)
@@ -101,31 +98,24 @@ class WearPlayerTest {
         coroutineScope {
             try {
                 val wearConfiguredPlayer = WearConfiguredPlayer(
+                    player,
                     audioOutputRepository,
                     audioOutputSelector,
                     playbackRules,
                     errorReporter,
-                    player,
-                    this
                 )
 
                 val mediaItem = exampleMediaItem("1")
                 wearConfiguredPlayer.setMediaItem(mediaItem)
                 wearConfiguredPlayer.prepare()
-                println("p")
                 wearConfiguredPlayer.play()
-                println("p1")
 
                 assertThat(errorReporter.messages).isEmpty()
                 assertThat(player.playWhenReady).isTrue()
-                println("p2")
             } catch (e: Throwable) {
                 e.printStackTrace()
             }
-            println("p3")
         }
-
-        println("after")
     }
 
     fun exampleMediaItem(id: String) = MediaItem.Builder()

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.tiles
+package com.google.android.horologist.tiles.images
 
 import android.content.Context
 import android.graphics.Bitmap

@@ -45,8 +45,9 @@ import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.compose.tools.WearPreviewFontSizes
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
-import com.google.android.horologist.tiles.SingleTileLayoutRenderer
-import com.google.android.horologist.tiles.toImageResource
+import com.google.android.horologist.tiles.images.drawableResToImageResource
+import com.google.android.horologist.tiles.images.toImageResource
+import com.google.android.horologist.tiles.render.SingleTileLayoutRenderer
 
 class SampleTileRenderer(context: Context) :
     SingleTileLayoutRenderer<SampleTileRenderer.TileState, SampleTileRenderer.ResourceState>(
@@ -141,16 +142,12 @@ fun SampleButtonPreview() {
         SampleTileRenderer(context)
     }
 
-    val image = remember {
-        BitmapFactory.decodeResource(context.resources, R.drawable.ic_uamp).toImageResource()
-    }
-
     val clickable = Clickable.Builder()
         .setId("click")
         .build()
 
     LayoutPreview(renderer.createButton(clickable)) {
-        addIdToImageMapping("image", image)
+        addIdToImageMapping("image", drawableResToImageResource(R.drawable.ic_uamp))
     }
 }
 

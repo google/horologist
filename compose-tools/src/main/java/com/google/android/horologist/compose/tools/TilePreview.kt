@@ -44,7 +44,7 @@ import androidx.wear.tiles.StateBuilders.State
 import androidx.wear.tiles.TileBuilders
 import androidx.wear.tiles.TimelineBuilders
 import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
-import com.google.android.horologist.tiles.TileLayoutRenderer
+import com.google.android.horologist.tiles.render.TileLayoutRenderer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
 import kotlin.math.roundToInt
@@ -165,7 +165,7 @@ private fun resourceParams(resources: Resources, version: String) =
     RequestBuilders.ResourcesRequest.Builder().setDeviceParameters(buildDeviceParameters(resources))
         .setVersion(version).build()
 
-private fun buildDeviceParameters(resources: Resources): DeviceParametersBuilders.DeviceParameters {
+public fun buildDeviceParameters(resources: Resources): DeviceParametersBuilders.DeviceParameters {
     val displayMetrics: DisplayMetrics = resources.displayMetrics
     val isScreenRound: Boolean = resources.configuration.isScreenRound
     return DeviceParametersBuilders.DeviceParameters.Builder()

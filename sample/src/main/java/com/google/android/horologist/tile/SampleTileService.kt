@@ -22,7 +22,7 @@ import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
 import coil.imageLoader
 import com.google.android.horologist.tiles.CoroutinesTileService
-import com.google.android.horologist.tiles.loadImageResource
+import com.google.android.horologist.tiles.images.loadImageResource
 
 class SampleTileService : CoroutinesTileService() {
     private lateinit var renderer: SampleTileRenderer

@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.tiles
+package com.google.android.horologist.tiles.render
 
 import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
+import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
 
 /**
  * A base class for a synchronous tile and resource render phase.

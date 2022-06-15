@@ -44,6 +44,8 @@ import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.compose.tools.WearPreviewFontSizes
 import com.google.android.horologist.sample.R
+import com.google.android.horologist.tile.SampleTileRenderer.Companion.Image1
+import com.google.android.horologist.tile.SampleTileRenderer.Companion.TileIcon
 import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 import com.google.android.horologist.tiles.images.toImageResource
@@ -71,10 +73,10 @@ class SampleTileRenderer(context: Context) :
             .setContent(
                 MultiButtonLayout.Builder()
                     .addButtonContent(
-                        createButton(clickable)
+                        createButton(clickable, Image1)
                     )
                     .addButtonContent(
-                        createButton(clickable)
+                        createButton(clickable, Image2)
                     )
                     .build()
             )
@@ -87,9 +89,10 @@ class SampleTileRenderer(context: Context) :
     }
 
     internal fun createButton(
-        clickable: Clickable
+        clickable: Clickable,
+        imageId: String
     ) = Button.Builder(context, clickable)
-        .setIconContent("image")
+        .setIconContent(imageId)
         .setButtonColors(ButtonColors.secondaryButtonColors(theme))
         .build()
 
@@ -98,16 +101,24 @@ class SampleTileRenderer(context: Context) :
         deviceParameters: DeviceParameters,
         resourceIds: MutableList<String>
     ) {
+        addIdToImageMapping(Image1, drawableResToImageResource(TileIcon))
         if (resourceResults.image != null) {
-            addIdToImageMapping("image", resourceResults.image)
+            addIdToImageMapping(Image2, resourceResults.image)
         }
     }
 
     data class TileState(val count: Int)
 
     data class ResourceState(val image: ImageResource?)
+
+    companion object {
+        const val Image1 = "image1"
+        const val Image2 = "image2"
+        const val TileIcon = R.drawable.ic_uamp
+    }
 }
 
+@OptIn(ExperimentalHorologistComposeToolsApi::class)
 @WearPreviewDevices
 @WearPreviewFontSizes
 @Composable
@@ -117,9 +128,8 @@ fun SampleTilePreview() {
     val tileState = remember { SampleTileRenderer.TileState(0) }
 
     val resourceState = remember {
-        val image =
-            BitmapFactory.decodeResource(context.resources, R.drawable.ic_uamp).toImageResource()
-        SampleTileRenderer.ResourceState(image)
+        val image = BitmapFactory.decodeResource(context.resources, TileIcon)
+        SampleTileRenderer.ResourceState(image?.toImageResource())
     }
 
     val renderer = remember {
@@ -146,8 +156,11 @@ fun SampleButtonPreview() {
         .setId("click")
         .build()
 
-    LayoutPreview(renderer.createButton(clickable)) {
-        addIdToImageMapping("image", drawableResToImageResource(R.drawable.ic_uamp))
+    LayoutPreview(renderer.createButton(clickable, Image1)) {
+        addIdToImageMapping(
+            Image1,
+            drawableResToImageResource(TileIcon)
+        )
     }
 }
 

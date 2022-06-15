@@ -46,6 +46,10 @@ public class WearConfiguredPlayer(
     private val playbackRules: PlaybackRules,
     private val errorReporter: ErrorReporter,
 ) : ForwardingPlayer(player) {
+    /**
+     * Start proactive noise detection, unlike ExoPlayer setHandleAudioBecomingNoisy
+     * this also handles when accidentally started in the wrong mode due to race conditions.
+     */
     public fun CoroutineScope.startNoiseDetection() {
         launch(Dispatchers.Main) {
             combine(
@@ -67,14 +71,9 @@ public class WearConfiguredPlayer(
         // TODO check multiple items
         val mediaItem = currentMediaItem ?: return
 
-        println("play media item")
-
         val play = runBlocking {
-            println("atemptingPlay")
             attemptPlay(mediaItem)
         }
-
-        println("play: $play")
 
         if (play) {
             wrappedPlayer.play()
@@ -117,6 +116,10 @@ public class WearConfiguredPlayer(
 
     override fun pause() {
         wrappedPlayer.pause()
+    }
+
+    override fun release() {
+        super.release()
     }
 
     override fun setPlayWhenReady(playWhenReady: Boolean) {

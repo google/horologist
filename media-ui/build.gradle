@@ -67,6 +67,12 @@ android {
         excludes += "/META-INF/LGPL2.1"
     }
 
+    sourceSets {
+        main {
+            assets.srcDirs = ['src/main/assets']
+        }
+    }
+
     testOptions {
         unitTests {
             includeAndroidResources = true
@@ -96,8 +102,11 @@ dependencies {
     implementation libs.compose.material.iconscore
     implementation libs.compose.material.iconsext
 
+    implementation libs.lottie.compose
+
     debugImplementation libs.compose.ui.test.manifest
     debugImplementation libs.compose.ui.toolingpreview
+    debugImplementation projects.audioUi
     debugImplementation projects.composeTools
 
     testImplementation libs.junit

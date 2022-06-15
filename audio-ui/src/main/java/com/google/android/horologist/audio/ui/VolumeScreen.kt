@@ -36,7 +36,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
@@ -136,22 +135,10 @@ public fun VolumeScreen(
             steps = volumeState.max - 1,
             valueRange = (0f..volumeState.max.toFloat()),
             increaseIcon = {
-                if (volumeState.isMax) {
-                    Box(modifier = Modifier.alpha(0.38f)) {
-                        increaseIcon()
-                    }
-                } else {
-                    increaseIcon()
-                }
+                increaseIcon()
             },
             decreaseIcon = {
-                if (volumeState.current == 0) {
-                    Box(modifier = Modifier.alpha(0.38f)) {
-                        decreaseIcon()
-                    }
-                } else {
-                    decreaseIcon()
-                }
+                decreaseIcon()
             },
         ) {
             DeviceChip(

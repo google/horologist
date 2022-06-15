@@ -111,6 +111,8 @@ dependencies {
 
     implementation libs.coil
 
+    implementation libs.lottie.compose
+
     implementation libs.kotlin.stdlib
 
     debugImplementation projects.composeTools

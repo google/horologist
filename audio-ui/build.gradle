@@ -76,6 +76,9 @@ android {
     }
 
     sourceSets {
+        main {
+            assets.srcDirs = ['src/main/assets']
+        }
         test {
             java.srcDirs += 'src/sharedTest/kotlin'
             res.srcDirs += 'src/sharedTest/res'
@@ -102,7 +105,7 @@ dependencies {
     api projects.audio
     api libs.kotlin.stdlib
 
-    implementation libs.wearcompose.material
+    api libs.wearcompose.material
     api libs.wearcompose.foundation
 
     implementation libs.compose.material.iconscore
@@ -111,6 +114,8 @@ dependencies {
     implementation libs.compose.ui.tooling
     implementation libs.androidx.wear
     implementation libs.androidx.lifecycle.viewmodel.compose
+
+    implementation libs.lottie.compose
 
     debugImplementation libs.compose.ui.toolingpreview
     debugImplementation projects.composeTools

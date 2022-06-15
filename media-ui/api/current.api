@@ -134,11 +134,13 @@ package com.google.android.horologist.media.ui.semantics {
 package com.google.android.horologist.media.ui.state {
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class PlayerUiState {
-    ctor public PlayerUiState(boolean playEnabled, boolean pauseEnabled, boolean seekBackEnabled, boolean seekForwardEnabled, boolean seekToPreviousEnabled, boolean seekToNextEnabled, boolean shuffleEnabled, boolean shuffleOn, boolean playPauseEnabled, boolean playing, com.google.android.horologist.media.ui.state.model.MediaItemUiModel? mediaItem, com.google.android.horologist.media.ui.state.model.TrackPositionUiModel? trackPosition);
+    ctor public PlayerUiState(boolean playEnabled, boolean pauseEnabled, boolean seekBackEnabled, boolean seekForwardEnabled, boolean seekToPreviousEnabled, boolean seekToNextEnabled, boolean shuffleEnabled, boolean shuffleOn, boolean playPauseEnabled, boolean playing, com.google.android.horologist.media.ui.state.model.MediaItemUiModel? mediaItem, com.google.android.horologist.media.ui.state.model.TrackPositionUiModel? trackPosition, optional com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekBackButtonIncrement, optional com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekForwardButtonIncrement);
     method public boolean component1();
     method public boolean component10();
     method public com.google.android.horologist.media.ui.state.model.MediaItemUiModel? component11();
     method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel? component12();
+    method public com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement component13();
+    method public com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement component14();
     method public boolean component2();
     method public boolean component3();
     method public boolean component4();
@@ -147,13 +149,15 @@ package com.google.android.horologist.media.ui.state {
     method public boolean component7();
     method public boolean component8();
     method public boolean component9();
-    method public com.google.android.horologist.media.ui.state.PlayerUiState copy(boolean playEnabled, boolean pauseEnabled, boolean seekBackEnabled, boolean seekForwardEnabled, boolean seekToPreviousEnabled, boolean seekToNextEnabled, boolean shuffleEnabled, boolean shuffleOn, boolean playPauseEnabled, boolean playing, com.google.android.horologist.media.ui.state.model.MediaItemUiModel? mediaItem, com.google.android.horologist.media.ui.state.model.TrackPositionUiModel? trackPosition);
+    method public com.google.android.horologist.media.ui.state.PlayerUiState copy(boolean playEnabled, boolean pauseEnabled, boolean seekBackEnabled, boolean seekForwardEnabled, boolean seekToPreviousEnabled, boolean seekToNextEnabled, boolean shuffleEnabled, boolean shuffleOn, boolean playPauseEnabled, boolean playing, com.google.android.horologist.media.ui.state.model.MediaItemUiModel? mediaItem, com.google.android.horologist.media.ui.state.model.TrackPositionUiModel? trackPosition, com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekBackButtonIncrement, com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekForwardButtonIncrement);
     method public com.google.android.horologist.media.ui.state.model.MediaItemUiModel? getMediaItem();
     method public boolean getPauseEnabled();
     method public boolean getPlayEnabled();
     method public boolean getPlayPauseEnabled();
     method public boolean getPlaying();
+    method public com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement getSeekBackButtonIncrement();
     method public boolean getSeekBackEnabled();
+    method public com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement getSeekForwardButtonIncrement();
     method public boolean getSeekForwardEnabled();
     method public boolean getSeekToNextEnabled();
     method public boolean getSeekToPreviousEnabled();
@@ -165,7 +169,9 @@ package com.google.android.horologist.media.ui.state {
     property public final boolean playEnabled;
     property public final boolean playPauseEnabled;
     property public final boolean playing;
+    property public final com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekBackButtonIncrement;
     property public final boolean seekBackEnabled;
+    property public final com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekForwardButtonIncrement;
     property public final boolean seekForwardEnabled;
     property public final boolean seekToNextEnabled;
     property public final boolean seekToPreviousEnabled;

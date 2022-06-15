@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class)
+@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistMediaUiApi::class)
 
 package com.google.android.horologist.media.ui.components
 
@@ -42,6 +42,28 @@ fun PodcastControlButtonsPreview() {
         seekForwardButtonEnabled = true,
         seekBackButtonIncrement = SeekButtonIncrement.Ten,
         seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
+    )
+}
+
+@Preview(
+    "Enabled - Playing - With progress",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
+@Composable
+fun PodcastControlButtonsPreviewUnknown() {
+    PodcastControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = true,
+        playing = true,
+        percent = 0.25f,
+        onSeekBackButtonClick = {},
+        seekBackButtonEnabled = true,
+        onSeekForwardButtonClick = {},
+        seekForwardButtonEnabled = true,
+        seekBackButtonIncrement = SeekButtonIncrement.Unknown,
+        seekForwardButtonIncrement = SeekButtonIncrement.Unknown,
     )
 }
 

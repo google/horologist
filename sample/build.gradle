@@ -110,6 +110,8 @@ dependencies {
 
     implementation libs.coil
 
+    implementation libs.lottie.compose
+
     implementation libs.kotlin.stdlib
 
     androidTestImplementation libs.compose.ui.test.junit4

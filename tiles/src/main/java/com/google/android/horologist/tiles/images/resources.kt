@@ -19,14 +19,13 @@ package com.google.android.horologist.tiles.images
 import androidx.annotation.DrawableRes
 import androidx.wear.tiles.ResourceBuilders.AndroidImageResourceByResId
 import androidx.wear.tiles.ResourceBuilders.ImageResource
-import androidx.wear.tiles.ResourceBuilders.Resources
 
 /**
  * Load a resource from the res/drawable* directories.
  *
  * @param id the resource id.
  */
-public fun Resources.Builder.drawableResToImageResource(@DrawableRes id: Int): ImageResource =
+public fun drawableResToImageResource(@DrawableRes id: Int): ImageResource =
     ImageResource.Builder()
         .setAndroidResourceByResId(
             AndroidImageResourceByResId.Builder()
@@ -34,4 +33,3 @@ public fun Resources.Builder.drawableResToImageResource(@DrawableRes id: Int): I
                 .build()
         )
         .build()
-

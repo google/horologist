@@ -20,9 +20,9 @@ import androidx.wear.tiles.RequestBuilders.ResourcesRequest
 import androidx.wear.tiles.RequestBuilders.TileRequest
 import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
-import coil.imageLoader
+import com.google.android.horologist.sample.R
 import com.google.android.horologist.tiles.CoroutinesTileService
-import com.google.android.horologist.tiles.images.loadImageResource
+import com.google.android.horologist.tiles.images.drawableResToImageResource
 
 class SampleTileService : CoroutinesTileService() {
     private lateinit var renderer: SampleTileRenderer
@@ -44,10 +44,7 @@ class SampleTileService : CoroutinesTileService() {
     }
 
     override suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources {
-        val imageResource = imageLoader.loadImageResource(
-            this,
-            "https://live.staticflickr.com/564/20749461040_5ddeb85cab_b.jpg"
-        )
+        val imageResource = drawableResToImageResource(R.drawable.ic_uamp)
 
         return renderer.produceRequestedResources(
             SampleTileRenderer.ResourceState(imageResource),

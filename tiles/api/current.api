@@ -26,7 +26,7 @@ package com.google.android.horologist.tiles.images {
   }
 
   public final class ResourcesKt {
-    method public static androidx.wear.tiles.ResourceBuilders.ImageResource drawableResToImageResource(androidx.wear.tiles.ResourceBuilders.Resources.Builder, @DrawableRes int id);
+    method public static androidx.wear.tiles.ResourceBuilders.ImageResource drawableResToImageResource(@DrawableRes int id);
   }
 
 }
@@ -47,7 +47,7 @@ package com.google.android.horologist.tiles.render {
   }
 
   public final class SingleTileLayoutRendererKt {
-    field public static final String PERMANENT_RESOURCES_VERSION = "0";
+    field public static final String PERMANENT_RESOURCES_VERSION = "1";
   }
 
   @com.google.android.horologist.tiles.ExperimentalHorologistTilesApi public interface TileLayoutRenderer<T, R> {

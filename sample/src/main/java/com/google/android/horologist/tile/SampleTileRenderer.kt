@@ -44,8 +44,10 @@ import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.compose.tools.WearPreviewFontSizes
 import com.google.android.horologist.sample.R
+import com.google.android.horologist.tile.SampleTileRenderer.Companion.Icon1
 import com.google.android.horologist.tile.SampleTileRenderer.Companion.Image1
 import com.google.android.horologist.tile.SampleTileRenderer.Companion.TileIcon
+import com.google.android.horologist.tile.SampleTileRenderer.Companion.TileImage
 import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 import com.google.android.horologist.tiles.images.toImageResource
@@ -73,10 +75,10 @@ class SampleTileRenderer(context: Context) :
             .setContent(
                 MultiButtonLayout.Builder()
                     .addButtonContent(
-                        createButton(clickable, Image1)
+                        imageButton(clickable)
                     )
                     .addButtonContent(
-                        createButton(clickable, Image2)
+                        iconButton(clickable)
                     )
                     .build()
             )
@@ -88,22 +90,26 @@ class SampleTileRenderer(context: Context) :
             .build()
     }
 
-    internal fun createButton(
-        clickable: Clickable,
-        imageId: String
-    ) = Button.Builder(context, clickable)
-        .setIconContent(imageId)
-        .setButtonColors(ButtonColors.secondaryButtonColors(theme))
-        .build()
+    internal fun iconButton(clickable: Clickable) =
+        Button.Builder(context, clickable)
+            .setIconContent(Icon1)
+            .setButtonColors(ButtonColors.secondaryButtonColors(theme))
+            .build()
+
+    internal fun imageButton(clickable: Clickable) =
+        Button.Builder(context, clickable)
+            .setImageContent(Image1)
+            .setButtonColors(ButtonColors.secondaryButtonColors(theme))
+            .build()
 
     override fun Resources.Builder.produceRequestedResources(
         resourceResults: ResourceState,
         deviceParameters: DeviceParameters,
         resourceIds: MutableList<String>
     ) {
-        addIdToImageMapping(Image1, drawableResToImageResource(TileIcon))
+        addIdToImageMapping(Icon1, drawableResToImageResource(TileIcon))
         if (resourceResults.image != null) {
-            addIdToImageMapping(Image2, resourceResults.image)
+            addIdToImageMapping(Image1, resourceResults.image)
         }
     }
 
@@ -113,8 +119,9 @@ class SampleTileRenderer(context: Context) :
 
     companion object {
         const val Image1 = "image1"
-        const val Image2 = "image2"
-        const val TileIcon = R.drawable.ic_uamp
+        const val Icon1 = "icon1"
+        const val TileIcon = R.drawable.ic_android
+        const val TileImage = R.drawable.ic_tileicon
     }
 }
 
@@ -128,7 +135,7 @@ fun SampleTilePreview() {
     val tileState = remember { SampleTileRenderer.TileState(0) }
 
     val resourceState = remember {
-        val image = BitmapFactory.decodeResource(context.resources, TileIcon)
+        val image = BitmapFactory.decodeResource(context.resources, TileImage)
         SampleTileRenderer.ResourceState(image?.toImageResource())
     }
 
@@ -145,7 +152,7 @@ fun SampleTilePreview() {
 
 @IconSizePreview
 @Composable
-fun SampleButtonPreview() {
+fun SampleButtonImagePreview() {
     val context = LocalContext.current
 
     val renderer = remember {
@@ -156,9 +163,34 @@ fun SampleButtonPreview() {
         .setId("click")
         .build()
 
-    LayoutPreview(renderer.createButton(clickable, Image1)) {
+    LayoutPreview(
+        renderer.imageButton(clickable)
+    ) {
         addIdToImageMapping(
             Image1,
+            drawableResToImageResource(TileImage)
+        )
+    }
+}
+
+@IconSizePreview
+@Composable
+fun SampleButtonIconPreview() {
+    val context = LocalContext.current
+
+    val renderer = remember {
+        SampleTileRenderer(context)
+    }
+
+    val clickable = Clickable.Builder()
+        .setId("click")
+        .build()
+
+    LayoutPreview(
+        renderer.iconButton(clickable)
+    ) {
+        addIdToImageMapping(
+            Icon1,
             drawableResToImageResource(TileIcon)
         )
     }

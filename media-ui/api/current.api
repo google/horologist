@@ -29,6 +29,22 @@ package com.google.android.horologist.media.ui.components {
 
 }
 
+package com.google.android.horologist.media.ui.components.animated {
+
+  public final class AnimatedMediaButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void AnimatedMediaButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.airbnb.lottie.LottieComposition? composition, com.airbnb.lottie.compose.LottieAnimatable lottieAnimatable, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional com.airbnb.lottie.compose.LottieDynamicProperties? dynamicProperties);
+  }
+
+  public final class AnimatedSeekToNextButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void AnimatedSeekToNextButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors);
+  }
+
+  public final class AnimatedSeekToPreviousButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void AnimatedSeekToPreviousButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors);
+  }
+
+}
+
 package com.google.android.horologist.media.ui.components.background {
 
   public final class RadialBackgroundKt {

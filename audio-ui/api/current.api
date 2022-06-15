@@ -76,6 +76,14 @@ package com.google.android.horologist.audio.ui.components.actions {
 
 }
 
+package com.google.android.horologist.audio.ui.components.animated {
+
+  public final class AnimatedSetVolumeButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void AnimatedSetVolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, com.google.android.horologist.audio.VolumeState volumeState, optional androidx.compose.ui.Modifier modifier);
+  }
+
+}
+
 package com.google.android.horologist.audio.ui.semantics {
 
   @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public final class CustomSemanticsProperties {

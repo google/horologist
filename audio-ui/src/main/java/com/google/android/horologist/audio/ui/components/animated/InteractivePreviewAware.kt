@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.compose.tools
+package com.google.android.horologist.audio.ui.components.animated
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -38,7 +38,6 @@ public val LocalStaticPreview: ProvidableCompositionLocal<Boolean> = composition
  * correctly.
  */
 @Composable
-@ExperimentalHorologistComposeToolsApi
 public fun InteractivePreviewAware(block: @Composable () -> Unit) {
     if (LocalInspectionMode.current) {
         var interactive by remember { mutableStateOf(false) }

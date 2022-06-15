@@ -25,8 +25,10 @@ import androidx.wear.compose.material.ButtonDefaults
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.google.android.horologist.audio.ui.components.animated.LocalStaticPreview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
+import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
 
 @ExperimentalHorologistMediaUiApi
 @Composable
@@ -36,18 +38,27 @@ public fun AnimatedSeekToNextButton(
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
 ) {
-    val composition by rememberLottieComposition(
-        spec = LottieCompositionSpec.Asset("lottie/Next.json"),
-    )
-    val lottieAnimatable = rememberLottieAnimatable()
+    if (LocalStaticPreview.current) {
+        SeekToNextButton(
+            onClick = onClick,
+            modifier = modifier,
+            enabled = enabled,
+            colors = colors
+        )
+    } else {
+        val composition by rememberLottieComposition(
+            spec = LottieCompositionSpec.Asset("lottie/Next.json"),
+        )
+        val lottieAnimatable = rememberLottieAnimatable()
 
-    AnimatedMediaButton(
-        modifier = modifier,
-        onClick = onClick,
-        contentDescription = stringResource(id = R.string.horologist_seek_to_next_button_content_description),
-        enabled = enabled,
-        colors = colors,
-        composition = composition,
-        lottieAnimatable = lottieAnimatable
-    )
+        AnimatedMediaButton(
+            modifier = modifier,
+            onClick = onClick,
+            contentDescription = stringResource(id = R.string.horologist_seek_to_next_button_content_description),
+            enabled = enabled,
+            colors = colors,
+            composition = composition,
+            lottieAnimatable = lottieAnimatable
+        )
+    }
 }

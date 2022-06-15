@@ -33,6 +33,7 @@ import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
+import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
 
 /**
  * Button to launch a screen to control the system volume.
@@ -46,41 +47,49 @@ public fun AnimatedSetVolumeButton(
     volumeState: VolumeState,
     modifier: Modifier = Modifier,
 ) {
-    val volumeUp by rememberLottieComposition(
-        spec = LottieCompositionSpec.Asset("lottie/VolumeUp.json"),
-    )
-    val volumeDown by rememberLottieComposition(
-        spec = LottieCompositionSpec.Asset("lottie/VolumeDown.json"),
-    )
-    val lottieAnimatable = rememberLottieAnimatable()
+    if (LocalStaticPreview.current) {
+        SetVolumeButton(
+            onVolumeClick = onVolumeClick,
+            volumeState = volumeState,
+            modifier = modifier
+        )
+    } else {
+        val volumeUp by rememberLottieComposition(
+            spec = LottieCompositionSpec.Asset("lottie/VolumeUp.json"),
+        )
+        val volumeDown by rememberLottieComposition(
+            spec = LottieCompositionSpec.Asset("lottie/VolumeDown.json"),
+        )
+        val lottieAnimatable = rememberLottieAnimatable()
 
-    var lastVolume by remember { mutableStateOf(volumeState.current) }
+        var lastVolume by remember { mutableStateOf(volumeState.current) }
 
-    LaunchedEffect(volumeState) {
-        val lastVolumeBefore = lastVolume
-        lastVolume = volumeState.current
-        if (volumeState.current > lastVolumeBefore) {
-            lottieAnimatable.animate(
-                iterations = 1,
-                composition = volumeUp
-            )
-        } else {
-            lottieAnimatable.animate(
-                iterations = 1,
-                composition = volumeDown
+        LaunchedEffect(volumeState) {
+            val lastVolumeBefore = lastVolume
+            lastVolume = volumeState.current
+            if (volumeState.current > lastVolumeBefore) {
+                lottieAnimatable.animate(
+                    iterations = 1,
+                    composition = volumeUp,
+                )
+            } else {
+                lottieAnimatable.animate(
+                    iterations = 1,
+                    composition = volumeDown,
+                )
+            }
+        }
+
+        Button(
+            modifier = modifier.size(ButtonDefaults.SmallButtonSize),
+            onClick = onVolumeClick,
+            colors = ButtonDefaults.iconButtonColors(),
+        ) {
+            LottieAnimation(
+                composition = volumeDown,
+                modifier = Modifier.size(24.dp),
+                progress = lottieAnimatable.progress
             )
         }
-    }
-
-    Button(
-        modifier = modifier.size(ButtonDefaults.SmallButtonSize),
-        onClick = onVolumeClick,
-        colors = ButtonDefaults.iconButtonColors(),
-    ) {
-        LottieAnimation(
-            composition = volumeDown,
-            modifier = Modifier.size(24.dp),
-            progress = lottieAnimatable.progress
-        )
     }
 }

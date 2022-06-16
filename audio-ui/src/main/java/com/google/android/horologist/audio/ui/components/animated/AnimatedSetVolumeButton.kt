@@ -88,7 +88,7 @@ public fun AnimatedSetVolumeButton(
             LottieAnimation(
                 composition = volumeDown,
                 modifier = Modifier.size(24.dp),
-                progress = lottieAnimatable.progress
+                progress = { lottieAnimatable.progress }
             )
         }
     }

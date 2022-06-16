@@ -43,8 +43,8 @@ public fun SettingsButtons(
     volumeState: VolumeState,
     onVolumeClick: () -> Unit,
     onOutputClick: () -> Unit,
-    brandIcon: @Composable () -> Unit = {},
     modifier: Modifier = Modifier,
+    brandIcon: @Composable () -> Unit = {},
 ) {
     Row(
         modifier = modifier,

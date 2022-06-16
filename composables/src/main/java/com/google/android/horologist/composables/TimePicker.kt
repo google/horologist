@@ -280,7 +280,7 @@ public fun TimePickerWith12HourClock(
             Spacer(Modifier.height(8.dp))
             CompactChip(
                 onClick = { amPm = 1 - amPm },
-                modifier = Modifier.size(width = 50.dp, height = 24.dp),
+                modifier = Modifier.size(width = 50.dp, height = 40.dp),
                 label = {
                     Row(
                         modifier = Modifier.fillMaxWidth(),

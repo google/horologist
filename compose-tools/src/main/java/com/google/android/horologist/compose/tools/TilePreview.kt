@@ -22,6 +22,7 @@ import android.content.res.Resources
 import android.graphics.Color
 import android.util.DisplayMetrics
 import android.widget.FrameLayout
+import androidx.annotation.ColorInt
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -107,44 +108,49 @@ public fun TilePreview(
  */
 @ExperimentalHorologistComposeToolsApi
 @Composable
-public fun LayoutPreview(
-    layout: LayoutElement,
+public fun LayoutElementPreview(
+    element: LayoutElement,
+    @ColorInt windowBackgroundColor: Int = Color.DKGRAY,
+    tileResourcesFn: ResourceBuilders.Resources.Builder.() -> Unit = {}
+) {
+    val root = Box.Builder()
+        .setModifiers(
+            Modifiers.Builder().setBackground(
+                Background.Builder()
+                    .setColor(argb(windowBackgroundColor))
+                    .build()
+            ).build()
+        )
+        .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)
+        .setVerticalAlignment(VERTICAL_ALIGN_CENTER)
+        .setHeight(ExpandedDimensionProp.Builder().build())
+        .setWidth(ExpandedDimensionProp.Builder().build())
+        .addContent(element)
+        .build()
+
+    LayoutRootPreview(root, tileResourcesFn)
+}
+
+/**
+ * Preview a root layout component such as a PrimaryLayout, that is full screen.
+ */
+@ExperimentalHorologistComposeToolsApi
+@Composable
+public fun LayoutRootPreview(
+    root: LayoutElement,
     tileResourcesFn: ResourceBuilders.Resources.Builder.() -> Unit = {}
 ) {
     val tile = remember {
         TileBuilders.Tile.Builder()
             .setResourcesVersion(PERMANENT_RESOURCES_VERSION)
-            // Creates a timeline to hold one or more tile entries for a specific time periods.
             .setTimeline(
                 TimelineBuilders.Timeline.Builder().addTimelineEntry(
-                    TimelineBuilders.TimelineEntry.Builder().setLayout(
-                        LayoutElementBuilders.Layout.Builder().setRoot(
-                            Box.Builder()
-                                .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)
-                                .setVerticalAlignment(VERTICAL_ALIGN_CENTER)
-                                .setHeight(ExpandedDimensionProp.Builder().build())
-                                .setWidth(ExpandedDimensionProp.Builder().build())
-                                .setModifiers(
-                                    Modifiers.Builder().setBackground(
-                                        Background.Builder()
-                                            .setColor(argb(Color.DKGRAY))
-                                            .build()
-                                    ).build()
-                                ).addContent(
-                                    Box.Builder()
-                                        .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)
-                                        .setVerticalAlignment(VERTICAL_ALIGN_CENTER)
-                                        .setModifiers(
-                                            Modifiers.Builder().setBackground(
-                                                Background.Builder().setColor(
-                                                    argb(Color.BLACK)
-                                                ).build()
-                                            ).build()
-                                        )
-                                        .addContent(layout).build()
-                                ).build()
+                    TimelineBuilders.TimelineEntry.Builder()
+                        .setLayout(
+                            LayoutElementBuilders.Layout.Builder()
+                                .setRoot(root)
+                                .build()
                         ).build()
-                    ).build()
                 ).build()
             ).build()
     }

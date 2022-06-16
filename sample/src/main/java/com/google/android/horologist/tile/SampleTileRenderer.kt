@@ -39,7 +39,7 @@ import androidx.wear.tiles.material.Typography
 import androidx.wear.tiles.material.layouts.MultiButtonLayout
 import androidx.wear.tiles.material.layouts.PrimaryLayout
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
-import com.google.android.horologist.compose.tools.LayoutPreview
+import com.google.android.horologist.compose.tools.LayoutElementPreview
 import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.compose.tools.WearPreviewFontSizes
@@ -163,7 +163,7 @@ fun SampleButtonImagePreview() {
         .setId("click")
         .build()
 
-    LayoutPreview(
+    LayoutElementPreview(
         renderer.imageButton(clickable)
     ) {
         addIdToImageMapping(
@@ -186,7 +186,7 @@ fun SampleButtonIconPreview() {
         .setId("click")
         .build()
 
-    LayoutPreview(
+    LayoutElementPreview(
         renderer.iconButton(clickable)
     ) {
         addIdToImageMapping(

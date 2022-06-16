@@ -41,7 +41,7 @@ public interface TileLayoutRenderer<T, R> {
      * @param requestParams the incoming request params.
      */
     public fun renderTimeline(
-        tileState: T,
+        state: T,
         requestParams: RequestBuilders.TileRequest,
     ): Tile
 

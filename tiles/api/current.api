@@ -17,6 +17,15 @@ package com.google.android.horologist.tiles {
 
 }
 
+package com.google.android.horologist.tiles.canvas {
+
+  public final class CanvasKt {
+    method @RequiresApi(android.os.Build.VERSION_CODES.O) public static androidx.wear.tiles.ResourceBuilders.ImageResource canvasToImageResource(long size, androidx.compose.ui.unit.Density density, kotlin.jvm.functions.Function1<? super androidx.compose.ui.graphics.drawscope.DrawScope,kotlin.Unit> onDraw);
+    method public static void drawToBitmap(android.graphics.Bitmap bitmap, androidx.compose.ui.unit.Density density, long size, kotlin.jvm.functions.Function1<? super androidx.compose.ui.graphics.drawscope.DrawScope,kotlin.Unit> onDraw);
+  }
+
+}
+
 package com.google.android.horologist.tiles.images {
 
   public final class ImagesKt {
@@ -31,7 +40,26 @@ package com.google.android.horologist.tiles.images {
 
 }
 
+package com.google.android.horologist.tiles.preview {
+
+  public final class ThemePreviewTileRenderer extends com.google.android.horologist.tiles.render.SingleTileLayoutRenderer<kotlin.Unit,kotlin.Unit> {
+    ctor public ThemePreviewTileRenderer(android.content.Context context, androidx.wear.tiles.material.Colors thisTheme);
+    method public void produceRequestedResources(androidx.wear.tiles.ResourceBuilders.Resources.Builder, kotlin.Unit resourceResults, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters, java.util.List<java.lang.String> resourceIds);
+    method public androidx.wear.tiles.LayoutElementBuilders.LayoutElement renderTile(kotlin.Unit state, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters);
+  }
+
+}
+
 package com.google.android.horologist.tiles.render {
+
+  public abstract class RendererPreviewTileService<T, R, S extends com.google.android.horologist.tiles.render.TileLayoutRenderer<T, R>> extends com.google.android.horologist.tiles.CoroutinesTileService {
+    ctor public RendererPreviewTileService();
+    method public abstract R! createResources();
+    method public abstract S createTileRenderer();
+    method public abstract T! createTileState();
+    method public suspend Object? resourcesRequest(androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.ResourceBuilders.Resources> p);
+    method public suspend Object? tileRequest(androidx.wear.tiles.RequestBuilders.TileRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.TileBuilders.Tile> p);
+  }
 
   @com.google.android.horologist.tiles.ExperimentalHorologistTilesApi public abstract class SingleTileLayoutRenderer<T, R> implements com.google.android.horologist.tiles.render.TileLayoutRenderer<T,R> {
     ctor public SingleTileLayoutRenderer(android.content.Context context);
@@ -39,9 +67,9 @@ package com.google.android.horologist.tiles.render {
     method public final android.content.Context getContext();
     method public final androidx.wear.tiles.material.Colors getTheme();
     method public final androidx.wear.tiles.ResourceBuilders.Resources produceRequestedResources(R? resourceResults, androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams);
-    method public abstract void produceRequestedResources(androidx.wear.tiles.ResourceBuilders.Resources.Builder, R? resourceResults, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters, java.util.List<java.lang.String> resourceIds);
-    method public abstract androidx.wear.tiles.LayoutElementBuilders.LayoutElement renderTile(T? singleTileState, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters);
-    method public final androidx.wear.tiles.TileBuilders.Tile renderTimeline(T? tileState, androidx.wear.tiles.RequestBuilders.TileRequest requestParams);
+    method public void produceRequestedResources(androidx.wear.tiles.ResourceBuilders.Resources.Builder, R? resourceResults, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters, java.util.List<java.lang.String> resourceIds);
+    method public abstract androidx.wear.tiles.LayoutElementBuilders.LayoutElement renderTile(T? state, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters);
+    method public final androidx.wear.tiles.TileBuilders.Tile renderTimeline(T? state, androidx.wear.tiles.RequestBuilders.TileRequest requestParams);
     property public final android.content.Context context;
     property public final androidx.wear.tiles.material.Colors theme;
   }
@@ -52,7 +80,7 @@ package com.google.android.horologist.tiles.render {
 
   @com.google.android.horologist.tiles.ExperimentalHorologistTilesApi public interface TileLayoutRenderer<T, R> {
     method public androidx.wear.tiles.ResourceBuilders.Resources produceRequestedResources(R? resourceResults, androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams);
-    method public androidx.wear.tiles.TileBuilders.Tile renderTimeline(T? tileState, androidx.wear.tiles.RequestBuilders.TileRequest requestParams);
+    method public androidx.wear.tiles.TileBuilders.Tile renderTimeline(T? state, androidx.wear.tiles.RequestBuilders.TileRequest requestParams);
   }
 
 }

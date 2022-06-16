@@ -106,6 +106,7 @@ dependencies {
     implementation libs.androidx.lifecycle.service
 
     implementation libs.coil
+    implementation libs.wearcompose.foundation
 
     testImplementation libs.androidx.wear.tiles.testing
     testImplementation libs.espresso.core

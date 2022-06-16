@@ -41,6 +41,7 @@ package com.google.android.horologist.compose.tools {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public static <T, R> void TileLayoutPreview(T? state, R? resourceState, com.google.android.horologist.tiles.render.TileLayoutRenderer<T,R> renderer);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public static void TilePreview(androidx.wear.tiles.TileBuilders.Tile tile, androidx.wear.tiles.ResourceBuilders.Resources tileResources);
     method public static androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters buildDeviceParameters(android.content.res.Resources resources);
+    method public static androidx.wear.tiles.ModifiersBuilders.Clickable getDummyClickable();
   }
 
   @androidx.compose.ui.tooling.preview.Preview(device=androidx.compose.ui.tooling.preview.Devices.WEAR_OS_LARGE_ROUND, showSystemUi=true, backgroundColor=4278190080L, showBackground=true, group="Devices - Large Round") public @interface WearLargeRoundDevicePreview {

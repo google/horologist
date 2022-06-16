@@ -38,6 +38,7 @@ import androidx.wear.tiles.material.Text
 import androidx.wear.tiles.material.Typography
 import androidx.wear.tiles.material.layouts.MultiButtonLayout
 import androidx.wear.tiles.material.layouts.PrimaryLayout
+import com.google.android.horologist.compose.tools.DummyClickable
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.LayoutPreview
 import com.google.android.horologist.compose.tools.TileLayoutPreview
@@ -58,16 +59,12 @@ class SampleTileRenderer(context: Context) :
         context
     ) {
     override fun renderTile(
-        singleTileState: TileState,
+        state: TileState,
         deviceParameters: DeviceParameters
     ): LayoutElementBuilders.LayoutElement {
-        val clickable = Clickable.Builder()
-            .setId("click")
-            .build()
-
         return PrimaryLayout.Builder(deviceParameters)
             .setPrimaryLabelTextContent(
-                Text.Builder(context, "Count: ${singleTileState.count}")
+                Text.Builder(context, "Count: ${state.count}")
                     .setTypography(Typography.TYPOGRAPHY_CAPTION1)
                     .setColor(argb(theme.primary))
                     .build()
@@ -75,15 +72,15 @@ class SampleTileRenderer(context: Context) :
             .setContent(
                 MultiButtonLayout.Builder()
                     .addButtonContent(
-                        imageButton(clickable)
+                        imageButton(DummyClickable)
                     )
                     .addButtonContent(
-                        iconButton(clickable)
+                        iconButton(DummyClickable)
                     )
                     .build()
             )
             .setPrimaryChipContent(
-                CompactChip.Builder(context, "Action", clickable, deviceParameters)
+                CompactChip.Builder(context, "Action", DummyClickable, deviceParameters)
                     .setChipColors(ChipColors.primaryChipColors(theme))
                     .build()
             )
@@ -159,12 +156,8 @@ fun SampleButtonImagePreview() {
         SampleTileRenderer(context)
     }
 
-    val clickable = Clickable.Builder()
-        .setId("click")
-        .build()
-
     LayoutPreview(
-        renderer.imageButton(clickable)
+        renderer.imageButton(DummyClickable)
     ) {
         addIdToImageMapping(
             Image1,
@@ -182,12 +175,8 @@ fun SampleButtonIconPreview() {
         SampleTileRenderer(context)
     }
 
-    val clickable = Clickable.Builder()
-        .setId("click")
-        .build()
-
     LayoutPreview(
-        renderer.iconButton(clickable)
+        renderer.iconButton(DummyClickable)
     ) {
         addIdToImageMapping(
             Icon1,
@@ -200,3 +189,8 @@ fun SampleButtonIconPreview() {
     backgroundColor = 0xff000000, showBackground = true, widthDp = 100, heightDp = 100
 )
 public annotation class IconSizePreview
+
+@Preview(
+    backgroundColor = 0xff000000, showBackground = true, widthDp = 192, heightDp = 100
+)
+public annotation class FullWidthPreview

@@ -37,6 +37,8 @@ import androidx.wear.tiles.LayoutElementBuilders.HORIZONTAL_ALIGN_CENTER
 import androidx.wear.tiles.LayoutElementBuilders.LayoutElement
 import androidx.wear.tiles.LayoutElementBuilders.VERTICAL_ALIGN_CENTER
 import androidx.wear.tiles.ModifiersBuilders.Background
+import androidx.wear.tiles.ModifiersBuilders.Clickable
+import androidx.wear.tiles.ModifiersBuilders.Clickable.Builder
 import androidx.wear.tiles.ModifiersBuilders.Modifiers
 import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.ResourceBuilders
@@ -154,6 +156,10 @@ public fun LayoutPreview(
         .build()
     TilePreview(tile, tileResources)
 }
+
+public val DummyClickable: Clickable = Builder()
+    .setId("click")
+    .build()
 
 internal const val PERMANENT_RESOURCES_VERSION = "0"
 

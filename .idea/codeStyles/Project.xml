@@ -7,6 +7,7 @@
       </option>
       <option name="NAME_COUNT_TO_USE_STAR_IMPORT" value="99" />
       <option name="NAME_COUNT_TO_USE_STAR_IMPORT_FOR_MEMBERS" value="99" />
+      <option name="IMPORT_NESTED_CLASSES" value="true" />
       <option name="CONTINUATION_INDENT_IN_PARAMETER_LISTS" value="true" />
       <option name="CONTINUATION_INDENT_IN_ARGUMENT_LISTS" value="true" />
       <option name="CONTINUATION_INDENT_FOR_EXPRESSION_BODIES" value="true" />

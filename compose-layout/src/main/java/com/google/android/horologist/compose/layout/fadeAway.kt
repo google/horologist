@@ -19,6 +19,8 @@ package com.google.android.horologist.compose.layout
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -51,8 +53,10 @@ public fun Modifier.fadeAway(scrollStateFn: () -> ScrollState): Modifier = compo
 @ExperimentalHorologistComposeLayoutApi
 public fun Modifier.fadeAwayLazyList(scrollStateFn: () -> LazyListState): Modifier = composed {
     val scrollState = scrollStateFn()
-    if (scrollState.firstVisibleItemIndex == 0) {
-        val y = scrollState.firstVisibleItemScrollOffset / LocalDensity.current.density
+    val isFirst by derivedStateOf { scrollState.firstVisibleItemIndex == 0 }
+    if (isFirst) {
+        val density = LocalDensity.current.density
+        val y by derivedStateOf { scrollState.firstVisibleItemScrollOffset / density }
 
         fadeEffect(y, fade = false)
     } else {

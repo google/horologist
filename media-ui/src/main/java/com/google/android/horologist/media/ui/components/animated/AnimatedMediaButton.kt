@@ -65,7 +65,7 @@ public fun AnimatedMediaButton(
                 .size(ButtonDefaults.SmallButtonSize)
                 .semantics { contentDescriptionProperty = contentDescription },
             composition = composition,
-            progress = lottieAnimatable.progress,
+            progress = { lottieAnimatable.progress },
             dynamicProperties = dynamicProperties,
         )
     }

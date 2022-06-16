@@ -29,6 +29,16 @@ import com.google.android.horologist.tiles.images.toImageResource
 import android.graphics.Canvas as AndroidCanvas
 import androidx.compose.ui.graphics.Canvas as ComposeCanvas
 
+/**
+ * Render an element normally drawn within a Compose Canvas into a Bitmap.
+ *
+ * This allows shared elements between the app and tiles.
+ *
+ * @param bitmap the destination to draw into.
+ * @param density the compose density to use when drawing.
+ * @param size bounds relative to the current canvas to draw within.
+ * @param onDraw the render logic.
+ */
 public fun drawToBitmap(
     bitmap: Bitmap,
     density: Density,
@@ -44,6 +54,14 @@ public fun drawToBitmap(
     }
 }
 
+/**
+ * Render an element normally drawn within a Compose Canvas into a Bitmap and then
+ * convert to a Tiles ImageResource.
+ *
+ * @param size the size of the bitmap desired in pixels.
+ * @param density the compose density to use when drawing.
+ * @param onDraw the render logic.
+ */
 @RequiresApi(VERSION_CODES.O)
 public fun canvasToImageResource(
     size: Size,

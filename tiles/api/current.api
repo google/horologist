@@ -15,13 +15,25 @@ package com.google.android.horologist.tiles {
   @kotlin.RequiresOptIn(message="Horologist Tiles is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistTilesApi {
   }
 
+}
+
+package com.google.android.horologist.tiles.images {
+
   public final class ImagesKt {
     method public static suspend Object? loadImage(coil.ImageLoader, android.content.Context context, Object? data, optional kotlin.jvm.functions.Function1<? super coil.request.ImageRequest.Builder,kotlin.Unit> configurer, optional kotlin.coroutines.Continuation<? super android.graphics.Bitmap> p);
     method public static suspend Object? loadImageResource(coil.ImageLoader, android.content.Context context, Object? data, optional kotlin.jvm.functions.Function1<? super coil.request.ImageRequest.Builder,kotlin.Unit> configurer, optional kotlin.coroutines.Continuation<? super androidx.wear.tiles.ResourceBuilders.ImageResource> p);
     method public static androidx.wear.tiles.ResourceBuilders.ImageResource toImageResource(android.graphics.Bitmap);
   }
 
-  @com.google.android.horologist.tiles.ExperimentalHorologistTilesApi public abstract class SingleTileLayoutRenderer<T, R> implements com.google.android.horologist.tiles.TileLayoutRenderer<T,R> {
+  public final class ResourcesKt {
+    method public static androidx.wear.tiles.ResourceBuilders.ImageResource drawableResToImageResource(@DrawableRes int id);
+  }
+
+}
+
+package com.google.android.horologist.tiles.render {
+
+  @com.google.android.horologist.tiles.ExperimentalHorologistTilesApi public abstract class SingleTileLayoutRenderer<T, R> implements com.google.android.horologist.tiles.render.TileLayoutRenderer<T,R> {
     ctor public SingleTileLayoutRenderer(android.content.Context context);
     method public androidx.wear.tiles.material.Colors createTheme();
     method public final android.content.Context getContext();

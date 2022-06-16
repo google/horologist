@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.tiles
+package com.google.android.horologist.tiles.render
 
 import android.content.Context
 import androidx.wear.tiles.DeviceParametersBuilders
@@ -25,6 +25,7 @@ import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
 import androidx.wear.tiles.TimelineBuilders
 import androidx.wear.tiles.material.Colors
+import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
 
 /**
  * A [TileLayoutRenderer] designed with typical but restrictive limitations, such as a single tile

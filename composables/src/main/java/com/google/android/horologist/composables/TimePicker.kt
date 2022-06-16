@@ -30,6 +30,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
@@ -280,7 +281,7 @@ public fun TimePickerWith12HourClock(
             Spacer(Modifier.height(8.dp))
             CompactChip(
                 onClick = { amPm = 1 - amPm },
-                modifier = Modifier.size(width = 50.dp, height = 24.dp),
+                modifier = Modifier.size(width = 50.dp, height = 40.dp),
                 label = {
                     Row(
                         modifier = Modifier.fillMaxWidth(),

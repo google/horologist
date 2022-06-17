@@ -26,6 +26,14 @@ package com.google.android.horologist.tiles.canvas {
 
 }
 
+package com.google.android.horologist.tiles.components {
+
+  public final class ComponentsKt {
+    method public static androidx.wear.tiles.ModifiersBuilders.Clickable getNoOpClickable();
+  }
+
+}
+
 package com.google.android.horologist.tiles.images {
 
   public final class ImagesKt {

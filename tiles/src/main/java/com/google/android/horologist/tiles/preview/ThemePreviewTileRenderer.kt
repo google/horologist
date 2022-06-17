@@ -27,8 +27,6 @@ import androidx.wear.tiles.LayoutElementBuilders.Column
 import androidx.wear.tiles.LayoutElementBuilders.HORIZONTAL_ALIGN_CENTER
 import androidx.wear.tiles.LayoutElementBuilders.LayoutElement
 import androidx.wear.tiles.LayoutElementBuilders.VERTICAL_ALIGN_CENTER
-import androidx.wear.tiles.ModifiersBuilders.Clickable
-import androidx.wear.tiles.ModifiersBuilders.Clickable.Builder
 import androidx.wear.tiles.ResourceBuilders
 import androidx.wear.tiles.material.Button
 import androidx.wear.tiles.material.ButtonColors
@@ -40,6 +38,7 @@ import androidx.wear.tiles.material.Text
 import androidx.wear.tiles.material.Typography
 import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
 import com.google.android.horologist.tiles.R
+import com.google.android.horologist.tiles.components.NoOpClickable
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 import com.google.android.horologist.tiles.render.SingleTileLayoutRenderer
 
@@ -49,10 +48,6 @@ import com.google.android.horologist.tiles.render.SingleTileLayoutRenderer
 public class ThemePreviewTileRenderer(context: Context, private val thisTheme: Colors) :
     SingleTileLayoutRenderer<Unit, Unit>(context) {
     override fun createTheme(): Colors = thisTheme
-
-    internal val DummyClickable: Clickable = Builder()
-        .setId("click")
-        .build()
 
     override fun renderTile(
         state: Unit,
@@ -82,25 +77,25 @@ public class ThemePreviewTileRenderer(context: Context, private val thisTheme: C
 
     internal fun primaryChip(
         deviceParameters: DeviceParameters
-    ) = Chip.Builder(context, DummyClickable, deviceParameters)
+    ) = Chip.Builder(context, NoOpClickable, deviceParameters)
         .setPrimaryTextIconContent("Primary Chip", Icon)
         .setChipColors(ChipColors.primaryChipColors(theme))
         .build()
 
     internal fun secondaryCompactChip(
         deviceParameters: DeviceParameters
-    ) = CompactChip.Builder(context, "Secondary Chip", DummyClickable, deviceParameters)
+    ) = CompactChip.Builder(context, "Secondary Chip", NoOpClickable, deviceParameters)
         .setChipColors(ChipColors.secondaryChipColors(theme))
         .build()
 
     internal fun primaryIconButton() =
-        Button.Builder(context, DummyClickable)
+        Button.Builder(context, NoOpClickable)
             .setIconContent(Icon)
             .setButtonColors(ButtonColors.primaryButtonColors(theme))
             .build()
 
     internal fun secondaryIconButton() =
-        Button.Builder(context, DummyClickable)
+        Button.Builder(context, NoOpClickable)
             .setIconContent(Icon)
             .setButtonColors(ButtonColors.secondaryButtonColors(theme))
             .build()

@@ -38,7 +38,6 @@ import androidx.wear.tiles.material.Text
 import androidx.wear.tiles.material.Typography
 import androidx.wear.tiles.material.layouts.MultiButtonLayout
 import androidx.wear.tiles.material.layouts.PrimaryLayout
-import com.google.android.horologist.compose.tools.DummyClickable
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.LayoutElementPreview
 import com.google.android.horologist.compose.tools.TileLayoutPreview
@@ -50,6 +49,7 @@ import com.google.android.horologist.tile.SampleTileRenderer.Companion.Image1
 import com.google.android.horologist.tile.SampleTileRenderer.Companion.TileIcon
 import com.google.android.horologist.tile.SampleTileRenderer.Companion.TileImage
 import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
+import com.google.android.horologist.tiles.components.NoOpClickable
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 import com.google.android.horologist.tiles.images.toImageResource
 import com.google.android.horologist.tiles.render.SingleTileLayoutRenderer
@@ -72,15 +72,15 @@ class SampleTileRenderer(context: Context) :
             .setContent(
                 MultiButtonLayout.Builder()
                     .addButtonContent(
-                        imageButton(DummyClickable)
+                        imageButton(NoOpClickable)
                     )
                     .addButtonContent(
-                        iconButton(DummyClickable)
+                        iconButton(NoOpClickable)
                     )
                     .build()
             )
             .setPrimaryChipContent(
-                CompactChip.Builder(context, "Action", DummyClickable, deviceParameters)
+                CompactChip.Builder(context, "Action", NoOpClickable, deviceParameters)
                     .setChipColors(ChipColors.primaryChipColors(theme))
                     .build()
             )
@@ -157,7 +157,7 @@ fun SampleButtonImagePreview() {
     }
 
     LayoutElementPreview(
-        renderer.imageButton(DummyClickable)
+        renderer.imageButton(NoOpClickable)
     ) {
         addIdToImageMapping(
             Image1,
@@ -176,7 +176,7 @@ fun SampleButtonIconPreview() {
     }
 
     LayoutElementPreview(
-        renderer.iconButton(DummyClickable)
+        renderer.iconButton(NoOpClickable)
     ) {
         addIdToImageMapping(
             Icon1,

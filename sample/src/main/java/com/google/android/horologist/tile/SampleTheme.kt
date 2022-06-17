@@ -33,11 +33,11 @@ val SampleTheme =
 @WearLargeRoundDevicePreview
 @Composable
 public fun SampleThemePreview() {
-    ThemePreview(SampleTheme)
+    ThemePreviewTile(SampleTheme)
 }
 
 @Composable
-public fun ThemePreview(theme: Colors) {
+public fun ThemePreviewTile(theme: Colors) {
     val context = LocalContext.current
     val renderer = remember(theme) { ThemePreviewTileRenderer(context, theme) }
 

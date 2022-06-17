@@ -19,6 +19,7 @@ package com.google.android.horologist.compose.layout
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -84,8 +85,11 @@ public fun Modifier.fadeAwayScalingLazyList(
     composed {
         val scrollState = remember { scrollStateFn() }
 
-        if (scrollState.centerItemIndex == initialIndex && scrollState.centerItemScrollOffset > initialOffset) {
-            val y = scrollState.centerItemScrollOffset / LocalDensity.current.density
+        val isInitial by derivedStateOf { scrollState.centerItemIndex == initialIndex }
+        val centerItemScrollOffset by derivedStateOf { scrollState.centerItemScrollOffset }
+
+        if (isInitial && centerItemScrollOffset > initialOffset) {
+            val y = centerItemScrollOffset / LocalDensity.current.density
 
             fadeEffect(y, fade = true)
         } else if (scrollState.centerItemIndex > initialIndex) {

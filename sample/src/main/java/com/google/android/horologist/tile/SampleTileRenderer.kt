@@ -49,6 +49,7 @@ import com.google.android.horologist.tile.SampleTileRenderer.Companion.Image1
 import com.google.android.horologist.tile.SampleTileRenderer.Companion.TileIcon
 import com.google.android.horologist.tile.SampleTileRenderer.Companion.TileImage
 import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
+import com.google.android.horologist.tiles.components.NoOpClickable
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 import com.google.android.horologist.tiles.images.toImageResource
 import com.google.android.horologist.tiles.render.SingleTileLayoutRenderer
@@ -58,16 +59,12 @@ class SampleTileRenderer(context: Context) :
         context
     ) {
     override fun renderTile(
-        singleTileState: TileState,
+        state: TileState,
         deviceParameters: DeviceParameters
     ): LayoutElementBuilders.LayoutElement {
-        val clickable = Clickable.Builder()
-            .setId("click")
-            .build()
-
         return PrimaryLayout.Builder(deviceParameters)
             .setPrimaryLabelTextContent(
-                Text.Builder(context, "Count: ${singleTileState.count}")
+                Text.Builder(context, "Count: ${state.count}")
                     .setTypography(Typography.TYPOGRAPHY_CAPTION1)
                     .setColor(argb(theme.primary))
                     .build()
@@ -75,15 +72,15 @@ class SampleTileRenderer(context: Context) :
             .setContent(
                 MultiButtonLayout.Builder()
                     .addButtonContent(
-                        imageButton(clickable)
+                        imageButton(NoOpClickable)
                     )
                     .addButtonContent(
-                        iconButton(clickable)
+                        iconButton(NoOpClickable)
                     )
                     .build()
             )
             .setPrimaryChipContent(
-                CompactChip.Builder(context, "Action", clickable, deviceParameters)
+                CompactChip.Builder(context, "Action", NoOpClickable, deviceParameters)
                     .setChipColors(ChipColors.primaryChipColors(theme))
                     .build()
             )
@@ -159,12 +156,8 @@ fun SampleButtonImagePreview() {
         SampleTileRenderer(context)
     }
 
-    val clickable = Clickable.Builder()
-        .setId("click")
-        .build()
-
     LayoutElementPreview(
-        renderer.imageButton(clickable)
+        renderer.imageButton(NoOpClickable)
     ) {
         addIdToImageMapping(
             Image1,
@@ -182,12 +175,8 @@ fun SampleButtonIconPreview() {
         SampleTileRenderer(context)
     }
 
-    val clickable = Clickable.Builder()
-        .setId("click")
-        .build()
-
     LayoutElementPreview(
-        renderer.iconButton(clickable)
+        renderer.iconButton(NoOpClickable)
     ) {
         addIdToImageMapping(
             Icon1,
@@ -200,3 +189,8 @@ fun SampleButtonIconPreview() {
     backgroundColor = 0xff000000, showBackground = true, widthDp = 100, heightDp = 100
 )
 public annotation class IconSizePreview
+
+@Preview(
+    backgroundColor = 0xff000000, showBackground = true, widthDp = 192, heightDp = 100
+)
+public annotation class FullWidthPreview

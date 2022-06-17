@@ -41,10 +41,10 @@ public abstract class SingleTileLayoutRenderer<T, R>(
     public val theme: Colors by lazy { createTheme() }
 
     final override fun renderTimeline(
-        tileState: T,
+        state: T,
         requestParams: RequestBuilders.TileRequest,
     ): Tile {
-        val rootLayout = renderTile(tileState, requestParams.deviceParameters!!)
+        val rootLayout = renderTile(state, requestParams.deviceParameters!!)
 
         val singleTileTimeline = TimelineBuilders.Timeline.Builder()
             .addTimelineEntry(
@@ -73,7 +73,7 @@ public abstract class SingleTileLayoutRenderer<T, R>(
      * Render a single tile as a LayoutElement, that will be the only item in the timeline.
      */
     public abstract fun renderTile(
-        singleTileState: T,
+        state: T,
         deviceParameters: DeviceParametersBuilders.DeviceParameters
     ): LayoutElement
 
@@ -96,11 +96,12 @@ public abstract class SingleTileLayoutRenderer<T, R>(
     /**
      * Add resources directly to the builder.
      */
-    public abstract fun Resources.Builder.produceRequestedResources(
+    public open fun Resources.Builder.produceRequestedResources(
         resourceResults: R,
         deviceParameters: DeviceParametersBuilders.DeviceParameters,
         resourceIds: MutableList<String>,
-    ): Unit
+    ) {
+    }
 }
 
 /**

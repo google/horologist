@@ -84,6 +84,8 @@ public fun Modifier.fadeAwayScalingLazyList(
     composed {
         val scrollState = remember { scrollStateFn() }
 
+        // General improvement, but specifically a workaround 
+        // for https://github.com/google/horologist/issues/243 in Compose rc01
         val isInitial by derivedStateOf { scrollState.centerItemIndex == initialIndex }
         val centerItemScrollOffset by derivedStateOf { scrollState.centerItemScrollOffset }
 

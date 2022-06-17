@@ -84,8 +84,13 @@ public fun Modifier.fadeAwayScalingLazyList(
     composed {
         val scrollState = remember { scrollStateFn() }
 
-        if (scrollState.centerItemIndex == initialIndex && scrollState.centerItemScrollOffset > initialOffset) {
-            val y = scrollState.centerItemScrollOffset / LocalDensity.current.density
+        // General improvement, but specifically a workaround 
+        // for https://github.com/google/horologist/issues/243 in Compose rc01
+        val isInitial by derivedStateOf { scrollState.centerItemIndex == initialIndex }
+        val centerItemScrollOffset by derivedStateOf { scrollState.centerItemScrollOffset }
+
+        if (isInitial && centerItemScrollOffset > initialOffset) {
+            val y = centerItemScrollOffset / LocalDensity.current.density
 
             fadeEffect(y, fade = true)
         } else if (scrollState.centerItemIndex > initialIndex) {

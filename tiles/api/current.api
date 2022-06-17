@@ -62,9 +62,9 @@ package com.google.android.horologist.tiles.render {
 
   public abstract class RendererPreviewTileService<T, R, S extends com.google.android.horologist.tiles.render.TileLayoutRenderer<T, R>> extends com.google.android.horologist.tiles.CoroutinesTileService {
     ctor public RendererPreviewTileService();
-    method public abstract R! createResources();
+    method public abstract suspend Object? createResourcesInput(kotlin.coroutines.Continuation<? super R> p);
     method public abstract S createTileRenderer();
-    method public abstract T! createTileState();
+    method public abstract suspend Object? createTileState(kotlin.coroutines.Continuation<? super T> p);
     method public suspend Object? resourcesRequest(androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.ResourceBuilders.Resources> p);
     method public suspend Object? tileRequest(androidx.wear.tiles.RequestBuilders.TileRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.TileBuilders.Tile> p);
   }

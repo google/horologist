@@ -25,6 +25,9 @@ import androidx.wear.tiles.TileBuilders.Tile
 import com.google.android.horologist.tiles.CoroutinesTileService
 import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
 
+/**
+ * A base class for a Preview only TileService using a TileLayoutRenderer.
+ */
 public abstract class RendererPreviewTileService<T, R, S : TileLayoutRenderer<T, R>> :
     CoroutinesTileService() {
     private lateinit var renderer: S
@@ -37,9 +40,9 @@ public abstract class RendererPreviewTileService<T, R, S : TileLayoutRenderer<T,
 
     public abstract fun createTileRenderer(): S
 
-    public abstract fun createTileState(): T
+    public abstract suspend fun createTileState(): T
 
-    public abstract fun createResources(): R
+    public abstract suspend fun createResourcesInput(): R
 
     override suspend fun tileRequest(requestParams: TileRequest): Tile {
         return renderer.renderTimeline(createTileState(), requestParams)
@@ -47,7 +50,7 @@ public abstract class RendererPreviewTileService<T, R, S : TileLayoutRenderer<T,
 
     override suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources {
         return renderer.produceRequestedResources(
-            createResources(),
+            createResourcesInput(),
             requestParams
         )
     }

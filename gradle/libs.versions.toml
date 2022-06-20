@@ -1,7 +1,7 @@
 [versions]
 affectedmoduledetector = "0.1.5"
 androidx-concurrent = "1.1.0"
-androidx-media3 = "1.0.0-alpha03"
+androidx-media3 = "1.0.0-beta01"
 androidx-test-ext = "1.1.3"
 androidxActivity = "1.5.0-rc01"
 androidxCore = "1.8.0"
@@ -26,11 +26,11 @@ metalava = "0.2.1"
 room = "2.4.2"
 spotless = "6.7.2"
 truth = "1.1.3"
-versionCatalogUpdate = "0.5.0"
+versionCatalogUpdate = "0.5.1"
 wearcompose = "1.0.0-rc01"
 
 [libraries]
-accompanist-pager = "com.google.accompanist:accompanist-pager:0.24.10-beta"
+accompanist-pager = "com.google.accompanist:accompanist-pager:0.24.11-rc"
 affectedmoduledetector = { module = "com.dropbox.affectedmoduledetector:affectedmoduledetector", version.ref = "affectedmoduledetector" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }

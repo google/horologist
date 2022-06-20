@@ -99,7 +99,9 @@ dependencies {
     api libs.androidx.media3.common
     api libs.androidx.annotation
     api libs.androidx.media3.exoplayer
+    api libs.androidx.media3.session
     implementation libs.androidx.lifecycle.process
+    implementation libs.kotlinx.coroutines.guava
 
     testImplementation libs.junit
     testImplementation libs.truth

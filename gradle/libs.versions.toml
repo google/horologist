@@ -48,6 +48,7 @@ androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-
 androidx-lifecycle-viewmodelktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
 androidx-media3-common = { module = "androidx.media3:media3-common", version.ref = "androidx-media3" }
 androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "androidx-media3" }
+androidx-media3-session = { module = "androidx.media3:media3-session", version.ref = "androidx-media3" }
 androidx-media3-testutils = { module = "androidx.media3:media3-test-utils", version.ref = "androidx-media3" }
 androidx-media3-testutils-robolectric = { module = "androidx.media3:media3-test-utils-robolectric", version.ref = "androidx-media3" }
 androidx-mediarouter = "androidx.mediarouter:mediarouter:1.3.0"
@@ -79,6 +80,7 @@ kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", ve
 kotlin-stdlib = "org.jetbrains.kotlin:kotlin-stdlib:1.6.21"
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutine" }
+kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "kotlinxCoroutine" }
 lottie-compose = "com.airbnb.android:lottie-compose:5.2.0"
 metalavaGradle = { module = "me.tylerbwong.gradle:metalava-gradle", version.ref = "metalava" }
 paparazzi = { module = "app.cash.paparazzi:paparazzi", version.ref = "app-cash-paparazzi" }

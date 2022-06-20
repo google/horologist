@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.media.ui.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -33,7 +32,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.TextMediaDisplay
@@ -132,7 +130,7 @@ public fun PlayerScreen(
     background: @Composable BoxScope.() -> Unit = {}
 ) {
     Box(
-        modifier = modifier.fillMaxSize().background(MaterialTheme.colors.background),
+        modifier = modifier.fillMaxSize(),
     ) {
         background()
 

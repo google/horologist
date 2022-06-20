@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media3.service;
+package com.google.android.horologist.media3.service
 
 import androidx.media3.common.MediaItem
 import androidx.media3.session.LibraryResult
 import androidx.media3.session.MediaLibraryService
+import androidx.media3.session.MediaLibraryService.MediaLibrarySession
 import androidx.media3.session.MediaSession
 import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
 import com.google.android.horologist.media3.logging.ErrorReporter
@@ -33,13 +34,13 @@ import kotlinx.coroutines.guava.future
  * Each metho is implemented like for like,
  */
 @ExperimentalHorologistMedia3BackendApi
-abstract class CoroutinesMediaLibrarySessionCallback(
-    val serviceScope: CoroutineScope,
-    val appEventLogger: ErrorReporter
+public abstract class CoroutinesMediaLibrarySessionCallback(
+    private val serviceScope: CoroutineScope,
+    private val appEventLogger: ErrorReporter
 ) :
-    MediaLibraryService.MediaLibrarySession.Callback {
+    MediaLibrarySession.Callback {
     override fun onGetLibraryRoot(
-        session: MediaLibraryService.MediaLibrarySession,
+        session: MediaLibrarySession,
         browser: MediaSession.ControllerInfo,
         params: MediaLibraryService.LibraryParams?
     ): ListenableFuture<LibraryResult<MediaItem>> {
@@ -57,14 +58,14 @@ abstract class CoroutinesMediaLibrarySessionCallback(
         }
     }
 
-    abstract suspend fun onGetLibraryRootInternal(
-        session: MediaLibraryService.MediaLibrarySession,
+    protected abstract suspend fun onGetLibraryRootInternal(
+        session: MediaLibrarySession,
         browser: MediaSession.ControllerInfo,
         params: MediaLibraryService.LibraryParams?
     ): LibraryResult<MediaItem>
 
     override fun onGetItem(
-        session: MediaLibraryService.MediaLibrarySession,
+        session: MediaLibrarySession,
         browser: MediaSession.ControllerInfo,
         mediaId: String
     ): ListenableFuture<LibraryResult<MediaItem>> {
@@ -82,8 +83,8 @@ abstract class CoroutinesMediaLibrarySessionCallback(
         }
     }
 
-    abstract suspend fun onGetItemInternal(
-        session: MediaLibraryService.MediaLibrarySession,
+    protected abstract suspend fun onGetItemInternal(
+        session: MediaLibrarySession,
         browser: MediaSession.ControllerInfo,
         mediaId: String
     ): LibraryResult<MediaItem>
@@ -102,7 +103,7 @@ abstract class CoroutinesMediaLibrarySessionCallback(
      * default implementation of onAddMediaItems that sets the URI from the requestMetadata
      * if present.
      */
-    open suspend fun onAddMediaItemsInternal(
+    protected open suspend fun onAddMediaItemsInternal(
         mediaSession: MediaSession,
         controller: MediaSession.ControllerInfo,
         mediaItems: MutableList<MediaItem>
@@ -119,7 +120,7 @@ abstract class CoroutinesMediaLibrarySessionCallback(
     }
 
     override fun onGetChildren(
-        session: MediaLibraryService.MediaLibrarySession,
+        session: MediaLibrarySession,
         browser: MediaSession.ControllerInfo,
         parentId: String,
         page: Int,
@@ -140,8 +141,8 @@ abstract class CoroutinesMediaLibrarySessionCallback(
         }
     }
 
-    abstract suspend fun onGetChildrenInternal(
-        session: MediaLibraryService.MediaLibrarySession,
+    protected abstract suspend fun onGetChildrenInternal(
+        session: MediaLibrarySession,
         browser: MediaSession.ControllerInfo,
         parentId: String,
         page: Int,
@@ -149,4 +150,3 @@ abstract class CoroutinesMediaLibrarySessionCallback(
         params: MediaLibraryService.LibraryParams?
     ): LibraryResult<ImmutableList<MediaItem>>
 }
-

@@ -32,11 +32,11 @@ public interface ErrorReporter {
         level: Level = Level.Info
     )
 
-    enum class Category {
+    public enum class Category {
         Playback, Downloads, Network, App, DB, Jobs, Unknown
     }
 
-    enum class Level {
+    public enum class Level {
         Error, Info, Debug
     }
 }

@@ -40,7 +40,7 @@ public abstract class SingleTileLayoutRenderer<T, R>(
 ) : TileLayoutRenderer<T, R> {
     public val theme: Colors by lazy { createTheme() }
 
-    public open val freshnessIntervalMillis = 0
+    public open val freshnessIntervalMillis: Long = 0L
 
     final override fun renderTimeline(
         state: T,

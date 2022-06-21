@@ -27,7 +27,11 @@ open class FakeErrorReporter : ErrorReporter {
         messages.add(message)
     }
 
-    override fun logMessage(message: String) {
+    override fun logMessage(
+        message: String,
+        category: ErrorReporter.Category,
+        level: ErrorReporter.Level
+    ) {
         logs.add(message)
     }
 }

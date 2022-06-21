@@ -26,5 +26,17 @@ import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendA
 public interface ErrorReporter {
     public fun showMessage(@StringRes message: Int)
 
-    public fun logMessage(message: String)
+    public fun logMessage(
+        message: String,
+        category: Category = Category.Unknown,
+        level: Level = Level.Info
+    )
+
+    public enum class Category {
+        Playback, Downloads, Network, App, DB, Jobs, Unknown
+    }
+
+    public enum class Level {
+        Error, Info, Debug
+    }
 }

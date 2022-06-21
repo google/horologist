@@ -35,8 +35,24 @@ package com.google.android.horologist.media3.flows {
 package com.google.android.horologist.media3.logging {
 
   @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public interface ErrorReporter {
-    method public void logMessage(String message);
+    method public void logMessage(String message, optional com.google.android.horologist.media3.logging.ErrorReporter.Category category, optional com.google.android.horologist.media3.logging.ErrorReporter.Level level);
     method public void showMessage(@StringRes int message);
+  }
+
+  public enum ErrorReporter.Category {
+    enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Category App;
+    enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Category DB;
+    enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Category Downloads;
+    enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Category Jobs;
+    enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Category Network;
+    enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Category Playback;
+    enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Category Unknown;
+  }
+
+  public enum ErrorReporter.Level {
+    enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Level Debug;
+    enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Level Error;
+    enum_constant public static final com.google.android.horologist.media3.logging.ErrorReporter.Level Info;
   }
 
 }
@@ -93,6 +109,18 @@ package com.google.android.horologist.media3.rules {
     method public suspend Object? canPlayItem(androidx.media3.common.MediaItem mediaItem, kotlin.coroutines.Continuation<? super java.lang.Boolean> p);
     method public boolean canPlayWithOutput(com.google.android.horologist.audio.AudioOutput audioOutput);
     field public static final com.google.android.horologist.media3.rules.PlaybackRules.Normal INSTANCE;
+  }
+
+}
+
+package com.google.android.horologist.media3.service {
+
+  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public abstract class CoroutinesMediaLibrarySessionCallback implements androidx.media3.session.MediaLibraryService.MediaLibrarySession.Callback {
+    ctor public CoroutinesMediaLibrarySessionCallback(kotlinx.coroutines.CoroutineScope serviceScope, com.google.android.horologist.media3.logging.ErrorReporter appEventLogger);
+    method protected suspend Object? onAddMediaItemsInternal(androidx.media3.session.MediaSession mediaSession, androidx.media3.session.MediaSession.ControllerInfo controller, java.util.List<androidx.media3.common.MediaItem> mediaItems, kotlin.coroutines.Continuation<? super java.util.List<androidx.media3.common.MediaItem>> p);
+    method protected abstract suspend Object? onGetChildrenInternal(androidx.media3.session.MediaLibraryService.MediaLibrarySession session, androidx.media3.session.MediaSession.ControllerInfo browser, String parentId, int page, int pageSize, androidx.media3.session.MediaLibraryService.LibraryParams? params, kotlin.coroutines.Continuation<? super androidx.media3.session.LibraryResult<com.google.common.collect.ImmutableList<androidx.media3.common.MediaItem>>> p);
+    method protected abstract suspend Object? onGetItemInternal(androidx.media3.session.MediaLibraryService.MediaLibrarySession session, androidx.media3.session.MediaSession.ControllerInfo browser, String mediaId, kotlin.coroutines.Continuation<? super androidx.media3.session.LibraryResult<androidx.media3.common.MediaItem>> p);
+    method protected abstract suspend Object? onGetLibraryRootInternal(androidx.media3.session.MediaLibraryService.MediaLibrarySession session, androidx.media3.session.MediaSession.ControllerInfo browser, androidx.media3.session.MediaLibraryService.LibraryParams? params, kotlin.coroutines.Continuation<? super androidx.media3.session.LibraryResult<androidx.media3.common.MediaItem>> p);
   }
 
 }

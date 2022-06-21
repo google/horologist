@@ -14,13 +14,27 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.service
+package com.google.android.horologist.mediasample.components
 
-import androidx.media3.session.MediaLibraryService
+import androidx.media3.common.Player
 import androidx.media3.session.MediaSession
+import com.google.android.horologist.media3.navigation.IntentBuilder
+import com.google.android.horologist.media3.service.LifecycleMediaLibraryService
+import com.google.android.horologist.mediasample.di.MediaApplicationContainer
 
-class PlaybackService: MediaLibraryService() {
+class PlaybackService: LifecycleMediaLibraryService() {
+    override lateinit var player: Player
+    override lateinit var librarySessionCallback: MediaLibrarySession.Callback
+    override lateinit var intentBuilder: IntentBuilder
+    override lateinit var mediaLibrarySession: MediaLibrarySession
+
+    override fun onCreate() {
+        super.onCreate()
+
+        MediaApplicationContainer.inject(this)
+    }
+
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession? {
-        TODO("Not yet implemented")
+        return mediaLibrarySession
     }
 }

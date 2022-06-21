@@ -14,19 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.sample
+package com.google.android.horologist.mediasample.ui
 
-sealed class Screen(
+sealed class Navigation(
     val route: String
 ) {
-    object Menu : Screen("menu")
-    object FillMaxRectangle : Screen("fmr")
-    object FadeAway : Screen("fadeAway")
-    object FadeAwaySLC : Screen("fadeAwaySLC")
-    object FadeAwayColumn : Screen("fadeAwayColumn")
-    object Volume : Screen("volume")
-    object DatePicker : Screen("datePicker")
-    object TimePicker : Screen("timePicker")
-    object TimeWithSecondsPicker : Screen("timeWithSecondsPicker")
-    object TimeWithoutSecondsPicker : Screen("timeWithoutSecondsPicker")
+    object MediaPlayer : Navigation("player")
+    object Settings : Navigation("settings")
+    object Volume : Navigation("volume")
 }

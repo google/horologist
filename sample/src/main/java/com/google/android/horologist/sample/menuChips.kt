@@ -193,11 +193,3 @@ fun FadeAwayChip(
         }
     )
 }
-
-@Composable
-fun MediaPlayerChip(navigateToRoute: () -> Unit) {
-    SampleChip(
-        onClick = { navigateToRoute() },
-        label = stringResource(id = R.string.chip_media_player_sample)
-    )
-}

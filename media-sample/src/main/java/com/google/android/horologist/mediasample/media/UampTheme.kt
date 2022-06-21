@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.sample.media
+package com.google.android.horologist.mediasample.media
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color

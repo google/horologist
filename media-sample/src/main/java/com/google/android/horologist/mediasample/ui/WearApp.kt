@@ -14,77 +14,53 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media
+package com.google.android.horologist.mediasample.ui
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
-import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.audio.BluetoothSettings.launchBluetoothSettings
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.audio.ui.VolumeViewModel
-import com.google.android.horologist.sample.Screen
-import com.google.android.horologist.sample.di.SampleAppDI
-import com.google.android.horologist.sample.media.MediaPlayerScreen
-import com.google.android.horologist.sample.media.MediaPlayerScreenViewModel
-import com.google.android.horologist.sample.media.UampTheme
-
-class MediaActivity : ComponentActivity() {
-    lateinit var mediaPlayerScreenViewModelFactory: MediaPlayerScreenViewModel.Factory
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        SampleAppDI.inject(this)
-
-        setContent {
-            WearApp(mediaPlayerScreenViewModelFactory)
-        }
-    }
-}
+import com.google.android.horologist.compose.pager.FocusOnResume
+import com.google.android.horologist.media.ui.uamp.UampTheme
 
 @Composable
 fun WearApp(
+    navController: NavHostController,
     mediaPlayerScreenViewModelFactory: MediaPlayerScreenViewModel.Factory
 ) {
-    val navController = rememberSwipeDismissableNavController()
-
     UampTheme {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
         ) {
             SwipeDismissableNavHost(
                 navController = navController,
-                startDestination = Screen.MediaPlayer.route,
+                startDestination = Navigation.MediaPlayer.route,
             ) {
-                composable(Screen.Volume.route) {
+                composable(Navigation.Volume.route) {
                     val focusRequester = remember { FocusRequester() }
 
                     VolumeScreen(focusRequester = focusRequester)
 
-                    LaunchedEffect(Unit) {
-                        focusRequester.requestFocus()
-                    }
+                    FocusOnResume(focusRequester = focusRequester)
                 }
-                composable(Screen.MediaPlayer.route) {
+                composable(Navigation.MediaPlayer.route) {
                     val context = LocalContext.current
 
                     MediaPlayerScreen(
                         mediaPlayerScreenViewModel = viewModel(factory = mediaPlayerScreenViewModelFactory),
                         volumeViewModel = viewModel(factory = VolumeViewModel.Factory),
                         onVolumeClick = {
-                            navController.navigate(Screen.Volume.route)
+                            navController.navigate(Navigation.Volume.route)
                         },
                         onOutputClick = {
                             context.launchBluetoothSettings()

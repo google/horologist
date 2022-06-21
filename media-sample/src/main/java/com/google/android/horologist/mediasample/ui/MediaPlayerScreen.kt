@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.sample.media
+package com.google.android.horologist.mediasample.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -28,11 +28,11 @@ import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
+import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.compose.pager.FocusOnResume
 import com.google.android.horologist.media.ui.screens.PlayerScreen
-import com.google.android.horologist.sample.R
-import com.google.android.horologist.utils.rememberStateWithLifecycle
+import com.google.android.horologist.mediasample.R
 
 @Composable
 fun MediaPlayerScreen(

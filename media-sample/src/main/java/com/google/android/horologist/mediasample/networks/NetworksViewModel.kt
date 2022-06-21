@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.networks
+package com.google.android.horologist.mediasample.networks
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

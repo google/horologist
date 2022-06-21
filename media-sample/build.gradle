@@ -17,6 +17,7 @@
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
+apply plugin: "org.jetbrains.kotlin.kapt"
 
 android {
     compileSdkVersion 32
@@ -72,6 +73,7 @@ android {
         freeCompilerArgs += "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.composables.ExperimentalHorologistComposablesApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi"
     }
 
     composeOptions {
@@ -89,6 +91,9 @@ dependencies {
     implementation projects.networkAwareness
     implementation projects.composeTools
     implementation projects.media3Backend
+    implementation projects.composeLayout
+
+    implementation libs.androidx.media3.datasourceokhttp
 
     implementation libs.compose.ui.tooling
     implementation libs.compose.ui.util
@@ -108,6 +113,13 @@ dependencies {
     implementation libs.androidx.wear.tiles.material
 
     implementation libs.coil
+    implementation libs.retrofit2.convertermoshi
+    implementation libs.retrofit2.retrofit
+    implementation libs.com.squareup.okhttp3.okhttp
+
+    implementation libs.moshi.adapters
+    implementation libs.moshi.kotlin
+    kapt libs.moshi.kotlin.codegen
 
     implementation libs.lottie.compose
 

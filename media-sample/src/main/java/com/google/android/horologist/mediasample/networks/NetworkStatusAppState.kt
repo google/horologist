@@ -14,19 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.sample
+package com.google.android.horologist.mediasample.networks
 
-sealed class Screen(
-    val route: String
-) {
-    object Menu : Screen("menu")
-    object FillMaxRectangle : Screen("fmr")
-    object FadeAway : Screen("fadeAway")
-    object FadeAwaySLC : Screen("fadeAwaySLC")
-    object FadeAwayColumn : Screen("fadeAwayColumn")
-    object Volume : Screen("volume")
-    object DatePicker : Screen("datePicker")
-    object TimePicker : Screen("timePicker")
-    object TimeWithSecondsPicker : Screen("timeWithSecondsPicker")
-    object TimeWithoutSecondsPicker : Screen("timeWithoutSecondsPicker")
-}
+import com.google.android.horologist.networks.data.DataUsageReport
+import com.google.android.horologist.networks.data.Networks
+
+data class NetworkStatusAppState(
+    val networks: Networks,
+    val dataUsage: DataUsageReport? = null
+)

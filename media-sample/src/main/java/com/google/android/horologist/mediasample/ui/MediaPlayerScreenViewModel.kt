@@ -14,31 +14,26 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.sample.media
+package com.google.android.horologist.mediasample.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.google.android.horologist.media.ui.state.PlayerViewModel
+import com.google.android.horologist.media3.player.PlayerRepositoryImpl
 
 class MediaPlayerScreenViewModel(
     playerRepository: PlayerRepositoryImpl
 ) : PlayerViewModel(playerRepository) {
 
-    init {
-        playerRepository.setCoroutineScope(viewModelScope)
-        playerRepository.fetchData()
-    }
-
     class Factory(
-        private val playerRepositoryFactory: PlayerRepositoryImpl.Factory
+        private val playerRepositoryFactory: PlayerRepositoryImpl
     ) : ViewModelProvider.Factory {
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
             if (modelClass.isAssignableFrom(MediaPlayerScreenViewModel::class.java)) {
-                return MediaPlayerScreenViewModel(playerRepositoryFactory.create()) as T
+                return MediaPlayerScreenViewModel(playerRepositoryFactory) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

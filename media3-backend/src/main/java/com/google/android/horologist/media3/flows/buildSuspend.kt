@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.networks
+package com.google.android.horologist.media3.flows
 
-import com.google.android.horologist.networks.data.DataUsageReport
-import com.google.android.horologist.networks.data.Networks
+import androidx.media3.session.MediaBrowser
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.guava.await
+import kotlinx.coroutines.withContext
 
-data class NetworkStatusAppState(
-    val networks: Networks,
-    val dataUsage: DataUsageReport? = null
-)
+suspend fun MediaBrowser.Builder.buildSuspend(): MediaBrowser =
+    withContext(Dispatchers.Main) { buildAsync().await() }

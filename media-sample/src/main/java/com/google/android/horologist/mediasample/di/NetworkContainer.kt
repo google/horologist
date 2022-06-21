@@ -1,0 +1,157 @@
+/*
+ * Copyright 2022 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.google.android.horologist.mediasample.di
+
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.wifi.WifiManager
+import android.os.StrictMode
+import com.google.android.horologist.mediasample.catalog.UampService
+import com.google.android.horologist.networks.data.DataRequestRepository
+import com.google.android.horologist.networks.data.RequestType
+import com.google.android.horologist.networks.logging.NetworkStatusLogger
+import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
+import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
+import com.google.android.horologist.networks.rules.NetworkingRules
+import com.google.android.horologist.networks.rules.NetworkingRulesEngine
+import com.google.android.horologist.networks.status.HighBandwidthRequester
+import com.google.android.horologist.networks.status.NetworkRepository
+import com.squareup.moshi.Moshi
+import okhttp3.Cache
+import okhttp3.Call
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
+
+/**
+ * Simple DI implementation - to be replaced by hilt.
+ */
+class NetworkContainer(
+    private val mediaApplicationContainer: MediaApplicationContainer
+) {
+    val networkRepository: NetworkRepository by lazy {
+        NetworkRepository.fromContext(
+            mediaApplicationContainer.application,
+            mediaApplicationContainer.coroutineScope,
+            networkLogger
+        )
+    }
+
+    val alwaysHttpsInterceptor by lazy {
+        Interceptor {
+            var request = it.request()
+
+            if (request.url.scheme == "http") {
+                request = request.newBuilder().url(
+                    request.url.newBuilder().scheme("https").build()
+                ).build()
+            }
+
+            it.proceed(request)
+        }
+    }
+
+    val cache by lazy {
+        val cacheDir = StrictMode.allowThreadDiskWrites().resetAfter {
+            mediaApplicationContainer.application.cacheDir
+        }
+
+        Cache(
+            cacheDir.resolve("HttpCache"),
+            10_000_000
+        )
+    }
+
+    val okhttpClient by lazy {
+        OkHttpClient.Builder()
+            .followSslRedirects(false)
+            .addInterceptor(alwaysHttpsInterceptor)
+            .cache(cache)
+            .build()
+    }
+
+    private val networkingRules: NetworkingRules by lazy {
+        if (mediaApplicationContainer.appConfig.strictNetworking) {
+            NetworkingRules.Conservative
+        } else {
+            NetworkingRules.Lenient
+        }
+    }
+
+    val networkLogger by lazy {
+//        NetworkStatusLogger.InMemory()
+        NetworkStatusLogger.Logging
+    }
+
+    val dataRequestRepository by lazy {
+        DataRequestRepository.InMemoryDataRequestRepository
+    }
+
+    val networkingRulesEngine by lazy {
+        NetworkingRulesEngine(
+            networkRepository = networkRepository,
+            logger = networkLogger,
+            networkingRules = networkingRules
+        )
+    }
+
+    private val connectivityManager: ConnectivityManager by lazy {
+        mediaApplicationContainer.application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    }
+
+    private val wifiManager: WifiManager by lazy {
+        mediaApplicationContainer.application.getSystemService(Context.WIFI_SERVICE) as WifiManager
+    }
+
+    private val highBandwidthRequester: HighBandwidthRequester by lazy {
+        HighBandwidthRequester(
+            connectivityManager, mediaApplicationContainer.coroutineScope, networkLogger
+        )
+    }
+
+    val networkAwareCallFactory: Call.Factory by lazy {
+        NetworkSelectingCallFactory(
+            networkingRulesEngine, highBandwidthRequester, dataRequestRepository, okhttpClient
+        )
+    }
+
+    val moshi by lazy {
+        Moshi.Builder().build()
+    }
+
+    val retrofit by lazy {
+        Retrofit.Builder()
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .baseUrl("https://storage.googleapis.com/uamp/")
+            .callFactory(NetworkAwareCallFactory(networkAwareCallFactory, RequestType.ApiRequest))
+            .build()
+    }
+
+    val uampService by lazy {
+        retrofit.create(UampService::class.java)
+    }
+
+    // Confusingly the result of allowThreadDiskWrites is the old policy,
+    // while allow* methods immediately apply the change.
+    // So `this` is the policy before we overrode it.
+    fun <R> StrictMode.ThreadPolicy.resetAfter(block: () -> R) = try {
+        block()
+    } finally {
+        StrictMode.setThreadPolicy(this)
+    }
+}

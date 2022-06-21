@@ -63,7 +63,7 @@ class TransferListener(
         isNetwork: Boolean,
         bytesTransferred: Int
     ) {
-//        appEventLogger?.recordEvent("bytes transfer $isNetwork $bytesTransferred")
+        appEventLogger.logMessage("bytes transfer $isNetwork $bytesTransferred")
     }
 
     override fun onTransferEnd(source: DataSource, dataSpec: DataSpec, isNetwork: Boolean) {

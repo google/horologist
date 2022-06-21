@@ -26,7 +26,6 @@ import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.components.MediaActivity
 import com.google.android.horologist.mediasample.components.MediaApplication
 import com.google.android.horologist.mediasample.components.PlaybackService
-import com.google.android.horologist.networks.data.DataRequestRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -35,9 +34,9 @@ import kotlinx.coroutines.SupervisorJob
  * Simple DI implementation - to be replaced by hilt.
  */
 class MediaApplicationContainer(internal val application: MediaApplication) {
-    val playbackRules: PlaybackRules by lazy {
-        val isEmulator = Build.PRODUCT.startsWith("sdk_gwear")
+    val isEmulator = Build.PRODUCT.startsWith("sdk_gwear")
 
+    val playbackRules: PlaybackRules by lazy {
         if (isEmulator) {
             PlaybackRules.Emulator
         } else {
@@ -45,7 +44,12 @@ class MediaApplicationContainer(internal val application: MediaApplication) {
         }
     }
 
-    val appConfig by lazy { AppConfig(offloadEnabled = true) }
+    val appConfig by lazy {
+        AppConfig(
+            offloadEnabled = false,
+            strictNetworking = false
+        )
+    }
 
     val coroutineScope: CoroutineScope by lazy {
         CoroutineScope(SupervisorJob() + Dispatchers.Default)

@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.navscaffold
+package com.google.android.horologist.mediasample
 
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.lifecycle.Lifecycle
-import com.google.android.horologist.navsample.NavActivity
-import com.google.android.horologist.navsample.NavScreen
+import com.google.android.horologist.mediasample.components.MediaActivity
+import com.google.android.horologist.mediasample.ui.Navigation
 import org.junit.Rule
 import org.junit.Test
 
-class NavActivityTest {
+class MediaActivityTest {
     @get:Rule
-    var rule = createAndroidComposeRule<NavActivity>()
+    var rule = createAndroidComposeRule<MediaActivity>()
 
     @Test
     fun testEvent() {
@@ -44,13 +44,13 @@ class NavActivityTest {
 
     private fun toListAndBack() {
         rule.runOnUiThread {
-            rule.activity.navController.navigate(NavScreen.ScalingLazyColumn.route)
+            rule.activity.navController.navigate(Navigation.Volume.route)
         }
         rule.waitForIdle()
 
         rule.runOnUiThread {
-            rule.activity.navController.navigate(NavScreen.Menu.route) {
-                this.popUpTo(NavScreen.Menu.route)
+            rule.activity.navController.navigate(Navigation.MediaPlayer.route) {
+                this.popUpTo(Navigation.MediaPlayer.route)
             }
         }
         rule.waitForIdle()

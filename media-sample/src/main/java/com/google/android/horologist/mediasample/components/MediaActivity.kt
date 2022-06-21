@@ -20,6 +20,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavHostController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.media.model.MediaItem
 import com.google.android.horologist.media.repository.PlayerRepository
@@ -29,6 +30,7 @@ import com.google.android.horologist.mediasample.ui.MediaPlayerScreenViewModel
 import com.google.android.horologist.mediasample.ui.WearApp
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
+import java.io.IOException
 
 class MediaActivity : ComponentActivity() {
     lateinit var mediaPlayerScreenViewModelFactory: MediaPlayerScreenViewModel.Factory
@@ -37,13 +39,15 @@ class MediaActivity : ComponentActivity() {
 
     lateinit var uampService: UampService
 
+    lateinit var navController: NavHostController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         MediaApplicationContainer.inject(this)
 
         setContent {
-            val navController = rememberSwipeDismissableNavController()
+            navController = rememberSwipeDismissableNavController()
             WearApp(navController, mediaPlayerScreenViewModelFactory)
         }
     }
@@ -55,17 +59,21 @@ class MediaActivity : ComponentActivity() {
             playerRepository.connected.filter { it }.first()
 
             if (playerRepository.currentMediaItem.value == null) {
-                val mediaItems = uampService.catalog().music.map {
-                    MediaItem(
-                        it.id,
-                        it.source,
-                        it.title,
-                        it.artist,
-                        it.image,
-                    )
-                }
+                try {
+                    val mediaItems = uampService.catalog().music.map {
+                        MediaItem(
+                            it.id,
+                            it.source,
+                            it.title,
+                            it.artist,
+                            it.image,
+                        )
+                    }
 
-                playerRepository.setMediaItems(mediaItems)
+                    playerRepository.setMediaItems(mediaItems)
+                } catch (ioe: IOException) {
+                    // Nothing
+                }
             }
         }
     }

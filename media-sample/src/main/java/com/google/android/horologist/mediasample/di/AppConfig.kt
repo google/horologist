@@ -17,9 +17,10 @@
 package com.google.android.horologist.mediasample.di
 
 import com.google.android.horologist.mediasample.BuildConfig
+import com.google.android.horologist.networks.rules.NetworkingRules
 
 data class AppConfig(
     val offloadEnabled: Boolean = true,
-    val strictNetworking: Boolean = false,
+    val strictNetworking: NetworkingRules? = NetworkingRules.Conservative,
     val deeplinkUriPrefix: String = "uamp${if (BuildConfig.DEBUG) "-debug" else ""}://uamp"
 )

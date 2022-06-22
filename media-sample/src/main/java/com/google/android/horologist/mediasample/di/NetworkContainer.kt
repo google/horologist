@@ -94,11 +94,7 @@ class NetworkContainer(
     }
 
     private val networkingRules: NetworkingRules by lazy {
-        if (mediaApplicationContainer.appConfig.strictNetworking) {
-            NetworkingRules.Conservative
-        } else {
-            NetworkingRules.Lenient
-        }
+        mediaApplicationContainer.appConfig.strictNetworking!!
     }
 
     val networkLogger by lazy {
@@ -133,9 +129,13 @@ class NetworkContainer(
     }
 
     val networkAwareCallFactory: Call.Factory by lazy {
-        NetworkSelectingCallFactory(
-            networkingRulesEngine, highBandwidthRequester, dataRequestRepository, okhttpClient
-        )
+        if (mediaApplicationContainer.appConfig.strictNetworking != null) {
+            NetworkSelectingCallFactory(
+                networkingRulesEngine, highBandwidthRequester, dataRequestRepository, okhttpClient
+            )
+        } else {
+            okhttpClient
+        }
     }
 
     val moshi by lazy {

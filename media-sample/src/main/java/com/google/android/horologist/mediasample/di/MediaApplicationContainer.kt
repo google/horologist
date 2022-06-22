@@ -46,10 +46,7 @@ class MediaApplicationContainer(internal val application: MediaApplication) {
     }
 
     val appConfig by lazy {
-        AppConfig(
-            offloadEnabled = false,
-            strictNetworking = false
-        )
+        AppConfig()
     }
 
     val coroutineScope: CoroutineScope by lazy {

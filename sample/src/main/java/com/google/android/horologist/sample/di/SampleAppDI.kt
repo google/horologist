@@ -17,15 +17,11 @@
 package com.google.android.horologist.sample.di
 
 import android.app.Activity
-import com.google.android.horologist.media.MediaActivity
 import com.google.android.horologist.navsample.NavActivity
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.status.NetworkRepository
 import com.google.android.horologist.sample.MainActivity
-import com.google.android.horologist.sample.media.MediaDataSource
-import com.google.android.horologist.sample.media.MediaPlayerScreenViewModel
-import com.google.android.horologist.sample.media.PlayerRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -34,14 +30,8 @@ import kotlinx.coroutines.GlobalScope
  * Simple DI implementation - to be replaced by hilt.
  */
 object SampleAppDI {
-    fun inject(mediaActivity: MediaActivity) {
-        mediaActivity.mediaPlayerScreenViewModelFactory =
-            getMediaPlayerScreenViewModelFactory(getPlayerRepositoryImplFactory(getMediaDataSource()))
-    }
-
+    @Suppress("UNUSED_PARAMETER")
     fun inject(mainActivity: MainActivity) {
-        mainActivity.mediaPlayerScreenViewModelFactory =
-            getMediaPlayerScreenViewModelFactory(getPlayerRepositoryImplFactory(getMediaDataSource()))
     }
 
     @OptIn(DelicateCoroutinesApi::class)
@@ -59,16 +49,4 @@ object SampleAppDI {
     private fun getDataRequestRepository(): DataRequestRepository {
         return DataRequestRepository.InMemoryDataRequestRepository
     }
-
-    private fun getMediaPlayerScreenViewModelFactory(
-        playerRepositoryImplFactory: PlayerRepositoryImpl.Factory
-    ): MediaPlayerScreenViewModel.Factory =
-        MediaPlayerScreenViewModel.Factory(playerRepositoryImplFactory)
-
-    private fun getPlayerRepositoryImplFactory(
-        mediaDataSource: MediaDataSource
-    ): PlayerRepositoryImpl.Factory =
-        PlayerRepositoryImpl.Factory(mediaDataSource)
-
-    private fun getMediaDataSource(): MediaDataSource = MediaDataSource()
 }

@@ -39,6 +39,7 @@ import okhttp3.Cache
 import okhttp3.Call
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.LoggingEventListener
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
@@ -87,6 +88,7 @@ class NetworkContainer(
         OkHttpClient.Builder()
             .followSslRedirects(false)
             .addInterceptor(alwaysHttpsInterceptor)
+            .eventListenerFactory(LoggingEventListener.Factory())
             .cache(cache)
             .build()
     }

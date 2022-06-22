@@ -18,13 +18,27 @@ package com.google.android.horologist.mediasample.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.media3.player.PlayerRepositoryImpl
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 
 class MediaPlayerScreenViewModel(
     playerRepository: PlayerRepositoryImpl
 ) : PlayerViewModel(playerRepository) {
+
+    init {
+        viewModelScope.launch {
+            // update the track position while app is in foreground
+            while (isActive) {
+                delay(1000)
+                playerRepository.updatePosition()
+            }
+        }
+    }
 
     class Factory(
         private val playerRepositoryFactory: PlayerRepositoryImpl

@@ -41,6 +41,8 @@ android {
 
     kotlinOptions {
         jvmTarget = '1.8'
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.media.ExperimentalHorologistMediaApi"
+        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
     }
 
     lintOptions {
@@ -66,6 +68,7 @@ android {
 }
 
 dependencies {
+    implementation projects.media
 
     implementation libs.kotlin.stdlib
     implementation libs.kotlinx.coroutines.core

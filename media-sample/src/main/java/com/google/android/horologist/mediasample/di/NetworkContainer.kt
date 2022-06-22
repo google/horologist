@@ -20,6 +20,10 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
 import android.os.StrictMode
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.disk.DiskCache
+import coil.request.CachePolicy
 import com.google.android.horologist.mediasample.catalog.UampService
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.RequestType
@@ -66,11 +70,13 @@ class NetworkContainer(
         }
     }
 
-    val cache by lazy {
-        val cacheDir = StrictMode.allowThreadDiskWrites().resetAfter {
+    val cacheDir by lazy {
+        StrictMode.allowThreadDiskWrites().resetAfter {
             mediaApplicationContainer.application.cacheDir
         }
+    }
 
+    val cache by lazy {
         Cache(
             cacheDir.resolve("HttpCache"),
             10_000_000
@@ -144,6 +150,30 @@ class NetworkContainer(
 
     val uampService by lazy {
         retrofit.create(UampService::class.java)
+    }
+
+    val imageLoader: ImageLoader by lazy {
+        ImageLoader.Builder(mediaApplicationContainer.application)
+            .crossfade(false)
+            .components {
+                add(SvgDecoder.Factory())
+            }
+            .respectCacheHeaders(false)
+            .diskCache {
+                DiskCache.Builder()
+                    .directory(cacheDir.resolve("image_cache"))
+                    .build()
+            }
+            .memoryCachePolicy(CachePolicy.ENABLED)
+            .diskCachePolicy(CachePolicy.ENABLED)
+            .networkCachePolicy(CachePolicy.ENABLED)
+            .callFactory {
+                NetworkAwareCallFactory(
+                    networkAwareCallFactory,
+                    defaultRequestType = RequestType.ImageRequest
+                )
+            }
+            .build()
     }
 
     // Confusingly the result of allowThreadDiskWrites is the old policy,

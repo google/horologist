@@ -113,9 +113,11 @@ dependencies {
     implementation libs.androidx.wear.tiles.material
 
     implementation libs.coil
+    implementation libs.coil.svg
     implementation libs.retrofit2.convertermoshi
     implementation libs.retrofit2.retrofit
     implementation libs.com.squareup.okhttp3.okhttp
+    implementation libs.com.squareup.okhttp3.logging.interceptor
 
     implementation libs.moshi.adapters
     implementation libs.moshi.kotlin

@@ -29,6 +29,7 @@ import com.google.android.horologist.mediasample.components.PlaybackService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import java.util.concurrent.Callable
 
 /**
  * Simple DI implementation - to be replaced by hilt.
@@ -110,6 +111,8 @@ class MediaApplicationContainer(internal val application: MediaApplication) {
 
         fun install(mediaApplication: MediaApplication) {
             mediaApplication.container = MediaApplicationContainer(mediaApplication)
+            mediaApplication.imageLoader =
+                Callable { mediaApplication.container.networkContainer.imageLoader }
         }
     }
 }

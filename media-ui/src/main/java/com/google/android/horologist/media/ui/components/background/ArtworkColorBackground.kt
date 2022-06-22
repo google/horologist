@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui
+package com.google.android.horologist.media.ui.components.background
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

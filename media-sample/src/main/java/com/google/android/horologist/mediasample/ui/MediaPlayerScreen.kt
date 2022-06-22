@@ -31,7 +31,7 @@ import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.compose.pager.FocusOnResume
-import com.google.android.horologist.media.ui.components.background.RadialBackground
+import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
 import com.google.android.horologist.media.ui.screens.PlayerScreen
 import com.google.android.horologist.mediasample.R
 
@@ -69,7 +69,7 @@ fun MediaPlayerScreen(
                 )
             },
             background = {
-                ArtworkColorBackground(artworkUri = null)
+                ArtworkColorBackground(artworkUri = it.mediaItem?.artworkUri)
             }
         )
     }

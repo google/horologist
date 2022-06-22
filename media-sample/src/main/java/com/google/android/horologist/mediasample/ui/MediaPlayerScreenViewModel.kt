@@ -19,8 +19,8 @@ package com.google.android.horologist.mediasample.ui
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.google.android.horologist.media.data.PlayerRepositoryImpl
 import com.google.android.horologist.media.ui.state.PlayerViewModel
-import com.google.android.horologist.media3.player.PlayerRepositoryImpl
 import com.google.android.horologist.mediasample.di.MediaApplicationModule
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive

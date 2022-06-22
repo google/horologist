@@ -22,5 +22,5 @@ data class AppConfig(
     val offloadEnabled: Boolean = true,
     val strictNetworking: NetworkingRules? = NetworkingRules.Conservative,
     val deeplinkUriPrefix: String = "uamp${if (BuildConfig.DEBUG) "-debug" else ""}://uamp",
-    val showTimeTextInfo: Boolean = true
+    val showTimeTextInfo: Boolean = false
 )

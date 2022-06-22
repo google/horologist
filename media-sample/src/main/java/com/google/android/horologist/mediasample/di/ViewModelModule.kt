@@ -20,8 +20,8 @@ import android.content.ComponentName
 import androidx.lifecycle.viewmodel.MutableCreationExtras
 import androidx.media3.session.MediaBrowser
 import androidx.media3.session.SessionToken
+import com.google.android.horologist.media.data.PlayerRepositoryImpl
 import com.google.android.horologist.media3.flows.buildSuspend
-import com.google.android.horologist.media3.player.PlayerRepositoryImpl
 import com.google.android.horologist.mediasample.components.PlaybackService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async

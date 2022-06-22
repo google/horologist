@@ -89,6 +89,7 @@ dependencies {
     implementation projects.composables
     implementation projects.media
     implementation projects.mediaUi
+    implementation projects.mediaData
     implementation projects.networkAwareness
     implementation projects.composeTools
     implementation projects.media3Backend

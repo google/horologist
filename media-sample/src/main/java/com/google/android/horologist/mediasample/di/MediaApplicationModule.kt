@@ -21,9 +21,9 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.CreationExtras
 import coil.Coil
+import com.google.android.horologist.media.data.PlayerRepositoryImpl
 import com.google.android.horologist.media3.config.WearMedia3Factory
 import com.google.android.horologist.media3.offload.AudioOffloadManager
-import com.google.android.horologist.media3.player.PlayerRepositoryImpl
 import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.components.MediaActivity

@@ -69,7 +69,7 @@ public abstract class CoroutinesTileService : TileService(), LifecycleOwner {
      * See [onTileRequest] for most details.
      *
      * This runs a suspending function inside the lifecycleScope
-     * of the service on the Main tplaybackServicehrPlaybackServiceead.
+     * of the service on the Main thread.
      */
     public abstract suspend fun tileRequest(requestParams: TileRequest): Tile
 

@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.di
+package com.google.android.horologist.mediasample.ui.debug
 
-import com.google.android.horologist.mediasample.BuildConfig
-import com.google.android.horologist.networks.rules.NetworkingRules
+import androidx.media3.common.Format
+import com.google.android.horologist.media3.offload.OffloadTimes
 
-data class AppConfig(
-    val offloadEnabled: Boolean = true,
-    val strictNetworking: NetworkingRules? = NetworkingRules.Conservative,
-    val deeplinkUriPrefix: String = "uamp${if (BuildConfig.DEBUG) "-debug" else ""}://uamp"
+data class OffloadState(
+    val sleepingForOffload: Boolean,
+    val offloadSchedulingEnabled: Boolean,
+    val format: Format?,
+    val times: OffloadTimes,
 )

@@ -18,54 +18,65 @@ package com.google.android.horologist.mediasample.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import androidx.wear.compose.material.Scaffold
-import androidx.wear.compose.navigation.SwipeDismissableNavHost
-import androidx.wear.compose.navigation.composable
 import com.google.android.horologist.audio.BluetoothSettings.launchBluetoothSettings
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.audio.ui.VolumeViewModel
-import com.google.android.horologist.compose.pager.FocusOnResume
+import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
+import com.google.android.horologist.compose.navscaffold.WearNavScaffold
+import com.google.android.horologist.compose.navscaffold.wearNavComposable
+import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeText
 
 @Composable
 fun WearApp(
     navController: NavHostController,
-    mediaPlayerScreenViewModelFactory: MediaPlayerScreenViewModel.Factory
+    creationExtras: () -> CreationExtras
 ) {
+    val appViewModel: MediaPlayerAppViewModel = viewModel(factory = MediaPlayerAppViewModel.Factory)
+
     UampTheme {
-        Scaffold(
+        WearNavScaffold(
             modifier = Modifier.fillMaxSize(),
+            startDestination = Navigation.MediaPlayer.route,
+            navController = navController,
+            timeText = {
+                val networkUsage by rememberStateWithLifecycle(appViewModel.networkUsage)
+                val networkStatus by rememberStateWithLifecycle(appViewModel.networkStatus)
+                val offloadState by rememberStateWithLifecycle(appViewModel.offloadState)
+
+                MediaInfoTimeText(
+                    showData = appViewModel.showTimeTextInfo,
+                    networkStatus = networkStatus,
+                    networkUsage = networkUsage,
+                    offloadState = offloadState
+                )
+            }
         ) {
-            SwipeDismissableNavHost(
-                navController = navController,
-                startDestination = Navigation.MediaPlayer.route,
-            ) {
-                composable(Navigation.Volume.route) {
-                    val focusRequester = remember { FocusRequester() }
+            wearNavComposable(Navigation.Volume.route) { _, viewModel ->
+                VolumeScreen(focusRequester = viewModel.focusRequester)
+            }
+            wearNavComposable(Navigation.MediaPlayer.route) { _, viewModel ->
+                val context = LocalContext.current
 
-                    VolumeScreen(focusRequester = focusRequester)
-
-                    FocusOnResume(focusRequester = focusRequester)
-                }
-                composable(Navigation.MediaPlayer.route) {
-                    val context = LocalContext.current
-
-                    MediaPlayerScreen(
-                        mediaPlayerScreenViewModel = viewModel(factory = mediaPlayerScreenViewModelFactory),
-                        volumeViewModel = viewModel(factory = VolumeViewModel.Factory),
-                        onVolumeClick = {
-                            navController.navigate(Navigation.Volume.route)
-                        },
-                        onOutputClick = {
-                            context.launchBluetoothSettings()
-                        }
-                    )
-                }
+                MediaPlayerScreen(
+                    mediaPlayerScreenViewModel = viewModel(
+                        factory = MediaPlayerScreenViewModel.Factory,
+                        extras = creationExtras()
+                    ),
+                    volumeViewModel = viewModel(factory = VolumeViewModel.Factory),
+                    onVolumeClick = {
+                        navController.navigate(Navigation.Volume.route)
+                    },
+                    onOutputClick = {
+                        context.launchBluetoothSettings()
+                    },
+                    playerFocusRequester = viewModel.focusRequester
+                )
             }
         }
     }

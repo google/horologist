@@ -16,25 +16,30 @@
 
 package com.google.android.horologist.mediasample.di
 
-import android.app.Activity
-import android.app.Service
 import android.os.Build
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.viewmodel.CreationExtras
+import coil.Coil
 import com.google.android.horologist.media3.config.WearMedia3Factory
+import com.google.android.horologist.media3.offload.AudioOffloadManager
+import com.google.android.horologist.media3.player.PlayerRepositoryImpl
 import com.google.android.horologist.media3.rules.PlaybackRules
+import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.components.MediaActivity
 import com.google.android.horologist.mediasample.components.MediaApplication
 import com.google.android.horologist.mediasample.components.PlaybackService
+import com.google.android.horologist.mediasample.system.Logging
+import com.google.android.horologist.networks.data.DataRequestRepository
+import com.google.android.horologist.networks.status.NetworkRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import java.util.concurrent.Callable
 
 /**
  * Simple DI implementation - to be replaced by hilt.
  */
-class MediaApplicationContainer(internal val application: MediaApplication) {
+class MediaApplicationModule(internal val application: MediaApplication) {
     val isEmulator = Build.PRODUCT.startsWith("sdk_gwear")
 
     val playbackRules: PlaybackRules by lazy {
@@ -53,22 +58,24 @@ class MediaApplicationContainer(internal val application: MediaApplication) {
         CoroutineScope(SupervisorJob() + Dispatchers.Default)
     }
 
-    val viewModelContainer: ViewModelContainer by lazy {
-        ViewModelContainer(this)
+    val viewModelModule: ViewModelModule by lazy {
+        ViewModelModule(this)
     }
 
     val audioContainer by lazy { AudioContainer(this) }
 
-    val networkContainer by lazy { NetworkContainer(this) }
+    val networkModule by lazy { NetworkModule(this) }
 
     internal val wearMedia3Factory: WearMedia3Factory by lazy {
         WearMedia3Factory(application)
     }
 
+    val audioOffloadManager by lazy { AudioOffloadManager(logger) }
+
     internal val logger: Logging by lazy { Logging(application.resources) }
 
-    private fun serviceContainer(service: PlaybackService): PlaybackServiceContainer =
-        PlaybackServiceContainer(this, service, wearMedia3Factory).also {
+    internal fun serviceContainer(service: PlaybackService): PlaybackServiceModule =
+        PlaybackServiceModule(this, service, wearMedia3Factory).also {
             service.lifecycle.addObserver(object : DefaultLifecycleObserver {
                 override fun onStop(owner: LifecycleOwner) {
                     it.close()
@@ -76,7 +83,7 @@ class MediaApplicationContainer(internal val application: MediaApplication) {
             })
         }
 
-    private fun activityContainer(activity: MediaActivity): MediaActivityContainer =
+    internal fun activityContainer(activity: MediaActivity): MediaActivityContainer =
         MediaActivityContainer(this, activity).also {
             activity.lifecycle.addObserver(object : DefaultLifecycleObserver {
                 override fun onStop(owner: LifecycleOwner) {
@@ -86,30 +93,18 @@ class MediaApplicationContainer(internal val application: MediaApplication) {
         }
 
     companion object {
-        fun inject(playbackService: PlaybackService) {
-            val serviceContainer =
-                playbackService.container.serviceContainer(playbackService)
-
-            serviceContainer.inject(playbackService)
-        }
-
-        fun inject(mediaActivity: MediaActivity) {
-            val activityContainer =
-                mediaActivity.container.activityContainer(mediaActivity)
-
-            activityContainer.inject(mediaActivity)
-        }
-
-        private val Activity.container: MediaApplicationContainer
-            get() = (application as MediaApplication).container
-
-        private val Service.container: MediaApplicationContainer
-            get() = (application as MediaApplication).container
-
         fun install(mediaApplication: MediaApplication) {
-            mediaApplication.container = MediaApplicationContainer(mediaApplication)
-            mediaApplication.imageLoader =
-                Callable { mediaApplication.container.networkContainer.imageLoader }
+            mediaApplication.container = MediaApplicationModule(mediaApplication)
+
+            Coil.setImageLoader {
+                mediaApplication.container.networkModule.imageLoader
+            }
         }
+
+        val PlayerRepositoryImplKey = object : CreationExtras.Key<PlayerRepositoryImpl> {}
+        val NetworkRepositoryKey = object : CreationExtras.Key<NetworkRepository> {}
+        val DataRequestRepositoryKey = object : CreationExtras.Key<DataRequestRepository> {}
+        val AppConfigKey = object : CreationExtras.Key<AppConfig> {}
+        val AudioOffloadManagerKey = object : CreationExtras.Key<AudioOffloadManager> {}
     }
 }

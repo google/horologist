@@ -20,35 +20,42 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewmodel.CreationExtras
+import androidx.lifecycle.viewmodel.MutableCreationExtras
 import androidx.navigation.NavHostController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.media.model.MediaItem
-import com.google.android.horologist.media.repository.PlayerRepository
-import com.google.android.horologist.mediasample.catalog.UampService
-import com.google.android.horologist.mediasample.di.MediaApplicationContainer
-import com.google.android.horologist.mediasample.ui.MediaPlayerScreenViewModel
+import com.google.android.horologist.mediasample.di.MediaActivityContainer
+import com.google.android.horologist.mediasample.di.ViewModelModule
 import com.google.android.horologist.mediasample.ui.WearApp
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import java.io.IOException
 
 class MediaActivity : ComponentActivity() {
-    lateinit var mediaPlayerScreenViewModelFactory: MediaPlayerScreenViewModel.Factory
-
-    lateinit var playerRepository: PlayerRepository
-
-    lateinit var uampService: UampService
-
     lateinit var navController: NavHostController
+
+    lateinit var mediaActivityContainer: MediaActivityContainer
+
+    lateinit var viewModelModule: ViewModelModule
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        MediaApplicationContainer.inject(this)
+        MediaActivityContainer.inject(this)
 
         setContent {
             navController = rememberSwipeDismissableNavController()
-            WearApp(navController, mediaPlayerScreenViewModelFactory)
+            WearApp(
+                navController = navController,
+                creationExtras = { defaultViewModelCreationExtras }
+            )
+        }
+    }
+
+    override fun getDefaultViewModelCreationExtras(): CreationExtras {
+        return MutableCreationExtras(super.getDefaultViewModelCreationExtras()).apply {
+            viewModelModule.addCreationExtras(this)
         }
     }
 
@@ -56,6 +63,10 @@ class MediaActivity : ComponentActivity() {
         super.onResume()
 
         lifecycleScope.launchWhenResumed {
+            val playerRepository = viewModelModule.playerRepository
+            val uampService =
+                viewModelModule.mediaApplicationModule.networkModule.uampService
+
             playerRepository.connected.filter { it }.first()
 
             if (playerRepository.currentMediaItem.value == null) {

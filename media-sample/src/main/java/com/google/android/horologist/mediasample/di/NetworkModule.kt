@@ -46,13 +46,13 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 /**
  * Simple DI implementation - to be replaced by hilt.
  */
-class NetworkContainer(
-    private val mediaApplicationContainer: MediaApplicationContainer
+class NetworkModule(
+    private val mediaApplicationModule: MediaApplicationModule
 ) {
     val networkRepository: NetworkRepository by lazy {
         NetworkRepository.fromContext(
-            mediaApplicationContainer.application,
-            mediaApplicationContainer.coroutineScope,
+            mediaApplicationModule.application,
+            mediaApplicationModule.coroutineScope,
             networkLogger
         )
     }
@@ -73,7 +73,7 @@ class NetworkContainer(
 
     val cacheDir by lazy {
         StrictMode.allowThreadDiskWrites().resetAfter {
-            mediaApplicationContainer.application.cacheDir
+            mediaApplicationModule.application.cacheDir
         }
     }
 
@@ -94,7 +94,7 @@ class NetworkContainer(
     }
 
     private val networkingRules: NetworkingRules by lazy {
-        mediaApplicationContainer.appConfig.strictNetworking!!
+        mediaApplicationModule.appConfig.strictNetworking!!
     }
 
     val networkLogger by lazy {
@@ -115,21 +115,21 @@ class NetworkContainer(
     }
 
     private val connectivityManager: ConnectivityManager by lazy {
-        mediaApplicationContainer.application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        mediaApplicationModule.application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     }
 
     private val wifiManager: WifiManager by lazy {
-        mediaApplicationContainer.application.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        mediaApplicationModule.application.getSystemService(Context.WIFI_SERVICE) as WifiManager
     }
 
     private val highBandwidthRequester: HighBandwidthRequester by lazy {
         HighBandwidthRequester(
-            connectivityManager, mediaApplicationContainer.coroutineScope, networkLogger
+            connectivityManager, mediaApplicationModule.coroutineScope, networkLogger
         )
     }
 
     val networkAwareCallFactory: Call.Factory by lazy {
-        if (mediaApplicationContainer.appConfig.strictNetworking != null) {
+        if (mediaApplicationModule.appConfig.strictNetworking != null) {
             NetworkSelectingCallFactory(
                 networkingRulesEngine, highBandwidthRequester, dataRequestRepository, okhttpClient
             )
@@ -155,7 +155,7 @@ class NetworkContainer(
     }
 
     val imageLoader: ImageLoader by lazy {
-        ImageLoader.Builder(mediaApplicationContainer.application)
+        ImageLoader.Builder(mediaApplicationModule.application)
             .crossfade(false)
             .components {
                 add(SvgDecoder.Factory())

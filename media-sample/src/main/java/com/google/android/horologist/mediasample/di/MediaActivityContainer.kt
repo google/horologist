@@ -16,26 +16,34 @@
 
 package com.google.android.horologist.mediasample.di
 
+import android.app.Activity
 import com.google.android.horologist.mediasample.components.MediaActivity
+import com.google.android.horologist.mediasample.components.MediaApplication
 
 /**
  * Simple DI implementation - to be replaced by hilt.
  */
 class MediaActivityContainer(
-    private val mediaApplicationContainer: MediaApplicationContainer,
+    internal val mediaApplicationModule: MediaApplicationModule,
     private val activity: MediaActivity,
 ) : AutoCloseable {
     override fun close() {
     }
 
     fun inject(activity: MediaActivity) {
-        activity.mediaPlayerScreenViewModelFactory =
-            mediaApplicationContainer.viewModelContainer.mediaPlayerScreenViewModelFactory
+        activity.mediaActivityContainer = this
+        activity.viewModelModule = mediaApplicationModule.viewModelModule
+    }
 
-        activity.playerRepository =
-            mediaApplicationContainer.viewModelContainer.playerRepository
+    companion object {
+        private val Activity.container: MediaApplicationModule
+            get() = (application as MediaApplication).container
 
-        activity.uampService =
-            mediaApplicationContainer.networkContainer.uampService
+        fun inject(mediaActivity: MediaActivity) {
+            val activityContainer =
+                mediaActivity.container.activityContainer(mediaActivity)
+
+            activityContainer.inject(mediaActivity)
+        }
     }
 }

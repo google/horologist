@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.di
+package com.google.android.horologist.mediasample.system
 
 import android.content.res.Resources
 import android.util.Log

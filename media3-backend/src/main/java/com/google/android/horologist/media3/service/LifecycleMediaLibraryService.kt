@@ -27,7 +27,7 @@ import androidx.media3.session.MediaSession
 
 public abstract class LifecycleMediaLibraryService : MediaLibraryService(), LifecycleOwner {
     @Suppress("LeakingThis")
-    private val mDispatcher = ServiceLifecycleDispatcher(this)
+    private val dispatcher = ServiceLifecycleDispatcher(this)
 
     protected abstract val mediaLibrarySession: MediaLibrarySession
 
@@ -37,19 +37,19 @@ public abstract class LifecycleMediaLibraryService : MediaLibraryService(), Life
 
     @CallSuper
     override fun onCreate() {
-        mDispatcher.onServicePreSuperOnCreate()
+        dispatcher.onServicePreSuperOnCreate()
         super.onCreate()
     }
 
     @CallSuper
     override fun onBind(intent: Intent?): IBinder? {
-        mDispatcher.onServicePreSuperOnBind()
+        dispatcher.onServicePreSuperOnBind()
         return super.onBind(intent)
     }
 
     @Deprecated("Use onStartCommand")
     final override fun onStart(intent: Intent?, startId: Int) {
-        mDispatcher.onServicePreSuperOnStart()
+        dispatcher.onServicePreSuperOnStart()
         @Suppress("DEPRECATION")
         super.onStart(intent, startId)
     }
@@ -61,11 +61,11 @@ public abstract class LifecycleMediaLibraryService : MediaLibraryService(), Life
 
     @CallSuper
     override fun onDestroy() {
-        mDispatcher.onServicePreSuperOnDestroy()
+        dispatcher.onServicePreSuperOnDestroy()
         super.onDestroy()
     }
 
     override fun getLifecycle(): Lifecycle {
-        return mDispatcher.lifecycle
+        return dispatcher.lifecycle
     }
 }

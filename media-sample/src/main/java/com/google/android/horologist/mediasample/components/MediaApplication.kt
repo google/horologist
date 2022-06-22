@@ -18,22 +18,17 @@ package com.google.android.horologist.mediasample.components
 
 import android.app.Application
 import android.os.StrictMode
-import coil.ImageLoader
-import coil.ImageLoaderFactory
-import com.google.android.horologist.mediasample.di.MediaApplicationContainer
-import java.util.concurrent.Callable
+import com.google.android.horologist.mediasample.di.MediaApplicationModule
 
-class MediaApplication : Application(), ImageLoaderFactory {
-    internal lateinit var container: MediaApplicationContainer
-
-    lateinit var imageLoader: Callable<ImageLoader>
+class MediaApplication : Application() {
+    internal lateinit var container: MediaApplicationModule
 
     override fun onCreate() {
         super.onCreate()
 
         setStrictMode()
 
-        MediaApplicationContainer.install(this)
+        MediaApplicationModule.install(this)
     }
 
     fun setStrictMode() {
@@ -45,9 +40,5 @@ class MediaApplication : Application(), ImageLoaderFactory {
                 .penaltyLog()
                 .build()
         )
-    }
-
-    override fun newImageLoader(): ImageLoader {
-        return imageLoader.call()
     }
 }

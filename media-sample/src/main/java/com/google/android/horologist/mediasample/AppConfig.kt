@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.networks
+package com.google.android.horologist.mediasample
 
-import com.google.android.horologist.networks.data.DataUsageReport
-import com.google.android.horologist.networks.data.Networks
+import com.google.android.horologist.networks.rules.NetworkingRules
 
-data class NetworkStatusAppState(
-    val networks: Networks,
-    val dataUsage: DataUsageReport? = null
+data class AppConfig(
+    val offloadEnabled: Boolean = true,
+    val strictNetworking: NetworkingRules? = NetworkingRules.Conservative,
+    val deeplinkUriPrefix: String = "uamp${if (BuildConfig.DEBUG) "-debug" else ""}://uamp",
+    val showTimeTextInfo: Boolean = true
 )

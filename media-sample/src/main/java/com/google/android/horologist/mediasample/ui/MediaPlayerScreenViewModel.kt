@@ -16,12 +16,12 @@
 
 package com.google.android.horologist.mediasample.ui
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.media3.player.PlayerRepositoryImpl
+import com.google.android.horologist.mediasample.di.MediaApplicationModule
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -40,16 +40,11 @@ class MediaPlayerScreenViewModel(
         }
     }
 
-    class Factory(
-        private val playerRepositoryFactory: PlayerRepositoryImpl
-    ) : ViewModelProvider.Factory {
-
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-            if (modelClass.isAssignableFrom(MediaPlayerScreenViewModel::class.java)) {
-                return MediaPlayerScreenViewModel(playerRepositoryFactory) as T
+    companion object {
+        val Factory = viewModelFactory {
+            initializer {
+                MediaPlayerScreenViewModel(this[MediaApplicationModule.PlayerRepositoryImplKey]!!)
             }
-            throw IllegalArgumentException("Unknown ViewModel class")
         }
     }
 }

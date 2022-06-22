@@ -17,12 +17,12 @@
 package com.google.android.horologist.mediasample.di
 
 import android.content.ComponentName
+import androidx.lifecycle.viewmodel.MutableCreationExtras
 import androidx.media3.session.MediaBrowser
 import androidx.media3.session.SessionToken
 import com.google.android.horologist.media3.flows.buildSuspend
 import com.google.android.horologist.media3.player.PlayerRepositoryImpl
 import com.google.android.horologist.mediasample.components.PlaybackService
-import com.google.android.horologist.mediasample.ui.MediaPlayerScreenViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -30,12 +30,12 @@ import kotlinx.coroutines.launch
 /**
  * Simple DI implementation - to be replaced by hilt.
  */
-class ViewModelContainer(
-    private val mediaApplicationContainer: MediaApplicationContainer,
+class ViewModelModule(
+    internal val mediaApplicationModule: MediaApplicationModule,
 ) : AutoCloseable {
     internal val mediaController by lazy {
-        mediaApplicationContainer.coroutineScope.async {
-            val application = mediaApplicationContainer.application
+        mediaApplicationModule.coroutineScope.async {
+            val application = mediaApplicationModule.application
             MediaBrowser.Builder(
                 application,
                 SessionToken(application, ComponentName(application, PlaybackService::class.java))
@@ -45,7 +45,7 @@ class ViewModelContainer(
 
     internal val playerRepository: PlayerRepositoryImpl by lazy {
         PlayerRepositoryImpl().also { playerRepository ->
-            mediaApplicationContainer.coroutineScope.launch(Dispatchers.Main) {
+            mediaApplicationModule.coroutineScope.launch(Dispatchers.Main) {
                 val player = mediaController.await()
                 playerRepository.connect(
                     player = player,
@@ -55,8 +55,15 @@ class ViewModelContainer(
         }
     }
 
-    internal val mediaPlayerScreenViewModelFactory: MediaPlayerScreenViewModel.Factory by lazy {
-        MediaPlayerScreenViewModel.Factory(playerRepository)
+    fun addCreationExtras(creationExtras: MutableCreationExtras) {
+        creationExtras.set(MediaApplicationModule.PlayerRepositoryImplKey, playerRepository)
+        creationExtras.set(
+            MediaApplicationModule.NetworkRepositoryKey,
+            mediaApplicationModule.networkModule.networkRepository
+        )
+        creationExtras.set(MediaApplicationModule.AppConfigKey, mediaApplicationModule.appConfig)
+        creationExtras.set(MediaApplicationModule.DataRequestRepositoryKey, mediaApplicationModule.networkModule.dataRequestRepository)
+        creationExtras.set(MediaApplicationModule.AudioOffloadManagerKey, mediaApplicationModule.audioOffloadManager)
     }
 
     override fun close() {

@@ -44,7 +44,6 @@ import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.SwipeDismissableNavHostState
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.currentBackStackEntryAsState
-import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.compose.layout.fadeAway
 import com.google.android.horologist.compose.layout.fadeAwayLazyList
@@ -65,7 +64,7 @@ import com.google.android.horologist.compose.layout.fadeAwayScalingLazyList
 public fun WearNavScaffold(
     startDestination: String,
     modifier: Modifier = Modifier,
-    navController: NavHostController = rememberSwipeDismissableNavController(),
+    navController: NavHostController,
     snackbar: @Composable () -> Unit = {},
     timeText: @Composable (Modifier) -> Unit = {
         TimeText(

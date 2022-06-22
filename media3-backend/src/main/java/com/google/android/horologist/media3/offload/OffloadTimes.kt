@@ -34,7 +34,7 @@ public data class OffloadTimes(
             return if (value.isNaN()) "--%" else PercentFormat.format(value)
         }
 
-    internal fun timesToNow(sleepingForOffload: Boolean): OffloadTimes {
+    public fun timesToNow(sleepingForOffload: Boolean): OffloadTimes {
         val time = System.currentTimeMillis()
         val extra = time - updated
 

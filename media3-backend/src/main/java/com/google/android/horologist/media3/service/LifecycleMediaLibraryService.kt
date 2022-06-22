@@ -26,7 +26,6 @@ import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaSession
 
 public abstract class LifecycleMediaLibraryService : MediaLibraryService(), LifecycleOwner {
-    @Suppress("LeakingThis")
     private val dispatcher = ServiceLifecycleDispatcher(this)
 
     protected abstract val mediaLibrarySession: MediaLibrarySession

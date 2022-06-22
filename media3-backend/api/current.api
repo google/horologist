@@ -38,7 +38,7 @@ package com.google.android.horologist.media3.config {
 package com.google.android.horologist.media3.flows {
 
   public final class BuildSuspendKt {
-    method public static suspend Object? buildSuspend(androidx.media3.session.MediaBrowser.Builder, kotlin.coroutines.Continuation<? super androidx.media3.session.MediaBrowser> p);
+    method @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public static suspend Object? buildSuspend(androidx.media3.session.MediaBrowser.Builder, kotlin.coroutines.Continuation<? super androidx.media3.session.MediaBrowser> p);
   }
 
   public final class IsPlayingFlowKt {

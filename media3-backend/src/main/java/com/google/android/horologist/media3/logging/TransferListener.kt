@@ -63,10 +63,6 @@ public class TransferListener(
         isNetwork: Boolean,
         bytesTransferred: Int
     ) {
-//        appEventLogger.logMessage(
-//            "bytes transfer $isNetwork $bytesTransferred",
-//            level = ErrorReporter.Level.Debug
-//        )
     }
 
     override fun onTransferEnd(source: DataSource, dataSpec: DataSpec, isNetwork: Boolean) {

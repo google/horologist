@@ -34,6 +34,9 @@ import androidx.palette.graphics.Palette
 import coil.imageLoader
 import coil.request.ImageRequest
 
+/**
+ * Background using a radial gradient extracted from artwork.
+ */
 @Composable
 public fun ArtworkColorBackground(
     artworkUri: String?,

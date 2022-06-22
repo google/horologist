@@ -47,7 +47,7 @@ public open class PlayerViewModel(
     )
 
     public fun play() {
-        // TODO is this needed
+        // Prepare is needed to ensure playback
         playerRepository.prepare()
         playerRepository.play()
     }

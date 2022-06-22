@@ -28,6 +28,7 @@ import com.google.android.horologist.audio.BluetoothSettings.launchBluetoothSett
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
+import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
 import com.google.android.horologist.compose.navscaffold.wearNavComposable
 import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeText
@@ -57,9 +58,6 @@ fun WearApp(
                 )
             }
         ) {
-            wearNavComposable(Navigation.Volume.route) { _, viewModel ->
-                VolumeScreen(focusRequester = viewModel.focusRequester)
-            }
             wearNavComposable(Navigation.MediaPlayer.route) { _, viewModel ->
                 val context = LocalContext.current
 
@@ -77,6 +75,11 @@ fun WearApp(
                     },
                     playerFocusRequester = viewModel.focusRequester
                 )
+            }
+            wearNavComposable(Navigation.Volume.route) { _, viewModel ->
+                viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+
+                VolumeScreen(focusRequester = viewModel.focusRequester)
             }
         }
     }

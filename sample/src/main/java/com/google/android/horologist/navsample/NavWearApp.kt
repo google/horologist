@@ -36,7 +36,6 @@ import androidx.wear.compose.material.rememberSwipeToDismissBoxState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.audio.ui.VolumeScreen
-import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
 import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
@@ -47,6 +46,7 @@ import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
 import com.google.android.horologist.navsample.snackbar.SnackbarViewModel
 import com.google.android.horologist.networks.NetworksViewModel
 import com.google.android.horologist.networks.ui.DataUsageTimeText
+import com.google.android.horologist.utils.rememberStateWithLifecycle
 
 @Composable
 fun NavWearApp(

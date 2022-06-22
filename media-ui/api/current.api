@@ -47,6 +47,10 @@ package com.google.android.horologist.media.ui.components.animated {
 
 package com.google.android.horologist.media.ui.components.background {
 
+  public final class ArtworkColorBackgroundKt {
+    method @androidx.compose.runtime.Composable public static void ArtworkColorBackground(String? artworkUri, optional androidx.compose.ui.Modifier modifier);
+  }
+
   public final class RadialBackgroundKt {
     method @androidx.compose.runtime.Composable public static void RadialBackground(androidx.compose.ui.graphics.Color? color);
   }

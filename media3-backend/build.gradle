@@ -101,6 +101,9 @@ dependencies {
     api libs.androidx.media3.common
     api libs.androidx.annotation
     api libs.androidx.media3.exoplayer
+    api libs.androidx.media3.exoplayerdash
+    api libs.androidx.media3.exoplayerhls
+    api libs.androidx.media3.exoplayerrtsp
     api libs.androidx.media3.session
     implementation libs.androidx.lifecycle.process
     implementation libs.kotlinx.coroutines.guava

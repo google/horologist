@@ -121,6 +121,8 @@ dependencies {
     implementation libs.moshi.kotlin
     kapt libs.moshi.kotlin.codegen
 
+    implementation libs.androidx.palette.ktx
+
     implementation libs.lottie.compose
 
     implementation libs.kotlin.stdlib

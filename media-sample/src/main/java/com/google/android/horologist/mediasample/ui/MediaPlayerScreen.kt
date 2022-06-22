@@ -69,7 +69,7 @@ fun MediaPlayerScreen(
                 )
             },
             background = {
-//                RadialBackground(color = )
+                ArtworkColorBackground(artworkUri = null)
             }
         )
     }

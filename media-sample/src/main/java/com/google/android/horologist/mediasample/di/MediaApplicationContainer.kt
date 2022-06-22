@@ -39,7 +39,7 @@ import kotlinx.coroutines.SupervisorJob
 /**
  * Simple DI implementation - to be replaced by hilt.
  */
-class MediaApplicationModule(internal val application: MediaApplication) {
+class MediaApplicationContainer(internal val application: MediaApplication) {
     val isEmulator = Build.PRODUCT.startsWith("sdk_gwear")
 
     val playbackRules: PlaybackRules by lazy {
@@ -74,8 +74,8 @@ class MediaApplicationModule(internal val application: MediaApplication) {
 
     internal val logger: Logging by lazy { Logging(application.resources) }
 
-    internal fun serviceContainer(service: PlaybackService): PlaybackServiceModule =
-        PlaybackServiceModule(this, service, wearMedia3Factory).also {
+    internal fun serviceContainer(service: PlaybackService): PlaybackServiceContainer =
+        PlaybackServiceContainer(this, service, wearMedia3Factory).also {
             service.lifecycle.addObserver(object : DefaultLifecycleObserver {
                 override fun onStop(owner: LifecycleOwner) {
                     it.close()
@@ -84,7 +84,7 @@ class MediaApplicationModule(internal val application: MediaApplication) {
         }
 
     internal fun activityContainer(activity: MediaActivity): MediaActivityContainer =
-        MediaActivityContainer(this, activity).also {
+        MediaActivityContainer(this).also {
             activity.lifecycle.addObserver(object : DefaultLifecycleObserver {
                 override fun onStop(owner: LifecycleOwner) {
                     it.close()
@@ -94,7 +94,7 @@ class MediaApplicationModule(internal val application: MediaApplication) {
 
     companion object {
         fun install(mediaApplication: MediaApplication) {
-            mediaApplication.container = MediaApplicationModule(mediaApplication)
+            mediaApplication.container = MediaApplicationContainer(mediaApplication)
 
             Coil.setImageLoader {
                 mediaApplication.container.networkModule.imageLoader

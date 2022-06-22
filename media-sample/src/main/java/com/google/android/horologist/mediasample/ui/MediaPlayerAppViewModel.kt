@@ -22,7 +22,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.mediasample.AppConfig
-import com.google.android.horologist.mediasample.di.MediaApplicationModule
+import com.google.android.horologist.mediasample.di.MediaApplicationContainer
 import com.google.android.horologist.mediasample.ui.debug.OffloadState
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.DataUsageReport
@@ -88,10 +88,10 @@ class MediaPlayerAppViewModel(
         val Factory = viewModelFactory {
             initializer {
                 MediaPlayerAppViewModel(
-                    this[MediaApplicationModule.NetworkRepositoryKey]!!,
-                    this[MediaApplicationModule.DataRequestRepositoryKey]!!,
-                    this[MediaApplicationModule.AudioOffloadManagerKey]!!,
-                    this[MediaApplicationModule.AppConfigKey]!!,
+                    this[MediaApplicationContainer.NetworkRepositoryKey]!!,
+                    this[MediaApplicationContainer.DataRequestRepositoryKey]!!,
+                    this[MediaApplicationContainer.AudioOffloadManagerKey]!!,
+                    this[MediaApplicationContainer.AppConfigKey]!!,
                 )
             }
         }

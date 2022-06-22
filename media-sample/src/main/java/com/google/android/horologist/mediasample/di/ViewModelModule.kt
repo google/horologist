@@ -31,11 +31,11 @@ import kotlinx.coroutines.launch
  * Simple DI implementation - to be replaced by hilt.
  */
 class ViewModelModule(
-    internal val mediaApplicationModule: MediaApplicationModule,
+    internal val mediaApplicationContainer: MediaApplicationContainer,
 ) : AutoCloseable {
     internal val mediaController by lazy {
-        mediaApplicationModule.coroutineScope.async {
-            val application = mediaApplicationModule.application
+        mediaApplicationContainer.coroutineScope.async {
+            val application = mediaApplicationContainer.application
             MediaBrowser.Builder(
                 application,
                 SessionToken(application, ComponentName(application, PlaybackService::class.java))
@@ -45,7 +45,7 @@ class ViewModelModule(
 
     internal val playerRepository: PlayerRepositoryImpl by lazy {
         PlayerRepositoryImpl().also { playerRepository ->
-            mediaApplicationModule.coroutineScope.launch(Dispatchers.Main) {
+            mediaApplicationContainer.coroutineScope.launch(Dispatchers.Main) {
                 val player = mediaController.await()
                 playerRepository.connect(
                     player = player,
@@ -56,14 +56,14 @@ class ViewModelModule(
     }
 
     fun addCreationExtras(creationExtras: MutableCreationExtras) {
-        creationExtras.set(MediaApplicationModule.PlayerRepositoryImplKey, playerRepository)
+        creationExtras.set(MediaApplicationContainer.PlayerRepositoryImplKey, playerRepository)
         creationExtras.set(
-            MediaApplicationModule.NetworkRepositoryKey,
-            mediaApplicationModule.networkModule.networkRepository
+            MediaApplicationContainer.NetworkRepositoryKey,
+            mediaApplicationContainer.networkModule.networkRepository
         )
-        creationExtras.set(MediaApplicationModule.AppConfigKey, mediaApplicationModule.appConfig)
-        creationExtras.set(MediaApplicationModule.DataRequestRepositoryKey, mediaApplicationModule.networkModule.dataRequestRepository)
-        creationExtras.set(MediaApplicationModule.AudioOffloadManagerKey, mediaApplicationModule.audioOffloadManager)
+        creationExtras.set(MediaApplicationContainer.AppConfigKey, mediaApplicationContainer.appConfig)
+        creationExtras.set(MediaApplicationContainer.DataRequestRepositoryKey, mediaApplicationContainer.networkModule.dataRequestRepository)
+        creationExtras.set(MediaApplicationContainer.AudioOffloadManagerKey, mediaApplicationContainer.audioOffloadManager)
     }
 
     override fun close() {

@@ -18,7 +18,7 @@ package com.google.android.horologist.mediasample.components
 
 import androidx.media3.session.MediaSession
 import com.google.android.horologist.media3.service.LifecycleMediaLibraryService
-import com.google.android.horologist.mediasample.di.PlaybackServiceModule
+import com.google.android.horologist.mediasample.di.PlaybackServiceContainer
 
 class PlaybackService : LifecycleMediaLibraryService() {
     public override lateinit var mediaLibrarySession: MediaLibrarySession
@@ -26,7 +26,7 @@ class PlaybackService : LifecycleMediaLibraryService() {
     override fun onCreate() {
         super.onCreate()
 
-        PlaybackServiceModule.inject(this)
+        PlaybackServiceContainer.inject(this)
     }
 
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession? {

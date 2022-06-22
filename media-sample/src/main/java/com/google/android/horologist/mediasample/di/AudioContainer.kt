@@ -25,13 +25,13 @@ import com.google.android.horologist.media3.audio.BluetoothSettingsOutputSelecto
  * Simple DI implementation - to be replaced by hilt.
  */
 class AudioContainer(
-    private val mediaApplicationModule: MediaApplicationModule
+    private val mediaApplicationContainer: MediaApplicationContainer
 ) {
     val audioOutputSelector: AudioOutputSelector by lazy {
         BluetoothSettingsOutputSelector(audioOutputRepository)
     }
 
     val audioOutputRepository: AudioOutputRepository by lazy {
-        SystemAudioRepository.fromContext(mediaApplicationModule.application)
+        SystemAudioRepository.fromContext(mediaApplicationContainer.application)
     }
 }

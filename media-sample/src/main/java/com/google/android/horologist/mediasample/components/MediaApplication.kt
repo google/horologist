@@ -18,17 +18,17 @@ package com.google.android.horologist.mediasample.components
 
 import android.app.Application
 import android.os.StrictMode
-import com.google.android.horologist.mediasample.di.MediaApplicationModule
+import com.google.android.horologist.mediasample.di.MediaApplicationContainer
 
 class MediaApplication : Application() {
-    internal lateinit var container: MediaApplicationModule
+    internal lateinit var container: MediaApplicationContainer
 
     override fun onCreate() {
         super.onCreate()
 
         setStrictMode()
 
-        MediaApplicationModule.install(this)
+        MediaApplicationContainer.install(this)
     }
 
     fun setStrictMode() {

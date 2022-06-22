@@ -45,8 +45,8 @@ import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
 /**
  * Simple DI implementation - to be replaced by hilt.
  */
-class PlaybackServiceModule(
-    private val mediaApplicationModule: MediaApplicationModule,
+class PlaybackServiceContainer(
+    private val mediaApplicationContainer: MediaApplicationContainer,
     private val service: PlaybackService,
     private val wearMedia3Factory: WearMedia3Factory
 ) : AutoCloseable {
@@ -57,7 +57,7 @@ class PlaybackServiceModule(
         )
         .build()
 
-    val appConfig by lazy { mediaApplicationModule.appConfig }
+    val appConfig by lazy { mediaApplicationContainer.appConfig }
 
     val mediaCodecSelector by lazy { wearMedia3Factory.mediaCodecSelector() }
 
@@ -72,7 +72,7 @@ class PlaybackServiceModule(
 
     val defaultAnalyticsCollector by lazy {
         DefaultAnalyticsCollector(Clock.DEFAULT).apply {
-            addListener(AnalyticsEventLogger(mediaApplicationModule.logger))
+            addListener(AnalyticsEventLogger(mediaApplicationContainer.logger))
         }
     }
 
@@ -83,11 +83,11 @@ class PlaybackServiceModule(
     private val streamDataSourceFactory: DataSource.Factory by lazy {
         OkHttpDataSource.Factory(
             NetworkAwareCallFactory(
-                mediaApplicationModule.networkModule.networkAwareCallFactory,
+                mediaApplicationContainer.networkModule.networkAwareCallFactory,
                 defaultRequestType = RequestType.UnknownRequest
             )
         )
-            .setTransferListener(TransferListener(mediaApplicationModule.logger))
+            .setTransferListener(TransferListener(mediaApplicationContainer.logger))
     }
 
     val mediaSourceFactory: MediaSource.Factory by lazy {
@@ -107,25 +107,25 @@ class PlaybackServiceModule(
             addListener(defaultAnalyticsCollector)
 
             if (appConfig.offloadEnabled) {
-                mediaApplicationModule.audioOffloadManager.connect(this)
+                mediaApplicationContainer.audioOffloadManager.connect(this)
             }
         }
 
     val player = WearConfiguredPlayer(
         player = exoPlayer,
-        audioOutputRepository = mediaApplicationModule.audioContainer.audioOutputRepository,
-        audioOutputSelector = mediaApplicationModule.audioContainer.audioOutputSelector,
-        playbackRules = mediaApplicationModule.playbackRules,
-        errorReporter = mediaApplicationModule.logger
+        audioOutputRepository = mediaApplicationContainer.audioContainer.audioOutputRepository,
+        audioOutputSelector = mediaApplicationContainer.audioContainer.audioOutputSelector,
+        playbackRules = mediaApplicationContainer.playbackRules,
+        errorReporter = mediaApplicationContainer.logger
     )
 
     val librarySessionCallback by lazy {
-        UampMediaLibrarySessionCallback(service.lifecycleScope, mediaApplicationModule.logger)
+        UampMediaLibrarySessionCallback(service.lifecycleScope, mediaApplicationContainer.logger)
     }
 
     val intentBuilder by lazy {
         NavDeepLinkIntentBuilder(
-            mediaApplicationModule.application,
+            mediaApplicationContainer.application,
             "${appConfig.deeplinkUriPrefix}/player?page=1",
             "${appConfig.deeplinkUriPrefix}/player?page=0"
         )
@@ -145,7 +145,7 @@ class PlaybackServiceModule(
     }
 
     companion object {
-        internal val Service.container: MediaApplicationModule
+        internal val Service.container: MediaApplicationContainer
             get() = (application as MediaApplication).container
 
         fun inject(playbackService: PlaybackService) {

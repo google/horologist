@@ -65,8 +65,9 @@ class MediaActivity : ComponentActivity() {
         lifecycleScope.launchWhenResumed {
             val playerRepository = viewModelModule.playerRepository
             val uampService =
-                viewModelModule.mediaApplicationModule.networkModule.uampService
+                viewModelModule.mediaApplicationContainer.networkModule.uampService
 
+            // setMediaItems is a noop before this point
             playerRepository.connected.filter { it }.first()
 
             if (playerRepository.currentMediaItem.value == null) {
@@ -82,6 +83,7 @@ class MediaActivity : ComponentActivity() {
                     }
 
                     playerRepository.setMediaItems(mediaItems)
+                    playerRepository.prepare()
                 } catch (ioe: IOException) {
                     // Nothing
                 }

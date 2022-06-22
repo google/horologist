@@ -187,6 +187,9 @@ public class AnalyticsEventLogger(
         totalBytesLoaded: Long,
         bitrateEstimate: Long
     ) {
-//        appEventLogger.recordEvent("onBandwidthEstimate ${bitrateEstimate}")
+        appEventLogger.logMessage(
+            "onBandwidthEstimate $bitrateEstimate",
+            level = ErrorReporter.Level.Debug
+        )
     }
 }

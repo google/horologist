@@ -21,7 +21,8 @@ import android.os.Vibrator
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
-import androidx.lifecycle.viewmodel.CreationExtras
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.AudioOutputRepository
 import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
@@ -72,19 +73,18 @@ public open class VolumeViewModel(
     }
 
     @ExperimentalHorologistAudioUiApi
-    public object Factory : ViewModelProvider.Factory {
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-            check(modelClass == VolumeViewModel::class.java)
+    public companion object {
+        public val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val application = this[APPLICATION_KEY]!!
 
-            val application = extras[APPLICATION_KEY]!!
+                val audioRepository = SystemAudioRepository.fromContext(application)
+                val vibrator: Vibrator = application.getSystemService(Vibrator::class.java)
 
-            val audioRepository = SystemAudioRepository.fromContext(application)
-            val vibrator: Vibrator = application.getSystemService(Vibrator::class.java)
-
-            return VolumeViewModel(audioRepository, audioRepository, onCleared = {
-                audioRepository.close()
-            }, vibrator) as T
+                VolumeViewModel(audioRepository, audioRepository, onCleared = {
+                    audioRepository.close()
+                }, vibrator)
+            }
         }
     }
 }

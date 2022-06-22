@@ -92,6 +92,7 @@ dependencies {
     api projects.media
     implementation projects.audio
     implementation projects.audioUi
+    implementation projects.composeLayout
     implementation libs.kotlin.stdlib
     implementation libs.androidx.wear
     implementation libs.androidx.lifecycle.runtime

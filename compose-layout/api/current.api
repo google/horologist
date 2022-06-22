@@ -11,6 +11,11 @@ package com.google.android.horologist.compose.layout {
     method @androidx.compose.runtime.Stable public static androidx.compose.ui.Modifier fillMaxRectangle(androidx.compose.ui.Modifier);
   }
 
+  public final class StateUtils {
+    method @androidx.compose.runtime.Composable public <T> androidx.compose.runtime.State<T> rememberStateWithLifecycle(kotlinx.coroutines.flow.StateFlow<? extends T> flow, optional androidx.lifecycle.Lifecycle lifecycle, optional androidx.lifecycle.Lifecycle.State minActiveState);
+    field public static final com.google.android.horologist.compose.layout.StateUtils INSTANCE;
+  }
+
 }
 
 package com.google.android.horologist.compose.navscaffold {

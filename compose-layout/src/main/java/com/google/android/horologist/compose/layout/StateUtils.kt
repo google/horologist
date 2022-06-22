@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.ui.utils
+package com.google.android.horologist.compose.layout
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
@@ -25,10 +25,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import kotlinx.coroutines.flow.StateFlow
 
-internal object StateUtils {
-
+public object StateUtils {
     @Composable
-    internal fun <T> rememberStateWithLifecycle(
+    public fun <T> rememberStateWithLifecycle(
         flow: StateFlow<T>,
         lifecycle: Lifecycle = LocalLifecycleOwner.current.lifecycle,
         minActiveState: Lifecycle.State = Lifecycle.State.STARTED

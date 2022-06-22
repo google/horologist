@@ -32,12 +32,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.TextMediaDisplay
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
-import com.google.android.horologist.media.ui.utils.StateUtils.rememberStateWithLifecycle
 
 @OptIn(ExperimentalHorologistMediaUiApi::class)
 public typealias MediaDisplay = @Composable ColumnScope.(playerUiState: PlayerUiState) -> Unit

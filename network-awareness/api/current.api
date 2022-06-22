@@ -499,6 +499,8 @@ package com.google.android.horologist.networks.ui {
   }
 
   public final class DataUsageKt {
+    method @androidx.compose.runtime.Composable public static void LinearDataUsage(com.google.android.horologist.networks.data.Networks networkStatus, com.google.android.horologist.networks.data.DataUsageReport? networkUsage, androidx.compose.ui.text.TextStyle style, android.content.Context context);
+    method public static void curveDataUsage(androidx.wear.compose.foundation.CurvedScope, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.networks.data.Networks networkStatus, com.google.android.horologist.networks.data.DataUsageReport? networkUsage, androidx.wear.compose.foundation.CurvedTextStyle style, android.content.Context context);
   }
 
   public final class DataUsageTimeTextKt {

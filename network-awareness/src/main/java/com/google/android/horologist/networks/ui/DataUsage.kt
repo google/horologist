@@ -42,7 +42,7 @@ import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.Status
 
-internal fun CurvedScope.curveDataUsage(
+public fun CurvedScope.curveDataUsage(
     modifier: Modifier = Modifier,
     networkStatus: Networks,
     networkUsage: DataUsageReport?,
@@ -86,7 +86,7 @@ internal fun CurvedScope.curveDataUsage(
 }
 
 @Composable
-internal fun LinearDataUsage(
+public fun LinearDataUsage(
     networkStatus: Networks,
     networkUsage: DataUsageReport?,
     style: TextStyle,

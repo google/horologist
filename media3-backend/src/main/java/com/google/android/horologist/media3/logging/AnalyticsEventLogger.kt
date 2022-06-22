@@ -1,11 +1,11 @@
 /*
- * Copyright 2021 Google Inc. All rights reserved.
+ * Copyright 2021 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,11 +33,12 @@ import java.io.IOException
  * Most logging behaviour is inherited from EventLogger.
  */
 @ExperimentalHorologistMedia3BackendApi
-class AnalyticsEventLogger(
-    val appEventLogger: ErrorReporter
+public class AnalyticsEventLogger(
+    private val appEventLogger: ErrorReporter
 ) : EventLogger("ErrorReporter") {
     override fun onAudioSinkError(
-        eventTime: AnalyticsListener.EventTime, audioSinkError: Exception
+        eventTime: AnalyticsListener.EventTime,
+        audioSinkError: Exception
     ) {
         appEventLogger.logMessage(
             "onAudioSinkError $audioSinkError",
@@ -47,7 +48,8 @@ class AnalyticsEventLogger(
     }
 
     override fun onAudioCodecError(
-        eventTime: AnalyticsListener.EventTime, audioCodecError: Exception
+        eventTime: AnalyticsListener.EventTime,
+        audioCodecError: Exception
     ) {
         appEventLogger.logMessage(
             "onAudioCodecError $audioCodecError",
@@ -65,7 +67,9 @@ class AnalyticsEventLogger(
     }
 
     override fun onPlayWhenReadyChanged(
-        eventTime: AnalyticsListener.EventTime, playWhenReady: Boolean, reason: Int
+        eventTime: AnalyticsListener.EventTime,
+        playWhenReady: Boolean,
+        reason: Int
     ) {
         appEventLogger.logMessage(
             "onPlayWhenReadyChanged $playWhenReady $reason",
@@ -113,7 +117,8 @@ class AnalyticsEventLogger(
     }
 
     override fun onMediaMetadataChanged(
-        eventTime: AnalyticsListener.EventTime, mediaMetadata: MediaMetadata
+        eventTime: AnalyticsListener.EventTime,
+        mediaMetadata: MediaMetadata
     ) {
         appEventLogger.logMessage(
             "onMediaMetadataChanged ${mediaMetadata.displayTitle}",
@@ -166,7 +171,8 @@ class AnalyticsEventLogger(
     }
 
     override fun onDownstreamFormatChanged(
-        eventTime: AnalyticsListener.EventTime, mediaLoadData: MediaLoadData
+        eventTime: AnalyticsListener.EventTime,
+        mediaLoadData: MediaLoadData
     ) {
         appEventLogger.logMessage(
             "onDownstreamFormatChanged ${mediaLoadData.dataType}",

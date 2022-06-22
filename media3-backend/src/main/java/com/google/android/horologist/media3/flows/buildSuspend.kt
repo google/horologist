@@ -21,5 +21,5 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.guava.await
 import kotlinx.coroutines.withContext
 
-suspend fun MediaBrowser.Builder.buildSuspend(): MediaBrowser =
+public suspend fun MediaBrowser.Builder.buildSuspend(): MediaBrowser =
     withContext(Dispatchers.Main) { buildAsync().await() }

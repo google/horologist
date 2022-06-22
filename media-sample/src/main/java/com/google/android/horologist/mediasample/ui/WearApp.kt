@@ -31,7 +31,6 @@ import com.google.android.horologist.audio.BluetoothSettings.launchBluetoothSett
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.compose.pager.FocusOnResume
-import com.google.android.horologist.media.ui.uamp.UampTheme
 
 @Composable
 fun WearApp(

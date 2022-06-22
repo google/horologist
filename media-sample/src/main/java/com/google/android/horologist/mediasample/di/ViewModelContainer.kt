@@ -32,7 +32,7 @@ import kotlinx.coroutines.launch
  */
 class ViewModelContainer(
     private val mediaApplicationContainer: MediaApplicationContainer,
-): AutoCloseable {
+) : AutoCloseable {
     internal val mediaController by lazy {
         mediaApplicationContainer.coroutineScope.async {
             val application = mediaApplicationContainer.application

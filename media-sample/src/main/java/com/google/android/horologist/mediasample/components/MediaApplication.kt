@@ -23,7 +23,7 @@ import coil.ImageLoaderFactory
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
 import java.util.concurrent.Callable
 
-class MediaApplication: Application(), ImageLoaderFactory {
+class MediaApplication : Application(), ImageLoaderFactory {
     internal lateinit var container: MediaApplicationContainer
 
     lateinit var imageLoader: Callable<ImageLoader>

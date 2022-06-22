@@ -18,12 +18,8 @@
 
 package com.google.android.horologist.media3.logging
 
-import android.content.res.Resources
-import android.util.Log
 import androidx.annotation.StringRes
 import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
-
-
 
 /**
  * Simple API to allow switching logic for logging and showing user messages.

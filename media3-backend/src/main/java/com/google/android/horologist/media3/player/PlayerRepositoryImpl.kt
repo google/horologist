@@ -1,11 +1,11 @@
 /*
- * Copyright 2022 Google Inc. All rights reserved.
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,14 +25,14 @@ import com.google.android.horologist.media.model.MediaItem
 import com.google.android.horologist.media.model.MediaItemPosition
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.repository.PlayerRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import java.io.Closeable
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 
 /**
  * Repository for the current Media3 Player for a Player Activity.
@@ -40,7 +40,7 @@ import kotlinx.coroutines.flow.StateFlow
  * The current implementation is available as soon as the ListenableFuture
  * to connect to the MediaSession completes.
  */
-class PlayerRepositoryImpl : PlayerRepository, Closeable {
+public class PlayerRepositoryImpl : PlayerRepository, Closeable {
 
     private var onClose: (() -> Unit)? = null
     private var closed = false
@@ -50,7 +50,7 @@ class PlayerRepositoryImpl : PlayerRepository, Closeable {
     /**
      * The active player, or null if no active player is currently available.
      */
-    val player: StateFlow<Player?>
+    public val player: StateFlow<Player?>
         get() = _player
 
     private val _connected = MutableStateFlow(false)
@@ -85,7 +85,7 @@ class PlayerRepositoryImpl : PlayerRepository, Closeable {
     /**
      * The current playback speed relative to 1.0.
      */
-    val playbackSpeed: StateFlow<Float>
+    public val playbackSpeed: StateFlow<Float>
         get() = _playbackSpeed
 
     private val listener = object : Player.Listener {
@@ -143,7 +143,7 @@ class PlayerRepositoryImpl : PlayerRepository, Closeable {
     /**
      * Connect this repository to the player including listening to events.
      */
-    fun connect(player: Player, onClose: () -> Unit) {
+    public fun connect(player: Player, onClose: () -> Unit) {
         // TODO support a cycle of changing players
 
         checkNotClosed()
@@ -355,11 +355,11 @@ class PlayerRepositoryImpl : PlayerRepository, Closeable {
      * Update the position to show track progress correctly on screen.
      * Updating roughly once a second while activity is foregrounded is appropriate.
      */
-    fun updatePosition() {
+    public fun updatePosition() {
         player.value?.updatePosition()
     }
 
-    fun setPlaybackSpeed(speed: Float) {
+    public fun setPlaybackSpeed(speed: Float) {
         player.value?.setPlaybackSpeed(speed)
     }
 
@@ -379,7 +379,7 @@ class PlayerRepositoryImpl : PlayerRepository, Closeable {
         check(!closed) { "Player is already closed." }
     }
 
-    companion object {
+    private companion object {
         private val TAG = PlayerRepositoryImpl::class.java.simpleName
     }
 }

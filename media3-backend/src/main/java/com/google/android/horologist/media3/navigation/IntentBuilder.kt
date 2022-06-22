@@ -1,11 +1,11 @@
 /*
- * Copyright 2021 Google Inc. All rights reserved.
+ * Copyright 2021 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,16 +21,16 @@ import android.app.PendingIntent
 /**
  * Strategy for generating a PendingIntent links directly to the Player or Downloads View.
  */
-interface IntentBuilder {
+public interface IntentBuilder {
     /**
      * Pending intent for the screen showing downloads.
      * Used in background Notifications for download progress.
      */
-    fun buildDownloadIntent(): PendingIntent
+    public fun buildDownloadIntent(): PendingIntent
 
     /**
      * Pending intent for the screen showing playback controls.
      * Used in Media Notification and System Controls.
      */
-    fun buildPlayerIntent(): PendingIntent
+    public fun buildPlayerIntent(): PendingIntent
 }

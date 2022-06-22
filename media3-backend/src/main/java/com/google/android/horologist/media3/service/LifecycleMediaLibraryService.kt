@@ -22,22 +22,14 @@ import androidx.annotation.CallSuper
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ServiceLifecycleDispatcher
-import androidx.media3.common.Player
 import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaSession
-import com.google.android.horologist.media3.navigation.IntentBuilder
 
-abstract class LifecycleMediaLibraryService : MediaLibraryService(), LifecycleOwner {
+public abstract class LifecycleMediaLibraryService : MediaLibraryService(), LifecycleOwner {
     @Suppress("LeakingThis")
     private val mDispatcher = ServiceLifecycleDispatcher(this)
 
-    abstract val player: Player
-
-    abstract val librarySessionCallback: MediaLibrarySession.Callback
-
-    abstract val intentBuilder: IntentBuilder
-
-    abstract val mediaLibrarySession: MediaLibrarySession
+    protected abstract val mediaLibrarySession: MediaLibrarySession
 
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession? {
         return mediaLibrarySession
@@ -61,7 +53,6 @@ abstract class LifecycleMediaLibraryService : MediaLibraryService(), LifecycleOw
         @Suppress("DEPRECATION")
         super.onStart(intent, startId)
     }
-
 
     @CallSuper
     final override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {

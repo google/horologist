@@ -35,7 +35,7 @@ import coil.imageLoader
 import coil.request.ImageRequest
 
 @Composable
-fun ArtworkColorBackground(
+public fun ArtworkColorBackground(
     artworkUri: String?,
     modifier: Modifier = Modifier,
 ) {

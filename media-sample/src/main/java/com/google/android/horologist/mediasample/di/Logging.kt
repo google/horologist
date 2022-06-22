@@ -20,9 +20,6 @@ import android.content.res.Resources
 import android.util.Log
 import androidx.annotation.StringRes
 import com.google.android.horologist.media3.logging.ErrorReporter
-import com.google.android.horologist.networks.data.NetworkType
-import com.google.android.horologist.networks.data.RequestType
-import com.google.android.horologist.networks.logging.NetworkStatusLogger
 
 public class Logging(private val res: Resources) : ErrorReporter {
     override fun showMessage(@StringRes message: Int) {

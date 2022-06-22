@@ -25,7 +25,7 @@ import androidx.media3.exoplayer.audio.MediaCodecAudioRenderer
 import androidx.media3.exoplayer.mediacodec.MediaCodecSelector
 
 public open class WearMedia3Factory(private val context: Context) {
-    fun audioSink(
+    public fun audioSink(
         attemptOffload: Boolean,
     ): AudioSink {
         val offloadMode =
@@ -41,7 +41,7 @@ public open class WearMedia3Factory(private val context: Context) {
             .build()
     }
 
-    fun audioOnlyRenderersFactory(
+    public fun audioOnlyRenderersFactory(
         audioSink: AudioSink,
         mediaCodecSelector: MediaCodecSelector = MediaCodecSelector.DEFAULT,
     ): RenderersFactory =
@@ -53,5 +53,5 @@ public open class WearMedia3Factory(private val context: Context) {
             )
         }
 
-    fun mediaCodecSelector() = MediaCodecSelector.DEFAULT
+    public fun mediaCodecSelector(): MediaCodecSelector = MediaCodecSelector.DEFAULT
 }

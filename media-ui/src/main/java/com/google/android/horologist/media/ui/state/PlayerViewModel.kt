@@ -23,13 +23,10 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.mapper.PlayerUiStateMapper
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.isActive
-import kotlinx.coroutines.launch
 
 @ExperimentalHorologistMediaUiApi
 public open class PlayerViewModel(

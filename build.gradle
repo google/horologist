@@ -142,7 +142,7 @@ subprojects {
             freeCompilerArgs += "-Xjvm-default=all"
 
             // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-            if (!compile.name.endsWith("TestKotlin") && !compile.name.startsWith("compileDebug") && project.name != "sample") {
+            if (!compile.name.endsWith("TestKotlin") && !compile.name.startsWith("compileDebug") && !project.name.contains("sample")) {
                 // Enable explicit API mode
                 compile.kotlinOptions.freeCompilerArgs.add("-Xexplicit-api=strict")
             }

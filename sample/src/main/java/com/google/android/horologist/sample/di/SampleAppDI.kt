@@ -30,6 +30,7 @@ import kotlinx.coroutines.GlobalScope
  * Simple DI implementation - to be replaced by hilt.
  */
 object SampleAppDI {
+    @Suppress("UNUSED_PARAMETER")
     fun inject(mainActivity: MainActivity) {
     }
 

@@ -92,6 +92,7 @@ dependencies {
     api projects.media
     implementation projects.audio
     implementation projects.audioUi
+    implementation projects.composeLayout
     implementation libs.kotlin.stdlib
     implementation libs.androidx.wear
     implementation libs.androidx.lifecycle.runtime
@@ -102,7 +103,9 @@ dependencies {
     implementation libs.compose.material.iconscore
     implementation libs.compose.material.iconsext
 
+    implementation libs.coil
     implementation libs.lottie.compose
+    implementation libs.androidx.palette.ktx
 
     debugImplementation libs.compose.ui.test.manifest
     debugImplementation libs.compose.ui.toolingpreview

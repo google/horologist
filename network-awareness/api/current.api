@@ -1,4 +1,11 @@
 // Signature format: 4.0
+package com.google.android.horologist.networks {
+
+  @kotlin.RequiresOptIn(message="Horologist Network Awareness is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistNetworksApi {
+  }
+
+}
+
 package com.google.android.horologist.networks.data {
 
   public final class DataRequest {
@@ -499,10 +506,12 @@ package com.google.android.horologist.networks.ui {
   }
 
   public final class DataUsageKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static void LinearDataUsage(com.google.android.horologist.networks.data.Networks networkStatus, com.google.android.horologist.networks.data.DataUsageReport? networkUsage, androidx.compose.ui.text.TextStyle style, android.content.Context context);
+    method @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static void curveDataUsage(androidx.wear.compose.foundation.CurvedScope, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.networks.data.Networks networkStatus, com.google.android.horologist.networks.data.DataUsageReport? networkUsage, androidx.wear.compose.foundation.CurvedTextStyle style, android.content.Context context);
   }
 
   public final class DataUsageTimeTextKt {
-    method @androidx.compose.runtime.Composable public static void DataUsageTimeText(boolean showData, com.google.android.horologist.networks.data.Networks networkStatus, com.google.android.horologist.networks.data.DataUsageReport? networkUsage, optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static void DataUsageTimeText(boolean showData, com.google.android.horologist.networks.data.Networks networkStatus, com.google.android.horologist.networks.data.DataUsageReport? networkUsage, optional androidx.compose.ui.Modifier modifier);
   }
 
 }

@@ -58,6 +58,8 @@ class ViewModelModule(
     fun addCreationExtras(creationExtras: MutableCreationExtras) {
         creationExtras[MediaApplicationContainer.PlayerRepositoryImplKey] =
             playerRepository
+        creationExtras[MediaApplicationContainer.UampServiceKey] =
+            mediaApplicationContainer.networkModule.uampService
         creationExtras[MediaApplicationContainer.NetworkRepositoryKey] =
             mediaApplicationContainer.networkModule.networkRepository
         creationExtras[MediaApplicationContainer.AppConfigKey] =

@@ -27,6 +27,7 @@ import com.google.android.horologist.media3.config.WearMedia3Factory
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.AppConfig
+import com.google.android.horologist.mediasample.catalog.UampService
 import com.google.android.horologist.mediasample.components.MediaActivity
 import com.google.android.horologist.mediasample.components.MediaApplication
 import com.google.android.horologist.mediasample.components.PlaybackService
@@ -108,5 +109,6 @@ class MediaApplicationContainer(internal val application: MediaApplication) {
         val AppConfigKey = object : CreationExtras.Key<AppConfig> {}
         val AudioOffloadManagerKey = object : CreationExtras.Key<AudioOffloadManager> {}
         val AudioOutputSelectorKey = object : CreationExtras.Key<AudioOutputSelector> {}
+        val UampServiceKey = object : CreationExtras.Key<UampService> {}
     }
 }

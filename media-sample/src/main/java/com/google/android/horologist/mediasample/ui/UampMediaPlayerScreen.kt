@@ -33,7 +33,7 @@ import com.google.android.horologist.media.ui.screens.PlayerScreen
 import com.google.android.horologist.mediasample.R
 
 @Composable
-fun MediaPlayerScreen(
+fun UampMediaPlayerScreen(
     mediaPlayerScreenViewModel: MediaPlayerScreenViewModel,
     volumeViewModel: VolumeViewModel,
     onVolumeClick: () -> Unit,

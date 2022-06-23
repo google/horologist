@@ -20,9 +20,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 class SettingsScreenViewModel : ViewModel() {
-    val uiState = MutableStateFlow(UiState())
+    private val _uiState = MutableStateFlow(UiState())
+    val uiState: StateFlow<UiState> = _uiState
 
     data class UiState(
         val podcastControls: Boolean = false,
@@ -30,14 +32,15 @@ class SettingsScreenViewModel : ViewModel() {
     )
 
     fun setPodcastControls(enabled: Boolean) {
-        uiState.value = uiState.value.copy(podcastControls = enabled)
+        _uiState.value = uiState.value.copy(podcastControls = enabled)
     }
 
     fun setLoadItemsAtStartup(enabled: Boolean) {
-        uiState.value = uiState.value.copy(loadItemsAtStartup = enabled)
+        _uiState.value = uiState.value.copy(loadItemsAtStartup = enabled)
     }
 
     fun logout() {
+        // TODO login and logout functionality
     }
 
     companion object {

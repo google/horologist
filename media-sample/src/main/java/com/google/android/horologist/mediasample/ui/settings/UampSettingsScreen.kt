@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.ScalingLazyColumn
@@ -31,13 +32,14 @@ import androidx.wear.compose.material.ToggleChip
 import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
+import com.google.android.horologist.mediasample.R
 
 @Composable
 fun UampSettingsScreen(
     focusRequester: FocusRequester,
     state: ScalingLazyListState,
-    modifier: Modifier = Modifier,
     settingsScreenViewModel: SettingsScreenViewModel,
+    modifier: Modifier = Modifier,
 ) {
     val uiState by rememberStateWithLifecycle(settingsScreenViewModel.uiState)
 
@@ -48,17 +50,21 @@ fun UampSettingsScreen(
         state = state
     ) {
         item {
-            CheckedSetting(uiState.podcastControls, "Podcast Controls") {
+            CheckedSetting(
+                uiState.podcastControls, stringResource(id = R.string.horologist_podcast_controls)
+            ) {
                 settingsScreenViewModel.setPodcastControls(it)
             }
         }
         item {
-            CheckedSetting(uiState.loadItemsAtStartup, "Load Items") {
+            CheckedSetting(
+                uiState.loadItemsAtStartup, stringResource(id = R.string.horologist_load_items)
+            ) {
                 settingsScreenViewModel.setLoadItemsAtStartup(it)
             }
         }
         item {
-            ActionSetting("Logout") {
+            ActionSetting(stringResource(id = R.string.horologist_logout)) {
                 settingsScreenViewModel.logout()
             }
         }
@@ -71,54 +77,49 @@ private fun ActionSetting(
     onClick: () -> Unit,
 ) {
     Chip(
-        onClick = onClick,
-        label = {
+        onClick = onClick, label = {
             Text(text)
-        },
-        modifier = Modifier.fillMaxWidth()
-    )
-}
+        }, modifier = Modifier.fillMaxWidth()
+        )
+    }
 
-@Composable
-private fun ToggleSetting(
-    value: Boolean,
-    text: String,
-    onCheckedChange: (Boolean) -> Unit,
-) {
-    ToggleChip(
-        checked = value,
-        toggleControl = {
-            Icon(
-                imageVector = ToggleChipDefaults.radioIcon(checked = value),
-                contentDescription = if (value) "On" else "Off",
-            )
-        },
-        onCheckedChange = onCheckedChange,
-        label = {
+    @Composable
+    private fun ToggleSetting(
+        value: Boolean,
+        text: String,
+        onCheckedChange: (Boolean) -> Unit,
+    ) {
+        ToggleChip(
+            checked = value, toggleControl = {
+                Icon(
+                    imageVector = ToggleChipDefaults.radioIcon(checked = value),
+                    contentDescription = if (value) stringResource(id = R.string.horologist_on) else stringResource(
+                        id = R.string.horologist_off
+                    ),
+                )
+            }, onCheckedChange = onCheckedChange, label = {
             Text(text)
-        },
-        modifier = Modifier.fillMaxWidth()
-    )
-}
+        }, modifier = Modifier.fillMaxWidth()
+            )
+        }
 
-@Composable
-private fun CheckedSetting(
-    value: Boolean,
-    text: String,
-    onCheckedChange: (Boolean) -> Unit,
-) {
-    ToggleChip(
-        checked = value,
-        toggleControl = {
-            Icon(
-                imageVector = ToggleChipDefaults.checkboxIcon(checked = value),
-                contentDescription = if (value) "On" else "Off",
-            )
-        },
-        onCheckedChange = onCheckedChange,
-        label = {
-            Text(text)
-        },
-        modifier = Modifier.fillMaxWidth()
-    )
-}
+        @Composable
+        private fun CheckedSetting(
+            value: Boolean,
+            text: String,
+            onCheckedChange: (Boolean) -> Unit,
+        ) {
+            ToggleChip(
+                checked = value, toggleControl = {
+                    Icon(
+                        imageVector = ToggleChipDefaults.checkboxIcon(checked = value),
+                        contentDescription = if (value) stringResource(id = R.string.horologist_on) else stringResource(
+                            id = R.string.horologist_off
+                        ),
+                    )
+                }, onCheckedChange = onCheckedChange, label = {
+                Text(text)
+            }, modifier = Modifier.fillMaxWidth()
+                )
+            }
+            

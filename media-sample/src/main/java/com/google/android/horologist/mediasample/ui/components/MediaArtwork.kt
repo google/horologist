@@ -20,18 +20,20 @@ import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.mediasample.R
 
 @Composable
 fun MediaArtwork(
+    mediaItem: MediaItemUiModel,
     modifier: Modifier = Modifier,
-    mediaItem: MediaItemUiModel
 ) {
     Image(
         modifier = modifier,
         painter = rememberAsyncImagePainter(mediaItem.artworkUri),
-        contentDescription = mediaItem.title ?: "Unknown",
+        contentDescription = mediaItem.title ?: stringResource(id = R.string.horologist_no_title),
         contentScale = ContentScale.Fit
     )
 }

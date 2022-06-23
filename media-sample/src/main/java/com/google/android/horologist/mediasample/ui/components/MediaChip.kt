@@ -22,11 +22,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.mediasample.R
 
 /**
  * A rounded chip to show a single [MediaItemUiModel] with an
@@ -34,9 +36,9 @@ import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
  */
 @Composable
 fun MediaChip(
-    modifier: Modifier = Modifier,
     mediaItem: MediaItemUiModel,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val appIcon: (@Composable BoxScope.() -> Unit)? = mediaItem.artworkUri?.let {
         {
@@ -60,7 +62,7 @@ fun MediaChip(
         icon = appIcon,
         label = {
             Text(
-                text = mediaItem.title ?: "Unknown",
+                text = mediaItem.title ?: stringResource(id = R.string.horologist_no_title),
                 maxLines = 2
             )
         }

@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
@@ -32,6 +33,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
+import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.components.MediaChip
 
 @Composable
@@ -39,9 +41,9 @@ fun UampLibraryScreen(
     focusRequester: FocusRequester,
     libraryScreenViewModel: LibraryScreenViewModel,
     state: ScalingLazyListState,
-    modifier: Modifier = Modifier,
     onSettingsClick: () -> Unit,
     onPlayClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val uiState by rememberStateWithLifecycle(libraryScreenViewModel.uiState)
 
@@ -53,7 +55,10 @@ fun UampLibraryScreen(
     ) {
         val items = uiState.items
         item {
-            Text("Library", style = MaterialTheme.typography.body1)
+            Text(
+                stringResource(id = R.string.horologist_library),
+                style = MaterialTheme.typography.body1
+            )
         }
         if (items != null) {
             items(items) {

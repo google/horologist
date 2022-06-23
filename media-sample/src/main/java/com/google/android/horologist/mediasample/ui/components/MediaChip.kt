@@ -40,11 +40,25 @@ fun MediaChip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val appIcon: (@Composable BoxScope.() -> Unit)? = mediaItem.artworkUri?.let {
+    val artworkUri = mediaItem.artworkUri
+    val title = mediaItem.title
+
+    MediaChip(artworkUri = artworkUri, title = title, onClick = onClick, modifier = modifier)
+}
+
+@Composable
+fun MediaChip(
+    artworkUri: String?,
+    title: String?,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val appIcon: (@Composable BoxScope.() -> Unit)? = artworkUri?.let {
         {
             MediaArtwork(
                 modifier = Modifier.size(ChipDefaults.LargeIconSize),
-                mediaItem = mediaItem
+                title = title,
+                artworkUri = artworkUri
             )
         }
     }
@@ -62,7 +76,7 @@ fun MediaChip(
         icon = appIcon,
         label = {
             Text(
-                text = mediaItem.title ?: stringResource(id = R.string.horologist_no_title),
+                text = title ?: stringResource(id = R.string.horologist_no_title),
                 maxLines = 2
             )
         }

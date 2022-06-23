@@ -21,7 +21,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.util.Clock
+import androidx.media3.database.DatabaseProvider
+import androidx.media3.database.StandaloneDatabaseProvider
 import androidx.media3.datasource.DataSource
+import androidx.media3.datasource.cache.Cache
+import androidx.media3.datasource.cache.CacheDataSource
+import androidx.media3.datasource.cache.NoOpCacheEvictor
+import androidx.media3.datasource.cache.SimpleCache
 import androidx.media3.datasource.okhttp.OkHttpDataSource
 import androidx.media3.exoplayer.DefaultLoadControl
 import androidx.media3.exoplayer.ExoPlayer
@@ -61,7 +67,12 @@ class PlaybackServiceContainer(
 
     val mediaCodecSelector by lazy { wearMedia3Factory.mediaCodecSelector() }
 
-    val audioSink by lazy { wearMedia3Factory.audioSink(attemptOffload = appConfig.offloadEnabled) }
+    val audioSink by lazy {
+        wearMedia3Factory.audioSink(
+            attemptOffload = appConfig.offloadEnabled,
+            offloadMode = appConfig.offloadMode
+        )
+    }
 
     val audioOnlyRenderersFactory by lazy {
         wearMedia3Factory.audioOnlyRenderersFactory(
@@ -80,6 +91,8 @@ class PlaybackServiceContainer(
         DefaultExtractorsFactory()
     }
 
+    val transferListener by lazy { TransferListener(mediaApplicationContainer.logger) }
+
     private val streamDataSourceFactory: DataSource.Factory by lazy {
         OkHttpDataSource.Factory(
             NetworkAwareCallFactory(
@@ -87,11 +100,41 @@ class PlaybackServiceContainer(
                 defaultRequestType = RequestType.UnknownRequest
             )
         )
-            .setTransferListener(TransferListener(mediaApplicationContainer.logger))
+            .setTransferListener(transferListener)
+    }
+
+    private val cacheDatabaseProvider by lazy {
+        StandaloneDatabaseProvider(mediaApplicationContainer.application)
+    }
+
+    private val downloadCache by lazy {
+        SimpleCache(
+            mediaApplicationContainer.networkModule.cacheDir.resolve("media3cache"),
+            NoOpCacheEvictor(),
+            cacheDatabaseProvider
+        )
+    }
+
+    private val cacheDataSourceFactory: CacheDataSource.Factory by lazy {
+        CacheDataSource.Factory()
+            .setCache(downloadCache)
+            .setUpstreamDataSourceFactory(streamDataSourceFactory)
+            .setEventListener(transferListener)
+            .apply {
+                if (!appConfig.cacheWriteBack) {
+                    setCacheWriteDataSinkFactory(null)
+                }
+            }
     }
 
     val mediaSourceFactory: MediaSource.Factory by lazy {
-        DefaultMediaSourceFactory(streamDataSourceFactory, extractorsFactory)
+        val dataSourceFactory =
+            if (appConfig.cacheItems) {
+                cacheDataSourceFactory
+            } else {
+                streamDataSourceFactory
+            }
+        DefaultMediaSourceFactory(dataSourceFactory, extractorsFactory)
     }
 
     val exoPlayer = ExoPlayer.Builder(service, audioOnlyRenderersFactory)

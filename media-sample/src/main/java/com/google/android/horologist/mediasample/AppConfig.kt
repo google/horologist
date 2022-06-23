@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.mediasample
 
+import androidx.media3.exoplayer.audio.DefaultAudioSink
 import com.google.android.horologist.networks.rules.NetworkingRules
 
 data class AppConfig(
@@ -23,5 +24,8 @@ data class AppConfig(
     val strictNetworking: NetworkingRules? = NetworkingRules.Conservative,
     val deeplinkUriPrefix: String = "uamp${if (BuildConfig.DEBUG) "-debug" else ""}://uamp",
     val showTimeTextInfo: Boolean = false,
-    val loadItemsOnStartup: Boolean = false
+    val loadItemsOnStartup: Boolean = false,
+    val cacheItems: Boolean = true,
+    val cacheWriteBack: Boolean = true,
+    val offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_REQUIRED
 )

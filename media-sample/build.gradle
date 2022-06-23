@@ -19,6 +19,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: "org.jetbrains.kotlin.kapt"
 
+Properties localProperties = new Properties()
+def localFile = project.rootProject.file('local.properties')
+if (localFile.exists()) {
+    localProperties.load(localFile.newDataInputStream())
+}
+
 android {
     compileSdkVersion 32
 
@@ -138,4 +144,15 @@ dependencies {
     androidTestImplementation libs.junit
     androidTestImplementation libs.androidx.test.ext
     androidTestImplementation libs.androidx.test.ext.ktx
+}
+
+def device = localProperties.getProperty("DEVICE")
+if (device != null) {
+    task appLaunch(type: Exec) {
+        group = "Media"
+        description = "Run on device " + device
+        dependsOn(":media-sample:installRelease")
+        description = "Launch App"
+        commandLine = "adb -s $device shell am start -n com.google.android.horologist.mediasample/com.google.android.horologist.mediasample.components.MediaActivity".split(" ")
+    }
 }

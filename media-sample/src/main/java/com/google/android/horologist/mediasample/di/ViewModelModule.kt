@@ -70,6 +70,10 @@ class ViewModelModule(
             mediaApplicationContainer.audioOffloadManager
         creationExtras[MediaApplicationContainer.AudioOutputSelectorKey] =
             mediaApplicationContainer.audioContainer.audioOutputSelector
+        creationExtras[MediaApplicationContainer.SystemAudioRepositoryKey] =
+            mediaApplicationContainer.audioContainer.systemAudioRepository
+        creationExtras[MediaApplicationContainer.VibratorKey] =
+            mediaApplicationContainer.vibrator
     }
 
     override fun close() {

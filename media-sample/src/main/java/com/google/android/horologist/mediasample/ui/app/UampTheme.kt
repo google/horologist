@@ -14,14 +14,24 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample
+package com.google.android.horologist.mediasample.ui.app
 
-import com.google.android.horologist.networks.rules.NetworkingRules
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.wear.compose.material.Colors
+import androidx.wear.compose.material.MaterialTheme
 
-data class AppConfig(
-    val offloadEnabled: Boolean = true,
-    val strictNetworking: NetworkingRules? = NetworkingRules.Conservative,
-    val deeplinkUriPrefix: String = "uamp${if (BuildConfig.DEBUG) "-debug" else ""}://uamp",
-    val showTimeTextInfo: Boolean = false,
-    val loadItemsOnStartup: Boolean = false
+public val UampColors = Colors(
+    primary = Color(0xFF981F68),
+    primaryVariant = Color(0xFF66003d),
+    error = Color(0xFFE24444),
+    onPrimary = Color.White,
+    onSurfaceVariant = Color(0xFFDADCE0),
 )
+
+@Composable
+public fun UampTheme(block: @Composable () -> Unit) {
+    MaterialTheme(colors = UampColors) {
+        block()
+    }
+}

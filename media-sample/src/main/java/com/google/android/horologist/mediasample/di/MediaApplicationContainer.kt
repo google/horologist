@@ -17,10 +17,14 @@
 package com.google.android.horologist.mediasample.di
 
 import android.os.Build
+import android.os.Vibrator
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.CreationExtras
 import coil.Coil
+import com.google.android.horologist.audio.AudioOutputRepository
+import com.google.android.horologist.audio.SystemAudioRepository
+import com.google.android.horologist.audio.VolumeRepository
 import com.google.android.horologist.media.data.PlayerRepositoryImpl
 import com.google.android.horologist.media3.audio.AudioOutputSelector
 import com.google.android.horologist.media3.config.WearMedia3Factory
@@ -76,6 +80,10 @@ class MediaApplicationContainer(internal val application: MediaApplication) {
 
     internal val logger: Logging by lazy { Logging(application.resources) }
 
+    val vibrator: Vibrator by lazy {
+        application.getSystemService(Vibrator::class.java)
+    }
+
     internal fun serviceContainer(service: PlaybackService): PlaybackServiceContainer =
         PlaybackServiceContainer(this, service, wearMedia3Factory).also {
             service.lifecycle.addObserver(object : DefaultLifecycleObserver {
@@ -110,5 +118,7 @@ class MediaApplicationContainer(internal val application: MediaApplication) {
         val AudioOffloadManagerKey = object : CreationExtras.Key<AudioOffloadManager> {}
         val AudioOutputSelectorKey = object : CreationExtras.Key<AudioOutputSelector> {}
         val UampServiceKey = object : CreationExtras.Key<UampService> {}
+        val SystemAudioRepositoryKey = object : CreationExtras.Key<SystemAudioRepository> {}
+        val VibratorKey = object : CreationExtras.Key<Vibrator> {}
     }
 }

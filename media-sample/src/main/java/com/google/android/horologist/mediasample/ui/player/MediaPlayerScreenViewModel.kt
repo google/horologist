@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui
+package com.google.android.horologist.mediasample.ui.player
 
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer

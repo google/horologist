@@ -14,33 +14,61 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui
+package com.google.android.horologist.mediasample.ui.library
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
+import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.items
+import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
+import com.google.android.horologist.mediasample.ui.components.MediaChip
 
 @Composable
 fun UampLibraryScreen(
     focusRequester: FocusRequester,
+    libraryScreenViewModel: LibraryScreenViewModel,
     state: ScalingLazyListState,
     modifier: Modifier = Modifier,
     onSettingsClick: () -> Unit,
+    onPlayClick: () -> Unit,
 ) {
+    val uiState by rememberStateWithLifecycle(libraryScreenViewModel.uiState)
+
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize()
             .scrollableColumn(focusRequester, state),
         state = state
     ) {
+        val items = uiState.items
+        item {
+            Text("Library", style = MaterialTheme.typography.body1)
+        }
+        if (items != null) {
+            items(items) {
+                MediaChip(
+                    mediaItem = it,
+                    onClick = {
+                        libraryScreenViewModel.play(it)
+                        onPlayClick()
+                })
+            }
+        } else {
+            item {
+                Text("Loading...", style = MaterialTheme.typography.caption3)
+            }
+        }
         item {
             Button(onClick = onSettingsClick) {
                 Icon(Icons.Default.Settings, contentDescription = "Settings")

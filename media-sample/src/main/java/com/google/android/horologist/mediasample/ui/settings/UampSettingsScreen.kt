@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui
+package com.google.android.horologist.mediasample.ui.settings
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -80,7 +80,7 @@ private fun ActionSetting(
 }
 
 @Composable
-private fun CheckedSetting(
+private fun ToggleSetting(
     value: Boolean,
     text: String,
     onCheckedChange: (Boolean) -> Unit,
@@ -90,6 +90,28 @@ private fun CheckedSetting(
         toggleControl = {
             Icon(
                 imageVector = ToggleChipDefaults.radioIcon(checked = value),
+                contentDescription = if (value) "On" else "Off",
+            )
+        },
+        onCheckedChange = onCheckedChange,
+        label = {
+            Text(text)
+        },
+        modifier = Modifier.fillMaxWidth()
+    )
+}
+
+@Composable
+private fun CheckedSetting(
+    value: Boolean,
+    text: String,
+    onCheckedChange: (Boolean) -> Unit,
+) {
+    ToggleChip(
+        checked = value,
+        toggleControl = {
+            Icon(
+                imageVector = ToggleChipDefaults.checkboxIcon(checked = value),
                 contentDescription = if (value) "On" else "Off",
             )
         },

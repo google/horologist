@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui
+package com.google.android.horologist.mediasample.ui.app
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -98,13 +98,7 @@ class MediaPlayerAppViewModel(
         if (playerRepository.currentMediaItem.value == null) {
             try {
                 val mediaItems = uampService.catalog().music.map {
-                    MediaItem(
-                        it.id,
-                        it.source,
-                        it.title,
-                        it.artist,
-                        it.image,
-                    )
+                    it.toMediaItem()
                 }
 
                 playerRepository.setMediaItems(mediaItems)

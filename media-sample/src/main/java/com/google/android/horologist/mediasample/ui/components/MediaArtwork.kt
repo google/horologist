@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui
+package com.google.android.horologist.mediasample.ui.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-import androidx.wear.compose.material.Colors
-import androidx.wear.compose.material.MaterialTheme
-
-public val UampColors = Colors(
-    primary = Color(0xFF981F68),
-    primaryVariant = Color(0xFF66003d),
-    error = Color(0xFFE24444),
-    onPrimary = Color.White,
-    onSurfaceVariant = Color(0xFFDADCE0),
-)
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import coil.compose.rememberAsyncImagePainter
+import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 
 @Composable
-public fun UampTheme(block: @Composable () -> Unit) {
-    MaterialTheme(colors = UampColors) {
-        block()
-    }
+fun MediaArtwork(
+    modifier: Modifier = Modifier,
+    mediaItem: MediaItemUiModel
+) {
+    Image(
+        modifier = modifier,
+        painter = rememberAsyncImagePainter(mediaItem.artworkUri),
+        contentDescription = mediaItem.title ?: "Unknown",
+        contentScale = ContentScale.Fit
+    )
 }

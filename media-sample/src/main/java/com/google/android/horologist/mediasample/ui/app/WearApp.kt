@@ -14,21 +14,26 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui
+package com.google.android.horologist.mediasample.ui.app
 
+import android.os.Vibrator
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import androidx.wear.compose.material.ScalingLazyListState
 import com.google.accompanist.pager.rememberPagerState
+import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
@@ -37,7 +42,14 @@ import com.google.android.horologist.compose.navscaffold.WearNavScaffold
 import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
 import com.google.android.horologist.compose.navscaffold.wearNavComposable
 import com.google.android.horologist.media.ui.screens.PlayerLibraryPagerScreen
+import com.google.android.horologist.mediasample.di.MediaApplicationContainer
+import com.google.android.horologist.mediasample.ui.player.MediaPlayerScreenViewModel
+import com.google.android.horologist.mediasample.ui.settings.SettingsScreenViewModel
+import com.google.android.horologist.mediasample.ui.library.UampLibraryScreen
+import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
+import com.google.android.horologist.mediasample.ui.settings.UampSettingsScreen
 import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeText
+import com.google.android.horologist.mediasample.ui.library.LibraryScreenViewModel
 
 @Composable
 fun WearApp(
@@ -82,7 +94,10 @@ fun WearApp(
                 viewModel.positionIndicatorMode = NavScaffoldViewModel.PositionIndicatorMode.Off
                 viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
 
-                val volumeViewModel: VolumeViewModel = viewModel(factory = VolumeViewModel.Factory)
+                val volumeViewModel: VolumeViewModel =
+                    viewModel(factory = VolumeViewModelFactory, extras = creationExtras())
+                val libraryScreenViewModel: LibraryScreenViewModel =
+                    viewModel(factory = LibraryScreenViewModel.Factory, extras = creationExtras())
 
                 val pagerState = rememberPagerState()
 
@@ -115,7 +130,12 @@ fun WearApp(
                             state = state,
                             onSettingsClick = {
                                 navController.navigate(Navigation.Settings.route)
-                            })
+                            },
+                            libraryScreenViewModel = libraryScreenViewModel,
+                            onPlayClick = {
+                                navController.navigate(Navigation.MediaPlayer.player)
+                            }
+                        )
                     },
                     volumeScrollableState = volumeViewModel.volumeScrollableState,
                     volumeState = { volumeState },
@@ -145,5 +165,18 @@ fun WearApp(
         appViewModel.startupSetup(navigateToLibrary = {
             navController.navigate(Navigation.MediaPlayer.library)
         })
+    }
+}
+
+public val VolumeViewModelFactory: ViewModelProvider.Factory = viewModelFactory {
+    initializer {
+        val audioRepository = this[MediaApplicationContainer.SystemAudioRepositoryKey]!!
+        val vibrator = this[MediaApplicationContainer.VibratorKey]!!
+
+        VolumeViewModel(
+            volumeRepository = audioRepository,
+            audioOutputRepository = audioRepository,
+            vibrator = vibrator
+        )
     }
 }

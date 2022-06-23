@@ -28,10 +28,10 @@ class AudioContainer(
     private val mediaApplicationContainer: MediaApplicationContainer
 ) {
     val audioOutputSelector: AudioOutputSelector by lazy {
-        BluetoothSettingsOutputSelector(audioOutputRepository)
+        BluetoothSettingsOutputSelector(systemAudioRepository)
     }
 
-    val audioOutputRepository: AudioOutputRepository by lazy {
+    val systemAudioRepository: SystemAudioRepository by lazy {
         SystemAudioRepository.fromContext(mediaApplicationContainer.application)
     }
 }

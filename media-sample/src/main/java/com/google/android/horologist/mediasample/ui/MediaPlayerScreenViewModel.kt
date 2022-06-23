@@ -21,14 +21,19 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.media.data.PlayerRepositoryImpl
 import com.google.android.horologist.media.ui.state.PlayerViewModel
+import com.google.android.horologist.media3.audio.AudioOutputSelector
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class MediaPlayerScreenViewModel(
-    playerRepository: PlayerRepositoryImpl
+    playerRepository: PlayerRepositoryImpl,
+    private val audioOutputSelector: AudioOutputSelector
 ) : PlayerViewModel(playerRepository) {
+    fun launchBluetoothSettings() {
+        audioOutputSelector.launchSelector()
+    }
 
     init {
         viewModelScope.launch {
@@ -43,7 +48,10 @@ class MediaPlayerScreenViewModel(
     companion object {
         val Factory = viewModelFactory {
             initializer {
-                MediaPlayerScreenViewModel(this[MediaApplicationContainer.PlayerRepositoryImplKey]!!)
+                MediaPlayerScreenViewModel(
+                    playerRepository = this[MediaApplicationContainer.PlayerRepositoryImplKey]!!,
+                    audioOutputSelector = this[MediaApplicationContainer.AudioOutputSelectorKey]!!
+                )
             }
         }
     }

@@ -53,6 +53,8 @@ class MediaPlayerAppViewModel(
 
     val showTimeTextInfo: Boolean = appConfig.showTimeTextInfo
 
+    val deepLinkPrefix: String = appConfig.deeplinkUriPrefix
+
     val ticker = flow {
         while (true) {
             delay(1.seconds)

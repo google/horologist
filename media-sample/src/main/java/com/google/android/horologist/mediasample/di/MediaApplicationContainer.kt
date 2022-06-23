@@ -22,6 +22,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.CreationExtras
 import coil.Coil
 import com.google.android.horologist.media.data.PlayerRepositoryImpl
+import com.google.android.horologist.media3.audio.AudioOutputSelector
 import com.google.android.horologist.media3.config.WearMedia3Factory
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.rules.PlaybackRules
@@ -106,5 +107,6 @@ class MediaApplicationContainer(internal val application: MediaApplication) {
         val DataRequestRepositoryKey = object : CreationExtras.Key<DataRequestRepository> {}
         val AppConfigKey = object : CreationExtras.Key<AppConfig> {}
         val AudioOffloadManagerKey = object : CreationExtras.Key<AudioOffloadManager> {}
+        val AudioOutputSelectorKey = object : CreationExtras.Key<AudioOutputSelector> {}
     }
 }

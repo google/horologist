@@ -42,17 +42,21 @@ class LibraryScreenViewModel(
         if (mediaItems != null) {
             playerRepository.setMediaItems(mediaItems)
             playerRepository.prepare()
-            playerRepository.play(mediaItems.indexOfFirst { it.id == mediaItemUiModel.id }
-                .coerceAtLeast(0))
+            playerRepository.play(
+                mediaItems.indexOfFirst { it.id == mediaItemUiModel.id }
+                    .coerceAtLeast(0)
+            )
         } else {
             // TODO warning
         }
     }
 
     val items: StateFlow<List<MediaItem>?> = flow {
-        emit(uampService.catalog().music.map {
-            it.toMediaItem()
-        })
+        emit(
+            uampService.catalog().music.map {
+                it.toMediaItem()
+            }
+        )
     }.stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = null)
 
     val uiState = items.map { items ->

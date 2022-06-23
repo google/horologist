@@ -14,11 +14,13 @@ package com.google.android.horologist.media3 {
 package com.google.android.horologist.media3.audio {
 
   @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public interface AudioOutputSelector {
+    method public void launchSelector();
     method public suspend Object? selectNewOutput(com.google.android.horologist.audio.AudioOutput currentAudioOutput, kotlin.coroutines.Continuation<? super com.google.android.horologist.audio.AudioOutput> p);
   }
 
   @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public final class BluetoothSettingsOutputSelector implements com.google.android.horologist.media3.audio.AudioOutputSelector {
     ctor public BluetoothSettingsOutputSelector(com.google.android.horologist.audio.AudioOutputRepository audioOutputRepository);
+    method public void launchSelector();
     method public suspend Object? selectNewOutput(com.google.android.horologist.audio.AudioOutput currentAudioOutput, kotlin.coroutines.Continuation<? super com.google.android.horologist.audio.AudioOutput> p);
   }
 

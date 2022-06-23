@@ -40,9 +40,13 @@ import com.google.android.horologist.compose.pager.FocusOnResume
 import com.google.android.horologist.compose.pager.PagerScreen
 import java.util.concurrent.CancellationException
 
+/**
+ * A HorizontalPager with a player screen, using volume control on the left,
+ * and library screen with column scrolling on the right.
+ */
 @OptIn(ExperimentalHorologistComposeLayoutApi::class)
 @Composable
-fun PlayerLibraryPagerScreen(
+public fun PlayerLibraryPagerScreen(
     pagerState: PagerState,
     volumeScrollableState: VolumeScrollableState,
     volumeState: () -> VolumeState,
@@ -83,7 +87,9 @@ fun PlayerLibraryPagerScreen(
                             focusRequester = playerFocusRequester,
                             volumeScrollableState
                         ),
-                    timeText = { timeText(Modifier) },
+                    timeText = {
+                        timeText(Modifier)
+                    },
                     positionIndicator = {
                         VolumePositionIndicator(volumeState = volumeState)
                     }
@@ -98,10 +104,12 @@ fun PlayerLibraryPagerScreen(
 
                 val state = rememberScalingLazyListState()
                 Scaffold(
-                    timeText = { timeText(Modifier.fadeAwayScalingLazyList(scrollStateFn = { state })) },
+                    timeText = {
+                        timeText(Modifier.fadeAwayScalingLazyList(scrollStateFn = { state }))
+                    },
                     positionIndicator = {
                         PositionIndicator(
-                            scalingLazyListState = state
+                            scalingLazyListState = state,
                         )
                     }
                 ) {

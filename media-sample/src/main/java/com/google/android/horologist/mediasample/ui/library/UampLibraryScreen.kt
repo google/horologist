@@ -62,7 +62,8 @@ fun UampLibraryScreen(
                     onClick = {
                         libraryScreenViewModel.play(it)
                         onPlayClick()
-                })
+                    }
+                )
             }
         } else {
             item {

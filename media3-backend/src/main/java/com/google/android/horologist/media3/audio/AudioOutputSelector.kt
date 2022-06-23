@@ -31,5 +31,8 @@ public interface AudioOutputSelector {
      */
     public suspend fun selectNewOutput(currentAudioOutput: AudioOutput): AudioOutput?
 
-    fun launchSelector()
+    /**
+     * Fire and forget option to show the output selector.
+     */
+    public fun launchSelector()
 }

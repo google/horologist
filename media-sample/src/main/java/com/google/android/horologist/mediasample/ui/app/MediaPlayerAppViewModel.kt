@@ -20,7 +20,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.google.android.horologist.media.model.MediaItem
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.mediasample.AppConfig

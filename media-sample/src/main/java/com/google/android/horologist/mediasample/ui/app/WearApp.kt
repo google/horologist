@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.mediasample.ui.app
 
-import android.os.Vibrator
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -33,7 +32,6 @@ import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import androidx.wear.compose.material.ScalingLazyListState
 import com.google.accompanist.pager.rememberPagerState
-import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
@@ -43,13 +41,13 @@ import com.google.android.horologist.compose.navscaffold.scalingLazyColumnCompos
 import com.google.android.horologist.compose.navscaffold.wearNavComposable
 import com.google.android.horologist.media.ui.screens.PlayerLibraryPagerScreen
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
-import com.google.android.horologist.mediasample.ui.player.MediaPlayerScreenViewModel
-import com.google.android.horologist.mediasample.ui.settings.SettingsScreenViewModel
-import com.google.android.horologist.mediasample.ui.library.UampLibraryScreen
-import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
-import com.google.android.horologist.mediasample.ui.settings.UampSettingsScreen
 import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeText
 import com.google.android.horologist.mediasample.ui.library.LibraryScreenViewModel
+import com.google.android.horologist.mediasample.ui.library.UampLibraryScreen
+import com.google.android.horologist.mediasample.ui.player.MediaPlayerScreenViewModel
+import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
+import com.google.android.horologist.mediasample.ui.settings.SettingsScreenViewModel
+import com.google.android.horologist.mediasample.ui.settings.UampSettingsScreen
 
 @Composable
 fun WearApp(
@@ -151,7 +149,8 @@ fun WearApp(
                 route = Navigation.Settings.route,
                 scrollStateBuilder = {
                     ScalingLazyListState()
-                }) {
+                }
+            ) {
                 UampSettingsScreen(
                     focusRequester = it.viewModel.focusRequester,
                     state = it.scrollableState,

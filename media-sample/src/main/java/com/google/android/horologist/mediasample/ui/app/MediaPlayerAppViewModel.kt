@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui
+package com.google.android.horologist.mediasample.ui.app
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.mediasample.AppConfig
+import com.google.android.horologist.mediasample.catalog.UampService
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
 import com.google.android.horologist.mediasample.ui.debug.OffloadState
 import com.google.android.horologist.networks.data.DataRequestRepository
@@ -32,15 +34,20 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
+import java.io.IOException
 import kotlin.time.Duration.Companion.seconds
 
 class MediaPlayerAppViewModel(
     networkRepository: NetworkRepository,
     dataRequestRepository: DataRequestRepository,
     audioOffloadManager: AudioOffloadManager,
-    appConfig: AppConfig
+    private val playerRepository: PlayerRepository,
+    private val uampService: UampService,
+    private val appConfig: AppConfig
 ) : ViewModel() {
     val networkStatus: StateFlow<Networks> = networkRepository.networkStatus
 
@@ -52,6 +59,8 @@ class MediaPlayerAppViewModel(
         )
 
     val showTimeTextInfo: Boolean = appConfig.showTimeTextInfo
+
+    val deepLinkPrefix: String = appConfig.deeplinkUriPrefix
 
     val ticker = flow {
         while (true) {
@@ -84,6 +93,32 @@ class MediaPlayerAppViewModel(
         )
     )
 
+    suspend fun loadItems() {
+        if (playerRepository.currentMediaItem.value == null) {
+            try {
+                val mediaItems = uampService.catalog().music.map {
+                    it.toMediaItem()
+                }
+
+                playerRepository.setMediaItems(mediaItems)
+                playerRepository.prepare()
+            } catch (ioe: IOException) {
+                // Nothing
+            }
+        }
+    }
+
+    suspend fun startupSetup(navigateToLibrary: () -> Unit) {
+        // setMediaItems is a noop before this point
+        playerRepository.connected.filter { it }.first()
+
+        if (appConfig.loadItemsOnStartup) {
+            loadItems()
+        } else {
+            navigateToLibrary()
+        }
+    }
+
     companion object {
         val Factory = viewModelFactory {
             initializer {
@@ -91,6 +126,8 @@ class MediaPlayerAppViewModel(
                     this[MediaApplicationContainer.NetworkRepositoryKey]!!,
                     this[MediaApplicationContainer.DataRequestRepositoryKey]!!,
                     this[MediaApplicationContainer.AudioOffloadManagerKey]!!,
+                    this[MediaApplicationContainer.PlayerRepositoryImplKey]!!,
+                    this[MediaApplicationContainer.UampServiceKey]!!,
                     this[MediaApplicationContainer.AppConfigKey]!!,
                 )
             }

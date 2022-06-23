@@ -31,4 +31,7 @@ open class FakeAudioOutputSelector(
         }
         return newOutput
     }
+
+    override fun launchSelector() {
+    }
 }

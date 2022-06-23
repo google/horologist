@@ -56,14 +56,24 @@ class ViewModelModule(
     }
 
     fun addCreationExtras(creationExtras: MutableCreationExtras) {
-        creationExtras.set(MediaApplicationContainer.PlayerRepositoryImplKey, playerRepository)
-        creationExtras.set(
-            MediaApplicationContainer.NetworkRepositoryKey,
+        creationExtras[MediaApplicationContainer.PlayerRepositoryImplKey] =
+            playerRepository
+        creationExtras[MediaApplicationContainer.UampServiceKey] =
+            mediaApplicationContainer.networkModule.uampService
+        creationExtras[MediaApplicationContainer.NetworkRepositoryKey] =
             mediaApplicationContainer.networkModule.networkRepository
-        )
-        creationExtras.set(MediaApplicationContainer.AppConfigKey, mediaApplicationContainer.appConfig)
-        creationExtras.set(MediaApplicationContainer.DataRequestRepositoryKey, mediaApplicationContainer.networkModule.dataRequestRepository)
-        creationExtras.set(MediaApplicationContainer.AudioOffloadManagerKey, mediaApplicationContainer.audioOffloadManager)
+        creationExtras[MediaApplicationContainer.AppConfigKey] =
+            mediaApplicationContainer.appConfig
+        creationExtras[MediaApplicationContainer.DataRequestRepositoryKey] =
+            mediaApplicationContainer.networkModule.dataRequestRepository
+        creationExtras[MediaApplicationContainer.AudioOffloadManagerKey] =
+            mediaApplicationContainer.audioOffloadManager
+        creationExtras[MediaApplicationContainer.AudioOutputSelectorKey] =
+            mediaApplicationContainer.audioContainer.audioOutputSelector
+        creationExtras[MediaApplicationContainer.SystemAudioRepositoryKey] =
+            mediaApplicationContainer.audioContainer.systemAudioRepository
+        creationExtras[MediaApplicationContainer.VibratorKey] =
+            mediaApplicationContainer.vibrator
     }
 
     override fun close() {

@@ -30,4 +30,9 @@ public interface AudioOutputSelector {
      * if timed out.
      */
     public suspend fun selectNewOutput(currentAudioOutput: AudioOutput): AudioOutput?
+
+    /**
+     * Fire and forget option to show the output selector.
+     */
+    public fun launchSelector()
 }

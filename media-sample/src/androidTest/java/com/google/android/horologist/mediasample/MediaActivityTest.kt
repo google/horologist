@@ -19,7 +19,7 @@ package com.google.android.horologist.mediasample
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.lifecycle.Lifecycle
 import com.google.android.horologist.mediasample.components.MediaActivity
-import com.google.android.horologist.mediasample.ui.Navigation
+import com.google.android.horologist.mediasample.ui.app.Navigation
 import org.junit.Rule
 import org.junit.Test
 

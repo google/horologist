@@ -113,7 +113,7 @@ class PlaybackServiceContainer(
 
     val player = WearConfiguredPlayer(
         player = exoPlayer,
-        audioOutputRepository = mediaApplicationContainer.audioContainer.audioOutputRepository,
+        audioOutputRepository = mediaApplicationContainer.audioContainer.systemAudioRepository,
         audioOutputSelector = mediaApplicationContainer.audioContainer.audioOutputSelector,
         playbackRules = mediaApplicationContainer.playbackRules,
         errorReporter = mediaApplicationContainer.logger

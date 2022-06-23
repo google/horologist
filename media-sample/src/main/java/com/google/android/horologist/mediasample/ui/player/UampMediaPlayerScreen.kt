@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui
+package com.google.android.horologist.mediasample.ui.player
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -33,7 +33,7 @@ import com.google.android.horologist.media.ui.screens.PlayerScreen
 import com.google.android.horologist.mediasample.R
 
 @Composable
-fun MediaPlayerScreen(
+fun UampMediaPlayerScreen(
     mediaPlayerScreenViewModel: MediaPlayerScreenViewModel,
     volumeViewModel: VolumeViewModel,
     onVolumeClick: () -> Unit,

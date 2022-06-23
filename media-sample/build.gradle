@@ -144,6 +144,7 @@ dependencies {
     androidTestImplementation libs.junit
     androidTestImplementation libs.androidx.test.ext
     androidTestImplementation libs.androidx.test.ext.ktx
+    androidTestImplementation libs.androidx.test.rules
 }
 
 def device = localProperties.getProperty("DEVICE")

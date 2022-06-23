@@ -26,6 +26,7 @@ import com.google.android.horologist.media.ui.state.mapper.MediaItemUiModelMappe
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 import com.google.android.horologist.mediasample.catalog.UampService
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
+import com.google.android.horologist.mediasample.samples.GaplessSamples
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
@@ -52,20 +53,7 @@ class LibraryScreenViewModel(
     }
 
     fun playGapless() {
-        val mediaItems = listOf(
-            "https://www2.iis.fraunhofer.de/AAC/gapless-sweep_part1_iis.m4a",
-            "https://www2.iis.fraunhofer.de/AAC/gapless-sweep_part2_iis.m4a"
-        ).mapIndexed { i, it ->
-            MediaItem(
-                id = i.toString(),
-                uri = it,
-                title = "Track $i",
-                artist = "fraunhofer",
-                artworkUri = "https://www2.iis.fraunhofer.de/AAC/logo-fraunhofer.gif",
-            )
-        }
-
-        val allItems = generateSequence { mediaItems }.take(1).flatten().toList()
+        val allItems = generateSequence { GaplessSamples }.take(1).flatten().toList()
 
         playerRepository.setMediaItems(allItems)
         playerRepository.prepare()

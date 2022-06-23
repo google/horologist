@@ -38,11 +38,11 @@ public fun SeekForwardButton(
     enabled: Boolean = true,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
 ) {
-    val icon = when (seekButtonIncrement) {
-        SeekButtonIncrement.Five -> Icons.Default.Forward5
-        SeekButtonIncrement.Ten -> Icons.Default.Forward10
-        SeekButtonIncrement.Thirty -> Icons.Default.Forward30
-        else -> Icons.Default.Replay
+    val (icon, buttonModifier) = when (seekButtonIncrement) {
+        SeekButtonIncrement.Five -> Pair(Icons.Default.Forward5, modifier)
+        SeekButtonIncrement.Ten -> Pair(Icons.Default.Forward10, modifier)
+        SeekButtonIncrement.Thirty -> Pair(Icons.Default.Forward30, modifier)
+        else -> Pair(Icons.Default.Replay, modifier.graphicsLayer(scaleX = -1f))
     }
 
     val contentDescription = when (seekButtonIncrement) {
@@ -52,15 +52,6 @@ public fun SeekForwardButton(
             seekButtonIncrement.seconds
         )
     }
-
-    val buttonModifier =
-        if (seekButtonIncrement == SeekButtonIncrement.Unknown ||
-            seekButtonIncrement is SeekButtonIncrement.Other
-        ) {
-            modifier.graphicsLayer(scaleX = -1f)
-        } else {
-            modifier
-        }
 
     MediaButton(
         onClick = onClick,

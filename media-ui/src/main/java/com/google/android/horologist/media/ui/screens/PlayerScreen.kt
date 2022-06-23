@@ -82,7 +82,7 @@ public fun PlayerScreen(
 }
 
 /**
- * Default [PlayerScreenMediaDisplay] implementation.
+ * Default [MediaDisplay] implementation for [PlayerScreen].
  */
 @ExperimentalHorologistMediaUiApi
 @Composable
@@ -94,7 +94,7 @@ public fun DefaultPlayerScreenMediaDisplay(playerUiState: PlayerUiState) {
 }
 
 /**
- * Default [PlayerScreenControlButtons] implementation.
+ * Default [ControlButtons] implementation for [PlayerScreen].
  */
 @ExperimentalHorologistMediaUiApi
 @Composable

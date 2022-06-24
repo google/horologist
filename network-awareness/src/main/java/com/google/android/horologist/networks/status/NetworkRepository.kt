@@ -155,7 +155,7 @@ public class NetworkRepository(
     }
 
     private fun buildStatus(): Networks {
-        val allNetworks = networkBuilders.filter { (id, builder) ->
+        val allNetworks = networkBuilders.filter { (_, builder) ->
             builder.status != Status.Lost
         }.values.map { it.buildNetworkStatus() }
 

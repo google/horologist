@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui
+package com.google.android.horologist.mediasample.ui.app
 
 sealed class Navigation(
     val route: String
 ) {
-    object MediaPlayer : Navigation("player")
+    object MediaPlayer : Navigation("player?page={page}") {
+        val player = "player?page=0"
+        val library = "player?page=1"
+    }
     object Settings : Navigation("settings")
     object Volume : Navigation("volume")
 }

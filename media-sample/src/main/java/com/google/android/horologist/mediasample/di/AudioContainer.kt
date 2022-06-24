@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.mediasample.di
 
-import com.google.android.horologist.audio.AudioOutputRepository
 import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.media3.audio.AudioOutputSelector
 import com.google.android.horologist.media3.audio.BluetoothSettingsOutputSelector
@@ -28,10 +27,10 @@ class AudioContainer(
     private val mediaApplicationContainer: MediaApplicationContainer
 ) {
     val audioOutputSelector: AudioOutputSelector by lazy {
-        BluetoothSettingsOutputSelector(audioOutputRepository)
+        BluetoothSettingsOutputSelector(systemAudioRepository)
     }
 
-    val audioOutputRepository: AudioOutputRepository by lazy {
+    val systemAudioRepository: SystemAudioRepository by lazy {
         SystemAudioRepository.fromContext(mediaApplicationContainer.application)
     }
 }

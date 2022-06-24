@@ -95,6 +95,11 @@ class GaplessPlaybackTest(override val appConfig: AppConfig) : BasePlaybackTest(
             offloadMode = DefaultAudioSink.OFFLOAD_MODE_DISABLED
         )
 
+        val OffloadNotRequired = AppConfig(
+            offloadEnabled = true,
+            offloadMode = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_NOT_REQUIRED
+        )
+
         val OffloadRequired = AppConfig(
             offloadEnabled = true,
             offloadMode = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_REQUIRED
@@ -108,6 +113,6 @@ class GaplessPlaybackTest(override val appConfig: AppConfig) : BasePlaybackTest(
 
         @JvmStatic
         @Parameterized.Parameters
-        fun data() = listOf(OffloadRequired)
+        fun data() = listOf(OffloadNotRequired)
     }
 }

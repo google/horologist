@@ -103,21 +103,9 @@ class PlaybackServiceContainer(
             .setTransferListener(transferListener)
     }
 
-    private val cacheDatabaseProvider by lazy {
-        StandaloneDatabaseProvider(mediaApplicationContainer.application)
-    }
-
-    private val downloadCache by lazy {
-        SimpleCache(
-            mediaApplicationContainer.networkModule.cacheDir.resolve("media3cache"),
-            NoOpCacheEvictor(),
-            cacheDatabaseProvider
-        )
-    }
-
     private val cacheDataSourceFactory: CacheDataSource.Factory by lazy {
         CacheDataSource.Factory()
-            .setCache(downloadCache)
+            .setCache(mediaApplicationContainer.downloadCache)
             .setUpstreamDataSourceFactory(streamDataSourceFactory)
             .setEventListener(transferListener)
             .apply {
@@ -137,30 +125,35 @@ class PlaybackServiceContainer(
         DefaultMediaSourceFactory(dataSourceFactory, extractorsFactory)
     }
 
-    val exoPlayer = ExoPlayer.Builder(service, audioOnlyRenderersFactory)
-        .setAnalyticsCollector(defaultAnalyticsCollector)
-        .setMediaSourceFactory(mediaSourceFactory)
-        .setAudioAttributes(AudioAttributes.DEFAULT, true)
-        .setHandleAudioBecomingNoisy(true)
-        .setWakeMode(C.WAKE_MODE_NETWORK)
-        .setLoadControl(loadControl)
-        .setSeekForwardIncrementMs(10_000)
-        .setSeekBackIncrementMs(10_000)
-        .build().apply {
-            addListener(defaultAnalyticsCollector)
+    val exoPlayer by lazy {
+        println("ExoPlayer " + Thread.currentThread())
+        ExoPlayer.Builder(service, audioOnlyRenderersFactory)
+            .setAnalyticsCollector(defaultAnalyticsCollector)
+            .setMediaSourceFactory(mediaSourceFactory)
+            .setAudioAttributes(AudioAttributes.DEFAULT, true)
+            .setHandleAudioBecomingNoisy(true)
+            .setWakeMode(C.WAKE_MODE_NETWORK)
+            .setLoadControl(loadControl)
+            .setSeekForwardIncrementMs(10_000)
+            .setSeekBackIncrementMs(10_000)
+            .build().apply {
+                addListener(defaultAnalyticsCollector)
 
-            if (appConfig.offloadEnabled) {
-                mediaApplicationContainer.audioOffloadManager.connect(this)
+                if (appConfig.offloadEnabled) {
+                    mediaApplicationContainer.audioOffloadManager.connect(this)
+                }
             }
-        }
+    }
 
-    val player = WearConfiguredPlayer(
-        player = exoPlayer,
-        audioOutputRepository = mediaApplicationContainer.audioContainer.systemAudioRepository,
-        audioOutputSelector = mediaApplicationContainer.audioContainer.audioOutputSelector,
-        playbackRules = mediaApplicationContainer.playbackRules,
-        errorReporter = mediaApplicationContainer.logger
-    )
+    val player by lazy {
+        WearConfiguredPlayer(
+            player = exoPlayer,
+            audioOutputRepository = mediaApplicationContainer.audioContainer.systemAudioRepository,
+            audioOutputSelector = mediaApplicationContainer.audioContainer.audioOutputSelector,
+            playbackRules = mediaApplicationContainer.playbackRules,
+            errorReporter = mediaApplicationContainer.logger
+        )
+    }
 
     val librarySessionCallback by lazy {
         UampMediaLibrarySessionCallback(service.lifecycleScope, mediaApplicationContainer.logger)

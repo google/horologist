@@ -14,25 +14,28 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistMedia3BackendApi::class)
+
 package com.google.android.horologist.media3.flows
 
 import androidx.media3.common.Player
+import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withContext
 
+/**
+ * Wait for the Player to reach isPlaying state.
+ */
 suspend fun Player.waitForPlaying() {
-    if (!isPlaying) {
-        suspendCancellableCoroutine<Unit> {
-            val listener = object : Player.Listener {
-                override fun onIsPlayingChanged(isPlaying: Boolean) {
-                    removeListener(this)
-                    it.resume(Unit, onCancellation = null)
-                }
-            }
-            this.addListener(listener)
+    isPlayingFlow().filter { it }.first()
+}
 
-            it.invokeOnCancellation {
-                removeListener(listener)
-            }
-        }
-    }
+/**
+ * Wait for the Player to leave isPlaying state.
+ */
+suspend fun Player.waitForNotPlaying() {
+    isPlayingFlow().filter { !it }.first()
 }

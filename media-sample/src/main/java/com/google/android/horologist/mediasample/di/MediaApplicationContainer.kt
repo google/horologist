@@ -16,11 +16,16 @@
 
 package com.google.android.horologist.mediasample.di
 
+import android.content.Context
 import android.os.Build
+import android.os.StrictMode
 import android.os.Vibrator
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.CreationExtras
+import androidx.media3.database.StandaloneDatabaseProvider
+import androidx.media3.datasource.cache.NoOpCacheEvictor
+import androidx.media3.datasource.cache.SimpleCache
 import coil.Coil
 import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.media.data.PlayerRepositoryImpl
@@ -39,11 +44,19 @@ import com.google.android.horologist.networks.status.NetworkRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import java.io.Closeable
 
 /**
  * Simple DI implementation - to be replaced by hilt.
  */
-class MediaApplicationContainer(internal val application: MediaApplication) {
+class MediaApplicationContainer(
+    internal val application: Context,
+    internal val appConfig: AppConfig = AppConfig()
+): Closeable {
+    init {
+        Throwable().printStackTrace()
+    }
+
     val isEmulator = Build.PRODUCT.startsWith("sdk_gwear")
 
     val playbackRules: PlaybackRules by lazy {
@@ -52,10 +65,6 @@ class MediaApplicationContainer(internal val application: MediaApplication) {
         } else {
             PlaybackRules.Normal
         }
-    }
-
-    val appConfig by lazy {
-        AppConfig()
     }
 
     val coroutineScope: CoroutineScope by lazy {
@@ -82,23 +91,60 @@ class MediaApplicationContainer(internal val application: MediaApplication) {
         application.getSystemService(Vibrator::class.java)
     }
 
-    internal fun serviceContainer(service: PlaybackService): PlaybackServiceContainer =
-        PlaybackServiceContainer(this, service, wearMedia3Factory).also {
-            service.lifecycle.addObserver(object : DefaultLifecycleObserver {
-                override fun onStop(owner: LifecycleOwner) {
-                    it.close()
-                }
-            })
-        }
+    private val cacheDatabaseProvider by lazy {
+        StandaloneDatabaseProvider(application)
+    }
 
-    internal fun activityContainer(activity: MediaActivity): MediaActivityContainer =
-        MediaActivityContainer(this).also {
-            activity.lifecycle.addObserver(object : DefaultLifecycleObserver {
-                override fun onStop(owner: LifecycleOwner) {
-                    it.close()
-                }
-            })
+    val cacheDir by lazy {
+        StrictMode.allowThreadDiskWrites().resetAfter {
+            application.cacheDir
         }
+    }
+
+    val downloadCache by lazy {
+        val media3CacheDir = cacheDir.resolve("media3cache")
+        println("media3CacheDir = $media3CacheDir $this")
+        SimpleCache(
+            media3CacheDir,
+            NoOpCacheEvictor(),
+            cacheDatabaseProvider
+        )
+    }
+
+    internal fun serviceContainer(service: PlaybackService): PlaybackServiceContainer {
+        println("serviceContainer " + Thread.currentThread())
+        return PlaybackServiceContainer(this, service, wearMedia3Factory).also {
+//            service.lifecycle.addObserver(object : DefaultLifecycleObserver {
+//                override fun onStop(owner: LifecycleOwner) {
+//                    it.close()
+//                }
+//            })
+        }
+    }
+
+    internal fun activityContainer(activity: MediaActivity): MediaActivityContainer {
+        println("activityContainer " + Thread.currentThread())
+        return MediaActivityContainer(this).also {
+//            activity.lifecycle.addObserver(object : DefaultLifecycleObserver {
+//                override fun onStop(owner: LifecycleOwner) {
+//                    it.close()
+//                }
+//            })
+        }
+    }
+
+    // Confusingly the result of allowThreadDiskWrites is the old policy,
+    // while allow* methods immediately apply the change.
+    // So `this` is the policy before we overrode it.
+    fun <R> StrictMode.ThreadPolicy.resetAfter(block: () -> R) = try {
+        block()
+    } finally {
+        StrictMode.setThreadPolicy(this)
+    }
+
+    override fun close() {
+        downloadCache.release()
+    }
 
     companion object {
         fun install(mediaApplication: MediaApplication) {

@@ -14,49 +14,41 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package com.google.android.horologist.mediasample
 
-import android.content.ComponentName
-import android.content.Context
 import androidx.annotation.CallSuper
 import androidx.media3.session.MediaBrowser
-import androidx.media3.session.SessionToken
 import androidx.test.annotation.UiThreadTest
-import androidx.test.platform.app.InstrumentationRegistry
-import com.google.android.horologist.mediasample.components.PlaybackService
-import com.google.common.util.concurrent.ListenableFuture
+import com.google.android.horologist.mediasample.di.ViewModelModule
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.cancel
 import org.junit.After
 import org.junit.Before
 
-open class BasePlaybackTest {
-    private lateinit var context: Context
-    lateinit var browserFuture: ListenableFuture<MediaBrowser>
+open class BasePlaybackTest: BaseContainerTest() {
+
+    private lateinit var viewModelContainer: ViewModelModule
 
     @Before
     @UiThreadTest
     @CallSuper
-    fun init() {
-        this.context = InstrumentationRegistry.getInstrumentation().targetContext
+    override fun init() {
+        super.init()
 
-//        cache.keys.forEach {
-//            cache.removeResource(it)
-//        }
+        viewModelContainer = ViewModelModule(appContainer)
+    }
 
-        browserFuture = MediaBrowser.Builder(
-            context,
-            SessionToken(
-                context,
-                ComponentName(context, PlaybackService::class.java)
-            )
-        ).buildAsync()
+    suspend fun browser(): MediaBrowser {
+        return viewModelContainer.mediaController.await()
     }
 
     @After
     @UiThreadTest
     @CallSuper
-    fun cleanup() {
-        if (this::browserFuture.isInitialized) {
-            MediaBrowser.releaseFuture(browserFuture)
-        }
+    override fun cleanup() {
+        super.cleanup()
+        viewModelContainer.close()
     }
 }

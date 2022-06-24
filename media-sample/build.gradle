@@ -136,6 +136,7 @@ dependencies {
     implementation libs.lottie.compose
 
     implementation libs.kotlin.stdlib
+    implementation libs.kotlinx.coroutines.guava
 
     debugImplementation projects.composeTools
 

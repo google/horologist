@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package com.google.android.horologist.mediasample.di
 
 import android.content.ComponentName
@@ -23,8 +25,11 @@ import androidx.media3.session.SessionToken
 import com.google.android.horologist.media.data.PlayerRepositoryImpl
 import com.google.android.horologist.media3.flows.buildSuspend
 import com.google.android.horologist.mediasample.components.PlaybackService
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 /**
@@ -33,7 +38,7 @@ import kotlinx.coroutines.launch
 class ViewModelModule(
     internal val mediaApplicationContainer: MediaApplicationContainer,
 ) : AutoCloseable {
-    internal val mediaController by lazy {
+    internal val mediaController: Deferred<MediaBrowser> by lazy {
         mediaApplicationContainer.coroutineScope.async {
             val application = mediaApplicationContainer.application
             MediaBrowser.Builder(
@@ -78,5 +83,13 @@ class ViewModelModule(
 
     override fun close() {
         playerRepository.close()
+        if (mediaController.isActive) {
+            mediaController.cancel()
+        }
+        try {
+            mediaController.getCompleted().release()
+        } catch (ise : IllegalStateException) {
+            // nothing
+        }
     }
 }

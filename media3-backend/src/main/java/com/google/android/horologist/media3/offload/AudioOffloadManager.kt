@@ -114,21 +114,22 @@ public class AudioOffloadManager(
 
         _sleepingForOffload.value = exoPlayer.experimentalIsSleepingForOffload()
 
-        lifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
-            override fun onResume(owner: LifecycleOwner) {
-                _foreground.value = true
-                exoPlayer.experimentalSetOffloadSchedulingEnabled(false)
-
-                errorReporter.logMessage("app foregrounded")
-            }
-
-            override fun onPause(owner: LifecycleOwner) {
-                _foreground.value = false
-                exoPlayer.experimentalSetOffloadSchedulingEnabled(true)
-
-                errorReporter.logMessage("app backgrounded")
-            }
-        })
+        println("AudioOffloadManager " + Thread.currentThread())
+//        lifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
+//            override fun onResume(owner: LifecycleOwner) {
+//                _foreground.value = true
+//                exoPlayer.experimentalSetOffloadSchedulingEnabled(false)
+//
+//                errorReporter.logMessage("app foregrounded")
+//            }
+//
+//            override fun onPause(owner: LifecycleOwner) {
+//                _foreground.value = false
+//                exoPlayer.experimentalSetOffloadSchedulingEnabled(true)
+//
+//                errorReporter.logMessage("app backgrounded")
+//            }
+//        })
 
         exoPlayer.addAudioOffloadListener(audioOffloadListener(exoPlayer))
         exoPlayer.addAnalyticsListener(analyticsListener(exoPlayer))

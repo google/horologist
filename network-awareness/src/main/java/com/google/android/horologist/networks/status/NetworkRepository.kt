@@ -32,6 +32,7 @@ import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.net.InetAddress
 import java.time.Instant
@@ -50,7 +51,9 @@ public class NetworkRepository(
     private var priorityNetwork: Network? = null
     private var initialised = false
 
-    public val networkStatus: MutableStateFlow<Networks>
+    private val _networkStatus: MutableStateFlow<Networks>
+    public val networkStatus: StateFlow<Networks>
+        get() = _networkStatus
 
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
@@ -125,7 +128,7 @@ public class NetworkRepository(
             .build()
         connectivityManager.registerNetworkCallback(networkRequest, networkCallback)
 
-        networkStatus = MutableStateFlow(buildStatus())
+        _networkStatus = MutableStateFlow(buildStatus())
         initialised = true
     }
 
@@ -143,7 +146,7 @@ public class NetworkRepository(
 
     private fun postUpdate() {
         if (initialised) {
-            networkStatus.value = buildStatus()
+            _networkStatus.value = buildStatus()
         }
     }
 
@@ -152,7 +155,9 @@ public class NetworkRepository(
     }
 
     private fun buildStatus(): Networks {
-        val allNetworks = networkBuilders.values.map { it.buildNetworkStatus() }
+        val allNetworks = networkBuilders.filter { (id, builder) ->
+            builder.status != Status.Lost
+        }.values.map { it.buildNetworkStatus() }
 
         val priorityNetwork = priorityNetwork
         if (priorityNetwork != null) {
@@ -182,7 +187,8 @@ public class NetworkRepository(
         // TODO assume null is bluetooth if available
         @Suppress("FoldInitializerAndIfToElvis")
         if (network == null) {
-            return networkBuilders.values.firstOrNull { it.type is NetworkType.Bluetooth }?.buildNetworkStatus()
+            return networkBuilders.values.firstOrNull { it.type is NetworkType.Bluetooth }
+                ?.buildNetworkStatus()
         }
 
         return network

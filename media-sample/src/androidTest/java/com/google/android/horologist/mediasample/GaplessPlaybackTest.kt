@@ -28,6 +28,7 @@ import com.google.android.horologist.mediasample.samples.GaplessSamples
 import com.google.common.truth.Truth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
@@ -44,49 +45,39 @@ class GaplessPlaybackTest(override val appConfig: AppConfig) : BasePlaybackTest(
 
             val items = mutableSetOf<String?>()
 
-            launch {
+            val job = launch {
                 browser.currentMediaItemFlow().collect {
                     items.add(it?.requestMetadata!!.mediaUri.toString())
                 }
             }
 
+            val mediaItems = GaplessSamples
+
             withContext(Dispatchers.Main) {
-                browser.setMediaItems(Media3MediaItemMapper.map(GaplessSamples))
+                browser.setMediaItems(Media3MediaItemMapper.map(mediaItems))
                 browser.prepare()
                 browser.play()
             }
 
-            println("A")
-
             browser.waitForPlaying()
-
-            println("B")
 
             if (appConfig.offloadEnabled) {
                 val format = appContainer.audioOffloadManager.format.value
                 println(format?.sampleMimeType)
             }
 
-            println("C")
-
             browser.waitForNotPlaying()
 
-            println("D")
-
-            Truth.assertThat(items).containsExactlyElementsIn(GaplessSamples.map { it.uri })
-
-            println("E")
+            Truth.assertThat(items).containsExactlyElementsIn(mediaItems.map { it.uri })
 
             if (appConfig.offloadEnabled) {
                 val offloadTimes = appContainer.audioOffloadManager.snapOffloadTimes()
                 println(offloadTimes)
-    //            Truth.assertThat(offloadTimes.enabled).isGreaterThan(offloadTimes.disabled)
+                Truth.assertThat(offloadTimes.enabled).isGreaterThan(offloadTimes.disabled)
             }
 
-            println("F")
+            job.cancel()
         }
-
-        println("G")
     }
 
     companion object {

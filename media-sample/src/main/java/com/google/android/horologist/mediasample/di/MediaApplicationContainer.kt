@@ -103,7 +103,6 @@ class MediaApplicationContainer(
 
     val downloadCache by lazy {
         val media3CacheDir = cacheDir.resolve("media3cache")
-        println("media3CacheDir = $media3CacheDir $this")
         SimpleCache(
             media3CacheDir,
             NoOpCacheEvictor(),
@@ -143,7 +142,9 @@ class MediaApplicationContainer(
     }
 
     override fun close() {
-        downloadCache.release()
+        StrictMode.allowThreadDiskWrites().resetAfter {
+            downloadCache.release()
+        }
     }
 
     companion object {

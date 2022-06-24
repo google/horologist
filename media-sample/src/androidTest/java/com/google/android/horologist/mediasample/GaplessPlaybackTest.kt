@@ -18,19 +18,15 @@
 
 package com.google.android.horologist.mediasample
 
-import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.audio.DefaultAudioSink
-import androidx.test.espresso.matcher.ViewMatchers
 import com.google.android.horologist.media.data.Media3MediaItemMapper
 import com.google.android.horologist.media3.flows.currentMediaItemFlow
 import com.google.android.horologist.media3.flows.waitForNotPlaying
 import com.google.android.horologist.media3.flows.waitForPlaying
 import com.google.android.horologist.mediasample.samples.GaplessSamples
+import com.google.common.truth.Truth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
@@ -65,6 +61,6 @@ class GaplessPlaybackTest : BasePlaybackTest() {
 
         browser.waitForNotPlaying()
 
-        Truth.assertThat()
+        Truth.assertThat(items).containsExactly(GaplessSamples.map { it.id })
     }
 }

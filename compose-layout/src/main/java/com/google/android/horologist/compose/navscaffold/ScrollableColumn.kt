@@ -18,6 +18,7 @@ package com.google.android.horologist.compose.navscaffold
 
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.ScrollableState
+import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -47,6 +48,7 @@ public fun Modifier.scrollableColumn(
     onPreRotaryScrollEvent {
         coroutineScope.launch {
             scrollableState.scrollBy(it.verticalScrollPixels)
+            scrollableState.animateScrollBy(0f)
         }
         true
     }

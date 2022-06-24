@@ -17,6 +17,7 @@
 package com.google.android.horologist.mediasample
 
 import androidx.media3.exoplayer.audio.DefaultAudioSink
+import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.networks.rules.NetworkingRules
 
 data class AppConfig(
@@ -27,5 +28,6 @@ data class AppConfig(
     val loadItemsOnStartup: Boolean = false,
     val cacheItems: Boolean = true,
     val cacheWriteBack: Boolean = true,
-    val offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_REQUIRED
+    val offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_REQUIRED,
+    val playbackRules: PlaybackRules? = null
 )

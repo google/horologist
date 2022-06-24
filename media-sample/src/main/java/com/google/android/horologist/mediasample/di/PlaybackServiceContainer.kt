@@ -126,7 +126,6 @@ class PlaybackServiceContainer(
     }
 
     val exoPlayer by lazy {
-        println("ExoPlayer " + Thread.currentThread())
         ExoPlayer.Builder(service, audioOnlyRenderersFactory)
             .setAnalyticsCollector(defaultAnalyticsCollector)
             .setMediaSourceFactory(mediaSourceFactory)

@@ -45,7 +45,7 @@ public interface PlaybackRules {
     }
 
     @ExperimentalHorologistMedia3BackendApi
-    public object Emulator : PlaybackRules {
+    public object SpeakerAllowed : PlaybackRules {
         override suspend fun canPlayItem(mediaItem: MediaItem): Boolean = true
 
         override fun canPlayWithOutput(audioOutput: AudioOutput): Boolean = true

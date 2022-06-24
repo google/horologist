@@ -43,14 +43,17 @@ open class BaseContainerTest {
     @UiThreadTest
     @CallSuper
     open fun init() {
-        application = InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as MediaApplication
+        application =
+            InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as MediaApplication
+
+        application.appConfig = appConfig
 
         appContainer = application.container
-//            MediaApplicationContainer(
-//            application = application,
-//            appConfig = appConfig
-//        )
 
+        clearCache()
+    }
+
+    fun clearCache() {
         val cache = appContainer.downloadCache
         cache.keys.forEach {
             cache.removeResource(it)

@@ -18,17 +18,22 @@ package com.google.android.horologist.mediasample.components
 
 import android.app.Application
 import android.os.StrictMode
+import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
 
 class MediaApplication : Application() {
-    internal lateinit var container: MediaApplicationContainer
+    internal var appConfig: AppConfig = AppConfig()
+
+    internal val container: MediaApplicationContainer by lazy {
+        MediaApplicationContainer(this).also {
+            it.install()
+        }
+    }
 
     override fun onCreate() {
         super.onCreate()
 
         setStrictMode()
-
-        MediaApplicationContainer.install(this)
     }
 
     fun setStrictMode() {

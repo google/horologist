@@ -23,6 +23,7 @@ import com.google.android.horologist.media.data.Media3MediaItemMapper
 import com.google.android.horologist.media3.flows.currentMediaItemFlow
 import com.google.android.horologist.media3.flows.waitForNotPlaying
 import com.google.android.horologist.media3.flows.waitForPlaying
+import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.samples.GaplessSamples
 import com.google.common.truth.Truth
 import kotlinx.coroutines.Dispatchers
@@ -31,36 +32,82 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 
-class GaplessPlaybackTest : BasePlaybackTest() {
-    override val appConfig: AppConfig
-        get() = AppConfig(
+@RunWith(Parameterized::class)
+class GaplessPlaybackTest(override val appConfig: AppConfig) : BasePlaybackTest() {
+    @Test
+    fun testPlayback() {
+        runTest {
+            val browser = browser()
+
+            val items = mutableSetOf<String?>()
+
+            launch {
+                browser.currentMediaItemFlow().collect {
+                    items.add(it?.requestMetadata!!.mediaUri.toString())
+                }
+            }
+
+            withContext(Dispatchers.Main) {
+                browser.setMediaItems(Media3MediaItemMapper.map(GaplessSamples))
+                browser.prepare()
+                browser.play()
+            }
+
+            println("A")
+
+            browser.waitForPlaying()
+
+            println("B")
+
+            if (appConfig.offloadEnabled) {
+                val format = appContainer.audioOffloadManager.format.value
+                println(format?.sampleMimeType)
+            }
+
+            println("C")
+
+            browser.waitForNotPlaying()
+
+            println("D")
+
+            Truth.assertThat(items).containsExactlyElementsIn(GaplessSamples.map { it.uri })
+
+            println("E")
+
+            if (appConfig.offloadEnabled) {
+                val offloadTimes = appContainer.audioOffloadManager.snapOffloadTimes()
+                println(offloadTimes)
+    //            Truth.assertThat(offloadTimes.enabled).isGreaterThan(offloadTimes.disabled)
+            }
+
+            println("F")
+        }
+
+        println("G")
+    }
+
+    companion object {
+        val OffloadDisabled = AppConfig(
             offloadEnabled = false,
             offloadMode = DefaultAudioSink.OFFLOAD_MODE_DISABLED
         )
 
-    @Test
-    fun testPlayback() = runTest {
-        val browser = browser()
+        val OffloadRequired = AppConfig(
+            offloadEnabled = true,
+            offloadMode = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_REQUIRED
+        )
 
-        val items = mutableListOf<String?>()
+        val SpeakerAllowed = AppConfig(
+            offloadEnabled = true,
+            offloadMode = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_NOT_REQUIRED,
+            playbackRules = PlaybackRules.SpeakerAllowed
+        )
 
-        launch {
-            browser.currentMediaItemFlow().collect {
-                items.add(it?.mediaId)
-            }
-        }
-
-        withContext(Dispatchers.Main) {
-            browser.setMediaItems(Media3MediaItemMapper.map(GaplessSamples))
-            browser.prepare()
-            browser.play()
-        }
-
-        browser.waitForPlaying()
-
-        browser.waitForNotPlaying()
-
-        Truth.assertThat(items).containsExactly(GaplessSamples.map { it.id })
+        @JvmStatic
+        @Parameterized.Parameters
+        fun data() = listOf(OffloadRequired)
     }
 }

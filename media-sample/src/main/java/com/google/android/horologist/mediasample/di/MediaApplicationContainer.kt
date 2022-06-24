@@ -36,7 +36,6 @@ import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.catalog.UampService
 import com.google.android.horologist.mediasample.components.MediaActivity
-import com.google.android.horologist.mediasample.components.MediaApplication
 import com.google.android.horologist.mediasample.components.PlaybackService
 import com.google.android.horologist.mediasample.system.Logging
 import com.google.android.horologist.networks.data.DataRequestRepository
@@ -53,15 +52,13 @@ class MediaApplicationContainer(
     internal val application: Context,
     internal val appConfig: AppConfig = AppConfig()
 ): Closeable {
-    init {
-        Throwable().printStackTrace()
-    }
-
     val isEmulator = Build.PRODUCT.startsWith("sdk_gwear")
 
     val playbackRules: PlaybackRules by lazy {
-        if (isEmulator) {
-            PlaybackRules.Emulator
+        if (appConfig.playbackRules != null) {
+            appConfig.playbackRules
+        } else if (isEmulator) {
+            PlaybackRules.SpeakerAllowed
         } else {
             PlaybackRules.Normal
         }
@@ -111,24 +108,22 @@ class MediaApplicationContainer(
     }
 
     internal fun serviceContainer(service: PlaybackService): PlaybackServiceContainer {
-        println("serviceContainer " + Thread.currentThread())
         return PlaybackServiceContainer(this, service, wearMedia3Factory).also {
-//            service.lifecycle.addObserver(object : DefaultLifecycleObserver {
-//                override fun onStop(owner: LifecycleOwner) {
-//                    it.close()
-//                }
-//            })
+            service.lifecycle.addObserver(object : DefaultLifecycleObserver {
+                override fun onStop(owner: LifecycleOwner) {
+                    it.close()
+                }
+            })
         }
     }
 
     internal fun activityContainer(activity: MediaActivity): MediaActivityContainer {
-        println("activityContainer " + Thread.currentThread())
         return MediaActivityContainer(this).also {
-//            activity.lifecycle.addObserver(object : DefaultLifecycleObserver {
-//                override fun onStop(owner: LifecycleOwner) {
-//                    it.close()
-//                }
-//            })
+            activity.lifecycle.addObserver(object : DefaultLifecycleObserver {
+                override fun onStop(owner: LifecycleOwner) {
+                    it.close()
+                }
+            })
         }
     }
 
@@ -147,14 +142,13 @@ class MediaApplicationContainer(
         }
     }
 
-    companion object {
-        fun install(mediaApplication: MediaApplication) {
-            mediaApplication.container = MediaApplicationContainer(mediaApplication)
-
-            Coil.setImageLoader {
-                mediaApplication.container.networkModule.imageLoader
-            }
+    fun install() {
+        Coil.setImageLoader {
+            networkModule.imageLoader
         }
+    }
+
+    companion object {
 
         val PlayerRepositoryImplKey = object : CreationExtras.Key<PlayerRepositoryImpl> {}
         val NetworkRepositoryKey = object : CreationExtras.Key<NetworkRepository> {}

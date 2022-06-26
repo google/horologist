@@ -147,6 +147,7 @@ dependencies {
     androidTestImplementation libs.androidx.test.ext.ktx
     androidTestImplementation libs.androidx.test.rules
     androidTestImplementation libs.truth
+    androidTestImplementation libs.androidx.test.uiautomator
 }
 
 def device = localProperties.getProperty("DEVICE")

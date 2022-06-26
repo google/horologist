@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalCoroutinesApi::class)
-
 package com.google.android.horologist.mediasample
 
 import androidx.annotation.CallSuper
 import androidx.media3.session.MediaBrowser
 import androidx.test.annotation.UiThreadTest
 import com.google.android.horologist.mediasample.di.ViewModelModule
+import com.google.common.truth.Truth
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
 import org.junit.After
+import org.junit.Assume
 import org.junit.Before
 
 open class BasePlaybackTest: BaseContainerTest() {
@@ -38,6 +38,16 @@ open class BasePlaybackTest: BaseContainerTest() {
         super.init()
 
         viewModelContainer = ViewModelModule(appContainer)
+
+        checkSupportedConfig()
+    }
+
+    protected fun checkSupportedConfig() {
+        val appConfig = this.appConfig
+
+        if (appContainer.isEmulator) {
+            Assume.assumeFalse(appConfig.offloadEnabled)
+        }
     }
 
     suspend fun browser(): MediaBrowser {

@@ -74,6 +74,13 @@ class MediaApplicationContainer(
 
     val audioContainer by lazy { AudioContainer(this) }
 
+    val audioSink by lazy {
+        wearMedia3Factory.audioSink(
+            attemptOffload = appConfig.offloadEnabled,
+            offloadMode = appConfig.offloadMode
+        )
+    }
+
     val networkModule by lazy { NetworkModule(this) }
 
     internal val wearMedia3Factory: WearMedia3Factory by lazy {

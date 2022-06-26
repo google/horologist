@@ -24,107 +24,37 @@ import androidx.media3.common.MimeTypes
 import androidx.media3.common.util.Assertions
 import androidx.media3.common.util.Util
 import androidx.media3.exoplayer.audio.AudioSink
-import androidx.test.annotation.UiThreadTest
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.RequiresDevice
-import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.uiautomator.UiDevice
 import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.audio.SystemAudioRepository
-import com.google.wear.media3.PlaybackRules
-import com.google.wear.media3.db.AdditionalDataHandler
-import com.google.wear.media3.db.AppEventDao
-import com.google.wear.media3.db.MediaDao
-import com.google.wear.media3.library.DownloadState
-import com.google.wear.media3.logs.AppEventLevel
-import com.google.wear.mediatoolkit.logging.AudioOffloadManager
-import com.google.wear.mediatoolkit.storage.LibraryActions
-import com.google.wear.mediatoolkit.uamp.di.UampPlaybackRules
-import com.google.wear.mediatoolkit.uamp.junit.RequireNetwork
-import dagger.hilt.android.testing.HiltAndroidTest
+import com.google.android.horologist.media.data.Media3MediaItemMapper
+import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.media3.flows.waitForPlaying
+import com.google.common.truth.Truth.assertThat
+import com.google.common.truth.Truth.assertWithMessage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.guava.await
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.Assume.assumeTrue
-import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import java.time.Instant
-import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
 
-@RunWith(AndroidJUnit4::class)
-@HiltAndroidTest
-@RequiresDevice
-@RequireNetwork
 class AudioOffloadTest : BasePlaybackTest() {
-    @Inject
-    lateinit var appEventDao: AppEventDao
-
-    @Inject
-    lateinit var audioSink: AudioSink
-
-    @Inject
-    lateinit var audioOffloadManager: AudioOffloadManager
-
-    @Inject
-    lateinit var mediaDao: MediaDao
-
-    @Inject
-    lateinit var libraryActions: LibraryActions
-
-    @Inject
-    lateinit var playbackRules: PlaybackRules
-
-    lateinit var audioOutputRepository: SystemAudioRepository
-
-    private lateinit var device: UiDevice
-
-    val downloadFirst = true
-
-    @Before
-    @UiThreadTest
-    override fun init() {
-        super.init()
-
-        assumeTrue(playbackRules.attemptOffload)
-        assumeTrue(playbackRules is UampPlaybackRules)
-
-        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-
-        audioOutputRepository = SystemAudioRepository.fromContext(context.applicationContext)
-    }
-
     @Test
     fun testAudioOffload() {
-        val start = Instant.now()
-
         runTest(dispatchTimeoutMs = 600000) {
-            val browser = browserFuture.await()
+            val browser = browser()
 
-            val mediaItem = TestMedia.songMp3.toMediaItem(AdditionalDataHandler.None)
+            val mediaItem = Media3MediaItemMapper.map(
+                MediaItem(
+                    id = "1",
+                    title = "Intro - The Way Of Waking Up (feat. Alan Watts)",
+                    uri = "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/01_-_Intro_-_The_Way_Of_Waking_Up_feat_Alan_Watts.mp3",
+                    artist = "The Kyoto Connection",
+                    artworkUri = "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg",
+                )
+            )
 
             assertThat(audioOffloadManager.foreground.value).isFalse()
-
-            if (downloadFirst) {
-                libraryActions.download(mediaItem)
-
-                val finalDownloadState = mediaDao.getDownloadState(mediaItem.mediaId.toInt())
-                    .onEach {
-                        println("Download: " + it?.downloadState)
-                    }
-                    .filter { it?.downloadState == DownloadState.Downloaded || it?.downloadState == DownloadState.Failed }
-                    .first()
-
-                assertThat(finalDownloadState?.downloadState).isEqualTo(DownloadState.Downloaded)
-            }
 
             val output = audioOutputRepository.audioOutput.value
 
@@ -158,16 +88,16 @@ class AudioOffloadTest : BasePlaybackTest() {
                     val formatSupport = audioSink.getFormatSupport(format)
                     assertThat(formatSupport).isEqualTo(AudioSink.SINK_FORMAT_SUPPORTED_DIRECTLY)
 
-                    assertThat(audioOffloadManager.sleepingForOffload.value)
-                        .withFailMessage("sleepingForOffload")
+                    assertWithMessage("sleepingForOffload")
+                        .that(audioOffloadManager.sleepingForOffload.value)
                         .isTrue()
 
                     assertThat(flags.contains("AUDIO_OUTPUT_FLAG_COMPRESS_OFFLOAD"))
 
                     assertThat(audioOffloadManager.times.value.enabled).isGreaterThan(0)
                 } else {
-                    assertThat(audioOffloadManager.sleepingForOffload.value)
-                        .withFailMessage("sleepingForOffload")
+                    assertWithMessage("sleepingForOffload")
+                        .that(audioOffloadManager.sleepingForOffload.value)
                         .isFalse()
 
                     assertThat(!flags.contains("AUDIO_OUTPUT_FLAG_COMPRESS_OFFLOAD"))
@@ -178,23 +108,14 @@ class AudioOffloadTest : BasePlaybackTest() {
 
                 assertThat(audioOffloadManager.foreground.value).isFalse()
 
-                val events = appEventDao.getRecentAppEvents(start).first()
-
-                val errors = events.filter { it.level == AppEventLevel.Error }
-
                 if (offloadExpected) {
-                    assertThat(errors).isEmpty()
-
                     delay(3000)
 
                     val times = audioOffloadManager.times.value
                     assertThat(times.enabled).isGreaterThan(times.disabled)
                 } else {
-                    // Maybe
+                    // In logs
                     // AudioTrack init failed 0 Config(8000, 12, 2000000) (recoverable)
-                    if (errors.isNotEmpty()) {
-                        assertThat(errors.first().event).contains("AudioTrack init failed 0 Config")
-                    }
                 }
 
                 assertThat(browser.isPlaying).isTrue()

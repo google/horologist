@@ -14,30 +14,35 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalCoroutinesApi::class)
-
 package com.google.android.horologist.mediasample
 
-import android.app.Application
-import android.content.Context
 import androidx.annotation.CallSuper
+import androidx.media3.exoplayer.audio.AudioSink
 import androidx.test.annotation.UiThreadTest
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.UiDevice
+import com.google.android.horologist.audio.SystemAudioRepository
+import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.mediasample.components.MediaApplication
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.TestScope
-import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
 
 open class BaseContainerTest {
+    protected lateinit var device: UiDevice
     protected lateinit var appContainer: MediaApplicationContainer
     protected lateinit var application: MediaApplication
 
     protected open val appConfig = AppConfig()
+
+    protected val audioOffloadManager: AudioOffloadManager
+        get() = appContainer.audioOffloadManager
+
+    protected val audioSink: AudioSink
+        get() = appContainer.audioSink
+
+    protected val audioOutputRepository: SystemAudioRepository
+        get() = appContainer.audioContainer.systemAudioRepository
 
     @Before
     @UiThreadTest
@@ -49,6 +54,8 @@ open class BaseContainerTest {
         application.appConfig = appConfig
 
         appContainer = application.container
+
+        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
         clearCache()
     }

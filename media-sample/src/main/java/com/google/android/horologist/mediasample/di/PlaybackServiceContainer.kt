@@ -21,13 +21,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.util.Clock
-import androidx.media3.database.DatabaseProvider
-import androidx.media3.database.StandaloneDatabaseProvider
 import androidx.media3.datasource.DataSource
-import androidx.media3.datasource.cache.Cache
 import androidx.media3.datasource.cache.CacheDataSource
-import androidx.media3.datasource.cache.NoOpCacheEvictor
-import androidx.media3.datasource.cache.SimpleCache
 import androidx.media3.datasource.okhttp.OkHttpDataSource
 import androidx.media3.exoplayer.DefaultLoadControl
 import androidx.media3.exoplayer.ExoPlayer
@@ -67,16 +62,9 @@ class PlaybackServiceContainer(
 
     val mediaCodecSelector by lazy { wearMedia3Factory.mediaCodecSelector() }
 
-    val audioSink by lazy {
-        wearMedia3Factory.audioSink(
-            attemptOffload = appConfig.offloadEnabled,
-            offloadMode = appConfig.offloadMode
-        )
-    }
-
     val audioOnlyRenderersFactory by lazy {
         wearMedia3Factory.audioOnlyRenderersFactory(
-            audioSink,
+            mediaApplicationContainer.audioSink,
             mediaCodecSelector
         )
     }

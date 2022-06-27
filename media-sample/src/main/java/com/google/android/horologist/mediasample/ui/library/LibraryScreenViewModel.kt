@@ -26,6 +26,7 @@ import com.google.android.horologist.media.ui.state.mapper.MediaItemUiModelMappe
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 import com.google.android.horologist.mediasample.catalog.UampService
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
+import com.google.android.horologist.mediasample.samples.GaplessSamples
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
@@ -49,6 +50,14 @@ class LibraryScreenViewModel(
         } else {
             // TODO warning
         }
+    }
+
+    fun playGapless() {
+        val allItems = generateSequence { GaplessSamples }.take(1).flatten().toList()
+
+        playerRepository.setMediaItems(allItems)
+        playerRepository.prepare()
+        playerRepository.play()
     }
 
     val items: StateFlow<List<MediaItem>?> = flow {

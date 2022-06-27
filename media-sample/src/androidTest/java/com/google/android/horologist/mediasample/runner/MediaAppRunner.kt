@@ -18,7 +18,6 @@ package com.google.android.horologist.mediasample.runner
 
 import android.app.Application
 import android.content.Context
-import android.os.Bundle
 import androidx.test.runner.AndroidJUnitRunner
 import kotlin.reflect.jvm.jvmName
 

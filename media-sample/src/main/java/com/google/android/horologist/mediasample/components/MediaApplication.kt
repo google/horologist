@@ -21,29 +21,14 @@ import android.os.StrictMode
 import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
 
-class MediaApplication : Application() {
-    internal var appConfig: AppConfig = AppConfig()
-        get() = field
-        @Synchronized set(value) {
-            field = value
-            _container?.close()
-            _container = null
-        }
+open class MediaApplication : Application() {
+    open val appConfig: AppConfig = AppConfig()
 
-    internal var _container: MediaApplicationContainer? = null
-
-    internal val container: MediaApplicationContainer
-        @Synchronized get() {
-            if (_container != null) {
-                return _container!!
-            } else {
-                return MediaApplicationContainer(this).also {
-                    it.install()
-                }.also {
-                    _container = it
-                }
-            }
+    open val container: MediaApplicationContainer by lazy {
+        MediaApplicationContainer(this).also {
+            it.install()
         }
+    }
 
     override fun onCreate() {
         super.onCreate()

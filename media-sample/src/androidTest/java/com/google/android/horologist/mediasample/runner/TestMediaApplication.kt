@@ -14,24 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.playback
+package com.google.android.horologist.mediasample.runner
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.withContext
-import org.junit.Test
-import org.junit.runner.RunWith
+import com.google.android.horologist.mediasample.AppConfig
+import com.google.android.horologist.mediasample.components.MediaApplication
 
-@RunWith(AndroidJUnit4::class)
-class PlaybackServiceTest : BasePlaybackTest() {
-    @Test
-    fun testMediaBrowser() = runTest {
-        val browser = browser()
+class TestMediaApplication : MediaApplication() {
+    override var appConfig: AppConfig = AppConfig()
 
-        withContext(Dispatchers.Main) {
-            assertThat(browser.isConnected).isTrue()
-        }
-    }
 }

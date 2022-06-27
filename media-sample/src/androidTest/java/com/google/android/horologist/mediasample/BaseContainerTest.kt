@@ -28,12 +28,13 @@ import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.components.MediaApplication
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
+import com.google.android.horologist.mediasample.runner.TestMediaApplication
 import com.google.android.horologist.networks.rules.NetworkingRules
 import org.junit.After
 import org.junit.Before
 
 open class BaseContainerTest {
-    internal lateinit var application: MediaApplication
+    internal lateinit var application: TestMediaApplication
     protected lateinit var device: UiDevice
 
     // Default to most permissable settings for tests
@@ -64,7 +65,7 @@ open class BaseContainerTest {
     @CallSuper
     open fun init() {
         application =
-            InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as MediaApplication
+            InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as TestMediaApplication
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
         application.appConfig = appConfig
@@ -83,6 +84,8 @@ open class BaseContainerTest {
     @UiThreadTest
     @CallSuper
     open fun cleanup() {
-        application.container.close()
+//        if (this::application.isInitialized) {
+//            application.container.close()
+//        }
     }
 }

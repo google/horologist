@@ -149,7 +149,6 @@ class MediaApplicationContainer(
         StrictMode.allowThreadDiskWrites().resetAfter {
             downloadCache.release()
         }
-        application._container = null
     }
 
     fun install() {

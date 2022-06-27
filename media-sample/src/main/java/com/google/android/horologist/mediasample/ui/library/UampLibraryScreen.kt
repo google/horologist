@@ -60,16 +60,6 @@ fun UampLibraryScreen(
                 style = MaterialTheme.typography.body1
             )
         }
-        item {
-            MediaChip(
-                title = "Gapless",
-                artworkUri = "https://www2.iis.fraunhofer.de/AAC/logo-fraunhofer.gif",
-                onClick = {
-                    libraryScreenViewModel.playGapless()
-                    onPlayClick()
-                }
-            )
-        }
         if (items != null) {
             items(items) {
                 MediaChip(

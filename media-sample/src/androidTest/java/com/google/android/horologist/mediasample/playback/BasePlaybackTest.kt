@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample
+package com.google.android.horologist.mediasample.playback
 
 import androidx.annotation.CallSuper
 import androidx.media3.session.MediaBrowser
 import androidx.test.annotation.UiThreadTest
+import com.google.android.horologist.mediasample.BaseContainerTest
 import com.google.android.horologist.mediasample.di.ViewModelModule
-import com.google.common.truth.Truth
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.cancel
 import org.junit.After
 import org.junit.Assume
 import org.junit.Before

@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.mediasample
 
+import android.app.NotificationManager
+import android.content.Context
 import androidx.annotation.CallSuper
 import androidx.media3.exoplayer.audio.AudioSink
 import androidx.test.annotation.UiThreadTest
@@ -43,6 +45,9 @@ open class BaseContainerTest {
 
     protected val audioOutputRepository: SystemAudioRepository
         get() = appContainer.audioContainer.systemAudioRepository
+
+    protected val notificationManager: NotificationManager
+        get() = application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     @Before
     @UiThreadTest

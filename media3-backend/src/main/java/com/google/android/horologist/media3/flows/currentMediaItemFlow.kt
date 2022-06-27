@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media3.flows
 
+import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
 import kotlinx.coroutines.Dispatchers
@@ -26,15 +27,15 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flowOn
 
 /**
- * Create a Flow for the isPlaying state of Player using callbacks.
+ * Create a Flow for the currentMediaItem of a Player using callbacks.
  */
 @ExperimentalHorologistMedia3BackendApi
-public fun Player.isPlayingFlow(): Flow<Boolean> = callbackFlow {
-    send(isPlaying)
+public fun Player.currentMediaItemFlow(): Flow<MediaItem?> = callbackFlow {
+    send(currentMediaItem)
 
     val listener = object : Player.Listener {
-        override fun onIsPlayingChanged(isPlaying: Boolean) {
-            trySendBlocking(isPlaying)
+        override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
+            trySendBlocking(mediaItem)
         }
     }
 

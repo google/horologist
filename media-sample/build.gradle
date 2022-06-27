@@ -19,6 +19,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: "org.jetbrains.kotlin.kapt"
 
+Properties localProperties = new Properties()
+def localFile = project.rootProject.file('local.properties')
+if (localFile.exists()) {
+    localProperties.load(localFile.newDataInputStream())
+}
+
 android {
     compileSdkVersion 32
 
@@ -31,7 +37,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.google.android.horologist.mediasample.runner.MediaAppRunner"
     }
 
     buildTypes {
@@ -75,6 +81,7 @@ android {
         freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.networks.ExperimentalHorologistNetworksApi"
+        freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
     }
 
     composeOptions {
@@ -130,6 +137,7 @@ dependencies {
     implementation libs.lottie.compose
 
     implementation libs.kotlin.stdlib
+    implementation libs.kotlinx.coroutines.guava
 
     debugImplementation projects.composeTools
 
@@ -138,4 +146,18 @@ dependencies {
     androidTestImplementation libs.junit
     androidTestImplementation libs.androidx.test.ext
     androidTestImplementation libs.androidx.test.ext.ktx
+    androidTestImplementation libs.androidx.test.rules
+    androidTestImplementation libs.truth
+    androidTestImplementation libs.androidx.test.uiautomator
+}
+
+def device = localProperties.getProperty("DEVICE")
+if (device != null) {
+    task appLaunch(type: Exec) {
+        group = "Media"
+        description = "Run on device " + device
+        dependsOn(":media-sample:installRelease")
+        description = "Launch App"
+        commandLine = "adb -s $device shell am start -n com.google.android.horologist.mediasample/com.google.android.horologist.mediasample.components.MediaActivity".split(" ")
+    }
 }

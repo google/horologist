@@ -133,4 +133,6 @@ public class AudioOffloadManager(
         exoPlayer.addAudioOffloadListener(audioOffloadListener(exoPlayer))
         exoPlayer.addAnalyticsListener(analyticsListener(exoPlayer))
     }
+
+    public fun snapOffloadTimes(): OffloadTimes = times.value.timesToNow(sleepingForOffload.value)
 }

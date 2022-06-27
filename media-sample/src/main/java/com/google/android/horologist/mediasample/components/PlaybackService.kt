@@ -29,6 +29,11 @@ class PlaybackService : LifecycleMediaLibraryService() {
         PlaybackServiceContainer.inject(this)
     }
 
+    override fun onDestroy() {
+        mediaLibrarySession.release()
+        super.onDestroy()
+    }
+
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession? {
         return mediaLibrarySession
     }

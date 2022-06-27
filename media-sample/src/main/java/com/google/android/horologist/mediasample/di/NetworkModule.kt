@@ -19,7 +19,6 @@ package com.google.android.horologist.mediasample.di
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
-import android.os.StrictMode
 import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.disk.DiskCache
@@ -71,15 +70,9 @@ class NetworkModule(
         }
     }
 
-    val cacheDir by lazy {
-        StrictMode.allowThreadDiskWrites().resetAfter {
-            mediaApplicationContainer.application.cacheDir
-        }
-    }
-
     val cache by lazy {
         Cache(
-            cacheDir.resolve("HttpCache"),
+            mediaApplicationContainer.cacheDir.resolve("HttpCache"),
             10_000_000
         )
     }
@@ -163,7 +156,7 @@ class NetworkModule(
             .respectCacheHeaders(false)
             .diskCache {
                 DiskCache.Builder()
-                    .directory(cacheDir.resolve("image_cache"))
+                    .directory(mediaApplicationContainer.cacheDir.resolve("image_cache"))
                     .build()
             }
             .memoryCachePolicy(CachePolicy.ENABLED)
@@ -176,14 +169,5 @@ class NetworkModule(
                 )
             }
             .build()
-    }
-
-    // Confusingly the result of allowThreadDiskWrites is the old policy,
-    // while allow* methods immediately apply the change.
-    // So `this` is the policy before we overrode it.
-    fun <R> StrictMode.ThreadPolicy.resetAfter(block: () -> R) = try {
-        block()
-    } finally {
-        StrictMode.setThreadPolicy(this)
     }
 }

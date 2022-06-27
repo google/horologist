@@ -27,17 +27,18 @@ import androidx.media3.exoplayer.mediacodec.MediaCodecSelector
 public open class WearMedia3Factory(private val context: Context) {
     public fun audioSink(
         attemptOffload: Boolean,
+        offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_REQUIRED
     ): AudioSink {
-        val offloadMode =
-            if (attemptOffload)
-                DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_NOT_REQUIRED
-            else
-                DefaultAudioSink.OFFLOAD_MODE_DISABLED
 
         return DefaultAudioSink.Builder()
             .setAudioCapabilities(AudioCapabilities.getCapabilities(context))
             .setAudioProcessorChain(DefaultAudioSink.DefaultAudioProcessorChain())
-            .setOffloadMode(offloadMode)
+            .setOffloadMode(
+                if (attemptOffload)
+                    offloadMode
+                else
+                    DefaultAudioSink.OFFLOAD_MODE_DISABLED
+            )
             .build()
     }
 

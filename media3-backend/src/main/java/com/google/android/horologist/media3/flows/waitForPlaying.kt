@@ -14,31 +14,25 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistMedia3BackendApi::class)
+
 package com.google.android.horologist.media3.flows
 
 import androidx.media3.common.Player
 import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.channels.trySendBlocking
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
 
 /**
- * Create a Flow for the isPlaying state of Player using callbacks.
+ * Wait for the Player to reach isPlaying state.
  */
-@ExperimentalHorologistMedia3BackendApi
-public fun Player.isPlayingFlow(): Flow<Boolean> = callbackFlow {
-    send(isPlaying)
+public suspend fun Player.waitForPlaying() {
+    isPlayingFlow().filter { it }.first()
+}
 
-    val listener = object : Player.Listener {
-        override fun onIsPlayingChanged(isPlaying: Boolean) {
-            trySendBlocking(isPlaying)
-        }
-    }
-
-    addListener(listener)
-
-    awaitClose { removeListener(listener) }
-}.flowOn(Dispatchers.Main)
+/**
+ * Wait for the Player to leave isPlaying state.
+ */
+public suspend fun Player.waitForNotPlaying() {
+    isPlayingFlow().filter { !it }.first()
+}

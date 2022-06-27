@@ -30,10 +30,22 @@ fun MediaArtwork(
     mediaItem: MediaItemUiModel,
     modifier: Modifier = Modifier,
 ) {
+    val title = mediaItem.title
+    val artworkUri = mediaItem.artworkUri
+
+    MediaArtwork(artworkUri = artworkUri, title = title, modifier = modifier)
+}
+
+@Composable
+fun MediaArtwork(
+    artworkUri: String?,
+    title: String?,
+    modifier: Modifier = Modifier,
+) {
     Image(
         modifier = modifier,
-        painter = rememberAsyncImagePainter(mediaItem.artworkUri),
-        contentDescription = mediaItem.title ?: stringResource(id = R.string.horologist_no_title),
+        painter = rememberAsyncImagePainter(artworkUri),
+        contentDescription = title ?: stringResource(id = R.string.horologist_no_title),
         contentScale = ContentScale.Fit
     )
 }

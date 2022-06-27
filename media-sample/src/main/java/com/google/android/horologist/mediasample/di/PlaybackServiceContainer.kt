@@ -22,6 +22,7 @@ import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.util.Clock
 import androidx.media3.datasource.DataSource
+import androidx.media3.datasource.cache.CacheDataSource
 import androidx.media3.datasource.okhttp.OkHttpDataSource
 import androidx.media3.exoplayer.DefaultLoadControl
 import androidx.media3.exoplayer.ExoPlayer
@@ -61,11 +62,9 @@ class PlaybackServiceContainer(
 
     val mediaCodecSelector by lazy { wearMedia3Factory.mediaCodecSelector() }
 
-    val audioSink by lazy { wearMedia3Factory.audioSink(attemptOffload = appConfig.offloadEnabled) }
-
     val audioOnlyRenderersFactory by lazy {
         wearMedia3Factory.audioOnlyRenderersFactory(
-            audioSink,
+            mediaApplicationContainer.audioSink,
             mediaCodecSelector
         )
     }
@@ -80,6 +79,8 @@ class PlaybackServiceContainer(
         DefaultExtractorsFactory()
     }
 
+    val transferListener by lazy { TransferListener(mediaApplicationContainer.logger) }
+
     private val streamDataSourceFactory: DataSource.Factory by lazy {
         OkHttpDataSource.Factory(
             NetworkAwareCallFactory(
@@ -87,37 +88,59 @@ class PlaybackServiceContainer(
                 defaultRequestType = RequestType.UnknownRequest
             )
         )
-            .setTransferListener(TransferListener(mediaApplicationContainer.logger))
+            .setTransferListener(transferListener)
+    }
+
+    private val cacheDataSourceFactory: CacheDataSource.Factory by lazy {
+        CacheDataSource.Factory()
+            .setCache(mediaApplicationContainer.downloadCache)
+            .setUpstreamDataSourceFactory(streamDataSourceFactory)
+            .setEventListener(transferListener)
+            .apply {
+                if (!appConfig.cacheWriteBack) {
+                    setCacheWriteDataSinkFactory(null)
+                }
+            }
     }
 
     val mediaSourceFactory: MediaSource.Factory by lazy {
-        DefaultMediaSourceFactory(streamDataSourceFactory, extractorsFactory)
+        val dataSourceFactory =
+            if (appConfig.cacheItems) {
+                cacheDataSourceFactory
+            } else {
+                streamDataSourceFactory
+            }
+        DefaultMediaSourceFactory(dataSourceFactory, extractorsFactory)
     }
 
-    val exoPlayer = ExoPlayer.Builder(service, audioOnlyRenderersFactory)
-        .setAnalyticsCollector(defaultAnalyticsCollector)
-        .setMediaSourceFactory(mediaSourceFactory)
-        .setAudioAttributes(AudioAttributes.DEFAULT, true)
-        .setHandleAudioBecomingNoisy(true)
-        .setWakeMode(C.WAKE_MODE_NETWORK)
-        .setLoadControl(loadControl)
-        .setSeekForwardIncrementMs(10_000)
-        .setSeekBackIncrementMs(10_000)
-        .build().apply {
-            addListener(defaultAnalyticsCollector)
+    val exoPlayer by lazy {
+        ExoPlayer.Builder(service, audioOnlyRenderersFactory)
+            .setAnalyticsCollector(defaultAnalyticsCollector)
+            .setMediaSourceFactory(mediaSourceFactory)
+            .setAudioAttributes(AudioAttributes.DEFAULT, true)
+            .setHandleAudioBecomingNoisy(true)
+            .setWakeMode(C.WAKE_MODE_NETWORK)
+            .setLoadControl(loadControl)
+            .setSeekForwardIncrementMs(10_000)
+            .setSeekBackIncrementMs(10_000)
+            .build().apply {
+                addListener(defaultAnalyticsCollector)
 
-            if (appConfig.offloadEnabled) {
-                mediaApplicationContainer.audioOffloadManager.connect(this)
+                if (appConfig.offloadEnabled) {
+                    mediaApplicationContainer.audioOffloadManager.connect(this)
+                }
             }
-        }
+    }
 
-    val player = WearConfiguredPlayer(
-        player = exoPlayer,
-        audioOutputRepository = mediaApplicationContainer.audioContainer.systemAudioRepository,
-        audioOutputSelector = mediaApplicationContainer.audioContainer.audioOutputSelector,
-        playbackRules = mediaApplicationContainer.playbackRules,
-        errorReporter = mediaApplicationContainer.logger
-    )
+    val player by lazy {
+        WearConfiguredPlayer(
+            player = exoPlayer,
+            audioOutputRepository = mediaApplicationContainer.audioContainer.systemAudioRepository,
+            audioOutputSelector = mediaApplicationContainer.audioContainer.audioOutputSelector,
+            playbackRules = mediaApplicationContainer.playbackRules,
+            errorReporter = mediaApplicationContainer.logger
+        )
+    }
 
     val librarySessionCallback by lazy {
         UampMediaLibrarySessionCallback(service.lifecycleScope, mediaApplicationContainer.logger)

@@ -27,7 +27,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flowOn
 
 /**
- * Create a Flow for the isPlaying state of Player using callbacks.
+ * Create a Flow for the currentMediaItem of a Player using callbacks.
  */
 @ExperimentalHorologistMedia3BackendApi
 public fun Player.currentMediaItemFlow(): Flow<MediaItem?> = callbackFlow {

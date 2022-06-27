@@ -21,5 +21,4 @@ import com.google.android.horologist.mediasample.components.MediaApplication
 
 class TestMediaApplication : MediaApplication() {
     override var appConfig: AppConfig = AppConfig()
-
 }

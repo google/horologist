@@ -26,7 +26,6 @@ import androidx.test.uiautomator.UiDevice
 import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.rules.PlaybackRules
-import com.google.android.horologist.mediasample.components.MediaApplication
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
 import com.google.android.horologist.mediasample.runner.TestMediaApplication
 import com.google.android.horologist.networks.rules.NetworkingRules
@@ -84,8 +83,5 @@ open class BaseContainerTest {
     @UiThreadTest
     @CallSuper
     open fun cleanup() {
-//        if (this::application.isInitialized) {
-//            application.container.close()
-//        }
     }
 }

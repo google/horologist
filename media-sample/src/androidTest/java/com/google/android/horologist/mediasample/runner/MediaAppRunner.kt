@@ -14,32 +14,20 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.runner;
+package com.google.android.horologist.mediasample.runner
 
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnitRunner
 import kotlin.reflect.jvm.jvmName
 
 class MediaAppRunner : AndroidJUnitRunner() {
-    override fun callApplicationOnCreate(app: Application?) {
-        println("callApplicationOnCreate")
-        super.callApplicationOnCreate(app)
-    }
-
-    override fun finish(resultCode: Int, results: Bundle?) {
-        println("finish")
-        super.finish(resultCode, results)
-    }
-
     override fun newApplication(
         cl: ClassLoader?,
         className: String?,
         context: Context?
     ): Application {
-        println("newApplication")
         return super.newApplication(cl, TestMediaApplication::class.jvmName, context)
     }
 }

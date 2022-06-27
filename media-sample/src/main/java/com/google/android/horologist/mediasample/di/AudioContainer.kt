@@ -19,18 +19,23 @@ package com.google.android.horologist.mediasample.di
 import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.media3.audio.AudioOutputSelector
 import com.google.android.horologist.media3.audio.BluetoothSettingsOutputSelector
+import java.io.Closeable
 
 /**
  * Simple DI implementation - to be replaced by hilt.
  */
 class AudioContainer(
     private val mediaApplicationContainer: MediaApplicationContainer
-) {
+): Closeable {
     val audioOutputSelector: AudioOutputSelector by lazy {
         BluetoothSettingsOutputSelector(systemAudioRepository)
     }
 
-    val systemAudioRepository: SystemAudioRepository by lazy {
+    // Must be on Main thread
+    val systemAudioRepository: SystemAudioRepository =
         SystemAudioRepository.fromContext(mediaApplicationContainer.application)
+
+    override fun close() {
+        systemAudioRepository.close()
     }
 }

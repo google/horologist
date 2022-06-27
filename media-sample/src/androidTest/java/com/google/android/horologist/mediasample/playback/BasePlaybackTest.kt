@@ -57,6 +57,8 @@ open class BasePlaybackTest: BaseContainerTest() {
     @CallSuper
     override fun cleanup() {
         super.cleanup()
-        viewModelContainer.close()
+        if (this::viewModelContainer.isInitialized) {
+            viewModelContainer.close()
+        }
     }
 }

@@ -25,17 +25,24 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
 import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.media3.offload.AudioOffloadManager
+import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.components.MediaApplication
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
+import com.google.android.horologist.networks.rules.NetworkingRules
 import org.junit.After
 import org.junit.Before
 
 open class BaseContainerTest {
     protected lateinit var device: UiDevice
-    protected lateinit var appContainer: MediaApplicationContainer
     protected lateinit var application: MediaApplication
 
-    protected open val appConfig = AppConfig()
+    // Default to most permissable settings for tests
+    protected open val appConfig = AppConfig(
+        offloadEnabled = false,
+        strictNetworking = NetworkingRules.Lenient,
+        cacheItems = false,
+        playbackRules = PlaybackRules.SpeakerAllowed
+    )
 
     protected val audioOffloadManager: AudioOffloadManager
         get() = appContainer.audioOffloadManager
@@ -49,6 +56,9 @@ open class BaseContainerTest {
     protected val notificationManager: NotificationManager
         get() = application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
+    protected val appContainer: MediaApplicationContainer
+        get() = application.container
+
     @Before
     @UiThreadTest
     @CallSuper
@@ -57,8 +67,6 @@ open class BaseContainerTest {
             InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as MediaApplication
 
         application.appConfig = appConfig
-
-        appContainer = application.container
 
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 

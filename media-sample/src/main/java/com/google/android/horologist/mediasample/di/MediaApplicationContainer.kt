@@ -36,6 +36,7 @@ import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.catalog.UampService
 import com.google.android.horologist.mediasample.components.MediaActivity
+import com.google.android.horologist.mediasample.components.MediaApplication
 import com.google.android.horologist.mediasample.components.PlaybackService
 import com.google.android.horologist.mediasample.system.Logging
 import com.google.android.horologist.networks.data.DataRequestRepository
@@ -49,7 +50,7 @@ import java.io.Closeable
  * Simple DI implementation - to be replaced by hilt.
  */
 class MediaApplicationContainer(
-    internal val application: Context,
+    internal val application: MediaApplication,
     internal val appConfig: AppConfig = AppConfig()
 ): Closeable {
     val isEmulator = Build.PRODUCT.startsWith("sdk_gwear")
@@ -72,7 +73,8 @@ class MediaApplicationContainer(
         ViewModelModule(this)
     }
 
-    val audioContainer by lazy { AudioContainer(this) }
+    // Must happen on Main thread
+    val audioContainer = AudioContainer(this)
 
     val audioSink by lazy {
         wearMedia3Factory.audioSink(
@@ -144,9 +146,11 @@ class MediaApplicationContainer(
     }
 
     override fun close() {
+        audioContainer.close()
         StrictMode.allowThreadDiskWrites().resetAfter {
             downloadCache.release()
         }
+        application._container = null
     }
 
     fun install() {
@@ -156,7 +160,6 @@ class MediaApplicationContainer(
     }
 
     companion object {
-
         val PlayerRepositoryImplKey = object : CreationExtras.Key<PlayerRepositoryImpl> {}
         val NetworkRepositoryKey = object : CreationExtras.Key<NetworkRepository> {}
         val DataRequestRepositoryKey = object : CreationExtras.Key<DataRequestRepository> {}

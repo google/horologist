@@ -30,7 +30,6 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
-import org.junit.Assume.assumeTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import kotlin.time.Duration.Companion.seconds
@@ -50,8 +49,6 @@ class PlaybackServiceTest : BasePlaybackTest() {
 
     @Test
     fun testPlayCausesNotification() {
-        assumeTrue(audioOutputRepository.audioOutput.value is AudioOutput.BluetoothHeadset)
-
         runBlocking(Dispatchers.Main) {
             val browser = browser()
 

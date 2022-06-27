@@ -33,8 +33,8 @@ import org.junit.After
 import org.junit.Before
 
 open class BaseContainerTest {
+    internal lateinit var application: MediaApplication
     protected lateinit var device: UiDevice
-    protected lateinit var application: MediaApplication
 
     // Default to most permissable settings for tests
     protected open val appConfig = AppConfig(
@@ -65,10 +65,9 @@ open class BaseContainerTest {
     open fun init() {
         application =
             InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as MediaApplication
+        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
         application.appConfig = appConfig
-
-        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
         clearCache()
     }
@@ -84,6 +83,6 @@ open class BaseContainerTest {
     @UiThreadTest
     @CallSuper
     open fun cleanup() {
-        appContainer.close()
+        application.container.close()
     }
 }

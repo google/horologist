@@ -17,21 +17,41 @@
 package com.google.android.horologist.mediasample.playback
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.google.android.horologist.media.data.Media3MediaItemMapper
+import com.google.android.horologist.media.model.MediaItem
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class PlaybackServiceTest : BasePlaybackTest() {
+class PlaybackErrorTest : BasePlaybackTest() {
     @Test
-    fun testMediaBrowser() = runTest {
-        val browser = browser()
-
+    fun testFailingItem() = runTest {
         withContext(Dispatchers.Main) {
-            assertThat(browser.currentMediaItem).isNull()
+            val browser = browser()
+
+            val badContent = MediaItem(
+                "1",
+                "milkjawn",
+                "milkjawn",
+                "Milk Jawn",
+                "https://cdn.player.fm/images/14416069/series/stoRUvKcFOzInZ1X/512.jpg"
+            )
+
+            browser.setMediaItem(
+                Media3MediaItemMapper.map(badContent),
+            )
+            browser.prepare()
+            browser.play()
+
+            // allow for async operations
+            delay(5000)
+
+            assertThat(browser.isPlaying).isFalse()
         }
     }
 }

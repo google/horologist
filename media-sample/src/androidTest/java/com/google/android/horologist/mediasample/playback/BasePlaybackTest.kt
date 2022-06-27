@@ -26,7 +26,6 @@ import org.junit.Assume
 import org.junit.Before
 
 open class BasePlaybackTest : BaseContainerTest() {
-
     private lateinit var viewModelContainer: ViewModelModule
 
     @Before
@@ -40,6 +39,17 @@ open class BasePlaybackTest : BaseContainerTest() {
         checkSupportedConfig()
     }
 
+    @After
+    @UiThreadTest
+    @CallSuper
+    override fun cleanup() {
+        super.cleanup()
+        if (this::viewModelContainer.isInitialized) {
+            viewModelContainer.close()
+            viewModelContainer.mediaController.getCompleted().setMediaItems(listOf())
+        }
+    }
+
     protected fun checkSupportedConfig() {
         val appConfig = this.appConfig
 
@@ -50,15 +60,5 @@ open class BasePlaybackTest : BaseContainerTest() {
 
     suspend fun browser(): MediaBrowser {
         return viewModelContainer.mediaController.await()
-    }
-
-    @After
-    @UiThreadTest
-    @CallSuper
-    override fun cleanup() {
-        super.cleanup()
-        if (this::viewModelContainer.isInitialized) {
-            viewModelContainer.close()
-        }
     }
 }

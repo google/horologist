@@ -31,7 +31,7 @@ package com.google.android.horologist.media3.config {
   public class WearMedia3Factory {
     ctor public WearMedia3Factory(android.content.Context context);
     method public final androidx.media3.exoplayer.RenderersFactory audioOnlyRenderersFactory(androidx.media3.exoplayer.audio.AudioSink audioSink, optional androidx.media3.exoplayer.mediacodec.MediaCodecSelector mediaCodecSelector);
-    method public final androidx.media3.exoplayer.audio.AudioSink audioSink(boolean attemptOffload);
+    method public final androidx.media3.exoplayer.audio.AudioSink audioSink(boolean attemptOffload, optional int offloadMode);
     method public final androidx.media3.exoplayer.mediacodec.MediaCodecSelector mediaCodecSelector();
   }
 
@@ -43,8 +43,17 @@ package com.google.android.horologist.media3.flows {
     method @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public static suspend Object? buildSuspend(androidx.media3.session.MediaBrowser.Builder, kotlin.coroutines.Continuation<? super androidx.media3.session.MediaBrowser> p);
   }
 
+  public final class CurrentMediaItemFlowKt {
+    method @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public static kotlinx.coroutines.flow.Flow<androidx.media3.common.MediaItem> currentMediaItemFlow(androidx.media3.common.Player);
+  }
+
   public final class IsPlayingFlowKt {
     method @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public static kotlinx.coroutines.flow.Flow<java.lang.Boolean> isPlayingFlow(androidx.media3.common.Player);
+  }
+
+  public final class WaitForPlayingKt {
+    method public static suspend Object? waitForNotPlaying(androidx.media3.common.Player, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public static suspend Object? waitForPlaying(androidx.media3.common.Player, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
   }
 
 }
@@ -113,6 +122,7 @@ package com.google.android.horologist.media3.offload {
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getOffloadSchedulingEnabled();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getSleepingForOffload();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media3.offload.OffloadTimes> getTimes();
+    method public com.google.android.horologist.media3.offload.OffloadTimes snapOffloadTimes();
     property public final kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> foreground;
     property public final kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Format> format;
     property public final kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> offloadSchedulingEnabled;
@@ -146,16 +156,16 @@ package com.google.android.horologist.media3.rules {
     method public boolean canPlayWithOutput(com.google.android.horologist.audio.AudioOutput audioOutput);
   }
 
-  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public static final class PlaybackRules.Emulator implements com.google.android.horologist.media3.rules.PlaybackRules {
-    method public suspend Object? canPlayItem(androidx.media3.common.MediaItem mediaItem, kotlin.coroutines.Continuation<? super java.lang.Boolean> p);
-    method public boolean canPlayWithOutput(com.google.android.horologist.audio.AudioOutput audioOutput);
-    field public static final com.google.android.horologist.media3.rules.PlaybackRules.Emulator INSTANCE;
-  }
-
   @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public static final class PlaybackRules.Normal implements com.google.android.horologist.media3.rules.PlaybackRules {
     method public suspend Object? canPlayItem(androidx.media3.common.MediaItem mediaItem, kotlin.coroutines.Continuation<? super java.lang.Boolean> p);
     method public boolean canPlayWithOutput(com.google.android.horologist.audio.AudioOutput audioOutput);
     field public static final com.google.android.horologist.media3.rules.PlaybackRules.Normal INSTANCE;
+  }
+
+  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public static final class PlaybackRules.SpeakerAllowed implements com.google.android.horologist.media3.rules.PlaybackRules {
+    method public suspend Object? canPlayItem(androidx.media3.common.MediaItem mediaItem, kotlin.coroutines.Continuation<? super java.lang.Boolean> p);
+    method public boolean canPlayWithOutput(com.google.android.horologist.audio.AudioOutput audioOutput);
+    field public static final com.google.android.horologist.media3.rules.PlaybackRules.SpeakerAllowed INSTANCE;
   }
 
 }

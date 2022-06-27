@@ -51,23 +51,23 @@ class ViewModelModule(
     internal var _playerRepository: PlayerRepositoryImpl? = null
 
     internal val playerRepository: PlayerRepositoryImpl
-    @Synchronized get() {
-        return if (_playerRepository != null) {
-            _playerRepository!!
-        } else {
-            PlayerRepositoryImpl().also { playerRepository ->
-                mediaApplicationContainer.coroutineScope.launch(Dispatchers.Main) {
-                    val player = mediaController.await()
-                    playerRepository.connect(
-                        player = player,
-                        onClose = player::release
-                    )
+        @Synchronized get() {
+            return if (_playerRepository != null) {
+                _playerRepository!!
+            } else {
+                PlayerRepositoryImpl().also { playerRepository ->
+                    mediaApplicationContainer.coroutineScope.launch(Dispatchers.Main) {
+                        val player = mediaController.await()
+                        playerRepository.connect(
+                            player = player,
+                            onClose = player::release
+                        )
+                    }
+                }.also {
+                    _playerRepository = it
                 }
-            }.also {
-                _playerRepository = it
             }
         }
-    }
 
     fun addCreationExtras(creationExtras: MutableCreationExtras) {
         creationExtras[MediaApplicationContainer.PlayerRepositoryImplKey] =
@@ -98,7 +98,7 @@ class ViewModelModule(
         }
         try {
             mediaController.getCompleted().release()
-        } catch (ise : IllegalStateException) {
+        } catch (ise: IllegalStateException) {
             // nothing
         }
     }

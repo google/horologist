@@ -19,7 +19,6 @@ package com.google.android.horologist.mediasample.di
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
-import android.os.StrictMode
 import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.disk.DiskCache

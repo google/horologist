@@ -25,7 +25,7 @@ import org.junit.After
 import org.junit.Assume
 import org.junit.Before
 
-open class BasePlaybackTest: BaseContainerTest() {
+open class BasePlaybackTest : BaseContainerTest() {
 
     private lateinit var viewModelContainer: ViewModelModule
 

@@ -19,7 +19,6 @@ package com.google.android.horologist.mediasample.playback
 import android.app.Notification
 import androidx.core.app.NotificationCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.media.data.Media3MediaItemMapper
 import com.google.android.horologist.media.model.MediaItem
 import com.google.android.horologist.media3.flows.waitForPlaying

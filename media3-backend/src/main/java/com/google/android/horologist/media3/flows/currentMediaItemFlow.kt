@@ -43,4 +43,3 @@ public fun Player.currentMediaItemFlow(): Flow<MediaItem?> = callbackFlow {
 
     awaitClose { removeListener(listener) }
 }.flowOn(Dispatchers.Main)
-

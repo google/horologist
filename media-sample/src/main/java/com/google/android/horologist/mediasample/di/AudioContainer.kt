@@ -26,7 +26,7 @@ import java.io.Closeable
  */
 class AudioContainer(
     private val mediaApplicationContainer: MediaApplicationContainer
-): Closeable {
+) : Closeable {
     val audioOutputSelector: AudioOutputSelector by lazy {
         BluetoothSettingsOutputSelector(systemAudioRepository)
     }

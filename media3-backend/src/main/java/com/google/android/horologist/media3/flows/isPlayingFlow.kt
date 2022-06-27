@@ -42,4 +42,3 @@ public fun Player.isPlayingFlow(): Flow<Boolean> = callbackFlow {
 
     awaitClose { removeListener(listener) }
 }.flowOn(Dispatchers.Main)
-

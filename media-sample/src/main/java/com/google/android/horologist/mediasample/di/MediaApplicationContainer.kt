@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.mediasample.di
 
-import android.content.Context
 import android.os.Build
 import android.os.StrictMode
 import android.os.Vibrator
@@ -52,7 +51,7 @@ import java.io.Closeable
 class MediaApplicationContainer(
     internal val application: MediaApplication,
     internal val appConfig: AppConfig = AppConfig()
-): Closeable {
+) : Closeable {
     val isEmulator = Build.PRODUCT.startsWith("sdk_gwear")
 
     val playbackRules: PlaybackRules by lazy {

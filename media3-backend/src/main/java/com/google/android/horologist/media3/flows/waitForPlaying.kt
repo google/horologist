@@ -20,22 +20,19 @@ package com.google.android.horologist.media3.flows
 
 import androidx.media3.common.Player
 import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlinx.coroutines.withContext
 
 /**
  * Wait for the Player to reach isPlaying state.
  */
-suspend fun Player.waitForPlaying() {
+public suspend fun Player.waitForPlaying() {
     isPlayingFlow().filter { it }.first()
 }
 
 /**
  * Wait for the Player to leave isPlaying state.
  */
-suspend fun Player.waitForNotPlaying() {
+public suspend fun Player.waitForNotPlaying() {
     isPlayingFlow().filter { !it }.first()
 }

@@ -104,7 +104,7 @@ public fun DefaultPlayerScreenMediaDisplay(
             mediaItem = mediaItem,
             modifier = modifier
         )
-    } else if (playerUiState.connected) {
+    } else {
         InfoMediaDisplay(
             message = stringResource(R.string.horologist_nothing_playing),
             modifier = modifier

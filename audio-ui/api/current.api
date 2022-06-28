@@ -56,12 +56,12 @@ package com.google.android.horologist.audio.ui.components {
   }
 
   public final class SettingsButtonsDefaults {
-    method @androidx.compose.runtime.Composable public void BrandIcon(@DrawableRes int iconId);
+    method @androidx.compose.runtime.Composable public void BrandIcon(@DrawableRes int iconId, optional androidx.compose.ui.Modifier modifier, optional boolean enabled);
     field public static final com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults INSTANCE;
   }
 
   public final class SettingsButtonsKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void SettingsButtons(com.google.android.horologist.audio.VolumeState volumeState, kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, kotlin.jvm.functions.Function0<kotlin.Unit> onOutputClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> brandIcon);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void SettingsButtons(com.google.android.horologist.audio.VolumeState volumeState, kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, kotlin.jvm.functions.Function0<kotlin.Unit> onOutputClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> brandIcon, optional boolean enabled);
   }
 
 }
@@ -73,7 +73,11 @@ package com.google.android.horologist.audio.ui.components.actions {
   }
 
   public final class SetVolumeButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void SetVolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, com.google.android.horologist.audio.VolumeState volumeState, optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void SetVolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, com.google.android.horologist.audio.VolumeState volumeState, optional androidx.compose.ui.Modifier modifier, optional boolean enabled);
+  }
+
+  public final class SettingsButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void SettingsButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional boolean enabled);
   }
 
 }

@@ -17,6 +17,7 @@
 package com.google.android.horologist.mediasample.di
 
 import android.os.Build
+import android.os.Looper
 import android.os.StrictMode
 import android.os.Vibrator
 import androidx.lifecycle.DefaultLifecycleObserver
@@ -52,6 +53,10 @@ class MediaApplicationContainer(
     internal val application: MediaApplication,
     internal val appConfig: AppConfig = AppConfig()
 ) : Closeable {
+    init {
+        check(Looper.myLooper() == Looper.getMainLooper()) { "On main thread" }
+    }
+
     val isEmulator = Build.PRODUCT.startsWith("sdk_gwear")
 
     val playbackRules: PlaybackRules by lazy {

@@ -46,11 +46,15 @@ open class BasePlaybackTest : BaseContainerTest() {
         super.cleanup()
         if (this::viewModelContainer.isInitialized) {
             viewModelContainer.close()
-            viewModelContainer.mediaController.getCompleted().setMediaItems(listOf())
+            if (viewModelContainer.mediaController.isCompleted) {
+                viewModelContainer.mediaController.getCompleted().setMediaItems(listOf())
+            } else {
+                viewModelContainer.mediaController.cancel()
+            }
         }
     }
 
-    protected fun checkSupportedConfig() {
+    protected open fun checkSupportedConfig() {
         val appConfig = this.appConfig
 
         if (appContainer.isEmulator) {

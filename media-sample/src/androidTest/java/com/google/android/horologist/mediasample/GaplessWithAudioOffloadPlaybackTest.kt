@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.samples
+package com.google.android.horologist.mediasample
 
-import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.mediasample.config.OffloadRequired
+import org.junit.Assume
 
-val GaplessSamples = listOf(
-    "https://www2.iis.fraunhofer.de/AAC/gapless-sweep_part1_iis.m4a",
-    "https://www2.iis.fraunhofer.de/AAC/gapless-sweep_part2_iis.m4a"
-).mapIndexed { i, it ->
-    MediaItem(
-        id = i.toString(),
-        uri = it,
-        title = "Track $i",
-        artist = "fraunhofer",
-        artworkUri = "https://www2.iis.fraunhofer.de/AAC/logo-fraunhofer.gif",
-    )
+open class GaplessWithAudioOffloadPlaybackTest : GaplessPlaybackTest() {
+    override val appConfig: AppConfig
+        get() = OffloadRequired
+
+    override fun checkSupportedConfig() {
+        super.checkSupportedConfig()
+
+        Assume.assumeFalse("Offload not supported on emulator", appContainer.isEmulator)
+    }
 }

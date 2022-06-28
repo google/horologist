@@ -14,38 +14,44 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui.components
+package com.google.android.horologist.media.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.stringResource
 import coil.compose.rememberAsyncImagePainter
+import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
-import com.google.android.horologist.mediasample.R
 
+@ExperimentalHorologistMediaUiApi
 @Composable
-fun MediaArtwork(
+public fun MediaArtwork(
     mediaItem: MediaItemUiModel,
     modifier: Modifier = Modifier,
+    placeholder: Painter? = null,
 ) {
-    val title = mediaItem.title
-    val artworkUri = mediaItem.artworkUri
-
-    MediaArtwork(artworkUri = artworkUri, title = title, modifier = modifier)
+    MediaArtwork(
+        artworkUri = mediaItem.artworkUri,
+        contentDescription = mediaItem.title,
+        modifier = modifier,
+        placeholder = placeholder
+    )
 }
 
+@ExperimentalHorologistMediaUiApi
 @Composable
-fun MediaArtwork(
+public fun MediaArtwork(
     artworkUri: String?,
-    title: String?,
+    contentDescription: String?,
     modifier: Modifier = Modifier,
+    placeholder: Painter? = null,
 ) {
     Image(
         modifier = modifier,
-        painter = rememberAsyncImagePainter(artworkUri),
-        contentDescription = title ?: stringResource(id = R.string.horologist_no_title),
+        painter = rememberAsyncImagePainter(model = artworkUri, placeholder = placeholder),
+        contentDescription = contentDescription,
         contentScale = ContentScale.Fit
     )
 }

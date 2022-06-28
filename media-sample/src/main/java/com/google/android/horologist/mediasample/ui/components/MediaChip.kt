@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.media.ui.components.MediaArtwork
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 import com.google.android.horologist.mediasample.R
 
@@ -57,7 +58,7 @@ fun MediaChip(
         {
             MediaArtwork(
                 modifier = Modifier.size(ChipDefaults.LargeIconSize),
-                title = title,
+                contentDescription = title ?: stringResource(id = R.string.horologist_no_title),
                 artworkUri = artworkUri
             )
         }

@@ -20,6 +20,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.lifecycle.Lifecycle
 import com.google.android.horologist.mediasample.components.MediaActivity
 import com.google.android.horologist.mediasample.ui.app.Navigation
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
@@ -27,6 +28,7 @@ class MediaActivityTest {
     @get:Rule
     var rule = createAndroidComposeRule<MediaActivity>()
 
+    @Ignore("https://github.com/google/horologist/issues/282")
     @Test
     fun testEvent() {
         val scenario = rule.activityRule.scenario

@@ -14,22 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui.settings
-
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
+package com.google.android.horologist.mediasample.domain
 
 data class Settings(
     val podcastControls: Boolean = false,
     val loadItemsAtStartup: Boolean = true
-) {
-    constructor(preferences: Preferences) : this(
-        preferences[PodcastControls] ?: false,
-        preferences[LoadItemsAtStartup] ?: true
-    )
-
-    companion object {
-        val PodcastControls = booleanPreferencesKey("podcast_controls")
-        val LoadItemsAtStartup = booleanPreferencesKey("load_items_at_startup")
-    }
-}
+)

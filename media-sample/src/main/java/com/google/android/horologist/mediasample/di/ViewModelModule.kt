@@ -87,8 +87,8 @@ class ViewModelModule(
             mediaApplicationContainer.audioContainer.systemAudioRepository
         creationExtras[MediaApplicationContainer.VibratorKey] =
             mediaApplicationContainer.vibrator
-        creationExtras[MediaApplicationContainer.DataStoreKey] =
-            mediaApplicationContainer.prefsDataStore
+        creationExtras[MediaApplicationContainer.SettingsRepositoryKey] =
+            mediaApplicationContainer.settingsRepository
     }
 
     override fun close() {

@@ -16,14 +16,12 @@
 
 package com.google.android.horologist.mediasample.ui.settings
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
+import com.google.android.horologist.mediasample.domain.SettingsRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -31,31 +29,35 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class SettingsScreenViewModel(
-    private val dataStore: DataStore<Preferences>
+    private val settingsRepository: SettingsRepository
 ) : ViewModel() {
-    val uiState: StateFlow<UiState> = dataStore.data.map {
+    val uiState: StateFlow<UiState> = settingsRepository.settingsFlow.map {
         UiState(
-            settings = Settings(it)
+            podcastControls = it.podcastControls,
+            loadItemsAtStartup = it.loadItemsAtStartup,
+            writable = true
         )
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UiState())
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = UiState(writable = false)
+    )
 
     data class UiState(
-        val settings: Settings? = null,
+        val podcastControls: Boolean = false,
+        val loadItemsAtStartup: Boolean = true,
+        val writable: Boolean = false,
     )
 
     fun setPodcastControls(enabled: Boolean) {
         viewModelScope.launch {
-            dataStore.edit {
-                it[Settings.PodcastControls] = enabled
-            }
+            settingsRepository.writePodcastControls(enabled)
         }
     }
 
     fun setLoadItemsAtStartup(enabled: Boolean) {
         viewModelScope.launch {
-            dataStore.edit {
-                it[Settings.LoadItemsAtStartup] = enabled
-            }
+            settingsRepository.writeLoadItemsAtStartup(enabled)
         }
     }
 
@@ -67,7 +69,7 @@ class SettingsScreenViewModel(
         val Factory = viewModelFactory {
             initializer {
                 SettingsScreenViewModel(
-                    dataStore = this[MediaApplicationContainer.DataStoreKey]!!,
+                    settingsRepository = this[MediaApplicationContainer.SettingsRepositoryKey]!!,
                 )
             }
         }

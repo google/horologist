@@ -16,8 +16,6 @@
 
 package com.google.android.horologist.mediasample.ui.player
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
@@ -25,23 +23,21 @@ import com.google.android.horologist.media.data.PlayerRepositoryImpl
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.media3.audio.AudioOutputSelector
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
-import com.google.android.horologist.mediasample.ui.settings.Settings
+import com.google.android.horologist.mediasample.domain.Settings
+import com.google.android.horologist.mediasample.domain.SettingsRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class MediaPlayerScreenViewModel(
     playerRepository: PlayerRepositoryImpl,
-    private val dataStore: DataStore<Preferences>,
+    private val settingsRepository: SettingsRepository,
     private val audioOutputSelector: AudioOutputSelector
 ) : PlayerViewModel(playerRepository) {
-    val settingsState: StateFlow<Settings?> = dataStore.data.map {
-        Settings(it)
-    }.stateIn(
+    val settingsState: StateFlow<Settings?> = settingsRepository.settingsFlow.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
         null
@@ -66,7 +62,7 @@ class MediaPlayerScreenViewModel(
             initializer {
                 MediaPlayerScreenViewModel(
                     playerRepository = this[MediaApplicationContainer.PlayerRepositoryImplKey]!!,
-                    dataStore = this[MediaApplicationContainer.DataStoreKey]!!,
+                    settingsRepository = this[MediaApplicationContainer.SettingsRepositoryKey]!!,
                     audioOutputSelector = this[MediaApplicationContainer.AudioOutputSelectorKey]!!
                 )
             }

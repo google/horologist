@@ -19,6 +19,8 @@ package com.google.android.horologist.mediasample.di
 import android.os.Build
 import android.os.StrictMode
 import android.os.Vibrator
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.CreationExtras
@@ -37,6 +39,7 @@ import com.google.android.horologist.mediasample.catalog.UampService
 import com.google.android.horologist.mediasample.components.MediaActivity
 import com.google.android.horologist.mediasample.components.MediaApplication
 import com.google.android.horologist.mediasample.components.PlaybackService
+import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.system.Logging
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.status.NetworkRepository
@@ -62,6 +65,20 @@ class MediaApplicationContainer(
         } else {
             PlaybackRules.Normal
         }
+    }
+
+    val prefsDataStore by lazy {
+        PreferenceDataStoreFactory.create(
+            corruptionHandler = null,
+            migrations = listOf(),
+            scope = coroutineScope
+        ) {
+            application.preferencesDataStoreFile("prefs")
+        }
+    }
+
+    val settingsRepository by lazy {
+        SettingsRepository(prefsDataStore)
     }
 
     val coroutineScope: CoroutineScope by lazy {
@@ -167,5 +184,6 @@ class MediaApplicationContainer(
         val UampServiceKey = object : CreationExtras.Key<UampService> {}
         val SystemAudioRepositoryKey = object : CreationExtras.Key<SystemAudioRepository> {}
         val VibratorKey = object : CreationExtras.Key<Vibrator> {}
+        val SettingsRepositoryKey = object : CreationExtras.Key<SettingsRepository> {}
     }
 }

@@ -52,7 +52,6 @@ public fun LoadingMediaDisplay(
         Spacer(modifier = Modifier.size(6.dp))
         Box(
             modifier = Modifier
-                .padding(horizontal = 13.dp)
                 .clip(RoundedCornerShape(6.dp))
                 .background(MaterialTheme.colors.surface)
                 .width(80.dp)

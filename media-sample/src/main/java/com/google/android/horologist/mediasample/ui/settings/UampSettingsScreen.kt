@@ -51,14 +51,18 @@ fun UampSettingsScreen(
     ) {
         item {
             CheckedSetting(
-                uiState.podcastControls, stringResource(id = R.string.horologist_podcast_controls)
+                uiState.podcastControls,
+                stringResource(id = R.string.horologist_podcast_controls),
+                enabled = uiState.writable
             ) {
                 settingsScreenViewModel.setPodcastControls(it)
             }
         }
         item {
             CheckedSetting(
-                uiState.loadItemsAtStartup, stringResource(id = R.string.horologist_load_items)
+                uiState.loadItemsAtStartup,
+                stringResource(id = R.string.horologist_load_items),
+                enabled = uiState.writable
             ) {
                 settingsScreenViewModel.setLoadItemsAtStartup(it)
             }
@@ -77,49 +81,61 @@ private fun ActionSetting(
     onClick: () -> Unit,
 ) {
     Chip(
-        onClick = onClick, label = {
+        onClick = onClick,
+        label = {
+            Text(text)
+        },
+        modifier = Modifier.fillMaxWidth()
+    )
+}
+
+@Composable
+private fun ToggleSetting(
+    value: Boolean,
+    text: String,
+    enabled: Boolean = true,
+    onCheckedChange: (Boolean) -> Unit,
+) {
+    ToggleChip(
+        checked = value,
+        toggleControl = {
+            Icon(
+                imageVector = ToggleChipDefaults.radioIcon(checked = value),
+                contentDescription = if (value) stringResource(id = R.string.horologist_on) else stringResource(
+                    id = R.string.horologist_off
+                ),
+            )
+        },
+        enabled = enabled,
+        onCheckedChange = onCheckedChange,
+        label = {
             Text(text)
         }, modifier = Modifier.fillMaxWidth()
         )
     }
 
     @Composable
-    private fun ToggleSetting(
+    private fun CheckedSetting(
         value: Boolean,
         text: String,
+        enabled: Boolean = true,
         onCheckedChange: (Boolean) -> Unit,
     ) {
         ToggleChip(
-            checked = value, toggleControl = {
+            checked = value,
+            toggleControl = {
                 Icon(
-                    imageVector = ToggleChipDefaults.radioIcon(checked = value),
+                    imageVector = ToggleChipDefaults.checkboxIcon(checked = value),
                     contentDescription = if (value) stringResource(id = R.string.horologist_on) else stringResource(
                         id = R.string.horologist_off
                     ),
                 )
-            }, onCheckedChange = onCheckedChange, label = {
-            Text(text)
-        }, modifier = Modifier.fillMaxWidth()
-            )
-        }
-
-        @Composable
-        private fun CheckedSetting(
-            value: Boolean,
-            text: String,
-            onCheckedChange: (Boolean) -> Unit,
-        ) {
-            ToggleChip(
-                checked = value, toggleControl = {
-                    Icon(
-                        imageVector = ToggleChipDefaults.checkboxIcon(checked = value),
-                        contentDescription = if (value) stringResource(id = R.string.horologist_on) else stringResource(
-                            id = R.string.horologist_off
-                        ),
-                    )
-                }, onCheckedChange = onCheckedChange, label = {
+            },
+            enabled = enabled,
+            onCheckedChange = onCheckedChange,
+            label = {
                 Text(text)
             }, modifier = Modifier.fillMaxWidth()
-                )
-            }
-            
+            )
+        }
+        

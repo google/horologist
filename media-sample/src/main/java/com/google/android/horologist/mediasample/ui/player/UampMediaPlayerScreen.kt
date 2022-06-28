@@ -28,8 +28,12 @@ import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
+import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
+import com.google.android.horologist.media.ui.screens.DefaultPlayerScreenControlButtons
 import com.google.android.horologist.media.ui.screens.PlayerScreen
+import com.google.android.horologist.media.ui.state.PlayerUiState
+import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.mediasample.R
 
 @Composable
@@ -42,6 +46,7 @@ fun UampMediaPlayerScreen(
     modifier: Modifier = Modifier,
 ) {
     val volumeState by rememberStateWithLifecycle(flow = volumeViewModel.volumeState)
+    val settingsState by rememberStateWithLifecycle(flow = mediaPlayerScreenViewModel.settingsState)
 
     Scaffold(
         modifier = modifier
@@ -64,9 +69,36 @@ fun UampMediaPlayerScreen(
                     }
                 )
             },
+            controlButtons = {
+                if (settingsState != null) {
+                    if (settingsState?.podcastControls == true) {
+                        PlayerScreenPodcastControlButtons(mediaPlayerScreenViewModel, it)
+                    } else {
+                        DefaultPlayerScreenControlButtons(mediaPlayerScreenViewModel, it)
+                    }
+                }
+            },
             background = {
                 ArtworkColorBackground(artworkUri = it.mediaItem?.artworkUri)
             }
         )
     }
+}
+
+@Composable
+public fun PlayerScreenPodcastControlButtons(
+    playerViewModel: PlayerViewModel,
+    playerUiState: PlayerUiState,
+) {
+    PodcastControlButtons(
+        onPlayButtonClick = { playerViewModel.play() },
+        onPauseButtonClick = { playerViewModel.pause() },
+        playPauseButtonEnabled = playerUiState.playPauseEnabled,
+        playing = playerUiState.playing,
+        percent = playerUiState.trackPosition?.percent ?: 0f,
+        onSeekBackButtonClick = { playerViewModel.seekBack() },
+        seekBackButtonEnabled = playerUiState.seekBackEnabled,
+        onSeekForwardButtonClick = { playerViewModel.seekForward() },
+        seekForwardButtonEnabled = playerUiState.seekForwardEnabled,
+    )
 }

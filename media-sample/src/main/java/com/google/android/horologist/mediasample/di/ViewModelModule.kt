@@ -29,7 +29,6 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 /**
@@ -88,6 +87,8 @@ class ViewModelModule(
             mediaApplicationContainer.audioContainer.systemAudioRepository
         creationExtras[MediaApplicationContainer.VibratorKey] =
             mediaApplicationContainer.vibrator
+        creationExtras[MediaApplicationContainer.SettingsRepositoryKey] =
+            mediaApplicationContainer.settingsRepository
     }
 
     override fun close() {

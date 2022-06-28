@@ -141,6 +141,8 @@ dependencies {
 
     debugImplementation projects.composeTools
 
+    implementation libs.androidx.datastore.preferences
+
     androidTestImplementation libs.compose.ui.test.junit4
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.junit

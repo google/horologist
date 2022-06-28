@@ -57,6 +57,7 @@ class PlayerViewModelTest {
                 playing = false,
                 mediaItem = MediaItemUiModel(id = "", title = null, artist = null),
                 trackPosition = TrackPositionUiModel(current = 0, duration = 0, percent = 0f),
+                connected = true
             )
         )
     }

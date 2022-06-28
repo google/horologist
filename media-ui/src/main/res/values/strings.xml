@@ -24,4 +24,5 @@
     <string name="horologist_seek_back_button_content_description">Rewind</string>
     <string name="horologist_seek_back_button_seconds_content_description">Rewind %s seconds</string>
     <string name="horologist_shuffle_button_content_description">Toggle Shuffle</string>
+    <string name="horologist_nothing_playing">Nothing playing</string>
 </resources>

@@ -38,9 +38,17 @@ public open class PlayerViewModel(
         playerRepository.availableCommands,
         playerRepository.currentMediaItem,
         playerRepository.mediaItemPosition,
-        playerRepository.shuffleModeEnabled,
-        PlayerUiStateMapper::map
-    ).stateIn(
+        playerRepository.shuffleModeEnabled
+    ) { currentState, availableCommands, mediaItem, mediaItemPosition, shuffleModeEnabled ->
+        PlayerUiStateMapper.map(
+            currentState,
+            availableCommands,
+            mediaItem,
+            mediaItemPosition,
+            shuffleModeEnabled,
+            false
+        )
+    }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
         initialValue = INITIAL_PLAYER_UI_STATE
@@ -94,6 +102,7 @@ public open class PlayerViewModel(
             playing = false,
             mediaItem = INITIAL_MEDIA_ITEM,
             trackPosition = INITIAL_TRACK_POSITION,
+            connected = false
         )
     }
 }

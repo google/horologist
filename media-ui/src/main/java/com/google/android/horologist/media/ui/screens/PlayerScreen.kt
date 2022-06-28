@@ -88,7 +88,7 @@ public fun PlayerScreen(
 }
 
 /**
- * Default [MediaDisplay] implementation for [PlayerScreen].
+ * Default [MediaDisplay] implementation for [PlayerScreen] including player status.
  */
 @ExperimentalHorologistMediaUiApi
 @Composable

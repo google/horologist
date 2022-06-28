@@ -17,17 +17,19 @@
 package com.google.android.horologist.audio.ui.components.actions
 
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.VolumeDown
-import androidx.compose.material.icons.filled.VolumeMute
-import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.semantics.semantics
+import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
+import androidx.wear.compose.material.ButtonDefaults.buttonColors
+import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
-import com.google.android.horologist.audio.ui.R
+import com.google.android.horologist.audio.ui.semantics.CustomSemanticsProperties.iconImageVector
 
 /**
  * Button to launch a screen to control the system volume.
@@ -36,21 +38,28 @@ import com.google.android.horologist.audio.ui.R
  */
 @ExperimentalHorologistAudioUiApi
 @Composable
-public fun SetVolumeButton(
-    onVolumeClick: () -> Unit,
-    volumeState: VolumeState,
+public fun SettingsButton(
+    onClick: () -> Unit,
+    imageVector: ImageVector,
+    contentDescription: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
 ) {
-    SettingsButton(
+    Button(
         modifier = modifier.size(ButtonDefaults.SmallButtonSize),
-        onClick = onVolumeClick,
-        enabled = enabled,
-        imageVector = when {
-            volumeState.current == 0 -> Icons.Default.VolumeMute
-            volumeState.isMax -> Icons.Default.VolumeUp
-            else -> Icons.Default.VolumeDown
-        },
-        contentDescription = stringResource(R.string.horologist_set_volume_content_description)
-    )
+        onClick = onClick,
+        colors = buttonColors(
+            backgroundColor = Color.Transparent,
+            disabledBackgroundColor = Color.Transparent,
+            contentColor = MaterialTheme.colors.onSurface,
+        ),
+        enabled = enabled
+    ) {
+
+        Icon(
+            imageVector = imageVector,
+            contentDescription = contentDescription,
+            modifier = Modifier.semantics { iconImageVector = imageVector }
+        )
+    }
 }

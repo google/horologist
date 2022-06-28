@@ -75,7 +75,9 @@ fun MediaPlayerTestCase(
         )
     },
     background: @Composable BoxScope.() -> Unit = {
-        RadialBackground(color = MaterialTheme.colors.secondary)
+        if (playerUiState.mediaItem != null) {
+            RadialBackground(color = MaterialTheme.colors.secondary)
+        }
     },
     colors: Colors = MaterialTheme.colors,
 ) {

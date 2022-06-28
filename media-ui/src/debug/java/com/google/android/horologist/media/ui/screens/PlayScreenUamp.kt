@@ -28,7 +28,7 @@ import com.google.android.horologist.media.ui.uamp.UampTheme
 @Composable
 fun VolumeScreenTheme() {
     UampTheme {
-        DefaultMediaDisplay()
+        DefaultPlayerScreen()
     }
 }
 

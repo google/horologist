@@ -34,8 +34,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.components.DefaultMediaDisplay
 import com.google.android.horologist.media.ui.components.MediaControlButtons
-import com.google.android.horologist.media.ui.components.TextMediaDisplay
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 
@@ -62,7 +62,7 @@ public fun PlayerScreen(
     playerViewModel: PlayerViewModel,
     modifier: Modifier = Modifier,
     mediaDisplay: MediaDisplay = { playerUiState ->
-        DefaultPlayerScreenMediaDisplay(playerUiState)
+        DefaultMediaDisplay(playerUiState.mediaItem)
     },
     controlButtons: ControlButtons = { playerUiState ->
         DefaultPlayerScreenControlButtons(playerViewModel, playerUiState)
@@ -78,18 +78,6 @@ public fun PlayerScreen(
         buttons = { buttons(playerUiState) },
         modifier = modifier,
         background = { background(playerUiState) },
-    )
-}
-
-/**
- * Default [MediaDisplay] implementation for [PlayerScreen].
- */
-@ExperimentalHorologistMediaUiApi
-@Composable
-public fun DefaultPlayerScreenMediaDisplay(playerUiState: PlayerUiState) {
-    TextMediaDisplay(
-        title = playerUiState.mediaItem?.title,
-        artist = playerUiState.mediaItem?.artist
     )
 }
 

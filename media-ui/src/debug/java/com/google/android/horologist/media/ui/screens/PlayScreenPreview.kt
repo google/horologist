@@ -270,7 +270,7 @@ fun PlayerScreenPreviewCustomBackground() {
 @Composable
 fun PlayerScreenPreviewDevices() {
     UampTheme {
-        DefaultMediaDisplay()
+        DefaultPlayerScreen()
     }
 }
 
@@ -280,12 +280,12 @@ fun VolumeScreenTheme(
     @PreviewParameter(WearPreviewThemes::class) themeValues: ThemeValues
 ) {
     MaterialTheme(themeValues.colors) {
-        DefaultMediaDisplay()
+        DefaultPlayerScreen()
     }
 }
 
 @Composable
-fun DefaultMediaDisplay() {
+fun DefaultPlayerScreen() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         timeText = { TimeText() }

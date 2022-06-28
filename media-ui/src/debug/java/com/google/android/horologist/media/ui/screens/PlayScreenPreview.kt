@@ -104,7 +104,10 @@ fun PlayerScreenPreview() {
                     onVolumeClick = { },
                     onOutputClick = { },
                     brandIcon = {
-                        SettingsButtonsDefaults.BrandIcon(R.drawable.ic_uamp)
+                        SettingsButtonsDefaults.BrandIcon(
+                            R.drawable.ic_uamp,
+                            enabled = true
+                        )
                     }
                 )
             },
@@ -169,7 +172,10 @@ fun PlayerScreenPreviewCustomMediaDisplay() {
                     onVolumeClick = { },
                     onOutputClick = { },
                     brandIcon = {
-                        SettingsButtonsDefaults.BrandIcon(R.drawable.ic_uamp)
+                        SettingsButtonsDefaults.BrandIcon(
+                            R.drawable.ic_uamp,
+                            enabled = true
+                        )
                     }
                 )
             },
@@ -232,7 +238,10 @@ fun PlayerScreenPreviewCustomBackground() {
                     onVolumeClick = { },
                     onOutputClick = { },
                     brandIcon = {
-                        SettingsButtonsDefaults.BrandIcon(R.drawable.ic_uamp)
+                        SettingsButtonsDefaults.BrandIcon(
+                            R.drawable.ic_uamp,
+                            enabled = true
+                        )
                     }
                 )
             },
@@ -316,7 +325,10 @@ fun DefaultMediaDisplay() {
                     onVolumeClick = { },
                     onOutputClick = { },
                     brandIcon = {
-                        SettingsButtonsDefaults.BrandIcon(R.drawable.ic_uamp)
+                        SettingsButtonsDefaults.BrandIcon(
+                            R.drawable.ic_uamp,
+                            enabled = true
+                        )
                     }
                 )
             },

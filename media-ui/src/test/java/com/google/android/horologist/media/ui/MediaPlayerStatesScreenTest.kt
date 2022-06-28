@@ -24,8 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
-import com.google.android.horologist.compose.tools.ThemeValues
-import com.google.android.horologist.compose.tools.themeValues
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
@@ -38,8 +36,8 @@ import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
-class MediaPlayerScreenTest(
-    private val themeValue: ThemeValues
+class MediaPlayerStatesScreenTest(
+    private val state: State
 ) {
     @get:Rule
     val paparazzi = Paparazzi(
@@ -52,35 +50,54 @@ class MediaPlayerScreenTest(
     @Test
     fun mediaPlayerScreen() {
         val playerUiState = PlayerUiState(
-            playEnabled = true,
-            pauseEnabled = true,
-            seekBackEnabled = true,
-            seekForwardEnabled = true,
+            playEnabled = state.connected,
+            pauseEnabled = state.connected,
+            seekBackEnabled = state.connected,
+            seekForwardEnabled = state.connected,
             seekToPreviousEnabled = false,
-            seekToNextEnabled = true,
+            seekToNextEnabled = state.connected,
             shuffleEnabled = false,
             shuffleOn = false,
-            playPauseEnabled = true,
-            playing = true,
-            mediaItem = MediaItemUiModel(
-                id = "",
-                title = "Weather with You",
-                artist = "Crowded House"
-            ),
-            trackPosition = TrackPositionUiModel(current = 30, duration = 225, percent = 0.133f),
-            connected = true
+            playPauseEnabled = state.connected,
+            playing = state.connected,
+            mediaItem = if (state.mediaItem)
+                MediaItemUiModel(
+                    id = "",
+                    title = "Weather with You",
+                    artist = "Crowded House"
+                )
+            else
+                null,
+            trackPosition = if (state.mediaItem)
+                TrackPositionUiModel(
+                    current = 30,
+                    duration = 225,
+                    percent = 0.133f
+                )
+            else
+                null,
+            connected = state.connected
         )
 
-        paparazzi.snapshot(name = themeValue.safeName) {
+        paparazzi.snapshot(name = state.name) {
             Box(modifier = Modifier.background(Color.Black)) {
-                MediaPlayerTestCase(colors = themeValue.colors, playerUiState = playerUiState)
+                MediaPlayerTestCase(playerUiState = playerUiState)
             }
         }
     }
 
+    data class State(
+        val connected: Boolean,
+        val mediaItem: Boolean,
+        val name: String,
+    )
+
     companion object {
         @JvmStatic
         @Parameterized.Parameters
-        fun colours() = themeValues
+        fun states() = listOf(
+            State(connected = true, mediaItem = false, name = "NoMediaItem"),
+            State(connected = false, mediaItem = false, name = "NotConnected")
+        )
     }
 }

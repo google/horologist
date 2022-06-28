@@ -65,8 +65,12 @@ fun UampMediaPlayerScreen(
                     onVolumeClick = onVolumeClick,
                     onOutputClick = onOutputClick,
                     brandIcon = {
-                        SettingsButtonsDefaults.BrandIcon(R.drawable.ic_uamp)
-                    }
+                        SettingsButtonsDefaults.BrandIcon(
+                            iconId = R.drawable.ic_uamp,
+                            enabled = it.connected
+                        )
+                    },
+                    enabled = it.connected
                 )
             },
             controlButtons = {

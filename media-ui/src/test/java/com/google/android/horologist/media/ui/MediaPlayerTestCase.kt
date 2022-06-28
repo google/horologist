@@ -66,12 +66,18 @@ fun MediaPlayerTestCase(
             onVolumeClick = { /*TODO*/ },
             onOutputClick = { },
             brandIcon = {
-                SettingsButtonsDefaults.BrandIcon(R.drawable.ic_uamp)
+                SettingsButtonsDefaults.BrandIcon(
+                    R.drawable.ic_uamp,
+                    enabled = playerUiState.connected
+                )
             },
+            enabled = playerUiState.connected
         )
     },
     background: @Composable BoxScope.() -> Unit = {
-        RadialBackground(color = MaterialTheme.colors.secondary)
+        if (playerUiState.mediaItem != null) {
+            RadialBackground(color = MaterialTheme.colors.secondary)
+        }
     },
     colors: Colors = MaterialTheme.colors,
 ) {

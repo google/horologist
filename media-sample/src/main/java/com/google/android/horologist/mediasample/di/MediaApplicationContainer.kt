@@ -19,6 +19,10 @@ package com.google.android.horologist.mediasample.di
 import android.os.Build
 import android.os.StrictMode
 import android.os.Vibrator
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.CreationExtras
@@ -61,6 +65,16 @@ class MediaApplicationContainer(
             PlaybackRules.SpeakerAllowed
         } else {
             PlaybackRules.Normal
+        }
+    }
+
+    val prefsDataStore by lazy {
+        PreferenceDataStoreFactory.create(
+            corruptionHandler = null,
+            migrations = listOf(),
+            scope = coroutineScope
+        ) {
+            application.preferencesDataStoreFile("prefs")
         }
     }
 
@@ -167,5 +181,6 @@ class MediaApplicationContainer(
         val UampServiceKey = object : CreationExtras.Key<UampService> {}
         val SystemAudioRepositoryKey = object : CreationExtras.Key<SystemAudioRepository> {}
         val VibratorKey = object : CreationExtras.Key<Vibrator> {}
+        val DataStoreKey = object : CreationExtras.Key<DataStore<Preferences>> {}
     }
 }

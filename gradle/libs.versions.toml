@@ -44,6 +44,7 @@ androidx-concurrent-future = { module = "androidx.concurrent:concurrent-futures"
 androidx-concurrent-future-ktx = { module = "androidx.concurrent:concurrent-futures-ktx", version.ref = "androidx-concurrent" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
 androidx-corektx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
+androidx-datastore-preferences = "androidx.datastore:datastore-preferences:1.0.0"
 androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidxFragment" }
 androidx-lifecycle-process = { module = "androidx.lifecycle:lifecycle-process", version.ref = "androidxLifecycle" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }

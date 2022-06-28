@@ -154,7 +154,10 @@ fun WearApp(
                 UampSettingsScreen(
                     focusRequester = it.viewModel.focusRequester,
                     state = it.scrollableState,
-                    settingsScreenViewModel = viewModel(factory = SettingsScreenViewModel.Factory)
+                    settingsScreenViewModel = viewModel(
+                        factory = SettingsScreenViewModel.Factory,
+                        extras = creationExtras()
+                    )
                 )
             }
         }

@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.mediasample.ui.app
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
@@ -26,6 +28,7 @@ import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.catalog.UampService
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
 import com.google.android.horologist.mediasample.ui.debug.OffloadState
+import com.google.android.horologist.mediasample.ui.settings.Settings
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.Networks
@@ -37,6 +40,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import java.io.IOException
 import kotlin.time.Duration.Companion.seconds
@@ -45,6 +49,7 @@ class MediaPlayerAppViewModel(
     networkRepository: NetworkRepository,
     dataRequestRepository: DataRequestRepository,
     audioOffloadManager: AudioOffloadManager,
+    private val prefsDataStore: DataStore<Preferences>,
     private val playerRepository: PlayerRepository,
     private val uampService: UampService,
     private val appConfig: AppConfig
@@ -109,10 +114,13 @@ class MediaPlayerAppViewModel(
     }
 
     suspend fun startupSetup(navigateToLibrary: () -> Unit) {
+        val loadAtStartup =
+            prefsDataStore.data.map { Settings(it) }.first().loadItemsAtStartup
+
         // setMediaItems is a noop before this point
         playerRepository.connected.filter { it }.first()
 
-        if (appConfig.loadItemsOnStartup) {
+        if (loadAtStartup) {
             loadItems()
         } else {
             navigateToLibrary()
@@ -126,6 +134,7 @@ class MediaPlayerAppViewModel(
                     this[MediaApplicationContainer.NetworkRepositoryKey]!!,
                     this[MediaApplicationContainer.DataRequestRepositoryKey]!!,
                     this[MediaApplicationContainer.AudioOffloadManagerKey]!!,
+                    this[MediaApplicationContainer.DataStoreKey]!!,
                     this[MediaApplicationContainer.PlayerRepositoryImplKey]!!,
                     this[MediaApplicationContainer.UampServiceKey]!!,
                     this[MediaApplicationContainer.AppConfigKey]!!,

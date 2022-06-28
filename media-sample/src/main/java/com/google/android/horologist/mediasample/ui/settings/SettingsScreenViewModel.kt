@@ -16,27 +16,47 @@
 
 package com.google.android.horologist.mediasample.ui.settings
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.google.android.horologist.mediasample.di.MediaApplicationContainer
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
-class SettingsScreenViewModel : ViewModel() {
-    private val _uiState = MutableStateFlow(UiState())
-    val uiState: StateFlow<UiState> = _uiState
+class SettingsScreenViewModel(
+    private val dataStore: DataStore<Preferences>
+) : ViewModel() {
+    val uiState: StateFlow<UiState> = dataStore.data.map {
+        UiState(
+            settings = Settings(it)
+        )
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UiState())
 
     data class UiState(
-        val podcastControls: Boolean = false,
-        val loadItemsAtStartup: Boolean = true
+        val settings: Settings? = null,
     )
 
     fun setPodcastControls(enabled: Boolean) {
-        _uiState.value = uiState.value.copy(podcastControls = enabled)
+        viewModelScope.launch {
+            dataStore.edit {
+                it[Settings.PodcastControls] = enabled
+            }
+        }
     }
 
     fun setLoadItemsAtStartup(enabled: Boolean) {
-        _uiState.value = uiState.value.copy(loadItemsAtStartup = enabled)
+        viewModelScope.launch {
+            dataStore.edit {
+                it[Settings.LoadItemsAtStartup] = enabled
+            }
+        }
     }
 
     fun logout() {
@@ -46,7 +66,9 @@ class SettingsScreenViewModel : ViewModel() {
     companion object {
         val Factory = viewModelFactory {
             initializer {
-                SettingsScreenViewModel()
+                SettingsScreenViewModel(
+                    dataStore = this[MediaApplicationContainer.DataStoreKey]!!,
+                )
             }
         }
     }

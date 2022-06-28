@@ -46,7 +46,8 @@ public open class PlayerViewModel(
             mediaItem,
             mediaItemPosition,
             shuffleModeEnabled,
-            false
+            // TODO work out how to combine more than 5 flows
+            playerRepository.connected.value
         )
     }.stateIn(
         scope = viewModelScope,

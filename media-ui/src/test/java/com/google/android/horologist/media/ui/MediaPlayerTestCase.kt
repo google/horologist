@@ -66,8 +66,12 @@ fun MediaPlayerTestCase(
             onVolumeClick = { /*TODO*/ },
             onOutputClick = { },
             brandIcon = {
-                SettingsButtonsDefaults.BrandIcon(R.drawable.ic_uamp)
+                SettingsButtonsDefaults.BrandIcon(
+                    R.drawable.ic_uamp,
+                    enabled = playerUiState.connected
+                )
             },
+            enabled = playerUiState.connected
         )
     },
     background: @Composable BoxScope.() -> Unit = {

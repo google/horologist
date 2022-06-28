@@ -44,11 +44,13 @@ public fun SetVolumeButton(
     onVolumeClick: () -> Unit,
     volumeState: VolumeState,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
 ) {
     Button(
         modifier = modifier.size(ButtonDefaults.SmallButtonSize),
         onClick = onVolumeClick,
         colors = ButtonDefaults.iconButtonColors(),
+        enabled = enabled
     ) {
         val imageVector = when {
             volumeState.current == 0 -> Icons.Default.VolumeMute

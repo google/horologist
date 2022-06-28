@@ -40,7 +40,6 @@ import com.google.android.horologist.media.ui.components.DefaultMediaDisplay
 import com.google.android.horologist.media.ui.components.InfoMediaDisplay
 import com.google.android.horologist.media.ui.components.LoadingMediaDisplay
 import com.google.android.horologist.media.ui.components.MediaControlButtons
-import com.google.android.horologist.media.ui.components.TextMediaDisplay
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 
@@ -80,7 +79,9 @@ public fun PlayerScreen(
     PlayerScreen(
         mediaDisplay = { mediaDisplay(playerUiState) },
         controlButtons = { controlButtons(playerUiState) },
-        buttons = { buttons(playerUiState) },
+        buttons = {
+            buttons(playerUiState)
+        },
         modifier = modifier,
         background = { background(playerUiState) },
     )
@@ -96,15 +97,18 @@ public fun DefaultPlayerScreenMediaDisplay(
     modifier: Modifier = Modifier
 ) {
     val mediaItem = playerUiState.mediaItem
-    if (mediaItem != null) {
+    if (!playerUiState.connected) {
+        LoadingMediaDisplay(modifier)
+    } else if (mediaItem != null) {
         DefaultMediaDisplay(
             mediaItem = mediaItem,
             modifier = modifier
         )
     } else if (playerUiState.connected) {
-        InfoMediaDisplay(message = stringResource(R.string.horologist_nothing_playing))
-    } else {
-        LoadingMediaDisplay()
+        InfoMediaDisplay(
+            message = stringResource(R.string.horologist_nothing_playing),
+            modifier = modifier
+        )
     }
 }
 

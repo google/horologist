@@ -64,5 +64,4 @@ public data class PlayerUiState(
     val seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     val seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     val connected: Boolean,
-) {
-}
+)

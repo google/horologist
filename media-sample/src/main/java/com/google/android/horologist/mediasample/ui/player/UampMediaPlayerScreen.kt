@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.VolumeViewModel
@@ -28,6 +29,7 @@ import com.google.android.horologist.compose.layout.StateUtils.rememberStateWith
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
+import com.google.android.horologist.media.ui.components.background.ColorBackground
 import com.google.android.horologist.media.ui.screens.DefaultPlayerScreenControlButtons
 import com.google.android.horologist.media.ui.screens.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
@@ -72,7 +74,12 @@ fun UampMediaPlayerScreen(
                 }
             },
             background = {
-                ArtworkColorBackground(artworkUri = it.mediaItem?.artworkUri)
+                val artworkUri = it.mediaItem?.artworkUri
+                if (settingsState?.artworkGradient == true && artworkUri != null) {
+                    ArtworkColorBackground(artworkUri = artworkUri)
+                } else {
+                    ColorBackground(color = MaterialTheme.colors.primary)
+                }
             }
         )
     }

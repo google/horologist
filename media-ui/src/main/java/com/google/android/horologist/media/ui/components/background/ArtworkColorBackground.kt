@@ -62,6 +62,14 @@ public fun ArtworkColorBackground(
         }
     }
 
+    ColorBackground(color = color, modifier = modifier)
+}
+
+@Composable
+public fun ColorBackground(
+    color: Color?,
+    modifier: Modifier = Modifier,
+) {
     Box(
         modifier = modifier
             .fillMaxSize()

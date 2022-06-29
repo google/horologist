@@ -35,6 +35,7 @@ class SettingsScreenViewModel(
         UiState(
             podcastControls = it.podcastControls,
             loadItemsAtStartup = it.loadItemsAtStartup,
+            artworkGradient = it.artworkGradient,
             writable = true
         )
     }.stateIn(
@@ -46,6 +47,7 @@ class SettingsScreenViewModel(
     data class UiState(
         val podcastControls: Boolean = false,
         val loadItemsAtStartup: Boolean = true,
+        val artworkGradient: Boolean = true,
         val writable: Boolean = false,
     )
 
@@ -58,6 +60,12 @@ class SettingsScreenViewModel(
     fun setLoadItemsAtStartup(enabled: Boolean) {
         viewModelScope.launch {
             settingsRepository.writeLoadItemsAtStartup(enabled)
+        }
+    }
+
+    fun setArtworkGradient(enabled: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.writeArtworkGradient(enabled)
         }
     }
 

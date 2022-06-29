@@ -19,7 +19,6 @@ package com.google.android.horologist.audio.ui.components
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
@@ -57,9 +56,7 @@ public fun SettingsButtons(
             volumeState = volumeState,
             enabled = enabled
         )
-        Spacer(modifier = Modifier.size(8.dp))
         brandIcon()
-        Spacer(modifier = Modifier.size(8.dp))
         AudioOutputButton(
             onOutputClick = onOutputClick,
             enabled = enabled

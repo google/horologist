@@ -16,17 +16,10 @@
 
 package com.google.android.horologist.mediasample.ui.player
 
-import androidx.annotation.DrawableRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
@@ -43,6 +36,7 @@ public fun UampSettingsButtons(
     volumeState: VolumeState,
     onVolumeClick: () -> Unit,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true
 ) {
     Row(
         modifier = modifier,
@@ -50,7 +44,9 @@ public fun UampSettingsButtons(
     ) {
         FavoriteButton()
 
-        SettingsButtonsDefaults.BrandIcon(R.drawable.ic_uamp)
+        SettingsButtonsDefaults.BrandIcon(
+            iconId = R.drawable.ic_uamp, enabled = enabled
+        )
 
         SetVolumeButton(
             onVolumeClick = onVolumeClick,

@@ -139,24 +139,22 @@ public fun PlayerScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Column(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.fillMaxWidth().weight(0.38f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(modifier = Modifier.size(26.dp))
+                Spacer(modifier = Modifier.size(27.dp))
 
                 mediaDisplay()
             }
-            Spacer(modifier = Modifier.size(8.dp))
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().weight(0.29f),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
                 controlButtons()
             }
-            Spacer(modifier = Modifier.size(8.dp))
             Row(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.fillMaxWidth().weight(0.33f),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.Top
             ) {

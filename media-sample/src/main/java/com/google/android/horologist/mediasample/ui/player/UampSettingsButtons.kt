@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.audio.ui.components
+package com.google.android.horologist.mediasample.ui.player
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
@@ -30,8 +29,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
-import com.google.android.horologist.audio.ui.components.actions.AudioOutputButton
+import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
+import com.google.android.horologist.mediasample.R
 
 /**
  * Settings buttons for a typical media app.
@@ -39,35 +39,22 @@ import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
  */
 @ExperimentalHorologistAudioUiApi
 @Composable
-public fun SettingsButtons(
+public fun UampSettingsButtons(
     volumeState: VolumeState,
     onVolumeClick: () -> Unit,
-    onOutputClick: () -> Unit,
     modifier: Modifier = Modifier,
-    brandIcon: @Composable () -> Unit = {},
 ) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
+        FavoriteButton()
+
+        SettingsButtonsDefaults.BrandIcon(R.drawable.ic_uamp)
+
         SetVolumeButton(
             onVolumeClick = onVolumeClick,
             volumeState = volumeState
-        )
-        brandIcon()
-        AudioOutputButton(
-            onOutputClick = onOutputClick
-        )
-    }
-}
-
-public object SettingsButtonsDefaults {
-    @Composable
-    public fun BrandIcon(@DrawableRes iconId: Int) {
-        Image(
-            modifier = Modifier.size(18.dp).clip(CircleShape),
-            painter = painterResource(id = iconId),
-            contentDescription = null
         )
     }
 }

@@ -41,7 +41,6 @@ fun UampMediaPlayerScreen(
     mediaPlayerScreenViewModel: MediaPlayerScreenViewModel,
     volumeViewModel: VolumeViewModel,
     onVolumeClick: () -> Unit,
-    onOutputClick: () -> Unit,
     playerFocusRequester: FocusRequester,
     modifier: Modifier = Modifier,
 ) {
@@ -60,13 +59,9 @@ fun UampMediaPlayerScreen(
         PlayerScreen(
             playerViewModel = mediaPlayerScreenViewModel,
             buttons = {
-                SettingsButtons(
+                UampSettingsButtons(
                     volumeState = volumeState,
                     onVolumeClick = onVolumeClick,
-                    onOutputClick = onOutputClick,
-                    brandIcon = {
-                        SettingsButtonsDefaults.BrandIcon(R.drawable.ic_uamp)
-                    }
                 )
             },
             controlButtons = {

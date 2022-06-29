@@ -14,21 +14,17 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistComposeToolsApi::class)
-
 package com.google.android.horologist.media.ui.screens
 
 import androidx.compose.runtime.Composable
-import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.uamp.UampTheme
 
 @WearLargeRoundDevicePreview
 @Composable
 fun VolumeScreenTheme() {
     UampTheme {
-        DefaultMediaDisplay()
+        DefaultMediaPreview()
     }
 }
 

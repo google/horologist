@@ -116,9 +116,6 @@ fun WearApp(
                             onVolumeClick = {
                                 navController.navigate(Navigation.Volume.route)
                             },
-                            onOutputClick = {
-                                mediaPlayerScreenViewModel.launchBluetoothSettings()
-                            },
                             playerFocusRequester = focusRequester
                         )
                     },

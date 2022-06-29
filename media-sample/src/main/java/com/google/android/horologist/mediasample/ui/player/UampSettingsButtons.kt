@@ -27,8 +27,8 @@ import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
 import com.google.android.horologist.mediasample.R
 
 /**
- * Settings buttons for a typical media app.
- * Set Volume and Select Audio Output.
+ * Settings buttons for the UAMP media app.
+ * Favorite item and Set Volume.
  */
 @ExperimentalHorologistAudioUiApi
 @Composable

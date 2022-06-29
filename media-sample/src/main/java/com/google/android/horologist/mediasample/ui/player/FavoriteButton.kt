@@ -31,16 +31,14 @@ import androidx.compose.ui.semantics.semantics
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
-import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.semantics.CustomSemanticsProperties.iconImageVector
 import com.google.android.horologist.mediasample.R
 
 /**
  * Button to toggle a track as a favorite.
  *
- * TODO Currently not saved.
+ * TODO Currently not persisted anywhere.
  */
-@ExperimentalHorologistAudioUiApi
 @Composable
 public fun FavoriteButton(
     modifier: Modifier = Modifier,

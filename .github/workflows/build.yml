@@ -44,10 +44,18 @@ jobs:
       - name: Build
         run: |
           ./gradlew --scan --stacktrace \
-              spotlessCheck \
-              assemble \
-              metalavaCheckCompatibility \
-              lintDebug
+              assemble
+
+      - name: Metalava compatibility
+        run: |
+          ./gradlew --scan --stacktrace \
+              metalavaCheckCompatibility
+
+      - name: Code analysis
+          run: |
+            ./gradlew --scan --stacktrace \
+                spotlessCheck \
+                lintDebug
 
       - name: Unit Tests
         run: |
@@ -56,11 +64,16 @@ jobs:
               --run-affected \
               --affected-base-ref=$BASE_REF
 
+      - name: Snapshot tests
+          run: |
+            ./gradlew --scan --stacktrace \
+                verifyPaparazziDebug
+
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: test-results-robolectric
+          name: build-results
           path: |
             **/build/test-results/*
             **/build/reports/*

@@ -50,7 +50,24 @@ fun SettingsButtonsWithBrandIconPreview() {
         onVolumeClick = {},
         onOutputClick = {},
         brandIcon = {
-            BrandIcon(R.drawable.ic_uamp)
+            BrandIcon(R.drawable.ic_uamp, enabled = true)
+        }
+    )
+}
+
+@Preview(
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
+@Composable
+fun SettingsButtonsDisabledPreview() {
+    SettingsButtons(
+        volumeState = VolumeState(5, 10),
+        onVolumeClick = {},
+        onOutputClick = {},
+        enabled = false,
+        brandIcon = {
+            BrandIcon(R.drawable.ic_uamp, enabled = false)
         }
     )
 }

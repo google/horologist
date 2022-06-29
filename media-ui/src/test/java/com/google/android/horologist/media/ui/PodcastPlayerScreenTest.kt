@@ -71,6 +71,7 @@ class PodcastPlayerScreenTest(
                 artist = "Kotlinconf"
             ),
             trackPosition = TrackPositionUiModel(current = 30, duration = 225, percent = 0.133f),
+            connected = true
         )
 
         paparazzi.snapshot(options.toString()) {

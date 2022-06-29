@@ -22,9 +22,7 @@ import androidx.compose.material.icons.filled.Radio
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
-import androidx.wear.compose.material.Icon
 import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.R
 
@@ -38,15 +36,11 @@ public fun AudioOutputButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
 ) {
-    Button(
-        onClick = onOutputClick,
+    SettingsButton(
         modifier = modifier.size(ButtonDefaults.SmallButtonSize),
+        onClick = onOutputClick,
         enabled = enabled,
-        colors = ButtonDefaults.iconButtonColors(),
-    ) {
-        Icon(
-            imageVector = Icons.Default.Radio,
-            contentDescription = stringResource(R.string.horologist_audio_output_content_description)
-        )
-    }
+        imageVector = Icons.Default.Radio,
+        contentDescription = stringResource(R.string.horologist_audio_output_content_description)
+    )
 }

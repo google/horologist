@@ -45,6 +45,7 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
  * @param mediaItem current [MediaItemUiModel]
  * @param seekBackButtonIncrement increment when seeking back.
  * @param seekForwardButtonIncrement increment when seeking forward.
+ * @param connected is the player screen connected.
  */
 @ExperimentalHorologistMediaUiApi
 public data class PlayerUiState(
@@ -62,4 +63,5 @@ public data class PlayerUiState(
     val trackPosition: TrackPositionUiModel?,
     val seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     val seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
+    val connected: Boolean,
 )

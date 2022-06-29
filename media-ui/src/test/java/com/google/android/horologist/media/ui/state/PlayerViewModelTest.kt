@@ -38,7 +38,7 @@ class PlayerViewModelTest {
     }
 
     @Test
-    fun givenAConnectedPlayerRepository_thenPlayerUiStateHasPlayAndPauseEnabled() = runTest {
+    fun givenANonConnectedPlayerRepository_thenPlayerUiStateHasPlayAndPauseDisabled() = runTest {
         // when
         val result = sut.playerUiState.first()
 
@@ -57,6 +57,7 @@ class PlayerViewModelTest {
                 playing = false,
                 mediaItem = MediaItemUiModel(id = "", title = null, artist = null),
                 trackPosition = TrackPositionUiModel(current = 0, duration = 0, percent = 0f),
+                connected = false
             )
         )
     }

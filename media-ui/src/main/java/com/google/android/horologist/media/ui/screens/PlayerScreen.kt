@@ -31,11 +31,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.R
+import com.google.android.horologist.media.ui.components.DefaultMediaDisplay
+import com.google.android.horologist.media.ui.components.InfoMediaDisplay
+import com.google.android.horologist.media.ui.components.LoadingMediaDisplay
 import com.google.android.horologist.media.ui.components.MediaControlButtons
-import com.google.android.horologist.media.ui.components.TextMediaDisplay
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 
@@ -75,22 +79,37 @@ public fun PlayerScreen(
     PlayerScreen(
         mediaDisplay = { mediaDisplay(playerUiState) },
         controlButtons = { controlButtons(playerUiState) },
-        buttons = { buttons(playerUiState) },
+        buttons = {
+            buttons(playerUiState)
+        },
         modifier = modifier,
         background = { background(playerUiState) },
     )
 }
 
 /**
- * Default [MediaDisplay] implementation for [PlayerScreen].
+ * Default [MediaDisplay] implementation for [PlayerScreen] including player status.
  */
 @ExperimentalHorologistMediaUiApi
 @Composable
-public fun DefaultPlayerScreenMediaDisplay(playerUiState: PlayerUiState) {
-    TextMediaDisplay(
-        title = playerUiState.mediaItem?.title,
-        artist = playerUiState.mediaItem?.artist
-    )
+public fun DefaultPlayerScreenMediaDisplay(
+    playerUiState: PlayerUiState,
+    modifier: Modifier = Modifier
+) {
+    val mediaItem = playerUiState.mediaItem
+    if (!playerUiState.connected) {
+        LoadingMediaDisplay(modifier)
+    } else if (mediaItem != null) {
+        DefaultMediaDisplay(
+            mediaItem = mediaItem,
+            modifier = modifier
+        )
+    } else {
+        InfoMediaDisplay(
+            message = stringResource(R.string.horologist_nothing_playing),
+            modifier = modifier
+        )
+    }
 }
 
 /**

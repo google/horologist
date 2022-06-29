@@ -52,10 +52,10 @@ jobs:
               metalavaCheckCompatibility
 
       - name: Code analysis
-          run: |
-            ./gradlew --scan --stacktrace \
-                spotlessCheck \
-                lintDebug
+        run: |
+          ./gradlew --scan --stacktrace \
+              spotlessCheck \
+              lintDebug
 
       - name: Unit Tests
         run: |
@@ -65,9 +65,9 @@ jobs:
               --affected-base-ref=$BASE_REF
 
       - name: Snapshot tests
-          run: |
-            ./gradlew --scan --stacktrace \
-                verifyPaparazziDebug
+        run: |
+          ./gradlew --scan --stacktrace \
+              verifyPaparazziDebug
 
       - name: Upload test results
         if: always()

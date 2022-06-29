@@ -41,14 +41,15 @@ import coil.request.ImageRequest
 public fun ArtworkColorBackground(
     artworkUri: String?,
     modifier: Modifier = Modifier,
+    defaultColor: Color? = null,
 ) {
     val context = LocalContext.current
     val imageLoader = context.imageLoader
 
-    var color by remember { mutableStateOf<Color?>(null) }
+    var artworkColor by remember { mutableStateOf<Color?>(null) }
 
     LaunchedEffect(artworkUri) {
-        color = if (artworkUri != null) {
+        artworkColor = if (artworkUri != null) {
             val request =
                 ImageRequest.Builder(context)
                     .data(artworkUri)
@@ -62,7 +63,7 @@ public fun ArtworkColorBackground(
         }
     }
 
-    ColorBackground(color = color, modifier = modifier)
+    ColorBackground(color = artworkColor ?: defaultColor, modifier = modifier)
 }
 
 @Composable

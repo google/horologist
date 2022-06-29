@@ -74,9 +74,12 @@ fun UampMediaPlayerScreen(
                 }
             },
             background = {
-                val artworkUri = it.mediaItem?.artworkUri
-                if (settingsState?.artworkGradient == true && artworkUri != null) {
-                    ArtworkColorBackground(artworkUri = artworkUri)
+                if (settingsState?.artworkGradient == true) {
+                    val artworkUri = it.mediaItem?.artworkUri
+                    ArtworkColorBackground(
+                        artworkUri = artworkUri,
+                        defaultColor = MaterialTheme.colors.primary
+                    )
                 } else {
                     ColorBackground(color = MaterialTheme.colors.primary)
                 }

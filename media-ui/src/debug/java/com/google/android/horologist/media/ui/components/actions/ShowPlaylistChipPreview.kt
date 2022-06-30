@@ -21,9 +21,10 @@ package com.google.android.horologist.media.ui.components.actions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.utils.rememberVectorPainter
 
 @Preview(
     backgroundColor = 0xff000000,
@@ -35,7 +36,10 @@ fun ShowPlaylistChipPreview() {
         artworkUri = "artworkUri",
         name = "Playlists",
         onClick = {},
-        placeholder = rememberVectorPainter(image = Icons.Default.FeaturedPlayList)
+        placeholder = rememberVectorPainter(
+            image = Icons.Default.FeaturedPlayList,
+            tintColor = Color.Green,
+        )
     )
 }
 
@@ -64,7 +68,10 @@ fun ShowPlaylistChipPreviewNoName() {
         artworkUri = "artworkUri",
         name = null,
         onClick = {},
-        placeholder = rememberVectorPainter(image = Icons.Default.FeaturedPlayList)
+        placeholder = rememberVectorPainter(
+            image = Icons.Default.FeaturedPlayList,
+            tintColor = Color.Green,
+        )
     )
 }
 
@@ -79,6 +86,9 @@ fun ShowPlaylistChipPreviewVeryLongName() {
         artworkUri = "artworkUri",
         name = "Very very very very very very very very very very very very very very very very very very very long title",
         onClick = {},
-        placeholder = rememberVectorPainter(image = Icons.Default.FeaturedPlayList)
+        placeholder = rememberVectorPainter(
+            image = Icons.Default.FeaturedPlayList,
+            tintColor = Color.Green,
+        )
     )
 }

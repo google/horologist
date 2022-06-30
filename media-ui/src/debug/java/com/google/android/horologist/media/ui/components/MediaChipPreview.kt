@@ -21,10 +21,11 @@ package com.google.android.horologist.media.ui.components
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Album
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.media.ui.utils.rememberVectorPainter
 
 @Preview(
     backgroundColor = 0xff000000,
@@ -39,7 +40,10 @@ fun MediaChipPreview() {
             artworkUri = "artworkUri"
         ),
         onClick = {},
-        placeholder = rememberVectorPainter(image = Icons.Default.Album)
+        placeholder = rememberVectorPainter(
+            image = Icons.Default.Album,
+            tintColor = Color.Blue,
+        )
     )
 }
 
@@ -53,7 +57,10 @@ fun MediaChipPreviewNoArtwork() {
     MediaChip(
         mediaItem = MediaItemUiModel(id = "id", title = "Red Hot Chilli Peppers"),
         onClick = {},
-        placeholder = rememberVectorPainter(image = Icons.Default.Album)
+        placeholder = rememberVectorPainter(
+            image = Icons.Default.Album,
+            tintColor = Color.Blue,
+        )
     )
 }
 
@@ -68,7 +75,10 @@ fun MediaChipPreviewNoTitle() {
         mediaItem = MediaItemUiModel(id = "id", artworkUri = "artworkUri"),
         onClick = {},
         defaultTitle = "No title",
-        placeholder = rememberVectorPainter(image = Icons.Default.Album)
+        placeholder = rememberVectorPainter(
+            image = Icons.Default.Album,
+            tintColor = Color.Blue,
+        )
     )
 }
 
@@ -86,6 +96,9 @@ fun MediaChipPreviewVeryLongTitle() {
             artworkUri = "artworkUri"
         ),
         onClick = {},
-        placeholder = rememberVectorPainter(image = Icons.Default.Album)
+        placeholder = rememberVectorPainter(
+            image = Icons.Default.Album,
+            tintColor = Color.Blue,
+        )
     )
 }

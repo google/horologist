@@ -97,13 +97,13 @@ fun UampWearApp(
                     }
                 )
             },
-            categoryEntityScreen = { focusRequester, state ->
+            categoryEntityScreen = { _, _ ->
                 TODO()
             },
-            mediaEntityScreen = { focusRequester, state ->
+            mediaEntityScreen = { _, _ ->
                 TODO()
             },
-            playlistsScreen = { focusRequester, state ->
+            playlistsScreen = { _, _ ->
                 TODO()
             },
             settingsScreen = { focusRequester, state ->

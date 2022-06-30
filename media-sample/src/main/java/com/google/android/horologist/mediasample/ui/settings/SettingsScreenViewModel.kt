@@ -78,10 +78,12 @@ class SettingsScreenViewModel(
     }
 
     fun showDialog() {
-        snackbarManager.showMessage(UiMessage(
-            message = "An error occurred",
-            error = true
-        ))
+        snackbarManager.showMessage(
+            UiMessage(
+                message = "An error occurred",
+                error = true
+            )
+        )
     }
 
     companion object {

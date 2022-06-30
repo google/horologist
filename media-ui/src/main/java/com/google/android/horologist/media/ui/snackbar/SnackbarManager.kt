@@ -1,11 +1,11 @@
 /*
- * Copyright 2022 Google Inc. All rights reserved.
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,19 +25,19 @@ import kotlinx.coroutines.flow.update
  * Snackbar Manager that coordinates between backend components producing messages for the user
  * and the SnackbarHost in the app Scaffold.
  */
-class SnackbarManager {
+public class SnackbarManager {
     private val _messages: MutableStateFlow<List<UiMessage>> = MutableStateFlow(emptyList())
-    val messages: StateFlow<List<UiMessage>> get() = _messages.asStateFlow()
+    public val messages: StateFlow<List<UiMessage>> get() = _messages.asStateFlow()
 
-    fun showMessage(message: UiMessage) {
+    public fun showMessage(message: UiMessage) {
         _messages.update { currentMessages -> currentMessages + message }
     }
 
-    fun setMessageShown(messageId: String) {
+    public fun setMessageShown(messageId: String) {
         _messages.update { currentMessages -> currentMessages.filterNot { it.id == messageId } }
     }
 
-    fun showMessage(message: String) {
+    public fun showMessage(message: String) {
         showMessage(UiMessage(message = message))
     }
 }

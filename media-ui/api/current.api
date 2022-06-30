@@ -154,6 +154,62 @@ package com.google.android.horologist.media.ui.components.controls {
 
 }
 
+package com.google.android.horologist.media.ui.navigation {
+
+  public final class MediaNavController {
+    method public void navigateToCollection(androidx.navigation.NavController, String collectionId);
+    method public void navigateToCollections(androidx.navigation.NavController);
+    method public void navigateToLibrary(androidx.navigation.NavController);
+    method public void navigateToMediaItem(androidx.navigation.NavController, String mediaItemId, String? collectionId);
+    method public void navigateToPlayer(androidx.navigation.NavController);
+    method public void navigateToSettings(androidx.navigation.NavController);
+    method public void navigateToVolume(androidx.navigation.NavController);
+    field public static final com.google.android.horologist.media.ui.navigation.MediaNavController INSTANCE;
+  }
+
+  public final class MediaPlayerScaffoldKt {
+    method @androidx.compose.runtime.Composable public static void MediaPlayerScaffold(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.media.ui.snackbar.SnackbarViewModel snackbarViewModel, optional com.google.android.horologist.audio.ui.VolumeViewModel volumeViewModel, kotlin.jvm.functions.Function1<? super androidx.compose.ui.focus.FocusRequester,kotlin.Unit> playerScreen, kotlin.jvm.functions.Function2<? super androidx.compose.ui.focus.FocusRequester,? super androidx.wear.compose.material.ScalingLazyListState,kotlin.Unit> libraryScreen, kotlin.jvm.functions.Function2<? super androidx.compose.ui.focus.FocusRequester,? super androidx.wear.compose.material.ScalingLazyListState,kotlin.Unit> categoryEntityScreen, kotlin.jvm.functions.Function2<? super androidx.compose.ui.focus.FocusRequester,? super androidx.wear.compose.material.ScalingLazyListState,kotlin.Unit> mediaEntityScreen, kotlin.jvm.functions.Function2<? super androidx.compose.ui.focus.FocusRequester,? super androidx.wear.compose.material.ScalingLazyListState,kotlin.Unit> playlistsScreen, kotlin.jvm.functions.Function2<? super androidx.compose.ui.focus.FocusRequester,? super androidx.wear.compose.material.ScalingLazyListState,kotlin.Unit> settingsScreen, optional kotlin.jvm.functions.Function1<? super androidx.compose.ui.focus.FocusRequester,kotlin.Unit> volumeScreen, optional kotlin.jvm.functions.Function1<? super androidx.compose.ui.Modifier,kotlin.Unit> timeText, optional com.google.accompanist.pager.PagerState pagerState, String deepLinkPrefix, androidx.navigation.NavHostController navController, optional kotlin.jvm.functions.Function1<? super androidx.navigation.NavGraphBuilder,kotlin.Unit> additionalNavRoutes);
+  }
+
+  public abstract sealed class NavigationScreens {
+    method public final String getRoute();
+    property public final String route;
+  }
+
+  public static final class NavigationScreens.Collection extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Collection INSTANCE;
+  }
+
+  public static final class NavigationScreens.Collections extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Collections INSTANCE;
+  }
+
+  public static final class NavigationScreens.Login extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Login INSTANCE;
+  }
+
+  public static final class NavigationScreens.MediaItem extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.MediaItem INSTANCE;
+  }
+
+  public static final class NavigationScreens.Player extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    method public String getLibrary();
+    method public String getPlayer();
+    property public final String library;
+    property public final String player;
+    field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Player INSTANCE;
+  }
+
+  public static final class NavigationScreens.Settings extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Settings INSTANCE;
+  }
+
+  public static final class NavigationScreens.Volume extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Volume INSTANCE;
+  }
+
+}
+
 package com.google.android.horologist.media.ui.screens {
 
   public final class PlayerLibraryPagerScreenKt {
@@ -178,6 +234,47 @@ package com.google.android.horologist.media.ui.semantics {
     property public final androidx.compose.ui.semantics.SemanticsPropertyKey<androidx.compose.ui.graphics.vector.ImageVector> IconImageVectorKey;
     property public final androidx.compose.ui.graphics.vector.ImageVector iconImageVector;
     field public static final com.google.android.horologist.media.ui.semantics.CustomSemanticsProperties INSTANCE;
+  }
+
+}
+
+package com.google.android.horologist.media.ui.snackbar {
+
+  public final class SnackbarManager {
+    ctor public SnackbarManager();
+    method public kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.media.ui.snackbar.UiMessage>> getMessages();
+    method public void setMessageShown(String messageId);
+    method public void showMessage(com.google.android.horologist.media.ui.snackbar.UiMessage message);
+    method public void showMessage(String message);
+    property public final kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.media.ui.snackbar.UiMessage>> messages;
+  }
+
+  public class SnackbarViewModel extends androidx.lifecycle.ViewModel {
+    ctor public SnackbarViewModel(com.google.android.horologist.media.ui.snackbar.SnackbarManager snackbarManager);
+    method public final com.google.android.horologist.compose.snackbar.SnackbarHostState getSnackbarHostState();
+    property public final com.google.android.horologist.compose.snackbar.SnackbarHostState snackbarHostState;
+    field public static final com.google.android.horologist.media.ui.snackbar.SnackbarViewModel.Companion Companion;
+  }
+
+  public static final class SnackbarViewModel.Companion {
+    method public androidx.lifecycle.ViewModelProvider.Factory getFactory();
+    method public androidx.lifecycle.viewmodel.CreationExtras.Key<com.google.android.horologist.media.ui.snackbar.SnackbarManager> getSnackbarManagerKey();
+    property public final androidx.lifecycle.ViewModelProvider.Factory Factory;
+    property public final androidx.lifecycle.viewmodel.CreationExtras.Key<com.google.android.horologist.media.ui.snackbar.SnackbarManager> SnackbarManagerKey;
+  }
+
+  public final class UiMessage {
+    ctor public UiMessage(String message, optional String id, optional boolean error);
+    method public String component1();
+    method public String component2();
+    method public boolean component3();
+    method public com.google.android.horologist.media.ui.snackbar.UiMessage copy(String message, String id, boolean error);
+    method public boolean getError();
+    method public String getId();
+    method public String getMessage();
+    property public final boolean error;
+    property public final String id;
+    property public final String message;
   }
 
 }

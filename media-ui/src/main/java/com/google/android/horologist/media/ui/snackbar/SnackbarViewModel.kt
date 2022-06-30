@@ -1,11 +1,11 @@
 /*
- * Copyright 2022 Google Inc. All rights reserved.
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,6 +17,7 @@
 package com.google.android.horologist.media.ui.snackbar
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
@@ -31,10 +32,10 @@ import kotlinx.coroutines.launch
  * for both processes snackbars sequentially and also showing a message.
  */
 @OptIn(ExperimentalHorologistComposeLayoutApi::class)
-open class SnackbarViewModel(
-    val snackbarManager: SnackbarManager,
+public open class SnackbarViewModel(
+    private val snackbarManager: SnackbarManager,
 ) : ViewModel() {
-    val snackbarHostState = SnackbarHostState()
+    public val snackbarHostState: SnackbarHostState = SnackbarHostState()
 
     init {
         viewModelScope.launch {
@@ -50,10 +51,11 @@ open class SnackbarViewModel(
         }
     }
 
-    companion object {
-        val SnackbarManagerKey = object : CreationExtras.Key<SnackbarManager> {}
+    public companion object {
+        public val SnackbarManagerKey: CreationExtras.Key<SnackbarManager> =
+            object : CreationExtras.Key<SnackbarManager> {}
 
-        val Factory = viewModelFactory {
+        public val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 SnackbarViewModel(
                     snackbarManager = this[SnackbarManagerKey]!!,

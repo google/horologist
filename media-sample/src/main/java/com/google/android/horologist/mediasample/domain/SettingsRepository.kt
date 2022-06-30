@@ -45,6 +45,12 @@ class SettingsRepository(
         }
     }
 
+    suspend fun writeArtworkGradient(enabled: Boolean) {
+        edit {
+            it[ArtworkGradient] = enabled
+        }
+    }
+
     val settingsFlow: Flow<Settings> = dataStore.data.map {
         it.toSettings()
     }
@@ -52,10 +58,12 @@ class SettingsRepository(
     companion object {
         val PodcastControls = booleanPreferencesKey("podcast_controls")
         val LoadItemsAtStartup = booleanPreferencesKey("load_items_at_startup")
+        val ArtworkGradient = booleanPreferencesKey("artwork_gradient")
 
         fun Preferences.toSettings() = Settings(
             this[PodcastControls] ?: false,
-            this[LoadItemsAtStartup] ?: true
+            this[LoadItemsAtStartup] ?: true,
+            this[ArtworkGradient] ?: true
         )
     }
 }

@@ -35,7 +35,7 @@ import com.google.android.horologist.media.ui.components.MediaArtwork
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun ShowPlaylistChip(
-    artworkUri: String?,
+    artworkUri: Any?,
     name: String?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,

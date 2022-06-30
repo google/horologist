@@ -70,7 +70,7 @@ public fun MediaChip(
 @Composable
 public fun MediaChip(
     title: String,
-    artworkUri: String?,
+    artworkUri: Any?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     placeholder: Painter? = null,

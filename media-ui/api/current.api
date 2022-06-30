@@ -55,6 +55,14 @@ package com.google.android.horologist.media.ui.components {
 
 }
 
+package com.google.android.horologist.media.ui.components.actions {
+
+  public final class ShowPlaylistChipKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void ShowPlaylistChip(String? artworkUri, String? name, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
+  }
+
+}
+
 package com.google.android.horologist.media.ui.components.animated {
 
   public final class AnimatedMediaButtonKt {

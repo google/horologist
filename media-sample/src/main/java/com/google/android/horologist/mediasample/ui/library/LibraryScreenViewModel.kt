@@ -22,6 +22,9 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.media.model.MediaItem
 import com.google.android.horologist.media.repository.PlayerRepository
+import com.google.android.horologist.media.ui.snackbar.SnackbarManager
+import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
+import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.media.ui.state.mapper.MediaItemUiModelMapper
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 import com.google.android.horologist.mediasample.catalog.UampService
@@ -31,10 +34,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import java.io.IOException
 
 class LibraryScreenViewModel(
     uampService: UampService,
-    private val playerRepository: PlayerRepository
+    private val playerRepository: PlayerRepository,
+    private val snackbarManager: SnackbarManager
 ) : ViewModel() {
     fun play(mediaItemUiModel: MediaItemUiModel) {
         val mediaItems = items.value
@@ -42,21 +47,23 @@ class LibraryScreenViewModel(
         if (mediaItems != null) {
             playerRepository.setMediaItems(mediaItems)
             playerRepository.prepare()
-            playerRepository.play(
-                mediaItems.indexOfFirst { it.id == mediaItemUiModel.id }
-                    .coerceAtLeast(0)
-            )
+            playerRepository.play(mediaItems.indexOfFirst { it.id == mediaItemUiModel.id }
+                .coerceAtLeast(0))
         } else {
             // TODO warning
         }
     }
 
     val items: StateFlow<List<MediaItem>?> = flow {
-        emit(
-            uampService.catalog().music.map {
+        try {
+            val catalog = uampService.catalog()
+            emit(catalog.music.map {
                 it.toMediaItem()
-            }
-        )
+            })
+        } catch (ioe: IOException) {
+            snackbarManager.showMessage(UiMessage(message = ioe.message ?: "Error", error = true))
+            emit(listOf())
+        }
     }.stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = null)
 
     val uiState = items.map { items ->
@@ -72,7 +79,8 @@ class LibraryScreenViewModel(
             initializer {
                 LibraryScreenViewModel(
                     uampService = this[MediaApplicationContainer.UampServiceKey]!!,
-                    playerRepository = this[MediaApplicationContainer.PlayerRepositoryImplKey]!!
+                    playerRepository = this[MediaApplicationContainer.PlayerRepositoryImplKey]!!,
+                    snackbarManager = this[SnackbarViewModel.SnackbarManagerKey]!!,
                 )
             }
         }

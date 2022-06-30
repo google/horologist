@@ -46,7 +46,7 @@ jobs:
           ./gradlew --scan --stacktrace \
               assemble
 
-      - name: Metalava compatibility
+      - name: Metalava compatibility check
         run: |
           ./gradlew --scan --stacktrace \
               metalavaCheckCompatibility
@@ -69,7 +69,7 @@ jobs:
           ./gradlew --scan --stacktrace \
               verifyPaparazziDebug
 
-      - name: Upload test results
+      - name: Upload test results and reports
         if: always()
         uses: actions/upload-artifact@v2
         with:
@@ -77,6 +77,14 @@ jobs:
           path: |
             **/build/test-results/*
             **/build/reports/*
+
+      - name: Upload snapshot test failures
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: snapshot-test-failures
+          path: |
+            **/out/failures/
 
   test:
     runs-on: macos-latest

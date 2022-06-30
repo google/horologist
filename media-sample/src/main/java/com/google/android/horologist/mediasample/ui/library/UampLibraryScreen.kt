@@ -33,8 +33,8 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
+import com.google.android.horologist.media.ui.components.MediaChip
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.mediasample.ui.components.MediaChip
 
 @Composable
 fun UampLibraryScreen(
@@ -67,7 +67,8 @@ fun UampLibraryScreen(
                     onClick = {
                         libraryScreenViewModel.play(it)
                         onPlayClick()
-                    }
+                    },
+                    defaultTitle = stringResource(id = R.string.horologist_no_title),
                 )
             }
         } else {

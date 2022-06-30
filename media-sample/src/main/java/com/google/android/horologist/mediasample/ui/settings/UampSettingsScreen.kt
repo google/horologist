@@ -77,10 +77,11 @@ fun UampSettingsScreen(
             }
         }
         item {
+            val message = stringResource(id = R.string.horologist_sample_error)
             ActionSetting(
                 stringResource(id = R.string.horologist_show_test_dialog),
             ) {
-                settingsScreenViewModel.showDialog()
+                settingsScreenViewModel.showDialog(message)
             }
         }
         item {
@@ -154,4 +155,3 @@ private fun ToggleSetting(
             }, modifier = Modifier.fillMaxWidth()
             )
         }
-        

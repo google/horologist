@@ -77,10 +77,10 @@ class SettingsScreenViewModel(
         // TODO login and logout functionality
     }
 
-    fun showDialog() {
+    fun showDialog(message: String) {
         snackbarManager.showMessage(
             UiMessage(
-                message = "An error occurred",
+                message = message,
                 error = true
             )
         )

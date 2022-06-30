@@ -1,11 +1,11 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2021 Google Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      https://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,15 +14,22 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui.app
+package com.google.android.horologist.media.ui.navigation
 
-sealed class Navigation(
+/**
+ * Navigation routes enum.
+ */
+sealed class NavigationScreens(
     val route: String
 ) {
-    object MediaPlayer : Navigation("player?page={page}") {
+    object Player : NavigationScreens("player?page={page}") {
         val player = "player?page=0"
         val library = "player?page=1"
     }
-    object Settings : Navigation("settings")
-    object Volume : Navigation("volume")
+    object Volume : NavigationScreens("volume")
+    object MediaItem : NavigationScreens("mediaItem")
+    object Login : NavigationScreens("login")
+    object Settings : NavigationScreens("settings")
+    object Collections : NavigationScreens("collections")
+    object Collection : NavigationScreens("collection")
 }

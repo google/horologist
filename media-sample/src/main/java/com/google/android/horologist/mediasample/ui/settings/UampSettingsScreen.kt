@@ -77,6 +77,13 @@ fun UampSettingsScreen(
             }
         }
         item {
+            ActionSetting(
+                stringResource(id = R.string.horologist_show_test_dialog),
+            ) {
+                settingsScreenViewModel.showDialog()
+            }
+        }
+        item {
             ActionSetting(stringResource(id = R.string.horologist_logout)) {
                 settingsScreenViewModel.logout()
             }

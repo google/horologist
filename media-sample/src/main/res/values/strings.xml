@@ -15,8 +15,8 @@
   -->
 
 <resources>
-    <string name="app_name">Horologist Sample</string>
-    <string name="media_activity">Media Sample</string>
+    <string name="app_name">Uamp (Horologist)</string>
+    <string name="media_activity">Uamp (Horologist)</string>
     <string name="horologist_no_title">No title</string>
     <string name="horologist_library">Library</string>
     <string name="horologist_load_items">Load Initial Items</string>
@@ -26,4 +26,5 @@
     <string name="horologist_on">On</string>
     <string name="horologist_favorite_content_description">Favorite</string>
     <string name="horologist_artwork_gradient">Use Artwork Gradient</string>
+    <string name="horologist_show_test_dialog">Show Test Dialog</string>
 </resources>

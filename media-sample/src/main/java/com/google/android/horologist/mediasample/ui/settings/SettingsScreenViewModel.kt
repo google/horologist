@@ -20,6 +20,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.google.android.horologist.media.ui.snackbar.SnackbarManager
+import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
+import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import kotlinx.coroutines.flow.SharingStarted
@@ -29,7 +32,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class SettingsScreenViewModel(
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val snackbarManager: SnackbarManager,
 ) : ViewModel() {
     val uiState: StateFlow<UiState> = settingsRepository.settingsFlow.map {
         UiState(
@@ -73,11 +77,19 @@ class SettingsScreenViewModel(
         // TODO login and logout functionality
     }
 
+    fun showDialog() {
+        snackbarManager.showMessage(UiMessage(
+            message = "An error occurred",
+            error = true
+        ))
+    }
+
     companion object {
         val Factory = viewModelFactory {
             initializer {
                 SettingsScreenViewModel(
                     settingsRepository = this[MediaApplicationContainer.SettingsRepositoryKey]!!,
+                    snackbarManager = this[SnackbarViewModel.SnackbarManagerKey]!!,
                 )
             }
         }

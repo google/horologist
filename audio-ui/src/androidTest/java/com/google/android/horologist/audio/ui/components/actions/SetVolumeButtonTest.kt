@@ -25,12 +25,14 @@ import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.test.filters.MediumTest
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.test.toolbox.matchers.hasIconImageVector
 import org.junit.Rule
 import org.junit.Test
 
+@MediumTest
 class SetVolumeButtonTest {
 
     @get:Rule

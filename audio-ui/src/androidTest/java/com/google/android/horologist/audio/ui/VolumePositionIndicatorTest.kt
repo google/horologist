@@ -26,12 +26,14 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.printToLog
+import androidx.test.filters.MediumTest
 import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
 import org.junit.Rule
 import org.junit.Test
 
 @OptIn(ExperimentalHorologistAudioApi::class, ExperimentalHorologistAudioUiApi::class)
+@MediumTest
 class VolumePositionIndicatorTest {
     @get:Rule
     val composeTestRule = createComposeRule().apply {

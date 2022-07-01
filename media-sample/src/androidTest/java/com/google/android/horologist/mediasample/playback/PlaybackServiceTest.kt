@@ -17,6 +17,7 @@
 package com.google.android.horologist.mediasample.playback
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.LargeTest
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.runTest
@@ -25,6 +26,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
+@LargeTest
 class PlaybackServiceTest : BasePlaybackTest() {
     @Test
     fun testMediaBrowser() = runTest {

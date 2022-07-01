@@ -119,6 +119,11 @@ package com.google.android.horologist.media.ui.components.controls {
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class SeekButtonIncrement {
     method public int getSeconds();
     property public int seconds;
+    field public static final com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement.Companion Companion;
+  }
+
+  public static final class SeekButtonIncrement.Companion {
+    method public com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement SeekButtonIncrement(int seconds);
   }
 
   public static final class SeekButtonIncrement.Five extends com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement {
@@ -365,7 +370,7 @@ package com.google.android.horologist.media.ui.state.mapper {
   }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class PlayerUiStateMapper {
-    method public com.google.android.horologist.media.ui.state.PlayerUiState map(com.google.android.horologist.media.model.PlayerState currentState, java.util.Set<? extends com.google.android.horologist.media.model.Command> availableCommands, com.google.android.horologist.media.model.MediaItem? mediaItem, com.google.android.horologist.media.model.MediaItemPosition? mediaItemPosition, boolean shuffleModeEnabled, boolean connected);
+    method public com.google.android.horologist.media.ui.state.PlayerUiState map(com.google.android.horologist.media.model.PlayerState currentState, java.util.Set<? extends com.google.android.horologist.media.model.Command> availableCommands, com.google.android.horologist.media.model.MediaItem? mediaItem, com.google.android.horologist.media.model.MediaItemPosition? mediaItemPosition, boolean shuffleModeEnabled, boolean connected, com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekBackButtonIncrement, com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekForwardButtonIncrement);
     field public static final com.google.android.horologist.media.ui.state.mapper.PlayerUiStateMapper INSTANCE;
   }
 

@@ -32,8 +32,8 @@ public sealed class SeekButtonIncrement(
 
     public data class Other(override val seconds: Int) : SeekButtonIncrement(seconds)
 
-    companion object {
-        fun SeekButtonIncrement(seconds: Int): SeekButtonIncrement {
+    public companion object {
+        public fun SeekButtonIncrement(seconds: Int): SeekButtonIncrement {
             return when (seconds) {
                 Five.seconds -> Five
                 Ten.seconds -> Ten

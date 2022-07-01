@@ -21,6 +21,7 @@ import com.google.android.horologist.media.model.MediaItem
 import com.google.android.horologist.media.model.MediaItemPosition
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.media.ui.state.PlayerUiState
 
 /**
@@ -35,7 +36,9 @@ public object PlayerUiStateMapper {
         mediaItem: MediaItem?,
         mediaItemPosition: MediaItemPosition?,
         shuffleModeEnabled: Boolean,
-        connected: Boolean
+        connected: Boolean,
+        seekBackButtonIncrement: SeekButtonIncrement,
+        seekForwardButtonIncrement: SeekButtonIncrement
     ): PlayerUiState {
         val playPauseCommandAvailable = availableCommands.contains(Command.PlayPause)
 
@@ -52,7 +55,9 @@ public object PlayerUiStateMapper {
             playing = currentState == PlayerState.Playing,
             mediaItem = mediaItem?.let(MediaItemUiModelMapper::map),
             trackPosition = mediaItemPosition?.let(TrackPositionUiModelMapper::map),
-            connected = connected
+            connected = connected,
+            seekBackButtonIncrement = seekBackButtonIncrement,
+            seekForwardButtonIncrement = seekForwardButtonIncrement
         )
     }
 }

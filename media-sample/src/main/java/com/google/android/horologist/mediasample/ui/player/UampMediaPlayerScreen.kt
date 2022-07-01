@@ -103,5 +103,7 @@ public fun PlayerScreenPodcastControlButtons(
         seekBackButtonEnabled = playerUiState.seekBackEnabled,
         onSeekForwardButtonClick = { playerViewModel.seekForward() },
         seekForwardButtonEnabled = playerUiState.seekForwardEnabled,
+        seekBackButtonIncrement = playerUiState.seekBackButtonIncrement,
+        seekForwardButtonIncrement = playerUiState.seekForwardButtonIncrement
     )
 }

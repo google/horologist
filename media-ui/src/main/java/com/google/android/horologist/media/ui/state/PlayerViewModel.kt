@@ -20,6 +20,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
+import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement.Companion.SeekButtonIncrement
 import com.google.android.horologist.media.ui.state.mapper.PlayerUiStateMapper
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
@@ -33,21 +35,43 @@ public open class PlayerViewModel(
     private val playerRepository: PlayerRepository
 ) : ViewModel() {
 
+    private data class StaticState(
+        val connected: Boolean,
+        val shuffleModeEnabled: Boolean,
+        val seekBackButtonIncrement: SeekButtonIncrement,
+        val seekForwardButtonIncrement: SeekButtonIncrement,
+    )
+
+    private val staticFlow = combine(
+        playerRepository.connected, playerRepository.shuffleModeEnabled
+    ) { connected, shuffleModeEnabled ->
+        val seekBackSeconds = playerRepository.getSeekBackIncrement().inWholeSeconds.toInt()
+        val seekForwardSeconds = playerRepository.getSeekForwardIncrement().inWholeSeconds.toInt()
+
+        StaticState(
+            connected = connected,
+            shuffleModeEnabled = shuffleModeEnabled,
+            seekBackButtonIncrement = SeekButtonIncrement(seekBackSeconds),
+            seekForwardButtonIncrement = SeekButtonIncrement(seekForwardSeconds)
+        )
+    }
+
     public val playerUiState: StateFlow<PlayerUiState> = combine(
         playerRepository.currentState,
         playerRepository.availableCommands,
         playerRepository.currentMediaItem,
         playerRepository.mediaItemPosition,
-        playerRepository.shuffleModeEnabled
-    ) { currentState, availableCommands, mediaItem, mediaItemPosition, shuffleModeEnabled ->
+        staticFlow
+    ) { currentState, availableCommands, mediaItem, mediaItemPosition, staticData ->
         PlayerUiStateMapper.map(
-            currentState,
-            availableCommands,
-            mediaItem,
-            mediaItemPosition,
-            shuffleModeEnabled,
-            // TODO work out how to combine more than 5 flows
-            playerRepository.connected.value
+            currentState = currentState,
+            availableCommands = availableCommands,
+            mediaItem = mediaItem,
+            mediaItemPosition = mediaItemPosition,
+            shuffleModeEnabled = staticData.shuffleModeEnabled,
+            connected = playerRepository.connected.value,
+            seekBackButtonIncrement = staticData.seekBackButtonIncrement,
+            seekForwardButtonIncrement = staticData.seekForwardButtonIncrement
         )
     }.stateIn(
         scope = viewModelScope,
@@ -85,9 +109,7 @@ public open class PlayerViewModel(
         private val INITIAL_MEDIA_ITEM = MediaItemUiModel(id = "", title = null, artist = null)
 
         private val INITIAL_TRACK_POSITION = TrackPositionUiModel(
-            current = 0,
-            duration = 0,
-            percent = 0f
+            current = 0, duration = 0, percent = 0f
         )
 
         private val INITIAL_PLAYER_UI_STATE = PlayerUiState(

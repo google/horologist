@@ -18,7 +18,18 @@
 
 package com.google.android.horologist.media.ui
 
+import androidx.compose.foundation.layout.Row
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import app.cash.paparazzi.Paparazzi
+import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
+import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
+import com.google.android.horologist.audio.ui.components.actions.SettingsButton
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
@@ -67,7 +78,41 @@ class FigmaPlayerScreenTest {
                 playerUiState = playerUiState,
                 colors = UampColors,
                 time = "09:30",
+                buttons = {
+                    UampSettingsButtons(
+                        volumeState = VolumeState(10, 10),
+                        onVolumeClick = { })
+                }
             )
         }
     }
 }
+
+@Composable
+public fun UampSettingsButtons(
+    volumeState: VolumeState,
+    onVolumeClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
+) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        SettingsButton(
+            onClick = { },
+            imageVector = if (false) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+            contentDescription = ""
+        )
+
+        SettingsButtonsDefaults.BrandIcon(
+            iconId = R.drawable.ic_uamp, enabled = enabled
+        )
+
+        SetVolumeButton(
+            onVolumeClick = onVolumeClick,
+            volumeState = volumeState
+        )
+    }
+}
+

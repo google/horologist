@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.mediasample.ui.player
 
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -27,11 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.semantics
-import androidx.wear.compose.material.Button
-import androidx.wear.compose.material.ButtonDefaults
-import androidx.wear.compose.material.Icon
-import com.google.android.horologist.audio.ui.semantics.CustomSemanticsProperties.iconImageVector
+import com.google.android.horologist.audio.ui.components.actions.SettingsButton
 import com.google.android.horologist.mediasample.R
 
 /**
@@ -44,18 +39,10 @@ public fun FavoriteButton(
     modifier: Modifier = Modifier,
 ) {
     var faved by remember { mutableStateOf(false) }
-    Button(
-        modifier = modifier
-            .size(ButtonDefaults.SmallButtonSize),
+    SettingsButton(
+        modifier = modifier,
         onClick = { faved = !faved },
-        colors = ButtonDefaults.iconButtonColors(),
-    ) {
-        val imageVector = if (faved) Icons.Default.Favorite else Icons.Default.FavoriteBorder
-
-        Icon(
-            imageVector = imageVector,
-            contentDescription = stringResource(R.string.horologist_favorite_content_description),
-            modifier = Modifier.semantics { iconImageVector = imageVector }
-        )
-    }
+        imageVector = if (faved) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+        contentDescription = stringResource(R.string.horologist_favorite_content_description)
+    )
 }

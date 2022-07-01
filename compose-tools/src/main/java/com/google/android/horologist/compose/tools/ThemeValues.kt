@@ -35,6 +35,7 @@ public val Orangey: Colors = Colors(
 public val UampColors: Colors = Colors(
     primary = Color(0xFF981F68),
     primaryVariant = Color(0xFF66003d),
+    secondary = Color(0xFF981F68),
     error = Color(0xFFE24444),
     onPrimary = Color.White,
     onSurfaceVariant = Color(0xFFDADCE0),

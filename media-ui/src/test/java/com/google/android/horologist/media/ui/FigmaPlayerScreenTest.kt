@@ -66,7 +66,7 @@ class FigmaPlayerScreenTest {
             mediaItem = MediaItemUiModel(
                 id = "",
                 title = "Bat Out of Hell",
-                artist = "Meatloaf"
+                artist = "Meat Loaf"
             ),
             trackPosition = TrackPositionUiModel(current = 75, duration = 100, percent = 0.75f),
             connected = true
@@ -76,7 +76,7 @@ class FigmaPlayerScreenTest {
             MediaPlayerTestCase(
                 playerUiState = playerUiState,
                 colors = UampColors,
-                time = "9:30"
+                time = "09:30"
             )
         }
     }

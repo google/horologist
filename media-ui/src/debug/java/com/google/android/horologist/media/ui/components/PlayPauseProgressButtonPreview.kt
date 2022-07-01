@@ -18,7 +18,11 @@
 
 package com.google.android.horologist.media.ui.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
@@ -84,4 +88,22 @@ fun PlayPauseProgressButtonPreview100() {
         playing = false,
         percent = 1f
     )
+}
+
+@Preview(
+    "On Background - Progress 50%",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
+@Composable
+fun PlayPauseProgressButtonPreviewOnWhite() {
+    Box(modifier = Modifier.background(Color.DarkGray)) {
+        PlayPauseProgressButton(
+            onPlayClick = {},
+            onPauseClick = {},
+            enabled = true,
+            playing = false,
+            percent = 0.5f
+        )
+    }
 }

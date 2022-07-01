@@ -16,11 +16,14 @@
 
 package com.google.android.horologist.media.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
@@ -82,12 +85,18 @@ public fun PlayPauseProgressButton(
         modifier = modifier,
         colors = colors
     ) {
-        CircularProgressIndicator(
+        Box(
             modifier = Modifier
-                .size(ButtonDefaults.LargeButtonSize),
-            progress = percent.ifNan(0f),
-            indicatorColor = progressColour,
-        )
+                .clip(CircleShape)
+                .background(MaterialTheme.colors.onBackground.copy(alpha = 0.1f))
+        ) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .size(ButtonDefaults.LargeButtonSize),
+                progress = percent.ifNan(0f),
+                indicatorColor = progressColour,
+            )
+        }
     }
 }
 

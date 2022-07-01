@@ -18,10 +18,13 @@ package com.google.android.horologist.audio.ui.components.actions
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.ButtonDefaults.buttonColors
@@ -44,9 +47,11 @@ public fun SettingsButton(
     contentDescription: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    iconSize: Dp = 24.dp,
+    tapTargetSize: Dp = 48.dp,
 ) {
     Button(
-        modifier = modifier.size(ButtonDefaults.SmallButtonSize),
+        modifier = modifier.size(tapTargetSize),
         onClick = onClick,
         colors = buttonColors(
             backgroundColor = Color.Transparent,
@@ -55,11 +60,13 @@ public fun SettingsButton(
         ),
         enabled = enabled
     ) {
-
         Icon(
             imageVector = imageVector,
             contentDescription = contentDescription,
-            modifier = Modifier.semantics { iconImageVector = imageVector }
+            modifier = Modifier
+                .size(iconSize)
+                .align(Alignment.Center)
+                .semantics { iconImageVector = imageVector }
         )
     }
 }

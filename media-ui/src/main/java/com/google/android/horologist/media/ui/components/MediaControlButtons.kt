@@ -25,11 +25,9 @@ import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
-import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults
 import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
@@ -53,7 +51,6 @@ public fun MediaControlButtons(
     seekToNextButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
-    progressColour: Color = MaterialTheme.colors.primaryVariant,
 ) {
     MediaControlButtons(
         onPlayButtonClick = onPlayButtonClick,
@@ -68,7 +65,6 @@ public fun MediaControlButtons(
         modifier = modifier,
         percent = percent,
         colors = colors,
-        progressColour = progressColour
     )
 }
 
@@ -120,7 +116,6 @@ internal fun MediaControlButtons(
     modifier: Modifier = Modifier,
     percent: Float? = null,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
-    progressColour: Color = MaterialTheme.colors.primaryVariant,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -146,7 +141,6 @@ internal fun MediaControlButtons(
                 percent = percent,
                 modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
                 colors = colors,
-                progressColour = progressColour,
             )
         } else {
             PlayPauseButton(

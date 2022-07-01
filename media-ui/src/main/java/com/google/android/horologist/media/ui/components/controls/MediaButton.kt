@@ -18,10 +18,13 @@ package com.google.android.horologist.media.ui.components.controls
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
@@ -43,16 +46,19 @@ public fun MediaButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = mediaButtonDefaultColors,
+    iconSize: Dp = 30.dp,
+    tapTargetSize: Dp = 60.dp,
 ) {
     Button(
         onClick = onClick,
-        modifier = modifier,
+        modifier = modifier.size(tapTargetSize),
         enabled = enabled,
         colors = colors,
     ) {
         Icon(
             modifier = Modifier
-                .size(ButtonDefaults.SmallButtonSize)
+                .size(iconSize)
+                .align(Alignment.Center)
                 .semantics { iconImageVector = icon },
             imageVector = icon,
             contentDescription = contentDescription

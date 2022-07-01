@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -173,9 +174,9 @@ public fun PlayerScreen(
                 controlButtons()
             }
             Row(
-                modifier = Modifier.fillMaxWidth().weight(0.33f),
+                modifier = Modifier.fillMaxWidth().padding(bottom = 9.dp).weight(0.33f),
                 horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.Top
+                verticalAlignment = Alignment.Bottom
             ) {
                 buttons()
             }

@@ -16,11 +16,14 @@
 
 package com.google.android.horologist.media.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
@@ -72,7 +75,9 @@ public fun PlayPauseProgressButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
-    progressColour: Color = MaterialTheme.colors.primaryVariant,
+    progressColour: Color = MaterialTheme.colors.primary,
+    trackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
+    backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
 ) {
     PlayPauseButton(
         onPlayClick = onPlayClick,
@@ -82,12 +87,19 @@ public fun PlayPauseProgressButton(
         modifier = modifier,
         colors = colors
     ) {
-        CircularProgressIndicator(
+        Box(
             modifier = Modifier
-                .size(ButtonDefaults.LargeButtonSize),
-            progress = percent.ifNan(0f),
-            indicatorColor = progressColour,
-        )
+                .clip(CircleShape)
+                .background(backgroundColor)
+        ) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .size(ButtonDefaults.LargeButtonSize),
+                progress = percent.ifNan(0f),
+                indicatorColor = progressColour,
+                trackColor = trackColor,
+            )
+        }
     }
 }
 

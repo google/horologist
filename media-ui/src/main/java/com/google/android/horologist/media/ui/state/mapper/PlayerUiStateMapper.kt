@@ -35,6 +35,7 @@ public object PlayerUiStateMapper {
         mediaItem: MediaItem?,
         mediaItemPosition: MediaItemPosition?,
         shuffleModeEnabled: Boolean,
+        connected: Boolean
     ): PlayerUiState {
         val playPauseCommandAvailable = availableCommands.contains(Command.PlayPause)
 
@@ -50,7 +51,8 @@ public object PlayerUiStateMapper {
             playPauseEnabled = playPauseCommandAvailable,
             playing = currentState == PlayerState.Playing,
             mediaItem = mediaItem?.let(MediaItemUiModelMapper::map),
-            trackPosition = mediaItemPosition?.let(TrackPositionUiModelMapper::map)
+            trackPosition = mediaItemPosition?.let(TrackPositionUiModelMapper::map),
+            connected = connected
         )
     }
 }

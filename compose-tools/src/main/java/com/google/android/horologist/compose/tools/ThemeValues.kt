@@ -32,6 +32,14 @@ public val Orangey: Colors = Colors(
     onSurface = Color(0xFFED612B),
 )
 
+public val UampColors: Colors = Colors(
+    primary = Color(0xFF981F68),
+    primaryVariant = Color(0xFF66003d),
+    error = Color(0xFFE24444),
+    onPrimary = Color.White,
+    onSurfaceVariant = Color(0xFFDADCE0),
+)
+
 @ExperimentalHorologistComposeToolsApi
 public val themeValues: List<ThemeValues> = listOf(
     ThemeValues("Blue (Default - AECBFA)", 0, Colors()),
@@ -88,5 +96,10 @@ public val themeValues: List<ThemeValues> = listOf(
         "Orange-y",
         5,
         Orangey
+    ),
+    ThemeValues(
+        "Uamp",
+        6,
+        UampColors
     ),
 )

@@ -22,7 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Forward10
 import androidx.compose.material.icons.filled.Forward30
 import androidx.compose.material.icons.filled.Forward5
-import androidx.compose.material.icons.filled.Redo
+import androidx.compose.material.icons.filled.Replay
 import androidx.compose.ui.test.assertContentDescriptionEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
@@ -95,7 +95,7 @@ class SeekForwardButtonTest {
 
         // then
         composeTestRule
-            .onNode(hasIconImageVector(Icons.Default.Redo))
+            .onNode(hasIconImageVector(Icons.Default.Replay))
             .assertContentDescriptionEquals("Forward 15 seconds")
     }
 
@@ -111,7 +111,7 @@ class SeekForwardButtonTest {
 
         // then
         composeTestRule
-            .onNode(hasIconImageVector(Icons.Default.Redo))
+            .onNode(hasIconImageVector(Icons.Default.Replay))
             .assertContentDescriptionEquals("Forward")
     }
 }

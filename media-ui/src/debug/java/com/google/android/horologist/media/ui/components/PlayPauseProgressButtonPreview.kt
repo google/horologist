@@ -22,7 +22,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
-@Preview("Enabled - Playing - Progress 0%")
+@Preview(
+    "Enabled - Playing - Progress 0%",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun PlayPauseProgressButtonPreview0() {
     PlayPauseProgressButton(
@@ -34,7 +38,11 @@ fun PlayPauseProgressButtonPreview0() {
     )
 }
 
-@Preview("Disabled - Not playing - Progress 25%")
+@Preview(
+    "Disabled - Not playing - Progress 25%",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun PlayPauseProgressButtonPreview25() {
     PlayPauseProgressButton(
@@ -46,7 +54,11 @@ fun PlayPauseProgressButtonPreview25() {
     )
 }
 
-@Preview("Disabled - Playing - Progress 75%")
+@Preview(
+    "Disabled - Playing - Progress 75%",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun PlayPauseProgressButtonPreview75() {
     PlayPauseProgressButton(
@@ -58,7 +70,11 @@ fun PlayPauseProgressButtonPreview75() {
     )
 }
 
-@Preview("Enabled - Not playing - Progress 100%")
+@Preview(
+    "Enabled - Not playing - Progress 100%",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun PlayPauseProgressButtonPreview100() {
     PlayPauseProgressButton(

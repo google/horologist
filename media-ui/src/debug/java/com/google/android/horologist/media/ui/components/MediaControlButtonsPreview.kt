@@ -22,7 +22,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
-@Preview("Enabled - Playing - With progress")
+@Preview(
+    "Enabled - Playing - With progress",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun MediaControlButtonsPreview() {
     MediaControlButtons(
@@ -38,7 +42,11 @@ fun MediaControlButtonsPreview() {
     )
 }
 
-@Preview("Disabled - Not playing - Without progress")
+@Preview(
+    "Disabled - Not playing - Without progress",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun MediaControlButtonsPreviewNoProgress() {
     MediaControlButtons(

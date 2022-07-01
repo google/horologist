@@ -18,19 +18,13 @@
 
 package com.google.android.horologist.audio.ui.components.actions
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.R
 import com.google.android.horologist.audio.ui.components.SettingsButtons
+import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults.BrandIcon
 
 @Preview(
     backgroundColor = 0xff000000,
@@ -56,11 +50,24 @@ fun SettingsButtonsWithBrandIconPreview() {
         onVolumeClick = {},
         onOutputClick = {},
         brandIcon = {
-            Image(
-                modifier = Modifier.size(16.dp).clip(CircleShape),
-                painter = painterResource(id = R.drawable.ic_uamp),
-                contentDescription = null
-            )
+            BrandIcon(R.drawable.ic_uamp, enabled = true)
+        }
+    )
+}
+
+@Preview(
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
+@Composable
+fun SettingsButtonsDisabledPreview() {
+    SettingsButtons(
+        volumeState = VolumeState(5, 10),
+        onVolumeClick = {},
+        onOutputClick = {},
+        enabled = false,
+        brandIcon = {
+            BrandIcon(R.drawable.ic_uamp, enabled = false)
         }
     )
 }

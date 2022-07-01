@@ -36,13 +36,15 @@ import androidx.wear.compose.foundation.curvedComposable
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.curvedText
+import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.Status
 
-internal fun CurvedScope.curveDataUsage(
+@ExperimentalHorologistNetworksApi
+public fun CurvedScope.curveDataUsage(
     modifier: Modifier = Modifier,
     networkStatus: Networks,
     networkUsage: DataUsageReport?,
@@ -85,8 +87,9 @@ internal fun CurvedScope.curveDataUsage(
     }
 }
 
+@ExperimentalHorologistNetworksApi
 @Composable
-internal fun LinearDataUsage(
+public fun LinearDataUsage(
     networkStatus: Networks,
     networkUsage: DataUsageReport?,
     style: TextStyle,

@@ -21,6 +21,7 @@ import com.google.android.horologist.media.ui.components.PlayPauseButton
 import com.google.android.horologist.media.ui.components.controls.PauseButton
 import com.google.android.horologist.media.ui.components.controls.PlayButton
 import com.google.android.horologist.media.ui.components.controls.SeekBackButton
+import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.media.ui.components.controls.SeekForwardButton
 import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
 import com.google.android.horologist.media.ui.components.controls.SeekToPreviousButton
@@ -42,7 +43,9 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
  * @param playPauseEnabled whether [PlayPauseButton] is enabled
  * @param playing whether [PlayPauseButton] should display the play or pause button
  * @param mediaItem current [MediaItemUiModel]
- * @param trackPosition current [TrackPositionUiModel]
+ * @param seekBackButtonIncrement increment when seeking back.
+ * @param seekForwardButtonIncrement increment when seeking forward.
+ * @param connected is the player screen connected.
  */
 @ExperimentalHorologistMediaUiApi
 public data class PlayerUiState(
@@ -58,4 +61,7 @@ public data class PlayerUiState(
     val playing: Boolean,
     val mediaItem: MediaItemUiModel?,
     val trackPosition: TrackPositionUiModel?,
+    val seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
+    val seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
+    val connected: Boolean,
 )

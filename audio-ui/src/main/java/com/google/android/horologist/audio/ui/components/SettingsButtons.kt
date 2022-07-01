@@ -16,12 +16,17 @@
 
 package com.google.android.horologist.audio.ui.components
 
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
@@ -38,8 +43,9 @@ public fun SettingsButtons(
     volumeState: VolumeState,
     onVolumeClick: () -> Unit,
     onOutputClick: () -> Unit,
-    brandIcon: @Composable () -> Unit = {},
     modifier: Modifier = Modifier,
+    brandIcon: @Composable () -> Unit = {},
+    enabled: Boolean = true
 ) {
     Row(
         modifier = modifier,
@@ -47,13 +53,30 @@ public fun SettingsButtons(
     ) {
         SetVolumeButton(
             onVolumeClick = onVolumeClick,
-            volumeState = volumeState
+            volumeState = volumeState,
+            enabled = enabled
         )
-        Spacer(modifier = Modifier.size(8.dp))
         brandIcon()
-        Spacer(modifier = Modifier.size(8.dp))
         AudioOutputButton(
-            onOutputClick = onOutputClick
+            onOutputClick = onOutputClick,
+            enabled = enabled
+        )
+    }
+}
+
+public object SettingsButtonsDefaults {
+    @Composable
+    public fun BrandIcon(
+        @DrawableRes iconId: Int,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true
+    ) {
+        Image(
+            modifier = modifier.size(18.dp).clip(CircleShape).let {
+                if (enabled) it else it.alpha(0.38f)
+            },
+            painter = painterResource(id = iconId),
+            contentDescription = null
         )
     }
 }

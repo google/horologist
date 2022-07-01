@@ -37,6 +37,8 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.SettingsButtons
+import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
+import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
@@ -44,9 +46,11 @@ import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.compose.tools.WearPreviewFontSizes
 import com.google.android.horologist.compose.tools.WearPreviewThemes
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.TextMediaDisplay
 import com.google.android.horologist.media.ui.components.background.RadialBackground
+import com.google.android.horologist.media.ui.uamp.UampTheme
 
 @Preview(
     group = "Large Round",
@@ -75,34 +79,42 @@ fun PlayerScreenPreview() {
         modifier = Modifier.fillMaxSize(),
         timeText = { TimeText() }
     ) {
-        PlayerScreen(
-            mediaDisplay = {
-                TextMediaDisplay(
-                    artist = "Journey",
-                    title = "Don't Stop Believin'"
-                )
-            },
-            controlButtons = {
-                MediaControlButtons(
-                    onPlayButtonClick = {},
-                    onPauseButtonClick = {},
-                    playPauseButtonEnabled = true,
-                    playing = true,
-                    percent = 0.25F,
-                    onSeekToNextButtonClick = {},
-                    seekToNextButtonEnabled = true,
-                    onSeekToPreviousButtonClick = {},
-                    seekToPreviousButtonEnabled = true,
-                )
-            },
-            buttons = {
-                SettingsButtons(
-                    volumeState = VolumeState(5, 10),
-                    onVolumeClick = { },
-                    onOutputClick = { }
-                )
-            },
-        )
+        PagerScreen(count = 2) {
+            PlayerScreen(
+                mediaDisplay = {
+                    TextMediaDisplay(
+                        artist = "Journey",
+                        title = "Don't Stop Believin'"
+                    )
+                },
+                controlButtons = {
+                    MediaControlButtons(
+                        onPlayButtonClick = {},
+                        onPauseButtonClick = {},
+                        playPauseButtonEnabled = true,
+                        playing = true,
+                        percent = 0.25F,
+                        onSeekToNextButtonClick = {},
+                        seekToNextButtonEnabled = true,
+                        onSeekToPreviousButtonClick = {},
+                        seekToPreviousButtonEnabled = true,
+                    )
+                },
+                buttons = {
+                    SettingsButtons(
+                        volumeState = VolumeState(5, 10),
+                        onVolumeClick = { },
+                        onOutputClick = { },
+                        brandIcon = {
+                            SettingsButtonsDefaults.BrandIcon(
+                                R.drawable.ic_uamp,
+                                enabled = true
+                            )
+                        }
+                    )
+                },
+            )
+        }
     }
 }
 
@@ -136,35 +148,43 @@ fun PlayerScreenPreviewCustomMediaDisplay() {
         modifier = Modifier.fillMaxSize(),
         timeText = { TimeText() }
     ) {
-        PlayerScreen(
-            mediaDisplay = {
-                Text(
-                    "RTÉ Lyric FM\nRTÉ",
-                    style = MaterialTheme.typography.title2.copy(color = Color.Red),
-                    textAlign = TextAlign.Center
-                )
-            },
-            controlButtons = {
-                MediaControlButtons(
-                    onPlayButtonClick = {},
-                    onPauseButtonClick = {},
-                    playPauseButtonEnabled = true,
-                    playing = true,
-                    percent = 0.75F,
-                    onSeekToNextButtonClick = {},
-                    seekToNextButtonEnabled = true,
-                    onSeekToPreviousButtonClick = {},
-                    seekToPreviousButtonEnabled = true,
-                )
-            },
-            buttons = {
-                SettingsButtons(
-                    volumeState = VolumeState(5, 10),
-                    onVolumeClick = { },
-                    onOutputClick = { }
-                )
-            },
-        )
+        PagerScreen(count = 2) {
+            PlayerScreen(
+                mediaDisplay = {
+                    Text(
+                        "RTÉ Lyric FM\nRTÉ",
+                        style = MaterialTheme.typography.title2.copy(color = Color.Red),
+                        textAlign = TextAlign.Center
+                    )
+                },
+                controlButtons = {
+                    MediaControlButtons(
+                        onPlayButtonClick = {},
+                        onPauseButtonClick = {},
+                        playPauseButtonEnabled = true,
+                        playing = true,
+                        percent = 0.75F,
+                        onSeekToNextButtonClick = {},
+                        seekToNextButtonEnabled = true,
+                        onSeekToPreviousButtonClick = {},
+                        seekToPreviousButtonEnabled = true,
+                    )
+                },
+                buttons = {
+                    SettingsButtons(
+                        volumeState = VolumeState(5, 10),
+                        onVolumeClick = { },
+                        onOutputClick = { },
+                        brandIcon = {
+                            SettingsButtonsDefaults.BrandIcon(
+                                R.drawable.ic_uamp,
+                                enabled = true
+                            )
+                        }
+                    )
+                },
+            )
+        }
     }
 }
 
@@ -198,58 +218,66 @@ fun PlayerScreenPreviewCustomBackground() {
         modifier = Modifier.fillMaxSize(),
         timeText = { TimeText() }
     ) {
-        PlayerScreen(
-            mediaDisplay = {
-                TextMediaDisplay(
-                    artist = "Casaca",
-                    title = "Da Da Da"
-                )
-            },
-            controlButtons = {
-                MediaControlButtons(
-                    onPlayButtonClick = {},
-                    onPauseButtonClick = {},
-                    playPauseButtonEnabled = true,
-                    playing = true,
-                    onSeekToNextButtonClick = {},
-                    seekToNextButtonEnabled = true,
-                    onSeekToPreviousButtonClick = {},
-                    seekToPreviousButtonEnabled = true,
-                )
-            },
-            buttons = {
-                SettingsButtons(
-                    volumeState = VolumeState(5, 10),
-                    onVolumeClick = { },
-                    onOutputClick = { }
-                )
-            },
-            background = {
-                Box(modifier = Modifier.fillMaxSize()) {
-                    CircularProgressIndicator(
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .size(124.dp),
-                        progress = 0.75f,
-                        indicatorColor = Color.Magenta,
+        PagerScreen(count = 2) {
+            PlayerScreen(
+                mediaDisplay = {
+                    TextMediaDisplay(
+                        artist = "Casaca",
+                        title = "Da Da Da"
                     )
-                    CircularProgressIndicator(
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .size(132.dp),
-                        progress = 0.75f,
-                        indicatorColor = Color.White,
+                },
+                controlButtons = {
+                    MediaControlButtons(
+                        onPlayButtonClick = {},
+                        onPauseButtonClick = {},
+                        playPauseButtonEnabled = true,
+                        playing = true,
+                        onSeekToNextButtonClick = {},
+                        seekToNextButtonEnabled = true,
+                        onSeekToPreviousButtonClick = {},
+                        seekToPreviousButtonEnabled = true,
                     )
-                    CircularProgressIndicator(
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .size(140.dp),
-                        progress = 0.75f,
-                        indicatorColor = Color.Blue,
+                },
+                buttons = {
+                    SettingsButtons(
+                        volumeState = VolumeState(5, 10),
+                        onVolumeClick = { },
+                        onOutputClick = { },
+                        brandIcon = {
+                            SettingsButtonsDefaults.BrandIcon(
+                                R.drawable.ic_uamp,
+                                enabled = true
+                            )
+                        }
                     )
+                },
+                background = {
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .size(124.dp),
+                            progress = 0.75f,
+                            indicatorColor = Color.Magenta,
+                        )
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .size(132.dp),
+                            progress = 0.75f,
+                            indicatorColor = Color.White,
+                        )
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .size(140.dp),
+                            progress = 0.75f,
+                            indicatorColor = Color.Blue,
+                        )
+                    }
                 }
-            }
-        )
+            )
+        }
     }
 }
 
@@ -257,7 +285,9 @@ fun PlayerScreenPreviewCustomBackground() {
 @WearPreviewFontSizes
 @Composable
 fun PlayerScreenPreviewDevices() {
-    DefaultMediaDisplay()
+    UampTheme {
+        DefaultMediaPreview()
+    }
 }
 
 @WearLargeRoundDevicePreview
@@ -266,47 +296,55 @@ fun VolumeScreenTheme(
     @PreviewParameter(WearPreviewThemes::class) themeValues: ThemeValues
 ) {
     MaterialTheme(themeValues.colors) {
-        DefaultMediaDisplay()
+        DefaultMediaPreview()
     }
 }
 
 @Composable
-private fun DefaultMediaDisplay() {
+fun DefaultMediaPreview() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        timeText = { TimeText() }
+        timeText = { TimeText() },
     ) {
-        PlayerScreen(
-            mediaDisplay = {
-                TextMediaDisplay(
-                    artist = "Journey",
-                    title = "Don't Stop Believin'"
-                )
-            },
-            controlButtons = {
-                MediaControlButtons(
-                    onPlayButtonClick = {},
-                    onPauseButtonClick = {},
-                    playPauseButtonEnabled = true,
-                    playing = true,
-                    percent = 0.25F,
-                    onSeekToNextButtonClick = {},
-                    seekToNextButtonEnabled = true,
-                    onSeekToPreviousButtonClick = {},
-                    seekToPreviousButtonEnabled = true,
-                )
-            },
-            buttons = {
-                SettingsButtons(
-                    volumeState = VolumeState(5, 10),
-                    onVolumeClick = { },
-                    onOutputClick = { }
-                )
-            },
-            background = {
-                RadialBackground(color = Color.Yellow)
-            }
-        )
+        PagerScreen(count = 2) {
+            PlayerScreen(
+                mediaDisplay = {
+                    TextMediaDisplay(
+                        artist = "Journey",
+                        title = "Don't Stop Believin'"
+                    )
+                },
+                controlButtons = {
+                    MediaControlButtons(
+                        onPlayButtonClick = {},
+                        onPauseButtonClick = {},
+                        playPauseButtonEnabled = true,
+                        playing = true,
+                        percent = 0.25F,
+                        onSeekToNextButtonClick = {},
+                        seekToNextButtonEnabled = true,
+                        onSeekToPreviousButtonClick = {},
+                        seekToPreviousButtonEnabled = true,
+                    )
+                },
+                buttons = {
+                    SettingsButtons(
+                        volumeState = VolumeState(5, 10),
+                        onVolumeClick = { },
+                        onOutputClick = { },
+                        brandIcon = {
+                            SettingsButtonsDefaults.BrandIcon(
+                                R.drawable.ic_uamp,
+                                enabled = true
+                            )
+                        }
+                    )
+                },
+                background = {
+                    RadialBackground(color = Color.Yellow)
+                }
+            )
+        }
     }
 }
 

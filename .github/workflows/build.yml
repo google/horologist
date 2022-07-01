@@ -44,9 +44,17 @@ jobs:
       - name: Build
         run: |
           ./gradlew --scan --stacktrace \
+              assemble
+
+      - name: Metalava compatibility check
+        run: |
+          ./gradlew --scan --stacktrace \
+              metalavaCheckCompatibility
+
+      - name: Code analysis
+        run: |
+          ./gradlew --scan --stacktrace \
               spotlessCheck \
-              assemble \
-              metalavaCheckCompatibility \
               lintDebug
 
       - name: Unit Tests
@@ -56,14 +64,27 @@ jobs:
               --run-affected \
               --affected-base-ref=$BASE_REF
 
-      - name: Upload test results
+      - name: Snapshot tests
+        run: |
+          ./gradlew --scan --stacktrace \
+              verifyPaparazziDebug
+
+      - name: Upload test results and reports
         if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: test-results-robolectric
+          name: build-results
           path: |
             **/build/test-results/*
             **/build/reports/*
+
+      - name: Upload snapshot test failures
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: snapshot-test-failures
+          path: |
+            **/out/failures/
 
   test:
     runs-on: macos-latest

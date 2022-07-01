@@ -71,6 +71,8 @@ android {
         freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         freeCompilerArgs += "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.composables.ExperimentalHorologistComposablesApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.networks.ExperimentalHorologistNetworksApi"
     }
 
     composeOptions {
@@ -87,6 +89,8 @@ dependencies {
     implementation projects.media
     implementation projects.mediaUi
     implementation projects.networkAwareness
+    implementation projects.tiles
+    implementation projects.composeTools
 
     implementation libs.compose.ui.tooling
     implementation libs.compose.ui.util
@@ -104,8 +108,15 @@ dependencies {
     implementation libs.androidx.lifecycle.viewmodel.compose
     implementation libs.androidx.activity.compose
     implementation libs.androidx.wear.tiles
+    implementation libs.androidx.wear.tiles.material
+
+    implementation libs.coil
+
+    implementation libs.lottie.compose
 
     implementation libs.kotlin.stdlib
+
+    debugImplementation projects.composeTools
 
     androidTestImplementation libs.compose.ui.test.junit4
     androidTestImplementation libs.espresso.core

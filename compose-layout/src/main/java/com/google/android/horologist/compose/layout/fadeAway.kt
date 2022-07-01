@@ -19,6 +19,8 @@ package com.google.android.horologist.compose.layout
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -50,9 +52,11 @@ public fun Modifier.fadeAway(scrollStateFn: () -> ScrollState): Modifier = compo
  */
 @ExperimentalHorologistComposeLayoutApi
 public fun Modifier.fadeAwayLazyList(scrollStateFn: () -> LazyListState): Modifier = composed {
-    val scrollState = scrollStateFn()
-    if (scrollState.firstVisibleItemIndex == 0) {
-        val y = scrollState.firstVisibleItemScrollOffset / LocalDensity.current.density
+    val scrollState = remember { scrollStateFn() }
+    val isFirst by remember(scrollState) { derivedStateOf { scrollState.firstVisibleItemIndex == 0 } }
+    if (isFirst) {
+        val density = LocalDensity.current.density
+        val y by remember(scrollState) { derivedStateOf { scrollState.firstVisibleItemScrollOffset / density } }
 
         fadeEffect(y, fade = false)
     } else {
@@ -80,8 +84,17 @@ public fun Modifier.fadeAwayScalingLazyList(
     composed {
         val scrollState = remember { scrollStateFn() }
 
-        if (scrollState.centerItemIndex == initialIndex && scrollState.centerItemScrollOffset > initialOffset) {
-            val y = scrollState.centerItemScrollOffset / LocalDensity.current.density
+        // General improvement, but specifically a workaround 
+        // for https://github.com/google/horologist/issues/243 in Compose rc01
+        val isInitial by remember(scrollState) {
+            derivedStateOf { scrollState.centerItemIndex == initialIndex }
+        }
+        val centerItemScrollOffset by remember(scrollState) {
+            derivedStateOf { scrollState.centerItemScrollOffset }
+        }
+
+        if (isInitial && centerItemScrollOffset > initialOffset) {
+            val y = centerItemScrollOffset / LocalDensity.current.density
 
             fadeEffect(y, fade = true)
         } else if (scrollState.centerItemIndex > initialIndex) {

@@ -11,6 +11,11 @@ package com.google.android.horologist.compose.layout {
     method @androidx.compose.runtime.Stable public static androidx.compose.ui.Modifier fillMaxRectangle(androidx.compose.ui.Modifier);
   }
 
+  public final class StateUtils {
+    method @androidx.compose.runtime.Composable public <T> androidx.compose.runtime.State<T> rememberStateWithLifecycle(kotlinx.coroutines.flow.StateFlow<? extends T> flow, optional androidx.lifecycle.Lifecycle lifecycle, optional androidx.lifecycle.Lifecycle.State minActiveState);
+    field public static final com.google.android.horologist.compose.layout.StateUtils INSTANCE;
+  }
+
 }
 
 package com.google.android.horologist.compose.navscaffold {
@@ -89,7 +94,7 @@ package com.google.android.horologist.compose.navscaffold {
   }
 
   public final class WearNavScaffoldKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static void WearNavScaffold(String startDestination, optional androidx.compose.ui.Modifier modifier, optional androidx.navigation.NavHostController navController, optional kotlin.jvm.functions.Function0<kotlin.Unit> snackbar, optional kotlin.jvm.functions.Function1<? super androidx.compose.ui.Modifier,kotlin.Unit> timeText, optional androidx.wear.compose.navigation.SwipeDismissableNavHostState state, kotlin.jvm.functions.Function1<? super androidx.navigation.NavGraphBuilder,kotlin.Unit> builder);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static void WearNavScaffold(String startDestination, optional androidx.compose.ui.Modifier modifier, androidx.navigation.NavHostController navController, optional kotlin.jvm.functions.Function0<kotlin.Unit> snackbar, optional kotlin.jvm.functions.Function1<? super androidx.compose.ui.Modifier,kotlin.Unit> timeText, optional androidx.wear.compose.navigation.SwipeDismissableNavHostState state, kotlin.jvm.functions.Function1<? super androidx.navigation.NavGraphBuilder,kotlin.Unit> builder);
     method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static void lazyListComposable(androidx.navigation.NavGraphBuilder, String route, optional java.util.List<androidx.navigation.NamedNavArgument> arguments, optional java.util.List<androidx.navigation.NavDeepLink> deepLinks, kotlin.jvm.functions.Function0<androidx.compose.foundation.lazy.LazyListState> lazyListStateBuilder, kotlin.jvm.functions.Function1<? super com.google.android.horologist.compose.navscaffold.ScaffoldContext<androidx.compose.foundation.lazy.LazyListState>,kotlin.Unit> content);
     method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static void scalingLazyColumnComposable(androidx.navigation.NavGraphBuilder, String route, optional java.util.List<androidx.navigation.NamedNavArgument> arguments, optional java.util.List<androidx.navigation.NavDeepLink> deepLinks, kotlin.jvm.functions.Function0<androidx.wear.compose.material.ScalingLazyListState> scrollStateBuilder, kotlin.jvm.functions.Function1<? super com.google.android.horologist.compose.navscaffold.ScaffoldContext<androidx.wear.compose.material.ScalingLazyListState>,kotlin.Unit> content);
     method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static void scrollStateComposable(androidx.navigation.NavGraphBuilder, String route, optional java.util.List<androidx.navigation.NamedNavArgument> arguments, optional java.util.List<androidx.navigation.NavDeepLink> deepLinks, kotlin.jvm.functions.Function0<androidx.compose.foundation.ScrollState> scrollStateBuilder, kotlin.jvm.functions.Function1<? super com.google.android.horologist.compose.navscaffold.ScaffoldContext<androidx.compose.foundation.ScrollState>,kotlin.Unit> content);

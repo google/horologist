@@ -31,6 +31,9 @@ import kotlin.time.Duration.Companion.seconds
 
 class FakePlayerRepository : PlayerRepository {
 
+    private val _connected = MutableStateFlow(true)
+    override val connected: StateFlow<Boolean> = _connected
+
     private var _availableCommandsList = MutableStateFlow(emptySet<Command>())
     override val availableCommands: StateFlow<Set<Command>> = _availableCommandsList
 
@@ -133,7 +136,7 @@ class FakePlayerRepository : PlayerRepository {
     override fun getCurrentMediaItemIndex(): Int = 0 // not implemented
 
     override fun release() {
-        // do nothing
+        _connected.value = false
     }
 
     fun updatePosition() {

@@ -25,7 +25,10 @@ android {
     compileSdkVersion 32
 
     defaultConfig {
-        minSdk 26
+        //        Tiles is API 26, but if we don't stop this here, then we can't run the sample app
+        //        on older devices (25).  We also don't want this to bleed into other modules via
+        //        compose-tools which is used just for testing.
+        minSdk 25
         targetSdk 30
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -99,7 +102,11 @@ dependencies {
     implementation libs.androidx.concurrent.future
 
     implementation libs.androidx.wear.tiles
+    implementation libs.androidx.wear.tiles.material
     implementation libs.androidx.lifecycle.service
+
+    implementation libs.coil
+    implementation libs.wearcompose.foundation
 
     testImplementation libs.androidx.wear.tiles.testing
     testImplementation libs.espresso.core
@@ -110,6 +117,7 @@ dependencies {
     testImplementation libs.androidx.concurrent.future.ktx
 
     androidTestImplementation libs.androidx.lifecycle.testing
+    androidTestImplementation libs.kotlinx.coroutines.test
     androidTestImplementation libs.truth
     debugImplementation libs.compose.ui.test.manifest
     androidTestImplementation libs.espresso.core

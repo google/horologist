@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class)
+@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistMediaUiApi::class)
 
 package com.google.android.horologist.media.ui.components
 
@@ -23,7 +23,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 
-@Preview("Enabled - Playing - With progress")
+@Preview(
+    "Enabled - Playing - With progress",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun PodcastControlButtonsPreview() {
     PodcastControlButtons(
@@ -41,7 +45,33 @@ fun PodcastControlButtonsPreview() {
     )
 }
 
-@Preview("Disabled - Not playing - Without progress")
+@Preview(
+    "Enabled - Playing - With progress",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
+@Composable
+fun PodcastControlButtonsPreviewUnknown() {
+    PodcastControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = true,
+        playing = true,
+        percent = 0.25f,
+        onSeekBackButtonClick = {},
+        seekBackButtonEnabled = true,
+        onSeekForwardButtonClick = {},
+        seekForwardButtonEnabled = true,
+        seekBackButtonIncrement = SeekButtonIncrement.Unknown,
+        seekForwardButtonIncrement = SeekButtonIncrement.Unknown,
+    )
+}
+
+@Preview(
+    "Disabled - Not playing - Without progress",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun PodcastControlButtonsPreviewNoProgress() {
     PodcastControlButtons(

@@ -32,8 +32,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Card
 import androidx.wear.compose.material.MaterialTheme
@@ -47,6 +45,7 @@ import com.google.android.horologist.compose.layout.fadeAway
 import com.google.android.horologist.compose.layout.fadeAwayLazyList
 import com.google.android.horologist.compose.layout.fadeAwayScalingLazyList
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
+import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
 
 @Composable
 fun FadeAwayScreenLazyColumn() {
@@ -155,18 +154,7 @@ private fun ExampleCard(modifier: Modifier, i: Int) {
     }
 }
 
-@Preview(
-    device = Devices.WEAR_OS_LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true
-)
-@Preview(
-    device = Devices.WEAR_OS_SQUARE,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true
-)
+@WearLargeRoundDevicePreview
 @Composable
 fun FadeAwayScreenPreview() {
     FadeAwayScreenLazyColumn()

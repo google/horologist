@@ -22,7 +22,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
-@Preview()
+@Preview(
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun TextMediaDisplayPreview() {
     TextMediaDisplay(
@@ -31,7 +34,11 @@ fun TextMediaDisplayPreview() {
     )
 }
 
-@Preview("With long text")
+@Preview(
+    "With long text",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
 fun TextMediaDisplayPreviewLongText() {
     TextMediaDisplay(

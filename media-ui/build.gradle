@@ -47,6 +47,8 @@ android {
         freeCompilerArgs += "-opt-in=com.google.android.horologist.media.ExperimentalHorologistMediaApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi"
+        freeCompilerArgs += "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi"
     }
 
     composeOptions {
@@ -65,6 +67,12 @@ android {
         // our test APK to build (has no effect on our AARs)
         excludes += "/META-INF/AL2.0"
         excludes += "/META-INF/LGPL2.1"
+    }
+
+    sourceSets {
+        main {
+            assets.srcDirs = ['src/main/assets']
+        }
     }
 
     testOptions {
@@ -86,6 +94,7 @@ dependencies {
     api projects.media
     implementation projects.audio
     implementation projects.audioUi
+    implementation projects.composeLayout
     implementation libs.kotlin.stdlib
     implementation libs.androidx.wear
     implementation libs.androidx.lifecycle.runtime
@@ -95,9 +104,15 @@ dependencies {
     implementation libs.compose.ui.tooling
     implementation libs.compose.material.iconscore
     implementation libs.compose.material.iconsext
+    implementation libs.androidx.lifecycle.viewmodel.compose
+
+    implementation libs.coil
+    implementation libs.lottie.compose
+    implementation libs.androidx.palette.ktx
 
     debugImplementation libs.compose.ui.test.manifest
     debugImplementation libs.compose.ui.toolingpreview
+    debugImplementation projects.audioUi
     debugImplementation projects.composeTools
 
     testImplementation libs.junit

@@ -16,8 +16,6 @@
 
 package com.google.android.horologist.compose.tools
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -27,8 +25,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalInspectionMode
 
 public val LocalInteractivePreview: ProvidableCompositionLocal<Boolean> = compositionLocalOf { false }
@@ -55,9 +51,7 @@ public fun InteractivePreviewAware(block: @Composable () -> Unit) {
             LocalInteractivePreview.provides(interactive),
             LocalStaticPreview.provides(!interactive),
         ) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                block()
-            }
+            block()
         }
     } else {
         block()

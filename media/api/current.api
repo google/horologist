@@ -88,6 +88,7 @@ package com.google.android.horologist.media.repository {
     method public void addMediaItem(int index, com.google.android.horologist.media.model.MediaItem mediaItem);
     method public void clearMediaItems();
     method public kotlinx.coroutines.flow.StateFlow<java.util.Set<com.google.android.horologist.media.model.Command>> getAvailableCommands();
+    method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getConnected();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.MediaItem> getCurrentMediaItem();
     method public int getCurrentMediaItemIndex();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.PlayerState> getCurrentState();
@@ -113,6 +114,7 @@ package com.google.android.horologist.media.repository {
     method public void skipToNextMediaItem();
     method public void skipToPreviousMediaItem();
     property public abstract kotlinx.coroutines.flow.StateFlow<java.util.Set<com.google.android.horologist.media.model.Command>> availableCommands;
+    property public abstract kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> connected;
     property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.MediaItem> currentMediaItem;
     property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.PlayerState> currentState;
     property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.MediaItemPosition> mediaItemPosition;

@@ -18,6 +18,10 @@
 
 package com.google.android.horologist.media.ui
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.ThemeValues
@@ -64,10 +68,13 @@ class MediaPlayerScreenTest(
                 artist = "Crowded House"
             ),
             trackPosition = TrackPositionUiModel(current = 30, duration = 225, percent = 0.133f),
+            connected = true
         )
 
         paparazzi.snapshot(name = themeValue.safeName) {
-            MediaPlayerTestCase(colors = themeValue.colors, playerUiState = playerUiState)
+            Box(modifier = Modifier.background(Color.Black)) {
+                MediaPlayerTestCase(colors = themeValue.colors, playerUiState = playerUiState)
+            }
         }
     }
 

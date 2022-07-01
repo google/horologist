@@ -1,0 +1,57 @@
+/*
+ * Copyright 2022 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.google.android.horologist.mediasample.playback
+
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.google.android.horologist.media.data.Media3MediaItemMapper
+import com.google.android.horologist.media.model.MediaItem
+import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withContext
+import org.junit.Test
+import org.junit.runner.RunWith
+
+@RunWith(AndroidJUnit4::class)
+class PlaybackErrorTest : BasePlaybackTest() {
+    @Test
+    fun testFailingItem() = runTest {
+        withContext(Dispatchers.Main) {
+            val browser = browser()
+
+            val badContent = MediaItem(
+                "1",
+                "milkjawn",
+                "milkjawn",
+                "Milk Jawn",
+                "https://cdn.player.fm/images/14416069/series/stoRUvKcFOzInZ1X/512.jpg"
+            )
+
+            browser.setMediaItem(
+                Media3MediaItemMapper.map(badContent),
+            )
+            browser.prepare()
+            browser.play()
+
+            // allow for async operations
+            delay(5000)
+
+            assertThat(browser.isPlaying).isFalse()
+        }
+    }
+}

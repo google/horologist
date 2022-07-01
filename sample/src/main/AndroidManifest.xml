@@ -20,6 +20,7 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature android:name="android.hardware.type.watch" />
 
@@ -68,22 +69,28 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name="com.google.android.horologist.media.MediaActivity"
-            android:exported="true"
-            android:label="@string/media_activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
         <service
             android:name=".tiles.ExampleTileService"
             android:description="@string/tile_description"
             android:exported="true"
             android:icon="@drawable/ic_person"
             android:label="@string/tile_basic_title"
+            android:permission="com.google.android.wearable.permission.BIND_TILE_PROVIDER">
+            <intent-filter>
+                <action android:name="androidx.wear.tiles.action.BIND_TILE_PROVIDER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="androidx.wear.tiles.PREVIEW"
+                android:resource="@drawable/example_tile" />
+        </service>
+
+        <service
+            android:name="com.google.android.horologist.tile.SampleTileService"
+            android:exported="true"
+            android:label="@string/tile_sample_label"
+            android:description="@string/sample_tile_description"
+            android:icon="@drawable/ic_person"
             android:permission="com.google.android.wearable.permission.BIND_TILE_PROVIDER">
             <intent-filter>
                 <action android:name="androidx.wear.tiles.action.BIND_TILE_PROVIDER" />

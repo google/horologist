@@ -70,7 +70,7 @@ public class CoroutinesCancelTileTest {
     }
 
     @Test
-    @Ignore
+    @Ignore("Fails on https://issuetracker.google.com/issues/223047254")
     fun tileProviderCanBeCancelled() = fakeCoroutineScope.runTest {
         tileService.delayDuration = 3.seconds
 

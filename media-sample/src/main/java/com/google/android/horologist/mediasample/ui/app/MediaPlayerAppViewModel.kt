@@ -111,16 +111,20 @@ class MediaPlayerAppViewModel(
     }
 
     suspend fun startupSetup(navigateToLibrary: () -> Unit) {
-        val loadAtStartup =
-            settings.settingsFlow.first().loadItemsAtStartup
-
         // setMediaItems is a noop before this point
         playerRepository.connected.filter { it }.first()
 
-        if (loadAtStartup) {
-            loadItems()
-        } else {
-            navigateToLibrary()
+        val currentMediaItem = playerRepository.currentMediaItem.value
+
+        if (currentMediaItem == null) {
+            val loadAtStartup =
+                settings.settingsFlow.first().loadItemsAtStartup
+
+            if (loadAtStartup) {
+                loadItems()
+            } else {
+                navigateToLibrary()
+            }
         }
     }
 

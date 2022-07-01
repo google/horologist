@@ -19,8 +19,9 @@ package com.google.android.horologist.mediasample
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.lifecycle.Lifecycle
 import androidx.test.filters.LargeTest
+import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToLibrary
+import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToVolume
 import com.google.android.horologist.mediasample.components.MediaActivity
-import com.google.android.horologist.mediasample.ui.app.Navigation
 import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
@@ -48,14 +49,12 @@ class MediaActivityTest {
 
     private fun toListAndBack() {
         rule.runOnUiThread {
-            rule.activity.navController.navigate(Navigation.Volume.route)
+            rule.activity.navController.navigateToVolume()
         }
         rule.waitForIdle()
 
         rule.runOnUiThread {
-            rule.activity.navController.navigate(Navigation.MediaPlayer.route) {
-                this.popUpTo(Navigation.MediaPlayer.route)
-            }
+            rule.activity.navController.navigateToLibrary()
         }
         rule.waitForIdle()
     }

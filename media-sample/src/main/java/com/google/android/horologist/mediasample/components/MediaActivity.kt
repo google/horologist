@@ -25,7 +25,7 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.mediasample.di.MediaActivityContainer
 import com.google.android.horologist.mediasample.di.ViewModelModule
-import com.google.android.horologist.mediasample.ui.app.WearApp
+import com.google.android.horologist.mediasample.ui.app.UampWearApp
 
 class MediaActivity : ComponentActivity() {
     lateinit var navController: NavHostController
@@ -41,7 +41,7 @@ class MediaActivity : ComponentActivity() {
 
         setContent {
             navController = rememberSwipeDismissableNavController()
-            WearApp(
+            UampWearApp(
                 navController = navController,
                 creationExtras = { defaultViewModelCreationExtras }
             )

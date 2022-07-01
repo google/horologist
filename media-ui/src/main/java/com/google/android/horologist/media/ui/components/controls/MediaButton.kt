@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.Dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
@@ -43,6 +44,7 @@ public fun MediaButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = mediaButtonDefaultColors,
+    size: Dp = ButtonDefaults.ExtraSmallButtonSize
 ) {
     Button(
         onClick = onClick,
@@ -52,7 +54,7 @@ public fun MediaButton(
     ) {
         Icon(
             modifier = Modifier
-                .size(ButtonDefaults.SmallButtonSize)
+                .size(size)
                 .semantics { iconImageVector = icon },
             imageVector = icon,
             contentDescription = contentDescription

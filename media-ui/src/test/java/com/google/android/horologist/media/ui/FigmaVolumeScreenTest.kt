@@ -52,7 +52,7 @@ class FigmaVolumeScreenTest {
     val paparazzi = Paparazzi(
         deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
         theme = "android:ThemeOverlay.Material.Dark",
-        maxPercentDifference = 0.0,
+        maxPercentDifference = 5.0,
         snapshotHandler = WearSnapshotHandler(determineHandler(0.1))
     )
 

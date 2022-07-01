@@ -84,6 +84,7 @@ fun MediaPlayerTestCase(
         }
     },
     colors: Colors = MaterialTheme.colors,
+    time: String = "10:10"
 ) {
     RoundPreview {
         Box(modifier = Modifier.background(Color.Black)) {
@@ -93,7 +94,7 @@ fun MediaPlayerTestCase(
                         TimeText(
                             timeSource = object : TimeSource {
                                 override val currentTime: String
-                                    @Composable get() = "10:10"
+                                    @Composable get() = time
                             }
                         )
                     }

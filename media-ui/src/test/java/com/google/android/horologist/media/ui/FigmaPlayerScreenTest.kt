@@ -46,7 +46,7 @@ class FigmaPlayerScreenTest {
     val paparazzi = Paparazzi(
         deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
         theme = "android:ThemeOverlay.Material.Dark",
-        maxPercentDifference = 0.0,
+        maxPercentDifference = 25.0,
         snapshotHandler = WearSnapshotHandler(determineHandler(0.1))
     )
 
@@ -57,18 +57,18 @@ class FigmaPlayerScreenTest {
             pauseEnabled = true,
             seekBackEnabled = true,
             seekForwardEnabled = true,
-            seekToPreviousEnabled = false,
+            seekToPreviousEnabled = true,
             seekToNextEnabled = true,
             shuffleEnabled = false,
             shuffleOn = false,
             playPauseEnabled = true,
-            playing = true,
+            playing = false,
             mediaItem = MediaItemUiModel(
                 id = "",
-                title = "The power of types",
-                artist = "Kotlinconf"
+                title = "Bat Out of Hell",
+                artist = "Meatloaf"
             ),
-            trackPosition = TrackPositionUiModel(current = 30, duration = 225, percent = 0.133f),
+            trackPosition = TrackPositionUiModel(current = 75, duration = 100, percent = 0.75f),
             connected = true
         )
 
@@ -76,21 +76,8 @@ class FigmaPlayerScreenTest {
             MediaPlayerTestCase(
                 playerUiState = playerUiState,
                 colors = UampColors,
-                controlButtons = {
-                    PodcastControlButtons(
-                        onPlayButtonClick = { },
-                        onPauseButtonClick = { },
-                        playPauseButtonEnabled = playerUiState.playPauseEnabled,
-                        playing = playerUiState.playing,
-                        percent = playerUiState.trackPosition?.percent ?: 0f,
-                        onSeekBackButtonClick = { },
-                        seekBackButtonEnabled = playerUiState.seekBackEnabled,
-                        onSeekForwardButtonClick = { },
-                        seekForwardButtonEnabled = playerUiState.seekForwardEnabled,
-                        seekBackButtonIncrement = Five,
-                        seekForwardButtonIncrement = Five,
-                    )
-                })
+                time = "9:30"
+            )
         }
     }
 }

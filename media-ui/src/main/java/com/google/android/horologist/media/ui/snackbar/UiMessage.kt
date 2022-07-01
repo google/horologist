@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui.app
+package com.google.android.horologist.media.ui.snackbar
 
-sealed class Navigation(
-    val route: String
-) {
-    object MediaPlayer : Navigation("player?page={page}") {
-        val player = "player?page=0"
-        val library = "player?page=1"
-    }
-    object Settings : Navigation("settings")
-    object Volume : Navigation("volume")
-}
+import java.util.UUID
+
+/**
+ * A UI message, either an error or informational to display.
+ */
+public data class UiMessage(
+    public val message: String,
+    public val id: String = UUID.randomUUID().toString(),
+    public val error: Boolean = true
+)

@@ -77,6 +77,14 @@ fun UampSettingsScreen(
             }
         }
         item {
+            val message = stringResource(id = R.string.horologist_sample_error)
+            ActionSetting(
+                stringResource(id = R.string.horologist_show_test_dialog),
+            ) {
+                settingsScreenViewModel.showDialog(message)
+            }
+        }
+        item {
             ActionSetting(stringResource(id = R.string.horologist_logout)) {
                 settingsScreenViewModel.logout()
             }

@@ -30,6 +30,7 @@ import androidx.media3.datasource.cache.SimpleCache
 import coil.Coil
 import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.media.data.PlayerRepositoryImpl
+import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media3.audio.AudioOutputSelector
 import com.google.android.horologist.media3.config.WearMedia3Factory
 import com.google.android.horologist.media3.offload.AudioOffloadManager
@@ -150,6 +151,10 @@ class MediaApplicationContainer(
                 }
             })
         }
+    }
+
+    val snackbarManager by lazy {
+        SnackbarManager()
     }
 
     // Confusingly the result of allowThreadDiskWrites is the old policy,

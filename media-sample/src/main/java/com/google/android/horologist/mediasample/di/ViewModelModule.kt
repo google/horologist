@@ -23,6 +23,7 @@ import androidx.lifecycle.viewmodel.MutableCreationExtras
 import androidx.media3.session.MediaBrowser
 import androidx.media3.session.SessionToken
 import com.google.android.horologist.media.data.PlayerRepositoryImpl
+import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
 import com.google.android.horologist.media3.flows.buildSuspend
 import com.google.android.horologist.mediasample.components.PlaybackService
 import kotlinx.coroutines.Deferred
@@ -89,6 +90,8 @@ class ViewModelModule(
             mediaApplicationContainer.vibrator
         creationExtras[MediaApplicationContainer.SettingsRepositoryKey] =
             mediaApplicationContainer.settingsRepository
+        creationExtras[SnackbarViewModel.SnackbarManagerKey] =
+            mediaApplicationContainer.snackbarManager
     }
 
     override fun close() {

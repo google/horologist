@@ -75,7 +75,9 @@ public fun PlayPauseProgressButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
-    progressColour: Color = MaterialTheme.colors.primaryVariant,
+    progressColour: Color = MaterialTheme.colors.primary,
+    trackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
+    backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
 ) {
     PlayPauseButton(
         onPlayClick = onPlayClick,
@@ -88,13 +90,14 @@ public fun PlayPauseProgressButton(
         Box(
             modifier = Modifier
                 .clip(CircleShape)
-                .background(MaterialTheme.colors.onBackground.copy(alpha = 0.1f))
+                .background(backgroundColor)
         ) {
             CircularProgressIndicator(
                 modifier = Modifier
                     .size(ButtonDefaults.LargeButtonSize),
                 progress = percent.ifNan(0f),
                 indicatorColor = progressColour,
+                trackColor = trackColor,
             )
         }
     }

@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.media.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.ColumnScope
@@ -25,6 +26,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.Colors
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
@@ -84,26 +86,28 @@ fun MediaPlayerTestCase(
     colors: Colors = MaterialTheme.colors,
 ) {
     RoundPreview {
-        MaterialTheme(colors = colors) {
-            Scaffold(
-                timeText = {
-                    TimeText(
-                        timeSource = object : TimeSource {
-                            override val currentTime: String
-                                @Composable get() = "10:10"
-                        }
-                    )
-                }
-            ) {
-                Box(modifier = Modifier.fillMaxSize()) {
-                    PagerScreen(count = 2) {
-                        PlayerScreen(
-                            modifier = Modifier.fillMaxSize(),
-                            mediaDisplay = { mediaDisplay() },
-                            controlButtons = { controlButtons() },
-                            buttons = { buttons() },
-                            background = background
+        Box(modifier = Modifier.background(Color.Black)) {
+            MaterialTheme(colors = colors) {
+                Scaffold(
+                    timeText = {
+                        TimeText(
+                            timeSource = object : TimeSource {
+                                override val currentTime: String
+                                    @Composable get() = "10:10"
+                            }
                         )
+                    }
+                ) {
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        PagerScreen(count = 2) {
+                            PlayerScreen(
+                                modifier = Modifier.fillMaxSize(),
+                                mediaDisplay = { mediaDisplay() },
+                                controlButtons = { controlButtons() },
+                                buttons = { buttons() },
+                                background = background
+                            )
+                        }
                     }
                 }
             }

@@ -149,7 +149,10 @@ public fun VolumeScreen(
             )
         }
         if (showVolumeIndicator) {
-            VolumePositionIndicator(volumeState = volume)
+            VolumePositionIndicator(
+                volumeState = volume,
+                autoHide = false
+            )
         }
     }
 }

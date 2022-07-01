@@ -24,6 +24,7 @@ SHARD_INDEX=0
 LOG_FILE=""
 # By default we run tests on device
 DEVICE=true
+TEST_OPTIONS=""
 
 # Parse parameters
 for i in "$@"; do
@@ -98,6 +99,12 @@ if [[ -z "$TASK" ]]; then
   fi
 fi
 
+if [ "$DEVICE" = true ]; then
+  TEST_OPTIONS="-Pandroid.testInstrumentationRunnerArguments.size=small,medium --no-parallel"
+else
+  TEST_OPTIONS=""
+fi
+
 SHARD_OPTS=""
 if [ "$SHARD_COUNT" -gt "0" ]; then
   # If we have a shard count value, create the necessary Gradle property args.
@@ -106,4 +113,4 @@ if [ "$SHARD_COUNT" -gt "0" ]; then
   SHARD_OPTS="$SHARD_OPTS -Pandroid.testInstrumentationRunnerArguments.shardIndex=$SHARD_INDEX"
 fi
 
-./gradlew --scan --continue --no-parallel --no-configuration-cache --stacktrace $TASK $FILTER_OPTS $SHARD_OPTS -Pandroid.testInstrumentationRunnerArguments.size=small,medium
+./gradlew --scan --continue $TEST_OPTIONS --no-configuration-cache --stacktrace $TASK $FILTER_OPTS $SHARD_OPTS

@@ -19,6 +19,7 @@ package com.google.android.horologist.compose.pager
 import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -31,6 +32,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
@@ -107,7 +109,10 @@ public fun PagerScreen(
         }
 
         val pagerScreenState = remember { PageScreenIndicatorState(state) }
-        HorizontalPageIndicator(pageIndicatorState = pagerScreenState)
+        HorizontalPageIndicator(
+            modifier = Modifier.padding(bottom = 6.dp),
+            pageIndicatorState = pagerScreenState
+        )
     }
 
     LaunchedEffect(Unit) {

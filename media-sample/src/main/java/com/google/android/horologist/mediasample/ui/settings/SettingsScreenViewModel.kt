@@ -17,36 +17,82 @@
 package com.google.android.horologist.mediasample.ui.settings
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.google.android.horologist.media.ui.snackbar.SnackbarManager
+import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
+import com.google.android.horologist.media.ui.snackbar.UiMessage
+import com.google.android.horologist.mediasample.di.MediaApplicationContainer
+import com.google.android.horologist.mediasample.domain.SettingsRepository
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
-class SettingsScreenViewModel : ViewModel() {
-    private val _uiState = MutableStateFlow(UiState())
-    val uiState: StateFlow<UiState> = _uiState
+class SettingsScreenViewModel(
+    private val settingsRepository: SettingsRepository,
+    private val snackbarManager: SnackbarManager,
+) : ViewModel() {
+    val uiState: StateFlow<UiState> = settingsRepository.settingsFlow.map {
+        UiState(
+            podcastControls = it.podcastControls,
+            loadItemsAtStartup = it.loadItemsAtStartup,
+            artworkGradient = it.artworkGradient,
+            writable = true
+        )
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = UiState(writable = false)
+    )
 
     data class UiState(
         val podcastControls: Boolean = false,
-        val loadItemsAtStartup: Boolean = true
+        val loadItemsAtStartup: Boolean = true,
+        val artworkGradient: Boolean = true,
+        val writable: Boolean = false,
     )
 
     fun setPodcastControls(enabled: Boolean) {
-        _uiState.value = uiState.value.copy(podcastControls = enabled)
+        viewModelScope.launch {
+            settingsRepository.writePodcastControls(enabled)
+        }
     }
 
     fun setLoadItemsAtStartup(enabled: Boolean) {
-        _uiState.value = uiState.value.copy(loadItemsAtStartup = enabled)
+        viewModelScope.launch {
+            settingsRepository.writeLoadItemsAtStartup(enabled)
+        }
+    }
+
+    fun setArtworkGradient(enabled: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.writeArtworkGradient(enabled)
+        }
     }
 
     fun logout() {
         // TODO login and logout functionality
     }
 
+    fun showDialog(message: String) {
+        snackbarManager.showMessage(
+            UiMessage(
+                message = message,
+                error = true
+            )
+        )
+    }
+
     companion object {
         val Factory = viewModelFactory {
             initializer {
-                SettingsScreenViewModel()
+                SettingsScreenViewModel(
+                    settingsRepository = this[MediaApplicationContainer.SettingsRepositoryKey]!!,
+                    snackbarManager = this[SnackbarViewModel.SnackbarManagerKey]!!,
+                )
             }
         }
     }

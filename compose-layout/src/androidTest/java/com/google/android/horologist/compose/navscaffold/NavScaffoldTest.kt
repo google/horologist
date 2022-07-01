@@ -36,6 +36,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.test.filters.MediumTest
 import androidx.wear.compose.foundation.curvedComposable
 import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.ScalingLazyColumn
@@ -53,6 +54,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @OptIn(ExperimentalHorologistComposeLayoutApi::class)
+@MediumTest
 class NavScaffoldTest {
     @get:Rule
     val composeTestRule = createComposeRule()

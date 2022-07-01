@@ -21,27 +21,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.VolumeViewModel
-import com.google.android.horologist.audio.ui.components.SettingsButtons
-import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
+import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
+import com.google.android.horologist.media.ui.components.background.ColorBackground
+import com.google.android.horologist.media.ui.screens.DefaultPlayerScreenControlButtons
 import com.google.android.horologist.media.ui.screens.PlayerScreen
-import com.google.android.horologist.mediasample.R
+import com.google.android.horologist.media.ui.state.PlayerUiState
+import com.google.android.horologist.media.ui.state.PlayerViewModel
 
 @Composable
 fun UampMediaPlayerScreen(
     mediaPlayerScreenViewModel: MediaPlayerScreenViewModel,
     volumeViewModel: VolumeViewModel,
     onVolumeClick: () -> Unit,
-    onOutputClick: () -> Unit,
     playerFocusRequester: FocusRequester,
     modifier: Modifier = Modifier,
 ) {
     val volumeState by rememberStateWithLifecycle(flow = volumeViewModel.volumeState)
+    val settingsState by rememberStateWithLifecycle(flow = mediaPlayerScreenViewModel.settingsState)
 
     Scaffold(
         modifier = modifier
@@ -55,18 +58,50 @@ fun UampMediaPlayerScreen(
         PlayerScreen(
             playerViewModel = mediaPlayerScreenViewModel,
             buttons = {
-                SettingsButtons(
+                UampSettingsButtons(
                     volumeState = volumeState,
                     onVolumeClick = onVolumeClick,
-                    onOutputClick = onOutputClick,
-                    brandIcon = {
-                        SettingsButtonsDefaults.BrandIcon(R.drawable.ic_uamp)
-                    }
+                    enabled = it.connected
                 )
             },
+            controlButtons = {
+                if (settingsState != null) {
+                    if (settingsState?.podcastControls == true) {
+                        PlayerScreenPodcastControlButtons(mediaPlayerScreenViewModel, it)
+                    } else {
+                        DefaultPlayerScreenControlButtons(mediaPlayerScreenViewModel, it)
+                    }
+                }
+            },
             background = {
-                ArtworkColorBackground(artworkUri = it.mediaItem?.artworkUri)
+                if (settingsState?.artworkGradient == true) {
+                    val artworkUri = it.mediaItem?.artworkUri
+                    ArtworkColorBackground(
+                        artworkUri = artworkUri,
+                        defaultColor = MaterialTheme.colors.primary
+                    )
+                } else {
+                    ColorBackground(color = MaterialTheme.colors.primary)
+                }
             }
         )
     }
+}
+
+@Composable
+public fun PlayerScreenPodcastControlButtons(
+    playerViewModel: PlayerViewModel,
+    playerUiState: PlayerUiState,
+) {
+    PodcastControlButtons(
+        onPlayButtonClick = { playerViewModel.play() },
+        onPauseButtonClick = { playerViewModel.pause() },
+        playPauseButtonEnabled = playerUiState.playPauseEnabled,
+        playing = playerUiState.playing,
+        percent = playerUiState.trackPosition?.percent ?: 0f,
+        onSeekBackButtonClick = { playerViewModel.seekBack() },
+        seekBackButtonEnabled = playerUiState.seekBackEnabled,
+        onSeekForwardButtonClick = { playerViewModel.seekForward() },
+        seekForwardButtonEnabled = playerUiState.seekForwardEnabled,
+    )
 }

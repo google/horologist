@@ -27,12 +27,14 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onRoot
+import androidx.test.filters.MediumTest
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import kotlin.math.pow
 import kotlin.math.sqrt
 
+@MediumTest
 class FillMaxRectangleTest {
     @get:Rule
     val composeTestRule = createComposeRule()

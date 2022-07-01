@@ -39,16 +39,17 @@ import coil.request.ImageRequest
  */
 @Composable
 public fun ArtworkColorBackground(
-    artworkUri: String?,
+    artworkUri: Any?,
     modifier: Modifier = Modifier,
+    defaultColor: Color? = null,
 ) {
     val context = LocalContext.current
     val imageLoader = context.imageLoader
 
-    var color by remember { mutableStateOf<Color?>(null) }
+    var artworkColor by remember { mutableStateOf<Color?>(null) }
 
     LaunchedEffect(artworkUri) {
-        color = if (artworkUri != null) {
+        artworkColor = if (artworkUri != null) {
             val request =
                 ImageRequest.Builder(context)
                     .data(artworkUri)
@@ -62,6 +63,14 @@ public fun ArtworkColorBackground(
         }
     }
 
+    ColorBackground(color = artworkColor ?: defaultColor, modifier = modifier)
+}
+
+@Composable
+public fun ColorBackground(
+    color: Color?,
+    modifier: Modifier = Modifier,
+) {
     Box(
         modifier = modifier
             .fillMaxSize()

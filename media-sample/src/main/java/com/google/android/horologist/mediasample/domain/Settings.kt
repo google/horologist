@@ -14,15 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui.app
+package com.google.android.horologist.mediasample.domain
 
-sealed class Navigation(
-    val route: String
-) {
-    object MediaPlayer : Navigation("player?page={page}") {
-        val player = "player?page=0"
-        val library = "player?page=1"
-    }
-    object Settings : Navigation("settings")
-    object Volume : Navigation("volume")
-}
+data class Settings(
+    val podcastControls: Boolean = false,
+    val loadItemsAtStartup: Boolean = true,
+    val artworkGradient: Boolean = true,
+)

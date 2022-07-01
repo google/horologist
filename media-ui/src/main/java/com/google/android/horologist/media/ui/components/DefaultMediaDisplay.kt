@@ -14,38 +14,25 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui.components
+package com.google.android.horologist.media.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.stringResource
-import coil.compose.rememberAsyncImagePainter
+import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
-import com.google.android.horologist.mediasample.R
 
+/**
+ * A simple text only display of [MediaItemUiModel] showing artist and title in two separated rows.
+ */
+@ExperimentalHorologistMediaUiApi
 @Composable
-fun MediaArtwork(
-    mediaItem: MediaItemUiModel,
+public fun DefaultMediaDisplay(
+    mediaItem: MediaItemUiModel?,
     modifier: Modifier = Modifier,
 ) {
-    val title = mediaItem.title
-    val artworkUri = mediaItem.artworkUri
-
-    MediaArtwork(artworkUri = artworkUri, title = title, modifier = modifier)
-}
-
-@Composable
-fun MediaArtwork(
-    artworkUri: String?,
-    title: String?,
-    modifier: Modifier = Modifier,
-) {
-    Image(
+    TextMediaDisplay(
         modifier = modifier,
-        painter = rememberAsyncImagePainter(artworkUri),
-        contentDescription = title ?: stringResource(id = R.string.horologist_no_title),
-        contentScale = ContentScale.Fit
+        title = mediaItem?.title,
+        artist = mediaItem?.artist
     )
 }

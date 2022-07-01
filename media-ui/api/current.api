@@ -8,6 +8,32 @@ package com.google.android.horologist.media.ui {
 
 package com.google.android.horologist.media.ui.components {
 
+  public final class DefaultMediaDisplayKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void DefaultMediaDisplay(com.google.android.horologist.media.ui.state.model.MediaItemUiModel? mediaItem, optional androidx.compose.ui.Modifier modifier);
+  }
+
+  public final class EntityButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void EntityButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, androidx.compose.ui.graphics.vector.ImageVector icon, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional boolean enabled);
+  }
+
+  public final class InfoMediaDisplayKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void InfoMediaDisplay(optional androidx.compose.ui.Modifier modifier, optional String? message);
+  }
+
+  public final class LoadingMediaDisplayKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void LoadingMediaDisplay(optional androidx.compose.ui.Modifier modifier);
+  }
+
+  public final class MediaArtworkKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void MediaArtwork(com.google.android.horologist.media.ui.state.model.MediaItemUiModel mediaItem, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void MediaArtwork(Object? artworkUri, String? contentDescription, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
+  }
+
+  public final class MediaChipKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void MediaChip(com.google.android.horologist.media.ui.state.model.MediaItemUiModel mediaItem, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String defaultTitle, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void MediaChip(String title, Object? artworkUri, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
+  }
+
   public final class MediaControlButtonsKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void MediaControlButtons(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseButtonClick, boolean playPauseButtonEnabled, boolean playing, float percent, kotlin.jvm.functions.Function0<kotlin.Unit> onSeekToPreviousButtonClick, boolean seekToPreviousButtonEnabled, kotlin.jvm.functions.Function0<kotlin.Unit> onSeekToNextButtonClick, boolean seekToNextButtonEnabled, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors, optional long progressColour);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void MediaControlButtons(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseButtonClick, boolean playPauseButtonEnabled, boolean playing, kotlin.jvm.functions.Function0<kotlin.Unit> onSeekToPreviousButtonClick, boolean seekToPreviousButtonEnabled, kotlin.jvm.functions.Function0<kotlin.Unit> onSeekToNextButtonClick, boolean seekToNextButtonEnabled, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors);
@@ -25,6 +51,14 @@ package com.google.android.horologist.media.ui.components {
 
   public final class TextMediaDisplayKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void TextMediaDisplay(optional androidx.compose.ui.Modifier modifier, optional String? title, optional String? artist);
+  }
+
+}
+
+package com.google.android.horologist.media.ui.components.actions {
+
+  public final class ShowPlaylistChipKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void ShowPlaylistChip(Object? artworkUri, String? name, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
   }
 
 }
@@ -48,7 +82,8 @@ package com.google.android.horologist.media.ui.components.animated {
 package com.google.android.horologist.media.ui.components.background {
 
   public final class ArtworkColorBackgroundKt {
-    method @androidx.compose.runtime.Composable public static void ArtworkColorBackground(String? artworkUri, optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable public static void ArtworkColorBackground(Object? artworkUri, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.Color? defaultColor);
+    method @androidx.compose.runtime.Composable public static void ColorBackground(androidx.compose.ui.graphics.Color? color, optional androidx.compose.ui.Modifier modifier);
   }
 
   public final class RadialBackgroundKt {
@@ -127,6 +162,62 @@ package com.google.android.horologist.media.ui.components.controls {
 
 }
 
+package com.google.android.horologist.media.ui.navigation {
+
+  public final class MediaNavController {
+    method public void navigateToCollection(androidx.navigation.NavController, String collectionId);
+    method public void navigateToCollections(androidx.navigation.NavController);
+    method public void navigateToLibrary(androidx.navigation.NavController);
+    method public void navigateToMediaItem(androidx.navigation.NavController, String mediaItemId, String? collectionId);
+    method public void navigateToPlayer(androidx.navigation.NavController);
+    method public void navigateToSettings(androidx.navigation.NavController);
+    method public void navigateToVolume(androidx.navigation.NavController);
+    field public static final com.google.android.horologist.media.ui.navigation.MediaNavController INSTANCE;
+  }
+
+  public final class MediaPlayerScaffoldKt {
+    method @androidx.compose.runtime.Composable public static void MediaPlayerScaffold(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.media.ui.snackbar.SnackbarViewModel snackbarViewModel, optional com.google.android.horologist.audio.ui.VolumeViewModel volumeViewModel, kotlin.jvm.functions.Function1<? super androidx.compose.ui.focus.FocusRequester,kotlin.Unit> playerScreen, kotlin.jvm.functions.Function2<? super androidx.compose.ui.focus.FocusRequester,? super androidx.wear.compose.material.ScalingLazyListState,kotlin.Unit> libraryScreen, kotlin.jvm.functions.Function2<? super androidx.compose.ui.focus.FocusRequester,? super androidx.wear.compose.material.ScalingLazyListState,kotlin.Unit> categoryEntityScreen, kotlin.jvm.functions.Function2<? super androidx.compose.ui.focus.FocusRequester,? super androidx.wear.compose.material.ScalingLazyListState,kotlin.Unit> mediaEntityScreen, kotlin.jvm.functions.Function2<? super androidx.compose.ui.focus.FocusRequester,? super androidx.wear.compose.material.ScalingLazyListState,kotlin.Unit> playlistsScreen, kotlin.jvm.functions.Function2<? super androidx.compose.ui.focus.FocusRequester,? super androidx.wear.compose.material.ScalingLazyListState,kotlin.Unit> settingsScreen, optional kotlin.jvm.functions.Function1<? super androidx.compose.ui.focus.FocusRequester,kotlin.Unit> volumeScreen, optional kotlin.jvm.functions.Function1<? super androidx.compose.ui.Modifier,kotlin.Unit> timeText, optional com.google.accompanist.pager.PagerState pagerState, String deepLinkPrefix, androidx.navigation.NavHostController navController, optional kotlin.jvm.functions.Function1<? super androidx.navigation.NavGraphBuilder,kotlin.Unit> additionalNavRoutes);
+  }
+
+  public abstract sealed class NavigationScreens {
+    method public final String getRoute();
+    property public final String route;
+  }
+
+  public static final class NavigationScreens.Collection extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Collection INSTANCE;
+  }
+
+  public static final class NavigationScreens.Collections extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Collections INSTANCE;
+  }
+
+  public static final class NavigationScreens.Login extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Login INSTANCE;
+  }
+
+  public static final class NavigationScreens.MediaItem extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.MediaItem INSTANCE;
+  }
+
+  public static final class NavigationScreens.Player extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    method public String getLibrary();
+    method public String getPlayer();
+    property public final String library;
+    property public final String player;
+    field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Player INSTANCE;
+  }
+
+  public static final class NavigationScreens.Settings extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Settings INSTANCE;
+  }
+
+  public static final class NavigationScreens.Volume extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Volume INSTANCE;
+  }
+
+}
+
 package com.google.android.horologist.media.ui.screens {
 
   public final class PlayerLibraryPagerScreenKt {
@@ -135,7 +226,7 @@ package com.google.android.horologist.media.ui.screens {
 
   public final class PlayerScreenKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void DefaultPlayerScreenControlButtons(com.google.android.horologist.media.ui.state.PlayerViewModel playerViewModel, com.google.android.horologist.media.ui.state.PlayerUiState playerUiState, optional boolean showProgress);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void DefaultPlayerScreenMediaDisplay(com.google.android.horologist.media.ui.state.PlayerUiState playerUiState);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void DefaultPlayerScreenMediaDisplay(com.google.android.horologist.media.ui.state.PlayerUiState playerUiState, optional androidx.compose.ui.Modifier modifier);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlayerScreen(com.google.android.horologist.media.ui.state.PlayerViewModel playerViewModel, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.ColumnScope,? super com.google.android.horologist.media.ui.state.PlayerUiState,kotlin.Unit> mediaDisplay, optional kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.RowScope,? super com.google.android.horologist.media.ui.state.PlayerUiState,kotlin.Unit> controlButtons, optional kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.RowScope,? super com.google.android.horologist.media.ui.state.PlayerUiState,kotlin.Unit> buttons, optional kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.BoxScope,? super com.google.android.horologist.media.ui.state.PlayerUiState,kotlin.Unit> background);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlayerScreen(kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit> mediaDisplay, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> controlButtons, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> buttons, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> background);
   }
@@ -155,16 +246,58 @@ package com.google.android.horologist.media.ui.semantics {
 
 }
 
+package com.google.android.horologist.media.ui.snackbar {
+
+  public final class SnackbarManager {
+    ctor public SnackbarManager();
+    method public kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.media.ui.snackbar.UiMessage>> getMessages();
+    method public void setMessageShown(String messageId);
+    method public void showMessage(com.google.android.horologist.media.ui.snackbar.UiMessage message);
+    method public void showMessage(String message);
+    property public final kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.media.ui.snackbar.UiMessage>> messages;
+  }
+
+  public class SnackbarViewModel extends androidx.lifecycle.ViewModel {
+    ctor public SnackbarViewModel(com.google.android.horologist.media.ui.snackbar.SnackbarManager snackbarManager);
+    method public final com.google.android.horologist.compose.snackbar.SnackbarHostState getSnackbarHostState();
+    property public final com.google.android.horologist.compose.snackbar.SnackbarHostState snackbarHostState;
+    field public static final com.google.android.horologist.media.ui.snackbar.SnackbarViewModel.Companion Companion;
+  }
+
+  public static final class SnackbarViewModel.Companion {
+    method public androidx.lifecycle.ViewModelProvider.Factory getFactory();
+    method public androidx.lifecycle.viewmodel.CreationExtras.Key<com.google.android.horologist.media.ui.snackbar.SnackbarManager> getSnackbarManagerKey();
+    property public final androidx.lifecycle.ViewModelProvider.Factory Factory;
+    property public final androidx.lifecycle.viewmodel.CreationExtras.Key<com.google.android.horologist.media.ui.snackbar.SnackbarManager> SnackbarManagerKey;
+  }
+
+  public final class UiMessage {
+    ctor public UiMessage(String message, optional String id, optional boolean error);
+    method public String component1();
+    method public String component2();
+    method public boolean component3();
+    method public com.google.android.horologist.media.ui.snackbar.UiMessage copy(String message, String id, boolean error);
+    method public boolean getError();
+    method public String getId();
+    method public String getMessage();
+    property public final boolean error;
+    property public final String id;
+    property public final String message;
+  }
+
+}
+
 package com.google.android.horologist.media.ui.state {
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class PlayerUiState {
-    ctor public PlayerUiState(boolean playEnabled, boolean pauseEnabled, boolean seekBackEnabled, boolean seekForwardEnabled, boolean seekToPreviousEnabled, boolean seekToNextEnabled, boolean shuffleEnabled, boolean shuffleOn, boolean playPauseEnabled, boolean playing, com.google.android.horologist.media.ui.state.model.MediaItemUiModel? mediaItem, com.google.android.horologist.media.ui.state.model.TrackPositionUiModel? trackPosition, optional com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekBackButtonIncrement, optional com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekForwardButtonIncrement);
+    ctor public PlayerUiState(boolean playEnabled, boolean pauseEnabled, boolean seekBackEnabled, boolean seekForwardEnabled, boolean seekToPreviousEnabled, boolean seekToNextEnabled, boolean shuffleEnabled, boolean shuffleOn, boolean playPauseEnabled, boolean playing, com.google.android.horologist.media.ui.state.model.MediaItemUiModel? mediaItem, com.google.android.horologist.media.ui.state.model.TrackPositionUiModel? trackPosition, optional com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekBackButtonIncrement, optional com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekForwardButtonIncrement, boolean connected);
     method public boolean component1();
     method public boolean component10();
     method public com.google.android.horologist.media.ui.state.model.MediaItemUiModel? component11();
     method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel? component12();
     method public com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement component13();
     method public com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement component14();
+    method public boolean component15();
     method public boolean component2();
     method public boolean component3();
     method public boolean component4();
@@ -173,7 +306,8 @@ package com.google.android.horologist.media.ui.state {
     method public boolean component7();
     method public boolean component8();
     method public boolean component9();
-    method public com.google.android.horologist.media.ui.state.PlayerUiState copy(boolean playEnabled, boolean pauseEnabled, boolean seekBackEnabled, boolean seekForwardEnabled, boolean seekToPreviousEnabled, boolean seekToNextEnabled, boolean shuffleEnabled, boolean shuffleOn, boolean playPauseEnabled, boolean playing, com.google.android.horologist.media.ui.state.model.MediaItemUiModel? mediaItem, com.google.android.horologist.media.ui.state.model.TrackPositionUiModel? trackPosition, com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekBackButtonIncrement, com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekForwardButtonIncrement);
+    method public com.google.android.horologist.media.ui.state.PlayerUiState copy(boolean playEnabled, boolean pauseEnabled, boolean seekBackEnabled, boolean seekForwardEnabled, boolean seekToPreviousEnabled, boolean seekToNextEnabled, boolean shuffleEnabled, boolean shuffleOn, boolean playPauseEnabled, boolean playing, com.google.android.horologist.media.ui.state.model.MediaItemUiModel? mediaItem, com.google.android.horologist.media.ui.state.model.TrackPositionUiModel? trackPosition, com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekBackButtonIncrement, com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekForwardButtonIncrement, boolean connected);
+    method public boolean getConnected();
     method public com.google.android.horologist.media.ui.state.model.MediaItemUiModel? getMediaItem();
     method public boolean getPauseEnabled();
     method public boolean getPlayEnabled();
@@ -188,6 +322,7 @@ package com.google.android.horologist.media.ui.state {
     method public boolean getShuffleEnabled();
     method public boolean getShuffleOn();
     method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel? getTrackPosition();
+    property public final boolean connected;
     property public final com.google.android.horologist.media.ui.state.model.MediaItemUiModel? mediaItem;
     property public final boolean pauseEnabled;
     property public final boolean playEnabled;
@@ -230,7 +365,7 @@ package com.google.android.horologist.media.ui.state.mapper {
   }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class PlayerUiStateMapper {
-    method public com.google.android.horologist.media.ui.state.PlayerUiState map(com.google.android.horologist.media.model.PlayerState currentState, java.util.Set<? extends com.google.android.horologist.media.model.Command> availableCommands, com.google.android.horologist.media.model.MediaItem? mediaItem, com.google.android.horologist.media.model.MediaItemPosition? mediaItemPosition, boolean shuffleModeEnabled);
+    method public com.google.android.horologist.media.ui.state.PlayerUiState map(com.google.android.horologist.media.model.PlayerState currentState, java.util.Set<? extends com.google.android.horologist.media.model.Command> availableCommands, com.google.android.horologist.media.model.MediaItem? mediaItem, com.google.android.horologist.media.model.MediaItemPosition? mediaItemPosition, boolean shuffleModeEnabled, boolean connected);
     field public static final com.google.android.horologist.media.ui.state.mapper.PlayerUiStateMapper INSTANCE;
   }
 

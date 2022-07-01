@@ -17,6 +17,7 @@
 package com.google.android.horologist.mediasample.playback
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.LargeTest
 import com.google.android.horologist.media.data.Media3MediaItemMapper
 import com.google.android.horologist.media.model.MediaItem
 import com.google.common.truth.Truth.assertThat
@@ -28,6 +29,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
+@LargeTest
 class PlaybackErrorTest : BasePlaybackTest() {
     @Test
     fun testFailingItem() = runTest {

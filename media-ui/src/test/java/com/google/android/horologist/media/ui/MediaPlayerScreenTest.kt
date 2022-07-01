@@ -68,6 +68,7 @@ class MediaPlayerScreenTest(
                 artist = "Crowded House"
             ),
             trackPosition = TrackPositionUiModel(current = 30, duration = 225, percent = 0.133f),
+            connected = true
         )
 
         paparazzi.snapshot(name = themeValue.safeName) {

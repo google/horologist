@@ -20,6 +20,8 @@ import android.os.Build
 import android.os.Looper
 import android.os.StrictMode
 import android.os.Vibrator
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.CreationExtras
@@ -29,6 +31,7 @@ import androidx.media3.datasource.cache.SimpleCache
 import coil.Coil
 import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.media.data.PlayerRepositoryImpl
+import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media3.audio.AudioOutputSelector
 import com.google.android.horologist.media3.config.WearMedia3Factory
 import com.google.android.horologist.media3.offload.AudioOffloadManager
@@ -38,6 +41,7 @@ import com.google.android.horologist.mediasample.catalog.UampService
 import com.google.android.horologist.mediasample.components.MediaActivity
 import com.google.android.horologist.mediasample.components.MediaApplication
 import com.google.android.horologist.mediasample.components.PlaybackService
+import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.system.Logging
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.status.NetworkRepository
@@ -67,6 +71,20 @@ class MediaApplicationContainer(
         } else {
             PlaybackRules.Normal
         }
+    }
+
+    val prefsDataStore by lazy {
+        PreferenceDataStoreFactory.create(
+            corruptionHandler = null,
+            migrations = listOf(),
+            scope = coroutineScope
+        ) {
+            application.preferencesDataStoreFile("prefs")
+        }
+    }
+
+    val settingsRepository by lazy {
+        SettingsRepository(prefsDataStore)
     }
 
     val coroutineScope: CoroutineScope by lazy {
@@ -140,6 +158,10 @@ class MediaApplicationContainer(
         }
     }
 
+    val snackbarManager by lazy {
+        SnackbarManager()
+    }
+
     // Confusingly the result of allowThreadDiskWrites is the old policy,
     // while allow* methods immediately apply the change.
     // So `this` is the policy before we overrode it.
@@ -172,5 +194,6 @@ class MediaApplicationContainer(
         val UampServiceKey = object : CreationExtras.Key<UampService> {}
         val SystemAudioRepositoryKey = object : CreationExtras.Key<SystemAudioRepository> {}
         val VibratorKey = object : CreationExtras.Key<Vibrator> {}
+        val SettingsRepositoryKey = object : CreationExtras.Key<SettingsRepository> {}
     }
 }

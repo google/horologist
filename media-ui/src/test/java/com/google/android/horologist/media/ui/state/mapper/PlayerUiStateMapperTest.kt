@@ -48,6 +48,7 @@ class PlayerUiStateMapperTest {
             mediaItem = null,
             mediaItemPosition = null,
             shuffleModeEnabled = false,
+            connected = false
         )
 
         // then
@@ -64,7 +65,8 @@ class PlayerUiStateMapperTest {
                 playPauseEnabled = false,
                 playing = false,
                 mediaItem = null,
-                trackPosition = null
+                trackPosition = null,
+                connected = false
             )
         )
     }
@@ -81,6 +83,7 @@ class PlayerUiStateMapperTest {
             mediaItem = null,
             mediaItemPosition = null,
             shuffleModeEnabled = false,
+            connected = true
         )
 
         // then
@@ -99,6 +102,7 @@ class PlayerUiStateMapperTest {
             mediaItem = null,
             mediaItemPosition = null,
             shuffleModeEnabled = false,
+            connected = true
         )
 
         // then
@@ -117,6 +121,7 @@ class PlayerUiStateMapperTest {
             mediaItem = null,
             mediaItemPosition = null,
             shuffleModeEnabled = false,
+            connected = true
         )
 
         // then
@@ -135,6 +140,7 @@ class PlayerUiStateMapperTest {
             mediaItem = null,
             mediaItemPosition = null,
             shuffleModeEnabled = false,
+            connected = true
         )
 
         // then
@@ -153,6 +159,7 @@ class PlayerUiStateMapperTest {
             mediaItem = null,
             mediaItemPosition = null,
             shuffleModeEnabled = false,
+            connected = true
         )
 
         // then
@@ -171,6 +178,7 @@ class PlayerUiStateMapperTest {
             mediaItem = null,
             mediaItemPosition = null,
             shuffleModeEnabled = false,
+            connected = true
         )
 
         // then
@@ -189,6 +197,7 @@ class PlayerUiStateMapperTest {
             mediaItem = null,
             mediaItemPosition = null,
             shuffleModeEnabled = false,
+            connected = true
         )
 
         // then
@@ -207,6 +216,7 @@ class PlayerUiStateMapperTest {
             mediaItem = null,
             mediaItemPosition = null,
             shuffleModeEnabled = shuffleEnabled,
+            connected = true
         )
 
         // then
@@ -225,6 +235,7 @@ class PlayerUiStateMapperTest {
             mediaItem = null,
             mediaItemPosition = null,
             shuffleModeEnabled = shuffleEnabled,
+            connected = true
         )
 
         // then
@@ -243,6 +254,7 @@ class PlayerUiStateMapperTest {
             mediaItem = null,
             mediaItemPosition = null,
             shuffleModeEnabled = false,
+            connected = true
         )
 
         // then
@@ -261,6 +273,7 @@ class PlayerUiStateMapperTest {
             mediaItem = null,
             mediaItemPosition = null,
             shuffleModeEnabled = false,
+            connected = true
         )
 
         // then
@@ -279,6 +292,7 @@ class PlayerUiStateMapperTest {
             mediaItem = null,
             mediaItemPosition = null,
             shuffleModeEnabled = false,
+            connected = true
         )
 
         // then
@@ -305,6 +319,7 @@ class PlayerUiStateMapperTest {
             mediaItem = mediaItem,
             mediaItemPosition = null,
             shuffleModeEnabled = false,
+            connected = true
         )
 
         // then
@@ -329,6 +344,7 @@ class PlayerUiStateMapperTest {
             mediaItem = null,
             mediaItemPosition = mediaItemPosition,
             shuffleModeEnabled = false,
+            connected = true
         )
 
         // then

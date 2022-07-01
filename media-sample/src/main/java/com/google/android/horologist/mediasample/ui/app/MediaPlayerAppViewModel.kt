@@ -25,6 +25,7 @@ import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.catalog.UampService
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
+import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.ui.debug.OffloadState
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.DataUsageReport
@@ -45,6 +46,7 @@ class MediaPlayerAppViewModel(
     networkRepository: NetworkRepository,
     dataRequestRepository: DataRequestRepository,
     audioOffloadManager: AudioOffloadManager,
+    private val settings: SettingsRepository,
     private val playerRepository: PlayerRepository,
     private val uampService: UampService,
     private val appConfig: AppConfig
@@ -112,10 +114,17 @@ class MediaPlayerAppViewModel(
         // setMediaItems is a noop before this point
         playerRepository.connected.filter { it }.first()
 
-        if (appConfig.loadItemsOnStartup) {
-            loadItems()
-        } else {
-            navigateToLibrary()
+        val currentMediaItem = playerRepository.currentMediaItem.value
+
+        if (currentMediaItem == null) {
+            val loadAtStartup =
+                settings.settingsFlow.first().loadItemsAtStartup
+
+            if (loadAtStartup) {
+                loadItems()
+            } else {
+                navigateToLibrary()
+            }
         }
     }
 
@@ -126,6 +135,7 @@ class MediaPlayerAppViewModel(
                     this[MediaApplicationContainer.NetworkRepositoryKey]!!,
                     this[MediaApplicationContainer.DataRequestRepositoryKey]!!,
                     this[MediaApplicationContainer.AudioOffloadManagerKey]!!,
+                    this[MediaApplicationContainer.SettingsRepositoryKey]!!,
                     this[MediaApplicationContainer.PlayerRepositoryImplKey]!!,
                     this[MediaApplicationContainer.UampServiceKey]!!,
                     this[MediaApplicationContainer.AppConfigKey]!!,

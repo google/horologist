@@ -31,6 +31,7 @@ import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.lifecycle.whenResumed
+import androidx.test.filters.MediumTest
 import androidx.wear.compose.material.Text
 import com.google.accompanist.pager.PagerState
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
@@ -43,6 +44,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @OptIn(ExperimentalHorologistComposeLayoutApi::class)
+@MediumTest
 class PagerScreenTest {
     @get:Rule
     val composeTestRule = createComposeRule()

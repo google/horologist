@@ -21,6 +21,7 @@ package com.google.android.horologist.networks
 import android.content.Context
 import android.net.ConnectivityManager
 import androidx.activity.ComponentActivity
+import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.status.NetworkRepository
@@ -36,6 +37,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
+@MediumTest
 class NetworkRepositoryTest {
     private lateinit var networkRepository: NetworkRepository
     private lateinit var context: Context

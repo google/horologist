@@ -22,6 +22,7 @@ import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.test.filters.MediumTest
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.test.toolbox.matchers.assertHasClickLabel
@@ -29,6 +30,7 @@ import com.google.android.horologist.test.toolbox.matchers.assertHasStateDescrip
 import org.junit.Rule
 import org.junit.Test
 
+@MediumTest
 class VolumeScreenA11yTest {
     @get:Rule
     val composeTestRule = createComposeRule()

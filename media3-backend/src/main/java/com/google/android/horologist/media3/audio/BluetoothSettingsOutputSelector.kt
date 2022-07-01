@@ -44,6 +44,6 @@ public class BluetoothSettingsOutputSelector(
     }
 
     override fun launchSelector() {
-        audioOutputRepository.launchOutputSelection(true)
+        audioOutputRepository.launchOutputSelection(false)
     }
 }

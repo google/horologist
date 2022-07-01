@@ -26,12 +26,12 @@ package com.google.android.horologist.media.ui.components {
 
   public final class MediaArtworkKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void MediaArtwork(com.google.android.horologist.media.ui.state.model.MediaItemUiModel mediaItem, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void MediaArtwork(String? artworkUri, String? contentDescription, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void MediaArtwork(Object? artworkUri, String? contentDescription, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
   }
 
   public final class MediaChipKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void MediaChip(com.google.android.horologist.media.ui.state.model.MediaItemUiModel mediaItem, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String defaultTitle, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void MediaChip(String title, String? artworkUri, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void MediaChip(String title, Object? artworkUri, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
   }
 
   public final class MediaControlButtonsKt {
@@ -58,7 +58,7 @@ package com.google.android.horologist.media.ui.components {
 package com.google.android.horologist.media.ui.components.actions {
 
   public final class ShowPlaylistChipKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void ShowPlaylistChip(String? artworkUri, String? name, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void ShowPlaylistChip(Object? artworkUri, String? name, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? placeholder);
   }
 
 }
@@ -82,7 +82,7 @@ package com.google.android.horologist.media.ui.components.animated {
 package com.google.android.horologist.media.ui.components.background {
 
   public final class ArtworkColorBackgroundKt {
-    method @androidx.compose.runtime.Composable public static void ArtworkColorBackground(String? artworkUri, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.Color? defaultColor);
+    method @androidx.compose.runtime.Composable public static void ArtworkColorBackground(Object? artworkUri, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.Color? defaultColor);
     method @androidx.compose.runtime.Composable public static void ColorBackground(androidx.compose.ui.graphics.Color? color, optional androidx.compose.ui.Modifier modifier);
   }
 

@@ -43,7 +43,7 @@ public fun MediaArtwork(
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun MediaArtwork(
-    artworkUri: String?,
+    artworkUri: Any?,
     contentDescription: String?,
     modifier: Modifier = Modifier,
     placeholder: Painter? = null,

@@ -39,6 +39,8 @@ class MediaActivity : ComponentActivity() {
 
         MediaActivityContainer.inject(this)
 
+        setTheme(android.R.style.Theme_DeviceDefault)
+
         setContent {
             navController = rememberSwipeDismissableNavController()
             UampWearApp(

@@ -120,7 +120,7 @@ private fun MediaRouter.fixInconsistency() {
 @ExperimentalHorologistAudioApi
 private inline val MediaRouter.volume: VolumeState
     get() {
-        return defaultRoute.volumeState
+        return selectedRoute.volumeState
     }
 
 @ExperimentalHorologistAudioApi

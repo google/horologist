@@ -155,3 +155,4 @@ private fun ToggleSetting(
             }, modifier = Modifier.fillMaxWidth()
             )
         }
+        

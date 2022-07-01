@@ -47,8 +47,10 @@ class LibraryScreenViewModel(
         if (mediaItems != null) {
             playerRepository.setMediaItems(mediaItems)
             playerRepository.prepare()
-            playerRepository.play(mediaItems.indexOfFirst { it.id == mediaItemUiModel.id }
-                .coerceAtLeast(0))
+            playerRepository.play(
+                mediaItems.indexOfFirst { it.id == mediaItemUiModel.id }
+                    .coerceAtLeast(0)
+            )
         } else {
             // TODO warning
         }
@@ -57,9 +59,11 @@ class LibraryScreenViewModel(
     val items: StateFlow<List<MediaItem>?> = flow {
         try {
             val catalog = uampService.catalog()
-            emit(catalog.music.map {
-                it.toMediaItem()
-            })
+            emit(
+                catalog.music.map {
+                    it.toMediaItem()
+                }
+            )
         } catch (ioe: IOException) {
             snackbarManager.showMessage(UiMessage(message = ioe.message ?: "Error", error = true))
             emit(listOf())

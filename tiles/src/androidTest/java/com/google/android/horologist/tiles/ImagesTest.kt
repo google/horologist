@@ -19,6 +19,7 @@
 package com.google.android.horologist.tiles
 
 import android.content.Context
+import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.wear.tiles.ResourceBuilders
 import com.google.android.horologist.tiles.images.loadImageResource
@@ -28,6 +29,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
+@SmallTest
 class ImagesTest {
     private lateinit var context: Context
 

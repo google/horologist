@@ -33,7 +33,6 @@ import androidx.compose.ui.test.onParent
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performSemanticsAction
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.LargeTest
 import androidx.test.filters.MediumTest
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.common.truth.Truth
@@ -49,7 +48,6 @@ import org.junit.runner.RunWith
 
 @MediumTest
 @RunWith(AndroidJUnit4::class)
-@LargeTest
 @Ignore("https://github.com/google/horologist/issues/66")
 class SnackbarHostTest {
 
@@ -112,7 +110,6 @@ class SnackbarHostTest {
     }
 
     @Test
-    @LargeTest
     @Ignore("ComposeTimeoutException: Condition still not satisfied after 5000 ms")
     fun snackbarHost_returnedResult() {
         val hostState = SnackbarHostState()

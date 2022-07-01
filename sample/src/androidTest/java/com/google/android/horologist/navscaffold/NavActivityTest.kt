@@ -18,11 +18,13 @@ package com.google.android.horologist.navscaffold
 
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.lifecycle.Lifecycle
+import androidx.test.filters.LargeTest
 import com.google.android.horologist.navsample.NavActivity
 import com.google.android.horologist.navsample.NavScreen
 import org.junit.Rule
 import org.junit.Test
 
+@LargeTest
 class NavActivityTest {
     @get:Rule
     var rule = createAndroidComposeRule<NavActivity>()

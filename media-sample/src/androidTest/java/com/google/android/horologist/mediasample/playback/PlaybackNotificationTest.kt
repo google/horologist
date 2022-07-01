@@ -19,6 +19,7 @@ package com.google.android.horologist.mediasample.playback
 import android.app.Notification
 import androidx.core.app.NotificationCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.LargeTest
 import com.google.android.horologist.media.data.Media3MediaItemMapper
 import com.google.android.horologist.media3.flows.waitForPlaying
 import com.google.common.truth.Truth.assertThat
@@ -31,6 +32,7 @@ import org.junit.runner.RunWith
 import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
+@LargeTest
 class PlaybackNotificationTest : BasePlaybackTest() {
     @Test
     fun testCausesNotification() = runTest {

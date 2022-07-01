@@ -26,6 +26,7 @@ import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performRotaryScrollInput
+import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
@@ -35,7 +36,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @OptIn(ExperimentalHorologistAudioApi::class, ExperimentalHorologistAudioUiApi::class, ExperimentalTestApi::class, kotlinx.coroutines.ExperimentalCoroutinesApi::class)
-
+@MediumTest
 class VolumeScreenTest {
     @get:Rule
     val composeTestRule = createComposeRule()

@@ -87,6 +87,10 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion libs.versions.compose.get()
     }
+
+    testOptions {
+        execution 'ANDROIDX_TEST_ORCHESTRATOR'
+    }
 }
 
 dependencies {
@@ -151,6 +155,8 @@ dependencies {
     androidTestImplementation libs.androidx.test.rules
     androidTestImplementation libs.truth
     androidTestImplementation libs.androidx.test.uiautomator
+    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestUtil 'androidx.test:orchestrator:1.4.1'
 }
 
 def device = localProperties.getProperty("DEVICE")

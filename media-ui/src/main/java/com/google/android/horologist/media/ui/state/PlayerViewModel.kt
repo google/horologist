@@ -21,7 +21,6 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
-import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement.Companion.SeekButtonIncrement
 import com.google.android.horologist.media.ui.state.mapper.PlayerUiStateMapper
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
@@ -51,8 +50,8 @@ public open class PlayerViewModel(
         StaticState(
             connected = connected,
             shuffleModeEnabled = shuffleModeEnabled,
-            seekBackButtonIncrement = SeekButtonIncrement(seekBackSeconds),
-            seekForwardButtonIncrement = SeekButtonIncrement(seekForwardSeconds)
+            seekBackButtonIncrement = SeekButtonIncrement.ofSeconds(seekBackSeconds),
+            seekForwardButtonIncrement = SeekButtonIncrement.ofSeconds(seekForwardSeconds)
         )
     }
 

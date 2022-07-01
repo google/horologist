@@ -37,8 +37,8 @@ public object PlayerUiStateMapper {
         mediaItemPosition: MediaItemPosition?,
         shuffleModeEnabled: Boolean,
         connected: Boolean,
-        seekBackButtonIncrement: SeekButtonIncrement,
-        seekForwardButtonIncrement: SeekButtonIncrement
+        seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
+        seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown
     ): PlayerUiState {
         val playPauseCommandAvailable = availableCommands.contains(Command.PlayPause)
 

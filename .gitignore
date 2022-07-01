@@ -46,3 +46,6 @@ checksum.txt
 
 /localbin/
 /.java-version
+
+# Paparazzi failures output folder
+out/

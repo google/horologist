@@ -78,12 +78,12 @@ fun MediaPlayerTestCase(
             enabled = playerUiState.connected
         )
     },
+    colors: Colors = MaterialTheme.colors,
     background: @Composable BoxScope.() -> Unit = {
         if (playerUiState.mediaItem != null) {
-            RadialBackground(color = MaterialTheme.colors.secondary)
+            RadialBackground(color = colors.secondary)
         }
     },
-    colors: Colors = MaterialTheme.colors,
     time: String = "10:10"
 ) {
     RoundPreview {

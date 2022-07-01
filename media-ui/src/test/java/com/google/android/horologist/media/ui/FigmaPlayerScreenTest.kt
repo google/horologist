@@ -47,7 +47,7 @@ class FigmaPlayerScreenTest {
     val paparazzi = Paparazzi(
         deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
         theme = "android:ThemeOverlay.Material.Dark",
-        maxPercentDifference = 25.0,
+        maxPercentDifference = 0.1,
         snapshotHandler = WearSnapshotHandler(determineHandler(0.1))
     )
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistComposeToolsApi::class)
+@file:OptIn(ExperimentalHorologistComposeToolsApi::class)
 
 package com.google.android.horologist.media.ui
 
@@ -29,18 +29,16 @@ import com.google.android.horologist.media.ui.uamp.UampTheme
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
 import com.google.android.horologist.paparazzi.determineHandler
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
-@Ignore("For interactive use only")
 class FigmaVolumeScreenTest {
     @get:Rule
     val paparazzi = Paparazzi(
         deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
         theme = "android:ThemeOverlay.Material.Dark",
-        maxPercentDifference = 10.0,
-        snapshotHandler = WearSnapshotHandler(determineHandler(0.1))
+        maxPercentDifference = 5.0,
+        snapshotHandler = WearSnapshotHandler(determineHandler(5.0))
     )
 
     @Test

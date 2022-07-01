@@ -81,7 +81,7 @@ fun MediaPlayerTestCase(
     colors: Colors = MaterialTheme.colors,
     background: @Composable BoxScope.() -> Unit = {
         if (playerUiState.mediaItem != null) {
-            RadialBackground(color = colors.secondary)
+            RadialBackground(color = colors.primary)
         }
     },
     time: String = "10:10"

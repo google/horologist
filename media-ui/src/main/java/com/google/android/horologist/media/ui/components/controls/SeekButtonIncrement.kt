@@ -22,7 +22,6 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 public sealed class SeekButtonIncrement(
     public open val seconds: Int
 ) {
-
     public object Unknown : SeekButtonIncrement(-1)
 
     public object Five : SeekButtonIncrement(5)
@@ -32,4 +31,16 @@ public sealed class SeekButtonIncrement(
     public object Thirty : SeekButtonIncrement(30)
 
     public data class Other(override val seconds: Int) : SeekButtonIncrement(seconds)
+
+    public companion object {
+        public fun ofSeconds(seconds: Int?): SeekButtonIncrement {
+            return when (seconds) {
+                Five.seconds -> Five
+                Ten.seconds -> Ten
+                Thirty.seconds -> Thirty
+                null -> Unknown
+                else -> Other(seconds)
+            }
+        }
+    }
 }

@@ -81,7 +81,8 @@ class FigmaPlayerScreenTest {
                 buttons = {
                     UampSettingsButtons(
                         volumeState = VolumeState(10, 10),
-                        onVolumeClick = { })
+                        onVolumeClick = { }
+                    )
                 }
             )
         }
@@ -115,4 +116,3 @@ public fun UampSettingsButtons(
         )
     }
 }
-

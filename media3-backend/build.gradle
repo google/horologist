@@ -36,6 +36,7 @@ android {
     }
 
     buildFeatures {
+        compose true
         buildConfig false
     }
 
@@ -97,6 +98,8 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
 dependencies {
     implementation projects.audio
     implementation projects.media
+    implementation projects.tiles
+    implementation projects.composeTools
     implementation libs.kotlinx.coroutines.core
     api libs.androidx.media3.common
     api libs.androidx.annotation
@@ -109,6 +112,15 @@ dependencies {
     implementation libs.kotlinx.coroutines.guava
     implementation libs.androidx.corektx
     implementation libs.androidx.lifecycle.service
+    implementation libs.androidx.complications.datasource.ktx
+    implementation libs.androidx.wear.tiles
+    implementation libs.androidx.wear.tiles.material
+    implementation libs.compose.ui.tooling
+    implementation libs.compose.ui.util
+    api libs.wearcompose.material
+
+    debugImplementation projects.composeTools
+    debugImplementation libs.compose.ui.toolingpreview
 
     testImplementation libs.junit
     testImplementation libs.truth

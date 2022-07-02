@@ -32,7 +32,9 @@ import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.media.data.PlayerRepositoryImpl
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media3.audio.AudioOutputSelector
+import com.google.android.horologist.media3.complication.MediaComplicationService
 import com.google.android.horologist.media3.config.WearMedia3Factory
+import com.google.android.horologist.media3.navigation.NavDeepLinkIntentBuilder
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.AppConfig
@@ -57,6 +59,14 @@ class MediaApplicationContainer(
     internal val appConfig: AppConfig = AppConfig()
 ) : Closeable {
     val isEmulator = Build.PRODUCT.startsWith("sdk_gwear")
+
+    val intentBuilder by lazy {
+        NavDeepLinkIntentBuilder(
+            application,
+            "${appConfig.deeplinkUriPrefix}/player?page=1",
+            "${appConfig.deeplinkUriPrefix}/player?page=0"
+        )
+    }
 
     val playbackRules: PlaybackRules by lazy {
         if (appConfig.playbackRules != null) {
@@ -133,7 +143,7 @@ class MediaApplicationContainer(
         )
     }
 
-    internal fun serviceContainer(service: PlaybackService): PlaybackServiceContainer {
+    internal fun playbackServiceContainer(service: PlaybackService): PlaybackServiceContainer {
         return PlaybackServiceContainer(this, service, wearMedia3Factory).also {
             service.lifecycle.addObserver(object : DefaultLifecycleObserver {
                 override fun onStop(owner: LifecycleOwner) {
@@ -141,6 +151,10 @@ class MediaApplicationContainer(
                 }
             })
         }
+    }
+
+    internal fun serviceContainer(service: MediaComplicationService<*>): ServiceContainer {
+        return ServiceContainer(this, service)
     }
 
     internal fun activityContainer(activity: MediaActivity): MediaActivityContainer {

@@ -28,4 +28,6 @@
     <string name="horologist_artwork_gradient">Use Artwork Gradient</string>
     <string name="horologist_show_test_dialog">Show Test Dialog</string>
     <string name="horologist_sample_error">An error occurred</string>
+    <string name="horologist_favorites">Favorites</string>
+    <string name="media_collection">Media Collection</string>
 </resources>

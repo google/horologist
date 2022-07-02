@@ -19,10 +19,12 @@ package com.google.android.horologist.mediasample.components
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.MutableCreationExtras
 import androidx.navigation.NavHostController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollection
 import com.google.android.horologist.mediasample.di.MediaActivityContainer
 import com.google.android.horologist.mediasample.di.ViewModelModule
 import com.google.android.horologist.mediasample.ui.app.UampWearApp
@@ -47,6 +49,14 @@ class MediaActivity : ComponentActivity() {
                 navController = navController,
                 creationExtras = { defaultViewModelCreationExtras }
             )
+
+            LaunchedEffect(key1 = Unit) {
+                if (intent?.hasExtra("collection") == true) {
+                    val collectionId = intent.getIntExtra("collection", -1).toString()
+                    intent.removeExtra("collection")
+                    navController.navigateToCollection(collectionId)
+                }
+            }
         }
     }
 

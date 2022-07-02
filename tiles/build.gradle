@@ -108,6 +108,9 @@ dependencies {
     implementation libs.coil
     implementation libs.wearcompose.foundation
 
+    implementation libs.androidx.complications.datasource.ktx
+    api libs.wearcompose.material
+
     testImplementation libs.androidx.wear.tiles.testing
     testImplementation libs.espresso.core
     testImplementation libs.junit

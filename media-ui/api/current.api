@@ -96,6 +96,13 @@ package com.google.android.horologist.media.ui.components.background {
 
 }
 
+package com.google.android.horologist.media.ui.components.base {
+
+  public final class SecondaryChipKt {
+  }
+
+}
+
 package com.google.android.horologist.media.ui.components.controls {
 
   public final class MediaButtonDefaults {

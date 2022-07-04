@@ -22,10 +22,8 @@ import com.google.android.horologist.media.ui.uamp.UampTheme
 
 @WearLargeRoundDevicePreview
 @Composable
-fun VolumeScreenTheme() {
+fun PlayerScreenPreviewUampTheme() {
     UampTheme {
         DefaultMediaPreview()
     }
 }
-
-private const val BACKGROUND_COLOR = 0xFF313234

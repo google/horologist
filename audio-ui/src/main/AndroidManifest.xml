@@ -15,8 +15,15 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.google.android.horologist.audio.ui">
 
     <uses-feature android:name="android.hardware.type.watch" />
     <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- Tiles is API 26, but if we don't stop this here, then we can't run the sample app
+    on older devices (25).  We also don't want this to bleed into other modules via
+    compose-tools which is used just for testing.
+     -->
+    <uses-sdk tools:overrideLibrary="androidx.wear.watchface.complications.rendering, androidx.wear.watchface.complications.datasource.ktx, androidx.wear.watchface.style" />
 </manifest>

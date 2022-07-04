@@ -16,16 +16,9 @@
 
 package com.google.android.horologist.media.ui.components
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
@@ -117,48 +110,45 @@ internal fun MediaControlButtons(
     percent: Float? = null,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
 ) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceAround
-    ) {
-        SeekToPreviousButton(
-            onClick = onSeekToPreviousButtonClick,
-            enabled = seekToPreviousButtonEnabled,
-            colors = colors,
-        )
-
-        Spacer(modifier = Modifier.sizeIn(maxWidth = 12.dp))
-
-        if (showProgress) {
-            checkNotNull(percent)
-
-            PlayPauseProgressButton(
-                onPlayClick = onPlayButtonClick,
-                onPauseClick = onPauseButtonClick,
-                enabled = playPauseButtonEnabled,
-                playing = playing,
-                percent = percent,
-                modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
+    ControlButtonLayout(
+        modifier = modifier,
+        leftButton = {
+            SeekToPreviousButton(
+                onClick = onSeekToPreviousButtonClick,
+                enabled = seekToPreviousButtonEnabled,
                 colors = colors,
             )
-        } else {
-            PlayPauseButton(
-                onPlayClick = onPlayButtonClick,
-                onPauseClick = onPauseButtonClick,
-                enabled = playPauseButtonEnabled,
-                playing = playing,
-                modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
+        },
+        middleButton = {
+            if (showProgress) {
+                checkNotNull(percent)
+
+                PlayPauseProgressButton(
+                    onPlayClick = onPlayButtonClick,
+                    onPauseClick = onPauseButtonClick,
+                    enabled = playPauseButtonEnabled,
+                    playing = playing,
+                    percent = percent,
+                    modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
+                    colors = colors,
+                )
+            } else {
+                PlayPauseButton(
+                    onPlayClick = onPlayButtonClick,
+                    onPauseClick = onPauseButtonClick,
+                    enabled = playPauseButtonEnabled,
+                    playing = playing,
+                    modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
+                    colors = colors,
+                )
+            }
+        },
+        rightButton = {
+            SeekToNextButton(
+                onClick = onSeekToNextButtonClick,
+                enabled = seekToNextButtonEnabled,
                 colors = colors,
             )
         }
-
-        Spacer(modifier = Modifier.sizeIn(maxWidth = 12.dp))
-
-        SeekToNextButton(
-            onClick = onSeekToNextButtonClick,
-            enabled = seekToNextButtonEnabled,
-            colors = colors,
-        )
-    }
+    )
 }

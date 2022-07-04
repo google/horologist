@@ -28,12 +28,12 @@ import com.android.resources.TouchScreen
 
 // https://www.techidence.com/galaxy-watch4-features-reviews-and-price/
 public val GALAXY_WATCH4_CLASSIC_LARGE: DeviceConfig = DeviceConfig(
-    screenHeight = 450,
-    screenWidth = 450,
-    xdpi = 321,
-    ydpi = 321,
+    screenHeight = 454,
+    screenWidth = 454,
+    xdpi = 320,
+    ydpi = 320,
     orientation = ScreenOrientation.PORTRAIT,
-    density = Density.DPI_340,
+    density = Density.XHIGH,
     ratio = ScreenRatio.NOTLONG,
     size = ScreenSize.SMALL,
     keyboard = Keyboard.NOKEY,
@@ -42,4 +42,42 @@ public val GALAXY_WATCH4_CLASSIC_LARGE: DeviceConfig = DeviceConfig(
     softButtons = true,
     navigation = Navigation.NONAV,
     released = "October 15, 2020"
+)
+
+// https://android.googlesource.com/platform/tools/base/+/mirror-goog-studio-master-dev/sdklib/src/main/java/com/android/sdklib/devices/wear.xml
+@JvmField
+public val WEAR_OS_SMALL_ROUND: DeviceConfig = DeviceConfig(
+    screenHeight = 384,
+    screenWidth = 384,
+    xdpi = 320,
+    ydpi = 320,
+    orientation = ScreenOrientation.PORTRAIT,
+    density = Density.XHIGH,
+    ratio = ScreenRatio.LONG,
+    size = ScreenSize.SMALL,
+    keyboard = Keyboard.NOKEY,
+    touchScreen = TouchScreen.FINGER,
+    keyboardState = KeyboardState.HIDDEN,
+    softButtons = true,
+    navigation = Navigation.NONAV,
+    released = "June 7, 2014"
+)
+
+// https://android.googlesource.com/platform/tools/base/+/mirror-goog-studio-master-dev/sdklib/src/main/java/com/android/sdklib/devices/wear.xml
+@JvmField
+public val WEAR_OS_SQUARE: DeviceConfig = DeviceConfig(
+    screenHeight = 280,
+    screenWidth = 280,
+    xdpi = 240,
+    ydpi = 240,
+    orientation = ScreenOrientation.PORTRAIT,
+    density = Density.HIGH,
+    ratio = ScreenRatio.LONG,
+    size = ScreenSize.SMALL,
+    keyboard = Keyboard.NOKEY,
+    touchScreen = TouchScreen.FINGER,
+    keyboardState = KeyboardState.HIDDEN,
+    softButtons = true,
+    navigation = Navigation.NONAV,
+    released = "June 7, 2014"
 )

@@ -84,9 +84,10 @@ fun MediaPlayerTestCase(
             RadialBackground(color = colors.primary)
         }
     },
-    time: String = "10:10"
+    time: String = "10:10",
+    round: Boolean = true
 ) {
-    RoundPreview {
+    RoundPreview(round = round) {
         Box(modifier = Modifier.background(Color.Black)) {
             MaterialTheme(colors = colors) {
                 Scaffold(

@@ -23,15 +23,19 @@ import androidx.compose.ui.platform.LocalConfiguration
 
 @ExperimentalHorologistComposeToolsApi
 @Composable
-public fun RoundPreview(content: @Composable () -> Unit) {
-    val configuration =
-        LocalConfiguration.current.let {
-            Configuration(it).apply {
-                screenLayout = (screenLayout or Configuration.SCREENLAYOUT_ROUND_YES)
+public fun RoundPreview(round: Boolean = true, content: @Composable () -> Unit) {
+    if (round) {
+        val configuration =
+            LocalConfiguration.current.let {
+                Configuration(it).apply {
+                    screenLayout = (screenLayout or Configuration.SCREENLAYOUT_ROUND_YES)
+                }
             }
-        }
 
-    CompositionLocalProvider(LocalConfiguration provides configuration) {
+        CompositionLocalProvider(LocalConfiguration provides configuration) {
+            content()
+        }
+    } else {
         content()
     }
 }

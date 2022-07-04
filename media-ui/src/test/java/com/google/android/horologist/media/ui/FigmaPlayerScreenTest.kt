@@ -25,6 +25,7 @@ import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
@@ -35,20 +36,29 @@ import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.media.ui.uamp.UampColors
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
+import com.google.android.horologist.paparazzi.WEAR_OS_SMALL_ROUND
+import com.google.android.horologist.paparazzi.WEAR_OS_SQUARE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
 import com.google.android.horologist.paparazzi.determineHandler
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 
-@Ignore("For interactive use only")
-class FigmaPlayerScreenTest {
+@RunWith(Parameterized::class)
+class FigmaPlayerScreenTest(
+    private val deviceConfig: DeviceConfig
+) {
     @get:Rule
     val paparazzi = Paparazzi(
-        deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
+        deviceConfig = deviceConfig,
         theme = "android:ThemeOverlay.Material.Dark",
         maxPercentDifference = 0.1,
-        snapshotHandler = WearSnapshotHandler(determineHandler(0.1))
+        snapshotHandler = if (deviceConfig == WEAR_OS_SQUARE) {
+            determineHandler(0.1)
+        } else {
+            WearSnapshotHandler(determineHandler(0.1))
+        }
     )
 
     @Test
@@ -73,11 +83,19 @@ class FigmaPlayerScreenTest {
             connected = true
         )
 
-        paparazzi.snapshot {
+        val name = when (deviceConfig) {
+            WEAR_OS_SQUARE -> "square"
+            WEAR_OS_SMALL_ROUND -> "small_round"
+            GALAXY_WATCH4_CLASSIC_LARGE -> "large_round"
+            else -> "unknown"
+        }
+
+        paparazzi.snapshot(name = name) {
             MediaPlayerTestCase(
                 playerUiState = playerUiState,
                 colors = UampColors,
                 time = "09:30",
+                round = deviceConfig != WEAR_OS_SQUARE,
                 buttons = {
                     UampSettingsButtons(
                         volumeState = VolumeState(10, 10),
@@ -86,6 +104,12 @@ class FigmaPlayerScreenTest {
                 }
             )
         }
+    }
+
+    companion object {
+        @JvmStatic
+        @Parameterized.Parameters
+        fun devices() = listOf(WEAR_OS_SQUARE, WEAR_OS_SMALL_ROUND, GALAXY_WATCH4_CLASSIC_LARGE)
     }
 }
 

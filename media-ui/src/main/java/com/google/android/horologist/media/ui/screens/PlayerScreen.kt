@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -149,6 +150,8 @@ public fun PlayerScreen(
     modifier: Modifier = Modifier,
     background: @Composable BoxScope.() -> Unit = {}
 ) {
+    val isBig = false
+
     Box(
         modifier = modifier.fillMaxSize(),
     ) {
@@ -159,22 +162,29 @@ public fun PlayerScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Column(
-                modifier = Modifier.fillMaxWidth().weight(0.38f),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(0.38f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(modifier = Modifier.size(27.dp))
+                Spacer(modifier = Modifier.size(if (isBig) 30.dp else 23.dp))
 
                 mediaDisplay()
             }
             Row(
-                modifier = Modifier.fillMaxWidth().weight(0.29f),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
                 controlButtons()
             }
             Row(
-                modifier = Modifier.fillMaxWidth().padding(bottom = 9.dp).weight(0.33f),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = if (isBig) 12.dp else 9.dp)
+                    .weight(0.33f),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.Bottom
             ) {

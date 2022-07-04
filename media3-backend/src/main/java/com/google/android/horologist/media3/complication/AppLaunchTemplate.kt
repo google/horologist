@@ -52,22 +52,22 @@ class AppLaunchTemplate(context: Context) :
         )
 
     override fun renderShortText(data: Data): ShortTextComplicationData =
-        shortText(text(data.appName), data.appIcon, data.launchIntent)
+        shortText(text(data.appName), text(data.appName), data.appIcon, data.launchIntent)
 
     override fun renderSmallImage(data: Data): SmallImageComplicationData {
         return if (data.appImage != null) {
             smallImage(
-                data.appImage,
-                SmallImageType.PHOTO,
-                text(data.appName),
-                data.launchIntent
+                icon = data.appImage,
+                type = SmallImageType.PHOTO,
+                name = text(data.appName),
+                launchIntent = data.launchIntent
             )
         } else {
             smallImage(
-                data.appIcon,
-                SmallImageType.ICON,
-                text(data.appName),
-                data.launchIntent
+                icon = data.appIcon,
+                type = SmallImageType.ICON,
+                name = text(data.appName),
+                launchIntent = data.launchIntent
             )
         }
     }
@@ -77,6 +77,7 @@ class AppLaunchTemplate(context: Context) :
             longText(
                 data.appImage,
                 SmallImageType.PHOTO,
+                text(R.string.horologist_play),
                 text(data.appName),
                 data.launchIntent
             )
@@ -84,6 +85,7 @@ class AppLaunchTemplate(context: Context) :
             longText(
                 data.appIcon,
                 SmallImageType.ICON,
+                text(R.string.horologist_play),
                 text(data.appName),
                 data.launchIntent
             )

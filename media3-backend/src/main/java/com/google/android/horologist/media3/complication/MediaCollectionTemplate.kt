@@ -19,7 +19,9 @@ package com.google.android.horologist.media3.complication
 import android.app.PendingIntent
 import android.content.Context
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.wear.watchface.complications.data.ComplicationType
+import androidx.wear.watchface.complications.data.LongTextComplicationData
 import androidx.wear.watchface.complications.data.ShortTextComplicationData
 import androidx.wear.watchface.complications.data.SmallImageComplicationData
 import androidx.wear.watchface.complications.data.SmallImageType
@@ -29,6 +31,7 @@ import com.google.android.horologist.tiles.complication.TypedComplicationRendere
 class MediaCollectionTemplate(context: Context) :
     TypedComplicationRenderer<MediaCollectionTemplate.Data>(context) {
     data class Data(
+        @StringRes val appName: Int,
         val collectionName: String,
         @DrawableRes val appIcon: Int,
         @DrawableRes val appImage: Int?,
@@ -36,6 +39,7 @@ class MediaCollectionTemplate(context: Context) :
     )
 
     override fun previewData(): Data = Data(
+        appName = R.string.horologist_sample_name,
         collectionName = "All",
         appIcon = R.drawable.ic_baseline_queue_music_24,
         appImage = R.drawable.ic_uamp,
@@ -50,23 +54,37 @@ class MediaCollectionTemplate(context: Context) :
         )
 
     override fun renderShortText(data: Data): ShortTextComplicationData =
-        shortText(data.collectionName, data.appIcon, data.launchIntent)
+        shortText(
+            name = data.collectionName,
+            title = text(data.appName),
+            icon = data.appIcon,
+            launchIntent = data.launchIntent
+        )
 
     override fun renderSmallImage(data: Data): SmallImageComplicationData {
         return if (data.appImage != null) {
             smallImage(
-                data.appImage,
-                SmallImageType.PHOTO,
-                data.collectionName,
-                data.launchIntent
+                icon = data.appImage,
+                type = SmallImageType.PHOTO,
+                name = data.collectionName,
+                launchIntent = data.launchIntent
             )
         } else {
             smallImage(
-                data.appIcon,
-                SmallImageType.ICON,
-                data.collectionName,
-                data.launchIntent
+                icon = data.appIcon,
+                type = SmallImageType.ICON,
+                name = data.collectionName,
+                launchIntent = data.launchIntent
             )
         }
     }
+
+    override fun renderLongText(data: Data): LongTextComplicationData =
+        longText(
+            icon = data.appIcon,
+            type = SmallImageType.PHOTO,
+            name = data.collectionName,
+            title = text(data.appName),
+            launchIntent = data.launchIntent
+        )
 }

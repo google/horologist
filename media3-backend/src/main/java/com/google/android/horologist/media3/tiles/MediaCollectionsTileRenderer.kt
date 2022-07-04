@@ -157,7 +157,7 @@ class MediaCollectionsTileRenderer(
     )
 }
 
-@OptIn(ExperimentalHorologistComposeToolsApi::class)
+@OptIn(ExperimentalHorologistComposeToolsApi::class, ExperimentalHorologistTilesApi::class)
 @WearPreviewDevices
 @Composable
 fun SampleTilePreview() {

@@ -47,7 +47,8 @@ class MediaCollectionComplicationService :
             collectionName = getString(R.string.horologist_favorites),
             appIcon = R.drawable.ic_baseline_queue_music_24,
             appImage = R.drawable.ic_uamp,
-            launchIntent = intentBuilder.buildPlayerIntent()
+            launchIntent = intentBuilder.buildPlayerIntent(),
+            appName = R.string.app_name
         )
     }
 }

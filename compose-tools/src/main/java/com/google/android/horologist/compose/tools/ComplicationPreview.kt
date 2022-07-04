@@ -90,7 +90,11 @@ public fun <D> ComplicationRendererPreview(
                         backgroundColor = backgroundColor
                     )
                 val rowStart = (index * (rowHeight + gap))
-                drawable.setBounds(0, rowStart, rowHeight, rowStart + rowHeight)
+                if (complicationType == ComplicationType.LONG_TEXT) {
+                    drawable.setBounds(0, rowStart, rowHeight * 2, rowStart + rowHeight)
+                } else {
+                    drawable.setBounds(0, rowStart, rowHeight, rowStart + rowHeight)
+                }
                 drawable.draw(canvas.nativeCanvas)
 
                 canvas.nativeCanvas.drawText(
@@ -114,6 +118,13 @@ public fun <D> ComplicationRendererPreview(
                 drawable.setBounds(0, rowStart, (rowHeight * 2) + 1, rowStart + rowHeight)
 
                 drawable.draw(canvas.nativeCanvas)
+
+                canvas.nativeCanvas.drawText(
+                    ComplicationType.SHORT_TEXT.name + " wide",
+                    0.toFloat(),
+                    (rowStart + rowHeight).toFloat(),
+                    paint
+                )
             }
         }
     }

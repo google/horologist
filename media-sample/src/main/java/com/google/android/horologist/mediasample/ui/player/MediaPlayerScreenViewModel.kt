@@ -23,30 +23,14 @@ import com.google.android.horologist.media.data.PlayerRepositoryImpl
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.media3.audio.AudioOutputSelector
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
-import com.google.android.horologist.mediasample.domain.Settings
-import com.google.android.horologist.mediasample.domain.SettingsRepository
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class MediaPlayerScreenViewModel(
     playerRepository: PlayerRepositoryImpl,
-    private val settingsRepository: SettingsRepository,
     private val audioOutputSelector: AudioOutputSelector
 ) : PlayerViewModel(playerRepository) {
-    val settingsState: StateFlow<Settings?> = settingsRepository.settingsFlow.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
-        null
-    )
-
-    fun launchBluetoothSettings() {
-        audioOutputSelector.launchSelector()
-    }
-
     init {
         viewModelScope.launch {
             // update the track position while app is in foreground
@@ -62,7 +46,6 @@ class MediaPlayerScreenViewModel(
             initializer {
                 MediaPlayerScreenViewModel(
                     playerRepository = this[MediaApplicationContainer.PlayerRepositoryImplKey]!!,
-                    settingsRepository = this[MediaApplicationContainer.SettingsRepositoryKey]!!,
                     audioOutputSelector = this[MediaApplicationContainer.AudioOutputSelectorKey]!!
                 )
             }

@@ -35,6 +35,7 @@ import com.google.android.horologist.compose.layout.StateUtils.rememberStateWith
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.media.ui.components.MediaChip
 import com.google.android.horologist.mediasample.R
+import com.google.android.horologist.mediasample.domain.Settings
 
 @Composable
 fun UampLibraryScreen(
@@ -44,6 +45,7 @@ fun UampLibraryScreen(
     onSettingsClick: () -> Unit,
     onPlayClick: () -> Unit,
     modifier: Modifier = Modifier,
+    settingsState: Settings?,
 ) {
     val uiState by rememberStateWithLifecycle(libraryScreenViewModel.uiState)
 
@@ -62,8 +64,10 @@ fun UampLibraryScreen(
         }
         if (items != null) {
             items(items) {
+                val mediaItem =
+                    if (settingsState?.showArtworkOnChip == true) it else it.copy(artworkUri = null)
                 MediaChip(
-                    mediaItem = it,
+                    mediaItem = mediaItem,
                     onClick = {
                         libraryScreenViewModel.play(it)
                         onPlayClick()

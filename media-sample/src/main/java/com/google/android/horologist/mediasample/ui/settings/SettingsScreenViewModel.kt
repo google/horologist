@@ -40,6 +40,7 @@ class SettingsScreenViewModel(
             podcastControls = it.podcastControls,
             loadItemsAtStartup = it.loadItemsAtStartup,
             artworkGradient = it.artworkGradient,
+            showArtworkOnChip = it.showArtworkOnChip,
             writable = true
         )
     }.stateIn(
@@ -53,6 +54,7 @@ class SettingsScreenViewModel(
         val loadItemsAtStartup: Boolean = true,
         val artworkGradient: Boolean = true,
         val writable: Boolean = false,
+        val showArtworkOnChip: Boolean = false
     )
 
     fun setPodcastControls(enabled: Boolean) {
@@ -70,6 +72,12 @@ class SettingsScreenViewModel(
     fun setArtworkGradient(enabled: Boolean) {
         viewModelScope.launch {
             settingsRepository.writeArtworkGradient(enabled)
+        }
+    }
+
+    fun setShowArtworkOnChip(enabled: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.writeShowArtworkOnChip(enabled)
         }
     }
 

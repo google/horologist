@@ -57,7 +57,7 @@ fun UampWearApp(
         val offloadState by rememberStateWithLifecycle(appViewModel.offloadState)
 
         MediaInfoTimeText(
-            showData = appViewModel.showTimeTextInfo,
+            showData = settingsState?.showTimeTextInfo ?: false,
             networkStatus = networkStatus,
             networkUsage = networkUsage,
             offloadState = offloadState

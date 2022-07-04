@@ -17,6 +17,7 @@
 package com.google.android.horologist.mediasample.domain
 
 data class Settings(
+    val showTimeTextInfo: Boolean = false,
     val podcastControls: Boolean = false,
     val loadItemsAtStartup: Boolean = true,
     val artworkGradient: Boolean = true,

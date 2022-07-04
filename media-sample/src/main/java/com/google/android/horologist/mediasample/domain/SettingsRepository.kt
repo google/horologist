@@ -57,17 +57,25 @@ class SettingsRepository(
         }
     }
 
+    suspend fun writeShowTimeTextInfo(enabled: Boolean) {
+        edit {
+            it[ShowTimeTextInfo] = enabled
+        }
+    }
+
     val settingsFlow: Flow<Settings> = dataStore.data.map {
         it.toSettings()
     }
 
     companion object {
+        val ShowTimeTextInfo = booleanPreferencesKey("show_time_text_info")
         val PodcastControls = booleanPreferencesKey("podcast_controls")
         val LoadItemsAtStartup = booleanPreferencesKey("load_items_at_startup")
         val ArtworkGradient = booleanPreferencesKey("artwork_gradient")
         val ShowArtworkOnChip = booleanPreferencesKey("show_artwork_on_chip")
 
         fun Preferences.toSettings() = Settings(
+            showTimeTextInfo = this[ShowTimeTextInfo] ?: false,
             podcastControls = this[PodcastControls] ?: false,
             loadItemsAtStartup = this[LoadItemsAtStartup] ?: true,
             artworkGradient = this[ArtworkGradient] ?: true,

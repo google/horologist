@@ -40,11 +40,13 @@ import com.google.android.horologist.paparazzi.WEAR_OS_SMALL_ROUND
 import com.google.android.horologist.paparazzi.WEAR_OS_SQUARE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
 import com.google.android.horologist.paparazzi.determineHandler
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 
+@Ignore("For interactive use only")
 @RunWith(Parameterized::class)
 class FigmaPlayerScreenTest(
     private val deviceConfig: DeviceConfig

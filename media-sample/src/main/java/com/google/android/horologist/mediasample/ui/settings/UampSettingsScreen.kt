@@ -77,6 +77,15 @@ fun UampSettingsScreen(
             }
         }
         item {
+            CheckedSetting(
+                uiState.showArtworkOnChip,
+                stringResource(id = R.string.horologist_show_artwork_on_chip),
+                enabled = uiState.writable
+            ) {
+                settingsScreenViewModel.setShowArtworkOnChip(it)
+            }
+        }
+        item {
             val message = stringResource(id = R.string.horologist_sample_error)
             ActionSetting(
                 stringResource(id = R.string.horologist_show_test_dialog),

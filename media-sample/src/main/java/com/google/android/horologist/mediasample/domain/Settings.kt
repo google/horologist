@@ -20,4 +20,5 @@ data class Settings(
     val podcastControls: Boolean = false,
     val loadItemsAtStartup: Boolean = true,
     val artworkGradient: Boolean = true,
+    val showArtworkOnChip: Boolean
 )

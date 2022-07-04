@@ -46,6 +46,7 @@ fun UampWearApp(
     creationExtras: () -> CreationExtras
 ) {
     val appViewModel: MediaPlayerAppViewModel = viewModel(factory = MediaPlayerAppViewModel.Factory)
+    val settingsState by rememberStateWithLifecycle(flow = appViewModel.settingsState)
 
     val volumeViewModel: VolumeViewModel =
         viewModel(factory = VolumeViewModelFactory, extras = creationExtras())
@@ -78,7 +79,8 @@ fun UampWearApp(
                     onVolumeClick = {
                         navController.navigateToVolume()
                     },
-                    playerFocusRequester = focusRequester
+                    playerFocusRequester = focusRequester,
+                    settingsState = settingsState
                 )
             },
             libraryScreen = { focusRequester, state ->
@@ -94,7 +96,8 @@ fun UampWearApp(
                     libraryScreenViewModel = libraryScreenViewModel,
                     onPlayClick = {
                         navController.navigateToPlayer()
-                    }
+                    },
+                    settingsState = settingsState
                 )
             },
             categoryEntityScreen = { _, _ ->

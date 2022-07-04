@@ -25,6 +25,7 @@ import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.catalog.UampService
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
+import com.google.android.horologist.mediasample.domain.Settings
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.ui.debug.OffloadState
 import com.google.android.horologist.networks.data.DataRequestRepository
@@ -49,7 +50,8 @@ class MediaPlayerAppViewModel(
     private val settings: SettingsRepository,
     private val playerRepository: PlayerRepository,
     private val uampService: UampService,
-    private val appConfig: AppConfig
+    private val appConfig: AppConfig,
+    private val settingsRepository: SettingsRepository,
 ) : ViewModel() {
     val networkStatus: StateFlow<Networks> = networkRepository.networkStatus
 
@@ -59,6 +61,12 @@ class MediaPlayerAppViewModel(
             started = SharingStarted.WhileSubscribed(5.seconds.inWholeMilliseconds),
             initialValue = null
         )
+
+    val settingsState: StateFlow<Settings?> = settingsRepository.settingsFlow.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        null
+    )
 
     val showTimeTextInfo: Boolean = appConfig.showTimeTextInfo
 
@@ -132,13 +140,14 @@ class MediaPlayerAppViewModel(
         val Factory = viewModelFactory {
             initializer {
                 MediaPlayerAppViewModel(
-                    this[MediaApplicationContainer.NetworkRepositoryKey]!!,
-                    this[MediaApplicationContainer.DataRequestRepositoryKey]!!,
-                    this[MediaApplicationContainer.AudioOffloadManagerKey]!!,
-                    this[MediaApplicationContainer.SettingsRepositoryKey]!!,
-                    this[MediaApplicationContainer.PlayerRepositoryImplKey]!!,
-                    this[MediaApplicationContainer.UampServiceKey]!!,
-                    this[MediaApplicationContainer.AppConfigKey]!!,
+                    networkRepository = this[MediaApplicationContainer.NetworkRepositoryKey]!!,
+                    dataRequestRepository = this[MediaApplicationContainer.DataRequestRepositoryKey]!!,
+                    audioOffloadManager = this[MediaApplicationContainer.AudioOffloadManagerKey]!!,
+                    settings = this[MediaApplicationContainer.SettingsRepositoryKey]!!,
+                    playerRepository = this[MediaApplicationContainer.PlayerRepositoryImplKey]!!,
+                    uampService = this[MediaApplicationContainer.UampServiceKey]!!,
+                    appConfig = this[MediaApplicationContainer.AppConfigKey]!!,
+                    settingsRepository = this[MediaApplicationContainer.SettingsRepositoryKey]!!,
                 )
             }
         }

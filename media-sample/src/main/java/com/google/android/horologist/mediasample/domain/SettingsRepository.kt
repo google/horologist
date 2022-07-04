@@ -51,6 +51,12 @@ class SettingsRepository(
         }
     }
 
+    suspend fun writeShowArtworkOnChip(enabled: Boolean) {
+        edit {
+            it[ShowArtworkOnChip] = enabled
+        }
+    }
+
     val settingsFlow: Flow<Settings> = dataStore.data.map {
         it.toSettings()
     }
@@ -59,11 +65,13 @@ class SettingsRepository(
         val PodcastControls = booleanPreferencesKey("podcast_controls")
         val LoadItemsAtStartup = booleanPreferencesKey("load_items_at_startup")
         val ArtworkGradient = booleanPreferencesKey("artwork_gradient")
+        val ShowArtworkOnChip = booleanPreferencesKey("show_artwork_on_chip")
 
         fun Preferences.toSettings() = Settings(
-            this[PodcastControls] ?: false,
-            this[LoadItemsAtStartup] ?: true,
-            this[ArtworkGradient] ?: true
+            podcastControls = this[PodcastControls] ?: false,
+            loadItemsAtStartup = this[LoadItemsAtStartup] ?: true,
+            artworkGradient = this[ArtworkGradient] ?: true,
+            showArtworkOnChip = this[ShowArtworkOnChip] ?: false
         )
     }
 }

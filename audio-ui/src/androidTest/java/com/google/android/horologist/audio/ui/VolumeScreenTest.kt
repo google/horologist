@@ -17,17 +17,22 @@
 package com.google.android.horologist.audio.ui
 
 import android.os.Vibrator
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performRotaryScrollInput
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.wear.compose.material.Text
 import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
 import com.google.common.truth.Truth.assertThat
@@ -59,12 +64,13 @@ class VolumeScreenTest {
         val focusRequester = FocusRequester()
 
         composeTestRule.setContent {
-            CompositionLocalProvider() {
-                VolumeScreen(
-                    modifier = Modifier
-                        .fillMaxSize().focusRequester(focusRequester),
-                    model
-                )
+            val density = LocalDensity.current
+            val config = LocalConfiguration.current
+
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Column {
+                    Text("densityDpi" + config.densityDpi)
+                }
             }
         }
 

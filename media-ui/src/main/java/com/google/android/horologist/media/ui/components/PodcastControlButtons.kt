@@ -16,20 +16,10 @@
 
 package com.google.android.horologist.media.ui.components
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
-import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.SeekBackButton
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
@@ -55,7 +45,6 @@ public fun PodcastControlButtons(
     seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
-    progressColour: Color = MaterialTheme.colors.primaryVariant,
 ) {
     PodcastControlButtons(
         onPlayButtonClick = onPlayButtonClick,
@@ -72,7 +61,6 @@ public fun PodcastControlButtons(
         modifier = modifier,
         percent = percent,
         colors = colors,
-        progressColour = progressColour
     )
 }
 
@@ -130,55 +118,46 @@ private fun PodcastControlButtons(
     modifier: Modifier = Modifier,
     percent: Float? = null,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
-    progressColour: Color = MaterialTheme.colors.primaryVariant,
 ) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceAround
-    ) {
-        Spacer(modifier = Modifier.size(6.dp))
-
-        SeekBackButton(
-            onClick = onSeekBackButtonClick,
-            seekButtonIncrement = seekBackButtonIncrement,
-            colors = colors,
-            enabled = seekBackButtonEnabled,
-        )
-
-        Spacer(modifier = Modifier.sizeIn(maxWidth = 12.dp))
-
-        if (showProgress) {
-            checkNotNull(percent)
-
-            PlayPauseProgressButton(
-                onPlayClick = onPlayButtonClick,
-                onPauseClick = onPauseButtonClick,
-                enabled = playPauseButtonEnabled,
-                playing = playing,
-                percent = percent,
+    ControlButtonLayout(
+        modifier = modifier,
+        leftButton = {
+            SeekBackButton(
+                onClick = onSeekBackButtonClick,
+                seekButtonIncrement = seekBackButtonIncrement,
                 colors = colors,
-                progressColour = progressColour
+                enabled = seekBackButtonEnabled,
             )
-        } else {
-            PlayPauseButton(
-                onPlayClick = onPlayButtonClick,
-                onPauseClick = onPauseButtonClick,
-                enabled = playPauseButtonEnabled,
-                playing = playing,
+        },
+        middleButton = {
+            if (showProgress) {
+                checkNotNull(percent)
+
+                PlayPauseProgressButton(
+                    onPlayClick = onPlayButtonClick,
+                    onPauseClick = onPauseButtonClick,
+                    enabled = playPauseButtonEnabled,
+                    playing = playing,
+                    percent = percent,
+                    colors = colors,
+                )
+            } else {
+                PlayPauseButton(
+                    onPlayClick = onPlayButtonClick,
+                    onPauseClick = onPauseButtonClick,
+                    enabled = playPauseButtonEnabled,
+                    playing = playing,
+                    colors = colors,
+                )
+            }
+        },
+        rightButton = {
+            SeekForwardButton(
+                onClick = onSeekForwardButtonClick,
+                seekButtonIncrement = seekForwardButtonIncrement,
                 colors = colors,
+                enabled = seekForwardButtonEnabled,
             )
         }
-
-        Spacer(modifier = Modifier.sizeIn(maxWidth = 12.dp))
-
-        SeekForwardButton(
-            onClick = onSeekForwardButtonClick,
-            seekButtonIncrement = seekForwardButtonIncrement,
-            colors = colors,
-            enabled = seekForwardButtonEnabled,
-        )
-
-        Spacer(modifier = Modifier.size(6.dp))
-    }
+    )
 }

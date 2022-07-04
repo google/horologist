@@ -33,6 +33,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
@@ -150,7 +151,8 @@ public fun PlayerScreen(
     modifier: Modifier = Modifier,
     background: @Composable BoxScope.() -> Unit = {}
 ) {
-    val isBig = false
+    val isBig = LocalConfiguration.current.screenHeightDp > 210
+    val isRound = LocalConfiguration.current.isScreenRound
 
     Box(
         modifier = modifier.fillMaxSize(),
@@ -167,7 +169,11 @@ public fun PlayerScreen(
                     .weight(0.38f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(modifier = Modifier.size(if (isBig) 30.dp else 23.dp))
+                if (isRound) {
+                    Spacer(modifier = Modifier.size(if (isBig) 30.dp else 23.dp))
+                } else {
+                    Spacer(modifier = Modifier.size(24.dp))
+                }
 
                 mediaDisplay()
             }
@@ -180,10 +186,15 @@ public fun PlayerScreen(
             ) {
                 controlButtons()
             }
+            val bottomPadding = when {
+                !isRound -> 4.dp
+                isBig -> 12.dp
+                else -> 9.dp
+            }
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = if (isBig) 12.dp else 9.dp)
+                    .padding(bottom = bottomPadding)
                     .weight(0.33f),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.Bottom

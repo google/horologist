@@ -31,7 +31,6 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
 import com.google.android.horologist.audio.ui.components.actions.SettingsButton
-import com.google.android.horologist.compose.tools.themeValues
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
@@ -41,7 +40,6 @@ import com.google.android.horologist.paparazzi.WEAR_OS_SMALL_ROUND
 import com.google.android.horologist.paparazzi.WEAR_OS_SQUARE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
 import com.google.android.horologist.paparazzi.determineHandler
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

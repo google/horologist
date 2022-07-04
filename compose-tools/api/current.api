@@ -11,7 +11,7 @@ package com.google.android.horologist.compose.tools {
   }
 
   public final class RoundPreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public static void RoundPreview(kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public static void RoundPreview(optional boolean round, kotlin.jvm.functions.Function0<kotlin.Unit> content);
   }
 
   @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public final class ThemeValues {

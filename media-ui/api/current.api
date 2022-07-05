@@ -101,6 +101,9 @@ package com.google.android.horologist.media.ui.components.base {
   public final class SecondaryChipKt {
   }
 
+  public final class SecondaryPlaceholderChipKt {
+  }
+
 }
 
 package com.google.android.horologist.media.ui.components.controls {

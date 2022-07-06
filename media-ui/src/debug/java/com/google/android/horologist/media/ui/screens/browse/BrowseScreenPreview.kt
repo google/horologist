@@ -23,35 +23,14 @@ import androidx.compose.material.icons.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.wear.compose.material.rememberScalingLazyListState
+import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel
 import com.google.android.horologist.media.ui.uamp.UampTheme
 import com.google.android.horologist.media.ui.utils.rememberVectorPainter
 
-@Preview(
-    group = "Large Round",
-    device = Devices.WEAR_OS_LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    group = "Small Round",
-    device = Devices.WEAR_OS_SMALL_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    group = "Square",
-    device = Devices.WEAR_OS_SQUARE,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
+@WearPreviewDevices
 @Composable
 fun BrowseScreenPreview() {
     BrowseScreen(
@@ -68,30 +47,7 @@ fun BrowseScreenPreview() {
     )
 }
 
-@Preview(
-    name = "No downloads",
-    group = "Large Round",
-    device = Devices.WEAR_OS_LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    name = "No downloads",
-    group = "Small Round",
-    device = Devices.WEAR_OS_SMALL_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    name = "No downloads",
-    group = "Square",
-    device = Devices.WEAR_OS_SQUARE,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
+@WearPreviewDevices
 @Composable
 fun BrowseScreenPreviewNoDownloads() {
     BrowseScreen(
@@ -104,30 +60,7 @@ fun BrowseScreenPreviewNoDownloads() {
     )
 }
 
-@Preview(
-    name = "Loading",
-    group = "Large Round",
-    device = Devices.WEAR_OS_LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    name = "Loading",
-    group = "Small Round",
-    device = Devices.WEAR_OS_SMALL_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    name = "Loading",
-    group = "Square",
-    device = Devices.WEAR_OS_SQUARE,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
+@WearPreviewDevices
 @Composable
 fun BrowseScreenPreviewLoading() {
     BrowseScreen(
@@ -140,32 +73,9 @@ fun BrowseScreenPreviewLoading() {
     )
 }
 
-@Preview(
-    name = "Uamp theme",
-    group = "Large Round",
-    device = Devices.WEAR_OS_LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    name = "Uamp theme",
-    group = "Small Round",
-    device = Devices.WEAR_OS_SMALL_ROUND,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
-@Preview(
-    name = "Uamp theme",
-    group = "Square",
-    device = Devices.WEAR_OS_SQUARE,
-    showSystemUi = true,
-    backgroundColor = BACKGROUND_COLOR,
-    showBackground = true
-)
+@WearPreviewDevices
 @Composable
-fun BrowseScreenPreviewUamp() {
+fun BrowseScreenPreviewUampTheme() {
     UampTheme {
         BrowseScreen(
             browseScreenState = BrowseScreenState.Loaded(downloadList),
@@ -198,5 +108,3 @@ private val downloadList = buildList {
         )
     )
 }
-
-private const val BACKGROUND_COLOR = 0xFF000000

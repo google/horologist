@@ -29,6 +29,7 @@ import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
 import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
+import com.google.android.horologist.compose.tools.WearPreviewFontSizes
 import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
 import com.google.android.horologist.media.ui.tiles.toTileColors
 import com.google.android.horologist.mediasample.R
@@ -114,6 +115,7 @@ class MediaCollectionsTileService : CoroutinesTileService() {
 }
 
 @WearPreviewDevices
+@WearPreviewFontSizes
 @Composable
 fun SampleTilePreview() {
     val context = LocalContext.current

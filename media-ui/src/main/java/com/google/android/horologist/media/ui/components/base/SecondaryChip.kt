@@ -38,7 +38,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
 /**
- * This composable fulfil the redlines of the following components:
+ * This composable fulfils the redlines of the following components:
  * - Secondary standard chip - when [largeIcon] value is `false`;
  * - Chip with small or large avatar - according to [largeIcon] value;
  */

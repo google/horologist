@@ -71,6 +71,20 @@ fun SecondaryChipPreviewWithIcon() {
 }
 
 @Preview(
+    name = "With ImageVector as icon",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
+@Composable
+fun SecondaryChipPreviewWithImageVectorAsIcon() {
+    SecondaryChip(
+        primaryLabel = "Primary label",
+        onClick = { },
+        icon = Icons.Default.Add
+    )
+}
+
+@Preview(
     name = "With large icon",
     backgroundColor = 0xff000000,
     showBackground = true,

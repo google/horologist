@@ -87,6 +87,19 @@ class SecondaryChipTest {
     }
 
     @Test
+    fun withImageVectorAsIcon() {
+        paparazzi.snapshot {
+            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
+                SecondaryChip(
+                    primaryLabel = "Primary label",
+                    onClick = { },
+                    icon = Icons.Default.Add,
+                )
+            }
+        }
+    }
+
+    @Test
     fun withLargeIcon() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {

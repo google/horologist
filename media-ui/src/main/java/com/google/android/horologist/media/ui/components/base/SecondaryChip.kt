@@ -27,12 +27,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
 import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
@@ -93,15 +95,23 @@ internal fun SecondaryChip(
                         Spacer(modifier = Modifier.width(4.dp))
                     }
 
-                    Image(
-                        painter = rememberAsyncImagePainter(
-                            model = icon,
-                            placeholder = placeholder
-                        ),
-                        contentDescription = null, // hidden from talkback
-                        modifier = Modifier.size(iconSize),
-                        contentScale = ContentScale.Fit
-                    )
+                    if (icon is ImageVector) {
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = null, // hidden from talkback
+                            modifier = Modifier.size(iconSize),
+                        )
+                    } else {
+                        Image(
+                            painter = rememberAsyncImagePainter(
+                                model = icon,
+                                placeholder = placeholder
+                            ),
+                            contentDescription = null, // hidden from talkback
+                            modifier = Modifier.size(iconSize),
+                            contentScale = ContentScale.Fit
+                        )
+                    }
                 }
             }
         }

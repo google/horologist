@@ -39,7 +39,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
@@ -57,12 +56,8 @@ internal fun SecondaryPlaceholderChip(
     onClick: () -> Unit = {},
     enabled: Boolean = true,
 ) {
-    val backgroundColor = Color(
-        red = MaterialTheme.colors.onSurfaceVariant.red,
-        green = MaterialTheme.colors.onSurfaceVariant.green,
-        blue = MaterialTheme.colors.onSurfaceVariant.blue,
-        alpha = 0.38f
-    )
+    val backgroundColor = MaterialTheme.colors.onSurfaceVariant.copy(alpha = 0.38f)
+
     Row(
         modifier = modifier
             .height(52.dp) // ChipDefaults.Height

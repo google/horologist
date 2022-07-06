@@ -252,6 +252,29 @@ package com.google.android.horologist.media.ui.screens {
 
 }
 
+package com.google.android.horologist.media.ui.screens.browse {
+
+  public final class BrowseScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void BrowseScreen(com.google.android.horologist.media.ui.screens.browse.BrowseScreenState browseScreenState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel,kotlin.Unit> onDownloadItemClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPlaylistsClick, kotlin.jvm.functions.Function0<kotlin.Unit> onSettingsClick, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? downloadItemArtworkPlaceholder);
+  }
+
+  @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class BrowseScreenState {
+  }
+
+  public static final class BrowseScreenState.Loaded extends com.google.android.horologist.media.ui.screens.browse.BrowseScreenState {
+    ctor public BrowseScreenState.Loaded(java.util.List<? extends com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel> downloadList);
+    method public java.util.List<com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel> component1();
+    method public com.google.android.horologist.media.ui.screens.browse.BrowseScreenState.Loaded copy(java.util.List<? extends com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel> downloadList);
+    method public java.util.List<com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel> getDownloadList();
+    property public final java.util.List<com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel> downloadList;
+  }
+
+  public static final class BrowseScreenState.Loading extends com.google.android.horologist.media.ui.screens.browse.BrowseScreenState {
+    field public static final com.google.android.horologist.media.ui.screens.browse.BrowseScreenState.Loading INSTANCE;
+  }
+
+}
+
 package com.google.android.horologist.media.ui.semantics {
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class CustomSemanticsProperties {
@@ -396,6 +419,34 @@ package com.google.android.horologist.media.ui.state.mapper {
 }
 
 package com.google.android.horologist.media.ui.state.model {
+
+  @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class DownloadPlaylistUiModel {
+    method public String? getArtworkUri();
+    method public String getTitle();
+    property public String? artworkUri;
+    property public String title;
+  }
+
+  public static final class DownloadPlaylistUiModel.Completed extends com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel {
+    ctor public DownloadPlaylistUiModel.Completed(String title, String? artworkUri);
+    method public String component1();
+    method public String? component2();
+    method public com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel.Completed copy(String title, String? artworkUri);
+    property public String? artworkUri;
+    property public String title;
+  }
+
+  public static final class DownloadPlaylistUiModel.InProgress extends com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel {
+    ctor public DownloadPlaylistUiModel.InProgress(String title, String? artworkUri, int percentage);
+    method public String component1();
+    method public String? component2();
+    method public int component3();
+    method public com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel.InProgress copy(String title, String? artworkUri, int percentage);
+    method public int getPercentage();
+    property public String? artworkUri;
+    property public final int percentage;
+    property public String title;
+  }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class MediaItemUiModel {
     ctor public MediaItemUiModel(String id, optional String? title, optional String? artist, optional String? artworkUri);

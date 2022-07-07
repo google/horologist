@@ -28,9 +28,9 @@ import com.google.android.horologist.paparazzi.determineHandler
 import org.junit.Rule
 import org.junit.Test
 
-class SecondaryPlaceholderChipTest {
+class TitleTest {
 
-    private val maxPercentDifference = 0.1
+    private val maxPercentDifference = 0.0
 
     @get:Rule
     val paparazzi = Paparazzi(
@@ -44,7 +44,16 @@ class SecondaryPlaceholderChipTest {
     fun default() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SecondaryPlaceholderChip()
+                Title("Title")
+            }
+        }
+    }
+
+    @Test
+    fun withVeryLongText() {
+        paparazzi.snapshot {
+            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
+                Title("Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text")
             }
         }
     }

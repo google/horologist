@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.media.ui.screens.browse
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -29,7 +28,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyColumn
@@ -40,6 +38,7 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.base.SecondaryChip
 import com.google.android.horologist.media.ui.components.base.SecondaryPlaceholderChip
+import com.google.android.horologist.media.ui.components.base.Title
 import com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel
 
 /**
@@ -155,18 +154,4 @@ public sealed class BrowseScreenState {
     public data class Loaded(
         val downloadList: List<DownloadPlaylistUiModel>,
     ) : BrowseScreenState()
-}
-
-@Composable
-private fun Title(
-    @StringRes textId: Int,
-    modifier: Modifier = Modifier,
-) {
-    Text(
-        text = stringResource(id = textId),
-        modifier = modifier,
-        overflow = TextOverflow.Ellipsis,
-        maxLines = 3,
-        style = MaterialTheme.typography.title3
-    )
 }

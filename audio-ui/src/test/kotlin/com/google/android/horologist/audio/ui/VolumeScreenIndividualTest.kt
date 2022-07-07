@@ -32,12 +32,14 @@ import org.junit.Test
 
 @Ignore("https://github.com/google/horologist/issues/323")
 class VolumeScreenIndividualTest {
+    private val maxPercentDifference = 0.1
+
     @get:Rule
     val paparazzi = Paparazzi(
         deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
         theme = "android:ThemeOverlay.Material.Dark",
-        maxPercentDifference = 0.0,
-        snapshotHandler = WearSnapshotHandler(determineHandler(0.1))
+        maxPercentDifference = maxPercentDifference,
+        snapshotHandler = WearSnapshotHandler(determineHandler(maxPercentDifference))
     )
 
     @Test

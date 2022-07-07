@@ -51,15 +51,17 @@ import org.junit.runners.Parameterized
 class FigmaPlayerScreenTest(
     private val deviceConfig: DeviceConfig
 ) {
+    private val maxPercentDifference = 0.1
+
     @get:Rule
     val paparazzi = Paparazzi(
         deviceConfig = deviceConfig,
         theme = "android:ThemeOverlay.Material.Dark",
-        maxPercentDifference = 0.1,
+        maxPercentDifference = maxPercentDifference,
         snapshotHandler = if (deviceConfig == WEAR_OS_SQUARE) {
-            determineHandler(0.1)
+            determineHandler(maxPercentDifference)
         } else {
-            WearSnapshotHandler(determineHandler(0.1))
+            WearSnapshotHandler(determineHandler(maxPercentDifference))
         }
     )
 

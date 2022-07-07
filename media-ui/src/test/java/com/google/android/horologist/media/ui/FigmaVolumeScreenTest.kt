@@ -27,8 +27,6 @@ import com.google.android.horologist.compose.tools.ExperimentalHorologistCompose
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.media.ui.uamp.UampTheme
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
-import com.google.android.horologist.paparazzi.WearSnapshotHandler
-import com.google.android.horologist.paparazzi.determineHandler
 import org.junit.Rule
 import org.junit.Test
 
@@ -38,7 +36,6 @@ class FigmaVolumeScreenTest {
         deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
         theme = "android:ThemeOverlay.Material.Dark",
         maxPercentDifference = 5.0,
-        snapshotHandler = WearSnapshotHandler(determineHandler(5.0))
     )
 
     @Test

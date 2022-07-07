@@ -24,15 +24,20 @@ import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
+import com.google.android.horologist.paparazzi.WearSnapshotHandler
+import com.google.android.horologist.paparazzi.determineHandler
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
+@Ignore("https://github.com/google/horologist/issues/323")
 class VolumeScreenIndividualTest {
     @get:Rule
     val paparazzi = Paparazzi(
         deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
         theme = "android:ThemeOverlay.Material.Dark",
         maxPercentDifference = 0.0,
+        snapshotHandler = WearSnapshotHandler(determineHandler(0.1))
     )
 
     @Test

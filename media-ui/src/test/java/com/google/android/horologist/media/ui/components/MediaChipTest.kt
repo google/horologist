@@ -29,8 +29,6 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
-import com.google.android.horologist.paparazzi.WearSnapshotHandler
-import com.google.android.horologist.paparazzi.determineHandler
 import org.junit.Rule
 import org.junit.Test
 
@@ -41,7 +39,6 @@ class MediaChipTest {
         deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
         theme = "android:ThemeOverlay.Material.Dark",
         maxPercentDifference = 0.0,
-        snapshotHandler = WearSnapshotHandler(determineHandler(0.1))
     )
 
     @Test

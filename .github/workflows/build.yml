@@ -61,7 +61,6 @@ jobs:
         run: |
           ./scripts/run-tests.sh \
               --unit-tests \
-              --run-affected \
               --affected-base-ref=$BASE_REF
 
       - name: Snapshot tests

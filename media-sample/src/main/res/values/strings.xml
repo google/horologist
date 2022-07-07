@@ -15,8 +15,8 @@
   -->
 
 <resources>
-    <string name="app_name">UAMP</string>
-    <string name="media_activity">UAMP</string>
+    <string name="horologist_sample_app_name">UAMP</string>
+    <string name="horologist_sample_media_activity">UAMP</string>
     <string name="horologist_no_title">No title</string>
     <string name="horologist_library">Library</string>
     <string name="horologist_load_items">Load Initial Items</string>
@@ -29,7 +29,7 @@
     <string name="horologist_show_test_dialog">Show Test Dialog</string>
     <string name="horologist_sample_error">An error occurred</string>
     <string name="horologist_favorites">Favorites</string>
-    <string name="media_collection">Media Collection</string>
+    <string name="horologist_sample_media_collection">Media Collection</string>
     <string name="horologist_show_artwork_on_chip">Show Artwork on Chips</string>
     <string name="horologist_sample_playlists">Playlists</string>
 </resources>

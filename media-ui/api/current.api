@@ -484,10 +484,10 @@ package com.google.android.horologist.media.ui.state.model {
 package com.google.android.horologist.media.ui.tiles {
 
   public final class MaterialThemeKt {
-    method public static androidx.wear.tiles.material.Colors toTileColors(androidx.wear.compose.material.Colors);
+    method @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static androidx.wear.tiles.material.Colors toTileColors(androidx.wear.compose.material.Colors);
   }
 
-  public final class MediaCollectionsTileRenderer extends com.google.android.horologist.tiles.render.SingleTileLayoutRenderer<com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollectionsState,com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState> {
+  @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class MediaCollectionsTileRenderer extends com.google.android.horologist.tiles.render.SingleTileLayoutRenderer<com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollectionsState,com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState> {
     ctor public MediaCollectionsTileRenderer(android.content.Context context, androidx.wear.tiles.material.Colors materialTheme, boolean debugResourceMode);
     method public void produceRequestedResources(androidx.wear.tiles.ResourceBuilders.Resources.Builder, com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState resourceResults, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters, java.util.List<java.lang.String> resourceIds);
     method public androidx.wear.tiles.LayoutElementBuilders.LayoutElement renderTile(com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollectionsState state, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters);

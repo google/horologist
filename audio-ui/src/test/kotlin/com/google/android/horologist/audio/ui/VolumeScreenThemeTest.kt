@@ -28,13 +28,11 @@ import com.google.android.horologist.compose.tools.themeValues
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
 import com.google.android.horologist.paparazzi.determineHandler
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 
-@Ignore("https://github.com/google/horologist/issues/323")
 @RunWith(Parameterized::class)
 class VolumeScreenThemeTest(
     private val themeValue: ThemeValues

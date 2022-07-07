@@ -26,11 +26,9 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
 import com.google.android.horologist.paparazzi.determineHandler
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
-@Ignore("https://github.com/google/horologist/issues/323")
 class VolumeScreenIndividualTest {
     private val maxPercentDifference = 0.1
 

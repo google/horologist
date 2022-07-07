@@ -25,7 +25,7 @@ import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 public data class MediaItem(
     val id: String,
     val uri: String,
-    val title: String? = null,
+    val title: String,
     val artist: String,
     val artworkUri: String? = null,
     val extras: Map<String, Any> = emptyMap()

@@ -26,6 +26,7 @@ import androidx.wear.tiles.TileBuilders.Tile
 import androidx.wear.tiles.TimelineBuilders
 import androidx.wear.tiles.material.Colors
 import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
+import java.util.UUID
 
 /**
  * A [TileLayoutRenderer] designed with typical but restrictive limitations, such as a single tile
@@ -36,7 +37,8 @@ public abstract class SingleTileLayoutRenderer<T, R>(
     /**
      * The context to avoid passing in through each render method.
      */
-    public val context: Context
+    public val context: Context,
+    public val debugResourceMode: Boolean = false
 ) : TileLayoutRenderer<T, R> {
     public val theme: Colors by lazy { createTheme() }
 
@@ -61,7 +63,13 @@ public abstract class SingleTileLayoutRenderer<T, R>(
             .build()
 
         return Tile.Builder()
-            .setResourcesVersion(PERMANENT_RESOURCES_VERSION)
+            .setResourcesVersion(
+                if (debugResourceMode) {
+                    UUID.randomUUID().toString()
+                } else {
+                    PERMANENT_RESOURCES_VERSION
+                }
+            )
             .setTimeline(singleTileTimeline)
             .setFreshnessIntervalMillis(freshnessIntervalMillis)
             .build()
@@ -85,7 +93,7 @@ public abstract class SingleTileLayoutRenderer<T, R>(
         requestParams: RequestBuilders.ResourcesRequest
     ): Resources {
         return Resources.Builder()
-            .setVersion(PERMANENT_RESOURCES_VERSION)
+            .setVersion(requestParams.version)
             .apply {
                 produceRequestedResources(
                     resourceResults,

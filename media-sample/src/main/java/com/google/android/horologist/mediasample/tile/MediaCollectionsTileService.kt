@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.mediasample.tile
 
+import android.graphics.BitmapFactory
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
@@ -27,50 +28,90 @@ import androidx.wear.tiles.RequestBuilders.ResourcesRequest
 import androidx.wear.tiles.RequestBuilders.TileRequest
 import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
+import coil.ImageLoader
 import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.compose.tools.WearPreviewFontSizes
+import com.google.android.horologist.media.model.MediaItem
 import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
 import com.google.android.horologist.media.ui.tiles.toTileColors
+import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.R
+import com.google.android.horologist.mediasample.catalog.UampService
 import com.google.android.horologist.mediasample.components.MediaActivity
+import com.google.android.horologist.mediasample.di.ServiceContainer
 import com.google.android.horologist.mediasample.ui.app.UampColors
 import com.google.android.horologist.tiles.CoroutinesTileService
 import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
 import com.google.android.horologist.tiles.images.drawableResToImageResource
+import com.google.android.horologist.tiles.images.loadImageResource
+import com.google.android.horologist.tiles.images.toImageResource
 
 /**
  * A Tile with links to open the app, or two specific media collections (playlist, album).
+ *
+ * Links to the MediaActivity, with extras for collection and optionally mediaId.
  */
 class MediaCollectionsTileService : CoroutinesTileService() {
-    private lateinit var renderer: MediaCollectionsTileRenderer
+    internal lateinit var uampService: UampService
+    internal lateinit var imageLoader: ImageLoader
+
+    private val renderer: MediaCollectionsTileRenderer = MediaCollectionsTileRenderer(
+        context = this,
+        materialTheme = UampColors.toTileColors(),
+        debugResourceMode = BuildConfig.DEBUG
+    )
 
     override fun onCreate() {
         super.onCreate()
 
-        renderer = MediaCollectionsTileRenderer(this, UampColors.toTileColors())
+        ServiceContainer.inject(this)
     }
 
     /**
      * Render a Playlist primary button and two chips with direct links to collections.
      */
     override suspend fun tileRequest(requestParams: TileRequest): Tile {
+        val (song, album) = loadItems()
+
         return renderer.renderTimeline(
             state = MediaCollectionsTileRenderer.MediaCollectionsState(
                 R.string.horologist_sample_playlists,
                 appLauncher(),
                 MediaCollectionsTileRenderer.MediaCollection(
-                    name = "Liked Songs",
-                    id = "1",
-                    action = appLauncher(collectionId = "1")
+                    name = song.title,
+                    artworkId = song.id,
+                    action = appLauncher {
+                        addStringExtra(MediaActivity.CollectionKey, song.artist)
+                        addStringExtra(MediaActivity.MediaIdKey, song.id)
+                    }
                 ),
                 MediaCollectionsTileRenderer.MediaCollection(
-                    name = "Podcasts",
-                    id = "2",
-                    action = appLauncher(collectionId = "2")
+                    name = album.title,
+                    artworkId = album.id,
+                    action = appLauncher {
+                        addStringExtra(MediaActivity.CollectionKey, album.artist)
+                    }
                 )
             ),
             requestParams = requestParams
+        )
+    }
+
+    suspend fun loadItems(): Pair<MediaItem, MediaItem> {
+        val catalog = uampService.catalog().music.map {
+            it.toMediaItem()
+        }
+
+        return Pair(catalog.first(), catalog.last())
+    }
+
+    private fun AndroidActivity.Builder.addStringExtra(key: String, value: String) {
+        addKeyToExtraMapping(
+            key,
+            ActionBuilders.AndroidStringExtra.Builder()
+                .setValue(value)
+                .build()
         )
     }
 
@@ -78,20 +119,15 @@ class MediaCollectionsTileService : CoroutinesTileService() {
      * Create a launcher to an activity, with an optional extra "collection" linking to
      * a screen to open.
      */
-    private fun appLauncher(collectionId: String? = null) = ActionBuilders.LaunchAction.Builder()
+    private fun appLauncher(
+        extrasBuilder: AndroidActivity.Builder.() -> Unit = {}
+    ) = ActionBuilders.LaunchAction.Builder()
         .setAndroidActivity(
             AndroidActivity.Builder()
                 .setClassName(MediaActivity::class.java.name)
                 .setPackageName(this.packageName)
                 .apply {
-                    if (collectionId != null) {
-                        addKeyToExtraMapping(
-                            MediaActivity.CollectionKey,
-                            ActionBuilders.AndroidStringExtra.Builder()
-                                .setValue(collectionId)
-                                .build()
-                        )
-                    }
+                    extrasBuilder()
                 }
                 .build()
         )
@@ -101,12 +137,17 @@ class MediaCollectionsTileService : CoroutinesTileService() {
      * Show UAMP as AppIcon, and favourites and podcasts icons.
      */
     override suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources {
+        val (song, album) = loadItems()
+
+        val songResource = imageLoader.loadImageResource(this, song.artworkUri)
+        val albumResource = imageLoader.loadImageResource(this, album.artworkUri)
+
         return renderer.produceRequestedResources(
             MediaCollectionsTileRenderer.ResourceState(
                 R.drawable.ic_uamp,
                 mapOf(
-                    1 to drawableResToImageResource(R.drawable.ic_baseline_queue_music_24),
-                    2 to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24)
+                    song.id to songResource,
+                    album.id to albumResource
                 )
             ),
             requestParams
@@ -128,24 +169,26 @@ fun SampleTilePreview() {
             chipName = R.string.horologist_sample_playlists,
             chipAction = action,
             collection1 = MediaCollectionsTileRenderer.MediaCollection(
-                name = "Liked Songs",
-                id = "1",
+                name = "Kyoto Songs",
+                artworkId = "s1",
                 action = action
             ),
             collection2 = MediaCollectionsTileRenderer.MediaCollection(
                 name = "Podcasts",
-                id = "2",
+                artworkId = "c2",
                 action = action
             ),
         )
     }
 
     val resourceState = remember {
+        val kyoto = BitmapFactory.decodeResource(context.resources, R.drawable.kyoto)
+
         MediaCollectionsTileRenderer.ResourceState(
             appIcon = R.drawable.ic_uamp,
             images = mapOf(
-                1 to drawableResToImageResource(R.drawable.ic_baseline_queue_music_24),
-                2 to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24)
+                "s1" to kyoto.toImageResource(),
+                "c2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24)
             )
         )
     }
@@ -153,7 +196,8 @@ fun SampleTilePreview() {
     val renderer = remember {
         MediaCollectionsTileRenderer(
             context = context,
-            materialTheme = UampColors.toTileColors()
+            materialTheme = UampColors.toTileColors(),
+            debugResourceMode = BuildConfig.DEBUG
         )
     }
 

@@ -488,28 +488,22 @@ package com.google.android.horologist.media.ui.tiles {
   }
 
   public final class MediaCollectionsTileRenderer extends com.google.android.horologist.tiles.render.SingleTileLayoutRenderer<com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollectionsState,com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState> {
-    ctor public MediaCollectionsTileRenderer(android.content.Context context, androidx.wear.tiles.material.Colors materialTheme);
+    ctor public MediaCollectionsTileRenderer(android.content.Context context, androidx.wear.tiles.material.Colors materialTheme, boolean debugResourceMode);
     method public void produceRequestedResources(androidx.wear.tiles.ResourceBuilders.Resources.Builder, com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState resourceResults, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters, java.util.List<java.lang.String> resourceIds);
     method public androidx.wear.tiles.LayoutElementBuilders.LayoutElement renderTile(com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollectionsState state, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters);
-    field public static final String AppIcon = "appicon";
-    field public static final String CollectionPrefix = "collection-";
-    field public static final com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.Companion Companion;
-  }
-
-  public static final class MediaCollectionsTileRenderer.Companion {
   }
 
   public static final class MediaCollectionsTileRenderer.MediaCollection {
-    ctor public MediaCollectionsTileRenderer.MediaCollection(String name, String id, androidx.wear.tiles.ActionBuilders.Action action);
+    ctor public MediaCollectionsTileRenderer.MediaCollection(String name, String artworkId, androidx.wear.tiles.ActionBuilders.Action action);
     method public String component1();
     method public String component2();
     method public androidx.wear.tiles.ActionBuilders.Action component3();
-    method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection copy(String name, String id, androidx.wear.tiles.ActionBuilders.Action action);
+    method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection copy(String name, String artworkId, androidx.wear.tiles.ActionBuilders.Action action);
     method public androidx.wear.tiles.ActionBuilders.Action getAction();
-    method public String getId();
+    method public String getArtworkId();
     method public String getName();
     property public final androidx.wear.tiles.ActionBuilders.Action action;
-    property public final String id;
+    property public final String artworkId;
     property public final String name;
   }
 
@@ -531,14 +525,14 @@ package com.google.android.horologist.media.ui.tiles {
   }
 
   public static final class MediaCollectionsTileRenderer.ResourceState {
-    ctor public MediaCollectionsTileRenderer.ResourceState(@DrawableRes int appIcon, java.util.Map<java.lang.Integer,androidx.wear.tiles.ResourceBuilders.ImageResource> images);
+    ctor public MediaCollectionsTileRenderer.ResourceState(@DrawableRes int appIcon, java.util.Map<java.lang.String,androidx.wear.tiles.ResourceBuilders.ImageResource> images);
     method public int component1();
-    method public java.util.Map<java.lang.Integer,androidx.wear.tiles.ResourceBuilders.ImageResource> component2();
-    method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState copy(@DrawableRes int appIcon, java.util.Map<java.lang.Integer,androidx.wear.tiles.ResourceBuilders.ImageResource> images);
+    method public java.util.Map<java.lang.String,androidx.wear.tiles.ResourceBuilders.ImageResource> component2();
+    method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState copy(@DrawableRes int appIcon, java.util.Map<java.lang.String,androidx.wear.tiles.ResourceBuilders.ImageResource> images);
     method public int getAppIcon();
-    method public java.util.Map<java.lang.Integer,androidx.wear.tiles.ResourceBuilders.ImageResource> getImages();
+    method public java.util.Map<java.lang.String,androidx.wear.tiles.ResourceBuilders.ImageResource> getImages();
     property public final int appIcon;
-    property public final java.util.Map<java.lang.Integer,androidx.wear.tiles.ResourceBuilders.ImageResource> images;
+    property public final java.util.Map<java.lang.String,androidx.wear.tiles.ResourceBuilders.ImageResource> images;
   }
 
 }

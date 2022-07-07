@@ -70,9 +70,10 @@ package com.google.android.horologist.tiles.render {
   }
 
   @com.google.android.horologist.tiles.ExperimentalHorologistTilesApi public abstract class SingleTileLayoutRenderer<T, R> implements com.google.android.horologist.tiles.render.TileLayoutRenderer<T,R> {
-    ctor public SingleTileLayoutRenderer(android.content.Context context);
+    ctor public SingleTileLayoutRenderer(android.content.Context context, optional boolean debugResourceMode);
     method public androidx.wear.tiles.material.Colors createTheme();
     method public final android.content.Context getContext();
+    method public final boolean getDebugResourceMode();
     method public long getFreshnessIntervalMillis();
     method public final androidx.wear.tiles.material.Colors getTheme();
     method public final androidx.wear.tiles.ResourceBuilders.Resources produceRequestedResources(R? resourceResults, androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams);
@@ -80,6 +81,7 @@ package com.google.android.horologist.tiles.render {
     method public abstract androidx.wear.tiles.LayoutElementBuilders.LayoutElement renderTile(T? state, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters);
     method public final androidx.wear.tiles.TileBuilders.Tile renderTimeline(T? state, androidx.wear.tiles.RequestBuilders.TileRequest requestParams);
     property public final android.content.Context context;
+    property public final boolean debugResourceMode;
     property public long freshnessIntervalMillis;
     property public final androidx.wear.tiles.material.Colors theme;
   }

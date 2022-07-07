@@ -29,7 +29,6 @@ import androidx.wear.tiles.LayoutElementBuilders
 import androidx.wear.tiles.LayoutElementBuilders.Column
 import androidx.wear.tiles.LayoutElementBuilders.Spacer
 import androidx.wear.tiles.ModifiersBuilders.Clickable
-import androidx.wear.tiles.ResourceBuilders.AndroidImageResourceByResId
 import androidx.wear.tiles.ResourceBuilders.ImageResource
 import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.material.Chip
@@ -46,8 +45,10 @@ import com.google.android.horologist.tiles.render.SingleTileLayoutRenderer
 public class MediaCollectionsTileRenderer(
     context: Context,
     private val materialTheme: Colors,
+    debugResourceMode: Boolean,
 ) : SingleTileLayoutRenderer<MediaCollectionsTileRenderer.MediaCollectionsState, MediaCollectionsTileRenderer.ResourceState>(
-    context
+    context,
+    debugResourceMode
 ) {
     override fun createTheme(): Colors = materialTheme
 
@@ -95,7 +96,7 @@ public class MediaCollectionsTileRenderer(
         deviceParameters
     )
         .setChipColors(ChipColors.secondaryChipColors(theme))
-        .setPrimaryTextIconContent(collection.name, "collection-${collection.id}")
+        .setPrimaryTextIconContent(collection.name, collection.artworkId)
         .setWidth(expandedDimensionProp)
         .build()
 
@@ -104,24 +105,16 @@ public class MediaCollectionsTileRenderer(
         deviceParameters: DeviceParameters,
         resourceIds: MutableList<String>
     ) {
-        addIdToImageMapping(
-            AppIcon,
-            ImageResource.Builder()
-                .setAndroidResourceByResId(
-                    AndroidImageResourceByResId.Builder().setResourceId(resourceResults.appIcon)
-                        .build()
-                ).build()
-        )
-        resourceResults.images.forEach { i, imageResource ->
-            addIdToImageMapping(
-                "$CollectionPrefix$i", imageResource
-            )
+        resourceResults.images.forEach { (image, imageResource) ->
+            if (imageResource != null) {
+                addIdToImageMapping(image, imageResource)
+            }
         }
     }
 
     public data class MediaCollection(
         public val name: String,
-        public val id: String,
+        public val artworkId: String,
         public val action: ActionBuilders.Action
     )
 
@@ -134,11 +127,6 @@ public class MediaCollectionsTileRenderer(
 
     public data class ResourceState(
         @DrawableRes public val appIcon: Int,
-        public val images: Map<Int, ImageResource>
+        public val images: Map<String, ImageResource?>
     )
-
-    public companion object {
-        public const val AppIcon: String = "appicon"
-        public const val CollectionPrefix: String = "collection-"
-    }
 }

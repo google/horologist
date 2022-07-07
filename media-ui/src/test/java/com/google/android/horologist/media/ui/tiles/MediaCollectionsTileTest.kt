@@ -91,12 +91,12 @@ class MediaCollectionsTileTest(
                 chipAction = action,
                 collection1 = MediaCollectionsTileRenderer.MediaCollection(
                     name = "Liked Songs",
-                    id = "1",
+                    artworkId = "1",
                     action = action
                 ),
                 collection2 = MediaCollectionsTileRenderer.MediaCollection(
                     name = "Podcasts",
-                    id = "2",
+                    artworkId = "2",
                     action = action
                 ),
             )
@@ -106,8 +106,8 @@ class MediaCollectionsTileTest(
             MediaCollectionsTileRenderer.ResourceState(
                 appIcon = R.drawable.ic_uamp,
                 images = mapOf(
-                    1 to drawableResToImageResource(R.drawable.ic_baseline_queue_music_24),
-                    2 to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24)
+                    "1" to drawableResToImageResource(R.drawable.ic_baseline_queue_music_24),
+                    "2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24)
                 )
             )
         }
@@ -115,7 +115,8 @@ class MediaCollectionsTileTest(
         val renderer = remember {
             MediaCollectionsTileRenderer(
                 context = context,
-                materialTheme = UampColors.toTileColors()
+                materialTheme = UampColors.toTileColors(),
+                debugResourceMode = com.google.android.horologist.mediasample.BuildConfig.DEBUG
             )
         }
 

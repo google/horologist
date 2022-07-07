@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.mediasample.ui.app
 
+import android.content.Intent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -34,6 +35,7 @@ import com.google.android.horologist.media.ui.navigation.MediaNavController.navi
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToSettings
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToVolume
 import com.google.android.horologist.media.ui.navigation.MediaPlayerScaffold
+import com.google.android.horologist.mediasample.components.MediaActivity
 import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeText
 import com.google.android.horologist.mediasample.ui.library.LibraryScreenViewModel
 import com.google.android.horologist.mediasample.ui.library.UampLibraryScreen
@@ -46,7 +48,8 @@ import com.google.android.horologist.mediasample.ui.settings.VolumeViewModelFact
 @Composable
 fun UampWearApp(
     navController: NavHostController,
-    creationExtras: () -> CreationExtras
+    creationExtras: () -> CreationExtras,
+    intent: Intent
 ) {
     val appViewModel: MediaPlayerAppViewModel = viewModel(factory = MediaPlayerAppViewModel.Factory)
     val settingsState by rememberStateWithLifecycle(flow = appViewModel.settingsState)
@@ -131,8 +134,20 @@ fun UampWearApp(
     }
 
     LaunchedEffect(Unit) {
-        appViewModel.startupSetup(navigateToLibrary = {
-            navController.navigateToLibrary()
-        })
+        val collectionId = intent.getAndRemoveKey(MediaActivity.CollectionKey)
+        val mediaId = intent.getAndRemoveKey(MediaActivity.MediaIdKey)
+
+        if (collectionId != null) {
+            appViewModel.playItems(mediaId, collectionId)
+        } else {
+            appViewModel.startupSetup(navigateToLibrary = {
+                navController.navigateToLibrary()
+            })
+        }
     }
 }
+
+private fun Intent.getAndRemoveKey(key: String): String? =
+    getStringExtra(key).also {
+        removeExtra(key)
+    }

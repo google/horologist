@@ -38,6 +38,8 @@ import com.google.android.horologist.media.ui.uamp.UampColors
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WEAR_OS_SMALL_ROUND
 import com.google.android.horologist.paparazzi.WEAR_OS_SQUARE
+import com.google.android.horologist.paparazzi.WearSnapshotHandler
+import com.google.android.horologist.paparazzi.determineHandler
 import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
@@ -54,6 +56,11 @@ class FigmaPlayerScreenTest(
         deviceConfig = deviceConfig,
         theme = "android:ThemeOverlay.Material.Dark",
         maxPercentDifference = 0.1,
+        snapshotHandler = if (deviceConfig == WEAR_OS_SQUARE) {
+            determineHandler(0.1)
+        } else {
+            WearSnapshotHandler(determineHandler(0.1))
+        }
     )
 
     @Test

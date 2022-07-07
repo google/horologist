@@ -64,7 +64,7 @@ affectedModuleDetector {
     ]
 
     logFilename = "output.log"
-    logFolder = "${rootProject.buildDir}/affectedModuleDetector"
+    logFolder = "${rootProject.buildDir}/reports/affectedModuleDetector"
 
     String baseRef = findProperty("affected_base_ref")
     // If we have a base ref to diff against, extract the branch name and use it

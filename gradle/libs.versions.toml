@@ -85,6 +85,7 @@ com-squareup-okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logg
 compose-foundation-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-material-iconscore = { module = "androidx.compose.material:material-icons-core", version.ref = "compose" }
 compose-material-iconsext = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
+compose-material-ripple = { module = "androidx.compose.material:material-ripple", version.ref = "compose" }
 compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }

@@ -63,11 +63,6 @@ jobs:
               --unit-tests \
               --affected-base-ref=$BASE_REF
 
-      - name: Snapshot tests
-        run: |
-          ./gradlew --scan --stacktrace \
-              verifyPaparazziDebug
-
       - name: Upload test results and reports
         if: always()
         uses: actions/upload-artifact@v2
@@ -76,15 +71,25 @@ jobs:
           path: |
             **/build/test-results/*
             **/build/reports/*
-            **/build/reports/paparazzi/*
             **/build/reports/affectedModuleDetector/*
 
-      - name: Upload snapshot test failures
-        if: failure()
+      # Once this (https://github.com/cashapp/paparazzi/issues/388) is fixed, the changes introduced
+      # by this commit should be reverted to speed up and simplify the script again.
+      - name: Snapshot tests
+        run: |
+          ./gradlew --scan --stacktrace \
+              clean \
+              verifyPaparazziDebug            
+
+      - name: Upload snapshot tests results
+        if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: snapshot-test-failures
+          name: snapshot-test-results
           path: |
+            **/build/test-results/*
+            **/build/reports/*
+            **/build/reports/paparazzi/*
             **/out/failures/
 
   test:

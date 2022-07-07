@@ -78,6 +78,7 @@ jobs:
             **/build/test-results/*
             **/build/reports/*
             **/build/reports/paparazzi/*
+            **/build/reports/affectedModuleDetector/*
 
       - name: Upload snapshot test failures
         if: failure()

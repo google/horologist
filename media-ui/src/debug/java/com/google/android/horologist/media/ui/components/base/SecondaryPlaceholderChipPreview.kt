@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.ui.screens
+@file:OptIn(ExperimentalHorologistMediaUiApi::class)
+
+package com.google.android.horologist.media.ui.components.base
 
 import androidx.compose.runtime.Composable
-import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
-import com.google.android.horologist.media.ui.uamp.UampTheme
+import androidx.compose.ui.tooling.preview.Preview
+import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
-@WearLargeRoundDevicePreview
+@Preview(
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
 @Composable
-fun VolumeScreenTheme() {
-    UampTheme {
-        DefaultMediaPreview()
-    }
+fun SecondaryPlaceholderChipPreview() {
+    SecondaryPlaceholderChip()
 }
-
-private const val BACKGROUND_COLOR = 0xFF313234

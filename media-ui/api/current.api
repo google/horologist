@@ -199,39 +199,58 @@ package com.google.android.horologist.media.ui.navigation {
   }
 
   public abstract sealed class NavigationScreens {
-    method public final String getRoute();
-    property public final String route;
+    method public java.util.List<androidx.navigation.NavDeepLink> deepLinks(String deepLinkPrefix);
+    method public java.util.List<androidx.navigation.NamedNavArgument> getArguments();
+    method public final String getNavRoute();
+    property public java.util.List<androidx.navigation.NamedNavArgument> arguments;
+    property public final String navRoute;
   }
 
   public static final class NavigationScreens.Collection extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    method public String destination(String id);
+    method public String getId();
+    property public java.util.List<androidx.navigation.NamedNavArgument> arguments;
+    property public final String id;
     field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Collection INSTANCE;
   }
 
   public static final class NavigationScreens.Collections extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    method public String destination();
     field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Collections INSTANCE;
   }
 
   public static final class NavigationScreens.Login extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    method public String destination();
     field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Login INSTANCE;
   }
 
   public static final class NavigationScreens.MediaItem extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    method public String destination(String id, optional String? collectionId);
+    method public String getCollectionId();
+    method public String getId();
+    property public java.util.List<androidx.navigation.NamedNavArgument> arguments;
+    property public final String collectionId;
+    property public final String id;
     field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.MediaItem INSTANCE;
   }
 
   public static final class NavigationScreens.Player extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
-    method public String getLibrary();
-    method public String getPlayer();
-    property public final String library;
-    property public final String player;
+    method public String getPage();
+    method public Integer? getPageParam(androidx.navigation.NavBackStackEntry backStack, optional boolean remove);
+    method public String libraryDestination();
+    method public String playerDestination();
+    property public java.util.List<androidx.navigation.NamedNavArgument> arguments;
+    property public final String page;
     field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Player INSTANCE;
   }
 
   public static final class NavigationScreens.Settings extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    method public String destination();
     field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Settings INSTANCE;
   }
 
   public static final class NavigationScreens.Volume extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    method public String destination();
     field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Volume INSTANCE;
   }
 

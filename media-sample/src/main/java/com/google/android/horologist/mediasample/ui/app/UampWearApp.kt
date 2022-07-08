@@ -16,14 +16,17 @@
 
 package com.google.android.horologist.mediasample.ui.app
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.wear.compose.material.Text
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollections
@@ -97,10 +100,15 @@ fun UampWearApp(
                 )
             },
             categoryEntityScreen = { _, _ ->
-                TODO()
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+
+                    Text("Category XXX")
+                }
             },
             mediaEntityScreen = { _, _ ->
-                TODO()
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text("Media XXX")
+                }
             },
             playlistsScreen = { focusRequester, scalingLazyListState ->
                 val uampPlaylistsScreenViewModel: UampPlaylistsScreenViewModel =

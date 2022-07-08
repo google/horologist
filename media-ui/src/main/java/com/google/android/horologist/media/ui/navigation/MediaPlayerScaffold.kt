@@ -24,9 +24,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
-import androidx.navigation.navArgument
-import androidx.navigation.navDeepLink
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.TimeText
 import com.google.accompanist.pager.PagerState
@@ -85,7 +82,7 @@ public fun MediaPlayerScaffold(
 ) {
     WearNavScaffold(
         modifier = modifier,
-        startDestination = NavigationScreens.Player.route,
+        startDestination = NavigationScreens.Player.navRoute,
         timeText = timeText,
         navController = navController,
         snackbar = {
@@ -96,17 +93,9 @@ public fun MediaPlayerScaffold(
         }
     ) {
         wearNavComposable(
-            route = NavigationScreens.Player.route,
-            arguments = listOf(
-                navArgument("page") {
-                    type = NavType.IntType
-                }
-            ),
-            deepLinks = listOf(
-                navDeepLink {
-                    uriPattern = "$deepLinkPrefix/player?page={page}"
-                }
-            )
+            route = NavigationScreens.Player.navRoute,
+            arguments = NavigationScreens.Player.arguments,
+            deepLinks = NavigationScreens.Player.deepLinks(deepLinkPrefix)
         ) { backStack, viewModel ->
             viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
             viewModel.positionIndicatorMode = NavScaffoldViewModel.PositionIndicatorMode.Off
@@ -129,59 +118,46 @@ public fun MediaPlayerScaffold(
         }
 
         scalingLazyColumnComposable(
-            route = NavigationScreens.Collections.route,
+            route = NavigationScreens.Collections.navRoute,
+            arguments = NavigationScreens.Collections.arguments,
+            deepLinks = NavigationScreens.Collections.deepLinks(deepLinkPrefix),
             scrollStateBuilder = { ScalingLazyListState() }
         ) {
             playlistsScreen(it.viewModel.focusRequester, it.scrollableState)
         }
 
         scalingLazyColumnComposable(
-            route = NavigationScreens.Settings.route,
+            route = NavigationScreens.Settings.navRoute,
+            arguments = NavigationScreens.Settings.arguments,
+            deepLinks = NavigationScreens.Settings.deepLinks(deepLinkPrefix),
             scrollStateBuilder = { ScalingLazyListState() }
         ) {
             settingsScreen(it.viewModel.focusRequester, it.scrollableState)
         }
 
-        wearNavComposable(NavigationScreens.Volume.route) { _, viewModel ->
+        wearNavComposable(
+            route = NavigationScreens.Volume.navRoute,
+            arguments = NavigationScreens.Volume.arguments,
+            deepLinks = NavigationScreens.Volume.deepLinks(deepLinkPrefix),
+        ) { _, viewModel ->
             viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
 
             volumeScreen(viewModel.focusRequester)
         }
 
         scalingLazyColumnComposable(
-            route = NavigationScreens.MediaItem.route + "?id={id}&category={category}",
-            arguments = listOf(
-                navArgument("id") {
-                    type = NavType.StringType
-                },
-                navArgument("category") {
-                    type = NavType.StringType
-                    nullable = true
-                    defaultValue = null
-                }
-            ),
-            deepLinks = listOf(
-                navDeepLink {
-                    uriPattern = "$deepLinkPrefix/mediaItem?id={id}&category={category}"
-                }
-            ),
+            route = NavigationScreens.MediaItem.navRoute + "?id={id}&category={category}",
+            arguments = NavigationScreens.MediaItem.arguments,
+            deepLinks = NavigationScreens.MediaItem.deepLinks(deepLinkPrefix),
             scrollStateBuilder = { ScalingLazyListState() }
         ) {
             mediaEntityScreen(it.viewModel.focusRequester, it.scrollableState)
         }
 
         scalingLazyColumnComposable(
-            route = NavigationScreens.Collection.route + "?category={category}",
-            arguments = listOf(
-                navArgument("category") {
-                    type = NavType.StringType
-                }
-            ),
-            deepLinks = listOf(
-                navDeepLink {
-                    uriPattern = "$deepLinkPrefix/category?category={category}"
-                }
-            ),
+            route = NavigationScreens.Collection.navRoute + "?category={category}",
+            arguments = NavigationScreens.Collection.arguments,
+            deepLinks = NavigationScreens.Collection.deepLinks(deepLinkPrefix),
             scrollStateBuilder = { ScalingLazyListState() }
         ) {
             categoryEntityScreen(it.viewModel.focusRequester, it.scrollableState)

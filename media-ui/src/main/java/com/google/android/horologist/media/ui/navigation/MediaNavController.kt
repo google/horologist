@@ -26,39 +26,36 @@ public object MediaNavController {
      * Navigate to a single collection such as a playlist.
      */
     public fun NavController.navigateToCollection(collectionId: String) {
-        navigate(NavigationScreens.Collection.route + "?collection=$collectionId")
+        navigate(NavigationScreens.Collection.destination(collectionId))
     }
 
     /**
      * Navigate to a selections of collection such as a list of playlist.
      */
     public fun NavController.navigateToCollections() {
-        navigate(NavigationScreens.Collections.route)
+        navigate(NavigationScreens.Collections.destination())
     }
 
     /**
      * Navigate to the settings screen.
      */
     public fun NavController.navigateToSettings() {
-        navigate(NavigationScreens.Settings.route)
+        navigate(NavigationScreens.Settings.destination())
     }
 
     /**
      * Navigate to a single media item, as part of a larger collection.
      */
     public fun NavController.navigateToMediaItem(mediaItemId: String, collectionId: String?) {
-        navigate(
-            NavigationScreens.MediaItem.route + "?id=$mediaItemId" +
-                (if (collectionId != null) "&category=$collectionId" else null)
-        )
+        navigate(NavigationScreens.MediaItem.destination(mediaItemId, collectionId))
     }
 
     /**
      * Navigate to the player page, removing other entries from the backstack.
      */
     public fun NavController.navigateToPlayer() {
-        navigate(NavigationScreens.Player.player) {
-            popUpTo(NavigationScreens.Player.route) {
+        navigate(NavigationScreens.Player.playerDestination()) {
+            popUpTo(NavigationScreens.Player.navRoute) {
                 inclusive = true
                 saveState = false
             }
@@ -69,8 +66,8 @@ public object MediaNavController {
      * Navigate to the library page, removing other entries from the backstack.
      */
     public fun NavController.navigateToLibrary() {
-        navigate(NavigationScreens.Player.library) {
-            popUpTo(NavigationScreens.Player.route) {
+        navigate(NavigationScreens.Player.libraryDestination()) {
+            popUpTo(NavigationScreens.Player.navRoute) {
                 inclusive = true
                 saveState = false
             }
@@ -81,6 +78,6 @@ public object MediaNavController {
      * Navigate to the volume screen.
      */
     public fun NavController.navigateToVolume() {
-        navigate(NavigationScreens.Volume.route)
+        navigate(NavigationScreens.Volume.destination())
     }
 }

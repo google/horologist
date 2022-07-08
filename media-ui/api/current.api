@@ -278,6 +278,29 @@ package com.google.android.horologist.media.ui.screens.browse {
 
 }
 
+package com.google.android.horologist.media.ui.screens.playlist {
+
+  public final class PlaylistScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlaylistScreen(com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState playlistScreenState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.PlaylistUiModel,kotlin.Unit> onPlaylistItemClick, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? playlistItemArtworkPlaceholder);
+  }
+
+  @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class PlaylistScreenState {
+  }
+
+  public static final class PlaylistScreenState.Loaded extends com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState {
+    ctor public PlaylistScreenState.Loaded(java.util.List<com.google.android.horologist.media.ui.state.model.PlaylistUiModel> playlistList);
+    method public java.util.List<com.google.android.horologist.media.ui.state.model.PlaylistUiModel> component1();
+    method public com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState.Loaded copy(java.util.List<com.google.android.horologist.media.ui.state.model.PlaylistUiModel> playlistList);
+    method public java.util.List<com.google.android.horologist.media.ui.state.model.PlaylistUiModel> getPlaylistList();
+    property public final java.util.List<com.google.android.horologist.media.ui.state.model.PlaylistUiModel> playlistList;
+  }
+
+  public static final class PlaylistScreenState.Loading extends com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState {
+    field public static final com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState.Loading INSTANCE;
+  }
+
+}
+
 package com.google.android.horologist.media.ui.semantics {
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class CustomSemanticsProperties {
@@ -424,31 +447,25 @@ package com.google.android.horologist.media.ui.state.mapper {
 package com.google.android.horologist.media.ui.state.model {
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class DownloadPlaylistUiModel {
-    method public String? getArtworkUri();
-    method public String getTitle();
-    property public String? artworkUri;
-    property public String title;
+    method public com.google.android.horologist.media.ui.state.model.PlaylistUiModel getPlaylistUiModel();
+    property public com.google.android.horologist.media.ui.state.model.PlaylistUiModel playlistUiModel;
   }
 
   public static final class DownloadPlaylistUiModel.Completed extends com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel {
-    ctor public DownloadPlaylistUiModel.Completed(String title, String? artworkUri);
-    method public String component1();
-    method public String? component2();
-    method public com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel.Completed copy(String title, String? artworkUri);
-    property public String? artworkUri;
-    property public String title;
+    ctor public DownloadPlaylistUiModel.Completed(com.google.android.horologist.media.ui.state.model.PlaylistUiModel playlistUiModel);
+    method public com.google.android.horologist.media.ui.state.model.PlaylistUiModel component1();
+    method public com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel.Completed copy(com.google.android.horologist.media.ui.state.model.PlaylistUiModel playlistUiModel);
+    property public com.google.android.horologist.media.ui.state.model.PlaylistUiModel playlistUiModel;
   }
 
   public static final class DownloadPlaylistUiModel.InProgress extends com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel {
-    ctor public DownloadPlaylistUiModel.InProgress(String title, String? artworkUri, int percentage);
-    method public String component1();
-    method public String? component2();
-    method public int component3();
-    method public com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel.InProgress copy(String title, String? artworkUri, int percentage);
+    ctor public DownloadPlaylistUiModel.InProgress(com.google.android.horologist.media.ui.state.model.PlaylistUiModel playlistUiModel, int percentage);
+    method public com.google.android.horologist.media.ui.state.model.PlaylistUiModel component1();
+    method public int component2();
+    method public com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel.InProgress copy(com.google.android.horologist.media.ui.state.model.PlaylistUiModel playlistUiModel, int percentage);
     method public int getPercentage();
-    property public String? artworkUri;
     property public final int percentage;
-    property public String title;
+    property public com.google.android.horologist.media.ui.state.model.PlaylistUiModel playlistUiModel;
   }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class MediaItemUiModel {
@@ -466,6 +483,17 @@ package com.google.android.horologist.media.ui.state.model {
     property public final String? artworkUri;
     property public final String id;
     property public final String? title;
+  }
+
+  public final class PlaylistUiModel {
+    ctor public PlaylistUiModel(String title, optional String? artworkUri);
+    method public String component1();
+    method public String? component2();
+    method public com.google.android.horologist.media.ui.state.model.PlaylistUiModel copy(String title, String? artworkUri);
+    method public String? getArtworkUri();
+    method public String getTitle();
+    property public final String? artworkUri;
+    property public final String title;
   }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class TrackPositionUiModel {

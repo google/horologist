@@ -85,29 +85,28 @@ public fun BrowseScreen(
                     )
                 }
             } else {
-                downloadList.forEach {
-                    item {
-                        when (it) {
-                            is DownloadPlaylistUiModel.Completed -> {
-                                SecondaryChip(
-                                    primaryLabel = it.title,
-                                    onClick = { onDownloadItemClick(it) },
-                                    icon = it.artworkUri,
-                                    placeholder = downloadItemArtworkPlaceholder
-                                )
-                            }
-                            is DownloadPlaylistUiModel.InProgress -> {
-                                SecondaryChip(
-                                    primaryLabel = it.title,
-                                    onClick = { onDownloadItemClick(it) },
-                                    secondaryLabel = stringResource(
-                                        id = R.string.horologist_browse_downloads_progress,
-                                        it.percentage
-                                    ),
-                                    icon = Icons.Default.Downloading,
-                                    placeholder = downloadItemArtworkPlaceholder
-                                )
-                            }
+                items(count = downloadList.size) { index ->
+                    when (val download = downloadList[index]) {
+                        is DownloadPlaylistUiModel.Completed -> {
+                            SecondaryChip(
+                                label = download.playlistUiModel.title,
+                                onClick = { onDownloadItemClick(download) },
+                                icon = download.playlistUiModel.artworkUri,
+                                largeIcon = true,
+                                placeholder = downloadItemArtworkPlaceholder
+                            )
+                        }
+                        is DownloadPlaylistUiModel.InProgress -> {
+                            SecondaryChip(
+                                label = download.playlistUiModel.title,
+                                onClick = { onDownloadItemClick(download) },
+                                secondaryLabel = stringResource(
+                                    id = R.string.horologist_browse_downloads_progress,
+                                    download.percentage
+                                ),
+                                icon = Icons.Default.Downloading,
+                                placeholder = downloadItemArtworkPlaceholder
+                            )
                         }
                     }
                 }
@@ -127,7 +126,7 @@ public fun BrowseScreen(
 
         item {
             SecondaryChip(
-                primaryLabel = stringResource(id = R.string.horologist_browse_library_playlists),
+                label = stringResource(id = R.string.horologist_browse_library_playlists),
                 icon = Icons.Default.PlaylistPlay,
                 onClick = onPlaylistsClick
             )
@@ -135,7 +134,7 @@ public fun BrowseScreen(
 
         item {
             SecondaryChip(
-                primaryLabel = stringResource(id = R.string.horologist_browse_library_settings),
+                label = stringResource(id = R.string.horologist_browse_library_settings),
                 icon = Icons.Default.Settings,
                 onClick = onSettingsClick
             )

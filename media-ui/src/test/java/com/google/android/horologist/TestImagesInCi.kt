@@ -17,6 +17,7 @@
 package com.google.android.horologist
 
 import com.google.common.truth.Truth.assertThat
+import com.google.common.truth.Truth.assertWithMessage
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -24,18 +25,19 @@ import java.io.File
 
 @RunWith(Parameterized::class)
 class TestImagesInCi(
-    val image: File
+    val imageFile: File
 ) {
     @Test
     fun testImage() {
-        assertThat(image.exists()).isTrue()
+        assertThat(imageFile.exists()).isTrue()
 
         val imageIO = Class.forName("javax.imageio.ImageIO")
         val readMethod = imageIO.getMethod("read", File::class.java)
 
-        val image = readMethod.invoke(null, image)
+        val image = readMethod.invoke(null, imageFile)
 
-        assertThat(image).isNotNull()
+        assertWithMessage("image $imageFile ${imageFile.length()} wasn't read").that(image)
+            .isNotNull()
     }
 
     companion object {

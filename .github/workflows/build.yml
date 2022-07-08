@@ -17,10 +17,11 @@ jobs:
     timeout-minutes: 30
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           # Fetch expanded history, which is needed for affected module detection
           fetch-depth: '500'
+          lfs: 'true'
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
@@ -61,12 +62,8 @@ jobs:
         run: |
           ./scripts/run-tests.sh \
               --unit-tests \
+              --run-affected \
               --affected-base-ref=$BASE_REF
-
-      - name: Snapshot tests
-        run: |
-          ./gradlew --scan --stacktrace \
-              verifyPaparazziDebug
 
       - name: Upload test results and reports
         if: always()
@@ -76,15 +73,25 @@ jobs:
           path: |
             **/build/test-results/*
             **/build/reports/*
-            **/build/reports/paparazzi/*
             **/build/reports/affectedModuleDetector/*
 
-      - name: Upload snapshot test failures
-        if: failure()
+      # Once this (https://github.com/cashapp/paparazzi/issues/388) is fixed, the changes introduced
+      # by this commit should be reverted to speed up and simplify the script again.
+      - name: Snapshot tests
+        run: |
+          ./gradlew --scan --stacktrace \
+              clean \
+              verifyPaparazziDebug            
+
+      - name: Upload snapshot tests results
+        if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: snapshot-test-failures
+          name: snapshot-test-results
           path: |
+            **/build/test-results/*
+            **/build/reports/*
+            **/build/reports/paparazzi/*
             **/out/failures/
 
   test:
@@ -103,10 +110,11 @@ jobs:
       TERM: dumb
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           # Fetch expanded history, which is needed for affected module detection
           fetch-depth: '500'
+          lfs: 'true'
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties

@@ -34,7 +34,7 @@ import com.google.android.horologist.paparazzi.determineHandler
 import org.junit.Rule
 import org.junit.Test
 
-class SecondaryChipTest {
+class PrimaryChipTest {
 
     private val maxPercentDifference = 0.1
 
@@ -50,11 +50,7 @@ class SecondaryChipTest {
     fun withPrimaryLabel() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChip(
-                    label = "Primary label",
-                    onClick = { },
-                    chipType = StandardChipType.Secondary,
-                )
+                StandardChip(label = "Primary label", onClick = { })
             }
         }
     }
@@ -67,7 +63,6 @@ class SecondaryChipTest {
                     label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
-                    chipType = StandardChipType.Secondary,
                 )
             }
         }
@@ -83,9 +78,8 @@ class SecondaryChipTest {
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
                         image = Icons.Default.Add,
-                        tintColor = Color.White,
-                    ),
-                    chipType = StandardChipType.Secondary,
+                        tintColor = Color.Black,
+                    )
                 )
             }
         }
@@ -99,7 +93,6 @@ class SecondaryChipTest {
                     label = "Primary label",
                     onClick = { },
                     icon = Icons.Default.Add,
-                    chipType = StandardChipType.Secondary,
                 )
             }
         }
@@ -116,9 +109,8 @@ class SecondaryChipTest {
                     largeIcon = true,
                     placeholder = rememberVectorPainter(
                         image = Icon32dp,
-                        tintColor = Color.White,
-                    ),
-                    chipType = StandardChipType.Secondary,
+                        tintColor = Color.Black,
+                    )
                 )
             }
         }
@@ -135,9 +127,8 @@ class SecondaryChipTest {
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
                         image = Icons.Default.Add,
-                        tintColor = Color.White,
-                    ),
-                    chipType = StandardChipType.Secondary,
+                        tintColor = Color.Black,
+                    )
                 )
             }
         }
@@ -155,9 +146,8 @@ class SecondaryChipTest {
                     largeIcon = true,
                     placeholder = rememberVectorPainter(
                         image = Icon32dp,
-                        tintColor = Color.White,
-                    ),
-                    chipType = StandardChipType.Secondary,
+                        tintColor = Color.Black,
+                    )
                 )
             }
         }
@@ -174,9 +164,8 @@ class SecondaryChipTest {
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
                         image = Icons.Default.Add,
-                        tintColor = Color.White,
+                        tintColor = Color.Black,
                     ),
-                    chipType = StandardChipType.Secondary,
                     enabled = false,
                 )
             }
@@ -189,8 +178,7 @@ class SecondaryChipTest {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
                 StandardChip(
                     label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                    onClick = { },
-                    chipType = StandardChipType.Secondary,
+                    onClick = { }
                 )
             }
         }
@@ -207,9 +195,8 @@ class SecondaryChipTest {
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
                         image = Icons.Default.Add,
-                        tintColor = Color.White,
+                        tintColor = Color.Black,
                     ),
-                    chipType = StandardChipType.Secondary,
                 )
             }
         }
@@ -225,9 +212,8 @@ class SecondaryChipTest {
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
                         image = Icon12dp,
-                        tintColor = Color.White,
-                    ),
-                    chipType = StandardChipType.Secondary,
+                        tintColor = Color.Black,
+                    )
                 )
             }
         }
@@ -244,9 +230,8 @@ class SecondaryChipTest {
                     largeIcon = true,
                     placeholder = rememberVectorPainter(
                         image = Icon12dp,
-                        tintColor = Color.White,
-                    ),
-                    chipType = StandardChipType.Secondary,
+                        tintColor = Color.Black,
+                    )
                 )
             }
         }
@@ -262,9 +247,8 @@ class SecondaryChipTest {
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
                         image = Icon48dp,
-                        tintColor = Color.White,
-                    ),
-                    chipType = StandardChipType.Secondary,
+                        tintColor = Color.Black,
+                    )
                 )
             }
         }
@@ -281,9 +265,8 @@ class SecondaryChipTest {
                     largeIcon = true,
                     placeholder = rememberVectorPainter(
                         image = Icon48dp,
-                        tintColor = Color.White,
-                    ),
-                    chipType = StandardChipType.Secondary,
+                        tintColor = Color.Black,
+                    )
                 )
             }
         }

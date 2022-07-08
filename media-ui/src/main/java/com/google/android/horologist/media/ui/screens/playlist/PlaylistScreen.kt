@@ -28,8 +28,9 @@ import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.media.ui.components.base.SecondaryChip
 import com.google.android.horologist.media.ui.components.base.SecondaryPlaceholderChip
+import com.google.android.horologist.media.ui.components.base.StandardChip
+import com.google.android.horologist.media.ui.components.base.StandardChipType
 import com.google.android.horologist.media.ui.components.base.Title
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
@@ -61,12 +62,13 @@ public fun PlaylistScreen(
 
                 val playlist = playlistScreenState.playlistList[index]
 
-                SecondaryChip(
+                StandardChip(
                     label = playlist.title,
                     onClick = { onPlaylistItemClick(playlist) },
                     icon = playlist.artworkUri,
                     largeIcon = true,
-                    placeholder = playlistItemArtworkPlaceholder
+                    placeholder = playlistItemArtworkPlaceholder,
+                    chipType = StandardChipType.Secondary,
                 )
             }
         } else if (playlistScreenState is PlaylistScreenState.Loading) {

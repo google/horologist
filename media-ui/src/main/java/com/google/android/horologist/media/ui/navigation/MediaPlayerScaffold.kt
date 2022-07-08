@@ -146,7 +146,7 @@ public fun MediaPlayerScaffold(
         }
 
         scalingLazyColumnComposable(
-            route = NavigationScreens.MediaItem.navRoute + "?id={id}&category={category}",
+            route = NavigationScreens.MediaItem.navRoute,
             arguments = NavigationScreens.MediaItem.arguments,
             deepLinks = NavigationScreens.MediaItem.deepLinks(deepLinkPrefix),
             scrollStateBuilder = { ScalingLazyListState() }
@@ -155,7 +155,7 @@ public fun MediaPlayerScaffold(
         }
 
         scalingLazyColumnComposable(
-            route = NavigationScreens.Collection.navRoute + "?category={category}",
+            route = NavigationScreens.Collection.navRoute,
             arguments = NavigationScreens.Collection.arguments,
             deepLinks = NavigationScreens.Collection.deepLinks(deepLinkPrefix),
             scrollStateBuilder = { ScalingLazyListState() }

@@ -36,7 +36,7 @@ import com.google.android.horologist.media3.WearConfiguredPlayer
 import com.google.android.horologist.media3.config.WearMedia3Factory
 import com.google.android.horologist.media3.logging.AnalyticsEventLogger
 import com.google.android.horologist.media3.logging.TransferListener
-import com.google.android.horologist.media3.navigation.NavDeepLinkIntentBuilder
+import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.components.MediaApplication
 import com.google.android.horologist.mediasample.components.PlaybackService
 import com.google.android.horologist.mediasample.media.UampMediaLibrarySessionCallback
@@ -58,7 +58,8 @@ class PlaybackServiceContainer(
         )
         .build()
 
-    val appConfig by lazy { mediaApplicationContainer.appConfig }
+    val appConfig: AppConfig
+        get() = mediaApplicationContainer.appConfig
 
     val mediaCodecSelector by lazy { wearMedia3Factory.mediaCodecSelector() }
 
@@ -146,17 +147,9 @@ class PlaybackServiceContainer(
         UampMediaLibrarySessionCallback(service.lifecycleScope, mediaApplicationContainer.logger)
     }
 
-    val intentBuilder by lazy {
-        NavDeepLinkIntentBuilder(
-            mediaApplicationContainer.application,
-            "${appConfig.deeplinkUriPrefix}/player?page=1",
-            "${appConfig.deeplinkUriPrefix}/player?page=0"
-        )
-    }
-
     val mediaLibrarySession by lazy {
         MediaLibraryService.MediaLibrarySession.Builder(service, player, librarySessionCallback)
-            .setSessionActivity(intentBuilder.buildPlayerIntent())
+            .setSessionActivity(mediaApplicationContainer.intentBuilder.buildPlayerIntent())
             .build()
     }
 
@@ -173,7 +166,7 @@ class PlaybackServiceContainer(
 
         fun inject(playbackService: PlaybackService) {
             val serviceContainer =
-                playbackService.container.serviceContainer(playbackService)
+                playbackService.container.playbackServiceContainer(playbackService)
 
             serviceContainer.inject(playbackService)
         }

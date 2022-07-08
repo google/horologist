@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.model
+package com.google.android.horologist.media.ui.tiles
 
-import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+import androidx.compose.ui.graphics.toArgb
+import androidx.wear.compose.material.Colors
+import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
-/**
- * Representation of a media item.
- */
-@ExperimentalHorologistMediaApi
-public data class MediaItem(
-    val id: String,
-    val uri: String,
-    val title: String,
-    val artist: String,
-    val artworkUri: String? = null,
-    val extras: Map<String, Any> = emptyMap()
-)
+@ExperimentalHorologistMediaUiApi
+public fun Colors.toTileColors(): androidx.wear.tiles.material.Colors {
+    return androidx.wear.tiles.material.Colors(
+        primary.toArgb(),
+        onPrimary.toArgb(),
+        surface.toArgb(),
+        onSurface.toArgb(),
+    )
+}

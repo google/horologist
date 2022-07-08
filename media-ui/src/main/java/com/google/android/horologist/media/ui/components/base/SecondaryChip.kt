@@ -45,7 +45,7 @@ import coil.compose.rememberAsyncImagePainter
  */
 @Composable
 internal fun SecondaryChip(
-    primaryLabel: String,
+    label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     secondaryLabel: String? = null,
@@ -57,10 +57,10 @@ internal fun SecondaryChip(
     val hasSecondaryLabel = secondaryLabel != null
     val hasIcon = icon != null
 
-    val primaryLabelParam: (@Composable RowScope.() -> Unit) =
+    val labelParam: (@Composable RowScope.() -> Unit) =
         {
             Text(
-                text = primaryLabel,
+                text = label,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Left else TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
@@ -115,7 +115,7 @@ internal fun SecondaryChip(
         }
 
     Chip(
-        label = primaryLabelParam,
+        label = labelParam,
         onClick = onClick,
         modifier = modifier.fillMaxWidth(),
         secondaryLabel = secondaryLabelParam,

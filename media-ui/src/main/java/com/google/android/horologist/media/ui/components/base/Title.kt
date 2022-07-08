@@ -16,14 +16,35 @@
 
 package com.google.android.horologist.media.ui.components.base
 
+import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.Text
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
 @Composable
-fun SecondaryPlaceholderChipPreview() {
-    SecondaryPlaceholderChip()
+internal fun Title(
+    @StringRes textId: Int,
+    modifier: Modifier = Modifier,
+) {
+    Title(
+        text = stringResource(id = textId),
+        modifier = modifier,
+    )
+}
+
+@Composable
+internal fun Title(
+    text: String,
+    modifier: Modifier = Modifier,
+) {
+    Text(
+        text = text,
+        modifier = modifier,
+        overflow = TextOverflow.Ellipsis,
+        maxLines = 3,
+        style = MaterialTheme.typography.title3,
+    )
 }

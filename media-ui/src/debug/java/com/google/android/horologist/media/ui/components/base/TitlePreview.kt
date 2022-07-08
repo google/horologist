@@ -24,6 +24,15 @@ import androidx.compose.ui.tooling.preview.Preview
     showBackground = true,
 )
 @Composable
-fun SecondaryPlaceholderChipPreview() {
-    SecondaryPlaceholderChip()
+fun TitlePreview() {
+    Title("Title")
+}
+
+@Preview(
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
+@Composable
+fun TitlePreviewWithLongText() {
+    Title("Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text")
 }

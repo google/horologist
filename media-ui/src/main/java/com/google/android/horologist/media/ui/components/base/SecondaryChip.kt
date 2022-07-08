@@ -37,14 +37,12 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
 import coil.compose.rememberAsyncImagePainter
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
 /**
  * This composable fulfils the redlines of the following components:
  * - Secondary standard chip - when [largeIcon] value is `false`;
  * - Chip with small or large avatar - according to [largeIcon] value;
  */
-@ExperimentalHorologistMediaUiApi
 @Composable
 internal fun SecondaryChip(
     primaryLabel: String,

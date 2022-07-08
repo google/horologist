@@ -87,3 +87,23 @@ fun PodcastControlButtonsPreviewNoProgress() {
         seekForwardButtonIncrement = SeekButtonIncrement.Five,
     )
 }
+
+@Preview(
+    backgroundColor = 0xff888800,
+    showBackground = true,
+)
+@Composable
+fun PodcastControlDisabledLightBackground() {
+    PodcastControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = false,
+        playing = false,
+        onSeekBackButtonClick = {},
+        seekBackButtonEnabled = false,
+        onSeekForwardButtonClick = {},
+        seekForwardButtonEnabled = false,
+        seekBackButtonIncrement = SeekButtonIncrement.Unknown,
+        seekForwardButtonIncrement = SeekButtonIncrement.Five,
+    )
+}

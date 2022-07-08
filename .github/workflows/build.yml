@@ -21,6 +21,7 @@ jobs:
         with:
           # Fetch expanded history, which is needed for affected module detection
           fetch-depth: '500'
+          lfs: 'true'
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
@@ -107,6 +108,7 @@ jobs:
         with:
           # Fetch expanded history, which is needed for affected module detection
           fetch-depth: '500'
+          lfs: 'true'
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties

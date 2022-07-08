@@ -33,7 +33,7 @@ class TestImagesInCi(
         val imageIO = Class.forName("javax.imageio.ImageIO")
         val readMethod = imageIO.getMethod("read", File::class.java)
 
-        val image = readMethod.invoke(image)
+        val image = readMethod.invoke(null, image)
 
         assertThat(image).isNotNull()
     }

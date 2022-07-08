@@ -120,13 +120,13 @@ fun UampWearApp(
                     )
 
                 UampPlaylistsScreen(
-                    focusRequester = focusRequester,
-                    state = scalingLazyListState,
                     uampPlaylistsScreenViewModel = uampPlaylistsScreenViewModel,
-                    onPlayClick = {
+                    onPlaylistItemClick = {
                         navController.navigateToPlayer()
                     },
-                    settingsState = settingsState
+                    settingsState = settingsState,
+                    focusRequester = focusRequester,
+                    scalingLazyListState = scalingLazyListState
                 )
             },
             settingsScreen = { focusRequester, state ->

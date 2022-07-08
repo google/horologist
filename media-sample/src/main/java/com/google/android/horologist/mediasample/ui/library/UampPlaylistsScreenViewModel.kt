@@ -56,7 +56,7 @@ class UampPlaylistsScreenViewModel(
         }
     }
 
-    val items: StateFlow<List<MediaItem>?> = flow {
+    private val items: StateFlow<List<MediaItem>?> = flow {
         try {
             val catalog = uampService.catalog()
             emit(
@@ -71,12 +71,16 @@ class UampPlaylistsScreenViewModel(
     }.stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = null)
 
     val uiState = items.map { items ->
-        UiState(items?.map { MediaItemUiModelMapper.map(it) })
-    }.stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = UiState())
+        UiState.Loaded(items?.let { items.map { MediaItemUiModelMapper.map(it) } } ?: emptyList())
+    }.stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = UiState.Loading)
 
-    data class UiState(
-        val items: List<MediaItemUiModel>? = null,
-    )
+    sealed class UiState {
+        object Loading : UiState()
+
+        data class Loaded(
+            val items: List<MediaItemUiModel>
+        ) : UiState()
+    }
 
     companion object {
         val Factory = viewModelFactory {

@@ -18,7 +18,6 @@
     <string name="horologist_sample_app_name">UAMP</string>
     <string name="horologist_sample_media_activity">UAMP</string>
     <string name="horologist_no_title">No title</string>
-    <string name="horologist_library">Library</string>
     <string name="horologist_load_items">Load Initial Items</string>
     <string name="horologist_logout">Logout</string>
     <string name="horologist_podcast_controls">Podcast Controls</string>

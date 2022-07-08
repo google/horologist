@@ -26,14 +26,17 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
+import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollections
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToLibrary
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToPlayer
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToSettings
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToVolume
 import com.google.android.horologist.media.ui.navigation.MediaPlayerScaffold
+import com.google.android.horologist.media.ui.screens.browse.BrowseScreen
+import com.google.android.horologist.media.ui.screens.browse.BrowseScreenState
 import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeText
-import com.google.android.horologist.mediasample.ui.library.LibraryScreenViewModel
-import com.google.android.horologist.mediasample.ui.library.UampLibraryScreen
+import com.google.android.horologist.mediasample.ui.library.UampPlaylistsScreen
+import com.google.android.horologist.mediasample.ui.library.UampPlaylistsScreenViewModel
 import com.google.android.horologist.mediasample.ui.player.MediaPlayerScreenViewModel
 import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
 import com.google.android.horologist.mediasample.ui.settings.SettingsScreenViewModel
@@ -83,21 +86,14 @@ fun UampWearApp(
                     settingsState = settingsState
                 )
             },
-            libraryScreen = { focusRequester, state ->
-                val libraryScreenViewModel: LibraryScreenViewModel =
-                    viewModel(factory = LibraryScreenViewModel.Factory, extras = creationExtras())
-
-                UampLibraryScreen(
+            libraryScreen = { focusRequester, scalingLazyListState ->
+                BrowseScreen(
+                    browseScreenState = BrowseScreenState.Loaded(emptyList()),
+                    onDownloadItemClick = { },
+                    onPlaylistsClick = { navController.navigateToCollections() },
+                    onSettingsClick = { navController.navigateToSettings() },
                     focusRequester = focusRequester,
-                    state = state,
-                    onSettingsClick = {
-                        navController.navigateToSettings()
-                    },
-                    libraryScreenViewModel = libraryScreenViewModel,
-                    onPlayClick = {
-                        navController.navigateToPlayer()
-                    },
-                    settingsState = settingsState
+                    scalingLazyListState = scalingLazyListState,
                 )
             },
             categoryEntityScreen = { _, _ ->
@@ -106,8 +102,22 @@ fun UampWearApp(
             mediaEntityScreen = { _, _ ->
                 TODO()
             },
-            playlistsScreen = { _, _ ->
-                TODO()
+            playlistsScreen = { focusRequester, scalingLazyListState ->
+                val uampPlaylistsScreenViewModel: UampPlaylistsScreenViewModel =
+                    viewModel(
+                        factory = UampPlaylistsScreenViewModel.Factory,
+                        extras = creationExtras()
+                    )
+
+                UampPlaylistsScreen(
+                    focusRequester = focusRequester,
+                    state = scalingLazyListState,
+                    uampPlaylistsScreenViewModel = uampPlaylistsScreenViewModel,
+                    onPlayClick = {
+                        navController.navigateToPlayer()
+                    },
+                    settingsState = settingsState
+                )
             },
             settingsScreen = { focusRequester, state ->
                 UampSettingsScreen(

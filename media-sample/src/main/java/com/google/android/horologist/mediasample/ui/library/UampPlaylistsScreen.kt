@@ -17,15 +17,11 @@
 package com.google.android.horologist.mediasample.ui.library
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
-import androidx.wear.compose.material.Button
-import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
@@ -38,16 +34,15 @@ import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.Settings
 
 @Composable
-fun UampLibraryScreen(
+fun UampPlaylistsScreen(
     focusRequester: FocusRequester,
-    libraryScreenViewModel: LibraryScreenViewModel,
+    uampPlaylistsScreenViewModel: UampPlaylistsScreenViewModel,
     state: ScalingLazyListState,
-    onSettingsClick: () -> Unit,
     onPlayClick: () -> Unit,
     modifier: Modifier = Modifier,
     settingsState: Settings?,
 ) {
-    val uiState by rememberStateWithLifecycle(libraryScreenViewModel.uiState)
+    val uiState by rememberStateWithLifecycle(uampPlaylistsScreenViewModel.uiState)
 
     ScalingLazyColumn(
         modifier = modifier
@@ -69,7 +64,7 @@ fun UampLibraryScreen(
                 MediaChip(
                     mediaItem = mediaItem,
                     onClick = {
-                        libraryScreenViewModel.play(it)
+                        uampPlaylistsScreenViewModel.play(it)
                         onPlayClick()
                     },
                     defaultTitle = stringResource(id = R.string.horologist_no_title),
@@ -78,11 +73,6 @@ fun UampLibraryScreen(
         } else {
             item {
                 Text("Loading...", style = MaterialTheme.typography.caption3)
-            }
-        }
-        item {
-            Button(onClick = onSettingsClick) {
-                Icon(Icons.Default.Settings, contentDescription = "Settings")
             }
         }
     }

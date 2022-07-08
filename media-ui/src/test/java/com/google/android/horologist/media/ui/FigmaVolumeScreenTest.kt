@@ -33,12 +33,14 @@ import org.junit.Rule
 import org.junit.Test
 
 class FigmaVolumeScreenTest {
+    private val maxPercentDifference = 5.0
+
     @get:Rule
     val paparazzi = Paparazzi(
         deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
         theme = "android:ThemeOverlay.Material.Dark",
-        maxPercentDifference = 5.0,
-        snapshotHandler = WearSnapshotHandler(determineHandler(5.0))
+        maxPercentDifference = maxPercentDifference,
+        snapshotHandler = WearSnapshotHandler(determineHandler(maxPercentDifference))
     )
 
     @Test

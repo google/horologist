@@ -36,7 +36,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import java.io.IOException
 
-class LibraryScreenViewModel(
+class UampPlaylistsScreenViewModel(
     uampService: UampService,
     private val playerRepository: PlayerRepository,
     private val snackbarManager: SnackbarManager
@@ -81,7 +81,7 @@ class LibraryScreenViewModel(
     companion object {
         val Factory = viewModelFactory {
             initializer {
-                LibraryScreenViewModel(
+                UampPlaylistsScreenViewModel(
                     uampService = this[MediaApplicationContainer.UampServiceKey]!!,
                     playerRepository = this[MediaApplicationContainer.PlayerRepositoryImplKey]!!,
                     snackbarManager = this[SnackbarViewModel.SnackbarManagerKey]!!,

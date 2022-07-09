@@ -36,8 +36,9 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.media.ui.components.base.SecondaryChip
 import com.google.android.horologist.media.ui.components.base.SecondaryPlaceholderChip
+import com.google.android.horologist.media.ui.components.base.StandardChip
+import com.google.android.horologist.media.ui.components.base.StandardChipType
 import com.google.android.horologist.media.ui.components.base.Title
 import com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel
 
@@ -88,16 +89,17 @@ public fun BrowseScreen(
                 items(count = downloadList.size) { index ->
                     when (val download = downloadList[index]) {
                         is DownloadPlaylistUiModel.Completed -> {
-                            SecondaryChip(
+                            StandardChip(
                                 label = download.playlistUiModel.title,
                                 onClick = { onDownloadItemClick(download) },
                                 icon = download.playlistUiModel.artworkUri,
                                 largeIcon = true,
-                                placeholder = downloadItemArtworkPlaceholder
+                                placeholder = downloadItemArtworkPlaceholder,
+                                chipType = StandardChipType.Secondary,
                             )
                         }
                         is DownloadPlaylistUiModel.InProgress -> {
-                            SecondaryChip(
+                            StandardChip(
                                 label = download.playlistUiModel.title,
                                 onClick = { onDownloadItemClick(download) },
                                 secondaryLabel = stringResource(
@@ -105,7 +107,8 @@ public fun BrowseScreen(
                                     download.percentage
                                 ),
                                 icon = Icons.Default.Downloading,
-                                placeholder = downloadItemArtworkPlaceholder
+                                placeholder = downloadItemArtworkPlaceholder,
+                                chipType = StandardChipType.Secondary,
                             )
                         }
                     }
@@ -125,18 +128,20 @@ public fun BrowseScreen(
         }
 
         item {
-            SecondaryChip(
+            StandardChip(
                 label = stringResource(id = R.string.horologist_browse_library_playlists),
                 icon = Icons.Default.PlaylistPlay,
-                onClick = onPlaylistsClick
+                onClick = onPlaylistsClick,
+                chipType = StandardChipType.Secondary,
             )
         }
 
         item {
-            SecondaryChip(
+            StandardChip(
                 label = stringResource(id = R.string.horologist_browse_library_settings),
                 icon = Icons.Default.Settings,
-                onClick = onSettingsClick
+                onClick = onSettingsClick,
+                chipType = StandardChipType.Secondary,
             )
         }
     }

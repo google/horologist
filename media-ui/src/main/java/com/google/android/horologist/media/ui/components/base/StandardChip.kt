@@ -40,11 +40,12 @@ import coil.compose.rememberAsyncImagePainter
 
 /**
  * This composable fulfils the redlines of the following components:
- * - Secondary standard chip - when [largeIcon] value is `false`;
+ * - Primary or Secondary chip - according to [chipType] value;
+ * - Standard chip - when [largeIcon] value is `false`;
  * - Chip with small or large avatar - according to [largeIcon] value;
  */
 @Composable
-internal fun SecondaryChip(
+internal fun StandardChip(
     label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -52,6 +53,7 @@ internal fun SecondaryChip(
     icon: Any? = null,
     largeIcon: Boolean = false,
     placeholder: Painter? = null,
+    chipType: StandardChipType = StandardChipType.Primary,
     enabled: Boolean = true,
 ) {
     val hasSecondaryLabel = secondaryLabel != null
@@ -120,7 +122,15 @@ internal fun SecondaryChip(
         modifier = modifier.fillMaxWidth(),
         secondaryLabel = secondaryLabelParam,
         icon = iconParam,
-        colors = ChipDefaults.secondaryChipColors(),
+        colors = when (chipType) {
+            StandardChipType.Primary -> ChipDefaults.primaryChipColors()
+            StandardChipType.Secondary -> ChipDefaults.secondaryChipColors()
+        },
         enabled = enabled,
     )
+}
+
+internal enum class StandardChipType {
+    Primary,
+    Secondary
 }

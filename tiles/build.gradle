@@ -101,9 +101,9 @@ dependencies {
     implementation libs.androidx.lifecycle.runtime
     implementation libs.androidx.concurrent.future
 
-    implementation libs.androidx.wear.tiles
-    implementation libs.androidx.wear.tiles.material
-    implementation libs.androidx.lifecycle.service
+    api libs.androidx.wear.tiles
+    api libs.androidx.wear.tiles.material
+    api libs.androidx.lifecycle.service
 
     implementation libs.coil
     implementation libs.wearcompose.foundation

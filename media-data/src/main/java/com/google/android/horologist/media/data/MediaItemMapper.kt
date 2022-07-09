@@ -34,7 +34,7 @@ public object MediaItemMapper {
     ): MediaItem = MediaItem(
         id = media3MediaItem.mediaId,
         uri = media3MediaItem.requestMetadata.mediaUri?.toString() ?: "",
-        title = media3MediaItem.mediaMetadata.displayTitle?.toString(),
+        title = media3MediaItem.mediaMetadata.displayTitle?.toString() ?: "",
         artist = media3MediaItem.mediaMetadata.artist?.toString() ?: defaultArtist,
         artworkUri = media3MediaItem.mediaMetadata.artworkUri?.toString()
     )

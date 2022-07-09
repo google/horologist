@@ -33,6 +33,7 @@ import com.google.android.horologist.media.data.PlayerRepositoryImpl
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media3.audio.AudioOutputSelector
 import com.google.android.horologist.media3.config.WearMedia3Factory
+import com.google.android.horologist.media3.navigation.NavDeepLinkIntentBuilder
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.AppConfig
@@ -42,6 +43,7 @@ import com.google.android.horologist.mediasample.components.MediaApplication
 import com.google.android.horologist.mediasample.components.PlaybackService
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.system.Logging
+import com.google.android.horologist.mediasample.tile.MediaCollectionsTileService
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.status.NetworkRepository
 import kotlinx.coroutines.CoroutineScope
@@ -57,6 +59,14 @@ class MediaApplicationContainer(
     internal val appConfig: AppConfig = AppConfig()
 ) : Closeable {
     val isEmulator = Build.PRODUCT.startsWith("sdk_gwear")
+
+    val intentBuilder by lazy {
+        NavDeepLinkIntentBuilder(
+            application,
+            "${appConfig.deeplinkUriPrefix}/player?page=1",
+            "${appConfig.deeplinkUriPrefix}/player?page=0"
+        )
+    }
 
     val playbackRules: PlaybackRules by lazy {
         if (appConfig.playbackRules != null) {
@@ -133,24 +143,30 @@ class MediaApplicationContainer(
         )
     }
 
-    internal fun serviceContainer(service: PlaybackService): PlaybackServiceContainer {
+    internal fun playbackServiceContainer(service: PlaybackService): PlaybackServiceContainer {
         return PlaybackServiceContainer(this, service, wearMedia3Factory).also {
-            service.lifecycle.addObserver(object : DefaultLifecycleObserver {
-                override fun onStop(owner: LifecycleOwner) {
-                    it.close()
-                }
-            })
+            closeOnStop(service, it)
         }
     }
 
     internal fun activityContainer(activity: MediaActivity): MediaActivityContainer {
         return MediaActivityContainer(this).also {
-            activity.lifecycle.addObserver(object : DefaultLifecycleObserver {
-                override fun onStop(owner: LifecycleOwner) {
-                    it.close()
-                }
-            })
+            closeOnStop(activity, it)
         }
+    }
+
+    internal fun serviceContainer(service: MediaCollectionsTileService): ServiceContainer {
+        return ServiceContainer(this).also {
+            closeOnStop(service, it)
+        }
+    }
+
+    private fun closeOnStop(lifecycleOwner: LifecycleOwner, closeable: AutoCloseable) {
+        lifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
+            override fun onStop(owner: LifecycleOwner) {
+                closeable.close()
+            }
+        })
     }
 
     val snackbarManager by lazy {
@@ -158,8 +174,8 @@ class MediaApplicationContainer(
     }
 
     // Confusingly the result of allowThreadDiskWrites is the old policy,
-    // while allow* methods immediately apply the change.
-    // So `this` is the policy before we overrode it.
+// while allow* methods immediately apply the change.
+// So `this` is the policy before we overrode it.
     fun <R> StrictMode.ThreadPolicy.resetAfter(block: () -> R) = try {
         block()
     } finally {

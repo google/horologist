@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class)
-
 package com.google.android.horologist.media.ui.components.base
 
 import androidx.compose.foundation.background
@@ -24,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import app.cash.paparazzi.Paparazzi
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
 import com.google.android.horologist.paparazzi.determineHandler

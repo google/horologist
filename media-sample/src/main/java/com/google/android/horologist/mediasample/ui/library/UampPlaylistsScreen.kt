@@ -16,64 +16,53 @@
 
 package com.google.android.horologist.mediasample.ui.library
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
-import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
-import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.items
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
-import com.google.android.horologist.compose.navscaffold.scrollableColumn
-import com.google.android.horologist.media.ui.components.MediaChip
+import com.google.android.horologist.media.ui.screens.playlist.PlaylistScreen
+import com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.Settings
 
 @Composable
 fun UampPlaylistsScreen(
-    focusRequester: FocusRequester,
     uampPlaylistsScreenViewModel: UampPlaylistsScreenViewModel,
-    state: ScalingLazyListState,
-    onPlayClick: () -> Unit,
-    modifier: Modifier = Modifier,
+    onPlaylistItemClick: () -> Unit,
     settingsState: Settings?,
+    focusRequester: FocusRequester,
+    scalingLazyListState: ScalingLazyListState,
+    modifier: Modifier = Modifier,
 ) {
     val uiState by rememberStateWithLifecycle(uampPlaylistsScreenViewModel.uiState)
 
-    ScalingLazyColumn(
-        modifier = modifier
-            .fillMaxSize()
-            .scrollableColumn(focusRequester, state),
-        state = state
-    ) {
-        val items = uiState.items
-        item {
-            Text(
-                stringResource(id = R.string.horologist_library),
-                style = MaterialTheme.typography.body1
+    val playlistScreenState = when (uiState) {
+
+        is UampPlaylistsScreenViewModel.UiState.Loading -> PlaylistScreenState.Loading
+
+        is UampPlaylistsScreenViewModel.UiState.Loaded -> {
+            val items = (uiState as UampPlaylistsScreenViewModel.UiState.Loaded).items
+
+            PlaylistScreenState.Loaded(
+                items.map {
+                    PlaylistUiModelMapper.map(
+                        mediaItemUiModel = it,
+                        defaultTitle = stringResource(id = R.string.horologist_no_title),
+                        shouldMapArtworkUri = settingsState?.showArtworkOnChip == true
+                    )
+                }
             )
         }
-        if (items != null) {
-            items(items) {
-                val mediaItem =
-                    if (settingsState?.showArtworkOnChip == true) it else it.copy(artworkUri = null)
-                MediaChip(
-                    mediaItem = mediaItem,
-                    onClick = {
-                        uampPlaylistsScreenViewModel.play(it)
-                        onPlayClick()
-                    },
-                    defaultTitle = stringResource(id = R.string.horologist_no_title),
-                )
-            }
-        } else {
-            item {
-                Text("Loading...", style = MaterialTheme.typography.caption3)
-            }
-        }
     }
+
+    PlaylistScreen(
+        playlistScreenState = playlistScreenState,
+        onPlaylistItemClick = { onPlaylistItemClick() },
+        focusRequester = focusRequester,
+        scalingLazyListState = scalingLazyListState,
+        modifier = modifier,
+    )
 }

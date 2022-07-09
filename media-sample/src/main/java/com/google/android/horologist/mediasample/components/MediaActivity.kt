@@ -45,7 +45,8 @@ class MediaActivity : ComponentActivity() {
             navController = rememberSwipeDismissableNavController()
             UampWearApp(
                 navController = navController,
-                creationExtras = { defaultViewModelCreationExtras }
+                creationExtras = { defaultViewModelCreationExtras },
+                intent = intent
             )
         }
     }
@@ -54,5 +55,10 @@ class MediaActivity : ComponentActivity() {
         return MutableCreationExtras(super.getDefaultViewModelCreationExtras()).apply {
             viewModelModule.addCreationExtras(this)
         }
+    }
+
+    companion object {
+        const val CollectionKey = "collection"
+        const val MediaIdKey = "mediaId"
     }
 }

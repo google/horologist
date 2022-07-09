@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class)
-
 package com.google.android.horologist.media.ui.components.base
 
 import androidx.compose.foundation.background
@@ -29,7 +27,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.Paparazzi
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.utils.rememberVectorPainter
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
@@ -53,7 +50,7 @@ class SecondaryChipTest {
     fun withPrimaryLabel() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SecondaryChip(primaryLabel = "Primary label", onClick = { })
+                SecondaryChip(label = "Primary label", onClick = { })
             }
         }
     }
@@ -63,7 +60,7 @@ class SecondaryChipTest {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
                 SecondaryChip(
-                    primaryLabel = "Primary label",
+                    label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
                 )
@@ -76,7 +73,7 @@ class SecondaryChipTest {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
                 SecondaryChip(
-                    primaryLabel = "Primary label",
+                    label = "Primary label",
                     onClick = { },
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
@@ -93,7 +90,7 @@ class SecondaryChipTest {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
                 SecondaryChip(
-                    primaryLabel = "Primary label",
+                    label = "Primary label",
                     onClick = { },
                     icon = Icons.Default.Add,
                 )
@@ -106,7 +103,7 @@ class SecondaryChipTest {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
                 SecondaryChip(
-                    primaryLabel = "Primary label",
+                    label = "Primary label",
                     onClick = { },
                     icon = "iconUri",
                     largeIcon = true,
@@ -124,7 +121,7 @@ class SecondaryChipTest {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
                 SecondaryChip(
-                    primaryLabel = "Primary label",
+                    label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
                     icon = "iconUri",
@@ -142,7 +139,7 @@ class SecondaryChipTest {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
                 SecondaryChip(
-                    primaryLabel = "Primary label",
+                    label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
                     icon = "iconUri",
@@ -161,7 +158,7 @@ class SecondaryChipTest {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
                 SecondaryChip(
-                    primaryLabel = "Primary label",
+                    label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
                     icon = "iconUri",
@@ -180,7 +177,7 @@ class SecondaryChipTest {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
                 SecondaryChip(
-                    primaryLabel = "Primary label very very very very very very very very very very very very very very very very very long text",
+                    label = "Primary label very very very very very very very very very very very very very very very very very long text",
                     onClick = { }
                 )
             }
@@ -192,7 +189,7 @@ class SecondaryChipTest {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
                 SecondaryChip(
-                    primaryLabel = "Primary label very very very very very very very very long text",
+                    label = "Primary label very very very very very very very very long text",
                     onClick = { },
                     secondaryLabel = "Secondary label very very very very very very very very very long text",
                     icon = "iconUri",
@@ -210,7 +207,7 @@ class SecondaryChipTest {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
                 SecondaryChip(
-                    primaryLabel = "Primary label",
+                    label = "Primary label",
                     onClick = { },
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
@@ -227,7 +224,7 @@ class SecondaryChipTest {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
                 SecondaryChip(
-                    primaryLabel = "Primary label",
+                    label = "Primary label",
                     onClick = { },
                     icon = "iconUri",
                     largeIcon = true,
@@ -245,7 +242,7 @@ class SecondaryChipTest {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
                 SecondaryChip(
-                    primaryLabel = "Primary label",
+                    label = "Primary label",
                     onClick = { },
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
@@ -262,7 +259,7 @@ class SecondaryChipTest {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
                 SecondaryChip(
-                    primaryLabel = "Primary label",
+                    label = "Primary label",
                     onClick = { },
                     icon = "iconUri",
                     largeIcon = true,

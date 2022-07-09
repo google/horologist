@@ -43,7 +43,7 @@ public fun MediaControlButtons(
     onSeekToNextButtonClick: () -> Unit,
     seekToNextButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
 ) {
     MediaControlButtons(
         onPlayButtonClick = onPlayButtonClick,
@@ -77,7 +77,7 @@ public fun MediaControlButtons(
     onSeekToNextButtonClick: () -> Unit,
     seekToNextButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
 ) {
     MediaControlButtons(
         onPlayButtonClick = onPlayButtonClick,

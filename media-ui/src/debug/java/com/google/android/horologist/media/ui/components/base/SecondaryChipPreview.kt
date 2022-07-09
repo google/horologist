@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class)
-
 package com.google.android.horologist.media.ui.components.base
 
 import androidx.compose.material.icons.Icons
@@ -26,7 +24,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.utils.rememberVectorPainter
 
 @Preview(
@@ -35,7 +32,7 @@ import com.google.android.horologist.media.ui.utils.rememberVectorPainter
 )
 @Composable
 fun SecondaryChipPreview() {
-    SecondaryChip(primaryLabel = "Primary label", onClick = { })
+    SecondaryChip(label = "Primary label", onClick = { })
 }
 
 @Preview(
@@ -46,7 +43,7 @@ fun SecondaryChipPreview() {
 @Composable
 fun SecondaryChipPreviewWithSecondaryLabel() {
     SecondaryChip(
-        primaryLabel = "Primary label",
+        label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
     )
@@ -60,7 +57,7 @@ fun SecondaryChipPreviewWithSecondaryLabel() {
 @Composable
 fun SecondaryChipPreviewWithIcon() {
     SecondaryChip(
-        primaryLabel = "Primary label",
+        label = "Primary label",
         onClick = { },
         icon = "iconUri",
         placeholder = rememberVectorPainter(
@@ -78,7 +75,7 @@ fun SecondaryChipPreviewWithIcon() {
 @Composable
 fun SecondaryChipPreviewWithImageVectorAsIcon() {
     SecondaryChip(
-        primaryLabel = "Primary label",
+        label = "Primary label",
         onClick = { },
         icon = Icons.Default.Add
     )
@@ -92,7 +89,7 @@ fun SecondaryChipPreviewWithImageVectorAsIcon() {
 @Composable
 fun SecondaryChipPreviewWithLargeIcon() {
     SecondaryChip(
-        primaryLabel = "Primary label",
+        label = "Primary label",
         onClick = { },
         icon = "iconUri",
         largeIcon = true,
@@ -111,7 +108,7 @@ fun SecondaryChipPreviewWithLargeIcon() {
 @Composable
 fun SecondaryChipPreviewWithSecondaryLabelAndIcon() {
     SecondaryChip(
-        primaryLabel = "Primary label",
+        label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
         icon = "iconUri",
@@ -130,7 +127,7 @@ fun SecondaryChipPreviewWithSecondaryLabelAndIcon() {
 @Composable
 fun SecondaryChipPreviewWithSecondaryLabelAndLargeIcon() {
     SecondaryChip(
-        primaryLabel = "Primary label",
+        label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
         icon = "iconUri",
@@ -150,7 +147,7 @@ fun SecondaryChipPreviewWithSecondaryLabelAndLargeIcon() {
 @Composable
 fun SecondaryChipPreviewDisabled() {
     SecondaryChip(
-        primaryLabel = "Primary label",
+        label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
         icon = "iconUri",
@@ -170,7 +167,7 @@ fun SecondaryChipPreviewDisabled() {
 @Composable
 fun SecondaryChipPreviewWithLongText() {
     SecondaryChip(
-        primaryLabel = "Primary label very very very very very very very very very very very very very very very very very long text",
+        label = "Primary label very very very very very very very very very very very very very very very very very long text",
         onClick = { }
     )
 }
@@ -183,7 +180,7 @@ fun SecondaryChipPreviewWithLongText() {
 @Composable
 fun SecondaryChipPreviewWithSecondaryLabelAndLongText() {
     SecondaryChip(
-        primaryLabel = "Primary label very very very very very very very very long text",
+        label = "Primary label very very very very very very very very long text",
         onClick = { },
         secondaryLabel = "Secondary label very very very very very very very very very long text",
         icon = "iconUri",
@@ -202,7 +199,7 @@ fun SecondaryChipPreviewWithSecondaryLabelAndLongText() {
 @Composable
 fun SecondaryChipPreviewUsingSmallIcon() {
     SecondaryChip(
-        primaryLabel = "Primary label",
+        label = "Primary label",
         onClick = { },
         icon = "iconUri",
         placeholder = rememberVectorPainter(
@@ -220,7 +217,7 @@ fun SecondaryChipPreviewUsingSmallIcon() {
 @Composable
 fun SecondaryChipPreviewWithLargeIconUsingSmallIcon() {
     SecondaryChip(
-        primaryLabel = "Primary label",
+        label = "Primary label",
         onClick = { },
         icon = "iconUri",
         largeIcon = true,
@@ -239,7 +236,7 @@ fun SecondaryChipPreviewWithLargeIconUsingSmallIcon() {
 @Composable
 fun SecondaryChipPreviewUsingExtraLargeIcon() {
     SecondaryChip(
-        primaryLabel = "Primary label",
+        label = "Primary label",
         onClick = { },
         icon = "iconUri",
         placeholder = rememberVectorPainter(
@@ -257,7 +254,7 @@ fun SecondaryChipPreviewUsingExtraLargeIcon() {
 @Composable
 fun SecondaryChipPreviewWithLargeIconUsingExtraLargeIcon() {
     SecondaryChip(
-        primaryLabel = "Primary label",
+        label = "Primary label",
         onClick = { },
         icon = "iconUri",
         largeIcon = true,

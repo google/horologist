@@ -20,17 +20,14 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
 @ExperimentalHorologistMediaUiApi
 public sealed class DownloadPlaylistUiModel(
-    public open val title: String,
-    public open val artworkUri: String? = null,
+    public open val playlistUiModel: PlaylistUiModel,
 ) {
     public data class Completed(
-        override val title: String,
-        override val artworkUri: String?,
-    ) : DownloadPlaylistUiModel(title = title, artworkUri = artworkUri)
+        override val playlistUiModel: PlaylistUiModel,
+    ) : DownloadPlaylistUiModel(playlistUiModel = playlistUiModel)
 
     public data class InProgress(
-        override val title: String,
-        override val artworkUri: String?,
+        override val playlistUiModel: PlaylistUiModel,
         val percentage: Int
-    ) : DownloadPlaylistUiModel(title = title, artworkUri = artworkUri)
+    ) : DownloadPlaylistUiModel(playlistUiModel = playlistUiModel)
 }

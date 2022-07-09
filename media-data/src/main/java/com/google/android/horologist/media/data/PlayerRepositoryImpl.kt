@@ -129,7 +129,9 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
      * [Player.getPlaybackState] properties.
      */
     private fun updateState(player: Player) {
-        _currentState.value = if (player.isPlaying) {
+        println("Update State playing: ${player.isPlaying} ${player.isLoading} ${player.playWhenReady}")
+
+        _currentState.value = if (player.isPlaying || player.isLoading && player.playWhenReady) {
             PlayerState.Playing
         } else if (player.isLoading) {
             PlayerState.Loading

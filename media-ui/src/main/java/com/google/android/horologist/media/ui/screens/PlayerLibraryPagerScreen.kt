@@ -38,6 +38,7 @@ import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistC
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.compose.pager.FocusOnResume
 import com.google.android.horologist.compose.pager.PagerScreen
+import com.google.android.horologist.media.ui.navigation.NavigationScreens
 import java.util.concurrent.CancellationException
 
 /**
@@ -56,18 +57,16 @@ public fun PlayerLibraryPagerScreen(
     backStack: NavBackStackEntry,
     modifier: Modifier = Modifier,
 ) {
-    val pageParam = backStack.arguments?.getInt("page", -1) ?: -1
+    val pageParam = NavigationScreens.Player.getPageParam(backStack, remove = true)
 
     LaunchedEffect(pageParam) {
-        if (pageParam != -1) {
+        if (pageParam != null) {
             try {
                 pagerState.animateScrollToPage(pageParam)
             } catch (e: CancellationException) {
                 // Not sure why we get a cancellation here, but we want the page
                 // nav to take effect and persist
                 pagerState.scrollToPage(pageParam)
-            } finally {
-                backStack.arguments?.remove("page")
             }
         }
     }

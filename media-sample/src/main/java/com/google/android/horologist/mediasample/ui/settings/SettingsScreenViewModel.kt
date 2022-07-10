@@ -37,6 +37,7 @@ class SettingsScreenViewModel(
 ) : ViewModel() {
     val uiState: StateFlow<UiState> = settingsRepository.settingsFlow.map {
         UiState(
+            showTimeTextInfo = it.showTimeTextInfo,
             podcastControls = it.podcastControls,
             loadItemsAtStartup = it.loadItemsAtStartup,
             artworkGradient = it.artworkGradient,
@@ -50,12 +51,19 @@ class SettingsScreenViewModel(
     )
 
     data class UiState(
+        val showTimeTextInfo: Boolean = false,
         val podcastControls: Boolean = false,
         val loadItemsAtStartup: Boolean = true,
         val artworkGradient: Boolean = true,
         val writable: Boolean = false,
         val showArtworkOnChip: Boolean = false
     )
+
+    fun setShowTimeTextInfo(enabled: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.writeShowTimeTextInfo(enabled)
+        }
+    }
 
     fun setPodcastControls(enabled: Boolean) {
         viewModelScope.launch {

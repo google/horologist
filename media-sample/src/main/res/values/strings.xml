@@ -31,4 +31,5 @@
     <string name="horologist_sample_media_collection">Media Collection</string>
     <string name="horologist_show_artwork_on_chip">Show Artwork on Chips</string>
     <string name="horologist_sample_playlists">Playlists</string>
+    <string name="horologist_show_time_text_info">Show TimeText Info</string>
 </resources>

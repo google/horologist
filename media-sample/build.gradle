@@ -68,19 +68,20 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
         // Allow for widescale experimental APIs in Alpha libraries we build upon
+        freeCompilerArgs += "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi"
         freeCompilerArgs += "-opt-in=androidx.wear.compose.material.ExperimentalWearMaterialApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi"
+        freeCompilerArgs += "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.media.ExperimentalHorologistMediaApi"
-        freeCompilerArgs += "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi"
-        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        freeCompilerArgs += "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.composables.ExperimentalHorologistComposablesApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.media.ExperimentalHorologistMediaApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.networks.ExperimentalHorologistNetworksApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.tiles.ExperimentalHorologistTilesApi"
+        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
     }
 
@@ -101,6 +102,7 @@ dependencies {
     implementation projects.composeTools
     implementation projects.media3Backend
     implementation projects.composeLayout
+    implementation projects.tiles
 
     implementation libs.androidx.media3.datasourceokhttp
 

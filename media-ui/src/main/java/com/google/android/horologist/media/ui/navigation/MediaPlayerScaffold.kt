@@ -171,15 +171,15 @@ public fun MediaPlayerScaffold(
         }
 
         scalingLazyColumnComposable(
-            route = NavigationScreens.Collection.route + "?category={category}",
+            route = NavigationScreens.Collection.route + "?collection={collection}",
             arguments = listOf(
-                navArgument("category") {
+                navArgument("collection") {
                     type = NavType.StringType
                 }
             ),
             deepLinks = listOf(
                 navDeepLink {
-                    uriPattern = "$deepLinkPrefix/category?category={category}"
+                    uriPattern = "$deepLinkPrefix/collection?collection={collection}"
                 }
             ),
             scrollStateBuilder = { ScalingLazyListState() }

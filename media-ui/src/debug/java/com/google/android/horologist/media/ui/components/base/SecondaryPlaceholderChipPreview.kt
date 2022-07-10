@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class)
-
 package com.google.android.horologist.media.ui.components.base
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
 @Preview(
     backgroundColor = 0xff000000,

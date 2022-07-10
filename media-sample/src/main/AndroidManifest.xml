@@ -42,7 +42,7 @@
         android:appCategory="audio"
         android:allowBackup="false"
         android:icon="@drawable/ic_uamp"
-        android:label="@string/app_name"
+        android:label="@string/horologist_sample_app_name"
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
         <uses-library
@@ -56,7 +56,7 @@
         <activity
             android:name=".components.MediaActivity"
             android:exported="true"
-            android:label="@string/media_activity">
+            android:label="@string/horologist_sample_media_activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -88,6 +88,22 @@
             <intent-filter>
                 <action android:name="android.media.browse.MediaBrowserService" />
             </intent-filter>
+        </service>
+
+        <service
+            android:name=".tile.MediaCollectionsTileService"
+            android:description="@string/horologist_sample_app_name"
+            android:exported="true"
+            android:icon="@drawable/ic_uamp"
+            android:label="@string/horologist_sample_app_name"
+            android:permission="com.google.android.wearable.permission.BIND_TILE_PROVIDER">
+            <intent-filter>
+                <action android:name="androidx.wear.tiles.action.BIND_TILE_PROVIDER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="androidx.wear.tiles.PREVIEW"
+                android:resource="@drawable/ic_uamp" />
         </service>
     </application>
 

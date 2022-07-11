@@ -19,13 +19,13 @@ package com.google.android.horologist.media.data
 import androidx.media3.common.C
 import androidx.media3.common.Player
 import androidx.media3.test.utils.StubPlayer
+import com.google.android.horologist.media.data.PlayerRepositoryImpl.Companion.readPosition
+import com.google.android.horologist.media.model.MediaItemPosition
+import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
-import com.google.android.horologist.media.data.PlayerRepositoryImpl.Companion.readPosition
-import com.google.android.horologist.media.model.MediaItemPosition
-import com.google.common.truth.Truth.assertThat
 import kotlin.time.Duration.Companion.milliseconds
 
 @RunWith(RobolectricTestRunner::class)

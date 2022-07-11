@@ -371,9 +371,9 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
     internal companion object {
         private val TAG = PlayerRepositoryImpl::class.java.simpleName
 
-        internal fun Player?.readPosition(): MediaItemPosition {
+        internal fun Player?.readPosition(): MediaItemPosition? {
             return if (this == null) {
-                MediaItemPosition.UnknownDuration(0.milliseconds)
+                null
             } else if (duration == C.TIME_UNSET) {
                 MediaItemPosition.UnknownDuration(currentPosition.milliseconds)
             } else {

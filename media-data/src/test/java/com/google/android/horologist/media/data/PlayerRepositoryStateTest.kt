@@ -48,18 +48,16 @@ class PlayerRepositoryStateTest {
     fun testPositionNotPlayer() {
         val position = (null as Player?).readPosition()
 
-        assertThat(position.current).isEqualTo(0.milliseconds)
-        assertThat(position).isInstanceOf(MediaItemPosition.UnknownDuration::class.java)
+        assertThat(position).isNull()
     }
 
     @Test
     fun testPositionDurationUnset() {
         _currentPosition = 10L
 
-        val position = player.readPosition()
+        val position = player.readPosition() as MediaItemPosition.UnknownDuration
 
         assertThat(position.current).isEqualTo(10.milliseconds)
-        assertThat(position).isInstanceOf(MediaItemPosition.UnknownDuration::class.java)
     }
 
     @Test

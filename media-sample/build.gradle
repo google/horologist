@@ -123,6 +123,8 @@ dependencies {
     implementation libs.androidx.wear.tiles
     implementation libs.androidx.wear.tiles.material
 
+    implementation libs.androidx.complications.datasource.ktx
+
     implementation libs.coil
     implementation libs.coil.svg
     implementation libs.retrofit2.convertermoshi
@@ -144,6 +146,7 @@ dependencies {
     debugImplementation projects.composeTools
 
     implementation libs.androidx.datastore.preferences
+    implementation libs.androidx.complications.rendering
 
     androidTestImplementation libs.compose.ui.test.junit4
     androidTestImplementation libs.espresso.core
@@ -153,6 +156,7 @@ dependencies {
     androidTestImplementation libs.androidx.test.rules
     androidTestImplementation libs.truth
     androidTestImplementation libs.androidx.test.uiautomator
+    androidTestImplementation libs.androidx.complications.rendering
 }
 
 def device = localProperties.getProperty("DEVICE")

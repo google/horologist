@@ -105,6 +105,7 @@ dependencies {
 
     implementation libs.androidx.wear.tiles
     implementation libs.androidx.wear.tiles.renderer
+    implementation libs.androidx.complications.rendering
 
     debugImplementation libs.compose.ui.test.manifest
     debugImplementation libs.compose.ui.toolingpreview

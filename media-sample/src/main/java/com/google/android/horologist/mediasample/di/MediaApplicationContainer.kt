@@ -32,6 +32,7 @@ import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.media.data.PlayerRepositoryImpl
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media3.audio.AudioOutputSelector
+import com.google.android.horologist.media.ui.complication.MediaComplicationService
 import com.google.android.horologist.media3.config.WearMedia3Factory
 import com.google.android.horologist.media3.navigation.NavDeepLinkIntentBuilder
 import com.google.android.horologist.media3.offload.AudioOffloadManager
@@ -147,6 +148,10 @@ class MediaApplicationContainer(
         return PlaybackServiceContainer(this, service, wearMedia3Factory).also {
             closeOnStop(service, it)
         }
+    }
+
+    internal fun serviceContainer(service: MediaComplicationService<*>): ComplicationServiceContainer {
+        return ComplicationServiceContainer(this, service)
     }
 
     internal fun activityContainer(activity: MediaActivity): MediaActivityContainer {

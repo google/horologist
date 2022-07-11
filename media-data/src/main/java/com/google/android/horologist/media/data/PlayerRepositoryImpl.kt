@@ -357,21 +357,23 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
      * Updating roughly once a second while activity is foregrounded is appropriate.
      */
     public fun updatePosition() {
-        player.value?.updatePosition()
+        player.value.updatePosition()
     }
 
     public fun setPlaybackSpeed(speed: Float) {
         player.value?.setPlaybackSpeed(speed)
     }
 
-    private fun Player.updatePosition() {
-        if (duration == C.TIME_UNSET) {
-            _mediaItemPosition.value =
-                MediaItemPosition.UnknownDuration(currentPosition.milliseconds)
+    private fun Player?.updatePosition() {
+        _mediaItemPosition.value = if (this == null) {
+            null
+        } else if (duration == C.TIME_UNSET) {
+            MediaItemPosition.UnknownDuration(currentPosition.milliseconds)
         } else {
-            _mediaItemPosition.value = MediaItemPosition.create(
+            MediaItemPosition.create(
                 current = currentPosition.milliseconds,
-                duration = duration.milliseconds
+                // Ensure progress is max 100%, even given faulty media metadata
+                duration = (duration.coerceAtLeast(currentPosition)).milliseconds
             )
         }
     }

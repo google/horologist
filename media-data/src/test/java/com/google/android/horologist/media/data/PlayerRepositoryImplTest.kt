@@ -18,6 +18,8 @@ package com.google.android.horologist.media.data
 
 import android.content.Context
 import android.os.Looper.getMainLooper
+import androidx.media3.common.C
+import androidx.media3.common.ForwardingPlayer
 import androidx.media3.common.Player
 import androidx.media3.test.utils.TestExoPlayerBuilder
 import androidx.media3.test.utils.robolectric.TestPlayerRunHelper.playUntilPosition
@@ -922,6 +924,67 @@ class PlayerRepositoryImplTest {
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
+    }
+
+    private fun buildFakePositionPlayer(
+        _currentPosition: Long = 0L,
+        _duration: Long = C.TIME_UNSET
+    ): Player {
+        val player = TestExoPlayerBuilder(context).build()
+        return object : ForwardingPlayer(player) {
+            override fun getCurrentPosition(): Long {
+                return _currentPosition
+            }
+
+            override fun getDuration(): Long {
+                return _duration
+            }
+        }
+    }
+
+    @Test
+    fun `position is null when player is not set`() {
+        sut.updatePosition()
+
+        assertThat(sut.mediaItemPosition.value).isNull()
+    }
+
+    @Test
+    fun `position is handled when duration is unknown`() {
+        val player = buildFakePositionPlayer(10L, C.TIME_UNSET)
+
+        sut.connect(player, onClose = {})
+        sut.updatePosition()
+
+        val position = sut.mediaItemPosition.value as MediaItemPosition.UnknownDuration
+
+        assertThat(position.current).isEqualTo(10.milliseconds)
+    }
+
+    @Test
+    fun `position is corrected when beyond duration`() {
+        val player = buildFakePositionPlayer(100L, 99L)
+
+        sut.connect(player, onClose = {})
+        sut.updatePosition()
+
+        val position = sut.mediaItemPosition.value as MediaItemPosition.KnownDuration
+
+        assertThat(position.current).isEqualTo(100.milliseconds)
+        assertThat(position.duration).isEqualTo(100.milliseconds)
+    }
+
+    @Test
+    fun `position is sensible in normal case`() {
+        val player = buildFakePositionPlayer(100L, 1000L)
+
+        sut.connect(player, onClose = {})
+        sut.updatePosition()
+
+        val position = sut.mediaItemPosition.value as MediaItemPosition.KnownDuration
+
+        assertThat(position.current).isEqualTo(100.milliseconds)
+        assertThat(position.duration).isEqualTo(1000.milliseconds)
     }
 
     private fun getDummyMediaItem() = MediaItem(

@@ -27,16 +27,21 @@ import androidx.compose.ui.unit.dp
 import com.google.android.horologist.media.ui.utils.rememberVectorPainter
 
 @Preview(
+    group = "Variants",
     backgroundColor = 0xff000000,
     showBackground = true,
 )
 @Composable
 fun PrimaryChipPreview() {
-    StandardChip(label = "Primary label", onClick = { })
+    StandardChip(
+        label = "Primary label",
+        onClick = { }
+    )
 }
 
 @Preview(
     name = "With secondary label",
+    group = "Variants",
     backgroundColor = 0xff000000,
     showBackground = true,
 )
@@ -51,6 +56,7 @@ fun PrimaryChipPreviewWithSecondaryLabel() {
 
 @Preview(
     name = "With icon",
+    group = "Variants",
     backgroundColor = 0xff000000,
     showBackground = true,
 )
@@ -59,30 +65,13 @@ fun PrimaryChipPreviewWithIcon() {
     StandardChip(
         label = "Primary label",
         onClick = { },
-        icon = "iconUri",
-        placeholder = rememberVectorPainter(
-            image = Icons.Default.Add,
-            tintColor = Color.Black,
-        )
-    )
-}
-
-@Preview(
-    name = "With ImageVector as icon",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
-@Composable
-fun PrimaryChipPreviewWithImageVectorAsIcon() {
-    StandardChip(
-        label = "Primary label",
-        onClick = { },
-        icon = Icons.Default.Add
+        icon = Icons.Default.Add,
     )
 }
 
 @Preview(
     name = "With large icon",
+    group = "Variants",
     backgroundColor = 0xff000000,
     showBackground = true,
 )
@@ -91,17 +80,14 @@ fun PrimaryChipPreviewWithLargeIcon() {
     StandardChip(
         label = "Primary label",
         onClick = { },
-        icon = "iconUri",
+        icon = Icon32dp,
         largeIcon = true,
-        placeholder = rememberVectorPainter(
-            image = Icon32dp,
-            tintColor = Color.Black,
-        )
     )
 }
 
 @Preview(
     name = "With secondary label and icon",
+    group = "Variants",
     backgroundColor = 0xff000000,
     showBackground = true,
 )
@@ -111,16 +97,13 @@ fun PrimaryChipPreviewWithSecondaryLabelAndIcon() {
         label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
-        icon = "iconUri",
-        placeholder = rememberVectorPainter(
-            image = Icons.Default.Add,
-            tintColor = Color.Black,
-        )
+        icon = Icons.Default.Add,
     )
 }
 
 @Preview(
-    name = "With secondary label and icon",
+    name = "With secondary label and large icon",
+    group = "Variants",
     backgroundColor = 0xff000000,
     showBackground = true,
 )
@@ -130,17 +113,14 @@ fun PrimaryChipPreviewWithSecondaryLabelAndLargeIcon() {
         label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
-        icon = "iconUri",
+        icon = Icon32dp,
         largeIcon = true,
-        placeholder = rememberVectorPainter(
-            image = Icon32dp,
-            tintColor = Color.Black,
-        )
     )
 }
 
 @Preview(
     name = "Disabled",
+    group = "Variants",
     backgroundColor = 0xff000000,
     showBackground = true,
 )
@@ -150,17 +130,14 @@ fun PrimaryChipPreviewDisabled() {
         label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
-        icon = "iconUri",
-        placeholder = rememberVectorPainter(
-            image = Icons.Default.Add,
-            tintColor = Color.Black,
-        ),
+        icon = Icons.Default.Add,
         enabled = false,
     )
 }
 
 @Preview(
     name = "With long text",
+    group = "Long text",
     backgroundColor = 0xff000000,
     showBackground = true,
 )
@@ -174,6 +151,7 @@ fun PrimaryChipPreviewWithLongText() {
 
 @Preview(
     name = "With secondary label and long text",
+    group = "Long text",
     backgroundColor = 0xff000000,
     showBackground = true,
 )
@@ -183,6 +161,83 @@ fun PrimaryChipPreviewWithSecondaryLabelAndLongText() {
         label = "Primary label very very very very very very very very long text",
         onClick = { },
         secondaryLabel = "Secondary label very very very very very very very very very long text",
+        icon = Icons.Default.Add,
+    )
+}
+
+@Preview(
+    name = "Using icon smaller than 24dp",
+    group = "Icon check",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
+@Composable
+fun PrimaryChipPreviewUsingSmallIcon() {
+    StandardChip(
+        label = "Primary label",
+        onClick = { },
+        icon = Icon12dp,
+    )
+}
+
+@Preview(
+    name = "With large icon, using icon smaller than 32dp",
+    group = "Icon check",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
+@Composable
+fun PrimaryChipPreviewWithLargeIconUsingSmallIcon() {
+    StandardChip(
+        label = "Primary label",
+        onClick = { },
+        icon = Icon12dp,
+        largeIcon = true,
+    )
+}
+
+@Preview(
+    name = "Using icon larger than 24dp",
+    group = "Icon check",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
+@Composable
+fun PrimaryChipPreviewUsingExtraLargeIcon() {
+    StandardChip(
+        label = "Primary label",
+        onClick = { },
+        icon = Icon48dp,
+    )
+}
+
+@Preview(
+    name = "With large icon, using icon larger than 32dp",
+    group = "Icon check",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
+@Composable
+fun PrimaryChipPreviewWithLargeIconUsingExtraLargeIcon() {
+    StandardChip(
+        label = "Primary label",
+        onClick = { },
+        icon = Icon48dp,
+        largeIcon = true,
+    )
+}
+
+@Preview(
+    name = "With icon placeholder",
+    group = "Icon check",
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
+@Composable
+fun PrimaryChipPreviewWithIconPlaceholder() {
+    StandardChip(
+        label = "Primary label",
+        onClick = { },
         icon = "iconUri",
         placeholder = rememberVectorPainter(
             image = Icons.Default.Add,
@@ -192,76 +247,23 @@ fun PrimaryChipPreviewWithSecondaryLabelAndLongText() {
 }
 
 @Preview(
-    name = "Using icon smaller than 24dp",
+    name = "Disabled with icon placeholder",
+    group = "Icon check",
     backgroundColor = 0xff000000,
     showBackground = true,
 )
 @Composable
-fun PrimaryChipPreviewUsingSmallIcon() {
+fun PrimaryChipPreviewDisabledWithIconPlaceholder() {
     StandardChip(
         label = "Primary label",
         onClick = { },
+        secondaryLabel = "Secondary label",
         icon = "iconUri",
         placeholder = rememberVectorPainter(
-            image = Icon12dp,
+            image = Icons.Default.Add,
             tintColor = Color.Black,
-        )
-    )
-}
-
-@Preview(
-    name = "With large icon, using icon smaller than 32dp",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
-@Composable
-fun PrimaryChipPreviewWithLargeIconUsingSmallIcon() {
-    StandardChip(
-        label = "Primary label",
-        onClick = { },
-        icon = "iconUri",
-        largeIcon = true,
-        placeholder = rememberVectorPainter(
-            image = Icon12dp,
-            tintColor = Color.Black,
-        )
-    )
-}
-
-@Preview(
-    name = "Using icon larger than 24dp",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
-@Composable
-fun PrimaryChipPreviewUsingExtraLargeIcon() {
-    StandardChip(
-        label = "Primary label",
-        onClick = { },
-        icon = "iconUri",
-        placeholder = rememberVectorPainter(
-            image = Icon48dp,
-            tintColor = Color.Black,
-        )
-    )
-}
-
-@Preview(
-    name = "With large icon, using icon larger than 32dp",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
-@Composable
-fun PrimaryChipPreviewWithLargeIconUsingExtraLargeIcon() {
-    StandardChip(
-        label = "Primary label",
-        onClick = { },
-        icon = "iconUri",
-        largeIcon = true,
-        placeholder = rememberVectorPainter(
-            image = Icon48dp,
-            tintColor = Color.Black,
-        )
+        ),
+        enabled = false,
     )
 }
 

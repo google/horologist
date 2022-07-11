@@ -108,7 +108,8 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
             if (events.containsAny(
                     Player.EVENT_IS_LOADING_CHANGED,
                     Player.EVENT_IS_PLAYING_CHANGED,
-                    Player.EVENT_PLAYBACK_STATE_CHANGED
+                    Player.EVENT_PLAYBACK_STATE_CHANGED,
+                    Player.EVENT_PLAY_WHEN_READY_CHANGED
                 )
             ) {
                 updateState(player)
@@ -125,11 +126,11 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
     }
 
     /**
-     * Update the state based on [Player.isPlaying], [Player.isLoading] and
-     * [Player.getPlaybackState] properties.
+     * Update the state based on [Player.isPlaying], [Player.isLoading],
+     * [Player.getPlaybackState] and [Player.getPlayWhenReady] properties.
      */
     private fun updateState(player: Player) {
-        _currentState.value = if (player.isPlaying) {
+        _currentState.value = if ((player.isPlaying || player.isLoading) && player.playWhenReady) {
             PlayerState.Playing
         } else if (player.isLoading) {
             PlayerState.Loading

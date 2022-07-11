@@ -357,14 +357,14 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
      * Updating roughly once a second while activity is foregrounded is appropriate.
      */
     public fun updatePosition() {
-        player.value?.updatePosition()
+        player.value.updatePosition()
     }
 
     public fun setPlaybackSpeed(speed: Float) {
         player.value?.setPlaybackSpeed(speed)
     }
 
-    private fun Player.updatePosition() {
+    private fun Player?.updatePosition() {
         _mediaItemPosition.value = if (this == null) {
             null
         } else if (duration == C.TIME_UNSET) {

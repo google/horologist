@@ -44,12 +44,10 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.MaterialTheme
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
 /**
  * Secondary placeholder chip.
  */
-@ExperimentalHorologistMediaUiApi
 @Composable
 internal fun SecondaryPlaceholderChip(
     modifier: Modifier = Modifier,

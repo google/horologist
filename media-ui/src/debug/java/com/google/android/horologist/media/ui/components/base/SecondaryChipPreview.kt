@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class)
-
 package com.google.android.horologist.media.ui.components.base
 
 import androidx.compose.material.icons.Icons
@@ -26,7 +24,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.utils.rememberVectorPainter
 
 @Preview(
@@ -35,7 +32,11 @@ import com.google.android.horologist.media.ui.utils.rememberVectorPainter
 )
 @Composable
 fun SecondaryChipPreview() {
-    SecondaryChip(primaryLabel = "Primary label", onClick = { })
+    StandardChip(
+        label = "Primary label",
+        onClick = { },
+        chipType = StandardChipType.Secondary,
+    )
 }
 
 @Preview(
@@ -45,10 +46,11 @@ fun SecondaryChipPreview() {
 )
 @Composable
 fun SecondaryChipPreviewWithSecondaryLabel() {
-    SecondaryChip(
-        primaryLabel = "Primary label",
+    StandardChip(
+        label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
+        chipType = StandardChipType.Secondary,
     )
 }
 
@@ -59,14 +61,15 @@ fun SecondaryChipPreviewWithSecondaryLabel() {
 )
 @Composable
 fun SecondaryChipPreviewWithIcon() {
-    SecondaryChip(
-        primaryLabel = "Primary label",
+    StandardChip(
+        label = "Primary label",
         onClick = { },
         icon = "iconUri",
         placeholder = rememberVectorPainter(
             image = Icons.Default.Add,
             tintColor = Color.White,
-        )
+        ),
+        chipType = StandardChipType.Secondary,
     )
 }
 
@@ -77,10 +80,11 @@ fun SecondaryChipPreviewWithIcon() {
 )
 @Composable
 fun SecondaryChipPreviewWithImageVectorAsIcon() {
-    SecondaryChip(
-        primaryLabel = "Primary label",
+    StandardChip(
+        label = "Primary label",
         onClick = { },
-        icon = Icons.Default.Add
+        icon = Icons.Default.Add,
+        chipType = StandardChipType.Secondary,
     )
 }
 
@@ -91,15 +95,16 @@ fun SecondaryChipPreviewWithImageVectorAsIcon() {
 )
 @Composable
 fun SecondaryChipPreviewWithLargeIcon() {
-    SecondaryChip(
-        primaryLabel = "Primary label",
+    StandardChip(
+        label = "Primary label",
         onClick = { },
         icon = "iconUri",
         largeIcon = true,
         placeholder = rememberVectorPainter(
             image = Icon32dp,
             tintColor = Color.White,
-        )
+        ),
+        chipType = StandardChipType.Secondary,
     )
 }
 
@@ -110,15 +115,16 @@ fun SecondaryChipPreviewWithLargeIcon() {
 )
 @Composable
 fun SecondaryChipPreviewWithSecondaryLabelAndIcon() {
-    SecondaryChip(
-        primaryLabel = "Primary label",
+    StandardChip(
+        label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
         icon = "iconUri",
         placeholder = rememberVectorPainter(
             image = Icons.Default.Add,
             tintColor = Color.White,
-        )
+        ),
+        chipType = StandardChipType.Secondary,
     )
 }
 
@@ -129,8 +135,8 @@ fun SecondaryChipPreviewWithSecondaryLabelAndIcon() {
 )
 @Composable
 fun SecondaryChipPreviewWithSecondaryLabelAndLargeIcon() {
-    SecondaryChip(
-        primaryLabel = "Primary label",
+    StandardChip(
+        label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
         icon = "iconUri",
@@ -138,7 +144,8 @@ fun SecondaryChipPreviewWithSecondaryLabelAndLargeIcon() {
         placeholder = rememberVectorPainter(
             image = Icon32dp,
             tintColor = Color.White,
-        )
+        ),
+        chipType = StandardChipType.Secondary,
     )
 }
 
@@ -149,8 +156,8 @@ fun SecondaryChipPreviewWithSecondaryLabelAndLargeIcon() {
 )
 @Composable
 fun SecondaryChipPreviewDisabled() {
-    SecondaryChip(
-        primaryLabel = "Primary label",
+    StandardChip(
+        label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
         icon = "iconUri",
@@ -158,6 +165,7 @@ fun SecondaryChipPreviewDisabled() {
             image = Icons.Default.Add,
             tintColor = Color.White,
         ),
+        chipType = StandardChipType.Secondary,
         enabled = false,
     )
 }
@@ -169,9 +177,10 @@ fun SecondaryChipPreviewDisabled() {
 )
 @Composable
 fun SecondaryChipPreviewWithLongText() {
-    SecondaryChip(
-        primaryLabel = "Primary label very very very very very very very very very very very very very very very very very long text",
-        onClick = { }
+    StandardChip(
+        label = "Primary label very very very very very very very very very very very very very very very very very long text",
+        onClick = { },
+        chipType = StandardChipType.Secondary,
     )
 }
 
@@ -182,8 +191,8 @@ fun SecondaryChipPreviewWithLongText() {
 )
 @Composable
 fun SecondaryChipPreviewWithSecondaryLabelAndLongText() {
-    SecondaryChip(
-        primaryLabel = "Primary label very very very very very very very very long text",
+    StandardChip(
+        label = "Primary label very very very very very very very very long text",
         onClick = { },
         secondaryLabel = "Secondary label very very very very very very very very very long text",
         icon = "iconUri",
@@ -191,6 +200,7 @@ fun SecondaryChipPreviewWithSecondaryLabelAndLongText() {
             image = Icons.Default.Add,
             tintColor = Color.White,
         ),
+        chipType = StandardChipType.Secondary,
     )
 }
 
@@ -201,14 +211,15 @@ fun SecondaryChipPreviewWithSecondaryLabelAndLongText() {
 )
 @Composable
 fun SecondaryChipPreviewUsingSmallIcon() {
-    SecondaryChip(
-        primaryLabel = "Primary label",
+    StandardChip(
+        label = "Primary label",
         onClick = { },
         icon = "iconUri",
         placeholder = rememberVectorPainter(
             image = Icon12dp,
             tintColor = Color.White,
-        )
+        ),
+        chipType = StandardChipType.Secondary,
     )
 }
 
@@ -219,15 +230,16 @@ fun SecondaryChipPreviewUsingSmallIcon() {
 )
 @Composable
 fun SecondaryChipPreviewWithLargeIconUsingSmallIcon() {
-    SecondaryChip(
-        primaryLabel = "Primary label",
+    StandardChip(
+        label = "Primary label",
         onClick = { },
         icon = "iconUri",
         largeIcon = true,
         placeholder = rememberVectorPainter(
             image = Icon12dp,
             tintColor = Color.White,
-        )
+        ),
+        chipType = StandardChipType.Secondary,
     )
 }
 
@@ -238,14 +250,15 @@ fun SecondaryChipPreviewWithLargeIconUsingSmallIcon() {
 )
 @Composable
 fun SecondaryChipPreviewUsingExtraLargeIcon() {
-    SecondaryChip(
-        primaryLabel = "Primary label",
+    StandardChip(
+        label = "Primary label",
         onClick = { },
         icon = "iconUri",
         placeholder = rememberVectorPainter(
             image = Icon48dp,
             tintColor = Color.White,
-        )
+        ),
+        chipType = StandardChipType.Secondary,
     )
 }
 
@@ -256,15 +269,16 @@ fun SecondaryChipPreviewUsingExtraLargeIcon() {
 )
 @Composable
 fun SecondaryChipPreviewWithLargeIconUsingExtraLargeIcon() {
-    SecondaryChip(
-        primaryLabel = "Primary label",
+    StandardChip(
+        label = "Primary label",
         onClick = { },
         icon = "iconUri",
         largeIcon = true,
         placeholder = rememberVectorPainter(
             image = Icon48dp,
             tintColor = Color.White,
-        )
+        ),
+        chipType = StandardChipType.Secondary,
     )
 }
 

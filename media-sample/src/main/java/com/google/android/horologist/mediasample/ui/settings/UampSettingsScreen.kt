@@ -86,6 +86,15 @@ fun UampSettingsScreen(
             }
         }
         item {
+            CheckedSetting(
+                uiState.showTimeTextInfo,
+                stringResource(id = R.string.horologist_show_time_text_info),
+                enabled = uiState.writable
+            ) {
+                settingsScreenViewModel.setShowTimeTextInfo(it)
+            }
+        }
+        item {
             val message = stringResource(id = R.string.horologist_sample_error)
             ActionSetting(
                 stringResource(id = R.string.horologist_show_test_dialog),

@@ -98,10 +98,13 @@ package com.google.android.horologist.media.ui.components.background {
 
 package com.google.android.horologist.media.ui.components.base {
 
-  public final class SecondaryChipKt {
+  public final class SecondaryPlaceholderChipKt {
   }
 
-  public final class SecondaryPlaceholderChipKt {
+  public final class StandardChipKt {
+  }
+
+  public final class TitleKt {
   }
 
 }
@@ -199,39 +202,58 @@ package com.google.android.horologist.media.ui.navigation {
   }
 
   public abstract sealed class NavigationScreens {
-    method public final String getRoute();
-    property public final String route;
+    method public java.util.List<androidx.navigation.NavDeepLink> deepLinks(String deepLinkPrefix);
+    method public java.util.List<androidx.navigation.NamedNavArgument> getArguments();
+    method public final String getNavRoute();
+    property public java.util.List<androidx.navigation.NamedNavArgument> arguments;
+    property public final String navRoute;
   }
 
   public static final class NavigationScreens.Collection extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    method public String destination(String id);
+    method public String getId();
+    property public java.util.List<androidx.navigation.NamedNavArgument> arguments;
+    property public final String id;
     field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Collection INSTANCE;
   }
 
   public static final class NavigationScreens.Collections extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    method public String destination();
     field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Collections INSTANCE;
   }
 
   public static final class NavigationScreens.Login extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    method public String destination();
     field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Login INSTANCE;
   }
 
   public static final class NavigationScreens.MediaItem extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    method public String destination(String id, optional String? collectionId);
+    method public String getCollectionId();
+    method public String getId();
+    property public java.util.List<androidx.navigation.NamedNavArgument> arguments;
+    property public final String collectionId;
+    property public final String id;
     field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.MediaItem INSTANCE;
   }
 
   public static final class NavigationScreens.Player extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
-    method public String getLibrary();
-    method public String getPlayer();
-    property public final String library;
-    property public final String player;
+    method public String getPage();
+    method public Integer? getPageParam(androidx.navigation.NavBackStackEntry backStack, optional boolean remove);
+    method public String libraryDestination();
+    method public String playerDestination();
+    property public java.util.List<androidx.navigation.NamedNavArgument> arguments;
+    property public final String page;
     field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Player INSTANCE;
   }
 
   public static final class NavigationScreens.Settings extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    method public String destination();
     field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Settings INSTANCE;
   }
 
   public static final class NavigationScreens.Volume extends com.google.android.horologist.media.ui.navigation.NavigationScreens {
+    method public String destination();
     field public static final com.google.android.horologist.media.ui.navigation.NavigationScreens.Volume INSTANCE;
   }
 
@@ -271,6 +293,29 @@ package com.google.android.horologist.media.ui.screens.browse {
 
   public static final class BrowseScreenState.Loading extends com.google.android.horologist.media.ui.screens.browse.BrowseScreenState {
     field public static final com.google.android.horologist.media.ui.screens.browse.BrowseScreenState.Loading INSTANCE;
+  }
+
+}
+
+package com.google.android.horologist.media.ui.screens.playlist {
+
+  public final class PlaylistScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlaylistScreen(com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState playlistScreenState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.PlaylistUiModel,kotlin.Unit> onPlaylistItemClick, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? playlistItemArtworkPlaceholder);
+  }
+
+  @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class PlaylistScreenState {
+  }
+
+  public static final class PlaylistScreenState.Loaded extends com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState {
+    ctor public PlaylistScreenState.Loaded(java.util.List<com.google.android.horologist.media.ui.state.model.PlaylistUiModel> playlistList);
+    method public java.util.List<com.google.android.horologist.media.ui.state.model.PlaylistUiModel> component1();
+    method public com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState.Loaded copy(java.util.List<com.google.android.horologist.media.ui.state.model.PlaylistUiModel> playlistList);
+    method public java.util.List<com.google.android.horologist.media.ui.state.model.PlaylistUiModel> getPlaylistList();
+    property public final java.util.List<com.google.android.horologist.media.ui.state.model.PlaylistUiModel> playlistList;
+  }
+
+  public static final class PlaylistScreenState.Loading extends com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState {
+    field public static final com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState.Loading INSTANCE;
   }
 
 }
@@ -421,31 +466,25 @@ package com.google.android.horologist.media.ui.state.mapper {
 package com.google.android.horologist.media.ui.state.model {
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class DownloadPlaylistUiModel {
-    method public String? getArtworkUri();
-    method public String getTitle();
-    property public String? artworkUri;
-    property public String title;
+    method public com.google.android.horologist.media.ui.state.model.PlaylistUiModel getPlaylistUiModel();
+    property public com.google.android.horologist.media.ui.state.model.PlaylistUiModel playlistUiModel;
   }
 
   public static final class DownloadPlaylistUiModel.Completed extends com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel {
-    ctor public DownloadPlaylistUiModel.Completed(String title, String? artworkUri);
-    method public String component1();
-    method public String? component2();
-    method public com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel.Completed copy(String title, String? artworkUri);
-    property public String? artworkUri;
-    property public String title;
+    ctor public DownloadPlaylistUiModel.Completed(com.google.android.horologist.media.ui.state.model.PlaylistUiModel playlistUiModel);
+    method public com.google.android.horologist.media.ui.state.model.PlaylistUiModel component1();
+    method public com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel.Completed copy(com.google.android.horologist.media.ui.state.model.PlaylistUiModel playlistUiModel);
+    property public com.google.android.horologist.media.ui.state.model.PlaylistUiModel playlistUiModel;
   }
 
   public static final class DownloadPlaylistUiModel.InProgress extends com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel {
-    ctor public DownloadPlaylistUiModel.InProgress(String title, String? artworkUri, int percentage);
-    method public String component1();
-    method public String? component2();
-    method public int component3();
-    method public com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel.InProgress copy(String title, String? artworkUri, int percentage);
+    ctor public DownloadPlaylistUiModel.InProgress(com.google.android.horologist.media.ui.state.model.PlaylistUiModel playlistUiModel, int percentage);
+    method public com.google.android.horologist.media.ui.state.model.PlaylistUiModel component1();
+    method public int component2();
+    method public com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel.InProgress copy(com.google.android.horologist.media.ui.state.model.PlaylistUiModel playlistUiModel, int percentage);
     method public int getPercentage();
-    property public String? artworkUri;
     property public final int percentage;
-    property public String title;
+    property public com.google.android.horologist.media.ui.state.model.PlaylistUiModel playlistUiModel;
   }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class MediaItemUiModel {
@@ -465,6 +504,17 @@ package com.google.android.horologist.media.ui.state.model {
     property public final String? title;
   }
 
+  public final class PlaylistUiModel {
+    ctor public PlaylistUiModel(String title, optional String? artworkUri);
+    method public String component1();
+    method public String? component2();
+    method public com.google.android.horologist.media.ui.state.model.PlaylistUiModel copy(String title, String? artworkUri);
+    method public String? getArtworkUri();
+    method public String getTitle();
+    property public final String? artworkUri;
+    property public final String title;
+  }
+
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class TrackPositionUiModel {
     ctor public TrackPositionUiModel(long current, long duration, float percent);
     method public long component1();
@@ -477,6 +527,62 @@ package com.google.android.horologist.media.ui.state.model {
     property public final long current;
     property public final long duration;
     property public final float percent;
+  }
+
+}
+
+package com.google.android.horologist.media.ui.tiles {
+
+  public final class MaterialThemeKt {
+    method @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static androidx.wear.tiles.material.Colors toTileColors(androidx.wear.compose.material.Colors);
+  }
+
+  @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class MediaCollectionsTileRenderer extends com.google.android.horologist.tiles.render.SingleTileLayoutRenderer<com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollectionsState,com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState> {
+    ctor public MediaCollectionsTileRenderer(android.content.Context context, androidx.wear.tiles.material.Colors materialTheme, boolean debugResourceMode);
+    method public void produceRequestedResources(androidx.wear.tiles.ResourceBuilders.Resources.Builder, com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState resourceResults, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters, java.util.List<java.lang.String> resourceIds);
+    method public androidx.wear.tiles.LayoutElementBuilders.LayoutElement renderTile(com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollectionsState state, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters);
+  }
+
+  public static final class MediaCollectionsTileRenderer.MediaCollection {
+    ctor public MediaCollectionsTileRenderer.MediaCollection(String name, String artworkId, androidx.wear.tiles.ActionBuilders.Action action);
+    method public String component1();
+    method public String component2();
+    method public androidx.wear.tiles.ActionBuilders.Action component3();
+    method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection copy(String name, String artworkId, androidx.wear.tiles.ActionBuilders.Action action);
+    method public androidx.wear.tiles.ActionBuilders.Action getAction();
+    method public String getArtworkId();
+    method public String getName();
+    property public final androidx.wear.tiles.ActionBuilders.Action action;
+    property public final String artworkId;
+    property public final String name;
+  }
+
+  public static final class MediaCollectionsTileRenderer.MediaCollectionsState {
+    ctor public MediaCollectionsTileRenderer.MediaCollectionsState(@StringRes int chipName, androidx.wear.tiles.ActionBuilders.Action chipAction, com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection collection1, com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection collection2);
+    method public int component1();
+    method public androidx.wear.tiles.ActionBuilders.Action component2();
+    method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection component3();
+    method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection component4();
+    method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollectionsState copy(@StringRes int chipName, androidx.wear.tiles.ActionBuilders.Action chipAction, com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection collection1, com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection collection2);
+    method public androidx.wear.tiles.ActionBuilders.Action getChipAction();
+    method public int getChipName();
+    method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection getCollection1();
+    method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection getCollection2();
+    property public final androidx.wear.tiles.ActionBuilders.Action chipAction;
+    property public final int chipName;
+    property public final com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection collection1;
+    property public final com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollection collection2;
+  }
+
+  public static final class MediaCollectionsTileRenderer.ResourceState {
+    ctor public MediaCollectionsTileRenderer.ResourceState(@DrawableRes int appIcon, java.util.Map<java.lang.String,androidx.wear.tiles.ResourceBuilders.ImageResource> images);
+    method public int component1();
+    method public java.util.Map<java.lang.String,androidx.wear.tiles.ResourceBuilders.ImageResource> component2();
+    method public com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState copy(@DrawableRes int appIcon, java.util.Map<java.lang.String,androidx.wear.tiles.ResourceBuilders.ImageResource> images);
+    method public int getAppIcon();
+    method public java.util.Map<java.lang.String,androidx.wear.tiles.ResourceBuilders.ImageResource> getImages();
+    property public final int appIcon;
+    property public final java.util.Map<java.lang.String,androidx.wear.tiles.ResourceBuilders.ImageResource> images;
   }
 
 }

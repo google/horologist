@@ -19,8 +19,8 @@ package com.google.android.horologist.media.ui.components
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.ButtonColors
-import androidx.wear.compose.material.ButtonDefaults
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults
 import com.google.android.horologist.media.ui.components.controls.SeekBackButton
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.media.ui.components.controls.SeekForwardButton
@@ -44,7 +44,7 @@ public fun PodcastControlButtons(
     modifier: Modifier = Modifier,
     seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
 ) {
     PodcastControlButtons(
         onPlayButtonClick = onPlayButtonClick,
@@ -82,7 +82,7 @@ public fun PodcastControlButtons(
     modifier: Modifier = Modifier,
     seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
 ) {
     PodcastControlButtons(
         onPlayButtonClick = onPlayButtonClick,
@@ -117,7 +117,7 @@ private fun PodcastControlButtons(
     showProgress: Boolean,
     modifier: Modifier = Modifier,
     percent: Float? = null,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
 ) {
     ControlButtonLayout(
         modifier = modifier,

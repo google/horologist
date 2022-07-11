@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.media.ui.screens.browse
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -29,7 +28,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyColumn
@@ -38,8 +36,10 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.media.ui.components.base.SecondaryChip
 import com.google.android.horologist.media.ui.components.base.SecondaryPlaceholderChip
+import com.google.android.horologist.media.ui.components.base.StandardChip
+import com.google.android.horologist.media.ui.components.base.StandardChipType
+import com.google.android.horologist.media.ui.components.base.Title
 import com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel
 
 /**
@@ -86,29 +86,30 @@ public fun BrowseScreen(
                     )
                 }
             } else {
-                downloadList.forEach {
-                    item {
-                        when (it) {
-                            is DownloadPlaylistUiModel.Completed -> {
-                                SecondaryChip(
-                                    primaryLabel = it.title,
-                                    onClick = { onDownloadItemClick(it) },
-                                    icon = it.artworkUri,
-                                    placeholder = downloadItemArtworkPlaceholder
-                                )
-                            }
-                            is DownloadPlaylistUiModel.InProgress -> {
-                                SecondaryChip(
-                                    primaryLabel = it.title,
-                                    onClick = { onDownloadItemClick(it) },
-                                    secondaryLabel = stringResource(
-                                        id = R.string.horologist_browse_downloads_progress,
-                                        it.percentage
-                                    ),
-                                    icon = Icons.Default.Downloading,
-                                    placeholder = downloadItemArtworkPlaceholder
-                                )
-                            }
+                items(count = downloadList.size) { index ->
+                    when (val download = downloadList[index]) {
+                        is DownloadPlaylistUiModel.Completed -> {
+                            StandardChip(
+                                label = download.playlistUiModel.title,
+                                onClick = { onDownloadItemClick(download) },
+                                icon = download.playlistUiModel.artworkUri,
+                                largeIcon = true,
+                                placeholder = downloadItemArtworkPlaceholder,
+                                chipType = StandardChipType.Secondary,
+                            )
+                        }
+                        is DownloadPlaylistUiModel.InProgress -> {
+                            StandardChip(
+                                label = download.playlistUiModel.title,
+                                onClick = { onDownloadItemClick(download) },
+                                secondaryLabel = stringResource(
+                                    id = R.string.horologist_browse_downloads_progress,
+                                    download.percentage
+                                ),
+                                icon = Icons.Default.Downloading,
+                                placeholder = downloadItemArtworkPlaceholder,
+                                chipType = StandardChipType.Secondary,
+                            )
                         }
                     }
                 }
@@ -127,18 +128,20 @@ public fun BrowseScreen(
         }
 
         item {
-            SecondaryChip(
-                primaryLabel = stringResource(id = R.string.horologist_browse_library_playlists),
+            StandardChip(
+                label = stringResource(id = R.string.horologist_browse_library_playlists),
                 icon = Icons.Default.PlaylistPlay,
-                onClick = onPlaylistsClick
+                onClick = onPlaylistsClick,
+                chipType = StandardChipType.Secondary,
             )
         }
 
         item {
-            SecondaryChip(
-                primaryLabel = stringResource(id = R.string.horologist_browse_library_settings),
+            StandardChip(
+                label = stringResource(id = R.string.horologist_browse_library_settings),
                 icon = Icons.Default.Settings,
-                onClick = onSettingsClick
+                onClick = onSettingsClick,
+                chipType = StandardChipType.Secondary,
             )
         }
     }
@@ -155,18 +158,4 @@ public sealed class BrowseScreenState {
     public data class Loaded(
         val downloadList: List<DownloadPlaylistUiModel>,
     ) : BrowseScreenState()
-}
-
-@Composable
-private fun Title(
-    @StringRes textId: Int,
-    modifier: Modifier = Modifier,
-) {
-    Text(
-        text = stringResource(id = textId),
-        modifier = modifier,
-        overflow = TextOverflow.Ellipsis,
-        maxLines = 3,
-        style = MaterialTheme.typography.title3
-    )
 }

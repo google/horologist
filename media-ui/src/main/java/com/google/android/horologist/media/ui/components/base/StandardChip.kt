@@ -37,32 +37,32 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
 import coil.compose.rememberAsyncImagePainter
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
 /**
  * This composable fulfils the redlines of the following components:
- * - Secondary standard chip - when [largeIcon] value is `false`;
+ * - Primary or Secondary chip - according to [chipType] value;
+ * - Standard chip - when [largeIcon] value is `false`;
  * - Chip with small or large avatar - according to [largeIcon] value;
  */
-@ExperimentalHorologistMediaUiApi
 @Composable
-internal fun SecondaryChip(
-    primaryLabel: String,
+internal fun StandardChip(
+    label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     secondaryLabel: String? = null,
     icon: Any? = null,
     largeIcon: Boolean = false,
     placeholder: Painter? = null,
+    chipType: StandardChipType = StandardChipType.Primary,
     enabled: Boolean = true,
 ) {
     val hasSecondaryLabel = secondaryLabel != null
     val hasIcon = icon != null
 
-    val primaryLabelParam: (@Composable RowScope.() -> Unit) =
+    val labelParam: (@Composable RowScope.() -> Unit) =
         {
             Text(
-                text = primaryLabel,
+                text = label,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Left else TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
@@ -117,12 +117,20 @@ internal fun SecondaryChip(
         }
 
     Chip(
-        label = primaryLabelParam,
+        label = labelParam,
         onClick = onClick,
         modifier = modifier.fillMaxWidth(),
         secondaryLabel = secondaryLabelParam,
         icon = iconParam,
-        colors = ChipDefaults.secondaryChipColors(),
+        colors = when (chipType) {
+            StandardChipType.Primary -> ChipDefaults.primaryChipColors()
+            StandardChipType.Secondary -> ChipDefaults.secondaryChipColors()
+        },
         enabled = enabled,
     )
+}
+
+internal enum class StandardChipType {
+    Primary,
+    Secondary
 }

@@ -68,8 +68,6 @@ class MediaPlayerAppViewModel(
         null
     )
 
-    val showTimeTextInfo: Boolean = appConfig.showTimeTextInfo
-
     val deepLinkPrefix: String = appConfig.deeplinkUriPrefix
 
     val ticker = flow {
@@ -119,8 +117,7 @@ class MediaPlayerAppViewModel(
     }
 
     suspend fun startupSetup(navigateToLibrary: () -> Unit) {
-        // setMediaItems is a noop before this point
-        playerRepository.connected.filter { it }.first()
+        waitForConnection()
 
         val currentMediaItem = playerRepository.currentMediaItem.value
 
@@ -134,6 +131,25 @@ class MediaPlayerAppViewModel(
                 navigateToLibrary()
             }
         }
+    }
+
+    suspend fun playItems(mediaId: String?, collectionId: String) {
+        val mediaItems = uampService.catalog().music.map { it.toMediaItem() }.filter {
+            it.artist == collectionId
+        }
+
+        val index = mediaItems.indexOfFirst { it.id == mediaId }.coerceAtLeast(0)
+
+        waitForConnection()
+
+        playerRepository.setMediaItems(mediaItems)
+        playerRepository.prepare()
+        playerRepository.play(mediaItemIndex = index)
+    }
+
+    private suspend fun waitForConnection() {
+        // setMediaItems is a noop before this point
+        playerRepository.connected.filter { it }.first()
     }
 
     companion object {

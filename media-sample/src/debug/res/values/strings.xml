@@ -15,6 +15,6 @@
   -->
 
 <resources>
-    <string name="app_name">UAMP debug</string>
-    <string name="media_activity">UAMP debug</string>
+    <string name="horologist_sample_app_name">UAMP debug</string>
+    <string name="horologist_sample_media_activity">UAMP debug</string>
 </resources>

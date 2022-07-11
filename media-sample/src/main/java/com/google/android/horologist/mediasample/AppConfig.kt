@@ -24,9 +24,8 @@ data class AppConfig(
     val offloadEnabled: Boolean = true,
     val strictNetworking: NetworkingRules? = NetworkingRules.Conservative,
     val deeplinkUriPrefix: String = "uamp${if (BuildConfig.DEBUG) "-debug" else ""}://uamp",
-    val showTimeTextInfo: Boolean = false,
     val cacheItems: Boolean = true,
     val cacheWriteBack: Boolean = true,
-    val offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_REQUIRED,
+    val offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_NOT_REQUIRED,
     val playbackRules: PlaybackRules? = null
 )

@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class)
-
 package com.google.android.horologist.media.ui.components.base
 
 import androidx.compose.foundation.background
@@ -29,7 +27,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.Paparazzi
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.utils.rememberVectorPainter
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
@@ -53,7 +50,11 @@ class SecondaryChipTest {
     fun withPrimaryLabel() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SecondaryChip(primaryLabel = "Primary label", onClick = { })
+                StandardChip(
+                    label = "Primary label",
+                    onClick = { },
+                    chipType = StandardChipType.Secondary,
+                )
             }
         }
     }
@@ -62,10 +63,11 @@ class SecondaryChipTest {
     fun withSecondaryLabel() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SecondaryChip(
-                    primaryLabel = "Primary label",
+                StandardChip(
+                    label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
+                    chipType = StandardChipType.Secondary,
                 )
             }
         }
@@ -75,14 +77,15 @@ class SecondaryChipTest {
     fun withIcon() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SecondaryChip(
-                    primaryLabel = "Primary label",
+                StandardChip(
+                    label = "Primary label",
                     onClick = { },
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
                         image = Icons.Default.Add,
                         tintColor = Color.White,
-                    )
+                    ),
+                    chipType = StandardChipType.Secondary,
                 )
             }
         }
@@ -92,10 +95,11 @@ class SecondaryChipTest {
     fun withImageVectorAsIcon() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SecondaryChip(
-                    primaryLabel = "Primary label",
+                StandardChip(
+                    label = "Primary label",
                     onClick = { },
                     icon = Icons.Default.Add,
+                    chipType = StandardChipType.Secondary,
                 )
             }
         }
@@ -105,15 +109,16 @@ class SecondaryChipTest {
     fun withLargeIcon() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SecondaryChip(
-                    primaryLabel = "Primary label",
+                StandardChip(
+                    label = "Primary label",
                     onClick = { },
                     icon = "iconUri",
                     largeIcon = true,
                     placeholder = rememberVectorPainter(
                         image = Icon32dp,
                         tintColor = Color.White,
-                    )
+                    ),
+                    chipType = StandardChipType.Secondary,
                 )
             }
         }
@@ -123,15 +128,16 @@ class SecondaryChipTest {
     fun withSecondaryLabelAndIcon() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SecondaryChip(
-                    primaryLabel = "Primary label",
+                StandardChip(
+                    label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
                         image = Icons.Default.Add,
                         tintColor = Color.White,
-                    )
+                    ),
+                    chipType = StandardChipType.Secondary,
                 )
             }
         }
@@ -141,8 +147,8 @@ class SecondaryChipTest {
     fun withSecondaryLabelAndLargeIcon() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SecondaryChip(
-                    primaryLabel = "Primary label",
+                StandardChip(
+                    label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
                     icon = "iconUri",
@@ -150,7 +156,8 @@ class SecondaryChipTest {
                     placeholder = rememberVectorPainter(
                         image = Icon32dp,
                         tintColor = Color.White,
-                    )
+                    ),
+                    chipType = StandardChipType.Secondary,
                 )
             }
         }
@@ -160,8 +167,8 @@ class SecondaryChipTest {
     fun disabled() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SecondaryChip(
-                    primaryLabel = "Primary label",
+                StandardChip(
+                    label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
                     icon = "iconUri",
@@ -169,6 +176,7 @@ class SecondaryChipTest {
                         image = Icons.Default.Add,
                         tintColor = Color.White,
                     ),
+                    chipType = StandardChipType.Secondary,
                     enabled = false,
                 )
             }
@@ -179,9 +187,10 @@ class SecondaryChipTest {
     fun withLongText() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SecondaryChip(
-                    primaryLabel = "Primary label very very very very very very very very very very very very very very very very very long text",
-                    onClick = { }
+                StandardChip(
+                    label = "Primary label very very very very very very very very very very very very very very very very very long text",
+                    onClick = { },
+                    chipType = StandardChipType.Secondary,
                 )
             }
         }
@@ -191,8 +200,8 @@ class SecondaryChipTest {
     fun withSecondaryLabelAndLongText() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SecondaryChip(
-                    primaryLabel = "Primary label very very very very very very very very long text",
+                StandardChip(
+                    label = "Primary label very very very very very very very very long text",
                     onClick = { },
                     secondaryLabel = "Secondary label very very very very very very very very very long text",
                     icon = "iconUri",
@@ -200,6 +209,7 @@ class SecondaryChipTest {
                         image = Icons.Default.Add,
                         tintColor = Color.White,
                     ),
+                    chipType = StandardChipType.Secondary,
                 )
             }
         }
@@ -209,14 +219,15 @@ class SecondaryChipTest {
     fun usingSmallIcon() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SecondaryChip(
-                    primaryLabel = "Primary label",
+                StandardChip(
+                    label = "Primary label",
                     onClick = { },
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
                         image = Icon12dp,
                         tintColor = Color.White,
-                    )
+                    ),
+                    chipType = StandardChipType.Secondary,
                 )
             }
         }
@@ -226,15 +237,16 @@ class SecondaryChipTest {
     fun withLargeIconUsingSmallIcon() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SecondaryChip(
-                    primaryLabel = "Primary label",
+                StandardChip(
+                    label = "Primary label",
                     onClick = { },
                     icon = "iconUri",
                     largeIcon = true,
                     placeholder = rememberVectorPainter(
                         image = Icon12dp,
                         tintColor = Color.White,
-                    )
+                    ),
+                    chipType = StandardChipType.Secondary,
                 )
             }
         }
@@ -244,14 +256,15 @@ class SecondaryChipTest {
     fun usingExtraLargeIcon() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SecondaryChip(
-                    primaryLabel = "Primary label",
+                StandardChip(
+                    label = "Primary label",
                     onClick = { },
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
                         image = Icon48dp,
                         tintColor = Color.White,
-                    )
+                    ),
+                    chipType = StandardChipType.Secondary,
                 )
             }
         }
@@ -261,15 +274,16 @@ class SecondaryChipTest {
     fun withLargeIconUsingExtraLargeIcon() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SecondaryChip(
-                    primaryLabel = "Primary label",
+                StandardChip(
+                    label = "Primary label",
                     onClick = { },
                     icon = "iconUri",
                     largeIcon = true,
                     placeholder = rememberVectorPainter(
                         image = Icon48dp,
                         tintColor = Color.White,
-                    )
+                    ),
+                    chipType = StandardChipType.Secondary,
                 )
             }
         }

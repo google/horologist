@@ -25,10 +25,12 @@
     <string name="horologist_seek_back_button_seconds_content_description">Rewind %s seconds</string>
     <string name="horologist_shuffle_button_content_description">Toggle Shuffle</string>
     <string name="horologist_nothing_playing">Nothing playing</string>
+    <string name="horologist_sample_playlists_name">Playlists</string>
     <string name="horologist_browse_downloads_title">Downloads</string>
     <string name="horologist_browse_downloads_empty">Download music to start listening</string>
     <string name="horologist_browse_downloads_progress">%d%%</string>
     <string name="horologist_browse_library_title">Library</string>
     <string name="horologist_browse_library_playlists">Playlists</string>
     <string name="horologist_browse_library_settings">Settings</string>
+    <string name="horologist_browse_playlist_title">Playlist</string>
 </resources>

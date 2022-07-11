@@ -31,6 +31,7 @@ import androidx.wear.watchface.complications.data.ListComplicationData
 import androidx.wear.watchface.complications.data.LongTextComplicationData
 import androidx.wear.watchface.complications.data.MonochromaticImage
 import androidx.wear.watchface.complications.data.MonochromaticImageComplicationData
+import androidx.wear.watchface.complications.data.NoDataComplicationData
 import androidx.wear.watchface.complications.data.PhotoImageComplicationData
 import androidx.wear.watchface.complications.data.PlainComplicationText
 import androidx.wear.watchface.complications.data.ProtoLayoutComplicationData
@@ -48,16 +49,16 @@ public abstract class TypedComplicationRenderer<T>(override val context: Context
     ComplicationRenderer<T> {
     final override fun render(type: ComplicationType, data: T): ComplicationData {
         return when (type) {
-            ComplicationType.LONG_TEXT -> renderLongText(data) ?: EmptyComplicationData()
+            ComplicationType.LONG_TEXT -> renderLongText(data) ?: NoDataComplicationData()
             ComplicationType.MONOCHROMATIC_IMAGE -> renderMonochromaticImage(data)
-                ?: EmptyComplicationData()
-            ComplicationType.PHOTO_IMAGE -> renderPhotoImage(data) ?: EmptyComplicationData()
-            ComplicationType.RANGED_VALUE -> renderRangedValue(data) ?: EmptyComplicationData()
-            ComplicationType.SHORT_TEXT -> renderShortText(data) ?: EmptyComplicationData()
-            ComplicationType.SMALL_IMAGE -> renderSmallImage(data) ?: EmptyComplicationData()
-            ComplicationType.PROTO_LAYOUT -> renderProtoLayout(data) ?: EmptyComplicationData()
-            ComplicationType.LIST -> renderList(data) ?: EmptyComplicationData()
-            else -> EmptyComplicationData()
+                ?: NoDataComplicationData()
+            ComplicationType.PHOTO_IMAGE -> renderPhotoImage(data) ?: NoDataComplicationData()
+            ComplicationType.RANGED_VALUE -> renderRangedValue(data) ?: NoDataComplicationData()
+            ComplicationType.SHORT_TEXT -> renderShortText(data) ?: NoDataComplicationData()
+            ComplicationType.SMALL_IMAGE -> renderSmallImage(data) ?: NoDataComplicationData()
+            ComplicationType.PROTO_LAYOUT -> renderProtoLayout(data) ?: NoDataComplicationData()
+            ComplicationType.LIST -> renderList(data) ?: NoDataComplicationData()
+            else -> NoDataComplicationData()
         }
     }
 
@@ -104,13 +105,13 @@ public abstract class TypedComplicationRenderer<T>(override val context: Context
     public abstract fun renderSmallImage(data: T): SmallImageComplicationData?
 
     public fun smallImage(
-        @DrawableRes icon: Int,
+        icon: Icon,
         type: SmallImageType = SmallImageType.PHOTO,
         name: String,
         launchIntent: PendingIntent?
     ) = SmallImageComplicationData.Builder(
         smallImage = SmallImage.Builder(
-            image = icon(icon),
+            image = icon,
             type = type
         )
             .build(),
@@ -127,7 +128,7 @@ public abstract class TypedComplicationRenderer<T>(override val context: Context
     open fun renderLongText(data: T): LongTextComplicationData? = null
 
     public fun longText(
-        @DrawableRes icon: Int,
+        icon: Icon?,
         type: SmallImageType = SmallImageType.PHOTO,
         name: String,
         launchIntent: PendingIntent?
@@ -141,12 +142,16 @@ public abstract class TypedComplicationRenderer<T>(override val context: Context
         )
             .build()
     )
-        .setSmallImage(
-            SmallImage.Builder(
-                image = icon(icon),
-                type = type
-            ).build()
-        )
+        .apply {
+            if (icon != null) {
+                setSmallImage(
+                    SmallImage.Builder(
+                        image = icon,
+                        type = type
+                    ).build()
+                )
+            }
+        }
         .setTitle(
             PlainComplicationText.Builder(
                 text = name,

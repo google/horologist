@@ -20,6 +20,8 @@ import android.app.Service
 import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
 import androidx.media3.common.util.Clock
 import androidx.media3.datasource.DataSource
 import androidx.media3.datasource.cache.CacheDataSource
@@ -127,6 +129,8 @@ class PlaybackServiceContainer(
             .build().apply {
                 addListener(defaultAnalyticsCollector)
 
+                addListener(dataUpdatesListener)
+
                 if (appConfig.offloadEnabled) {
                     mediaApplicationContainer.audioOffloadManager.connect(this)
                 }
@@ -151,6 +155,10 @@ class PlaybackServiceContainer(
         MediaLibraryService.MediaLibrarySession.Builder(service, player, librarySessionCallback)
             .setSessionActivity(mediaApplicationContainer.intentBuilder.buildPlayerIntent())
             .build()
+    }
+
+    val dataUpdatesListener by lazy {
+        mediaApplicationContainer.dataUpdates.listener
     }
 
     override fun close() {

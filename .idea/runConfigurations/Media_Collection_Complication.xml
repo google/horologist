@@ -10,11 +10,15 @@
         </ChosenSlot>
         <ChosenSlot>
           <option name="id" value="2" />
+          <option name="type" value="LONG_TEXT" />
+        </ChosenSlot>
+        <ChosenSlot>
+          <option name="id" value="3" />
           <option name="type" value="SMALL_IMAGE" />
         </ChosenSlot>
       </list>
     </option>
-    <option name="componentName" value="com.google.android.horologist.mediasample.complication.MediaCollectionComplicationService" />
+    <option name="componentName" value="com.google.android.horologist.mediasample.complication.MediaStatusComplicationService" />
     <option name="installFlags" value="" />
     <option name="projectPathOnTarget" />
     <option name="selectedOptions">

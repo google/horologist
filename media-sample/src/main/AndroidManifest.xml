@@ -91,7 +91,7 @@
         </service>
 
         <service
-            android:name=".complication.MediaCollectionComplicationService"
+            android:name=".complication.MediaStatusComplicationService"
             android:exported="true"
             android:icon="@drawable/ic_uamp"
             android:label="@string/horologist_sample_media_collection"
@@ -102,7 +102,7 @@
 
             <meta-data
                 android:name="android.support.wearable.complications.SUPPORTED_TYPES"
-                android:value="SMALL_IMAGE,SHORT_TEXT" />
+                android:value="SMALL_IMAGE,SHORT_TEXT,LONG_TEXT" />
             <meta-data
                 android:name="android.support.wearable.complications.UPDATE_PERIOD_SECONDS"
                 android:value="0" />

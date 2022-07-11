@@ -18,7 +18,7 @@ package com.google.android.horologist.mediasample.di
 
 import android.app.Service
 import com.google.android.horologist.media.ui.complication.MediaComplicationService
-import com.google.android.horologist.mediasample.complication.MediaCollectionComplicationService
+import com.google.android.horologist.mediasample.complication.MediaStatusComplicationService
 import com.google.android.horologist.mediasample.components.MediaApplication
 
 /**
@@ -31,15 +31,16 @@ class ComplicationServiceContainer(
     override fun close() {
     }
 
-    fun inject(service: MediaCollectionComplicationService) {
+    fun inject(service: MediaStatusComplicationService) {
         service.intentBuilder = mediaApplicationContainer.intentBuilder
+        service.stateFlow = mediaApplicationContainer.dataUpdates.stateFlow
     }
 
     companion object {
         internal val MediaComplicationService<*>.container: ComplicationServiceContainer
-            get() = (application as MediaApplication).container.complicationServiceContainer(this)
+            get() = (application as MediaApplication).container.serviceContainer(this)
 
-        fun inject(complicationService: MediaCollectionComplicationService) {
+        fun inject(complicationService: MediaStatusComplicationService) {
             val serviceContainer = complicationService.container
 
             serviceContainer.inject(complicationService)

@@ -24,6 +24,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
+/**
+ * An application scoped coordination point for ExoPlayer and Complications/Tiles
+ * that won't to show the current player state, without using media controller.
+ */
 class DataUpdates(
     private val updater: ComplicationDataSourceUpdateRequester
 ) {

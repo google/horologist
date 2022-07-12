@@ -17,6 +17,7 @@
 package com.google.android.horologist.mediasample.complication
 
 import android.graphics.drawable.Icon
+import androidx.media3.common.MediaItem
 import androidx.wear.watchface.complications.data.ComplicationType
 import androidx.wear.watchface.complications.data.SmallImageType
 import androidx.wear.watchface.complications.datasource.ComplicationRequest
@@ -30,10 +31,12 @@ import com.google.android.horologist.tiles.complication.ComplicationTemplate
 import com.google.android.horologist.tiles.complication.DataComplicationService
 import com.google.android.horologist.tiles.images.loadImage
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.withTimeoutOrNull
+import kotlin.time.Duration.Companion.seconds
 
 /**
- * A complication provider that support small images. Upon tapping on the app icon,
- * the complication will launch the controls screen.
+ * A media complication service that shows the app name and favorites category
+ * when not playing, but switches to current media when playing.
  */
 class MediaStatusComplicationService :
     DataComplicationService<Data, ComplicationTemplate<Data>>() {
@@ -51,30 +54,42 @@ class MediaStatusComplicationService :
     override fun previewData(type: ComplicationType): Data = renderer.previewData()
 
     override suspend fun data(request: ComplicationRequest): Data {
+        println("Data")
         val state = stateFlow.value
 
         return if (state.mediaItem != null) {
-            val bitmap = imageLoader.loadImage(this, state.mediaItem.mediaMetadata.artworkUri) {
+            whilePlayingData(state.mediaItem)
+        } else {
+            notPlayingData()
+        }
+    }
+
+    private fun notPlayingData() = Data(
+        text = getString(R.string.horologist_favorites),
+        title = getString(R.string.horologist_sample_app_name),
+        appIconRes = R.drawable.ic_baseline_queue_music_24,
+        launchIntent = intentBuilder.buildPlayerIntent(),
+        type = SmallImageType.ICON,
+    )
+
+    private suspend fun whilePlayingData(mediaItem: MediaItem): Data {
+        val bitmap = withTimeoutOrNull(2.seconds) {
+            imageLoader.loadImage(
+                context = this@MediaStatusComplicationService,
+                data = mediaItem.mediaMetadata.artworkUri
+            ) {
                 size(64)
             }
-            val icon = Icon.createWithBitmap(bitmap)
-            val mediaTitle = state.mediaItem.mediaMetadata.displayTitle.toString()
-            val mediaArtist = state.mediaItem.mediaMetadata.artist.toString()
-            Data(
-                text = mediaTitle,
-                title = mediaArtist,
-                icon = icon,
-                type = SmallImageType.PHOTO,
-                launchIntent = intentBuilder.buildPlayerIntent(),
-            )
-        } else {
-            Data(
-                text = getString(R.string.horologist_favorites),
-                title = getString(R.string.horologist_sample_app_name),
-                appIconRes = R.drawable.ic_baseline_queue_music_24,
-                launchIntent = intentBuilder.buildPlayerIntent(),
-                type = SmallImageType.ICON,
-            )
         }
+        val icon = Icon.createWithBitmap(bitmap)
+        val mediaTitle = mediaItem.mediaMetadata.displayTitle.toString()
+        val mediaArtist = mediaItem.mediaMetadata.artist.toString()
+        return Data(
+            text = mediaTitle,
+            title = mediaArtist,
+            icon = icon,
+            type = SmallImageType.PHOTO,
+            launchIntent = intentBuilder.buildPlayerIntent(),
+        )
     }
 }

@@ -73,8 +73,8 @@ package com.google.android.horologist.media.data {
   }
 
   public final class PlayerStateMapper {
+    method public boolean affectsState(androidx.media3.common.Player.Events events);
     method public com.google.android.horologist.media.model.PlayerState map(androidx.media3.common.Player player);
-    method public com.google.android.horologist.media.model.PlayerState map(@androidx.media3.common.Player.State int media3PlayerState);
     field public static final com.google.android.horologist.media.data.PlayerStateMapper INSTANCE;
   }
 

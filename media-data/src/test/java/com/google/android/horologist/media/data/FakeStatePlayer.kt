@@ -113,13 +113,14 @@ class FakeStatePlayer(
 
         listeners.forEach {
             it.onEvents(
-                this, Player.Events(
-                FlagSet.Builder().addAll(
-                    EVENT_PLAYBACK_STATE_CHANGED,
-                    EVENT_PLAY_WHEN_READY_CHANGED,
-                    EVENT_MEDIA_ITEM_TRANSITION
-                ).build()
-            )
+                this,
+                Player.Events(
+                    FlagSet.Builder().addAll(
+                        EVENT_PLAYBACK_STATE_CHANGED,
+                        EVENT_PLAY_WHEN_READY_CHANGED,
+                        EVENT_MEDIA_ITEM_TRANSITION
+                    ).build()
+                )
             )
             it.onPlayWhenReadyChanged(_playWhenReady, reason)
             it.onPlaybackStateChanged(_playbackState)

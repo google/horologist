@@ -46,7 +46,7 @@ public object PlayerStateMapper {
         else -> throw IllegalArgumentException("Invalid media3 player state: $media3PlayerState")
     }
 
-    fun affectsState(events: Player.Events): Boolean {
+    public fun affectsState(events: Player.Events): Boolean {
         return events.containsAny(
             Player.EVENT_IS_LOADING_CHANGED,
             Player.EVENT_IS_PLAYING_CHANGED,

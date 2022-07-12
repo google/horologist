@@ -60,15 +60,18 @@ class MediaStatusComplicationService :
             }
             val icon = Icon.createWithBitmap(bitmap)
             val mediaTitle = state.mediaItem.mediaMetadata.displayTitle.toString()
+            val mediaArtist = state.mediaItem.mediaMetadata.artist.toString()
             MediaStatusTemplate.Data(
-                name = mediaTitle,
+                text = mediaTitle,
+                title = mediaArtist,
                 icon = icon,
                 type = SmallImageType.PHOTO,
                 launchIntent = intentBuilder.buildPlayerIntent(),
             )
         } else {
             MediaStatusTemplate.Data(
-                name = getString(R.string.horologist_favorites),
+                text = getString(R.string.horologist_favorites),
+                title = getString(R.string.horologist_sample_app_name),
                 appIconRes = R.drawable.ic_baseline_queue_music_24,
                 launchIntent = intentBuilder.buildPlayerIntent(),
                 type = SmallImageType.ICON,
@@ -103,7 +106,8 @@ fun MediaCollectionComplicationPreviewFavourites() {
     ComplicationRendererPreview(
         complicationRenderer = renderer,
         data = MediaStatusTemplate.Data(
-            name = "Favorites",
+            text = context.getString(R.string.horologist_favorites),
+            title = context.getString(R.string.horologist_sample_app_name),
             icon = icon,
             type = SmallImageType.ICON,
             launchIntent = null,
@@ -128,7 +132,8 @@ fun MediaCollectionComplicationPreviewMedia() {
     ComplicationRendererPreview(
         complicationRenderer = renderer,
         data = MediaStatusTemplate.Data(
-            name = "6 Underground",
+            text = context.getString(R.string.horologist_preview_song),
+            title = context.getString(R.string.horologist_preview_artist),
             icon = icon,
             type = SmallImageType.PHOTO,
             launchIntent = null,

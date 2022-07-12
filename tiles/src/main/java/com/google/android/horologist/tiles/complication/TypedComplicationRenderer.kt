@@ -75,14 +75,15 @@ public abstract class TypedComplicationRenderer<T>(override val context: Context
     public abstract fun renderShortText(data: T): ShortTextComplicationData?
 
     public fun shortText(
-        name: String,
+        title: String,
+        text: String,
         @DrawableRes icon: Int?,
         launchIntent: PendingIntent?
     ) = ShortTextComplicationData.Builder(
-        PlainComplicationText.Builder(name)
+        PlainComplicationText.Builder(text)
             .build(),
         PlainComplicationText.Builder(
-            text = name
+            text = text
         ).build()
     )
         .apply {
@@ -95,7 +96,7 @@ public abstract class TypedComplicationRenderer<T>(override val context: Context
         }
         .setTitle(
             PlainComplicationText.Builder(
-                text = name,
+                text = title,
             )
                 .build()
         )
@@ -130,15 +131,16 @@ public abstract class TypedComplicationRenderer<T>(override val context: Context
     public fun longText(
         icon: Icon?,
         type: SmallImageType = SmallImageType.PHOTO,
-        name: String,
+        title: String,
+        text: String,
         launchIntent: PendingIntent?
     ) = LongTextComplicationData.Builder(
         text = PlainComplicationText.Builder(
-            text = name,
+            text = text,
         )
             .build(),
         contentDescription = PlainComplicationText.Builder(
-            text = name
+            text = text
         )
             .build()
     )
@@ -154,7 +156,7 @@ public abstract class TypedComplicationRenderer<T>(override val context: Context
         }
         .setTitle(
             PlainComplicationText.Builder(
-                text = name,
+                text = title,
             )
                 .build()
         )

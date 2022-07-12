@@ -40,12 +40,14 @@ class MediaStatusTemplate(
         @DrawableRes val appIconRes: Int? = null,
         val icon: Icon? = null,
         val type: SmallImageType,
-        val name: String,
+        val title: String,
+        val text: String,
         val launchIntent: PendingIntent?
     )
 
     override fun previewData(): Data = Data(
-        name = "All",
+        title = context.getString(R.string.horologist_preview_app_name),
+        text = context.getString(R.string.horologist_preview_favorites),
         appIconRes = R.drawable.ic_baseline_queue_music_24,
         type = SmallImageType.ICON,
         launchIntent = null,
@@ -60,7 +62,8 @@ class MediaStatusTemplate(
 
     override fun renderShortText(data: Data): ShortTextComplicationData =
         shortText(
-            name = data.name,
+            title = data.title,
+            text = data.text,
             icon = data.appIconRes,
             launchIntent = data.launchIntent
         )
@@ -73,7 +76,7 @@ class MediaStatusTemplate(
         return smallImage(
                 icon = data.icon,
                 type = data.type,
-                name = data.name,
+                name = data.text,
                 launchIntent = data.launchIntent
             )
     }
@@ -82,7 +85,8 @@ class MediaStatusTemplate(
         return longText(
             icon = data.icon,
             type = data.type,
-            name = data.name,
+            title = data.title,
+            text = data.text,
             launchIntent = data.launchIntent
         )
     }

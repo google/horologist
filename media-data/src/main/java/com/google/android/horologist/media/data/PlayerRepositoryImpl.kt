@@ -97,6 +97,7 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
 
             if (events.contains(Player.EVENT_MEDIA_ITEM_TRANSITION)) {
                 _currentMediaItem.value = player.currentMediaItem?.let(MediaItemMapper::map)
+                updatePosition()
             }
 
             // Reason for handling these events here, instead of using individual callbacks
@@ -109,7 +110,7 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
                     Player.EVENT_IS_LOADING_CHANGED,
                     Player.EVENT_IS_PLAYING_CHANGED,
                     Player.EVENT_PLAYBACK_STATE_CHANGED,
-                    Player.EVENT_PLAY_WHEN_READY_CHANGED
+                    Player.EVENT_PLAY_WHEN_READY_CHANGED,
                 )
             ) {
                 updateState(player)
@@ -130,13 +131,14 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
      * [Player.getPlaybackState] and [Player.getPlayWhenReady] properties.
      */
     private fun updateState(player: Player) {
-        _currentState.value = if ((player.isPlaying || player.isLoading) && player.playWhenReady) {
-            PlayerState.Playing
-        } else if (player.isLoading) {
-            PlayerState.Loading
-        } else {
-            PlayerStateMapper.map(player.playbackState)
-        }
+        _currentState.value =
+            if ((player.playbackState == Player.STATE_BUFFERING || player.playbackState == Player.STATE_READY) && player.playWhenReady) {
+                PlayerState.Playing
+            } else if (player.isLoading) {
+                PlayerState.Loading
+            } else {
+                PlayerStateMapper.map(player.playbackState)
+            }
 
         Log.d(TAG, "Player state changed to ${_currentState.value}")
     }

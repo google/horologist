@@ -17,7 +17,6 @@
 package com.google.android.horologist.media.data
 
 import android.util.Log
-import androidx.media3.common.C
 import androidx.media3.common.PlaybackParameters
 import androidx.media3.common.Player
 import com.google.android.horologist.media.model.Command
@@ -29,7 +28,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.io.Closeable
 import kotlin.time.Duration
-import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
@@ -97,21 +95,16 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
 
             if (events.contains(Player.EVENT_MEDIA_ITEM_TRANSITION)) {
                 _currentMediaItem.value = player.currentMediaItem?.let(MediaItemMapper::map)
+                updatePosition()
             }
 
             // Reason for handling these events here, instead of using individual callbacks
-            // (onIsLoadingChanged, onIsPlayingChanged, onPlaybackStateChanged):
+            // (onIsLoadingChanged, onIsPlayingChanged, onPlaybackStateChanged, etc):
             // - The listener intends to use multiple state values that are reported through
             //   separate callbacks together, or in combination with Player getter methods
             // Reference:
             // https://exoplayer.dev/listening-to-player-events.html#individual-callbacks-vs-onevents
-            if (events.containsAny(
-                    Player.EVENT_IS_LOADING_CHANGED,
-                    Player.EVENT_IS_PLAYING_CHANGED,
-                    Player.EVENT_PLAYBACK_STATE_CHANGED,
-                    Player.EVENT_PLAY_WHEN_READY_CHANGED
-                )
-            ) {
+            if (PlayerStateMapper.affectsState(events)) {
                 updateState(player)
             }
         }
@@ -130,13 +123,7 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
      * [Player.getPlaybackState] and [Player.getPlayWhenReady] properties.
      */
     private fun updateState(player: Player) {
-        _currentState.value = if ((player.isPlaying || player.isLoading) && player.playWhenReady) {
-            PlayerState.Playing
-        } else if (player.isLoading) {
-            PlayerState.Loading
-        } else {
-            PlayerStateMapper.map(player.playbackState)
-        }
+        _currentState.value = PlayerStateMapper.map(player)
 
         Log.d(TAG, "Player state changed to ${_currentState.value}")
     }
@@ -357,25 +344,11 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
      * Updating roughly once a second while activity is foregrounded is appropriate.
      */
     public fun updatePosition() {
-        player.value.updatePosition()
+        _mediaItemPosition.value = MediaItemPositionMapper.map(player.value)
     }
 
     public fun setPlaybackSpeed(speed: Float) {
         player.value?.setPlaybackSpeed(speed)
-    }
-
-    private fun Player?.updatePosition() {
-        _mediaItemPosition.value = if (this == null) {
-            null
-        } else if (duration == C.TIME_UNSET) {
-            MediaItemPosition.UnknownDuration(currentPosition.milliseconds)
-        } else {
-            MediaItemPosition.create(
-                current = currentPosition.milliseconds,
-                // Ensure progress is max 100%, even given faulty media metadata
-                duration = (duration.coerceAtLeast(currentPosition)).milliseconds
-            )
-        }
     }
 
     private fun checkNotClosed() {

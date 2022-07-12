@@ -18,8 +18,6 @@ package com.google.android.horologist.media.data
 
 import android.content.Context
 import android.os.Looper.getMainLooper
-import androidx.media3.common.C
-import androidx.media3.common.ForwardingPlayer
 import androidx.media3.common.Player
 import androidx.media3.test.utils.TestExoPlayerBuilder
 import androidx.media3.test.utils.robolectric.TestPlayerRunHelper.playUntilPosition
@@ -324,9 +322,7 @@ class PlayerRepositoryImplTest {
     fun `given seek increment when getSeekBackIncrement then correct value is returned`() {
         // given
         val seekIncrement = 1234L
-        val player = TestExoPlayerBuilder(context)
-            .setSeekBackIncrementMs(seekIncrement)
-            .build()
+        val player = TestExoPlayerBuilder(context).setSeekBackIncrementMs(seekIncrement).build()
         sut.connect(player) {}
 
         // when
@@ -340,9 +336,7 @@ class PlayerRepositoryImplTest {
     fun `given seek increment when getSeekForwardIncrement then correct value is returned`() {
         // given
         val seekIncrement = 1234L
-        val player = TestExoPlayerBuilder(context)
-            .setSeekForwardIncrementMs(seekIncrement)
-            .build()
+        val player = TestExoPlayerBuilder(context).setSeekForwardIncrementMs(seekIncrement).build()
         sut.connect(player) {}
 
         // when
@@ -543,7 +537,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isNull()
+        assertThat(sut.mediaItemPosition.value).isEqualTo(MediaItemPosition.UnknownDuration(0.seconds))
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -598,7 +592,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isNull()
+        assertThat(sut.mediaItemPosition.value).isEqualTo(MediaItemPosition.UnknownDuration(0.seconds))
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -872,8 +866,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.mediaItemPosition.value).isInstanceOf(MediaItemPosition.KnownDuration::class.java)
         val expectedMediaItemPosition =
             MediaItemPosition.create(current = 1020.milliseconds, duration = 1022.milliseconds)
-        val actualMediaItemPosition =
-            sut.mediaItemPosition.value as MediaItemPosition.KnownDuration
+        val actualMediaItemPosition = sut.mediaItemPosition.value as MediaItemPosition.KnownDuration
         // TODO these checks can be simplified to `assertThat().isEqualTo()` once horologist implements equals for MediaItemPosition.KnownDuration
         assertThat(actualMediaItemPosition.current).isEqualTo(expectedMediaItemPosition.current)
         assertThat(actualMediaItemPosition.duration).isEqualTo(expectedMediaItemPosition.duration)
@@ -924,67 +917,6 @@ class PlayerRepositoryImplTest {
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
-    }
-
-    private fun buildFakePositionPlayer(
-        _currentPosition: Long = 0L,
-        _duration: Long = C.TIME_UNSET
-    ): Player {
-        val player = TestExoPlayerBuilder(context).build()
-        return object : ForwardingPlayer(player) {
-            override fun getCurrentPosition(): Long {
-                return _currentPosition
-            }
-
-            override fun getDuration(): Long {
-                return _duration
-            }
-        }
-    }
-
-    @Test
-    fun `position is null when player is not set`() {
-        sut.updatePosition()
-
-        assertThat(sut.mediaItemPosition.value).isNull()
-    }
-
-    @Test
-    fun `position is handled when duration is unknown`() {
-        val player = buildFakePositionPlayer(10L, C.TIME_UNSET)
-
-        sut.connect(player, onClose = {})
-        sut.updatePosition()
-
-        val position = sut.mediaItemPosition.value as MediaItemPosition.UnknownDuration
-
-        assertThat(position.current).isEqualTo(10.milliseconds)
-    }
-
-    @Test
-    fun `position is corrected when beyond duration`() {
-        val player = buildFakePositionPlayer(100L, 99L)
-
-        sut.connect(player, onClose = {})
-        sut.updatePosition()
-
-        val position = sut.mediaItemPosition.value as MediaItemPosition.KnownDuration
-
-        assertThat(position.current).isEqualTo(100.milliseconds)
-        assertThat(position.duration).isEqualTo(100.milliseconds)
-    }
-
-    @Test
-    fun `position is sensible in normal case`() {
-        val player = buildFakePositionPlayer(100L, 1000L)
-
-        sut.connect(player, onClose = {})
-        sut.updatePosition()
-
-        val position = sut.mediaItemPosition.value as MediaItemPosition.KnownDuration
-
-        assertThat(position.current).isEqualTo(100.milliseconds)
-        assertThat(position.duration).isEqualTo(1000.milliseconds)
     }
 
     private fun getDummyMediaItem() = MediaItem(

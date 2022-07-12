@@ -16,6 +16,4 @@
 
 <resources>
     <string name="horologist_cant_play_item">Can\'t play item</string>
-    <string name="horologist_sample_name">Sample App</string>
-    <string name="horologist_play">Play</string>
 </resources>

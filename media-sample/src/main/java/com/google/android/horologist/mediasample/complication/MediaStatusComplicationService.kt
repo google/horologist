@@ -54,7 +54,6 @@ class MediaStatusComplicationService :
     override fun previewData(type: ComplicationType): Data = renderer.previewData()
 
     override suspend fun data(request: ComplicationRequest): Data {
-        println("Data")
         val state = stateFlow.value
 
         return if (state.mediaItem != null) {

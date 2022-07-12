@@ -17,7 +17,6 @@
 package com.google.android.horologist.media.data
 
 import android.util.Log
-import androidx.media3.common.C
 import androidx.media3.common.PlaybackParameters
 import androidx.media3.common.Player
 import com.google.android.horologist.media.model.Command
@@ -29,7 +28,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.io.Closeable
 import kotlin.time.Duration
-import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
@@ -131,14 +129,7 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
      * [Player.getPlaybackState] and [Player.getPlayWhenReady] properties.
      */
     private fun updateState(player: Player) {
-        _currentState.value =
-            if ((player.playbackState == Player.STATE_BUFFERING || player.playbackState == Player.STATE_READY) && player.playWhenReady) {
-                PlayerState.Playing
-            } else if (player.isLoading) {
-                PlayerState.Loading
-            } else {
-                PlayerStateMapper.map(player.playbackState)
-            }
+        _currentState.value = PlayerStateMapper.map(player)
 
         Log.d(TAG, "Player state changed to ${_currentState.value}")
     }
@@ -359,25 +350,11 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
      * Updating roughly once a second while activity is foregrounded is appropriate.
      */
     public fun updatePosition() {
-        player.value.updatePosition()
+        _mediaItemPosition.value = MediaItemPositionMapper.map(player.value)
     }
 
     public fun setPlaybackSpeed(speed: Float) {
         player.value?.setPlaybackSpeed(speed)
-    }
-
-    private fun Player?.updatePosition() {
-        _mediaItemPosition.value = if (this == null) {
-            null
-        } else if (duration == C.TIME_UNSET) {
-            MediaItemPosition.UnknownDuration(currentPosition.milliseconds)
-        } else {
-            MediaItemPosition.create(
-                current = currentPosition.milliseconds,
-                // Ensure progress is max 100%, even given faulty media metadata
-                duration = (duration.coerceAtLeast(currentPosition)).milliseconds
-            )
-        }
     }
 
     private fun checkNotClosed() {

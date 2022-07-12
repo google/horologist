@@ -21,10 +21,9 @@ import androidx.wear.watchface.complications.data.ComplicationData
 import androidx.wear.watchface.complications.data.ComplicationType
 
 /**
- * A complication provider that support small images. Upon tapping on the app icon,
- * the complication will launch the controls screen.
+ * A complication renderer from Data to any of the supported types.
  */
-public interface ComplicationRenderer<D> {
+public interface ComplicationTemplate<D> {
     public val context: Context
 
     public fun render(type: ComplicationType, data: D): ComplicationData

@@ -20,8 +20,6 @@ import android.app.Service
 import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
-import androidx.media3.common.MediaItem
-import androidx.media3.common.Player
 import androidx.media3.common.util.Clock
 import androidx.media3.datasource.DataSource
 import androidx.media3.datasource.cache.CacheDataSource

@@ -17,7 +17,6 @@
 package com.google.android.horologist.mediasample.di
 
 import android.app.Service
-import com.google.android.horologist.media.ui.complication.MediaComplicationService
 import com.google.android.horologist.mediasample.complication.MediaStatusComplicationService
 import com.google.android.horologist.mediasample.components.MediaApplication
 
@@ -38,7 +37,7 @@ class ComplicationServiceContainer(
     }
 
     companion object {
-        internal val MediaComplicationService<*>.container: ComplicationServiceContainer
+        internal val MediaStatusComplicationService.container: ComplicationServiceContainer
             get() = (application as MediaApplication).container.serviceContainer(this)
 
         fun inject(complicationService: MediaStatusComplicationService) {

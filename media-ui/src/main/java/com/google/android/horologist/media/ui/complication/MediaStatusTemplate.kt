@@ -20,29 +20,26 @@ import android.app.PendingIntent
 import android.content.Context
 import android.graphics.drawable.Icon
 import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.wear.watchface.complications.data.ComplicationType
-import androidx.wear.watchface.complications.data.EmptyComplicationData
 import androidx.wear.watchface.complications.data.LongTextComplicationData
-import androidx.wear.watchface.complications.data.NoDataComplicationData
 import androidx.wear.watchface.complications.data.ShortTextComplicationData
 import androidx.wear.watchface.complications.data.SmallImageComplicationData
 import androidx.wear.watchface.complications.data.SmallImageType
 import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.tiles.complication.TypedComplicationRenderer
+import com.google.android.horologist.tiles.complication.TypedComplicationTemplate
 
-class MediaStatusTemplate(
+public class MediaStatusTemplate(
     context: Context,
 ) :
-    TypedComplicationRenderer<MediaStatusTemplate.Data>(context) {
+    TypedComplicationTemplate<MediaStatusTemplate.Data>(context) {
 
-    data class Data(
-        @DrawableRes val appIconRes: Int? = null,
-        val icon: Icon? = null,
-        val type: SmallImageType,
-        val title: String,
-        val text: String,
-        val launchIntent: PendingIntent?
+    public data class Data(
+        @DrawableRes public val appIconRes: Int? = null,
+        public val icon: Icon? = null,
+        public val type: SmallImageType,
+        public val title: String,
+        public val text: String,
+        public val launchIntent: PendingIntent?
     )
 
     override fun previewData(): Data = Data(
@@ -74,11 +71,11 @@ class MediaStatusTemplate(
         }
 
         return smallImage(
-                icon = data.icon,
-                type = data.type,
-                name = data.text,
-                launchIntent = data.launchIntent
-            )
+            icon = data.icon,
+            type = data.type,
+            name = data.text,
+            launchIntent = data.launchIntent
+        )
     }
 
     override fun renderLongText(data: Data): LongTextComplicationData {

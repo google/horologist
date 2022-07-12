@@ -22,10 +22,11 @@ import androidx.wear.watchface.complications.datasource.ComplicationRequest
 import androidx.wear.watchface.complications.datasource.SuspendingComplicationDataSourceService
 
 /**
- * A complication provider that support small images. Upon tapping on the app icon,
- * the complication will launch the controls screen.
+ * A complication service based on a [ComplicationTemplate].
+ * The implementation is effectively two parts, first creating some simple data model
+ * using a suspending [data] function. Then a render phase.
  */
-public abstract class DataComplicationService<D, R : ComplicationRenderer<D>> :
+public abstract class DataComplicationService<D, R : ComplicationTemplate<D>> :
     SuspendingComplicationDataSourceService() {
     public abstract val renderer: R
 
@@ -43,7 +44,7 @@ public abstract class DataComplicationService<D, R : ComplicationRenderer<D>> :
         return render(type, data)
     }
 
-    fun render(type: ComplicationType, data: D): ComplicationData {
+    public fun render(type: ComplicationType, data: D): ComplicationData {
         return renderer.render(type, data)
     }
 }

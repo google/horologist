@@ -34,7 +34,6 @@ import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.media.data.PlayerRepositoryImpl
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media3.audio.AudioOutputSelector
-import com.google.android.horologist.media.ui.complication.MediaComplicationService
 import com.google.android.horologist.media3.config.WearMedia3Factory
 import com.google.android.horologist.media3.navigation.NavDeepLinkIntentBuilder
 import com.google.android.horologist.media3.offload.AudioOffloadManager
@@ -154,7 +153,7 @@ class MediaApplicationContainer(
         }
     }
 
-    internal fun serviceContainer(service: MediaComplicationService<*>): ComplicationServiceContainer {
+    internal fun serviceContainer(service: MediaStatusComplicationService): ComplicationServiceContainer {
         return ComplicationServiceContainer(this, service)
     }
 
@@ -183,15 +182,18 @@ class MediaApplicationContainer(
     }
 
     val dataUpdates by lazy {
-        val updater = ComplicationDataSourceUpdateRequester.create(application, ComponentName(
-            application, MediaStatusComplicationService::class.java
-        ))
+        val updater = ComplicationDataSourceUpdateRequester.create(
+            application,
+            ComponentName(
+                application, MediaStatusComplicationService::class.java
+            )
+        )
         DataUpdates(updater)
     }
 
     // Confusingly the result of allowThreadDiskWrites is the old policy,
-// while allow* methods immediately apply the change.
-// So `this` is the policy before we overrode it.
+    // while allow* methods immediately apply the change.
+    // So `this` is the policy before we overrode it.
     fun <R> StrictMode.ThreadPolicy.resetAfter(block: () -> R) = try {
         block()
     } finally {

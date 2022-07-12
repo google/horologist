@@ -98,6 +98,15 @@ public class AudioOffloadManager(
             ) {
                 _format.value = format
             }
+
+//            override fun onAudioSinkError(
+//                eventTime: AnalyticsListener.EventTime,
+//                audioSinkError: Exception
+//            ) {
+//                val cause = audioSinkError.cause
+//                errorReporter.logMessage("audioSinkError $audioSinkError $cause")
+//                audioSinkError.printStackTrace()
+//            }
         }
     }
 

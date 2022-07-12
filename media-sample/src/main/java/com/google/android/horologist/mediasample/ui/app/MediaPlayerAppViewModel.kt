@@ -18,6 +18,7 @@ package com.google.android.horologist.mediasample.ui.app
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.horologist.media.model.MediaItem
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
@@ -113,6 +114,7 @@ class MediaPlayerAppViewModel @Inject constructor(
                 val mediaItems = uampService.catalog().music.map {
                     it.toMediaItem()
                 }
+//                val mediaItems = GaplessSamples
 
                 playerRepository.setMediaItems(mediaItems)
                 playerRepository.prepare()
@@ -170,5 +172,20 @@ class MediaPlayerAppViewModel @Inject constructor(
     private suspend fun waitForConnection() {
         // setMediaItems is a noop before this point
         playerRepository.connected.filter { it }.first()
+    }
+
+    companion object {
+        val GaplessSamples = listOf(
+            "https://www2.iis.fraunhofer.de/AAC/gapless-sweep_part1_iis.m4a",
+            "https://www2.iis.fraunhofer.de/AAC/gapless-sweep_part2_iis.m4a"
+        ).mapIndexed { i, it ->
+            MediaItem(
+                id = i.toString(),
+                uri = it,
+                title = "Track $i",
+                artist = "fraunhofer",
+                artworkUri = "https://www2.iis.fraunhofer.de/AAC/logo-fraunhofer.gif",
+            )
+        }
     }
 }

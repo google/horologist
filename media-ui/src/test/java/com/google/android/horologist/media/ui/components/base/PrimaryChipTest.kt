@@ -47,10 +47,13 @@ class PrimaryChipTest {
     )
 
     @Test
-    fun withPrimaryLabel() {
+    fun default() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChip(label = "Primary label", onClick = { })
+                StandardChip(
+                    label = "Primary label",
+                    onClick = { }
+                )
             }
         }
     }
@@ -75,23 +78,6 @@ class PrimaryChipTest {
                 StandardChip(
                     label = "Primary label",
                     onClick = { },
-                    icon = "iconUri",
-                    placeholder = rememberVectorPainter(
-                        image = Icons.Default.Add,
-                        tintColor = Color.Black,
-                    )
-                )
-            }
-        }
-    }
-
-    @Test
-    fun withImageVectorAsIcon() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChip(
-                    label = "Primary label",
-                    onClick = { },
                     icon = Icons.Default.Add,
                 )
             }
@@ -105,12 +91,8 @@ class PrimaryChipTest {
                 StandardChip(
                     label = "Primary label",
                     onClick = { },
-                    icon = "iconUri",
+                    icon = Icon32dp,
                     largeIcon = true,
-                    placeholder = rememberVectorPainter(
-                        image = Icon32dp,
-                        tintColor = Color.Black,
-                    )
                 )
             }
         }
@@ -124,11 +106,7 @@ class PrimaryChipTest {
                     label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
-                    icon = "iconUri",
-                    placeholder = rememberVectorPainter(
-                        image = Icons.Default.Add,
-                        tintColor = Color.Black,
-                    )
+                    icon = Icons.Default.Add,
                 )
             }
         }
@@ -142,12 +120,8 @@ class PrimaryChipTest {
                     label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
-                    icon = "iconUri",
+                    icon = Icon32dp,
                     largeIcon = true,
-                    placeholder = rememberVectorPainter(
-                        image = Icon32dp,
-                        tintColor = Color.Black,
-                    )
                 )
             }
         }
@@ -161,11 +135,7 @@ class PrimaryChipTest {
                     label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
-                    icon = "iconUri",
-                    placeholder = rememberVectorPainter(
-                        image = Icons.Default.Add,
-                        tintColor = Color.Black,
-                    ),
+                    icon = Icons.Default.Add,
                     enabled = false,
                 )
             }
@@ -192,11 +162,7 @@ class PrimaryChipTest {
                     label = "Primary label very very very very very very very very long text",
                     onClick = { },
                     secondaryLabel = "Secondary label very very very very very very very very very long text",
-                    icon = "iconUri",
-                    placeholder = rememberVectorPainter(
-                        image = Icons.Default.Add,
-                        tintColor = Color.Black,
-                    ),
+                    icon = Icons.Default.Add,
                 )
             }
         }
@@ -209,11 +175,7 @@ class PrimaryChipTest {
                 StandardChip(
                     label = "Primary label",
                     onClick = { },
-                    icon = "iconUri",
-                    placeholder = rememberVectorPainter(
-                        image = Icon12dp,
-                        tintColor = Color.Black,
-                    )
+                    icon = Icon12dp,
                 )
             }
         }
@@ -226,12 +188,8 @@ class PrimaryChipTest {
                 StandardChip(
                     label = "Primary label",
                     onClick = { },
-                    icon = "iconUri",
+                    icon = Icon12dp,
                     largeIcon = true,
-                    placeholder = rememberVectorPainter(
-                        image = Icon12dp,
-                        tintColor = Color.Black,
-                    )
                 )
             }
         }
@@ -244,11 +202,7 @@ class PrimaryChipTest {
                 StandardChip(
                     label = "Primary label",
                     onClick = { },
-                    icon = "iconUri",
-                    placeholder = rememberVectorPainter(
-                        image = Icon48dp,
-                        tintColor = Color.Black,
-                    )
+                    icon = Icon48dp,
                 )
             }
         }
@@ -261,12 +215,40 @@ class PrimaryChipTest {
                 StandardChip(
                     label = "Primary label",
                     onClick = { },
-                    icon = "iconUri",
+                    icon = Icon48dp,
                     largeIcon = true,
+                )
+            }
+        }
+    }
+
+    @Test
+    fun withPlaceholderIcon() {
+        paparazzi.snapshot {
+            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
+                StandardChip(
+                    label = "Primary label",
+                    onClick = { },
+                    icon = Icons.Default.Add,
+                )
+            }
+        }
+    }
+
+    @Test
+    fun disabledWithIconPlaceholder() {
+        paparazzi.snapshot {
+            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
+                StandardChip(
+                    label = "Primary label",
+                    onClick = { },
+                    secondaryLabel = "Secondary label",
+                    icon = "iconUri",
                     placeholder = rememberVectorPainter(
-                        image = Icon48dp,
+                        image = Icons.Default.Add,
                         tintColor = Color.Black,
-                    )
+                    ),
+                    enabled = false,
                 )
             }
         }

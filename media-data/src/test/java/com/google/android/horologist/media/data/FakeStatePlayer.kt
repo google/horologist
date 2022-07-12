@@ -16,17 +16,23 @@
 
 package com.google.android.horologist.media.data
 
+import androidx.media3.common.AdPlaybackState
 import androidx.media3.common.C
 import androidx.media3.common.FlagSet
+import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.Player.Listener
+import androidx.media3.common.Timeline
+import androidx.media3.test.utils.FakeTimeline
 import androidx.media3.test.utils.StubPlayer
+import com.google.common.collect.ImmutableList
 
-class FakePlayer(
+class FakeStatePlayer(
     var _currentPosition: Long = 0L,
     var _duration: Long = C.TIME_UNSET,
     var _playbackState: Int = STATE_IDLE,
-    var _playWhenReady: Boolean = false
+    var _playWhenReady: Boolean = false,
+    var _currentMediaItem: MediaItem? = null
 ) : StubPlayer() {
     private val listeners = mutableListOf<Listener>()
 
@@ -35,37 +41,64 @@ class FakePlayer(
         super.addListener(listener)
     }
 
-    override fun getCurrentPosition(): Long {
-        return _currentPosition
-    }
+    override fun getCurrentPosition(): Long = _currentPosition
 
     override fun getDuration(): Long {
         return _duration
     }
 
-    override fun getPlaybackState(): Int {
-        return _playbackState
-    }
+    override fun getPlaybackState(): Int = _playbackState
 
     override fun setPlayWhenReady(playWhenReady: Boolean) {
         _playWhenReady = playWhenReady
     }
 
-    override fun getPlayWhenReady(): Boolean {
-        return _playWhenReady
+    override fun getPlayWhenReady(): Boolean = _playWhenReady
+
+    override fun getCurrentTimeline(): Timeline {
+        val currentMediaItem = _currentMediaItem
+        if (currentMediaItem == null) {
+            return FakeTimeline()
+        } else {
+            return FakeTimeline(
+                FakeTimeline.TimelineWindowDefinition(
+                    /* periodCount= */ 1,
+                    /* id= */ 1,
+                    /* isSeekable= */ true,
+                    /* isDynamic= */ false,
+                    /* isLive= */ false,
+                    /* isPlaceholder= */ false,
+                    /* durationUs= */ 1000 * C.MICROS_PER_SECOND,
+                    /* defaultPositionUs= */ 2 * C.MICROS_PER_SECOND,
+                    /* windowOffsetInFirstPeriodUs= */ 123456789,
+                    ImmutableList.of(AdPlaybackState.NONE),
+                    currentMediaItem
+                )
+            )
+        }
     }
+
+    override fun getCurrentMediaItemIndex(): Int = 0
 
     fun overridePosition(
         currentPosition: Long = 0L,
         duration: Long = C.TIME_UNSET,
+        currentMediaItem: MediaItem? = null
     ) {
         _currentPosition = currentPosition
         _duration = duration
+        _currentMediaItem = currentMediaItem
 
         listeners.forEach {
             it.onEvents(
                 this,
-                Player.Events(FlagSet.Builder().add(EVENT_MEDIA_ITEM_TRANSITION).build())
+                Player.Events(
+                    FlagSet.Builder().addAll(
+                        EVENT_MEDIA_ITEM_TRANSITION,
+                        EVENT_MEDIA_ITEM_TRANSITION,
+                        EVENT_MEDIA_METADATA_CHANGED
+                    ).build()
+                )
             )
         }
     }
@@ -80,11 +113,13 @@ class FakePlayer(
 
         listeners.forEach {
             it.onEvents(
-                this,
-                Player.Events(
-                    FlagSet.Builder()
-                        .addAll(EVENT_PLAYBACK_STATE_CHANGED, EVENT_PLAY_WHEN_READY_CHANGED).build()
-                )
+                this, Player.Events(
+                FlagSet.Builder().addAll(
+                    EVENT_PLAYBACK_STATE_CHANGED,
+                    EVENT_PLAY_WHEN_READY_CHANGED,
+                    EVENT_MEDIA_ITEM_TRANSITION
+                ).build()
+            )
             )
             it.onPlayWhenReadyChanged(_playWhenReady, reason)
             it.onPlaybackStateChanged(_playbackState)

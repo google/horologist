@@ -17,13 +17,14 @@
 package com.google.android.horologist.media.data
 
 import androidx.media3.common.C
+import androidx.media3.common.MediaItem
 import com.google.android.horologist.media.model.MediaItemPosition
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import kotlin.time.Duration.Companion.milliseconds
 
 class MediaItemPositionMapperTest {
-    val fakePlayer = FakePlayer()
+    val fakeStatePlayer = FakeStatePlayer()
 
     @Test
     fun `check position calculations null`() {
@@ -53,12 +54,14 @@ class MediaItemPositionMapperTest {
 
     private fun mediaItemPosition(
         currentPosition: Long,
-        duration: Long
+        duration: Long,
+        currentMediaItem: MediaItem? = null
     ): MediaItemPosition? {
-        fakePlayer.overridePosition(
+        fakeStatePlayer.overridePosition(
             currentPosition = currentPosition,
-            duration = duration
+            duration = duration,
+            currentMediaItem = currentMediaItem
         )
-        return MediaItemPositionMapper.map(fakePlayer)
+        return MediaItemPositionMapper.map(fakeStatePlayer)
     }
 }

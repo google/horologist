@@ -22,7 +22,7 @@ import com.google.android.horologist.media.model.MediaItemPosition
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
- * Maps a [Media3 player][Player] into a [MediaItemPosition].
+ * Maps a [Media3 player][Player] position into a [MediaItemPosition].
  */
 public object MediaItemPositionMapper {
     public fun map(player: Player?): MediaItemPosition? {

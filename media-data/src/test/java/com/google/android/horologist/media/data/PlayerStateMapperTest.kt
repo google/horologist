@@ -22,7 +22,7 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
 class PlayerStateMapperTest {
-    val fakePlayer = FakePlayer()
+    val fakeStatePlayer = FakeStatePlayer()
 
     @Test
     fun `check playback state while playing`() {
@@ -45,10 +45,10 @@ class PlayerStateMapperTest {
     }
 
     private fun mapPlayerState(playbackState: Int, playWhenReady: Boolean): PlayerState {
-        fakePlayer.overrideState(
+        fakeStatePlayer.overrideState(
             playbackState = playbackState,
             playWhenReady = playWhenReady
         )
-        return PlayerStateMapper.map(fakePlayer)
+        return PlayerStateMapper.map(fakeStatePlayer)
     }
 }

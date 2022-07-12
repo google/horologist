@@ -99,18 +99,12 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
             }
 
             // Reason for handling these events here, instead of using individual callbacks
-            // (onIsLoadingChanged, onIsPlayingChanged, onPlaybackStateChanged):
+            // (onIsLoadingChanged, onIsPlayingChanged, onPlaybackStateChanged, etc):
             // - The listener intends to use multiple state values that are reported through
             //   separate callbacks together, or in combination with Player getter methods
             // Reference:
             // https://exoplayer.dev/listening-to-player-events.html#individual-callbacks-vs-onevents
-            if (events.containsAny(
-                    Player.EVENT_IS_LOADING_CHANGED,
-                    Player.EVENT_IS_PLAYING_CHANGED,
-                    Player.EVENT_PLAYBACK_STATE_CHANGED,
-                    Player.EVENT_PLAY_WHEN_READY_CHANGED,
-                )
-            ) {
+            if (PlayerStateMapper.affectsState(events)) {
                 updateState(player)
             }
         }

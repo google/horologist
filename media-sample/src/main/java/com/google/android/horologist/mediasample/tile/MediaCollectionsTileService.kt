@@ -37,8 +37,8 @@ import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
 import com.google.android.horologist.media.ui.tiles.toTileColors
 import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.mediasample.catalog.UampService
 import com.google.android.horologist.mediasample.components.MediaActivity
+import com.google.android.horologist.mediasample.data.api.UampService
 import com.google.android.horologist.mediasample.di.ServiceContainer
 import com.google.android.horologist.mediasample.ui.app.UampColors
 import com.google.android.horologist.tiles.CoroutinesTileService

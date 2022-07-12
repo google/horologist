@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.domain
+package com.google.android.horologist.mediasample.domain.model
 
 data class Settings(
     val showTimeTextInfo: Boolean = false,

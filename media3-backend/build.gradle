@@ -94,13 +94,13 @@ dependencies {
     implementation projects.audio
     implementation projects.media
     implementation libs.kotlinx.coroutines.core
-    api libs.androidx.media3.common
+    api project(":media-lib-common")
     api libs.androidx.annotation
-    api libs.androidx.media3.exoplayer
-    api libs.androidx.media3.exoplayerdash
-    api libs.androidx.media3.exoplayerhls
-    api libs.androidx.media3.exoplayerrtsp
-    api libs.androidx.media3.session
+    api project(":media-lib-exoplayer")
+    api project(":media-lib-exoplayer-dash")
+    api project(":media-lib-exoplayer-hls")
+    api project(":media-lib-exoplayer-rtsp")
+    api project(":media-lib-session")
     implementation libs.androidx.lifecycle.process
     implementation libs.kotlinx.coroutines.guava
     implementation libs.androidx.corektx
@@ -111,8 +111,8 @@ dependencies {
     testImplementation libs.androidx.test.ext.ktx
     testImplementation libs.kotlinx.coroutines.test
     testImplementation libs.robolectric
-    testImplementation libs.androidx.media3.testutils
-    testImplementation libs.androidx.media3.testutils.robolectric
+    testImplementation project(":media-test-utils")
+    testImplementation project(":media-test-utils-robolectric")
 }
 
 apply plugin: "com.vanniktech.maven.publish"

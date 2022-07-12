@@ -45,11 +45,15 @@ import com.google.android.horologist.mediasample.components.MediaActivity
 import com.google.android.horologist.mediasample.components.MediaApplication
 import com.google.android.horologist.mediasample.components.PlaybackService
 import com.google.android.horologist.mediasample.data.api.UampService
+import com.google.android.horologist.mediasample.data.datasource.PlaylistRemoteDataSource
+import com.google.android.horologist.mediasample.data.repository.PlaylistRepositoryImpl
+import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.system.Logging
 import com.google.android.horologist.mediasample.tile.MediaCollectionsTileService
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.status.NetworkRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -191,6 +195,22 @@ class MediaApplicationContainer(
         DataUpdates(updater)
     }
 
+    fun getPlaylistRepository(playlistRepositoryImpl: PlaylistRepositoryImpl): PlaylistRepository =
+        playlistRepositoryImpl
+
+    fun getPlaylistRepositoryImpl(playlistRemoteDataSource: PlaylistRemoteDataSource): PlaylistRepositoryImpl =
+        PlaylistRepositoryImpl(playlistRemoteDataSource = playlistRemoteDataSource)
+
+    fun getPlaylistRemoteDataSource(
+        ioDispatcher: CoroutineDispatcher,
+        uampService: UampService,
+    ): PlaylistRemoteDataSource = PlaylistRemoteDataSource(
+        ioDispatcher = ioDispatcher,
+        uampService = uampService
+    )
+
+    fun getIODispatcher(): CoroutineDispatcher = Dispatchers.IO
+
     // Confusingly the result of allowThreadDiskWrites is the old policy,
     // while allow* methods immediately apply the change.
     // So `this` is the policy before we overrode it.
@@ -224,5 +244,6 @@ class MediaApplicationContainer(
         val SystemAudioRepositoryKey = object : CreationExtras.Key<SystemAudioRepository> {}
         val VibratorKey = object : CreationExtras.Key<Vibrator> {}
         val SettingsRepositoryKey = object : CreationExtras.Key<SettingsRepository> {}
+        val PlaylistRepositoryKey = object : CreationExtras.Key<PlaylistRepository> {}
     }
 }

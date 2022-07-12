@@ -20,65 +20,68 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.google.android.horologist.media.model.MediaItem
 import com.google.android.horologist.media.repository.PlayerRepository
-import com.google.android.horologist.media.ui.snackbar.SnackbarManager
-import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
-import com.google.android.horologist.media.ui.snackbar.UiMessage
-import com.google.android.horologist.media.ui.state.mapper.MediaItemUiModelMapper
-import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
-import com.google.android.horologist.mediasample.data.api.UampService
+import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
+import com.google.android.horologist.mediasample.domain.PlaylistRepository
+import com.google.android.horologist.mediasample.domain.SettingsRepository
+import com.google.android.horologist.mediasample.domain.model.Playlist
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import java.io.IOException
 
 class UampPlaylistsScreenViewModel(
-    uampService: UampService,
+    private val playlistRepository: PlaylistRepository,
     private val playerRepository: PlayerRepository,
-    private val snackbarManager: SnackbarManager
+    private val settingsRepository: SettingsRepository,
 ) : ViewModel() {
-    fun play(mediaItemUiModel: MediaItemUiModel) {
-        val mediaItems = items.value
 
-        if (mediaItems != null) {
-            playerRepository.setMediaItems(mediaItems)
-            playerRepository.prepare()
-            playerRepository.play(
-                mediaItems.indexOfFirst { it.id == mediaItemUiModel.id }
-                    .coerceAtLeast(0)
+    private val playlists: StateFlow<List<Playlist>?> = playlistRepository.getPlaylists()
+        .stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = null)
+
+    val uiState = combine(playlists, settingsRepository.settingsFlow) { playlists, settings ->
+        Pair(playlists, settings)
+    }.map { result ->
+        val playlistList = result.first
+        val settings = result.second
+
+        if (playlistList != null) {
+            UiState.Loaded(
+                playlistList.map {
+                    PlaylistUiModelMapper.map(
+                        playlist = it,
+                        shouldMapArtworkUri = settings.showArtworkOnChip
+                    )
+                }
             )
+        } else {
+            // it should only be null in the initial state
+            UiState.Loading
+        }
+    }.stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = UiState.Loading)
+
+    fun play(playlistId: String) {
+        val playlistList = playlists.value
+
+        if (playlistList != null) {
+            val playlist = playlistList.find { it.id == playlistId }
+                ?: playlistList.first()
+
+            playerRepository.setMediaItems(playlist.mediaItems)
+            playerRepository.prepare()
+            playerRepository.play()
         } else {
             // TODO warning
         }
     }
 
-    private val items: StateFlow<List<MediaItem>?> = flow {
-        try {
-            val catalog = uampService.catalog()
-            emit(
-                catalog.music.map {
-                    it.toMediaItem()
-                }
-            )
-        } catch (ioe: IOException) {
-            snackbarManager.showMessage(UiMessage(message = ioe.message ?: "Error", error = true))
-            emit(listOf())
-        }
-    }.stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = null)
-
-    val uiState = items.map { items ->
-        UiState.Loaded(items?.let { items.map { MediaItemUiModelMapper.map(it) } } ?: emptyList())
-    }.stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = UiState.Loading)
-
     sealed class UiState {
         object Loading : UiState()
 
         data class Loaded(
-            val items: List<MediaItemUiModel>
+            val items: List<PlaylistUiModel>
         ) : UiState()
     }
 
@@ -86,9 +89,9 @@ class UampPlaylistsScreenViewModel(
         val Factory = viewModelFactory {
             initializer {
                 UampPlaylistsScreenViewModel(
-                    uampService = this[MediaApplicationContainer.UampServiceKey]!!,
+                    playlistRepository = this[MediaApplicationContainer.PlaylistRepositoryKey]!!,
                     playerRepository = this[MediaApplicationContainer.PlayerRepositoryImplKey]!!,
-                    snackbarManager = this[SnackbarViewModel.SnackbarManagerKey]!!,
+                    settingsRepository = this[MediaApplicationContainer.SettingsRepositoryKey]!!,
                 )
             }
         }

@@ -97,6 +97,7 @@ private val downloadList = buildList {
     add(
         DownloadPlaylistUiModel.InProgress(
             PlaylistUiModel(
+                id = "id",
                 title = "Rock Classics",
                 artworkUri = "https://www.example.com/album1.png",
             ),
@@ -107,6 +108,7 @@ private val downloadList = buildList {
     add(
         DownloadPlaylistUiModel.Completed(
             PlaylistUiModel(
+                id = "id",
                 title = "Pop Punk",
                 artworkUri = "https://www.example.com/album2.png"
             )

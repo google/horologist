@@ -125,7 +125,6 @@ fun UampWearApp(
                     onPlaylistItemClick = {
                         navController.navigateToPlayer()
                     },
-                    settingsState = settingsState,
                     focusRequester = focusRequester,
                     scalingLazyListState = scalingLazyListState
                 )

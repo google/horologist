@@ -26,29 +26,23 @@ class PlayerStateMapperTest {
 
     @Test
     fun `check playback state while playing`() {
-        val state = mapPlayerState(
+        fakeStatePlayer.overrideState(
             playbackState = Player.STATE_READY,
             playWhenReady = true
         )
+        val state = PlayerStateMapper.map(fakeStatePlayer)
 
         assertThat(state).isEqualTo(PlayerState.Playing)
     }
 
     @Test
     fun `check playback state while buffering`() {
-        val state = mapPlayerState(
+        fakeStatePlayer.overrideState(
             playbackState = Player.STATE_BUFFERING,
             playWhenReady = true
         )
+        val state = PlayerStateMapper.map(fakeStatePlayer)
 
         assertThat(state).isEqualTo(PlayerState.Playing)
-    }
-
-    private fun mapPlayerState(playbackState: Int, playWhenReady: Boolean): PlayerState {
-        fakeStatePlayer.overrideState(
-            playbackState = playbackState,
-            playWhenReady = playWhenReady
-        )
-        return PlayerStateMapper.map(fakeStatePlayer)
     }
 }

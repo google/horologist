@@ -17,7 +17,6 @@
 package com.google.android.horologist.media.data
 
 import androidx.media3.common.C
-import androidx.media3.common.MediaItem
 import com.google.android.horologist.media.model.MediaItemPosition
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -34,34 +33,36 @@ class MediaItemPositionMapperTest {
 
     @Test
     fun `check position calculations unknown duration`() {
-        val position = mediaItemPosition(10L, C.TIME_UNSET) as MediaItemPosition.UnknownDuration
+        fakeStatePlayer.overridePosition(
+            currentPosition = 10L,
+            duration = C.TIME_UNSET
+        )
+        val position =
+            MediaItemPositionMapper.map(fakeStatePlayer) as MediaItemPosition.UnknownDuration
         assertThat(position.current).isEqualTo(10.milliseconds)
     }
 
     @Test
     fun `check position calculations past end`() {
-        val position = mediaItemPosition(100L, 99L) as MediaItemPosition.KnownDuration
+        fakeStatePlayer.overridePosition(
+            currentPosition = 100L,
+            duration = 99L
+        )
+        val position =
+            MediaItemPositionMapper.map(fakeStatePlayer) as MediaItemPosition.KnownDuration
         assertThat(position.current).isEqualTo(100.milliseconds)
         assertThat(position.duration).isEqualTo(100.milliseconds)
     }
 
     @Test
     fun `check position calculations during`() {
-        val position = mediaItemPosition(100L, 1000L) as MediaItemPosition.KnownDuration
+        fakeStatePlayer.overridePosition(
+            currentPosition = 100L,
+            duration = 1000L
+        )
+        val position =
+            MediaItemPositionMapper.map(fakeStatePlayer) as MediaItemPosition.KnownDuration
         assertThat(position.current).isEqualTo(100.milliseconds)
         assertThat(position.duration).isEqualTo(1000.milliseconds)
-    }
-
-    private fun mediaItemPosition(
-        currentPosition: Long,
-        duration: Long,
-        currentMediaItem: MediaItem? = null
-    ): MediaItemPosition? {
-        fakeStatePlayer.overridePosition(
-            currentPosition = currentPosition,
-            duration = duration,
-            currentMediaItem = currentMediaItem
-        )
-        return MediaItemPositionMapper.map(fakeStatePlayer)
     }
 }

@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.mediasample.di
 
+import android.content.ComponentName
 import android.os.Build
 import android.os.StrictMode
 import android.os.Vibrator
@@ -27,6 +28,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.media3.database.StandaloneDatabaseProvider
 import androidx.media3.datasource.cache.NoOpCacheEvictor
 import androidx.media3.datasource.cache.SimpleCache
+import androidx.wear.watchface.complications.datasource.ComplicationDataSourceUpdateRequester
 import coil.Coil
 import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.media.data.PlayerRepositoryImpl
@@ -38,6 +40,8 @@ import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.catalog.UampService
+import com.google.android.horologist.mediasample.complication.DataUpdates
+import com.google.android.horologist.mediasample.complication.MediaStatusComplicationService
 import com.google.android.horologist.mediasample.components.MediaActivity
 import com.google.android.horologist.mediasample.components.MediaApplication
 import com.google.android.horologist.mediasample.components.PlaybackService
@@ -149,6 +153,10 @@ class MediaApplicationContainer(
         }
     }
 
+    internal fun serviceContainer(service: MediaStatusComplicationService): ComplicationServiceContainer {
+        return ComplicationServiceContainer(this, service)
+    }
+
     internal fun activityContainer(activity: MediaActivity): MediaActivityContainer {
         return MediaActivityContainer(this).also {
             closeOnStop(activity, it)
@@ -173,9 +181,19 @@ class MediaApplicationContainer(
         SnackbarManager()
     }
 
+    val dataUpdates by lazy {
+        val updater = ComplicationDataSourceUpdateRequester.create(
+            application,
+            ComponentName(
+                application, MediaStatusComplicationService::class.java
+            )
+        )
+        DataUpdates(updater)
+    }
+
     // Confusingly the result of allowThreadDiskWrites is the old policy,
-// while allow* methods immediately apply the change.
-// So `this` is the policy before we overrode it.
+    // while allow* methods immediately apply the change.
+    // So `this` is the policy before we overrode it.
     fun <R> StrictMode.ThreadPolicy.resetAfter(block: () -> R) = try {
         block()
     } finally {

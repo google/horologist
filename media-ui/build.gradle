@@ -115,6 +115,18 @@ dependencies {
     implementation libs.lottie.compose
     implementation libs.androidx.palette.ktx
 
+    implementation projects.tiles
+    implementation projects.composeTools
+    implementation libs.androidx.complications.datasource.ktx
+    implementation libs.androidx.wear.tiles
+    implementation libs.androidx.wear.tiles.material
+    implementation libs.compose.ui.tooling
+    implementation libs.compose.ui.util
+    api libs.wearcompose.material
+
+    debugImplementation projects.composeTools
+    debugImplementation libs.compose.ui.toolingpreview
+
     debugImplementation libs.compose.ui.test.manifest
     debugImplementation libs.compose.ui.toolingpreview
     debugImplementation projects.audioUi

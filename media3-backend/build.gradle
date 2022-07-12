@@ -46,10 +46,6 @@ android {
         freeCompilerArgs += "-opt-in=com.google.android.horologist.media.ExperimentalHorologistMediaApi"
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.compose.get()
-    }
-
     lintOptions {
         textReport true
         textOutput 'stdout'

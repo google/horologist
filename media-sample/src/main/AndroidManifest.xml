@@ -91,6 +91,24 @@
         </service>
 
         <service
+            android:name=".complication.MediaStatusComplicationService"
+            android:exported="true"
+            android:icon="@drawable/ic_uamp"
+            android:label="@string/horologist_sample_media_collection"
+            android:permission="com.google.android.wearable.permission.BIND_COMPLICATION_PROVIDER">
+            <intent-filter>
+                <action android:name="android.support.wearable.complications.ACTION_COMPLICATION_UPDATE_REQUEST" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.wearable.complications.SUPPORTED_TYPES"
+                android:value="SMALL_IMAGE,SHORT_TEXT,LONG_TEXT" />
+            <meta-data
+                android:name="android.support.wearable.complications.UPDATE_PERIOD_SECONDS"
+                android:value="0" />
+        </service>
+
+        <service
             android:name=".tile.MediaCollectionsTileService"
             android:description="@string/horologist_sample_app_name"
             android:exported="true"

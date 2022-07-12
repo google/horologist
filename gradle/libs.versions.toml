@@ -74,6 +74,8 @@ androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test" }
 androidx-test-uiautomator = "androidx.test.uiautomator:uiautomator:2.2.0"
 androidx-wear = { module = "androidx.wear:wear", version.ref = "androidxWear" }
+androidx-complications-datasource-ktx = "androidx.wear.watchface:watchface-complications-data-source-ktx:1.1.0"
+androidx-complications-rendering = "androidx.wear.watchface:watchface-complications-rendering:1.1.0"
 androidx-wear-tiles = { module = "androidx.wear.tiles:tiles", version.ref = "androidxtiles" }
 androidx-wear-tiles-material = { module = "androidx.wear.tiles:tiles-material", version.ref = "androidxtiles" }
 androidx-wear-tiles-renderer = { module = "androidx.wear.tiles:tiles-renderer", version.ref = "androidxtiles" }

@@ -6,6 +6,41 @@ package com.google.android.horologist.media.ui {
 
 }
 
+package com.google.android.horologist.media.ui.complication {
+
+  public final class MediaStatusTemplate extends com.google.android.horologist.tiles.complication.TypedComplicationTemplate<com.google.android.horologist.media.ui.complication.MediaStatusTemplate.Data> {
+    ctor public MediaStatusTemplate(android.content.Context context);
+    method public com.google.android.horologist.media.ui.complication.MediaStatusTemplate.Data previewData();
+    method public androidx.wear.watchface.complications.data.LongTextComplicationData renderLongText(com.google.android.horologist.media.ui.complication.MediaStatusTemplate.Data data);
+    method public androidx.wear.watchface.complications.data.ShortTextComplicationData renderShortText(com.google.android.horologist.media.ui.complication.MediaStatusTemplate.Data data);
+    method public androidx.wear.watchface.complications.data.SmallImageComplicationData? renderSmallImage(com.google.android.horologist.media.ui.complication.MediaStatusTemplate.Data data);
+  }
+
+  public static final class MediaStatusTemplate.Data {
+    ctor public MediaStatusTemplate.Data(optional @DrawableRes Integer? appIconRes, optional android.graphics.drawable.Icon? icon, androidx.wear.watchface.complications.data.SmallImageType type, String title, String text, android.app.PendingIntent? launchIntent);
+    method public Integer? component1();
+    method public android.graphics.drawable.Icon? component2();
+    method public androidx.wear.watchface.complications.data.SmallImageType component3();
+    method public String component4();
+    method public String component5();
+    method public android.app.PendingIntent? component6();
+    method public com.google.android.horologist.media.ui.complication.MediaStatusTemplate.Data copy(@DrawableRes Integer? appIconRes, android.graphics.drawable.Icon? icon, androidx.wear.watchface.complications.data.SmallImageType type, String title, String text, android.app.PendingIntent? launchIntent);
+    method public Integer? getAppIconRes();
+    method public android.graphics.drawable.Icon? getIcon();
+    method public android.app.PendingIntent? getLaunchIntent();
+    method public String getText();
+    method public String getTitle();
+    method public androidx.wear.watchface.complications.data.SmallImageType getType();
+    property public final Integer? appIconRes;
+    property public final android.graphics.drawable.Icon? icon;
+    property public final android.app.PendingIntent? launchIntent;
+    property public final String text;
+    property public final String title;
+    property public final androidx.wear.watchface.complications.data.SmallImageType type;
+  }
+
+}
+
 package com.google.android.horologist.media.ui.components {
 
   public final class ControlButtonLayoutKt {

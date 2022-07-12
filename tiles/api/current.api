@@ -26,6 +26,49 @@ package com.google.android.horologist.tiles.canvas {
 
 }
 
+package com.google.android.horologist.tiles.complication {
+
+  public interface ComplicationTemplate<D> {
+    method public android.content.Context getContext();
+    method public D! previewData();
+    method public androidx.wear.watchface.complications.data.ComplicationData render(androidx.wear.watchface.complications.data.ComplicationType type, D? data);
+    method public java.util.List<androidx.wear.watchface.complications.data.ComplicationType> supportedTypes();
+    property public abstract android.content.Context context;
+  }
+
+  public abstract class DataComplicationService<D, R extends com.google.android.horologist.tiles.complication.ComplicationTemplate<D>> extends androidx.wear.watchface.complications.datasource.SuspendingComplicationDataSourceService {
+    ctor public DataComplicationService();
+    method public abstract suspend Object? data(androidx.wear.watchface.complications.datasource.ComplicationRequest request, kotlin.coroutines.Continuation<? super D> p);
+    method public androidx.wear.watchface.complications.data.ComplicationData? getPreviewData(androidx.wear.watchface.complications.data.ComplicationType type);
+    method public abstract R getRenderer();
+    method public suspend Object? onComplicationRequest(androidx.wear.watchface.complications.datasource.ComplicationRequest request, kotlin.coroutines.Continuation<? super androidx.wear.watchface.complications.data.ComplicationData> p);
+    method public abstract D! previewData(androidx.wear.watchface.complications.data.ComplicationType type);
+    method public final androidx.wear.watchface.complications.data.ComplicationData render(androidx.wear.watchface.complications.data.ComplicationType type, D? data);
+    property public abstract R renderer;
+  }
+
+  public abstract class TypedComplicationTemplate<T> implements com.google.android.horologist.tiles.complication.ComplicationTemplate<T> {
+    ctor public TypedComplicationTemplate(android.content.Context context);
+    method public android.content.Context getContext();
+    method public final android.graphics.drawable.Icon icon(@DrawableRes int id);
+    method public final androidx.wear.watchface.complications.data.LongTextComplicationData longText(android.graphics.drawable.Icon? icon, optional androidx.wear.watchface.complications.data.SmallImageType type, String title, String text, android.app.PendingIntent? launchIntent);
+    method public final androidx.wear.watchface.complications.data.ComplicationData render(androidx.wear.watchface.complications.data.ComplicationType type, T? data);
+    method public androidx.wear.watchface.complications.data.ListComplicationData? renderList(T? data);
+    method public androidx.wear.watchface.complications.data.LongTextComplicationData? renderLongText(T? data);
+    method public androidx.wear.watchface.complications.data.MonochromaticImageComplicationData? renderMonochromaticImage(T? data);
+    method public androidx.wear.watchface.complications.data.PhotoImageComplicationData? renderPhotoImage(T? data);
+    method public androidx.wear.watchface.complications.data.RangedValueComplicationData? renderRangedValue(T? data);
+    method public abstract androidx.wear.watchface.complications.data.ShortTextComplicationData? renderShortText(T? data);
+    method public androidx.wear.watchface.complications.data.SmallImageComplicationData? renderSmallImage(T? data);
+    method public final androidx.wear.watchface.complications.data.ShortTextComplicationData shortText(String title, String text, @DrawableRes Integer? icon, android.app.PendingIntent? launchIntent);
+    method public final androidx.wear.watchface.complications.data.SmallImageComplicationData smallImage(android.graphics.drawable.Icon icon, optional androidx.wear.watchface.complications.data.SmallImageType type, String name, android.app.PendingIntent? launchIntent);
+    method public java.util.List<androidx.wear.watchface.complications.data.ComplicationType> supportedTypes();
+    method public final String text(@StringRes int id);
+    property public android.content.Context context;
+  }
+
+}
+
 package com.google.android.horologist.tiles.components {
 
   public final class ComponentsKt {

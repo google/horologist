@@ -127,6 +127,8 @@ class PlaybackServiceContainer(
             .build().apply {
                 addListener(defaultAnalyticsCollector)
 
+                addListener(dataUpdatesListener)
+
                 if (appConfig.offloadEnabled) {
                     mediaApplicationContainer.audioOffloadManager.connect(this)
                 }
@@ -151,6 +153,10 @@ class PlaybackServiceContainer(
         MediaLibraryService.MediaLibrarySession.Builder(service, player, librarySessionCallback)
             .setSessionActivity(mediaApplicationContainer.intentBuilder.buildPlayerIntent())
             .build()
+    }
+
+    val dataUpdatesListener by lazy {
+        mediaApplicationContainer.dataUpdates.listener
     }
 
     override fun close() {

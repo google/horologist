@@ -42,6 +42,7 @@ import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.catalog.UampService
 import com.google.android.horologist.mediasample.complication.DataUpdates
+import com.google.android.horologist.mediasample.complication.MediaStatusComplicationService
 import com.google.android.horologist.mediasample.components.MediaActivity
 import com.google.android.horologist.mediasample.components.MediaApplication
 import com.google.android.horologist.mediasample.components.PlaybackService
@@ -183,7 +184,7 @@ class MediaApplicationContainer(
 
     val dataUpdates by lazy {
         val updater = ComplicationDataSourceUpdateRequester.create(application, ComponentName(
-            application, MediaCollectionsTileService::class.java
+            application, MediaStatusComplicationService::class.java
         ))
         DataUpdates(updater)
     }

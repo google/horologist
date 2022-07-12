@@ -34,6 +34,7 @@ class ComplicationServiceContainer(
     fun inject(service: MediaStatusComplicationService) {
         service.intentBuilder = mediaApplicationContainer.intentBuilder
         service.stateFlow = mediaApplicationContainer.dataUpdates.stateFlow
+        service.imageLoader = mediaApplicationContainer.networkModule.imageLoader
     }
 
     companion object {

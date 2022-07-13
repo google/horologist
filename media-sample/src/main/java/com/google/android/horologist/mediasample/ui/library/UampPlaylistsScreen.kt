@@ -61,14 +61,7 @@ fun UampPlaylistsScreen(
     PlaylistScreen(
         playlistScreenState = playlistScreenState,
         onPlaylistItemClick = { selected ->
-            val item =
-                (uiState as? UampPlaylistsScreenViewModel.UiState.Loaded)?.items?.find {
-                    it.title == selected.title
-                }
-
-            if (item != null) {
-                uampPlaylistsScreenViewModel.play(item)
-            }
+            uampPlaylistsScreenViewModel.play(selected.id)
             onPlaylistItemClick()
         },
         focusRequester = focusRequester,

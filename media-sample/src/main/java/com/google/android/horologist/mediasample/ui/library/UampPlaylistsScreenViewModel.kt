@@ -41,14 +41,14 @@ class UampPlaylistsScreenViewModel(
     private val playerRepository: PlayerRepository,
     private val snackbarManager: SnackbarManager
 ) : ViewModel() {
-    fun play(mediaItemUiModel: MediaItemUiModel) {
+    fun play(selectedId: String) {
         val mediaItems = items.value
 
         if (mediaItems != null) {
             playerRepository.setMediaItems(mediaItems)
             playerRepository.prepare()
             playerRepository.play(
-                mediaItems.indexOfFirst { it.id == mediaItemUiModel.id }
+                mediaItems.indexOfFirst { it.id == selectedId }
                     .coerceAtLeast(0)
             )
         } else {

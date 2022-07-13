@@ -39,12 +39,12 @@ import com.google.android.horologist.media3.navigation.NavDeepLinkIntentBuilder
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.AppConfig
-import com.google.android.horologist.mediasample.catalog.UampService
 import com.google.android.horologist.mediasample.complication.DataUpdates
 import com.google.android.horologist.mediasample.complication.MediaStatusComplicationService
 import com.google.android.horologist.mediasample.components.MediaActivity
 import com.google.android.horologist.mediasample.components.MediaApplication
 import com.google.android.horologist.mediasample.components.PlaybackService
+import com.google.android.horologist.mediasample.data.api.UampService
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.system.Logging
 import com.google.android.horologist.mediasample.tile.MediaCollectionsTileService

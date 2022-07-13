@@ -34,7 +34,7 @@ import com.google.android.horologist.media.ui.screens.DefaultPlayerScreenControl
 import com.google.android.horologist.media.ui.screens.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
-import com.google.android.horologist.mediasample.domain.Settings
+import com.google.android.horologist.mediasample.domain.model.Settings
 
 @Composable
 fun UampMediaPlayerScreen(

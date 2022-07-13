@@ -23,7 +23,7 @@ import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.disk.DiskCache
 import coil.request.CachePolicy
-import com.google.android.horologist.mediasample.catalog.UampService
+import com.google.android.horologist.mediasample.data.api.UampService
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
@@ -138,7 +138,7 @@ class NetworkModule(
     val retrofit by lazy {
         Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .baseUrl("https://storage.googleapis.com/uamp/")
+            .baseUrl(UampService.BASE_URL)
             .callFactory(NetworkAwareCallFactory(networkAwareCallFactory, RequestType.ApiRequest))
             .build()
     }

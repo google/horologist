@@ -27,7 +27,7 @@ import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
 import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.media.ui.state.mapper.MediaItemUiModelMapper
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
-import com.google.android.horologist.mediasample.catalog.UampService
+import com.google.android.horologist.mediasample.data.api.UampService
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

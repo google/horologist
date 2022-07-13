@@ -60,12 +60,13 @@ fun UampWearApp(
     val volumeViewModel: VolumeViewModel =
         viewModel(factory = VolumeViewModelFactory, extras = creationExtras())
 
-    val timeText: @Composable (Modifier) -> Unit = {
+    val timeText: @Composable (Modifier) -> Unit = { modifier ->
         val networkUsage by rememberStateWithLifecycle(appViewModel.networkUsage)
         val networkStatus by rememberStateWithLifecycle(appViewModel.networkStatus)
         val offloadState by rememberStateWithLifecycle(appViewModel.offloadState)
 
         MediaInfoTimeText(
+            modifier = modifier,
             showData = settingsState?.showTimeTextInfo ?: false,
             networkStatus = networkStatus,
             networkUsage = networkUsage,

@@ -80,7 +80,7 @@ class SettingsRepository(
             podcastControls = this[PodcastControls] ?: false,
             loadItemsAtStartup = this[LoadItemsAtStartup] ?: true,
             artworkGradient = this[ArtworkGradient] ?: true,
-            showArtworkOnChip = this[ShowArtworkOnChip] ?: false
+            showArtworkOnChip = this[ShowArtworkOnChip] ?: true
         )
     }
 }

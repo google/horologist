@@ -23,7 +23,10 @@ import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.disk.DiskCache
 import coil.request.CachePolicy
+import coil.util.DebugLogger
+import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.data.api.UampService
+import com.google.android.horologist.mediasample.data.api.WearArtworkUampService
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
@@ -144,7 +147,9 @@ class NetworkModule(
     }
 
     val uampService by lazy {
-        retrofit.create(UampService::class.java)
+        WearArtworkUampService(
+            retrofit.create(UampService::class.java)
+        )
     }
 
     val imageLoader: ImageLoader by lazy {
@@ -167,6 +172,11 @@ class NetworkModule(
                     networkAwareCallFactory,
                     defaultRequestType = RequestType.ImageRequest
                 )
+            }
+            .apply {
+                if (BuildConfig.DEBUG) {
+                    logger(DebugLogger())
+                }
             }
             .build()
     }

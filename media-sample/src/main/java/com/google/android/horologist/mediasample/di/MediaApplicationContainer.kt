@@ -195,21 +195,18 @@ class MediaApplicationContainer(
         DataUpdates(updater)
     }
 
-    fun getPlaylistRepository(playlistRepositoryImpl: PlaylistRepositoryImpl): PlaylistRepository =
-        playlistRepositoryImpl
+    val playlistRepository: PlaylistRepository by lazy {
+        PlaylistRepositoryImpl(playlistRemoteDataSource)
+    }
 
-    fun getPlaylistRepositoryImpl(playlistRemoteDataSource: PlaylistRemoteDataSource): PlaylistRepositoryImpl =
-        PlaylistRepositoryImpl(playlistRemoteDataSource = playlistRemoteDataSource)
+    val playlistRemoteDataSource: PlaylistRemoteDataSource by lazy {
+        PlaylistRemoteDataSource(
+            ioDispatcher = ioDispatcher,
+            uampService = networkModule.uampService
+        )
+    }
 
-    fun getPlaylistRemoteDataSource(
-        ioDispatcher: CoroutineDispatcher,
-        uampService: UampService,
-    ): PlaylistRemoteDataSource = PlaylistRemoteDataSource(
-        ioDispatcher = ioDispatcher,
-        uampService = uampService
-    )
-
-    fun getIODispatcher(): CoroutineDispatcher = Dispatchers.IO
+    val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 
     // Confusingly the result of allowThreadDiskWrites is the old policy,
     // while allow* methods immediately apply the change.

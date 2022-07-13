@@ -56,7 +56,7 @@ class SettingsScreenViewModel(
         val loadItemsAtStartup: Boolean = true,
         val artworkGradient: Boolean = true,
         val writable: Boolean = false,
-        val showArtworkOnChip: Boolean = false
+        val showArtworkOnChip: Boolean = true
     )
 
     fun setShowTimeTextInfo(enabled: Boolean) {

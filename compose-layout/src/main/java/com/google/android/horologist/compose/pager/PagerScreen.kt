@@ -54,7 +54,6 @@ import kotlinx.coroutines.launch
  * Also uses lifecycle, which allows attaching logic such requesting focus
  * to page events.
  */
-@ExperimentalHorologistComposeLayoutApi
 @Composable
 public fun PagerScreen(
     count: Int,
@@ -156,7 +155,6 @@ internal class PagerScreenScopeImpl(private val scope: PagerScope) : LifecycleOw
  * n.b. Currently fails for 0 pageCount, so enclose the HorizontalPageIndicator
  * in an if statement.
  */
-@ExperimentalHorologistComposeLayoutApi
 public class PageScreenIndicatorState(private val state: PagerState) : PageIndicatorState {
     override val pageCount: Int
         get() = state.pageCount

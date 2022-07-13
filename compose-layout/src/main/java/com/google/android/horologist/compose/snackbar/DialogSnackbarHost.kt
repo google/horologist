@@ -25,9 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.wear.compose.material.CompactChip
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Confirmation
-import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 
-@ExperimentalHorologistComposeLayoutApi
 @Composable
 public fun DialogSnackbarHost(
     hostState: SnackbarHostState,

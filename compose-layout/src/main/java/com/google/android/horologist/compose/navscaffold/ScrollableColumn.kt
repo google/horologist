@@ -38,7 +38,6 @@ import kotlinx.coroutines.launch
  * }
  * ```
  */
-@ExperimentalHorologistComposeLayoutApi
 public fun Modifier.scrollableColumn(
     focusRequester: FocusRequester,
     scrollableState: ScrollableState

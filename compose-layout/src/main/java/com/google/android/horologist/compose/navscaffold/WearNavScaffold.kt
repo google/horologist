@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistComposeLayoutApi::class)
+
 package com.google.android.horologist.compose.navscaffold
 
 import androidx.compose.foundation.ScrollState
@@ -59,7 +61,6 @@ import com.google.android.horologist.compose.layout.fadeAwayScalingLazyList
  * These should be used to build the [ScrollableState] or [FocusRequester] as well as
  * configure the behaviour of [TimeText], [PositionIndicator] or [Vignette].
  */
-@ExperimentalHorologistComposeLayoutApi
 @Composable
 public fun WearNavScaffold(
     startDestination: String,
@@ -156,7 +157,6 @@ public fun WearNavScaffold(
     }
 }
 
-@ExperimentalHorologistComposeLayoutApi
 @Composable
 private fun NavPositionIndicator(viewModel: NavScaffoldViewModel) {
     when (viewModel.scrollType) {
@@ -182,7 +182,6 @@ private fun NavPositionIndicator(viewModel: NavScaffoldViewModel) {
  *
  * The [viewModel] can be used to customise the scaffold behaviour.
  */
-@ExperimentalHorologistComposeLayoutApi
 public data class ScaffoldContext<T : ScrollableState>(
     val backStackEntry: NavBackStackEntry,
     val scrollableState: T,
@@ -194,7 +193,6 @@ public data class ScaffoldContext<T : ScrollableState>(
  *
  * The scalingLazyListState must be taken from the [ScaffoldContext].
  */
-@ExperimentalHorologistComposeLayoutApi
 public fun NavGraphBuilder.scalingLazyColumnComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
@@ -218,7 +216,6 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
  *
  * The scrollState must be taken from the [ScaffoldContext].
  */
-@ExperimentalHorologistComposeLayoutApi
 public fun NavGraphBuilder.scrollStateComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
@@ -242,7 +239,6 @@ public fun NavGraphBuilder.scrollStateComposable(
  *
  * The scrollState must be taken from the [ScaffoldContext].
  */
-@ExperimentalHorologistComposeLayoutApi
 public fun NavGraphBuilder.lazyListComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
@@ -266,7 +262,6 @@ public fun NavGraphBuilder.lazyListComposable(
  * [NavScaffoldViewModel] are passed into the [content] block so that
  * the Scaffold may be customised, such as disabling TimeText.
  */
-@ExperimentalHorologistComposeLayoutApi
 public fun NavGraphBuilder.wearNavComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),

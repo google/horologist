@@ -37,12 +37,14 @@ fun PlaylistScreenPreview() {
             buildList {
                 add(
                     PlaylistUiModel(
+                        id = "id",
                         title = "Rock Classics",
                         artworkUri = "https://www.example.com/album1.png",
                     )
                 )
                 add(
                     PlaylistUiModel(
+                        id = "id",
                         title = "Pop Punk",
                         artworkUri = "https://www.example.com/album2.png"
                     )

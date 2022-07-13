@@ -540,13 +540,16 @@ package com.google.android.horologist.media.ui.state.model {
   }
 
   public final class PlaylistUiModel {
-    ctor public PlaylistUiModel(String title, optional String? artworkUri);
+    ctor public PlaylistUiModel(String id, String title, optional String? artworkUri);
     method public String component1();
-    method public String? component2();
-    method public com.google.android.horologist.media.ui.state.model.PlaylistUiModel copy(String title, String? artworkUri);
+    method public String component2();
+    method public String? component3();
+    method public com.google.android.horologist.media.ui.state.model.PlaylistUiModel copy(String id, String title, String? artworkUri);
     method public String? getArtworkUri();
+    method public String getId();
     method public String getTitle();
     property public final String? artworkUri;
+    property public final String id;
     property public final String title;
   }
 

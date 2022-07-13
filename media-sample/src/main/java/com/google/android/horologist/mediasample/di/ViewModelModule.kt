@@ -26,6 +26,7 @@ import com.google.android.horologist.media.data.PlayerRepositoryImpl
 import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
 import com.google.android.horologist.media3.flows.buildSuspend
 import com.google.android.horologist.mediasample.components.PlaybackService
+import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -92,7 +93,19 @@ class ViewModelModule(
             mediaApplicationContainer.settingsRepository
         creationExtras[SnackbarViewModel.SnackbarManagerKey] =
             mediaApplicationContainer.snackbarManager
+        creationExtras[MediaApplicationContainer.PlaylistRepositoryKey] =
+            getPlaylistRepository()
     }
+
+    private fun getPlaylistRepository(): PlaylistRepository =
+        mediaApplicationContainer.getPlaylistRepository(
+            mediaApplicationContainer.getPlaylistRepositoryImpl(
+                mediaApplicationContainer.getPlaylistRemoteDataSource(
+                    mediaApplicationContainer.getIODispatcher(),
+                    mediaApplicationContainer.networkModule.uampService
+                )
+            )
+        )
 
     override fun close() {
         _playerRepository?.close()

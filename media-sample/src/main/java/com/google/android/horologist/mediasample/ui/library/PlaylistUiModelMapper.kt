@@ -16,19 +16,22 @@
 
 package com.google.android.horologist.mediasample.ui.library
 
-import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
+import com.google.android.horologist.mediasample.domain.model.Playlist
 
+/**
+ * Maps a [Playlist] into a [PlaylistUiModel].
+ */
 object PlaylistUiModelMapper {
 
     fun map(
-        mediaItemUiModel: MediaItemUiModel,
-        defaultTitle: String = "",
+        playlist: Playlist,
         shouldMapArtworkUri: Boolean = true,
     ): PlaylistUiModel = PlaylistUiModel(
-        title = mediaItemUiModel.title ?: defaultTitle,
+        id = playlist.id,
+        title = playlist.name,
         artworkUri = if (shouldMapArtworkUri) {
-            mediaItemUiModel.artworkUri
+            playlist.artworkUri
         } else {
             null
         }

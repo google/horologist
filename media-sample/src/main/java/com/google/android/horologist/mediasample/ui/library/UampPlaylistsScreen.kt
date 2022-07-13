@@ -26,13 +26,11 @@ import com.google.android.horologist.compose.layout.StateUtils.rememberStateWith
 import com.google.android.horologist.media.ui.screens.playlist.PlaylistScreen
 import com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.mediasample.domain.model.Settings
 
 @Composable
 fun UampPlaylistsScreen(
     uampPlaylistsScreenViewModel: UampPlaylistsScreenViewModel,
     onPlaylistItemClick: () -> Unit,
-    settingsState: Settings?,
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
@@ -44,23 +42,21 @@ fun UampPlaylistsScreen(
         is UampPlaylistsScreenViewModel.UiState.Loading -> PlaylistScreenState.Loading
 
         is UampPlaylistsScreenViewModel.UiState.Loaded -> {
-            val items = (uiState as UampPlaylistsScreenViewModel.UiState.Loaded).items
+            val items = (uiState as UampPlaylistsScreenViewModel.UiState.Loaded).items.map {
+                it.takeIf { it.title.isNotEmpty() }
+                    ?: it.copy(title = stringResource(id = R.string.horologist_no_title))
+            }
 
-            PlaylistScreenState.Loaded(
-                items.map {
-                    PlaylistUiModelMapper.map(
-                        mediaItemUiModel = it,
-                        defaultTitle = stringResource(id = R.string.horologist_no_title),
-                        shouldMapArtworkUri = settingsState?.showArtworkOnChip == true
-                    )
-                }
-            )
+            PlaylistScreenState.Loaded(items)
         }
     }
 
     PlaylistScreen(
         playlistScreenState = playlistScreenState,
-        onPlaylistItemClick = { onPlaylistItemClick() },
+        onPlaylistItemClick = {
+            uampPlaylistsScreenViewModel.play(it.id)
+            onPlaylistItemClick()
+        },
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
         modifier = modifier,

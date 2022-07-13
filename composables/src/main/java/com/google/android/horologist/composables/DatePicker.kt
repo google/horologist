@@ -66,7 +66,6 @@ import java.time.temporal.TemporalAdjusters
  * @param modifier the modifiers for the `Box` containing the UI elements.
  * @param date the initial value to seed the picker with.
  */
-@ExperimentalHorologistComposablesApi
 @Composable
 public fun DatePicker(
     onDateConfirm: (LocalDate) -> Unit,

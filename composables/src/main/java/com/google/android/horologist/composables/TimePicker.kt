@@ -83,7 +83,6 @@ import java.time.temporal.ChronoField
  * seconds picker will be shown and the seconds will be set to 0 in the time returned in
  * onTimeConfirm.
  */
-@ExperimentalHorologistComposablesApi
 @Composable
 public fun TimePicker(
     onTimeConfirm: (LocalTime) -> Unit,
@@ -236,7 +235,6 @@ public fun TimePicker(
  * @param modifier the modifiers for the `Column` containing the UI elements.
  * @param time the initial value to seed the picker with.
  */
-@ExperimentalHorologistComposablesApi
 @Composable
 public fun TimePickerWith12HourClock(
     onTimeConfirm: (LocalTime) -> Unit,

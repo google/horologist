@@ -42,6 +42,11 @@ import com.google.android.horologist.mediasample.components.PlaybackService
 import com.google.android.horologist.mediasample.media.UampMediaLibrarySessionCallback
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 /**
  * Simple DI implementation - to be replaced by hilt.
@@ -135,14 +140,21 @@ class PlaybackServiceContainer(
             }
     }
 
+    val serviceCoroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+
     val player by lazy {
         WearConfiguredPlayer(
             player = exoPlayer,
             audioOutputRepository = mediaApplicationContainer.audioContainer.systemAudioRepository,
             audioOutputSelector = mediaApplicationContainer.audioContainer.audioOutputSelector,
             playbackRules = mediaApplicationContainer.playbackRules,
-            errorReporter = mediaApplicationContainer.logger
-        )
+            errorReporter = mediaApplicationContainer.logger,
+            coroutineScope = serviceCoroutineScope
+        ).also {
+            serviceCoroutineScope.launch {
+                it.startNoiseDetection()
+            }
+        }
     }
 
     val librarySessionCallback by lazy {
@@ -160,6 +172,7 @@ class PlaybackServiceContainer(
     }
 
     override fun close() {
+        serviceCoroutineScope.cancel()
     }
 
     fun inject(service: PlaybackService) {

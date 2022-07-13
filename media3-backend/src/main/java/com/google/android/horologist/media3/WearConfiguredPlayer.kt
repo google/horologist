@@ -27,11 +27,11 @@ import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.rules.PlaybackRules
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
 /**
@@ -45,76 +45,70 @@ public class WearConfiguredPlayer(
     private val audioOutputSelector: AudioOutputSelector,
     private val playbackRules: PlaybackRules,
     private val errorReporter: ErrorReporter,
+    private val coroutineScope: CoroutineScope,
 ) : ForwardingPlayer(player) {
+    private var playAttempt: Job? = null
+
     /**
      * Start proactive noise detection, unlike ExoPlayer setHandleAudioBecomingNoisy
      * this also handles when accidentally started in the wrong mode due to race conditions.
      */
-    public fun CoroutineScope.startNoiseDetection() {
-        launch(Dispatchers.Main) {
-            combine(
-                audioOutputRepository.audioOutput,
-                wrappedPlayer.isPlayingFlow()
-            ) { audioOutput, isPlaying ->
-                Log.i("WearPlayer", "Playing status: $isPlaying $audioOutput")
-                Pair(audioOutput, isPlaying)
-            }.filter { (audioOutput, isPlaying) ->
-                isPlaying && !playbackRules.canPlayWithOutput(audioOutput = audioOutput)
-            }.collect {
-                Log.i("WearPlayer", "Pausing")
-                pause()
-            }
+    public suspend fun startNoiseDetection() {
+        combine(
+            audioOutputRepository.audioOutput,
+            wrappedPlayer.isPlayingFlow()
+        ) { audioOutput, isPlaying ->
+            Log.i("WearPlayer", "Playing status: $isPlaying $audioOutput")
+            Pair(audioOutput, isPlaying)
+        }.filter { (audioOutput, isPlaying) ->
+            isPlaying && !playbackRules.canPlayWithOutput(audioOutput = audioOutput)
+        }.collect {
+            Log.i("WearPlayer", "Pausing")
+            pause()
         }
     }
 
     override fun play() {
-        // TODO check multiple items
         val mediaItem = currentMediaItem ?: return
 
-        val play = runBlocking {
-            attemptPlay(mediaItem)
-        }
+        playAttempt?.cancel()
 
-        if (play) {
-            wrappedPlayer.play()
+        playAttempt = coroutineScope.launch {
+            attemptPlay(mediaItem)
         }
     }
 
-    private suspend fun attemptPlay(
-        mediaItem: MediaItem,
-    ): Boolean = coroutineScope {
+    private suspend fun attemptPlay(mediaItem: MediaItem) = coroutineScope {
         val currentAudioOutput = audioOutputRepository.audioOutput.value
 
         if (!playbackRules.canPlayItem(mediaItem)) {
             errorReporter.showMessage(R.string.horologist_cant_play_item)
-            return@coroutineScope false
+            return@coroutineScope
         }
 
         val canPlayWithCurrentOutput = playbackRules.canPlayWithOutput(currentAudioOutput)
 
-        if (!canPlayWithCurrentOutput) {
-            launch {
-                val newAudioOutput = audioOutputSelector.selectNewOutput(currentAudioOutput)
+        if (canPlayWithCurrentOutput) {
+            withContext(Dispatchers.Main) {
+                wrappedPlayer.play()
+            }
+        } else {
+            val newAudioOutput = audioOutputSelector.selectNewOutput(currentAudioOutput)
 
-                val canPlayWithNewOutput =
-                    newAudioOutput != null && playbackRules.canPlayWithOutput(newAudioOutput)
+            val canPlayWithNewOutput =
+                newAudioOutput != null && playbackRules.canPlayWithOutput(newAudioOutput)
 
-                if (canPlayWithNewOutput) {
-                    withContext(Dispatchers.Main) {
-                        // TODO check in an unchanged state still
-                        play()
-                    }
+            if (canPlayWithNewOutput) {
+                withContext(Dispatchers.Main) {
+                    wrappedPlayer.play()
                 }
             }
-
-            // playback depends on new output
-            return@coroutineScope false
         }
-
-        return@coroutineScope true
     }
 
     override fun pause() {
+        playAttempt?.cancel()
+
         wrappedPlayer.pause()
     }
 

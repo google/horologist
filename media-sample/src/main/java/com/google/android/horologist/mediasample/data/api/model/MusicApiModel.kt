@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.catalog.model
+package com.google.android.horologist.mediasample.data.api.model
 
 import com.google.android.horologist.media.model.MediaItem
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Music(
+data class MusicApiModel(
     val album: String,
     val artist: String,
     val duration: Int,

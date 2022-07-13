@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.catalog.model
+package com.google.android.horologist.mediasample.domain.model
 
-import com.squareup.moshi.JsonClass
+import com.google.android.horologist.media.model.MediaItem
 
-@JsonClass(generateAdapter = true)
-data class Catalog(
-    val music: List<Music>
+data class Playlist(
+    val id: String,
+    val name: String,
+    val mediaItems: List<MediaItem>
 )

@@ -26,7 +26,7 @@ import com.google.android.horologist.compose.layout.StateUtils.rememberStateWith
 import com.google.android.horologist.media.ui.screens.playlist.PlaylistScreen
 import com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.mediasample.domain.Settings
+import com.google.android.horologist.mediasample.domain.model.Settings
 
 @Composable
 fun UampPlaylistsScreen(

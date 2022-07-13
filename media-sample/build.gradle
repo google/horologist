@@ -148,6 +148,11 @@ dependencies {
     implementation libs.androidx.datastore.preferences
     implementation libs.androidx.complications.rendering
 
+    testImplementation libs.junit
+    testImplementation libs.truth
+    testImplementation libs.androidx.test.ext.ktx
+    testImplementation libs.kotlinx.coroutines.test
+
     androidTestImplementation libs.compose.ui.test.junit4
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.junit

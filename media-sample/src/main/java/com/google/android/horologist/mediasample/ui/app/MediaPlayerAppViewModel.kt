@@ -23,10 +23,10 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.mediasample.AppConfig
-import com.google.android.horologist.mediasample.catalog.UampService
+import com.google.android.horologist.mediasample.data.api.UampService
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
-import com.google.android.horologist.mediasample.domain.Settings
 import com.google.android.horologist.mediasample.domain.SettingsRepository
+import com.google.android.horologist.mediasample.domain.model.Settings
 import com.google.android.horologist.mediasample.ui.debug.OffloadState
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.DataUsageReport

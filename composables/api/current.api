@@ -8,6 +8,24 @@ package com.google.android.horologist.composables {
   @kotlin.RequiresOptIn(message="Composables is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistComposablesApi {
   }
 
+  public final class ProgressIndicatorSegment {
+    ctor public ProgressIndicatorSegment(float weight, long indicatorColor, optional androidx.compose.ui.graphics.Color? trackColor);
+    method public float component1();
+    method public long component2-0d7_KjU();
+    method public androidx.compose.ui.graphics.Color? component3-QN2ZGVo();
+    method public com.google.android.horologist.composables.ProgressIndicatorSegment copy-KZA9ayg(float weight, long indicatorColor, androidx.compose.ui.graphics.Color? trackColor);
+    method public long getIndicatorColor();
+    method public androidx.compose.ui.graphics.Color? getTrackColor();
+    method public float getWeight();
+    property public final long indicatorColor;
+    property public final androidx.compose.ui.graphics.Color? trackColor;
+    property public final float weight;
+  }
+
+  public final class SegmentedProgressIndicatorKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void SegmentedProgressIndicator(optional androidx.compose.ui.Modifier modifier, java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> trackSegments, float progress, optional float startAngle, optional float endAngle, optional float strokeWidth, optional float paddingAngle, optional long trackColor);
+  }
+
   public final class TimePickerKt {
     method @androidx.compose.runtime.Composable public static void TimePicker(kotlin.jvm.functions.Function1<? super java.time.LocalTime,kotlin.Unit> onTimeConfirm, optional androidx.compose.ui.Modifier modifier, optional java.time.LocalTime time, optional boolean showSeconds);
     method @androidx.compose.runtime.Composable public static void TimePickerWith12HourClock(kotlin.jvm.functions.Function1<? super java.time.LocalTime,kotlin.Unit> onTimeConfirm, optional androidx.compose.ui.Modifier modifier, optional java.time.LocalTime time);

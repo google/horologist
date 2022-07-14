@@ -30,6 +30,7 @@ import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Test
@@ -37,7 +38,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
-class WearPlayerTest {
+class WearConfiguredPlayerTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val player = TestExoPlayerBuilder(context).build()
 
@@ -71,11 +72,14 @@ class WearPlayerTest {
             audioOutputSelector,
             playbackRules,
             errorReporter,
+            coroutineScope = this
         )
 
         wearConfiguredPlayer.setMediaItem(mediaItem1)
         wearConfiguredPlayer.prepare()
         wearConfiguredPlayer.play()
+
+        advanceUntilIdle()
 
         assertThat(errorReporter.messages).contains(R.string.horologist_cant_play_item)
         assertThat(player.playWhenReady).isFalse()
@@ -103,6 +107,7 @@ class WearPlayerTest {
                     audioOutputSelector,
                     playbackRules,
                     errorReporter,
+                    coroutineScope = this
                 )
 
                 val mediaItem = exampleMediaItem("1")

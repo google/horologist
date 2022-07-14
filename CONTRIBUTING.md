@@ -7,6 +7,20 @@ If you find a common problem that you think would help other Wear developers
 please consider submitting a PR. Please avoid significant work before raising
 an issue https://github.com/google/horologist/issues with the label "Feature Request"
 
+## Development
+
+The project should work immediately from a fresh checkout in Android Studio or with Gradle.
+
+When submitting a PR, please check API compatibility and lint rules first.
+
+A good first step is 
+
+```
+$ ./gradlew spotlessApply spotlessCheck compileDebugSources compileReleaseSources metalavaGenerateSignature lintDebug
+```
+
+Also make sure you have [Git LFS]([url](https://git-lfs.github.com/)) installed.
+
 ## Contributor License Agreement
 
 Contributions to this project must be accompanied by a Contributor License

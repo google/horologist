@@ -27,10 +27,14 @@ import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
+import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
+import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
+import com.google.android.horologist.media.ui.components.animated.AnimatedPlayerScreenMediaDisplay
 import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
 import com.google.android.horologist.media.ui.components.background.ColorBackground
 import com.google.android.horologist.media.ui.screens.DefaultPlayerScreenControlButtons
+import com.google.android.horologist.media.ui.screens.DefaultPlayerScreenMediaDisplay
 import com.google.android.horologist.media.ui.screens.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
@@ -58,6 +62,13 @@ fun UampMediaPlayerScreen(
     ) {
         PlayerScreen(
             playerViewModel = mediaPlayerScreenViewModel,
+            mediaDisplay = { playerUiState ->
+                if (settingsState?.animated == true) {
+                    AnimatedPlayerScreenMediaDisplay(playerUiState)
+                } else {
+                    DefaultPlayerScreenMediaDisplay(playerUiState)
+                }
+            },
             buttons = {
                 UampSettingsButtons(
                     volumeState = volumeState,
@@ -69,7 +80,21 @@ fun UampMediaPlayerScreen(
                 if (settingsState?.podcastControls == true) {
                     PlayerScreenPodcastControlButtons(mediaPlayerScreenViewModel, it)
                 } else {
-                    DefaultPlayerScreenControlButtons(mediaPlayerScreenViewModel, it)
+                    if (settingsState?.animated == true) {
+                        AnimatedMediaControlButtons(
+                            onPlayButtonClick = { mediaPlayerScreenViewModel.play() },
+                            onPauseButtonClick = { mediaPlayerScreenViewModel.pause() },
+                            playPauseButtonEnabled = it.playPauseEnabled,
+                            playing = it.playing,
+                            onSeekToPreviousButtonClick = { mediaPlayerScreenViewModel.skipToPreviousMediaItem() },
+                            seekToPreviousButtonEnabled = it.seekToPreviousEnabled,
+                            onSeekToNextButtonClick = { mediaPlayerScreenViewModel.skipToNextMediaItem() },
+                            seekToNextButtonEnabled = it.seekToNextEnabled,
+                            percent = it.trackPosition?.percent ?: 0f,
+                        )
+                    } else {
+                        DefaultPlayerScreenControlButtons(mediaPlayerScreenViewModel, it)
+                    }
                 }
             },
             background = {

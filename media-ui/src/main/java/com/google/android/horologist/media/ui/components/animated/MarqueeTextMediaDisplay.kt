@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.ui.components.animated
 
+import android.R
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
@@ -44,6 +45,7 @@ public fun MarqueeTextMediaDisplay(
             modifier = Modifier.fillMaxWidth(0.7f),
             color = MaterialTheme.colors.onBackground,
             style = MaterialTheme.typography.button,
+            textAlignment = TextAlign.Center
         )
         Text(
             text = artist.orEmpty(),

@@ -39,10 +39,10 @@ public fun AnimatedPlayerScreenMediaDisplay(
     if (!playerUiState.connected) {
         LoadingMediaDisplay(modifier)
     } else if (mediaItem != null) {
-        TextMediaDisplay(
+        MarqueeTextMediaDisplay(
             modifier = modifier,
             title = mediaItem.title,
-            artist = mediaItem.artist
+            artist = mediaItem.artist,
         )
     } else {
         InfoMediaDisplay(

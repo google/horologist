@@ -24,7 +24,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.CircularProgressIndicator
-import com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
 import kotlin.math.asin
 
 /**
@@ -36,7 +35,7 @@ import kotlin.math.asin
  * @param trackColor The color of the background progress track. This is optional and if not
  * specified will default to the [trackColor] of the overall [SegmentedProgressIndicator].
  */
-data class ProgressIndicatorSegment(
+public data class ProgressIndicatorSegment(
     val weight: Float,
     val indicatorColor: Color,
     val trackColor: Color? = null
@@ -65,7 +64,7 @@ data class ProgressIndicatorSegment(
  */
 @ExperimentalHorologistComposablesApi
 @Composable
-fun SegmentedProgressIndicator(
+public fun SegmentedProgressIndicator(
     modifier: Modifier = Modifier,
     trackSegments: List<ProgressIndicatorSegment>,
     progress: Float,

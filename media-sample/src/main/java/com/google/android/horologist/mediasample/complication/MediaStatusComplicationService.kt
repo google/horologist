@@ -80,7 +80,7 @@ class MediaStatusComplicationService :
                 size(64)
             }
         }
-        val icon = Icon.createWithBitmap(bitmap)
+        val icon = if (bitmap != null) Icon.createWithBitmap(bitmap) else null
         val mediaTitle = mediaItem.mediaMetadata.displayTitle.toString()
         val mediaArtist = mediaItem.mediaMetadata.artist.toString()
         return Data(

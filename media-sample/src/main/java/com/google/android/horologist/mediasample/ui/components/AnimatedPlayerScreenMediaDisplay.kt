@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.ui.components.animated
+package com.google.android.horologist.mediasample.ui.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,8 +23,8 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.InfoMediaDisplay
 import com.google.android.horologist.media.ui.components.LoadingMediaDisplay
-import com.google.android.horologist.media.ui.components.TextMediaDisplay
 import com.google.android.horologist.media.ui.state.PlayerUiState
+import com.google.android.horologist.mediasample.ui.components.MarqueeTextMediaDisplay
 
 /**
  * Default [MediaDisplay] implementation for [PlayerScreen] including player status.

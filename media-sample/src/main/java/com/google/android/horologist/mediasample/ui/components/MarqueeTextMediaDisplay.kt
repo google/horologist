@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.ui.components.animated
+package com.google.android.horologist.mediasample.ui.components
 
-import android.R
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable

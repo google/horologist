@@ -27,10 +27,9 @@ import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
-import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
-import com.google.android.horologist.media.ui.components.animated.AnimatedPlayerScreenMediaDisplay
+import com.google.android.horologist.mediasample.ui.components.AnimatedPlayerScreenMediaDisplay
 import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
 import com.google.android.horologist.media.ui.components.background.ColorBackground
 import com.google.android.horologist.media.ui.screens.DefaultPlayerScreenControlButtons

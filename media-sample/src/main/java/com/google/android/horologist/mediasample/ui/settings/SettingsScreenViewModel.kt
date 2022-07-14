@@ -42,6 +42,7 @@ class SettingsScreenViewModel(
             loadItemsAtStartup = it.loadItemsAtStartup,
             artworkGradient = it.artworkGradient,
             showArtworkOnChip = it.showArtworkOnChip,
+            animated = it.animated,
             writable = true
         )
     }.stateIn(
@@ -56,7 +57,8 @@ class SettingsScreenViewModel(
         val loadItemsAtStartup: Boolean = true,
         val artworkGradient: Boolean = true,
         val writable: Boolean = false,
-        val showArtworkOnChip: Boolean = true
+        val showArtworkOnChip: Boolean = true,
+        val animated: Boolean = true
     )
 
     fun setShowTimeTextInfo(enabled: Boolean) {
@@ -86,6 +88,12 @@ class SettingsScreenViewModel(
     fun setShowArtworkOnChip(enabled: Boolean) {
         viewModelScope.launch {
             settingsRepository.writeShowArtworkOnChip(enabled)
+        }
+    }
+
+    fun setAnimated(enabled: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.writeAnimated(enabled)
         }
     }
 

@@ -14,13 +14,26 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.domain.model
+package com.google.android.horologist.composables
 
-data class Settings(
-    val showTimeTextInfo: Boolean = false,
-    val podcastControls: Boolean = false,
-    val loadItemsAtStartup: Boolean = true,
-    val artworkGradient: Boolean = true,
-    val showArtworkOnChip: Boolean = true,
-    val animated: Boolean = false
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+
+@Preview(
+    widthDp = 100,
+    heightDp = 20,
+    backgroundColor = 0xFF000000,
+    showBackground = true
 )
+@Composable
+fun MarqueeTextPreview() {
+    MarqueeText(
+        text = "A very long text strings",
+        modifier = Modifier
+            .fillMaxWidth(),
+        textAlign = TextAlign.Center,
+    )
+}

@@ -97,7 +97,7 @@ public fun PlayerScreen(
 @Composable
 public fun DefaultPlayerScreenMediaDisplay(
     playerUiState: PlayerUiState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val mediaItem = playerUiState.mediaItem
     if (!playerUiState.connected) {

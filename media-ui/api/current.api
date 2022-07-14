@@ -140,6 +140,9 @@ package com.google.android.horologist.media.ui.components.base {
   public final class SecondaryPlaceholderChipKt {
   }
 
+  public final class StandardButtonKt {
+  }
+
   public final class StandardChipKt {
   }
 

@@ -16,11 +16,14 @@
 
 package com.google.android.horologist.composables
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.CircularProgressIndicator
@@ -105,4 +108,26 @@ public fun SegmentedProgressIndicator(
         currentStartAngle += segmentAngle + paddingAngle
         remainingProgress -= segmentAngle
     }
+}
+
+@OptIn(ExperimentalHorologistComposablesApi::class)
+@Preview(device = Devices.WEAR_OS_LARGE_ROUND, showSystemUi = true)
+@Composable
+private fun SegmentedProgressIndicatorPreview() {
+    val segments = listOf(
+        ProgressIndicatorSegment(1f, Color.Green),
+        ProgressIndicatorSegment(1f, Color.Cyan),
+        ProgressIndicatorSegment(1f, Color.Magenta),
+        ProgressIndicatorSegment(1f, Color.Yellow),
+        ProgressIndicatorSegment(2f, Color.Red),
+    )
+
+    SegmentedProgressIndicator(
+        modifier = Modifier.fillMaxSize(),
+        trackSegments = segments,
+        progress = 0.5833f,
+        strokeWidth = 10.dp,
+        trackColor = Color.Gray,
+        paddingAngle = 2f
+    )
 }

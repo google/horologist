@@ -87,6 +87,15 @@ fun UampSettingsScreen(
         }
         item {
             CheckedSetting(
+                uiState.animated,
+                stringResource(id = R.string.horologist_animated),
+                enabled = uiState.writable
+            ) {
+                settingsScreenViewModel.setAnimated(it)
+            }
+        }
+        item {
+            CheckedSetting(
                 uiState.showTimeTextInfo,
                 stringResource(id = R.string.horologist_show_time_text_info),
                 enabled = uiState.writable

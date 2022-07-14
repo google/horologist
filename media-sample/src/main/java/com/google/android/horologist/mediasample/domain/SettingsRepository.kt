@@ -64,6 +64,12 @@ class SettingsRepository(
         }
     }
 
+    suspend fun writeAnimated(enabled: Boolean) {
+        edit {
+            it[Animated] = enabled
+        }
+    }
+
     val settingsFlow: Flow<Settings> = dataStore.data.map {
         it.toSettings()
     }
@@ -74,13 +80,15 @@ class SettingsRepository(
         val LoadItemsAtStartup = booleanPreferencesKey("load_items_at_startup")
         val ArtworkGradient = booleanPreferencesKey("artwork_gradient")
         val ShowArtworkOnChip = booleanPreferencesKey("show_artwork_on_chip")
+        val Animated = booleanPreferencesKey("animated")
 
         fun Preferences.toSettings() = Settings(
             showTimeTextInfo = this[ShowTimeTextInfo] ?: false,
             podcastControls = this[PodcastControls] ?: false,
             loadItemsAtStartup = this[LoadItemsAtStartup] ?: true,
             artworkGradient = this[ArtworkGradient] ?: true,
-            showArtworkOnChip = this[ShowArtworkOnChip] ?: true
+            showArtworkOnChip = this[ShowArtworkOnChip] ?: true,
+            animated = this[Animated] ?: false
         )
     }
 }

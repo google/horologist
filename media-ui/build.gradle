@@ -94,6 +94,7 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
 dependencies {
     api projects.media
     api projects.tiles
+    api projects.composables
     implementation projects.audio
     implementation projects.audioUi
     implementation projects.composeLayout

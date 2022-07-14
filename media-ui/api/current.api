@@ -105,7 +105,11 @@ package com.google.android.horologist.media.ui.components.actions {
 package com.google.android.horologist.media.ui.components.animated {
 
   public final class AnimatedMediaButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void AnimatedMediaButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.airbnb.lottie.LottieComposition? composition, com.airbnb.lottie.compose.LottieAnimatable lottieAnimatable, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional com.airbnb.lottie.compose.LottieDynamicProperties? dynamicProperties);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void AnimatedMediaButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.airbnb.lottie.LottieComposition? composition, com.airbnb.lottie.compose.LottieAnimatable lottieAnimatable, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional com.airbnb.lottie.compose.LottieDynamicProperties? dynamicProperties, optional float iconSize, optional float tapTargetSize);
+  }
+
+  public final class AnimatedMediaControlButtonsKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void AnimatedMediaControlButtons(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseButtonClick, boolean playPauseButtonEnabled, boolean playing, float percent, kotlin.jvm.functions.Function0<kotlin.Unit> onSeekToPreviousButtonClick, boolean seekToPreviousButtonEnabled, kotlin.jvm.functions.Function0<kotlin.Unit> onSeekToNextButtonClick, boolean seekToNextButtonEnabled, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors);
   }
 
   public final class AnimatedSeekToNextButtonKt {
@@ -134,6 +138,9 @@ package com.google.android.horologist.media.ui.components.background {
 package com.google.android.horologist.media.ui.components.base {
 
   public final class SecondaryPlaceholderChipKt {
+  }
+
+  public final class StandardButtonKt {
   }
 
   public final class StandardChipKt {

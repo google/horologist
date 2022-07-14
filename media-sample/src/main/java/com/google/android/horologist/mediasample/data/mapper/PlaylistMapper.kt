@@ -29,7 +29,7 @@ object PlaylistMapper {
             .groupBy { it.genre }
             .map { entry ->
                 Playlist(
-                    id = sanitize(sanitize(entry.key)),
+                    id = sanitize(entry.key),
                     name = entry.key,
                     mediaItems = MediaItemMapper.map(entry.value),
                     artworkUri = entry.value.firstOrNull()?.image

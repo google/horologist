@@ -21,6 +21,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
@@ -46,6 +48,8 @@ public fun AnimatedMediaButton(
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     dynamicProperties: LottieDynamicProperties? = null,
+    iconSize: Dp = 30.dp,
+    tapTargetSize: Dp = 60.dp,
 ) {
     val scope = rememberCoroutineScope()
 
@@ -56,13 +60,13 @@ public fun AnimatedMediaButton(
             }
             onClick()
         },
-        modifier = modifier,
+        modifier = modifier.size(tapTargetSize),
         enabled = enabled,
         colors = colors,
     ) {
         LottieAnimation(
             modifier = Modifier
-                .size(ButtonDefaults.SmallButtonSize)
+                .size(iconSize)
                 .semantics { contentDescriptionProperty = contentDescription },
             composition = composition,
             progress = { lottieAnimatable.progress },

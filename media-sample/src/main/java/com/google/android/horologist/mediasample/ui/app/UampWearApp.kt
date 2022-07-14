@@ -40,10 +40,10 @@ import com.google.android.horologist.media.ui.screens.browse.BrowseScreen
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreenState
 import com.google.android.horologist.mediasample.components.MediaActivity
 import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeText
-import com.google.android.horologist.mediasample.ui.library.UampPlaylistsScreen
-import com.google.android.horologist.mediasample.ui.library.UampPlaylistsScreenViewModel
 import com.google.android.horologist.mediasample.ui.player.MediaPlayerScreenViewModel
 import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
+import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreen
+import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreenViewModel
 import com.google.android.horologist.mediasample.ui.settings.SettingsScreenViewModel
 import com.google.android.horologist.mediasample.ui.settings.UampSettingsScreen
 import com.google.android.horologist.mediasample.ui.settings.VolumeViewModelFactory

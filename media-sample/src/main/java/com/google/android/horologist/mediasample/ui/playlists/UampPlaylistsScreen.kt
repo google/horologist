@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui.library
+package com.google.android.horologist.mediasample.ui.playlists
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue

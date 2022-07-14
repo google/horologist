@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.android.horologist.composables
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -23,7 +22,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.CircularProgressIndicator
-import com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
 import kotlin.math.asin
 
 /**
@@ -62,7 +60,6 @@ data class ProgressIndicatorSegment(
  * @param trackColor The background track color. If a segment specifies [trackColor] then the
  * segment value takes preference. Defaults to [Color.Black]
  */
-@ExperimentalHorologistComposablesApi
 @Composable
 fun SegmentedProgressIndicator(
     modifier: Modifier = Modifier,

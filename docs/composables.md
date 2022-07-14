@@ -4,6 +4,10 @@
 
 ![](date_picker.png){: loading=lazy width=70% align=center }
 
+## Segmented Progress Indicator
+
+![](segmented_progress_indicator.png){: loading=lazy width=70% align=center }
+
 ## Time Pickers
 
 ![](time_12h_picker.png){: loading=lazy width=70% align=center }

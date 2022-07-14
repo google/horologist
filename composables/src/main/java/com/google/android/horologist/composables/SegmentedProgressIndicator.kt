@@ -16,18 +16,27 @@
 
 package com.google.android.horologist.composables
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.CircularProgressIndicator
+import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.ProgressIndicatorDefaults
 import kotlin.math.asin
+import kotlin.math.min
 
 /**
  * Represents a segment of the track in a [SegmentedProgressIndicator].
@@ -73,47 +82,60 @@ public fun SegmentedProgressIndicator(
     progress: Float,
     startAngle: Float = -90.0f,
     endAngle: Float = 270.0f,
-    strokeWidth: Dp = 10.dp,
+    strokeWidth: Dp = ProgressIndicatorDefaults.StrokeWidth,
     paddingAngle: Float = 0.0f,
-    trackColor: Color = Color.Black
+    trackColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.1f)
 ) {
-    val screenWidth = LocalConfiguration.current.screenWidthDp
-    // The progress bar uses rounded ends. The small delta requires calculation to take account for
-    // the rounded end to ensure that neighbouring segments meet correctly.
-    val endDelta = remember(strokeWidth) {
-        (asin(strokeWidth.value / (screenWidth - strokeWidth.value)) * 180 / Math.PI).toFloat()
-    }
-    val totalWeight = remember(trackSegments) {
-        trackSegments.sumOf { it.weight.toDouble() }.toFloat()
-    }
-    // The degrees of the circle that are available for progress indication, once any padding
-    // between segments is accounted for. This will be shared by weighting across the segments.
-    val segmentableAngle = (endAngle - startAngle) - trackSegments.size * paddingAngle
+    var boxMinDimension by remember { mutableStateOf(0) }
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.onSizeChanged { boxMinDimension = min(it.width, it.height) }
+    ) {
+        val boxMinDimensionDp = with(LocalDensity.current) {
+            boxMinDimension.toDp()
+        }
+        // The progress bar uses rounded ends. The small delta requires calculation to take account
+        // for the rounded end to ensure that neighbouring segments meet correctly.
+        val endDelta = remember(strokeWidth, boxMinDimensionDp) {
+            (
+                asin(
+                    strokeWidth.value /
+                        (boxMinDimensionDp.value - strokeWidth.value)
+                ) * 180 / Math.PI
+                ).toFloat()
+        }
+        val totalWeight = remember(trackSegments) {
+            trackSegments.sumOf { it.weight.toDouble() }.toFloat()
+        }
+        // The degrees of the circle that are available for progress indication, once any padding
+        // between segments is accounted for. This will be shared by weighting across the segments.
+        val segmentableAngle = (endAngle - startAngle) - trackSegments.size * paddingAngle
 
-    // The first segment needs half a padding between it and the start point.
-    var currentStartAngle = startAngle + paddingAngle / 2
+        // The first segment needs half a padding between it and the start point.
+        var currentStartAngle = startAngle + paddingAngle / 2
 
-    var remainingProgress = progress.coerceIn(0.0f, 1.0f) * segmentableAngle
-    trackSegments.forEach { segment ->
-        val segmentAngle = (segment.weight * segmentableAngle) / totalWeight
-        CircularProgressIndicator(
-            modifier = modifier,
-            progress = remainingProgress / segmentAngle,
-            startAngle = currentStartAngle + endDelta,
-            endAngle = currentStartAngle + segmentAngle - endDelta,
-            indicatorColor = segment.indicatorColor,
-            trackColor = segment.trackColor ?: trackColor,
-            strokeWidth = strokeWidth
-        )
-        currentStartAngle += segmentAngle + paddingAngle
-        remainingProgress -= segmentAngle
+        var remainingProgress = progress.coerceIn(0.0f, 1.0f) * segmentableAngle
+        trackSegments.forEach { segment ->
+            val segmentAngle = (segment.weight * segmentableAngle) / totalWeight
+            CircularProgressIndicator(
+                modifier = modifier.fillMaxSize(),
+                progress = remainingProgress / segmentAngle,
+                startAngle = currentStartAngle + endDelta,
+                endAngle = currentStartAngle + segmentAngle - endDelta,
+                indicatorColor = segment.indicatorColor,
+                trackColor = segment.trackColor ?: trackColor,
+                strokeWidth = strokeWidth
+            )
+            currentStartAngle += segmentAngle + paddingAngle
+            remainingProgress -= segmentAngle
+        }
     }
 }
 
 @OptIn(ExperimentalHorologistComposablesApi::class)
 @Preview(device = Devices.WEAR_OS_LARGE_ROUND, showSystemUi = true)
 @Composable
-private fun SegmentedProgressIndicatorPreview() {
+private fun SegmentedProgressIndicatorRoundPreview() {
     val segments = listOf(
         ProgressIndicatorSegment(1f, Color.Green),
         ProgressIndicatorSegment(1f, Color.Cyan),
@@ -127,6 +149,26 @@ private fun SegmentedProgressIndicatorPreview() {
         trackSegments = segments,
         progress = 0.5833f,
         strokeWidth = 10.dp,
+        trackColor = Color.Gray,
+        paddingAngle = 2f
+    )
+}
+
+@OptIn(ExperimentalHorologistComposablesApi::class)
+@Preview(device = Devices.WEAR_OS_SQUARE, showSystemUi = true)
+@Composable
+private fun SegmentedProgressIndicatorSquarePreview() {
+    val segments = listOf(
+        ProgressIndicatorSegment(1f, Color.Cyan),
+        ProgressIndicatorSegment(1f, Color.Magenta),
+        ProgressIndicatorSegment(1f, Color.Yellow)
+    )
+
+    SegmentedProgressIndicator(
+        modifier = Modifier.fillMaxSize(),
+        trackSegments = segments,
+        progress = 0.75f,
+        strokeWidth = 15.dp,
         trackColor = Color.Gray,
         paddingAngle = 2f
     )

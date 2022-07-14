@@ -27,9 +27,10 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.composables.MarqueeText
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import kotlin.time.Duration.Companion.seconds
 
 /**
- * A simple text only display showing artist and title in two separated rows.
+ * An animated text only display showing scrolling title and still artist in two separated rows.
  */
 @ExperimentalHorologistMediaUiApi
 @Composable
@@ -44,7 +45,8 @@ public fun MarqueeTextMediaDisplay(
             modifier = Modifier.fillMaxWidth(0.7f),
             color = MaterialTheme.colors.onBackground,
             style = MaterialTheme.typography.button,
-            textAlignment = TextAlign.Center
+            textAlign = TextAlign.Center,
+            animationTime = 9.seconds
         )
         Text(
             text = artist.orEmpty(),

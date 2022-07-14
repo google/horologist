@@ -16,17 +16,13 @@
 
 package com.google.android.horologist.composables
 
-import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.MutableTransitionState
-import androidx.compose.animation.core.animateInt
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.updateTransition
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,14 +39,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.Text
-
-enum class MarqueState {
-    Initial,
-    End
-}
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 enum class MarqueeComponents {
     Main,
@@ -73,7 +65,8 @@ fun MarqueeText(
     style: TextStyle = LocalTextStyle.current,
     textAlign: TextAlign = TextAlign.Left,
     spacing: Int = 50,
-    edgeGradientWidth: Int = 10
+    edgeGradientWidth: Int = 30,
+    animationTime: Duration = 3.seconds
 ) {
     val textFn = @Composable {
         Text(
@@ -85,32 +78,19 @@ fun MarqueeText(
         )
     }
 
-    val widths = remember { mutableStateOf<ElementWidths?>(null) }
+    val widths = remember { mutableStateOf(ElementWidths(0, 0, 0)) }
 
-    val transitionState = remember {
-        MutableTransitionState(MarqueState.Initial).apply {
-            targetState = MarqueState.End
-        }
-    }
-
-    val transition = updateTransition(
-        transitionState = transitionState,
-        label = "Marquee State"
+    val startOffset = 30f
+    val offset = rememberInfiniteTransition().animateFloat(
+        initialValue = -startOffset,
+        targetValue = startOffset - (widths.value?.textWithSpacing ?: 0).toFloat(),
+        animationSpec = infiniteRepeatable(
+            animation = tween(animationTime.inWholeMilliseconds.toInt(), easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        )
     )
 
-    val offset = transition.animateInt(
-        transitionSpec = { tween(
-            durationMillis = 3000,
-            easing = LinearEasing
-        ) },
-        label = "Offset"
-    ) {
-        if (it == MarqueState.Initial) {
-            0
-        } else {
-            -(widths.value?.textWithSpacing ?: 0)
-        }
-    }
+    val actualOffset = offset.value.toInt()
 
     SubcomposeLayout(
         modifier = modifier
@@ -127,7 +107,9 @@ fun MarqueeText(
                             listOf(
                                 Color.Transparent,
                                 Color.Black
-                            )
+                            ),
+                            startX = 0f,
+                            endX = edgeGradientWidth.toFloat()
                         ),
                         blendMode = BlendMode.DstIn
                     )
@@ -142,7 +124,9 @@ fun MarqueeText(
                             listOf(
                                 Color.Black,
                                 Color.Transparent
-                            )
+                            ),
+                            startX = this.size.width - edgeGradientWidth,
+                            endX = this.size.width
                         ),
                         blendMode = BlendMode.DstIn
                     )
@@ -174,17 +158,17 @@ fun MarqueeText(
             }.first().measure(Constraints())
 
             val firstElementWidth = textPlaceable.width + spacing
-            val secondTextOffset = firstElementWidth + offset.value + edgeGradientWidth
+            val secondTextOffset = firstElementWidth + actualOffset
 
             layout(
                 width = constraints.maxWidth,
                 height = textPlaceable.height
             ) {
-                textPlaceable.place(offset.value + edgeGradientWidth, 0)
+                textPlaceable.place(actualOffset, 0)
 
                 val secondTextSpace = constraints.maxWidth - secondTextOffset
                 if (secondTextSpace > 0) {
-                    secondTextPlaceable.place(secondTextOffset, 0)
+                    secondTextPlaceable.place(secondTextOffset.toInt(), 0)
                 }
             }
         }

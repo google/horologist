@@ -24,10 +24,9 @@ import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.InfoMediaDisplay
 import com.google.android.horologist.media.ui.components.LoadingMediaDisplay
 import com.google.android.horologist.media.ui.state.PlayerUiState
-import com.google.android.horologist.mediasample.ui.components.MarqueeTextMediaDisplay
 
 /**
- * Default [MediaDisplay] implementation for [PlayerScreen] including player status.
+ * Animated [MediaDisplay] implementation for [PlayerScreen] including player status.
  */
 @ExperimentalHorologistMediaUiApi
 @Composable

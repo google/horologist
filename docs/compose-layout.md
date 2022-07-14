@@ -5,7 +5,7 @@
 Syncs the TimeText, PositionIndicator and Scaffold to the current navigation destination
 state. The TimeText will scroll out of the way of content automatically.
 
-```
+```kotlin
 WearNavScaffold(
     startDestination = "home",
     navController = navController

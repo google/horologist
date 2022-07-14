@@ -43,7 +43,6 @@ import com.google.android.horologist.media.ui.components.DefaultMediaDisplay
 import com.google.android.horologist.media.ui.components.InfoMediaDisplay
 import com.google.android.horologist.media.ui.components.LoadingMediaDisplay
 import com.google.android.horologist.media.ui.components.MediaControlButtons
-import com.google.android.horologist.media.ui.components.TextMediaDisplay
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 
@@ -115,7 +114,6 @@ public fun DefaultPlayerScreenMediaDisplay(
         )
     }
 }
-
 
 /**
  * Default [ControlButtons] implementation for [PlayerScreen].

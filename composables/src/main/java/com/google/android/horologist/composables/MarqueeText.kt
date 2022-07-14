@@ -22,7 +22,6 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,14 +36,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.Text
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-enum class MarqueeComponents {
+private enum class MarqueeComponents {
     Main,
     Second,
 }
@@ -58,7 +56,7 @@ private data class ElementWidths(
 }
 
 @Composable
-fun MarqueeText(
+public fun MarqueeText(
     text: String,
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified,
@@ -83,7 +81,7 @@ fun MarqueeText(
     val startOffset = 30f
     val offset = rememberInfiniteTransition().animateFloat(
         initialValue = -startOffset,
-        targetValue = startOffset - (widths.value?.textWithSpacing ?: 0).toFloat(),
+        targetValue = startOffset - widths.value.textWithSpacing.toFloat(),
         animationSpec = infiniteRepeatable(
             animation = tween(animationTime.inWholeMilliseconds.toInt(), easing = LinearEasing),
             repeatMode = RepeatMode.Restart
@@ -99,7 +97,7 @@ fun MarqueeText(
                 drawContent()
 
                 val calculatedWidths = widths.value
-                if (calculatedWidths != null && calculatedWidths.isScrollRequired) {
+                if (calculatedWidths.isScrollRequired) {
                     drawRect(
                         topLeft = Offset.Zero,
                         size = Size(edgeGradientWidth.toFloat(), this.size.height),
@@ -143,16 +141,7 @@ fun MarqueeText(
             container = constraints.maxWidth
         )
         widths.value = calculatedWidths
-        if (!calculatedWidths.isScrollRequired) {
-            val x = fixedPlacement(textAlign, textPlaceable.width, constraints.maxWidth)
-
-            layout(
-                width = constraints.maxWidth,
-                height = textPlaceable.height
-            ) {
-                textPlaceable.place(x, 0)
-            }
-        } else {
+        if (calculatedWidths.isScrollRequired) {
             val secondTextPlaceable = subcompose(MarqueeComponents.Second) {
                 textFn()
             }.first().measure(Constraints())
@@ -171,28 +160,19 @@ fun MarqueeText(
                     secondTextPlaceable.place(secondTextOffset.toInt(), 0)
                 }
             }
+        } else {
+            val x = when (textAlign) {
+                TextAlign.Right -> constraints.maxWidth - textPlaceable.width
+                TextAlign.Center -> (constraints.maxWidth - textPlaceable.width) / 2
+                else -> 0
+            }
+
+            layout(
+                width = constraints.maxWidth,
+                height = textPlaceable.height
+            ) {
+                textPlaceable.place(x, 0)
+            }
         }
     }
-}
-
-fun fixedPlacement(textAlign: TextAlign, width: Int, maxWidth: Int): Int = when (textAlign) {
-    TextAlign.Right -> maxWidth - width
-    TextAlign.Center -> (maxWidth - width) / 2
-    else -> 0
-}
-
-@Preview(
-    widthDp = 100,
-    heightDp = 20,
-    backgroundColor = 0xFF000000,
-    showBackground = true
-)
-@Composable
-fun MarqueeTextPreview() {
-    MarqueeText(
-        text = "A very long text strings",
-        modifier = Modifier
-            .fillMaxWidth(),
-        textAlign = TextAlign.Center,
-    )
 }

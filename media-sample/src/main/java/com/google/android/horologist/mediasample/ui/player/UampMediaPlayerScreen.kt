@@ -29,7 +29,6 @@ import com.google.android.horologist.compose.layout.StateUtils.rememberStateWith
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
-import com.google.android.horologist.mediasample.ui.components.AnimatedPlayerScreenMediaDisplay
 import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
 import com.google.android.horologist.media.ui.components.background.ColorBackground
 import com.google.android.horologist.media.ui.screens.DefaultPlayerScreenControlButtons
@@ -38,6 +37,7 @@ import com.google.android.horologist.media.ui.screens.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.mediasample.domain.model.Settings
+import com.google.android.horologist.mediasample.ui.components.AnimatedPlayerScreenMediaDisplay
 
 @Composable
 fun UampMediaPlayerScreen(

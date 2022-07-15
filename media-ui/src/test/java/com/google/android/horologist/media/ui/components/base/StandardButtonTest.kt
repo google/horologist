@@ -34,6 +34,7 @@ import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
 internal class StandardButtonTest(
+    @Suppress("unused") // it's used by junit to display the test name
     private val description: String,
     private val buttonType: StandardButtonType,
     private val buttonSize: StandardButtonSize,
@@ -125,6 +126,36 @@ internal class StandardButtonTest(
             arrayOf(
                 "Secondary Default Disabled",
                 StandardButtonType.Secondary,
+                StandardButtonSize.Default,
+                false
+            ),
+            arrayOf(
+                "Icon only Default",
+                StandardButtonType.IconOnly,
+                StandardButtonSize.Default,
+                true
+            ),
+            arrayOf(
+                "Icon only Large",
+                StandardButtonType.IconOnly,
+                StandardButtonSize.Large,
+                true
+            ),
+            arrayOf(
+                "Icon only Small",
+                StandardButtonType.IconOnly,
+                StandardButtonSize.Small,
+                true
+            ),
+            arrayOf(
+                "Icon only Extra Small",
+                StandardButtonType.IconOnly,
+                StandardButtonSize.ExtraSmall,
+                true
+            ),
+            arrayOf(
+                "Icon only Default Disabled",
+                StandardButtonType.IconOnly,
                 StandardButtonSize.Default,
                 false
             ),

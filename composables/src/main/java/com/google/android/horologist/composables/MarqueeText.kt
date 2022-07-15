@@ -24,7 +24,6 @@ import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -60,6 +59,7 @@ private enum class MarqueeComponents {
 private enum class AnimationState {
     Pause,
     Marquee,
+    NotNeeded,
 }
 
 private data class ElementWidths(
@@ -124,30 +124,24 @@ public fun MarqueeText(
         }
     }
 
-    val pauseThenMarquee: suspend () -> Unit = {
-        if (measuredWidths.isScrollRequired) {
+    // Reset animation
+    LaunchedEffect(text) {
+        transitionState.targetState = AnimationState.NotNeeded
+    }
+
+    // Reset from completed marquee to pause
+    LaunchedEffect(transitionState.currentState) {
+        if (transitionState.currentState == AnimationState.Marquee) {
+            transitionState.targetState = AnimationState.Pause
+        }
+    }
+
+    // Run marquee after a delay
+    LaunchedEffect(transitionState.currentState) {
+        if (transitionState.currentState == AnimationState.Pause && transitionState.isIdle) {
             delay(pauseTime)
             transitionState.targetState = AnimationState.Marquee
         }
-    }
-
-    LaunchedEffect(text) {
-        transitionState.targetState = AnimationState.Pause
-        pauseThenMarquee()
-    }
-
-    LaunchedEffect(transitionState.isIdle, transitionState.currentState) {
-        if (transitionState.isIdle && transitionState.currentState == AnimationState.Marquee) {
-            pauseThenMarquee()
-        }
-    }
-
-    LaunchedEffect(
-        transitionState.isIdle,
-        transitionState.currentState,
-        transitionState.targetState
-    ) {
-        println("" + transitionState.currentState + " " + transitionState.targetState + " " + transitionState.isIdle)
     }
 
     fun ContentDrawScope.drawFadeGradient(
@@ -191,6 +185,11 @@ public fun MarqueeText(
             text = textPlaceable.width.toDp(),
             container = constraints.maxWidth.toDp()
         )
+
+        if (transitionState.currentState == AnimationState.NotNeeded && measuredWidths.isScrollRequired) {
+            transitionState.targetState = AnimationState.Pause
+        }
+
         if (measuredWidths.isScrollRequired) {
             val secondTextPlaceable = subcompose(MarqueeComponents.Second) {
                 textFn()
@@ -225,21 +224,4 @@ public fun MarqueeText(
             }
         }
     }
-}
-
-@OptIn(ExperimentalHorologistComposablesApi::class)
-@Preview(
-    widthDp = 100,
-    heightDp = 20,
-    backgroundColor = 0xFF000000,
-    showBackground = true
-)
-@Composable
-fun MarqueeTextPreview() {
-    MarqueeText(
-        text = "A very long text strings",
-        modifier = Modifier
-            .fillMaxWidth(),
-        textAlign = TextAlign.Center,
-    )
 }

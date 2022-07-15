@@ -16,15 +16,17 @@
 
 package com.google.android.horologist.composables
 
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.core.animateDp
+import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.drawWithContent
@@ -33,28 +35,65 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Constraints
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.LocalContentColor
 import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.Text
+import kotlinx.coroutines.delay
+import kotlin.math.roundToInt
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 private enum class MarqueeComponents {
-    Main,
+    First,
     Second,
 }
 
+private enum class AnimationState {
+    // Text will scroll after some delay
+    WaitingToScroll,
+    // Text is scrolling
+    Scrolling,
+    // Initial state before or assuming it is determined that scrolling is not required
+    NotNeeded,
+}
+
 private data class ElementWidths(
-    val text: Int,
-    val textWithSpacing: Int,
-    val container: Int
+    val text: Dp,
+    val container: Dp
 ) {
     val isScrollRequired: Boolean = text > container
 }
 
+/**
+ * Show a single line Marquee text, with a pause (initial and between cycles) and speed.
+ *
+ * Otherwise is mostly the same as the [Text] composable, without params that don't apply for
+ * marquee, such as maxLines.
+ *
+ * Only scrolls if required, and otherwise uses textAlign to show the content in a
+ * stationary position.
+ *
+ * @param text The text to be displayed.
+ * @param modifier [Modifier] to apply to this layout node.
+ * @param color [Color] to apply to the text. If [Color.Unspecified], and [style] has no color set,
+ * this will be [LocalContentColor].
+ * @param style Style configuration for the text such as color, font, line height etc.
+ * @param textAlign The alignment of the text within the lines of the paragraph.
+ * See [TextStyle.textAlign].
+ * @param followGap the width between end of each scrolling text and the start of the following one.
+ * @param edgeGradientWidth the width of the fade out zone on the edges, so text isn't cut off
+ * harshly.
+ * @param marqueeDpPerSecond the speed of scrolling in dp per second.
+ * @param pauseTime the duration before initially scrolling and each additional scroll.
+ */
+@ExperimentalHorologistComposablesApi
 @Composable
 public fun MarqueeText(
     text: String,
@@ -62,33 +101,99 @@ public fun MarqueeText(
     color: Color = Color.Unspecified,
     style: TextStyle = LocalTextStyle.current,
     textAlign: TextAlign = TextAlign.Left,
-    spacing: Int = 50,
-    edgeGradientWidth: Int = 30,
-    animationTime: Duration = 3.seconds
+    followGap: Dp = 96.dp,
+    edgeGradientWidth: Dp = 10.dp,
+    marqueeDpPerSecond: Dp = 64.dp,
+    pauseTime: Duration = 4.seconds
 ) {
     val textFn = @Composable {
         Text(
             text = text,
             modifier = modifier,
+            textAlign = textAlign,
             color = color,
             style = style,
             maxLines = 1
         )
     }
 
-    val widths = remember { mutableStateOf(ElementWidths(0, 0, 0)) }
-
-    val startOffset = 30f
-    val offset = rememberInfiniteTransition().animateFloat(
-        initialValue = -startOffset,
-        targetValue = startOffset - widths.value.textWithSpacing.toFloat(),
-        animationSpec = infiniteRepeatable(
-            animation = tween(animationTime.inWholeMilliseconds.toInt(), easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
+    var measuredWidths by remember {
+        mutableStateOf(
+            ElementWidths(
+                text = 0.dp, container = 0.dp
+            )
         )
-    )
+    }
 
-    val actualOffset = offset.value.toInt()
+    val transitionState = remember { MutableTransitionState(AnimationState.NotNeeded) }
+    val transition = updateTransition(transitionState, label = "Animation State")
+
+    val durationMillis = remember(measuredWidths, marqueeDpPerSecond, followGap) {
+        ((measuredWidths.text + followGap).value / marqueeDpPerSecond.value * 1000).roundToInt()
+    }
+
+    val firstTextStartOffset by transition.animateDp(
+        label = "Marquee Offset",
+        transitionSpec = {
+            if (this.targetState == AnimationState.Scrolling) {
+                tween(durationMillis = durationMillis)
+            } else {
+                snap()
+            }
+        }
+    ) { state ->
+        if (state == AnimationState.Scrolling) {
+            edgeGradientWidth - (measuredWidths.text + followGap)
+        } else {
+            edgeGradientWidth
+        }
+    }
+
+    // Reset animation to the initial state, before we even know (based on width) if scrolling
+    // is required.  It should also reset the timer, since the launched effect below will cancel
+    // because current state cahnges.
+    LaunchedEffect(text) {
+        transitionState.targetState = AnimationState.NotNeeded
+    }
+
+    // Reset from completed marquee to pause, whenever we reach Marquee state, it's time to
+    // Move back to paused state.
+    LaunchedEffect(transitionState.currentState) {
+        if (transitionState.currentState == AnimationState.Scrolling) {
+            transitionState.targetState = AnimationState.WaitingToScroll
+        }
+    }
+
+    // Run marquee after a delay, this is the main scrolling loop.
+    // While we are in idle / paused state, wait the pause time, then start the animation.
+    LaunchedEffect(transitionState.currentState) {
+        if (transitionState.currentState == AnimationState.WaitingToScroll && transitionState.isIdle) {
+            delay(pauseTime)
+            transitionState.targetState = AnimationState.Scrolling
+        }
+    }
+
+    fun ContentDrawScope.drawFadeGradient(
+        leftEdge: Boolean,
+    ) {
+        val width = edgeGradientWidth.toPx()
+        drawRect(
+            size = Size(width, size.height),
+            topLeft = Offset(
+                if (leftEdge) 0f else size.width - width,
+                0f
+            ),
+            brush = Brush.horizontalGradient(
+                listOf(
+                    Color.Transparent,
+                    Color.Black
+                ),
+                startX = if (leftEdge) 0f else size.width,
+                endX = if (leftEdge) width else size.width - width
+            ),
+            blendMode = BlendMode.DstIn
+        )
+    }
 
     SubcomposeLayout(
         modifier = modifier
@@ -96,82 +201,57 @@ public fun MarqueeText(
             .drawWithContent {
                 drawContent()
 
-                val calculatedWidths = widths.value
-                if (calculatedWidths.isScrollRequired) {
-                    drawRect(
-                        topLeft = Offset.Zero,
-                        size = Size(edgeGradientWidth.toFloat(), this.size.height),
-                        brush = Brush.horizontalGradient(
-                            listOf(
-                                Color.Transparent,
-                                Color.Black
-                            ),
-                            startX = 0f,
-                            endX = edgeGradientWidth.toFloat()
-                        ),
-                        blendMode = BlendMode.DstIn
-                    )
-
-                    drawRect(
-                        size = Size(edgeGradientWidth.toFloat(), this.size.height),
-                        topLeft = Offset(
-                            calculatedWidths.container - edgeGradientWidth.toFloat(),
-                            0f
-                        ),
-                        brush = Brush.horizontalGradient(
-                            listOf(
-                                Color.Black,
-                                Color.Transparent
-                            ),
-                            startX = this.size.width - edgeGradientWidth,
-                            endX = this.size.width
-                        ),
-                        blendMode = BlendMode.DstIn
-                    )
+                if (measuredWidths.isScrollRequired) {
+                    drawFadeGradient(leftEdge = true)
+                    drawFadeGradient(leftEdge = false)
                 }
             }
     ) { constraints ->
-        val textPlaceable = subcompose(MarqueeComponents.Main) {
+        val firstTextPlaceable = subcompose(MarqueeComponents.First) {
             textFn()
         }.first().measure(Constraints())
 
-        val calculatedWidths = ElementWidths(
-            text = textPlaceable.width,
-            textWithSpacing = textPlaceable.width + spacing,
-            container = constraints.maxWidth
+        measuredWidths = ElementWidths(
+            text = firstTextPlaceable.width.toDp(),
+            container = constraints.maxWidth.toDp()
         )
-        widths.value = calculatedWidths
-        if (calculatedWidths.isScrollRequired) {
+
+        if (transitionState.currentState == AnimationState.NotNeeded && measuredWidths.isScrollRequired) {
+            transitionState.targetState = AnimationState.WaitingToScroll
+        }
+
+        if (measuredWidths.isScrollRequired) {
             val secondTextPlaceable = subcompose(MarqueeComponents.Second) {
                 textFn()
             }.first().measure(Constraints())
 
-            val firstElementWidth = textPlaceable.width + spacing
-            val secondTextOffset = firstElementWidth + actualOffset
+            val secondTextStartOffset = firstTextStartOffset + measuredWidths.text + followGap
 
             layout(
                 width = constraints.maxWidth,
-                height = textPlaceable.height
+                height = firstTextPlaceable.height
             ) {
-                textPlaceable.place(actualOffset, 0)
+                firstTextPlaceable.place(firstTextStartOffset.toPx().roundToInt(), 0)
 
-                val secondTextSpace = constraints.maxWidth - secondTextOffset
-                if (secondTextSpace > 0) {
-                    secondTextPlaceable.place(secondTextOffset.toInt(), 0)
+                val secondTextSpace = constraints.maxWidth.toDp() - secondTextStartOffset
+                if (secondTextSpace > 0.dp) {
+                    secondTextPlaceable.place(secondTextStartOffset.toPx().roundToInt(), 0)
                 }
             }
         } else {
+            // Render a fixed position single text since it fits
+
             val x = when (textAlign) {
-                TextAlign.Right -> constraints.maxWidth - textPlaceable.width
-                TextAlign.Center -> (constraints.maxWidth - textPlaceable.width) / 2
+                TextAlign.Right -> constraints.maxWidth - firstTextPlaceable.width
+                TextAlign.Center -> (constraints.maxWidth - firstTextPlaceable.width) / 2
                 else -> 0
             }
 
             layout(
                 width = constraints.maxWidth,
-                height = textPlaceable.height
+                height = firstTextPlaceable.height
             ) {
-                textPlaceable.place(x, 0)
+                firstTextPlaceable.place(x, 0)
             }
         }
     }

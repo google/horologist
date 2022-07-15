@@ -9,7 +9,7 @@ package com.google.android.horologist.composables {
   }
 
   public final class MarqueeTextKt {
-    method @androidx.compose.runtime.Composable public static void MarqueeText(String text, optional androidx.compose.ui.Modifier modifier, optional long color, optional androidx.compose.ui.text.TextStyle style, optional int textAlign, optional int spacing, optional int edgeGradientWidth, optional long animationTime);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void MarqueeText(String text, optional androidx.compose.ui.Modifier modifier, optional long color, optional androidx.compose.ui.text.TextStyle style, optional int textAlign, optional float followGap, optional float edgeGradientWidth, optional float marqueeDpPerSecond, optional long pauseTime);
   }
 
   public final class ProgressIndicatorSegment {

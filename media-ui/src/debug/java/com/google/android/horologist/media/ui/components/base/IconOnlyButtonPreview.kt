@@ -19,12 +19,9 @@ package com.google.android.horologist.media.ui.components.base
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import com.google.android.horologist.compose.tools.WearPreview
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@WearPreview
 @Composable
 fun IconOnlyButtonPreview() {
     StandardButton(
@@ -35,10 +32,7 @@ fun IconOnlyButtonPreview() {
     )
 }
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@WearPreview
 @Composable
 fun IconOnlyButtonPreviewLarge() {
     StandardButton(
@@ -50,10 +44,7 @@ fun IconOnlyButtonPreviewLarge() {
     )
 }
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@WearPreview
 @Composable
 fun IconOnlyButtonPreviewSmall() {
     StandardButton(
@@ -65,10 +56,7 @@ fun IconOnlyButtonPreviewSmall() {
     )
 }
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@WearPreview
 @Composable
 fun IconOnlyButtonPreviewExtraSmall() {
     StandardButton(
@@ -80,10 +68,7 @@ fun IconOnlyButtonPreviewExtraSmall() {
     )
 }
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@WearPreview
 @Composable
 fun IconOnlyButtonPreviewDisabled() {
     StandardButton(

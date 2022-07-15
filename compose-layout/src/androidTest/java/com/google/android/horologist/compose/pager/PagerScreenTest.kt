@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalPagerApi::class)
+
 package com.google.android.horologist.compose.pager
 
 import androidx.compose.foundation.layout.Box
@@ -33,6 +35,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.lifecycle.whenResumed
 import androidx.test.filters.MediumTest
 import androidx.wear.compose.material.Text
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.common.truth.Truth.assertThat

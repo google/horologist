@@ -16,13 +16,14 @@
 
 package com.google.android.horologist.composables
 
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.core.animateDp
+import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -37,8 +38,11 @@ import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Constraints
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.Text
+import kotlin.math.roundToInt
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -47,14 +51,20 @@ private enum class MarqueeComponents {
     Second,
 }
 
+private enum class AnimationState {
+    Pause,
+    Marquee,
+    NotRequired,
+}
+
 private data class ElementWidths(
-    val text: Int,
-    val textWithSpacing: Int,
-    val container: Int
+    val text: Dp,
+    val container: Dp
 ) {
     val isScrollRequired: Boolean = text > container
 }
 
+@ExperimentalHorologistComposablesApi
 @Composable
 public fun MarqueeText(
     text: String,
@@ -62,9 +72,10 @@ public fun MarqueeText(
     color: Color = Color.Unspecified,
     style: TextStyle = LocalTextStyle.current,
     textAlign: TextAlign = TextAlign.Left,
-    spacing: Int = 50,
-    edgeGradientWidth: Int = 30,
-    animationTime: Duration = 3.seconds
+    followGap: Dp = 96.dp,
+    edgeGradientWidth: Dp = 30.dp,
+    marqueeDpPerSecond: Dp = 64.dp,
+    pauseTime: Duration = 4.seconds
 ) {
     val textFn = @Composable {
         Text(
@@ -76,19 +87,41 @@ public fun MarqueeText(
         )
     }
 
-    val widths = remember { mutableStateOf(ElementWidths(0, 0, 0)) }
-
-    val startOffset = 30f
-    val offset = rememberInfiniteTransition().animateFloat(
-        initialValue = -startOffset,
-        targetValue = startOffset - widths.value.textWithSpacing.toFloat(),
-        animationSpec = infiniteRepeatable(
-            animation = tween(animationTime.inWholeMilliseconds.toInt(), easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
+    var measuredWidths by remember {
+        mutableStateOf(
+            ElementWidths(
+                text = 0.dp, container = 0.dp
+            )
         )
-    )
+    }
 
-    val actualOffset = offset.value.toInt()
+    val currentState = remember { MutableTransitionState(AnimationState.Pause) }
+    val transition = updateTransition(currentState, label = "Animation State")
+
+    val durationMillis = remember(measuredWidths, marqueeDpPerSecond, followGap) {
+        ((measuredWidths.text + followGap).value / marqueeDpPerSecond.value * 1000).roundToInt()
+    }
+
+    val offset by transition.animateDp(
+        label = "Marquee Offset",
+        transitionSpec = {
+            if (this.targetState == AnimationState.Marquee) {
+                tween(durationMillis = durationMillis)
+            } else {
+                snap()
+            }
+        }
+    ) { state ->
+        if (state == AnimationState.Marquee) {
+            edgeGradientWidth - (measuredWidths.text + followGap)
+        } else {
+            edgeGradientWidth
+        }
+    }
+
+    LaunchedEffect(text) {
+        currentState.targetState = AnimationState.Pause
+    }
 
     SubcomposeLayout(
         modifier = modifier
@@ -96,11 +129,10 @@ public fun MarqueeText(
             .drawWithContent {
                 drawContent()
 
-                val calculatedWidths = widths.value
-                if (calculatedWidths.isScrollRequired) {
+                if (measuredWidths.isScrollRequired) {
                     drawRect(
                         topLeft = Offset.Zero,
-                        size = Size(edgeGradientWidth.toFloat(), this.size.height),
+                        size = Size(edgeGradientWidth.toPx(), this.size.height),
                         brush = Brush.horizontalGradient(
                             listOf(
                                 Color.Transparent,
@@ -115,7 +147,7 @@ public fun MarqueeText(
                     drawRect(
                         size = Size(edgeGradientWidth.toFloat(), this.size.height),
                         topLeft = Offset(
-                            calculatedWidths.container - edgeGradientWidth.toFloat(),
+                            measuredWidths.container - edgeGradientWidth.toFloat(),
                             0f
                         ),
                         brush = Brush.horizontalGradient(
@@ -135,29 +167,27 @@ public fun MarqueeText(
             textFn()
         }.first().measure(Constraints())
 
-        val calculatedWidths = ElementWidths(
-            text = textPlaceable.width,
-            textWithSpacing = textPlaceable.width + spacing,
-            container = constraints.maxWidth
+        measuredWidths = ElementWidths(
+            text = textPlaceable.width.toDp(),
+            container = constraints.maxWidth.toDp()
         )
-        widths.value = calculatedWidths
-        if (calculatedWidths.isScrollRequired) {
+        if (measuredWidths.isScrollRequired) {
             val secondTextPlaceable = subcompose(MarqueeComponents.Second) {
                 textFn()
             }.first().measure(Constraints())
 
-            val firstElementWidth = textPlaceable.width + spacing
-            val secondTextOffset = firstElementWidth + actualOffset
+            val firstTextOffset = offset
+            val secondTextOffset = firstTextOffset + measuredWidths.text + offset
 
             layout(
                 width = constraints.maxWidth,
                 height = textPlaceable.height
             ) {
-                textPlaceable.place(actualOffset, 0)
+                textPlaceable.place(firstTextOffset.toPx().roundToInt(), 0)
 
-                val secondTextSpace = constraints.maxWidth - secondTextOffset
-                if (secondTextSpace > 0) {
-                    secondTextPlaceable.place(secondTextOffset.toInt(), 0)
+                val secondTextSpace = constraints.maxWidth.toDp() - secondTextOffset
+                if (secondTextSpace > 0.dp) {
+                    secondTextPlaceable.place(secondTextOffset.toPx().roundToInt(), 0)
                 }
             }
         } else {

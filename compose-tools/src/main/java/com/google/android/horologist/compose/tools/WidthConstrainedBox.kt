@@ -36,7 +36,6 @@ import androidx.wear.compose.material.Text
  * A repeated preview to allow seeing the same component at multiple widths.
  */
 @Composable
-@ExperimentalHorologistComposeToolsApi
 public fun WidthConstrainedBox(
     widths: List<Dp> = listOf(192.dp, 227.dp),
     comfortableHeight: Dp = 101.dp,

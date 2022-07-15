@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistAudioUiApi::class)
+
 package com.google.android.horologist.audio.ui
 
 import android.os.Vibrator
@@ -27,19 +29,13 @@ import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performRotaryScrollInput
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
-import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 
-@OptIn(
-    ExperimentalHorologistAudioApi::class,
-    ExperimentalHorologistAudioUiApi::class,
-    ExperimentalTestApi::class,
-    kotlinx.coroutines.ExperimentalCoroutinesApi::class
-)
+@OptIn(ExperimentalTestApi::class)
 @MediumTest
 class VolumeScreenTest {
     @get:Rule

@@ -38,12 +38,9 @@ import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.R
 
-@ExperimentalHorologistAudioUiApi
 @Composable
 public fun DeviceChip(
     volumeState: VolumeState,
@@ -83,8 +80,6 @@ public fun DeviceChip(
     )
 }
 
-@ExperimentalHorologistAudioUiApi
-@OptIn(ExperimentalHorologistAudioApi::class)
 @Composable
 public fun AudioOutput.icon(): ImageVector {
     return when (this) {

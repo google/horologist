@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistAudioUiApi::class, ExperimentalHorologistComposeToolsApi::class)
-
 package com.google.android.horologist.audio.ui
 
 import androidx.compose.runtime.Composable
@@ -23,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.DeviceChip
-import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.compose.tools.WidthConstrainedBox
 

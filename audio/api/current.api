@@ -1,7 +1,7 @@
 // Signature format: 4.0
 package com.google.android.horologist.audio {
 
-  @com.google.android.horologist.audio.ExperimentalHorologistAudioApi public interface AudioOutput {
+  public interface AudioOutput {
     method public String getId();
     method public String getName();
     property public abstract String id;
@@ -49,7 +49,7 @@ package com.google.android.horologist.audio {
     property public String name;
   }
 
-  @com.google.android.horologist.audio.ExperimentalHorologistAudioApi public interface AudioOutputRepository extends java.lang.AutoCloseable {
+  public interface AudioOutputRepository extends java.lang.AutoCloseable {
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> getAudioOutput();
     method public kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.audio.AudioOutput>> getAvailable();
     method public void launchOutputSelection(boolean closeOnConnect);
@@ -57,7 +57,7 @@ package com.google.android.horologist.audio {
     property public abstract kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.audio.AudioOutput>> available;
   }
 
-  @com.google.android.horologist.audio.ExperimentalHorologistAudioApi public final class BluetoothSettings {
+  public final class BluetoothSettings {
     method public void launchBluetoothSettings(android.content.Context, optional boolean closeOnConnect);
     field public static final com.google.android.horologist.audio.BluetoothSettings INSTANCE;
   }
@@ -65,7 +65,7 @@ package com.google.android.horologist.audio {
   @kotlin.RequiresOptIn(message="Horologist Audio is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistAudioApi {
   }
 
-  @com.google.android.horologist.audio.ExperimentalHorologistAudioApi public final class SystemAudioRepository implements com.google.android.horologist.audio.AudioOutputRepository com.google.android.horologist.audio.VolumeRepository {
+  public final class SystemAudioRepository implements com.google.android.horologist.audio.AudioOutputRepository com.google.android.horologist.audio.VolumeRepository {
     ctor public SystemAudioRepository(android.content.Context application, androidx.mediarouter.media.MediaRouter mediaRouter, optional androidx.mediarouter.media.MediaRouteSelector selector);
     method public void close();
     method public void decreaseVolume();
@@ -87,14 +87,14 @@ package com.google.android.horologist.audio {
   public final class SystemAudioRepositoryKt {
   }
 
-  @com.google.android.horologist.audio.ExperimentalHorologistAudioApi public interface VolumeRepository extends java.lang.AutoCloseable {
+  public interface VolumeRepository extends java.lang.AutoCloseable {
     method public void decreaseVolume();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.VolumeState> getVolumeState();
     method public void increaseVolume();
     property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.VolumeState> volumeState;
   }
 
-  @com.google.android.horologist.audio.ExperimentalHorologistAudioApi public final class VolumeState {
+  public final class VolumeState {
     ctor public VolumeState(int current, int max);
     method public int component1();
     method public int component2();

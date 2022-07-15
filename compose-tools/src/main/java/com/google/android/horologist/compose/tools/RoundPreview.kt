@@ -21,7 +21,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalConfiguration
 
-@ExperimentalHorologistComposeToolsApi
+/**
+ * Round Preview, typical useful when using previews without explicit round device support
+ * such as paparazzi.
+ */
 @Composable
 public fun RoundPreview(round: Boolean = true, content: @Composable () -> Unit) {
     if (round) {

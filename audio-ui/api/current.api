@@ -5,7 +5,7 @@ package com.google.android.horologist.audio.ui {
   }
 
   public final class VolumePositionIndicatorKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void VolumePositionIndicator(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.VolumeState> volumeState, optional androidx.compose.ui.Modifier modifier, optional boolean autoHide);
+    method @androidx.compose.runtime.Composable public static void VolumePositionIndicator(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.VolumeState> volumeState, optional androidx.compose.ui.Modifier modifier, optional boolean autoHide);
   }
 
   public final class VolumeScreenDefaults {
@@ -15,11 +15,11 @@ package com.google.android.horologist.audio.ui {
   }
 
   public final class VolumeScreenKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void VolumeScreen(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.audio.ui.VolumeViewModel volumeViewModel, optional boolean showVolumeIndicator, optional androidx.compose.ui.focus.FocusRequester focusRequester, optional kotlin.jvm.functions.Function0<kotlin.Unit> increaseIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> decreaseIcon);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void VolumeScreen(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.VolumeState> volume, com.google.android.horologist.audio.AudioOutput audioOutput, kotlin.jvm.functions.Function0<kotlin.Unit> increaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> decreaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> onAudioOutputClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> increaseIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> decreaseIcon, optional boolean showVolumeIndicator, optional androidx.compose.ui.focus.FocusRequester focusRequester, optional androidx.compose.foundation.gestures.ScrollableState? scrollableState);
+    method @androidx.compose.runtime.Composable public static void VolumeScreen(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.audio.ui.VolumeViewModel volumeViewModel, optional boolean showVolumeIndicator, optional androidx.compose.ui.focus.FocusRequester focusRequester, optional kotlin.jvm.functions.Function0<kotlin.Unit> increaseIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> decreaseIcon);
+    method @androidx.compose.runtime.Composable public static void VolumeScreen(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.VolumeState> volume, com.google.android.horologist.audio.AudioOutput audioOutput, kotlin.jvm.functions.Function0<kotlin.Unit> increaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> decreaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> onAudioOutputClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> increaseIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> decreaseIcon, optional boolean showVolumeIndicator, optional androidx.compose.ui.focus.FocusRequester focusRequester, optional androidx.compose.foundation.gestures.ScrollableState? scrollableState);
   }
 
-  @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public final class VolumeScrollableState implements androidx.compose.foundation.gestures.ScrollableState {
+  public final class VolumeScrollableState implements androidx.compose.foundation.gestures.ScrollableState {
     ctor public VolumeScrollableState(com.google.android.horologist.audio.VolumeRepository volumeRepository, android.os.Vibrator vibrator);
     method public float dispatchRawDelta(float delta);
     method public boolean isScrollInProgress();
@@ -51,8 +51,8 @@ package com.google.android.horologist.audio.ui {
 package com.google.android.horologist.audio.ui.components {
 
   public final class DeviceChipKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void DeviceChip(com.google.android.horologist.audio.VolumeState volumeState, com.google.android.horologist.audio.AudioOutput audioOutput, kotlin.jvm.functions.Function0<kotlin.Unit> onAudioOutputClick, optional androidx.compose.ui.Modifier modifier);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static androidx.compose.ui.graphics.vector.ImageVector icon(com.google.android.horologist.audio.AudioOutput);
+    method @androidx.compose.runtime.Composable public static void DeviceChip(com.google.android.horologist.audio.VolumeState volumeState, com.google.android.horologist.audio.AudioOutput audioOutput, kotlin.jvm.functions.Function0<kotlin.Unit> onAudioOutputClick, optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable public static androidx.compose.ui.graphics.vector.ImageVector icon(com.google.android.horologist.audio.AudioOutput);
   }
 
   public final class SettingsButtonsDefaults {
@@ -61,7 +61,7 @@ package com.google.android.horologist.audio.ui.components {
   }
 
   public final class SettingsButtonsKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void SettingsButtons(com.google.android.horologist.audio.VolumeState volumeState, kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, kotlin.jvm.functions.Function0<kotlin.Unit> onOutputClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> brandIcon, optional boolean enabled);
+    method @androidx.compose.runtime.Composable public static void SettingsButtons(com.google.android.horologist.audio.VolumeState volumeState, kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, kotlin.jvm.functions.Function0<kotlin.Unit> onOutputClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> brandIcon, optional boolean enabled);
   }
 
 }
@@ -69,15 +69,15 @@ package com.google.android.horologist.audio.ui.components {
 package com.google.android.horologist.audio.ui.components.actions {
 
   public final class AudioOutputButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void AudioOutputButton(kotlin.jvm.functions.Function0<kotlin.Unit> onOutputClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled);
+    method @androidx.compose.runtime.Composable public static void AudioOutputButton(kotlin.jvm.functions.Function0<kotlin.Unit> onOutputClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled);
   }
 
   public final class SetVolumeButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void SetVolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, com.google.android.horologist.audio.VolumeState volumeState, optional androidx.compose.ui.Modifier modifier, optional boolean enabled);
+    method @androidx.compose.runtime.Composable public static void SetVolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, com.google.android.horologist.audio.VolumeState volumeState, optional androidx.compose.ui.Modifier modifier, optional boolean enabled);
   }
 
   public final class SettingsButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void SettingsButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional float iconSize, optional float tapTargetSize);
+    method @androidx.compose.runtime.Composable public static void SettingsButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional float iconSize, optional float tapTargetSize);
   }
 
 }
@@ -85,7 +85,7 @@ package com.google.android.horologist.audio.ui.components.actions {
 package com.google.android.horologist.audio.ui.components.animated {
 
   public final class AnimatedSetVolumeButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public static void AnimatedSetVolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, com.google.android.horologist.audio.VolumeState volumeState, optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable public static void AnimatedSetVolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, com.google.android.horologist.audio.VolumeState volumeState, optional androidx.compose.ui.Modifier modifier);
   }
 
   public final class InteractivePreviewAwareKt {
@@ -98,7 +98,7 @@ package com.google.android.horologist.audio.ui.components.animated {
 
 package com.google.android.horologist.audio.ui.semantics {
 
-  @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public final class CustomSemanticsProperties {
+  public final class CustomSemanticsProperties {
     method public androidx.compose.ui.graphics.vector.ImageVector getIconImageVector(androidx.compose.ui.semantics.SemanticsPropertyReceiver);
     method public androidx.compose.ui.semantics.SemanticsPropertyKey<androidx.compose.ui.graphics.vector.ImageVector> getIconImageVectorKey();
     method public void setIconImageVector(androidx.compose.ui.semantics.SemanticsPropertyReceiver, androidx.compose.ui.graphics.vector.ImageVector iconImageVector);

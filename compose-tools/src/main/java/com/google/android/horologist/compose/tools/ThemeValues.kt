@@ -19,29 +19,11 @@ package com.google.android.horologist.compose.tools
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.Colors
 
-@ExperimentalHorologistComposeToolsApi
 public data class ThemeValues(val name: String, val index: Int, val colors: Colors) {
     val safeName: String
         get() = name.replace("[^A-Za-z0-9]".toRegex(), "")
 }
 
-public val Orangey: Colors = Colors(
-    secondary = Color(0xFFED612B), // Used for RSB
-    surface = Color(0xFF202124), // Used for Device Chip
-    onPrimary = Color(0xFFED612B),
-    onSurface = Color(0xFFED612B),
-)
-
-public val UampColors: Colors = Colors(
-    primary = Color(0xFF981F68),
-    primaryVariant = Color(0xFF66003d),
-    secondary = Color(0xFF981F68),
-    error = Color(0xFFE24444),
-    onPrimary = Color.White,
-    onSurfaceVariant = Color(0xFFDADCE0),
-)
-
-@ExperimentalHorologistComposeToolsApi
 public val themeValues: List<ThemeValues> = listOf(
     ThemeValues("Blue (Default - AECBFA)", 0, Colors()),
     ThemeValues(
@@ -96,11 +78,23 @@ public val themeValues: List<ThemeValues> = listOf(
     ThemeValues(
         "Orange-y",
         5,
-        Orangey
+        Colors(
+            secondary = Color(0xFFED612B), // Used for RSB
+            surface = Color(0xFF202124), // Used for Device Chip
+            onPrimary = Color(0xFFED612B),
+            onSurface = Color(0xFFED612B),
+        )
     ),
     ThemeValues(
         "Uamp",
         6,
-        UampColors
+        Colors(
+            primary = Color(0xFF981F68),
+            primaryVariant = Color(0xFF66003d),
+            secondary = Color(0xFF981F68),
+            error = Color(0xFFE24444),
+            onPrimary = Color.White,
+            onSurfaceVariant = Color(0xFFDADCE0),
+        )
     ),
 )

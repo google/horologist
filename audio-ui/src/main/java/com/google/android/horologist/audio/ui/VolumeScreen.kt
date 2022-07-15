@@ -46,7 +46,6 @@ import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.InlineSlider
 import androidx.wear.compose.material.Stepper
 import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumeScreenDefaults.DecreaseIcon
 import com.google.android.horologist.audio.ui.VolumeScreenDefaults.IncreaseIcon
@@ -65,8 +64,7 @@ import kotlinx.coroutines.launch
  * See [VolumeViewModel]
  * See [AudioManager.STREAM_MUSIC]
  */
-@ExperimentalHorologistAudioUiApi
-@OptIn(ExperimentalHorologistAudioApi::class)
+@OptIn(ExperimentalHorologistAudioUiApi::class)
 @Composable
 public fun VolumeScreen(
     modifier: Modifier = Modifier,
@@ -94,8 +92,6 @@ public fun VolumeScreen(
     )
 }
 
-@ExperimentalHorologistAudioUiApi
-@OptIn(ExperimentalHorologistAudioApi::class)
 @Composable
 public fun VolumeScreen(
     volume: () -> VolumeState,

@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistAudioUiApi::class)
-
 package com.google.android.horologist.audio.ui.components.actions
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 
 @Preview
 @Composable

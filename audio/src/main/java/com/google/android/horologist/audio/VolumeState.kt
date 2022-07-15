@@ -19,7 +19,6 @@ package com.google.android.horologist.audio
 /**
  * Data class holding the current state of the volume system.
  */
-@ExperimentalHorologistAudioApi
 public data class VolumeState(
     public val current: Int,
     public val max: Int

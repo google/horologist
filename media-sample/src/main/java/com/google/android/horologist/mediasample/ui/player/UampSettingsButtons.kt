@@ -21,7 +21,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
 import com.google.android.horologist.mediasample.R
@@ -30,7 +29,6 @@ import com.google.android.horologist.mediasample.R
  * Settings buttons for the UAMP media app.
  * Favorite item and Set Volume.
  */
-@ExperimentalHorologistAudioUiApi
 @Composable
 public fun UampSettingsButtons(
     volumeState: VolumeState,

@@ -55,7 +55,6 @@ import kotlin.math.roundToInt
  * Any bitmaps should be preloaded from test resources and passed in via [resourceState] as
  * Bitmap or ImageResource.
  */
-@ExperimentalHorologistComposeToolsApi
 @Composable
 public fun <T, R> TileLayoutPreview(state: T, resourceState: R, renderer: TileLayoutRenderer<T, R>) {
     val context = LocalContext.current
@@ -75,7 +74,6 @@ public fun <T, R> TileLayoutPreview(state: T, resourceState: R, renderer: TileLa
 /**
  * Preview a Tile by providing the final proto representation of tiles and resources.
  */
-@ExperimentalHorologistComposeToolsApi
 @Composable
 public fun TilePreview(
     tile: TileBuilders.Tile,
@@ -134,7 +132,6 @@ public fun LayoutElementPreview(
 /**
  * Preview a root layout component such as a PrimaryLayout, that is full screen.
  */
-@ExperimentalHorologistComposeToolsApi
 @Composable
 public fun LayoutRootPreview(
     root: LayoutElement,

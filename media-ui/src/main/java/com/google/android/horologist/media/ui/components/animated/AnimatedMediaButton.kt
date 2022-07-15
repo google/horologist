@@ -20,12 +20,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
+import androidx.wear.compose.material.LocalContentAlpha
 import com.airbnb.lottie.LottieComposition
 import com.airbnb.lottie.compose.LottieAnimatable
 import com.airbnb.lottie.compose.LottieAnimation
@@ -67,6 +69,7 @@ public fun AnimatedMediaButton(
         LottieAnimation(
             modifier = Modifier
                 .size(iconSize)
+                .graphicsLayer(alpha = LocalContentAlpha.current)
                 .semantics { contentDescriptionProperty = contentDescription },
             composition = composition,
             progress = { lottieAnimatable.progress },

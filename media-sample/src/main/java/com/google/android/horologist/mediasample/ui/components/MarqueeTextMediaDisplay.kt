@@ -27,7 +27,6 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.composables.MarqueeText
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import kotlin.time.Duration.Companion.seconds
 
 /**
  * An animated text only display showing scrolling title and still artist in two separated rows.

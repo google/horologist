@@ -21,11 +21,13 @@ import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.drawWithContent
@@ -37,11 +39,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.Text
+import kotlinx.coroutines.delay
 import kotlin.math.roundToInt
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
@@ -73,7 +77,7 @@ public fun MarqueeText(
     style: TextStyle = LocalTextStyle.current,
     textAlign: TextAlign = TextAlign.Left,
     followGap: Dp = 96.dp,
-    edgeGradientWidth: Dp = 30.dp,
+    edgeGradientWidth: Dp = 10.dp,
     marqueeDpPerSecond: Dp = 64.dp,
     pauseTime: Duration = 4.seconds
 ) {
@@ -121,6 +125,14 @@ public fun MarqueeText(
 
     LaunchedEffect(text) {
         currentState.targetState = AnimationState.Pause
+        delay(pauseTime)
+        if (measuredWidths.isScrollRequired) {
+            currentState.targetState = AnimationState.Marquee
+        }
+    }
+
+    LaunchedEffect(currentState) {
+        if (measuredWidths.isScrollRequired)
     }
 
     SubcomposeLayout(
@@ -139,15 +151,15 @@ public fun MarqueeText(
                                 Color.Black
                             ),
                             startX = 0f,
-                            endX = edgeGradientWidth.toFloat()
+                            endX = edgeGradientWidth.toPx()
                         ),
                         blendMode = BlendMode.DstIn
                     )
 
                     drawRect(
-                        size = Size(edgeGradientWidth.toFloat(), this.size.height),
+                        size = Size(edgeGradientWidth.toPx(), this.size.height),
                         topLeft = Offset(
-                            measuredWidths.container - edgeGradientWidth.toFloat(),
+                            measuredWidths.container.toPx() - edgeGradientWidth.toPx(),
                             0f
                         ),
                         brush = Brush.horizontalGradient(
@@ -155,7 +167,7 @@ public fun MarqueeText(
                                 Color.Black,
                                 Color.Transparent
                             ),
-                            startX = this.size.width - edgeGradientWidth,
+                            startX = this.size.width - edgeGradientWidth.toPx(),
                             endX = this.size.width
                         ),
                         blendMode = BlendMode.DstIn
@@ -177,7 +189,7 @@ public fun MarqueeText(
             }.first().measure(Constraints())
 
             val firstTextOffset = offset
-            val secondTextOffset = firstTextOffset + measuredWidths.text + offset
+            val secondTextOffset = firstTextOffset + measuredWidths.text + followGap
 
             layout(
                 width = constraints.maxWidth,
@@ -205,4 +217,21 @@ public fun MarqueeText(
             }
         }
     }
+}
+
+@OptIn(ExperimentalHorologistComposablesApi::class)
+@Preview(
+    widthDp = 100,
+    heightDp = 20,
+    backgroundColor = 0xFF000000,
+    showBackground = true
+)
+@Composable
+fun MarqueeTextPreview() {
+    MarqueeText(
+        text = "A very long text strings",
+        modifier = Modifier
+            .fillMaxWidth(),
+        textAlign = TextAlign.Center,
+    )
 }

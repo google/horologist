@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistAudioUiApi::class)
+@file:OptIn(ExperimentalHorologistAudioUiApi::class, ExperimentalCoroutinesApi::class)
 
 package com.google.android.horologist.audio.ui
 
@@ -31,6 +31,7 @@ import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.android.horologist.audio.VolumeState
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test

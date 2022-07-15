@@ -18,24 +18,44 @@
 
 package com.google.android.horologist.composables
 
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.google.android.horologist.compose.tools.WearPreview
+import kotlin.time.Duration.Companion.seconds
 
-@Preview(
-    widthDp = 100,
-    heightDp = 20,
-    backgroundColor = 0xFF000000,
-    showBackground = true
-)
+@WearPreview
 @Composable
-fun MarqueeTextPreview() {
+fun MarqueeTextTypicalPreview() {
     MarqueeText(
         text = "A very long text strings",
         modifier = Modifier
-            .fillMaxWidth(),
+            .width(100.dp),
         textAlign = TextAlign.Center,
+    )
+}
+
+@WearPreview
+@Composable
+fun MarqueeTextShortTextPreview() {
+    MarqueeText(
+        text = "A",
+        modifier = Modifier
+            .width(100.dp),
+        textAlign = TextAlign.Center,
+    )
+}
+
+@WearPreview
+@Composable
+fun MarqueeTextConstantScrollingPreview() {
+    MarqueeText(
+        text = "A very long text strings",
+        modifier = Modifier
+            .width(100.dp),
+        textAlign = TextAlign.Center,
+        pauseTime = 0.seconds,
     )
 }

@@ -51,13 +51,16 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 private enum class MarqueeComponents {
-    Main,
+    First,
     Second,
 }
 
 private enum class AnimationState {
-    Pause,
-    Marquee,
+    // Text will scroll after some delay
+    WaitingToScroll,
+    // Text is scrolling
+    Scrolling,
+    // Initial state before or assuming it is determined that scrolling is not required
     NotNeeded,
 }
 
@@ -107,6 +110,7 @@ public fun MarqueeText(
         Text(
             text = text,
             modifier = modifier,
+            textAlign = textAlign,
             color = color,
             style = style,
             maxLines = 1
@@ -121,7 +125,7 @@ public fun MarqueeText(
         )
     }
 
-    val transitionState = remember { MutableTransitionState(AnimationState.Pause) }
+    val transitionState = remember { MutableTransitionState(AnimationState.NotNeeded) }
     val transition = updateTransition(transitionState, label = "Animation State")
 
     val durationMillis = remember(measuredWidths, marqueeDpPerSecond, followGap) {
@@ -131,14 +135,14 @@ public fun MarqueeText(
     val firstTextStartOffset by transition.animateDp(
         label = "Marquee Offset",
         transitionSpec = {
-            if (this.targetState == AnimationState.Marquee) {
+            if (this.targetState == AnimationState.Scrolling) {
                 tween(durationMillis = durationMillis)
             } else {
                 snap()
             }
         }
     ) { state ->
-        if (state == AnimationState.Marquee) {
+        if (state == AnimationState.Scrolling) {
             edgeGradientWidth - (measuredWidths.text + followGap)
         } else {
             edgeGradientWidth
@@ -155,17 +159,17 @@ public fun MarqueeText(
     // Reset from completed marquee to pause, whenever we reach Marquee state, it's time to
     // Move back to paused state.
     LaunchedEffect(transitionState.currentState) {
-        if (transitionState.currentState == AnimationState.Marquee) {
-            transitionState.targetState = AnimationState.Pause
+        if (transitionState.currentState == AnimationState.Scrolling) {
+            transitionState.targetState = AnimationState.WaitingToScroll
         }
     }
 
     // Run marquee after a delay, this is the main scrolling loop.
     // While we are in idle / paused state, wait the pause time, then start the animation.
     LaunchedEffect(transitionState.currentState) {
-        if (transitionState.currentState == AnimationState.Pause && transitionState.isIdle) {
+        if (transitionState.currentState == AnimationState.WaitingToScroll && transitionState.isIdle) {
             delay(pauseTime)
-            transitionState.targetState = AnimationState.Marquee
+            transitionState.targetState = AnimationState.Scrolling
         }
     }
 
@@ -203,17 +207,17 @@ public fun MarqueeText(
                 }
             }
     ) { constraints ->
-        val textPlaceable = subcompose(MarqueeComponents.Main) {
+        val firstTextPlaceable = subcompose(MarqueeComponents.First) {
             textFn()
         }.first().measure(Constraints())
 
         measuredWidths = ElementWidths(
-            text = textPlaceable.width.toDp(),
+            text = firstTextPlaceable.width.toDp(),
             container = constraints.maxWidth.toDp()
         )
 
         if (transitionState.currentState == AnimationState.NotNeeded && measuredWidths.isScrollRequired) {
-            transitionState.targetState = AnimationState.Pause
+            transitionState.targetState = AnimationState.WaitingToScroll
         }
 
         if (measuredWidths.isScrollRequired) {
@@ -225,9 +229,9 @@ public fun MarqueeText(
 
             layout(
                 width = constraints.maxWidth,
-                height = textPlaceable.height
+                height = firstTextPlaceable.height
             ) {
-                textPlaceable.place(firstTextStartOffset.toPx().roundToInt(), 0)
+                firstTextPlaceable.place(firstTextStartOffset.toPx().roundToInt(), 0)
 
                 val secondTextSpace = constraints.maxWidth.toDp() - secondTextStartOffset
                 if (secondTextSpace > 0.dp) {
@@ -238,16 +242,16 @@ public fun MarqueeText(
             // Render a fixed position single text since it fits
 
             val x = when (textAlign) {
-                TextAlign.Right -> constraints.maxWidth - textPlaceable.width
-                TextAlign.Center -> (constraints.maxWidth - textPlaceable.width) / 2
+                TextAlign.Right -> constraints.maxWidth - firstTextPlaceable.width
+                TextAlign.Center -> (constraints.maxWidth - firstTextPlaceable.width) / 2
                 else -> 0
             }
 
             layout(
                 width = constraints.maxWidth,
-                height = textPlaceable.height
+                height = firstTextPlaceable.height
             ) {
-                textPlaceable.place(x, 0)
+                firstTextPlaceable.place(x, 0)
             }
         }
     }

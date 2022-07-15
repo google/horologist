@@ -17,21 +17,15 @@
 package com.google.android.horologist.media.ui.components.base
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import com.google.android.horologist.compose.tools.WearPreview
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@WearPreview
 @Composable
 fun TitlePreview() {
     Title("Title")
 }
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@WearPreview
 @Composable
 fun TitlePreviewWithLongText() {
     Title("Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text")

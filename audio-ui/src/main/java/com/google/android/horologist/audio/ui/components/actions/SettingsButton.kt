@@ -38,7 +38,7 @@ import com.google.android.horologist.audio.ui.semantics.CustomSemanticsPropertie
  *
  * See [VolumeState]
  */
-@ExperimentalHorologistAudioUiApi
+@OptIn(ExperimentalHorologistAudioUiApi::class)
 @Composable
 public fun SettingsButton(
     onClick: () -> Unit,

@@ -26,7 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ButtonDefaults
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.R
 
 /**
@@ -34,7 +33,6 @@ import com.google.android.horologist.audio.ui.R
  *
  * See [VolumeState]
  */
-@ExperimentalHorologistAudioUiApi
 @Composable
 public fun SetVolumeButton(
     onVolumeClick: () -> Unit,

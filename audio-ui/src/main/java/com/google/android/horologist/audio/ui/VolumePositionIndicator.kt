@@ -28,7 +28,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PositionIndicator
-import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
 import kotlinx.coroutines.delay
 
@@ -39,8 +38,6 @@ import kotlinx.coroutines.delay
  * for 2 seconds after any volume change, including when a new
  * output device is selected.
  */
-@ExperimentalHorologistAudioUiApi
-@OptIn(ExperimentalHorologistAudioApi::class)
 @Composable
 public fun VolumePositionIndicator(
     volumeState: () -> VolumeState,

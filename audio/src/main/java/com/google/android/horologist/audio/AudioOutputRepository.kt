@@ -21,7 +21,6 @@ import kotlinx.coroutines.flow.StateFlow
 /**
  * Audio Output Repository for identifying available audio devices in a simple manner.
  */
-@ExperimentalHorologistAudioApi
 public interface AudioOutputRepository : AutoCloseable {
     /**
      * The current audio output.

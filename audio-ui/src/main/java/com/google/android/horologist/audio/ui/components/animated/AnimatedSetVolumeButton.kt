@@ -32,7 +32,6 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
 
 /**
@@ -40,7 +39,6 @@ import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
  *
  * See [VolumeState]
  */
-@ExperimentalHorologistAudioUiApi
 @Composable
 public fun AnimatedSetVolumeButton(
     onVolumeClick: () -> Unit,

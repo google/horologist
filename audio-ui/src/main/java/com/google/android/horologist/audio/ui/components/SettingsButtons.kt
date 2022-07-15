@@ -29,7 +29,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.components.actions.AudioOutputButton
 import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
 
@@ -37,7 +36,6 @@ import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
  * Settings buttons for a typical media app.
  * Set Volume and Select Audio Output.
  */
-@ExperimentalHorologistAudioUiApi
 @Composable
 public fun SettingsButtons(
     volumeState: VolumeState,

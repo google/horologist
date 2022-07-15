@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package com.google.android.horologist.compose.navscaffold
 
 import androidx.compose.foundation.ScrollState
@@ -47,13 +49,13 @@ import androidx.wear.compose.material.rememberScalingLazyListState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import org.junit.Assert.assertSame
 import org.junit.Rule
 import org.junit.Test
 
-@OptIn(ExperimentalHorologistComposeLayoutApi::class)
 @MediumTest
 class NavScaffoldTest {
     @get:Rule

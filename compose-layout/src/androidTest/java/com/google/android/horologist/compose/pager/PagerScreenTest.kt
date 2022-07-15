@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalPagerApi::class)
+@file:OptIn(ExperimentalPagerApi::class, ExperimentalCoroutinesApi::class)
 
 package com.google.android.horologist.compose.pager
 
@@ -40,13 +40,13 @@ import com.google.accompanist.pager.PagerState
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import org.junit.Rule
 import org.junit.Test
 
-@OptIn(ExperimentalHorologistComposeLayoutApi::class)
 @MediumTest
 class PagerScreenTest {
     @get:Rule

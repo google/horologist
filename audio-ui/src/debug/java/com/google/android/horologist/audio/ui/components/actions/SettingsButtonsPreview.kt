@@ -19,17 +19,14 @@
 package com.google.android.horologist.audio.ui.components.actions
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.R
 import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults.BrandIcon
+import com.google.android.horologist.compose.tools.WearPreview
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@WearPreview
 @Composable
 fun SettingsButtonsPreview() {
     SettingsButtons(
@@ -39,10 +36,7 @@ fun SettingsButtonsPreview() {
     )
 }
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@WearPreview
 @Composable
 fun SettingsButtonsWithBrandIconPreview() {
     SettingsButtons(
@@ -55,10 +49,7 @@ fun SettingsButtonsWithBrandIconPreview() {
     )
 }
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@WearPreview
 @Composable
 fun SettingsButtonsDisabledPreview() {
     SettingsButtons(

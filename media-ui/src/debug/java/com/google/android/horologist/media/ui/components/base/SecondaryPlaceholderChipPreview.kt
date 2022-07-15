@@ -17,12 +17,9 @@
 package com.google.android.horologist.media.ui.components.base
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import com.google.android.horologist.compose.tools.WearPreview
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@WearPreview
 @Composable
 fun SecondaryPlaceholderChipPreview() {
     SecondaryPlaceholderChip()

@@ -23,14 +23,12 @@ import androidx.compose.material.icons.filled.Album
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 import com.google.android.horologist.media.ui.utils.rememberVectorPainter
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@WearPreview
 @Composable
 fun MediaChipPreview() {
     MediaChip(

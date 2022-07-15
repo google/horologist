@@ -19,10 +19,12 @@ package com.google.android.horologist.audio.ui.semantics
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.SemanticsPropertyKey
 import androidx.compose.ui.semantics.SemanticsPropertyReceiver
+import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 
 /**
  * Custom semantic properties, mainly used for accessibility and testing.
  */
+@ExperimentalHorologistAudioUiApi
 public object CustomSemanticsProperties {
 
     public val IconImageVectorKey: SemanticsPropertyKey<ImageVector> =

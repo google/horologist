@@ -30,6 +30,7 @@ import androidx.wear.compose.material.ButtonDefaults.buttonColors
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.semantics.CustomSemanticsProperties.iconImageVector
 
 /**
@@ -37,6 +38,7 @@ import com.google.android.horologist.audio.ui.semantics.CustomSemanticsPropertie
  *
  * See [VolumeState]
  */
+@OptIn(ExperimentalHorologistAudioUiApi::class)
 @Composable
 public fun SettingsButton(
     onClick: () -> Unit,

@@ -23,59 +23,59 @@ import com.google.android.horologist.compose.tools.WearPreview
 
 @WearPreview
 @Composable
-fun SecondaryButtonPreview() {
+fun IconOnlyButtonPreview() {
     StandardButton(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = StandardButtonType.Secondary,
+        buttonType = StandardButtonType.IconOnly,
     )
 }
 
 @WearPreview
 @Composable
-fun SecondaryButtonPreviewLarge() {
+fun IconOnlyButtonPreviewLarge() {
     StandardButton(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = StandardButtonType.Secondary,
+        buttonType = StandardButtonType.IconOnly,
         buttonSize = StandardButtonSize.Large,
     )
 }
 
 @WearPreview
 @Composable
-fun SecondaryButtonPreviewSmall() {
+fun IconOnlyButtonPreviewSmall() {
     StandardButton(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = StandardButtonType.Secondary,
+        buttonType = StandardButtonType.IconOnly,
         buttonSize = StandardButtonSize.Small,
     )
 }
 
 @WearPreview
 @Composable
-fun SecondaryButtonPreviewExtraSmall() {
+fun IconOnlyButtonPreviewExtraSmall() {
     StandardButton(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = StandardButtonType.Secondary,
+        buttonType = StandardButtonType.IconOnly,
         buttonSize = StandardButtonSize.ExtraSmall,
     )
 }
 
 @WearPreview
 @Composable
-fun SecondaryButtonPreviewDisabled() {
+fun IconOnlyButtonPreviewDisabled() {
     StandardButton(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = StandardButtonType.Secondary,
+        buttonType = StandardButtonType.IconOnly,
         enabled = false,
     )
 }

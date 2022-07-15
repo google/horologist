@@ -29,7 +29,7 @@ import androidx.wear.compose.material.Icon
 
 /**
  * This composable fulfils the redlines of the following components:
- * - Primary or Secondary button - according to [buttonType] value;
+ * - Primary, Secondary or Icon only button - according to [buttonType] value;
  * - Default, Large, Small and Extra Small button - according to [buttonSize] value;
  */
 @Composable
@@ -49,6 +49,7 @@ internal fun StandardButton(
         colors = when (buttonType) {
             StandardButtonType.Primary -> ButtonDefaults.primaryButtonColors()
             StandardButtonType.Secondary -> ButtonDefaults.secondaryButtonColors()
+            StandardButtonType.IconOnly -> ButtonDefaults.iconButtonColors()
         }
     ) {
         Icon(
@@ -63,7 +64,8 @@ internal fun StandardButton(
 
 internal enum class StandardButtonType {
     Primary,
-    Secondary
+    Secondary,
+    IconOnly,
 }
 
 internal enum class StandardButtonSize(

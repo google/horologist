@@ -42,6 +42,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.LocalContentColor
 import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.Text
 import kotlinx.coroutines.delay
@@ -67,6 +68,28 @@ private data class ElementWidths(
     val isScrollRequired: Boolean = text > container
 }
 
+/**
+ * Show a single line Marquee text, with a pause (initial and between cycles) and speed.
+ *
+ * Otherwise is mostly the same as the [Text] composable, without params that don't apply for
+ * marquee, such as maxLines.
+ *
+ * Only scrolls if required, and otherwise uses textAlign to show the content in a
+ * stationary position.
+ *
+ * @param text The text to be displayed.
+ * @param modifier [Modifier] to apply to this layout node.
+ * @param color [Color] to apply to the text. If [Color.Unspecified], and [style] has no color set,
+ * this will be [LocalContentColor].
+ * @param style Style configuration for the text such as color, font, line height etc.
+ * @param textAlign The alignment of the text within the lines of the paragraph.
+ * See [TextStyle.textAlign].
+ * @param followGap the width between end of each scrolling text and the start of the following one.
+ * @param edgeGradientWidth the width of the fade out zone on the edges, so text isn't cut off
+ * harshly.
+ * @param marqueeDpPerSecond the speed of scrolling in dp per second.
+ * @param pauseTime the duration before initially scrolling and each additional scroll.
+ */
 @ExperimentalHorologistComposablesApi
 @Composable
 public fun MarqueeText(

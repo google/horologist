@@ -24,8 +24,10 @@ import androidx.compose.ui.test.SemanticsMatcher.Companion.expectValue
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.hasStateDescription
+import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.semantics.CustomSemanticsProperties.IconImageVectorKey
 
+@ExperimentalHorologistAudioUiApi
 fun hasIconImageVector(imageVector: ImageVector): SemanticsMatcher =
     expectValue(IconImageVectorKey, imageVector)
 

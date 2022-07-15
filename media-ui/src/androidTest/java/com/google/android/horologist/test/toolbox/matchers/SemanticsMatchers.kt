@@ -22,7 +22,7 @@ import androidx.compose.ui.test.SemanticsMatcher
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.semantics.CustomSemanticsProperties.IconImageVectorKey
 
-@OptIn(ExperimentalHorologistMediaUiApi::class)
+@ExperimentalHorologistMediaUiApi
 fun hasIconImageVector(imageVector: ImageVector): SemanticsMatcher =
     SemanticsMatcher.expectValue(IconImageVectorKey, imageVector)
 

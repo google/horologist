@@ -128,7 +128,7 @@ public fun MarqueeText(
         ((measuredWidths.text + followGap).value / marqueeDpPerSecond.value * 1000).roundToInt()
     }
 
-    val offset by transition.animateDp(
+    val firstTextStartOffset by transition.animateDp(
         label = "Marquee Offset",
         transitionSpec = {
             if (this.targetState == AnimationState.Marquee) {
@@ -145,19 +145,23 @@ public fun MarqueeText(
         }
     }
 
-    // Reset animation
+    // Reset animation to the initial state, before we even know (based on width) if scrolling
+    // is required.  It should also reset the timer, since the launched effect below will cancel
+    // because current state cahnges.
     LaunchedEffect(text) {
         transitionState.targetState = AnimationState.NotNeeded
     }
 
-    // Reset from completed marquee to pause
+    // Reset from completed marquee to pause, whenever we reach Marquee state, it's time to
+    // Move back to paused state.
     LaunchedEffect(transitionState.currentState) {
         if (transitionState.currentState == AnimationState.Marquee) {
             transitionState.targetState = AnimationState.Pause
         }
     }
 
-    // Run marquee after a delay
+    // Run marquee after a delay, this is the main scrolling loop.
+    // While we are in idle / paused state, wait the pause time, then start the animation.
     LaunchedEffect(transitionState.currentState) {
         if (transitionState.currentState == AnimationState.Pause && transitionState.isIdle) {
             delay(pauseTime)
@@ -168,10 +172,11 @@ public fun MarqueeText(
     fun ContentDrawScope.drawFadeGradient(
         leftEdge: Boolean,
     ) {
+        val width = edgeGradientWidth.toPx()
         drawRect(
-            size = Size(edgeGradientWidth.toPx(), size.height),
+            size = Size(width, size.height),
             topLeft = Offset(
-                if (leftEdge) 0f else size.width - edgeGradientWidth.toPx(),
+                if (leftEdge) 0f else size.width - width,
                 0f
             ),
             brush = Brush.horizontalGradient(
@@ -180,7 +185,7 @@ public fun MarqueeText(
                     Color.Black
                 ),
                 startX = if (leftEdge) 0f else size.width,
-                endX = if (leftEdge) edgeGradientWidth.toPx() else size.width - edgeGradientWidth.toPx()
+                endX = if (leftEdge) width else size.width - width
             ),
             blendMode = BlendMode.DstIn
         )
@@ -216,21 +221,22 @@ public fun MarqueeText(
                 textFn()
             }.first().measure(Constraints())
 
-            val firstTextOffset = offset
-            val secondTextOffset = firstTextOffset + measuredWidths.text + followGap
+            val secondTextStartOffset = firstTextStartOffset + measuredWidths.text + followGap
 
             layout(
                 width = constraints.maxWidth,
                 height = textPlaceable.height
             ) {
-                textPlaceable.place(firstTextOffset.toPx().roundToInt(), 0)
+                textPlaceable.place(firstTextStartOffset.toPx().roundToInt(), 0)
 
-                val secondTextSpace = constraints.maxWidth.toDp() - secondTextOffset
+                val secondTextSpace = constraints.maxWidth.toDp() - secondTextStartOffset
                 if (secondTextSpace > 0.dp) {
-                    secondTextPlaceable.place(secondTextOffset.toPx().roundToInt(), 0)
+                    secondTextPlaceable.place(secondTextStartOffset.toPx().roundToInt(), 0)
                 }
             }
         } else {
+            // Render a fixed position single text since it fits
+
             val x = when (textAlign) {
                 TextAlign.Right -> constraints.maxWidth - textPlaceable.width
                 TextAlign.Center -> (constraints.maxWidth - textPlaceable.width) / 2

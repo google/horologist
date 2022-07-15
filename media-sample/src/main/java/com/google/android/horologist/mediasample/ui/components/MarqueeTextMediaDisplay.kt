@@ -46,7 +46,6 @@ public fun MarqueeTextMediaDisplay(
             color = MaterialTheme.colors.onBackground,
             style = MaterialTheme.typography.button,
             textAlign = TextAlign.Center,
-            animationTime = 9.seconds
         )
         Text(
             text = artist.orEmpty(),

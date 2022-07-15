@@ -24,6 +24,7 @@ import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,6 +37,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -58,7 +60,6 @@ private enum class MarqueeComponents {
 private enum class AnimationState {
     Pause,
     Marquee,
-    NotRequired,
 }
 
 private data class ElementWidths(
@@ -99,8 +100,8 @@ public fun MarqueeText(
         )
     }
 
-    val currentState = remember { MutableTransitionState(AnimationState.Pause) }
-    val transition = updateTransition(currentState, label = "Animation State")
+    val transitionState = remember { MutableTransitionState(AnimationState.Pause) }
+    val transition = updateTransition(transitionState, label = "Animation State")
 
     val durationMillis = remember(measuredWidths, marqueeDpPerSecond, followGap) {
         ((measuredWidths.text + followGap).value / marqueeDpPerSecond.value * 1000).roundToInt()
@@ -123,16 +124,51 @@ public fun MarqueeText(
         }
     }
 
-    LaunchedEffect(text) {
-        currentState.targetState = AnimationState.Pause
-        delay(pauseTime)
+    val pauseThenMarquee: suspend () -> Unit = {
         if (measuredWidths.isScrollRequired) {
-            currentState.targetState = AnimationState.Marquee
+            delay(pauseTime)
+            transitionState.targetState = AnimationState.Marquee
         }
     }
 
-    LaunchedEffect(currentState) {
-        if (measuredWidths.isScrollRequired)
+    LaunchedEffect(text) {
+        transitionState.targetState = AnimationState.Pause
+        pauseThenMarquee()
+    }
+
+    LaunchedEffect(transitionState.isIdle, transitionState.currentState) {
+        if (transitionState.isIdle && transitionState.currentState == AnimationState.Marquee) {
+            pauseThenMarquee()
+        }
+    }
+
+    LaunchedEffect(
+        transitionState.isIdle,
+        transitionState.currentState,
+        transitionState.targetState
+    ) {
+        println("" + transitionState.currentState + " " + transitionState.targetState + " " + transitionState.isIdle)
+    }
+
+    fun ContentDrawScope.drawFadeGradient(
+        leftEdge: Boolean,
+    ) {
+        drawRect(
+            size = Size(edgeGradientWidth.toPx(), size.height),
+            topLeft = Offset(
+                if (leftEdge) 0f else size.width - edgeGradientWidth.toPx(),
+                0f
+            ),
+            brush = Brush.horizontalGradient(
+                listOf(
+                    Color.Transparent,
+                    Color.Black
+                ),
+                startX = if (leftEdge) 0f else size.width,
+                endX = if (leftEdge) edgeGradientWidth.toPx() else size.width - edgeGradientWidth.toPx()
+            ),
+            blendMode = BlendMode.DstIn
+        )
     }
 
     SubcomposeLayout(
@@ -142,36 +178,8 @@ public fun MarqueeText(
                 drawContent()
 
                 if (measuredWidths.isScrollRequired) {
-                    drawRect(
-                        topLeft = Offset.Zero,
-                        size = Size(edgeGradientWidth.toPx(), this.size.height),
-                        brush = Brush.horizontalGradient(
-                            listOf(
-                                Color.Transparent,
-                                Color.Black
-                            ),
-                            startX = 0f,
-                            endX = edgeGradientWidth.toPx()
-                        ),
-                        blendMode = BlendMode.DstIn
-                    )
-
-                    drawRect(
-                        size = Size(edgeGradientWidth.toPx(), this.size.height),
-                        topLeft = Offset(
-                            measuredWidths.container.toPx() - edgeGradientWidth.toPx(),
-                            0f
-                        ),
-                        brush = Brush.horizontalGradient(
-                            listOf(
-                                Color.Black,
-                                Color.Transparent
-                            ),
-                            startX = this.size.width - edgeGradientWidth.toPx(),
-                            endX = this.size.width
-                        ),
-                        blendMode = BlendMode.DstIn
-                    )
+                    drawFadeGradient(leftEdge = true)
+                    drawFadeGradient(leftEdge = false)
                 }
             }
     ) { constraints ->

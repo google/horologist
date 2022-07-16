@@ -45,7 +45,7 @@ VolumeScreen            |
 :-------------------------:|
 <img src="https://raw.githubusercontent.com/google/horologist/main/docs/audio-ui/volume_screen.png" height="120" width="120" > |
 
-## 🖽 Tiles
+## ☰ Tiles
 
 Kotlin coroutines flavoured TileService.
 

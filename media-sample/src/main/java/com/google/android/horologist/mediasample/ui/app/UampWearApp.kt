@@ -45,9 +45,7 @@ import com.google.android.horologist.mediasample.ui.player.MediaPlayerScreenView
 import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreenViewModel
-import com.google.android.horologist.mediasample.ui.settings.SnackbarViewModel
 import com.google.android.horologist.mediasample.ui.settings.UampSettingsScreen
-import com.google.android.horologist.mediasample.ui.settings.VolumeViewModel
 
 @Composable
 fun UampWearApp(

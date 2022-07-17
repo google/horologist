@@ -14,14 +14,20 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui.settings
+package com.google.android.horologist.mediasample.ui.app
 
-import com.google.android.horologist.media.ui.snackbar.SnackbarManager
-import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
+import android.os.Vibrator
+import com.google.android.horologist.audio.SystemAudioRepository
+import com.google.android.horologist.audio.ui.VolumeViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-public class SnackbarViewModel @Inject constructor(
-    snackbarManager: SnackbarManager
-) : SnackbarViewModel(snackbarManager)
+public class VolumeViewModel @Inject constructor(
+    systemAudioRepository: SystemAudioRepository,
+    vibrator: Vibrator,
+) : VolumeViewModel(
+    volumeRepository = systemAudioRepository,
+    audioOutputRepository = systemAudioRepository,
+    vibrator = vibrator
+)

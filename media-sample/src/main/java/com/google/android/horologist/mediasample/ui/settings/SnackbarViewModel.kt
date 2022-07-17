@@ -14,19 +14,14 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.components
+package com.google.android.horologist.mediasample.ui.settings
 
-import androidx.media3.session.MediaSession
-import com.google.android.horologist.media3.service.LifecycleMediaLibraryService
-import dagger.hilt.android.AndroidEntryPoint
+import com.google.android.horologist.media.ui.snackbar.SnackbarManager
+import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-@AndroidEntryPoint
-class PlaybackService : LifecycleMediaLibraryService() {
-    @Inject
-    public override lateinit var mediaLibrarySession: MediaLibrarySession
-
-    override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession? {
-        return mediaLibrarySession
-    }
-}
+@HiltViewModel
+public class SnackbarViewModel @Inject constructor(
+    snackbarManager: SnackbarManager
+) : SnackbarViewModel(snackbarManager)

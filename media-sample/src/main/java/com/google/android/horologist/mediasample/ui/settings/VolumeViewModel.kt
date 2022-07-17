@@ -16,21 +16,18 @@
 
 package com.google.android.horologist.mediasample.ui.settings
 
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
+import android.os.Vibrator
+import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.audio.ui.VolumeViewModel
-import com.google.android.horologist.mediasample.di.MediaApplicationContainer
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-public val VolumeViewModelFactory: ViewModelProvider.Factory = viewModelFactory {
-    initializer {
-        val audioRepository = this[MediaApplicationContainer.SystemAudioRepositoryKey]!!
-        val vibrator = this[MediaApplicationContainer.VibratorKey]!!
-
-        VolumeViewModel(
-            volumeRepository = audioRepository,
-            audioOutputRepository = audioRepository,
-            vibrator = vibrator
-        )
-    }
-}
+@HiltViewModel
+public class VolumeViewModel @Inject constructor(
+    systemAudioRepository: SystemAudioRepository,
+    vibrator: Vibrator,
+) : VolumeViewModel(
+    volumeRepository = systemAudioRepository,
+    audioOutputRepository = systemAudioRepository,
+    vibrator = vibrator
+)

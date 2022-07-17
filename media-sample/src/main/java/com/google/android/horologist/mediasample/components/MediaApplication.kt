@@ -18,17 +18,15 @@ package com.google.android.horologist.mediasample.components
 
 import android.app.Application
 import android.os.StrictMode
-import com.google.android.horologist.mediasample.AppConfig
-import com.google.android.horologist.mediasample.di.MediaApplicationContainer
+import coil.ImageLoader
+import coil.ImageLoaderFactory
+import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 
-open class MediaApplication : Application() {
-    open val appConfig: AppConfig = AppConfig()
-
-    open val container: MediaApplicationContainer by lazy {
-        MediaApplicationContainer(this).also {
-            it.install()
-        }
-    }
+@HiltAndroidApp
+class MediaApplication : Application(), ImageLoaderFactory {
+    @Inject
+    lateinit var imageLoader: ImageLoader
 
     override fun onCreate() {
         super.onCreate()
@@ -46,4 +44,6 @@ open class MediaApplication : Application() {
                 .build()
         )
     }
+
+    override fun newImageLoader(): ImageLoader = imageLoader
 }

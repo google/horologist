@@ -26,35 +26,36 @@ import com.google.android.horologist.media.ui.complication.MediaStatusTemplate
 import com.google.android.horologist.media.ui.complication.MediaStatusTemplate.Data
 import com.google.android.horologist.media3.navigation.IntentBuilder
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.mediasample.di.ComplicationServiceContainer
 import com.google.android.horologist.tiles.complication.ComplicationTemplate
 import com.google.android.horologist.tiles.complication.DataComplicationService
 import com.google.android.horologist.tiles.images.loadImage
-import kotlinx.coroutines.flow.StateFlow
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.withTimeoutOrNull
+import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
 
 /**
  * A media complication service that shows the app name and favorites category
  * when not playing, but switches to current media when playing.
  */
+@AndroidEntryPoint
 class MediaStatusComplicationService :
     DataComplicationService<Data, ComplicationTemplate<Data>>() {
+    @Inject
     lateinit var intentBuilder: IntentBuilder
+
+    @Inject
     lateinit var imageLoader: ImageLoader
-    lateinit var stateFlow: StateFlow<DataUpdates.State>
+
+    @Inject
+    lateinit var dataUpdates: DataUpdates
+
     override val renderer: MediaStatusTemplate = MediaStatusTemplate(this)
-
-    override fun onCreate() {
-        super.onCreate()
-
-        ComplicationServiceContainer.inject(this)
-    }
 
     override fun previewData(type: ComplicationType): Data = renderer.previewData()
 
     override suspend fun data(request: ComplicationRequest): Data {
-        val state = stateFlow.value
+        val state = dataUpdates.stateFlow.value
 
         return if (state.mediaItem != null) {
             whilePlayingData(state.mediaItem)

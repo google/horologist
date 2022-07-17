@@ -18,21 +18,21 @@ package com.google.android.horologist.mediasample.ui.playlists
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
-import com.google.android.horologist.mediasample.di.MediaApplicationContainer
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.model.Playlist
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
-class UampPlaylistsScreenViewModel(
+@HiltViewModel
+class UampPlaylistsScreenViewModel @Inject constructor(
     private val playlistRepository: PlaylistRepository,
     private val playerRepository: PlayerRepository,
     private val settingsRepository: SettingsRepository,
@@ -83,17 +83,5 @@ class UampPlaylistsScreenViewModel(
         data class Loaded(
             val items: List<PlaylistUiModel>
         ) : UiState()
-    }
-
-    companion object {
-        val Factory = viewModelFactory {
-            initializer {
-                UampPlaylistsScreenViewModel(
-                    playlistRepository = this[MediaApplicationContainer.PlaylistRepositoryKey]!!,
-                    playerRepository = this[MediaApplicationContainer.PlayerRepositoryImplKey]!!,
-                    settingsRepository = this[MediaApplicationContainer.SettingsRepositoryKey]!!,
-                )
-            }
-        }
     }
 }

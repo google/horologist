@@ -18,20 +18,19 @@ package com.google.android.horologist.mediasample.ui.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
-import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
 import com.google.android.horologist.media.ui.snackbar.UiMessage
-import com.google.android.horologist.mediasample.di.MediaApplicationContainer
 import com.google.android.horologist.mediasample.domain.SettingsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SettingsScreenViewModel(
+@HiltViewModel
+class SettingsScreenViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val snackbarManager: SnackbarManager,
 ) : ViewModel() {
@@ -108,16 +107,5 @@ class SettingsScreenViewModel(
                 error = true
             )
         )
-    }
-
-    companion object {
-        val Factory = viewModelFactory {
-            initializer {
-                SettingsScreenViewModel(
-                    settingsRepository = this[MediaApplicationContainer.SettingsRepositoryKey]!!,
-                    snackbarManager = this[SnackbarViewModel.SnackbarManagerKey]!!,
-                )
-            }
-        }
     }
 }

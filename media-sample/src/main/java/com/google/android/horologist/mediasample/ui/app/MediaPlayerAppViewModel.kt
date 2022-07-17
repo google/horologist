@@ -18,13 +18,10 @@ package com.google.android.horologist.mediasample.ui.app
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.data.api.UampService
-import com.google.android.horologist.mediasample.di.MediaApplicationContainer
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.model.Settings
 import com.google.android.horologist.mediasample.ui.debug.OffloadState
@@ -32,6 +29,7 @@ import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.status.NetworkRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -41,9 +39,11 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import java.io.IOException
+import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
 
-class MediaPlayerAppViewModel(
+@HiltViewModel
+class MediaPlayerAppViewModel @Inject constructor(
     networkRepository: NetworkRepository,
     dataRequestRepository: DataRequestRepository,
     audioOffloadManager: AudioOffloadManager,
@@ -150,22 +150,5 @@ class MediaPlayerAppViewModel(
     private suspend fun waitForConnection() {
         // setMediaItems is a noop before this point
         playerRepository.connected.filter { it }.first()
-    }
-
-    companion object {
-        val Factory = viewModelFactory {
-            initializer {
-                MediaPlayerAppViewModel(
-                    networkRepository = this[MediaApplicationContainer.NetworkRepositoryKey]!!,
-                    dataRequestRepository = this[MediaApplicationContainer.DataRequestRepositoryKey]!!,
-                    audioOffloadManager = this[MediaApplicationContainer.AudioOffloadManagerKey]!!,
-                    settings = this[MediaApplicationContainer.SettingsRepositoryKey]!!,
-                    playerRepository = this[MediaApplicationContainer.PlayerRepositoryImplKey]!!,
-                    uampService = this[MediaApplicationContainer.UampServiceKey]!!,
-                    appConfig = this[MediaApplicationContainer.AppConfigKey]!!,
-                    settingsRepository = this[MediaApplicationContainer.SettingsRepositoryKey]!!,
-                )
-            }
-        }
     }
 }

@@ -14,19 +14,26 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.components
+package com.google.android.horologist.mediasample.di
 
-import androidx.media3.session.MediaSession
-import com.google.android.horologist.media3.service.LifecycleMediaLibraryService
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import javax.inject.Qualifier
 
-@AndroidEntryPoint
-class PlaybackService : LifecycleMediaLibraryService() {
-    @Inject
-    public override lateinit var mediaLibrarySession: MediaLibrarySession
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class IsEmulator
 
-    override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession? {
-        return mediaLibrarySession
-    }
-}
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class CacheDir
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class ForApplicationScope
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class ForServiceScope
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class ForViewModelScope

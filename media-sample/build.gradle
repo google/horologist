@@ -19,6 +19,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: "org.jetbrains.kotlin.kapt"
 
+apply plugin: 'dagger.hilt.android.plugin'
+
 Properties localProperties = new Properties()
 def localFile = project.rootProject.file('local.properties')
 if (localFile.exists()) {
@@ -90,6 +92,10 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes true
+}
+
 dependencies {
     implementation projects.composeLayout
     implementation projects.audio
@@ -147,6 +153,10 @@ dependencies {
 
     implementation libs.androidx.datastore.preferences
     implementation libs.androidx.complications.rendering
+
+    implementation libs.dagger.hiltandroid
+    kapt libs.dagger.hiltandroidcompiler
+    implementation libs.hilt.navigationcompose
 
     testImplementation libs.junit
     testImplementation libs.truth

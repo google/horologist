@@ -17,89 +17,130 @@
 package com.google.android.horologist.mediasample.di
 
 import android.app.Service
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
+import androidx.media3.common.Player
 import androidx.media3.common.util.Clock
-import androidx.media3.datasource.DataSource
+import androidx.media3.datasource.cache.Cache
 import androidx.media3.datasource.cache.CacheDataSource
 import androidx.media3.datasource.okhttp.OkHttpDataSource
 import androidx.media3.exoplayer.DefaultLoadControl
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.LoadControl
+import androidx.media3.exoplayer.RenderersFactory
+import androidx.media3.exoplayer.analytics.AnalyticsCollector
 import androidx.media3.exoplayer.analytics.DefaultAnalyticsCollector
+import androidx.media3.exoplayer.audio.AudioSink
+import androidx.media3.exoplayer.mediacodec.MediaCodecSelector
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.exoplayer.source.MediaSource
 import androidx.media3.extractor.DefaultExtractorsFactory
 import androidx.media3.extractor.ExtractorsFactory
 import androidx.media3.session.MediaLibraryService
+import androidx.media3.session.MediaLibraryService.MediaLibrarySession
+import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.media3.WearConfiguredPlayer
+import com.google.android.horologist.media3.audio.AudioOutputSelector
 import com.google.android.horologist.media3.config.WearMedia3Factory
 import com.google.android.horologist.media3.logging.AnalyticsEventLogger
+import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.logging.TransferListener
+import com.google.android.horologist.media3.navigation.IntentBuilder
+import com.google.android.horologist.media3.offload.AudioOffloadManager
+import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.AppConfig
-import com.google.android.horologist.mediasample.components.MediaApplication
-import com.google.android.horologist.mediasample.components.PlaybackService
+import com.google.android.horologist.mediasample.complication.DataUpdates
 import com.google.android.horologist.mediasample.media.UampMediaLibrarySessionCallback
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ServiceComponent
+import dagger.hilt.android.scopes.ServiceScoped
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import okhttp3.Call
 
-/**
- * Simple DI implementation - to be replaced by hilt.
- */
-class PlaybackServiceContainer(
-    private val mediaApplicationContainer: MediaApplicationContainer,
-    private val service: PlaybackService,
-    private val wearMedia3Factory: WearMedia3Factory
-) : AutoCloseable {
-    val loadControl = DefaultLoadControl.Builder()
+@Module
+@InstallIn(ServiceComponent::class)
+object PlaybackServiceContainer {
+    @ServiceScoped
+    @Provides
+    fun loadControl(): LoadControl = DefaultLoadControl.Builder()
         .setBackBuffer(
             /* backBufferDurationMs = */ 30_000,
             /* retainBackBufferFromKeyframe = */ false
         )
         .build()
 
-    val appConfig: AppConfig
-        get() = mediaApplicationContainer.appConfig
+    @ServiceScoped
+    @Provides
+    fun mediaCodecSelector(
+        wearMedia3Factory: WearMedia3Factory
+    ): MediaCodecSelector = wearMedia3Factory.mediaCodecSelector()
 
-    val mediaCodecSelector by lazy { wearMedia3Factory.mediaCodecSelector() }
-
-    val audioOnlyRenderersFactory by lazy {
+    @ServiceScoped
+    @Provides
+    fun audioOnlyRenderersFactory(
+        wearMedia3Factory: WearMedia3Factory,
+        audioSink: AudioSink,
+        mediaCodecSelector: MediaCodecSelector
+    ) =
         wearMedia3Factory.audioOnlyRenderersFactory(
-            mediaApplicationContainer.audioSink,
+            audioSink,
             mediaCodecSelector
         )
-    }
 
-    val defaultAnalyticsCollector by lazy {
+    @ServiceScoped
+    @Provides
+    fun defaultAnalyticsCollector(
+        logger: ErrorReporter
+    ): AnalyticsCollector =
         DefaultAnalyticsCollector(Clock.DEFAULT).apply {
-            addListener(AnalyticsEventLogger(mediaApplicationContainer.logger))
+            addListener(AnalyticsEventLogger(logger))
         }
-    }
 
-    val extractorsFactory: ExtractorsFactory by lazy {
+    @ServiceScoped
+    @Provides
+    fun extractorsFactory(): ExtractorsFactory =
         DefaultExtractorsFactory()
-    }
 
-    val transferListener by lazy { TransferListener(mediaApplicationContainer.logger) }
+    @ServiceScoped
+    @Provides
+    fun transferListener(
+        logger: ErrorReporter
+    ) = TransferListener(logger)
 
-    private val streamDataSourceFactory: DataSource.Factory by lazy {
+    @ServiceScoped
+    @Provides
+    fun streamDataSourceFactory(
+        networkAwareCallFactory: Call.Factory,
+        transferListener: TransferListener
+    ): OkHttpDataSource.Factory =
         OkHttpDataSource.Factory(
             NetworkAwareCallFactory(
-                mediaApplicationContainer.networkModule.networkAwareCallFactory,
+                networkAwareCallFactory,
                 defaultRequestType = RequestType.UnknownRequest
             )
         )
             .setTransferListener(transferListener)
-    }
 
-    private val cacheDataSourceFactory: CacheDataSource.Factory by lazy {
+    @ServiceScoped
+    @Provides
+    fun cacheDataSourceFactory(
+        downloadCache: Cache,
+        streamDataSourceFactory: OkHttpDataSource.Factory,
+        transferListener: TransferListener,
+        appConfig: AppConfig
+    ): CacheDataSource.Factory =
         CacheDataSource.Factory()
-            .setCache(mediaApplicationContainer.downloadCache)
+            .setCache(downloadCache)
             .setUpstreamDataSourceFactory(streamDataSourceFactory)
             .setEventListener(transferListener)
             .apply {
@@ -107,21 +148,38 @@ class PlaybackServiceContainer(
                     setCacheWriteDataSinkFactory(null)
                 }
             }
-    }
 
-    val mediaSourceFactory: MediaSource.Factory by lazy {
+    @ServiceScoped
+    @Provides
+    fun mediaSourceFactory(
+        appConfig: AppConfig,
+        cacheDataSourceFactory: CacheDataSource.Factory,
+        streamDataSourceFactory: OkHttpDataSource.Factory,
+        extractorsFactory: ExtractorsFactory
+    ): MediaSource.Factory {
         val dataSourceFactory =
             if (appConfig.cacheItems) {
                 cacheDataSourceFactory
             } else {
                 streamDataSourceFactory
             }
-        DefaultMediaSourceFactory(dataSourceFactory, extractorsFactory)
+        return DefaultMediaSourceFactory(dataSourceFactory, extractorsFactory)
     }
 
-    val exoPlayer by lazy {
+    @ServiceScoped
+    @Provides
+    fun exoPlayer(
+        service: Service,
+        appConfig: AppConfig,
+        loadControl: LoadControl,
+        audioOnlyRenderersFactory: RenderersFactory,
+        analyticsCollector: AnalyticsCollector,
+        mediaSourceFactory: MediaSource.Factory,
+        dataUpdates: DataUpdates,
+        audioOffloadManager: AudioOffloadManager
+    ) =
         ExoPlayer.Builder(service, audioOnlyRenderersFactory)
-            .setAnalyticsCollector(defaultAnalyticsCollector)
+            .setAnalyticsCollector(analyticsCollector)
             .setMediaSourceFactory(mediaSourceFactory)
             .setAudioAttributes(AudioAttributes.DEFAULT, true)
             .setHandleAudioBecomingNoisy(true)
@@ -130,64 +188,81 @@ class PlaybackServiceContainer(
             .setSeekForwardIncrementMs(10_000)
             .setSeekBackIncrementMs(10_000)
             .build().apply {
-                addListener(defaultAnalyticsCollector)
+                addListener(analyticsCollector)
 
-                addListener(dataUpdatesListener)
+                addListener(dataUpdates.listener)
 
                 if (appConfig.offloadEnabled) {
-                    mediaApplicationContainer.audioOffloadManager.connect(this)
+                    audioOffloadManager.connect(this)
                 }
             }
+
+    @ServiceScoped
+    @Provides
+    fun serviceCoroutineScope(
+        service: Service
+    ): CoroutineScope {
+        return CoroutineScope(SupervisorJob() + Dispatchers.Default).also {
+            (service as LifecycleOwner).lifecycle.addObserver(object : DefaultLifecycleObserver {
+                override fun onStop(owner: LifecycleOwner) {
+                    it.cancel()
+                }
+            })
+        }
     }
 
-    val serviceCoroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
-
-    val player by lazy {
+    @ServiceScoped
+    @Provides
+    fun player(
+        exoPlayer: ExoPlayer,
+        serviceCoroutineScope: CoroutineScope,
+        systemAudioRepository: SystemAudioRepository,
+        audioOutputSelector: AudioOutputSelector,
+        playbackRules: PlaybackRules,
+        logger: ErrorReporter
+    ): Player =
         WearConfiguredPlayer(
             player = exoPlayer,
-            audioOutputRepository = mediaApplicationContainer.audioContainer.systemAudioRepository,
-            audioOutputSelector = mediaApplicationContainer.audioContainer.audioOutputSelector,
-            playbackRules = mediaApplicationContainer.playbackRules,
-            errorReporter = mediaApplicationContainer.logger,
+            audioOutputRepository = systemAudioRepository,
+            audioOutputSelector = audioOutputSelector,
+            playbackRules = playbackRules,
+            errorReporter = logger,
             coroutineScope = serviceCoroutineScope
         ).also {
             serviceCoroutineScope.launch {
                 it.startNoiseDetection()
             }
         }
-    }
 
-    val librarySessionCallback by lazy {
-        UampMediaLibrarySessionCallback(service.lifecycleScope, mediaApplicationContainer.logger)
-    }
+    @ServiceScoped
+    @Provides
+    fun librarySessionCallback(
+        logger: ErrorReporter,
+        serviceCoroutineScope: CoroutineScope,
+    ): MediaLibrarySession.Callback =
+        UampMediaLibrarySessionCallback(serviceCoroutineScope, logger)
 
-    val mediaLibrarySession by lazy {
-        MediaLibraryService.MediaLibrarySession.Builder(service, player, librarySessionCallback)
-            .setSessionActivity(mediaApplicationContainer.intentBuilder.buildPlayerIntent())
-            .build()
-    }
-
-    val dataUpdatesListener by lazy {
-        mediaApplicationContainer.dataUpdates.listener
-    }
-
-    override fun close() {
-        serviceCoroutineScope.cancel()
-    }
-
-    fun inject(service: PlaybackService) {
-        service.mediaLibrarySession = mediaLibrarySession
-    }
-
-    companion object {
-        internal val Service.container: MediaApplicationContainer
-            get() = (application as MediaApplication).container
-
-        fun inject(playbackService: PlaybackService) {
-            val serviceContainer =
-                playbackService.container.playbackServiceContainer(playbackService)
-
-            serviceContainer.inject(playbackService)
-        }
-    }
+    @ServiceScoped
+    @Provides
+    fun mediaLibrarySession(
+        service: Service,
+        player: Player,
+        librarySessionCallback: MediaLibrarySession.Callback,
+        intentBuilder: IntentBuilder
+    ): MediaLibrarySession =
+        MediaLibrarySession.Builder(
+            service as MediaLibraryService,
+            player,
+            librarySessionCallback
+        )
+            .setSessionActivity(intentBuilder.buildPlayerIntent())
+            .build().also {
+                (service as LifecycleOwner).lifecycle.addObserver(object :
+                        DefaultLifecycleObserver {
+                        override fun onDestroy(owner: LifecycleOwner) {
+                            it.release()
+                        }
+                    }
+                )
+            }
 }

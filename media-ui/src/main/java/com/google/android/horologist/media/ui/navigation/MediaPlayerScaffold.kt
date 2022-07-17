@@ -59,8 +59,8 @@ import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
 @Composable
 public fun MediaPlayerScaffold(
     modifier: Modifier = Modifier,
-    snackbarViewModel: SnackbarViewModel = viewModel(factory = SnackbarViewModel.Factory),
-    volumeViewModel: VolumeViewModel = viewModel(factory = VolumeViewModel.Factory),
+    snackbarViewModel: SnackbarViewModel,
+    volumeViewModel: VolumeViewModel,
     playerScreen: @Composable (FocusRequester) -> Unit,
     libraryScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
     categoryEntityScreen: @Composable (String, String, FocusRequester, ScalingLazyListState) -> Unit,

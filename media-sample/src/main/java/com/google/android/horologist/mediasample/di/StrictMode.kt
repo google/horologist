@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.components
+package com.google.android.horologist.mediasample.di
 
-import androidx.media3.session.MediaSession
-import com.google.android.horologist.media3.service.LifecycleMediaLibraryService
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import android.os.StrictMode
 
-@AndroidEntryPoint
-class PlaybackService : LifecycleMediaLibraryService() {
-    @Inject
-    public override lateinit var mediaLibrarySession: MediaLibrarySession
-
-    override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession? {
-        return mediaLibrarySession
-    }
+// Confusingly the result of allowThreadDiskWrites is the old policy,
+// while allow* methods immediately apply the change.
+// So `this` is the policy before we overrode it.
+fun <R> StrictMode.ThreadPolicy.resetAfter(block: () -> R) = try {
+    block()
+} finally {
+    StrictMode.setThreadPolicy(this)
 }

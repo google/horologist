@@ -17,68 +17,68 @@
 package com.google.android.horologist.mediasample.di
 
 import android.content.ComponentName
-import android.os.Build
-import android.os.StrictMode
+import android.content.Context
 import android.os.Vibrator
+import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.viewmodel.CreationExtras
+import androidx.media3.database.DatabaseProvider
 import androidx.media3.database.StandaloneDatabaseProvider
+import androidx.media3.datasource.cache.Cache
 import androidx.media3.datasource.cache.NoOpCacheEvictor
 import androidx.media3.datasource.cache.SimpleCache
+import androidx.media3.exoplayer.audio.AudioSink
 import androidx.wear.watchface.complications.datasource.ComplicationDataSourceUpdateRequester
-import coil.Coil
-import com.google.android.horologist.audio.SystemAudioRepository
-import com.google.android.horologist.media.data.PlayerRepositoryImpl
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
-import com.google.android.horologist.media3.audio.AudioOutputSelector
 import com.google.android.horologist.media3.config.WearMedia3Factory
+import com.google.android.horologist.media3.logging.ErrorReporter
+import com.google.android.horologist.media3.navigation.IntentBuilder
 import com.google.android.horologist.media3.navigation.NavDeepLinkIntentBuilder
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.complication.DataUpdates
 import com.google.android.horologist.mediasample.complication.MediaStatusComplicationService
-import com.google.android.horologist.mediasample.components.MediaActivity
-import com.google.android.horologist.mediasample.components.MediaApplication
-import com.google.android.horologist.mediasample.components.PlaybackService
 import com.google.android.horologist.mediasample.data.api.UampService
 import com.google.android.horologist.mediasample.data.datasource.PlaylistRemoteDataSource
-import com.google.android.horologist.mediasample.data.repository.PlaylistDownloadRepositoryImpl
 import com.google.android.horologist.mediasample.data.repository.PlaylistRepositoryImpl
-import com.google.android.horologist.mediasample.domain.PlaylistDownloadRepository
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.system.Logging
-import com.google.android.horologist.mediasample.tile.MediaCollectionsTileService
-import com.google.android.horologist.networks.data.DataRequestRepository
-import com.google.android.horologist.networks.status.NetworkRepository
-import kotlinx.coroutines.CoroutineDispatcher
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import java.io.Closeable
+import java.io.File
+import javax.inject.Singleton
 
-/**
- * Simple DI implementation - to be replaced by hilt.
- */
-class MediaApplicationContainer(
-    internal val application: MediaApplication,
-    internal val appConfig: AppConfig = AppConfig()
-) : Closeable {
-    val isEmulator = Build.PRODUCT.startsWith("sdk_gwear")
+@Module
+@InstallIn(SingletonComponent::class)
+object MediaApplicationContainer {
 
-    val intentBuilder by lazy {
+    @Singleton
+    @Provides
+    fun intentBuilder(
+        @ApplicationContext application: Context,
+        appConfig: AppConfig
+    ): IntentBuilder =
         NavDeepLinkIntentBuilder(
             application,
             "${appConfig.deeplinkUriPrefix}/player?page=1",
             "${appConfig.deeplinkUriPrefix}/player?page=0"
         )
-    }
 
-    val playbackRules: PlaybackRules by lazy {
+    @Singleton
+    @Provides
+    fun playbackRules(
+        appConfig: AppConfig,
+        @IsEmulator isEmulator: Boolean
+    ): PlaybackRules =
         if (appConfig.playbackRules != null) {
             appConfig.playbackRules
         } else if (isEmulator) {
@@ -86,9 +86,13 @@ class MediaApplicationContainer(
         } else {
             PlaybackRules.Normal
         }
-    }
 
-    val prefsDataStore by lazy {
+    @Singleton
+    @Provides
+    fun prefsDataStore(
+        @ApplicationContext application: Context,
+        @ForApplicationScope coroutineScope: CoroutineScope
+    ): DataStore<Preferences> =
         PreferenceDataStoreFactory.create(
             corruptionHandler = null,
             migrations = listOf(),
@@ -96,159 +100,114 @@ class MediaApplicationContainer(
         ) {
             application.preferencesDataStoreFile("prefs")
         }
-    }
 
-    val settingsRepository by lazy {
+    @Singleton
+    @Provides
+    fun settingsRepository(
+        prefsDataStore: DataStore<Preferences>
+    ) =
         SettingsRepository(prefsDataStore)
-    }
 
-    val coroutineScope: CoroutineScope by lazy {
+    @Singleton
+    @Provides
+    @ForApplicationScope
+    fun coroutineScope(): CoroutineScope =
         CoroutineScope(SupervisorJob() + Dispatchers.Default)
-    }
 
-    val viewModelModule: ViewModelModule by lazy {
-        ViewModelModule(this)
-    }
-
-    // Must happen on Main thread
-    val audioContainer = AudioContainer(this)
-
-    val audioSink by lazy {
+    @Singleton
+    @Provides
+    fun audioSink(
+        appConfig: AppConfig,
+        wearMedia3Factory: WearMedia3Factory
+    ): AudioSink =
         wearMedia3Factory.audioSink(
             attemptOffload = appConfig.offloadEnabled,
             offloadMode = appConfig.offloadMode
         )
-    }
 
-    val networkModule by lazy { NetworkModule(this) }
-
-    internal val wearMedia3Factory: WearMedia3Factory by lazy {
+    @Singleton
+    @Provides
+    fun wearMedia3Factory(
+        @ApplicationContext application: Context,
+    ): WearMedia3Factory =
         WearMedia3Factory(application)
-    }
 
-    val audioOffloadManager by lazy { AudioOffloadManager(logger) }
+    @Singleton
+    @Provides
+    fun audioOffloadManager(
+        logger: ErrorReporter
+    ) = AudioOffloadManager(logger)
 
-    internal val logger: Logging by lazy { Logging(application.resources) }
+    @Singleton
+    @Provides
+    fun logger(
+        @ApplicationContext application: Context,
+    ): Logging = Logging(application.resources)
 
-    val vibrator: Vibrator by lazy {
+    @Singleton
+    @Provides
+    fun errorReporter(
+        logging: Logging,
+    ): ErrorReporter = logging
+
+    @Singleton
+    @Provides
+    fun vibrator(
+        @ApplicationContext application: Context,
+    ): Vibrator =
         application.getSystemService(Vibrator::class.java)
-    }
 
-    private val cacheDatabaseProvider by lazy {
-        StandaloneDatabaseProvider(application)
-    }
+    @Singleton
+    @Provides
+    fun cacheDatabaseProvider(
+        @ApplicationContext application: Context,
+    ): DatabaseProvider = StandaloneDatabaseProvider(application)
 
-    val cacheDir by lazy {
-        StrictMode.allowThreadDiskWrites().resetAfter {
-            application.cacheDir
-        }
-    }
-
-    val downloadCache by lazy {
-        val media3CacheDir = cacheDir.resolve("media3cache")
+    @Singleton
+    @Provides
+    fun downloadCache(
+        @CacheDir cacheDir: File,
+        cacheDatabaseProvider: DatabaseProvider
+    ): Cache =
         SimpleCache(
-            media3CacheDir,
+            cacheDir.resolve("media3cache"),
             NoOpCacheEvictor(),
             cacheDatabaseProvider
         )
-    }
 
-    internal fun playbackServiceContainer(service: PlaybackService): PlaybackServiceContainer {
-        return PlaybackServiceContainer(this, service, wearMedia3Factory).also {
-            closeOnStop(service, it)
-        }
-    }
-
-    internal fun serviceContainer(service: MediaStatusComplicationService): ComplicationServiceContainer {
-        return ComplicationServiceContainer(this, service)
-    }
-
-    internal fun activityContainer(activity: MediaActivity): MediaActivityContainer {
-        return MediaActivityContainer(this).also {
-            closeOnStop(activity, it)
-        }
-    }
-
-    internal fun serviceContainer(service: MediaCollectionsTileService): ServiceContainer {
-        return ServiceContainer(this).also {
-            closeOnStop(service, it)
-        }
-    }
-
-    private fun closeOnStop(lifecycleOwner: LifecycleOwner, closeable: AutoCloseable) {
-        lifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
-            override fun onStop(owner: LifecycleOwner) {
-                closeable.close()
-            }
-        })
-    }
-
-    val snackbarManager by lazy {
+    @Singleton
+    @Provides
+    fun snackbarManager() =
         SnackbarManager()
-    }
 
-    val dataUpdates by lazy {
+    @Singleton
+    @Provides
+    fun dataUpdates(
+        @ApplicationContext application: Context,
+    ): DataUpdates {
         val updater = ComplicationDataSourceUpdateRequester.create(
             application,
             ComponentName(
                 application, MediaStatusComplicationService::class.java
             )
         )
-        DataUpdates(updater)
+        return DataUpdates(updater)
     }
 
-    val playlistRepository: PlaylistRepository by lazy {
+    @Singleton
+    @Provides
+    fun playlistRepository(
+        playlistRemoteDataSource: PlaylistRemoteDataSource
+    ): PlaylistRepository =
         PlaylistRepositoryImpl(playlistRemoteDataSource)
-    }
 
-    val playlistRemoteDataSource: PlaylistRemoteDataSource by lazy {
+    @Singleton
+    @Provides
+    fun playlistRemoteDataSource(
+        uampService: UampService
+    ): PlaylistRemoteDataSource =
         PlaylistRemoteDataSource(
-            ioDispatcher = ioDispatcher,
-            uampService = networkModule.uampService
+            ioDispatcher = Dispatchers.IO,
+            uampService = uampService
         )
-    }
-
-    val playlistDownloadRepository: PlaylistDownloadRepository by lazy {
-        PlaylistDownloadRepositoryImpl()
-    }
-
-    val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
-
-    // Confusingly the result of allowThreadDiskWrites is the old policy,
-    // while allow* methods immediately apply the change.
-    // So `this` is the policy before we overrode it.
-    fun <R> StrictMode.ThreadPolicy.resetAfter(block: () -> R) = try {
-        block()
-    } finally {
-        StrictMode.setThreadPolicy(this)
-    }
-
-    override fun close() {
-        audioContainer.close()
-        StrictMode.allowThreadDiskWrites().resetAfter {
-            downloadCache.release()
-        }
-    }
-
-    fun install() {
-        Coil.setImageLoader {
-            networkModule.imageLoader
-        }
-    }
-
-    companion object {
-        val PlayerRepositoryImplKey = object : CreationExtras.Key<PlayerRepositoryImpl> {}
-        val NetworkRepositoryKey = object : CreationExtras.Key<NetworkRepository> {}
-        val DataRequestRepositoryKey = object : CreationExtras.Key<DataRequestRepository> {}
-        val AppConfigKey = object : CreationExtras.Key<AppConfig> {}
-        val AudioOffloadManagerKey = object : CreationExtras.Key<AudioOffloadManager> {}
-        val AudioOutputSelectorKey = object : CreationExtras.Key<AudioOutputSelector> {}
-        val UampServiceKey = object : CreationExtras.Key<UampService> {}
-        val SystemAudioRepositoryKey = object : CreationExtras.Key<SystemAudioRepository> {}
-        val VibratorKey = object : CreationExtras.Key<Vibrator> {}
-        val SettingsRepositoryKey = object : CreationExtras.Key<SettingsRepository> {}
-        val PlaylistRepositoryKey = object : CreationExtras.Key<PlaylistRepository> {}
-        val PlaylistDownloadRepositoryKey =
-            object : CreationExtras.Key<PlaylistDownloadRepository> {}
-    }
 }

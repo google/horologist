@@ -80,20 +80,24 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun okhttpClient(
-        cache: Cache
-    ): OkHttpClient {
-        val alwaysHttpsInterceptor = Interceptor {
-            var request = it.request()
+    fun alwaysHttpsInterceptor(): Interceptor = Interceptor {
+        var request = it.request()
 
-            if (request.url.scheme == "http") {
-                request = request.newBuilder().url(
-                    request.url.newBuilder().scheme("https").build()
-                ).build()
-            }
-
-            it.proceed(request)
+        if (request.url.scheme == "http") {
+            request = request.newBuilder().url(
+                request.url.newBuilder().scheme("https").build()
+            ).build()
         }
+
+        it.proceed(request)
+    }
+
+    @Singleton
+    @Provides
+    fun okhttpClient(
+        cache: Cache,
+        alwaysHttpsInterceptor: Interceptor
+    ): OkHttpClient {
         return OkHttpClient.Builder().followSslRedirects(false)
             .addInterceptor(alwaysHttpsInterceptor)
             .eventListenerFactory(LoggingEventListener.Factory()).cache(cache).build()
@@ -170,11 +174,17 @@ object NetworkModule {
 
     @Singleton
     @Provides
+    fun mooshiConverterFactory(
+        moshi: Moshi
+    ): MoshiConverterFactory = MoshiConverterFactory.create(moshi)
+
+    @Singleton
+    @Provides
     fun retrofit(
         callFactory: Call.Factory,
-        moshi: Moshi
+        moshiConverterFactory: MoshiConverterFactory
     ) =
-        Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi))
+        Retrofit.Builder().addConverterFactory(moshiConverterFactory)
             .baseUrl(UampService.BASE_URL).callFactory(
                 NetworkAwareCallFactory(
                     callFactory, RequestType.ApiRequest

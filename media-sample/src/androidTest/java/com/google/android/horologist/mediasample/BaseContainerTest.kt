@@ -16,9 +16,10 @@
 
 package com.google.android.horologist.mediasample
 
+import android.app.Application
 import android.app.NotificationManager
-import android.content.Context
 import androidx.annotation.CallSuper
+import androidx.media3.datasource.cache.Cache
 import androidx.media3.exoplayer.audio.AudioSink
 import androidx.test.annotation.UiThreadTest
 import androidx.test.platform.app.InstrumentationRegistry
@@ -26,14 +27,17 @@ import androidx.test.uiautomator.UiDevice
 import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.rules.PlaybackRules
-import com.google.android.horologist.mediasample.di.MediaApplicationContainer
-import com.google.android.horologist.mediasample.runner.TestMediaApplication
 import com.google.android.horologist.networks.rules.NetworkingRules
+import dagger.hilt.android.testing.HiltAndroidRule
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
+import javax.inject.Inject
 
-open class BaseContainerTest {
-    internal lateinit var application: TestMediaApplication
+abstract class BaseContainerTest {
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
+
     protected lateinit var device: UiDevice
 
     // Default to most permissable settings for tests
@@ -44,38 +48,39 @@ open class BaseContainerTest {
         playbackRules = PlaybackRules.SpeakerAllowed
     )
 
-    protected val audioOffloadManager: AudioOffloadManager
-        get() = appContainer.audioOffloadManager
+    internal lateinit var application: Application
 
-    protected val audioSink: AudioSink
-        get() = appContainer.audioSink
+    @Inject
+    protected lateinit var audioOffloadManager: AudioOffloadManager
 
-    protected val audioOutputRepository: SystemAudioRepository
-        get() = appContainer.audioContainer.systemAudioRepository
+    @Inject
+    protected lateinit var audioSink: AudioSink
 
-    protected val notificationManager: NotificationManager
-        get() = application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    @Inject
+    protected lateinit var audioOutputRepository: SystemAudioRepository
 
-    protected val appContainer: MediaApplicationContainer
-        get() = application.container
+    @Inject
+    protected lateinit var notificationManager: NotificationManager
+
+    @Inject
+    protected lateinit var downloadCache: Cache
 
     @Before
     @UiThreadTest
     @CallSuper
     open fun init() {
-        application =
-            InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as TestMediaApplication
-        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        hiltRule.inject()
 
-        application.appConfig = appConfig
+        application =
+            InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as Application
+        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
         clearCache()
     }
 
     fun clearCache() {
-        val cache = appContainer.downloadCache
-        cache.keys.forEach {
-            cache.removeResource(it)
+        downloadCache.keys.forEach {
+            downloadCache.removeResource(it)
         }
     }
 

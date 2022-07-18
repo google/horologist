@@ -21,6 +21,7 @@ import androidx.test.filters.LargeTest
 import com.google.android.horologist.media.data.Media3MediaItemMapper
 import com.google.android.horologist.media.model.MediaItem
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runTest
@@ -30,6 +31,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
+@HiltAndroidTest
 class PlaybackErrorTest : BasePlaybackTest() {
     @Test
     fun testFailingItem() = runTest {

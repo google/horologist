@@ -172,6 +172,8 @@ dependencies {
     androidTestImplementation libs.truth
     androidTestImplementation libs.androidx.test.uiautomator
     androidTestImplementation libs.androidx.complications.rendering
+    androidTestImplementation libs.dagger.hiltandroidtesting
+    kaptAndroidTest libs.dagger.hiltandroidcompiler
 }
 
 def device = localProperties.getProperty("DEVICE")

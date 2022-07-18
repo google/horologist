@@ -23,6 +23,7 @@ import androidx.test.filters.LargeTest
 import com.google.android.horologist.media.data.Media3MediaItemMapper
 import com.google.android.horologist.media3.flows.waitForPlaying
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
@@ -33,18 +34,22 @@ import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
+@HiltAndroidTest
 class PlaybackNotificationTest : BasePlaybackTest() {
     @Test
     fun testCausesNotification() = runTest {
         withContext(Dispatchers.Main) {
             val browser = browser()
 
+            println("A")
             browser.setMediaItem(
                 Media3MediaItemMapper.map(TestMedia.songMp3),
             )
+            println("B")
             browser.prepare()
             browser.play()
 
+            println("C")
             withTimeout(10.seconds) {
                 browser.waitForPlaying()
             }

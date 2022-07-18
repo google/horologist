@@ -19,6 +19,7 @@ package com.google.android.horologist.mediasample.runner
 import android.app.Application
 import android.content.Context
 import androidx.test.runner.AndroidJUnitRunner
+import dagger.hilt.android.testing.HiltTestApplication
 import kotlin.reflect.jvm.jvmName
 
 class MediaAppRunner : AndroidJUnitRunner() {
@@ -27,6 +28,6 @@ class MediaAppRunner : AndroidJUnitRunner() {
         className: String?,
         context: Context?
     ): Application {
-        return super.newApplication(cl, TestMediaApplication::class.jvmName, context)
+        return super.newApplication(cl, HiltTestApplication::class.jvmName, context)
     }
 }

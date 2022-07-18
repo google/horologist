@@ -97,7 +97,8 @@ compose-ui-toolingpreview = { module = "androidx.compose.ui:ui-tooling-preview",
 compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "compose" }
 dagger-hiltandroid = { module = "com.google.dagger:hilt-android", version.ref = "googledagger" }
 dagger-hiltandroidcompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "googledagger" }
-dagger-hiltandroidplugin = "com.google.dagger:hilt-android-gradle-plugin:2.42"
+dagger-hiltandroidplugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "googledagger" }
+dagger-hiltandroidtesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "googledagger" }
 dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.20.0"

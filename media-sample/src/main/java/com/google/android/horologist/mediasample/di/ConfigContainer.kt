@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.mediasample.di
 
+import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import android.os.StrictMode
@@ -66,4 +67,11 @@ object ConfigContainer {
         @ApplicationContext application: Context
     ): SystemAudioRepository =
         SystemAudioRepository.fromContext(application)
+
+    @Singleton
+    @Provides
+    fun notificationManager(
+        @ApplicationContext application: Context
+    ): NotificationManager =
+        application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 }

@@ -46,7 +46,9 @@ import com.google.android.horologist.mediasample.components.MediaApplication
 import com.google.android.horologist.mediasample.components.PlaybackService
 import com.google.android.horologist.mediasample.data.api.UampService
 import com.google.android.horologist.mediasample.data.datasource.PlaylistRemoteDataSource
+import com.google.android.horologist.mediasample.data.repository.PlaylistDownloadRepositoryImpl
 import com.google.android.horologist.mediasample.data.repository.PlaylistRepositoryImpl
+import com.google.android.horologist.mediasample.domain.PlaylistDownloadRepository
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.system.Logging
@@ -206,6 +208,10 @@ class MediaApplicationContainer(
         )
     }
 
+    val playlistDownloadRepository: PlaylistDownloadRepository by lazy {
+        PlaylistDownloadRepositoryImpl()
+    }
+
     val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 
     // Confusingly the result of allowThreadDiskWrites is the old policy,
@@ -242,5 +248,7 @@ class MediaApplicationContainer(
         val VibratorKey = object : CreationExtras.Key<Vibrator> {}
         val SettingsRepositoryKey = object : CreationExtras.Key<SettingsRepository> {}
         val PlaylistRepositoryKey = object : CreationExtras.Key<PlaylistRepository> {}
+        val PlaylistDownloadRepositoryKey =
+            object : CreationExtras.Key<PlaylistDownloadRepository> {}
     }
 }

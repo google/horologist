@@ -94,6 +94,8 @@ class ViewModelModule(
             mediaApplicationContainer.snackbarManager
         creationExtras[MediaApplicationContainer.PlaylistRepositoryKey] =
             mediaApplicationContainer.playlistRepository
+        creationExtras[MediaApplicationContainer.PlaylistDownloadRepositoryKey] =
+            mediaApplicationContainer.playlistDownloadRepository
     }
 
     override fun close() {

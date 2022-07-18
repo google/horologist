@@ -42,6 +42,7 @@ import com.google.android.horologist.media.ui.components.base.SecondaryPlacehold
 import com.google.android.horologist.media.ui.components.base.StandardButton
 import com.google.android.horologist.media.ui.components.base.StandardButtonType
 import com.google.android.horologist.media.ui.components.base.StandardChip
+import com.google.android.horologist.media.ui.components.base.StandardChipType
 import com.google.android.horologist.media.ui.components.base.Title
 import com.google.android.horologist.media.ui.state.model.DownloadMediaItemUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -49,7 +50,6 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun EntityScreen(
-    playlistUiModel: PlaylistUiModel,
     entityScreenState: EntityScreenState,
     onDownloadClick: (PlaylistUiModel) -> Unit,
     onDownloadItemClick: (DownloadMediaItemUiModel) -> Unit,
@@ -67,20 +67,22 @@ public fun EntityScreen(
             .scrollableColumn(focusRequester, scalingLazyListState),
         state = scalingLazyListState,
     ) {
-        item {
-            Title(
-                text = playlistUiModel.title,
-                modifier = Modifier.padding(bottom = 12.dp),
-            )
-        }
-
         when (entityScreenState) {
 
             is EntityScreenState.Loading -> {
                 item {
-                    DownloadButton(
-                        playlistUiModel = playlistUiModel,
-                        onDownloadClick = onDownloadClick,
+                    Title(
+                        text = entityScreenState.playlistName,
+                        modifier = Modifier.padding(bottom = 12.dp),
+                    )
+                }
+
+                item {
+                    StandardChip(
+                        label = stringResource(id = R.string.horologist_entity_button_download),
+                        onClick = { },
+                        modifier = Modifier.padding(bottom = 16.dp),
+                        icon = Icons.Default.Download,
                         enabled = false
                     )
                 }
@@ -91,21 +93,30 @@ public fun EntityScreen(
             }
 
             is EntityScreenState.Loaded -> {
+                item {
+                    Title(
+                        text = entityScreenState.playlistUiModel.title,
+                        modifier = Modifier.padding(bottom = 12.dp),
+                    )
+                }
+
                 if (entityScreenState.downloadsState == EntityScreenState.Loaded.DownloadsState.None) {
                     if (entityScreenState.downloading) {
                         item {
                             StandardChip(
                                 label = stringResource(id = R.string.horologist_entity_button_downloading),
-                                onClick = { onDownloadClick(playlistUiModel) },
+                                onClick = { onDownloadClick(entityScreenState.playlistUiModel) },
                                 modifier = Modifier.padding(bottom = 16.dp),
                                 icon = Icons.Default.Download,
                             )
                         }
                     } else {
                         item {
-                            DownloadButton(
-                                playlistUiModel = playlistUiModel,
-                                onDownloadClick = onDownloadClick
+                            StandardChip(
+                                label = stringResource(id = R.string.horologist_entity_button_download),
+                                onClick = { onDownloadClick(entityScreenState.playlistUiModel) },
+                                modifier = Modifier.padding(bottom = 16.dp),
+                                icon = Icons.Default.Download,
                             )
                         }
                     }
@@ -120,7 +131,7 @@ public fun EntityScreen(
                             FirstButton(
                                 downloadsState = entityScreenState.downloadsState,
                                 downloading = entityScreenState.downloading,
-                                playlistUiModel = playlistUiModel,
+                                playlistUiModel = entityScreenState.playlistUiModel,
                                 onDownloadClick = onDownloadClick,
                                 modifier = Modifier
                                     .padding(start = 6.dp)
@@ -130,7 +141,7 @@ public fun EntityScreen(
                             StandardButton(
                                 imageVector = Icons.Default.Shuffle,
                                 contentDescription = stringResource(id = R.string.horologist_entity_button_shuffle_content_description),
-                                onClick = { onShuffleClick(playlistUiModel) },
+                                onClick = { onShuffleClick(entityScreenState.playlistUiModel) },
                                 modifier = Modifier
                                     .padding(start = 6.dp)
                                     .weight(weight = 0.3F, fill = false)
@@ -139,7 +150,7 @@ public fun EntityScreen(
                             StandardButton(
                                 imageVector = Icons.Filled.PlayArrow,
                                 contentDescription = stringResource(id = R.string.horologist_entity_button_play_content_description),
-                                onClick = { onPlayClick(playlistUiModel) },
+                                onClick = { onPlayClick(entityScreenState.playlistUiModel) },
                                 modifier = Modifier
                                     .padding(start = 6.dp)
                                     .weight(weight = 0.3F, fill = false)
@@ -159,27 +170,13 @@ public fun EntityScreen(
                         icon = mediaItemUiModel.artworkUri,
                         largeIcon = true,
                         placeholder = downloadItemArtworkPlaceholder,
+                        chipType = StandardChipType.Secondary,
                         enabled = downloadMediaItemUiModel is DownloadMediaItemUiModel.Available,
                     )
                 }
             }
         }
     }
-}
-
-@Composable
-private fun DownloadButton(
-    playlistUiModel: PlaylistUiModel,
-    onDownloadClick: (PlaylistUiModel) -> Unit,
-    enabled: Boolean = true,
-) {
-    StandardChip(
-        label = stringResource(id = R.string.horologist_entity_button_download),
-        onClick = { onDownloadClick(playlistUiModel) },
-        modifier = Modifier.padding(bottom = 16.dp),
-        icon = Icons.Default.Download,
-        enabled = enabled
-    )
 }
 
 @ExperimentalHorologistMediaUiApi
@@ -231,9 +228,12 @@ private fun FirstButton(
 @ExperimentalHorologistMediaUiApi
 public sealed class EntityScreenState {
 
-    public object Loading : EntityScreenState()
+    public data class Loading(
+        val playlistName: String
+    ) : EntityScreenState()
 
     public data class Loaded(
+        val playlistUiModel: PlaylistUiModel,
         val downloadList: List<DownloadMediaItemUiModel>,
         val downloading: Boolean = false
     ) : EntityScreenState() {

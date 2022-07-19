@@ -38,22 +38,20 @@ fun UampPlaylistsScreen(
 ) {
     val uiState by rememberStateWithLifecycle(uampPlaylistsScreenViewModel.uiState)
 
-    val playlistScreenState = when (uiState) {
-
-        is UampPlaylistsScreenViewModel.UiState.Loading -> PlaylistScreenState.Loading
-
-        is UampPlaylistsScreenViewModel.UiState.Loaded -> {
-            val items = (uiState as UampPlaylistsScreenViewModel.UiState.Loaded).items.map {
+    val modifiedState = when (uiState) {
+        is PlaylistScreenState.Loaded -> {
+            val modifiedPlaylistList = (uiState as PlaylistScreenState.Loaded).playlistList.map {
                 it.takeIf { it.title.isNotEmpty() }
                     ?: it.copy(title = stringResource(id = R.string.horologist_no_title))
             }
 
-            PlaylistScreenState.Loaded(items)
+            PlaylistScreenState.Loaded(modifiedPlaylistList)
         }
+        else -> uiState
     }
 
     PlaylistScreen(
-        playlistScreenState = playlistScreenState,
+        playlistScreenState = modifiedState,
         onPlaylistItemClick = {
             onPlaylistItemClick(it)
         },

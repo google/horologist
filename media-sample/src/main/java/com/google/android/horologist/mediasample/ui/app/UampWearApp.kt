@@ -41,7 +41,6 @@ import com.google.android.horologist.mediasample.components.MediaActivity
 import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeText
 import com.google.android.horologist.mediasample.ui.entity.UampEntityScreen
 import com.google.android.horologist.mediasample.ui.entity.UampEntityScreenViewModel
-import com.google.android.horologist.mediasample.ui.player.MediaPlayerScreenViewModel
 import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreenViewModel
@@ -95,14 +94,8 @@ fun UampWearApp(
                     scalingLazyListState = scalingLazyListState,
                 )
             },
-            categoryEntityScreen = { collectionId, collectionName, focusRequester, scalingLazyListState ->
-                val uampEntityScreenViewModel: UampEntityScreenViewModel = viewModel(
-                    factory = UampEntityScreenViewModel.getFactory(
-                        playlistId = collectionId,
-                        playlistName = collectionName
-                    ),
-                    extras = creationExtras(),
-                )
+            categoryEntityScreen = { _, _, focusRequester, scalingLazyListState ->
+                val uampEntityScreenViewModel: UampEntityScreenViewModel = hiltViewModel()
 
                 UampEntityScreen(
                     uampEntityScreenViewModel = uampEntityScreenViewModel,

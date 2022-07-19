@@ -42,7 +42,9 @@ import com.google.android.horologist.mediasample.complication.DataUpdates
 import com.google.android.horologist.mediasample.complication.MediaStatusComplicationService
 import com.google.android.horologist.mediasample.data.api.UampService
 import com.google.android.horologist.mediasample.data.datasource.PlaylistRemoteDataSource
+import com.google.android.horologist.mediasample.data.repository.PlaylistDownloadRepositoryImpl
 import com.google.android.horologist.mediasample.data.repository.PlaylistRepositoryImpl
+import com.google.android.horologist.mediasample.domain.PlaylistDownloadRepository
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.system.Logging
@@ -200,6 +202,11 @@ object MediaApplicationModule {
         playlistRemoteDataSource: PlaylistRemoteDataSource
     ): PlaylistRepository =
         PlaylistRepositoryImpl(playlistRemoteDataSource)
+
+    @Singleton
+    @Provides
+    fun playlistDownloadRepository(): PlaylistDownloadRepository =
+        PlaylistDownloadRepositoryImpl()
 
     @Singleton
     @Provides

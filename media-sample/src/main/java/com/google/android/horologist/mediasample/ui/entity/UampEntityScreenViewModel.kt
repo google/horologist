@@ -16,32 +16,35 @@
 
 package com.google.android.horologist.mediasample.ui.entity
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.media.repository.PlayerRepository
+import com.google.android.horologist.media.ui.navigation.NavigationScreens
 import com.google.android.horologist.media.ui.screens.entity.EntityScreenState
-import com.google.android.horologist.mediasample.di.MediaApplicationContainer
 import com.google.android.horologist.mediasample.domain.PlaylistDownloadRepository
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.model.Playlist
 import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
 import com.google.android.horologist.mediasample.ui.mapper.PlaylistUiModelMapper
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
-class UampEntityScreenViewModel(
-    private val playlistId: String,
-    private val playlistName: String,
+@HiltViewModel
+class UampEntityScreenViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     private val playlistRepository: PlaylistRepository,
     private val playlistDownloadRepository: PlaylistDownloadRepository,
     private val playerRepository: PlayerRepository,
 ) : ViewModel() {
+    val playlistId: String = savedStateHandle[NavigationScreens.Collection.id]!!
+    val playlistName: String = savedStateHandle[NavigationScreens.Collection.name]!!
 
     private lateinit var playlistCached: Playlist
 
@@ -79,19 +82,5 @@ class UampEntityScreenViewModel(
         playerRepository.setMediaItems(playlistCached.mediaItems)
         playerRepository.prepare()
         playerRepository.play()
-    }
-
-    companion object {
-        fun getFactory(playlistId: String, playlistName: String) = viewModelFactory {
-            initializer {
-                UampEntityScreenViewModel(
-                    playlistId = playlistId,
-                    playlistName = playlistName,
-                    playlistRepository = this[MediaApplicationContainer.PlaylistRepositoryKey]!!,
-                    playlistDownloadRepository = this[MediaApplicationContainer.PlaylistDownloadRepositoryKey]!!,
-                    playerRepository = this[MediaApplicationContainer.PlayerRepositoryImplKey]!!,
-                )
-            }
-        }
     }
 }

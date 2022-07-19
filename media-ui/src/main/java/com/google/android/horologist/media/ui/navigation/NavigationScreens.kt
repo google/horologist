@@ -106,20 +106,25 @@ public sealed class NavigationScreens(
         public fun destination(): String = navRoute
     }
 
-    public object Collection : NavigationScreens("collection?id={id}") {
-        public fun destination(id: String): String = "collection?&id=$id"
+    public object Collection : NavigationScreens("collection?id={id}&name={name}") {
 
-        public val id: String = "id"
+        public const val id: String = "id"
+        public const val name: String = "name"
+
+        public fun destination(id: String, name: String): String = "collection?&id=$id&name=$name"
 
         override fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
             navDeepLink {
-                uriPattern = "$deepLinkPrefix/collection?id={id}"
+                uriPattern = "$deepLinkPrefix/collection?id={id}&name={name}"
             }
         )
 
         override val arguments: List<NamedNavArgument>
             get() = listOf(
                 navArgument(id) {
+                    type = NavType.StringType
+                },
+                navArgument(name) {
                     type = NavType.StringType
                 }
             )

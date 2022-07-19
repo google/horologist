@@ -30,6 +30,7 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
+import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollection
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollections
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToLibrary
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToPlayer
@@ -40,6 +41,8 @@ import com.google.android.horologist.media.ui.screens.browse.BrowseScreen
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreenState
 import com.google.android.horologist.mediasample.components.MediaActivity
 import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeText
+import com.google.android.horologist.mediasample.ui.entity.UampEntityScreen
+import com.google.android.horologist.mediasample.ui.entity.UampEntityScreenViewModel
 import com.google.android.horologist.mediasample.ui.player.MediaPlayerScreenViewModel
 import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreen
@@ -103,10 +106,23 @@ fun UampWearApp(
                     scalingLazyListState = scalingLazyListState,
                 )
             },
-            categoryEntityScreen = { _, _ ->
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text("Category XXX")
-                }
+            categoryEntityScreen = { collectionId, collectionName, focusRequester, scalingLazyListState ->
+                val uampEntityScreenViewModel: UampEntityScreenViewModel = viewModel(
+                    factory = UampEntityScreenViewModel.getFactory(
+                        playlistId = collectionId,
+                        playlistName = collectionName
+                    ),
+                    extras = creationExtras(),
+                )
+
+                UampEntityScreen(
+                    uampEntityScreenViewModel = uampEntityScreenViewModel,
+                    onDownloadItemClick = { },
+                    onShuffleClick = { navController.navigateToPlayer() },
+                    onPlayClick = { navController.navigateToPlayer() },
+                    focusRequester = focusRequester,
+                    scalingLazyListState = scalingLazyListState,
+                )
             },
             mediaEntityScreen = { _, _ ->
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -122,8 +138,11 @@ fun UampWearApp(
 
                 UampPlaylistsScreen(
                     uampPlaylistsScreenViewModel = uampPlaylistsScreenViewModel,
-                    onPlaylistItemClick = {
-                        navController.navigateToPlayer()
+                    onPlaylistItemClick = { playlistUiModel ->
+                        navController.navigateToCollection(
+                            playlistUiModel.id,
+                            playlistUiModel.title
+                        )
                     },
                     focusRequester = focusRequester,
                     scalingLazyListState = scalingLazyListState

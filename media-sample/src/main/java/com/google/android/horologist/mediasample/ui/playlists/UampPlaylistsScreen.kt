@@ -25,12 +25,13 @@ import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.media.ui.screens.playlist.PlaylistScreen
 import com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState
+import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.mediasample.R
 
 @Composable
 fun UampPlaylistsScreen(
     uampPlaylistsScreenViewModel: UampPlaylistsScreenViewModel,
-    onPlaylistItemClick: () -> Unit,
+    onPlaylistItemClick: (PlaylistUiModel) -> Unit,
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
@@ -54,8 +55,7 @@ fun UampPlaylistsScreen(
     PlaylistScreen(
         playlistScreenState = playlistScreenState,
         onPlaylistItemClick = {
-            uampPlaylistsScreenViewModel.play(it.id)
-            onPlaylistItemClick()
+            onPlaylistItemClick(it)
         },
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,

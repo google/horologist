@@ -35,8 +35,7 @@ import com.google.android.horologist.media.ui.utils.rememberVectorPainter
 @Composable
 fun EntityScreenPreviewLoading() {
     EntityScreen(
-        playlistUiModel = playlistUiModel,
-        entityScreenState = EntityScreenState.Loading,
+        entityScreenState = EntityScreenState.Loading("Artist name"),
         onDownloadClick = { },
         onDownloadItemClick = { },
         onShuffleClick = { },
@@ -50,8 +49,8 @@ fun EntityScreenPreviewLoading() {
 @Composable
 fun EntityScreenPreviewLoadedNoneDownloaded() {
     EntityScreen(
-        playlistUiModel = playlistUiModel,
         entityScreenState = EntityScreenState.Loaded(
+            playlistUiModel = playlistUiModel,
             downloadList = unavailableDownloads,
             downloading = false,
         ),
@@ -72,8 +71,8 @@ fun EntityScreenPreviewLoadedNoneDownloaded() {
 @Composable
 fun EntityScreenPreviewLoadedNoneDownloadedDownloading() {
     EntityScreen(
-        playlistUiModel = playlistUiModel,
         entityScreenState = EntityScreenState.Loaded(
+            playlistUiModel = playlistUiModel,
             downloadList = unavailableDownloads,
             downloading = true,
         ),
@@ -94,8 +93,8 @@ fun EntityScreenPreviewLoadedNoneDownloadedDownloading() {
 @Composable
 fun EntityScreenPreviewLoadedPartiallyDownloaded() {
     EntityScreen(
-        playlistUiModel = playlistUiModel,
         entityScreenState = EntityScreenState.Loaded(
+            playlistUiModel = playlistUiModel,
             downloadList = mixedDownloads,
             downloading = false,
         ),
@@ -116,8 +115,8 @@ fun EntityScreenPreviewLoadedPartiallyDownloaded() {
 @Composable
 fun EntityScreenPreviewLoadedPartiallyDownloadedDownloading() {
     EntityScreen(
-        playlistUiModel = playlistUiModel,
         entityScreenState = EntityScreenState.Loaded(
+            playlistUiModel = playlistUiModel,
             downloadList = mixedDownloads,
             downloading = true,
         ),
@@ -138,8 +137,8 @@ fun EntityScreenPreviewLoadedPartiallyDownloadedDownloading() {
 @Composable
 fun EntityScreenPreviewLoadedFullyDownloaded() {
     EntityScreen(
-        playlistUiModel = playlistUiModel,
         entityScreenState = EntityScreenState.Loaded(
+            playlistUiModel = playlistUiModel,
             downloadList = availableDownloads,
             downloading = false,
         ),

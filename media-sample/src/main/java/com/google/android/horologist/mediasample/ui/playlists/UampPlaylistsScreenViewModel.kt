@@ -20,12 +20,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.model.Playlist
+import com.google.android.horologist.mediasample.ui.mapper.PlaylistUiModelMapper
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -34,7 +34,6 @@ import kotlinx.coroutines.flow.stateIn
 
 class UampPlaylistsScreenViewModel(
     private val playlistRepository: PlaylistRepository,
-    private val playerRepository: PlayerRepository,
     private val settingsRepository: SettingsRepository,
 ) : ViewModel() {
 
@@ -62,21 +61,6 @@ class UampPlaylistsScreenViewModel(
         }
     }.stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = UiState.Loading)
 
-    fun play(playlistId: String) {
-        val playlistList = playlists.value
-
-        if (playlistList != null) {
-            val playlist = playlistList.find { it.id == playlistId }
-                ?: playlistList.first()
-
-            playerRepository.setMediaItems(playlist.mediaItems)
-            playerRepository.prepare()
-            playerRepository.play()
-        } else {
-            // TODO warning
-        }
-    }
-
     sealed class UiState {
         object Loading : UiState()
 
@@ -90,7 +74,6 @@ class UampPlaylistsScreenViewModel(
             initializer {
                 UampPlaylistsScreenViewModel(
                     playlistRepository = this[MediaApplicationContainer.PlaylistRepositoryKey]!!,
-                    playerRepository = this[MediaApplicationContainer.PlayerRepositoryImplKey]!!,
                     settingsRepository = this[MediaApplicationContainer.SettingsRepositoryKey]!!,
                 )
             }

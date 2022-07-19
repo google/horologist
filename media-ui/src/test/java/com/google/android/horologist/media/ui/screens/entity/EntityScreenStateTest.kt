@@ -21,6 +21,7 @@ package com.google.android.horologist.media.ui.screens.entity
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.DownloadMediaItemUiModel
 import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
@@ -50,6 +51,10 @@ class EntityScreenStateTest {
 
         // when
         val result = EntityScreenState.Loaded(
+            playlistUiModel = PlaylistUiModel(
+                id = "id",
+                title = "title",
+            ),
             downloadList = downloads,
             downloading = false
         ).downloadsState
@@ -82,6 +87,10 @@ class EntityScreenStateTest {
 
         // when
         val result = EntityScreenState.Loaded(
+            playlistUiModel = PlaylistUiModel(
+                id = "id",
+                title = "title",
+            ),
             downloadList = downloads,
             downloading = false
         ).downloadsState
@@ -114,6 +123,10 @@ class EntityScreenStateTest {
 
         // when
         val result = EntityScreenState.Loaded(
+            playlistUiModel = PlaylistUiModel(
+                id = "id",
+                title = "title",
+            ),
             downloadList = downloads,
             downloading = false
         ).downloadsState
@@ -129,6 +142,10 @@ class EntityScreenStateTest {
 
         // when
         val result = EntityScreenState.Loaded(
+            playlistUiModel = PlaylistUiModel(
+                id = "id",
+                title = "title",
+            ),
             downloadList = downloads,
             downloading = false
         ).downloadsState

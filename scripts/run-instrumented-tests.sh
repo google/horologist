@@ -22,8 +22,6 @@ SHARD_COUNT=0
 SHARD_INDEX=0
 # By default we don't log
 LOG_FILE=""
-# By default we run tests on device
-DEVICE=true
 TEST_OPTIONS=""
 
 # Parse parameters
@@ -31,10 +29,6 @@ for i in "$@"; do
   case $i in
   --shard-count=*)
     SHARD_COUNT="${i#*=}"
-    shift
-    ;;
-  --unit-tests)
-    DEVICE=false
     shift
     ;;
   --shard-index=*)
@@ -49,8 +43,8 @@ for i in "$@"; do
     RUN_AFFECTED=true
     shift
     ;;
-  --run-flaky-tests)
-    RUN_FLAKY=true
+  --ignore-large-tests)
+    IGNORE_LARGE_TESTS=true
     shift
     ;;
   --affected-base-ref=*)
@@ -69,19 +63,16 @@ if [[ ! -z "$LOG_FILE" ]]; then
   adb logcat >$LOG_FILE &
 fi
 
-FILTER_OPTS=""
-# Filter out flaky tests if we're not set to run them
-if [[ -z "$RUN_FLAKY" ]]; then
-  FILTER_OPTS="$FILTER_OPTS -Pandroid.testInstrumentationRunnerArguments.notAnnotation=androidx.test.filters.FlakyTest"
+SIZE_OPTS=""
+# Ignore large tests if we're not set to run them
+if [[ -z "$IGNORE_LARGE_TESTS" ]]; then
+  SIZE_OPTS="$SIZE_OPTS -Pandroid.testInstrumentationRunnerArguments.size=small"
+  SIZE_OPTS="$SIZE_OPTS -Pandroid.testInstrumentationRunnerArguments.size=medium"
 fi
 
 # If we're set to only run affected test, update the Gradle task
 if [[ ! -z "$RUN_AFFECTED" ]]; then
-  if [ "$DEVICE" = true ]; then
-    TASK="runAffectedAndroidTests"
-  else
-    TASK="runAffectedUnitTests"
-  fi
+  TASK="runAffectedAndroidTests"
   TASK="$TASK -Paffected_module_detector.enable"
 
   # If we have a base branch set, add the Gradle property
@@ -92,18 +83,7 @@ fi
 
 # If we don't have a task yet, use the defaults
 if [[ -z "$TASK" ]]; then
-  if [ "$DEVICE" = true ]; then
-    TASK="connectedCheck"
-  else
-    TASK="testDebug"
-  fi
-fi
-
-if [ "$DEVICE" = true ]; then
-  TEST_OPTIONS="-Pandroid.testInstrumentationRunnerArguments.size=small"
-  TEST_OPTIONS="$TEST_OPTIONS -Pandroid.testInstrumentationRunnerArguments.size=medium --no-parallel"
-else
-  TEST_OPTIONS=""
+  TASK="connectedCheck"
 fi
 
 SHARD_OPTS=""
@@ -114,4 +94,4 @@ if [ "$SHARD_COUNT" -gt "0" ]; then
   SHARD_OPTS="$SHARD_OPTS -Pandroid.testInstrumentationRunnerArguments.shardIndex=$SHARD_INDEX"
 fi
 
-./gradlew --scan --continue $TEST_OPTIONS --no-configuration-cache --stacktrace $TASK $FILTER_OPTS $SHARD_OPTS
+./gradlew --scan --continue --no-configuration-cache --stacktrace --no-parallel $TASK $SIZE_OPTS $SHARD_OPTS

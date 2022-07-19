@@ -17,7 +17,7 @@
 package com.google.android.horologist.media.ui.components.base
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.materialPath
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -67,7 +67,7 @@ fun SecondaryChipPreviewWithIcon() {
     StandardChip(
         label = "Primary label",
         onClick = { },
-        icon = Icons.Default.Add,
+        icon = Icons.Default.Image,
         chipType = StandardChipType.Secondary,
     )
 }
@@ -101,7 +101,7 @@ fun SecondaryChipPreviewWithSecondaryLabelAndIcon() {
         label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
-        icon = Icons.Default.Add,
+        icon = Icons.Default.Image,
         chipType = StandardChipType.Secondary,
     )
 }
@@ -136,7 +136,7 @@ fun SecondaryChipPreviewDisabled() {
         label = "Primary label",
         onClick = { },
         secondaryLabel = "Secondary label",
-        icon = Icons.Default.Add,
+        icon = Icons.Default.Image,
         chipType = StandardChipType.Secondary,
         enabled = false,
     )
@@ -169,7 +169,7 @@ fun SecondaryChipPreviewWithSecondaryLabelAndLongText() {
         label = "Primary label very very very very very very very very long text",
         onClick = { },
         secondaryLabel = "Secondary label very very very very very very very very very long text",
-        icon = Icons.Default.Add,
+        icon = Icons.Default.Image,
         chipType = StandardChipType.Secondary,
     )
 }
@@ -251,7 +251,7 @@ fun SecondaryChipPreviewWithIconPlaceholder() {
     StandardChip(
         label = "Primary label",
         onClick = { },
-        icon = Icons.Default.Add,
+        icon = Icons.Default.Image,
         chipType = StandardChipType.Secondary,
     )
 }
@@ -270,7 +270,7 @@ fun SecondaryChipPreviewDisabledWithIconPlaceholder() {
         secondaryLabel = "Secondary label",
         icon = "iconUri",
         placeholder = rememberVectorPainter(
-            image = Icons.Default.Add,
+            image = Icons.Default.Image,
             tintColor = Color.White,
         ),
         chipType = StandardChipType.Secondary,

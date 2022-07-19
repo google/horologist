@@ -40,12 +40,9 @@ class UampPlaylistsScreenViewModel(
         settingsRepository.settingsFlow
     ) { playlists, settings ->
         Pair(playlists, settings)
-    }.map { result ->
-        val playlistList = result.first
-        val settings = result.second
-
+    }.map { (playlists, settings) ->
         PlaylistScreenState.Loaded(
-            playlistList.map {
+            playlists.map {
                 PlaylistUiModelMapper.map(
                     playlist = it,
                     shouldMapArtworkUri = settings.showArtworkOnChip

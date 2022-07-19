@@ -24,6 +24,7 @@ import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.media3.audio.AudioOutputSelector
 import com.google.android.horologist.media3.audio.BluetoothSettingsOutputSelector
 import com.google.android.horologist.mediasample.AppConfig
+import com.google.android.horologist.mediasample.util.resetAfter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

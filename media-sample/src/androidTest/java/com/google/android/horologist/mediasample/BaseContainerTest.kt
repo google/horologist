@@ -27,28 +27,20 @@ import androidx.test.uiautomator.UiDevice
 import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.rules.PlaybackRules
+import com.google.android.horologist.mediasample.runner.FakeConfigModule
 import com.google.android.horologist.networks.rules.NetworkingRules
 import dagger.hilt.android.testing.HiltAndroidRule
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
+import java.io.File
+import java.util.UUID
 import javax.inject.Inject
 
 abstract class BaseContainerTest {
+
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
-
-    protected lateinit var device: UiDevice
-
-    // Default to most permissable settings for tests
-    protected open val appConfig = AppConfig(
-        offloadEnabled = false,
-        strictNetworking = NetworkingRules.Lenient,
-        cacheItems = false,
-        playbackRules = PlaybackRules.SpeakerAllowed
-    )
-
-    internal lateinit var application: Application
 
     @Inject
     protected lateinit var audioOffloadManager: AudioOffloadManager
@@ -65,28 +57,47 @@ abstract class BaseContainerTest {
     @Inject
     protected lateinit var downloadCache: Cache
 
+    @Inject
+    protected lateinit var appConfig: AppConfig
+
+    protected lateinit var device: UiDevice
+
+    private lateinit var cacheDir: File
+
+    internal lateinit var application: Application
+
     @Before
     @UiThreadTest
     @CallSuper
     open fun init() {
-        hiltRule.inject()
-
         application =
             InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as Application
-        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
-        clearCache()
+        cacheDir = File(application.cacheDir, UUID.randomUUID().toString()).also {
+            it.mkdirs()
+        }
+
+        FakeConfigModule.appConfigFn = { appConfig() }
+
+        hiltRule.inject()
+        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
     }
 
-    fun clearCache() {
-        downloadCache.keys.forEach {
-            downloadCache.removeResource(it)
-        }
+    open fun appConfig(): AppConfig {
+        return AppConfig(
+            strictMode = false,
+            cacheDir = cacheDir,
+            offloadEnabled = false,
+            strictNetworking = NetworkingRules.Lenient,
+            cacheItems = false,
+            playbackRules = PlaybackRules.SpeakerAllowed
+        )
     }
 
     @After
     @UiThreadTest
     @CallSuper
     open fun cleanup() {
+        cacheDir.deleteRecursively()
     }
 }

@@ -19,6 +19,7 @@ package com.google.android.horologist.media3
 import android.util.Log
 import androidx.media3.common.ForwardingPlayer
 import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
 import com.google.android.horologist.audio.AudioOutputRepository
 import com.google.android.horologist.media3.audio.AudioOutputSelector
@@ -48,6 +49,18 @@ public class WearConfiguredPlayer(
     private val coroutineScope: CoroutineScope,
 ) : ForwardingPlayer(player) {
     private var playAttempt: Job? = null
+
+    init {
+        addListener(object : Player.Listener {
+            override fun onMediaMetadataChanged(mediaMetadata: MediaMetadata) {
+                Exception("${mediaMetadata.title}").printStackTrace()
+            }
+
+            override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
+                Exception("${mediaItem?.mediaId} $reason").printStackTrace()
+            }
+        })
+    }
 
     /**
      * Start proactive noise detection, unlike ExoPlayer setHandleAudioBecomingNoisy

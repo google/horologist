@@ -34,7 +34,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object ConfigContainer {
+object ConfigModule {
     @Singleton
     @Provides
     @IsEmulator

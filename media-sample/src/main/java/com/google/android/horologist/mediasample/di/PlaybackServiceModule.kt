@@ -69,7 +69,7 @@ import okhttp3.Call
 
 @Module
 @InstallIn(ServiceComponent::class)
-object PlaybackServiceContainer {
+object PlaybackServiceModule {
     @ServiceScoped
     @Provides
     fun loadControl(): LoadControl = DefaultLoadControl.Builder()

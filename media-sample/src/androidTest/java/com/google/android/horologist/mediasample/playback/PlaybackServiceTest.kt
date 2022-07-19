@@ -38,4 +38,13 @@ class PlaybackServiceTest : BasePlaybackTest() {
             assertThat(browser.isConnected).isTrue()
         }
     }
+
+    @Test
+    fun testMediaBrowser2() = runTest {
+        val browser = browser()
+
+        withContext(Dispatchers.Main) {
+            assertThat(browser.isConnected).isTrue()
+        }
+    }
 }

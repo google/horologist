@@ -28,12 +28,22 @@ for i in "$@"; do
     BASE_REF="${i#*=}"
     shift
     ;;
+  --run-flaky-tests)
+    RUN_FLAKY=true
+    shift
+    ;;
   *)
     echo "Unknown option"
     exit 1
     ;;
   esac
 done
+
+FILTER_OPTS=""
+# Filter out flaky tests if we're not set to run them
+if [[ -z "$RUN_FLAKY" ]]; then
+  FILTER_OPTS="$FILTER_OPTS -Pandroid.testInstrumentationRunnerArguments.notAnnotation=androidx.test.filters.FlakyTest"
+fi
 
 # If we're set to only run affected test, update the Gradle task
 if [[ ! -z "$RUN_AFFECTED" ]]; then
@@ -51,4 +61,4 @@ if [[ -z "$TASK" ]]; then
   TASK="testDebug"
 fi
 
-./gradlew --scan --continue --no-configuration-cache --stacktrace $TASK
+./gradlew --scan --continue --no-configuration-cache --stacktrace $TASK $FILTER_OPTS

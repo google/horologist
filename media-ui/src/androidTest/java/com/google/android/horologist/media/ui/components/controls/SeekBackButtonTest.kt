@@ -25,11 +25,13 @@ import androidx.compose.material.icons.filled.Replay30
 import androidx.compose.material.icons.filled.Replay5
 import androidx.compose.ui.test.assertContentDescriptionEquals
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.test.filters.FlakyTest
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.test.toolbox.matchers.hasIconImageVector
 import org.junit.Rule
 import org.junit.Test
 
+@FlakyTest(detail = "https://github.com/google/horologist/issues/407")
 class SeekBackButtonTest {
 
     @get:Rule

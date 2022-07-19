@@ -19,7 +19,7 @@ package com.google.android.horologist.media.ui.components.base
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.materialPath
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -78,7 +78,7 @@ class PrimaryChipTest {
                 StandardChip(
                     label = "Primary label",
                     onClick = { },
-                    icon = Icons.Default.Add,
+                    icon = Icons.Default.Image,
                 )
             }
         }
@@ -106,7 +106,7 @@ class PrimaryChipTest {
                     label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
-                    icon = Icons.Default.Add,
+                    icon = Icons.Default.Image,
                 )
             }
         }
@@ -135,7 +135,7 @@ class PrimaryChipTest {
                     label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
-                    icon = Icons.Default.Add,
+                    icon = Icons.Default.Image,
                     enabled = false,
                 )
             }
@@ -162,7 +162,7 @@ class PrimaryChipTest {
                     label = "Primary label very very very very very very very very long text",
                     onClick = { },
                     secondaryLabel = "Secondary label very very very very very very very very very long text",
-                    icon = Icons.Default.Add,
+                    icon = Icons.Default.Image,
                 )
             }
         }
@@ -229,7 +229,7 @@ class PrimaryChipTest {
                 StandardChip(
                     label = "Primary label",
                     onClick = { },
-                    icon = Icons.Default.Add,
+                    icon = Icons.Default.Image,
                 )
             }
         }
@@ -245,7 +245,7 @@ class PrimaryChipTest {
                     secondaryLabel = "Secondary label",
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
-                        image = Icons.Default.Add,
+                        image = Icons.Default.Image,
                         tintColor = Color.Black,
                     ),
                     enabled = false,

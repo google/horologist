@@ -23,8 +23,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
@@ -94,7 +96,9 @@ internal fun StandardChip(
                         Icon(
                             imageVector = icon,
                             contentDescription = null, // hidden from talkback
-                            modifier = Modifier.size(iconSize),
+                            modifier = Modifier
+                                .size(iconSize)
+                                .clip(CircleShape),
                         )
                     } else {
                         Image(
@@ -103,8 +107,10 @@ internal fun StandardChip(
                                 placeholder = placeholder
                             ),
                             contentDescription = null, // hidden from talkback
-                            modifier = Modifier.size(iconSize),
-                            contentScale = ContentScale.Fit
+                            modifier = Modifier
+                                .size(iconSize)
+                                .clip(CircleShape),
+                            contentScale = ContentScale.Crop
                         )
                     }
                 }

@@ -134,7 +134,7 @@ jobs:
             ~/.gradle/caches/build-cache-*
           key: gradle-${{ hashFiles('checksum.txt') }}
 
-      - name: Quick Compile
+      - name: Compile instrumentation tests
         run: |
           ./gradlew --scan --stacktrace \
               compileDebugAndroidTestSources

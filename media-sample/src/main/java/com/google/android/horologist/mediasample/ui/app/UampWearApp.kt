@@ -24,11 +24,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.CreationExtras
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollection
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollections
@@ -43,25 +41,20 @@ import com.google.android.horologist.mediasample.components.MediaActivity
 import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeText
 import com.google.android.horologist.mediasample.ui.entity.UampEntityScreen
 import com.google.android.horologist.mediasample.ui.entity.UampEntityScreenViewModel
-import com.google.android.horologist.mediasample.ui.player.MediaPlayerScreenViewModel
 import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreenViewModel
-import com.google.android.horologist.mediasample.ui.settings.SettingsScreenViewModel
 import com.google.android.horologist.mediasample.ui.settings.UampSettingsScreen
-import com.google.android.horologist.mediasample.ui.settings.VolumeViewModelFactory
 
 @Composable
 fun UampWearApp(
     navController: NavHostController,
-    creationExtras: () -> CreationExtras,
     intent: Intent
 ) {
-    val appViewModel: MediaPlayerAppViewModel = viewModel(factory = MediaPlayerAppViewModel.Factory)
+    val appViewModel: MediaPlayerAppViewModel = hiltViewModel()
     val settingsState by rememberStateWithLifecycle(flow = appViewModel.settingsState)
 
-    val volumeViewModel: VolumeViewModel =
-        viewModel(factory = VolumeViewModelFactory, extras = creationExtras())
+    val volumeViewModel: VolumeViewModel = hiltViewModel()
 
     val timeText: @Composable (Modifier) -> Unit = { modifier ->
         val networkUsage by rememberStateWithLifecycle(appViewModel.networkUsage)
@@ -80,14 +73,9 @@ fun UampWearApp(
     UampTheme {
         MediaPlayerScaffold(
             playerScreen = { focusRequester ->
-                val mediaPlayerScreenViewModel = viewModel<MediaPlayerScreenViewModel>(
-                    factory = MediaPlayerScreenViewModel.Factory,
-                    extras = creationExtras()
-                )
-
                 UampMediaPlayerScreen(
                     modifier = Modifier.fillMaxSize(),
-                    mediaPlayerScreenViewModel = mediaPlayerScreenViewModel,
+                    mediaPlayerScreenViewModel = hiltViewModel(),
                     volumeViewModel = volumeViewModel,
                     onVolumeClick = {
                         navController.navigateToVolume()
@@ -106,14 +94,8 @@ fun UampWearApp(
                     scalingLazyListState = scalingLazyListState,
                 )
             },
-            categoryEntityScreen = { collectionId, collectionName, focusRequester, scalingLazyListState ->
-                val uampEntityScreenViewModel: UampEntityScreenViewModel = viewModel(
-                    factory = UampEntityScreenViewModel.getFactory(
-                        playlistId = collectionId,
-                        playlistName = collectionName
-                    ),
-                    extras = creationExtras(),
-                )
+            categoryEntityScreen = { _, _, focusRequester, scalingLazyListState ->
+                val uampEntityScreenViewModel: UampEntityScreenViewModel = hiltViewModel()
 
                 UampEntityScreen(
                     uampEntityScreenViewModel = uampEntityScreenViewModel,
@@ -131,10 +113,7 @@ fun UampWearApp(
             },
             playlistsScreen = { focusRequester, scalingLazyListState ->
                 val uampPlaylistsScreenViewModel: UampPlaylistsScreenViewModel =
-                    viewModel(
-                        factory = UampPlaylistsScreenViewModel.Factory,
-                        extras = creationExtras()
-                    )
+                    hiltViewModel()
 
                 UampPlaylistsScreen(
                     uampPlaylistsScreenViewModel = uampPlaylistsScreenViewModel,
@@ -152,12 +131,11 @@ fun UampWearApp(
                 UampSettingsScreen(
                     focusRequester = focusRequester,
                     state = state,
-                    settingsScreenViewModel = viewModel(
-                        factory = SettingsScreenViewModel.Factory,
-                        extras = creationExtras()
-                    )
+                    settingsScreenViewModel = hiltViewModel()
                 )
             },
+            snackbarViewModel = hiltViewModel<SnackbarViewModel>(),
+            volumeViewModel = hiltViewModel<VolumeViewModel>(),
             timeText = timeText,
             deepLinkPrefix = appViewModel.deepLinkPrefix,
             navController = navController

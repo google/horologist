@@ -17,17 +17,17 @@
 package com.google.android.horologist.mediasample.ui.player
 
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.media.data.PlayerRepositoryImpl
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.media3.audio.AudioOutputSelector
-import com.google.android.horologist.mediasample.di.MediaApplicationContainer
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MediaPlayerScreenViewModel(
+@HiltViewModel
+class MediaPlayerScreenViewModel @Inject constructor(
     playerRepository: PlayerRepositoryImpl,
     private val audioOutputSelector: AudioOutputSelector
 ) : PlayerViewModel(playerRepository) {
@@ -37,17 +37,6 @@ class MediaPlayerScreenViewModel(
             while (isActive) {
                 delay(1000)
                 playerRepository.updatePosition()
-            }
-        }
-    }
-
-    companion object {
-        val Factory = viewModelFactory {
-            initializer {
-                MediaPlayerScreenViewModel(
-                    playerRepository = this[MediaApplicationContainer.PlayerRepositoryImplKey]!!,
-                    audioOutputSelector = this[MediaApplicationContainer.AudioOutputSelectorKey]!!
-                )
             }
         }
     }

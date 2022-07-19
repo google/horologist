@@ -16,9 +16,10 @@
 
 package com.google.android.horologist.mediasample
 
+import android.app.Application
 import android.app.NotificationManager
-import android.content.Context
 import androidx.annotation.CallSuper
+import androidx.media3.datasource.cache.Cache
 import androidx.media3.exoplayer.audio.AudioSink
 import androidx.test.annotation.UiThreadTest
 import androidx.test.platform.app.InstrumentationRegistry
@@ -26,62 +27,77 @@ import androidx.test.uiautomator.UiDevice
 import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.rules.PlaybackRules
-import com.google.android.horologist.mediasample.di.MediaApplicationContainer
-import com.google.android.horologist.mediasample.runner.TestMediaApplication
+import com.google.android.horologist.mediasample.runner.FakeConfigModule
 import com.google.android.horologist.networks.rules.NetworkingRules
+import dagger.hilt.android.testing.HiltAndroidRule
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
+import java.io.File
+import java.util.UUID
+import javax.inject.Inject
 
-open class BaseContainerTest {
-    internal lateinit var application: TestMediaApplication
+abstract class BaseContainerTest {
+
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
+
+    @Inject
+    protected lateinit var audioOffloadManager: AudioOffloadManager
+
+    @Inject
+    protected lateinit var audioSink: AudioSink
+
+    @Inject
+    protected lateinit var audioOutputRepository: SystemAudioRepository
+
+    @Inject
+    protected lateinit var notificationManager: NotificationManager
+
+    @Inject
+    protected lateinit var downloadCache: Cache
+
+    @Inject
+    protected lateinit var appConfig: AppConfig
+
     protected lateinit var device: UiDevice
 
-    // Default to most permissable settings for tests
-    protected open val appConfig = AppConfig(
-        offloadEnabled = false,
-        strictNetworking = NetworkingRules.Lenient,
-        cacheItems = false,
-        playbackRules = PlaybackRules.SpeakerAllowed
-    )
+    private lateinit var cacheDir: File
 
-    protected val audioOffloadManager: AudioOffloadManager
-        get() = appContainer.audioOffloadManager
-
-    protected val audioSink: AudioSink
-        get() = appContainer.audioSink
-
-    protected val audioOutputRepository: SystemAudioRepository
-        get() = appContainer.audioContainer.systemAudioRepository
-
-    protected val notificationManager: NotificationManager
-        get() = application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-    protected val appContainer: MediaApplicationContainer
-        get() = application.container
+    internal lateinit var application: Application
 
     @Before
     @UiThreadTest
     @CallSuper
     open fun init() {
         application =
-            InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as TestMediaApplication
+            InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as Application
+
+        cacheDir = File(application.cacheDir, UUID.randomUUID().toString()).also {
+            it.mkdirs()
+        }
+
+        FakeConfigModule.appConfigFn = { appConfig() }
+
+        hiltRule.inject()
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-
-        application.appConfig = appConfig
-
-        clearCache()
     }
 
-    fun clearCache() {
-        val cache = appContainer.downloadCache
-        cache.keys.forEach {
-            cache.removeResource(it)
-        }
+    open fun appConfig(): AppConfig {
+        return AppConfig(
+            strictMode = false,
+            cacheDir = cacheDir,
+            offloadEnabled = false,
+            strictNetworking = NetworkingRules.Lenient,
+            cacheItems = false,
+            playbackRules = PlaybackRules.SpeakerAllowed
+        )
     }
 
     @After
     @UiThreadTest
     @CallSuper
     open fun cleanup() {
+        cacheDir.deleteRecursively()
     }
 }

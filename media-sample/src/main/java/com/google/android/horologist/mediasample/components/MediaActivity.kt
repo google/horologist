@@ -19,25 +19,17 @@ package com.google.android.horologist.mediasample.components
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.lifecycle.viewmodel.CreationExtras
-import androidx.lifecycle.viewmodel.MutableCreationExtras
 import androidx.navigation.NavHostController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
-import com.google.android.horologist.mediasample.di.MediaActivityContainer
-import com.google.android.horologist.mediasample.di.ViewModelModule
 import com.google.android.horologist.mediasample.ui.app.UampWearApp
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MediaActivity : ComponentActivity() {
     lateinit var navController: NavHostController
 
-    lateinit var mediaActivityContainer: MediaActivityContainer
-
-    lateinit var viewModelModule: ViewModelModule
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        MediaActivityContainer.inject(this)
 
         setTheme(android.R.style.Theme_DeviceDefault)
 
@@ -45,15 +37,8 @@ class MediaActivity : ComponentActivity() {
             navController = rememberSwipeDismissableNavController()
             UampWearApp(
                 navController = navController,
-                creationExtras = { defaultViewModelCreationExtras },
                 intent = intent
             )
-        }
-    }
-
-    override fun getDefaultViewModelCreationExtras(): CreationExtras {
-        return MutableCreationExtras(super.getDefaultViewModelCreationExtras()).apply {
-            viewModelModule.addCreationExtras(this)
         }
     }
 

@@ -16,49 +16,28 @@
 
 package com.google.android.horologist.mediasample.playback
 
-import androidx.annotation.CallSuper
+import android.content.ComponentName
+import android.os.Build
 import androidx.media3.session.MediaBrowser
-import androidx.test.annotation.UiThreadTest
+import androidx.media3.session.SessionToken
+import com.google.android.horologist.media3.flows.buildSuspend
 import com.google.android.horologist.mediasample.BaseContainerTest
-import com.google.android.horologist.mediasample.di.ViewModelModule
-import org.junit.After
+import com.google.android.horologist.mediasample.components.PlaybackService
 import org.junit.Assume
-import org.junit.Before
 
-open class BasePlaybackTest : BaseContainerTest() {
-    private lateinit var viewModelContainer: ViewModelModule
-
-    @Before
-    @UiThreadTest
-    @CallSuper
-    override fun init() {
-        super.init()
-
-        viewModelContainer = ViewModelModule(appContainer)
-
-        checkSupportedConfig()
-    }
-
-    @After
-    @UiThreadTest
-    @CallSuper
-    override fun cleanup() {
-        super.cleanup()
-        if (this::viewModelContainer.isInitialized) {
-            viewModelContainer.close()
-            viewModelContainer.mediaController.getCompleted().setMediaItems(listOf())
-        }
-    }
-
+abstract class BasePlaybackTest : BaseContainerTest() {
     protected fun checkSupportedConfig() {
-        val appConfig = this.appConfig
-
-        if (appContainer.isEmulator) {
+        if (isEmulator()) {
             Assume.assumeFalse(appConfig.offloadEnabled)
         }
     }
 
+    fun isEmulator(): Boolean = Build.PRODUCT.startsWith("sdk_gwear")
+
     suspend fun browser(): MediaBrowser {
-        return viewModelContainer.mediaController.await()
+        return MediaBrowser.Builder(
+            application,
+            SessionToken(application, ComponentName(application, PlaybackService::class.java))
+        ).buildSuspend()
     }
 }

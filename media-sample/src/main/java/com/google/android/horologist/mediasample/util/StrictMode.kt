@@ -14,11 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.runner
+package com.google.android.horologist.mediasample.util
 
-import com.google.android.horologist.mediasample.AppConfig
-import com.google.android.horologist.mediasample.components.MediaApplication
+import android.os.StrictMode
 
-class TestMediaApplication : MediaApplication() {
-    override var appConfig: AppConfig = AppConfig()
+// Confusingly the result of allowThreadDiskWrites is the old policy,
+// while allow* methods immediately apply the change.
+// So `this` is the policy before we overrode it.
+fun <R> StrictMode.ThreadPolicy.resetAfter(block: () -> R) = try {
+    block()
+} finally {
+    StrictMode.setThreadPolicy(this)
 }

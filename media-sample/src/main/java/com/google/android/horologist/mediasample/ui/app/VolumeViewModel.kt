@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.components
+package com.google.android.horologist.mediasample.ui.app
 
-import androidx.media3.session.MediaSession
-import com.google.android.horologist.media3.service.LifecycleMediaLibraryService
-import dagger.hilt.android.AndroidEntryPoint
+import android.os.Vibrator
+import com.google.android.horologist.audio.SystemAudioRepository
+import com.google.android.horologist.audio.ui.VolumeViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-@AndroidEntryPoint
-class PlaybackService : LifecycleMediaLibraryService() {
-    @Inject
-    public override lateinit var mediaLibrarySession: MediaLibrarySession
-
-    override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession? {
-        return mediaLibrarySession
-    }
-}
+@HiltViewModel
+public class VolumeViewModel @Inject constructor(
+    systemAudioRepository: SystemAudioRepository,
+    vibrator: Vibrator,
+) : VolumeViewModel(
+    volumeRepository = systemAudioRepository,
+    audioOutputRepository = systemAudioRepository,
+    vibrator = vibrator
+)

@@ -39,21 +39,26 @@ import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.components.MediaActivity
 import com.google.android.horologist.mediasample.data.api.UampService
-import com.google.android.horologist.mediasample.di.ServiceContainer
 import com.google.android.horologist.mediasample.ui.app.UampColors
 import com.google.android.horologist.tiles.CoroutinesTileService
 import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 import com.google.android.horologist.tiles.images.loadImageResource
 import com.google.android.horologist.tiles.images.toImageResource
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * A Tile with links to open the app, or two specific media collections (playlist, album).
  *
  * Links to the MediaActivity, with extras for collection and optionally mediaId.
  */
+@AndroidEntryPoint
 class MediaCollectionsTileService : CoroutinesTileService() {
-    internal lateinit var uampService: UampService
+    @Inject
+    lateinit var uampService: UampService
+
+    @Inject
     internal lateinit var imageLoader: ImageLoader
 
     private val renderer: MediaCollectionsTileRenderer = MediaCollectionsTileRenderer(
@@ -61,12 +66,6 @@ class MediaCollectionsTileService : CoroutinesTileService() {
         materialTheme = UampColors.toTileColors(),
         debugResourceMode = BuildConfig.DEBUG
     )
-
-    override fun onCreate() {
-        super.onCreate()
-
-        ServiceContainer.inject(this)
-    }
 
     /**
      * Render a Playlist primary button and two chips with direct links to collections.

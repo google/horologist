@@ -21,7 +21,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.ScalingLazyListState
@@ -59,8 +58,8 @@ import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
 @Composable
 public fun MediaPlayerScaffold(
     modifier: Modifier = Modifier,
-    snackbarViewModel: SnackbarViewModel = viewModel(factory = SnackbarViewModel.Factory),
-    volumeViewModel: VolumeViewModel = viewModel(factory = VolumeViewModel.Factory),
+    snackbarViewModel: SnackbarViewModel,
+    volumeViewModel: VolumeViewModel,
     playerScreen: @Composable (FocusRequester) -> Unit,
     libraryScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
     categoryEntityScreen: @Composable (String, String, FocusRequester, ScalingLazyListState) -> Unit,

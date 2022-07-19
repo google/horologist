@@ -25,11 +25,13 @@ import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasProgressBarRangeInfo
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.performClick
+import androidx.test.filters.FlakyTest
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.test.toolbox.matchers.hasProgressBar
 import org.junit.Rule
 import org.junit.Test
 
+@FlakyTest(detail = "https://github.com/google/horologist/issues/407")
 class PlayPauseProgressButtonTest {
 
     @get:Rule

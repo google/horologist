@@ -27,6 +27,7 @@ import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
+import androidx.test.filters.FlakyTest
 import androidx.test.filters.LargeTest
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.media.model.Command
@@ -40,6 +41,7 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
 
+@FlakyTest(detail = "https://github.com/google/horologist/issues/407")
 @LargeTest
 class PlayerScreenTest {
 

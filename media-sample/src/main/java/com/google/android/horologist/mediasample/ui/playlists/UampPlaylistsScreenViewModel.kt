@@ -34,7 +34,6 @@ import javax.inject.Inject
 @HiltViewModel
 class UampPlaylistsScreenViewModel @Inject constructor(
     private val playlistRepository: PlaylistRepository,
-    private val playerRepository: PlayerRepository,
     private val settingsRepository: SettingsRepository,
 ) : ViewModel() {
 
@@ -61,21 +60,6 @@ class UampPlaylistsScreenViewModel @Inject constructor(
             UiState.Loading
         }
     }.stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = UiState.Loading)
-
-    fun play(playlistId: String) {
-        val playlistList = playlists.value
-
-        if (playlistList != null) {
-            val playlist = playlistList.find { it.id == playlistId }
-                ?: playlistList.first()
-
-            playerRepository.setMediaItems(playlist.mediaItems)
-            playerRepository.prepare()
-            playerRepository.play()
-        } else {
-            // TODO warning
-        }
-    }
 
     sealed class UiState {
         object Loading : UiState()

@@ -14,26 +14,16 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui.playlists
+package com.google.android.horologist.mediasample.domain
 
-import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.mediasample.domain.model.Playlist
+import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
+import kotlinx.coroutines.flow.Flow
 
 /**
- * Maps a [Playlist] into a [PlaylistUiModel].
+ * A repository of [PlaylistDownload].
  */
-object PlaylistUiModelMapper {
+interface PlaylistDownloadRepository {
 
-    fun map(
-        playlist: Playlist,
-        shouldMapArtworkUri: Boolean = true,
-    ): PlaylistUiModel = PlaylistUiModel(
-        id = playlist.id,
-        title = playlist.name,
-        artworkUri = if (shouldMapArtworkUri) {
-            playlist.artworkUri
-        } else {
-            null
-        }
-    )
+    fun get(playlist: Playlist): Flow<PlaylistDownload>
 }

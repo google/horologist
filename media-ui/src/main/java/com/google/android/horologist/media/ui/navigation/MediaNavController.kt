@@ -17,16 +17,24 @@
 package com.google.android.horologist.media.ui.navigation
 
 import androidx.navigation.NavController
+import java.net.URLEncoder
 
 /**
  * Domain focused NavController extensions that links to the screens of a typical Media app.
  */
 public object MediaNavController {
+    private const val UTF_8 = "UTF-8"
+
     /**
      * Navigate to a single collection such as a playlist.
      */
-    public fun NavController.navigateToCollection(collectionId: String) {
-        navigate(NavigationScreens.Collection.destination(collectionId))
+    public fun NavController.navigateToCollection(collectionId: String, collectionName: String) {
+        navigate(
+            NavigationScreens.Collection.destination(
+                collectionId,
+                URLEncoder.encode(collectionName, UTF_8),
+            )
+        )
     }
 
     /**

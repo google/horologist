@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.domain
+package com.google.android.horologist.mediasample.domain.model
 
-import com.google.android.horologist.mediasample.domain.model.Playlist
-import kotlinx.coroutines.flow.Flow
+import com.google.android.horologist.media.model.MediaItem
 
-/**
- * A repository of [Playlist].
- */
-interface PlaylistRepository {
+data class PlaylistDownload(
+    val playlist: Playlist,
+    val mediaList: List<Pair<MediaItem, Status>>
+) {
 
-    suspend fun getPlaylist(id: String): Playlist?
-
-    fun getPlaylists(): Flow<List<Playlist>>
+    enum class Status {
+        Idle,
+        InProgress,
+        Completed
+    }
 }

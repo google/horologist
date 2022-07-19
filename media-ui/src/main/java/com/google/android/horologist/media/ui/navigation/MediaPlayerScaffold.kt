@@ -63,7 +63,7 @@ public fun MediaPlayerScaffold(
     volumeViewModel: VolumeViewModel,
     playerScreen: @Composable (FocusRequester) -> Unit,
     libraryScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
-    categoryEntityScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
+    categoryEntityScreen: @Composable (String, String, FocusRequester, ScalingLazyListState) -> Unit,
     mediaEntityScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
     playlistsScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
     settingsScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
@@ -159,8 +159,19 @@ public fun MediaPlayerScaffold(
             arguments = NavigationScreens.Collection.arguments,
             deepLinks = NavigationScreens.Collection.deepLinks(deepLinkPrefix),
             scrollStateBuilder = { ScalingLazyListState() }
-        ) {
-            categoryEntityScreen(it.viewModel.focusRequester, it.scrollableState)
+        ) { scaffoldContext ->
+            val arguments = scaffoldContext.backStackEntry.arguments
+            val id = arguments?.getString(NavigationScreens.Collection.id)
+            val name = arguments?.getString(NavigationScreens.Collection.name)
+            checkNotNull(id)
+            checkNotNull(name)
+
+            categoryEntityScreen(
+                id,
+                name,
+                scaffoldContext.viewModel.focusRequester,
+                scaffoldContext.scrollableState
+            )
         }
 
         additionalNavRoutes()

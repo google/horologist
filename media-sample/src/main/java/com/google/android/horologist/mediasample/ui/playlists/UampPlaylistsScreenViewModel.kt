@@ -18,17 +18,11 @@ package com.google.android.horologist.mediasample.ui.playlists
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState
-import com.google.android.horologist.mediasample.di.MediaApplicationContainer
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.SettingsRepository
-import com.google.android.horologist.mediasample.domain.model.Playlist
 import com.google.android.horologist.mediasample.ui.mapper.PlaylistUiModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
-import com.google.android.horologist.mediasample.ui.mapper.PlaylistUiModelMapper
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map

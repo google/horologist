@@ -18,6 +18,7 @@ package com.google.android.horologist.mediasample.ui.playlists
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.SettingsRepository
@@ -40,18 +41,30 @@ class UampPlaylistsScreenViewModel @Inject constructor(
         settingsRepository.settingsFlow
     ) { playlists, settings ->
         Pair(playlists, settings)
-    }.map { (playlists, settings) ->
-        PlaylistScreenState.Loaded(
-            playlists.map {
-                PlaylistUiModelMapper.map(
-                    playlist = it,
-                    shouldMapArtworkUri = settings.showArtworkOnChip
-                )
-            }
-        )
-    }.stateIn(
-        viewModelScope,
-        started = SharingStarted.Eagerly,
-        initialValue = PlaylistScreenState.Loading
-    )
+    }.map { result ->
+        val playlistList = result.first
+        val settings = result.second
+
+        if (playlistList != null) {
+            UiState.Loaded(
+                playlistList.map {
+                    PlaylistUiModelMapper.map(
+                        playlist = it,
+                        shouldMapArtworkUri = settings.showArtworkOnChip
+                    )
+                }
+            )
+        } else {
+            // it should only be null in the initial state
+            UiState.Loading
+        }
+    }.stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = UiState.Loading)
+
+    sealed class UiState {
+        object Loading : UiState()
+
+        data class Loaded(
+            val items: List<PlaylistUiModel>
+        ) : UiState()
+    }
 }

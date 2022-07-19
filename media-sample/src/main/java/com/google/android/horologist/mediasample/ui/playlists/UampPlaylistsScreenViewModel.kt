@@ -20,14 +20,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
+import com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState
 import com.google.android.horologist.mediasample.di.MediaApplicationContainer
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.SettingsRepository
-import com.google.android.horologist.mediasample.domain.model.Playlist
 import com.google.android.horologist.mediasample.ui.mapper.PlaylistUiModelMapper
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -37,37 +35,25 @@ class UampPlaylistsScreenViewModel(
     private val settingsRepository: SettingsRepository,
 ) : ViewModel() {
 
-    private val playlists: StateFlow<List<Playlist>?> = playlistRepository.getPlaylists()
-        .stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = null)
-
-    val uiState = combine(playlists, settingsRepository.settingsFlow) { playlists, settings ->
+    val uiState = combine(
+        playlistRepository.getPlaylists(),
+        settingsRepository.settingsFlow
+    ) { playlists, settings ->
         Pair(playlists, settings)
-    }.map { result ->
-        val playlistList = result.first
-        val settings = result.second
-
-        if (playlistList != null) {
-            UiState.Loaded(
-                playlistList.map {
-                    PlaylistUiModelMapper.map(
-                        playlist = it,
-                        shouldMapArtworkUri = settings.showArtworkOnChip
-                    )
-                }
-            )
-        } else {
-            // it should only be null in the initial state
-            UiState.Loading
-        }
-    }.stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = UiState.Loading)
-
-    sealed class UiState {
-        object Loading : UiState()
-
-        data class Loaded(
-            val items: List<PlaylistUiModel>
-        ) : UiState()
-    }
+    }.map { (playlists, settings) ->
+        PlaylistScreenState.Loaded(
+            playlists.map {
+                PlaylistUiModelMapper.map(
+                    playlist = it,
+                    shouldMapArtworkUri = settings.showArtworkOnChip
+                )
+            }
+        )
+    }.stateIn(
+        viewModelScope,
+        started = SharingStarted.Eagerly,
+        initialValue = PlaylistScreenState.Loading
+    )
 
     companion object {
         val Factory = viewModelFactory {

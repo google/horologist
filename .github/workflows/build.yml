@@ -60,8 +60,7 @@ jobs:
 
       - name: Unit Tests
         run: |
-          ./scripts/run-tests.sh \
-              --unit-tests \
+          ./scripts/run-unit-tests.sh \
               --run-affected \
               --affected-base-ref=$BASE_REF
 
@@ -96,7 +95,6 @@ jobs:
 
   test:
     runs-on: macos-latest
-    needs: build
     timeout-minutes: 50
 
     strategy:
@@ -135,6 +133,11 @@ jobs:
             ~/.gradle/caches/build-cache-*
           key: gradle-${{ hashFiles('checksum.txt') }}
 
+      - name: Compile instrumentation tests
+        run: |
+          ./gradlew --scan --stacktrace \
+              compileDebugAndroidTestSources
+
       - name: AVD cache
         uses: actions/cache@v3
         id: avd-cache
@@ -165,7 +168,7 @@ jobs:
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -no-boot-anim -camera-back none
           target: android-wear
           profile: wear_round_454
-          script: ./scripts/run-tests.sh --log-file=logcat.txt --run-affected --affected-base-ref=$BASE_REF --shard-index=${{ matrix.shard }} --shard-count=2
+          script: ./scripts/run-instrumented-tests.sh --ignore-large-tests --log-file=logcat.txt --run-affected --affected-base-ref=$BASE_REF --shard-index=${{ matrix.shard }} --shard-count=2
 
       - name: Upload logs
         if: always()

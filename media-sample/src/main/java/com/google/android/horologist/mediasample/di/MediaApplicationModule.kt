@@ -59,7 +59,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object MediaApplicationContainer {
+object MediaApplicationModule {
 
     @Singleton
     @Provides

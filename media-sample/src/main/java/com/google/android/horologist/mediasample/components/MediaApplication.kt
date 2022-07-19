@@ -20,6 +20,7 @@ import android.app.Application
 import android.os.StrictMode
 import coil.ImageLoader
 import coil.ImageLoaderFactory
+import com.google.android.horologist.mediasample.AppConfig
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
@@ -27,6 +28,9 @@ import javax.inject.Inject
 class MediaApplication : Application(), ImageLoaderFactory {
     @Inject
     lateinit var imageLoader: ImageLoader
+
+    @Inject
+    lateinit var appConfig: AppConfig
 
     override fun onCreate() {
         super.onCreate()

@@ -18,24 +18,15 @@ package com.google.android.horologist.mediasample.playback
 
 import android.content.ComponentName
 import android.os.Build
-import androidx.annotation.CallSuper
 import androidx.media3.session.MediaBrowser
 import androidx.media3.session.SessionToken
-import androidx.test.annotation.UiThreadTest
 import com.google.android.horologist.media3.flows.buildSuspend
 import com.google.android.horologist.mediasample.BaseContainerTest
 import com.google.android.horologist.mediasample.components.PlaybackService
-import com.google.android.horologist.mediasample.di.IsEmulator
-import com.google.android.horologist.mediasample.di.ViewModelModule
-import org.junit.After
 import org.junit.Assume
-import org.junit.Before
-import javax.inject.Inject
 
 abstract class BasePlaybackTest : BaseContainerTest() {
     protected fun checkSupportedConfig() {
-        val appConfig = this.appConfig
-
         if (isEmulator()) {
             Assume.assumeFalse(appConfig.offloadEnabled)
         }

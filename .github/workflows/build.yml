@@ -96,7 +96,6 @@ jobs:
 
   test:
     runs-on: macos-latest
-    needs: build
     timeout-minutes: 50
 
     strategy:
@@ -134,6 +133,11 @@ jobs:
             ~/.gradle/caches/jars-*
             ~/.gradle/caches/build-cache-*
           key: gradle-${{ hashFiles('checksum.txt') }}
+
+      - name: Compile instrumentation tests
+        run: |
+          ./gradlew --scan --stacktrace \
+              compileDebugAndroidTestSources
 
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@v2

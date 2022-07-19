@@ -26,6 +26,7 @@ io-coil-kt = "2.1.0"
 junit = "4.13.2"
 kotlin = "1.6.21"
 kotlinxCoroutine = "1.6.3"
+ksp = "1.6.21-1.0.5"
 ktlint = "0.42.1"
 metalava = "0.2.1"
 moshi = "1.13.0"
@@ -133,3 +134,4 @@ kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlinGradle = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 versionCatalogUpdate = { id = "nl.littlerobots.version-catalog-update", version.ref = "versionCatalogUpdate" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

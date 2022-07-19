@@ -19,9 +19,9 @@ High quality prebuilt composables, such as Time and Date pickers.
 
 - [horologist-composables](./composables)
 
-DatePicker             |  TimePickerWith12HourClock |  TimePicker
-:-------------------------:|:-------------------------:|:-------------------------:
-<img src="https://raw.githubusercontent.com/google/horologist/main/docs/composables/date_picker.png" height="120" width="120" >  |  <img src="https://raw.githubusercontent.com/google/horologist/main/docs/composables/time_12h_picker.png" height="120" width="120"> | <img src="https://raw.githubusercontent.com/google/horologist/main/docs/composables/time_24h_picker.png" height="120" width="120">
+DatePicker             |  TimePickerWith12HourClock |  TimePicker |  SegmentedProgressIndicator
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+<img src="https://raw.githubusercontent.com/google/horologist/main/docs/composables/date_picker.png" height="120" width="120" >  |  <img src="https://raw.githubusercontent.com/google/horologist/main/docs/composables/time_12h_picker.png" height="120" width="120"> | <img src="https://raw.githubusercontent.com/google/horologist/main/docs/composables/time_24h_picker.png" height="120" width="120"> | <img src="https://raw.githubusercontent.com/google/horologist/main/docs/composables/segmented_progress_indicator.png" height="120" width="120">
 
 ## 📐 Compose Layout
 
@@ -45,7 +45,7 @@ VolumeScreen            |
 :-------------------------:|
 <img src="https://raw.githubusercontent.com/google/horologist/main/docs/audio-ui/volume_screen.png" height="120" width="120" > |
 
-## 🖽 Tiles
+## ☰ Tiles
 
 Kotlin coroutines flavoured TileService.
 

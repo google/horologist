@@ -100,7 +100,8 @@ if [[ -z "$TASK" ]]; then
 fi
 
 if [ "$DEVICE" = true ]; then
-  TEST_OPTIONS="-Pandroid.testInstrumentationRunnerArguments.size=small,medium --no-parallel"
+  TEST_OPTIONS="-Pandroid.testInstrumentationRunnerArguments.size=small"
+  TEST_OPTIONS="$TEST_OPTIONS -Pandroid.testInstrumentationRunnerArguments.size=medium --no-parallel"
 else
   TEST_OPTIONS=""
 fi

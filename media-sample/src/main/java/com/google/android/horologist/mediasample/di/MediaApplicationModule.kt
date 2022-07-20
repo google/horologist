@@ -144,7 +144,8 @@ object MediaApplicationModule {
     @Provides
     fun logger(
         @ApplicationContext application: Context,
-    ): Logging = Logging(application.resources)
+        snackbarManager: SnackbarManager
+    ): Logging = Logging(res = application.resources, snackbarManager = snackbarManager)
 
     @Singleton
     @Provides
@@ -211,10 +212,12 @@ object MediaApplicationModule {
     @Singleton
     @Provides
     fun playlistRemoteDataSource(
-        uampService: UampService
+        uampService: UampService,
+        errorReporter: ErrorReporter
     ): PlaylistRemoteDataSource =
         PlaylistRemoteDataSource(
             ioDispatcher = Dispatchers.IO,
-            uampService = uampService
+            uampService = uampService,
+            errorReporter = errorReporter
         )
 }

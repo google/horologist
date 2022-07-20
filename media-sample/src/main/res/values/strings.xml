@@ -33,4 +33,5 @@
     <string name="horologist_sample_playlists">Playlists</string>
     <string name="horologist_show_time_text_info">Show TimeText Info</string>
     <string name="horologist_animated">Animated UI</string>
+    <string name="horologist_sample_network_error">Network error</string>
 </resources>

@@ -19,12 +19,17 @@ package com.google.android.horologist.mediasample.system
 import android.content.res.Resources
 import android.util.Log
 import androidx.annotation.StringRes
+import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media3.logging.ErrorReporter
 
-public class Logging(private val res: Resources) : ErrorReporter {
+public class Logging(
+    private val res: Resources,
+    private val snackbarManager: SnackbarManager
+    ) : ErrorReporter {
     override fun showMessage(@StringRes message: Int) {
-        // TODO show on screen
-        Log.i("ErrorReporter", res.getString(message))
+        val messageString = res.getString(message)
+        Log.i("ErrorReporter", messageString)
+        snackbarManager.showMessage(messageString)
     }
 
     private val ErrorReporter.Level.loggingLevel: Int

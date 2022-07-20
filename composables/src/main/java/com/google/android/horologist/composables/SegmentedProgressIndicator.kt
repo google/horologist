@@ -28,10 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ProgressIndicatorDefaults
@@ -130,46 +127,4 @@ public fun SegmentedProgressIndicator(
             remainingProgress -= segmentAngle
         }
     }
-}
-
-@OptIn(ExperimentalHorologistComposablesApi::class)
-@Preview(device = Devices.WEAR_OS_LARGE_ROUND, showSystemUi = true)
-@Composable
-private fun SegmentedProgressIndicatorRoundPreview() {
-    val segments = listOf(
-        ProgressIndicatorSegment(1f, Color.Green),
-        ProgressIndicatorSegment(1f, Color.Cyan),
-        ProgressIndicatorSegment(1f, Color.Magenta),
-        ProgressIndicatorSegment(1f, Color.Yellow),
-        ProgressIndicatorSegment(2f, Color.Red),
-    )
-
-    SegmentedProgressIndicator(
-        modifier = Modifier.fillMaxSize(),
-        trackSegments = segments,
-        progress = 0.5833f,
-        strokeWidth = 10.dp,
-        trackColor = Color.Gray,
-        paddingAngle = 2f
-    )
-}
-
-@OptIn(ExperimentalHorologistComposablesApi::class)
-@Preview(device = Devices.WEAR_OS_SQUARE, showSystemUi = true)
-@Composable
-private fun SegmentedProgressIndicatorSquarePreview() {
-    val segments = listOf(
-        ProgressIndicatorSegment(1f, Color.Cyan),
-        ProgressIndicatorSegment(1f, Color.Magenta),
-        ProgressIndicatorSegment(1f, Color.Yellow)
-    )
-
-    SegmentedProgressIndicator(
-        modifier = Modifier.fillMaxSize(),
-        trackSegments = segments,
-        progress = 0.75f,
-        strokeWidth = 15.dp,
-        trackColor = Color.Gray,
-        paddingAngle = 2f
-    )
 }

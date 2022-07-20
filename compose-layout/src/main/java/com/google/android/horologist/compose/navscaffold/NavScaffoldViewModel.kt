@@ -26,9 +26,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.focus.FocusRequester
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.createSavedStateHandle
-import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.PositionIndicator
@@ -194,15 +191,5 @@ public open class NavScaffoldViewModel(
         public object WhenScrollable : VignetteMode
         public object Off : VignetteMode
         public data class On(val position: VignettePosition) : VignetteMode
-    }
-
-    public object Factory : ViewModelProvider.Factory {
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-            check(modelClass == NavScaffoldViewModel::class.java)
-
-            val savedStateHandle = extras.createSavedStateHandle()
-            return NavScaffoldViewModel(savedStateHandle) as T
-        }
     }
 }

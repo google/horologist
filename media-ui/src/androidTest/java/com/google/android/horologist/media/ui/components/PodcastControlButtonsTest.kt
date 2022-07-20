@@ -24,12 +24,14 @@ import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
+import androidx.test.filters.FlakyTest
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.test.toolbox.matchers.hasProgressBar
 import org.junit.Rule
 import org.junit.Test
 
+@FlakyTest(detail = "https://github.com/google/horologist/issues/407")
 class PodcastControlButtonsTest {
 
     @get:Rule

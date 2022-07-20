@@ -43,8 +43,12 @@ for i in "$@"; do
     RUN_AFFECTED=true
     shift
     ;;
-  --ignore-large-tests)
-    IGNORE_LARGE_TESTS=true
+  --run-large-tests)
+    RUN_LARGE_TESTS=true
+    shift
+    ;;
+  --run-flaky-tests)
+    RUN_FLAKY_TESTS=true
     shift
     ;;
   --affected-base-ref=*)
@@ -65,9 +69,15 @@ fi
 
 SIZE_OPTS=""
 # Ignore large tests if we're not set to run them
-if [[ -z "$IGNORE_LARGE_TESTS" ]]; then
+if [[ -z "$RUN_LARGE_TESTS" ]]; then
   SIZE_OPTS="$SIZE_OPTS -Pandroid.testInstrumentationRunnerArguments.size=small"
   SIZE_OPTS="$SIZE_OPTS -Pandroid.testInstrumentationRunnerArguments.size=medium"
+fi
+
+FILTER_OPTS=""
+# Filter out flaky tests if we're not set to run them
+if [[ -z "$RUN_FLAKY_TESTS" ]]; then
+  FILTER_OPTS="$FILTER_OPTS -Pandroid.testInstrumentationRunnerArguments.notAnnotation=androidx.test.filters.FlakyTest"
 fi
 
 # If we're set to only run affected test, update the Gradle task
@@ -94,4 +104,4 @@ if [ "$SHARD_COUNT" -gt "0" ]; then
   SHARD_OPTS="$SHARD_OPTS -Pandroid.testInstrumentationRunnerArguments.shardIndex=$SHARD_INDEX"
 fi
 
-./gradlew --scan --continue --no-configuration-cache --stacktrace --no-parallel $TASK $SIZE_OPTS $SHARD_OPTS
+./gradlew --scan --continue --no-configuration-cache --stacktrace --no-parallel $TASK $SIZE_OPTS $FILTER_OPTS $SHARD_OPTS

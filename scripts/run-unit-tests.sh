@@ -29,7 +29,7 @@ for i in "$@"; do
     shift
     ;;
   --run-flaky-tests)
-    RUN_FLAKY=true
+    RUN_FLAKY_TESTS=true
     shift
     ;;
   *)
@@ -41,7 +41,7 @@ done
 
 FILTER_OPTS=""
 # Filter out flaky tests if we're not set to run them
-if [[ -z "$RUN_FLAKY" ]]; then
+if [[ -z "$RUN_FLAKY_TESTS" ]]; then
   FILTER_OPTS="$FILTER_OPTS -Pandroid.testInstrumentationRunnerArguments.notAnnotation=androidx.test.filters.FlakyTest"
 fi
 

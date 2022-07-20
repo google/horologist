@@ -17,7 +17,6 @@
 package com.google.android.horologist.media.data
 
 import android.util.Log
-import androidx.media3.common.PlaybackParameters
 import androidx.media3.common.Player
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.MediaItem
@@ -87,14 +86,13 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
         get() = _playbackSpeed
 
     private val listener = object : Player.Listener {
-
         override fun onEvents(player: Player, events: Player.Events) {
             if (events.contains(Player.EVENT_AVAILABLE_COMMANDS_CHANGED)) {
-                _availableCommands.value = SetCommandMapper.map(player.availableCommands)
+                updateAvailableCommands(player)
             }
 
             if (events.contains(Player.EVENT_MEDIA_ITEM_TRANSITION)) {
-                _currentMediaItem.value = player.currentMediaItem?.let(MediaItemMapper::map)
+                updateCurrentMediaItem(player)
                 updatePosition()
             }
 
@@ -107,15 +105,27 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
             if (PlayerStateMapper.affectsState(events)) {
                 updateState(player)
             }
-        }
 
-        override fun onShuffleModeEnabledChanged(shuffleModeEnabled: Boolean) {
-            _shuffleModeEnabled.value = player.value?.shuffleModeEnabled ?: false
-        }
+            if (events.contains(Player.EVENT_PLAYBACK_PARAMETERS_CHANGED)) {
+                updatePlaybackSpeed(player)
+            }
 
-        override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters) {
-            _playbackSpeed.value = playbackParameters.speed
+            if (events.contains(Player.EVENT_SHUFFLE_MODE_ENABLED_CHANGED)) {
+                updateShuffleMode(player)
+            }
         }
+    }
+
+    private fun updatePlaybackSpeed(player: Player) {
+        _playbackSpeed.value = player.playbackParameters.speed
+    }
+
+    private fun updateShuffleMode(player: Player) {
+        _shuffleModeEnabled.value = player.shuffleModeEnabled
+    }
+
+    private fun updateCurrentMediaItem(player: Player) {
+        _currentMediaItem.value = player.currentMediaItem?.let(MediaItemMapper::map)
     }
 
     /**
@@ -126,6 +136,12 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
         _currentState.value = PlayerStateMapper.map(player)
 
         Log.d(TAG, "Player state changed to ${_currentState.value}")
+    }
+
+    private fun updateAvailableCommands(player: Player) {
+        player.availableCommands.let {
+            _availableCommands.value = SetCommandMapper.map(it)
+        }
     }
 
     /**
@@ -144,10 +160,11 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
         _connected.value = true
         player.addListener(listener)
 
-        player.currentMediaItem?.let {
-            _currentMediaItem.value = MediaItemMapper.map(it)
-        }
-        _availableCommands.value = SetCommandMapper.map(player.availableCommands)
+        updateCurrentMediaItem(player)
+        updateAvailableCommands(player)
+        updateShuffleMode(player)
+        updateState(player)
+        updatePlaybackSpeed(player)
 
         this.onClose = onClose
     }

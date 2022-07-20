@@ -3,15 +3,16 @@ affectedmoduledetector = "0.1.5"
 androidx-concurrent = "1.1.0"
 androidx-hilt = "1.0.0"
 androidx-media3 = "1.0.0-beta01"
-androidx-test-ext = "1.1.3"
 androidx-test = "1.4.0"
-androidxActivity = "1.5.0-rc01"
+androidx-test-ext = "1.1.3"
+androidx-wear-watchface = "1.1.0"
+androidxActivity = "1.5.0"
 androidxCore = "1.8.0"
-androidxFragment = "1.5.0-rc01"
-androidxLifecycle = "2.5.0-rc02"
-androidxNavigation = "2.5.0-rc02"
+androidxFragment = "1.5.0"
+androidxLifecycle = "2.5.0"
+androidxNavigation = "2.5.0"
 androidxWear = "1.2.0"
-androidxtiles = "1.1.0-alpha08"
+androidxtiles = "1.1.0-alpha09"
 app-cash-paparazzi = "1.0.0"
 benManes = "0.42.0"
 com-squareup-okhttp3 = "4.10.0"
@@ -25,7 +26,7 @@ gradlePlugin = "7.2.1"
 io-coil-kt = "2.1.0"
 junit = "4.13.2"
 kotlin = "1.6.21"
-kotlinxCoroutine = "1.6.3"
+kotlinxCoroutine = "1.6.4"
 ktlint = "0.42.1"
 metalava = "0.2.1"
 moshi = "1.13.0"
@@ -36,14 +37,14 @@ versionCatalogUpdate = "0.5.1"
 wearcompose = "1.0.0-rc02"
 
 [libraries]
-accompanist-pager = "com.google.accompanist:accompanist-pager:0.24.11-rc"
+accompanist-pager = "com.google.accompanist:accompanist-pager:0.24.13-rc"
 affectedmoduledetector = { module = "com.dropbox.affectedmoduledetector:affectedmoduledetector", version.ref = "affectedmoduledetector" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
 androidx-annotation = "androidx.annotation:annotation:1.4.0"
-androidx-complications-datasource-ktx = "androidx.wear.watchface:watchface-complications-data-source-ktx:1.1.0"
-androidx-complications-rendering = "androidx.wear.watchface:watchface-complications-rendering:1.1.0"
+androidx-complications-datasource-ktx = { module = "androidx.wear.watchface:watchface-complications-data-source-ktx", version.ref = "androidx-wear-watchface" }
+androidx-complications-rendering = { module = "androidx.wear.watchface:watchface-complications-rendering", version.ref = "androidx-wear-watchface" }
 androidx-concurrent-future = { module = "androidx.concurrent:concurrent-futures", version.ref = "androidx-concurrent" }
 androidx-concurrent-future-ktx = { module = "androidx.concurrent:concurrent-futures-ktx", version.ref = "androidx-concurrent" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
@@ -53,7 +54,7 @@ androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "
 androidx-lifecycle-process = { module = "androidx.lifecycle:lifecycle-process", version.ref = "androidxLifecycle" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-service = { module = "androidx.lifecycle:lifecycle-service", version.ref = "androidxLifecycle" }
-androidx-lifecycle-testing = { module = "androidx.lifecycle:lifecycle-runtime-testing", version.ref = "androidxLifecycle" }
+androidx-lifecycle-testing = "androidx.lifecycle:lifecycle-runtime-testing:2.5.0"
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewmodelktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
 androidx-media3-common = { module = "androidx.media3:media3-common", version.ref = "androidx-media3" }
@@ -69,13 +70,10 @@ androidx-mediarouter = "androidx.mediarouter:mediarouter:1.3.0"
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidxNavigation" }
 androidx-palette-ktx = "androidx.palette:palette-ktx:1.0.0"
-androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-test" }
-androidx-test-espressocore = "androidx.test.espresso:espresso-core:3.4.0"
+androidx-test-espressocore = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 androidx-test-ext = "androidx.test.ext:junit:1.1.3"
 androidx-test-ext-ktx = "androidx.test.ext:junit-ktx:1.1.3"
-androidx-test-exttruth = "androidx.test.ext:truth:1.4.0"
 androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-test" }
-androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test" }
 androidx-test-uiautomator = "androidx.test.uiautomator:uiautomator:2.2.0"
 androidx-wear = { module = "androidx.wear:wear", version.ref = "androidxWear" }
 androidx-wear-tiles = { module = "androidx.wear.tiles:tiles", version.ref = "androidxtiles" }
@@ -85,7 +83,7 @@ androidx-wear-tiles-testing = { module = "androidx.wear.tiles:tiles-testing", ve
 coil = { module = "io.coil-kt:coil-compose", version.ref = "io-coil-kt" }
 coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "io-coil-kt" }
 com-squareup-okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "com-squareup-okhttp3" }
-com-squareup-okhttp3-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "com-squareup-okhttp3" }
+com-squareup-okhttp3-okhttp = "com.squareup.okhttp3:okhttp:4.9.3"
 compose-foundation-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-material-iconscore = { module = "androidx.compose.material:material-icons-core", version.ref = "compose" }
 compose-material-iconsext = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }

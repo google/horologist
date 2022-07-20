@@ -44,6 +44,7 @@ plugins {
     alias(libs.plugins.kotlinGradle) apply false
     alias(libs.plugins.benManes)
     alias(libs.plugins.versionCatalogUpdate) apply false
+    alias(libs.plugins.ksp) apply false
     alias(libs.plugins.kapt) apply false
 }
 

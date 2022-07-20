@@ -19,6 +19,7 @@ plugins {
     id 'kotlin-android'
     id 'org.jetbrains.dokka'
     id "org.jetbrains.kotlin.kapt"
+    id 'com.google.devtools.ksp'
 }
 
 android {
@@ -91,7 +92,7 @@ dependencies {
 
     implementation libs.room.common
     implementation libs.room.ktx
-    kapt libs.room.compiler
+    ksp libs.room.compiler
 
     debugImplementation libs.compose.ui.test.manifest
     debugImplementation libs.compose.ui.toolingpreview

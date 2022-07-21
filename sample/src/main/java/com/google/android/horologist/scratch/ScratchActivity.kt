@@ -136,12 +136,6 @@ fun WearApp() {
                 autoCentering = autoCentering.second
             ) {
                 item {
-                    val text = "Item Height: $itemHeight"
-                    FixedHeightChip(text, itemHeight, onClick = {
-                        itemHeightMode = (itemHeightMode + 1) % itemHeights.size
-                    })
-                }
-                item {
                     val text = "Initial Offset: ${initialOffset.index} / ${initialOffset.offset}"
                     FixedHeightChip(text, itemHeight, onClick = {
                         initialOffsetsMode = (initialOffsetsMode + 1) % initialOffsets.size
@@ -152,6 +146,12 @@ fun WearApp() {
                     FixedHeightChip(text, itemHeight, onClick = {
                         println(autoCenteringMode)
                         autoCenteringMode = (autoCenteringMode + 1) % autoCenterings.size
+                    })
+                }
+                item {
+                    val text = "Item Height: $itemHeight"
+                    FixedHeightChip(text, itemHeight, onClick = {
+                        itemHeightMode = (itemHeightMode + 1) % itemHeights.size
                     })
                 }
             }

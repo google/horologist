@@ -87,14 +87,13 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
         get() = _playbackSpeed
 
     private val listener = object : Player.Listener {
-
         override fun onEvents(player: Player, events: Player.Events) {
             if (events.contains(Player.EVENT_AVAILABLE_COMMANDS_CHANGED)) {
-                _availableCommands.value = SetCommandMapper.map(player.availableCommands)
+                updateAvailableCommands(player)
             }
 
             if (events.contains(Player.EVENT_MEDIA_ITEM_TRANSITION)) {
-                _currentMediaItem.value = player.currentMediaItem?.let(MediaItemMapper::map)
+                updateCurrentMediaItem(player)
                 updatePosition()
             }
 
@@ -109,13 +108,31 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
             }
         }
 
+        // Not firing on onEvents
         override fun onShuffleModeEnabledChanged(shuffleModeEnabled: Boolean) {
-            _shuffleModeEnabled.value = player.value?.shuffleModeEnabled ?: false
+            player.value?.let {
+                updateShuffleMode(it)
+            }
         }
 
+        // Not firing on onEvents
         override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters) {
-            _playbackSpeed.value = playbackParameters.speed
+            player.value?.let {
+                updatePlaybackSpeed(it)
+            }
         }
+    }
+
+    private fun updatePlaybackSpeed(player: Player) {
+        _playbackSpeed.value = player.playbackParameters.speed
+    }
+
+    private fun updateShuffleMode(player: Player) {
+        _shuffleModeEnabled.value = player.shuffleModeEnabled
+    }
+
+    private fun updateCurrentMediaItem(player: Player) {
+        _currentMediaItem.value = player.currentMediaItem?.let(MediaItemMapper::map)
     }
 
     /**
@@ -126,6 +143,12 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
         _currentState.value = PlayerStateMapper.map(player)
 
         Log.d(TAG, "Player state changed to ${_currentState.value}")
+    }
+
+    private fun updateAvailableCommands(player: Player) {
+        player.availableCommands.let {
+            _availableCommands.value = SetCommandMapper.map(it)
+        }
     }
 
     /**
@@ -144,10 +167,11 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
         _connected.value = true
         player.addListener(listener)
 
-        player.currentMediaItem?.let {
-            _currentMediaItem.value = MediaItemMapper.map(it)
-        }
-        _availableCommands.value = SetCommandMapper.map(player.availableCommands)
+        updateCurrentMediaItem(player)
+        updateAvailableCommands(player)
+        updateShuffleMode(player)
+        updateState(player)
+        updatePlaybackSpeed(player)
 
         this.onClose = onClose
     }

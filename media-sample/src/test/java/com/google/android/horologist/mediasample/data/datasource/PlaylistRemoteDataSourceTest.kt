@@ -61,7 +61,6 @@ class PlaylistRemoteDataSourceTest {
     @Test
     fun handlesFailures() = runTest(testDispatcher) {
         // given
-        val uampServiceCatalogResult = PlaylistMapper.map(uampService.catalog())
         uampService.failing = IOException()
 
         // when

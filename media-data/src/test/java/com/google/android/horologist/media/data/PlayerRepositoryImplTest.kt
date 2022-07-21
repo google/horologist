@@ -148,6 +148,34 @@ class PlayerRepositoryImplTest {
     }
 
     @Test
+    fun `given is connected after prepared when play until position then state is correct`() {
+        // given
+        val player = TestExoPlayerBuilder(context).build()
+
+        val mediaItem = getStubMediaItem("id")
+
+        player.setMediaItem(Media3MediaItemMapper.map(mediaItem))
+        player.prepare()
+
+        // when
+        player.play()
+        // and
+        playUntilPosition(player, 0, 5.seconds.inWholeMilliseconds)
+
+        sut.connect(player) {}
+
+        // then
+        assertThat(sut.currentState.value).isEqualTo(PlayerState.Playing)
+        assertThat(sut.currentMediaItem.value).isEqualTo(mediaItem)
+        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.shuffleModeEnabled.value).isFalse()
+        assertThat(sut.player.value).isSameInstanceAs(player)
+        assertThat(sut.availableCommands.value).containsExactlyElementsIn(
+            listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle)
+        )
+    }
+
+    @Test
     fun `given is connected and prepared when play until end then state is correct`() {
         // given
         val player = TestExoPlayerBuilder(context).build()

@@ -28,9 +28,10 @@ import com.google.android.horologist.mediasample.domain.model.Playlist
 import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
 import com.google.android.horologist.mediasample.ui.mapper.PlaylistUiModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -38,31 +39,31 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UampEntityScreenViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
+    savedStateHandle: SavedStateHandle,
     private val playlistRepository: PlaylistRepository,
     private val playlistDownloadRepository: PlaylistDownloadRepository,
     private val playerRepository: PlayerRepository,
 ) : ViewModel() {
-    val playlistId: String = savedStateHandle[NavigationScreens.Collection.id]!!
-    val playlistName: String = savedStateHandle[NavigationScreens.Collection.name]!!
+    private val playlistId: String = savedStateHandle[NavigationScreens.Collection.id]!!
+    private val playlistName: String = savedStateHandle[NavigationScreens.Collection.name]!!
 
-    private lateinit var playlistCached: Playlist
+    private val playlist: StateFlow<Playlist?> = flow {
+        emit(playlistRepository.getPlaylist(playlistId))
+    }.stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = null)
 
-    val uiState: StateFlow<EntityScreenState> = flow<EntityScreenState> {
-
-        playlistRepository.getPlaylist(playlistId)?.let { playlist ->
-            playlistCached = playlist
-
-            emitAll(
-                playlistDownloadRepository.get(playlist)
-                    .map {
-                        EntityScreenState.Loaded(
-                            playlistUiModel = PlaylistUiModelMapper.map(it.playlist),
-                            downloadList = DownloadMediaItemUiModelMapper.map(it.mediaList),
-                            downloading = it.mediaList.any { pair -> pair.second == PlaylistDownload.Status.InProgress },
-                        )
-                    }
-            )
+    @OptIn(FlowPreview::class)
+    val uiState: StateFlow<EntityScreenState> = playlist.flatMapMerge { playlist ->
+        if (playlist != null) {
+            playlistDownloadRepository.get(playlist)
+                .map {
+                    EntityScreenState.Loaded(
+                        playlistUiModel = PlaylistUiModelMapper.map(it.playlist),
+                        downloadList = DownloadMediaItemUiModelMapper.map(it.mediaList),
+                        downloading = it.mediaList.any { pair -> pair.second == PlaylistDownload.Status.InProgress },
+                    )
+                }
+        } else {
+            flow<EntityScreenState> { emit(EntityScreenState.Loading(playlistName)) }
         }
     }.stateIn(
         viewModelScope,
@@ -71,16 +72,20 @@ class UampEntityScreenViewModel @Inject constructor(
     )
 
     fun play() {
-        playerRepository.setShuffleModeEnabled(false)
-        playerRepository.setMediaItems(playlistCached.mediaItems)
-        playerRepository.prepare()
-        playerRepository.play()
+        play(shuffled = false)
     }
 
     fun shufflePlay() {
-        playerRepository.setShuffleModeEnabled(true)
-        playerRepository.setMediaItems(playlistCached.mediaItems)
-        playerRepository.prepare()
-        playerRepository.play()
+        play(shuffled = true)
+    }
+
+    private fun play(shuffled: Boolean) {
+        playlist.value?.let {
+            playerRepository.setShuffleModeEnabled(shuffled)
+
+            playerRepository.setMediaItems(it.mediaItems)
+            playerRepository.prepare()
+            playerRepository.play()
+        }
     }
 }

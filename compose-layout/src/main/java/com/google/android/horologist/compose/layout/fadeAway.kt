@@ -90,7 +90,7 @@ public fun Modifier.fadeAwayScalingLazyList(
         }
 
         if (isInitial && centerItemScrollOffset > initialOffset) {
-            val y = centerItemScrollOffset / LocalDensity.current.density
+            val y = (centerItemScrollOffset - initialOffset) / LocalDensity.current.density
 
             fadeEffect(y, fade = true)
         } else if (scrollState.centerItemIndex > initialIndex) {

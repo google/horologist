@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.data
+package com.google.android.horologist.media.data.repository
 
 import android.content.Context
 import android.os.Looper.getMainLooper
@@ -24,6 +24,7 @@ import androidx.media3.test.utils.robolectric.TestPlayerRunHelper.playUntilPosit
 import androidx.media3.test.utils.robolectric.TestPlayerRunHelper.runUntilPendingCommandsAreFullyHandled
 import androidx.media3.test.utils.robolectric.TestPlayerRunHelper.runUntilPlaybackState
 import androidx.test.core.app.ApplicationProvider
+import com.google.android.horologist.media.data.mapper.Media3MediaItemMapper
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.MediaItem
 import com.google.android.horologist.media.model.MediaItemPosition

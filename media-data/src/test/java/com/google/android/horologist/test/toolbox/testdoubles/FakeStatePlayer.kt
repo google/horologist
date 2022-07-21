@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.data
+package com.google.android.horologist.test.toolbox.testdoubles
 
 import androidx.media3.common.AdPlaybackState
 import androidx.media3.common.C

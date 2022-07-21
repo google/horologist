@@ -17,7 +17,7 @@
 package com.google.android.horologist.mediasample.ui.player
 
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.media.data.PlayerRepositoryImpl
+import com.google.android.horologist.media.data.repository.PlayerRepositoryImpl
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.media3.audio.AudioOutputSelector
 import dagger.hilt.android.lifecycle.HiltViewModel

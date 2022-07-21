@@ -33,11 +33,13 @@ class PlaylistRemoteDataSource(
     private val errorReporter: ErrorReporter
 ) {
 
-    fun getPlaylists(): Flow<List<Playlist>> = flow {
-        try {
-            emit(PlaylistMapper.map(uampService.catalog()))
+    fun getPlaylists(): Flow<Result<List<Playlist>>> = flow {
+        val result = try {
+            Result.success(PlaylistMapper.map(uampService.catalog()))
         } catch (ioe: IOException) {
             errorReporter.showMessage(R.string.horologist_sample_network_error)
+            Result.failure(ioe)
         }
+        emit(result)
     }.flowOn(ioDispatcher)
 }

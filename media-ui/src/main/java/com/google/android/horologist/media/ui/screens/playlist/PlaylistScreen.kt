@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.ui.screens.playlist
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -89,5 +90,9 @@ public sealed class PlaylistScreenState {
 
     public data class Loaded(
         val playlistList: List<PlaylistUiModel>,
+    ) : PlaylistScreenState()
+
+    public data class Failed(
+        @StringRes val errorMessage: Int
     ) : PlaylistScreenState()
 }

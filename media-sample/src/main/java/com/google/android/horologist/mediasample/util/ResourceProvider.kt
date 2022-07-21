@@ -14,17 +14,13 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.domain
+package com.google.android.horologist.mediasample.util
 
-import com.google.android.horologist.mediasample.domain.model.Playlist
-import kotlinx.coroutines.flow.Flow
+import android.content.res.Resources
+import androidx.annotation.StringRes
 
-/**
- * A repository of [Playlist].
- */
-interface PlaylistRepository {
-
-    suspend fun getPlaylist(id: String): Playlist?
-
-    fun getPlaylists(): Flow<Result<List<Playlist>>>
+class ResourceProvider(
+    private val resources: Resources
+) {
+    fun getString(@StringRes id: Int): String = resources.getString(id)
 }

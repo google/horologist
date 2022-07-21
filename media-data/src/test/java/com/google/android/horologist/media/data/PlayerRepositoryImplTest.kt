@@ -148,7 +148,7 @@ class PlayerRepositoryImplTest {
     }
 
     @Test
-    fun `given is connected after prepared when play until position then state is correct`() {
+    fun `given is NOT connected and played until position when connect then state is correct`() {
         // given
         val player = TestExoPlayerBuilder(context).build()
 
@@ -158,11 +158,11 @@ class PlayerRepositoryImplTest {
         player.prepare()
 
         // when
+        sut.connect(player) {}
+        // and
         player.play()
         // and
         playUntilPosition(player, 0, 5.seconds.inWholeMilliseconds)
-
-        sut.connect(player) {}
 
         // then
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Playing)

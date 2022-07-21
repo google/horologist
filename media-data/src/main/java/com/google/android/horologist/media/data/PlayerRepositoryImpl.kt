@@ -17,6 +17,7 @@
 package com.google.android.horologist.media.data
 
 import android.util.Log
+import androidx.media3.common.PlaybackParameters
 import androidx.media3.common.Player
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.MediaItem
@@ -105,13 +106,19 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
             if (PlayerStateMapper.affectsState(events)) {
                 updateState(player)
             }
+        }
 
-            if (events.contains(Player.EVENT_PLAYBACK_PARAMETERS_CHANGED)) {
-                updatePlaybackSpeed(player)
+        // Not firing on onEvents
+        override fun onShuffleModeEnabledChanged(shuffleModeEnabled: Boolean) {
+            player.value?.let {
+                updateShuffleMode(it)
             }
+        }
 
-            if (events.contains(Player.EVENT_SHUFFLE_MODE_ENABLED_CHANGED)) {
-                updateShuffleMode(player)
+        // Not firing on onEvents
+        override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters) {
+            player.value?.let {
+                updatePlaybackSpeed(it)
             }
         }
     }

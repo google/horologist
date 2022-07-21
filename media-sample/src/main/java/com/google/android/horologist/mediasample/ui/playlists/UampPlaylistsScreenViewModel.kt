@@ -19,9 +19,13 @@ package com.google.android.horologist.mediasample.ui.playlists
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState
+import com.google.android.horologist.media.ui.snackbar.SnackbarManager
+import com.google.android.horologist.media.ui.snackbar.UiMessage
+import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.ui.mapper.PlaylistUiModelMapper
+import com.google.android.horologist.mediasample.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -31,24 +35,32 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UampPlaylistsScreenViewModel @Inject constructor(
-    private val playlistRepository: PlaylistRepository,
-    private val settingsRepository: SettingsRepository,
+    playlistRepository: PlaylistRepository,
+    settingsRepository: SettingsRepository,
+    private val snackbarManager: SnackbarManager,
+    private val resourceProvider: ResourceProvider
 ) : ViewModel() {
 
     val uiState = combine(
         playlistRepository.getPlaylists(),
         settingsRepository.settingsFlow
-    ) { playlists, settings ->
-        Pair(playlists, settings)
-    }.map { (playlists, settings) ->
-        PlaylistScreenState.Loaded(
-            playlists.map {
-                PlaylistUiModelMapper.map(
-                    playlist = it,
-                    shouldMapArtworkUri = settings.showArtworkOnChip
+    ) { playlistsResult, settings ->
+        when {
+            playlistsResult.isSuccess -> {
+                PlaylistScreenState.Loaded(
+                    playlistsResult.getOrThrow().map {
+                        PlaylistUiModelMapper.map(
+                            playlist = it,
+                            shouldMapArtworkUri = settings.showArtworkOnChip
+                        )
+                    }
                 )
             }
-        )
+            else -> {
+                snackbarManager.showMessage(UiMessage(message = resourceProvider.getString(R.string.horologist_sample_network_error), error = true))
+                PlaylistScreenState.Failed(R.string.horologist_sample_network_error)
+            }
+        }
     }.stateIn(
         viewModelScope,
         started = SharingStarted.Eagerly,

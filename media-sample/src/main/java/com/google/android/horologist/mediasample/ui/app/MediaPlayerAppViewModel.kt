@@ -19,12 +19,16 @@ package com.google.android.horologist.mediasample.ui.app
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.repository.PlayerRepository
+import com.google.android.horologist.media.ui.snackbar.SnackbarManager
+import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.mediasample.AppConfig
+import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.data.api.UampService
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.model.Settings
 import com.google.android.horologist.mediasample.ui.debug.OffloadState
+import com.google.android.horologist.mediasample.util.ResourceProvider
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.Networks
@@ -52,6 +56,8 @@ class MediaPlayerAppViewModel @Inject constructor(
     private val uampService: UampService,
     private val appConfig: AppConfig,
     private val settingsRepository: SettingsRepository,
+    private val snackbarManager: SnackbarManager,
+    private val resourceProvider: ResourceProvider
 ) : ViewModel() {
     val networkStatus: StateFlow<Networks> = networkRepository.networkStatus
 
@@ -111,7 +117,12 @@ class MediaPlayerAppViewModel @Inject constructor(
                 playerRepository.setMediaItems(mediaItems)
                 playerRepository.prepare()
             } catch (ioe: IOException) {
-                // Nothing
+                snackbarManager.showMessage(
+                    UiMessage(
+                        message = resourceProvider.getString(R.string.horologist_sample_network_error),
+                        error = true
+                    )
+                )
             }
         }
     }
@@ -134,17 +145,26 @@ class MediaPlayerAppViewModel @Inject constructor(
     }
 
     suspend fun playItems(mediaId: String?, collectionId: String) {
-        val mediaItems = uampService.catalog().music.map { it.toMediaItem() }.filter {
-            it.artist == collectionId
+        try {
+            val mediaItems = uampService.catalog().music.map { it.toMediaItem() }.filter {
+                it.artist == collectionId
+            }
+
+            val index = mediaItems.indexOfFirst { it.id == mediaId }.coerceAtLeast(0)
+
+            waitForConnection()
+
+            playerRepository.setMediaItems(mediaItems)
+            playerRepository.prepare()
+            playerRepository.play(mediaItemIndex = index)
+        } catch (ioe: IOException) {
+            snackbarManager.showMessage(
+                UiMessage(
+                    message = resourceProvider.getString(R.string.horologist_sample_network_error),
+                    error = true
+                )
+            )
         }
-
-        val index = mediaItems.indexOfFirst { it.id == mediaId }.coerceAtLeast(0)
-
-        waitForConnection()
-
-        playerRepository.setMediaItems(mediaItems)
-        playerRepository.prepare()
-        playerRepository.play(mediaItemIndex = index)
     }
 
     private suspend fun waitForConnection() {

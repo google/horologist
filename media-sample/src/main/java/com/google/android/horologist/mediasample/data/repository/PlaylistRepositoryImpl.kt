@@ -19,21 +19,26 @@ package com.google.android.horologist.mediasample.data.repository
 import com.google.android.horologist.mediasample.data.datasource.PlaylistRemoteDataSource
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.model.Playlist
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.shareIn
 
 class PlaylistRepositoryImpl(
-    private val playlistRemoteDataSource: PlaylistRemoteDataSource
+    playlistRemoteDataSource: PlaylistRemoteDataSource,
+    coroutineScope: CoroutineScope
 ) : PlaylistRepository {
 
     // temporary implementation of cache
-    private lateinit var playlistCache: List<Playlist>
+    private val playlistCache = playlistRemoteDataSource.getPlaylists().shareIn(
+        scope = coroutineScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        replay = 1
+    )
 
     override suspend fun getPlaylist(id: String): Playlist? =
-        playlistCache.firstOrNull { it.id == id }
+        playlistCache.first().getOrNull()?.firstOrNull { it.id == id }
 
-    override fun getPlaylists(): Flow<List<Playlist>> =
-        playlistRemoteDataSource.getPlaylists().onEach {
-            playlistCache = it
-        }
+    override fun getPlaylists(): Flow<Result<List<Playlist>>> = playlistCache
 }

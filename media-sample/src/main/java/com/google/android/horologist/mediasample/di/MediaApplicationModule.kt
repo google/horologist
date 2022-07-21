@@ -48,6 +48,7 @@ import com.google.android.horologist.mediasample.domain.PlaylistDownloadReposito
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.system.Logging
+import com.google.android.horologist.mediasample.util.ResourceProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -144,7 +145,7 @@ object MediaApplicationModule {
     @Provides
     fun logger(
         @ApplicationContext application: Context,
-    ): Logging = Logging(application.resources)
+    ): Logging = Logging(res = application.resources)
 
     @Singleton
     @Provides
@@ -184,6 +185,12 @@ object MediaApplicationModule {
 
     @Singleton
     @Provides
+    fun ResourceProvider(
+        @ApplicationContext application: Context
+    ): ResourceProvider = ResourceProvider(application.resources)
+
+    @Singleton
+    @Provides
     fun dataUpdates(
         @ApplicationContext application: Context,
     ): DataUpdates {
@@ -199,9 +206,10 @@ object MediaApplicationModule {
     @Singleton
     @Provides
     fun playlistRepository(
-        playlistRemoteDataSource: PlaylistRemoteDataSource
+        playlistRemoteDataSource: PlaylistRemoteDataSource,
+        @ForApplicationScope coroutineScope: CoroutineScope
     ): PlaylistRepository =
-        PlaylistRepositoryImpl(playlistRemoteDataSource)
+        PlaylistRepositoryImpl(playlistRemoteDataSource, coroutineScope)
 
     @Singleton
     @Provides
@@ -211,10 +219,12 @@ object MediaApplicationModule {
     @Singleton
     @Provides
     fun playlistRemoteDataSource(
-        uampService: UampService
+        uampService: UampService,
+        errorReporter: ErrorReporter
     ): PlaylistRemoteDataSource =
         PlaylistRemoteDataSource(
             ioDispatcher = Dispatchers.IO,
-            uampService = uampService
+            uampService = uampService,
+            errorReporter = errorReporter
         )
 }

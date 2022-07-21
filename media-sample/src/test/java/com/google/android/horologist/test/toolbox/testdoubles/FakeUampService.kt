@@ -19,24 +19,33 @@ package com.google.android.horologist.test.toolbox.testdoubles
 import com.google.android.horologist.mediasample.data.api.UampService
 import com.google.android.horologist.mediasample.data.api.model.CatalogApiModel
 import com.google.android.horologist.mediasample.data.api.model.MusicApiModel
+import java.io.IOException
 
-class FakeUampService : UampService {
+class FakeUampService(
+    public var failing: IOException? = null
+) : UampService {
 
-    override suspend fun catalog(): CatalogApiModel = CatalogApiModel(
-        music = listOf(
-            MusicApiModel(
-                album = "album1",
-                artist = "artist1",
-                duration = 1,
-                genre = "genre1",
-                id = "id1",
-                image = "artworkUri1",
-                site = "site1",
-                source = "source1",
-                title = "title1",
-                totalTrackCount = 1,
-                trackNumber = 1,
+    override suspend fun catalog(): CatalogApiModel {
+        failing?.let {
+            throw it
+        }
+
+        return CatalogApiModel(
+            music = listOf(
+                MusicApiModel(
+                    album = "album1",
+                    artist = "artist1",
+                    duration = 1,
+                    genre = "genre1",
+                    id = "id1",
+                    image = "artworkUri1",
+                    site = "site1",
+                    source = "source1",
+                    title = "title1",
+                    totalTrackCount = 1,
+                    trackNumber = 1,
+                )
             )
         )
-    )
+    }
 }

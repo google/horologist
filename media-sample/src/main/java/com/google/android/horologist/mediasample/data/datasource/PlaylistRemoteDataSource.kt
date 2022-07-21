@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.mediasample.data.datasource
 
+import com.google.android.horologist.media3.logging.ErrorReporter
+import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.data.api.UampService
 import com.google.android.horologist.mediasample.data.mapper.PlaylistMapper
 import com.google.android.horologist.mediasample.domain.model.Playlist
@@ -23,13 +25,21 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import java.io.IOException
 
 class PlaylistRemoteDataSource(
     private val ioDispatcher: CoroutineDispatcher,
     private val uampService: UampService,
+    private val errorReporter: ErrorReporter
 ) {
 
-    fun getPlaylists(): Flow<List<Playlist>> = flow {
-        emit(PlaylistMapper.map(uampService.catalog()))
+    fun getPlaylists(): Flow<Result<List<Playlist>>> = flow {
+        val result = try {
+            Result.success(PlaylistMapper.map(uampService.catalog()))
+        } catch (ioe: IOException) {
+            errorReporter.showMessage(R.string.horologist_sample_network_error)
+            Result.failure(ioe)
+        }
+        emit(result)
     }.flowOn(ioDispatcher)
 }

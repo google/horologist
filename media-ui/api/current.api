@@ -381,6 +381,14 @@ package com.google.android.horologist.media.ui.screens.playlist {
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class PlaylistScreenState {
   }
 
+  public static final class PlaylistScreenState.Failed extends com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState {
+    ctor public PlaylistScreenState.Failed(@StringRes int errorMessage);
+    method public int component1();
+    method public com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState.Failed copy(@StringRes int errorMessage);
+    method public int getErrorMessage();
+    property public final int errorMessage;
+  }
+
   public static final class PlaylistScreenState.Loaded extends com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState {
     ctor public PlaylistScreenState.Loaded(java.util.List<com.google.android.horologist.media.ui.state.model.PlaylistUiModel> playlistList);
     method public java.util.List<com.google.android.horologist.media.ui.state.model.PlaylistUiModel> component1();

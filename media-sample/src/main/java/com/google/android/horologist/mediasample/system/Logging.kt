@@ -21,10 +21,12 @@ import android.util.Log
 import androidx.annotation.StringRes
 import com.google.android.horologist.media3.logging.ErrorReporter
 
-public class Logging(private val res: Resources) : ErrorReporter {
+public class Logging(
+    private val res: Resources,
+) : ErrorReporter {
     override fun showMessage(@StringRes message: Int) {
-        // TODO show on screen
-        Log.i("ErrorReporter", res.getString(message))
+        val messageString = res.getString(message)
+        Log.i("ErrorReporter", messageString)
     }
 
     private val ErrorReporter.Level.loggingLevel: Int

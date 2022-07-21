@@ -14,11 +14,16 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.data
+package com.google.android.horologist.media.data.repository
 
 import android.util.Log
 import androidx.media3.common.PlaybackParameters
 import androidx.media3.common.Player
+import com.google.android.horologist.media.data.mapper.Media3MediaItemMapper
+import com.google.android.horologist.media.data.mapper.MediaItemMapper
+import com.google.android.horologist.media.data.mapper.MediaItemPositionMapper
+import com.google.android.horologist.media.data.mapper.PlayerStateMapper
+import com.google.android.horologist.media.data.mapper.SetCommandMapper
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.MediaItem
 import com.google.android.horologist.media.model.MediaItemPosition

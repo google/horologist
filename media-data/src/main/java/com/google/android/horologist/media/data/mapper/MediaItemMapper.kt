@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.data
+package com.google.android.horologist.media.data.mapper
 
 import com.google.android.horologist.media.model.MediaItem
 import androidx.media3.common.MediaItem as Media3MediaItem

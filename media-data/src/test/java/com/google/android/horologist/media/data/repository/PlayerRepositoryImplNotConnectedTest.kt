@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.data
+package com.google.android.horologist.media.data.repository
 
 import android.content.Context
 import android.os.Looper.getMainLooper

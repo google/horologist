@@ -20,7 +20,7 @@ import android.app.Notification
 import androidx.core.app.NotificationCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import com.google.android.horologist.media.data.Media3MediaItemMapper
+import com.google.android.horologist.media.data.mapper.Media3MediaItemMapper
 import com.google.android.horologist.media3.flows.waitForPlaying
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest

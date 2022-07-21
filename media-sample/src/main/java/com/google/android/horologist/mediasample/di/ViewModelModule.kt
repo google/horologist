@@ -22,7 +22,7 @@ import android.content.ComponentName
 import android.content.Context
 import androidx.media3.session.MediaBrowser
 import androidx.media3.session.SessionToken
-import com.google.android.horologist.media.data.PlayerRepositoryImpl
+import com.google.android.horologist.media.data.repository.PlayerRepositoryImpl
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media3.flows.buildSuspend
 import com.google.android.horologist.mediasample.components.PlaybackService

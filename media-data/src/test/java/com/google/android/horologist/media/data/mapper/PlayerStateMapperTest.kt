@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.data
+package com.google.android.horologist.media.data.mapper
 
 import androidx.media3.common.Player
 import com.google.android.horologist.media.model.PlayerState
+import com.google.android.horologist.test.toolbox.testdoubles.FakeStatePlayer
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 

@@ -25,7 +25,7 @@ import com.google.android.horologist.media3.logging.ErrorReporter
 public class Logging(
     private val res: Resources,
     private val snackbarManager: SnackbarManager
-    ) : ErrorReporter {
+) : ErrorReporter {
     override fun showMessage(@StringRes message: Int) {
         val messageString = res.getString(message)
         Log.i("ErrorReporter", messageString)

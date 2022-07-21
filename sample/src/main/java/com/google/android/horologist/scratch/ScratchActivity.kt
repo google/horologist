@@ -19,44 +19,34 @@ package com.google.android.horologist.scratch
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.AutoCenteringParams
-import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.HorizontalPageIndicator
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.ScalingLazyColumn
+import androidx.wear.compose.material.ScalingLazyListAnchorType
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.curvedText
 import androidx.wear.compose.material.rememberScalingLazyListState
-import androidx.wear.compose.navigation.SwipeDismissableNavHost
-import androidx.wear.compose.navigation.composable
-import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.compose.layout.fadeAwayScalingLazyList
-import com.google.android.horologist.compose.pager.PageScreenIndicatorState
 
 class ScratchActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,19 +90,24 @@ fun WearApp() {
     var itemHeightMode by remember { mutableStateOf(0) }
     val itemHeights = remember { listOf(40, 80, 120) }
 
+    var anchorTypeMode by remember { mutableStateOf(0) }
+    val anchorTypes = remember {
+        listOf(
+            Pair("Center", ScalingLazyListAnchorType.ItemCenter),
+            Pair("Start", ScalingLazyListAnchorType.ItemStart),
+        )
+    }
+
     key(initialOffsetsMode) {
         val initialOffset = initialOffsets[initialOffsetsMode]
         val itemHeight = itemHeights[itemHeightMode]
         val autoCentering = autoCenterings[autoCenteringMode]
+        val anchorType = anchorTypes[anchorTypeMode]
 
         val listState = rememberScalingLazyListState(
             initialCenterItemIndex = initialOffset.index,
             initialCenterItemScrollOffset = initialOffset.offset,
         )
-
-        SideEffect {
-            println("Auto Centering $autoCentering $autoCenteringMode")
-        }
 
         Scaffold(
             modifier = Modifier.fillMaxSize(),
@@ -133,7 +128,8 @@ fun WearApp() {
             ScalingLazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 state = listState,
-                autoCentering = autoCentering.second
+                autoCentering = autoCentering.second,
+                anchorType = anchorType.second
             ) {
                 item {
                     val text = "Initial Offset: ${initialOffset.index} / ${initialOffset.offset}"
@@ -149,11 +145,24 @@ fun WearApp() {
                     })
                 }
                 item {
+                    val text = "Anchor Type: ${anchorType.first}"
+                    FixedHeightChip(text, itemHeight, onClick = {
+                        anchorTypeMode = (anchorTypeMode + 1) % anchorTypes.size
+                    })
+                }
+                item {
                     val text = "Item Height: $itemHeight"
                     FixedHeightChip(text, itemHeight, onClick = {
                         itemHeightMode = (itemHeightMode + 1) % itemHeights.size
                     })
                 }
+            }
+            Canvas(modifier = Modifier.fillMaxSize()) {
+                drawLine(
+                    Color.Red,
+                    Offset(0f, size.height / 2f),
+                    Offset(size.width, size.height / 2f)
+                )
             }
         }
     }

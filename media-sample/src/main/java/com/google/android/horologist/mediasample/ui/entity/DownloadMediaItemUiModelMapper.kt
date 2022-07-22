@@ -29,8 +29,7 @@ object DownloadMediaItemUiModelMapper {
     ): DownloadMediaItemUiModel = when (status) {
         PlaylistDownload.Status.Idle,
         PlaylistDownload.Status.InProgress -> {
-            // TODO: it should map to Unavailable - this is temporary until downloads are implemented
-            DownloadMediaItemUiModel.Available(MediaItemUiModelMapper.map(mediaItem))
+            DownloadMediaItemUiModel.Unavailable(MediaItemUiModelMapper.map(mediaItem))
         }
         PlaylistDownload.Status.Completed -> {
             DownloadMediaItemUiModel.Available(MediaItemUiModelMapper.map(mediaItem))

@@ -159,6 +159,12 @@ dependencies {
     kapt libs.dagger.hiltandroidcompiler
     implementation libs.hilt.navigationcompose
 
+    implementation libs.androidx.media3.exoplayerworkmanager
+
+    implementation libs.room.common
+    implementation libs.room.ktx
+    ksp libs.room.compiler
+
     testImplementation libs.junit
     testImplementation libs.truth
     testImplementation libs.androidx.test.ext.ktx

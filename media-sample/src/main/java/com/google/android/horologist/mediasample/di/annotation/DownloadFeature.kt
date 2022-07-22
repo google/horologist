@@ -14,18 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.domain
+package com.google.android.horologist.mediasample.di.annotation
 
-import com.google.android.horologist.mediasample.domain.model.Playlist
-import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
-import kotlinx.coroutines.flow.Flow
+import javax.inject.Qualifier
 
-/**
- * A repository of [PlaylistDownload].
- */
-interface PlaylistDownloadRepository {
-
-    fun get(playlist: Playlist): Flow<PlaylistDownload>
-
-    fun download(playlist: Playlist)
-}
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class DownloadFeature

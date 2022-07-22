@@ -16,23 +16,35 @@
 
 package com.google.android.horologist.mediasample.data.repository
 
+import androidx.core.net.toUri
+import com.google.android.horologist.mediasample.data.datasource.Media3DownloadDataSource
+import com.google.android.horologist.mediasample.data.datasource.PlaylistDownloadLocalDataSource
 import com.google.android.horologist.mediasample.domain.PlaylistDownloadRepository
 import com.google.android.horologist.mediasample.domain.model.Playlist
 import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.launch
 
-class PlaylistDownloadRepositoryImpl : PlaylistDownloadRepository {
+class PlaylistDownloadRepositoryImpl(
+    private val coroutineScope: CoroutineScope,
+    private val playlistDownloadLocalDataSource: PlaylistDownloadLocalDataSource,
+    private val media3DownloadDataSource: Media3DownloadDataSource,
+) : PlaylistDownloadRepository {
 
-    override fun get(playlist: Playlist): Flow<PlaylistDownload> = flowOf(
-        PlaylistDownload(
-            playlist = playlist,
-            buildList {
-                playlist.mediaItems.forEach {
-                    // This is a fake implementation until downloads feature is implemented
-                    add(Pair(it, PlaylistDownload.Status.Idle))
-                }
+    override fun get(playlist: Playlist): Flow<PlaylistDownload> =
+        playlistDownloadLocalDataSource.get(playlist)
+
+    override fun download(playlist: Playlist) {
+        coroutineScope.launch {
+            playlist.mediaItems.forEach {
+                playlistDownloadLocalDataSource.add(
+                    playlistId = playlist.id,
+                    mediaItemId = it.id,
+                )
+
+                media3DownloadDataSource.download(it.id, it.uri.toUri())
             }
-        )
-    )
+        }
+    }
 }

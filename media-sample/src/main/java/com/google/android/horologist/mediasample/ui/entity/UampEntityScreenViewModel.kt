@@ -59,7 +59,7 @@ class UampEntityScreenViewModel @Inject constructor(
                     EntityScreenState.Loaded(
                         playlistUiModel = PlaylistUiModelMapper.map(it.playlist),
                         downloadList = DownloadMediaItemUiModelMapper.map(it.mediaList),
-                        downloading = it.mediaList.any { pair -> pair.second == PlaylistDownload.Status.InProgress },
+                        downloading = it.mediaList.any { (_, status) -> status == PlaylistDownload.Status.InProgress },
                     )
                 }
         } else {
@@ -88,4 +88,6 @@ class UampEntityScreenViewModel @Inject constructor(
             playerRepository.play()
         }
     }
+
+    fun download() = playlist.value?.let(playlistDownloadRepository::download)
 }

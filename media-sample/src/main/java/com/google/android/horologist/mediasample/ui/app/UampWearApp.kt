@@ -131,7 +131,8 @@ fun UampWearApp(
                 UampSettingsScreen(
                     focusRequester = focusRequester,
                     state = state,
-                    settingsScreenViewModel = hiltViewModel()
+                    settingsScreenViewModel = hiltViewModel(),
+                    navController = navController
                 )
             },
             snackbarViewModel = hiltViewModel<SnackbarViewModel>(),

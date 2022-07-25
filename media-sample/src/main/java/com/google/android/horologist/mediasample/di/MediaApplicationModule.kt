@@ -59,6 +59,10 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Singleton
 
@@ -140,8 +144,22 @@ object MediaApplicationModule {
     @Singleton
     @Provides
     fun audioOffloadManager(
-        logger: ErrorReporter
-    ) = AudioOffloadManager(logger)
+        logger: ErrorReporter,
+        settingsRepository: SettingsRepository,
+        @ForApplicationScope coroutineScope: CoroutineScope
+    ) = AudioOffloadManager(logger).also { audioOffloadManager ->
+        coroutineScope.launch {
+            settingsRepository.settingsFlow.map { it.showTimeTextInfo }
+                .collectLatest { debug ->
+                    if (debug) {
+                        while (true) {
+                            audioOffloadManager.printDebugInfo()
+                            delay(5000)
+                        }
+                    }
+                }
+        }
+    }
 
     @Singleton
     @Provides

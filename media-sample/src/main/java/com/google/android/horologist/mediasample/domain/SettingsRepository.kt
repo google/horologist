@@ -70,6 +70,12 @@ class SettingsRepository(
         }
     }
 
+    suspend fun writeDebugOffload(enabled: Boolean) {
+        edit {
+            it[DebugOffload] = enabled
+        }
+    }
+
     val settingsFlow: Flow<Settings> = dataStore.data.map {
         it.toSettings()
     }
@@ -81,6 +87,7 @@ class SettingsRepository(
         val ArtworkGradient = booleanPreferencesKey("artwork_gradient")
         val ShowArtworkOnChip = booleanPreferencesKey("show_artwork_on_chip")
         val Animated = booleanPreferencesKey("animated")
+        val DebugOffload = booleanPreferencesKey("debug_offload")
 
         fun Preferences.toSettings() = Settings(
             showTimeTextInfo = this[ShowTimeTextInfo] ?: false,
@@ -88,7 +95,8 @@ class SettingsRepository(
             loadItemsAtStartup = this[LoadItemsAtStartup] ?: true,
             artworkGradient = this[ArtworkGradient] ?: true,
             showArtworkOnChip = this[ShowArtworkOnChip] ?: true,
-            animated = this[Animated] ?: false
+            animated = this[Animated] ?: false,
+            debugOffload = this[DebugOffload] ?: false
         )
     }
 }

@@ -22,5 +22,6 @@ data class Settings(
     val loadItemsAtStartup: Boolean = true,
     val artworkGradient: Boolean = true,
     val showArtworkOnChip: Boolean = true,
-    val animated: Boolean = false
+    val animated: Boolean = false,
+    val debugOffload: Boolean = false,
 )

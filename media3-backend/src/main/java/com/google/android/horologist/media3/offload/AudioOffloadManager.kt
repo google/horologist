@@ -18,6 +18,7 @@ package com.google.android.horologist.media3.offload
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.media3.common.Format
@@ -43,7 +44,8 @@ public class AudioOffloadManager(
     public val foreground: StateFlow<Boolean> = _foreground.asStateFlow()
 
     private val _offloadSchedulingEnabled = MutableStateFlow(false)
-    public val offloadSchedulingEnabled: StateFlow<Boolean> = _offloadSchedulingEnabled.asStateFlow()
+    public val offloadSchedulingEnabled: StateFlow<Boolean> =
+        _offloadSchedulingEnabled.asStateFlow()
 
     private val _sleepingForOffload = MutableStateFlow(false)
     public val sleepingForOffload: StateFlow<Boolean> = _sleepingForOffload.asStateFlow()
@@ -99,6 +101,24 @@ public class AudioOffloadManager(
         }
     }
 
+    private fun foregroundListener(exoPlayer: ExoPlayer): LifecycleObserver {
+        return object : DefaultLifecycleObserver {
+            override fun onResume(owner: LifecycleOwner) {
+                _foreground.value = true
+                exoPlayer.experimentalSetOffloadSchedulingEnabled(false)
+
+                errorReporter.logMessage("app foregrounded")
+            }
+
+            override fun onPause(owner: LifecycleOwner) {
+                _foreground.value = false
+                exoPlayer.experimentalSetOffloadSchedulingEnabled(true)
+
+                errorReporter.logMessage("app backgrounded")
+            }
+        }
+    }
+
     /**
      * Connect the AudioOffloadManager to the ExoPlayer instance for both listening to offload
      * state and activating it based on App foreground state.
@@ -113,26 +133,25 @@ public class AudioOffloadManager(
         exoPlayer.experimentalSetOffloadSchedulingEnabled(!foreground)
 
         _sleepingForOffload.value = exoPlayer.experimentalIsSleepingForOffload()
+        errorReporter.logMessage("initial sleeping for offload ${sleepingForOffload.value}")
 
-        lifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
-            override fun onResume(owner: LifecycleOwner) {
-                _foreground.value = true
-                exoPlayer.experimentalSetOffloadSchedulingEnabled(false)
-
-                errorReporter.logMessage("app foregrounded")
-            }
-
-            override fun onPause(owner: LifecycleOwner) {
-                _foreground.value = false
-                exoPlayer.experimentalSetOffloadSchedulingEnabled(true)
-
-                errorReporter.logMessage("app backgrounded")
-            }
-        })
+        lifecycleOwner.lifecycle.addObserver(foregroundListener(exoPlayer))
 
         exoPlayer.addAudioOffloadListener(audioOffloadListener(exoPlayer))
         exoPlayer.addAnalyticsListener(analyticsListener(exoPlayer))
     }
 
     public fun snapOffloadTimes(): OffloadTimes = times.value.timesToNow(sleepingForOffload.value)
+
+    fun printDebugInfo() {
+        val sleeping = sleepingForOffload.value
+        val updatedTimes = times.value.timesToNow(sleeping)
+        errorReporter.logMessage(
+            "Offload State: " +
+                "foreground: ${foreground.value} " +
+                "sleeping: $sleeping format: ${format.value} " +
+                "times: ${updatedTimes}",
+            category = ErrorReporter.Category.Playback
+        )
+    }
 }

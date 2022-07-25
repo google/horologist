@@ -247,6 +247,10 @@ subprojects {
     }
 }
 
+def projectOrDependency(module, dependency = null) {
+    return findProject(module) ?: dependency
+}
+
 tasks.named("dependencyUpdates").configure {
     rejectVersionIf {
         (it.candidate.version ==~ /.*-alpha.*/ && !(it.currentVersion ==~ /.*-alpha.*/)) ||

@@ -46,5 +46,6 @@ enableFeaturePreview("VERSION_CATALOGS")
 // https://docs.gradle.org/7.4/userguide/declaring_dependencies.html#sec:type-safe-project-accessors
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-gradle.ext.androidxMediaModulePrefix = 'media-'
-apply from: file("../media/core_settings.gradle")
+// Uncomment to use a local checkout
+//gradle.ext.androidxMediaModulePrefix = 'media-'
+//apply from: file("../media/core_settings.gradle")

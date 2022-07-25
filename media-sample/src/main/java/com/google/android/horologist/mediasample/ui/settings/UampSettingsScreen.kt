@@ -227,5 +227,6 @@ private fun CheckedSetting(
         label = {
             Text(text)
         }, modifier = Modifier.fillMaxWidth()
-    )
-}
+        )
+    }
+    

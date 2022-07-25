@@ -143,14 +143,14 @@ public class AudioOffloadManager(
 
     public fun snapOffloadTimes(): OffloadTimes = times.value.timesToNow(sleepingForOffload.value)
 
-    fun printDebugInfo() {
+    public fun printDebugInfo() {
         val sleeping = sleepingForOffload.value
         val updatedTimes = times.value.timesToNow(sleeping)
         errorReporter.logMessage(
             "Offload State: " +
                 "foreground: ${foreground.value} " +
                 "sleeping: $sleeping format: ${format.value} " +
-                "times: ${updatedTimes}",
+                "times: $updatedTimes",
             category = ErrorReporter.Category.Playback
         )
     }

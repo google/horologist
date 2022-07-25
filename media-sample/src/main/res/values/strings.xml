@@ -34,5 +34,10 @@
     <string name="horologist_show_time_text_info">Show TimeText Info</string>
     <string name="horologist_animated">Animated UI</string>
     <string name="horologist_sample_network_error">Network error</string>
+    <string name="horologist_debug_offload">Debug Offload</string>
+    <string name="horologist_play_gapless_samples">Gapless Samples</string>
+    <string name="horologist_play_gapless_samples_fraunhofer">Fraunhofer gapless</string>
+    <string name="horologist_play_gapless_samples_stripped">Gapless Stripped</string>
+    <string name="horologist_sample_settings">Settings</string>
     <string name="horologist_media_download_channel_name">Downloads</string>
 </resources>

@@ -18,13 +18,17 @@ package com.google.android.horologist.mediasample.ui.settings
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
@@ -32,6 +36,7 @@ import androidx.wear.compose.material.ToggleChip
 import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
+import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToPlayer
 import com.google.android.horologist.mediasample.R
 
 @Composable
@@ -40,6 +45,7 @@ fun UampSettingsScreen(
     state: ScalingLazyListState,
     settingsScreenViewModel: SettingsScreenViewModel,
     modifier: Modifier = Modifier,
+    navController: NavHostController
 ) {
     val uiState by rememberStateWithLifecycle(settingsScreenViewModel.uiState)
 
@@ -49,6 +55,13 @@ fun UampSettingsScreen(
             .scrollableColumn(focusRequester, state),
         state = state
     ) {
+        item {
+            Text(
+                text = stringResource(id = R.string.horologist_sample_settings),
+                modifier = Modifier.padding(bottom = 12.dp),
+                style = MaterialTheme.typography.title3,
+            )
+        }
         item {
             CheckedSetting(
                 uiState.podcastControls,
@@ -104,6 +117,39 @@ fun UampSettingsScreen(
             }
         }
         item {
+            CheckedSetting(
+                uiState.debugOffload,
+                stringResource(id = R.string.horologist_debug_offload),
+                enabled = uiState.writable
+            ) {
+                settingsScreenViewModel.setDebugOffload(it)
+            }
+        }
+        item {
+            ActionSetting(
+                stringResource(id = R.string.horologist_play_gapless_samples_fraunhofer),
+            ) {
+                settingsScreenViewModel.playGapless1()
+                navController.navigateToPlayer()
+            }
+        }
+        item {
+            ActionSetting(
+                stringResource(id = R.string.horologist_play_gapless_samples),
+            ) {
+                settingsScreenViewModel.playGapless2()
+                navController.navigateToPlayer()
+            }
+        }
+        item {
+            ActionSetting(
+                stringResource(id = R.string.horologist_play_gapless_samples_stripped),
+            ) {
+                settingsScreenViewModel.playGapless3()
+                navController.navigateToPlayer()
+            }
+        }
+        item {
             val message = stringResource(id = R.string.horologist_sample_error)
             ActionSetting(
                 stringResource(id = R.string.horologist_show_test_dialog),
@@ -154,32 +200,33 @@ private fun ToggleSetting(
         onCheckedChange = onCheckedChange,
         label = {
             Text(text)
+        },
+        modifier = Modifier.fillMaxWidth()
+    )
+}
+
+@Composable
+private fun CheckedSetting(
+    value: Boolean,
+    text: String,
+    enabled: Boolean = true,
+    onCheckedChange: (Boolean) -> Unit,
+) {
+    ToggleChip(
+        checked = value,
+        toggleControl = {
+            Icon(
+                imageVector = ToggleChipDefaults.checkboxIcon(checked = value),
+                contentDescription = if (value) stringResource(id = R.string.horologist_on) else stringResource(
+                    id = R.string.horologist_off
+                ),
+            )
+        },
+        enabled = enabled,
+        onCheckedChange = onCheckedChange,
+        label = {
+            Text(text)
         }, modifier = Modifier.fillMaxWidth()
         )
     }
-
-    @Composable
-    private fun CheckedSetting(
-        value: Boolean,
-        text: String,
-        enabled: Boolean = true,
-        onCheckedChange: (Boolean) -> Unit,
-    ) {
-        ToggleChip(
-            checked = value,
-            toggleControl = {
-                Icon(
-                    imageVector = ToggleChipDefaults.checkboxIcon(checked = value),
-                    contentDescription = if (value) stringResource(id = R.string.horologist_on) else stringResource(
-                        id = R.string.horologist_off
-                    ),
-                )
-            },
-            enabled = enabled,
-            onCheckedChange = onCheckedChange,
-            label = {
-                Text(text)
-            }, modifier = Modifier.fillMaxWidth()
-            )
-        }
-        
+    

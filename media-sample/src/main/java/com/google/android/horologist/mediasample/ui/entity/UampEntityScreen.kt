@@ -39,7 +39,7 @@ fun UampEntityScreen(
     EntityScreen(
         entityScreenState = uiState,
         onDownloadClick = {
-            // TODO - to be implemented
+            uampEntityScreenViewModel.download()
         },
         onDownloadItemClick = onDownloadItemClick,
         onShuffleClick = {

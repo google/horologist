@@ -64,6 +64,7 @@ androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", versi
 androidx-media3-exoplayerdash = { module = "androidx.media3:media3-exoplayer-dash", version.ref = "androidx-media3" }
 androidx-media3-exoplayerhls = { module = "androidx.media3:media3-exoplayer-hls", version.ref = "androidx-media3" }
 androidx-media3-exoplayerrtsp = { module = "androidx.media3:media3-exoplayer-rtsp", version.ref = "androidx-media3" }
+androidx-media3-exoplayerworkmanager = { module = "androidx.media3:media3-exoplayer-workmanager", version.ref = "androidx-media3" }
 androidx-media3-session = { module = "androidx.media3:media3-session", version.ref = "androidx-media3" }
 androidx-media3-testutils = { module = "androidx.media3:media3-test-utils", version.ref = "androidx-media3" }
 androidx-media3-testutils-robolectric = { module = "androidx.media3:media3-test-utils-robolectric", version.ref = "androidx-media3" }

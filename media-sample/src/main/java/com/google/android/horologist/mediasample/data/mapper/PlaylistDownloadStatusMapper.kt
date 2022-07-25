@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.domain
+package com.google.android.horologist.mediasample.data.mapper
 
-import com.google.android.horologist.mediasample.domain.model.Playlist
+import com.google.android.horologist.mediasample.data.database.model.PlaylistDownloadState
 import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
-import kotlinx.coroutines.flow.Flow
 
-/**
- * A repository of [PlaylistDownload].
- */
-interface PlaylistDownloadRepository {
+object PlaylistDownloadStatusMapper {
 
-    fun get(playlist: Playlist): Flow<PlaylistDownload>
-
-    fun download(playlist: Playlist)
+    fun map(playlistDownloadState: PlaylistDownloadState): PlaylistDownload.Status = when (playlistDownloadState) {
+        PlaylistDownloadState.NotDownloaded -> PlaylistDownload.Status.Idle
+        PlaylistDownloadState.Downloading -> PlaylistDownload.Status.InProgress
+        PlaylistDownloadState.Downloaded -> PlaylistDownload.Status.Completed
+        PlaylistDownloadState.Failed -> PlaylistDownload.Status.Idle
+    }
 }

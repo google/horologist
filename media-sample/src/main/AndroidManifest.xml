@@ -123,6 +123,14 @@
                 android:name="androidx.wear.tiles.PREVIEW"
                 android:resource="@drawable/ic_uamp" />
         </service>
+
+        <service android:name=".data.service.download.MediaDownloadService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.exoplayer.downloadService.action.RESTART"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

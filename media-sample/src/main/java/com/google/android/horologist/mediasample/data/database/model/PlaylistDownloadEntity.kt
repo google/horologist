@@ -14,18 +14,23 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.domain
+package com.google.android.horologist.mediasample.data.database.model
 
-import com.google.android.horologist.mediasample.domain.model.Playlist
-import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
-import kotlinx.coroutines.flow.Flow
+import androidx.room.Entity
 
-/**
- * A repository of [PlaylistDownload].
- */
-interface PlaylistDownloadRepository {
+@Entity(
+    tableName = "playlist_download",
+    primaryKeys = ["playlistId", "mediaItemId"]
+)
+data class PlaylistDownloadEntity(
+    val playlistId: String,
+    val mediaItemId: String,
+    val status: PlaylistDownloadState,
+)
 
-    fun get(playlist: Playlist): Flow<PlaylistDownload>
-
-    fun download(playlist: Playlist)
+enum class PlaylistDownloadState {
+    NotDownloaded,
+    Downloading,
+    Downloaded,
+    Failed
 }

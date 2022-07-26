@@ -26,7 +26,7 @@ import com.google.android.horologist.media.ui.components.controls.SeekForwardBut
 import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
 import com.google.android.horologist.media.ui.components.controls.SeekToPreviousButton
 import com.google.android.horologist.media.ui.components.controls.ShuffleButton
-import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
 /**
@@ -42,7 +42,7 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
  * @param shuffleOn whether [ShuffleButton] should display a shuffle on icon
  * @param playPauseEnabled whether [PlayPauseButton] is enabled
  * @param playing whether [PlayPauseButton] should display the play or pause button
- * @param mediaItem current [MediaItemUiModel]
+ * @param media current [MediaUiModel]
  * @param seekBackButtonIncrement increment when seeking back.
  * @param seekForwardButtonIncrement increment when seeking forward.
  * @param connected is the player screen connected.
@@ -59,7 +59,7 @@ public data class PlayerUiState(
     val shuffleOn: Boolean,
     val playPauseEnabled: Boolean,
     val playing: Boolean,
-    val mediaItem: MediaItemUiModel?,
+    val media: MediaUiModel?,
     val trackPosition: TrackPositionUiModel?,
     val seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     val seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,

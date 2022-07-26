@@ -18,8 +18,8 @@ package com.google.android.horologist.mediasample.playback
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import com.google.android.horologist.media.data.mapper.Media3MediaItemMapper
-import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.media.data.mapper.MediaItemMapper
+import com.google.android.horologist.media.model.Media
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.Dispatchers
@@ -38,7 +38,7 @@ class PlaybackErrorTest : BasePlaybackTest() {
         withContext(Dispatchers.Main) {
             val browser = browser()
 
-            val badContent = MediaItem(
+            val badContent = Media(
                 "1",
                 "milkjawn",
                 "milkjawn",
@@ -47,7 +47,7 @@ class PlaybackErrorTest : BasePlaybackTest() {
             )
 
             browser.setMediaItem(
-                Media3MediaItemMapper.map(badContent),
+                MediaItemMapper.map(badContent),
             )
             browser.prepare()
             browser.play()

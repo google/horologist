@@ -20,7 +20,7 @@ import com.google.android.horologist.mediasample.data.api.model.MusicApiModel
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
-class MediaItemMapperTest {
+class MediaMapperTest {
 
     @Test
     fun givenMusicApiModel_thenMapsCorrectly() {
@@ -46,7 +46,7 @@ class MediaItemMapperTest {
         )
 
         // when
-        val result = MediaItemMapper.map(musicApiModel)
+        val result = MediaMapper.map(musicApiModel)
 
         // then
         assertThat(result.id).isEqualTo(id)
@@ -91,7 +91,7 @@ class MediaItemMapperTest {
         val list = listOf(musicApiModel1, musicApiModel2)
 
         // when
-        val result = MediaItemMapper.map(list)
+        val result = MediaMapper.map(list)
 
         // then
         assertThat(result).hasSize(2)

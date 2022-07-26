@@ -25,7 +25,7 @@ import androidx.compose.ui.graphics.Color
 import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.media.ui.state.PlayerUiState
-import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
@@ -62,15 +62,15 @@ class MediaPlayerStatesScreenTest(
             shuffleOn = false,
             playPauseEnabled = state.connected,
             playing = state.connected,
-            mediaItem = if (state.mediaItem)
-                MediaItemUiModel(
+            media = if (state.media)
+                MediaUiModel(
                     id = "",
                     title = "Weather with You",
                     artist = "Crowded House"
                 )
             else
                 null,
-            trackPosition = if (state.mediaItem)
+            trackPosition = if (state.media)
                 TrackPositionUiModel(
                     current = 30,
                     duration = 225,
@@ -90,7 +90,7 @@ class MediaPlayerStatesScreenTest(
 
     data class State(
         val connected: Boolean,
-        val mediaItem: Boolean,
+        val media: Boolean,
         val name: String,
     )
 
@@ -98,8 +98,8 @@ class MediaPlayerStatesScreenTest(
         @JvmStatic
         @Parameterized.Parameters
         fun states() = listOf(
-            State(connected = true, mediaItem = false, name = "NoMediaItem"),
-            State(connected = false, mediaItem = false, name = "NotConnected")
+            State(connected = true, media = false, name = "NoMedia"),
+            State(connected = false, media = false, name = "NotConnected")
         )
     }
 }

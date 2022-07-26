@@ -44,7 +44,7 @@ import com.google.android.horologist.media.ui.components.base.StandardButtonType
 import com.google.android.horologist.media.ui.components.base.StandardChip
 import com.google.android.horologist.media.ui.components.base.StandardChipType
 import com.google.android.horologist.media.ui.components.base.Title
-import com.google.android.horologist.media.ui.state.model.DownloadMediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
 @ExperimentalHorologistMediaUiApi
@@ -52,7 +52,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 public fun EntityScreen(
     entityScreenState: EntityScreenState,
     onDownloadClick: (PlaylistUiModel) -> Unit,
-    onDownloadItemClick: (DownloadMediaItemUiModel) -> Unit,
+    onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
     onShuffleClick: (PlaylistUiModel) -> Unit,
     onPlayClick: (PlaylistUiModel) -> Unit,
     focusRequester: FocusRequester,
@@ -160,18 +160,18 @@ public fun EntityScreen(
                 }
 
                 items(count = entityScreenState.downloadList.size) { index ->
-                    val downloadMediaItemUiModel = entityScreenState.downloadList[index]
-                    val mediaItemUiModel = downloadMediaItemUiModel.mediaItemUiModel
+                    val downloadMediaUiModel = entityScreenState.downloadList[index]
+                    val mediaUiModel = downloadMediaUiModel.mediaUiModel
 
                     StandardChip(
-                        label = mediaItemUiModel.title ?: defaultMediaTitle,
-                        onClick = { onDownloadItemClick(downloadMediaItemUiModel) },
-                        secondaryLabel = mediaItemUiModel.artist,
-                        icon = mediaItemUiModel.artworkUri,
+                        label = mediaUiModel.title ?: defaultMediaTitle,
+                        onClick = { onDownloadItemClick(downloadMediaUiModel) },
+                        secondaryLabel = mediaUiModel.artist,
+                        icon = mediaUiModel.artworkUri,
                         largeIcon = true,
                         placeholder = downloadItemArtworkPlaceholder,
                         chipType = StandardChipType.Secondary,
-                        enabled = downloadMediaItemUiModel is DownloadMediaItemUiModel.Available,
+                        enabled = downloadMediaUiModel is DownloadMediaUiModel.Available,
                     )
                 }
             }
@@ -234,7 +234,7 @@ public sealed class EntityScreenState {
 
     public data class Loaded(
         val playlistUiModel: PlaylistUiModel,
-        val downloadList: List<DownloadMediaItemUiModel>,
+        val downloadList: List<DownloadMediaUiModel>,
         val downloading: Boolean = false
     ) : EntityScreenState() {
 
@@ -248,8 +248,8 @@ public sealed class EntityScreenState {
                 var fully = true
 
                 downloadList.forEach {
-                    if (it is DownloadMediaItemUiModel.Available) none = false
-                    if (it is DownloadMediaItemUiModel.Unavailable) fully = false
+                    if (it is DownloadMediaUiModel.Available) none = false
+                    if (it is DownloadMediaUiModel.Unavailable) fully = false
                 }
 
                 when {

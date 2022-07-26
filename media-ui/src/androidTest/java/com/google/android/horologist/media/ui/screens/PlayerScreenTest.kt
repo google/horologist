@@ -31,7 +31,7 @@ import androidx.test.filters.FlakyTest
 import androidx.test.filters.LargeTest
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.media.model.Command
-import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.PlayerViewModel
@@ -133,18 +133,18 @@ class PlayerScreenTest {
     }
 
     @Test
-    fun givenMediaItemList_whenSeekToPreviousIsClicked_thenPreviousItemIsPlaying() {
+    fun givenMediaList_whenSeekToPreviousIsClicked_thenPreviousItemIsPlaying() {
         // given
         val playerRepository = FakePlayerRepository()
 
-        val mediaItem1 = MediaItem(id = "", uri = "", title = "", artist = "")
-        val mediaItem2 = MediaItem(id = "", uri = "", title = "", artist = "")
-        playerRepository.setMediaItems(listOf(mediaItem1, mediaItem2))
+        val media1 = Media(id = "", uri = "", title = "", artist = "")
+        val media2 = Media(id = "", uri = "", title = "", artist = "")
+        playerRepository.setMediaList(listOf(media1, media2))
         playerRepository.play(1)
 
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        assertThat(playerRepository.currentMediaItem.value).isEqualTo(mediaItem2)
+        assertThat(playerRepository.currentMedia.value).isEqualTo(media2)
 
         composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
@@ -154,23 +154,23 @@ class PlayerScreenTest {
 
         // then
         composeTestRule.waitUntil(timeoutMillis = 1_000) {
-            playerRepository.currentMediaItem.value == mediaItem1
+            playerRepository.currentMedia.value == media1
         }
     }
 
     @Test
-    fun givenMediaItemList_whenSeekToNextIsClicked_thenNextItemIsPlaying() {
+    fun givenMediaList_whenSeekToNextIsClicked_thenNextItemIsPlaying() {
         // given
         val playerRepository = FakePlayerRepository()
 
-        val mediaItem1 = MediaItem(id = "", uri = "", title = "", artist = "")
-        val mediaItem2 = MediaItem(id = "", uri = "", title = "", artist = "")
-        playerRepository.setMediaItems(listOf(mediaItem1, mediaItem2))
+        val media1 = Media(id = "", uri = "", title = "", artist = "")
+        val media2 = Media(id = "", uri = "", title = "", artist = "")
+        playerRepository.setMediaList(listOf(media1, media2))
         playerRepository.play(0)
 
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        assertThat(playerRepository.currentMediaItem.value).isEqualTo(mediaItem1)
+        assertThat(playerRepository.currentMedia.value).isEqualTo(media1)
 
         composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
@@ -180,7 +180,7 @@ class PlayerScreenTest {
 
         // then
         composeTestRule.waitUntil(timeoutMillis = 1_000) {
-            playerRepository.currentMediaItem.value == mediaItem2
+            playerRepository.currentMedia.value == media2
         }
     }
 
@@ -230,7 +230,7 @@ class PlayerScreenTest {
     }
 
     @Test
-    fun whenSeekToPreviousMediaItemCommandBecomesAvailable_thenSeekToPreviousButtonGetsEnabled() {
+    fun whenSeekToPreviousMediaCommandBecomesAvailable_thenSeekToPreviousButtonGetsEnabled() {
         // given
         val playerRepository = FakePlayerRepository()
         val playerViewModel = PlayerViewModel(playerRepository)
@@ -243,14 +243,14 @@ class PlayerScreenTest {
         button.assertIsNotEnabled()
 
         // when
-        playerRepository.addCommand(Command.SkipToPreviousMediaItem)
+        playerRepository.addCommand(Command.SkipToPreviousMedia)
 
         // then
         button.assertIsEnabled()
     }
 
     @Test
-    fun whenSeekToNextMediaItemCommandBecomesAvailable_thenSeekToNextButtonGetsEnabled() {
+    fun whenSeekToNextMediaCommandBecomesAvailable_thenSeekToNextButtonGetsEnabled() {
         // given
         val playerRepository = FakePlayerRepository()
         val playerViewModel = PlayerViewModel(playerRepository)
@@ -263,20 +263,20 @@ class PlayerScreenTest {
         button.assertIsNotEnabled()
 
         // when
-        playerRepository.addCommand(Command.SkipToNextMediaItem)
+        playerRepository.addCommand(Command.SkipToNextMedia)
 
         // then
         button.assertIsEnabled()
     }
 
     @Test
-    fun givenMediaItem_thenCorrectTitleAndArtistAndIsDisplayed() {
+    fun givenMedia_thenCorrectTitleAndArtistAndIsDisplayed() {
         // given
         val playerRepository = FakePlayerRepository()
         val artist = "artist"
         val title = "title"
-        val mediaItem = MediaItem(id = "", uri = "", title = title, artist = artist)
-        playerRepository.setMediaItem(mediaItem)
+        val media = Media(id = "", uri = "", title = title, artist = artist)
+        playerRepository.setMedia(media)
         playerRepository.play()
 
         val playerViewModel = PlayerViewModel(playerRepository)
@@ -294,8 +294,8 @@ class PlayerScreenTest {
         val playerRepository = FakePlayerRepository()
         val artist = "artist"
         val title = "title"
-        val mediaItem = MediaItem(id = "", uri = "", title = title, artist = artist)
-        playerRepository.setMediaItem(mediaItem)
+        val media = Media(id = "", uri = "", title = title, artist = artist)
+        playerRepository.setMedia(media)
         playerRepository.play()
 
         val playerViewModel = PlayerViewModel(playerRepository)

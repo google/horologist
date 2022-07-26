@@ -27,7 +27,7 @@ import com.google.android.horologist.compose.tools.ExperimentalHorologistCompose
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.themeValues
 import com.google.android.horologist.media.ui.state.PlayerUiState
-import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
@@ -64,7 +64,7 @@ class MediaPlayerScreenTest(
             shuffleOn = false,
             playPauseEnabled = true,
             playing = true,
-            mediaItem = MediaItemUiModel(
+            media = MediaUiModel(
                 id = "",
                 title = "Weather with You",
                 artist = "Crowded House"

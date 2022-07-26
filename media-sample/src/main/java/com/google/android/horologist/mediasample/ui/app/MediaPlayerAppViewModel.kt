@@ -112,13 +112,13 @@ class MediaPlayerAppViewModel @Inject constructor(
     )
 
     suspend fun loadItems() {
-        if (playerRepository.currentMediaItem.value == null) {
+        if (playerRepository.currentMedia.value == null) {
             try {
                 val mediaItems = uampService.catalog().music.map {
-                    it.toMediaItem()
+                    it.toMedia()
                 }
 
-                playerRepository.setMediaItems(mediaItems)
+                playerRepository.setMediaList(mediaItems)
                 playerRepository.prepare()
             } catch (ioe: IOException) {
                 snackbarManager.showMessage(
@@ -134,7 +134,7 @@ class MediaPlayerAppViewModel @Inject constructor(
     suspend fun startupSetup(navigateToLibrary: () -> Unit) {
         waitForConnection()
 
-        val currentMediaItem = playerRepository.currentMediaItem.value
+        val currentMediaItem = playerRepository.currentMedia.value
 
         if (currentMediaItem == null) {
             val loadAtStartup =
@@ -150,7 +150,7 @@ class MediaPlayerAppViewModel @Inject constructor(
 
     suspend fun playItems(mediaId: String?, collectionId: String) {
         try {
-            val mediaItems = uampService.catalog().music.map { it.toMediaItem() }.filter {
+            val mediaItems = uampService.catalog().music.map { it.toMedia() }.filter {
                 it.artist == collectionId
             }
 
@@ -158,9 +158,9 @@ class MediaPlayerAppViewModel @Inject constructor(
 
             waitForConnection()
 
-            playerRepository.setMediaItems(mediaItems)
+            playerRepository.setMediaList(mediaItems)
             playerRepository.prepare()
-            playerRepository.play(mediaItemIndex = index)
+            playerRepository.play(mediaIndex = index)
         } catch (ioe: IOException) {
             snackbarManager.showMessage(
                 UiMessage(

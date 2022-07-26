@@ -14,19 +14,23 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.model
+package com.google.android.horologist.mediasample.data.mapper
 
-import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+import com.google.android.horologist.media.model.Media
+import com.google.android.horologist.mediasample.data.api.model.MusicApiModel
 
 /**
- * Representation of a media item.
+ * Maps a [MusicApiModel] into [Media].
  */
-@ExperimentalHorologistMediaApi
-public data class MediaItem(
-    val id: String,
-    val uri: String,
-    val title: String,
-    val artist: String,
-    val artworkUri: String? = null,
-    val extras: Map<String, Any> = emptyMap()
-)
+object MediaMapper {
+
+    fun map(musicApiModel: MusicApiModel): Media = Media(
+        id = musicApiModel.id,
+        uri = musicApiModel.source,
+        title = musicApiModel.title,
+        artist = musicApiModel.artist,
+        artworkUri = musicApiModel.image
+    )
+
+    fun map(musicApiModels: List<MusicApiModel>): List<Media> = musicApiModels.map(::map)
+}

@@ -37,7 +37,7 @@ class PlaylistDownloadRepositoryImpl(
 
     override fun download(playlist: Playlist) {
         coroutineScope.launch {
-            playlist.mediaItems.forEach {
+            playlist.mediaList.forEach {
                 playlistDownloadLocalDataSource.add(
                     playlistId = playlist.id,
                     mediaItemId = it.id,

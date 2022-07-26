@@ -26,7 +26,7 @@ public enum class Command {
     PlayPause,
     SeekBack,
     SeekForward,
-    SkipToPreviousMediaItem,
-    SkipToNextMediaItem,
+    SkipToPreviousMedia,
+    SkipToNextMedia,
     SetShuffle
 }

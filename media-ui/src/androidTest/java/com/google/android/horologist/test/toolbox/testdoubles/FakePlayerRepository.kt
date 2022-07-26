@@ -20,8 +20,8 @@ package com.google.android.horologist.test.toolbox.testdoubles
 
 import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import com.google.android.horologist.media.model.Command
-import com.google.android.horologist.media.model.MediaItem
-import com.google.android.horologist.media.model.MediaItemPosition
+import com.google.android.horologist.media.model.Media
+import com.google.android.horologist.media.model.MediaPosition
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.repository.PlayerRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,16 +40,16 @@ class FakePlayerRepository : PlayerRepository {
     private var _currentState = MutableStateFlow(PlayerState.Idle)
     override val currentState: StateFlow<PlayerState> = _currentState
 
-    private var _currentMediaItem: MutableStateFlow<MediaItem?> = MutableStateFlow(null)
-    override val currentMediaItem: StateFlow<MediaItem?> = _currentMediaItem
+    private var _currentMedia: MutableStateFlow<Media?> = MutableStateFlow(null)
+    override val currentMedia: StateFlow<Media?> = _currentMedia
 
-    private var _mediaItemPosition: MutableStateFlow<MediaItemPosition?> = MutableStateFlow(null)
-    override val mediaItemPosition: StateFlow<MediaItemPosition?> = _mediaItemPosition
+    private var _mediaPosition: MutableStateFlow<MediaPosition?> = MutableStateFlow(null)
+    override val mediaPosition: StateFlow<MediaPosition?> = _mediaPosition
 
     private var _shuffleModeEnabled = MutableStateFlow(false)
     override val shuffleModeEnabled: StateFlow<Boolean> = _shuffleModeEnabled
 
-    private var _mediaItems: List<MediaItem>? = null
+    private var _mediaList: List<Media>? = null
     private var currentItemIndex = -1
 
     override fun prepare() {
@@ -60,8 +60,8 @@ class FakePlayerRepository : PlayerRepository {
         _currentState.value = PlayerState.Playing
     }
 
-    override fun play(mediaItemIndex: Int) {
-        currentItemIndex = mediaItemIndex
+    override fun play(mediaIndex: Int) {
+        currentItemIndex = mediaIndex
         _currentState.value = PlayerState.Playing
     }
 
@@ -69,21 +69,21 @@ class FakePlayerRepository : PlayerRepository {
         _currentState.value = PlayerState.Ready
     }
 
-    override fun hasPreviousMediaItem(): Boolean = currentItemIndex > 0
+    override fun hasPreviousMedia(): Boolean = currentItemIndex > 0
 
-    override fun skipToPreviousMediaItem() {
+    override fun skipToPreviousMedia() {
         currentItemIndex--
-        _currentMediaItem.value = _mediaItems!![currentItemIndex]
+        _currentMedia.value = _mediaList!![currentItemIndex]
     }
 
-    override fun hasNextMediaItem(): Boolean =
-        _mediaItems?.let {
+    override fun hasNextMedia(): Boolean =
+        _mediaList?.let {
             currentItemIndex < it.size - 2
         } ?: false
 
-    override fun skipToNextMediaItem() {
+    override fun skipToNextMedia() {
         currentItemIndex++
-        _currentMediaItem.value = _mediaItems!![currentItemIndex]
+        _currentMedia.value = _mediaList!![currentItemIndex]
     }
 
     override fun getSeekBackIncrement(): Duration = 0.seconds // not implemented
@@ -102,52 +102,52 @@ class FakePlayerRepository : PlayerRepository {
         // do nothing
     }
 
-    override fun setMediaItem(mediaItem: MediaItem) {
-        _currentMediaItem.value = mediaItem
+    override fun setMedia(media: Media) {
+        _currentMedia.value = media
         currentItemIndex = 0
     }
 
-    override fun setMediaItems(mediaItems: List<MediaItem>) {
-        _mediaItems = mediaItems
+    override fun setMediaList(mediaList: List<Media>) {
+        _mediaList = mediaList
         currentItemIndex = 0
-        _currentMediaItem.value = mediaItems[currentItemIndex]
+        _currentMedia.value = mediaList[currentItemIndex]
     }
 
-    override fun addMediaItem(mediaItem: MediaItem) {
+    override fun addMedia(media: Media) {
         // do nothing
     }
 
-    override fun addMediaItem(index: Int, mediaItem: MediaItem) {
+    override fun addMedia(index: Int, media: Media) {
         // do nothing
     }
 
-    override fun removeMediaItem(index: Int) {
+    override fun removeMedia(index: Int) {
         // do nothing
     }
 
-    override fun clearMediaItems() {
+    override fun clearMediaList() {
         // do nothing
     }
 
-    override fun getMediaItemCount(): Int = _mediaItems?.size ?: 0
+    override fun getMediaCount(): Int = _mediaList?.size ?: 0
 
-    override fun getMediaItemAt(index: Int): MediaItem? = null // not implemented
+    override fun getMediaAt(index: Int): Media? = null // not implemented
 
-    override fun getCurrentMediaItemIndex(): Int = 0 // not implemented
+    override fun getCurrentMediaIndex(): Int = 0 // not implemented
 
     override fun release() {
         _connected.value = false
     }
 
     fun updatePosition() {
-        _mediaItemPosition.value = _mediaItemPosition.value?.let {
+        _mediaPosition.value = _mediaPosition.value?.let {
             val newCurrent = it.current + 1.seconds
-            if (it is MediaItemPosition.KnownDuration) {
-                MediaItemPosition.create(newCurrent, it.duration)
+            if (it is MediaPosition.KnownDuration) {
+                MediaPosition.create(newCurrent, it.duration)
             } else {
-                MediaItemPosition.UnknownDuration(newCurrent)
+                MediaPosition.UnknownDuration(newCurrent)
             }
-        } ?: MediaItemPosition.create(1.seconds, 10.seconds)
+        } ?: MediaPosition.create(1.seconds, 10.seconds)
     }
 
     fun addCommand(command: Command) {

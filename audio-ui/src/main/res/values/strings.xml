@@ -22,4 +22,5 @@
     <string name="horologist_volume_screen_change_audio_output">Change Audio Output</string>
     <string name="horologist_set_volume_content_description">Set Volume</string>
     <string name="horologist_audio_output_content_description">Audio Output</string>
+    <string name="horologist_speaker_name">Watch Speaker</string>
 </resources>

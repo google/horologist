@@ -20,8 +20,8 @@ package com.google.android.horologist.media.ui.state.mapper
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.horologist.media.model.Command
-import com.google.android.horologist.media.model.MediaItem
-import com.google.android.horologist.media.model.MediaItemPosition
+import com.google.android.horologist.media.model.Media
+import com.google.android.horologist.media.model.MediaPosition
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.PlayerUiState
@@ -45,8 +45,8 @@ class PlayerUiStateMapperTest {
         val result = PlayerUiStateMapper.map(
             currentState = PlayerState.Ready,
             availableCommands = commands,
-            mediaItem = null,
-            mediaItemPosition = null,
+            media = null,
+            mediaPosition = null,
             shuffleModeEnabled = false,
             connected = false
         )
@@ -64,7 +64,7 @@ class PlayerUiStateMapperTest {
                 shuffleOn = false,
                 playPauseEnabled = false,
                 playing = false,
-                mediaItem = null,
+                media = null,
                 trackPosition = null,
                 connected = false
             )
@@ -80,8 +80,8 @@ class PlayerUiStateMapperTest {
         val result = PlayerUiStateMapper.map(
             currentState = PlayerState.Ready,
             availableCommands = commands,
-            mediaItem = null,
-            mediaItemPosition = null,
+            media = null,
+            mediaPosition = null,
             shuffleModeEnabled = false,
             connected = true
         )
@@ -99,8 +99,8 @@ class PlayerUiStateMapperTest {
         val result = PlayerUiStateMapper.map(
             currentState = PlayerState.Ready,
             availableCommands = commands,
-            mediaItem = null,
-            mediaItemPosition = null,
+            media = null,
+            mediaPosition = null,
             shuffleModeEnabled = false,
             connected = true
         )
@@ -118,8 +118,8 @@ class PlayerUiStateMapperTest {
         val result = PlayerUiStateMapper.map(
             currentState = PlayerState.Ready,
             availableCommands = commands,
-            mediaItem = null,
-            mediaItemPosition = null,
+            media = null,
+            mediaPosition = null,
             shuffleModeEnabled = false,
             connected = true
         )
@@ -137,8 +137,8 @@ class PlayerUiStateMapperTest {
         val result = PlayerUiStateMapper.map(
             currentState = PlayerState.Ready,
             availableCommands = commands,
-            mediaItem = null,
-            mediaItemPosition = null,
+            media = null,
+            mediaPosition = null,
             shuffleModeEnabled = false,
             connected = true
         )
@@ -148,16 +148,16 @@ class PlayerUiStateMapperTest {
     }
 
     @Test
-    fun givenSkipToPreviousMediaItemCommandIsAvailable_thenSeekToPreviousIsEnabled() {
+    fun givenSkipToPreviousMediaCommandIsAvailable_thenSeekToPreviousIsEnabled() {
         // given
-        val commands = setOf(Command.SkipToPreviousMediaItem)
+        val commands = setOf(Command.SkipToPreviousMedia)
 
         // when
         val result = PlayerUiStateMapper.map(
             currentState = PlayerState.Ready,
             availableCommands = commands,
-            mediaItem = null,
-            mediaItemPosition = null,
+            media = null,
+            mediaPosition = null,
             shuffleModeEnabled = false,
             connected = true
         )
@@ -167,16 +167,16 @@ class PlayerUiStateMapperTest {
     }
 
     @Test
-    fun givenSkipToNextMediaItemCommandIsAvailable_thenSeekToNextIsEnabled() {
+    fun givenSkipToNextMediaCommandIsAvailable_thenSeekToNextIsEnabled() {
         // given
-        val commands = setOf(Command.SkipToNextMediaItem)
+        val commands = setOf(Command.SkipToNextMedia)
 
         // when
         val result = PlayerUiStateMapper.map(
             currentState = PlayerState.Ready,
             availableCommands = commands,
-            mediaItem = null,
-            mediaItemPosition = null,
+            media = null,
+            mediaPosition = null,
             shuffleModeEnabled = false,
             connected = true
         )
@@ -194,8 +194,8 @@ class PlayerUiStateMapperTest {
         val result = PlayerUiStateMapper.map(
             currentState = PlayerState.Ready,
             availableCommands = commands,
-            mediaItem = null,
-            mediaItemPosition = null,
+            media = null,
+            mediaPosition = null,
             shuffleModeEnabled = false,
             connected = true
         )
@@ -213,8 +213,8 @@ class PlayerUiStateMapperTest {
         val result = PlayerUiStateMapper.map(
             currentState = PlayerState.Ready,
             availableCommands = emptySet(),
-            mediaItem = null,
-            mediaItemPosition = null,
+            media = null,
+            mediaPosition = null,
             shuffleModeEnabled = shuffleEnabled,
             connected = true
         )
@@ -232,8 +232,8 @@ class PlayerUiStateMapperTest {
         val result = PlayerUiStateMapper.map(
             currentState = PlayerState.Ready,
             availableCommands = emptySet(),
-            mediaItem = null,
-            mediaItemPosition = null,
+            media = null,
+            mediaPosition = null,
             shuffleModeEnabled = shuffleEnabled,
             connected = true
         )
@@ -251,8 +251,8 @@ class PlayerUiStateMapperTest {
         val result = PlayerUiStateMapper.map(
             currentState = PlayerState.Ready,
             availableCommands = commands,
-            mediaItem = null,
-            mediaItemPosition = null,
+            media = null,
+            mediaPosition = null,
             shuffleModeEnabled = false,
             connected = true
         )
@@ -270,8 +270,8 @@ class PlayerUiStateMapperTest {
         val result = PlayerUiStateMapper.map(
             currentState = state,
             availableCommands = emptySet(),
-            mediaItem = null,
-            mediaItemPosition = null,
+            media = null,
+            mediaPosition = null,
             shuffleModeEnabled = false,
             connected = true
         )
@@ -289,8 +289,8 @@ class PlayerUiStateMapperTest {
         val result = PlayerUiStateMapper.map(
             currentState = state,
             availableCommands = emptySet(),
-            mediaItem = null,
-            mediaItemPosition = null,
+            media = null,
+            mediaPosition = null,
             shuffleModeEnabled = false,
             connected = true
         )
@@ -300,12 +300,12 @@ class PlayerUiStateMapperTest {
     }
 
     @Test
-    fun givenMediaItem_thenMediaItemIsMappedCorrectly() {
+    fun givenMedia_thenMediaItemIsMappedCorrectly() {
         // given
         val id = "id"
         val title = "title"
         val artist = "artist"
-        val mediaItem = MediaItem(
+        val media = Media(
             id = id,
             uri = "http://www.example.com",
             title = title,
@@ -316,33 +316,33 @@ class PlayerUiStateMapperTest {
         val result = PlayerUiStateMapper.map(
             currentState = PlayerState.Ready,
             availableCommands = emptySet(),
-            mediaItem = mediaItem,
-            mediaItemPosition = null,
+            media = media,
+            mediaPosition = null,
             shuffleModeEnabled = false,
             connected = true
         )
 
         // then
-        assertNotNull(result.mediaItem)
-        val expectedMediaItem = result.mediaItem!!
+        assertNotNull(result.media)
+        val expectedMediaItem = result.media!!
         assertThat(expectedMediaItem.id).isEqualTo(id)
         assertThat(expectedMediaItem.title).isEqualTo(title)
         assertThat(expectedMediaItem.artist).isEqualTo(artist)
     }
 
     @Test
-    fun givenMediaItemPosition_thenTrackPositionIsMappedCorrectly() {
+    fun givenMediaPosition_thenTrackPositionIsMappedCorrectly() {
         // given
         val current = 1.seconds
         val duration = 2.seconds
-        val mediaItemPosition = MediaItemPosition.create(current, duration)
+        val mediaPosition = MediaPosition.create(current, duration)
 
         // when
         val result = PlayerUiStateMapper.map(
             currentState = PlayerState.Ready,
             availableCommands = emptySet(),
-            mediaItem = null,
-            mediaItemPosition = mediaItemPosition,
+            media = null,
+            mediaPosition = mediaPosition,
             shuffleModeEnabled = false,
             connected = true
         )

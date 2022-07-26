@@ -19,7 +19,7 @@ package com.google.android.horologist.media.data.repository
 import android.content.Context
 import android.os.Looper.getMainLooper
 import androidx.test.core.app.ApplicationProvider
-import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.PlayerState
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
@@ -32,6 +32,7 @@ import org.robolectric.annotation.Config
 @RunWith(ParameterizedRobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
 class PlayerRepositoryImplNotConnectedTest(
+    @Suppress("unused") // it's used by junit to display the test name
     private val description: String,
     private val whenBlock: (PlayerRepositoryImpl) -> Unit
 ) {
@@ -56,11 +57,11 @@ class PlayerRepositoryImplNotConnectedTest(
 
         // then
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
-        assertThat(sut.currentMediaItem.value).isNull()
+        assertThat(sut.currentMedia.value).isNull()
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isNull()
-        assertThat(sut.mediaItemPosition.value).isNull()
+        assertThat(sut.mediaPosition.value).isNull()
         assertThat(sut.availableCommands.value).isEmpty()
     }
 
@@ -82,17 +83,17 @@ class PlayerRepositoryImplNotConnectedTest(
             param("pause") { sut: PlayerRepositoryImpl ->
                 sut.pause()
             },
-            param("hasPreviousMediaItem") { sut: PlayerRepositoryImpl ->
-                sut.hasPreviousMediaItem()
+            param("hasPreviousMedia") { sut: PlayerRepositoryImpl ->
+                sut.hasPreviousMedia()
             },
-            param("skipToPreviousMediaItem") { sut: PlayerRepositoryImpl ->
-                sut.skipToPreviousMediaItem()
+            param("skipToPreviousMedia") { sut: PlayerRepositoryImpl ->
+                sut.skipToPreviousMedia()
             },
-            param("hasNextMediaItem") { sut: PlayerRepositoryImpl ->
-                sut.hasNextMediaItem()
+            param("hasNextMedia") { sut: PlayerRepositoryImpl ->
+                sut.hasNextMedia()
             },
-            param("skipToNextMediaItem") { sut: PlayerRepositoryImpl ->
-                sut.skipToNextMediaItem()
+            param("skipToNextMedia") { sut: PlayerRepositoryImpl ->
+                sut.skipToNextMedia()
             },
             param("getSeekBackIncrement") { sut: PlayerRepositoryImpl ->
                 sut.getSeekBackIncrement()
@@ -109,32 +110,32 @@ class PlayerRepositoryImplNotConnectedTest(
             param("setShuffleModeEnabled") { sut: PlayerRepositoryImpl ->
                 sut.setShuffleModeEnabled(true)
             },
-            param("setMediaItem") { sut: PlayerRepositoryImpl ->
-                sut.setMediaItem(getDummyMediaItem())
+            param("setMedia") { sut: PlayerRepositoryImpl ->
+                sut.setMedia(getDummyMedia())
             },
-            param("setMediaItems") { sut: PlayerRepositoryImpl ->
-                sut.setMediaItems(listOf(getDummyMediaItem()))
+            param("setMediaList") { sut: PlayerRepositoryImpl ->
+                sut.setMediaList(listOf(getDummyMedia()))
             },
-            param("addMediaItem") { sut: PlayerRepositoryImpl ->
-                sut.addMediaItem(getDummyMediaItem())
+            param("addMedia") { sut: PlayerRepositoryImpl ->
+                sut.addMedia(getDummyMedia())
             },
-            param("addMediaItem with index") { sut: PlayerRepositoryImpl ->
-                sut.addMediaItem(1, getDummyMediaItem())
+            param("addMedia with index") { sut: PlayerRepositoryImpl ->
+                sut.addMedia(1, getDummyMedia())
             },
-            param("removeMediaItem") { sut: PlayerRepositoryImpl ->
-                sut.removeMediaItem(1)
+            param("removeMedia") { sut: PlayerRepositoryImpl ->
+                sut.removeMedia(1)
             },
-            param("clearMediaItems") { sut: PlayerRepositoryImpl ->
-                sut.clearMediaItems()
+            param("clearMediaList") { sut: PlayerRepositoryImpl ->
+                sut.clearMediaList()
             },
-            param("getMediaItemCount") { sut: PlayerRepositoryImpl ->
-                sut.getMediaItemCount()
+            param("getMediaCount") { sut: PlayerRepositoryImpl ->
+                sut.getMediaCount()
             },
-            param("getMediaItemAt") { sut: PlayerRepositoryImpl ->
-                sut.getMediaItemAt(1)
+            param("getMediaAt") { sut: PlayerRepositoryImpl ->
+                sut.getMediaAt(1)
             },
-            param("getCurrentMediaItemIndex") { sut: PlayerRepositoryImpl ->
-                sut.getCurrentMediaItemIndex()
+            param("getCurrentMediaIndex") { sut: PlayerRepositoryImpl ->
+                sut.getCurrentMediaIndex()
             },
             param("updatePosition") { sut: PlayerRepositoryImpl ->
                 sut.updatePosition()
@@ -149,7 +150,7 @@ class PlayerRepositoryImplNotConnectedTest(
             whenBlock: (PlayerRepositoryImpl) -> Unit
         ) = arrayOf(description, whenBlock)
 
-        private fun getDummyMediaItem() = MediaItem(
+        private fun getDummyMedia() = Media(
             id = "id",
             uri = "uri",
             title = "title",

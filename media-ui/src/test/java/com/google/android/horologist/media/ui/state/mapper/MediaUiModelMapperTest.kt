@@ -18,21 +18,21 @@
 
 package com.google.android.horologist.media.ui.state.mapper
 
-import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
-class MediaItemUiModelMapperTest {
+class MediaUiModelMapperTest {
 
     @Test
-    fun givenMediaItem_thenMapsCorrectly() {
+    fun givenMedia_thenMapsCorrectly() {
         // given
         val id = "id"
         val title = "title"
         val artist = "artist"
         val artworkUri = "artworkUri"
-        val mediaItem = MediaItem(
+        val media = Media(
             id = id,
             uri = "http://www.example.com",
             title = title,
@@ -41,7 +41,7 @@ class MediaItemUiModelMapperTest {
         )
 
         // when
-        val result = MediaItemUiModelMapper.map(mediaItem)
+        val result = MediaUiModelMapper.map(media)
 
         // then
         assertThat(result.id).isEqualTo(id)

@@ -44,7 +44,7 @@ import com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiMode
 
 /**
  * A screen to:
- * - display user's [downloaded media items][DownloadPlaylistUiModel];
+ * - display user's [downloaded media][DownloadPlaylistUiModel] list;
  * - provide access to libraries;
  * - provide access to settings;
  */

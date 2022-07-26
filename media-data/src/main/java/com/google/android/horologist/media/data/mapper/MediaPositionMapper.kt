@@ -18,20 +18,20 @@ package com.google.android.horologist.media.data.mapper
 
 import androidx.media3.common.C
 import androidx.media3.common.Player
-import com.google.android.horologist.media.model.MediaItemPosition
+import com.google.android.horologist.media.model.MediaPosition
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
- * Maps a [Media3 player][Player] position into a [MediaItemPosition].
+ * Maps a [Media3 player][Player] position into a [MediaPosition].
  */
-public object MediaItemPositionMapper {
-    public fun map(player: Player?): MediaItemPosition? {
+public object MediaPositionMapper {
+    public fun map(player: Player?): MediaPosition? {
         return if (player == null || player.currentMediaItem == null) {
             null
         } else if (player.duration == C.TIME_UNSET) {
-            MediaItemPosition.UnknownDuration(player.currentPosition.milliseconds)
+            MediaPosition.UnknownDuration(player.currentPosition.milliseconds)
         } else {
-            MediaItemPosition.create(
+            MediaPosition.create(
                 current = player.currentPosition.milliseconds,
                 // Ensure progress is max 100%, even given faulty media metadata
                 duration = (player.duration.coerceAtLeast(player.currentPosition)).milliseconds

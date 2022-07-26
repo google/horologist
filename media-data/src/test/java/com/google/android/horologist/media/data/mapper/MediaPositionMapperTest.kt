@@ -17,18 +17,18 @@
 package com.google.android.horologist.media.data.mapper
 
 import androidx.media3.common.C
-import com.google.android.horologist.media.model.MediaItemPosition
+import com.google.android.horologist.media.model.MediaPosition
 import com.google.android.horologist.test.toolbox.testdoubles.FakeStatePlayer
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import kotlin.time.Duration.Companion.milliseconds
 
-class MediaItemPositionMapperTest {
+class MediaPositionMapperTest {
     val fakeStatePlayer = FakeStatePlayer()
 
     @Test
     fun `check position calculations null`() {
-        val position = MediaItemPositionMapper.map(null)
+        val position = MediaPositionMapper.map(null)
         assertThat(position).isNull()
     }
 
@@ -39,7 +39,7 @@ class MediaItemPositionMapperTest {
             duration = C.TIME_UNSET
         )
         val position =
-            MediaItemPositionMapper.map(fakeStatePlayer) as MediaItemPosition.UnknownDuration
+            MediaPositionMapper.map(fakeStatePlayer) as MediaPosition.UnknownDuration
         assertThat(position.current).isEqualTo(10.milliseconds)
     }
 
@@ -50,7 +50,7 @@ class MediaItemPositionMapperTest {
             duration = 99L
         )
         val position =
-            MediaItemPositionMapper.map(fakeStatePlayer) as MediaItemPosition.KnownDuration
+            MediaPositionMapper.map(fakeStatePlayer) as MediaPosition.KnownDuration
         assertThat(position.current).isEqualTo(100.milliseconds)
         assertThat(position.duration).isEqualTo(100.milliseconds)
     }
@@ -62,7 +62,7 @@ class MediaItemPositionMapperTest {
             duration = 1000L
         )
         val position =
-            MediaItemPositionMapper.map(fakeStatePlayer) as MediaItemPosition.KnownDuration
+            MediaPositionMapper.map(fakeStatePlayer) as MediaPosition.KnownDuration
         assertThat(position.current).isEqualTo(100.milliseconds)
         assertThat(position.duration).isEqualTo(1000.milliseconds)
     }

@@ -99,12 +99,12 @@ public fun DefaultPlayerScreenMediaDisplay(
     playerUiState: PlayerUiState,
     modifier: Modifier = Modifier,
 ) {
-    val mediaItem = playerUiState.mediaItem
+    val media = playerUiState.media
     if (!playerUiState.connected) {
         LoadingMediaDisplay(modifier)
-    } else if (mediaItem != null) {
+    } else if (media != null) {
         DefaultMediaDisplay(
-            mediaItem = mediaItem,
+            media = media,
             modifier = modifier
         )
     } else {
@@ -130,9 +130,9 @@ public fun DefaultPlayerScreenControlButtons(
         onPauseButtonClick = { playerViewModel.pause() },
         playPauseButtonEnabled = playerUiState.playPauseEnabled,
         playing = playerUiState.playing,
-        onSeekToPreviousButtonClick = { playerViewModel.skipToPreviousMediaItem() },
+        onSeekToPreviousButtonClick = { playerViewModel.skipToPreviousMedia() },
         seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
-        onSeekToNextButtonClick = { playerViewModel.skipToNextMediaItem() },
+        onSeekToNextButtonClick = { playerViewModel.skipToNextMedia() },
         seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
         showProgress = showProgress,
         percent = playerUiState.trackPosition?.percent ?: 0f,

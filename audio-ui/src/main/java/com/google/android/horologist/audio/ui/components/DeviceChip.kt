@@ -52,6 +52,12 @@ public fun DeviceChip(
 
     val onClickLabel = stringResource(id = R.string.horologist_volume_screen_change_audio_output)
 
+    val deviceName = if (audioOutput is AudioOutput.WatchSpeaker) {
+        stringResource(id = R.string.horologist_speaker_name)
+    } else {
+        audioOutput.name
+    }
+
     Chip(
         modifier = modifier
             .width(intrinsicSize = IntrinsicSize.Max)
@@ -62,7 +68,7 @@ public fun DeviceChip(
         label = {
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = audioOutput.name,
+                text = deviceName,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
@@ -70,7 +76,7 @@ public fun DeviceChip(
         icon = {
             Icon(
                 imageVector = audioOutput.icon(),
-                contentDescription = audioOutput.name,
+                contentDescription = deviceName,
                 tint = MaterialTheme.colors.onSurfaceVariant
             )
         },

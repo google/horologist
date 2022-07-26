@@ -28,7 +28,7 @@ import com.google.android.horologist.compose.tools.RoundPreview
 fun VolumeScreenTestCase(
     colors: Colors = MaterialTheme.colors,
     volumeState: VolumeState,
-    audioOutput: AudioOutput.BluetoothHeadset
+    audioOutput: AudioOutput
 ) {
     RoundPreview {
         MaterialTheme(colors = colors) {

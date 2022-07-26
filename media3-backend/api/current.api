@@ -114,17 +114,34 @@ package com.google.android.horologist.media3.navigation {
 
 package com.google.android.horologist.media3.offload {
 
+  public final class AudioError {
+    ctor public AudioError(long time, String message, androidx.media3.exoplayer.analytics.AnalyticsListener.EventTime? eventTime);
+    method public long component1();
+    method public String component2();
+    method public androidx.media3.exoplayer.analytics.AnalyticsListener.EventTime? component3();
+    method public com.google.android.horologist.media3.offload.AudioError copy(long time, String message, androidx.media3.exoplayer.analytics.AnalyticsListener.EventTime? eventTime);
+    method public androidx.media3.exoplayer.analytics.AnalyticsListener.EventTime? getEventTime();
+    method public String getMessage();
+    method public long getTime();
+    property public final androidx.media3.exoplayer.analytics.AnalyticsListener.EventTime? eventTime;
+    property public final String message;
+    property public final long time;
+  }
+
   @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public final class AudioOffloadManager {
-    ctor public AudioOffloadManager(com.google.android.horologist.media3.logging.ErrorReporter errorReporter);
+    ctor public AudioOffloadManager(com.google.android.horologist.media3.logging.ErrorReporter errorReporter, androidx.media3.exoplayer.audio.AudioSink audioSink);
     method public void connect(androidx.media3.exoplayer.ExoPlayer exoPlayer);
+    method public kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.media3.offload.AudioError>> getErrors();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getForeground();
     method public kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Format> getFormat();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getOffloadSchedulingEnabled();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getPlaying();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getSleepingForOffload();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media3.offload.OffloadTimes> getTimes();
+    method public Boolean? isFormatSupported();
     method public void printDebugInfo();
     method public com.google.android.horologist.media3.offload.OffloadTimes snapOffloadTimes();
+    property public final kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.media3.offload.AudioError>> errors;
     property public final kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> foreground;
     property public final kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Format> format;
     property public final kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> offloadSchedulingEnabled;
@@ -207,6 +224,10 @@ package com.google.android.horologist.media3.util {
 
   public final class PrintKt {
     method public static String getShortDescription(androidx.media3.common.Format);
+  }
+
+  public final class TypesKt {
+    method public static android.media.AudioFormat? toAudioFormat(androidx.media3.common.Format);
   }
 
 }

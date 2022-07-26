@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.media3.offload
 
+import android.media.AudioManager
+import android.os.Build
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
@@ -25,12 +27,16 @@ import androidx.media3.common.Format
 import androidx.media3.exoplayer.DecoderReuseEvaluation
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.analytics.AnalyticsListener
+import androidx.media3.exoplayer.audio.AudioSink
 import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.util.shortDescription
+import com.google.android.horologist.media3.util.toAudioFormat
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import java.lang.Exception
 
 /**
  * Coordination point for audio status, such as format, offload status.
@@ -40,6 +46,7 @@ import kotlinx.coroutines.flow.asStateFlow
 @ExperimentalHorologistMedia3BackendApi
 public class AudioOffloadManager(
     private val errorReporter: ErrorReporter,
+    private val audioSink: AudioSink
 ) {
     private var _foreground = MutableStateFlow(false)
     public val foreground: StateFlow<Boolean> = _foreground.asStateFlow()
@@ -59,6 +66,9 @@ public class AudioOffloadManager(
 
     private val _playing = MutableStateFlow(false)
     public val playing: StateFlow<Boolean> = _playing.asStateFlow()
+
+    private val _errors = MutableStateFlow(listOf<AudioError>())
+    public val errors: StateFlow<List<AudioError>> = _errors.asStateFlow()
 
     private fun audioOffloadListener(exoPlayer: ExoPlayer): ExoPlayer.AudioOffloadListener {
         _sleepingForOffload.value = exoPlayer.experimentalIsSleepingForOffload()
@@ -113,6 +123,28 @@ public class AudioOffloadManager(
                 _times.value = times.value.timesToNow(sleepingForOffload.value, isPlaying)
                 _playing.value = isPlaying
             }
+
+            override fun onAudioUnderrun(
+                eventTime: AnalyticsListener.EventTime,
+                bufferSize: Int,
+                bufferSizeMs: Long,
+                elapsedSinceLastFeedMs: Long
+            ) {
+                addError(eventTime, "Audio Underrun")
+            }
+
+            override fun onAudioSinkError(
+                eventTime: AnalyticsListener.EventTime,
+                audioSinkError: Exception
+            ) {
+                addError(eventTime, "Audio Sink Error: " + audioSinkError.message)
+            }
+        }
+    }
+
+    private fun addError(eventTime: AnalyticsListener.EventTime?, message: String) {
+        _errors.update {
+            it + AudioError(System.currentTimeMillis(), message, eventTime)
         }
     }
 
@@ -172,5 +204,25 @@ public class AudioOffloadManager(
                 "foreground: ${foreground.value} ",
             category = ErrorReporter.Category.Playback
         )
+    }
+
+    public fun isFormatSupported(): Boolean? {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val format = format.value?.toAudioFormat()
+
+            if (format != null) {
+                val audioAttributes = audioSink.audioAttributes?.audioAttributesV21?.audioAttributes
+
+                if (audioAttributes != null) {
+                    return AudioManager.isOffloadedPlaybackSupported(format, audioAttributes)
+                }
+            }
+
+            // No format to check
+            return null
+        }
+
+        // Not supported before 30
+        return false
     }
 }

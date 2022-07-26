@@ -90,4 +90,22 @@ class VolumeScreenIndividualTest {
             )
         }
     }
+
+    @Test
+    fun volumeScreenWithWatchSpeaker() {
+        val volumeState = VolumeState(
+            current = 50,
+            max = 100,
+        )
+        // Media Router returns "Phone"
+        val audioOutput = AudioOutput.WatchSpeaker("id", "Phone")
+
+        paparazzi.snapshot {
+            VolumeScreenTestCase(
+                colors = MaterialTheme.colors,
+                volumeState = volumeState,
+                audioOutput = audioOutput
+            )
+        }
+    }
 }

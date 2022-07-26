@@ -142,7 +142,7 @@ private inline val RouteInfo.device: AudioOutput
             isBluetooth -> {
                 AudioOutput.BluetoothHeadset(id, name)
             }
-            isDefault -> {
+            isDeviceSpeaker -> {
                 AudioOutput.WatchSpeaker(id, name)
             }
             else -> {

@@ -26,7 +26,7 @@ import androidx.navigation.navDeepLink
 /**
  * Navigation routes enum.
  */
-public sealed class NavigationScreens(
+public open class NavigationScreens(
     public val navRoute: String
 ) {
     public open val arguments: List<NamedNavArgument> = emptyList()

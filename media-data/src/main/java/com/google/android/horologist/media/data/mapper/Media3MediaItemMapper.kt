@@ -28,7 +28,7 @@ import androidx.media3.common.MediaItem as Media3MediaItem
 public object Media3MediaItemMapper {
 
     public fun map(mediaItem: MediaItem): Media3MediaItem {
-        val parsedUri = Uri.parse("https://dl.espressif.com/dl/audio/ff-16b-2c-16000hz.mp3")
+        val parsedUri = Uri.parse(mediaItem.uri)
         val artworkUri = mediaItem.artworkUri?.let(Uri::parse)
 
         return Media3MediaItem.Builder()

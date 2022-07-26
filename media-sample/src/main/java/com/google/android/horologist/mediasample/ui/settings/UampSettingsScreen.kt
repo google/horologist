@@ -36,8 +36,9 @@ import androidx.wear.compose.material.ToggleChip
 import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
-import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToPlayer
 import com.google.android.horologist.mediasample.R
+import com.google.android.horologist.mediasample.ui.navigation.navigateToAudioDebug
+import com.google.android.horologist.mediasample.ui.navigation.navigateToSamples
 
 @Composable
 fun UampSettingsScreen(
@@ -61,6 +62,38 @@ fun UampSettingsScreen(
                 modifier = Modifier.padding(bottom = 12.dp),
                 style = MaterialTheme.typography.title3,
             )
+        }
+        item {
+            ActionSetting(
+                stringResource(id = R.string.horologist_sample_audio_debug),
+            ) {
+                navController.navigateToAudioDebug()
+            }
+        }
+        item {
+            ActionSetting(
+                stringResource(id = R.string.horologist_sample_samples),
+            ) {
+                navController.navigateToSamples()
+            }
+        }
+        item {
+            CheckedSetting(
+                uiState.showTimeTextInfo,
+                stringResource(id = R.string.horologist_show_time_text_info),
+                enabled = uiState.writable
+            ) {
+                settingsScreenViewModel.setShowTimeTextInfo(it)
+            }
+        }
+        item {
+            CheckedSetting(
+                uiState.debugOffload,
+                stringResource(id = R.string.horologist_debug_offload),
+                enabled = uiState.writable
+            ) {
+                settingsScreenViewModel.setDebugOffload(it)
+            }
         }
         item {
             CheckedSetting(
@@ -108,48 +141,6 @@ fun UampSettingsScreen(
             }
         }
         item {
-            CheckedSetting(
-                uiState.showTimeTextInfo,
-                stringResource(id = R.string.horologist_show_time_text_info),
-                enabled = uiState.writable
-            ) {
-                settingsScreenViewModel.setShowTimeTextInfo(it)
-            }
-        }
-        item {
-            CheckedSetting(
-                uiState.debugOffload,
-                stringResource(id = R.string.horologist_debug_offload),
-                enabled = uiState.writable
-            ) {
-                settingsScreenViewModel.setDebugOffload(it)
-            }
-        }
-        item {
-            ActionSetting(
-                stringResource(id = R.string.horologist_play_gapless_samples_fraunhofer),
-            ) {
-                settingsScreenViewModel.playGapless1()
-                navController.navigateToPlayer()
-            }
-        }
-        item {
-            ActionSetting(
-                stringResource(id = R.string.horologist_play_gapless_samples),
-            ) {
-                settingsScreenViewModel.playGapless2()
-                navController.navigateToPlayer()
-            }
-        }
-        item {
-            ActionSetting(
-                stringResource(id = R.string.horologist_play_gapless_samples_stripped),
-            ) {
-                settingsScreenViewModel.playGapless3()
-                navController.navigateToPlayer()
-            }
-        }
-        item {
             val message = stringResource(id = R.string.horologist_sample_error)
             ActionSetting(
                 stringResource(id = R.string.horologist_show_test_dialog),
@@ -166,7 +157,7 @@ fun UampSettingsScreen(
 }
 
 @Composable
-private fun ActionSetting(
+fun ActionSetting(
     text: String,
     onClick: () -> Unit,
 ) {
@@ -180,7 +171,7 @@ private fun ActionSetting(
 }
 
 @Composable
-private fun ToggleSetting(
+fun ToggleSetting(
     value: Boolean,
     text: String,
     enabled: Boolean = true,
@@ -206,7 +197,7 @@ private fun ToggleSetting(
 }
 
 @Composable
-private fun CheckedSetting(
+fun CheckedSetting(
     value: Boolean,
     text: String,
     enabled: Boolean = true,

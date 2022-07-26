@@ -26,8 +26,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
+import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollection
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollections
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToLibrary
@@ -38,9 +40,13 @@ import com.google.android.horologist.media.ui.navigation.MediaPlayerScaffold
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreen
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreenState
 import com.google.android.horologist.mediasample.components.MediaActivity
+import com.google.android.horologist.mediasample.ui.debug.AudioDebugScreen
 import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeText
+import com.google.android.horologist.mediasample.ui.debug.SamplesScreen
 import com.google.android.horologist.mediasample.ui.entity.UampEntityScreen
 import com.google.android.horologist.mediasample.ui.entity.UampEntityScreenViewModel
+import com.google.android.horologist.mediasample.ui.navigation.AudioDebug
+import com.google.android.horologist.mediasample.ui.navigation.Samples
 import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreenViewModel
@@ -139,7 +145,35 @@ fun UampWearApp(
             volumeViewModel = hiltViewModel<VolumeViewModel>(),
             timeText = timeText,
             deepLinkPrefix = appViewModel.deepLinkPrefix,
-            navController = navController
+            navController = navController,
+            additionalNavRoutes = {
+                scalingLazyColumnComposable(
+                    route = AudioDebug.navRoute,
+                    arguments = AudioDebug.arguments,
+                    deepLinks = AudioDebug.deepLinks(appViewModel.deepLinkPrefix),
+                    scrollStateBuilder = { ScalingLazyListState() }
+                ) {
+                    AudioDebugScreen(
+                        focusRequester = it.viewModel.focusRequester,
+                        state = it.scrollableState,
+                        audioDebugScreenViewModel = hiltViewModel()
+                    )
+                }
+
+                scalingLazyColumnComposable(
+                    route = Samples.navRoute,
+                    arguments = Samples.arguments,
+                    deepLinks = Samples.deepLinks(appViewModel.deepLinkPrefix),
+                    scrollStateBuilder = { ScalingLazyListState() }
+                ) {
+                    SamplesScreen(
+                        focusRequester = it.viewModel.focusRequester,
+                        state = it.scrollableState,
+                        samplesScreenViewModel = hiltViewModel(),
+                        navController = navController
+                    )
+                }
+            }
         )
     }
 

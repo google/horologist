@@ -40,4 +40,12 @@
     <string name="horologist_play_gapless_samples_stripped">Gapless Stripped</string>
     <string name="horologist_sample_settings">Settings</string>
     <string name="horologist_media_download_channel_name">Downloads</string>
+    <string name="horologist_sample_audio_debug">Audio Debug Info</string>
+    <string name="horologist_sample_debug_format">Format: %1s</string>
+    <string name="horologist_sample_debug_offload_sleeping">Offload Sleeping: %1s</string>
+    <string name="horologist_sample_debug_offload_scheduled">Offload Scheduled: %1s</string>
+    <string name="horologist_sample_debug_offload_percent">Offload Percent: %1s</string>
+    <string name="horologist_sample_debug_offload_time">Offloaded Time: %1s</string>
+    <string name="horologist_sample_samples">Samples</string>
+    <string name="horologist_sample_debug_offload_non_time">Non offloaded: %1s</string>
 </resources>

@@ -24,25 +24,39 @@ import java.text.NumberFormat
  */
 @ExperimentalHorologistMedia3BackendApi
 public data class OffloadTimes(
-    public val enabled: Long,
-    public val disabled: Long,
+    public val enabled: Long = 0L,
+    public val disabled: Long = 0L,
+    public val notPlaying: Long = 0L,
+    public val isPlaying: Boolean = false,
     public val updated: Long = System.currentTimeMillis()
 ) {
+    val shortDescription: String
+        get() = "$enabled/$disabled/$isPlaying"
+
     public val percent: String
         get() {
             val value = enabled.toFloat() / (enabled + disabled)
             return if (value.isNaN()) "--%" else PercentFormat.format(value)
         }
 
-    public fun timesToNow(sleepingForOffload: Boolean): OffloadTimes {
+    public fun timesToNow(sleepingForOffload: Boolean, updatedIsPlaying: Boolean): OffloadTimes {
         val time = System.currentTimeMillis()
         val extra = time - updated
 
-        return copy(
-            enabled = enabled + (if (sleepingForOffload) extra else 0),
-            disabled = disabled + (if (sleepingForOffload) 0 else extra),
-            updated = time
-        )
+        return if (isPlaying) {
+            copy(
+                enabled = enabled + (if (sleepingForOffload) extra else 0),
+                disabled = disabled + (if (sleepingForOffload) 0 else extra),
+                updated = time,
+                isPlaying = updatedIsPlaying
+            )
+        } else {
+            copy(
+                notPlaying = notPlaying + extra,
+                updated = time,
+                isPlaying = updatedIsPlaying
+            )
+        }
     }
 
     internal companion object {

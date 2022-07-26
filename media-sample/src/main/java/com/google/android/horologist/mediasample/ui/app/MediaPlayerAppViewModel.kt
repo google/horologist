@@ -41,6 +41,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import java.io.IOException
 import javax.inject.Inject
@@ -51,11 +52,11 @@ class MediaPlayerAppViewModel @Inject constructor(
     networkRepository: NetworkRepository,
     dataRequestRepository: DataRequestRepository,
     audioOffloadManager: AudioOffloadManager,
+    appConfig: AppConfig,
+    settingsRepository: SettingsRepository,
     private val settings: SettingsRepository,
     private val playerRepository: PlayerRepository,
     private val uampService: UampService,
-    private val appConfig: AppConfig,
-    private val settingsRepository: SettingsRepository,
     private val snackbarManager: SnackbarManager,
     private val resourceProvider: ResourceProvider
 ) : ViewModel() {
@@ -78,23 +79,26 @@ class MediaPlayerAppViewModel @Inject constructor(
 
     val ticker = flow {
         while (true) {
-            delay(1.seconds)
+            delay(10.seconds)
             emit(Unit)
         }
+    }
+
+    private val offloadTimesFlow = ticker.map {
+        audioOffloadManager.snapOffloadTimes()
     }
 
     val offloadState: StateFlow<OffloadState> = combine(
         audioOffloadManager.sleepingForOffload,
         audioOffloadManager.offloadSchedulingEnabled,
         audioOffloadManager.format,
-        audioOffloadManager.times,
-        ticker
-    ) { sleepingForOffload, offloadSchedulingEnabled, format, times, _ ->
+        offloadTimesFlow,
+    ) { sleepingForOffload, offloadSchedulingEnabled, format, times ->
         OffloadState(
             sleepingForOffload = sleepingForOffload,
             offloadSchedulingEnabled = offloadSchedulingEnabled,
             format = format,
-            times = times.timesToNow(sleepingForOffload)
+            times = times
         )
     }.stateIn(
         viewModelScope,
@@ -103,7 +107,7 @@ class MediaPlayerAppViewModel @Inject constructor(
             sleepingForOffload = audioOffloadManager.sleepingForOffload.value,
             offloadSchedulingEnabled = audioOffloadManager.offloadSchedulingEnabled.value,
             format = audioOffloadManager.format.value,
-            times = audioOffloadManager.times.value.timesToNow(audioOffloadManager.sleepingForOffload.value)
+            times = audioOffloadManager.snapOffloadTimes()
         )
     )
 

@@ -120,6 +120,7 @@ package com.google.android.horologist.media3.offload {
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getForeground();
     method public kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Format> getFormat();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getOffloadSchedulingEnabled();
+    method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getPlaying();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getSleepingForOffload();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media3.offload.OffloadTimes> getTimes();
     method public void printDebugInfo();
@@ -127,24 +128,33 @@ package com.google.android.horologist.media3.offload {
     property public final kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> foreground;
     property public final kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Format> format;
     property public final kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> offloadSchedulingEnabled;
+    property public final kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> playing;
     property public final kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> sleepingForOffload;
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media3.offload.OffloadTimes> times;
   }
 
   @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public final class OffloadTimes {
-    ctor public OffloadTimes(long enabled, long disabled, optional long updated);
+    ctor public OffloadTimes(optional long enabled, optional long disabled, optional long notPlaying, optional boolean isPlaying, optional long updated);
     method public long component1();
     method public long component2();
     method public long component3();
-    method public com.google.android.horologist.media3.offload.OffloadTimes copy(long enabled, long disabled, long updated);
+    method public boolean component4();
+    method public long component5();
+    method public com.google.android.horologist.media3.offload.OffloadTimes copy(long enabled, long disabled, long notPlaying, boolean isPlaying, long updated);
     method public long getDisabled();
     method public long getEnabled();
+    method public long getNotPlaying();
     method public String getPercent();
+    method public String getShortDescription();
     method public long getUpdated();
-    method public com.google.android.horologist.media3.offload.OffloadTimes timesToNow(boolean sleepingForOffload);
+    method public boolean isPlaying();
+    method public com.google.android.horologist.media3.offload.OffloadTimes timesToNow(boolean sleepingForOffload, boolean updatedIsPlaying);
     property public final long disabled;
     property public final long enabled;
+    property public final boolean isPlaying;
+    property public final long notPlaying;
     property public final String percent;
+    property public final String shortDescription;
     property public final long updated;
   }
 
@@ -189,6 +199,14 @@ package com.google.android.horologist.media3.service {
     method @Deprecated public final void onStart(android.content.Intent? intent, int startId);
     method @CallSuper public final int onStartCommand(android.content.Intent? intent, int flags, int startId);
     property protected abstract androidx.media3.session.MediaLibraryService.MediaLibrarySession mediaLibrarySession;
+  }
+
+}
+
+package com.google.android.horologist.media3.util {
+
+  public final class PrintKt {
+    method public static String getShortDescription(androidx.media3.common.Format);
   }
 
 }

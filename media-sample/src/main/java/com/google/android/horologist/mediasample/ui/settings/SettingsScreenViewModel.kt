@@ -18,8 +18,6 @@ package com.google.android.horologist.mediasample.ui.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.media.model.MediaItem
-import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.mediasample.domain.SettingsRepository
@@ -35,7 +33,6 @@ import javax.inject.Inject
 class SettingsScreenViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val snackbarManager: SnackbarManager,
-    private val playerRepository: PlayerRepository
 ) : ViewModel() {
     val uiState: StateFlow<UiState> = settingsRepository.settingsFlow.map {
         UiState(
@@ -105,63 +102,6 @@ class SettingsScreenViewModel @Inject constructor(
         viewModelScope.launch {
             settingsRepository.writeDebugOffload(enabled)
         }
-    }
-
-    fun playGapless1() {
-        val mediaItems = listOf(
-            "https://www2.iis.fraunhofer.de/AAC/gapless-sweep_part1_iis.m4a?delay=1600&padding=106",
-            "https://www2.iis.fraunhofer.de/AAC/gapless-sweep_part2_iis.m4a?delay=110&padding=1024"
-        ).mapIndexed { i, it ->
-            MediaItem(
-                id = i.toString(),
-                uri = it,
-                title = "Fraunhofer Gapless $i",
-                artist = "fraunhofer",
-                artworkUri = "https://www2.iis.fraunhofer.de/AAC/logo-fraunhofer.gif",
-            )
-        }
-
-        playerRepository.setMediaItems(mediaItems)
-        playerRepository.prepare()
-        playerRepository.play()
-    }
-
-    fun playGapless2() {
-        val mediaItems = listOf(
-            "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-10.m4a",
-            "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-11.m4a"
-        ).mapIndexed { i, it ->
-            MediaItem(
-                id = i.toString(),
-                uri = it,
-                title = "Gapless $i",
-                artist = "unknown",
-                artworkUri = "https://www2.iis.fraunhofer.de/AAC/logo-fraunhofer.gif",
-            )
-        }
-
-        playerRepository.setMediaItems(mediaItems)
-        playerRepository.prepare()
-        playerRepository.play()
-    }
-
-    fun playGapless3() {
-        val mediaItems = listOf(
-            "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-10-stripped.m4a",
-            "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-11-stripped.m4a"
-        ).mapIndexed { i, it ->
-            MediaItem(
-                id = i.toString(),
-                uri = it,
-                title = "Gapless (stripped) $i",
-                artist = "unknown",
-                artworkUri = "https://www2.iis.fraunhofer.de/AAC/logo-fraunhofer.gif",
-            )
-        }
-
-        playerRepository.setMediaItems(mediaItems)
-        playerRepository.prepare()
-        playerRepository.play()
     }
 
     fun logout() {

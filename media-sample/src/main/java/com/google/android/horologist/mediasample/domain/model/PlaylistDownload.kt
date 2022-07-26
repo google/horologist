@@ -16,11 +16,11 @@
 
 package com.google.android.horologist.mediasample.domain.model
 
-import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.media.model.Media
 
 data class PlaylistDownload(
     val playlist: Playlist,
-    val mediaList: List<Pair<MediaItem, Status>>
+    val mediaList: List<Pair<Media, Status>>
 ) {
 
     enum class Status {

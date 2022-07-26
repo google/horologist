@@ -24,10 +24,10 @@ import androidx.media3.test.utils.robolectric.TestPlayerRunHelper.playUntilPosit
 import androidx.media3.test.utils.robolectric.TestPlayerRunHelper.runUntilPendingCommandsAreFullyHandled
 import androidx.media3.test.utils.robolectric.TestPlayerRunHelper.runUntilPlaybackState
 import androidx.test.core.app.ApplicationProvider
-import com.google.android.horologist.media.data.mapper.Media3MediaItemMapper
+import com.google.android.horologist.media.data.mapper.MediaItemMapper
 import com.google.android.horologist.media.model.Command
-import com.google.android.horologist.media.model.MediaItem
-import com.google.android.horologist.media.model.MediaItemPosition
+import com.google.android.horologist.media.model.Media
+import com.google.android.horologist.media.model.MediaPosition
 import com.google.android.horologist.media.model.PlayerState
 import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.assertThrows
@@ -69,11 +69,11 @@ class PlayerRepositoryImplTest {
 
         // then
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
-        assertThat(sut.currentMediaItem.value).isNull()
+        assertThat(sut.currentMedia.value).isNull()
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isNull()
+        assertThat(sut.mediaPosition.value).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -126,9 +126,9 @@ class PlayerRepositoryImplTest {
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
 
-        val mediaItem = getStubMediaItem("id")
+        val media = getStubMedia("id")
 
-        sut.setMediaItem(mediaItem)
+        sut.setMedia(media)
         sut.prepare()
 
         // when
@@ -138,12 +138,12 @@ class PlayerRepositoryImplTest {
 
         // then
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Playing)
-        assertThat(sut.currentMediaItem.value).isEqualTo(mediaItem)
+        assertThat(sut.currentMedia.value).isEqualTo(media)
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
         // position is unknown because updatePosition function was not called
-        assertThat(sut.mediaItemPosition.value).isEqualTo(MediaItemPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle)
         )
@@ -154,9 +154,9 @@ class PlayerRepositoryImplTest {
         // given
         val player = TestExoPlayerBuilder(context).build()
 
-        val mediaItem = getStubMediaItem("id")
+        val media = getStubMedia("id")
 
-        player.setMediaItem(Media3MediaItemMapper.map(mediaItem))
+        player.setMediaItem(MediaItemMapper.map(media))
         player.prepare()
 
         // when
@@ -168,7 +168,7 @@ class PlayerRepositoryImplTest {
 
         // then
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Playing)
-        assertThat(sut.currentMediaItem.value).isEqualTo(mediaItem)
+        assertThat(sut.currentMedia.value).isEqualTo(media)
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
@@ -183,9 +183,9 @@ class PlayerRepositoryImplTest {
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
 
-        val mediaItem = getStubMediaItem("id")
+        val media = getStubMedia("id")
 
-        sut.setMediaItem(mediaItem)
+        sut.setMedia(media)
         sut.prepare()
 
         // when
@@ -196,11 +196,11 @@ class PlayerRepositoryImplTest {
 
         // then
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Ended)
-        assertThat(sut.currentMediaItem.value).isEqualTo(mediaItem)
+        assertThat(sut.currentMedia.value).isEqualTo(media)
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isEqualTo(MediaItemPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle)
         )
@@ -223,10 +223,10 @@ class PlayerRepositoryImplTest {
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
 
         // given
-        val mediaItem = getStubMediaItem("id")
+        val media = getStubMedia("id")
 
         // when
-        sut.setMediaItem(mediaItem)
+        sut.setMedia(media)
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
@@ -281,37 +281,37 @@ class PlayerRepositoryImplTest {
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
 
-        val mediaItem1 = getStubMediaItem("id1")
-        val mediaItem2 = getStubMediaItem("id2")
+        val media1 = getStubMedia("id1")
+        val media2 = getStubMedia("id2")
 
-        sut.setMediaItems(listOf(mediaItem1, mediaItem2))
+        sut.setMediaList(listOf(media1, media2))
         sut.prepare()
 
         // when
-        sut.play(mediaItemIndex = 1)
+        sut.play(mediaIndex = 1)
 
         // then
         runUntilPendingCommandsAreFullyHandled(player)
-        assertThat(sut.currentMediaItem.value).isEqualTo(mediaItem2)
+        assertThat(sut.currentMedia.value).isEqualTo(media2)
 
         // and when
         playUntilPosition(player, 1, 5.seconds.inWholeMilliseconds)
 
         // then
-        assertThat(sut.getMediaItemCount()).isEqualTo(2)
-        assertThat(sut.getMediaItemAt(1)).isEqualTo(mediaItem2)
-        assertThat(sut.getCurrentMediaItemIndex()).isEqualTo(1)
+        assertThat(sut.getMediaCount()).isEqualTo(2)
+        assertThat(sut.getMediaAt(1)).isEqualTo(media2)
+        assertThat(sut.getCurrentMediaIndex()).isEqualTo(1)
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Playing)
-        assertThat(sut.currentMediaItem.value).isEqualTo(mediaItem2)
+        assertThat(sut.currentMedia.value).isEqualTo(media2)
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
         // position is unknown because updatePosition function was not called
-        assertThat(sut.mediaItemPosition.value).isEqualTo(MediaItemPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(
                 Command.PlayPause,
-                Command.SkipToPreviousMediaItem,
+                Command.SkipToPreviousMedia,
                 Command.SeekBack,
                 Command.SeekForward,
                 Command.SetShuffle
@@ -325,8 +325,8 @@ class PlayerRepositoryImplTest {
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
 
-        val mediaItem = getStubMediaItem("id")
-        sut.setMediaItem(mediaItem)
+        val media = getStubMedia("id")
+        sut.setMedia(media)
         sut.prepare()
         sut.play()
         playUntilPosition(player, 0, 510.milliseconds.inWholeMilliseconds)
@@ -338,11 +338,11 @@ class PlayerRepositoryImplTest {
 
         // then
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Ready)
-        assertThat(sut.currentMediaItem.value).isEqualTo(mediaItem)
+        assertThat(sut.currentMedia.value).isEqualTo(media)
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value!!.current).isEqualTo(510.milliseconds)
+        assertThat(sut.mediaPosition.value!!.current).isEqualTo(510.milliseconds)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle)
         )
@@ -390,469 +390,469 @@ class PlayerRepositoryImplTest {
 
         // then
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
-        assertThat(sut.currentMediaItem.value).isNull()
+        assertThat(sut.currentMedia.value).isNull()
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isTrue()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isNull()
+        assertThat(sut.mediaPosition.value).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
     }
 
     @Test
-    fun `given NO previous MediaItems is set when setMediaItem then state is correct`() {
+    fun `given NO previous Media is set when setMedia then state is correct`() {
         // given
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
 
-        val mediaItem = getDummyMediaItem()
+        val media = getDummyMedia()
 
         // when
-        sut.setMediaItem(mediaItem)
+        sut.setMedia(media)
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.getMediaItemCount()).isEqualTo(1)
-        assertThat(sut.getMediaItemAt(0)).isEqualTo(mediaItem)
+        assertThat(sut.getMediaCount()).isEqualTo(1)
+        assertThat(sut.getMediaAt(0)).isEqualTo(media)
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
-        assertThat(sut.currentMediaItem.value).isEqualTo(mediaItem)
+        assertThat(sut.currentMedia.value).isEqualTo(media)
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isEqualTo(MediaItemPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
     }
 
     @Test
-    fun `given previous MediaItem is set when setMediaItem then state is correct`() {
+    fun `given previous Media is set when setMedia then state is correct`() {
         // given
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
-        sut.setMediaItem(getStubMediaItem("id1"))
+        sut.setMedia(getStubMedia("id1"))
 
-        val mediaItem = getStubMediaItem("id2")
+        val media = getStubMedia("id2")
 
         // when
-        sut.setMediaItem(mediaItem)
+        sut.setMedia(media)
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.getMediaItemCount()).isEqualTo(1)
-        assertThat(sut.getMediaItemAt(0)).isEqualTo(mediaItem)
+        assertThat(sut.getMediaCount()).isEqualTo(1)
+        assertThat(sut.getMediaAt(0)).isEqualTo(media)
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
-        assertThat(sut.currentMediaItem.value).isEqualTo(mediaItem)
+        assertThat(sut.currentMedia.value).isEqualTo(media)
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isEqualTo(MediaItemPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
     }
 
     @Test
-    fun `given is playing when setMediaItem then state is correct`() {
+    fun `given is playing when setMedia then state is correct`() {
         // given
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
-        val mediaItem1 = getStubMediaItem("id1")
-        sut.setMediaItem(mediaItem1)
+        val media1 = getStubMedia("id1")
+        sut.setMedia(media1)
         sut.prepare()
         sut.play()
         playUntilPosition(player, 0, 510.milliseconds.inWholeMilliseconds)
         sut.updatePosition()
 
         // then
-        assertThat(sut.getMediaItemAt(0)).isEqualTo(mediaItem1)
+        assertThat(sut.getMediaAt(0)).isEqualTo(media1)
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Playing)
-        assertThat(sut.mediaItemPosition.value!!.current).isEqualTo(500.milliseconds)
+        assertThat(sut.mediaPosition.value!!.current).isEqualTo(500.milliseconds)
 
         // given
-        val mediaItem2 = getDummyMediaItem()
+        val media2 = getDummyMedia()
 
         // when
-        sut.setMediaItem(mediaItem2)
+        sut.setMedia(media2)
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.getMediaItemCount()).isEqualTo(1)
-        assertThat(sut.getMediaItemAt(0)).isEqualTo(mediaItem2)
+        assertThat(sut.getMediaCount()).isEqualTo(1)
+        assertThat(sut.getMediaAt(0)).isEqualTo(media2)
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Loading)
-        assertThat(sut.currentMediaItem.value).isEqualTo(mediaItem2)
+        assertThat(sut.currentMedia.value).isEqualTo(media2)
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isEqualTo(MediaItemPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
     }
 
     @Test
-    fun `given NO previous MediaItems is set when setMediaItems then state is correct`() {
+    fun `given NO previous MediaList is set when setMediaList then state is correct`() {
         // given
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
 
-        val mediaItem1 = getStubMediaItem("id1")
-        val mediaItem2 = getStubMediaItem("id2")
-        val mediaItems = listOf(mediaItem1, mediaItem2)
+        val media1 = getStubMedia("id1")
+        val media2 = getStubMedia("id2")
+        val mediaList = listOf(media1, media2)
 
         // when
-        sut.setMediaItems(mediaItems)
+        sut.setMediaList(mediaList)
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.getMediaItemCount()).isEqualTo(2)
-        assertThat(sut.getMediaItemAt(0)).isEqualTo(mediaItem1)
-        assertThat(sut.getMediaItemAt(1)).isEqualTo(mediaItem2)
+        assertThat(sut.getMediaCount()).isEqualTo(2)
+        assertThat(sut.getMediaAt(0)).isEqualTo(media1)
+        assertThat(sut.getMediaAt(1)).isEqualTo(media2)
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
-        assertThat(sut.currentMediaItem.value).isEqualTo(mediaItem1)
+        assertThat(sut.currentMedia.value).isEqualTo(media1)
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isEqualTo(MediaItemPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SkipToNextMediaItem, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle)
         )
     }
 
     @Test
-    fun `given previous MediaItems is set when setMediaItems then state is correct`() {
+    fun `given previous MediaList is set when setMediaList then state is correct`() {
         // given
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
-        sut.setMediaItems(listOf(getStubMediaItem("id1"), getStubMediaItem("id2")))
+        sut.setMediaList(listOf(getStubMedia("id1"), getStubMedia("id2")))
 
-        val mediaItem1 = getStubMediaItem("id3")
-        val mediaItem2 = getStubMediaItem("id4")
-        val mediaItems = listOf(mediaItem1, mediaItem2)
+        val media1 = getStubMedia("id3")
+        val media2 = getStubMedia("id4")
+        val mediaList = listOf(media1, media2)
 
         // when
-        sut.setMediaItems(mediaItems)
+        sut.setMediaList(mediaList)
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.getMediaItemCount()).isEqualTo(2)
-        assertThat(sut.getMediaItemAt(0)).isEqualTo(mediaItem1)
-        assertThat(sut.getMediaItemAt(1)).isEqualTo(mediaItem2)
+        assertThat(sut.getMediaCount()).isEqualTo(2)
+        assertThat(sut.getMediaAt(0)).isEqualTo(media1)
+        assertThat(sut.getMediaAt(1)).isEqualTo(media2)
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
-        assertThat(sut.currentMediaItem.value).isEqualTo(mediaItem1)
+        assertThat(sut.currentMedia.value).isEqualTo(media1)
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isEqualTo(MediaItemPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SkipToNextMediaItem, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle)
         )
     }
 
     @Test
-    fun `given NO previous MediaItems is set when addMediaItem then state is correct`() {
+    fun `given NO previous Media is set when addMedia then state is correct`() {
         // given
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
 
-        val mediaItem = getStubMediaItem("id")
+        val media = getStubMedia("id")
 
         // when
-        sut.addMediaItem(mediaItem)
+        sut.addMedia(media)
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.getMediaItemCount()).isEqualTo(1)
-        assertThat(sut.getMediaItemAt(0)).isEqualTo(mediaItem)
+        assertThat(sut.getMediaCount()).isEqualTo(1)
+        assertThat(sut.getMediaAt(0)).isEqualTo(media)
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
-        assertThat(sut.currentMediaItem.value).isEqualTo(mediaItem)
+        assertThat(sut.currentMedia.value).isEqualTo(media)
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isEqualTo(MediaItemPosition.UnknownDuration(0.seconds))
-        assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SetShuffle)
-        )
-    }
-
-    @Test
-    fun `given previous MediaItem is set when addMediaItem then state is correct`() {
-        // given
-        val player = TestExoPlayerBuilder(context).build()
-        sut.connect(player) {}
-        val previousMediaItem = getStubMediaItem("id1")
-        sut.setMediaItem(previousMediaItem)
-
-        val mediaItem = getStubMediaItem("id2")
-
-        // when
-        sut.addMediaItem(mediaItem)
-        runUntilPendingCommandsAreFullyHandled(player)
-
-        // then
-        assertThat(sut.getMediaItemCount()).isEqualTo(2)
-        assertThat(sut.getMediaItemAt(0)).isEqualTo(previousMediaItem)
-        assertThat(sut.getMediaItemAt(1)).isEqualTo(mediaItem)
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
-        assertThat(sut.currentMediaItem.value).isEqualTo(previousMediaItem)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
-        assertThat(sut.shuffleModeEnabled.value).isFalse()
-        assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isEqualTo(MediaItemPosition.UnknownDuration(0.seconds))
-        assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SkipToNextMediaItem, Command.SetShuffle)
-        )
-    }
-
-    @Test
-    fun `given NO previous MediaItems is set when addMediaItem with valid index then state is correct`() {
-        // given
-        val player = TestExoPlayerBuilder(context).build()
-        sut.connect(player) {}
-
-        val mediaItem = getStubMediaItem("id")
-
-        // when
-        sut.addMediaItem(0, mediaItem)
-        runUntilPendingCommandsAreFullyHandled(player)
-
-        // then
-        assertThat(sut.getMediaItemCount()).isEqualTo(1)
-        assertThat(sut.getMediaItemAt(0)).isEqualTo(mediaItem)
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
-        assertThat(sut.currentMediaItem.value).isEqualTo(mediaItem)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
-        assertThat(sut.shuffleModeEnabled.value).isFalse()
-        assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isEqualTo(MediaItemPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
     }
 
     @Test
-    fun `given previous MediaItem is set when addMediaItem with valid index then state is correct`() {
+    fun `given previous Media is set when addMedia then state is correct`() {
         // given
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
-        val previousMediaItem = getStubMediaItem("id1")
-        sut.setMediaItem(previousMediaItem)
+        val previousMedia = getStubMedia("id1")
+        sut.setMedia(previousMedia)
 
-        val mediaItem = getStubMediaItem("id2")
+        val media = getStubMedia("id2")
 
         // when
-        sut.addMediaItem(0, mediaItem)
+        sut.addMedia(media)
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.getMediaItemCount()).isEqualTo(2)
-        assertThat(sut.getMediaItemAt(0)).isEqualTo(mediaItem)
-        assertThat(sut.getMediaItemAt(1)).isEqualTo(previousMediaItem)
+        assertThat(sut.getMediaCount()).isEqualTo(2)
+        assertThat(sut.getMediaAt(0)).isEqualTo(previousMedia)
+        assertThat(sut.getMediaAt(1)).isEqualTo(media)
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
-        assertThat(sut.currentMediaItem.value).isEqualTo(previousMediaItem)
+        assertThat(sut.currentMedia.value).isEqualTo(previousMedia)
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isEqualTo(MediaItemPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SkipToPreviousMediaItem, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle)
         )
     }
 
     @Test
-    fun `given previous MediaItem is set when addMediaItem with index greater than size of playlist then state is correct`() {
+    fun `given NO previous Media is set when addMedia with valid index then state is correct`() {
         // given
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
-        val previousMediaItem = getStubMediaItem("id1")
-        sut.setMediaItem(previousMediaItem)
 
-        val mediaItem = getStubMediaItem("id2")
+        val media = getStubMedia("id")
 
         // when
-        sut.addMediaItem(5, mediaItem)
+        sut.addMedia(0, media)
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.getMediaItemCount()).isEqualTo(2)
-        assertThat(sut.getMediaItemAt(0)).isEqualTo(previousMediaItem)
-        assertThat(sut.getMediaItemAt(1)).isEqualTo(mediaItem)
+        assertThat(sut.getMediaCount()).isEqualTo(1)
+        assertThat(sut.getMediaAt(0)).isEqualTo(media)
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
-        assertThat(sut.currentMediaItem.value).isEqualTo(previousMediaItem)
+        assertThat(sut.currentMedia.value).isEqualTo(media)
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isEqualTo(MediaItemPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SkipToNextMediaItem, Command.SetShuffle)
+            listOf(Command.PlayPause, Command.SetShuffle)
         )
     }
 
     @Test
-    fun `given connected when addMediaItem with invalid index then state is correct`() {
+    fun `given previous Media is set when addMedia with valid index then state is correct`() {
         // given
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
-        val mediaItem = getStubMediaItem("id1")
+        val previousMedia = getStubMedia("id1")
+        sut.setMedia(previousMedia)
+
+        val media = getStubMedia("id2")
 
         // when
-        val whenBlock = { sut.addMediaItem(-1, mediaItem) }
+        sut.addMedia(0, media)
+        runUntilPendingCommandsAreFullyHandled(player)
+
+        // then
+        assertThat(sut.getMediaCount()).isEqualTo(2)
+        assertThat(sut.getMediaAt(0)).isEqualTo(media)
+        assertThat(sut.getMediaAt(1)).isEqualTo(previousMedia)
+        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.currentMedia.value).isEqualTo(previousMedia)
+        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.shuffleModeEnabled.value).isFalse()
+        assertThat(sut.player.value).isSameInstanceAs(player)
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
+        assertThat(sut.availableCommands.value).containsExactlyElementsIn(
+            listOf(Command.PlayPause, Command.SkipToPreviousMedia, Command.SetShuffle)
+        )
+    }
+
+    @Test
+    fun `given previous Media is set when addMedia with index greater than size of playlist then state is correct`() {
+        // given
+        val player = TestExoPlayerBuilder(context).build()
+        sut.connect(player) {}
+        val previousMedia = getStubMedia("id1")
+        sut.setMedia(previousMedia)
+
+        val media = getStubMedia("id2")
+
+        // when
+        sut.addMedia(5, media)
+        runUntilPendingCommandsAreFullyHandled(player)
+
+        // then
+        assertThat(sut.getMediaCount()).isEqualTo(2)
+        assertThat(sut.getMediaAt(0)).isEqualTo(previousMedia)
+        assertThat(sut.getMediaAt(1)).isEqualTo(media)
+        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.currentMedia.value).isEqualTo(previousMedia)
+        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.shuffleModeEnabled.value).isFalse()
+        assertThat(sut.player.value).isSameInstanceAs(player)
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
+        assertThat(sut.availableCommands.value).containsExactlyElementsIn(
+            listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle)
+        )
+    }
+
+    @Test
+    fun `given connected when addMedia with invalid index then state is correct`() {
+        // given
+        val player = TestExoPlayerBuilder(context).build()
+        sut.connect(player) {}
+        val media = getStubMedia("id1")
+
+        // when
+        val whenBlock = { sut.addMedia(-1, media) }
 
         // then
         assertThrows(IllegalArgumentException::class.java) { whenBlock() }
     }
 
     @Test
-    fun `given connected AND NO previous MediaItem is set when removeMediaItem with zero index then state is correct`() {
+    fun `given connected AND NO previous Media is set when removeMedia with zero index then state is correct`() {
         // given
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
 
         // when
-        sut.removeMediaItem(0)
+        sut.removeMedia(0)
 
         // then
         // I'd expect it to throw IllegalArgumentException as per test below, maybe a bug in Media3
-        assertThat(sut.getMediaItemCount()).isEqualTo(0)
+        assertThat(sut.getMediaCount()).isEqualTo(0)
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
-        assertThat(sut.currentMediaItem.value).isNull()
+        assertThat(sut.currentMedia.value).isNull()
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isNull()
+        assertThat(sut.mediaPosition.value).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
     }
 
     @Test
-    fun `given connected AND NO previous MediaItem is set when removeMediaItem with index greater than zero then state is correct`() {
+    fun `given connected AND NO previous Media is set when removeMedia with index greater than zero then state is correct`() {
         // given
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
 
         // when
-        val whenBlock = { sut.removeMediaItem(1) }
+        val whenBlock = { sut.removeMedia(1) }
 
         // then
         assertThrows(IllegalArgumentException::class.java) { whenBlock() }
     }
 
     @Test
-    fun `given previous MediaItem is set when removeMediaItem with invalid index then state is correct`() {
+    fun `given previous Media is set when removeMedia with invalid index then state is correct`() {
         // given
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
-        val previousMediaItem = getStubMediaItem("id1")
-        sut.setMediaItem(previousMediaItem)
+        val previousMedia = getStubMedia("id1")
+        sut.setMedia(previousMedia)
 
         // when
-        val whenBlock = { sut.removeMediaItem(-1) }
+        val whenBlock = { sut.removeMedia(-1) }
 
         // then
         assertThrows(IllegalArgumentException::class.java) { whenBlock() }
     }
 
     @Test
-    fun `given connected AND previous MediaItem is set when removeMediaItem with current item index then state is correct`() {
+    fun `given connected AND previous Media is set when removeMedia with current Media index then state is correct`() {
         // given
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
 
-        val mediaItem1 = getStubMediaItem("id1")
-        val mediaItem2 = getStubMediaItem("id2")
-        val mediaItems = listOf(mediaItem1, mediaItem2)
-        sut.setMediaItems(mediaItems)
+        val media1 = getStubMedia("id1")
+        val media2 = getStubMedia("id2")
+        val mediaList = listOf(media1, media2)
+        sut.setMediaList(mediaList)
 
         // when
-        sut.removeMediaItem(0)
+        sut.removeMedia(0)
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.getMediaItemCount()).isEqualTo(1)
-        assertThat(sut.getMediaItemAt(0)).isEqualTo(mediaItem2)
+        assertThat(sut.getMediaCount()).isEqualTo(1)
+        assertThat(sut.getMediaAt(0)).isEqualTo(media2)
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
-        assertThat(sut.currentMediaItem.value).isEqualTo(mediaItem2)
+        assertThat(sut.currentMedia.value).isEqualTo(media2)
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isEqualTo(MediaItemPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
     }
 
     @Test
-    fun `given connected AND previous MediaItem is set when removeMediaItem with queued item index then state is correct`() {
+    fun `given connected AND previous Media is set when removeMedia with queued Media index then state is correct`() {
         // given
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
 
-        val mediaItem1 = getStubMediaItem("id1")
-        val mediaItem2 = getStubMediaItem("id2")
-        val mediaItems = listOf(mediaItem1, mediaItem2)
-        sut.setMediaItems(mediaItems)
+        val media1 = getStubMedia("id1")
+        val media2 = getStubMedia("id2")
+        val mediaList = listOf(media1, media2)
+        sut.setMediaList(mediaList)
 
         // when
-        sut.removeMediaItem(1)
+        sut.removeMedia(1)
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.getMediaItemCount()).isEqualTo(1)
-        assertThat(sut.getMediaItemAt(0)).isEqualTo(mediaItem1)
+        assertThat(sut.getMediaCount()).isEqualTo(1)
+        assertThat(sut.getMediaAt(0)).isEqualTo(media1)
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
-        assertThat(sut.currentMediaItem.value).isEqualTo(mediaItem1)
+        assertThat(sut.currentMedia.value).isEqualTo(media1)
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isEqualTo(MediaItemPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
     }
 
     @Test
-    fun `given connected AND NO previous MediaItem is set when clearMediaItems then state is correct`() {
+    fun `given connected AND NO previous Media is set when clearMediaList then state is correct`() {
         // given
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
 
         // when
-        sut.clearMediaItems()
+        sut.clearMediaList()
 
         // then
-        assertThat(sut.getMediaItemCount()).isEqualTo(0)
+        assertThat(sut.getMediaCount()).isEqualTo(0)
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
-        assertThat(sut.currentMediaItem.value).isNull()
+        assertThat(sut.currentMedia.value).isNull()
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isNull()
+        assertThat(sut.mediaPosition.value).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
     }
 
     @Test
-    fun `given connected AND previous MediaItem is set when clearMediaItems then state is correct`() {
+    fun `given connected AND previous Media is set when clearMediaList then state is correct`() {
         // given
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
 
-        sut.setMediaItems(listOf(getStubMediaItem("id1"), getStubMediaItem("id2")))
+        sut.setMediaList(listOf(getStubMedia("id1"), getStubMedia("id2")))
 
         // when
-        sut.clearMediaItems()
+        sut.clearMediaList()
 
         // then
-        assertThat(sut.getMediaItemCount()).isEqualTo(0)
+        assertThat(sut.getMediaCount()).isEqualTo(0)
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
-        assertThat(sut.currentMediaItem.value).isNull()
+        assertThat(sut.currentMedia.value).isNull()
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isEqualTo(MediaItemPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -876,9 +876,9 @@ class PlayerRepositoryImplTest {
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
 
-        val mediaItem = getStubMediaItem("id")
+        val media = getStubMedia("id")
 
-        sut.setMediaItem(mediaItem)
+        sut.setMedia(media)
         sut.prepare()
         sut.play()
         playUntilPosition(player, 0, 5.seconds.inWholeMilliseconds)
@@ -888,7 +888,7 @@ class PlayerRepositoryImplTest {
 
         // then
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Playing)
-        assertThat(sut.currentMediaItem.value).isEqualTo(mediaItem)
+        assertThat(sut.currentMedia.value).isEqualTo(media)
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
@@ -896,14 +896,14 @@ class PlayerRepositoryImplTest {
             listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle)
         )
 
-        assertThat(sut.mediaItemPosition.value).isInstanceOf(MediaItemPosition.KnownDuration::class.java)
-        val expectedMediaItemPosition =
-            MediaItemPosition.create(current = 1020.milliseconds, duration = 1022.milliseconds)
-        val actualMediaItemPosition = sut.mediaItemPosition.value as MediaItemPosition.KnownDuration
-        // TODO these checks can be simplified to `assertThat().isEqualTo()` once horologist implements equals for MediaItemPosition.KnownDuration
-        assertThat(actualMediaItemPosition.current).isEqualTo(expectedMediaItemPosition.current)
-        assertThat(actualMediaItemPosition.duration).isEqualTo(expectedMediaItemPosition.duration)
-        assertThat(actualMediaItemPosition.percent).isEqualTo(expectedMediaItemPosition.percent)
+        assertThat(sut.mediaPosition.value).isInstanceOf(MediaPosition.KnownDuration::class.java)
+        val expectedMediaPosition =
+            MediaPosition.create(current = 1020.milliseconds, duration = 1022.milliseconds)
+        val actualMediaPosition = sut.mediaPosition.value as MediaPosition.KnownDuration
+        // TODO these checks can be simplified to `assertThat().isEqualTo()` once horologist implements equals for MediaPosition.KnownDuration
+        assertThat(actualMediaPosition.current).isEqualTo(expectedMediaPosition.current)
+        assertThat(actualMediaPosition.duration).isEqualTo(expectedMediaPosition.duration)
+        assertThat(actualMediaPosition.percent).isEqualTo(expectedMediaPosition.percent)
     }
 
     @Test
@@ -919,11 +919,11 @@ class PlayerRepositoryImplTest {
 
         // then
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
-        assertThat(sut.currentMediaItem.value).isNull()
+        assertThat(sut.currentMedia.value).isNull()
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isNull()
+        assertThat(sut.mediaPosition.value).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -945,17 +945,17 @@ class PlayerRepositoryImplTest {
 
         // then
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
-        assertThat(sut.currentMediaItem.value).isNull()
+        assertThat(sut.currentMedia.value).isNull()
         assertThat(sut.playbackSpeed.value).isEqualTo(speed)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaItemPosition.value).isNull()
+        assertThat(sut.mediaPosition.value).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
     }
 
-    private fun getDummyMediaItem() = MediaItem(
+    private fun getDummyMedia() = Media(
         id = "id",
         uri = "uri",
         title = "title",
@@ -963,7 +963,7 @@ class PlayerRepositoryImplTest {
         artworkUri = "artworkUri",
     )
 
-    private fun getStubMediaItem(id: String) = MediaItem(
+    private fun getStubMedia(id: String) = Media(
         id = id,
         uri = "asset://android_asset/media/mp4/testvid_1022ms.mp4",
         title = "title",
@@ -973,11 +973,11 @@ class PlayerRepositoryImplTest {
 
     private fun assertInitialState() {
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
-        assertThat(sut.currentMediaItem.value).isNull()
+        assertThat(sut.currentMedia.value).isNull()
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isNull()
-        assertThat(sut.mediaItemPosition.value).isNull()
+        assertThat(sut.mediaPosition.value).isNull()
         assertThat(sut.availableCommands.value).isEmpty()
     }
 }

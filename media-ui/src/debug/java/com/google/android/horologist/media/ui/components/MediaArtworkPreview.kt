@@ -24,7 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 @Preview(
     backgroundColor = 0x00000000,
@@ -33,7 +33,7 @@ import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
 @Composable
 fun MediaArtworkPreview() {
     MediaArtwork(
-        mediaItem = MediaItemUiModel(
+        media = MediaUiModel(
             id = "id",
             title = "title",
             artworkUri = "artworkUri",

@@ -17,8 +17,8 @@
 package com.google.android.horologist.media.ui.state.mapper
 
 import com.google.android.horologist.media.model.Command
-import com.google.android.horologist.media.model.MediaItem
-import com.google.android.horologist.media.model.MediaItemPosition
+import com.google.android.horologist.media.model.Media
+import com.google.android.horologist.media.model.MediaPosition
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
@@ -33,8 +33,8 @@ public object PlayerUiStateMapper {
     public fun map(
         currentState: PlayerState,
         availableCommands: Set<Command>,
-        mediaItem: MediaItem?,
-        mediaItemPosition: MediaItemPosition?,
+        media: Media?,
+        mediaPosition: MediaPosition?,
         shuffleModeEnabled: Boolean,
         connected: Boolean,
         seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
@@ -47,14 +47,14 @@ public object PlayerUiStateMapper {
             pauseEnabled = playPauseCommandAvailable,
             seekBackEnabled = availableCommands.contains(Command.SeekBack),
             seekForwardEnabled = availableCommands.contains(Command.SeekForward),
-            seekToPreviousEnabled = availableCommands.contains(Command.SkipToPreviousMediaItem),
-            seekToNextEnabled = availableCommands.contains(Command.SkipToNextMediaItem),
+            seekToPreviousEnabled = availableCommands.contains(Command.SkipToPreviousMedia),
+            seekToNextEnabled = availableCommands.contains(Command.SkipToNextMedia),
             shuffleEnabled = availableCommands.contains(Command.SetShuffle),
             shuffleOn = shuffleModeEnabled,
             playPauseEnabled = playPauseCommandAvailable,
             playing = currentState == PlayerState.Playing,
-            mediaItem = mediaItem?.let(MediaItemUiModelMapper::map),
-            trackPosition = mediaItemPosition?.let(TrackPositionUiModelMapper::map),
+            media = media?.let(MediaUiModelMapper::map),
+            trackPosition = mediaPosition?.let(TrackPositionUiModelMapper::map),
             connected = connected,
             seekBackButtonIncrement = seekBackButtonIncrement,
             seekForwardButtonIncrement = seekForwardButtonIncrement

@@ -47,7 +47,7 @@ class MediaChipTest {
     )
 
     @Test
-    fun givenMediaItemWithArtwork_thenDisplaysArtwork() {
+    fun givenMediaWithArtwork_thenDisplaysArtwork() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
                 MediaChip(
@@ -61,7 +61,7 @@ class MediaChipTest {
     }
 
     @Test
-    fun givenMediaItemWithNOArtwork_thenDoesNOTDisplayArtwork() {
+    fun givenMediaWithNOArtwork_thenDoesNOTDisplayArtwork() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
                 MediaChip(

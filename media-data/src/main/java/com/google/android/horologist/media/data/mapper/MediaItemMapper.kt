@@ -16,26 +16,40 @@
 
 package com.google.android.horologist.media.data.mapper
 
-import com.google.android.horologist.media.model.MediaItem
-import androidx.media3.common.MediaItem as Media3MediaItem
+import android.net.Uri
+import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaItem.RequestMetadata
+import androidx.media3.common.MediaMetadata
+import com.google.android.horologist.media.model.Media
 
 /**
- * Maps a [Media3.MediaItem][Media3MediaItem] into a [MediaItem].
+ * Maps a [Media] into a [MediaItem].
  */
 public object MediaItemMapper {
 
-    /**
-     * @param media3MediaItem [Media3MediaItem] to be mapped.
-     * @param defaultArtist value for [MediaItem.artist].
-     */
-    public fun map(
-        media3MediaItem: Media3MediaItem,
-        defaultArtist: String = ""
-    ): MediaItem = MediaItem(
-        id = media3MediaItem.mediaId,
-        uri = media3MediaItem.requestMetadata.mediaUri?.toString() ?: "",
-        title = media3MediaItem.mediaMetadata.displayTitle?.toString() ?: "",
-        artist = media3MediaItem.mediaMetadata.artist?.toString() ?: defaultArtist,
-        artworkUri = media3MediaItem.mediaMetadata.artworkUri?.toString()
+    public fun map(media: Media): MediaItem {
+        val parsedUri = Uri.parse(media.uri)
+        val artworkUri = media.artworkUri?.let(Uri::parse)
+
+        return MediaItem.Builder()
+            .setMediaId(media.id)
+            .setUri(parsedUri)
+            .setRequestMetadata(
+                RequestMetadata.Builder()
+                    .setMediaUri(parsedUri)
+                    .build()
+            )
+            .setMediaMetadata(
+                MediaMetadata.Builder()
+                    .setDisplayTitle(media.title)
+                    .setArtist(media.artist)
+                    .setArtworkUri(artworkUri)
+                    .build()
+            )
+            .build()
+    }
+
+    public fun map(media: List<Media>): List<MediaItem> = media.map(
+        MediaItemMapper::map
     )
 }

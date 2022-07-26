@@ -17,7 +17,7 @@
 package com.google.android.horologist.mediasample.ui.debug
 
 import androidx.lifecycle.ViewModel
-import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.repository.PlayerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -44,7 +44,7 @@ class SamplesScreenViewModel @Inject constructor(
         }?.mediaItems
 
         if (mediaItems != null) {
-            playerRepository.setMediaItems(mediaItems)
+            playerRepository.setMediaList(mediaItems)
             playerRepository.prepare()
             playerRepository.play()
             return true
@@ -56,7 +56,7 @@ class SamplesScreenViewModel @Inject constructor(
     data class Sample(
         val id: Int,
         val name: String,
-        val mediaItems: List<MediaItem>
+        val mediaItems: List<Media>
     )
 
     data class UiState(
@@ -71,7 +71,7 @@ class SamplesScreenViewModel @Inject constructor(
                     "https://www2.iis.fraunhofer.de/AAC/gapless-sweep_part1_iis.m4a?delay=1600&padding=106",
                     "https://www2.iis.fraunhofer.de/AAC/gapless-sweep_part2_iis.m4a?delay=110&padding=1024"
                 ).mapIndexed { i, it ->
-                    MediaItem(
+                    Media(
                         id = i.toString(),
                         uri = it,
                         title = "Fraunhofer Gapless $i",
@@ -88,7 +88,7 @@ class SamplesScreenViewModel @Inject constructor(
                     "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-10.m4a",
                     "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-11.m4a"
                 ).mapIndexed { i, it ->
-                    MediaItem(
+                    Media(
                         id = i.toString(),
                         uri = it,
                         title = "Gapless $i",
@@ -104,7 +104,7 @@ class SamplesScreenViewModel @Inject constructor(
                     "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-10-stripped.m4a",
                     "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-11-stripped.m4a"
                 ).mapIndexed { i, it ->
-                    MediaItem(
+                    Media(
                         id = i.toString(),
                         uri = it,
                         title = "Gapless (stripped) $i",

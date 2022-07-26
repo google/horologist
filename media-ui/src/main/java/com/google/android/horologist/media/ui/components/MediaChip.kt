@@ -29,30 +29,30 @@ import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 /**
- * A rounded chip to show a single [MediaItemUiModel].
+ * A rounded chip to show a single [MediaUiModel].
  *
- * @param mediaItem The [MediaItemUiModel] that the [title][MediaItemUiModel.title] and
- * [artwork][MediaItemUiModel.artworkUri] will be used to display on the chip.
+ * @param media The [MediaUiModel] that the [title][MediaUiModel.title] and
+ * [artwork][MediaUiModel.artworkUri] will be used to display on the chip.
  * @param onClick Will be called when the user clicks the chip.
  * @param modifier The Modifier to be applied to the chip.
- * @param defaultTitle A text to be used when [MediaItemUiModel.title] is null.
+ * @param defaultTitle A text to be used when [MediaUiModel.title] is null.
  * @param placeholder A placeholder image to be displayed while
- * [artwork][MediaItemUiModel.artworkUri] is being loaded.
+ * [artwork][MediaUiModel.artworkUri] is being loaded.
  */
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun MediaChip(
-    mediaItem: MediaItemUiModel,
+    media: MediaUiModel,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     defaultTitle: String = "",
     placeholder: Painter? = null,
 ) {
-    val artworkUri = mediaItem.artworkUri
-    val title = mediaItem.title
+    val artworkUri = media.artworkUri
+    val title = media.title
 
     MediaChip(
         title = title ?: defaultTitle,

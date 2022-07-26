@@ -26,8 +26,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.DownloadMediaItemUiModel
-import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.media.ui.utils.rememberVectorPainter
 
@@ -156,16 +156,16 @@ fun EntityScreenPreviewLoadedFullyDownloaded() {
 }
 
 private val unavailableDownloads = listOf(
-    DownloadMediaItemUiModel.Unavailable(
-        MediaItemUiModel(
+    DownloadMediaUiModel.Unavailable(
+        MediaUiModel(
             id = "id",
             title = "Song name",
             artist = "Artist name",
             artworkUri = "artworkUri",
         )
     ),
-    DownloadMediaItemUiModel.Unavailable(
-        MediaItemUiModel(
+    DownloadMediaUiModel.Unavailable(
+        MediaUiModel(
             id = "id 2",
             title = "Song name 2",
             artist = "Artist name 2",
@@ -180,16 +180,16 @@ private val playlistUiModel = PlaylistUiModel(
 )
 
 private val mixedDownloads = listOf(
-    DownloadMediaItemUiModel.Available(
-        MediaItemUiModel(
+    DownloadMediaUiModel.Available(
+        MediaUiModel(
             id = "id",
             title = "Song name",
             artist = "Artist name",
             artworkUri = "artworkUri",
         )
     ),
-    DownloadMediaItemUiModel.Unavailable(
-        MediaItemUiModel(
+    DownloadMediaUiModel.Unavailable(
+        MediaUiModel(
             id = "id 2",
             title = "Song name 2",
             artist = "Artist name 2",
@@ -199,16 +199,16 @@ private val mixedDownloads = listOf(
 )
 
 private val availableDownloads = listOf(
-    DownloadMediaItemUiModel.Available(
-        MediaItemUiModel(
+    DownloadMediaUiModel.Available(
+        MediaUiModel(
             id = "id",
             title = "Song name",
             artist = "Artist name",
             artworkUri = "artworkUri",
         )
     ),
-    DownloadMediaItemUiModel.Available(
-        MediaItemUiModel(
+    DownloadMediaUiModel.Available(
+        MediaUiModel(
             id = "id 2",
             title = "Song name 2",
             artist = "Artist name 2",

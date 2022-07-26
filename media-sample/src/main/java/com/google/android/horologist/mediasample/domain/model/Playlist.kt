@@ -16,11 +16,11 @@
 
 package com.google.android.horologist.mediasample.domain.model
 
-import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.media.model.Media
 
 data class Playlist(
     val id: String,
     val name: String,
-    val mediaItems: List<MediaItem>,
+    val mediaList: List<Media>,
     val artworkUri: String? = null,
 )

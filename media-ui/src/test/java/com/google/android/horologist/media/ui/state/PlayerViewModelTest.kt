@@ -19,7 +19,7 @@
 package com.google.android.horologist.media.ui.state
 
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.test.toolbox.testdoubles.StubPlayerRepository
 import com.google.common.truth.Truth.assertThat
@@ -55,7 +55,7 @@ class PlayerViewModelTest {
                 shuffleOn = false,
                 playPauseEnabled = false,
                 playing = false,
-                mediaItem = MediaItemUiModel(id = "", title = null, artist = null),
+                media = MediaUiModel(id = "", title = null, artist = null),
                 trackPosition = TrackPositionUiModel(current = 0, duration = 0, percent = 0f),
                 connected = false
             )

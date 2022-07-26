@@ -20,20 +20,20 @@ import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import kotlin.time.Duration
 
 /**
- * Represents the current [media item][MediaItem] position, duration and percent progress.
+ * Represents the current [Media] position, duration and percent progress.
  * Current position and duration are measured in milliseconds.
  */
 @ExperimentalHorologistMediaApi
-public sealed class MediaItemPosition(
+public sealed class MediaPosition(
     public open val current: Duration,
 ) {
     public class KnownDuration internal constructor(
         override val current: Duration,
         public val duration: Duration,
         public val percent: Float,
-    ) : MediaItemPosition(current)
+    ) : MediaPosition(current)
 
-    public data class UnknownDuration(override val current: Duration) : MediaItemPosition(current)
+    public data class UnknownDuration(override val current: Duration) : MediaPosition(current)
 
     public companion object {
 

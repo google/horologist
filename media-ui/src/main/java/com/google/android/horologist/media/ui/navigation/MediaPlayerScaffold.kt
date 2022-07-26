@@ -49,7 +49,7 @@ import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
  * @param playerScreen the first screen with player controls.
  * @param libraryScreen the long scrolling library top screen.
  * @param categoryEntityScreen screen to show details about a particular category.
- * @param mediaEntityScreen screen to show details about a particular media item.
+ * @param mediaEntityScreen screen to show details about a particular media.
  * @param playlistsScreen screen to show user playlists.
  * @param deepLinkPrefix the app specific prefix for external deeplinks
  * @param navController the media focused navigation controller.

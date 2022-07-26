@@ -23,18 +23,18 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun MediaArtwork(
-    mediaItem: MediaItemUiModel,
+    media: MediaUiModel,
     modifier: Modifier = Modifier,
     placeholder: Painter? = null,
 ) {
     MediaArtwork(
-        artworkUri = mediaItem.artworkUri,
-        contentDescription = mediaItem.title,
+        artworkUri = media.artworkUri,
+        contentDescription = media.title,
         modifier = modifier,
         placeholder = placeholder
     )

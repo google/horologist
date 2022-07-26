@@ -85,9 +85,9 @@ fun UampMediaPlayerScreen(
                             onPauseButtonClick = { mediaPlayerScreenViewModel.pause() },
                             playPauseButtonEnabled = it.playPauseEnabled,
                             playing = it.playing,
-                            onSeekToPreviousButtonClick = { mediaPlayerScreenViewModel.skipToPreviousMediaItem() },
+                            onSeekToPreviousButtonClick = { mediaPlayerScreenViewModel.skipToPreviousMedia() },
                             seekToPreviousButtonEnabled = it.seekToPreviousEnabled,
-                            onSeekToNextButtonClick = { mediaPlayerScreenViewModel.skipToNextMediaItem() },
+                            onSeekToNextButtonClick = { mediaPlayerScreenViewModel.skipToNextMedia() },
                             seekToNextButtonEnabled = it.seekToNextEnabled,
                             percent = it.trackPosition?.percent ?: 0f,
                         )
@@ -98,7 +98,7 @@ fun UampMediaPlayerScreen(
             },
             background = {
                 if (settingsState?.artworkGradient == true) {
-                    val artworkUri = it.mediaItem?.artworkUri
+                    val artworkUri = it.media?.artworkUri
                     ArtworkColorBackground(
                         artworkUri = artworkUri,
                         defaultColor = MaterialTheme.colors.primary

@@ -20,7 +20,7 @@ import android.content.Context
 import android.os.Looper.getMainLooper
 import androidx.media3.test.utils.TestExoPlayerBuilder
 import androidx.test.core.app.ApplicationProvider
-import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.media.model.Media
 import org.junit.Assert.assertThrows
 import org.junit.Before
 import org.junit.Test
@@ -32,6 +32,7 @@ import org.robolectric.annotation.Config
 @RunWith(ParameterizedRobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
 class PlayerRepositoryImplCloseTest(
+    @Suppress("unused") // it's used by junit to display the test name
     private val description: String,
     private val whenBlock: (PlayerRepositoryImpl, Context) -> Unit
 ) {
@@ -78,17 +79,17 @@ class PlayerRepositoryImplCloseTest(
             param("pause") { sut: PlayerRepositoryImpl, _: Context ->
                 sut.pause()
             },
-            param("hasPreviousMediaItem") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.hasPreviousMediaItem()
+            param("hasPreviousMedia") { sut: PlayerRepositoryImpl, _: Context ->
+                sut.hasPreviousMedia()
             },
-            param("skipToPreviousMediaItem") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.skipToPreviousMediaItem()
+            param("skipToPreviousMedia") { sut: PlayerRepositoryImpl, _: Context ->
+                sut.skipToPreviousMedia()
             },
-            param("hasNextMediaItem") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.hasNextMediaItem()
+            param("hasNextMedia") { sut: PlayerRepositoryImpl, _: Context ->
+                sut.hasNextMedia()
             },
-            param("skipToNextMediaItem") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.skipToNextMediaItem()
+            param("skipToNextMedia") { sut: PlayerRepositoryImpl, _: Context ->
+                sut.skipToNextMedia()
             },
             param("getSeekBackIncrement") { sut: PlayerRepositoryImpl, _: Context ->
                 sut.getSeekBackIncrement()
@@ -105,32 +106,32 @@ class PlayerRepositoryImplCloseTest(
             param("setShuffleModeEnabled") { sut: PlayerRepositoryImpl, _: Context ->
                 sut.setShuffleModeEnabled(true)
             },
-            param("setMediaItem") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.setMediaItem(getDummyMediaItem())
+            param("setMedia") { sut: PlayerRepositoryImpl, _: Context ->
+                sut.setMedia(getDummyMedia())
             },
-            param("setMediaItems") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.setMediaItems(listOf(getDummyMediaItem()))
+            param("setMediaList") { sut: PlayerRepositoryImpl, _: Context ->
+                sut.setMediaList(listOf(getDummyMedia()))
             },
-            param("addMediaItem") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.addMediaItem(getDummyMediaItem())
+            param("addMedia") { sut: PlayerRepositoryImpl, _: Context ->
+                sut.addMedia(getDummyMedia())
             },
-            param("addMediaItem with index") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.addMediaItem(1, getDummyMediaItem())
+            param("addMedia with index") { sut: PlayerRepositoryImpl, _: Context ->
+                sut.addMedia(1, getDummyMedia())
             },
-            param("removeMediaItem") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.removeMediaItem(1)
+            param("removeMedia") { sut: PlayerRepositoryImpl, _: Context ->
+                sut.removeMedia(1)
             },
-            param("clearMediaItems") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.clearMediaItems()
+            param("clearMediaList") { sut: PlayerRepositoryImpl, _: Context ->
+                sut.clearMediaList()
             },
-            param("getMediaItemCount") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.getMediaItemCount()
+            param("getMediaCount") { sut: PlayerRepositoryImpl, _: Context ->
+                sut.getMediaCount()
             },
-            param("getMediaItemAt") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.getMediaItemAt(1)
+            param("getMediaAt") { sut: PlayerRepositoryImpl, _: Context ->
+                sut.getMediaAt(1)
             },
-            param("getCurrentMediaItemIndex") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.getCurrentMediaItemIndex()
+            param("getCurrentMediaIndex") { sut: PlayerRepositoryImpl, _: Context ->
+                sut.getCurrentMediaIndex()
             },
             param("release") { sut: PlayerRepositoryImpl, _: Context ->
                 sut.release()
@@ -142,7 +143,7 @@ class PlayerRepositoryImplCloseTest(
             whenBlock: (PlayerRepositoryImpl, Context) -> Unit
         ) = arrayOf(description, whenBlock)
 
-        private fun getDummyMediaItem() = MediaItem(
+        private fun getDummyMedia() = Media(
             id = "id",
             uri = "uri",
             title = "title",

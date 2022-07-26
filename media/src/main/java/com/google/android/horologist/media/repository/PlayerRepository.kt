@@ -18,8 +18,8 @@ package com.google.android.horologist.media.repository
 
 import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import com.google.android.horologist.media.model.Command
-import com.google.android.horologist.media.model.MediaItem
-import com.google.android.horologist.media.model.MediaItemPosition
+import com.google.android.horologist.media.model.Media
+import com.google.android.horologist.media.model.MediaPosition
 import com.google.android.horologist.media.model.PlayerState
 import kotlinx.coroutines.flow.StateFlow
 import kotlin.time.Duration
@@ -43,17 +43,17 @@ public interface PlayerRepository {
     public val currentState: StateFlow<PlayerState>
 
     /**
-     * Returns the current [media item][MediaItem] playing, or that would play when player starts playing.
+     * Returns the current [Media] playing, or that would play when player starts playing.
      */
-    public val currentMediaItem: StateFlow<MediaItem?>
+    public val currentMedia: StateFlow<Media?>
 
     /**
-     * Returns the current [media item position][MediaItemPosition] of the player.
+     * Returns the current [media position][MediaPosition] of the player.
      */
-    public val mediaItemPosition: StateFlow<MediaItemPosition?>
+    public val mediaPosition: StateFlow<MediaPosition?>
 
     /**
-     * Returns the current value for shuffling of [media items][MediaItem] mode.
+     * Returns the current value for shuffling of [Media] mode.
      */
     public val shuffleModeEnabled: StateFlow<Boolean>
 
@@ -68,9 +68,9 @@ public interface PlayerRepository {
     public fun play()
 
     /**
-     * Play [media item][MediaItem] at given index as soon as player is ready.
+     * Play [Media] at given index as soon as player is ready.
      */
-    public fun play(mediaItemIndex: Int)
+    public fun play(mediaIndex: Int)
 
     /**
      * Pauses playback.
@@ -78,24 +78,24 @@ public interface PlayerRepository {
     public fun pause()
 
     /**
-     * Returns whether a previous [media item][MediaItem] exists.
+     * Returns whether a previous [Media] exists.
      */
-    public fun hasPreviousMediaItem(): Boolean
+    public fun hasPreviousMedia(): Boolean
 
     /**
-     * Skips to the default position of previous [media item][MediaItem].
+     * Skips to the default position of previous [Media].
      */
-    public fun skipToPreviousMediaItem()
+    public fun skipToPreviousMedia()
 
     /**
-     * Returns whether a next [media item][MediaItem] exists.
+     * Returns whether a next [Media] exists.
      */
-    public fun hasNextMediaItem(): Boolean
+    public fun hasNextMedia(): Boolean
 
     /**
-     * Skips to the default position of next [media item][MediaItem].
+     * Skips to the default position of next [Media].
      */
-    public fun skipToNextMediaItem()
+    public fun skipToNextMedia()
 
     /**
      * Returns the [seekBack] increment.
@@ -103,7 +103,7 @@ public interface PlayerRepository {
     public fun getSeekBackIncrement(): Duration
 
     /**
-     * Seeks back in the [current media item][currentMediaItem] by [seek back increment][getSeekBackIncrement].
+     * Seeks back in the [current media][currentMedia] by [seek back increment][getSeekBackIncrement].
      */
     public fun seekBack()
 
@@ -113,69 +113,69 @@ public interface PlayerRepository {
     public fun getSeekForwardIncrement(): Duration
 
     /**
-     * Seek forward in the [current media item][currentMediaItem] by [seek forward increment][getSeekForwardIncrement].
+     * Seek forward in the [current media][currentMedia] by [seek forward increment][getSeekForwardIncrement].
      */
     public fun seekForward()
 
     /**
-     * Sets whether shuffling of [media items][MediaItem] is enabled.
+     * Sets whether shuffling of [Media] is enabled.
      */
     public fun setShuffleModeEnabled(shuffleModeEnabled: Boolean)
 
     /**
-     * Clears the playlist, adds the specified [media item][MediaItem] and resets the position to
+     * Clears the playlist, adds the specified [Media] and resets the position to
      * the default position.
      */
-    public fun setMediaItem(mediaItem: MediaItem)
+    public fun setMedia(media: Media)
 
     /**
-     * Clears the playlist, adds the specified [media items][MediaItem] and resets the position to
+     * Clears the playlist, adds the specified [Media] list and resets the position to
      * the default position.
      *
-     * @param mediaItems The new [media item][MediaItem].
+     * @param mediaList The new [Media].
      */
-    public fun setMediaItems(mediaItems: List<MediaItem>)
+    public fun setMediaList(mediaList: List<Media>)
 
     /**
-     * Adds a [media item][MediaItem] to the end of the playlist.
+     * Adds a [Media] to the end of the playlist.
      */
-    public fun addMediaItem(mediaItem: MediaItem)
+    public fun addMedia(media: Media)
 
     /**
-     * Adds a [media item][MediaItem] at the given index of the playlist.
+     * Adds a [Media] at the given index of the playlist.
      *
-     * @param index The index at which to add the [media item][MediaItem]. If the index is larger than the size
-     * of the playlist, the media item is added to the end of the playlist.
-     * @param mediaItem The [media item][MediaItem] to add.
+     * @param index The index at which to add the [Media]. If the index is larger than the size
+     * of the playlist, the media is added to the end of the playlist.
+     * @param media The [Media] to add.
      */
-    public fun addMediaItem(index: Int, mediaItem: MediaItem)
+    public fun addMedia(index: Int, media: Media)
 
     /**
-     * Removes the [media item][MediaItem] at the given index of the playlist.
+     * Removes the [Media] at the given index of the playlist.
      *
-     * @param index The index at which to remove the [media item][MediaItem].
+     * @param index The index at which to remove the [Media].
      */
-    public fun removeMediaItem(index: Int)
+    public fun removeMedia(index: Int)
 
     /**
      * Clears the playlist.
      */
-    public fun clearMediaItems()
+    public fun clearMediaList()
 
     /**
-     * Returns the number of [media items][MediaItem] in the playlist.
+     * Returns the number of [Media] in the playlist.
      * */
-    public fun getMediaItemCount(): Int
+    public fun getMediaCount(): Int
 
     /**
-     * Returns the [media item][MediaItem] at the given index.
+     * Returns the [Media] at the given index.
      */
-    public fun getMediaItemAt(index: Int): MediaItem?
+    public fun getMediaAt(index: Int): Media?
 
     /**
-     * Returns the index of the current [media item][MediaItem].
+     * Returns the index of the current [Media].
      */
-    public fun getCurrentMediaItemIndex(): Int
+    public fun getCurrentMediaIndex(): Int
 
     /**
      * Releases the player. This method must be called when the player is no longer required. The

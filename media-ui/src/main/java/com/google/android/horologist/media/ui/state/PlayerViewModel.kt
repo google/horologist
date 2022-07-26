@@ -22,7 +22,7 @@ import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.media.ui.state.mapper.PlayerUiStateMapper
-import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -58,15 +58,15 @@ public open class PlayerViewModel(
     public val playerUiState: StateFlow<PlayerUiState> = combine(
         playerRepository.currentState,
         playerRepository.availableCommands,
-        playerRepository.currentMediaItem,
-        playerRepository.mediaItemPosition,
+        playerRepository.currentMedia,
+        playerRepository.mediaPosition,
         staticFlow
-    ) { currentState, availableCommands, mediaItem, mediaItemPosition, staticData ->
+    ) { currentState, availableCommands, media, mediaPosition, staticData ->
         PlayerUiStateMapper.map(
             currentState = currentState,
             availableCommands = availableCommands,
-            mediaItem = mediaItem,
-            mediaItemPosition = mediaItemPosition,
+            media = media,
+            mediaPosition = mediaPosition,
             shuffleModeEnabled = staticData.shuffleModeEnabled,
             connected = playerRepository.connected.value,
             seekBackButtonIncrement = staticData.seekBackButtonIncrement,
@@ -88,12 +88,12 @@ public open class PlayerViewModel(
         playerRepository.pause()
     }
 
-    public fun skipToPreviousMediaItem() {
-        playerRepository.skipToPreviousMediaItem()
+    public fun skipToPreviousMedia() {
+        playerRepository.skipToPreviousMedia()
     }
 
-    public fun skipToNextMediaItem() {
-        playerRepository.skipToNextMediaItem()
+    public fun skipToNextMedia() {
+        playerRepository.skipToNextMedia()
     }
 
     public fun seekBack() {
@@ -105,7 +105,7 @@ public open class PlayerViewModel(
     }
 
     public companion object {
-        private val INITIAL_MEDIA_ITEM = MediaItemUiModel(id = "", title = null, artist = null)
+        private val INITIAL_MEDIA = MediaUiModel(id = "", title = null, artist = null)
 
         private val INITIAL_TRACK_POSITION = TrackPositionUiModel(
             current = 0, duration = 0, percent = 0f
@@ -122,7 +122,7 @@ public open class PlayerViewModel(
             shuffleOn = false,
             playPauseEnabled = false,
             playing = false,
-            mediaItem = INITIAL_MEDIA_ITEM,
+            media = INITIAL_MEDIA,
             trackPosition = INITIAL_TRACK_POSITION,
             connected = false
         )

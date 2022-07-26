@@ -21,7 +21,7 @@ package com.google.android.horologist.media.ui.components
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import org.junit.Rule
 import org.junit.Test
 
@@ -37,7 +37,7 @@ class MediaChipTest {
 
         composeTestRule.setContent {
             MediaChip(
-                mediaItem = MediaItemUiModel(id = "id", title = title),
+                media = MediaUiModel(id = "id", title = title),
                 onClick = { },
             )
         }
@@ -53,7 +53,7 @@ class MediaChipTest {
 
         composeTestRule.setContent {
             MediaChip(
-                mediaItem = MediaItemUiModel(id = "id"),
+                media = MediaUiModel(id = "id"),
                 onClick = { },
                 defaultTitle = defaultTitle
             )

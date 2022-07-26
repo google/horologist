@@ -17,15 +17,16 @@
 package com.google.android.horologist.media.data.repository
 
 import android.util.Log
+import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
-import com.google.android.horologist.media.data.mapper.Media3MediaItemMapper
 import com.google.android.horologist.media.data.mapper.MediaItemMapper
-import com.google.android.horologist.media.data.mapper.MediaItemPositionMapper
+import com.google.android.horologist.media.data.mapper.MediaMapper
+import com.google.android.horologist.media.data.mapper.MediaPositionMapper
 import com.google.android.horologist.media.data.mapper.PlayerStateMapper
 import com.google.android.horologist.media.data.mapper.SetCommandMapper
 import com.google.android.horologist.media.model.Command
-import com.google.android.horologist.media.model.MediaItem
-import com.google.android.horologist.media.model.MediaItemPosition
+import com.google.android.horologist.media.model.Media
+import com.google.android.horologist.media.model.MediaPosition
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.repository.PlayerRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -66,17 +67,17 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
 
     override val currentState: StateFlow<PlayerState> = _currentState
 
-    private var _currentMediaItem = MutableStateFlow<MediaItem?>(null)
+    private var _currentMedia = MutableStateFlow<Media?>(null)
 
     /**
-     * The current media item playing, or that would play when user hit play.
+     * The current media playing, or that would play when user hit play.
      */
-    override val currentMediaItem: StateFlow<MediaItem?>
-        get() = _currentMediaItem
+    override val currentMedia: StateFlow<Media?>
+        get() = _currentMedia
 
-    private var _mediaItemPosition = MutableStateFlow<MediaItemPosition?>(null)
+    private var _mediaPosition = MutableStateFlow<MediaPosition?>(null)
 
-    override val mediaItemPosition: StateFlow<MediaItemPosition?> = _mediaItemPosition
+    override val mediaPosition: StateFlow<MediaPosition?> = _mediaPosition
 
     private var _shuffleModeEnabled = MutableStateFlow(false)
 
@@ -130,7 +131,7 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
     }
 
     private fun updateCurrentMediaItem(player: Player) {
-        _currentMediaItem.value = player.currentMediaItem?.let(MediaItemMapper::map)
+        _currentMedia.value = player.currentMediaItem?.let(MediaMapper::map)
     }
 
     /**
@@ -201,11 +202,11 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
         }
     }
 
-    override fun play(mediaItemIndex: Int) {
+    override fun play(mediaIndex: Int) {
         checkNotClosed()
 
         player.value?.let {
-            it.seekToDefaultPosition(mediaItemIndex)
+            it.seekToDefaultPosition(mediaIndex)
             it.play()
             updatePosition()
         }
@@ -220,13 +221,13 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
         }
     }
 
-    override fun hasPreviousMediaItem(): Boolean {
+    override fun hasPreviousMedia(): Boolean {
         checkNotClosed()
 
         return player.value?.hasPreviousMediaItem() ?: false
     }
 
-    override fun skipToPreviousMediaItem() {
+    override fun skipToPreviousMedia() {
         checkNotClosed()
 
         player.value?.let {
@@ -235,13 +236,13 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
         }
     }
 
-    override fun hasNextMediaItem(): Boolean {
+    override fun hasNextMedia(): Boolean {
         checkNotClosed()
 
         return player.value?.hasNextMediaItem() ?: false
     }
 
-    override fun skipToNextMediaItem() {
+    override fun skipToNextMedia() {
         checkNotClosed()
 
         player.value?.let {
@@ -291,65 +292,65 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
      * This operation will stop the current MediaItem that is playing, if there is one, as per
      * [Player.setMediaItem].
      */
-    override fun setMediaItem(mediaItem: MediaItem) {
+    override fun setMedia(media: Media) {
         checkNotClosed()
 
         player.value?.let {
-            it.setMediaItem(Media3MediaItemMapper.map(mediaItem))
+            it.setMediaItem(MediaItemMapper.map(media))
             updatePosition()
         }
     }
 
     /**
-     * This operation will stop the current MediaItem that is playing, if there is one, as per
+     * This operation will stop the current [MediaItem] that is playing, if there is one, as per
      * [Player.setMediaItems].
      */
-    override fun setMediaItems(mediaItems: List<MediaItem>) {
+    override fun setMediaList(mediaList: List<Media>) {
         checkNotClosed()
 
         player.value?.let {
-            it.setMediaItems(Media3MediaItemMapper.map(mediaItems))
+            it.setMediaItems(MediaItemMapper.map(mediaList))
             updatePosition()
         }
     }
 
-    override fun addMediaItem(mediaItem: MediaItem) {
+    override fun addMedia(media: Media) {
         checkNotClosed()
 
-        player.value?.addMediaItem(Media3MediaItemMapper.map(mediaItem))
+        player.value?.addMediaItem(MediaItemMapper.map(media))
     }
 
-    override fun addMediaItem(index: Int, mediaItem: MediaItem) {
+    override fun addMedia(index: Int, media: Media) {
         checkNotClosed()
 
-        player.value?.addMediaItem(index, Media3MediaItemMapper.map(mediaItem))
+        player.value?.addMediaItem(index, MediaItemMapper.map(media))
     }
 
-    override fun removeMediaItem(index: Int) {
+    override fun removeMedia(index: Int) {
         checkNotClosed()
 
         player.value?.removeMediaItem(index)
     }
 
-    override fun clearMediaItems() {
+    override fun clearMediaList() {
         checkNotClosed()
 
         player.value?.clearMediaItems()
     }
 
-    override fun getMediaItemCount(): Int {
+    override fun getMediaCount(): Int {
         checkNotClosed()
 
         return player.value?.mediaItemCount ?: 0
     }
 
-    override fun getMediaItemAt(index: Int): MediaItem? {
+    override fun getMediaAt(index: Int): Media? {
         checkNotClosed()
 
-        return player.value?.getMediaItemAt(index)?.let(MediaItemMapper::map)
+        return player.value?.getMediaItemAt(index)?.let(MediaMapper::map)
     }
 
-    override fun getCurrentMediaItemIndex(): Int {
+    override fun getCurrentMediaIndex(): Int {
         checkNotClosed()
 
         return player.value?.currentMediaItemIndex ?: 0
@@ -366,7 +367,7 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
      * Updating roughly once a second while activity is foregrounded is appropriate.
      */
     public fun updatePosition() {
-        _mediaItemPosition.value = MediaItemPositionMapper.map(player.value)
+        _mediaPosition.value = MediaPositionMapper.map(player.value)
     }
 
     public fun setPlaybackSpeed(speed: Float) {

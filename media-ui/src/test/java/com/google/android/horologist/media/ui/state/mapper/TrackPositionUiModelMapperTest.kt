@@ -18,7 +18,7 @@
 
 package com.google.android.horologist.media.ui.state.mapper
 
-import com.google.android.horologist.media.model.MediaItemPosition
+import com.google.android.horologist.media.model.MediaPosition
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -27,14 +27,14 @@ import kotlin.time.Duration.Companion.seconds
 class TrackPositionUiModelMapperTest {
 
     @Test
-    fun givenMediaItemPosition_thenMapsCorrectly() {
+    fun givenMediaPosition_thenMapsCorrectly() {
         // given
         val current = 1.seconds
         val duration = 2.seconds
-        val mediaItemPosition = MediaItemPosition.create(current, duration)
+        val mediaPosition = MediaPosition.create(current, duration)
 
         // when
-        val result = TrackPositionUiModelMapper.map(mediaItemPosition)
+        val result = TrackPositionUiModelMapper.map(mediaPosition)
 
         // then
         assertThat(result.current).isEqualTo(current.inWholeMilliseconds)

@@ -22,13 +22,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 @WearPreview
 @Composable
 fun DefaultMediaDisplayPreview() {
     DefaultMediaDisplay(
-        mediaItem = MediaItemUiModel(
+        media = MediaUiModel(
             id = "id",
             title = "Song title",
             artist = "Artist name"
@@ -44,7 +44,7 @@ fun DefaultMediaDisplayPreview() {
 @Composable
 fun DefaultMediaDisplayPreviewLongText() {
     DefaultMediaDisplay(
-        mediaItem = MediaItemUiModel(
+        media = MediaUiModel(
             id = "id",
             title = "I Predict That You Look Good In A Riot",
             artist = "Arctic Monkeys feat Kaiser Chiefs"

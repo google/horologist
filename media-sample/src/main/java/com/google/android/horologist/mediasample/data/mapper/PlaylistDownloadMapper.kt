@@ -28,13 +28,13 @@ object PlaylistDownloadMapper {
     ): PlaylistDownload = PlaylistDownload(
         playlist = playlist,
         buildList {
-            playlist.mediaItems.forEach { mediaItem ->
+            playlist.mediaList.forEach { media ->
                 val status =
-                    playlistDownloadEntityList.firstOrNull { it.mediaItemId == mediaItem.id }
+                    playlistDownloadEntityList.firstOrNull { it.mediaItemId == media.id }
                         ?.let { PlaylistDownloadStatusMapper.map(it.status) }
                         ?: PlaylistDownload.Status.Idle
 
-                add(Pair(mediaItem, status))
+                add(Pair(media, status))
             }
         }
     )

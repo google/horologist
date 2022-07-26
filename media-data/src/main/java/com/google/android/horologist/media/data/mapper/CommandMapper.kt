@@ -35,8 +35,8 @@ public object CommandMapper {
             COMMAND_PLAY_PAUSE -> Command.PlayPause
             COMMAND_SEEK_BACK -> Command.SeekBack
             COMMAND_SEEK_FORWARD -> Command.SeekForward
-            COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM -> Command.SkipToPreviousMediaItem
-            COMMAND_SEEK_TO_NEXT_MEDIA_ITEM -> Command.SkipToNextMediaItem
+            COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM -> Command.SkipToPreviousMedia
+            COMMAND_SEEK_TO_NEXT_MEDIA_ITEM -> Command.SkipToNextMedia
             COMMAND_SET_SHUFFLE_MODE -> Command.SetShuffle
             else -> throw IllegalArgumentException("Invalid command: $command")
         }

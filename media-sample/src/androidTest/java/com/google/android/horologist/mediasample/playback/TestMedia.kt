@@ -16,10 +16,10 @@
 
 package com.google.android.horologist.mediasample.playback
 
-import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.media.model.Media
 
 object TestMedia {
-    val songMp3 = MediaItem(
+    val songMp3 = Media(
         "1",
         "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/01_-_Intro_-_The_Way_Of_Waking_Up_feat_Alan_Watts.mp3",
         "Intro - The Way Of Waking Up (feat. Alan Watts)",
@@ -27,7 +27,7 @@ object TestMedia {
         "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg",
     )
     // https://docs.espressif.com/projects/esp-adf/en/latest/design-guide/audio-samples.html
-    val songAac = MediaItem(
+    val songAac = Media(
         "2",
         "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.aac",
         "Espressif",
@@ -36,7 +36,7 @@ object TestMedia {
     )
 
     // https://docs.espressif.com/projects/esp-adf/en/latest/design-guide/audio-samples.html
-    val songMp3_24bit = MediaItem(
+    val songMp3_24bit = Media(
         "3",
         "https://dl.espressif.com/dl/audio/ff-16b-2c-8000hz.mp3",
         "Espressif",
@@ -45,7 +45,7 @@ object TestMedia {
     )
 
     // https://docs.espressif.com/projects/esp-adf/en/latest/design-guide/audio-samples.html
-    val songOgg = MediaItem(
+    val songOgg = Media(
         "4",
         "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.ogg",
         "Espressif",
@@ -54,7 +54,7 @@ object TestMedia {
     )
 
     // https://podnews.net/article/audio-quality-comparisons
-    val songMp3_192 = MediaItem(
+    val songMp3_192 = Media(
         "4",
         "https://podnews.net/audio/s-192-44100.mp3",
         "Espressif",

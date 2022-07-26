@@ -30,7 +30,7 @@ import com.google.android.horologist.media.ui.components.controls.SeekButtonIncr
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement.Thirty
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement.Unknown
 import com.google.android.horologist.media.ui.state.PlayerUiState
-import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
@@ -67,7 +67,7 @@ class PodcastPlayerScreenTest(
             shuffleOn = false,
             playPauseEnabled = true,
             playing = true,
-            mediaItem = MediaItemUiModel(
+            media = MediaUiModel(
                 id = "",
                 title = "The power of types",
                 artist = "Kotlinconf"

@@ -16,26 +16,26 @@
 
 package com.google.android.horologist.mediasample.ui.entity
 
-import com.google.android.horologist.media.model.MediaItem
-import com.google.android.horologist.media.ui.state.mapper.MediaItemUiModelMapper
-import com.google.android.horologist.media.ui.state.model.DownloadMediaItemUiModel
+import com.google.android.horologist.media.model.Media
+import com.google.android.horologist.media.ui.state.mapper.MediaUiModelMapper
+import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
 
-object DownloadMediaItemUiModelMapper {
+object DownloadMediaUiModelMapper {
 
     fun map(
-        mediaItem: MediaItem,
+        media: Media,
         status: PlaylistDownload.Status
-    ): DownloadMediaItemUiModel = when (status) {
+    ): DownloadMediaUiModel = when (status) {
         PlaylistDownload.Status.Idle,
         PlaylistDownload.Status.InProgress -> {
-            DownloadMediaItemUiModel.Unavailable(MediaItemUiModelMapper.map(mediaItem))
+            DownloadMediaUiModel.Unavailable(MediaUiModelMapper.map(media))
         }
         PlaylistDownload.Status.Completed -> {
-            DownloadMediaItemUiModel.Available(MediaItemUiModelMapper.map(mediaItem))
+            DownloadMediaUiModel.Available(MediaUiModelMapper.map(media))
         }
     }
 
-    fun map(list: List<Pair<MediaItem, PlaylistDownload.Status>>): List<DownloadMediaItemUiModel> =
+    fun map(list: List<Pair<Media, PlaylistDownload.Status>>): List<DownloadMediaUiModel> =
         list.map { map(it.first, it.second) }
 }

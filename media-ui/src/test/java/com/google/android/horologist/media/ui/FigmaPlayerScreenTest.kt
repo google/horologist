@@ -32,7 +32,7 @@ import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
 import com.google.android.horologist.audio.ui.components.actions.SettingsButton
 import com.google.android.horologist.media.ui.state.PlayerUiState
-import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.media.ui.uamp.UampColors
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
@@ -78,7 +78,7 @@ class FigmaPlayerScreenTest(
             shuffleOn = false,
             playPauseEnabled = true,
             playing = false,
-            mediaItem = MediaItemUiModel(
+            media = MediaUiModel(
                 id = "",
                 title = "Bat Out of Hell",
                 artist = "Meat Loaf"

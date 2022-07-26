@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.mediasample.data.api.model
 
-import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.media.model.Media
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
@@ -33,7 +33,7 @@ data class MusicApiModel(
     val totalTrackCount: Int,
     val trackNumber: Int
 ) {
-    fun toMediaItem() = MediaItem(
+    fun toMedia() = Media(
         id = id,
         uri = source,
         title = title,

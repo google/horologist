@@ -32,7 +32,7 @@ import coil.ImageLoader
 import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.compose.tools.WearPreviewFontSizes
-import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
 import com.google.android.horologist.media.ui.tiles.toTileColors
 import com.google.android.horologist.mediasample.BuildConfig
@@ -97,9 +97,9 @@ class MediaCollectionsTileService : CoroutinesTileService() {
         )
     }
 
-    suspend fun loadItems(): Pair<MediaItem, MediaItem> {
+    suspend fun loadItems(): Pair<Media, Media> {
         val catalog = uampService.catalog().music.map {
-            it.toMediaItem()
+            it.toMedia()
         }
 
         return Pair(catalog.first(), catalog.last())

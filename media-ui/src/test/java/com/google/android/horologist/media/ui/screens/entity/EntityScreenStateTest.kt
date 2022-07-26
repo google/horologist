@@ -19,8 +19,8 @@
 package com.google.android.horologist.media.ui.screens.entity
 
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.DownloadMediaItemUiModel
-import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -31,16 +31,16 @@ class EntityScreenStateTest {
     fun givenUnavailableDownloads_thenDownloadStateIsNone() {
         // given
         val downloads = listOf(
-            DownloadMediaItemUiModel.Unavailable(
-                MediaItemUiModel(
+            DownloadMediaUiModel.Unavailable(
+                MediaUiModel(
                     id = "id",
                     title = "Song name",
                     artist = "Artist name",
                     artworkUri = "artworkUri",
                 )
             ),
-            DownloadMediaItemUiModel.Unavailable(
-                MediaItemUiModel(
+            DownloadMediaUiModel.Unavailable(
+                MediaUiModel(
                     id = "id 2",
                     title = "Song name 2",
                     artist = "Artist name 2",
@@ -67,16 +67,16 @@ class EntityScreenStateTest {
     fun givenMixedDownloads_thenDownloadStateIsPartially() {
         // given
         val downloads = listOf(
-            DownloadMediaItemUiModel.Available(
-                MediaItemUiModel(
+            DownloadMediaUiModel.Available(
+                MediaUiModel(
                     id = "id",
                     title = "Song name",
                     artist = "Artist name",
                     artworkUri = "artworkUri",
                 )
             ),
-            DownloadMediaItemUiModel.Unavailable(
-                MediaItemUiModel(
+            DownloadMediaUiModel.Unavailable(
+                MediaUiModel(
                     id = "id 2",
                     title = "Song name 2",
                     artist = "Artist name 2",
@@ -103,16 +103,16 @@ class EntityScreenStateTest {
     fun givenAvailableDownloads_thenDownloadStateIsFully() {
         // given
         val downloads = listOf(
-            DownloadMediaItemUiModel.Available(
-                MediaItemUiModel(
+            DownloadMediaUiModel.Available(
+                MediaUiModel(
                     id = "id",
                     title = "Song name",
                     artist = "Artist name",
                     artworkUri = "artworkUri",
                 )
             ),
-            DownloadMediaItemUiModel.Available(
-                MediaItemUiModel(
+            DownloadMediaUiModel.Available(
+                MediaUiModel(
                     id = "id 2",
                     title = "Song name 2",
                     artist = "Artist name 2",
@@ -138,7 +138,7 @@ class EntityScreenStateTest {
     @Test
     fun givenEmptyDownloads_thenDownloadStateIsFully() {
         // given
-        val downloads = emptyList<DownloadMediaItemUiModel>()
+        val downloads = emptyList<DownloadMediaUiModel>()
 
         // when
         val result = EntityScreenState.Loaded(

@@ -16,20 +16,20 @@
 
 package com.google.android.horologist.media.ui.state.mapper
 
-import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 /**
- * Map a [MediaItem] into a [MediaItemUiModel]
+ * Map a [Media] into a [MediaUiModel]
  */
 @ExperimentalHorologistMediaUiApi
-public object MediaItemUiModelMapper {
+public object MediaUiModelMapper {
 
-    public fun map(mediaItem: MediaItem): MediaItemUiModel = MediaItemUiModel(
-        id = mediaItem.id,
-        title = mediaItem.title,
-        artist = mediaItem.artist,
-        artworkUri = mediaItem.artworkUri
+    public fun map(media: Media): MediaUiModel = MediaUiModel(
+        id = media.id,
+        title = media.title,
+        artist = media.artist,
+        artworkUri = media.artworkUri
     )
 }

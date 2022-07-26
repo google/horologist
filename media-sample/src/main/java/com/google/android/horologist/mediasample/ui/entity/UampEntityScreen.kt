@@ -22,13 +22,13 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.compose.layout.StateUtils
 import com.google.android.horologist.media.ui.screens.entity.EntityScreen
-import com.google.android.horologist.media.ui.state.model.DownloadMediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
 @Composable
 fun UampEntityScreen(
     uampEntityScreenViewModel: UampEntityScreenViewModel,
-    onDownloadItemClick: (DownloadMediaItemUiModel) -> Unit,
+    onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
     onShuffleClick: (PlaylistUiModel) -> Unit,
     onPlayClick: (PlaylistUiModel) -> Unit,
     focusRequester: FocusRequester,

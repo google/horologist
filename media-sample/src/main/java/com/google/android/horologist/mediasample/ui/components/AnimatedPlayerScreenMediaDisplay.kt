@@ -34,14 +34,14 @@ public fun AnimatedPlayerScreenMediaDisplay(
     playerUiState: PlayerUiState,
     modifier: Modifier = Modifier,
 ) {
-    val mediaItem = playerUiState.mediaItem
+    val media = playerUiState.media
     if (!playerUiState.connected) {
         LoadingMediaDisplay(modifier)
-    } else if (mediaItem != null) {
+    } else if (media != null) {
         MarqueeTextMediaDisplay(
             modifier = modifier,
-            title = mediaItem.title,
-            artist = mediaItem.artist,
+            title = media.title,
+            artist = media.artist,
         )
     } else {
         InfoMediaDisplay(

@@ -19,20 +19,20 @@ package com.google.android.horologist.media.ui.components
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 /**
- * A simple text only display of [MediaItemUiModel] showing artist and title in two separated rows.
+ * A simple text only display of [MediaUiModel] showing artist and title in two separated rows.
  */
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun DefaultMediaDisplay(
-    mediaItem: MediaItemUiModel?,
+    media: MediaUiModel?,
     modifier: Modifier = Modifier,
 ) {
     TextMediaDisplay(
         modifier = modifier,
-        title = mediaItem?.title,
-        artist = mediaItem?.artist
+        title = media?.title,
+        artist = media?.artist
     )
 }

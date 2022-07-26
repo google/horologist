@@ -18,8 +18,8 @@ package com.google.android.horologist.test.toolbox.testdoubles
 
 import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import com.google.android.horologist.media.model.Command
-import com.google.android.horologist.media.model.MediaItem
-import com.google.android.horologist.media.model.MediaItemPosition
+import com.google.android.horologist.media.model.Media
+import com.google.android.horologist.media.model.MediaPosition
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.repository.PlayerRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -38,10 +38,10 @@ class StubPlayerRepository : PlayerRepository {
     override val currentState: StateFlow<PlayerState>
         get() = MutableStateFlow(PlayerState.Idle)
 
-    override val currentMediaItem: StateFlow<MediaItem?>
+    override val currentMedia: StateFlow<Media?>
         get() = MutableStateFlow(null)
 
-    override val mediaItemPosition: StateFlow<MediaItemPosition?>
+    override val mediaPosition: StateFlow<MediaPosition?>
         get() = MutableStateFlow(null)
 
     override val shuffleModeEnabled: StateFlow<Boolean>
@@ -55,7 +55,7 @@ class StubPlayerRepository : PlayerRepository {
         // do nothing
     }
 
-    override fun play(mediaItemIndex: Int) {
+    override fun play(mediaIndex: Int) {
         // do nothing
     }
 
@@ -63,15 +63,15 @@ class StubPlayerRepository : PlayerRepository {
         // do nothing
     }
 
-    override fun hasPreviousMediaItem(): Boolean = false
+    override fun hasPreviousMedia(): Boolean = false
 
-    override fun skipToPreviousMediaItem() {
+    override fun skipToPreviousMedia() {
         // do nothing
     }
 
-    override fun hasNextMediaItem(): Boolean = false
+    override fun hasNextMedia(): Boolean = false
 
-    override fun skipToNextMediaItem() {
+    override fun skipToNextMedia() {
         // do nothing
     }
 
@@ -91,35 +91,35 @@ class StubPlayerRepository : PlayerRepository {
         // do nothing
     }
 
-    override fun setMediaItem(mediaItem: MediaItem) {
+    override fun setMedia(media: Media) {
         // do nothing
     }
 
-    override fun setMediaItems(mediaItems: List<MediaItem>) {
+    override fun setMediaList(mediaList: List<Media>) {
         // do nothing
     }
 
-    override fun addMediaItem(mediaItem: MediaItem) {
+    override fun addMedia(media: Media) {
         // do nothing
     }
 
-    override fun addMediaItem(index: Int, mediaItem: MediaItem) {
+    override fun addMedia(index: Int, media: Media) {
         // do nothing
     }
 
-    override fun removeMediaItem(index: Int) {
+    override fun removeMedia(index: Int) {
         // do nothing
     }
 
-    override fun clearMediaItems() {
+    override fun clearMediaList() {
         // do nothing
     }
 
-    override fun getMediaItemCount(): Int = 0
+    override fun getMediaCount(): Int = 0
 
-    override fun getMediaItemAt(index: Int): MediaItem? = null
+    override fun getMediaAt(index: Int): Media? = null
 
-    override fun getCurrentMediaItemIndex(): Int = -1
+    override fun getCurrentMediaIndex(): Int = -1
 
     override fun release() {
         // do nothing

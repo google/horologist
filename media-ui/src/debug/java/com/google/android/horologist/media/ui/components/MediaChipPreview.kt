@@ -25,14 +25,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.MediaItemUiModel
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.utils.rememberVectorPainter
 
 @WearPreview
 @Composable
 fun MediaChipPreview() {
     MediaChip(
-        mediaItem = MediaItemUiModel(
+        media = MediaUiModel(
             id = "id",
             title = "Red Hot Chilli Peppers",
             artworkUri = "artworkUri"
@@ -53,7 +53,7 @@ fun MediaChipPreview() {
 @Composable
 fun MediaChipPreviewNoArtwork() {
     MediaChip(
-        mediaItem = MediaItemUiModel(id = "id", title = "Red Hot Chilli Peppers"),
+        media = MediaUiModel(id = "id", title = "Red Hot Chilli Peppers"),
         onClick = {},
         placeholder = rememberVectorPainter(
             image = Icons.Default.Album,
@@ -70,7 +70,7 @@ fun MediaChipPreviewNoArtwork() {
 @Composable
 fun MediaChipPreviewNoTitle() {
     MediaChip(
-        mediaItem = MediaItemUiModel(id = "id", artworkUri = "artworkUri"),
+        media = MediaUiModel(id = "id", artworkUri = "artworkUri"),
         onClick = {},
         defaultTitle = "No title",
         placeholder = rememberVectorPainter(
@@ -88,7 +88,7 @@ fun MediaChipPreviewNoTitle() {
 @Composable
 fun MediaChipPreviewVeryLongTitle() {
     MediaChip(
-        mediaItem = MediaItemUiModel(
+        media = MediaUiModel(
             id = "id",
             title = "Very very very very very very very very very very very very very very very very very very very long title",
             artworkUri = "artworkUri"

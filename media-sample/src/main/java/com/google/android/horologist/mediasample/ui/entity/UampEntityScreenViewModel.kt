@@ -58,7 +58,7 @@ class UampEntityScreenViewModel @Inject constructor(
                 .map {
                     EntityScreenState.Loaded(
                         playlistUiModel = PlaylistUiModelMapper.map(it.playlist),
-                        downloadList = DownloadMediaItemUiModelMapper.map(it.mediaList),
+                        downloadList = DownloadMediaUiModelMapper.map(it.mediaList),
                         downloading = it.mediaList.any { (_, status) -> status == PlaylistDownload.Status.InProgress },
                     )
                 }
@@ -83,7 +83,7 @@ class UampEntityScreenViewModel @Inject constructor(
         playlist.value?.let {
             playerRepository.setShuffleModeEnabled(shuffled)
 
-            playerRepository.setMediaItems(it.mediaItems)
+            playerRepository.setMediaList(it.mediaList)
             playerRepository.prepare()
             playerRepository.play()
         }

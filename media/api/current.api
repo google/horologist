@@ -13,19 +13,19 @@ package com.google.android.horologist.media.model {
     enum_constant public static final com.google.android.horologist.media.model.Command SeekBack;
     enum_constant public static final com.google.android.horologist.media.model.Command SeekForward;
     enum_constant public static final com.google.android.horologist.media.model.Command SetShuffle;
-    enum_constant public static final com.google.android.horologist.media.model.Command SkipToNextMediaItem;
-    enum_constant public static final com.google.android.horologist.media.model.Command SkipToPreviousMediaItem;
+    enum_constant public static final com.google.android.horologist.media.model.Command SkipToNextMedia;
+    enum_constant public static final com.google.android.horologist.media.model.Command SkipToPreviousMedia;
   }
 
-  @com.google.android.horologist.media.ExperimentalHorologistMediaApi public final class MediaItem {
-    ctor public MediaItem(String id, String uri, String title, String artist, optional String? artworkUri, optional java.util.Map<java.lang.String,?> extras);
+  @com.google.android.horologist.media.ExperimentalHorologistMediaApi public final class Media {
+    ctor public Media(String id, String uri, String title, String artist, optional String? artworkUri, optional java.util.Map<java.lang.String,?> extras);
     method public String component1();
     method public String component2();
     method public String component3();
     method public String component4();
     method public String? component5();
     method public java.util.Map<java.lang.String,java.lang.Object> component6();
-    method public com.google.android.horologist.media.model.MediaItem copy(String id, String uri, String title, String artist, String? artworkUri, java.util.Map<java.lang.String,?> extras);
+    method public com.google.android.horologist.media.model.Media copy(String id, String uri, String title, String artist, String? artworkUri, java.util.Map<java.lang.String,?> extras);
     method public boolean equals(Object? other);
     method public String getArtist();
     method public String? getArtworkUri();
@@ -43,17 +43,17 @@ package com.google.android.horologist.media.model {
     property public final String uri;
   }
 
-  @com.google.android.horologist.media.ExperimentalHorologistMediaApi public abstract sealed class MediaItemPosition {
+  @com.google.android.horologist.media.ExperimentalHorologistMediaApi public abstract sealed class MediaPosition {
     method public long getCurrent();
     property public long current;
-    field public static final com.google.android.horologist.media.model.MediaItemPosition.Companion Companion;
+    field public static final com.google.android.horologist.media.model.MediaPosition.Companion Companion;
   }
 
-  public static final class MediaItemPosition.Companion {
-    method public com.google.android.horologist.media.model.MediaItemPosition.KnownDuration create(long current, long duration);
+  public static final class MediaPosition.Companion {
+    method public com.google.android.horologist.media.model.MediaPosition.KnownDuration create(long current, long duration);
   }
 
-  public static final class MediaItemPosition.KnownDuration extends com.google.android.horologist.media.model.MediaItemPosition {
+  public static final class MediaPosition.KnownDuration extends com.google.android.horologist.media.model.MediaPosition {
     method public long getDuration();
     method public float getPercent();
     property public long current;
@@ -61,10 +61,10 @@ package com.google.android.horologist.media.model {
     property public final float percent;
   }
 
-  public static final class MediaItemPosition.UnknownDuration extends com.google.android.horologist.media.model.MediaItemPosition {
-    ctor public MediaItemPosition.UnknownDuration(long current);
+  public static final class MediaPosition.UnknownDuration extends com.google.android.horologist.media.model.MediaPosition {
+    ctor public MediaPosition.UnknownDuration(long current);
     method public long component1-UwyO8pc();
-    method public com.google.android.horologist.media.model.MediaItemPosition.UnknownDuration copy-LRDsOJo(long current);
+    method public com.google.android.horologist.media.model.MediaPosition.UnknownDuration copy-LRDsOJo(long current);
     method public boolean equals(Object? other);
     method public int hashCode();
     method public String toString();
@@ -84,40 +84,40 @@ package com.google.android.horologist.media.model {
 package com.google.android.horologist.media.repository {
 
   @com.google.android.horologist.media.ExperimentalHorologistMediaApi public interface PlayerRepository {
-    method public void addMediaItem(com.google.android.horologist.media.model.MediaItem mediaItem);
-    method public void addMediaItem(int index, com.google.android.horologist.media.model.MediaItem mediaItem);
-    method public void clearMediaItems();
+    method public void addMedia(com.google.android.horologist.media.model.Media media);
+    method public void addMedia(int index, com.google.android.horologist.media.model.Media media);
+    method public void clearMediaList();
     method public kotlinx.coroutines.flow.StateFlow<java.util.Set<com.google.android.horologist.media.model.Command>> getAvailableCommands();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getConnected();
-    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.MediaItem> getCurrentMediaItem();
-    method public int getCurrentMediaItemIndex();
+    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.Media> getCurrentMedia();
+    method public int getCurrentMediaIndex();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.PlayerState> getCurrentState();
-    method public com.google.android.horologist.media.model.MediaItem? getMediaItemAt(int index);
-    method public int getMediaItemCount();
-    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.MediaItemPosition> getMediaItemPosition();
+    method public com.google.android.horologist.media.model.Media? getMediaAt(int index);
+    method public int getMediaCount();
+    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.MediaPosition> getMediaPosition();
     method public long getSeekBackIncrement();
     method public long getSeekForwardIncrement();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getShuffleModeEnabled();
-    method public boolean hasNextMediaItem();
-    method public boolean hasPreviousMediaItem();
+    method public boolean hasNextMedia();
+    method public boolean hasPreviousMedia();
     method public void pause();
     method public void play();
-    method public void play(int mediaItemIndex);
+    method public void play(int mediaIndex);
     method public void prepare();
     method public void release();
-    method public void removeMediaItem(int index);
+    method public void removeMedia(int index);
     method public void seekBack();
     method public void seekForward();
-    method public void setMediaItem(com.google.android.horologist.media.model.MediaItem mediaItem);
-    method public void setMediaItems(java.util.List<com.google.android.horologist.media.model.MediaItem> mediaItems);
+    method public void setMedia(com.google.android.horologist.media.model.Media media);
+    method public void setMediaList(java.util.List<com.google.android.horologist.media.model.Media> mediaList);
     method public void setShuffleModeEnabled(boolean shuffleModeEnabled);
-    method public void skipToNextMediaItem();
-    method public void skipToPreviousMediaItem();
+    method public void skipToNextMedia();
+    method public void skipToPreviousMedia();
     property public abstract kotlinx.coroutines.flow.StateFlow<java.util.Set<com.google.android.horologist.media.model.Command>> availableCommands;
     property public abstract kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> connected;
-    property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.MediaItem> currentMediaItem;
+    property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.Media> currentMedia;
     property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.PlayerState> currentState;
-    property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.MediaItemPosition> mediaItemPosition;
+    property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.MediaPosition> mediaPosition;
     property public abstract kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> shuffleModeEnabled;
   }
 

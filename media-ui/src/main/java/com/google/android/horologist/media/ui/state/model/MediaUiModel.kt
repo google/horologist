@@ -19,14 +19,9 @@ package com.google.android.horologist.media.ui.state.model
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
 @ExperimentalHorologistMediaUiApi
-public sealed class DownloadMediaItemUiModel(
-    public open val mediaItemUiModel: MediaItemUiModel
-) {
-    public data class Available(
-        override val mediaItemUiModel: MediaItemUiModel
-    ) : DownloadMediaItemUiModel(mediaItemUiModel = mediaItemUiModel)
-
-    public data class Unavailable(
-        override val mediaItemUiModel: MediaItemUiModel
-    ) : DownloadMediaItemUiModel(mediaItemUiModel = mediaItemUiModel)
-}
+public data class MediaUiModel(
+    val id: String,
+    val title: String? = null,
+    val artist: String? = null,
+    val artworkUri: String? = null,
+)

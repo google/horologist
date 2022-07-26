@@ -220,3 +220,4 @@ fun CheckedSetting(
         }, modifier = Modifier.fillMaxWidth()
         )
     }
+    

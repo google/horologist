@@ -149,7 +149,7 @@ object MediaApplicationModule {
         @ForApplicationScope coroutineScope: CoroutineScope
     ) = AudioOffloadManager(logger).also { audioOffloadManager ->
         coroutineScope.launch {
-            settingsRepository.settingsFlow.map { it.showTimeTextInfo }
+            settingsRepository.settingsFlow.map { it.debugOffload }
                 .collectLatest { debug ->
                     if (debug) {
                         while (true) {

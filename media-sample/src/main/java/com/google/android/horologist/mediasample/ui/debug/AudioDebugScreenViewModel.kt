@@ -22,29 +22,44 @@ import androidx.media3.common.Format
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.offload.OffloadTimes
-import com.google.android.horologist.mediasample.ui.settings.SettingsScreenViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.seconds
 
 @HiltViewModel
 class AudioDebugScreenViewModel @Inject constructor(
     private val audioOffloadManager: AudioOffloadManager,
     private val playerRepository: PlayerRepository,
 ) : ViewModel() {
+    val ticker = flow {
+        while (true) {
+            delay(1.seconds)
+            emit(Unit)
+        }
+    }
+
+    private val offloadTimesFlow = ticker.map {
+        audioOffloadManager.snapOffloadTimes()
+    }
+
     val uiState: StateFlow<UiState> = combine(
         audioOffloadManager.foreground,
         audioOffloadManager.format,
         audioOffloadManager.sleepingForOffload,
-        audioOffloadManager.offloadSchedulingEnabled
-    ) { foreground, format, sleepingForOffload, offloadSchedulingEnabled  ->
+        audioOffloadManager.offloadSchedulingEnabled,
+        offloadTimesFlow
+    ) { foreground, format, sleepingForOffload, offloadSchedulingEnabled, offloadTimes ->
         UiState(
             foreground = foreground,
             format = format,
-            times = audioOffloadManager.snapOffloadTimes(),
+            times = offloadTimes,
             sleepingForOffload = sleepingForOffload,
             offloadSchedulingEnabled = offloadSchedulingEnabled
         )

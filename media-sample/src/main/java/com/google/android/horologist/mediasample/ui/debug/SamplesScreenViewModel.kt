@@ -65,7 +65,8 @@ class SamplesScreenViewModel @Inject constructor(
 
     companion object {
         val fraunhoferGapless =
-            Sample(1, "Fraunhofer Gapless",
+            Sample(
+                1, "Fraunhofer Gapless",
                 listOf(
                     "https://www2.iis.fraunhofer.de/AAC/gapless-sweep_part1_iis.m4a?delay=1600&padding=106",
                     "https://www2.iis.fraunhofer.de/AAC/gapless-sweep_part2_iis.m4a?delay=110&padding=1024"
@@ -81,7 +82,8 @@ class SamplesScreenViewModel @Inject constructor(
             )
 
         val gapless =
-            Sample(2, "Gapless",
+            Sample(
+                2, "Gapless",
                 listOf(
                     "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-10.m4a",
                     "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-11.m4a"
@@ -92,10 +94,12 @@ class SamplesScreenViewModel @Inject constructor(
                         title = "Gapless $i",
                         artist = "unknown",
                     )
-                })
+                }
+            )
 
         val gaplessStripped =
-            Sample(3, "Gapless Stripped",
+            Sample(
+                3, "Gapless Stripped",
                 listOf(
                     "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-10-stripped.m4a",
                     "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-11-stripped.m4a"
@@ -109,5 +113,4 @@ class SamplesScreenViewModel @Inject constructor(
                 }
             )
     }
-
 }

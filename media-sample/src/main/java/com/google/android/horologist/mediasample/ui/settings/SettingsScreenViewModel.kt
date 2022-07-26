@@ -18,8 +18,6 @@ package com.google.android.horologist.mediasample.ui.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.media.model.MediaItem
-import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.mediasample.domain.SettingsRepository

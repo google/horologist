@@ -31,7 +31,7 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.mediasample.R
-import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun AudioDebugScreen(
@@ -96,12 +96,24 @@ fun AudioDebugScreen(
             )
         }
         item {
-            val time = uiState.times.enabled.milliseconds.toString()
+            val time = formatDuration(uiState.times.enabled)
             Text(
                 text = stringResource(id = R.string.horologist_sample_debug_offload_time, time),
                 modifier = Modifier.padding(bottom = 12.dp),
                 style = MaterialTheme.typography.body2,
             )
         }
+        item {
+            val time = formatDuration(uiState.times.disabled)
+            Text(
+                text = stringResource(id = R.string.horologist_sample_debug_offload_non_time, time),
+                modifier = Modifier.padding(bottom = 12.dp),
+                style = MaterialTheme.typography.body2,
+            )
+        }
     }
+}
+
+fun formatDuration(millis: Long): String {
+    return (millis / 1000).seconds.toString()
 }

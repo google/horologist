@@ -27,6 +27,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.analytics.AnalyticsListener
 import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
 import com.google.android.horologist.media3.logging.ErrorReporter
+import com.google.android.horologist.media3.util.shortDescription
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -56,6 +57,9 @@ public class AudioOffloadManager(
     private val _times = MutableStateFlow(OffloadTimes(0, 0))
     public val times: StateFlow<OffloadTimes> = _times.asStateFlow()
 
+    private val _playing = MutableStateFlow(false)
+    public val playing: StateFlow<Boolean> = _playing.asStateFlow()
+
     private fun audioOffloadListener(exoPlayer: ExoPlayer): ExoPlayer.AudioOffloadListener {
         _sleepingForOffload.value = exoPlayer.experimentalIsSleepingForOffload()
 
@@ -67,9 +71,6 @@ public class AudioOffloadManager(
             override fun onExperimentalOffloadSchedulingEnabledChanged(offloadSchedulingEnabled: Boolean) {
                 _offloadSchedulingEnabled.value = offloadSchedulingEnabled
 
-                // accumulate playback time for previous state
-                _times.value = times.value.timesToNow(!offloadSchedulingEnabled)
-
                 errorReporter.logMessage("offload scheduling enabled $offloadSchedulingEnabled")
             }
 
@@ -80,7 +81,12 @@ public class AudioOffloadManager(
              * negates the effect of offload.
              */
             override fun onExperimentalSleepingForOffloadChanged(sleepingForOffload: Boolean) {
+                val previousSleepingForOffload = _sleepingForOffload.value
+
                 _sleepingForOffload.value = sleepingForOffload
+
+                // accumulate playback time for previous state
+                _times.value = times.value.timesToNow(previousSleepingForOffload, playing.value)
 
                 errorReporter.logMessage("sleeping for offload $sleepingForOffload")
             }
@@ -97,6 +103,15 @@ public class AudioOffloadManager(
                 decoderReuseEvaluation: DecoderReuseEvaluation?
             ) {
                 _format.value = format
+            }
+
+            override fun onIsPlayingChanged(
+                eventTime: AnalyticsListener.EventTime,
+                isPlaying: Boolean
+            ) {
+                // accumulate playback time for previous state
+                _times.value = times.value.timesToNow(sleepingForOffload.value, isPlaying)
+                _playing.value = isPlaying
             }
         }
     }
@@ -141,16 +156,20 @@ public class AudioOffloadManager(
         exoPlayer.addAnalyticsListener(analyticsListener(exoPlayer))
     }
 
-    public fun snapOffloadTimes(): OffloadTimes = times.value.timesToNow(sleepingForOffload.value)
+    public fun snapOffloadTimes(): OffloadTimes = times.value.timesToNow(
+        sleepingForOffload.value,
+        playing.value
+    )
 
     public fun printDebugInfo() {
         val sleeping = sleepingForOffload.value
-        val updatedTimes = times.value.timesToNow(sleeping)
+        val updatedTimes = snapOffloadTimes()
         errorReporter.logMessage(
             "Offload State: " +
-                "foreground: ${foreground.value} " +
-                "sleeping: $sleeping format: ${format.value} " +
-                "times: $updatedTimes",
+                "sleeping: $sleeping " +
+                "format: ${format.value?.shortDescription} " +
+                "times: ${updatedTimes.shortDescription} " +
+                "foreground: ${foreground.value} ",
             category = ErrorReporter.Category.Playback
         )
     }

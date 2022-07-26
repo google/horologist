@@ -18,15 +18,15 @@ package com.google.android.horologist.mediasample.data.service.download
 
 import androidx.media3.exoplayer.offline.Download
 import androidx.media3.exoplayer.offline.DownloadManager
-import com.google.android.horologist.mediasample.data.database.dao.PlaylistDownloadDao
-import com.google.android.horologist.mediasample.data.mapper.PlaylistDownloadStateMapper
+import com.google.android.horologist.mediasample.data.database.mapper.MediaDownloadEntityStatusMapper
+import com.google.android.horologist.mediasample.data.datasource.MediaDownloadLocalDataSource
 import com.google.android.horologist.mediasample.di.annotation.DownloadFeature
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class DownloadManagerListener(
     @DownloadFeature private val coroutineScope: CoroutineScope,
-    private val playlistDownloadDao: PlaylistDownloadDao,
+    private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
 ) : DownloadManager.Listener {
 
     override fun onDownloadChanged(
@@ -35,16 +35,16 @@ class DownloadManagerListener(
         finalException: Exception?
     ) {
         coroutineScope.launch {
-            val mediaItemId = download.request.id
-            val status = PlaylistDownloadStateMapper.map(download.state)
-            playlistDownloadDao.updateStatusByMediaItemId(mediaItemId, status)
+            val mediaId = download.request.id
+            val status = MediaDownloadEntityStatusMapper.map(download.state)
+            mediaDownloadLocalDataSource.updateStatus(mediaId, status)
         }
     }
 
     override fun onDownloadRemoved(downloadManager: DownloadManager, download: Download) {
         coroutineScope.launch {
             val mediaItemId = download.request.id
-            playlistDownloadDao.deleteByMediaItemId(mediaItemId)
+            mediaDownloadLocalDataSource.delete(mediaItemId)
         }
     }
 }

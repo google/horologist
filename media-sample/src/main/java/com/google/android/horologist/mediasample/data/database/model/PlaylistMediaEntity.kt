@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.domain
+package com.google.android.horologist.mediasample.data.database.model
 
-import com.google.android.horologist.mediasample.domain.model.Playlist
-import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
-import kotlinx.coroutines.flow.Flow
+import androidx.room.Entity
+import androidx.room.Index
 
-/**
- * A repository of [PlaylistDownload].
- */
-interface PlaylistDownloadRepository {
-
-    fun get(playlistId: String): Flow<PlaylistDownload>
-
-    fun download(playlist: Playlist)
-}
+@Entity(
+    primaryKeys = ["playlistId", "mediaId"],
+    indices = [
+        Index(value = ["playlistId"]),
+    ]
+)
+data class PlaylistMediaEntity(
+    val playlistId: String,
+    val mediaId: String,
+)

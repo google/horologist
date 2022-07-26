@@ -19,23 +19,27 @@ package com.google.android.horologist.mediasample.ui.entity
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.ui.state.mapper.MediaUiModelMapper
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
-import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
+import com.google.android.horologist.mediasample.domain.model.MediaDownload
 
 object DownloadMediaUiModelMapper {
 
     fun map(
-        media: Media,
-        status: PlaylistDownload.Status
-    ): DownloadMediaUiModel = when (status) {
-        PlaylistDownload.Status.Idle,
-        PlaylistDownload.Status.InProgress -> {
-            DownloadMediaUiModel.Unavailable(MediaUiModelMapper.map(media))
+        mediaDownload: MediaDownload,
+    ): DownloadMediaUiModel = when (mediaDownload.status) {
+        MediaDownload.Status.Idle,
+        MediaDownload.Status.InProgress -> {
+            DownloadMediaUiModel.Unavailable(MediaUiModelMapper.map(mediaDownload.media))
         }
-        PlaylistDownload.Status.Completed -> {
-            DownloadMediaUiModel.Available(MediaUiModelMapper.map(media))
+        MediaDownload.Status.Completed -> {
+            DownloadMediaUiModel.Available(MediaUiModelMapper.map(mediaDownload.media))
         }
     }
 
-    fun map(list: List<Pair<Media, PlaylistDownload.Status>>): List<DownloadMediaUiModel> =
-        list.map { map(it.first, it.second) }
+    fun mapList(mediaDownloadList: List<MediaDownload>): List<DownloadMediaUiModel> =
+        mediaDownloadList.map(::map)
+
+    fun map(media: Media): DownloadMediaUiModel =
+        DownloadMediaUiModel.Unavailable(MediaUiModelMapper.map(media))
+
+    fun map(mediaList: List<Media>): List<DownloadMediaUiModel> = mediaList.map(::map)
 }

@@ -16,29 +16,34 @@
 
 package com.google.android.horologist.mediasample.data.repository
 
+import com.google.android.horologist.mediasample.data.datasource.PlaylistLocalDataSource
 import com.google.android.horologist.mediasample.data.datasource.PlaylistRemoteDataSource
+import com.google.android.horologist.mediasample.data.mapper.PlaylistMapper
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.model.Playlist
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 
 class PlaylistRepositoryImpl(
-    playlistRemoteDataSource: PlaylistRemoteDataSource,
-    coroutineScope: CoroutineScope
+    private val playlistLocalDataSource: PlaylistLocalDataSource,
+    private val playlistRemoteDataSource: PlaylistRemoteDataSource,
 ) : PlaylistRepository {
 
-    // temporary implementation of cache
-    private val playlistCache = playlistRemoteDataSource.getPlaylists().shareIn(
-        scope = coroutineScope,
-        started = SharingStarted.WhileSubscribed(5000),
-        replay = 1
-    )
-
-    override suspend fun getPlaylist(id: String): Playlist? =
-        playlistCache.first().getOrNull()?.firstOrNull { it.id == id }
-
-    override fun getPlaylists(): Flow<Result<List<Playlist>>> = playlistCache
+    override fun getAllPopulated(): Flow<List<Playlist>> = flow {
+        emitAll(
+            if (playlistLocalDataSource.isEmpty()) {
+                playlistRemoteDataSource.getPlaylists()
+                    .map(PlaylistMapper::map)
+                    .onEach(playlistLocalDataSource::insert)
+            } else {
+                playlistLocalDataSource.getAllPopulated()
+                    .map { list ->
+                        buildList { list.forEach { add(PlaylistMapper.map(it)) } }
+                    }
+            }
+        )
+    }
 }

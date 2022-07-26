@@ -43,8 +43,8 @@ class DownloadManagerListener(
 
     override fun onDownloadRemoved(downloadManager: DownloadManager, download: Download) {
         coroutineScope.launch {
-            val mediaItemId = download.request.id
-            mediaDownloadLocalDataSource.delete(mediaItemId)
+            val mediaId = download.request.id
+            mediaDownloadLocalDataSource.delete(mediaId)
         }
     }
 }

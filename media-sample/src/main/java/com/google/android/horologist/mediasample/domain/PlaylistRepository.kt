@@ -24,5 +24,7 @@ import kotlinx.coroutines.flow.Flow
  */
 interface PlaylistRepository {
 
-    fun getAllPopulated(): Flow<List<Playlist>>
+    fun getAll(): Flow<List<Playlist>>
+
+    fun getAllDownloaded(): Flow<List<Playlist>>
 }

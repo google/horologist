@@ -32,7 +32,7 @@ interface PlaylistDao {
 
     @Query(
         value = """
-        SELECT COUNT(*) FROM playlistentity
+        SELECT COUNT(*) FROM PlaylistEntity
     """
     )
     suspend fun getCount(): Int
@@ -47,7 +47,7 @@ interface PlaylistDao {
     @Transaction
     @Query(
         value = """
-        SELECT * FROM playlistentity
+        SELECT * FROM PlaylistEntity
         WHERE playlistId = :playlistId
     """
     )
@@ -56,8 +56,24 @@ interface PlaylistDao {
     @Transaction
     @Query(
         value = """
-        SELECT * FROM playlistentity
+        SELECT * FROM PlaylistEntity
     """
     )
     fun getAllPopulated(): Flow<List<PopulatedPlaylist>>
+
+    @Transaction
+    @Query(
+        value = """
+        SELECT * FROM PlaylistEntity
+        WHERE EXISTS (
+            SELECT 1 FROM PlaylistMediaEntity
+            WHERE PlaylistMediaEntity.playlistId = PlaylistEntity.playlistId
+            AND EXISTS (
+                SELECT 1 FROM MediaDownloadEntity
+                WHERE MediaDownloadEntity.mediaId = PlaylistMediaEntity.mediaId
+            )
+        )
+    """
+    )
+    fun getAllDownloaded(): Flow<List<PopulatedPlaylist>>
 }

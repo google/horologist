@@ -26,7 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel
+import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.media.ui.uamp.UampTheme
 import com.google.android.horologist.media.ui.utils.rememberVectorPainter
@@ -95,7 +95,7 @@ fun BrowseScreenPreviewUampTheme() {
 
 private val downloadList = buildList {
     add(
-        DownloadPlaylistUiModel.InProgress(
+        PlaylistDownloadUiModel.InProgress(
             PlaylistUiModel(
                 id = "id",
                 title = "Rock Classics",
@@ -106,7 +106,7 @@ private val downloadList = buildList {
     )
 
     add(
-        DownloadPlaylistUiModel.Completed(
+        PlaylistDownloadUiModel.Completed(
             PlaylistUiModel(
                 id = "id",
                 title = "Pop Punk",

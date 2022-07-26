@@ -40,11 +40,11 @@ import com.google.android.horologist.media.ui.components.base.SecondaryPlacehold
 import com.google.android.horologist.media.ui.components.base.StandardChip
 import com.google.android.horologist.media.ui.components.base.StandardChipType
 import com.google.android.horologist.media.ui.components.base.Title
-import com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiModel
+import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 
 /**
  * A screen to:
- * - display user's [downloaded media][DownloadPlaylistUiModel] list;
+ * - display user's list of [downloaded playlists][PlaylistDownloadUiModel];
  * - provide access to libraries;
  * - provide access to settings;
  */
@@ -52,7 +52,7 @@ import com.google.android.horologist.media.ui.state.model.DownloadPlaylistUiMode
 @Composable
 public fun BrowseScreen(
     browseScreenState: BrowseScreenState,
-    onDownloadItemClick: (DownloadPlaylistUiModel) -> Unit,
+    onDownloadItemClick: (PlaylistDownloadUiModel) -> Unit,
     onPlaylistsClick: () -> Unit,
     onSettingsClick: () -> Unit,
     focusRequester: FocusRequester,
@@ -88,7 +88,7 @@ public fun BrowseScreen(
             } else {
                 items(count = downloadList.size) { index ->
                     when (val download = downloadList[index]) {
-                        is DownloadPlaylistUiModel.Completed -> {
+                        is PlaylistDownloadUiModel.Completed -> {
                             StandardChip(
                                 label = download.playlistUiModel.title,
                                 onClick = { onDownloadItemClick(download) },
@@ -98,7 +98,7 @@ public fun BrowseScreen(
                                 chipType = StandardChipType.Secondary,
                             )
                         }
-                        is DownloadPlaylistUiModel.InProgress -> {
+                        is PlaylistDownloadUiModel.InProgress -> {
                             StandardChip(
                                 label = download.playlistUiModel.title,
                                 onClick = { onDownloadItemClick(download) },
@@ -156,6 +156,6 @@ public sealed class BrowseScreenState {
     public object Loading : BrowseScreenState()
 
     public data class Loaded(
-        val downloadList: List<DownloadPlaylistUiModel>,
+        val downloadList: List<PlaylistDownloadUiModel>,
     ) : BrowseScreenState()
 }

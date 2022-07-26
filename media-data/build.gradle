@@ -73,16 +73,16 @@ dependencies {
     implementation libs.kotlin.stdlib
     implementation libs.kotlinx.coroutines.core
     implementation libs.androidx.wear
-    implementation libs.androidx.media3.common
+    implementation projectOrDependency(":media-lib-common", libs.androidx.media3.common)
 
     testImplementation libs.junit
     testImplementation libs.truth
     testImplementation libs.androidx.test.ext.ktx
     testImplementation libs.kotlinx.coroutines.test
     testImplementation libs.robolectric
-    testImplementation libs.androidx.media3.exoplayer
-    testImplementation libs.androidx.media3.testutils
-    testImplementation libs.androidx.media3.testutils.robolectric
+    testImplementation projectOrDependency(":media-lib-exoplayer", libs.androidx.media3.exoplayer)
+    testImplementation projectOrDependency(":media-test-utils", libs.androidx.media3.testutils)
+    testImplementation projectOrDependency(":media-test-utils-robolectric", libs.androidx.media3.testutils.robolectric)
 }
 
 apply plugin: "com.vanniktech.maven.publish"

@@ -111,7 +111,7 @@ dependencies {
     implementation projects.composeLayout
     implementation projects.tiles
 
-    implementation libs.androidx.media3.datasourceokhttp
+    implementation projectOrDependency(":media-lib-datasource-okhttp", libs.androidx.media3.datasourceokhttp)
 
     implementation libs.compose.ui.tooling
     implementation libs.compose.ui.util

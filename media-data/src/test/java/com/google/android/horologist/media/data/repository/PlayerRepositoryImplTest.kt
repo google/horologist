@@ -38,6 +38,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
+import org.robolectric.shadows.ShadowLooper
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
@@ -383,6 +384,9 @@ class PlayerRepositoryImplTest {
 
         // when
         sut.setShuffleModeEnabled(true)
+
+        // Allow events to propogate
+        ShadowLooper.idleMainLooper()
 
         // then
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
@@ -935,6 +939,9 @@ class PlayerRepositoryImplTest {
 
         // when
         sut.setPlaybackSpeed(speed)
+
+        // Allow events to propogate
+        ShadowLooper.idleMainLooper()
 
         // then
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)

@@ -17,7 +17,6 @@
 package com.google.android.horologist.media.data.repository
 
 import android.util.Log
-import androidx.media3.common.PlaybackParameters
 import androidx.media3.common.Player
 import com.google.android.horologist.media.data.mapper.Media3MediaItemMapper
 import com.google.android.horologist.media.data.mapper.MediaItemMapper
@@ -102,6 +101,14 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
                 updatePosition()
             }
 
+            if (events.contains(Player.EVENT_SHUFFLE_MODE_ENABLED_CHANGED)) {
+                updateShuffleMode(player)
+            }
+
+            if (events.contains(Player.EVENT_PLAYBACK_PARAMETERS_CHANGED)) {
+                updatePlaybackSpeed(player)
+            }
+
             // Reason for handling these events here, instead of using individual callbacks
             // (onIsLoadingChanged, onIsPlayingChanged, onPlaybackStateChanged, etc):
             // - The listener intends to use multiple state values that are reported through
@@ -110,20 +117,6 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
             // https://exoplayer.dev/listening-to-player-events.html#individual-callbacks-vs-onevents
             if (PlayerStateMapper.affectsState(events)) {
                 updateState(player)
-            }
-        }
-
-        // Not firing on onEvents
-        override fun onShuffleModeEnabledChanged(shuffleModeEnabled: Boolean) {
-            player.value?.let {
-                updateShuffleMode(it)
-            }
-        }
-
-        // Not firing on onEvents
-        override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters) {
-            player.value?.let {
-                updatePlaybackSpeed(it)
             }
         }
     }

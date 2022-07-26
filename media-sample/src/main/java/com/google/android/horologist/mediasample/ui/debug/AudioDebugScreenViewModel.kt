@@ -50,7 +50,7 @@ class AudioDebugScreenViewModel @Inject constructor(
 
     private val formatDetails = combine(
         audioOffloadManager.format,
-        playerRepository.currentMediaItem
+        playerRepository.currentMedia
     ) { format, currentMediaItem ->
         FormatDetails(
             format = format,

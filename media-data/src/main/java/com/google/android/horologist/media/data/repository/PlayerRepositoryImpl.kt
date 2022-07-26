@@ -17,7 +17,6 @@
 package com.google.android.horologist.media.data.repository
 
 import android.util.Log
-import androidx.media3.common.PlaybackParameters
 import androidx.media3.common.Player
 import com.google.android.horologist.media.data.mapper.Media3MediaItemMapper
 import com.google.android.horologist.media.data.mapper.MediaItemMapper

@@ -192,4 +192,11 @@ if (device != null) {
         description = "Launch App"
         commandLine = "adb -s $device shell am start -n com.google.android.horologist.mediasample/com.google.android.horologist.mediasample.components.MediaActivity".split(" ")
     }
+
+    task offloadStatus(type: Exec) {
+        group = "Media"
+        description = "Offload Status for " + device
+        description = "Offload Status"
+        commandLine = "adb -s $device shell dumpsys media.audio_flinger".split(" ")
+    }
 }

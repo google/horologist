@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.media3.common.Format
 import com.google.android.horologist.media.repository.PlayerRepository
+import com.google.android.horologist.media3.offload.AudioError
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.offload.OffloadTimes
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,50 +37,74 @@ import kotlin.time.Duration.Companion.seconds
 @HiltViewModel
 class AudioDebugScreenViewModel @Inject constructor(
     private val audioOffloadManager: AudioOffloadManager,
-    private val playerRepository: PlayerRepository,
+    playerRepository: PlayerRepository,
 ) : ViewModel() {
-    val ticker = flow {
+    private val offloadTimesFlow = flow {
         while (true) {
-            delay(1.seconds)
             emit(Unit)
+            delay(3.seconds)
         }
-    }
-
-    private val offloadTimesFlow = ticker.map {
+    }.map {
         audioOffloadManager.snapOffloadTimes()
     }
 
-    val uiState: StateFlow<UiState> = combine(
-        audioOffloadManager.foreground,
+    private val formatDetails = combine(
         audioOffloadManager.format,
+        playerRepository.currentMedia
+    ) { format, currentMediaItem ->
+        FormatDetails(
+            format = format,
+            formatSupported = audioOffloadManager.isFormatSupported(),
+            currentTrack = currentMediaItem?.title
+        )
+    }
+
+    private val offloadState = combine(
+        audioOffloadManager.foreground,
         audioOffloadManager.sleepingForOffload,
         audioOffloadManager.offloadSchedulingEnabled,
-        offloadTimesFlow
-    ) { foreground, format, sleepingForOffload, offloadSchedulingEnabled, offloadTimes ->
-        UiState(
+    ) { foreground, sleepingForOffload, offloadSchedulingEnabled ->
+        OffloadState(
             foreground = foreground,
-            format = format,
-            times = offloadTimes,
             sleepingForOffload = sleepingForOffload,
-            offloadSchedulingEnabled = offloadSchedulingEnabled
+            offloadSchedulingEnabled = offloadSchedulingEnabled,
+        )
+    }
+
+    val uiState: StateFlow<UiState?> = combine(
+        offloadState,
+        formatDetails,
+        offloadTimesFlow,
+        audioOffloadManager.errors
+    ) { offloadState, formatDetails, offloadTimes, errors ->
+        UiState(
+            offloadState = offloadState,
+            formatDetails = formatDetails,
+            times = offloadTimes,
+            errors = errors
         )
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
-        initialValue = UiState(
-            foreground = audioOffloadManager.foreground.value,
-            format = audioOffloadManager.format.value,
-            times = audioOffloadManager.snapOffloadTimes(),
-            sleepingForOffload = audioOffloadManager.sleepingForOffload.value,
-            offloadSchedulingEnabled = audioOffloadManager.offloadSchedulingEnabled.value
-        )
+        initialValue = null
+    )
+
+    data class FormatDetails(
+        val format: Format?,
+        val formatSupported: Boolean?,
+        val currentTrack: String?
+    )
+
+    data class OffloadState(
+        val foreground: Boolean,
+        val sleepingForOffload: Boolean,
+        val offloadSchedulingEnabled: Boolean,
     )
 
     data class UiState(
-        val foreground: Boolean,
-        val format: Format?,
         val times: OffloadTimes,
-        val sleepingForOffload: Boolean,
-        val offloadSchedulingEnabled: Boolean
+        val formatDetails: FormatDetails,
+        val offloadState: OffloadState,
+        val errors: List<AudioError>,
     )
 }

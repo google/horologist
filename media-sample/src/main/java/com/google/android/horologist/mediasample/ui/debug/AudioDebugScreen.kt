@@ -20,17 +20,22 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.items
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.mediasample.R
+import java.time.Instant
+import java.time.ZoneId
 import kotlin.time.Duration.Companion.seconds
 
 @Composable
@@ -50,18 +55,24 @@ fun AudioDebugScreen(
     ) {
         item {
             Text(
-                text = stringResource(id = R.string.horologist_sample_settings),
+                text = stringResource(id = R.string.horologist_sample_audio_debug),
                 modifier = Modifier.padding(bottom = 12.dp),
                 style = MaterialTheme.typography.title3,
             )
         }
         item {
-            val format = uiState.format?.run {
+            val format = uiState?.formatDetails?.format?.run {
                 "$sampleMimeType $sampleRate"
             }.orEmpty()
             Text(
                 text = stringResource(id = R.string.horologist_sample_debug_format, format),
-                modifier = Modifier.padding(bottom = 12.dp),
+                style = MaterialTheme.typography.body2,
+            )
+        }
+        item {
+            val supported = uiState?.formatDetails?.formatSupported.toString()
+            Text(
+                text = stringResource(id = R.string.horologist_sample_offload_supported, supported),
                 style = MaterialTheme.typography.body2,
             )
         }
@@ -69,9 +80,8 @@ fun AudioDebugScreen(
             Text(
                 text = stringResource(
                     id = R.string.horologist_sample_debug_offload_sleeping,
-                    uiState.sleepingForOffload
+                    uiState?.offloadState?.sleepingForOffload?.toString().orEmpty()
                 ),
-                modifier = Modifier.padding(bottom = 12.dp),
                 style = MaterialTheme.typography.body2,
             )
         }
@@ -79,36 +89,40 @@ fun AudioDebugScreen(
             Text(
                 text = stringResource(
                     id = R.string.horologist_sample_debug_offload_scheduled,
-                    uiState.offloadSchedulingEnabled
+                    uiState?.offloadState?.offloadSchedulingEnabled.toString().orEmpty()
                 ),
-                modifier = Modifier.padding(bottom = 12.dp),
                 style = MaterialTheme.typography.body2,
             )
         }
         item {
+            val enabled = uiState?.times?.run { formatDuration(enabled) }.orEmpty()
+            val disabled = uiState?.times?.run { formatDuration(disabled) }.orEmpty()
             Text(
                 text = stringResource(
                     id = R.string.horologist_sample_debug_offload_percent,
-                    uiState.times.percent
+                    uiState?.times?.percent + "($enabled/$disabled)"
                 ),
-                modifier = Modifier.padding(bottom = 12.dp),
                 style = MaterialTheme.typography.body2,
             )
         }
         item {
-            val time = formatDuration(uiState.times.enabled)
             Text(
-                text = stringResource(id = R.string.horologist_sample_debug_offload_time, time),
-                modifier = Modifier.padding(bottom = 12.dp),
-                style = MaterialTheme.typography.body2,
+                text = stringResource(id = R.string.horologist_sample_audio_debug_errors),
+                modifier = Modifier.padding(vertical = 12.dp),
+                style = MaterialTheme.typography.title3,
             )
         }
-        item {
-            val time = formatDuration(uiState.times.disabled)
+        items(uiState?.errors.orEmpty().reversed()) {
+            val message = remember(it.time) {
+                val time = Instant.ofEpochMilli(it.time).atZone(ZoneId.systemDefault())
+                    .toLocalTime()
+                "$time ${it.message}"
+            }
             Text(
-                text = stringResource(id = R.string.horologist_sample_debug_offload_non_time, time),
-                modifier = Modifier.padding(bottom = 12.dp),
-                style = MaterialTheme.typography.body2,
+                text = message,
+                maxLines = 3,
+                overflow = TextOverflow.Ellipsis,
+                style = MaterialTheme.typography.caption3,
             )
         }
     }

@@ -146,8 +146,9 @@ object MediaApplicationModule {
     fun audioOffloadManager(
         logger: ErrorReporter,
         settingsRepository: SettingsRepository,
+        audioSink: AudioSink,
         @ForApplicationScope coroutineScope: CoroutineScope
-    ) = AudioOffloadManager(logger).also { audioOffloadManager ->
+    ) = AudioOffloadManager(logger, audioSink).also { audioOffloadManager ->
         coroutineScope.launch {
             settingsRepository.settingsFlow.map { it.debugOffload }
                 .collectLatest { debug ->

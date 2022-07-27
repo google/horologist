@@ -24,6 +24,8 @@ com.google.android.horologist.media.model
 com.google.android.horologist.media.repository
 module:media-data
 com.google.android.horologist.media.data
+com.google.android.horologist.media.data.mapper
+com.google.android.horologist.media.data.repository
 module:media-ui
 com.google.android.horologist.media.ui
 com.google.android.horologist.media.ui.complication
@@ -55,6 +57,7 @@ com.google.android.horologist.media3.navigation
 com.google.android.horologist.media3.offload
 com.google.android.horologist.media3.rules
 com.google.android.horologist.media3.service
+com.google.android.horologist.media3.util
 module:network-awareness
 com.google.android.horologist.networks
 com.google.android.horologist.networks.data

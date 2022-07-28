@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.networks.data
 
-public sealed interface RequestType {
+public interface RequestType {
     public object ImageRequest : RequestType {
         override fun toString(): String {
             return "image"

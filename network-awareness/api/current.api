@@ -182,7 +182,7 @@ package com.google.android.horologist.networks.data {
     property public final com.google.android.horologist.networks.data.Status status;
   }
 
-  public sealed interface RequestType {
+  public interface RequestType {
   }
 
   public static final class RequestType.ApiRequest implements com.google.android.horologist.networks.data.RequestType {

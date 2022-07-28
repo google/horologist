@@ -19,26 +19,33 @@ package com.google.android.horologist.media3.offload
 import androidx.media3.exoplayer.ExoPlayer
 import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
 import com.google.android.horologist.media3.logging.ErrorReporter
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import java.io.Closeable
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 @ExperimentalHorologistMedia3BackendApi
 /**
  * Strategy for enabling or disabling the audio offload mode.
  */
-interface AudioOffloadStrategy {
-    suspend fun connect(exoPlayer: ExoPlayer, errorReporter: ErrorReporter)
+public interface AudioOffloadStrategy {
+    public fun applyIndefinitely(exoPlayer: ExoPlayer, errorReporter: ErrorReporter): Flow<String>
 
-    object Always : AudioOffloadStrategy {
-        override suspend fun connect(exoPlayer: ExoPlayer, errorReporter: ErrorReporter) {
+    public object Always : AudioOffloadStrategy {
+        override fun applyIndefinitely(
+            exoPlayer: ExoPlayer,
+            errorReporter: ErrorReporter
+        ): Flow<String> = flow {
             exoPlayer.experimentalSetOffloadSchedulingEnabled(true)
+            emit("Always")
         }
     }
 
-    object Never : AudioOffloadStrategy {
-        override suspend fun connect(exoPlayer: ExoPlayer, errorReporter: ErrorReporter) {
+    public object Never : AudioOffloadStrategy {
+        override fun applyIndefinitely(
+            exoPlayer: ExoPlayer,
+            errorReporter: ErrorReporter
+        ): Flow<String> = flow {
             exoPlayer.experimentalSetOffloadSchedulingEnabled(false)
+            emit("Never")
         }
     }
 }

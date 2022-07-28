@@ -23,12 +23,10 @@ import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
-import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.ui.mapper.PlaylistUiModelMapper
 import com.google.android.horologist.mediasample.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
@@ -36,23 +34,16 @@ import javax.inject.Inject
 @HiltViewModel
 class UampPlaylistsScreenViewModel @Inject constructor(
     playlistRepository: PlaylistRepository,
-    settingsRepository: SettingsRepository,
     private val snackbarManager: SnackbarManager,
     private val resourceProvider: ResourceProvider
 ) : ViewModel() {
 
-    val uiState = combine(
-        playlistRepository.getPlaylists(),
-        settingsRepository.settingsFlow
-    ) { playlistsResult, settings ->
+    val uiState = playlistRepository.getPlaylists().map { playlistsResult ->
         when {
             playlistsResult.isSuccess -> {
                 PlaylistScreenState.Loaded(
                     playlistsResult.getOrThrow().map {
-                        PlaylistUiModelMapper.map(
-                            playlist = it,
-                            shouldMapArtworkUri = settings.showArtworkOnChip
-                        )
+                        PlaylistUiModelMapper.map(playlist = it,)
                     }
                 )
             }

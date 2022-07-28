@@ -61,7 +61,7 @@ fun AudioDebugScreen(
             )
         }
         item {
-            val format = uiState?.formatDetails?.format?.run {
+            val format = uiState?.audioOffloadStatus?.format?.run {
                 "$sampleMimeType $sampleRate"
             }.orEmpty()
             Text(
@@ -70,7 +70,7 @@ fun AudioDebugScreen(
             )
         }
         item {
-            val supported = uiState?.formatDetails?.formatSupported.toString()
+            val supported = uiState?.formatSupported?.toString().orEmpty()
             Text(
                 text = stringResource(id = R.string.horologist_sample_offload_supported, supported),
                 style = MaterialTheme.typography.body2,
@@ -80,7 +80,7 @@ fun AudioDebugScreen(
             Text(
                 text = stringResource(
                     id = R.string.horologist_sample_debug_offload_sleeping,
-                    uiState?.offloadState?.sleepingForOffload?.toString().orEmpty()
+                    uiState?.audioOffloadStatus?.sleepingForOffload?.toString().orEmpty()
                 ),
                 style = MaterialTheme.typography.body2,
             )
@@ -89,18 +89,19 @@ fun AudioDebugScreen(
             Text(
                 text = stringResource(
                     id = R.string.horologist_sample_debug_offload_scheduled,
-                    uiState?.offloadState?.offloadSchedulingEnabled.toString().orEmpty()
+                    uiState?.audioOffloadStatus?.offloadSchedulingEnabled.toString().orEmpty()
                 ),
                 style = MaterialTheme.typography.body2,
             )
         }
         item {
-            val enabled = uiState?.times?.run { formatDuration(enabled) }.orEmpty()
-            val disabled = uiState?.times?.run { formatDuration(disabled) }.orEmpty()
+            val times = uiState?.audioOffloadStatus?.snapOffloadTimes()
+            val enabled = times?.run { formatDuration(enabled) }.orEmpty()
+            val disabled = times?.run { formatDuration(disabled) }.orEmpty()
             Text(
                 text = stringResource(
                     id = R.string.horologist_sample_debug_offload_percent,
-                    uiState?.times?.percent + "($enabled/$disabled)"
+                    times?.percent + "($enabled/$disabled)"
                 ),
                 style = MaterialTheme.typography.body2,
             )
@@ -112,7 +113,7 @@ fun AudioDebugScreen(
                 style = MaterialTheme.typography.title3,
             )
         }
-        items(uiState?.errors.orEmpty().reversed()) {
+        items(uiState?.audioOffloadStatus?.errors.orEmpty().reversed()) {
             val message = remember(it.time) {
                 val time = Instant.ofEpochMilli(it.time).atZone(ZoneId.systemDefault())
                     .toLocalTime()

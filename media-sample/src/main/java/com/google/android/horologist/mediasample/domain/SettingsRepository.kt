@@ -96,7 +96,10 @@ class SettingsRepository(
             loadItemsAtStartup = this[LoadItemsAtStartup] ?: true,
             artworkGradient = this[ArtworkGradient] ?: true,
             animated = this[Animated] ?: false,
-            debugOffload = this[DebugOffload] ?: false
+            debugOffload = this[DebugOffload] ?: false,
+            offloadMode = this[OffloadMode]?.let {
+                Settings.OffloadMode.valueOf(it)
+            } ?: Settings.OffloadMode.Background
         )
     }
 }

@@ -21,27 +21,21 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
-import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.data.api.UampService
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.model.Settings
-import com.google.android.horologist.mediasample.ui.debug.OffloadState
 import com.google.android.horologist.mediasample.util.ResourceProvider
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.status.NetworkRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import java.io.IOException
 import javax.inject.Inject
@@ -51,7 +45,6 @@ import kotlin.time.Duration.Companion.seconds
 class MediaPlayerAppViewModel @Inject constructor(
     networkRepository: NetworkRepository,
     dataRequestRepository: DataRequestRepository,
-    audioOffloadManager: AudioOffloadManager,
     appConfig: AppConfig,
     settingsRepository: SettingsRepository,
     private val settings: SettingsRepository,
@@ -76,40 +69,6 @@ class MediaPlayerAppViewModel @Inject constructor(
     )
 
     val deepLinkPrefix: String = appConfig.deeplinkUriPrefix
-
-    val ticker = flow {
-        while (true) {
-            delay(10.seconds)
-            emit(Unit)
-        }
-    }
-
-    private val offloadTimesFlow = ticker.map {
-        audioOffloadManager.snapOffloadTimes()
-    }
-
-    val offloadState: StateFlow<OffloadState> = combine(
-        audioOffloadManager.sleepingForOffload,
-        audioOffloadManager.offloadSchedulingEnabled,
-        audioOffloadManager.format,
-        offloadTimesFlow,
-    ) { sleepingForOffload, offloadSchedulingEnabled, format, times ->
-        OffloadState(
-            sleepingForOffload = sleepingForOffload,
-            offloadSchedulingEnabled = offloadSchedulingEnabled,
-            format = format,
-            times = times
-        )
-    }.stateIn(
-        viewModelScope,
-        started = SharingStarted.Eagerly,
-        initialValue = OffloadState(
-            sleepingForOffload = audioOffloadManager.sleepingForOffload.value,
-            offloadSchedulingEnabled = audioOffloadManager.offloadSchedulingEnabled.value,
-            format = audioOffloadManager.format.value,
-            times = audioOffloadManager.snapOffloadTimes()
-        )
-    )
 
     suspend fun loadItems() {
         if (playerRepository.currentMedia.value == null) {

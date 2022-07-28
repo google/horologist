@@ -14,14 +14,22 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui.debug
+package com.google.android.horologist.media3.offload
 
 import androidx.media3.common.Format
-import com.google.android.horologist.media3.offload.OffloadTimes
+import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
 
-data class OffloadState(
-    val sleepingForOffload: Boolean,
-    val offloadSchedulingEnabled: Boolean,
-    val format: Format?,
-    val times: OffloadTimes,
-)
+@ExperimentalHorologistMedia3BackendApi
+public data class AudioOffloadStatus(
+    public val offloadSchedulingEnabled: Boolean,
+    public val sleepingForOffload: Boolean,
+    public val format: Format?,
+    public val isPlaying: Boolean,
+    public val errors: List<AudioError>,
+    public val offloadTimes: OffloadTimes,
+    public val strategyStatus: String?,
+) {
+    public fun snapOffloadTimes(): OffloadTimes = offloadTimes.timesToNow(
+        sleepingForOffload, isPlaying
+    )
+}

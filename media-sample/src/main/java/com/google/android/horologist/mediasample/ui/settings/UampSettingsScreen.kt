@@ -138,15 +138,6 @@ fun UampSettingsScreen(
         }
         item {
             CheckedSetting(
-                uiState.showArtworkOnChip,
-                stringResource(id = R.string.horologist_show_artwork_on_chip),
-                enabled = uiState.writable
-            ) {
-                settingsScreenViewModel.setShowArtworkOnChip(it)
-            }
-        }
-        item {
-            CheckedSetting(
                 uiState.animated,
                 stringResource(id = R.string.horologist_animated),
                 enabled = uiState.writable
@@ -237,6 +228,6 @@ fun CheckedSetting(
         label = {
             Text(text)
         }, modifier = Modifier.fillMaxWidth()
-    )
-}
+        )
+    }
     

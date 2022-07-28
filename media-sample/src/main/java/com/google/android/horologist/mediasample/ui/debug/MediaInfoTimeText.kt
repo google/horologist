@@ -24,16 +24,13 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.Networks
-import com.google.android.horologist.networks.ui.LinearDataUsage
 import com.google.android.horologist.networks.ui.curveDataUsage
 
 @Composable
 public fun MediaInfoTimeText(
     showData: Boolean,
-    showFormat: Boolean = false,
     networkStatus: Networks,
     networkUsage: DataUsageReport?,
-    offloadState: OffloadState,
     modifier: Modifier = Modifier,
 ) {
     val style = CurvedTextStyle(MaterialTheme.typography.caption3)
@@ -49,17 +46,6 @@ public fun MediaInfoTimeText(
                     style = style,
                     context = context
                 )
-            },
-            startLinearContent = {
-                LinearDataUsage(
-                    networkStatus = networkStatus,
-                    networkUsage = networkUsage,
-                    style = MaterialTheme.typography.caption1,
-                    context = context
-                )
-            },
-            endCurvedContent = {
-                offloadInfo(offloadState, style, showFormat = showFormat)
             }
         )
     } else {

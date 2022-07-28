@@ -22,8 +22,6 @@ import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.offload.AudioOffloadManager
-import com.google.android.horologist.media3.offload.AudioOffloadStrategy
-import com.google.android.horologist.media3.offload.BackgroundAudioOffloadStrategy
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.model.Settings
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -109,12 +107,6 @@ class SettingsScreenViewModel @Inject constructor(
     fun setOffloadMode(mode: Settings.OffloadMode) {
         viewModelScope.launch {
             settingsRepository.writeOffloadMode(mode)
-            val strategy = when (mode) {
-                Settings.OffloadMode.Background -> BackgroundAudioOffloadStrategy(logger)
-                Settings.OffloadMode.Always -> AudioOffloadStrategy.Always
-                Settings.OffloadMode.Never -> AudioOffloadStrategy.Never
-            }
-            offloadManager.setOffloadStrategy(strategy)
         }
     }
 

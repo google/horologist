@@ -49,13 +49,9 @@ import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.logging.TransferListener
 import com.google.android.horologist.media3.navigation.IntentBuilder
 import com.google.android.horologist.media3.offload.AudioOffloadManager
-import com.google.android.horologist.media3.offload.AudioOffloadStrategy
-import com.google.android.horologist.media3.offload.BackgroundAudioOffloadStrategy
 import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.complication.DataUpdates
-import com.google.android.horologist.mediasample.domain.SettingsRepository
-import com.google.android.horologist.mediasample.domain.model.Settings
 import com.google.android.horologist.mediasample.media.UampMediaLibrarySessionCallback
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
@@ -68,7 +64,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import okhttp3.Call
 
@@ -219,7 +214,6 @@ object PlaybackServiceModule {
         playbackRules: PlaybackRules,
         logger: ErrorReporter,
         audioOffloadManager: AudioOffloadManager,
-        settingsRepository: SettingsRepository
     ): Player =
         WearConfiguredPlayer(
             player = exoPlayer,
@@ -235,12 +229,6 @@ object PlaybackServiceModule {
 
             serviceCoroutineScope.launch {
                 audioOffloadManager.connect(exoPlayer)
-            }
-
-            serviceCoroutineScope.launch {
-                settingsRepository.settingsFlow.map { it.offloadMode } .collect {
-                    audioOffloadManager.setOffloadStrategy()
-                }
             }
         }
 

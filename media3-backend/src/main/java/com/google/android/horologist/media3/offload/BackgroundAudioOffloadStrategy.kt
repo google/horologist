@@ -18,57 +18,52 @@ package com.google.android.horologist.media3.offload
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.media3.exoplayer.ExoPlayer
 import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
 import com.google.android.horologist.media3.logging.ErrorReporter
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 
 @ExperimentalHorologistMedia3BackendApi
 /**
  * Background Strategy for enabling or disabling the audio offload mode,
  * that is only enabled when backgrounded.
  */
-object BackgroundAudioOffloadStrategy: AudioOffloadStrategy {
-    lateinit var listener: LifecycleObserver
-
-    override fun close() {
-        if (this::listener.isInitialized) {
-            val lifecycleOwner = ProcessLifecycleOwner.get()
-            lifecycleOwner.lifecycle.removeObserver(listener)
-        }
-        _status.value = "Foreground: Closed"
-    }
-
-    fun createListener(exoPlayer: ExoPlayer) = object : DefaultLifecycleObserver {
-        override fun onResume(owner: LifecycleOwner) {
-            _status.value = "Foreground: true"
-            exoPlayer.experimentalSetOffloadSchedulingEnabled(false)
-
-            errorReporter.logMessage("app foregrounded")
-        }
-
-        override fun onPause(owner: LifecycleOwner) {
-            _status.value = "Foreground: false"
-            exoPlayer.experimentalSetOffloadSchedulingEnabled(true)
-
-            errorReporter.logMessage("app backgrounded")
-        }
-    }
-
-    override suspend fun connect(exoPlayer: ExoPlayer, errorReporter: ErrorReporter) {
+public object BackgroundAudioOffloadStrategy : AudioOffloadStrategy {
+    override fun applyIndefinitely(
+        exoPlayer: ExoPlayer,
+        errorReporter: ErrorReporter
+    ): Flow<String> = callbackFlow {
         // Disabled when at least one activity is foregrounded
         val lifecycleOwner = ProcessLifecycleOwner.get()
         val foreground = lifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)
-        _status.value = "Foreground: $foreground"
 
+        trySend("Foreground: $foreground")
         exoPlayer.experimentalSetOffloadSchedulingEnabled(!foreground)
 
-        listener = createListener(exoPlayer)
+        val listener = object : DefaultLifecycleObserver {
+            override fun onResume(owner: LifecycleOwner) {
+                trySend("Foreground: true")
+                exoPlayer.experimentalSetOffloadSchedulingEnabled(false)
+
+                errorReporter.logMessage("app foregrounded")
+            }
+
+            override fun onPause(owner: LifecycleOwner) {
+                trySend("Foreground: false")
+                exoPlayer.experimentalSetOffloadSchedulingEnabled(true)
+
+                errorReporter.logMessage("app backgrounded")
+            }
+        }
+
         lifecycleOwner.lifecycle.addObserver(listener)
+
+        awaitClose {
+            lifecycleOwner.lifecycle.removeObserver(listener)
+        }
     }
 }

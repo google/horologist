@@ -60,12 +60,12 @@ class AudioDebugScreenViewModel @Inject constructor(
     }
 
     private val offloadState = combine(
-        audioOffloadManager.foreground,
+        audioOffloadManager.offloadStrategyStatus(),
         audioOffloadManager.sleepingForOffload,
         audioOffloadManager.offloadSchedulingEnabled,
-    ) { foreground, sleepingForOffload, offloadSchedulingEnabled ->
+    ) { offloadStrategy, sleepingForOffload, offloadSchedulingEnabled ->
         OffloadState(
-            foreground = foreground,
+            offloadStrategy = offloadStrategy,
             sleepingForOffload = sleepingForOffload,
             offloadSchedulingEnabled = offloadSchedulingEnabled,
         )
@@ -96,7 +96,7 @@ class AudioDebugScreenViewModel @Inject constructor(
     )
 
     data class OffloadState(
-        val foreground: Boolean,
+        val offloadStrategy: String,
         val sleepingForOffload: Boolean,
         val offloadSchedulingEnabled: Boolean,
     )

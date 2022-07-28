@@ -20,7 +20,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
+import com.google.android.horologist.media3.logging.ErrorReporter
+import com.google.android.horologist.media3.offload.AudioOffloadManager
+import com.google.android.horologist.media3.offload.AudioOffloadStrategy
+import com.google.android.horologist.media3.offload.BackgroundAudioOffloadStrategy
 import com.google.android.horologist.mediasample.domain.SettingsRepository
+import com.google.android.horologist.mediasample.domain.model.Settings
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -33,6 +38,8 @@ import javax.inject.Inject
 class SettingsScreenViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val snackbarManager: SnackbarManager,
+    private val offloadManager: AudioOffloadManager,
+    private val logger: ErrorReporter,
 ) : ViewModel() {
     val uiState: StateFlow<UiState> = settingsRepository.settingsFlow.map {
         UiState(
@@ -40,7 +47,7 @@ class SettingsScreenViewModel @Inject constructor(
             podcastControls = it.podcastControls,
             loadItemsAtStartup = it.loadItemsAtStartup,
             artworkGradient = it.artworkGradient,
-            showArtworkOnChip = it.showArtworkOnChip,
+            offloadMode = it.offloadMode,
             animated = it.animated,
             debugOffload = it.debugOffload,
             writable = true
@@ -59,7 +66,8 @@ class SettingsScreenViewModel @Inject constructor(
         val writable: Boolean = false,
         val showArtworkOnChip: Boolean = true,
         val animated: Boolean = true,
-        val debugOffload: Boolean = false
+        val debugOffload: Boolean = false,
+        val offloadMode: Settings.OffloadMode = Settings.OffloadMode.Background
     )
 
     fun setShowTimeTextInfo(enabled: Boolean) {
@@ -86,12 +94,6 @@ class SettingsScreenViewModel @Inject constructor(
         }
     }
 
-    fun setShowArtworkOnChip(enabled: Boolean) {
-        viewModelScope.launch {
-            settingsRepository.writeShowArtworkOnChip(enabled)
-        }
-    }
-
     fun setAnimated(enabled: Boolean) {
         viewModelScope.launch {
             settingsRepository.writeAnimated(enabled)
@@ -101,6 +103,18 @@ class SettingsScreenViewModel @Inject constructor(
     fun setDebugOffload(enabled: Boolean) {
         viewModelScope.launch {
             settingsRepository.writeDebugOffload(enabled)
+        }
+    }
+
+    fun setOffloadMode(mode: Settings.OffloadMode) {
+        viewModelScope.launch {
+            settingsRepository.writeOffloadMode(mode)
+            val strategy = when (mode) {
+                Settings.OffloadMode.Background -> BackgroundAudioOffloadStrategy(logger)
+                Settings.OffloadMode.Always -> AudioOffloadStrategy.Always
+                Settings.OffloadMode.Never -> AudioOffloadStrategy.Never
+            }
+            offloadManager.setOffloadStrategy(strategy)
         }
     }
 

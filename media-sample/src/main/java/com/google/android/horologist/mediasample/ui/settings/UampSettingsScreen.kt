@@ -37,6 +37,7 @@ import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.mediasample.R
+import com.google.android.horologist.mediasample.domain.model.Settings
 import com.google.android.horologist.mediasample.ui.navigation.navigateToAudioDebug
 import com.google.android.horologist.mediasample.ui.navigation.navigateToSamples
 
@@ -96,6 +97,19 @@ fun UampSettingsScreen(
             }
         }
         item {
+            ActionSetting(
+                stringResource(id = R.string.horologist_offload_mode, uiState.offloadMode.name),
+                enabled = uiState.writable
+            ) {
+                val newMode = when (uiState.offloadMode) {
+                    Settings.OffloadMode.Background -> Settings.OffloadMode.Never
+                    Settings.OffloadMode.Never -> Settings.OffloadMode.Always
+                    Settings.OffloadMode.Always -> Settings.OffloadMode.Background
+                }
+                settingsScreenViewModel.setOffloadMode(newMode)
+            }
+        }
+        item {
             CheckedSetting(
                 uiState.podcastControls,
                 stringResource(id = R.string.horologist_podcast_controls),
@@ -149,7 +163,10 @@ fun UampSettingsScreen(
             }
         }
         item {
-            ActionSetting(stringResource(id = R.string.horologist_logout)) {
+            ActionSetting(
+                text = stringResource(id = R.string.horologist_logout),
+                enabled = false
+            ) {
                 settingsScreenViewModel.logout()
             }
         }
@@ -159,6 +176,7 @@ fun UampSettingsScreen(
 @Composable
 fun ActionSetting(
     text: String,
+    enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
     Chip(
@@ -166,6 +184,7 @@ fun ActionSetting(
         label = {
             Text(text)
         },
+        enabled = enabled,
         modifier = Modifier.fillMaxWidth()
     )
 }
@@ -218,6 +237,6 @@ fun CheckedSetting(
         label = {
             Text(text)
         }, modifier = Modifier.fillMaxWidth()
-        )
-    }
+    )
+}
     

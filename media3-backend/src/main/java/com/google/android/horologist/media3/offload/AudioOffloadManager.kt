@@ -18,11 +18,6 @@ package com.google.android.horologist.media3.offload
 
 import android.media.AudioManager
 import android.os.Build
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.media3.common.Format
 import androidx.media3.exoplayer.DecoderReuseEvaluation
 import androidx.media3.exoplayer.ExoPlayer
@@ -32,11 +27,14 @@ import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendA
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.util.shortDescription
 import com.google.android.horologist.media3.util.toAudioFormat
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.update
-import java.lang.Exception
+import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
  * Coordination point for audio status, such as format, offload status.
@@ -46,11 +44,10 @@ import java.lang.Exception
 @ExperimentalHorologistMedia3BackendApi
 public class AudioOffloadManager(
     private val errorReporter: ErrorReporter,
-    private val audioSink: AudioSink
+    private val audioSink: AudioSink,
+    private val audioOffloadStrategyFlow: Flow<AudioOffloadStrategy> =
+        flowOf(AudioOffloadStrategy.Never)
 ) {
-    private var _foreground = MutableStateFlow(false)
-    public val foreground: StateFlow<Boolean> = _foreground.asStateFlow()
-
     private val _offloadSchedulingEnabled = MutableStateFlow(false)
     public val offloadSchedulingEnabled: StateFlow<Boolean> =
         _offloadSchedulingEnabled.asStateFlow()
@@ -116,8 +113,7 @@ public class AudioOffloadManager(
             }
 
             override fun onIsPlayingChanged(
-                eventTime: AnalyticsListener.EventTime,
-                isPlaying: Boolean
+                eventTime: AnalyticsListener.EventTime, isPlaying: Boolean
             ) {
                 // accumulate playback time for previous state
                 _times.value = times.value.timesToNow(sleepingForOffload.value, isPlaying)
@@ -134,8 +130,7 @@ public class AudioOffloadManager(
             }
 
             override fun onAudioSinkError(
-                eventTime: AnalyticsListener.EventTime,
-                audioSinkError: Exception
+                eventTime: AnalyticsListener.EventTime, audioSinkError: Exception
             ) {
                 addError(eventTime, "Audio Sink Error: " + audioSinkError.message)
             }
@@ -148,60 +143,43 @@ public class AudioOffloadManager(
         }
     }
 
-    private fun foregroundListener(exoPlayer: ExoPlayer): LifecycleObserver {
-        return object : DefaultLifecycleObserver {
-            override fun onResume(owner: LifecycleOwner) {
-                _foreground.value = true
-                exoPlayer.experimentalSetOffloadSchedulingEnabled(false)
-
-                errorReporter.logMessage("app foregrounded")
-            }
-
-            override fun onPause(owner: LifecycleOwner) {
-                _foreground.value = false
-                exoPlayer.experimentalSetOffloadSchedulingEnabled(true)
-
-                errorReporter.logMessage("app backgrounded")
-            }
-        }
-    }
-
     /**
      * Connect the AudioOffloadManager to the ExoPlayer instance for both listening to offload
      * state and activating it based on App foreground state.
      */
-    public fun connect(exoPlayer: ExoPlayer) {
-        // Disabled when at least one activity is foregrounded
-        val lifecycleOwner = ProcessLifecycleOwner.get()
-        val foreground = lifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)
-        _foreground.value = foreground
+    public suspend fun connect(exoPlayer: ExoPlayer) {
+        suspendCancellableCoroutine<Unit> {
+            _sleepingForOffload.value = exoPlayer.experimentalIsSleepingForOffload()
+            errorReporter.logMessage("initial sleeping for offload ${sleepingForOffload.value}")
 
-        _offloadSchedulingEnabled.value = !foreground
-        exoPlayer.experimentalSetOffloadSchedulingEnabled(!foreground)
+            val audioOffloadListener = audioOffloadListener(exoPlayer)
+            val analyticsListener = analyticsListener(exoPlayer)
 
-        _sleepingForOffload.value = exoPlayer.experimentalIsSleepingForOffload()
-        errorReporter.logMessage("initial sleeping for offload ${sleepingForOffload.value}")
+            delay(1000)
 
-        lifecycleOwner.lifecycle.addObserver(foregroundListener(exoPlayer))
+            audioOffloadStrategyFlow.collect {
+                1
+            }
 
-        exoPlayer.addAudioOffloadListener(audioOffloadListener(exoPlayer))
-        exoPlayer.addAnalyticsListener(analyticsListener(exoPlayer))
+            exoPlayer.addAudioOffloadListener(audioOffloadListener)
+            exoPlayer.addAnalyticsListener(analyticsListener)
+
+            it.invokeOnCancellation {
+                exoPlayer.removeAudioOffloadListener(audioOffloadListener)
+                exoPlayer.removeAnalyticsListener(analyticsListener)
+            }
+        }
     }
 
     public fun snapOffloadTimes(): OffloadTimes = times.value.timesToNow(
-        sleepingForOffload.value,
-        playing.value
+        sleepingForOffload.value, playing.value
     )
 
     public fun printDebugInfo() {
         val sleeping = sleepingForOffload.value
         val updatedTimes = snapOffloadTimes()
         errorReporter.logMessage(
-            "Offload State: " +
-                "sleeping: $sleeping " +
-                "format: ${format.value?.shortDescription} " +
-                "times: ${updatedTimes.shortDescription} " +
-                "foreground: ${foreground.value} ",
+            "Offload State: " + "sleeping: $sleeping " + "format: ${format.value?.shortDescription} " + "times: ${updatedTimes.shortDescription} " + "strategy: ${_audioOffloadStrategy.value.statusFlow.value} ",
             category = ErrorReporter.Category.Playback
         )
     }
@@ -224,5 +202,9 @@ public class AudioOffloadManager(
 
         // Not supported before 30
         return false
+    }
+
+    fun disconnect(exoPlayer: ExoPlayer) {
+
     }
 }

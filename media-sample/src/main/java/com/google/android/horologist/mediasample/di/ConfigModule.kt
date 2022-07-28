@@ -24,12 +24,15 @@ import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.media3.audio.AudioOutputSelector
 import com.google.android.horologist.media3.audio.BluetoothSettingsOutputSelector
 import com.google.android.horologist.mediasample.AppConfig
+import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.util.resetAfter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Singleton
 
@@ -75,4 +78,17 @@ object ConfigModule {
         @ApplicationContext application: Context
     ): NotificationManager =
         application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+    @Singleton
+    @Provides
+    fun playerConfig(
+        @ForApplicationScope coroutineScope: CoroutineScope,
+        settingsRepository: SettingsRepository,
+    ): PlayerConfig = PlayerConfig().also { playerConfig ->
+        coroutineScope.launch {
+            settingsRepository.settingsFlow.collect {
+                playerConfig.offloadMode.value = it.offloadMode.strategy
+            }
+        }
+    }
 }

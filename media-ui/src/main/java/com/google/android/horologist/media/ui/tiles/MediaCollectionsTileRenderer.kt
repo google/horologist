@@ -25,6 +25,7 @@ import androidx.wear.tiles.ActionBuilders
 import androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters
 import androidx.wear.tiles.DimensionBuilders
 import androidx.wear.tiles.DimensionBuilders.ExpandedDimensionProp
+import androidx.wear.tiles.DimensionBuilders.WrappedDimensionProp
 import androidx.wear.tiles.LayoutElementBuilders
 import androidx.wear.tiles.LayoutElementBuilders.Column
 import androidx.wear.tiles.LayoutElementBuilders.Spacer
@@ -56,13 +57,17 @@ public class MediaCollectionsTileRenderer(
 
     private val expandedDimensionProp = ExpandedDimensionProp.Builder().build()
 
+    private val wrapDimensionProp = WrappedDimensionProp.Builder().build()
+
     override fun renderTile(
         state: MediaCollectionsState,
         deviceParameters: DeviceParameters
     ): LayoutElementBuilders.LayoutElement {
         return PrimaryLayout.Builder(deviceParameters)
             .setContent(
-                Column.Builder().setWidth(expandedDimensionProp).setHeight(expandedDimensionProp)
+                Column.Builder()
+                    .setWidth(expandedDimensionProp)
+                    .setHeight(wrapDimensionProp)
                     .addContent(
                         collectionChip(
                             state.collection1, deviceParameters

@@ -6,18 +6,18 @@ androidx-media3 = "1.0.0-beta02"
 androidx-test = "1.4.0"
 androidx-test-ext = "1.1.3"
 androidx-wear-watchface = "1.1.0"
-androidxActivity = "1.5.0"
+androidxActivity = "1.5.1"
 androidxCore = "1.8.0"
-androidxFragment = "1.5.0"
-androidxLifecycle = "2.5.0"
-androidxNavigation = "2.5.0"
+androidxFragment = "1.5.1"
+androidxLifecycle = "2.5.1"
+androidxNavigation = "2.5.1"
 androidxWear = "1.2.0"
-androidxtiles = "1.1.0-alpha09"
+androidxtiles = "1.1.0-beta01"
 app-cash-paparazzi = "1.0.0"
 benManes = "0.42.0"
 com-squareup-okhttp3 = "4.10.0"
 com-squareup-retrofit2 = "2.9.0"
-compose = "1.2.0-rc03"
+compose = "1.2.0"
 compose-compiler = "1.2.0"
 composesnapshot = "-"
 dokka = "1.5.0"
@@ -32,14 +32,14 @@ ksp = "1.7.0-1.0.6"
 ktlint = "0.42.1"
 metalava = "0.2.1"
 moshi = "1.13.0"
-room = "2.4.2"
+room = "2.4.3"
 spotless = "6.7.2"
 truth = "1.1.3"
 versionCatalogUpdate = "0.5.1"
 wearcompose = "1.0.0-rc02"
 
 [libraries]
-accompanist-pager = "com.google.accompanist:accompanist-pager:0.24.13-rc"
+accompanist-pager = "com.google.accompanist:accompanist-pager:0.25.0"
 affectedmoduledetector = { module = "com.dropbox.affectedmoduledetector:affectedmoduledetector", version.ref = "affectedmoduledetector" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
@@ -69,7 +69,7 @@ androidx-media3-exoplayerworkmanager = { module = "androidx.media3:media3-exopla
 androidx-media3-session = { module = "androidx.media3:media3-session", version.ref = "androidx-media3" }
 androidx-media3-testutils = { module = "androidx.media3:media3-test-utils", version.ref = "androidx-media3" }
 androidx-media3-testutils-robolectric = { module = "androidx.media3:media3-test-utils-robolectric", version.ref = "androidx-media3" }
-androidx-mediarouter = "androidx.mediarouter:mediarouter:1.3.0"
+androidx-mediarouter = "androidx.mediarouter:mediarouter:1.3.1"
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidxNavigation" }
 androidx-palette-ktx = "androidx.palette:palette-ktx:1.0.0"
@@ -106,7 +106,7 @@ gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.20.0"
 hilt-navigationcompose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidx-hilt" }
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-kotlin-stdlib = "org.jetbrains.kotlin:kotlin-stdlib:1.6.21"
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutine" }

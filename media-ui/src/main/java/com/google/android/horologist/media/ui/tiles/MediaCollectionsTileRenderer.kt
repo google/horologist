@@ -98,7 +98,8 @@ public class MediaCollectionsTileRenderer(
         deviceParameters
     )
         .setChipColors(ChipColors.secondaryChipColors(theme))
-        .setPrimaryTextIconContent(collection.name, collection.artworkId)
+        .setPrimaryLabelContent(collection.name)
+        .setIconContent(collection.artworkId)
         .setWidth(expandedDimensionProp)
         .build()
 

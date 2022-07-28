@@ -78,7 +78,8 @@ public class ThemePreviewTileRenderer(context: Context, private val thisTheme: C
     internal fun primaryChip(
         deviceParameters: DeviceParameters
     ) = Chip.Builder(context, NoOpClickable, deviceParameters)
-        .setPrimaryTextIconContent("Primary Chip", Icon)
+        .setPrimaryLabelContent("Primary Chip")
+        .setIconContent(Icon)
         .setChipColors(ChipColors.primaryChipColors(theme))
         .build()
 

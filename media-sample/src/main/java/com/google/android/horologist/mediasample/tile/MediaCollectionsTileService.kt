@@ -186,7 +186,7 @@ fun SampleTilePreview() {
         MediaCollectionsTileRenderer.ResourceState(
             appIcon = R.drawable.ic_uamp,
             images = mapOf(
-                "s1" to kyoto.toImageResource(),
+                "s1" to kyoto?.toImageResource(),
                 "c2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24)
             )
         )

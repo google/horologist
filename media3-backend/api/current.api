@@ -6,9 +6,7 @@ package com.google.android.horologist.media3 {
 
   @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public final class WearConfiguredPlayer extends androidx.media3.common.ForwardingPlayer {
     ctor public WearConfiguredPlayer(androidx.media3.common.Player player, com.google.android.horologist.audio.AudioOutputRepository audioOutputRepository, com.google.android.horologist.media3.audio.AudioOutputSelector audioOutputSelector, com.google.android.horologist.media3.rules.PlaybackRules playbackRules, com.google.android.horologist.media3.logging.ErrorReporter errorReporter, kotlinx.coroutines.CoroutineScope coroutineScope);
-    method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getReleased();
     method public suspend Object? startNoiseDetection(kotlin.coroutines.Continuation<? super kotlin.Unit> p);
-    property public final kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> released;
   }
 
 }

@@ -23,7 +23,6 @@ import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
-import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.model.Playlist
 import com.google.android.horologist.mediasample.ui.mapper.PlaylistUiModelMapper
 import com.google.android.horologist.mediasample.util.ResourceProvider

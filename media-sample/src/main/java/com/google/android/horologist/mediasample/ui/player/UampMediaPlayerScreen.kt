@@ -30,7 +30,6 @@ import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
 import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
-import com.google.android.horologist.media.ui.components.background.ColorBackground
 import com.google.android.horologist.media.ui.screens.DefaultPlayerScreenControlButtons
 import com.google.android.horologist.media.ui.screens.DefaultPlayerScreenMediaDisplay
 import com.google.android.horologist.media.ui.screens.PlayerScreen

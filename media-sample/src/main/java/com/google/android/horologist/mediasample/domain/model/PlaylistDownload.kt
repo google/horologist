@@ -16,16 +16,7 @@
 
 package com.google.android.horologist.mediasample.domain.model
 
-import com.google.android.horologist.media.model.Media
-
 data class PlaylistDownload(
     val playlist: Playlist,
-    val mediaList: List<Pair<Media, Status>>
-) {
-
-    enum class Status {
-        Idle,
-        InProgress,
-        Completed
-    }
-}
+    val mediaList: List<MediaDownload>
+)

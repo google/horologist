@@ -22,17 +22,12 @@ import androidx.media3.database.StandaloneDatabaseProvider
 import androidx.media3.datasource.DataSource
 import androidx.media3.datasource.cache.Cache
 import androidx.media3.datasource.okhttp.OkHttpDataSource
-import androidx.media3.exoplayer.offline.DownloadIndex
 import androidx.media3.exoplayer.offline.DownloadManager
 import androidx.media3.exoplayer.offline.DownloadNotificationHelper
 import androidx.media3.exoplayer.workmanager.WorkManagerScheduler
-import androidx.room.Room
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.logging.TransferListener
-import com.google.android.horologist.mediasample.data.database.DownloadDatabase
-import com.google.android.horologist.mediasample.data.database.dao.PlaylistDownloadDao
-import com.google.android.horologist.mediasample.data.datasource.Media3DownloadDataSource
-import com.google.android.horologist.mediasample.data.datasource.PlaylistDownloadLocalDataSource
+import com.google.android.horologist.mediasample.data.datasource.MediaDownloadLocalDataSource
 import com.google.android.horologist.mediasample.data.service.download.DownloadManagerListener
 import com.google.android.horologist.mediasample.data.service.download.MediaDownloadService
 import com.google.android.horologist.mediasample.di.annotation.DownloadFeature
@@ -56,7 +51,6 @@ import javax.inject.Singleton
 object DownloadModule {
 
     private const val DOWNLOAD_WORK_MANAGER_SCHEDULER_WORK_NAME = "mediasample_download"
-    private const val DOWNLOAD_DATABASE_NAME = "download-database"
 
     @DownloadFeature
     @Singleton
@@ -126,41 +120,6 @@ object DownloadModule {
         @ApplicationContext applicationContext: Context,
     ) = WorkManagerScheduler(applicationContext, DOWNLOAD_WORK_MANAGER_SCHEDULER_WORK_NAME)
 
-    @Singleton
-    @Provides
-    fun downloadDataSource(
-        @ApplicationContext applicationContext: Context,
-        downloadIndex: DownloadIndex
-    ) = Media3DownloadDataSource(
-        applicationContext,
-        MediaDownloadService::class.java,
-        downloadIndex
-    )
-
-    @Provides
-    @Singleton
-    fun downloadDatabase(
-        @ApplicationContext context: Context,
-    ): DownloadDatabase {
-        return Room.databaseBuilder(
-            context,
-            DownloadDatabase::class.java,
-            DOWNLOAD_DATABASE_NAME
-        ).build()
-    }
-
-    @Provides
-    @Singleton
-    fun playlistDownloadLocalDataSource(
-        playlistDownloadDao: PlaylistDownloadDao,
-    ): PlaylistDownloadLocalDataSource = PlaylistDownloadLocalDataSource(playlistDownloadDao)
-
-    @Provides
-    @Singleton
-    fun playlistDownloadDao(
-        database: DownloadDatabase,
-    ): PlaylistDownloadDao = database.playlistDownloadDao()
-
     @DownloadFeature
     @Provides
     @Singleton
@@ -170,6 +129,9 @@ object DownloadModule {
     @Singleton
     fun downloadManagerListener(
         @DownloadFeature coroutineScope: CoroutineScope,
-        playlistDownloadDao: PlaylistDownloadDao,
-    ): DownloadManagerListener = DownloadManagerListener(coroutineScope, playlistDownloadDao)
+        mediaDownloadLocalDataSource: MediaDownloadLocalDataSource
+    ): DownloadManagerListener = DownloadManagerListener(
+        coroutineScope,
+        mediaDownloadLocalDataSource
+    )
 }

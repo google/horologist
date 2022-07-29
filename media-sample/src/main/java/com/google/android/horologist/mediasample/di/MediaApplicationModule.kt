@@ -40,14 +40,6 @@ import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.complication.DataUpdates
 import com.google.android.horologist.mediasample.complication.MediaStatusComplicationService
-import com.google.android.horologist.mediasample.data.api.UampService
-import com.google.android.horologist.mediasample.data.datasource.Media3DownloadDataSource
-import com.google.android.horologist.mediasample.data.datasource.PlaylistDownloadLocalDataSource
-import com.google.android.horologist.mediasample.data.datasource.PlaylistRemoteDataSource
-import com.google.android.horologist.mediasample.data.repository.PlaylistDownloadRepositoryImpl
-import com.google.android.horologist.mediasample.data.repository.PlaylistRepositoryImpl
-import com.google.android.horologist.mediasample.domain.PlaylistDownloadRepository
-import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.system.Logging
 import com.google.android.horologist.mediasample.util.ResourceProvider
@@ -109,13 +101,6 @@ object MediaApplicationModule {
         ) {
             application.preferencesDataStoreFile("prefs")
         }
-
-    @Singleton
-    @Provides
-    fun settingsRepository(
-        prefsDataStore: DataStore<Preferences>
-    ) =
-        SettingsRepository(prefsDataStore)
 
     @Singleton
     @Provides
@@ -223,37 +208,4 @@ object MediaApplicationModule {
         )
         return DataUpdates(updater)
     }
-
-    @Singleton
-    @Provides
-    fun playlistRepository(
-        playlistRemoteDataSource: PlaylistRemoteDataSource,
-        @ForApplicationScope coroutineScope: CoroutineScope
-    ): PlaylistRepository =
-        PlaylistRepositoryImpl(playlistRemoteDataSource, coroutineScope)
-
-    @Singleton
-    @Provides
-    fun playlistDownloadRepository(
-        @ForApplicationScope coroutineScope: CoroutineScope,
-        playlistDownloadLocalDataSource: PlaylistDownloadLocalDataSource,
-        media3DownloadDataSource: Media3DownloadDataSource
-    ): PlaylistDownloadRepository =
-        PlaylistDownloadRepositoryImpl(
-            coroutineScope,
-            playlistDownloadLocalDataSource,
-            media3DownloadDataSource
-        )
-
-    @Singleton
-    @Provides
-    fun playlistRemoteDataSource(
-        uampService: UampService,
-        errorReporter: ErrorReporter
-    ): PlaylistRemoteDataSource =
-        PlaylistRemoteDataSource(
-            ioDispatcher = Dispatchers.IO,
-            uampService = uampService,
-            errorReporter = errorReporter
-        )
 }

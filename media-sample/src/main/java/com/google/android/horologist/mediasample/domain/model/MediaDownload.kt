@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.database
+package com.google.android.horologist.mediasample.domain.model
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import com.google.android.horologist.mediasample.data.database.dao.PlaylistDownloadDao
-import com.google.android.horologist.mediasample.data.database.model.PlaylistDownloadEntity
+import com.google.android.horologist.media.model.Media
 
-@Database(
-    entities = [PlaylistDownloadEntity::class],
-    version = 1,
-    exportSchema = false
-)
-abstract class DownloadDatabase : RoomDatabase() {
+data class MediaDownload(
+    val media: Media,
+    val status: Status
+) {
 
-    abstract fun playlistDownloadDao(): PlaylistDownloadDao
+    enum class Status {
+        Idle,
+        InProgress,
+        Completed
+    }
 }

@@ -24,7 +24,5 @@ import kotlinx.coroutines.flow.Flow
  */
 interface PlaylistRepository {
 
-    suspend fun getPlaylist(id: String): Playlist?
-
-    fun getPlaylists(): Flow<Result<List<Playlist>>>
+    fun getAllPopulated(): Flow<List<Playlist>>
 }

@@ -79,11 +79,9 @@ class SettingsRepository(
         val ShowTimeTextInfo = booleanPreferencesKey("show_time_text_info")
         val PodcastControls = booleanPreferencesKey("podcast_controls")
         val LoadItemsAtStartup = booleanPreferencesKey("load_items_at_startup")
-        val ArtworkGradient = booleanPreferencesKey("artwork_gradient")
         val Animated = booleanPreferencesKey("animated")
         val DebugOffload = booleanPreferencesKey("debug_offload")
         val OffloadMode = stringPreferencesKey("offload_mode")
-
         fun Preferences.toSettings() = Settings(
             showTimeTextInfo = this[ShowTimeTextInfo] ?: false,
             podcastControls = this[PodcastControls] ?: false,

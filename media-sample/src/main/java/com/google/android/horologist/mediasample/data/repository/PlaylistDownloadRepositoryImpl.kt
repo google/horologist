@@ -41,7 +41,7 @@ class PlaylistDownloadRepositoryImpl(
 
     @OptIn(FlowPreview::class)
     override fun get(playlistId: String): Flow<PlaylistDownload> =
-        playlistLocalDataSource.getPopulated(playlistId).flatMapMerge { populatedPlaylist ->
+        playlistLocalDataSource.getPopulatedStream(playlistId).flatMapMerge { populatedPlaylist ->
             combine(
                 flowOf(populatedPlaylist),
                 mediaDownloadLocalDataSource.get(

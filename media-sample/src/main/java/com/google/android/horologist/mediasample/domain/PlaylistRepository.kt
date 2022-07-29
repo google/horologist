@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.mediasample.domain
 
+import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.mediasample.domain.model.Playlist
 import kotlinx.coroutines.flow.Flow
 
@@ -24,7 +25,13 @@ import kotlinx.coroutines.flow.Flow
  */
 interface PlaylistRepository {
 
+    suspend fun get(playlistId: String): Playlist?
+
     fun getAll(): Flow<List<Playlist>>
 
+    /**
+     * Returns only [Playlist]s that contain at least one [Media] with download in progress or
+     * completed.
+     */
     fun getAllDownloaded(): Flow<List<Playlist>>
 }

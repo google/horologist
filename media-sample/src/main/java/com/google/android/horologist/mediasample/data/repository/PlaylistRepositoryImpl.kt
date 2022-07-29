@@ -22,6 +22,7 @@ import com.google.android.horologist.mediasample.data.mapper.PlaylistMapper
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.model.Playlist
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -32,12 +33,18 @@ class PlaylistRepositoryImpl(
     private val playlistRemoteDataSource: PlaylistRemoteDataSource,
 ) : PlaylistRepository {
 
+    override suspend fun get(playlistId: String): Playlist? {
+        if (playlistLocalDataSource.isEmpty()) {
+            fetchApiAndStore().collect()
+        }
+
+        return playlistLocalDataSource.getPopulated(playlistId)?.let(PlaylistMapper::map)
+    }
+
     override fun getAll(): Flow<List<Playlist>> = flow {
         emitAll(
             if (playlistLocalDataSource.isEmpty()) {
-                playlistRemoteDataSource.getPlaylists()
-                    .map(PlaylistMapper::map)
-                    .onEach(playlistLocalDataSource::insert)
+                fetchApiAndStore()
             } else {
                 playlistLocalDataSource.getAllPopulated()
                     .map { list ->
@@ -46,6 +53,10 @@ class PlaylistRepositoryImpl(
             }
         )
     }
+
+    private fun fetchApiAndStore(): Flow<List<Playlist>> = playlistRemoteDataSource.getPlaylists()
+        .map(PlaylistMapper::map)
+        .onEach(playlistLocalDataSource::insert)
 
     override fun getAllDownloaded(): Flow<List<Playlist>> =
         playlistLocalDataSource.getAllDownloaded()

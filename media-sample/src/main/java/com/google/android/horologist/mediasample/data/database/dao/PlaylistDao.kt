@@ -51,7 +51,16 @@ interface PlaylistDao {
         WHERE playlistId = :playlistId
     """
     )
-    fun getPopulated(playlistId: String): Flow<PopulatedPlaylist>
+    suspend fun getPopulated(playlistId: String): PopulatedPlaylist
+
+    @Transaction
+    @Query(
+        value = """
+        SELECT * FROM playlistentity
+        WHERE playlistId = :playlistId
+    """
+    )
+    fun getPopulatedStream(playlistId: String): Flow<PopulatedPlaylist>
 
     @Transaction
     @Query(

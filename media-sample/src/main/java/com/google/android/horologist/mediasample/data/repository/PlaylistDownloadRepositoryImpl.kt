@@ -18,32 +18,47 @@ package com.google.android.horologist.mediasample.data.repository
 
 import androidx.core.net.toUri
 import com.google.android.horologist.mediasample.data.datasource.Media3DownloadDataSource
-import com.google.android.horologist.mediasample.data.datasource.PlaylistDownloadLocalDataSource
+import com.google.android.horologist.mediasample.data.datasource.MediaDownloadLocalDataSource
+import com.google.android.horologist.mediasample.data.datasource.PlaylistLocalDataSource
+import com.google.android.horologist.mediasample.data.mapper.PlaylistDownloadMapper
 import com.google.android.horologist.mediasample.domain.PlaylistDownloadRepository
 import com.google.android.horologist.mediasample.domain.model.Playlist
 import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapMerge
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
 class PlaylistDownloadRepositoryImpl(
     private val coroutineScope: CoroutineScope,
-    private val playlistDownloadLocalDataSource: PlaylistDownloadLocalDataSource,
+    private val playlistLocalDataSource: PlaylistLocalDataSource,
+    private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
     private val media3DownloadDataSource: Media3DownloadDataSource,
 ) : PlaylistDownloadRepository {
 
-    override fun get(playlist: Playlist): Flow<PlaylistDownload> =
-        playlistDownloadLocalDataSource.get(playlist)
+    @OptIn(FlowPreview::class)
+    override fun get(playlistId: String): Flow<PlaylistDownload> =
+        playlistLocalDataSource.getPopulated(playlistId).flatMapMerge { populatedPlaylist ->
+            combine(
+                flowOf(populatedPlaylist),
+                mediaDownloadLocalDataSource.get(
+                    populatedPlaylist.mediaList
+                        .map { it.mediaId }.toList()
+                )
+            ) { _, mediaDownloadList ->
+                PlaylistDownloadMapper.map(populatedPlaylist, mediaDownloadList)
+            }
+        }
 
     override fun download(playlist: Playlist) {
         coroutineScope.launch {
-            playlist.mediaList.forEach {
-                playlistDownloadLocalDataSource.add(
-                    playlistId = playlist.id,
-                    mediaItemId = it.id,
-                )
+            playlist.mediaList.forEach { media ->
+                mediaDownloadLocalDataSource.add(mediaId = media.id)
 
-                media3DownloadDataSource.download(it.id, it.uri.toUri())
+                media3DownloadDataSource.download(media.id, media.uri.toUri())
             }
         }
     }

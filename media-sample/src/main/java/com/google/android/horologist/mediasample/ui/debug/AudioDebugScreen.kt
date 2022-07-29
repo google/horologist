@@ -95,7 +95,7 @@ fun AudioDebugScreen(
             )
         }
         item {
-            val times = uiState?.audioOffloadStatus?.snapOffloadTimes()
+            val times = uiState?.audioOffloadStatus?.updateToNow()
             val enabled = times?.run { formatDuration(enabled) }.orEmpty()
             val disabled = times?.run { formatDuration(disabled) }.orEmpty()
             Text(

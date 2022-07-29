@@ -29,6 +29,7 @@ import com.google.android.horologist.media3.util.shortDescription
 import com.google.android.horologist.media3.util.toAudioFormat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.awaitCancellation
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -187,17 +188,20 @@ public class AudioOffloadManager(
         }
     }
 
-    public fun printDebugInfo() {
-        val status = _offloadStatus.value
-        val updatedTimes = status.snapOffloadTimes()
-        errorReporter.logMessage(
-            "Offload State: " +
-                "sleeping: ${status.sleepingForOffload} " +
-                "format: ${status.format?.shortDescription} " +
-                "times: ${updatedTimes.shortDescription} " +
-                "strategyStatus: ${status.strategyStatus} ",
-            category = ErrorReporter.Category.Playback
-        )
+    public suspend fun printDebugLogsLoop() {
+        while (true) {
+            val status = _offloadStatus.value
+            val times = status.updateToNow()
+            errorReporter.logMessage(
+                "Offload State: " +
+                    "sleeping: ${status.sleepingForOffload} " +
+                    "format: ${status.format?.shortDescription} " +
+                    "times: ${times.shortDescription} " +
+                    "strategyStatus: ${status.strategyStatus} ",
+                category = ErrorReporter.Category.Playback
+            )
+            delay(10000)
+        }
     }
 
     public fun isFormatSupported(): Boolean? {

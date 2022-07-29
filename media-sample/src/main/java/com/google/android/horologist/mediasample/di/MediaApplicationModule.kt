@@ -51,7 +51,6 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -145,10 +144,7 @@ object MediaApplicationModule {
                 settingsRepository.settingsFlow.map { it.debugOffload }
                     .collectLatest { debug ->
                         if (debug) {
-                            while (true) {
-                                audioOffloadManager.printDebugInfo()
-                                delay(5000)
-                            }
+                            audioOffloadManager.printDebugLogsLoop()
                         }
                     }
             }

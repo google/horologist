@@ -18,6 +18,7 @@ package com.google.android.horologist.media3.offload
 
 import androidx.media3.common.Format
 import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
+import com.google.android.horologist.media3.util.shortDescription
 
 @ExperimentalHorologistMedia3BackendApi
 public data class AudioOffloadStatus(
@@ -29,7 +30,14 @@ public data class AudioOffloadStatus(
     public val offloadTimes: OffloadTimes,
     public val strategyStatus: String?,
 ) {
-    public fun snapOffloadTimes(): OffloadTimes = offloadTimes.timesToNow(
+    public fun updateToNow(): OffloadTimes = offloadTimes.timesToNow(
         sleepingForOffload, isPlaying
     )
+    public fun describe(): String {
+        return "Offload State: " +
+            "sleeping: $sleepingForOffload " +
+            "format: ${format?.shortDescription} " +
+            "times: ${offloadTimes.shortDescription} " +
+            "strategyStatus: $strategyStatus "
+    }
 }

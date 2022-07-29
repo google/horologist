@@ -32,7 +32,7 @@ class PlaylistRepositoryImpl(
     private val playlistRemoteDataSource: PlaylistRemoteDataSource,
 ) : PlaylistRepository {
 
-    override fun getAllPopulated(): Flow<List<Playlist>> = flow {
+    override fun getAll(): Flow<List<Playlist>> = flow {
         emitAll(
             if (playlistLocalDataSource.isEmpty()) {
                 playlistRemoteDataSource.getPlaylists()
@@ -46,4 +46,10 @@ class PlaylistRepositoryImpl(
             }
         )
     }
+
+    override fun getAllDownloaded(): Flow<List<Playlist>> =
+        playlistLocalDataSource.getAllDownloaded()
+            .map { list ->
+                buildList { list.forEach { add(PlaylistMapper.map(it)) } }
+            }
 }

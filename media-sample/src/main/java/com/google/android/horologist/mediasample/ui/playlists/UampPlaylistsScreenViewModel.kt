@@ -23,7 +23,6 @@ import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
-import com.google.android.horologist.mediasample.domain.model.Playlist
 import com.google.android.horologist.mediasample.ui.mapper.PlaylistUiModelMapper
 import com.google.android.horologist.mediasample.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -43,9 +42,9 @@ class UampPlaylistsScreenViewModel @Inject constructor(
 ) : ViewModel() {
 
     val uiState: StateFlow<PlaylistScreenState> =
-        playlistRepository.getAllPopulated().map<List<Playlist>, PlaylistScreenState> {
+        playlistRepository.getAll().map {
             PlaylistScreenState.Loaded(it.map(PlaylistUiModelMapper::map))
-        }.catch { throwable ->
+        }.catch<PlaylistScreenState> { throwable ->
             when (throwable) {
                 is IOException -> {
                     snackbarManager.showMessage(

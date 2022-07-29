@@ -14,18 +14,16 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.database.model
+package com.google.android.horologist.mediasample.ui.mapper
 
-import androidx.room.Entity
-import androidx.room.Index
+import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
+import com.google.android.horologist.mediasample.domain.model.Playlist
 
-@Entity(
-    primaryKeys = ["playlistId", "mediaId"],
-    indices = [
-        Index(value = ["mediaId"]),
-    ]
-)
-data class PlaylistMediaEntity(
-    val playlistId: String,
-    val mediaId: String,
-)
+/**
+ * Maps a [Playlist] into a [PlaylistDownloadUiModel].
+ */
+object PlaylistDownloadUiModelMapper {
+
+    fun map(playlist: Playlist): PlaylistDownloadUiModel =
+        PlaylistDownloadUiModel.Completed(PlaylistUiModelMapper.map(playlist))
+}

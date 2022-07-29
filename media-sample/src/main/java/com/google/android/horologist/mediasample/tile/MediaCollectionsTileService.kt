@@ -32,13 +32,13 @@ import coil.ImageLoader
 import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.compose.tools.WearPreviewFontSizes
-import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
 import com.google.android.horologist.media.ui.tiles.toTileColors
 import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.components.MediaActivity
 import com.google.android.horologist.mediasample.data.api.UampService
+import com.google.android.horologist.mediasample.data.api.model.MusicApiModel
 import com.google.android.horologist.mediasample.ui.app.UampColors
 import com.google.android.horologist.tiles.CoroutinesTileService
 import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
@@ -81,7 +81,7 @@ class MediaCollectionsTileService : CoroutinesTileService() {
                     name = song.title,
                     artworkId = song.id,
                     action = appLauncher {
-                        addStringExtra(MediaActivity.CollectionKey, song.artist)
+                        addStringExtra(MediaActivity.CollectionKey, song.genre)
                         addStringExtra(MediaActivity.MediaIdKey, song.id)
                     }
                 ),
@@ -89,7 +89,7 @@ class MediaCollectionsTileService : CoroutinesTileService() {
                     name = album.title,
                     artworkId = album.id,
                     action = appLauncher {
-                        addStringExtra(MediaActivity.CollectionKey, album.artist)
+                        addStringExtra(MediaActivity.CollectionKey, album.genre)
                     }
                 )
             ),
@@ -97,10 +97,8 @@ class MediaCollectionsTileService : CoroutinesTileService() {
         )
     }
 
-    suspend fun loadItems(): Pair<Media, Media> {
-        val catalog = uampService.catalog().music.map {
-            it.toMedia()
-        }
+    suspend fun loadItems(): Pair<MusicApiModel, MusicApiModel> {
+        val catalog = uampService.catalog().music
 
         return Pair(catalog.first(), catalog.last())
     }
@@ -138,8 +136,8 @@ class MediaCollectionsTileService : CoroutinesTileService() {
     override suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources {
         val (song, album) = loadItems()
 
-        val songResource = imageLoader.loadImageResource(this, song.artworkUri)
-        val albumResource = imageLoader.loadImageResource(this, album.artworkUri)
+        val songResource = imageLoader.loadImageResource(this, song.image)
+        val albumResource = imageLoader.loadImageResource(this, album.image)
 
         return renderer.produceRequestedResources(
             MediaCollectionsTileRenderer.ResourceState(

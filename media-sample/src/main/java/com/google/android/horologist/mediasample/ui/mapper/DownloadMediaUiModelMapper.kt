@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.mediasample.ui.mapper
 
-import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.ui.state.mapper.MediaUiModelMapper
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.mediasample.domain.model.MediaDownload
@@ -34,14 +33,4 @@ object DownloadMediaUiModelMapper {
             DownloadMediaUiModel.Available(MediaUiModelMapper.map(mediaDownload.media))
         }
     }
-
-    fun mapList(mediaDownloadList: List<MediaDownload>): List<DownloadMediaUiModel> =
-        mediaDownloadList.map(DownloadMediaUiModelMapper::map)
-
-    fun map(media: Media): DownloadMediaUiModel =
-        DownloadMediaUiModel.Unavailable(MediaUiModelMapper.map(media))
-
-    fun map(mediaList: List<Media>): List<DownloadMediaUiModel> = mediaList.map(
-        DownloadMediaUiModelMapper::map
-    )
 }

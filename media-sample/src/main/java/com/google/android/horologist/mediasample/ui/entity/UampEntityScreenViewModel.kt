@@ -23,16 +23,12 @@ import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.ui.navigation.NavigationScreens
 import com.google.android.horologist.media.ui.screens.entity.EntityScreenState
 import com.google.android.horologist.mediasample.domain.PlaylistDownloadRepository
-import com.google.android.horologist.mediasample.domain.PlaylistRepository
-import com.google.android.horologist.mediasample.domain.model.Playlist
+import com.google.android.horologist.mediasample.domain.model.MediaDownload
 import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
 import com.google.android.horologist.mediasample.ui.mapper.PlaylistUiModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flatMapMerge
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
@@ -40,30 +36,25 @@ import javax.inject.Inject
 @HiltViewModel
 class UampEntityScreenViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val playlistRepository: PlaylistRepository,
     private val playlistDownloadRepository: PlaylistDownloadRepository,
     private val playerRepository: PlayerRepository,
 ) : ViewModel() {
     private val playlistId: String = savedStateHandle[NavigationScreens.Collection.id]!!
     private val playlistName: String = savedStateHandle[NavigationScreens.Collection.name]!!
 
-    private val playlist: StateFlow<Playlist?> = flow {
-        emit(playlistRepository.getPlaylist(playlistId))
-    }.stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = null)
+    private val playlistDownload: StateFlow<PlaylistDownload?> =
+        playlistDownloadRepository.get(playlistId)
+            .stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = null)
 
-    @OptIn(FlowPreview::class)
-    val uiState: StateFlow<EntityScreenState> = playlist.flatMapMerge { playlist ->
-        if (playlist != null) {
-            playlistDownloadRepository.get(playlist)
-                .map {
-                    EntityScreenState.Loaded(
-                        playlistUiModel = PlaylistUiModelMapper.map(it.playlist),
-                        downloadList = DownloadMediaUiModelMapper.map(it.mediaList),
-                        downloading = it.mediaList.any { (_, status) -> status == PlaylistDownload.Status.InProgress },
-                    )
-                }
+    val uiState: StateFlow<EntityScreenState> = playlistDownload.map { playlistDownload ->
+        if (playlistDownload != null) {
+            EntityScreenState.Loaded(
+                playlistUiModel = PlaylistUiModelMapper.map(playlistDownload.playlist),
+                downloadList = playlistDownload.mediaList.map(DownloadMediaUiModelMapper::map),
+                downloading = playlistDownload.mediaList.any { (_, status) -> status == MediaDownload.Status.InProgress },
+            )
         } else {
-            flow<EntityScreenState> { emit(EntityScreenState.Loading(playlistName)) }
+            EntityScreenState.Loading(playlistName)
         }
     }.stateIn(
         viewModelScope,
@@ -80,14 +71,14 @@ class UampEntityScreenViewModel @Inject constructor(
     }
 
     private fun play(shuffled: Boolean) {
-        playlist.value?.let {
+        playlistDownload.value?.let { playlistDownload ->
             playerRepository.setShuffleModeEnabled(shuffled)
 
-            playerRepository.setMediaList(it.mediaList)
+            playerRepository.setMediaList(playlistDownload.playlist.mediaList)
             playerRepository.prepare()
             playerRepository.play()
         }
     }
 
-    fun download() = playlist.value?.let(playlistDownloadRepository::download)
+    fun download() = playlistDownload.value?.let { playlistDownloadRepository.download(it.playlist) }
 }

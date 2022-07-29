@@ -16,15 +16,15 @@
 
 package com.google.android.horologist.mediasample.data.mapper
 
-import androidx.media3.exoplayer.offline.Download
-import com.google.android.horologist.mediasample.data.database.model.PlaylistDownloadState
+import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntityStatus
+import com.google.android.horologist.mediasample.domain.model.MediaDownload
 
-object PlaylistDownloadStateMapper {
+object MediaDownloadStatusMapper {
 
-    fun map(@Download.State state: Int): PlaylistDownloadState = when (state) {
-        Download.STATE_QUEUED, Download.STATE_DOWNLOADING, Download.STATE_RESTARTING -> PlaylistDownloadState.Downloading
-        Download.STATE_COMPLETED -> PlaylistDownloadState.Downloaded
-        Download.STATE_FAILED -> PlaylistDownloadState.Failed
-        else -> PlaylistDownloadState.NotDownloaded
+    fun map(mediaDownloadEntityStatus: MediaDownloadEntityStatus): MediaDownload.Status = when (mediaDownloadEntityStatus) {
+        MediaDownloadEntityStatus.NotDownloaded -> MediaDownload.Status.Idle
+        MediaDownloadEntityStatus.Downloading -> MediaDownload.Status.InProgress
+        MediaDownloadEntityStatus.Downloaded -> MediaDownload.Status.Completed
+        MediaDownloadEntityStatus.Failed -> MediaDownload.Status.Idle
     }
 }

@@ -21,6 +21,6 @@ import com.google.android.horologist.media.model.Media
 data class Playlist(
     val id: String,
     val name: String,
-    val mediaList: List<Media>,
     val artworkUri: String? = null,
+    val mediaList: List<Media>,
 )

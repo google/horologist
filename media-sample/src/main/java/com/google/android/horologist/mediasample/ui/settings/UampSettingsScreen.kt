@@ -129,15 +129,6 @@ fun UampSettingsScreen(
         }
         item {
             CheckedSetting(
-                uiState.artworkGradient,
-                stringResource(id = R.string.horologist_artwork_gradient),
-                enabled = uiState.writable
-            ) {
-                settingsScreenViewModel.setArtworkGradient(it)
-            }
-        }
-        item {
-            CheckedSetting(
                 uiState.animated,
                 stringResource(id = R.string.horologist_animated),
                 enabled = uiState.writable

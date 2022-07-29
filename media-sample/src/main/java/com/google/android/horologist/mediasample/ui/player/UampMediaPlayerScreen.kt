@@ -30,7 +30,6 @@ import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
 import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
-import com.google.android.horologist.media.ui.components.background.ColorBackground
 import com.google.android.horologist.media.ui.screens.DefaultPlayerScreenControlButtons
 import com.google.android.horologist.media.ui.screens.DefaultPlayerScreenMediaDisplay
 import com.google.android.horologist.media.ui.screens.PlayerScreen
@@ -97,15 +96,11 @@ fun UampMediaPlayerScreen(
                 }
             },
             background = {
-                if (settingsState?.artworkGradient == true) {
-                    val artworkUri = it.media?.artworkUri
-                    ArtworkColorBackground(
-                        artworkUri = artworkUri,
-                        defaultColor = MaterialTheme.colors.primary
-                    )
-                } else {
-                    ColorBackground(color = MaterialTheme.colors.primary)
-                }
+                val artworkUri = it.media?.artworkUri
+                ArtworkColorBackground(
+                    artworkUri = artworkUri,
+                    defaultColor = MaterialTheme.colors.primary
+                )
             }
         )
     }

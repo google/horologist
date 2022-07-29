@@ -16,21 +16,23 @@
 
 package com.google.android.horologist.mediasample.data.database.model
 
-import androidx.room.Entity
+import androidx.room.Embedded
+import androidx.room.Junction
+import androidx.room.Relation
 
-@Entity(
-    tableName = "playlist_download",
-    primaryKeys = ["playlistId", "mediaItemId"]
+/**
+ * [PlaylistEntity] populated with a list of [MediaEntity].
+ */
+data class PopulatedPlaylist(
+    @Embedded val playlist: PlaylistEntity,
+    @Relation(
+        parentColumn = "playlistId",
+        entityColumn = "mediaId",
+        associateBy = Junction(
+            PlaylistMediaEntity::class,
+            parentColumn = "playlistId",
+            entityColumn = "mediaId",
+        )
+    )
+    val mediaList: List<MediaEntity>
 )
-data class PlaylistDownloadEntity(
-    val playlistId: String,
-    val mediaItemId: String,
-    val status: PlaylistDownloadState,
-)
-
-enum class PlaylistDownloadState {
-    NotDownloaded,
-    Downloading,
-    Downloaded,
-    Failed
-}

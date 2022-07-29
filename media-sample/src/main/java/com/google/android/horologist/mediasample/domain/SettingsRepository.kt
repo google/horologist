@@ -47,12 +47,6 @@ class SettingsRepository(
         }
     }
 
-    suspend fun writeArtworkGradient(enabled: Boolean) {
-        edit {
-            it[ArtworkGradient] = enabled
-        }
-    }
-
     suspend fun writeShowTimeTextInfo(enabled: Boolean) {
         edit {
             it[ShowTimeTextInfo] = enabled
@@ -94,7 +88,6 @@ class SettingsRepository(
             showTimeTextInfo = this[ShowTimeTextInfo] ?: false,
             podcastControls = this[PodcastControls] ?: false,
             loadItemsAtStartup = this[LoadItemsAtStartup] ?: true,
-            artworkGradient = this[ArtworkGradient] ?: true,
             animated = this[Animated] ?: false,
             debugOffload = this[DebugOffload] ?: false,
             offloadMode = this[OffloadMode]?.let {

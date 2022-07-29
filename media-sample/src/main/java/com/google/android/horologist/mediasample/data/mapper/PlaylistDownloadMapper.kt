@@ -16,26 +16,20 @@
 
 package com.google.android.horologist.mediasample.data.mapper
 
-import com.google.android.horologist.mediasample.data.database.model.PlaylistDownloadEntity
-import com.google.android.horologist.mediasample.domain.model.Playlist
+import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntity
+import com.google.android.horologist.mediasample.data.database.model.PopulatedPlaylist
 import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
 
 object PlaylistDownloadMapper {
 
     fun map(
-        playlist: Playlist,
-        playlistDownloadEntityList: List<PlaylistDownloadEntity>
-    ): PlaylistDownload = PlaylistDownload(
-        playlist = playlist,
-        buildList {
-            playlist.mediaList.forEach { media ->
-                val status =
-                    playlistDownloadEntityList.firstOrNull { it.mediaItemId == media.id }
-                        ?.let { PlaylistDownloadStatusMapper.map(it.status) }
-                        ?: PlaylistDownload.Status.Idle
-
-                add(Pair(media, status))
-            }
-        }
-    )
+        populatedPlaylist: PopulatedPlaylist,
+        mediaDownloadEntity: List<MediaDownloadEntity>
+    ): PlaylistDownload {
+        val playlist = PlaylistMapper.map(populatedPlaylist)
+        return PlaylistDownload(
+            playlist = playlist,
+            mediaList = MediaDownloadMapper.map(playlist, mediaDownloadEntity)
+        )
+    }
 }

@@ -14,18 +14,16 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.domain
+package com.google.android.horologist.mediasample.data.database.mapper
 
+import com.google.android.horologist.mediasample.data.database.model.PlaylistEntity
 import com.google.android.horologist.mediasample.domain.model.Playlist
-import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
-import kotlinx.coroutines.flow.Flow
 
-/**
- * A repository of [PlaylistDownload].
- */
-interface PlaylistDownloadRepository {
+object PlaylistEntityMapper {
 
-    fun get(playlistId: String): Flow<PlaylistDownload>
-
-    fun download(playlist: Playlist)
+    fun map(playlist: Playlist): PlaylistEntity = PlaylistEntity(
+        playlistId = playlist.id,
+        name = playlist.name,
+        artworkUri = playlist.artworkUri,
+    )
 }

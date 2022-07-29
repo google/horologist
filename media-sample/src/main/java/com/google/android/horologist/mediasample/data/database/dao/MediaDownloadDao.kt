@@ -20,38 +20,38 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.google.android.horologist.mediasample.data.database.model.PlaylistDownloadEntity
-import com.google.android.horologist.mediasample.data.database.model.PlaylistDownloadState
+import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntity
+import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntityStatus
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface PlaylistDownloadDao {
+interface MediaDownloadDao {
 
     @Query(
         value = """
-        SELECT * FROM playlist_download
-        WHERE playlistId = :playlistId
+        SELECT * FROM mediadownloadentity
+        WHERE mediaId in (:mediaIds)
     """
     )
-    fun getStream(playlistId: String): Flow<List<PlaylistDownloadEntity>>
+    fun getList(mediaIds: List<String>): Flow<List<MediaDownloadEntity>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(playlistDownloadEntities: PlaylistDownloadEntity): Long
+    suspend fun insert(mediaDownloadEntity: MediaDownloadEntity): Long
 
     @Query(
-        value = """
-            DELETE FROM playlist_download
-            WHERE mediaItemId = :mediaItemId
         """
-    )
-    suspend fun deleteByMediaItemId(mediaItemId: String)
-
-    @Query(
-        value = """
-        UPDATE playlist_download
+        UPDATE mediadownloadentity
         SET status = :status
-        WHERE mediaItemId = :mediaItemId
+        WHERE mediaId = :mediaId
     """
     )
-    suspend fun updateStatusByMediaItemId(mediaItemId: String, status: PlaylistDownloadState)
+    suspend fun updateStatus(mediaId: String, status: MediaDownloadEntityStatus)
+
+    @Query(
+        """
+        DELETE FROM mediadownloadentity
+        WHERE mediaId = :mediaId
+    """
+    )
+    suspend fun delete(mediaId: String)
 }

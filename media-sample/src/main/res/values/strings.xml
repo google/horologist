@@ -47,4 +47,6 @@
     <string name="horologist_sample_offload_supported">Offload Supported: %1s</string>
     <string name="horologist_sample_audio_debug_errors">Errors</string>
     <string name="horologist_offload_mode">Offload: %1s</string>
+    <string name="horologist_sample_audio_debug_events">Events</string>
+    <string name="horologist_sample_audio_debug_reset">Reset AudioSink</string>
 </resources>

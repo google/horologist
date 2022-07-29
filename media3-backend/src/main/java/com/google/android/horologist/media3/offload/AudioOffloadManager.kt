@@ -179,7 +179,6 @@ public class AudioOffloadManager(
                         it.copy(strategyStatus = strategyStatus)
                     }
                 }
-                println(_offloadStatus.value)
                 awaitCancellation()
             }
         } finally {

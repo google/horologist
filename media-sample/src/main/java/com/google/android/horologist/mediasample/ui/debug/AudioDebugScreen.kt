@@ -108,7 +108,7 @@ fun AudioDebugScreen(
         }
         item {
             Text(
-                text = stringResource(id = R.string.horologist_sample_audio_debug_errors),
+                text = stringResource(id = R.string.horologist_sample_audio_debug_events),
                 modifier = Modifier.padding(vertical = 12.dp),
                 style = MaterialTheme.typography.title3,
             )

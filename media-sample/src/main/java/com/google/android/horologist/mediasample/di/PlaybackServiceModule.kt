@@ -214,6 +214,7 @@ object PlaybackServiceModule {
         playbackRules: PlaybackRules,
         logger: ErrorReporter,
         audioOffloadManager: AudioOffloadManager,
+        appConfig: AppConfig
     ): Player =
         WearConfiguredPlayer(
             player = exoPlayer,
@@ -227,8 +228,10 @@ object PlaybackServiceModule {
                 wearConfiguredPlayer.startNoiseDetection()
             }
 
-            serviceCoroutineScope.launch {
-                audioOffloadManager.connect(exoPlayer)
+            if (appConfig.offloadEnabled) {
+                serviceCoroutineScope.launch {
+                    audioOffloadManager.connect(exoPlayer)
+                }
             }
         }
 

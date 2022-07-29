@@ -131,7 +131,8 @@ object MediaApplicationModule {
         logger: ErrorReporter,
         settingsRepository: SettingsRepository,
         audioSink: AudioSink,
-        @ForApplicationScope coroutineScope: CoroutineScope
+        @ForApplicationScope coroutineScope: CoroutineScope,
+        appConfig: AppConfig
     ): AudioOffloadManager {
         val audioOffloadStrategyFlow =
             settingsRepository.settingsFlow.map { it.offloadMode.strategy }
@@ -140,13 +141,15 @@ object MediaApplicationModule {
             audioSink,
             audioOffloadStrategyFlow
         ).also { audioOffloadManager ->
-            coroutineScope.launch {
-                settingsRepository.settingsFlow.map { it.debugOffload }
-                    .collectLatest { debug ->
-                        if (debug) {
-                            audioOffloadManager.printDebugLogsLoop()
+            if (appConfig.offloadEnabled) {
+                coroutineScope.launch {
+                    settingsRepository.settingsFlow.map { it.debugOffload }
+                        .collectLatest { debug ->
+                            if (debug) {
+                                audioOffloadManager.printDebugLogsLoop()
+                            }
                         }
-                    }
+                }
             }
         }
     }

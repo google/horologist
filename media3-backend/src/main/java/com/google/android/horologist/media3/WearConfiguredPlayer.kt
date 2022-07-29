@@ -29,8 +29,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
@@ -50,10 +48,6 @@ public class WearConfiguredPlayer(
     private val coroutineScope: CoroutineScope,
 ) : ForwardingPlayer(player) {
     private var playAttempt: Job? = null
-    private var releaseListeners = mutableListOf<() -> Unit>()
-
-    private val _released = MutableStateFlow(false)
-    public val released: StateFlow<Boolean> = _released
 
     /**
      * Start proactive noise detection, unlike ExoPlayer setHandleAudioBecomingNoisy
@@ -119,7 +113,6 @@ public class WearConfiguredPlayer(
     }
 
     override fun release() {
-        _released.value = true
         super.release()
     }
 

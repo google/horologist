@@ -79,7 +79,7 @@ class SettingsRepository(
             showTimeTextInfo = this[ShowTimeTextInfo] ?: false,
             podcastControls = this[PodcastControls] ?: false,
             loadItemsAtStartup = this[LoadItemsAtStartup] ?: true,
-            animated = this[Animated] ?: false,
+            animated = this[Animated] ?: true,
             debugOffload = this[DebugOffload] ?: false
         )
     }

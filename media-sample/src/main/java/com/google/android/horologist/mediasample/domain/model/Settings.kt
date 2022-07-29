@@ -20,6 +20,6 @@ data class Settings(
     val showTimeTextInfo: Boolean = false,
     val podcastControls: Boolean = false,
     val loadItemsAtStartup: Boolean = true,
-    val animated: Boolean = false,
+    val animated: Boolean = true,
     val debugOffload: Boolean = false,
 )

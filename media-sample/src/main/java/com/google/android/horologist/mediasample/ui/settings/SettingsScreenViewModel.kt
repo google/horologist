@@ -39,8 +39,6 @@ class SettingsScreenViewModel @Inject constructor(
             showTimeTextInfo = it.showTimeTextInfo,
             podcastControls = it.podcastControls,
             loadItemsAtStartup = it.loadItemsAtStartup,
-            artworkGradient = it.artworkGradient,
-            showArtworkOnChip = it.showArtworkOnChip,
             animated = it.animated,
             debugOffload = it.debugOffload,
             writable = true
@@ -55,11 +53,9 @@ class SettingsScreenViewModel @Inject constructor(
         val showTimeTextInfo: Boolean = false,
         val podcastControls: Boolean = false,
         val loadItemsAtStartup: Boolean = true,
-        val artworkGradient: Boolean = true,
-        val writable: Boolean = false,
-        val showArtworkOnChip: Boolean = true,
         val animated: Boolean = true,
-        val debugOffload: Boolean = false
+        val debugOffload: Boolean = false,
+        val writable: Boolean = false,
     )
 
     fun setShowTimeTextInfo(enabled: Boolean) {
@@ -77,18 +73,6 @@ class SettingsScreenViewModel @Inject constructor(
     fun setLoadItemsAtStartup(enabled: Boolean) {
         viewModelScope.launch {
             settingsRepository.writeLoadItemsAtStartup(enabled)
-        }
-    }
-
-    fun setArtworkGradient(enabled: Boolean) {
-        viewModelScope.launch {
-            settingsRepository.writeArtworkGradient(enabled)
-        }
-    }
-
-    fun setShowArtworkOnChip(enabled: Boolean) {
-        viewModelScope.launch {
-            settingsRepository.writeShowArtworkOnChip(enabled)
         }
     }
 

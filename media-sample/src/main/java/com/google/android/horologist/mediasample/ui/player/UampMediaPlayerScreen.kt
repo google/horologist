@@ -97,15 +97,11 @@ fun UampMediaPlayerScreen(
                 }
             },
             background = {
-                if (settingsState?.artworkGradient == true) {
-                    val artworkUri = it.media?.artworkUri
-                    ArtworkColorBackground(
-                        artworkUri = artworkUri,
-                        defaultColor = MaterialTheme.colors.primary
-                    )
-                } else {
-                    ColorBackground(color = MaterialTheme.colors.primary)
-                }
+                val artworkUri = it.media?.artworkUri
+                ArtworkColorBackground(
+                    artworkUri = artworkUri,
+                    defaultColor = MaterialTheme.colors.primary
+                )
             }
         )
     }

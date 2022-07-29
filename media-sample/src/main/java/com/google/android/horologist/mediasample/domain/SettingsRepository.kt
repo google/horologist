@@ -46,18 +46,6 @@ class SettingsRepository(
         }
     }
 
-    suspend fun writeArtworkGradient(enabled: Boolean) {
-        edit {
-            it[ArtworkGradient] = enabled
-        }
-    }
-
-    suspend fun writeShowArtworkOnChip(enabled: Boolean) {
-        edit {
-            it[ShowArtworkOnChip] = enabled
-        }
-    }
-
     suspend fun writeShowTimeTextInfo(enabled: Boolean) {
         edit {
             it[ShowTimeTextInfo] = enabled
@@ -84,8 +72,6 @@ class SettingsRepository(
         val ShowTimeTextInfo = booleanPreferencesKey("show_time_text_info")
         val PodcastControls = booleanPreferencesKey("podcast_controls")
         val LoadItemsAtStartup = booleanPreferencesKey("load_items_at_startup")
-        val ArtworkGradient = booleanPreferencesKey("artwork_gradient")
-        val ShowArtworkOnChip = booleanPreferencesKey("show_artwork_on_chip")
         val Animated = booleanPreferencesKey("animated")
         val DebugOffload = booleanPreferencesKey("debug_offload")
 
@@ -93,8 +79,6 @@ class SettingsRepository(
             showTimeTextInfo = this[ShowTimeTextInfo] ?: false,
             podcastControls = this[PodcastControls] ?: false,
             loadItemsAtStartup = this[LoadItemsAtStartup] ?: true,
-            artworkGradient = this[ArtworkGradient] ?: true,
-            showArtworkOnChip = this[ShowArtworkOnChip] ?: true,
             animated = this[Animated] ?: false,
             debugOffload = this[DebugOffload] ?: false
         )

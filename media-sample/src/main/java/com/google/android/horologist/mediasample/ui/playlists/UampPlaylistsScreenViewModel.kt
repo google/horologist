@@ -51,7 +51,6 @@ class UampPlaylistsScreenViewModel @Inject constructor(
                     playlistsResult.getOrThrow().map {
                         PlaylistUiModelMapper.map(
                             playlist = it,
-                            shouldMapArtworkUri = settings.showArtworkOnChip
                         )
                     }
                 )

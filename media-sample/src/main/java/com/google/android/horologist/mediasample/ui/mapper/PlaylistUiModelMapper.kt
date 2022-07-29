@@ -26,14 +26,9 @@ object PlaylistUiModelMapper {
 
     fun map(
         playlist: Playlist,
-        shouldMapArtworkUri: Boolean = true,
     ): PlaylistUiModel = PlaylistUiModel(
         id = playlist.id,
         title = playlist.name,
-        artworkUri = if (shouldMapArtworkUri) {
-            playlist.artworkUri
-        } else {
-            null
-        }
+        artworkUri = playlist.artworkUri
     )
 }

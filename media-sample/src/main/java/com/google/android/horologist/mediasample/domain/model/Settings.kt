@@ -20,8 +20,6 @@ data class Settings(
     val showTimeTextInfo: Boolean = false,
     val podcastControls: Boolean = false,
     val loadItemsAtStartup: Boolean = true,
-    val artworkGradient: Boolean = true,
-    val showArtworkOnChip: Boolean = true,
-    val animated: Boolean = false,
+    val animated: Boolean = true,
     val debugOffload: Boolean = false,
 )

@@ -37,9 +37,8 @@ import com.google.android.horologist.media.ui.navigation.MediaNavController.navi
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToSettings
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToVolume
 import com.google.android.horologist.media.ui.navigation.MediaPlayerScaffold
-import com.google.android.horologist.media.ui.screens.browse.BrowseScreen
-import com.google.android.horologist.media.ui.screens.browse.BrowseScreenState
 import com.google.android.horologist.mediasample.components.MediaActivity
+import com.google.android.horologist.mediasample.ui.browse.UampBrowseScreen
 import com.google.android.horologist.mediasample.ui.debug.AudioDebugScreen
 import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeText
 import com.google.android.horologist.mediasample.ui.debug.SamplesScreen
@@ -89,9 +88,14 @@ fun UampWearApp(
                 )
             },
             libraryScreen = { focusRequester, scalingLazyListState ->
-                BrowseScreen(
-                    browseScreenState = BrowseScreenState.Loaded(emptyList()),
-                    onDownloadItemClick = { },
+                UampBrowseScreen(
+                    uampBrowseScreenViewModel = hiltViewModel(),
+                    onDownloadItemClick = {
+                        navController.navigateToCollection(
+                            it.playlistUiModel.id,
+                            it.playlistUiModel.title
+                        )
+                    },
                     onPlaylistsClick = { navController.navigateToCollections() },
                     onSettingsClick = { navController.navigateToSettings() },
                     focusRequester = focusRequester,

@@ -23,7 +23,7 @@ import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.mediasample.data.api.UampService
+import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.model.Settings
 import com.google.android.horologist.mediasample.util.ResourceProvider
@@ -32,10 +32,19 @@ import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.status.NetworkRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.reduce
 import kotlinx.coroutines.flow.stateIn
 import java.io.IOException
 import javax.inject.Inject
@@ -46,10 +55,9 @@ class MediaPlayerAppViewModel @Inject constructor(
     networkRepository: NetworkRepository,
     dataRequestRepository: DataRequestRepository,
     appConfig: AppConfig,
-    settingsRepository: SettingsRepository,
-    private val settings: SettingsRepository,
+    private val settingsRepository: SettingsRepository,
     private val playerRepository: PlayerRepository,
-    private val uampService: UampService,
+    private val playlistRepository: PlaylistRepository,
     private val snackbarManager: SnackbarManager,
     private val resourceProvider: ResourceProvider
 ) : ViewModel() {
@@ -70,24 +78,29 @@ class MediaPlayerAppViewModel @Inject constructor(
 
     val deepLinkPrefix: String = appConfig.deeplinkUriPrefix
 
-    suspend fun loadItems() {
-        if (playerRepository.currentMedia.value == null) {
-            try {
-                val mediaItems = uampService.catalog().music.map {
-                    it.toMedia()
+    @OptIn(FlowPreview::class)
+    private suspend fun loadItems() {
+        playlistRepository.getAll()
+            .catch { throwable ->
+                when (throwable) {
+                    is IOException -> {
+                        snackbarManager.showMessage(
+                            UiMessage(
+                                message = resourceProvider.getString(R.string.horologist_sample_network_error),
+                                error = true
+                            )
+                        )
+                    }
+                    else -> throw throwable
                 }
-
-                playerRepository.setMediaList(mediaItems)
-                playerRepository.prepare()
-            } catch (ioe: IOException) {
-                snackbarManager.showMessage(
-                    UiMessage(
-                        message = resourceProvider.getString(R.string.horologist_sample_network_error),
-                        error = true
-                    )
-                )
             }
-        }
+            .flatMapConcat { it.asFlow() }
+            .map { it.mediaList }
+            .reduce { accumulator, value -> accumulator + value }
+            .also { list ->
+                playerRepository.setMediaList(list)
+                playerRepository.prepare()
+            }
     }
 
     suspend fun startupSetup(navigateToLibrary: () -> Unit) {
@@ -97,7 +110,7 @@ class MediaPlayerAppViewModel @Inject constructor(
 
         if (currentMediaItem == null) {
             val loadAtStartup =
-                settings.settingsFlow.first().loadItemsAtStartup
+                settingsRepository.settingsFlow.first().loadItemsAtStartup
 
             if (loadAtStartup) {
                 loadItems()
@@ -109,18 +122,19 @@ class MediaPlayerAppViewModel @Inject constructor(
 
     suspend fun playItems(mediaId: String?, collectionId: String) {
         try {
-            val mediaItems = uampService.catalog().music.map { it.toMedia() }.filter {
-                it.artist == collectionId
+            // TODO handle scenario when playlist is not found
+            playlistRepository.get(collectionId)?.let { playlist ->
+                val index = playlist.mediaList
+                    .indexOfFirst { it.id == mediaId }
+                    .coerceAtLeast(0)
+
+                waitForConnection()
+
+                playerRepository.setMediaList(playlist.mediaList)
+                playerRepository.prepare()
+                playerRepository.play(mediaIndex = index)
             }
-
-            val index = mediaItems.indexOfFirst { it.id == mediaId }.coerceAtLeast(0)
-
-            waitForConnection()
-
-            playerRepository.setMediaList(mediaItems)
-            playerRepository.prepare()
-            playerRepository.play(mediaIndex = index)
-        } catch (ioe: IOException) {
+        } catch (e: IOException) {
             snackbarManager.showMessage(
                 UiMessage(
                     message = resourceProvider.getString(R.string.horologist_sample_network_error),

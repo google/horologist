@@ -25,6 +25,7 @@ import com.google.android.horologist.media.ui.screens.entity.EntityScreenState
 import com.google.android.horologist.mediasample.domain.PlaylistDownloadRepository
 import com.google.android.horologist.mediasample.domain.model.MediaDownload
 import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
+import com.google.android.horologist.mediasample.ui.mapper.DownloadMediaUiModelMapper
 import com.google.android.horologist.mediasample.ui.mapper.PlaylistUiModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted

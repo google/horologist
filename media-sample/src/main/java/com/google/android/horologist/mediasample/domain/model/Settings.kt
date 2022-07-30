@@ -16,10 +16,20 @@
 
 package com.google.android.horologist.mediasample.domain.model
 
+import com.google.android.horologist.media3.offload.AudioOffloadStrategy
+import com.google.android.horologist.media3.offload.BackgroundAudioOffloadStrategy
+
 data class Settings(
     val showTimeTextInfo: Boolean = false,
     val podcastControls: Boolean = false,
     val loadItemsAtStartup: Boolean = true,
     val animated: Boolean = true,
     val debugOffload: Boolean = false,
-)
+    val offloadMode: OffloadMode = OffloadMode.Background,
+) {
+    enum class OffloadMode(val strategy: AudioOffloadStrategy) {
+        Always(AudioOffloadStrategy.Always),
+        Never(AudioOffloadStrategy.Never),
+        Background(BackgroundAudioOffloadStrategy)
+    }
+}

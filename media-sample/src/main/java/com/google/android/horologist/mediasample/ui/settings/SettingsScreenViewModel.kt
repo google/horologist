@@ -20,7 +20,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
+import com.google.android.horologist.media3.logging.ErrorReporter
+import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.mediasample.domain.SettingsRepository
+import com.google.android.horologist.mediasample.domain.model.Settings
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -33,12 +36,15 @@ import javax.inject.Inject
 class SettingsScreenViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val snackbarManager: SnackbarManager,
+    private val offloadManager: AudioOffloadManager,
+    private val logger: ErrorReporter,
 ) : ViewModel() {
     val uiState: StateFlow<UiState> = settingsRepository.settingsFlow.map {
         UiState(
             showTimeTextInfo = it.showTimeTextInfo,
             podcastControls = it.podcastControls,
             loadItemsAtStartup = it.loadItemsAtStartup,
+            offloadMode = it.offloadMode,
             animated = it.animated,
             debugOffload = it.debugOffload,
             writable = true
@@ -55,6 +61,7 @@ class SettingsScreenViewModel @Inject constructor(
         val loadItemsAtStartup: Boolean = true,
         val animated: Boolean = true,
         val debugOffload: Boolean = false,
+        val offloadMode: Settings.OffloadMode = Settings.OffloadMode.Background,
         val writable: Boolean = false,
     )
 
@@ -85,6 +92,12 @@ class SettingsScreenViewModel @Inject constructor(
     fun setDebugOffload(enabled: Boolean) {
         viewModelScope.launch {
             settingsRepository.writeDebugOffload(enabled)
+        }
+    }
+
+    fun setOffloadMode(mode: Settings.OffloadMode) {
+        viewModelScope.launch {
+            settingsRepository.writeOffloadMode(mode)
         }
     }
 

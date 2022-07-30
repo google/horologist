@@ -170,13 +170,11 @@ object PlaybackServiceModule {
     @Provides
     fun exoPlayer(
         service: Service,
-        appConfig: AppConfig,
         loadControl: LoadControl,
         audioOnlyRenderersFactory: RenderersFactory,
         analyticsCollector: AnalyticsCollector,
         mediaSourceFactory: MediaSource.Factory,
         dataUpdates: DataUpdates,
-        audioOffloadManager: AudioOffloadManager
     ) =
         ExoPlayer.Builder(service, audioOnlyRenderersFactory)
             .setAnalyticsCollector(analyticsCollector)
@@ -189,12 +187,7 @@ object PlaybackServiceModule {
             .setSeekBackIncrementMs(10_000)
             .build().apply {
                 addListener(analyticsCollector)
-
                 addListener(dataUpdates.listener)
-
-                if (appConfig.offloadEnabled) {
-                    audioOffloadManager.connect(this)
-                }
             }
 
     @ServiceScoped
@@ -219,7 +212,9 @@ object PlaybackServiceModule {
         systemAudioRepository: SystemAudioRepository,
         audioOutputSelector: AudioOutputSelector,
         playbackRules: PlaybackRules,
-        logger: ErrorReporter
+        logger: ErrorReporter,
+        audioOffloadManager: AudioOffloadManager,
+        appConfig: AppConfig
     ): Player =
         WearConfiguredPlayer(
             player = exoPlayer,
@@ -227,10 +222,16 @@ object PlaybackServiceModule {
             audioOutputSelector = audioOutputSelector,
             playbackRules = playbackRules,
             errorReporter = logger,
-            coroutineScope = serviceCoroutineScope
-        ).also {
+            coroutineScope = serviceCoroutineScope,
+        ).also { wearConfiguredPlayer ->
             serviceCoroutineScope.launch {
-                it.startNoiseDetection()
+                wearConfiguredPlayer.startNoiseDetection()
+            }
+
+            if (appConfig.offloadEnabled) {
+                serviceCoroutineScope.launch {
+                    audioOffloadManager.connect(exoPlayer)
+                }
             }
         }
 

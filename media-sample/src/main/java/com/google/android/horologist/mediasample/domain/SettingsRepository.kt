@@ -21,6 +21,7 @@ import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import com.google.android.horologist.mediasample.domain.model.Settings
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -64,6 +65,12 @@ class SettingsRepository(
         }
     }
 
+    suspend fun writeOffloadMode(mode: Settings.OffloadMode) {
+        edit {
+            it[OffloadMode] = mode.name
+        }
+    }
+
     val settingsFlow: Flow<Settings> = dataStore.data.map {
         it.toSettings()
     }
@@ -74,13 +81,16 @@ class SettingsRepository(
         val LoadItemsAtStartup = booleanPreferencesKey("load_items_at_startup")
         val Animated = booleanPreferencesKey("animated")
         val DebugOffload = booleanPreferencesKey("debug_offload")
-
+        val OffloadMode = stringPreferencesKey("offload_mode")
         fun Preferences.toSettings() = Settings(
             showTimeTextInfo = this[ShowTimeTextInfo] ?: false,
             podcastControls = this[PodcastControls] ?: false,
             loadItemsAtStartup = this[LoadItemsAtStartup] ?: true,
-            animated = this[Animated] ?: true,
-            debugOffload = this[DebugOffload] ?: false
+            animated = this[Animated] ?: false,
+            debugOffload = this[DebugOffload] ?: false,
+            offloadMode = this[OffloadMode]?.let {
+                Settings.OffloadMode.valueOf(it)
+            } ?: Settings.OffloadMode.Background
         )
     }
 }

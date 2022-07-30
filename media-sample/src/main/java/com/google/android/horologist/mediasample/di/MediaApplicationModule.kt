@@ -51,7 +51,6 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -132,18 +131,26 @@ object MediaApplicationModule {
         logger: ErrorReporter,
         settingsRepository: SettingsRepository,
         audioSink: AudioSink,
-        @ForApplicationScope coroutineScope: CoroutineScope
-    ) = AudioOffloadManager(logger, audioSink).also { audioOffloadManager ->
-        coroutineScope.launch {
-            settingsRepository.settingsFlow.map { it.debugOffload }
-                .collectLatest { debug ->
-                    if (debug) {
-                        while (true) {
-                            audioOffloadManager.printDebugInfo()
-                            delay(5000)
+        @ForApplicationScope coroutineScope: CoroutineScope,
+        appConfig: AppConfig
+    ): AudioOffloadManager {
+        val audioOffloadStrategyFlow =
+            settingsRepository.settingsFlow.map { it.offloadMode.strategy }
+        return AudioOffloadManager(
+            logger,
+            audioSink,
+            audioOffloadStrategyFlow
+        ).also { audioOffloadManager ->
+            if (appConfig.offloadEnabled) {
+                coroutineScope.launch {
+                    settingsRepository.settingsFlow.map { it.debugOffload }
+                        .collectLatest { debug ->
+                            if (debug) {
+                                audioOffloadManager.printDebugLogsLoop()
+                            }
                         }
-                    }
                 }
+            }
         }
     }
 

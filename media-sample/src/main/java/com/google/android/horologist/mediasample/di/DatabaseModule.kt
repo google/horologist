@@ -43,7 +43,9 @@ object DatabaseModule {
             context,
             MediaDatabase::class.java,
             MEDIA_DATABASE_NAME
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides

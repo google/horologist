@@ -32,7 +32,7 @@ import com.google.android.horologist.mediasample.data.database.model.PlaylistMed
         PlaylistEntity::class,
         PlaylistMediaEntity::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class MediaDatabase : RoomDatabase() {

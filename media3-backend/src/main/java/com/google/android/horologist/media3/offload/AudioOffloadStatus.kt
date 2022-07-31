@@ -24,11 +24,13 @@ import com.google.android.horologist.media3.util.shortDescription
 public data class AudioOffloadStatus(
     public val offloadSchedulingEnabled: Boolean,
     public val sleepingForOffload: Boolean,
+    public val trackOffload: Boolean?,
     public val format: Format?,
     public val isPlaying: Boolean,
     public val errors: List<AudioError>,
     public val offloadTimes: OffloadTimes,
     public val strategyStatus: String?,
+    public val strategy: AudioOffloadStrategy?,
 ) {
     public fun updateToNow(): OffloadTimes = offloadTimes.timesToNow(
         sleepingForOffload, isPlaying
@@ -39,5 +41,13 @@ public data class AudioOffloadStatus(
             "format: ${format?.shortDescription} " +
             "times: ${offloadTimes.shortDescription} " +
             "strategyStatus: $strategyStatus "
+    }
+
+    fun trackOffloadDescription(): String {
+        return when (trackOffload) {
+            true -> "HW"
+            false -> "SW"
+            null -> "N/A"
+        }
     }
 }

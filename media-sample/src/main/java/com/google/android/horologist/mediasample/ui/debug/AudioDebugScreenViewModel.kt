@@ -22,46 +22,35 @@ import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.offload.AudioOffloadStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
-import kotlin.time.Duration.Companion.seconds
 
 @HiltViewModel
 class AudioDebugScreenViewModel @Inject constructor(
     private val audioOffloadManager: AudioOffloadManager,
     playerRepository: PlayerRepository,
 ) : ViewModel() {
-    val ticker = flow {
-        while (true) {
-            emit(Unit)
-            delay(5.seconds)
-        }
-    }
-
     val uiState: StateFlow<UiState?> = combine(
-        ticker,
         audioOffloadManager.offloadStatus,
         playerRepository.currentMedia
-    ) { _, audioOffloadStatus, currentMedia ->
+    ) { audioOffloadStatus, currentMedia ->
         UiState(
             currentTrack = currentMedia?.title,
             audioOffloadStatus = audioOffloadStatus,
-            formatSupported = audioOffloadManager.isFormatSupported()
+            formatSupported = audioOffloadManager.isFormatSupported(),
         )
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
-        initialValue = null
+        initialValue = null,
     )
 
     data class UiState(
         val currentTrack: String?,
         val audioOffloadStatus: AudioOffloadStatus,
-        val formatSupported: Boolean?
+        val formatSupported: Boolean?,
     )
 }

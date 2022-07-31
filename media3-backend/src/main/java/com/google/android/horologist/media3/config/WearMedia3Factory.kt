@@ -28,7 +28,7 @@ public open class WearMedia3Factory(private val context: Context) {
     public fun audioSink(
         attemptOffload: Boolean,
         offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_REQUIRED
-    ): AudioSink {
+    ): DefaultAudioSink {
 
         return DefaultAudioSink.Builder()
             .setAudioCapabilities(AudioCapabilities.getCapabilities(context))

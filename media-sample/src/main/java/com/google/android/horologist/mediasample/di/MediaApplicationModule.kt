@@ -29,6 +29,7 @@ import androidx.media3.datasource.cache.Cache
 import androidx.media3.datasource.cache.NoOpCacheEvictor
 import androidx.media3.datasource.cache.SimpleCache
 import androidx.media3.exoplayer.audio.AudioSink
+import androidx.media3.exoplayer.audio.DefaultAudioSink
 import androidx.wear.watchface.complications.datasource.ComplicationDataSourceUpdateRequester
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media3.config.WearMedia3Factory
@@ -112,7 +113,7 @@ object MediaApplicationModule {
     fun audioSink(
         appConfig: AppConfig,
         wearMedia3Factory: WearMedia3Factory
-    ): AudioSink =
+    ): DefaultAudioSink =
         wearMedia3Factory.audioSink(
             attemptOffload = appConfig.offloadEnabled,
             offloadMode = appConfig.offloadMode
@@ -130,7 +131,7 @@ object MediaApplicationModule {
     fun audioOffloadManager(
         logger: ErrorReporter,
         settingsRepository: SettingsRepository,
-        audioSink: AudioSink,
+        audioSink: DefaultAudioSink,
         @ForApplicationScope coroutineScope: CoroutineScope,
         appConfig: AppConfig
     ): AudioOffloadManager {

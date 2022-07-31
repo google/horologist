@@ -70,6 +70,13 @@ fun AudioDebugScreen(
             )
         }
         item {
+            val supported = uiState?.audioOffloadStatus?.trackOffloadDescription() ?: "N/A"
+            Text(
+                text = stringResource(id = R.string.horologist_sample_track_offloaded, supported),
+                style = MaterialTheme.typography.body2,
+            )
+        }
+        item {
             val supported = uiState?.formatSupported?.toString().orEmpty()
             Text(
                 text = stringResource(id = R.string.horologist_sample_offload_supported, supported),

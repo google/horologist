@@ -33,6 +33,7 @@ import androidx.media3.exoplayer.RenderersFactory
 import androidx.media3.exoplayer.analytics.AnalyticsCollector
 import androidx.media3.exoplayer.analytics.DefaultAnalyticsCollector
 import androidx.media3.exoplayer.audio.AudioSink
+import androidx.media3.exoplayer.audio.DefaultAudioSink
 import androidx.media3.exoplayer.mediacodec.MediaCodecSelector
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.exoplayer.source.MediaSource
@@ -89,7 +90,7 @@ object PlaybackServiceModule {
     @Provides
     fun audioOnlyRenderersFactory(
         wearMedia3Factory: WearMedia3Factory,
-        audioSink: AudioSink,
+        audioSink: DefaultAudioSink,
         mediaCodecSelector: MediaCodecSelector
     ) =
         wearMedia3Factory.audioOnlyRenderersFactory(

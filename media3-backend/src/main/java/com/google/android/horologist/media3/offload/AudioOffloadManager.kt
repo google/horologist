@@ -18,11 +18,13 @@ package com.google.android.horologist.media3.offload
 
 import android.media.AudioManager
 import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.media3.common.Format
+import androidx.media3.common.PlaybackParameters
 import androidx.media3.exoplayer.DecoderReuseEvaluation
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.analytics.AnalyticsListener
-import androidx.media3.exoplayer.audio.AudioSink
+import androidx.media3.exoplayer.audio.DefaultAudioSink
 import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.util.shortDescription
@@ -47,7 +49,7 @@ import kotlinx.coroutines.withContext
 @ExperimentalHorologistMedia3BackendApi
 public class AudioOffloadManager(
     private val errorReporter: ErrorReporter,
-    private val audioSink: AudioSink,
+    private val audioSink: DefaultAudioSink,
     private val audioOffloadStrategyFlow: Flow<AudioOffloadStrategy> =
         flowOf(BackgroundAudioOffloadStrategy)
 ) {
@@ -55,11 +57,13 @@ public class AudioOffloadManager(
         AudioOffloadStatus(
             offloadSchedulingEnabled = false,
             sleepingForOffload = false,
+            trackOffload = null,
             format = null,
             isPlaying = false,
             errors = listOf(),
             offloadTimes = OffloadTimes(),
-            strategyStatus = null
+            strategyStatus = null,
+            strategy = null
         )
     )
     public val offloadStatus: StateFlow<AudioOffloadStatus> = _offloadStatus.asStateFlow()
@@ -100,6 +104,7 @@ public class AudioOffloadManager(
             }
         }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private val analyticsListener: AnalyticsListener =
         object : AnalyticsListener {
             override fun onAudioInputFormatChanged(
@@ -123,7 +128,8 @@ public class AudioOffloadManager(
                         offloadTimes = it.offloadTimes.timesToNow(
                             sleepingForOffload = offloadStatus.value.sleepingForOffload,
                             updatedIsPlaying = isPlaying
-                        )
+                        ),
+                        trackOffload = trackOffloaded()
                     )
                 }
             }
@@ -143,6 +149,17 @@ public class AudioOffloadManager(
             ) {
                 addError(eventTime, "Audio Sink Error: " + audioSinkError.message)
             }
+
+            override fun onPlaybackParametersChanged(
+                eventTime: AnalyticsListener.EventTime,
+                playbackParameters: PlaybackParameters
+            ) {
+                _offloadStatus.update {
+                    it.copy(
+                        trackOffload = trackOffloaded()
+                    )
+                }
+            }
         }
 
     private fun addError(eventTime: AnalyticsListener.EventTime?, message: String) {
@@ -155,15 +172,18 @@ public class AudioOffloadManager(
      * Connect the AudioOffloadManager to the ExoPlayer instance for both listening to offload
      * state and activating it based on App foreground state.
      */
+    @RequiresApi(29)
     public suspend fun connect(exoPlayer: ExoPlayer): Unit = withContext(Dispatchers.Main) {
         _offloadStatus.value = AudioOffloadStatus(
             offloadSchedulingEnabled = false,
             sleepingForOffload = exoPlayer.experimentalIsSleepingForOffload(),
+            trackOffload = trackOffloaded(),
             format = exoPlayer.audioFormat,
             isPlaying = exoPlayer.isPlaying,
             errors = listOf(),
             offloadTimes = OffloadTimes(),
-            strategyStatus = null
+            strategyStatus = null,
+            strategy = null
         )
 
         exoPlayer.addAudioOffloadListener(audioOffloadListener)
@@ -171,9 +191,7 @@ public class AudioOffloadManager(
 
         try {
             audioOffloadStrategyFlow.collectLatest { strategy ->
-                _offloadStatus.update {
-                    it.copy(strategyStatus = null)
-                }
+                resetOffload(exoPlayer, strategy)
 
                 strategy.applyIndefinitely(exoPlayer, errorReporter).collect { strategyStatus ->
                     _offloadStatus.update {
@@ -188,32 +206,70 @@ public class AudioOffloadManager(
         }
     }
 
+    internal fun resetOffload(
+        exoPlayer: ExoPlayer,
+        strategy: AudioOffloadStrategy
+    ) {
+        exoPlayer.pause()
+
+        audioSink.offloadMode =
+            if (strategy.offloadEnabled)
+                DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_NOT_REQUIRED
+            else
+                DefaultAudioSink.OFFLOAD_MODE_DISABLED
+        audioSink.reset()
+
+        _offloadStatus.update {
+            it.copy(
+                strategy = strategy,
+                strategyStatus = null
+            )
+        }
+    }
+
+    @RequiresApi(29)
     public suspend fun printDebugLogsLoop() {
         while (true) {
-            val status = _offloadStatus.value
-            val times = status.updateToNow()
-            errorReporter.logMessage(
-                "Offload State: " +
-                    "sleeping: ${status.sleepingForOffload} " +
-                    "format: ${status.format?.shortDescription} " +
-                    "times: ${times.shortDescription} " +
-                    "strategyStatus: ${status.strategyStatus} ",
-                category = ErrorReporter.Category.Playback
-            )
+            printDebugLogs()
             delay(10000)
         }
     }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    internal fun printDebugLogs() {
+        val status = _offloadStatus.value
+        val times = status.updateToNow()
+        val offloadedPlayback = status.trackOffloadDescription()
+        val strategy = status.strategy
+        if (strategy != null && status.trackOffload != null && strategy.offloadEnabled != status.trackOffload) {
+            errorReporter.logMessage(
+                "Offload not matching: $strategy track=${offloadedPlayback}",
+                category = ErrorReporter.Category.Playback,
+                level = ErrorReporter.Level.Error
+            )
+        }
+        errorReporter.logMessage(
+            "Offload State: " +
+                "sleeping: ${status.sleepingForOffload} " +
+                "audioTrackOffload: $offloadedPlayback " +
+                "format: ${status.format?.shortDescription} " +
+                "times: ${times.shortDescription} " +
+                "strategyStatus: ${status.strategyStatus} ",
+            category = ErrorReporter.Category.Playback
+        )
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    public fun trackOffloaded() = audioSink.audioTrack?.isOffloadedPlayback
 
     public fun isFormatSupported(): Boolean? {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val format = _offloadStatus.value.format?.toAudioFormat()
 
             if (format != null) {
-                val audioAttributes = audioSink.audioAttributes?.audioAttributesV21?.audioAttributes
+                val audioAttributes = audioSink.audioAttributes.audioAttributesV21.audioAttributes
 
-                if (audioAttributes != null) {
-                    return AudioManager.isOffloadedPlaybackSupported(format, audioAttributes)
-                }
+                return AudioManager.isOffloadedPlaybackSupported(format, audioAttributes)
             }
 
             // No format to check

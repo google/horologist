@@ -34,10 +34,12 @@ public open class WearMedia3Factory(private val context: Context) {
         return DefaultAudioSink.Builder()
             .setAudioCapabilities(AudioCapabilities.getCapabilities(context))
             .setAudioProcessorChain(DefaultAudioSink.DefaultAudioProcessorChain())
-            .setAudioTrackBufferSizeProvider(DefaultAudioTrackBufferSizeProvider.Builder()
-                .setMinPcmBufferDurationUs(500_000)
-                .setMaxPcmBufferDurationUs(1_500_000)
-                .build())
+            .setAudioTrackBufferSizeProvider(
+                DefaultAudioTrackBufferSizeProvider.Builder()
+                    .setMinPcmBufferDurationUs(500_000)
+                    .setMaxPcmBufferDurationUs(1_500_000)
+                    .build()
+            )
             .setEnableFloatOutput(false) // default
             .setEnableAudioTrackPlaybackParams(false) // default
             .setOffloadMode(

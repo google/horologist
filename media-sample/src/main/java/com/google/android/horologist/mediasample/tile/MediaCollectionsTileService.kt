@@ -37,8 +37,7 @@ import com.google.android.horologist.media.ui.tiles.toTileColors
 import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.components.MediaActivity
-import com.google.android.horologist.mediasample.data.api.UampService
-import com.google.android.horologist.mediasample.data.api.model.MusicApiModel
+import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.ui.app.UampColors
 import com.google.android.horologist.tiles.CoroutinesTileService
 import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
@@ -46,6 +45,7 @@ import com.google.android.horologist.tiles.images.drawableResToImageResource
 import com.google.android.horologist.tiles.images.loadImageResource
 import com.google.android.horologist.tiles.images.toImageResource
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 /**
@@ -55,8 +55,9 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class MediaCollectionsTileService : CoroutinesTileService() {
+
     @Inject
-    lateinit var uampService: UampService
+    lateinit var playlistRepository: PlaylistRepository
 
     @Inject
     internal lateinit var imageLoader: ImageLoader
@@ -71,36 +72,36 @@ class MediaCollectionsTileService : CoroutinesTileService() {
      * Render a Playlist primary button and two chips with direct links to collections.
      */
     override suspend fun tileRequest(requestParams: TileRequest): Tile {
-        val (song, album) = loadItems()
+        val playlists = playlistRepository.getAll()
+            .first()
+
+        val firstPlaylist = playlists.first()
+        val firstSong = firstPlaylist.mediaList.first()
+
+        val lastPlaylist = playlists.last()
 
         return renderer.renderTimeline(
             state = MediaCollectionsTileRenderer.MediaCollectionsState(
                 R.string.horologist_sample_playlists,
                 appLauncher(),
                 MediaCollectionsTileRenderer.MediaCollection(
-                    name = song.title,
-                    artworkId = song.id,
+                    name = firstSong.title,
+                    artworkId = firstSong.id,
                     action = appLauncher {
-                        addStringExtra(MediaActivity.CollectionKey, song.genre)
-                        addStringExtra(MediaActivity.MediaIdKey, song.id)
+                        addStringExtra(MediaActivity.CollectionKey, firstPlaylist.id)
+                        addStringExtra(MediaActivity.MediaIdKey, firstSong.id)
                     }
                 ),
                 MediaCollectionsTileRenderer.MediaCollection(
-                    name = album.title,
-                    artworkId = album.id,
+                    name = lastPlaylist.name,
+                    artworkId = lastPlaylist.id,
                     action = appLauncher {
-                        addStringExtra(MediaActivity.CollectionKey, album.genre)
+                        addStringExtra(MediaActivity.CollectionKey, lastPlaylist.id)
                     }
                 )
             ),
             requestParams = requestParams
         )
-    }
-
-    suspend fun loadItems(): Pair<MusicApiModel, MusicApiModel> {
-        val catalog = uampService.catalog().music
-
-        return Pair(catalog.first(), catalog.last())
     }
 
     private fun AndroidActivity.Builder.addStringExtra(key: String, value: String) {
@@ -134,17 +135,23 @@ class MediaCollectionsTileService : CoroutinesTileService() {
      * Show UAMP as AppIcon, and favourites and podcasts icons.
      */
     override suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources {
-        val (song, album) = loadItems()
+        val playlists = playlistRepository.getAll()
+            .first()
 
-        val songResource = imageLoader.loadImageResource(this, song.image)
-        val albumResource = imageLoader.loadImageResource(this, album.image)
+        val firstPlaylist = playlists.first()
+        val firstSong = firstPlaylist.mediaList.first()
+
+        val lastPlaylist = playlists.last()
+
+        val songResource = imageLoader.loadImageResource(this, firstSong.artworkUri)
+        val albumResource = imageLoader.loadImageResource(this, lastPlaylist.artworkUri)
 
         return renderer.produceRequestedResources(
             MediaCollectionsTileRenderer.ResourceState(
                 R.drawable.ic_uamp,
                 mapOf(
-                    song.id to songResource,
-                    album.id to albumResource
+                    firstSong.id to songResource,
+                    lastPlaylist.id to albumResource
                 )
             ),
             requestParams

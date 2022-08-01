@@ -21,6 +21,8 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
+import com.google.android.horologist.media3.offload.AudioOffloadManager
+import com.google.android.horologist.media3.offload.AudioOffloadStatus
 import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
@@ -56,9 +58,12 @@ class MediaPlayerAppViewModel @Inject constructor(
     private val playerRepository: PlayerRepository,
     private val playlistRepository: PlaylistRepository,
     private val snackbarManager: SnackbarManager,
-    private val resourceProvider: ResourceProvider
+    private val resourceProvider: ResourceProvider,
+    private val audioOffloadManager: AudioOffloadManager
 ) : ViewModel() {
     val networkStatus: StateFlow<Networks> = networkRepository.networkStatus
+
+    val offloadStatus: StateFlow<AudioOffloadStatus?> = audioOffloadManager.offloadStatus
 
     val networkUsage: StateFlow<DataUsageReport?> = dataRequestRepository.currentPeriodUsage()
         .stateIn(

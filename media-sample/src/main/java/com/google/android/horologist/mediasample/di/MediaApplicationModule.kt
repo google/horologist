@@ -18,6 +18,7 @@ package com.google.android.horologist.mediasample.di
 
 import android.content.ComponentName
 import android.content.Context
+import android.os.Build
 import android.os.Vibrator
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
@@ -28,7 +29,7 @@ import androidx.media3.database.StandaloneDatabaseProvider
 import androidx.media3.datasource.cache.Cache
 import androidx.media3.datasource.cache.NoOpCacheEvictor
 import androidx.media3.datasource.cache.SimpleCache
-import androidx.media3.exoplayer.audio.AudioSink
+import androidx.media3.exoplayer.audio.DefaultAudioSink
 import androidx.wear.watchface.complications.datasource.ComplicationDataSourceUpdateRequester
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media3.config.WearMedia3Factory
@@ -111,11 +112,11 @@ object MediaApplicationModule {
     @Provides
     fun audioSink(
         appConfig: AppConfig,
-        wearMedia3Factory: WearMedia3Factory
-    ): AudioSink =
+        wearMedia3Factory: WearMedia3Factory,
+    ): DefaultAudioSink =
         wearMedia3Factory.audioSink(
             attemptOffload = appConfig.offloadEnabled,
-            offloadMode = appConfig.offloadMode
+            offloadMode = appConfig.offloadMode,
         )
 
     @Singleton
@@ -130,18 +131,16 @@ object MediaApplicationModule {
     fun audioOffloadManager(
         logger: ErrorReporter,
         settingsRepository: SettingsRepository,
-        audioSink: AudioSink,
         @ForApplicationScope coroutineScope: CoroutineScope,
-        appConfig: AppConfig
+        appConfig: AppConfig,
     ): AudioOffloadManager {
         val audioOffloadStrategyFlow =
             settingsRepository.settingsFlow.map { it.offloadMode.strategy }
         return AudioOffloadManager(
             logger,
-            audioSink,
             audioOffloadStrategyFlow
         ).also { audioOffloadManager ->
-            if (appConfig.offloadEnabled) {
+            if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
                 coroutineScope.launch {
                     settingsRepository.settingsFlow.map { it.debugOffload }
                         .collectLatest { debug ->

@@ -16,13 +16,14 @@
 
 package com.google.android.horologist.mediasample
 
+import android.os.Build
 import androidx.media3.exoplayer.audio.DefaultAudioSink
 import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.networks.rules.NetworkingRules
 import java.io.File
 
 data class AppConfig(
-    val offloadEnabled: Boolean = true,
+    val offloadEnabled: Boolean = Build.VERSION.SDK_INT >= 30,
     val strictNetworking: NetworkingRules? = NetworkingRules.Conservative,
     val deeplinkUriPrefix: String = "uamp${if (BuildConfig.DEBUG) "-debug" else ""}://uamp",
     val cacheItems: Boolean = true,

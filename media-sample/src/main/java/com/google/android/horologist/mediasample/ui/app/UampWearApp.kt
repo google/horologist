@@ -64,12 +64,14 @@ fun UampWearApp(
     val timeText: @Composable (Modifier) -> Unit = { modifier ->
         val networkUsage by rememberStateWithLifecycle(appViewModel.networkUsage)
         val networkStatus by rememberStateWithLifecycle(appViewModel.networkStatus)
+        val offloadStatus by rememberStateWithLifecycle(appViewModel.offloadStatus)
 
         MediaInfoTimeText(
             modifier = modifier,
             showData = settingsState?.showTimeTextInfo ?: false,
             networkStatus = networkStatus,
             networkUsage = networkUsage,
+            offloadStatus = offloadStatus
         )
     }
 

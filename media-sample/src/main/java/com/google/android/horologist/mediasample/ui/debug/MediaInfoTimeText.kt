@@ -19,9 +19,13 @@ package com.google.android.horologist.mediasample.ui.debug
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.wear.compose.foundation.CurvedScope
 import androidx.wear.compose.foundation.CurvedTextStyle
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.TimeText
+import androidx.wear.compose.material.curvedText
+import com.google.android.horologist.media3.offload.AudioOffloadStatus
+import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.ui.curveDataUsage
@@ -31,6 +35,7 @@ public fun MediaInfoTimeText(
     showData: Boolean,
     networkStatus: Networks,
     networkUsage: DataUsageReport?,
+    offloadStatus: AudioOffloadStatus?,
     modifier: Modifier = Modifier,
 ) {
     val style = CurvedTextStyle(MaterialTheme.typography.caption3)
@@ -46,9 +51,28 @@ public fun MediaInfoTimeText(
                     style = style,
                     context = context
                 )
+            },
+            endCurvedContent = {
+                offloadDataStatus(
+                    offloadStatus = offloadStatus,
+                    style = style,
+                )
             }
         )
     } else {
         TimeText(modifier = modifier)
+    }
+}
+
+@ExperimentalHorologistNetworksApi
+public fun CurvedScope.offloadDataStatus(
+    offloadStatus: AudioOffloadStatus?,
+    style: CurvedTextStyle,
+) {
+    if (offloadStatus != null) {
+        curvedText(
+            text = offloadStatus.trackOffloadDescription(),
+            style = style
+        )
     }
 }

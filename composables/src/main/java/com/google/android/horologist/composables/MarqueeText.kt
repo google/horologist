@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.composables
 
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.snap
@@ -102,7 +103,7 @@ public fun MarqueeText(
     style: TextStyle = LocalTextStyle.current,
     textAlign: TextAlign = TextAlign.Left,
     followGap: Dp = 96.dp,
-    edgeGradientWidth: Dp = 10.dp,
+    edgeGradientWidth: Dp = 16.dp,
     marqueeDpPerSecond: Dp = 64.dp,
     pauseTime: Duration = 4.seconds
 ) {
@@ -136,7 +137,7 @@ public fun MarqueeText(
         label = "Marquee Offset",
         transitionSpec = {
             if (this.targetState == AnimationState.Scrolling) {
-                tween(durationMillis = durationMillis)
+                tween(durationMillis = durationMillis, easing = LinearEasing)
             } else {
                 snap()
             }

@@ -59,11 +59,8 @@ class AudioDebugScreenViewModel @Inject constructor(
         val audioFormat = format?.toAudioFormat() ?: return null
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val audioAttributes = audioSink.audioAttributes?.audioAttributesV21?.audioAttributes
-
-            if (audioAttributes != null) {
-                return AudioManager.isOffloadedPlaybackSupported(audioFormat, audioAttributes)
-            }
+            val audioAttributes = audioSink.audioAttributes.audioAttributesV21.audioAttributes
+            return AudioManager.isOffloadedPlaybackSupported(audioFormat, audioAttributes)
         }
 
         // Not supported before 30

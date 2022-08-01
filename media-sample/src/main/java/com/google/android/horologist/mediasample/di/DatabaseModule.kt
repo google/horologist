@@ -44,6 +44,8 @@ object DatabaseModule {
             MediaDatabase::class.java,
             MEDIA_DATABASE_NAME
         )
+            // Until stable, don't require incrementing MediaDatabase version.
+            .fallbackToDestructiveMigration()
             .build()
     }
 

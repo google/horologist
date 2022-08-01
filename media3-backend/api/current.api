@@ -131,10 +131,8 @@ package com.google.android.horologist.media3.offload {
   @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public final class AudioOffloadManager {
     ctor public AudioOffloadManager(com.google.android.horologist.media3.logging.ErrorReporter errorReporter, optional kotlinx.coroutines.flow.Flow<? extends com.google.android.horologist.media3.offload.AudioOffloadStrategy> audioOffloadStrategyFlow);
     method @RequiresApi(29) public suspend Object? connect(androidx.media3.exoplayer.ExoPlayer exoPlayer, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
-    method public androidx.media3.exoplayer.ExoPlayer.AudioOffloadListener getAudioOffloadListener();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media3.offload.AudioOffloadStatus> getOffloadStatus();
     method @RequiresApi(29) public suspend Object? printDebugLogsLoop(kotlin.coroutines.Continuation<? super kotlin.Unit> p);
-    property public final androidx.media3.exoplayer.ExoPlayer.AudioOffloadListener audioOffloadListener;
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media3.offload.AudioOffloadStatus> offloadStatus;
   }
 

@@ -63,7 +63,7 @@ public class AudioOffloadManager(
     )
     public val offloadStatus: StateFlow<AudioOffloadStatus> = _offloadStatus.asStateFlow()
 
-    public val audioOffloadListener: ExoPlayer.AudioOffloadListener =
+    private val audioOffloadListener: ExoPlayer.AudioOffloadListener =
         object : ExoPlayer.AudioOffloadListener {
             /**
              * Logged when the application changes the state of offload scheduling enabled,

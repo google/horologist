@@ -30,7 +30,7 @@ import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendA
 public open class WearMedia3Factory(private val context: Context) {
     public fun audioSink(
         attemptOffload: Boolean,
-        offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_REQUIRED,
+        offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_NOT_REQUIRED,
     ): DefaultAudioSink {
 
         return DefaultAudioSink.Builder()

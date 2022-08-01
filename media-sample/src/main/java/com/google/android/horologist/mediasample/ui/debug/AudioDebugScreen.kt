@@ -70,6 +70,7 @@ fun AudioDebugScreen(
             )
         }
         item {
+            // Currently will always be N/A until support in ExoPlayer
             val supported = uiState?.audioOffloadStatus?.trackOffloadDescription() ?: "N/A"
             Text(
                 text = stringResource(id = R.string.horologist_sample_track_offloaded, supported),

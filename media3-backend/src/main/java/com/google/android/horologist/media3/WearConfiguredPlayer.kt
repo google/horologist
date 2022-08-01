@@ -49,6 +49,17 @@ public class WearConfiguredPlayer(
 ) : ForwardingPlayer(player) {
     private var playAttempt: Job? = null
 
+    init {
+        player.addListener(object : Player.Listener {
+            override fun onPlaybackStateChanged(playbackState: Int) {
+                if (playWhenReady && playbackState == STATE_ENDED) {
+                    player.stop()
+                    player.seekToDefaultPosition(0)
+                }
+            }
+        })
+    }
+
     /**
      * Start proactive noise detection, unlike ExoPlayer setHandleAudioBecomingNoisy
      * this also handles when accidentally started in the wrong mode due to race conditions.

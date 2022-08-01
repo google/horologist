@@ -43,7 +43,7 @@ public data class AudioOffloadStatus(
             "strategyStatus: $strategyStatus "
     }
 
-    fun trackOffloadDescription(): String {
+    public fun trackOffloadDescription(): String {
         return when (trackOffload) {
             true -> "HW"
             false -> "SW"

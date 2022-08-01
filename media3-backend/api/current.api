@@ -31,7 +31,7 @@ package com.google.android.horologist.media3.config {
   public class WearMedia3Factory {
     ctor public WearMedia3Factory(android.content.Context context);
     method public final androidx.media3.exoplayer.RenderersFactory audioOnlyRenderersFactory(androidx.media3.exoplayer.audio.AudioSink audioSink, optional androidx.media3.exoplayer.mediacodec.MediaCodecSelector mediaCodecSelector);
-    method public final androidx.media3.exoplayer.audio.AudioSink audioSink(boolean attemptOffload, optional int offloadMode);
+    method public final androidx.media3.exoplayer.audio.DefaultAudioSink audioSink(boolean attemptOffload, optional int offloadMode, androidx.media3.exoplayer.ExoPlayer.AudioOffloadListener? audioOffloadListener);
     method public final androidx.media3.exoplayer.mediacodec.MediaCodecSelector mediaCodecSelector();
   }
 
@@ -129,32 +129,38 @@ package com.google.android.horologist.media3.offload {
   }
 
   @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public final class AudioOffloadManager {
-    ctor public AudioOffloadManager(com.google.android.horologist.media3.logging.ErrorReporter errorReporter, androidx.media3.exoplayer.audio.AudioSink audioSink, optional kotlinx.coroutines.flow.Flow<? extends com.google.android.horologist.media3.offload.AudioOffloadStrategy> audioOffloadStrategyFlow);
-    method public suspend Object? connect(androidx.media3.exoplayer.ExoPlayer exoPlayer, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    ctor public AudioOffloadManager(com.google.android.horologist.media3.logging.ErrorReporter errorReporter, optional kotlinx.coroutines.flow.Flow<? extends com.google.android.horologist.media3.offload.AudioOffloadStrategy> audioOffloadStrategyFlow);
+    method @RequiresApi(29) public suspend Object? connect(androidx.media3.exoplayer.ExoPlayer exoPlayer, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public androidx.media3.exoplayer.ExoPlayer.AudioOffloadListener getAudioOffloadListener();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media3.offload.AudioOffloadStatus> getOffloadStatus();
-    method public Boolean? isFormatSupported();
-    method public suspend Object? printDebugLogsLoop(kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method @RequiresApi(29) public suspend Object? printDebugLogsLoop(kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    property public final androidx.media3.exoplayer.ExoPlayer.AudioOffloadListener audioOffloadListener;
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media3.offload.AudioOffloadStatus> offloadStatus;
   }
 
   @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public final class AudioOffloadStatus {
-    ctor public AudioOffloadStatus(boolean offloadSchedulingEnabled, boolean sleepingForOffload, androidx.media3.common.Format? format, boolean isPlaying, java.util.List<com.google.android.horologist.media3.offload.AudioError> errors, com.google.android.horologist.media3.offload.OffloadTimes offloadTimes, String? strategyStatus);
+    ctor public AudioOffloadStatus(boolean offloadSchedulingEnabled, boolean sleepingForOffload, Boolean? trackOffload, androidx.media3.common.Format? format, boolean isPlaying, java.util.List<com.google.android.horologist.media3.offload.AudioError> errors, com.google.android.horologist.media3.offload.OffloadTimes offloadTimes, String? strategyStatus, com.google.android.horologist.media3.offload.AudioOffloadStrategy? strategy);
     method public boolean component1();
     method public boolean component2();
-    method public androidx.media3.common.Format? component3();
-    method public boolean component4();
-    method public java.util.List<com.google.android.horologist.media3.offload.AudioError> component5();
-    method public com.google.android.horologist.media3.offload.OffloadTimes component6();
-    method public String? component7();
-    method public com.google.android.horologist.media3.offload.AudioOffloadStatus copy(boolean offloadSchedulingEnabled, boolean sleepingForOffload, androidx.media3.common.Format? format, boolean isPlaying, java.util.List<com.google.android.horologist.media3.offload.AudioError> errors, com.google.android.horologist.media3.offload.OffloadTimes offloadTimes, String? strategyStatus);
+    method public Boolean? component3();
+    method public androidx.media3.common.Format? component4();
+    method public boolean component5();
+    method public java.util.List<com.google.android.horologist.media3.offload.AudioError> component6();
+    method public com.google.android.horologist.media3.offload.OffloadTimes component7();
+    method public String? component8();
+    method public com.google.android.horologist.media3.offload.AudioOffloadStrategy? component9();
+    method public com.google.android.horologist.media3.offload.AudioOffloadStatus copy(boolean offloadSchedulingEnabled, boolean sleepingForOffload, Boolean? trackOffload, androidx.media3.common.Format? format, boolean isPlaying, java.util.List<com.google.android.horologist.media3.offload.AudioError> errors, com.google.android.horologist.media3.offload.OffloadTimes offloadTimes, String? strategyStatus, com.google.android.horologist.media3.offload.AudioOffloadStrategy? strategy);
     method public String describe();
     method public java.util.List<com.google.android.horologist.media3.offload.AudioError> getErrors();
     method public androidx.media3.common.Format? getFormat();
     method public boolean getOffloadSchedulingEnabled();
     method public com.google.android.horologist.media3.offload.OffloadTimes getOffloadTimes();
     method public boolean getSleepingForOffload();
+    method public com.google.android.horologist.media3.offload.AudioOffloadStrategy? getStrategy();
     method public String? getStrategyStatus();
+    method public Boolean? getTrackOffload();
     method public boolean isPlaying();
+    method public String trackOffloadDescription();
     method public com.google.android.horologist.media3.offload.OffloadTimes updateToNow();
     property public final java.util.List<com.google.android.horologist.media3.offload.AudioError> errors;
     property public final androidx.media3.common.Format? format;
@@ -162,25 +168,35 @@ package com.google.android.horologist.media3.offload {
     property public final boolean offloadSchedulingEnabled;
     property public final com.google.android.horologist.media3.offload.OffloadTimes offloadTimes;
     property public final boolean sleepingForOffload;
+    property public final com.google.android.horologist.media3.offload.AudioOffloadStrategy? strategy;
     property public final String? strategyStatus;
+    property public final Boolean? trackOffload;
   }
 
   @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public interface AudioOffloadStrategy {
     method public kotlinx.coroutines.flow.Flow<java.lang.String> applyIndefinitely(androidx.media3.exoplayer.ExoPlayer exoPlayer, com.google.android.horologist.media3.logging.ErrorReporter errorReporter);
+    method public boolean getOffloadEnabled();
+    property public abstract boolean offloadEnabled;
   }
 
   public static final class AudioOffloadStrategy.Always implements com.google.android.horologist.media3.offload.AudioOffloadStrategy {
     method public kotlinx.coroutines.flow.Flow<java.lang.String> applyIndefinitely(androidx.media3.exoplayer.ExoPlayer exoPlayer, com.google.android.horologist.media3.logging.ErrorReporter errorReporter);
+    method public boolean getOffloadEnabled();
+    property public boolean offloadEnabled;
     field public static final com.google.android.horologist.media3.offload.AudioOffloadStrategy.Always INSTANCE;
   }
 
   public static final class AudioOffloadStrategy.Never implements com.google.android.horologist.media3.offload.AudioOffloadStrategy {
     method public kotlinx.coroutines.flow.Flow<java.lang.String> applyIndefinitely(androidx.media3.exoplayer.ExoPlayer exoPlayer, com.google.android.horologist.media3.logging.ErrorReporter errorReporter);
+    method public boolean getOffloadEnabled();
+    property public boolean offloadEnabled;
     field public static final com.google.android.horologist.media3.offload.AudioOffloadStrategy.Never INSTANCE;
   }
 
   @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public final class BackgroundAudioOffloadStrategy implements com.google.android.horologist.media3.offload.AudioOffloadStrategy {
     method public kotlinx.coroutines.flow.Flow<java.lang.String> applyIndefinitely(androidx.media3.exoplayer.ExoPlayer exoPlayer, com.google.android.horologist.media3.logging.ErrorReporter errorReporter);
+    method public boolean getOffloadEnabled();
+    property public boolean offloadEnabled;
     field public static final com.google.android.horologist.media3.offload.BackgroundAudioOffloadStrategy INSTANCE;
   }
 

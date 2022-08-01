@@ -16,11 +16,16 @@
 
 package com.google.android.horologist.mediasample.ui.debug
 
+import android.media.AudioManager
+import android.os.Build
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.media3.common.Format
+import androidx.media3.exoplayer.audio.DefaultAudioSink
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.offload.AudioOffloadStatus
+import com.google.android.horologist.media3.util.toAudioFormat
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -31,22 +36,39 @@ import javax.inject.Inject
 @HiltViewModel
 class AudioDebugScreenViewModel @Inject constructor(
     private val audioOffloadManager: AudioOffloadManager,
+    private val audioSink: DefaultAudioSink,
     playerRepository: PlayerRepository,
 ) : ViewModel() {
     val uiState: StateFlow<UiState?> = combine(
         audioOffloadManager.offloadStatus,
         playerRepository.currentMedia
     ) { audioOffloadStatus, currentMedia ->
+
         UiState(
             currentTrack = currentMedia?.title,
             audioOffloadStatus = audioOffloadStatus,
-            formatSupported = audioOffloadManager.isFormatSupported(),
+            formatSupported = isFormatSupported(audioOffloadStatus.format),
         )
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = null,
     )
+
+    public fun isFormatSupported(format: Format?): Boolean? {
+        val audioFormat = format?.toAudioFormat() ?: return null
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val audioAttributes = audioSink.audioAttributes?.audioAttributesV21?.audioAttributes
+
+            if (audioAttributes != null) {
+                return AudioManager.isOffloadedPlaybackSupported(audioFormat, audioAttributes)
+            }
+        }
+
+        // Not supported before 30
+        return false
+    }
 
     data class UiState(
         val currentTrack: String?,

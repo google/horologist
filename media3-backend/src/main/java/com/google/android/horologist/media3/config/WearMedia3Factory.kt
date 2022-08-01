@@ -14,25 +14,31 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistMedia3BackendApi::class)
+
 package com.google.android.horologist.media3.config
 
 import android.content.Context
+import androidx.media3.exoplayer.ExoPlayer.AudioOffloadListener
 import androidx.media3.exoplayer.RenderersFactory
 import androidx.media3.exoplayer.audio.AudioCapabilities
 import androidx.media3.exoplayer.audio.AudioSink
 import androidx.media3.exoplayer.audio.DefaultAudioSink
 import androidx.media3.exoplayer.audio.MediaCodecAudioRenderer
 import androidx.media3.exoplayer.mediacodec.MediaCodecSelector
+import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
 
 public open class WearMedia3Factory(private val context: Context) {
     public fun audioSink(
         attemptOffload: Boolean,
-        offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_REQUIRED
+        offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_REQUIRED,
+        audioOffloadListener: AudioOffloadListener?
     ): DefaultAudioSink {
 
         return DefaultAudioSink.Builder()
             .setAudioCapabilities(AudioCapabilities.getCapabilities(context))
             .setAudioProcessorChain(DefaultAudioSink.DefaultAudioProcessorChain())
+            .setAudioOffloadListener(audioOffloadListener)
             .setOffloadMode(
                 if (attemptOffload)
                     offloadMode

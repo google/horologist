@@ -31,7 +31,7 @@ package com.google.android.horologist.media3.config {
   public class WearMedia3Factory {
     ctor public WearMedia3Factory(android.content.Context context);
     method public final androidx.media3.exoplayer.RenderersFactory audioOnlyRenderersFactory(androidx.media3.exoplayer.audio.AudioSink audioSink, optional androidx.media3.exoplayer.mediacodec.MediaCodecSelector mediaCodecSelector);
-    method public final androidx.media3.exoplayer.audio.DefaultAudioSink audioSink(boolean attemptOffload, optional int offloadMode, androidx.media3.exoplayer.ExoPlayer.AudioOffloadListener? audioOffloadListener);
+    method public final androidx.media3.exoplayer.audio.DefaultAudioSink audioSink(boolean attemptOffload, optional int offloadMode);
     method public final androidx.media3.exoplayer.mediacodec.MediaCodecSelector mediaCodecSelector();
   }
 

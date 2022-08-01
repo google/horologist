@@ -97,18 +97,6 @@ public class AudioOffloadManager(
 
                 errorReporter.logMessage("sleeping for offload $sleepingForOffload")
             }
-
-            /**
-             * Logged when the track is rebuilt with the current Offload mode.
-             *
-             * This listener should only run for development builds, since this additional work
-             * negates the effect of offload.
-             */
-            override fun onExperimentalOffloadedPlayback(offloadedPlayback: Boolean) {
-                _offloadStatus.update {
-                    it.copy(trackOffload = offloadedPlayback)
-                }
-            }
         }
 
     @RequiresApi(Build.VERSION_CODES.Q)

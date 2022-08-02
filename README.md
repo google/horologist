@@ -4,14 +4,27 @@ Horologist is a group of libraries that aim to supplement Wear OS developers wit
 
 ## 🎵 Media
 
-Domain model for Media related functionality. `PlayerScreen` and individual UI components.
+Horologist provides the Media Toolkit: a set of libraries to build Media apps on Wear OS and a sample app that you can run to see the toolkit in action.
 
-- [horologist-media](./media)
-- [horologist-media-ui](./media-ui)
+The toolkit includes:
 
-| PlayerScreen                                                                                                                  |
+- [horologist-media-data](./media-data): for mapping data between the UI (which is Player library agnostic) and Media3
+- [horologist-media-ui](./media-ui): which includes the `PlayerScreen`, `BrowseScreen` and `EntityScreen`.
+- [horologist-media](./media): domain model for Media related functionality.
+- [horologist-media3-backend](./media3-backend): Player on top of Media3 including functionalities such as: avoiding playing music on the watch speaker.
+- [horologist-media-sample](./media-sample): sample app to listen to downloaded music or streaming.
+
+| Player Screen                                                                                                                  |
 |-------------------------------------------------------------------------------------------------------------------------------|
 | <img src="https://raw.githubusercontent.com/google/horologist/main/docs/media-ui/playerscreen.png" height="120" width="120" > |
+
+| Browse Screen                                                                                                                  |
+|-------------------------------------------------------------------------------------------------------------------------------|
+| <img src="https://raw.githubusercontent.com/google/horologist/main/docs/media-ui/browse.png" height="120" width="120" > |
+
+| Entity Screen                                                                                                                  |
+|-------------------------------------------------------------------------------------------------------------------------------|
+| <img src="https://raw.githubusercontent.com/google/horologist/main/docs/media-ui/detail.png" height="120" width="120" > |
 
 ## 📅 Composables
 

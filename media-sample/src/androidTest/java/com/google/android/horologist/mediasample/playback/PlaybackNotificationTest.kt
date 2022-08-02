@@ -20,6 +20,7 @@ import android.app.Notification
 import androidx.core.app.NotificationCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import com.google.android.horologist.media.data.mapper.MediaItemExtrasMapperNoopImpl
 import com.google.android.horologist.media.data.mapper.MediaItemMapper
 import com.google.android.horologist.media3.flows.waitForPlaying
 import com.google.common.truth.Truth.assertThat
@@ -38,14 +39,17 @@ import kotlin.time.Duration.Companion.seconds
 @HiltAndroidTest
 @Ignore("Broken after hilt change")
 class PlaybackNotificationTest : BasePlaybackTest() {
+
+    private val mediaItemMapper: MediaItemMapper = MediaItemMapper(MediaItemExtrasMapperNoopImpl)
+
     @Test
     fun testCausesNotification() = runTest {
         withContext(Dispatchers.Main) {
             val browser = browser()
 
-            val mediaItem = MediaItemMapper.map(TestMedia.songMp3)
+            val mediaItem = mediaItemMapper.map(TestMedia.songMp3)
             assertThat(mediaItem).isNotNull()
-            browser.setMediaItem(mediaItem,)
+            browser.setMediaItem(mediaItem)
             assertThat(browser.currentMediaItem).isNotNull()
             browser.prepare()
             browser.play()

@@ -1,0 +1,149 @@
+/*
+ * Copyright 2022 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@file:OptIn(ExperimentalHorologistMediaDataApi::class)
+
+package com.google.android.horologist.media.data.mapper
+
+import android.net.Uri
+import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.common.truth.Truth.assertThat
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
+
+@RunWith(RobolectricTestRunner::class)
+@Config(manifest = Config.NONE)
+class MediaMapperTest {
+
+    private lateinit var sut: MediaMapper
+
+    @Before
+    fun setUp() {
+        sut = MediaMapper(MediaExtrasMapperNoopImpl)
+    }
+
+    @Test
+    fun `given MediaItem then maps correctly`() {
+        // given
+        val id = "id"
+        val uri = "uri"
+        val title = "title"
+        val artist = "artist"
+        val artworkUri = "artworkUri"
+
+        val mediaItem = MediaItem.Builder()
+            .setMediaId(id)
+            .setUri(Uri.parse(uri))
+            .setMediaMetadata(
+                MediaMetadata.Builder()
+                    .setDisplayTitle(title)
+                    .setArtist(artist)
+                    .setArtworkUri(Uri.parse(artworkUri))
+                    .build()
+            )
+            .build()
+
+        // when
+        val result = sut.map(mediaItem)
+
+        // then
+        assertThat(result.id).isEqualTo(id)
+        assertThat(result.uri).isEqualTo(uri)
+        assertThat(result.title).isEqualTo(title)
+        assertThat(result.artist).isEqualTo(artist)
+        assertThat(result.artworkUri).isEqualTo(artworkUri)
+    }
+
+    @Test
+    fun `given MediaItem with null values then maps correctly`() {
+        // given
+        val id = "id"
+        val uri = "uri"
+        val artist = "artist"
+
+        val mediaItem = MediaItem.Builder()
+            .setMediaId(id)
+            .setUri(Uri.parse(uri))
+            .setMediaMetadata(
+                MediaMetadata.Builder()
+                    .setArtist(artist)
+                    .build()
+            )
+            .build()
+
+        // when
+        val result = sut.map(mediaItem)
+
+        // then
+        assertThat(result.id).isEqualTo(id)
+        assertThat(result.uri).isEqualTo(uri)
+        assertThat(result.title).isEqualTo("")
+        assertThat(result.artist).isEqualTo(artist)
+        assertThat(result.artworkUri).isNull()
+    }
+
+    @Test
+    fun `given MediaItem currentArtist is null and defaultArtist is passed then maps correctly`() {
+        // given
+        val defaultArtist = "defaultArtist"
+        val mediaItem = MediaItem.Builder().build()
+
+        // when
+        val result = sut.map(mediaItem, defaultArtist)
+
+        // then
+        assertThat(result.artist).isEqualTo(defaultArtist)
+    }
+
+    @Test
+    fun `given custom extras mapper implementation then implementation is executed`() {
+        // given
+        val id = "id"
+        val uri = "uri"
+        val artist = "artist"
+
+        val mediaItem = MediaItem.Builder()
+            .setMediaId(id)
+            .setUri(Uri.parse(uri))
+            .setMediaMetadata(
+                MediaMetadata.Builder()
+                    .setArtist(artist)
+                    .build()
+            )
+            .build()
+
+        val sut = MediaMapper(object : MediaExtrasMapper {
+            override fun map(mediaItem: MediaItem): Map<String, Any> = buildMap {
+                put(id, mediaItem.mediaId)
+                put(uri, mediaItem.localConfiguration!!.uri)
+                put(artist, mediaItem.mediaMetadata.artist!!)
+            }
+        })
+
+        // when
+        val result = sut.map(mediaItem)
+
+        // then
+        assertThat(result.extras[id]).isEqualTo(id)
+        assertThat(result.extras[uri]).isEqualTo(Uri.parse(uri))
+        assertThat(result.extras[artist]).isEqualTo(artist)
+    }
+}

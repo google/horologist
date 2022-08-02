@@ -13,14 +13,32 @@ package com.google.android.horologist.media.data.mapper {
     field public static final com.google.android.horologist.media.data.mapper.CommandMapper INSTANCE;
   }
 
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public interface MediaExtrasMapper {
+    method public java.util.Map<java.lang.String,java.lang.Object> map(androidx.media3.common.MediaItem mediaItem);
+  }
+
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaExtrasMapperNoopImpl implements com.google.android.horologist.media.data.mapper.MediaExtrasMapper {
+    method public java.util.Map<java.lang.String,java.lang.Object> map(androidx.media3.common.MediaItem mediaItem);
+    field public static final com.google.android.horologist.media.data.mapper.MediaExtrasMapperNoopImpl INSTANCE;
+  }
+
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public interface MediaItemExtrasMapper {
+    method public void map(com.google.android.horologist.media.model.Media media, androidx.media3.common.MediaItem.Builder mediaItemBuilder, androidx.media3.common.MediaMetadata.Builder mediaMetadataBuilder, androidx.media3.common.MediaItem.RequestMetadata.Builder requestMetadataBuilder);
+  }
+
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaItemExtrasMapperNoopImpl implements com.google.android.horologist.media.data.mapper.MediaItemExtrasMapper {
+    method public void map(com.google.android.horologist.media.model.Media media, androidx.media3.common.MediaItem.Builder mediaItemBuilder, androidx.media3.common.MediaMetadata.Builder mediaMetadataBuilder, androidx.media3.common.MediaItem.RequestMetadata.Builder requestMetadataBuilder);
+    field public static final com.google.android.horologist.media.data.mapper.MediaItemExtrasMapperNoopImpl INSTANCE;
+  }
+
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaItemMapper {
-    method public androidx.media3.common.MediaItem map(com.google.android.horologist.media.model.Media media);
-    field public static final com.google.android.horologist.media.data.mapper.MediaItemMapper INSTANCE;
+    ctor public MediaItemMapper(com.google.android.horologist.media.data.mapper.MediaItemExtrasMapper mediaItemExtrasMapper);
+    method public androidx.media3.common.MediaItem map(com.google.android.horologist.media.model.Media mediaItem);
   }
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaMapper {
+    ctor public MediaMapper(com.google.android.horologist.media.data.mapper.MediaExtrasMapper mediaExtrasMapper);
     method public com.google.android.horologist.media.model.Media map(androidx.media3.common.MediaItem mediaItem, optional String defaultArtist);
-    field public static final com.google.android.horologist.media.data.mapper.MediaMapper INSTANCE;
   }
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaPositionMapper {
@@ -44,7 +62,7 @@ package com.google.android.horologist.media.data.mapper {
 package com.google.android.horologist.media.data.repository {
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlayerRepositoryImpl implements java.io.Closeable com.google.android.horologist.media.repository.PlayerRepository {
-    ctor public PlayerRepositoryImpl();
+    ctor public PlayerRepositoryImpl(com.google.android.horologist.media.data.mapper.MediaMapper mediaMapper, com.google.android.horologist.media.data.mapper.MediaItemMapper mediaItemMapper);
     method public void addMedia(com.google.android.horologist.media.model.Media media);
     method public void addMedia(int index, com.google.android.horologist.media.model.Media media);
     method public void clearMediaList();

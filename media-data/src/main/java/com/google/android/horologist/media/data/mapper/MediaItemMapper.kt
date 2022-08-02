@@ -27,27 +27,41 @@ import com.google.android.horologist.media.model.Media
  * Maps a [Media] into a [MediaItem].
  */
 @ExperimentalHorologistMediaDataApi
-public object MediaItemMapper {
+public class MediaItemMapper(
+    private val mediaItemExtrasMapper: MediaItemExtrasMapper,
+) {
 
-    public fun map(media: Media): MediaItem {
-        val parsedUri = Uri.parse(media.uri)
-        val artworkUri = media.artworkUri?.let(Uri::parse)
+    public fun map(mediaItem: Media): MediaItem {
+        val parsedUri = Uri.parse(mediaItem.uri)
+        val artworkUri = mediaItem.artworkUri?.let(Uri::parse)
 
-        return MediaItem.Builder()
-            .setMediaId(media.id)
+        val mediaItemBuilder = MediaItem.Builder()
+        val mediaMetadataBuilder = MediaMetadata.Builder()
+        val requestMetadataBuilder = RequestMetadata.Builder()
+
+        mediaItemBuilder
+            .setMediaId(mediaItem.id)
             .setUri(parsedUri)
-            .setRequestMetadata(
-                RequestMetadata.Builder()
-                    .setMediaUri(parsedUri)
-                    .build()
-            )
-            .setMediaMetadata(
-                MediaMetadata.Builder()
-                    .setDisplayTitle(media.title)
-                    .setArtist(media.artist)
-                    .setArtworkUri(artworkUri)
-                    .build()
-            )
-            .build()
+
+        mediaMetadataBuilder
+            .setDisplayTitle(mediaItem.title)
+            .setArtist(mediaItem.artist)
+            .setArtworkUri(artworkUri)
+
+        requestMetadataBuilder
+            .setMediaUri(parsedUri)
+
+        mediaItemExtrasMapper.map(
+            mediaItem,
+            mediaItemBuilder,
+            mediaMetadataBuilder,
+            requestMetadataBuilder
+        )
+
+        mediaItemBuilder
+            .setMediaMetadata(mediaMetadataBuilder.build())
+            .setRequestMetadata(requestMetadataBuilder.build())
+
+        return mediaItemBuilder.build()
     }
 }

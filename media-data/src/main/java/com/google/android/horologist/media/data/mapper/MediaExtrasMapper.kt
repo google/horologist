@@ -21,26 +21,16 @@ import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataA
 import com.google.android.horologist.media.model.Media
 
 /**
- * Maps a [MediaItem] into a [Media].
+ * Custom implementation to populate [Media.extras] with values from [MediaItem].
  */
 @ExperimentalHorologistMediaDataApi
-public class MediaMapper(
-    private val mediaExtrasMapper: MediaExtrasMapper,
-) {
+public interface MediaExtrasMapper {
 
-    /**
-     * @param mediaItem [MediaItem] to be mapped.
-     * @param defaultArtist value for [Media.artist].
-     */
-    public fun map(
-        mediaItem: MediaItem,
-        defaultArtist: String = ""
-    ): Media = Media(
-        id = mediaItem.mediaId,
-        uri = mediaItem.localConfiguration?.uri?.toString() ?: "",
-        title = mediaItem.mediaMetadata.displayTitle?.toString() ?: "",
-        artist = mediaItem.mediaMetadata.artist?.toString() ?: defaultArtist,
-        artworkUri = mediaItem.mediaMetadata.artworkUri?.toString(),
-        extras = mediaExtrasMapper.map(mediaItem),
-    )
+    public fun map(mediaItem: MediaItem): Map<String, Any>
+}
+
+@ExperimentalHorologistMediaDataApi
+public object MediaExtrasMapperNoopImpl : MediaExtrasMapper {
+
+    override fun map(mediaItem: MediaItem): Map<String, Any> = emptyMap()
 }

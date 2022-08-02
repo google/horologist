@@ -17,11 +17,13 @@
 package com.google.android.horologist.media.data.mapper
 
 import androidx.media3.common.MediaItem
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.model.Media
 
 /**
  * Maps a [MediaItem] into a [Media].
  */
+@ExperimentalHorologistMediaDataApi
 public object MediaMapper {
 
     /**

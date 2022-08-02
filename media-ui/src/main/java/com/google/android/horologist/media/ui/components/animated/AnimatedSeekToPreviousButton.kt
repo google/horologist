@@ -19,10 +19,12 @@ package com.google.android.horologist.media.ui.components.animated
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
@@ -42,7 +44,7 @@ public fun AnimatedSeekToPreviousButton(
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     iconSize: Dp = 30.dp,
-    tapTargetSize: Dp = 60.dp,
+    tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
 ) {
     if (LocalStaticPreview.current) {
         SeekToPreviousButton(
@@ -61,13 +63,14 @@ public fun AnimatedSeekToPreviousButton(
             AnimatedMediaButton(
                 modifier = modifier,
                 onClick = onClick,
-                contentDescription = stringResource(id = R.string.horologist_seek_to_next_button_content_description),
+                contentDescription = stringResource(id = R.string.horologist_seek_to_previous_button_content_description),
                 enabled = enabled,
                 colors = colors,
                 iconSize = iconSize,
                 tapTargetSize = tapTargetSize,
                 composition = composition,
                 lottieAnimatable = lottieAnimatable,
+                iconAlign = Alignment.End,
             )
         }
     }

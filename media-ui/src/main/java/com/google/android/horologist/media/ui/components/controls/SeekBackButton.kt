@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.Replay10
 import androidx.compose.material.icons.filled.Replay30
 import androidx.compose.material.icons.filled.Replay5
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
@@ -65,6 +66,7 @@ public fun SeekBackButton(
         enabled = enabled,
         colors = colors,
         iconSize = iconSize,
-        tapTargetSize = tapTargetSize
+        tapTargetSize = tapTargetSize,
+        iconAlign = Alignment.Start,
     )
 }

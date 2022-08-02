@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.Forward30
 import androidx.compose.material.icons.filled.Forward5
 import androidx.compose.material.icons.filled.Replay
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
@@ -66,6 +67,7 @@ public fun SeekForwardButton(
         enabled = enabled,
         colors = colors,
         iconSize = iconSize,
-        tapTargetSize = tapTargetSize
+        tapTargetSize = tapTargetSize,
+        iconAlign = Alignment.End,
     )
 }

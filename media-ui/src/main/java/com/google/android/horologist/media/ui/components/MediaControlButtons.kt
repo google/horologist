@@ -129,7 +129,6 @@ internal fun MediaControlButtons(
                     enabled = playPauseButtonEnabled,
                     playing = playing,
                     percent = percent,
-                    modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
                     colors = colors,
                 )
             } else {
@@ -138,7 +137,6 @@ internal fun MediaControlButtons(
                     onPauseClick = onPauseButtonClick,
                     enabled = playPauseButtonEnabled,
                     playing = playing,
-                    modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
                     colors = colors,
                 )
             }

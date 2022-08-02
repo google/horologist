@@ -19,6 +19,7 @@ package com.google.android.horologist.media.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -49,7 +50,7 @@ public fun PlayPauseButton(
     tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
     progress: @Composable () -> Unit = {}
 ) {
-    Box(modifier = modifier, contentAlignment = Alignment.Center) {
+    Box(modifier = modifier.size(tapTargetSize), contentAlignment = Alignment.Center) {
         progress()
 
         if (playing) {

@@ -19,6 +19,7 @@ package com.google.android.horologist.media.data.repository
 import android.util.Log
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.data.mapper.MediaItemMapper
 import com.google.android.horologist.media.data.mapper.MediaMapper
 import com.google.android.horologist.media.data.mapper.MediaPositionMapper
@@ -43,7 +44,11 @@ import kotlin.time.toDuration
  * The current implementation is available as soon as the ListenableFuture
  * to connect to the MediaSession completes.
  */
-public class PlayerRepositoryImpl : PlayerRepository, Closeable {
+@ExperimentalHorologistMediaDataApi
+public class PlayerRepositoryImpl(
+    private val mediaMapper: MediaMapper,
+    private val mediaItemMapper: MediaItemMapper,
+) : PlayerRepository, Closeable {
 
     private var onClose: (() -> Unit)? = null
     private var closed = false
@@ -131,7 +136,7 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
     }
 
     private fun updateCurrentMediaItem(player: Player) {
-        _currentMedia.value = player.currentMediaItem?.let(MediaMapper::map)
+        _currentMedia.value = player.currentMediaItem?.let(mediaMapper::map)
     }
 
     /**
@@ -296,7 +301,7 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
         checkNotClosed()
 
         player.value?.let {
-            it.setMediaItem(MediaItemMapper.map(media))
+            it.setMediaItem(mediaItemMapper.map(media))
             updatePosition()
         }
     }
@@ -309,7 +314,7 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
         checkNotClosed()
 
         player.value?.let {
-            it.setMediaItems(MediaItemMapper.map(mediaList))
+            it.setMediaItems(mediaList.map(mediaItemMapper::map))
             updatePosition()
         }
     }
@@ -317,13 +322,13 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
     override fun addMedia(media: Media) {
         checkNotClosed()
 
-        player.value?.addMediaItem(MediaItemMapper.map(media))
+        player.value?.addMediaItem(mediaItemMapper.map(media))
     }
 
     override fun addMedia(index: Int, media: Media) {
         checkNotClosed()
 
-        player.value?.addMediaItem(index, MediaItemMapper.map(media))
+        player.value?.addMediaItem(index, mediaItemMapper.map(media))
     }
 
     override fun removeMedia(index: Int) {
@@ -347,7 +352,7 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
     override fun getMediaAt(index: Int): Media? {
         checkNotClosed()
 
-        return player.value?.getMediaItemAt(index)?.let(MediaMapper::map)
+        return player.value?.getMediaItemAt(index)?.let(mediaMapper::map)
     }
 
     override fun getCurrentMediaIndex(): Int {

@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistMediaDataApi::class)
+
 package com.google.android.horologist.media.data.repository
 
 import android.content.Context
@@ -24,7 +26,11 @@ import androidx.media3.test.utils.robolectric.TestPlayerRunHelper.playUntilPosit
 import androidx.media3.test.utils.robolectric.TestPlayerRunHelper.runUntilPendingCommandsAreFullyHandled
 import androidx.media3.test.utils.robolectric.TestPlayerRunHelper.runUntilPlaybackState
 import androidx.test.core.app.ApplicationProvider
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.media.data.mapper.MediaExtrasMapperNoopImpl
+import com.google.android.horologist.media.data.mapper.MediaItemExtrasMapperNoopImpl
 import com.google.android.horologist.media.data.mapper.MediaItemMapper
+import com.google.android.horologist.media.data.mapper.MediaMapper
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.MediaPosition
@@ -50,13 +56,20 @@ class PlayerRepositoryImplTest {
 
     private lateinit var context: Context
 
+    private lateinit var mediaItemMapper: MediaItemMapper
+
     @Before
     fun setUp() {
         // execute all tasks posted to main looper
         shadowOf(getMainLooper()).idle()
 
+        mediaItemMapper = MediaItemMapper(MediaItemExtrasMapperNoopImpl)
+
         context = ApplicationProvider.getApplicationContext()
-        sut = PlayerRepositoryImpl()
+        sut = PlayerRepositoryImpl(
+            mediaMapper = MediaMapper(MediaExtrasMapperNoopImpl),
+            mediaItemMapper = mediaItemMapper
+        )
     }
 
     @Test
@@ -156,7 +169,7 @@ class PlayerRepositoryImplTest {
 
         val media = getStubMedia("id")
 
-        player.setMediaItem(MediaItemMapper.map(media))
+        player.setMediaItem(mediaItemMapper.map(media))
         player.prepare()
 
         // when

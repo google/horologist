@@ -16,23 +16,21 @@
 
 package com.google.android.horologist.media.data.mapper
 
-import androidx.media3.common.Player
+import androidx.media3.common.MediaItem
 import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
-import com.google.android.horologist.media.model.Command
+import com.google.android.horologist.media.model.Media
 
 /**
- * Maps [Player.Commands] into a [Set] of [Command].
+ * Custom implementation to populate [Media.extras] with values from [MediaItem].
  */
 @ExperimentalHorologistMediaDataApi
-public object SetCommandMapper {
+public interface MediaExtrasMapper {
 
-    public fun map(commands: Player.Commands): Set<Command> = buildSet {
-        for (i in 0 until commands.size()) {
-            try {
-                add(CommandMapper.map(commands.get(i)))
-            } catch (e: IllegalArgumentException) {
-                // no action needed, command is not yet mapped into our domain.
-            }
-        }
-    }
+    public fun map(mediaItem: MediaItem): Map<String, Any>
+}
+
+@ExperimentalHorologistMediaDataApi
+public object MediaExtrasMapperNoopImpl : MediaExtrasMapper {
+
+    override fun map(mediaItem: MediaItem): Map<String, Any> = emptyMap()
 }

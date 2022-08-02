@@ -18,6 +18,7 @@ package com.google.android.horologist.mediasample.playback
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import com.google.android.horologist.media.data.mapper.MediaItemExtrasMapperNoopImpl
 import com.google.android.horologist.media.data.mapper.MediaItemMapper
 import com.google.android.horologist.media.model.Media
 import com.google.common.truth.Truth.assertThat
@@ -33,6 +34,9 @@ import org.junit.runner.RunWith
 @LargeTest
 @HiltAndroidTest
 class PlaybackErrorTest : BasePlaybackTest() {
+
+    private val mediaItemMapper: MediaItemMapper = MediaItemMapper(MediaItemExtrasMapperNoopImpl)
+
     @Test
     fun testFailingItem() = runTest {
         withContext(Dispatchers.Main) {
@@ -47,7 +51,7 @@ class PlaybackErrorTest : BasePlaybackTest() {
             )
 
             browser.setMediaItem(
-                MediaItemMapper.map(badContent),
+                mediaItemMapper.map(badContent),
             )
             browser.prepare()
             browser.play()

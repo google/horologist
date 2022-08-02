@@ -19,13 +19,14 @@ package com.google.android.horologist.media.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
@@ -44,6 +45,8 @@ public fun PlayPauseButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+    iconSize: Dp = 30.dp,
+    tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
     progress: @Composable () -> Unit = {}
 ) {
     Box(modifier = modifier, contentAlignment = Alignment.Center) {
@@ -55,6 +58,8 @@ public fun PlayPauseButton(
                 enabled = enabled,
                 modifier = modifier,
                 colors = colors,
+                iconSize = iconSize,
+                tapTargetSize = tapTargetSize,
             )
         } else {
             PlayButton(
@@ -62,6 +67,8 @@ public fun PlayPauseButton(
                 enabled = enabled,
                 modifier = modifier,
                 colors = colors,
+                iconSize = iconSize,
+                tapTargetSize = tapTargetSize,
             )
         }
     }
@@ -77,6 +84,8 @@ public fun PlayPauseProgressButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+    iconSize: Dp = 30.dp,
+    tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
     progressColour: Color = MaterialTheme.colors.primary,
     trackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
     backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
@@ -87,11 +96,13 @@ public fun PlayPauseProgressButton(
         enabled = enabled,
         playing = playing,
         modifier = modifier,
-        colors = colors
+        colors = colors,
+        iconSize = iconSize,
+        tapTargetSize = tapTargetSize
     ) {
         Box(
             modifier = Modifier
-                .size(60.dp)
+                .fillMaxSize()
                 .clip(CircleShape)
                 .background(backgroundColor)
         ) {

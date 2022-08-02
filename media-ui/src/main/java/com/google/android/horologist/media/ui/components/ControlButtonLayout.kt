@@ -36,8 +36,6 @@ public fun ControlButtonLayout(
     rightButton: @Composable () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val isLarge = LocalConfiguration.current.screenWidthDp > 200
-
     Row(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,

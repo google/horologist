@@ -27,9 +27,14 @@ import kotlinx.coroutines.flow.flow
  * Strategy for enabling or disabling the audio offload mode.
  */
 public interface AudioOffloadStrategy {
+    public val offloadEnabled: Boolean
+
     public fun applyIndefinitely(exoPlayer: ExoPlayer, errorReporter: ErrorReporter): Flow<String>
 
     public object Always : AudioOffloadStrategy {
+        override val offloadEnabled: Boolean
+            get() = true
+
         override fun applyIndefinitely(
             exoPlayer: ExoPlayer,
             errorReporter: ErrorReporter
@@ -37,9 +42,14 @@ public interface AudioOffloadStrategy {
             exoPlayer.experimentalSetOffloadSchedulingEnabled(true)
             emit("Always")
         }
+
+        override fun toString(): String = "Always"
     }
 
     public object Never : AudioOffloadStrategy {
+        override val offloadEnabled: Boolean
+            get() = false
+
         override fun applyIndefinitely(
             exoPlayer: ExoPlayer,
             errorReporter: ErrorReporter
@@ -47,5 +57,7 @@ public interface AudioOffloadStrategy {
             exoPlayer.experimentalSetOffloadSchedulingEnabled(false)
             emit("Never")
         }
+
+        override fun toString(): String = "Never"
     }
 }

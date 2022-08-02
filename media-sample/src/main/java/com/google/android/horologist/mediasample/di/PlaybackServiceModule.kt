@@ -17,6 +17,7 @@
 package com.google.android.horologist.mediasample.di
 
 import android.app.Service
+import android.os.Build
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.media3.common.AudioAttributes
@@ -32,7 +33,7 @@ import androidx.media3.exoplayer.LoadControl
 import androidx.media3.exoplayer.RenderersFactory
 import androidx.media3.exoplayer.analytics.AnalyticsCollector
 import androidx.media3.exoplayer.analytics.DefaultAnalyticsCollector
-import androidx.media3.exoplayer.audio.AudioSink
+import androidx.media3.exoplayer.audio.DefaultAudioSink
 import androidx.media3.exoplayer.mediacodec.MediaCodecSelector
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.exoplayer.source.MediaSource
@@ -89,7 +90,7 @@ object PlaybackServiceModule {
     @Provides
     fun audioOnlyRenderersFactory(
         wearMedia3Factory: WearMedia3Factory,
-        audioSink: AudioSink,
+        audioSink: DefaultAudioSink,
         mediaCodecSelector: MediaCodecSelector
     ) =
         wearMedia3Factory.audioOnlyRenderersFactory(
@@ -228,7 +229,7 @@ object PlaybackServiceModule {
                 wearConfiguredPlayer.startNoiseDetection()
             }
 
-            if (appConfig.offloadEnabled) {
+            if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
                 serviceCoroutineScope.launch {
                     audioOffloadManager.connect(exoPlayer)
                 }

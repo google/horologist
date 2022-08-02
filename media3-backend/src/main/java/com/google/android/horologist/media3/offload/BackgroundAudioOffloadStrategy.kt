@@ -33,6 +33,9 @@ import kotlinx.coroutines.flow.callbackFlow
  * that is only enabled when backgrounded.
  */
 public object BackgroundAudioOffloadStrategy : AudioOffloadStrategy {
+    override val offloadEnabled: Boolean
+        get() = true
+
     override fun applyIndefinitely(
         exoPlayer: ExoPlayer,
         errorReporter: ErrorReporter
@@ -41,19 +44,19 @@ public object BackgroundAudioOffloadStrategy : AudioOffloadStrategy {
         val lifecycleOwner = ProcessLifecycleOwner.get()
         val foreground = lifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)
 
-        trySend("Foreground: $foreground")
+        trySend("Background: $foreground")
         exoPlayer.experimentalSetOffloadSchedulingEnabled(!foreground)
 
         val listener = object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {
-                trySend("Foreground: true")
+                trySend("Background: false")
                 exoPlayer.experimentalSetOffloadSchedulingEnabled(false)
 
                 errorReporter.logMessage("app foregrounded")
             }
 
             override fun onPause(owner: LifecycleOwner) {
-                trySend("Foreground: false")
+                trySend("Background: true")
                 exoPlayer.experimentalSetOffloadSchedulingEnabled(true)
 
                 errorReporter.logMessage("app backgrounded")
@@ -66,4 +69,6 @@ public object BackgroundAudioOffloadStrategy : AudioOffloadStrategy {
             lifecycleOwner.lifecycle.removeObserver(listener)
         }
     }
+
+    override fun toString(): String = "Background"
 }

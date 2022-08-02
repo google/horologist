@@ -192,6 +192,12 @@ public class PlayerRepositoryImpl(
         _connected.value = false
     }
 
+    override fun seekToDefaultPosition(mediaIndex: Int) {
+        checkNotClosed()
+
+        _player.value?.seekToDefaultPosition(mediaIndex)
+    }
+
     override fun prepare() {
         checkNotClosed()
 
@@ -202,16 +208,6 @@ public class PlayerRepositoryImpl(
         checkNotClosed()
 
         _player.value?.let {
-            it.play()
-            updatePosition()
-        }
-    }
-
-    override fun play(mediaIndex: Int) {
-        checkNotClosed()
-
-        player.value?.let {
-            it.seekToDefaultPosition(mediaIndex)
             it.play()
             updatePosition()
         }

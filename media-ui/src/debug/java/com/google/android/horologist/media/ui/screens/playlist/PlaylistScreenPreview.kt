@@ -32,7 +32,7 @@ import com.google.android.horologist.media.ui.utils.rememberVectorPainter
 @WearPreviewDevices
 @Composable
 fun PlaylistScreenPreview() {
-    PlaylistScreen(
+    PlaylistsScreen(
         playlistScreenState = PlaylistScreenState.Loaded(
             buildList {
                 add(
@@ -64,7 +64,7 @@ fun PlaylistScreenPreview() {
 @WearPreviewDevices
 @Composable
 fun PlaylistScreenPreviewLoading() {
-    PlaylistScreen(
+    PlaylistsScreen(
         playlistScreenState = PlaylistScreenState.Loading,
         onPlaylistItemClick = { },
         focusRequester = FocusRequester(),

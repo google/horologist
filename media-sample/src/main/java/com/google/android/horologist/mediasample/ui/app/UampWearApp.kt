@@ -109,7 +109,9 @@ fun UampWearApp(
 
                 UampEntityScreen(
                     uampEntityScreenViewModel = uampEntityScreenViewModel,
-                    onDownloadItemClick = { },
+                    onDownloadItemClick = {
+                        navController.navigateToPlayer()
+                    },
                     onShuffleClick = { navController.navigateToPlayer() },
                     onPlayClick = { navController.navigateToPlayer() },
                     focusRequester = focusRequester,

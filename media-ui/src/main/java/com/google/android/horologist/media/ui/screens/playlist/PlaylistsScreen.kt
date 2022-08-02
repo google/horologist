@@ -37,7 +37,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
 @ExperimentalHorologistMediaUiApi
 @Composable
-public fun PlaylistScreen(
+public fun PlaylistsScreen(
     playlistScreenState: PlaylistScreenState,
     onPlaylistItemClick: (PlaylistUiModel) -> Unit,
     focusRequester: FocusRequester,
@@ -81,7 +81,7 @@ public fun PlaylistScreen(
 }
 
 /**
- * Represents the state of [PlaylistScreen].
+ * Represents the state of [PlaylistsScreen].
  */
 @ExperimentalHorologistMediaUiApi
 public sealed class PlaylistScreenState {

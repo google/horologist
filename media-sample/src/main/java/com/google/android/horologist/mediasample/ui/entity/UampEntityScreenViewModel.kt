@@ -63,19 +63,24 @@ class UampEntityScreenViewModel @Inject constructor(
         EntityScreenState.Loading(playlistName)
     )
 
-    fun play() {
-        play(shuffled = false)
+    fun play(mediaId: String? = null) {
+        play(shuffled = false, mediaId = mediaId)
     }
 
     fun shufflePlay() {
         play(shuffled = true)
     }
 
-    private fun play(shuffled: Boolean) {
+    private fun play(shuffled: Boolean, mediaId: String? = null) {
         playlistDownload.value?.let { playlistDownload ->
+            val index = playlistDownload.mediaList
+                .indexOfFirst { it.media.id == mediaId }
+                .coerceAtLeast(0)
+
             playerRepository.setShuffleModeEnabled(shuffled)
 
             playerRepository.setMediaList(playlistDownload.playlist.mediaList)
+            playerRepository.seekToDefaultPosition(index)
             playerRepository.prepare()
             playerRepository.play()
         }

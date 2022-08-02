@@ -19,6 +19,7 @@ package com.google.android.horologist.media.data.repository
 import android.util.Log
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.data.mapper.MediaItemMapper
 import com.google.android.horologist.media.data.mapper.MediaMapper
 import com.google.android.horologist.media.data.mapper.MediaPositionMapper
@@ -43,6 +44,7 @@ import kotlin.time.toDuration
  * The current implementation is available as soon as the ListenableFuture
  * to connect to the MediaSession completes.
  */
+@ExperimentalHorologistMediaDataApi
 public class PlayerRepositoryImpl : PlayerRepository, Closeable {
 
     private var onClose: (() -> Unit)? = null
@@ -309,7 +311,7 @@ public class PlayerRepositoryImpl : PlayerRepository, Closeable {
         checkNotClosed()
 
         player.value?.let {
-            it.setMediaItems(MediaItemMapper.map(mediaList))
+            it.setMediaItems(mediaList.map(MediaItemMapper::map))
             updatePosition()
         }
     }

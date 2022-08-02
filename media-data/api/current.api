@@ -8,34 +8,33 @@ package com.google.android.horologist.media.data {
 
 package com.google.android.horologist.media.data.mapper {
 
-  public final class CommandMapper {
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class CommandMapper {
     method public com.google.android.horologist.media.model.Command map(@androidx.media3.common.Player.Command int command);
     field public static final com.google.android.horologist.media.data.mapper.CommandMapper INSTANCE;
   }
 
-  public final class MediaItemMapper {
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaItemMapper {
     method public androidx.media3.common.MediaItem map(com.google.android.horologist.media.model.Media media);
-    method public java.util.List<androidx.media3.common.MediaItem> map(java.util.List<com.google.android.horologist.media.model.Media> media);
     field public static final com.google.android.horologist.media.data.mapper.MediaItemMapper INSTANCE;
   }
 
-  public final class MediaMapper {
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaMapper {
     method public com.google.android.horologist.media.model.Media map(androidx.media3.common.MediaItem mediaItem, optional String defaultArtist);
     field public static final com.google.android.horologist.media.data.mapper.MediaMapper INSTANCE;
   }
 
-  public final class MediaPositionMapper {
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaPositionMapper {
     method public com.google.android.horologist.media.model.MediaPosition? map(androidx.media3.common.Player? player);
     field public static final com.google.android.horologist.media.data.mapper.MediaPositionMapper INSTANCE;
   }
 
-  public final class PlayerStateMapper {
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlayerStateMapper {
     method public boolean affectsState(androidx.media3.common.Player.Events events);
     method public com.google.android.horologist.media.model.PlayerState map(androidx.media3.common.Player player);
     field public static final com.google.android.horologist.media.data.mapper.PlayerStateMapper INSTANCE;
   }
 
-  public final class SetCommandMapper {
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class SetCommandMapper {
     method public java.util.Set<com.google.android.horologist.media.model.Command> map(androidx.media3.common.Player.Commands commands);
     field public static final com.google.android.horologist.media.data.mapper.SetCommandMapper INSTANCE;
   }
@@ -44,7 +43,7 @@ package com.google.android.horologist.media.data.mapper {
 
 package com.google.android.horologist.media.data.repository {
 
-  public final class PlayerRepositoryImpl implements java.io.Closeable com.google.android.horologist.media.repository.PlayerRepository {
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlayerRepositoryImpl implements java.io.Closeable com.google.android.horologist.media.repository.PlayerRepository {
     ctor public PlayerRepositoryImpl();
     method public void addMedia(com.google.android.horologist.media.model.Media media);
     method public void addMedia(int index, com.google.android.horologist.media.model.Media media);

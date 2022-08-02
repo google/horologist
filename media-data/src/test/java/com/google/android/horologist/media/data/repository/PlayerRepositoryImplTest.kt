@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistMediaDataApi::class)
+
 package com.google.android.horologist.media.data.repository
 
 import android.content.Context
@@ -24,6 +26,7 @@ import androidx.media3.test.utils.robolectric.TestPlayerRunHelper.playUntilPosit
 import androidx.media3.test.utils.robolectric.TestPlayerRunHelper.runUntilPendingCommandsAreFullyHandled
 import androidx.media3.test.utils.robolectric.TestPlayerRunHelper.runUntilPlaybackState
 import androidx.test.core.app.ApplicationProvider
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.data.mapper.MediaItemMapper
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media

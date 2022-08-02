@@ -20,11 +20,13 @@ import android.net.Uri
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaItem.RequestMetadata
 import androidx.media3.common.MediaMetadata
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.model.Media
 
 /**
  * Maps a [Media] into a [MediaItem].
  */
+@ExperimentalHorologistMediaDataApi
 public object MediaItemMapper {
 
     public fun map(media: Media): MediaItem {
@@ -48,8 +50,4 @@ public object MediaItemMapper {
             )
             .build()
     }
-
-    public fun map(media: List<Media>): List<MediaItem> = media.map(
-        MediaItemMapper::map
-    )
 }

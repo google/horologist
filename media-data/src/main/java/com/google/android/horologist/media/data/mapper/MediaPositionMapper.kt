@@ -18,12 +18,14 @@ package com.google.android.horologist.media.data.mapper
 
 import androidx.media3.common.C
 import androidx.media3.common.Player
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.model.MediaPosition
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * Maps a [Media3 player][Player] position into a [MediaPosition].
  */
+@ExperimentalHorologistMediaDataApi
 public object MediaPositionMapper {
     public fun map(player: Player?): MediaPosition? {
         return if (player == null || player.currentMediaItem == null) {

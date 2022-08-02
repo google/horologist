@@ -22,6 +22,10 @@ import android.content.Context
 import android.os.Looper.getMainLooper
 import androidx.test.core.app.ApplicationProvider
 import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.media.data.mapper.MediaExtrasMapperNoopImpl
+import com.google.android.horologist.media.data.mapper.MediaItemExtrasMapperNoopImpl
+import com.google.android.horologist.media.data.mapper.MediaItemMapper
+import com.google.android.horologist.media.data.mapper.MediaMapper
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.PlayerState
 import com.google.common.truth.Truth.assertThat
@@ -50,7 +54,10 @@ class PlayerRepositoryImplNotConnectedTest(
         shadowOf(getMainLooper()).idle()
 
         context = ApplicationProvider.getApplicationContext()
-        sut = PlayerRepositoryImpl()
+        sut = PlayerRepositoryImpl(
+            mediaMapper = MediaMapper(MediaExtrasMapperNoopImpl),
+            mediaItemMapper = MediaItemMapper(MediaItemExtrasMapperNoopImpl)
+        )
     }
 
     @Test

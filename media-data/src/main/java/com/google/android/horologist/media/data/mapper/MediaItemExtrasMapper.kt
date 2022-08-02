@@ -17,30 +17,32 @@
 package com.google.android.horologist.media.data.mapper
 
 import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
 import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.model.Media
 
 /**
- * Maps a [MediaItem] into a [Media].
+ * Custom implementation to populate [MediaItem] with values from [Media.extras].
  */
 @ExperimentalHorologistMediaDataApi
-public class MediaMapper(
-    private val mediaExtrasMapper: MediaExtrasMapper,
-) {
+public interface MediaItemExtrasMapper {
 
-    /**
-     * @param mediaItem [MediaItem] to be mapped.
-     * @param defaultArtist value for [Media.artist].
-     */
     public fun map(
-        mediaItem: MediaItem,
-        defaultArtist: String = ""
-    ): Media = Media(
-        id = mediaItem.mediaId,
-        uri = mediaItem.localConfiguration?.uri?.toString() ?: "",
-        title = mediaItem.mediaMetadata.displayTitle?.toString() ?: "",
-        artist = mediaItem.mediaMetadata.artist?.toString() ?: defaultArtist,
-        artworkUri = mediaItem.mediaMetadata.artworkUri?.toString(),
-        extras = mediaExtrasMapper.map(mediaItem),
+        media: Media,
+        mediaItemBuilder: MediaItem.Builder,
+        mediaMetadataBuilder: MediaMetadata.Builder,
+        requestMetadataBuilder: MediaItem.RequestMetadata.Builder
     )
+}
+
+@ExperimentalHorologistMediaDataApi
+public object MediaItemExtrasMapperNoopImpl : MediaItemExtrasMapper {
+    override fun map(
+        media: Media,
+        mediaItemBuilder: MediaItem.Builder,
+        mediaMetadataBuilder: MediaMetadata.Builder,
+        requestMetadataBuilder: MediaItem.RequestMetadata.Builder
+    ) {
+        // do nothing
+    }
 }

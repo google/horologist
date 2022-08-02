@@ -22,6 +22,12 @@ import android.content.ComponentName
 import android.content.Context
 import androidx.media3.session.MediaBrowser
 import androidx.media3.session.SessionToken
+import com.google.android.horologist.media.data.mapper.MediaExtrasMapper
+import com.google.android.horologist.media.data.mapper.MediaExtrasMapperNoopImpl
+import com.google.android.horologist.media.data.mapper.MediaItemExtrasMapper
+import com.google.android.horologist.media.data.mapper.MediaItemExtrasMapperNoopImpl
+import com.google.android.horologist.media.data.mapper.MediaItemMapper
+import com.google.android.horologist.media.data.mapper.MediaMapper
 import com.google.android.horologist.media.data.repository.PlayerRepositoryImpl
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media3.flows.buildSuspend
@@ -82,11 +88,16 @@ object ViewModelModule {
     @Provides
     @ActivityRetainedScoped
     fun playerRepositoryImpl(
+        mediaMapper: MediaMapper,
+        mediaItemMapper: MediaItemMapper,
         activityRetainedLifecycle: ActivityRetainedLifecycle,
         coroutineScope: CoroutineScope,
         mediaController: Deferred<MediaBrowser>
     ): PlayerRepositoryImpl =
-        PlayerRepositoryImpl().also { playerRepository ->
+        PlayerRepositoryImpl(
+            mediaMapper = mediaMapper,
+            mediaItemMapper = mediaItemMapper,
+        ).also { playerRepository ->
             activityRetainedLifecycle.addOnClearedListener {
                 playerRepository.close()
             }
@@ -105,4 +116,20 @@ object ViewModelModule {
     fun playerRepository(
         playerRepositoryImpl: PlayerRepositoryImpl
     ): PlayerRepository = playerRepositoryImpl
+
+    @Provides
+    fun mediaExtrasMapper(): MediaExtrasMapper = MediaExtrasMapperNoopImpl
+
+    @Provides
+    fun mediaItemExtrasMapper(): MediaItemExtrasMapper = MediaItemExtrasMapperNoopImpl
+
+    @Provides
+    @ActivityRetainedScoped
+    fun mediaMapper(mediaExtrasMapper: MediaExtrasMapper): MediaMapper =
+        MediaMapper(mediaExtrasMapper)
+
+    @Provides
+    @ActivityRetainedScoped
+    fun mediaItemMapper(mediaItemExtrasMapper: MediaItemExtrasMapper): MediaItemMapper =
+        MediaItemMapper(mediaItemExtrasMapper)
 }

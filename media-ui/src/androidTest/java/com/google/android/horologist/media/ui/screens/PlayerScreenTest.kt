@@ -140,7 +140,8 @@ class PlayerScreenTest {
         val media1 = Media(id = "", uri = "", title = "", artist = "")
         val media2 = Media(id = "", uri = "", title = "", artist = "")
         playerRepository.setMediaList(listOf(media1, media2))
-        playerRepository.play(1)
+        playerRepository.seekToDefaultPosition(1)
+        playerRepository.play()
 
         val playerViewModel = PlayerViewModel(playerRepository)
 
@@ -166,7 +167,8 @@ class PlayerScreenTest {
         val media1 = Media(id = "", uri = "", title = "", artist = "")
         val media2 = Media(id = "", uri = "", title = "", artist = "")
         playerRepository.setMediaList(listOf(media1, media2))
-        playerRepository.play(0)
+        playerRepository.seekToDefaultPosition(0)
+        playerRepository.play()
 
         val playerViewModel = PlayerViewModel(playerRepository)
 

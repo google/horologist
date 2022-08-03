@@ -22,7 +22,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,11 +43,11 @@ public fun ControlButtonLayout(
             leftButton()
         }
 
-        Spacer(modifier = Modifier.size(12.dp).weight(1f))
+        Spacer(modifier = Modifier.weight(1f))
 
         middleButton()
 
-        Spacer(modifier = Modifier.size(12.dp).weight(1f))
+        Spacer(modifier = Modifier.weight(1f))
 
         Box(modifier = Modifier.padding(end = 17.dp)) {
             rightButton()

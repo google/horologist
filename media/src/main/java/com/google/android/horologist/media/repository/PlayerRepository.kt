@@ -68,9 +68,7 @@ public interface PlayerRepository {
     public fun play()
 
     /**
-     * Seeks to the default position associated with the specified MediaItem.
-     * The position can depend on the type of media being played.
-     * For recorded media it will typically be the start.
+     * Seeks to the default position associated with the specified Media.
      */
     public fun seekToDefaultPosition(mediaIndex: Int)
 

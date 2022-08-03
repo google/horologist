@@ -38,7 +38,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun PlaylistsScreen(
-    playlistScreenState: PlaylistScreenState,
+    playlistsScreenState: PlaylistsScreenState,
     onPlaylistItemClick: (PlaylistUiModel) -> Unit,
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
@@ -58,10 +58,10 @@ public fun PlaylistsScreen(
             )
         }
 
-        if (playlistScreenState is PlaylistScreenState.Loaded) {
-            items(count = playlistScreenState.playlistList.size) { index ->
+        if (playlistsScreenState is PlaylistsScreenState.Loaded) {
+            items(count = playlistsScreenState.playlistList.size) { index ->
 
-                val playlist = playlistScreenState.playlistList[index]
+                val playlist = playlistsScreenState.playlistList[index]
 
                 StandardChip(
                     label = playlist.title,
@@ -72,7 +72,7 @@ public fun PlaylistsScreen(
                     chipType = StandardChipType.Secondary,
                 )
             }
-        } else if (playlistScreenState is PlaylistScreenState.Loading) {
+        } else if (playlistsScreenState is PlaylistsScreenState.Loading) {
             items(count = 4) {
                 SecondaryPlaceholderChip()
             }
@@ -84,15 +84,15 @@ public fun PlaylistsScreen(
  * Represents the state of [PlaylistsScreen].
  */
 @ExperimentalHorologistMediaUiApi
-public sealed class PlaylistScreenState {
+public sealed class PlaylistsScreenState {
 
-    public object Loading : PlaylistScreenState()
+    public object Loading : PlaylistsScreenState()
 
     public data class Loaded(
         val playlistList: List<PlaylistUiModel>,
-    ) : PlaylistScreenState()
+    ) : PlaylistsScreenState()
 
     public data class Failed(
         @StringRes val errorMessage: Int
-    ) : PlaylistScreenState()
+    ) : PlaylistsScreenState()
 }

@@ -83,8 +83,8 @@ class PlayerRepositoryImplCloseTest(
             param("play") { sut: PlayerRepositoryImpl, _: Context ->
                 sut.play()
             },
-            param("play with index") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.play(1)
+            param("seek to default position") { sut: PlayerRepositoryImpl, _: Context ->
+                sut.seekToDefaultPosition(1)
             },
             param("pause") { sut: PlayerRepositoryImpl, _: Context ->
                 sut.pause()

@@ -55,7 +55,7 @@ class StubPlayerRepository : PlayerRepository {
         // do nothing
     }
 
-    override fun play(mediaIndex: Int) {
+    override fun seekToDefaultPosition(mediaIndex: Int) {
         // do nothing
     }
 

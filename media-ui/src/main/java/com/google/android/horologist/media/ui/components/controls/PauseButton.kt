@@ -21,6 +21,9 @@ import androidx.compose.material.icons.filled.Pause
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
@@ -33,6 +36,8 @@ public fun PauseButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+    iconSize: Dp = 30.dp,
+    tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
 ) {
     MediaButton(
         onClick = onClick,
@@ -41,5 +46,7 @@ public fun PauseButton(
         modifier = modifier,
         enabled = enabled,
         colors = colors,
+        iconSize = iconSize,
+        tapTargetSize = tapTargetSize
     )
 }

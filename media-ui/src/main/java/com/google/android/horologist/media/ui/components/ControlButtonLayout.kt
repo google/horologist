@@ -19,6 +19,7 @@ package com.google.android.horologist.media.ui.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -36,15 +37,19 @@ public fun ControlButtonLayout(
     Row(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.Center
     ) {
-        Box(modifier = Modifier.padding(start = 5.dp)) {
+        Box(modifier = Modifier.padding(start = 17.dp)) {
             leftButton()
         }
 
+        Spacer(modifier = Modifier.weight(1f))
+
         middleButton()
 
-        Box(modifier = Modifier.padding(end = 5.dp)) {
+        Spacer(modifier = Modifier.weight(1f))
+
+        Box(modifier = Modifier.padding(end = 17.dp)) {
             rightButton()
         }
     }

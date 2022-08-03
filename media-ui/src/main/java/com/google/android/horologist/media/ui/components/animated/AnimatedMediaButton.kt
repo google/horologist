@@ -16,13 +16,16 @@
 
 package com.google.android.horologist.media.ui.components.animated
 
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
@@ -51,7 +54,8 @@ public fun AnimatedMediaButton(
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     dynamicProperties: LottieDynamicProperties? = null,
     iconSize: Dp = 30.dp,
-    tapTargetSize: Dp = 60.dp,
+    tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
+    iconAlign: Alignment.Horizontal = Alignment.CenterHorizontally
 ) {
     val scope = rememberCoroutineScope()
 
@@ -69,6 +73,20 @@ public fun AnimatedMediaButton(
         LottieAnimation(
             modifier = Modifier
                 .size(iconSize)
+                .run {
+                    when (iconAlign) {
+                        Alignment.Start -> {
+                            offset(x = -7.5.dp)
+                        }
+                        Alignment.End -> {
+                            offset(x = 7.5.dp)
+                        }
+                        else -> {
+                            this
+                        }
+                    }
+                }
+                .align(Alignment.Center)
                 .graphicsLayer(alpha = LocalContentAlpha.current)
                 .semantics { contentDescriptionProperty = contentDescription },
             composition = composition,

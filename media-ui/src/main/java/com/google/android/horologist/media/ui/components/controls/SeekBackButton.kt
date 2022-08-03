@@ -22,8 +22,12 @@ import androidx.compose.material.icons.filled.Replay10
 import androidx.compose.material.icons.filled.Replay30
 import androidx.compose.material.icons.filled.Replay5
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonColors
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
@@ -36,6 +40,8 @@ public fun SeekBackButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
+    iconSize: Dp = 30.dp,
+    tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
 ) {
     val icon = when (seekButtonIncrement) {
         SeekButtonIncrement.Five -> Icons.Default.Replay5
@@ -59,5 +65,8 @@ public fun SeekBackButton(
         modifier = modifier,
         enabled = enabled,
         colors = colors,
+        iconSize = iconSize,
+        tapTargetSize = tapTargetSize,
+        iconAlign = Alignment.Start,
     )
 }

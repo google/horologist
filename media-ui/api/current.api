@@ -79,8 +79,8 @@ package com.google.android.horologist.media.ui.components {
   }
 
   public final class PlayPauseButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlayPauseButton(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseClick, boolean playing, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional kotlin.jvm.functions.Function0<kotlin.Unit> progress);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlayPauseProgressButton(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseClick, boolean playing, float percent, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional long progressColour, optional long trackColor, optional long backgroundColor);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlayPauseButton(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseClick, boolean playing, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize, optional kotlin.jvm.functions.Function0<kotlin.Unit> progress);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlayPauseProgressButton(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseClick, boolean playing, float percent, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize, optional long progressColour, optional long trackColor, optional long backgroundColor);
   }
 
   public final class PodcastControlButtonsKt {
@@ -105,7 +105,7 @@ package com.google.android.horologist.media.ui.components.actions {
 package com.google.android.horologist.media.ui.components.animated {
 
   public final class AnimatedMediaButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void AnimatedMediaButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.airbnb.lottie.LottieComposition? composition, com.airbnb.lottie.compose.LottieAnimatable lottieAnimatable, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional com.airbnb.lottie.compose.LottieDynamicProperties? dynamicProperties, optional float iconSize, optional float tapTargetSize);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void AnimatedMediaButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.airbnb.lottie.LottieComposition? composition, com.airbnb.lottie.compose.LottieAnimatable lottieAnimatable, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional com.airbnb.lottie.compose.LottieDynamicProperties? dynamicProperties, optional float iconSize, optional long tapTargetSize, optional androidx.compose.ui.Alignment.Horizontal iconAlign);
   }
 
   public final class AnimatedMediaControlButtonsKt {
@@ -113,11 +113,11 @@ package com.google.android.horologist.media.ui.components.animated {
   }
 
   public final class AnimatedSeekToNextButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void AnimatedSeekToNextButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void AnimatedSeekToNextButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize);
   }
 
   public final class AnimatedSeekToPreviousButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void AnimatedSeekToPreviousButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void AnimatedSeekToPreviousButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize);
   }
 
 }
@@ -160,19 +160,19 @@ package com.google.android.horologist.media.ui.components.controls {
   }
 
   public final class MediaButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void MediaButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, androidx.compose.ui.graphics.vector.ImageVector icon, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional float tapTargetSize);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void MediaButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, androidx.compose.ui.graphics.vector.ImageVector icon, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize, optional androidx.compose.ui.Alignment.Horizontal iconAlign);
   }
 
   public final class PauseButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PauseButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PauseButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize);
   }
 
   public final class PlayButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlayButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlayButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize);
   }
 
   public final class SeekBackButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void SeekBackButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekButtonIncrement, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void SeekBackButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekButtonIncrement, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize);
   }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class SeekButtonIncrement {
@@ -209,15 +209,15 @@ package com.google.android.horologist.media.ui.components.controls {
   }
 
   public final class SeekForwardButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void SeekForwardButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekButtonIncrement, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void SeekForwardButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekButtonIncrement, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize);
   }
 
   public final class SeekToNextButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void SeekToNextButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void SeekToNextButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize);
   }
 
   public final class SeekToPreviousButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void SeekToPreviousButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void SeekToPreviousButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize);
   }
 
   public final class ShuffleButtonKt {

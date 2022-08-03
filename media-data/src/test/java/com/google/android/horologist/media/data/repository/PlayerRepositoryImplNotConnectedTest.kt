@@ -87,8 +87,8 @@ class PlayerRepositoryImplNotConnectedTest(
             param("play") { sut: PlayerRepositoryImpl ->
                 sut.play()
             },
-            param("play with index") { sut: PlayerRepositoryImpl ->
-                sut.play(1)
+            param("seek to default index") { sut: PlayerRepositoryImpl ->
+                sut.seekToDefaultPosition(1)
             },
             param("pause") { sut: PlayerRepositoryImpl ->
                 sut.pause()

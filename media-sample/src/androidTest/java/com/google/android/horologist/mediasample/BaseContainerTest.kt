@@ -28,6 +28,7 @@ import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.runner.FakeConfigModule
+import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.networks.rules.NetworkingRules
 import dagger.hilt.android.testing.HiltAndroidRule
 import org.junit.After

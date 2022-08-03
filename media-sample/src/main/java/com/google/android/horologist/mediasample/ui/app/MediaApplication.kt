@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.components
+package com.google.android.horologist.mediasample.ui.app
 
 import android.app.Application
 import android.os.StrictMode
 import coil.ImageLoader
 import coil.ImageLoaderFactory
-import com.google.android.horologist.mediasample.AppConfig
+import com.google.android.horologist.mediasample.ui.AppConfig
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 

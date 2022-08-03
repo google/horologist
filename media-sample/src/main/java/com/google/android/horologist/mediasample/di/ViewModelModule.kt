@@ -31,7 +31,7 @@ import com.google.android.horologist.media.data.mapper.MediaMapper
 import com.google.android.horologist.media.data.repository.PlayerRepositoryImpl
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media3.flows.buildSuspend
-import com.google.android.horologist.mediasample.components.PlaybackService
+import com.google.android.horologist.mediasample.data.service.playback.PlaybackService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

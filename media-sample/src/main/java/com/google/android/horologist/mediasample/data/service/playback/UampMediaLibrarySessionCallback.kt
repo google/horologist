@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.media
+package com.google.android.horologist.mediasample.data.service.playback
 
 import androidx.media3.common.MediaItem
 import androidx.media3.session.LibraryResult

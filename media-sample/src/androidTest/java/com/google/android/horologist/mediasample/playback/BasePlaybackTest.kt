@@ -22,7 +22,7 @@ import androidx.media3.session.MediaBrowser
 import androidx.media3.session.SessionToken
 import com.google.android.horologist.media3.flows.buildSuspend
 import com.google.android.horologist.mediasample.BaseContainerTest
-import com.google.android.horologist.mediasample.components.PlaybackService
+import com.google.android.horologist.mediasample.data.service.playback.PlaybackService
 import org.junit.Assume
 
 abstract class BasePlaybackTest : BaseContainerTest() {

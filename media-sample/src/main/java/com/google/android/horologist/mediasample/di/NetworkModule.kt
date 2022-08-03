@@ -24,10 +24,10 @@ import coil.decode.SvgDecoder
 import coil.disk.DiskCache
 import coil.request.CachePolicy
 import coil.util.DebugLogger
-import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.data.api.UampService
 import com.google.android.horologist.mediasample.data.api.WearArtworkUampService
+import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.logging.NetworkStatusLogger

@@ -38,12 +38,12 @@ import com.google.android.horologist.media3.navigation.IntentBuilder
 import com.google.android.horologist.media3.navigation.NavDeepLinkIntentBuilder
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.rules.PlaybackRules
-import com.google.android.horologist.mediasample.AppConfig
-import com.google.android.horologist.mediasample.complication.DataUpdates
-import com.google.android.horologist.mediasample.complication.MediaStatusComplicationService
+import com.google.android.horologist.mediasample.data.log.Logging
+import com.google.android.horologist.mediasample.data.service.complication.DataUpdates
+import com.google.android.horologist.mediasample.data.service.complication.MediaStatusComplicationService
 import com.google.android.horologist.mediasample.domain.SettingsRepository
-import com.google.android.horologist.mediasample.system.Logging
-import com.google.android.horologist.mediasample.util.ResourceProvider
+import com.google.android.horologist.mediasample.ui.AppConfig
+import com.google.android.horologist.mediasample.ui.util.ResourceProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

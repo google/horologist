@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.components
+package com.google.android.horologist.mediasample.ui.app
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.NavHostController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
-import com.google.android.horologist.mediasample.ui.app.UampWearApp
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

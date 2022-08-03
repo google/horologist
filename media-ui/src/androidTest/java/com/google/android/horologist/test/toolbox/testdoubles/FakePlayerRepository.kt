@@ -60,9 +60,8 @@ class FakePlayerRepository : PlayerRepository {
         _currentState.value = PlayerState.Playing
     }
 
-    override fun play(mediaIndex: Int) {
+    override fun seekToDefaultPosition(mediaIndex: Int) {
         currentItemIndex = mediaIndex
-        _currentState.value = PlayerState.Playing
     }
 
     override fun pause() {

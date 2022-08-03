@@ -85,12 +85,12 @@ package com.google.android.horologist.media.data.repository {
     method public boolean hasPreviousMedia();
     method public void pause();
     method public void play();
-    method public void play(int mediaIndex);
     method public void prepare();
     method public void release();
     method public void removeMedia(int index);
     method public void seekBack();
     method public void seekForward();
+    method public void seekToDefaultPosition(int mediaIndex);
     method public void setMedia(com.google.android.horologist.media.model.Media media);
     method public void setMediaList(java.util.List<com.google.android.horologist.media.model.Media> mediaList);
     method public void setPlaybackSpeed(float speed);

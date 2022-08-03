@@ -68,9 +68,9 @@ public interface PlayerRepository {
     public fun play()
 
     /**
-     * Play [Media] at given index as soon as player is ready.
+     * Seeks to the default position associated with the specified Media.
      */
-    public fun play(mediaIndex: Int)
+    public fun seekToDefaultPosition(mediaIndex: Int)
 
     /**
      * Pauses playback.

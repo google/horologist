@@ -298,10 +298,11 @@ class PlayerRepositoryImplTest {
         val media2 = getStubMedia("id2")
 
         sut.setMediaList(listOf(media1, media2))
+        sut.seekToDefaultPosition(mediaIndex = 1)
         sut.prepare()
 
         // when
-        sut.play(mediaIndex = 1)
+        sut.play()
 
         // then
         runUntilPendingCommandsAreFullyHandled(player)

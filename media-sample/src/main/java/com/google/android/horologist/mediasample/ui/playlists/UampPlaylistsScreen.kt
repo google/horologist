@@ -23,8 +23,8 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
-import com.google.android.horologist.media.ui.screens.playlist.PlaylistScreen
-import com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState
+import com.google.android.horologist.media.ui.screens.playlist.PlaylistsScreen
+import com.google.android.horologist.media.ui.screens.playlist.PlaylistsScreenState
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.mediasample.R
 
@@ -39,19 +39,19 @@ fun UampPlaylistsScreen(
     val uiState by rememberStateWithLifecycle(uampPlaylistsScreenViewModel.uiState)
 
     val modifiedState = when (uiState) {
-        is PlaylistScreenState.Loaded -> {
-            val modifiedPlaylistList = (uiState as PlaylistScreenState.Loaded).playlistList.map {
+        is PlaylistsScreenState.Loaded -> {
+            val modifiedPlaylistList = (uiState as PlaylistsScreenState.Loaded).playlistList.map {
                 it.takeIf { it.title.isNotEmpty() }
                     ?: it.copy(title = stringResource(id = R.string.horologist_no_title))
             }
 
-            PlaylistScreenState.Loaded(modifiedPlaylistList)
+            PlaylistsScreenState.Loaded(modifiedPlaylistList)
         }
         else -> uiState
     }
 
-    PlaylistScreen(
-        playlistScreenState = modifiedState,
+    PlaylistsScreen(
+        playlistsScreenState = modifiedState,
         onPlaylistItemClick = {
             onPlaylistItemClick(it)
         },

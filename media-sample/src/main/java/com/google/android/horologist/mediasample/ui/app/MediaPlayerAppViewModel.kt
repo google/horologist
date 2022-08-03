@@ -124,7 +124,6 @@ class MediaPlayerAppViewModel @Inject constructor(
 
     suspend fun playItems(mediaId: String?, collectionId: String) {
         try {
-            // TODO handle scenario when playlist is not found
             playlistRepository.get(collectionId)?.let { playlist ->
                 val index = playlist.mediaList
                     .indexOfFirst { it.id == mediaId }
@@ -133,8 +132,9 @@ class MediaPlayerAppViewModel @Inject constructor(
                 waitForConnection()
 
                 playerRepository.setMediaList(playlist.mediaList)
+                playerRepository.seekToDefaultPosition(index)
                 playerRepository.prepare()
-                playerRepository.play(mediaIndex = index)
+                playerRepository.play()
             }
         } catch (e: IOException) {
             snackbarManager.showMessage(

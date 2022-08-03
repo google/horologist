@@ -16,7 +16,7 @@
 
 @file:OptIn(ExperimentalHorologistTilesApi::class)
 
-package com.google.android.horologist.mediasample.tile
+package com.google.android.horologist.mediasample.data.service.tile
 
 import android.graphics.BitmapFactory
 import androidx.compose.runtime.Composable
@@ -36,8 +36,8 @@ import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
 import com.google.android.horologist.media.ui.tiles.toTileColors
 import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.mediasample.components.MediaActivity
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
+import com.google.android.horologist.mediasample.ui.app.MediaActivity
 import com.google.android.horologist.mediasample.ui.app.UampColors
 import com.google.android.horologist.tiles.CoroutinesTileService
 import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi

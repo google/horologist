@@ -23,12 +23,12 @@ import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.offload.AudioOffloadStatus
-import com.google.android.horologist.mediasample.AppConfig
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.model.Settings
-import com.google.android.horologist.mediasample.util.ResourceProvider
+import com.google.android.horologist.mediasample.ui.AppConfig
+import com.google.android.horologist.mediasample.ui.util.ResourceProvider
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.Networks

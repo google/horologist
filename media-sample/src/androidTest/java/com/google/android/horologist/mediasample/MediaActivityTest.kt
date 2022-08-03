@@ -21,7 +21,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.test.filters.LargeTest
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToLibrary
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToVolume
-import com.google.android.horologist.mediasample.components.MediaActivity
+import com.google.android.horologist.mediasample.ui.app.MediaActivity
 import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test

@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample
+package com.google.android.horologist.mediasample.ui
 
 import android.os.Build
 import androidx.media3.exoplayer.audio.DefaultAudioSink
 import com.google.android.horologist.media3.rules.PlaybackRules
+import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.networks.rules.NetworkingRules
 import java.io.File
 

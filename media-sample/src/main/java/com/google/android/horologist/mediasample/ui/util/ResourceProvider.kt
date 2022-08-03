@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.util
+package com.google.android.horologist.mediasample.ui.util
 
-import android.os.StrictMode
+import android.content.res.Resources
+import androidx.annotation.StringRes
 
-// Confusingly the result of allowThreadDiskWrites is the old policy,
-// while allow* methods immediately apply the change.
-// So `this` is the policy before we overrode it.
-fun <R> StrictMode.ThreadPolicy.resetAfter(block: () -> R) = try {
-    block()
-} finally {
-    StrictMode.setThreadPolicy(this)
+class ResourceProvider(
+    private val resources: Resources
+) {
+    fun getString(@StringRes id: Int): String = resources.getString(id)
 }

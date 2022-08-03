@@ -37,7 +37,6 @@ import com.google.android.horologist.media.ui.navigation.MediaNavController.navi
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToSettings
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToVolume
 import com.google.android.horologist.media.ui.navigation.MediaPlayerScaffold
-import com.google.android.horologist.mediasample.components.MediaActivity
 import com.google.android.horologist.mediasample.ui.browse.UampBrowseScreen
 import com.google.android.horologist.mediasample.ui.debug.AudioDebugScreen
 import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeText

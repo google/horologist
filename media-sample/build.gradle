@@ -191,7 +191,7 @@ if (device != null) {
         description = "Run on device " + device
         dependsOn(":media-sample:installRelease")
         description = "Launch App"
-        commandLine = "adb -s $device shell am start -n com.google.android.horologist.mediasample/com.google.android.horologist.mediasample.components.MediaActivity".split(" ")
+        commandLine = "adb -s $device shell am start -n com.google.android.horologist.mediasample/com.google.android.horologist.mediasample.ui.app.MediaActivity".split(" ")
     }
 
     task offloadStatus(type: Exec) {

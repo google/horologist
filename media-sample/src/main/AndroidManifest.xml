@@ -38,7 +38,7 @@
         android:required="false" />
 
     <application
-        android:name=".components.MediaApplication"
+        android:name=".ui.app.MediaApplication"
         android:appCategory="audio"
         android:allowBackup="false"
         android:icon="@drawable/ic_uamp"
@@ -54,7 +54,7 @@
             android:value="true" />
 
         <activity
-            android:name=".components.MediaActivity"
+            android:name=".ui.app.MediaActivity"
             android:exported="true"
             android:label="@string/horologist_sample_media_activity">
             <intent-filter>
@@ -75,7 +75,7 @@
         </activity>
 
         <service
-            android:name=".components.PlaybackService"
+            android:name=".data.service.playback.PlaybackService"
             android:exported="true"
             android:foregroundServiceType="mediaPlayback"
             >
@@ -91,7 +91,7 @@
         </service>
 
         <service
-            android:name=".complication.MediaStatusComplicationService"
+            android:name=".data.service.complication.MediaStatusComplicationService"
             android:exported="true"
             android:icon="@drawable/ic_uamp"
             android:label="@string/horologist_sample_media_collection"
@@ -109,7 +109,7 @@
         </service>
 
         <service
-            android:name=".tile.MediaCollectionsTileService"
+            android:name=".data.service.tile.MediaCollectionsTileService"
             android:description="@string/horologist_sample_app_name"
             android:exported="true"
             android:icon="@drawable/ic_uamp"

@@ -23,8 +23,8 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
-import com.google.android.horologist.media.ui.screens.playlist.PlaylistsScreen
 import com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState
+import com.google.android.horologist.media.ui.screens.playlist.PlaylistsScreen
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.mediasample.R
 

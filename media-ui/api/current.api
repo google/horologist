@@ -375,10 +375,6 @@ package com.google.android.horologist.media.ui.screens.entity {
 
 package com.google.android.horologist.media.ui.screens.playlist {
 
-  public final class PlaylistScreenKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlaylistScreen(com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState playlistScreenState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.PlaylistUiModel,kotlin.Unit> onPlaylistItemClick, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? playlistItemArtworkPlaceholder);
-  }
-
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class PlaylistScreenState {
   }
 
@@ -400,6 +396,10 @@ package com.google.android.horologist.media.ui.screens.playlist {
 
   public static final class PlaylistScreenState.Loading extends com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState {
     field public static final com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState.Loading INSTANCE;
+  }
+
+  public final class PlaylistsScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlaylistsScreen(com.google.android.horologist.media.ui.screens.playlist.PlaylistScreenState playlistScreenState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.PlaylistUiModel,kotlin.Unit> onPlaylistItemClick, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? playlistItemArtworkPlaceholder);
   }
 
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media3.service;
+package com.google.android.horologist.media3.service
 
 import androidx.media3.exoplayer.offline.Download
 import androidx.media3.exoplayer.offline.DownloadManager
@@ -26,13 +26,11 @@ import com.google.android.horologist.networks.status.HighBandwidthRequester
 import java.io.Closeable
 
 /**
- * Simple implementation of DownloadListener for download activity.
- *
- * Default implementation is a noop currently, but can be edited to allow logging when
- * investigating a download issue.
+ * Simple implementation of DownloadListener for downloading with
+ * the required network.  Also includes event logging.
  */
 @ExperimentalHorologistMedia3BackendApi
-class NetworkAwareDownloadListener(
+public class NetworkAwareDownloadListener(
     val appEventLogger: ErrorReporter,
     val highBandwidthRequester: HighBandwidthRequester
 ) : DownloadManager.Listener {
@@ -58,7 +56,7 @@ class NetworkAwareDownloadListener(
     ) {
         appEventLogger.logMessage(
             "download ${download.request.uri.lastPathSegment} ${
-                (download.percentDownloaded).toInt().coerceAtLeast(0)
+            (download.percentDownloaded).toInt().coerceAtLeast(0)
             }% ${finalException?.message.orEmpty()}",
             category = Downloads,
         )

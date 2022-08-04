@@ -111,7 +111,7 @@ public open class NavigationScreens(
         public const val id: String = "id"
         public const val name: String = "name"
 
-        public fun destination(id: String, name: String): String = "collection?&id=$id&name=$name"
+        public fun destination(id: String, name: String): String = "collection?id=$id&name=$name"
 
         override fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
             navDeepLink {

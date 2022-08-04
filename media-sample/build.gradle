@@ -160,7 +160,7 @@ dependencies {
     kapt libs.dagger.hiltandroidcompiler
     implementation libs.hilt.navigationcompose
 
-    implementation libs.androidx.media3.exoplayerworkmanager
+    implementation projectOrDependency(":media-lib-exoplayer-workmanager", libs.androidx.media3.exoplayerworkmanager)
 
     implementation libs.room.common
     implementation libs.room.ktx

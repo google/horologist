@@ -50,4 +50,7 @@
     <string name="horologist_sample_audio_debug_events">Events</string>
     <string name="horologist_sample_audio_debug_reset">Reset AudioSink</string>
     <string name="horologist_sample_track_offloaded">Track Offload: %1s</string>
+    <string name="sync_notification_title">UAMP</string>
+    <string name="sync_notification_channel_name">Sync</string>
+    <string name="sync_notification_channel_description">Background tasks for UAMP</string>
 </resources>

@@ -20,6 +20,7 @@ import android.app.Application
 import android.os.StrictMode
 import coil.ImageLoader
 import coil.ImageLoaderFactory
+import com.google.android.horologist.media.sync.initializers.Sync
 import com.google.android.horologist.mediasample.ui.AppConfig
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
@@ -36,6 +37,9 @@ class MediaApplication : Application(), ImageLoaderFactory {
         super.onCreate()
 
         setStrictMode()
+
+        // Initialize Sync; the system responsible for keeping data in the app up to date.
+        Sync.initialize(context = this)
     }
 
     fun setStrictMode() {

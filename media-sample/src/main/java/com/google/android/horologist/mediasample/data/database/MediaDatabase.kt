@@ -18,8 +18,10 @@ package com.google.android.horologist.mediasample.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.google.android.horologist.mediasample.data.database.dao.MediaDao
 import com.google.android.horologist.mediasample.data.database.dao.MediaDownloadDao
 import com.google.android.horologist.mediasample.data.database.dao.PlaylistDao
+import com.google.android.horologist.mediasample.data.database.dao.PlaylistMediaDao
 import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntity
 import com.google.android.horologist.mediasample.data.database.model.MediaEntity
 import com.google.android.horologist.mediasample.data.database.model.PlaylistEntity
@@ -40,4 +42,8 @@ abstract class MediaDatabase : RoomDatabase() {
     abstract fun mediaDownloadDao(): MediaDownloadDao
 
     abstract fun playlistDao(): PlaylistDao
+
+    abstract fun playlistMediaDao(): PlaylistMediaDao
+
+    abstract fun mediaDao(): MediaDao
 }

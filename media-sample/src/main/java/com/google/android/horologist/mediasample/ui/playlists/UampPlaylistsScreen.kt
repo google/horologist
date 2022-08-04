@@ -32,7 +32,6 @@ import com.google.android.horologist.mediasample.R
 fun UampPlaylistsScreen(
     uampPlaylistsScreenViewModel: UampPlaylistsScreenViewModel,
     onPlaylistItemClick: (PlaylistUiModel) -> Unit,
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
 ) {
@@ -55,7 +54,6 @@ fun UampPlaylistsScreen(
         onPlaylistItemClick = {
             onPlaylistItemClick(it)
         },
-        focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
         modifier = modifier,
     )

@@ -18,9 +18,11 @@ package com.google.android.horologist.mediasample.ui.browse
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.ScalingLazyListState
+import com.google.android.horologist.compose.layout.RequestFocusWhenActive
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreen
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
@@ -31,11 +33,15 @@ fun UampBrowseScreen(
     onDownloadItemClick: (PlaylistDownloadUiModel) -> Unit,
     onPlaylistsClick: () -> Unit,
     onSettingsClick: () -> Unit,
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
 ) {
     val uiState by rememberStateWithLifecycle(uampBrowseScreenViewModel.uiState)
+
+    val focusRequester = remember {
+        FocusRequester()
+    }
+    RequestFocusWhenActive(focusRequester = focusRequester)
 
     BrowseScreen(
         browseScreenState = uiState,

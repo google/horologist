@@ -33,10 +33,10 @@ import com.google.accompanist.pager.PagerState
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.VolumeScrollableState
+import com.google.android.horologist.compose.layout.OnFocusChange
 import com.google.android.horologist.compose.layout.fadeAwayScalingLazyList
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
-import com.google.android.horologist.compose.pager.FocusOnResume
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.media.ui.navigation.NavigationScreens
 import java.util.concurrent.CancellationException
@@ -52,8 +52,8 @@ public fun PlayerLibraryPagerScreen(
     volumeScrollableState: VolumeScrollableState,
     volumeState: () -> VolumeState,
     timeText: @Composable (Modifier) -> Unit,
-    playerScreen: @Composable (FocusRequester) -> Unit,
-    libraryScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
+    playerScreen: @Composable () -> Unit,
+    libraryScreen: @Composable (ScalingLazyListState) -> Unit,
     backStack: NavBackStackEntry,
     modifier: Modifier = Modifier,
 ) {
@@ -93,10 +93,14 @@ public fun PlayerLibraryPagerScreen(
                         VolumePositionIndicator(volumeState = volumeState)
                     }
                 ) {
-                    playerScreen(playerFocusRequester)
+                    playerScreen()
                 }
 
-                FocusOnResume(playerFocusRequester)
+                OnFocusChange { focused ->
+                    if (focused) {
+                        playerFocusRequester.requestFocus()
+                    }
+                }
             }
             1 -> {
                 val libraryFocusRequester = remember { FocusRequester() }
@@ -112,10 +116,14 @@ public fun PlayerLibraryPagerScreen(
                         )
                     }
                 ) {
-                    libraryScreen(libraryFocusRequester, state)
+                    libraryScreen(state)
                 }
 
-                FocusOnResume(libraryFocusRequester)
+                OnFocusChange { focused ->
+                    if (focused) {
+                        libraryFocusRequester.requestFocus()
+                    }
+                }
             }
         }
     }

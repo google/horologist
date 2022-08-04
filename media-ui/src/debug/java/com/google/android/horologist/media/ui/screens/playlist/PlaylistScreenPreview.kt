@@ -52,7 +52,6 @@ fun PlaylistScreenPreview() {
             }
         ),
         onPlaylistItemClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         playlistItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.FeaturedPlayList,
@@ -67,7 +66,6 @@ fun PlaylistScreenPreviewLoading() {
     PlaylistsScreen(
         playlistsScreenState = PlaylistsScreenState.Loading,
         onPlaylistItemClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
     )
 }

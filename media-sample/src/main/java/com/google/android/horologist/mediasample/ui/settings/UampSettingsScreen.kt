@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
@@ -34,6 +35,7 @@ import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleChip
 import androidx.wear.compose.material.ToggleChipDefaults
+import com.google.android.horologist.compose.layout.RequestFocusWhenActive
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.mediasample.R
@@ -43,13 +45,17 @@ import com.google.android.horologist.mediasample.ui.navigation.navigateToSamples
 
 @Composable
 fun UampSettingsScreen(
-    focusRequester: FocusRequester,
     state: ScalingLazyListState,
     settingsScreenViewModel: SettingsScreenViewModel,
     modifier: Modifier = Modifier,
     navController: NavHostController
 ) {
     val uiState by rememberStateWithLifecycle(settingsScreenViewModel.uiState)
+
+    val focusRequester = remember {
+        FocusRequester()
+    }
+    RequestFocusWhenActive(focusRequester = focusRequester)
 
     ScalingLazyColumn(
         modifier = modifier

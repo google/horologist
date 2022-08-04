@@ -27,6 +27,7 @@ import androidx.compose.material.icons.filled.Downloading
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -35,6 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
+import com.google.android.horologist.compose.layout.RequestFocusWhenActive
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
@@ -55,12 +57,16 @@ public fun EntityScreen(
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
     onShuffleClick: (PlaylistUiModel) -> Unit,
     onPlayClick: (PlaylistUiModel) -> Unit,
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     defaultMediaTitle: String = "",
     downloadItemArtworkPlaceholder: Painter? = null
 ) {
+    val focusRequester = remember {
+        FocusRequester()
+    }
+    RequestFocusWhenActive(focusRequester = focusRequester)
+
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize()

@@ -50,6 +50,7 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumeScreenDefaults.DecreaseIcon
 import com.google.android.horologist.audio.ui.VolumeScreenDefaults.IncreaseIcon
 import com.google.android.horologist.audio.ui.components.DeviceChip
+import com.google.android.horologist.compose.layout.RequestFocusWhenActive
 import kotlinx.coroutines.launch
 
 /**
@@ -70,7 +71,6 @@ public fun VolumeScreen(
     modifier: Modifier = Modifier,
     volumeViewModel: VolumeViewModel = viewModel(factory = VolumeViewModel.Factory),
     showVolumeIndicator: Boolean = true,
-    focusRequester: FocusRequester = remember { FocusRequester() },
     increaseIcon: @Composable () -> Unit = { IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { DecreaseIcon() },
 ) {
@@ -85,7 +85,6 @@ public fun VolumeScreen(
         decreaseVolume = { volumeViewModel.decreaseVolume() },
         onAudioOutputClick = { volumeViewModel.launchOutputSelection() },
         showVolumeIndicator = showVolumeIndicator,
-        focusRequester = focusRequester,
         scrollableState = volumeViewModel.volumeScrollableState,
         increaseIcon = increaseIcon,
         decreaseIcon = decreaseIcon,
@@ -103,9 +102,13 @@ public fun VolumeScreen(
     increaseIcon: @Composable () -> Unit = { IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { DecreaseIcon() },
     showVolumeIndicator: Boolean = true,
-    focusRequester: FocusRequester = remember { FocusRequester() },
     scrollableState: ScrollableState? = null
 ) {
+    val focusRequester = remember {
+        FocusRequester()
+    }
+    RequestFocusWhenActive(focusRequester = focusRequester)
+
     Box(
         modifier = modifier.fillMaxSize().run {
             if (scrollableState != null) {

@@ -154,13 +154,6 @@ public open class NavScaffoldViewModel(
     }
 
     public fun resumed() {
-        if (focusRequested) {
-            try {
-                focusRequester.requestFocus()
-            } catch (ise: IllegalStateException) {
-                Log.w("horologist", "Focus Requestor not installed", ise)
-            }
-        }
     }
 
     internal enum class ScrollType {

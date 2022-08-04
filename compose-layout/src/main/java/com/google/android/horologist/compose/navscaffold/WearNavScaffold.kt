@@ -27,6 +27,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.lifecycle.Lifecycle
@@ -47,6 +50,8 @@ import androidx.wear.compose.navigation.SwipeDismissableNavHostState
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.currentBackStackEntryAsState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
+import com.google.android.horologist.compose.layout.FocusControl
+import com.google.android.horologist.compose.layout.RequestFocusWhenActive
 import com.google.android.horologist.compose.layout.fadeAway
 import com.google.android.horologist.compose.layout.fadeAwayLazyList
 import com.google.android.horologist.compose.layout.fadeAwayScalingLazyList
@@ -205,7 +210,17 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
 
         val scrollState = viewModel.initializeScalingLazyListState(scrollStateBuilder)
 
-        content(ScaffoldContext(it, scrollState, viewModel))
+        var resumed by
+        remember { mutableStateOf(it.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) }
+        LaunchedEffect(Unit) {
+            it.repeatOnLifecycle(state = Lifecycle.State.RESUMED) {
+                resumed = true
+            }
+        }
+
+        FocusControl(focusEnabled = { resumed }) {
+            content(ScaffoldContext(it, scrollState, viewModel))
+        }
 
         it.ResumeAsNeeded(viewModel)
     }
@@ -228,7 +243,17 @@ public fun NavGraphBuilder.scrollStateComposable(
 
         val scrollState = viewModel.initializeScrollState(scrollStateBuilder)
 
-        content(ScaffoldContext(it, scrollState, viewModel))
+        var resumed by
+        remember { mutableStateOf(it.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) }
+        LaunchedEffect(Unit) {
+            it.repeatOnLifecycle(state = Lifecycle.State.RESUMED) {
+                resumed = true
+            }
+        }
+
+        FocusControl(focusEnabled = { resumed }) {
+            content(ScaffoldContext(it, scrollState, viewModel))
+        }
 
         it.ResumeAsNeeded(viewModel)
     }
@@ -251,7 +276,17 @@ public fun NavGraphBuilder.lazyListComposable(
 
         val scrollState = viewModel.initializeLazyList(lazyListStateBuilder)
 
-        content(ScaffoldContext(it, scrollState, viewModel))
+        var resumed by
+        remember { mutableStateOf(it.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) }
+        LaunchedEffect(Unit) {
+            it.repeatOnLifecycle(state = Lifecycle.State.RESUMED) {
+                resumed = true
+            }
+        }
+
+        FocusControl(focusEnabled = { resumed }) {
+            content(ScaffoldContext(it, scrollState, viewModel))
+        }
 
         it.ResumeAsNeeded(viewModel)
     }
@@ -271,7 +306,18 @@ public fun NavGraphBuilder.wearNavComposable(
     composable(route, arguments, deepLinks) {
         val viewModel: NavScaffoldViewModel = viewModel()
 
-        content(it, viewModel)
+        var resumed by
+            remember { mutableStateOf(it.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) }
+
+        LaunchedEffect(Unit) {
+            it.repeatOnLifecycle(state = Lifecycle.State.RESUMED) {
+                resumed = true
+            }
+        }
+
+        FocusControl(focusEnabled = { resumed }) {
+            content(it, viewModel)
+        }
 
         it.ResumeAsNeeded(viewModel)
     }
@@ -286,7 +332,7 @@ private fun NavBackStackEntry.ResumeAsNeeded(
     // events to make sure this composable handles
     // events like scrolling.
     LaunchedEffect(Unit) {
-        this@ResumeAsNeeded.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+        this@ResumeAsNeeded.repeatOnLifecycle(state = Lifecycle.State.RESUMED) {
             viewModel.resumed()
         }
     }

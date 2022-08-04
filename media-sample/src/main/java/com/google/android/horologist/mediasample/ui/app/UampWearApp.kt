@@ -76,7 +76,7 @@ fun UampWearApp(
 
     UampTheme {
         MediaPlayerScaffold(
-            playerScreen = { focusRequester ->
+            playerScreen = {
                 UampMediaPlayerScreen(
                     modifier = Modifier.fillMaxSize(),
                     mediaPlayerScreenViewModel = hiltViewModel(),
@@ -84,11 +84,10 @@ fun UampWearApp(
                     onVolumeClick = {
                         navController.navigateToVolume()
                     },
-                    playerFocusRequester = focusRequester,
                     settingsState = settingsState
                 )
             },
-            libraryScreen = { focusRequester, scalingLazyListState ->
+            libraryScreen = { scalingLazyListState ->
                 UampBrowseScreen(
                     uampBrowseScreenViewModel = hiltViewModel(),
                     onDownloadItemClick = {
@@ -99,11 +98,10 @@ fun UampWearApp(
                     },
                     onPlaylistsClick = { navController.navigateToCollections() },
                     onSettingsClick = { navController.navigateToSettings() },
-                    focusRequester = focusRequester,
                     scalingLazyListState = scalingLazyListState,
                 )
             },
-            categoryEntityScreen = { _, _, focusRequester, scalingLazyListState ->
+            categoryEntityScreen = { _, _, scalingLazyListState ->
                 val uampEntityScreenViewModel: UampEntityScreenViewModel = hiltViewModel()
 
                 UampEntityScreen(
@@ -113,16 +111,15 @@ fun UampWearApp(
                     },
                     onShuffleClick = { navController.navigateToPlayer() },
                     onPlayClick = { navController.navigateToPlayer() },
-                    focusRequester = focusRequester,
                     scalingLazyListState = scalingLazyListState,
                 )
             },
-            mediaEntityScreen = { _, _ ->
+            mediaEntityScreen = { _ ->
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Text("Media XXX")
                 }
             },
-            playlistsScreen = { focusRequester, scalingLazyListState ->
+            playlistsScreen = { scalingLazyListState ->
                 val uampPlaylistsScreenViewModel: UampPlaylistsScreenViewModel =
                     hiltViewModel()
 
@@ -134,13 +131,11 @@ fun UampWearApp(
                             playlistUiModel.title
                         )
                     },
-                    focusRequester = focusRequester,
                     scalingLazyListState = scalingLazyListState
                 )
             },
-            settingsScreen = { focusRequester, state ->
+            settingsScreen = { state ->
                 UampSettingsScreen(
-                    focusRequester = focusRequester,
                     state = state,
                     settingsScreenViewModel = hiltViewModel(),
                     navController = navController
@@ -159,7 +154,6 @@ fun UampWearApp(
                     scrollStateBuilder = { ScalingLazyListState() }
                 ) {
                     AudioDebugScreen(
-                        focusRequester = it.viewModel.focusRequester,
                         state = it.scrollableState,
                         audioDebugScreenViewModel = hiltViewModel()
                     )
@@ -172,7 +166,6 @@ fun UampWearApp(
                     scrollStateBuilder = { ScalingLazyListState() }
                 ) {
                     SamplesScreen(
-                        focusRequester = it.viewModel.focusRequester,
                         state = it.scrollableState,
                         samplesScreenViewModel = hiltViewModel(),
                         navController = navController

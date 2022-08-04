@@ -31,7 +31,6 @@ fun UampEntityScreen(
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
     onShuffleClick: (PlaylistUiModel) -> Unit,
     onPlayClick: (PlaylistUiModel) -> Unit,
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
 ) {
     val uiState by StateUtils.rememberStateWithLifecycle(flow = uampEntityScreenViewModel.uiState)
@@ -53,7 +52,6 @@ fun UampEntityScreen(
             uampEntityScreenViewModel.play()
             onPlayClick(it)
         },
-        focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
     )
 }

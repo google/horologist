@@ -47,6 +47,7 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerScope
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
+import com.google.android.horologist.compose.layout.FocusControl
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import kotlinx.coroutines.launch
 
@@ -105,7 +106,9 @@ public fun PagerScreen(
                         }
                     }
                 ) {
-                    content(page)
+                    FocusControl({ page == state.currentPage }) {
+                        content(page)
+                    }
                 }
             }
         }

@@ -20,7 +20,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.ScalingLazyListState
@@ -60,15 +59,14 @@ public fun MediaPlayerScaffold(
     modifier: Modifier = Modifier,
     snackbarViewModel: SnackbarViewModel,
     volumeViewModel: VolumeViewModel,
-    playerScreen: @Composable (FocusRequester) -> Unit,
-    libraryScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
-    categoryEntityScreen: @Composable (String, String, FocusRequester, ScalingLazyListState) -> Unit,
-    mediaEntityScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
-    playlistsScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
-    settingsScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
-    volumeScreen: @Composable (FocusRequester) -> Unit = { focusRequester ->
+    playerScreen: @Composable () -> Unit,
+    libraryScreen: @Composable (ScalingLazyListState) -> Unit,
+    categoryEntityScreen: @Composable (String, String, ScalingLazyListState) -> Unit,
+    mediaEntityScreen: @Composable (ScalingLazyListState) -> Unit,
+    playlistsScreen: @Composable (ScalingLazyListState) -> Unit,
+    settingsScreen: @Composable (ScalingLazyListState) -> Unit,
+    volumeScreen: @Composable () -> Unit = {
         VolumeScreen(
-            focusRequester = focusRequester
         )
     },
     timeText: @Composable (Modifier) -> Unit = {
@@ -106,11 +104,9 @@ public fun MediaPlayerScaffold(
                 volumeScrollableState = volumeViewModel.volumeScrollableState,
                 volumeState = { volumeState },
                 timeText = timeText,
-                playerScreen = {
-                    playerScreen(it)
-                },
-                libraryScreen = { focusRequester, listState ->
-                    libraryScreen(focusRequester, listState)
+                playerScreen = playerScreen,
+                libraryScreen = { listState ->
+                    libraryScreen(listState)
                 },
                 backStack = backStack
             )
@@ -122,7 +118,7 @@ public fun MediaPlayerScaffold(
             deepLinks = NavigationScreens.Collections.deepLinks(deepLinkPrefix),
             scrollStateBuilder = { ScalingLazyListState() }
         ) {
-            playlistsScreen(it.viewModel.focusRequester, it.scrollableState)
+            playlistsScreen(it.scrollableState)
         }
 
         scalingLazyColumnComposable(
@@ -131,7 +127,7 @@ public fun MediaPlayerScaffold(
             deepLinks = NavigationScreens.Settings.deepLinks(deepLinkPrefix),
             scrollStateBuilder = { ScalingLazyListState() }
         ) {
-            settingsScreen(it.viewModel.focusRequester, it.scrollableState)
+            settingsScreen(it.scrollableState)
         }
 
         wearNavComposable(
@@ -141,7 +137,7 @@ public fun MediaPlayerScaffold(
         ) { _, viewModel ->
             viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
 
-            volumeScreen(viewModel.focusRequester)
+            volumeScreen()
         }
 
         scalingLazyColumnComposable(
@@ -150,7 +146,7 @@ public fun MediaPlayerScaffold(
             deepLinks = NavigationScreens.MediaItem.deepLinks(deepLinkPrefix),
             scrollStateBuilder = { ScalingLazyListState() }
         ) {
-            mediaEntityScreen(it.viewModel.focusRequester, it.scrollableState)
+            mediaEntityScreen(it.scrollableState)
         }
 
         scalingLazyColumnComposable(
@@ -168,7 +164,6 @@ public fun MediaPlayerScaffold(
             categoryEntityScreen(
                 id,
                 name,
-                scaffoldContext.viewModel.focusRequester,
                 scaffoldContext.scrollableState
             )
         }

@@ -40,7 +40,6 @@ fun EntityScreenPreviewLoading() {
         onDownloadItemClick = { },
         onShuffleClick = { },
         onPlayClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
     )
 }
@@ -58,7 +57,6 @@ fun EntityScreenPreviewLoadedNoneDownloaded() {
         onDownloadItemClick = { },
         onShuffleClick = { },
         onPlayClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
@@ -80,7 +78,6 @@ fun EntityScreenPreviewLoadedNoneDownloadedDownloading() {
         onDownloadItemClick = { },
         onShuffleClick = { },
         onPlayClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
@@ -102,7 +99,6 @@ fun EntityScreenPreviewLoadedPartiallyDownloaded() {
         onDownloadItemClick = { },
         onShuffleClick = { },
         onPlayClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
@@ -124,7 +120,6 @@ fun EntityScreenPreviewLoadedPartiallyDownloadedDownloading() {
         onDownloadItemClick = { },
         onShuffleClick = { },
         onPlayClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
@@ -146,7 +141,6 @@ fun EntityScreenPreviewLoadedFullyDownloaded() {
         onDownloadItemClick = { },
         onShuffleClick = { },
         onPlayClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,

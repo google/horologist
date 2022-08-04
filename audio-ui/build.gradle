@@ -98,6 +98,7 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
 
 dependencies {
     api projects.audio
+    api projects.composeLayout
     api libs.kotlin.stdlib
 
     api libs.wearcompose.material

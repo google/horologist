@@ -17,7 +17,6 @@
 package com.google.android.horologist.mediasample.di
 
 import android.app.Service
-import android.os.Build
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.media3.common.AudioAttributes
@@ -67,6 +66,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import okhttp3.Call
+import javax.inject.Provider
 
 @Module
 @InstallIn(ServiceComponent::class)
@@ -214,7 +214,7 @@ object PlaybackServiceModule {
         audioOutputSelector: AudioOutputSelector,
         playbackRules: PlaybackRules,
         logger: ErrorReporter,
-        audioOffloadManager: AudioOffloadManager,
+        audioOffloadManager: Provider<AudioOffloadManager>,
         appConfig: AppConfig
     ): Player =
         WearConfiguredPlayer(
@@ -229,9 +229,9 @@ object PlaybackServiceModule {
                 wearConfiguredPlayer.startNoiseDetection()
             }
 
-            if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
+            if (appConfig.offloadEnabled) {
                 serviceCoroutineScope.launch {
-                    audioOffloadManager.connect(exoPlayer)
+                    audioOffloadManager.get().connect(exoPlayer)
                 }
             }
         }

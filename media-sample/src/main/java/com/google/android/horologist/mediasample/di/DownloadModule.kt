@@ -30,7 +30,9 @@ import com.google.android.horologist.media3.logging.TransferListener
 import com.google.android.horologist.mediasample.data.datasource.MediaDownloadLocalDataSource
 import com.google.android.horologist.mediasample.data.service.download.DownloadManagerListener
 import com.google.android.horologist.mediasample.data.service.download.MediaDownloadService
+import com.google.android.horologist.mediasample.di.annotation.Dispatcher
 import com.google.android.horologist.mediasample.di.annotation.DownloadFeature
+import com.google.android.horologist.mediasample.di.annotation.UampDispatchers.IO
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
 import dagger.Module
@@ -38,8 +40,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import okhttp3.Call
 import java.util.concurrent.ExecutorService
@@ -123,7 +125,9 @@ object DownloadModule {
     @DownloadFeature
     @Provides
     @Singleton
-    fun coroutineScope(): CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    fun coroutineScope(
+        @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
+    ): CoroutineScope = CoroutineScope(SupervisorJob() + ioDispatcher)
 
     @Provides
     @Singleton

@@ -93,6 +93,7 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
 dependencies {
     implementation projects.audio
     implementation projects.media
+    implementation projects.networkAwareness
     implementation libs.kotlinx.coroutines.core
     api projectOrDependency(":media-lib-common", libs.androidx.media3.common)
     api libs.androidx.annotation

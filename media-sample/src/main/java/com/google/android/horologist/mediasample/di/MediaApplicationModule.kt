@@ -26,6 +26,7 @@ import androidx.media3.database.StandaloneDatabaseProvider
 import androidx.media3.datasource.cache.Cache
 import androidx.media3.datasource.cache.NoOpCacheEvictor
 import androidx.media3.datasource.cache.SimpleCache
+import androidx.media3.exoplayer.ExoPlayer.AudioOffloadListener
 import androidx.media3.exoplayer.audio.DefaultAudioSink
 import androidx.wear.watchface.complications.datasource.ComplicationDataSourceUpdateRequester
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
@@ -105,12 +106,24 @@ object MediaApplicationModule {
     @Provides
     fun audioSink(
         appConfig: AppConfig,
-        wearMedia3Factory: WearMedia3Factory
+        wearMedia3Factory: WearMedia3Factory,
+        audioOffloadListener: AudioOffloadListener
     ): DefaultAudioSink =
         wearMedia3Factory.audioSink(
             attemptOffload = appConfig.offloadEnabled,
-            offloadMode = appConfig.offloadMode
+            offloadMode = appConfig.offloadMode,
+            audioOffloadListener = audioOffloadListener
         )
+
+    @Singleton
+    @Provides
+    fun audioOffloadListener(
+        listeners: AudioOffloadListenerList
+    ): AudioOffloadListener = listeners
+
+    @Singleton
+    @Provides
+    fun audioOffloadListenerList(): AudioOffloadListenerList = AudioOffloadListenerList()
 
     @Singleton
     @Provides
@@ -125,7 +138,8 @@ object MediaApplicationModule {
         logger: ErrorReporter,
         settingsRepository: SettingsRepository,
         @ForApplicationScope coroutineScope: CoroutineScope,
-        appConfig: AppConfig
+        appConfig: AppConfig,
+        audioOffloadListenerList: AudioOffloadListenerList
     ): AudioOffloadManager {
         val audioOffloadStrategyFlow =
             settingsRepository.settingsFlow.map { it.offloadMode.strategy }
@@ -134,6 +148,8 @@ object MediaApplicationModule {
             audioOffloadStrategyFlow
         ).also { audioOffloadManager ->
             if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
+                audioOffloadListenerList.addListener(audioOffloadManager.audioOffloadListener)
+
                 coroutineScope.launch {
                     settingsRepository.settingsFlow.map { it.debugOffload }
                         .collectLatest { debug ->

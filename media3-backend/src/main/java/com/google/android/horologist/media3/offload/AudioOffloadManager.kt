@@ -63,7 +63,7 @@ public class AudioOffloadManager(
     )
     public val offloadStatus: StateFlow<AudioOffloadStatus> = _offloadStatus.asStateFlow()
 
-    private val audioOffloadListener: ExoPlayer.AudioOffloadListener =
+    public val audioOffloadListener: ExoPlayer.AudioOffloadListener =
         object : ExoPlayer.AudioOffloadListener {
             /**
              * Logged when the application changes the state of offload scheduling enabled,
@@ -96,6 +96,12 @@ public class AudioOffloadManager(
                 }
 
                 errorReporter.logMessage("sleeping for offload $sleepingForOffload")
+            }
+
+            override fun onExperimentalOffloadedPlayback(offloadedPlayback: Boolean) {
+                _offloadStatus.update {
+                    it.copy(trackOffload = offloadedPlayback)
+                }
             }
         }
 

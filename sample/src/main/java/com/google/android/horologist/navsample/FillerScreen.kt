@@ -64,7 +64,7 @@ fun BigScalingLazyColumn(
 fun BigColumn(
     modifier: Modifier = Modifier,
     scrollState: ScrollState,
-    focusRequester: FocusRequester = remember { FocusRequester() },
+    focusRequester: FocusRequester = remember { FocusRequester() }
 ) {
     Column(
         modifier = modifier

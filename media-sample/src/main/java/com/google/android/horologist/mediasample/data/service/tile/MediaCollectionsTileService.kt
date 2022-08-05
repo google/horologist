@@ -181,7 +181,7 @@ fun SampleTilePreview() {
                 name = "Podcasts",
                 artworkId = "c2",
                 action = action
-            ),
+            )
         )
     }
 

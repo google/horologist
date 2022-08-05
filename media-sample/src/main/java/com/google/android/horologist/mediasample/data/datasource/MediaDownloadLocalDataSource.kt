@@ -22,7 +22,7 @@ import com.google.android.horologist.mediasample.data.database.model.MediaDownlo
 import kotlinx.coroutines.flow.Flow
 
 class MediaDownloadLocalDataSource(
-    private val mediaDownloadDao: MediaDownloadDao,
+    private val mediaDownloadDao: MediaDownloadDao
 ) {
 
     fun get(mediaIds: List<String>): Flow<List<MediaDownloadEntity>> =

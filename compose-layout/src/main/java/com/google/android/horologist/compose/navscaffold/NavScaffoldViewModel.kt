@@ -47,7 +47,7 @@ import com.google.android.horologist.compose.navscaffold.util.saveable
  * and the composable screen via [NavHostController.currentBackStackEntry].
  */
 public open class NavScaffoldViewModel(
-    private val savedStateHandle: SavedStateHandle,
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     internal var initialIndex: Int? = null
     internal var scrollType by mutableStateOf<ScrollType?>(null)

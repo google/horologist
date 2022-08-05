@@ -38,6 +38,6 @@ data class MusicApiModel(
         uri = source,
         title = title,
         artist = artist,
-        artworkUri = image,
+        artworkUri = image
     )
 }

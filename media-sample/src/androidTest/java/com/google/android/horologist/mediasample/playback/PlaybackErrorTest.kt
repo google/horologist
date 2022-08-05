@@ -51,7 +51,7 @@ class PlaybackErrorTest : BasePlaybackTest() {
             )
 
             browser.setMediaItem(
-                mediaItemMapper.map(badContent),
+                mediaItemMapper.map(badContent)
             )
             browser.prepare()
             browser.play()

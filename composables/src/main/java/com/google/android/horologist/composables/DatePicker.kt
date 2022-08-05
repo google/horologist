@@ -135,7 +135,7 @@ public fun DatePicker(
                     },
                     color = MaterialTheme.colors.secondary,
                     style = MaterialTheme.typography.button,
-                    maxLines = 1,
+                    maxLines = 1
                 )
                 val weightsToCenterVertically = 0.5f
                 Spacer(
@@ -201,14 +201,14 @@ public fun DatePicker(
                             dayState.selectedOption + 1
                         )
                         onDateConfirm(confirmedDate)
-                    },
+                    }
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Check,
                         contentDescription = stringResource(id = R.string.horologist_picker_confirm_button),
                         modifier = Modifier
                             .size(24.dp)
-                            .wrapContentSize(align = Alignment.Center),
+                            .wrapContentSize(align = Alignment.Center)
                     )
                 }
                 Spacer(Modifier.height(12.dp))
@@ -234,13 +234,13 @@ private fun DatePickerImpl(
         readOnly = readOnly,
         state = state,
         focusRequester = focusRequester,
-        modifier = Modifier.size(width, 100.dp),
+        modifier = Modifier.size(width, 100.dp)
     ) { option ->
         TimePiece(
             selected = !readOnly,
             onSelected = onSelected,
             text = text(option),
-            style = MaterialTheme.typography.display2,
+            style = MaterialTheme.typography.display2
         )
     }
 }

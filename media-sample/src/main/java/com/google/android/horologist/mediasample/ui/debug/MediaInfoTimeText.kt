@@ -36,7 +36,7 @@ public fun MediaInfoTimeText(
     networkStatus: Networks,
     networkUsage: DataUsageReport?,
     offloadStatus: AudioOffloadStatus?,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val style = CurvedTextStyle(MaterialTheme.typography.caption3)
     val context = LocalContext.current
@@ -55,7 +55,7 @@ public fun MediaInfoTimeText(
             endCurvedContent = {
                 offloadDataStatus(
                     offloadStatus = offloadStatus,
-                    style = style,
+                    style = style
                 )
             }
         )
@@ -67,7 +67,7 @@ public fun MediaInfoTimeText(
 @ExperimentalHorologistNetworksApi
 public fun CurvedScope.offloadDataStatus(
     offloadStatus: AudioOffloadStatus?,
-    style: CurvedTextStyle,
+    style: CurvedTextStyle
 ) {
     if (offloadStatus != null) {
         curvedText(

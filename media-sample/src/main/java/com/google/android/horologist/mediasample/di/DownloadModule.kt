@@ -59,7 +59,7 @@ object DownloadModule {
     @Provides
     fun downloadDataSourceFactory(
         okHttp: Call.Factory,
-        @DownloadFeature transferListener: TransferListener,
+        @DownloadFeature transferListener: TransferListener
     ): DataSource.Factory = OkHttpDataSource.Factory(
         NetworkAwareCallFactory(
             delegate = okHttp,
@@ -80,7 +80,7 @@ object DownloadModule {
     @Singleton
     @Provides
     fun downloadNotificationHelper(
-        @ApplicationContext applicationContext: Context,
+        @ApplicationContext applicationContext: Context
     ): DownloadNotificationHelper =
         DownloadNotificationHelper(
             applicationContext,
@@ -91,7 +91,7 @@ object DownloadModule {
     @Singleton
     @Provides
     fun databaseProvider(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): DatabaseProvider = StandaloneDatabaseProvider(application)
 
     @Singleton
@@ -102,7 +102,7 @@ object DownloadModule {
         downloadCache: Cache,
         @DownloadFeature dataSourceFactory: DataSource.Factory,
         @DownloadFeature threadPool: ExecutorService,
-        downloadManagerListener: DownloadManagerListener,
+        downloadManagerListener: DownloadManagerListener
     ) = DownloadManager(
         applicationContext,
         databaseProvider,
@@ -119,14 +119,14 @@ object DownloadModule {
     @Singleton
     @Provides
     fun workManagerScheduler(
-        @ApplicationContext applicationContext: Context,
+        @ApplicationContext applicationContext: Context
     ) = WorkManagerScheduler(applicationContext, DOWNLOAD_WORK_MANAGER_SCHEDULER_WORK_NAME)
 
     @DownloadFeature
     @Provides
     @Singleton
     fun coroutineScope(
-        @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
+        @Dispatcher(IO) ioDispatcher: CoroutineDispatcher
     ): CoroutineScope = CoroutineScope(SupervisorJob() + ioDispatcher)
 
     @Provides

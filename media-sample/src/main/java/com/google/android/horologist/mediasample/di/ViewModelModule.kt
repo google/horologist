@@ -96,7 +96,7 @@ object ViewModelModule {
     ): PlayerRepositoryImpl =
         PlayerRepositoryImpl(
             mediaMapper = mediaMapper,
-            mediaItemMapper = mediaItemMapper,
+            mediaItemMapper = mediaItemMapper
         ).also { playerRepository ->
             activityRetainedLifecycle.addOnClearedListener {
                 playerRepository.close()

@@ -47,7 +47,7 @@ import kotlin.time.toDuration
 @ExperimentalHorologistMediaDataApi
 public class PlayerRepositoryImpl(
     private val mediaMapper: MediaMapper,
-    private val mediaItemMapper: MediaItemMapper,
+    private val mediaItemMapper: MediaItemMapper
 ) : PlayerRepository, Closeable {
 
     private var onClose: (() -> Unit)? = null

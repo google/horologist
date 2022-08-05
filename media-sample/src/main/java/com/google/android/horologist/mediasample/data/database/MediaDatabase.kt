@@ -30,7 +30,7 @@ import com.google.android.horologist.mediasample.data.database.model.PlaylistMed
         MediaDownloadEntity::class,
         MediaEntity::class,
         PlaylistEntity::class,
-        PlaylistMediaEntity::class,
+        PlaylistMediaEntity::class
     ],
     version = 1,
     exportSchema = false

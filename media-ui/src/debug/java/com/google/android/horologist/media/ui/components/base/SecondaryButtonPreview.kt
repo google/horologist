@@ -28,7 +28,7 @@ fun SecondaryButtonPreview() {
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = StandardButtonType.Secondary,
+        buttonType = StandardButtonType.Secondary
     )
 }
 
@@ -40,7 +40,7 @@ fun SecondaryButtonPreviewLarge() {
         contentDescription = "contentDescription",
         onClick = { },
         buttonType = StandardButtonType.Secondary,
-        buttonSize = StandardButtonSize.Large,
+        buttonSize = StandardButtonSize.Large
     )
 }
 
@@ -52,7 +52,7 @@ fun SecondaryButtonPreviewSmall() {
         contentDescription = "contentDescription",
         onClick = { },
         buttonType = StandardButtonType.Secondary,
-        buttonSize = StandardButtonSize.Small,
+        buttonSize = StandardButtonSize.Small
     )
 }
 
@@ -64,7 +64,7 @@ fun SecondaryButtonPreviewExtraSmall() {
         contentDescription = "contentDescription",
         onClick = { },
         buttonType = StandardButtonType.Secondary,
-        buttonSize = StandardButtonSize.ExtraSmall,
+        buttonSize = StandardButtonSize.ExtraSmall
     )
 }
 
@@ -76,6 +76,6 @@ fun SecondaryButtonPreviewDisabled() {
         contentDescription = "contentDescription",
         onClick = { },
         buttonType = StandardButtonType.Secondary,
-        enabled = false,
+        enabled = false
     )
 }

@@ -56,7 +56,7 @@ public fun MediaButton(
         onClick = onClick,
         modifier = modifier.size(tapTargetSize),
         enabled = enabled,
-        colors = colors,
+        colors = colors
     ) {
         Icon(
             modifier = Modifier

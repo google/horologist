@@ -47,7 +47,7 @@ public fun SettingsButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     iconSize: Dp = 24.dp,
-    tapTargetSize: Dp = 48.dp,
+    tapTargetSize: Dp = 48.dp
 ) {
     Button(
         modifier = modifier.size(tapTargetSize),
@@ -55,7 +55,7 @@ public fun SettingsButton(
         colors = buttonColors(
             backgroundColor = Color.Transparent,
             disabledBackgroundColor = Color.Transparent,
-            contentColor = MaterialTheme.colors.onSurface,
+            contentColor = MaterialTheme.colors.onSurface
         ),
         enabled = enabled
     ) {

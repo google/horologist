@@ -152,7 +152,7 @@ class PlayerRepositoryImplNotConnectedTest(
             },
             param("setPlaybackSpeed") { sut: PlayerRepositoryImpl ->
                 sut.setPlaybackSpeed(2f)
-            },
+            }
         )
 
         private fun param(
@@ -165,7 +165,7 @@ class PlayerRepositoryImplNotConnectedTest(
             uri = "uri",
             title = "title",
             artist = "artist",
-            artworkUri = "artworkUri",
+            artworkUri = "artworkUri"
         )
     }
 }

@@ -65,7 +65,7 @@ class PrimaryChipTest {
                 StandardChip(
                     label = "Primary label",
                     onClick = { },
-                    secondaryLabel = "Secondary label",
+                    secondaryLabel = "Secondary label"
                 )
             }
         }
@@ -78,7 +78,7 @@ class PrimaryChipTest {
                 StandardChip(
                     label = "Primary label",
                     onClick = { },
-                    icon = Icons.Default.Image,
+                    icon = Icons.Default.Image
                 )
             }
         }
@@ -92,7 +92,7 @@ class PrimaryChipTest {
                     label = "Primary label",
                     onClick = { },
                     icon = Icon32dp,
-                    largeIcon = true,
+                    largeIcon = true
                 )
             }
         }
@@ -106,7 +106,7 @@ class PrimaryChipTest {
                     label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
-                    icon = Icons.Default.Image,
+                    icon = Icons.Default.Image
                 )
             }
         }
@@ -121,7 +121,7 @@ class PrimaryChipTest {
                     onClick = { },
                     secondaryLabel = "Secondary label",
                     icon = Icon32dp,
-                    largeIcon = true,
+                    largeIcon = true
                 )
             }
         }
@@ -136,7 +136,7 @@ class PrimaryChipTest {
                     onClick = { },
                     secondaryLabel = "Secondary label",
                     icon = Icons.Default.Image,
-                    enabled = false,
+                    enabled = false
                 )
             }
         }
@@ -162,7 +162,7 @@ class PrimaryChipTest {
                     label = "Primary label very very very very very very very very long text",
                     onClick = { },
                     secondaryLabel = "Secondary label very very very very very very very very very long text",
-                    icon = Icons.Default.Image,
+                    icon = Icons.Default.Image
                 )
             }
         }
@@ -175,7 +175,7 @@ class PrimaryChipTest {
                 StandardChip(
                     label = "Primary label",
                     onClick = { },
-                    icon = Icon12dp,
+                    icon = Icon12dp
                 )
             }
         }
@@ -189,7 +189,7 @@ class PrimaryChipTest {
                     label = "Primary label",
                     onClick = { },
                     icon = Icon12dp,
-                    largeIcon = true,
+                    largeIcon = true
                 )
             }
         }
@@ -202,7 +202,7 @@ class PrimaryChipTest {
                 StandardChip(
                     label = "Primary label",
                     onClick = { },
-                    icon = Icon48dp,
+                    icon = Icon48dp
                 )
             }
         }
@@ -216,7 +216,7 @@ class PrimaryChipTest {
                     label = "Primary label",
                     onClick = { },
                     icon = Icon48dp,
-                    largeIcon = true,
+                    largeIcon = true
                 )
             }
         }
@@ -229,7 +229,7 @@ class PrimaryChipTest {
                 StandardChip(
                     label = "Primary label",
                     onClick = { },
-                    icon = Icons.Default.Image,
+                    icon = Icons.Default.Image
                 )
             }
         }
@@ -246,9 +246,9 @@ class PrimaryChipTest {
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
                         image = Icons.Default.Image,
-                        tintColor = Color.Black,
+                        tintColor = Color.Black
                     ),
-                    enabled = false,
+                    enabled = false
                 )
             }
         }
@@ -262,7 +262,7 @@ class PrimaryChipTest {
                 defaultWidth = 12f.dp,
                 defaultHeight = 12f.dp,
                 viewportWidth = 12f,
-                viewportHeight = 12f,
+                viewportHeight = 12f
             )
                 .materialPath {
                     horizontalLineToRelative(12.0f)
@@ -278,7 +278,7 @@ class PrimaryChipTest {
                 defaultWidth = 32f.dp,
                 defaultHeight = 32f.dp,
                 viewportWidth = 32f,
-                viewportHeight = 32f,
+                viewportHeight = 32f
             )
                 .materialPath {
                     horizontalLineToRelative(32.0f)
@@ -294,7 +294,7 @@ class PrimaryChipTest {
                 defaultWidth = 48f.dp,
                 defaultHeight = 48f.dp,
                 viewportWidth = 48f,
-                viewportHeight = 48f,
+                viewportHeight = 48f
             )
                 .materialPath {
                     horizontalLineToRelative(48.0f)

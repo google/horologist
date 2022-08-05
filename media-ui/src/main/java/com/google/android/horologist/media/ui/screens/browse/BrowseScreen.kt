@@ -64,12 +64,12 @@ public fun BrowseScreen(
         modifier = modifier
             .fillMaxSize()
             .scrollableColumn(focusRequester, scalingLazyListState),
-        state = scalingLazyListState,
+        state = scalingLazyListState
     ) {
         item {
             Title(
                 textId = R.string.horologist_browse_downloads_title,
-                modifier = Modifier.padding(bottom = 12.dp),
+                modifier = Modifier.padding(bottom = 12.dp)
             )
         }
 
@@ -82,7 +82,7 @@ public fun BrowseScreen(
                         text = stringResource(id = R.string.horologist_browse_downloads_empty),
                         modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
                         textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.body2,
+                        style = MaterialTheme.typography.body2
                     )
                 }
             } else {
@@ -95,7 +95,7 @@ public fun BrowseScreen(
                                 icon = download.playlistUiModel.artworkUri,
                                 largeIcon = true,
                                 placeholder = downloadItemArtworkPlaceholder,
-                                chipType = StandardChipType.Secondary,
+                                chipType = StandardChipType.Secondary
                             )
                         }
                         is PlaylistDownloadUiModel.InProgress -> {
@@ -108,7 +108,7 @@ public fun BrowseScreen(
                                 ),
                                 icon = Icons.Default.Downloading,
                                 placeholder = downloadItemArtworkPlaceholder,
-                                chipType = StandardChipType.Secondary,
+                                chipType = StandardChipType.Secondary
                             )
                         }
                     }
@@ -123,7 +123,7 @@ public fun BrowseScreen(
         item {
             Title(
                 textId = R.string.horologist_browse_library_playlists,
-                modifier = Modifier.padding(top = 12.dp),
+                modifier = Modifier.padding(top = 12.dp)
             )
         }
 
@@ -132,7 +132,7 @@ public fun BrowseScreen(
                 label = stringResource(id = R.string.horologist_browse_library_playlists),
                 icon = Icons.Default.PlaylistPlay,
                 onClick = onPlaylistsClick,
-                chipType = StandardChipType.Secondary,
+                chipType = StandardChipType.Secondary
             )
         }
 
@@ -141,7 +141,7 @@ public fun BrowseScreen(
                 label = stringResource(id = R.string.horologist_browse_library_settings),
                 icon = Icons.Default.Settings,
                 onClick = onSettingsClick,
-                chipType = StandardChipType.Secondary,
+                chipType = StandardChipType.Secondary
             )
         }
     }
@@ -156,6 +156,6 @@ public sealed class BrowseScreenState {
     public object Loading : BrowseScreenState()
 
     public data class Loaded(
-        val downloadList: List<PlaylistDownloadUiModel>,
+        val downloadList: List<PlaylistDownloadUiModel>
     ) : BrowseScreenState()
 }

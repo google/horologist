@@ -25,7 +25,7 @@ import com.google.android.horologist.mediasample.domain.model.Playlist
 import kotlinx.coroutines.flow.Flow
 
 class PlaylistLocalDataSource(
-    private val playlistDao: PlaylistDao,
+    private val playlistDao: PlaylistDao
 ) {
     suspend fun isEmpty(): Boolean = playlistDao.getCount() == 0
 

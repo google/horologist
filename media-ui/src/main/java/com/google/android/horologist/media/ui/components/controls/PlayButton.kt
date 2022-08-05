@@ -36,7 +36,7 @@ public fun PlayButton(
     enabled: Boolean = true,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
     iconSize: Dp = 30.dp,
-    tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
+    tapTargetSize: DpSize = DpSize(60.dp, 60.dp)
 ) {
     MediaButton(
         onClick = onClick,

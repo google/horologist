@@ -68,7 +68,7 @@ public fun AnimatedMediaButton(
         },
         modifier = modifier.size(tapTargetSize),
         enabled = enabled,
-        colors = colors,
+        colors = colors
     ) {
         LottieAnimation(
             modifier = Modifier
@@ -91,7 +91,7 @@ public fun AnimatedMediaButton(
                 .semantics { contentDescriptionProperty = contentDescription },
             composition = composition,
             progress = { lottieAnimatable.progress },
-            dynamicProperties = dynamicProperties,
+            dynamicProperties = dynamicProperties
         )
     }
 }

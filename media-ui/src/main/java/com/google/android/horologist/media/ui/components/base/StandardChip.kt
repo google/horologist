@@ -55,7 +55,7 @@ internal fun StandardChip(
     largeIcon: Boolean = false,
     placeholder: Painter? = null,
     chipType: StandardChipType = StandardChipType.Primary,
-    enabled: Boolean = true,
+    enabled: Boolean = true
 ) {
     val hasSecondaryLabel = secondaryLabel != null
     val hasIcon = icon != null
@@ -67,7 +67,7 @@ internal fun StandardChip(
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Left else TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
-                maxLines = if (hasSecondaryLabel) 1 else 2,
+                maxLines = if (hasSecondaryLabel) 1 else 2
             )
         }
 
@@ -77,7 +77,7 @@ internal fun StandardChip(
                 Text(
                     text = secondaryLabel,
                     overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
+                    maxLines = 1
                 )
             }
         }
@@ -98,7 +98,7 @@ internal fun StandardChip(
                             contentDescription = null, // hidden from talkback
                             modifier = Modifier
                                 .size(iconSize)
-                                .clip(CircleShape),
+                                .clip(CircleShape)
                         )
                     } else {
                         Image(
@@ -136,7 +136,7 @@ internal fun StandardChip(
             StandardChipType.Secondary -> ChipDefaults.secondaryChipColors()
         },
         enabled = enabled,
-        contentPadding = contentPadding,
+        contentPadding = contentPadding
     )
 }
 

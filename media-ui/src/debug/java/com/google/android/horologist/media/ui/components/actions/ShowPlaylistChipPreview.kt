@@ -36,7 +36,7 @@ fun ShowPlaylistChipPreview() {
         onClick = {},
         placeholder = rememberVectorPainter(
             image = Icons.Default.FeaturedPlayList,
-            tintColor = Color.Green,
+            tintColor = Color.Green
         )
     )
 }
@@ -44,21 +44,21 @@ fun ShowPlaylistChipPreview() {
 @Preview(
     name = "No artwork",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun ShowPlaylistChipPreviewNoArtwork() {
     ShowPlaylistChip(
         artworkUri = null,
         name = "Playlists",
-        onClick = {},
+        onClick = {}
     )
 }
 
 @Preview(
     name = "No name",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun ShowPlaylistChipPreviewNoName() {
@@ -68,7 +68,7 @@ fun ShowPlaylistChipPreviewNoName() {
         onClick = {},
         placeholder = rememberVectorPainter(
             image = Icons.Default.FeaturedPlayList,
-            tintColor = Color.Green,
+            tintColor = Color.Green
         )
     )
 }
@@ -76,7 +76,7 @@ fun ShowPlaylistChipPreviewNoName() {
 @Preview(
     name = "Very long name",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun ShowPlaylistChipPreviewVeryLongName() {
@@ -86,7 +86,7 @@ fun ShowPlaylistChipPreviewVeryLongName() {
         onClick = {},
         placeholder = rememberVectorPainter(
             image = Icons.Default.FeaturedPlayList,
-            tintColor = Color.Green,
+            tintColor = Color.Green
         )
     )
 }

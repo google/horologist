@@ -39,7 +39,7 @@ public fun ShowPlaylistChip(
     name: String?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    placeholder: Painter? = null,
+    placeholder: Painter? = null
 ) {
     val appIcon: (@Composable BoxScope.() -> Unit)? = artworkUri?.let {
         {
@@ -47,7 +47,7 @@ public fun ShowPlaylistChip(
                 modifier = Modifier.size(ChipDefaults.LargeIconSize),
                 contentDescription = name,
                 artworkUri = artworkUri,
-                placeholder = placeholder,
+                placeholder = placeholder
             )
         }
     }

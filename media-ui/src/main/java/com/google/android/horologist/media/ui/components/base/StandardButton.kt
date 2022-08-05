@@ -40,7 +40,7 @@ internal fun StandardButton(
     modifier: Modifier = Modifier,
     buttonType: StandardButtonType = StandardButtonType.Primary,
     buttonSize: StandardButtonSize = StandardButtonSize.Default,
-    enabled: Boolean = true,
+    enabled: Boolean = true
 ) {
     Button(
         onClick = onClick,
@@ -70,7 +70,7 @@ internal enum class StandardButtonType {
 
 internal enum class StandardButtonSize(
     val iconSize: Dp,
-    val tapTargetSize: Dp,
+    val tapTargetSize: Dp
 ) {
     Default(iconSize = 26.dp, tapTargetSize = 52.dp),
     Large(iconSize = 30.dp, tapTargetSize = 60.dp),

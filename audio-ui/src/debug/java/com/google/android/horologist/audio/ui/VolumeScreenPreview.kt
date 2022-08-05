@@ -52,7 +52,7 @@ fun VolumeScreenGuideWithLongText() {
                 audioOutput = AudioOutput.BluetoothHeadset(id = "1", name = "Galaxy Watch 4"),
                 increaseVolume = { },
                 decreaseVolume = { },
-                onAudioOutputClick = {},
+                onAudioOutputClick = {}
             )
         }
     }
@@ -79,7 +79,7 @@ fun VolumeScreenPreview(
             audioOutput = audioOutput,
             increaseVolume = { },
             decreaseVolume = { },
-            onAudioOutputClick = {},
+            onAudioOutputClick = {}
         )
     }
 }
@@ -106,7 +106,7 @@ fun VolumeScreenTheme(
                     audioOutput = AudioOutput.BluetoothHeadset(id = "1", name = "PixelBuds"),
                     increaseVolume = { },
                     decreaseVolume = { },
-                    onAudioOutputClick = {},
+                    onAudioOutputClick = {}
                 )
             }
         }
@@ -117,6 +117,6 @@ class AudioOutputProvider : PreviewParameterProvider<AudioOutput> {
     override val values = sequenceOf(
         AudioOutput.BluetoothHeadset(id = "1", name = "PixelBuds"),
         AudioOutput.WatchSpeaker(id = "2", name = "Galaxy Watch 4"),
-        AudioOutput.BluetoothHeadset(id = "3", name = "Sennheiser Momentum Wireless"),
+        AudioOutput.BluetoothHeadset(id = "3", name = "Sennheiser Momentum Wireless")
     )
 }

@@ -25,7 +25,7 @@ import com.google.android.horologist.mediasample.domain.model.Playlist
 object PlaylistUiModelMapper {
 
     fun map(
-        playlist: Playlist,
+        playlist: Playlist
     ): PlaylistUiModel = PlaylistUiModel(
         id = playlist.id,
         title = playlist.name,

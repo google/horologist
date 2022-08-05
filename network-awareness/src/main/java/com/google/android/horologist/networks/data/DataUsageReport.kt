@@ -22,7 +22,7 @@ import java.time.temporal.ChronoUnit
 public data class DataUsageReport(
     public val dataByType: Map<String, Long>,
     public val from: Instant,
-    public val to: Instant,
+    public val to: Instant
 ) {
     public companion object {
         public val Empty: DataUsageReport = DataUsageReport(

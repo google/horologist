@@ -24,8 +24,9 @@ object TestMedia {
         "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/01_-_Intro_-_The_Way_Of_Waking_Up_feat_Alan_Watts.mp3",
         "Intro - The Way Of Waking Up (feat. Alan Watts)",
         "The Kyoto Connection",
-        "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg",
+        "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg"
     )
+
     // https://docs.espressif.com/projects/esp-adf/en/latest/design-guide/audio-samples.html
     val songAac = Media(
         "2",

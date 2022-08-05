@@ -31,7 +31,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UampBrowseScreenViewModel @Inject constructor(
-    playlistRepository: PlaylistRepository,
+    playlistRepository: PlaylistRepository
 ) : ViewModel() {
 
     private val playlists: StateFlow<List<Playlist>?> = playlistRepository.getAllDownloaded()

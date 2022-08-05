@@ -43,7 +43,7 @@ class FakeUampService(
                     source = "source1",
                     title = "title1",
                     totalTrackCount = 1,
-                    trackNumber = 1,
+                    trackNumber = 1
                 )
             )
         )

@@ -33,7 +33,7 @@ fun UampBrowseScreen(
     onSettingsClick: () -> Unit,
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val uiState by rememberStateWithLifecycle(uampBrowseScreenViewModel.uiState)
 
@@ -44,6 +44,6 @@ fun UampBrowseScreen(
         onSettingsClick = onSettingsClick,
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
-        modifier = modifier,
+        modifier = modifier
     )
 }

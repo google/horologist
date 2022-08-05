@@ -72,10 +72,11 @@ class FillMaxRectangleTest {
     fun ForceMode(isRound: Boolean, fn: @Composable () -> Unit) {
         val oldConfiguration = LocalConfiguration.current
         val newConfiguration = Configuration(oldConfiguration).apply {
-            screenLayout = if (isRound)
+            screenLayout = if (isRound) {
                 screenLayout or Configuration.SCREENLAYOUT_ROUND_YES
-            else
+            } else {
                 screenLayout and Configuration.SCREENLAYOUT_ROUND_YES.inv()
+            }
         }
         CompositionLocalProvider(LocalConfiguration provides newConfiguration) {
             assertEquals(isRound, LocalConfiguration.current.isScreenRound)

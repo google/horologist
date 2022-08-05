@@ -38,11 +38,12 @@ public open class PlayerViewModel(
         val connected: Boolean,
         val shuffleModeEnabled: Boolean,
         val seekBackButtonIncrement: SeekButtonIncrement,
-        val seekForwardButtonIncrement: SeekButtonIncrement,
+        val seekForwardButtonIncrement: SeekButtonIncrement
     )
 
     private val staticFlow = combine(
-        playerRepository.connected, playerRepository.shuffleModeEnabled
+        playerRepository.connected,
+        playerRepository.shuffleModeEnabled
     ) { connected, shuffleModeEnabled ->
         val seekBackSeconds = playerRepository.getSeekBackIncrement().inWholeSeconds.toInt()
         val seekForwardSeconds = playerRepository.getSeekForwardIncrement().inWholeSeconds.toInt()
@@ -108,7 +109,9 @@ public open class PlayerViewModel(
         private val INITIAL_MEDIA = MediaUiModel(id = "", title = null, artist = null)
 
         private val INITIAL_TRACK_POSITION = TrackPositionUiModel(
-            current = 0, duration = 0, percent = 0f
+            current = 0,
+            duration = 0,
+            percent = 0f
         )
 
         private val INITIAL_PLAYER_UI_STATE = PlayerUiState(

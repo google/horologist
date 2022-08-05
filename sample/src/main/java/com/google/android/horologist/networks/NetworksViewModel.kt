@@ -28,7 +28,7 @@ import kotlinx.coroutines.flow.stateIn
 
 public class NetworksViewModel(
     private val networkRepository: NetworkRepository,
-    private val dataRequestRepository: DataRequestRepository,
+    private val dataRequestRepository: DataRequestRepository
 ) : ViewModel() {
     val state =
         combine(
@@ -48,7 +48,7 @@ public class NetworksViewModel(
 
     public class Factory(
         private val networkRepository: NetworkRepository,
-        private val dataRequestRepository: DataRequestRepository,
+        private val dataRequestRepository: DataRequestRepository
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {

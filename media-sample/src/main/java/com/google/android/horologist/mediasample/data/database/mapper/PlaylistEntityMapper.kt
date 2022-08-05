@@ -24,6 +24,6 @@ object PlaylistEntityMapper {
     fun map(playlist: Playlist): PlaylistEntity = PlaylistEntity(
         playlistId = playlist.id,
         name = playlist.name,
-        artworkUri = playlist.artworkUri,
+        artworkUri = playlist.artworkUri
     )
 }

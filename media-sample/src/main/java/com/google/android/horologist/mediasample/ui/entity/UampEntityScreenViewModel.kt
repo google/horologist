@@ -38,7 +38,7 @@ import javax.inject.Inject
 class UampEntityScreenViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val playlistDownloadRepository: PlaylistDownloadRepository,
-    private val playerRepository: PlayerRepository,
+    private val playerRepository: PlayerRepository
 ) : ViewModel() {
     private val playlistId: String = savedStateHandle[NavigationScreens.Collection.id]!!
     private val playlistName: String = savedStateHandle[NavigationScreens.Collection.name]!!
@@ -52,7 +52,7 @@ class UampEntityScreenViewModel @Inject constructor(
             EntityScreenState.Loaded(
                 playlistUiModel = PlaylistUiModelMapper.map(playlistDownload.playlist),
                 downloadList = playlistDownload.mediaList.map(DownloadMediaUiModelMapper::map),
-                downloading = playlistDownload.mediaList.any { (_, status) -> status == MediaDownload.Status.InProgress },
+                downloading = playlistDownload.mediaList.any { (_, status) -> status == MediaDownload.Status.InProgress }
             )
         } else {
             EntityScreenState.Loading(playlistName)

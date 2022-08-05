@@ -97,7 +97,7 @@ fun PlayerScreenPreview() {
                         onSeekToNextButtonClick = {},
                         seekToNextButtonEnabled = true,
                         onSeekToPreviousButtonClick = {},
-                        seekToPreviousButtonEnabled = true,
+                        seekToPreviousButtonEnabled = true
                     )
                 },
                 buttons = {
@@ -112,7 +112,7 @@ fun PlayerScreenPreview() {
                             )
                         }
                     )
-                },
+                }
             )
         }
     }
@@ -167,7 +167,7 @@ fun PlayerScreenPreviewCustomMediaDisplay() {
                         onSeekToNextButtonClick = {},
                         seekToNextButtonEnabled = true,
                         onSeekToPreviousButtonClick = {},
-                        seekToPreviousButtonEnabled = true,
+                        seekToPreviousButtonEnabled = true
                     )
                 },
                 buttons = {
@@ -182,7 +182,7 @@ fun PlayerScreenPreviewCustomMediaDisplay() {
                             )
                         }
                     )
-                },
+                }
             )
         }
     }
@@ -235,7 +235,7 @@ fun PlayerScreenPreviewCustomBackground() {
                         onSeekToNextButtonClick = {},
                         seekToNextButtonEnabled = true,
                         onSeekToPreviousButtonClick = {},
-                        seekToPreviousButtonEnabled = true,
+                        seekToPreviousButtonEnabled = true
                     )
                 },
                 buttons = {
@@ -258,21 +258,21 @@ fun PlayerScreenPreviewCustomBackground() {
                                 .align(Alignment.Center)
                                 .size(124.dp),
                             progress = 0.75f,
-                            indicatorColor = Color.Magenta,
+                            indicatorColor = Color.Magenta
                         )
                         CircularProgressIndicator(
                             modifier = Modifier
                                 .align(Alignment.Center)
                                 .size(132.dp),
                             progress = 0.75f,
-                            indicatorColor = Color.White,
+                            indicatorColor = Color.White
                         )
                         CircularProgressIndicator(
                             modifier = Modifier
                                 .align(Alignment.Center)
                                 .size(140.dp),
                             progress = 0.75f,
-                            indicatorColor = Color.Blue,
+                            indicatorColor = Color.Blue
                         )
                     }
                 }
@@ -304,7 +304,7 @@ fun VolumeScreenTheme(
 fun DefaultMediaPreview() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        timeText = { TimeText() },
+        timeText = { TimeText() }
     ) {
         PagerScreen(count = 2) {
             PlayerScreen(
@@ -324,7 +324,7 @@ fun DefaultMediaPreview() {
                         onSeekToNextButtonClick = {},
                         seekToNextButtonEnabled = true,
                         onSeekToPreviousButtonClick = {},
-                        seekToPreviousButtonEnabled = true,
+                        seekToPreviousButtonEnabled = true
                     )
                 },
                 buttons = {

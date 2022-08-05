@@ -53,7 +53,7 @@ class SecondaryChipTest {
                 StandardChip(
                     label = "Primary label",
                     onClick = { },
-                    chipType = StandardChipType.Secondary,
+                    chipType = StandardChipType.Secondary
                 )
             }
         }
@@ -67,7 +67,7 @@ class SecondaryChipTest {
                     label = "Primary label",
                     onClick = { },
                     secondaryLabel = "Secondary label",
-                    chipType = StandardChipType.Secondary,
+                    chipType = StandardChipType.Secondary
                 )
             }
         }
@@ -81,7 +81,7 @@ class SecondaryChipTest {
                     label = "Primary label",
                     onClick = { },
                     icon = Icons.Default.Image,
-                    chipType = StandardChipType.Secondary,
+                    chipType = StandardChipType.Secondary
                 )
             }
         }
@@ -96,7 +96,7 @@ class SecondaryChipTest {
                     onClick = { },
                     icon = Icon32dp,
                     largeIcon = true,
-                    chipType = StandardChipType.Secondary,
+                    chipType = StandardChipType.Secondary
                 )
             }
         }
@@ -111,7 +111,7 @@ class SecondaryChipTest {
                     onClick = { },
                     secondaryLabel = "Secondary label",
                     icon = Icons.Default.Image,
-                    chipType = StandardChipType.Secondary,
+                    chipType = StandardChipType.Secondary
                 )
             }
         }
@@ -127,7 +127,7 @@ class SecondaryChipTest {
                     secondaryLabel = "Secondary label",
                     icon = Icon32dp,
                     largeIcon = true,
-                    chipType = StandardChipType.Secondary,
+                    chipType = StandardChipType.Secondary
                 )
             }
         }
@@ -143,7 +143,7 @@ class SecondaryChipTest {
                     secondaryLabel = "Secondary label",
                     icon = Icons.Default.Image,
                     chipType = StandardChipType.Secondary,
-                    enabled = false,
+                    enabled = false
                 )
             }
         }
@@ -156,7 +156,7 @@ class SecondaryChipTest {
                 StandardChip(
                     label = "Primary label very very very very very very very very very very very very very very very very very long text",
                     onClick = { },
-                    chipType = StandardChipType.Secondary,
+                    chipType = StandardChipType.Secondary
                 )
             }
         }
@@ -171,7 +171,7 @@ class SecondaryChipTest {
                     onClick = { },
                     secondaryLabel = "Secondary label very very very very very very very very very long text",
                     icon = Icons.Default.Image,
-                    chipType = StandardChipType.Secondary,
+                    chipType = StandardChipType.Secondary
                 )
             }
         }
@@ -185,7 +185,7 @@ class SecondaryChipTest {
                     label = "Primary label",
                     onClick = { },
                     icon = Icon12dp,
-                    chipType = StandardChipType.Secondary,
+                    chipType = StandardChipType.Secondary
                 )
             }
         }
@@ -200,7 +200,7 @@ class SecondaryChipTest {
                     onClick = { },
                     icon = Icon12dp,
                     largeIcon = true,
-                    chipType = StandardChipType.Secondary,
+                    chipType = StandardChipType.Secondary
                 )
             }
         }
@@ -214,7 +214,7 @@ class SecondaryChipTest {
                     label = "Primary label",
                     onClick = { },
                     icon = Icon48dp,
-                    chipType = StandardChipType.Secondary,
+                    chipType = StandardChipType.Secondary
                 )
             }
         }
@@ -229,7 +229,7 @@ class SecondaryChipTest {
                     onClick = { },
                     icon = Icon48dp,
                     largeIcon = true,
-                    chipType = StandardChipType.Secondary,
+                    chipType = StandardChipType.Secondary
                 )
             }
         }
@@ -243,7 +243,7 @@ class SecondaryChipTest {
                     label = "Primary label",
                     onClick = { },
                     icon = Icons.Default.Image,
-                    chipType = StandardChipType.Secondary,
+                    chipType = StandardChipType.Secondary
                 )
             }
         }
@@ -260,10 +260,10 @@ class SecondaryChipTest {
                     icon = "iconUri",
                     placeholder = rememberVectorPainter(
                         image = Icons.Default.Image,
-                        tintColor = Color.Black,
+                        tintColor = Color.Black
                     ),
                     chipType = StandardChipType.Secondary,
-                    enabled = false,
+                    enabled = false
                 )
             }
         }
@@ -277,7 +277,7 @@ class SecondaryChipTest {
                 defaultWidth = 12f.dp,
                 defaultHeight = 12f.dp,
                 viewportWidth = 12f,
-                viewportHeight = 12f,
+                viewportHeight = 12f
             )
                 .materialPath {
                     horizontalLineToRelative(12.0f)
@@ -293,7 +293,7 @@ class SecondaryChipTest {
                 defaultWidth = 32f.dp,
                 defaultHeight = 32f.dp,
                 viewportWidth = 32f,
-                viewportHeight = 32f,
+                viewportHeight = 32f
             )
                 .materialPath {
                     horizontalLineToRelative(32.0f)
@@ -309,7 +309,7 @@ class SecondaryChipTest {
                 defaultWidth = 48f.dp,
                 defaultHeight = 48f.dp,
                 viewportWidth = 48f,
-                viewportHeight = 48f,
+                viewportHeight = 48f
             )
                 .materialPath {
                     horizontalLineToRelative(48.0f)

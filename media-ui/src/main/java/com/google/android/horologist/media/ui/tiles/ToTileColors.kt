@@ -26,6 +26,6 @@ public fun Colors.toTileColors(): androidx.wear.tiles.material.Colors {
         primary.toArgb(),
         onPrimary.toArgb(),
         surface.toArgb(),
-        onSurface.toArgb(),
+        onSurface.toArgb()
     )
 }

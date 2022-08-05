@@ -36,7 +36,7 @@ class PlaylistDownloadRepositoryImpl(
     private val coroutineScope: CoroutineScope,
     private val playlistLocalDataSource: PlaylistLocalDataSource,
     private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
-    private val media3DownloadDataSource: Media3DownloadDataSource,
+    private val media3DownloadDataSource: Media3DownloadDataSource
 ) : PlaylistDownloadRepository {
 
     @OptIn(FlowPreview::class)

@@ -77,9 +77,10 @@ public class DBDataRequestRepository(
                     "ble" to ble,
                     "cell" to cell,
                     "wifi" to wifi,
-                    "unknown" to unknown,
+                    "unknown" to unknown
                 ),
-                from = from, to = to
+                from = from,
+                to = to
             )
         }
     }

@@ -65,15 +65,14 @@ public fun EntityScreen(
         modifier = modifier
             .fillMaxSize()
             .scrollableColumn(focusRequester, scalingLazyListState),
-        state = scalingLazyListState,
+        state = scalingLazyListState
     ) {
         when (entityScreenState) {
-
             is EntityScreenState.Loading -> {
                 item {
                     Title(
                         text = entityScreenState.playlistName,
-                        modifier = Modifier.padding(bottom = 12.dp),
+                        modifier = Modifier.padding(bottom = 12.dp)
                     )
                 }
 
@@ -96,7 +95,7 @@ public fun EntityScreen(
                 item {
                     Title(
                         text = entityScreenState.playlistUiModel.title,
-                        modifier = Modifier.padding(bottom = 12.dp),
+                        modifier = Modifier.padding(bottom = 12.dp)
                     )
                 }
 
@@ -107,7 +106,7 @@ public fun EntityScreen(
                                 label = stringResource(id = R.string.horologist_entity_button_downloading),
                                 onClick = { onDownloadClick(entityScreenState.playlistUiModel) },
                                 modifier = Modifier.padding(bottom = 16.dp),
-                                icon = Icons.Default.Download,
+                                icon = Icons.Default.Download
                             )
                         }
                     } else {
@@ -116,7 +115,7 @@ public fun EntityScreen(
                                 label = stringResource(id = R.string.horologist_entity_button_download),
                                 onClick = { onDownloadClick(entityScreenState.playlistUiModel) },
                                 modifier = Modifier.padding(bottom = 16.dp),
-                                icon = Icons.Default.Download,
+                                icon = Icons.Default.Download
                             )
                         }
                     }
@@ -126,7 +125,7 @@ public fun EntityScreen(
                             modifier = Modifier
                                 .padding(bottom = 16.dp)
                                 .height(52.dp),
-                            verticalAlignment = Alignment.CenterVertically,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
                             FirstButton(
                                 downloadsState = entityScreenState.downloadsState,
@@ -171,7 +170,7 @@ public fun EntityScreen(
                         largeIcon = true,
                         placeholder = downloadItemArtworkPlaceholder,
                         chipType = StandardChipType.Secondary,
-                        enabled = downloadMediaUiModel is DownloadMediaUiModel.Available,
+                        enabled = downloadMediaUiModel is DownloadMediaUiModel.Available
                     )
                 }
             }
@@ -186,26 +185,26 @@ private fun FirstButton(
     downloading: Boolean,
     playlistUiModel: PlaylistUiModel,
     onDownloadClick: (PlaylistUiModel) -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val (icon, contentDescription) = when (downloadsState) {
         EntityScreenState.Loaded.DownloadsState.Partially -> {
             if (downloading) {
                 Pair(
                     Icons.Default.Downloading,
-                    R.string.horologist_entity_button_downloading_content_description,
+                    R.string.horologist_entity_button_downloading_content_description
                 )
             } else {
                 Pair(
                     Icons.Default.Download,
-                    R.string.horologist_entity_button_download_content_description,
+                    R.string.horologist_entity_button_download_content_description
                 )
             }
         }
         EntityScreenState.Loaded.DownloadsState.Fully -> {
             Pair(
                 Icons.Default.DownloadDone,
-                R.string.horologist_entity_button_download_done_content_description,
+                R.string.horologist_entity_button_download_done_content_description
             )
         }
         else -> {
@@ -218,7 +217,7 @@ private fun FirstButton(
         contentDescription = stringResource(id = contentDescription),
         onClick = { onDownloadClick(playlistUiModel) },
         modifier = modifier,
-        buttonType = StandardButtonType.Secondary,
+        buttonType = StandardButtonType.Secondary
     )
 }
 

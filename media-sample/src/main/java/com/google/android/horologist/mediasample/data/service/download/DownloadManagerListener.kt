@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 
 class DownloadManagerListener(
     @DownloadFeature private val coroutineScope: CoroutineScope,
-    private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
+    private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource
 ) : DownloadManager.Listener {
 
     override fun onDownloadChanged(

@@ -55,7 +55,7 @@ public fun PlayerLibraryPagerScreen(
     playerScreen: @Composable (FocusRequester) -> Unit,
     libraryScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
     backStack: NavBackStackEntry,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val pageParam = NavigationScreens.Player.getPageParam(backStack, remove = true)
 
@@ -108,7 +108,7 @@ public fun PlayerLibraryPagerScreen(
                     },
                     positionIndicator = {
                         PositionIndicator(
-                            scalingLazyListState = state,
+                            scalingLazyListState = state
                         )
                     }
                 ) {

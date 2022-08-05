@@ -44,7 +44,7 @@ public fun TextMediaDisplay(
             color = MaterialTheme.colors.onBackground,
             textAlign = TextAlign.Center,
             maxLines = 1,
-            style = MaterialTheme.typography.button,
+            style = MaterialTheme.typography.button
         )
         Text(
             text = artist.orEmpty(),
@@ -53,7 +53,7 @@ public fun TextMediaDisplay(
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
-            style = MaterialTheme.typography.body2,
+            style = MaterialTheme.typography.body2
         )
     }
 }

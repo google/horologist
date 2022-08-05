@@ -61,7 +61,7 @@ public class AnalyticsEventLogger(
     override fun onPlaybackStateChanged(eventTime: AnalyticsListener.EventTime, state: Int) {
         appEventLogger.logMessage(
             "onPlaybackStateChanged $state",
-            category = ErrorReporter.Category.Playback,
+            category = ErrorReporter.Category.Playback
         )
         super.onPlaybackStateChanged(eventTime, state)
     }
@@ -96,7 +96,7 @@ public class AnalyticsEventLogger(
     override fun onIsLoadingChanged(eventTime: AnalyticsListener.EventTime, isLoading: Boolean) {
         appEventLogger.logMessage(
             "onIsLoadingChanged $isLoading",
-            category = ErrorReporter.Category.Playback,
+            category = ErrorReporter.Category.Playback
         )
         super.onIsLoadingChanged(eventTime, isLoading)
     }
@@ -122,7 +122,7 @@ public class AnalyticsEventLogger(
     ) {
         appEventLogger.logMessage(
             "onMediaMetadataChanged ${mediaMetadata.displayTitle}",
-            category = ErrorReporter.Category.Playback,
+            category = ErrorReporter.Category.Playback
         )
     }
 
@@ -142,7 +142,7 @@ public class AnalyticsEventLogger(
     ) {
         appEventLogger.logMessage(
             "onLoadStarted",
-            category = ErrorReporter.Category.Playback,
+            category = ErrorReporter.Category.Playback
         )
     }
 
@@ -153,7 +153,7 @@ public class AnalyticsEventLogger(
     ) {
         appEventLogger.logMessage(
             "onLoadCompleted",
-            category = ErrorReporter.Category.Playback,
+            category = ErrorReporter.Category.Playback
         )
     }
 
@@ -165,7 +165,7 @@ public class AnalyticsEventLogger(
         appEventLogger.logMessage(
             "onAudioInputFormatChanged ${format.codecs.orEmpty()} ${format.bitrate} ${format.containerMimeType.orEmpty()}",
             level = ErrorReporter.Level.Debug,
-            category = ErrorReporter.Category.Playback,
+            category = ErrorReporter.Category.Playback
         )
         super.onAudioInputFormatChanged(eventTime, format, decoderReuseEvaluation)
     }
@@ -176,7 +176,7 @@ public class AnalyticsEventLogger(
     ) {
         appEventLogger.logMessage(
             "onDownstreamFormatChanged ${mediaLoadData.dataType}",
-            category = ErrorReporter.Category.Playback,
+            category = ErrorReporter.Category.Playback
         )
         super.onDownstreamFormatChanged(eventTime, mediaLoadData)
     }

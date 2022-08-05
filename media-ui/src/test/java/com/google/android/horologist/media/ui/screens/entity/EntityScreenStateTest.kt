@@ -36,7 +36,7 @@ class EntityScreenStateTest {
                     id = "id",
                     title = "Song name",
                     artist = "Artist name",
-                    artworkUri = "artworkUri",
+                    artworkUri = "artworkUri"
                 )
             ),
             DownloadMediaUiModel.Unavailable(
@@ -44,16 +44,16 @@ class EntityScreenStateTest {
                     id = "id 2",
                     title = "Song name 2",
                     artist = "Artist name 2",
-                    artworkUri = "artworkUri",
+                    artworkUri = "artworkUri"
                 )
-            ),
+            )
         )
 
         // when
         val result = EntityScreenState.Loaded(
             playlistUiModel = PlaylistUiModel(
                 id = "id",
-                title = "title",
+                title = "title"
             ),
             downloadList = downloads,
             downloading = false
@@ -72,7 +72,7 @@ class EntityScreenStateTest {
                     id = "id",
                     title = "Song name",
                     artist = "Artist name",
-                    artworkUri = "artworkUri",
+                    artworkUri = "artworkUri"
                 )
             ),
             DownloadMediaUiModel.Unavailable(
@@ -80,16 +80,16 @@ class EntityScreenStateTest {
                     id = "id 2",
                     title = "Song name 2",
                     artist = "Artist name 2",
-                    artworkUri = "artworkUri",
+                    artworkUri = "artworkUri"
                 )
-            ),
+            )
         )
 
         // when
         val result = EntityScreenState.Loaded(
             playlistUiModel = PlaylistUiModel(
                 id = "id",
-                title = "title",
+                title = "title"
             ),
             downloadList = downloads,
             downloading = false
@@ -108,7 +108,7 @@ class EntityScreenStateTest {
                     id = "id",
                     title = "Song name",
                     artist = "Artist name",
-                    artworkUri = "artworkUri",
+                    artworkUri = "artworkUri"
                 )
             ),
             DownloadMediaUiModel.Available(
@@ -116,16 +116,16 @@ class EntityScreenStateTest {
                     id = "id 2",
                     title = "Song name 2",
                     artist = "Artist name 2",
-                    artworkUri = "artworkUri",
+                    artworkUri = "artworkUri"
                 )
-            ),
+            )
         )
 
         // when
         val result = EntityScreenState.Loaded(
             playlistUiModel = PlaylistUiModel(
                 id = "id",
-                title = "title",
+                title = "title"
             ),
             downloadList = downloads,
             downloading = false
@@ -144,7 +144,7 @@ class EntityScreenStateTest {
         val result = EntityScreenState.Loaded(
             playlistUiModel = PlaylistUiModel(
                 id = "id",
-                title = "title",
+                title = "title"
             ),
             downloadList = downloads,
             downloading = false

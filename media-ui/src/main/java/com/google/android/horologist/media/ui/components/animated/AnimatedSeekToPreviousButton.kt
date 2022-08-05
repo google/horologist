@@ -44,7 +44,7 @@ public fun AnimatedSeekToPreviousButton(
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     iconSize: Dp = 30.dp,
-    tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
+    tapTargetSize: DpSize = DpSize(48.dp, 60.dp)
 ) {
     if (LocalStaticPreview.current) {
         SeekToPreviousButton(
@@ -55,7 +55,7 @@ public fun AnimatedSeekToPreviousButton(
         )
     } else {
         val composition by rememberLottieComposition(
-            spec = LottieCompositionSpec.Asset("lottie/Next.json"),
+            spec = LottieCompositionSpec.Asset("lottie/Next.json")
         )
         val lottieAnimatable = rememberLottieAnimatable()
 
@@ -70,7 +70,7 @@ public fun AnimatedSeekToPreviousButton(
                 tapTargetSize = tapTargetSize,
                 composition = composition,
                 lottieAnimatable = lottieAnimatable,
-                iconAlign = Alignment.End,
+                iconAlign = Alignment.End
             )
         }
     }

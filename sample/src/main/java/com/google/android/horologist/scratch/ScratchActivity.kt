@@ -60,7 +60,7 @@ class ScratchActivity : ComponentActivity() {
 
 data class Offsets(
     val index: Int = 0,
-    val offset: Int = 0,
+    val offset: Int = 0
 )
 
 @Composable
@@ -94,7 +94,7 @@ fun WearApp() {
     val anchorTypes = remember {
         listOf(
             Pair("Center", ScalingLazyListAnchorType.ItemCenter),
-            Pair("Start", ScalingLazyListAnchorType.ItemStart),
+            Pair("Start", ScalingLazyListAnchorType.ItemStart)
         )
     }
 
@@ -106,7 +106,7 @@ fun WearApp() {
 
         val listState = rememberScalingLazyListState(
             initialCenterItemIndex = initialOffset.index,
-            initialCenterItemScrollOffset = initialOffset.offset,
+            initialCenterItemScrollOffset = initialOffset.offset
         )
 
         Scaffold(
@@ -115,7 +115,8 @@ fun WearApp() {
                 TimeText(
                     modifier = Modifier
                         .fadeAwayScalingLazyList(
-                            initialIndex = initialOffset.index, initialOffset = initialOffset.offset
+                            initialIndex = initialOffset.index,
+                            initialOffset = initialOffset.offset
                         ) {
                             listState
                         },
@@ -123,7 +124,7 @@ fun WearApp() {
                         curvedText("${listState.centerItemIndex}/${listState.centerItemScrollOffset}")
                     }
                 )
-            },
+            }
         ) {
             ScalingLazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -180,7 +181,7 @@ fun FixedHeightChip(text: String, itemHeight: Int, onClick: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth(),
             onClick = onClick,
-            colors = ChipDefaults.primaryChipColors(),
+            colors = ChipDefaults.primaryChipColors()
         ) {
             Text(
                 text = text,

@@ -112,17 +112,17 @@ object MediaApplicationModule {
     @Provides
     fun audioSink(
         appConfig: AppConfig,
-        wearMedia3Factory: WearMedia3Factory,
+        wearMedia3Factory: WearMedia3Factory
     ): DefaultAudioSink =
         wearMedia3Factory.audioSink(
             attemptOffload = appConfig.offloadEnabled,
-            offloadMode = appConfig.offloadMode,
+            offloadMode = appConfig.offloadMode
         )
 
     @Singleton
     @Provides
     fun wearMedia3Factory(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): WearMedia3Factory =
         WearMedia3Factory(application)
 
@@ -132,7 +132,7 @@ object MediaApplicationModule {
         logger: ErrorReporter,
         settingsRepository: SettingsRepository,
         @ForApplicationScope coroutineScope: CoroutineScope,
-        appConfig: AppConfig,
+        appConfig: AppConfig
     ): AudioOffloadManager {
         val audioOffloadStrategyFlow =
             settingsRepository.settingsFlow.map { it.offloadMode.strategy }
@@ -156,26 +156,26 @@ object MediaApplicationModule {
     @Singleton
     @Provides
     fun logger(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): Logging = Logging(res = application.resources)
 
     @Singleton
     @Provides
     fun errorReporter(
-        logging: Logging,
+        logging: Logging
     ): ErrorReporter = logging
 
     @Singleton
     @Provides
     fun vibrator(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): Vibrator =
         application.getSystemService(Vibrator::class.java)
 
     @Singleton
     @Provides
     fun cacheDatabaseProvider(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): DatabaseProvider = StandaloneDatabaseProvider(application)
 
     @Singleton
@@ -204,12 +204,13 @@ object MediaApplicationModule {
     @Singleton
     @Provides
     fun dataUpdates(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): DataUpdates {
         val updater = ComplicationDataSourceUpdateRequester.create(
             application,
             ComponentName(
-                application, MediaStatusComplicationService::class.java
+                application,
+                MediaStatusComplicationService::class.java
             )
         )
         return DataUpdates(updater)

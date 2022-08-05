@@ -46,7 +46,7 @@ public abstract class SingleTileLayoutRenderer<T, R>(
 
     final override fun renderTimeline(
         state: T,
-        requestParams: RequestBuilders.TileRequest,
+        requestParams: RequestBuilders.TileRequest
     ): Tile {
         val rootLayout = renderTile(state, requestParams.deviceParameters!!)
 
@@ -110,7 +110,7 @@ public abstract class SingleTileLayoutRenderer<T, R>(
     public open fun Resources.Builder.produceRequestedResources(
         resourceResults: R,
         deviceParameters: DeviceParametersBuilders.DeviceParameters,
-        resourceIds: MutableList<String>,
+        resourceIds: MutableList<String>
     ) {
     }
 }

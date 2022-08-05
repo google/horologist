@@ -22,5 +22,5 @@ import java.util.UUID
 @ExperimentalHorologistComposeLayoutApi
 public data class UiMessage(
     val message: String,
-    val id: String = UUID.randomUUID().toString(),
+    val id: String = UUID.randomUUID().toString()
 )

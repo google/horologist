@@ -88,7 +88,7 @@ class NavScaffoldTest {
                             it.scrollableState
                         ),
                     state = it.scrollableState,
-                    horizontalAlignment = Alignment.CenterHorizontally,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     items(11) {
                         Text(text = "Item $it")
@@ -104,7 +104,7 @@ class NavScaffoldTest {
 
             WearNavScaffold(
                 startDestination = "a",
-                navController = navController,
+                navController = navController
             ) {
                 scrollingList("a", aScrollState)
                 scrollingList("b", bScrollState)
@@ -242,10 +242,10 @@ class NavScaffoldTest {
                             )
                         }
                     )
-                },
+                }
             ) {
                 wearNavComposable(
-                    route = "a",
+                    route = "a"
                 ) { _, _ ->
                     Box(
                         modifier = Modifier.fillMaxSize(),

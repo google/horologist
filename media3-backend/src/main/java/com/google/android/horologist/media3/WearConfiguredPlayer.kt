@@ -45,7 +45,7 @@ public class WearConfiguredPlayer(
     private val audioOutputSelector: AudioOutputSelector,
     private val playbackRules: PlaybackRules,
     private val errorReporter: ErrorReporter,
-    private val coroutineScope: CoroutineScope,
+    private val coroutineScope: CoroutineScope
 ) : ForwardingPlayer(player) {
     private var playAttempt: Job? = null
 

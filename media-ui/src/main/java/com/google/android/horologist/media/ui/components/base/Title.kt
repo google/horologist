@@ -27,24 +27,24 @@ import androidx.wear.compose.material.Text
 @Composable
 internal fun Title(
     @StringRes textId: Int,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Title(
         text = stringResource(id = textId),
-        modifier = modifier,
+        modifier = modifier
     )
 }
 
 @Composable
 internal fun Title(
     text: String,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Text(
         text = text,
         modifier = modifier,
         overflow = TextOverflow.Ellipsis,
         maxLines = 3,
-        style = MaterialTheme.typography.title3,
+        style = MaterialTheme.typography.title3
     )
 }

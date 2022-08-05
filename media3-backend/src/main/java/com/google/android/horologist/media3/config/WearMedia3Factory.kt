@@ -36,6 +36,8 @@ public open class WearMedia3Factory(private val context: Context) {
         return DefaultAudioSink.Builder()
             .setAudioCapabilities(AudioCapabilities.getCapabilities(context))
             .setAudioProcessorChain(DefaultAudioSink.DefaultAudioProcessorChain())
+            .setEnableFloatOutput(false) // default
+            .setEnableAudioTrackPlaybackParams(false) // default
             .setOffloadMode(
                 if (attemptOffload)
                     offloadMode

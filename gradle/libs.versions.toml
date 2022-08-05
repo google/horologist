@@ -49,7 +49,6 @@ androidx-complications-datasource-ktx = { module = "androidx.wear.watchface:watc
 androidx-complications-rendering = { module = "androidx.wear.watchface:watchface-complications-rendering", version.ref = "androidx-wear-watchface" }
 androidx-concurrent-future = { module = "androidx.concurrent:concurrent-futures", version.ref = "androidx-concurrent" }
 androidx-concurrent-future-ktx = { module = "androidx.concurrent:concurrent-futures-ktx", version.ref = "androidx-concurrent" }
-androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
 androidx-corektx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
 androidx-datastore-preferences = "androidx.datastore:datastore-preferences:1.0.0"
 androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidxFragment" }

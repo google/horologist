@@ -17,6 +17,7 @@
 package com.google.android.horologist.mediasample.di
 
 import android.app.Service
+import android.os.Build
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.media3.common.AudioAttributes
@@ -229,7 +230,7 @@ object PlaybackServiceModule {
                 wearConfiguredPlayer.startNoiseDetection()
             }
 
-            if (appConfig.offloadEnabled) {
+            if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
                 serviceCoroutineScope.launch {
                     audioOffloadManager.get().connect(exoPlayer)
                 }

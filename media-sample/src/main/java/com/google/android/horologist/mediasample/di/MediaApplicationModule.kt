@@ -140,16 +140,14 @@ object MediaApplicationModule {
             logger,
             audioOffloadStrategyFlow
         ).also { audioOffloadManager ->
-            if (appConfig.offloadEnabled) {
-                if (Build.VERSION.SDK_INT >= 30) {
-                    coroutineScope.launch {
-                        settingsRepository.settingsFlow.map { it.debugOffload }
-                            .collectLatest { debug ->
-                                if (debug) {
-                                    audioOffloadManager.printDebugLogsLoop()
-                                }
+            if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
+                coroutineScope.launch {
+                    settingsRepository.settingsFlow.map { it.debugOffload }
+                        .collectLatest { debug ->
+                            if (debug) {
+                                audioOffloadManager.printDebugLogsLoop()
                             }
-                    }
+                        }
                 }
             }
         }

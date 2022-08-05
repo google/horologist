@@ -18,6 +18,7 @@ package com.google.android.horologist.mediasample.di
 
 import android.content.ComponentName
 import android.content.Context
+import android.os.Build
 import android.os.Vibrator
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
@@ -140,13 +141,15 @@ object MediaApplicationModule {
             audioOffloadStrategyFlow
         ).also { audioOffloadManager ->
             if (appConfig.offloadEnabled) {
-                coroutineScope.launch {
-                    settingsRepository.settingsFlow.map { it.debugOffload }
-                        .collectLatest { debug ->
-                            if (debug) {
-                                audioOffloadManager.printDebugLogsLoop()
+                if (Build.VERSION.SDK_INT >= 30) {
+                    coroutineScope.launch {
+                        settingsRepository.settingsFlow.map { it.debugOffload }
+                            .collectLatest { debug ->
+                                if (debug) {
+                                    audioOffloadManager.printDebugLogsLoop()
+                                }
                             }
-                        }
+                    }
                 }
             }
         }

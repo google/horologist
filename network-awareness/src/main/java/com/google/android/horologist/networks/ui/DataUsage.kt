@@ -132,7 +132,7 @@ internal fun Long.toSize(context: Context): String {
 }
 
 private fun NetworkStatus.tint(active: Boolean): Color {
-    return if (!active && this.status == com.google.android.horologist.networks.data.Status.Available) {
+    return if (!active && this.status == Status.Available) {
         Color.Blue
     } else when (this.status) {
         is Status.Available -> Color.Green

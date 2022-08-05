@@ -112,10 +112,6 @@ public class WearConfiguredPlayer(
         wrappedPlayer.pause()
     }
 
-    override fun release() {
-        super.release()
-    }
-
     override fun setPlayWhenReady(playWhenReady: Boolean) {
         if (playWhenReady) {
             play()

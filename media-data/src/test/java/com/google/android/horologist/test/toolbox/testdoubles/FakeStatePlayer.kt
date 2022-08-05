@@ -36,7 +36,7 @@ class FakeStatePlayer(
 ) : StubPlayer() {
     private val listeners = mutableListOf<Listener>()
 
-    override fun addListener(listener: Player.Listener) {
+    override fun addListener(listener: Listener) {
         listeners.add(listener)
         super.addListener(listener)
     }

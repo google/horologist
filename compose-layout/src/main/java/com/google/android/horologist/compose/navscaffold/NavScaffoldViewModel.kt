@@ -69,7 +69,7 @@ public open class NavScaffoldViewModel(
      * The configuration of [Vignette], [WhenScrollable], [Off], [On] and if so whether top and
      * bottom. Defaults to on for scrollable screens.
      */
-    public var vignettePosition: VignetteMode by mutableStateOf(VignetteMode.WhenScrollable)
+    public var vignettePosition: VignetteMode by mutableStateOf(WhenScrollable)
 
     /**
      * The configuration of [TimeText], defaults to FadeAway which will move the time text above the

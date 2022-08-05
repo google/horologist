@@ -27,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
@@ -48,6 +49,7 @@ import com.google.accompanist.pager.PagerScope
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.compose.layout.FocusControl
+import com.google.android.horologist.compose.layout.OnFocusChange
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import kotlinx.coroutines.launch
 
@@ -107,6 +109,9 @@ public fun PagerScreen(
                     }
                 ) {
                     FocusControl({ page == state.currentPage }) {
+                        OnFocusChange {
+                            println("Page $page focused: $it")
+                        }
                         content(page)
                     }
                 }

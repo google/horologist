@@ -103,8 +103,6 @@ public fun PlayerLibraryPagerScreen(
                 }
             }
             1 -> {
-                val libraryFocusRequester = remember { FocusRequester() }
-
                 val state = rememberScalingLazyListState()
                 Scaffold(
                     timeText = {
@@ -117,12 +115,6 @@ public fun PlayerLibraryPagerScreen(
                     }
                 ) {
                     libraryScreen(state)
-                }
-
-                OnFocusChange { focused ->
-                    if (focused) {
-                        libraryFocusRequester.requestFocus()
-                    }
                 }
             }
         }

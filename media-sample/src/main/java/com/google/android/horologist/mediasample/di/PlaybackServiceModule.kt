@@ -67,6 +67,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import okhttp3.Call
+import javax.inject.Provider
 
 @Module
 @InstallIn(ServiceComponent::class)
@@ -214,7 +215,7 @@ object PlaybackServiceModule {
         audioOutputSelector: AudioOutputSelector,
         playbackRules: PlaybackRules,
         logger: ErrorReporter,
-        audioOffloadManager: AudioOffloadManager,
+        audioOffloadManager: Provider<AudioOffloadManager>,
         appConfig: AppConfig
     ): Player =
         WearConfiguredPlayer(
@@ -231,7 +232,7 @@ object PlaybackServiceModule {
 
             if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
                 serviceCoroutineScope.launch {
-                    audioOffloadManager.connect(exoPlayer)
+                    audioOffloadManager.get().connect(exoPlayer)
                 }
             }
         }

@@ -169,6 +169,12 @@ package com.google.android.horologist.media3.offload {
     property public final com.google.android.horologist.media3.offload.AudioOffloadStrategy? strategy;
     property public final String? strategyStatus;
     property public final Boolean? trackOffload;
+    field public static final com.google.android.horologist.media3.offload.AudioOffloadStatus.Companion Companion;
+  }
+
+  public static final class AudioOffloadStatus.Companion {
+    method public com.google.android.horologist.media3.offload.AudioOffloadStatus getDisabled();
+    property public final com.google.android.horologist.media3.offload.AudioOffloadStatus Disabled;
   }
 
   @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public interface AudioOffloadStrategy {

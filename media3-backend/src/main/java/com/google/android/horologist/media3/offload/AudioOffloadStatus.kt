@@ -50,4 +50,18 @@ public data class AudioOffloadStatus(
             null -> "N/A"
         }
     }
+
+    public companion object {
+        public val Disabled: AudioOffloadStatus = AudioOffloadStatus(
+            offloadSchedulingEnabled = false,
+            sleepingForOffload = false,
+            trackOffload = false,
+            format = null,
+            isPlaying = false,
+            errors = listOf(),
+            offloadTimes = OffloadTimes(),
+            strategyStatus = null,
+            strategy = null
+        )
+    }
 }

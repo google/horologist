@@ -31,8 +31,8 @@ import java.io.Closeable
  */
 @ExperimentalHorologistMedia3BackendApi
 public class NetworkAwareDownloadListener(
-    val appEventLogger: ErrorReporter,
-    val highBandwidthRequester: HighBandwidthRequester
+    private val appEventLogger: ErrorReporter,
+    private val highBandwidthRequester: HighBandwidthRequester
 ) : DownloadManager.Listener {
     private var networkRequest: Closeable? = null
 

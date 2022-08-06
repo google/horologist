@@ -268,10 +268,6 @@ package com.google.android.horologist.media3.service {
 
   @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public final class NetworkAwareDownloadListener implements androidx.media3.exoplayer.offline.DownloadManager.Listener {
     ctor public NetworkAwareDownloadListener(com.google.android.horologist.media3.logging.ErrorReporter appEventLogger, com.google.android.horologist.networks.status.HighBandwidthRequester highBandwidthRequester);
-    method public com.google.android.horologist.media3.logging.ErrorReporter getAppEventLogger();
-    method public com.google.android.horologist.networks.status.HighBandwidthRequester getHighBandwidthRequester();
-    property public final com.google.android.horologist.media3.logging.ErrorReporter appEventLogger;
-    property public final com.google.android.horologist.networks.status.HighBandwidthRequester highBandwidthRequester;
   }
 
 }

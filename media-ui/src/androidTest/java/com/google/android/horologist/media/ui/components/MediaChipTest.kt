@@ -38,7 +38,7 @@ class MediaChipTest {
         composeTestRule.setContent {
             MediaChip(
                 media = MediaUiModel(id = "id", title = title),
-                onClick = { },
+                onClick = { }
             )
         }
 

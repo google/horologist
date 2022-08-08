@@ -32,7 +32,7 @@ public fun ControlButtonLayout(
     leftButton: @Composable () -> Unit,
     middleButton: @Composable () -> Unit,
     rightButton: @Composable () -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),

@@ -38,7 +38,7 @@ internal class StandardButtonTest(
     private val description: String,
     private val buttonType: StandardButtonType,
     private val buttonSize: StandardButtonSize,
-    private val enabled: Boolean,
+    private val enabled: Boolean
 ) {
 
     private val maxPercentDifference = 0.1
@@ -61,7 +61,7 @@ internal class StandardButtonTest(
                     onClick = { },
                     buttonType = buttonType,
                     buttonSize = buttonSize,
-                    enabled = enabled,
+                    enabled = enabled
                 )
             }
         }
@@ -80,12 +80,14 @@ internal class StandardButtonTest(
             arrayOf(
                 "Primary Large",
                 StandardButtonType.Primary,
-                StandardButtonSize.Large, true
+                StandardButtonSize.Large,
+                true
             ),
             arrayOf(
                 "Primary Small",
                 StandardButtonType.Primary,
-                StandardButtonSize.Small, true
+                StandardButtonSize.Small,
+                true
             ),
             arrayOf(
                 "Primary ExtraSmall",
@@ -158,7 +160,7 @@ internal class StandardButtonTest(
                 StandardButtonType.IconOnly,
                 StandardButtonSize.Default,
                 false
-            ),
+            )
         )
     }
 }

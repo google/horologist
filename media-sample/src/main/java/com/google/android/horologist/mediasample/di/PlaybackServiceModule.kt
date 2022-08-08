@@ -176,7 +176,7 @@ object PlaybackServiceModule {
         audioOnlyRenderersFactory: RenderersFactory,
         analyticsCollector: AnalyticsCollector,
         mediaSourceFactory: MediaSource.Factory,
-        dataUpdates: DataUpdates,
+        dataUpdates: DataUpdates
     ) =
         ExoPlayer.Builder(service, audioOnlyRenderersFactory)
             .setAnalyticsCollector(analyticsCollector)
@@ -224,7 +224,7 @@ object PlaybackServiceModule {
             audioOutputSelector = audioOutputSelector,
             playbackRules = playbackRules,
             errorReporter = logger,
-            coroutineScope = serviceCoroutineScope,
+            coroutineScope = serviceCoroutineScope
         ).also { wearConfiguredPlayer ->
             serviceCoroutineScope.launch {
                 wearConfiguredPlayer.startNoiseDetection()
@@ -241,7 +241,7 @@ object PlaybackServiceModule {
     @Provides
     fun librarySessionCallback(
         logger: ErrorReporter,
-        serviceCoroutineScope: CoroutineScope,
+        serviceCoroutineScope: CoroutineScope
     ): MediaLibrarySession.Callback =
         UampMediaLibrarySessionCallback(serviceCoroutineScope, logger)
 
@@ -260,7 +260,8 @@ object PlaybackServiceModule {
         )
             .setSessionActivity(intentBuilder.buildPlayerIntent())
             .build().also {
-                (service as LifecycleOwner).lifecycle.addObserver(object :
+                (service as LifecycleOwner).lifecycle.addObserver(
+                    object :
                         DefaultLifecycleObserver {
                         override fun onDestroy(owner: LifecycleOwner) {
                             it.release()

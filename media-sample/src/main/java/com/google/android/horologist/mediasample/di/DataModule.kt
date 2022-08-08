@@ -68,7 +68,7 @@ class DataModule {
     @Provides
     fun playlistRepository(
         playlistDownloadLocalDataSource: PlaylistLocalDataSource,
-        playlistRemoteDataSource: PlaylistRemoteDataSource,
+        playlistRemoteDataSource: PlaylistRemoteDataSource
     ): PlaylistRepository =
         PlaylistRepositoryImpl(playlistDownloadLocalDataSource, playlistRemoteDataSource)
 
@@ -93,7 +93,7 @@ class DataModule {
     @Provides
     @Singleton
     fun mediaDownloadLocalDataSource(
-        mediaDownloadDao: MediaDownloadDao,
+        mediaDownloadDao: MediaDownloadDao
     ): MediaDownloadLocalDataSource = MediaDownloadLocalDataSource(mediaDownloadDao)
 
     @Singleton
@@ -105,11 +105,11 @@ class DataModule {
     @Provides
     fun playlistRemoteDataSource(
         uampService: UampService,
-        @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
+        @Dispatcher(IO) ioDispatcher: CoroutineDispatcher
     ): PlaylistRemoteDataSource =
         PlaylistRemoteDataSource(
             ioDispatcher = ioDispatcher,
-            uampService = uampService,
+            uampService = uampService
         )
 
     @Provides

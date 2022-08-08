@@ -50,9 +50,10 @@ public interface DataRequestRepository {
                         NetworkType.cell to cell,
                         NetworkType.ble to ble,
                         NetworkType.wifi to wifi,
-                        NetworkType.unknown to unknown,
+                        NetworkType.unknown to unknown
                     ),
-                    from = from, to = Instant.now()
+                    from = from,
+                    to = Instant.now()
                 )
         }
     }

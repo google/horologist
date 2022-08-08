@@ -69,7 +69,7 @@ class MediaStatusComplicationService :
         title = getString(R.string.horologist_sample_app_name),
         appIconRes = R.drawable.ic_baseline_queue_music_24,
         launchIntent = intentBuilder.buildPlayerIntent(),
-        type = SmallImageType.ICON,
+        type = SmallImageType.ICON
     )
 
     private suspend fun whilePlayingData(mediaItem: MediaItem): Data {
@@ -89,7 +89,7 @@ class MediaStatusComplicationService :
             title = mediaArtist,
             icon = icon,
             type = SmallImageType.PHOTO,
-            launchIntent = intentBuilder.buildPlayerIntent(),
+            launchIntent = intentBuilder.buildPlayerIntent()
         )
     }
 }

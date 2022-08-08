@@ -49,7 +49,7 @@ public fun CurvedScope.curveDataUsage(
     networkStatus: Networks,
     networkUsage: DataUsageReport?,
     style: CurvedTextStyle,
-    context: Context,
+    context: Context
 ) {
     val activeNetwork = networkStatus.activeNetwork
 
@@ -81,7 +81,8 @@ public fun CurvedScope.curveDataUsage(
         val usage = networkUsage?.dataByType?.get(activeNetwork.type.typeName)
         if (usage != null) {
             curvedText(
-                text = usage.toSize(context), style = style
+                text = usage.toSize(context),
+                style = style
             )
         }
     }
@@ -93,7 +94,7 @@ public fun LinearDataUsage(
     networkStatus: Networks,
     networkUsage: DataUsageReport?,
     style: TextStyle,
-    context: Context,
+    context: Context
 ) {
     val activeNetwork = networkStatus.activeNetwork
 
@@ -119,7 +120,8 @@ public fun LinearDataUsage(
         val usage = networkUsage?.dataByType?.get(activeNetwork.type.typeName)
         if (usage != null) {
             Text(
-                text = usage.toSize(context), style = style
+                text = usage.toSize(context),
+                style = style
             )
         }
     }
@@ -130,9 +132,9 @@ internal fun Long.toSize(context: Context): String {
 }
 
 private fun NetworkStatus.tint(active: Boolean): Color {
-    return if (!active && this.status == com.google.android.horologist.networks.data.Status.Available)
+    return if (!active && this.status == Status.Available) {
         Color.Blue
-    else when (this.status) {
+    } else when (this.status) {
         is Status.Available -> Color.Green
         is Status.Losing -> Color.Yellow
         is Status.Lost -> Color.Gray

@@ -36,7 +36,7 @@ import androidx.compose.ui.graphics.vector.VectorPainter
 internal fun rememberVectorPainter(
     image: ImageVector,
     tintColor: Color,
-    tintBlendMode: BlendMode = image.tintBlendMode,
+    tintBlendMode: BlendMode = image.tintBlendMode
 ) =
     androidx.compose.ui.graphics.vector.rememberVectorPainter(
         defaultWidth = image.defaultWidth,

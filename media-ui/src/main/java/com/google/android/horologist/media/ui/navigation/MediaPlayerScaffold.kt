@@ -77,7 +77,7 @@ public fun MediaPlayerScaffold(
     pagerState: PagerState = rememberPagerState(initialPage = 0),
     deepLinkPrefix: String,
     navController: NavHostController,
-    additionalNavRoutes: NavGraphBuilder.() -> Unit = {},
+    additionalNavRoutes: NavGraphBuilder.() -> Unit = {}
 ) {
     WearNavScaffold(
         modifier = modifier,
@@ -137,7 +137,7 @@ public fun MediaPlayerScaffold(
         wearNavComposable(
             route = NavigationScreens.Volume.navRoute,
             arguments = NavigationScreens.Volume.arguments,
-            deepLinks = NavigationScreens.Volume.deepLinks(deepLinkPrefix),
+            deepLinks = NavigationScreens.Volume.deepLinks(deepLinkPrefix)
         ) { _, viewModel ->
             viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
 

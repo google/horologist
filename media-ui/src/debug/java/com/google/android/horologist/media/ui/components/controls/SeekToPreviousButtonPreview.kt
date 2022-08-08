@@ -25,7 +25,7 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 @Preview(
     name = "Enabled",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun SeekToPreviousButtonPreviewEnabled() {
@@ -35,7 +35,7 @@ fun SeekToPreviousButtonPreviewEnabled() {
 @Preview(
     name = "Disabled",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun SeekToPreviousButtonPreviewDisabled() {

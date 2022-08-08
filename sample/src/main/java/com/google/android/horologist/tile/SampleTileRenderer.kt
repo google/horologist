@@ -186,11 +186,17 @@ fun SampleButtonIconPreview() {
 }
 
 @Preview(
-    backgroundColor = 0xff000000, showBackground = true, widthDp = 100, heightDp = 100
+    backgroundColor = 0xff000000,
+    showBackground = true,
+    widthDp = 100,
+    heightDp = 100
 )
 public annotation class IconSizePreview
 
 @Preview(
-    backgroundColor = 0xff000000, showBackground = true, widthDp = 192, heightDp = 100
+    backgroundColor = 0xff000000,
+    showBackground = true,
+    widthDp = 192,
+    heightDp = 100
 )
 public annotation class FullWidthPreview

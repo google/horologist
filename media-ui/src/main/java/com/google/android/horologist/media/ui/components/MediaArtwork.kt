@@ -30,7 +30,7 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 public fun MediaArtwork(
     media: MediaUiModel,
     modifier: Modifier = Modifier,
-    placeholder: Painter? = null,
+    placeholder: Painter? = null
 ) {
     MediaArtwork(
         artworkUri = media.artworkUri,
@@ -46,7 +46,7 @@ public fun MediaArtwork(
     artworkUri: Any?,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    placeholder: Painter? = null,
+    placeholder: Painter? = null
 ) {
     Image(
         modifier = modifier,

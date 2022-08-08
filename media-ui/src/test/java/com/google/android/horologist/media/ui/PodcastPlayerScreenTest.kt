@@ -90,7 +90,7 @@ class PodcastPlayerScreenTest(
                         onSeekForwardButtonClick = { },
                         seekForwardButtonEnabled = playerUiState.seekForwardEnabled,
                         seekBackButtonIncrement = options.seekBackButtonIncrement,
-                        seekForwardButtonIncrement = options.seekForwardButtonIncrement,
+                        seekForwardButtonIncrement = options.seekForwardButtonIncrement
                     )
                 })
             }

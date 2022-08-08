@@ -129,7 +129,7 @@ public fun TimePicker(
                     },
                     color = optionColor,
                     style = MaterialTheme.typography.button,
-                    maxLines = 1,
+                    maxLines = 1
                 )
                 val weightsToCenterVertically = 0.5f
                 Spacer(
@@ -140,19 +140,19 @@ public fun TimePicker(
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center,
+                    horizontalArrangement = Arrangement.Center
                 ) {
                     PickerWithRSB(
                         readOnly = selectedColumn != 0,
                         state = hourState,
                         focusRequester = focusRequester1,
-                        modifier = Modifier.size(40.dp, 100.dp),
+                        modifier = Modifier.size(40.dp, 100.dp)
                     ) { hour: Int ->
                         TimePiece(
                             selected = selectedColumn == 0,
                             onSelected = { selectedColumn = 0 },
                             text = "%02d".format(hour),
-                            style = textStyle,
+                            style = textStyle
                         )
                     }
                     Separator(6.dp, textStyle)
@@ -160,13 +160,13 @@ public fun TimePicker(
                         readOnly = selectedColumn != 1,
                         state = minuteState,
                         focusRequester = focusRequester2,
-                        modifier = Modifier.size(40.dp, 100.dp),
+                        modifier = Modifier.size(40.dp, 100.dp)
                     ) { minute: Int ->
                         TimePiece(
                             selected = selectedColumn == 1,
                             onSelected = { selectedColumn = 1 },
                             text = "%02d".format(minute),
-                            style = textStyle,
+                            style = textStyle
                         )
                     }
                     if (showSeconds) {
@@ -175,13 +175,13 @@ public fun TimePicker(
                             readOnly = selectedColumn != 2,
                             state = secondsState,
                             focusRequester = focusRequester3,
-                            modifier = Modifier.size(40.dp, 100.dp),
+                            modifier = Modifier.size(40.dp, 100.dp)
                         ) { second: Int ->
                             TimePiece(
                                 selected = selectedColumn == 2,
                                 onSelected = { selectedColumn = 2 },
                                 text = "%02d".format(second),
-                                style = textStyle,
+                                style = textStyle
                             )
                         }
                     }
@@ -205,7 +205,7 @@ public fun TimePicker(
                         contentDescription = stringResource(id = R.string.horologist_picker_confirm_button),
                         modifier = Modifier
                             .size(24.dp)
-                            .wrapContentSize(align = Alignment.Center),
+                            .wrapContentSize(align = Alignment.Center)
                     )
                 }
                 Spacer(Modifier.height(12.dp))
@@ -287,12 +287,12 @@ public fun TimePickerWith12HourClock(
                         Text(
                             text = if (amPm == 0) amString else pmString,
                             color = MaterialTheme.colors.onPrimary,
-                            style = MaterialTheme.typography.button,
+                            style = MaterialTheme.typography.button
                         )
                     }
                 },
                 colors = ChipDefaults.chipColors(backgroundColor = MaterialTheme.colors.secondary),
-                contentPadding = PaddingValues(vertical = 0.dp),
+                contentPadding = PaddingValues(vertical = 0.dp)
             )
             Spacer(
                 Modifier
@@ -302,7 +302,7 @@ public fun TimePickerWith12HourClock(
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center,
+                horizontalArrangement = Arrangement.Center
             ) {
                 Spacer(Modifier.width(8.dp))
                 PickerWithRSB(
@@ -316,7 +316,7 @@ public fun TimePickerWith12HourClock(
                         selected = selectedColumn == 0,
                         onSelected = { selectedColumn = 0 },
                         text = "%02d".format(hour + 1),
-                        style = textStyle,
+                        style = textStyle
                     )
                 }
                 Separator(8.dp, textStyle)
@@ -332,7 +332,7 @@ public fun TimePickerWith12HourClock(
                         selected = selectedColumn == 1,
                         onSelected = { selectedColumn = 1 },
                         text = "%02d".format(minute),
-                        style = textStyle,
+                        style = textStyle
                     )
                 }
                 Spacer(Modifier.width(8.dp))
@@ -355,7 +355,7 @@ public fun TimePickerWith12HourClock(
                     contentDescription = stringResource(id = R.string.horologist_picker_confirm_button),
                     modifier = Modifier
                         .size(24.dp)
-                        .wrapContentSize(align = Alignment.Center),
+                        .wrapContentSize(align = Alignment.Center)
                 )
             }
             Spacer(Modifier.height(8.dp))
@@ -372,7 +372,7 @@ internal fun TimePiece(
     selected: Boolean,
     onSelected: () -> Unit,
     text: String,
-    style: TextStyle,
+    style: TextStyle
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         val modifier = Modifier
@@ -390,7 +390,7 @@ internal fun TimePiece(
             else modifier.pointerInteropFilter {
                 if (it.action == MotionEvent.ACTION_DOWN) onSelected()
                 true
-            },
+            }
         )
     }
 }

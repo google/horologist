@@ -43,7 +43,7 @@ class TimePickerTest {
         paparazzi.snapshot {
             TimePicker(
                 time = LocalTime.of(10, 10, 0),
-                onTimeConfirm = {},
+                onTimeConfirm = {}
             )
         }
     }

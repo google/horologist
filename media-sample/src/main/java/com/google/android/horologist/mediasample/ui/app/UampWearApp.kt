@@ -100,7 +100,7 @@ fun UampWearApp(
                     onPlaylistsClick = { navController.navigateToCollections() },
                     onSettingsClick = { navController.navigateToSettings() },
                     focusRequester = focusRequester,
-                    scalingLazyListState = scalingLazyListState,
+                    scalingLazyListState = scalingLazyListState
                 )
             },
             categoryEntityScreen = { _, _, focusRequester, scalingLazyListState ->
@@ -114,7 +114,7 @@ fun UampWearApp(
                     onShuffleClick = { navController.navigateToPlayer() },
                     onPlayClick = { navController.navigateToPlayer() },
                     focusRequester = focusRequester,
-                    scalingLazyListState = scalingLazyListState,
+                    scalingLazyListState = scalingLazyListState
                 )
             },
             mediaEntityScreen = { _, _ ->

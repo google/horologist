@@ -27,21 +27,21 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 @Preview(
     name = "Enabled",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun EntityButtonPreviewEnabled() {
     EntityButton(
         onClick = { },
         icon = Icons.Default.PlayArrow,
-        contentDescription = "Play",
+        contentDescription = "Play"
     )
 }
 
 @Preview(
     name = "Disabled",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun EntityButtonPreviewDisabled() {

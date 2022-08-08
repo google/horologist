@@ -42,7 +42,7 @@ public fun SeekForwardButton(
     enabled: Boolean = true,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
     iconSize: Dp = 30.dp,
-    tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
+    tapTargetSize: DpSize = DpSize(48.dp, 60.dp)
 ) {
     val (icon, buttonModifier) = when (seekButtonIncrement) {
         SeekButtonIncrement.Five -> Pair(Icons.Default.Forward5, modifier)
@@ -68,6 +68,6 @@ public fun SeekForwardButton(
         colors = colors,
         iconSize = iconSize,
         tapTargetSize = tapTargetSize,
-        iconAlign = Alignment.End,
+        iconAlign = Alignment.End
     )
 }

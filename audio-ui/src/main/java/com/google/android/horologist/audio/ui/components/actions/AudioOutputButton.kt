@@ -32,7 +32,7 @@ import com.google.android.horologist.audio.ui.R
 public fun AudioOutputButton(
     onOutputClick: () -> Unit,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true,
+    enabled: Boolean = true
 ) {
     SettingsButton(
         modifier = modifier.size(ButtonDefaults.SmallButtonSize),

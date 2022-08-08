@@ -31,7 +31,7 @@ internal data class NetworkStatusBuilder(
     var status: Status = Status.Unknown,
     var linkProperties: LinkProperties? = null,
     var networkCapabilities: NetworkCapabilities? = null,
-    var type: NetworkType? = null,
+    var type: NetworkType? = null
 ) {
     private fun readTransportType(): NetworkType {
         val name = linkProperties?.interfaceName ?: "unknown"

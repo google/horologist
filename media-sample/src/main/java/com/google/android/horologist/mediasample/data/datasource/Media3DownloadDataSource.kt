@@ -26,7 +26,7 @@ import androidx.media3.exoplayer.offline.DownloadService
 class Media3DownloadDataSource(
     private val context: Context,
     private val downloadService: Class<out DownloadService>,
-    private val downloadIndex: DownloadIndex,
+    private val downloadIndex: DownloadIndex
 ) {
 
     fun download(id: String, uri: Uri) {

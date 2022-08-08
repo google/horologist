@@ -47,7 +47,7 @@ import com.google.android.horologist.compose.navscaffold.util.saveable
  * and the composable screen via [NavHostController.currentBackStackEntry].
  */
 public open class NavScaffoldViewModel(
-    private val savedStateHandle: SavedStateHandle,
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     internal var initialIndex: Int? = null
     internal var scrollType by mutableStateOf<ScrollType?>(null)
@@ -69,7 +69,7 @@ public open class NavScaffoldViewModel(
      * The configuration of [Vignette], [WhenScrollable], [Off], [On] and if so whether top and
      * bottom. Defaults to on for scrollable screens.
      */
-    public var vignettePosition: VignetteMode by mutableStateOf(VignetteMode.WhenScrollable)
+    public var vignettePosition: VignetteMode by mutableStateOf(WhenScrollable)
 
     /**
      * The configuration of [TimeText], defaults to FadeAway which will move the time text above the

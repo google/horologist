@@ -86,7 +86,7 @@ public fun PlayerScreen(
             buttons(playerUiState)
         },
         modifier = modifier,
-        background = { background(playerUiState) },
+        background = { background(playerUiState) }
     )
 }
 
@@ -97,7 +97,7 @@ public fun PlayerScreen(
 @Composable
 public fun DefaultPlayerScreenMediaDisplay(
     playerUiState: PlayerUiState,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val media = playerUiState.media
     if (!playerUiState.connected) {
@@ -135,7 +135,7 @@ public fun DefaultPlayerScreenControlButtons(
         onSeekToNextButtonClick = { playerViewModel.skipToNextMedia() },
         seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
         showProgress = showProgress,
-        percent = playerUiState.trackPosition?.percent ?: 0f,
+        percent = playerUiState.trackPosition?.percent ?: 0f
     )
 }
 
@@ -155,7 +155,7 @@ public fun PlayerScreen(
     val isRound = LocalConfiguration.current.isScreenRound
 
     Box(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize()
     ) {
         background()
 

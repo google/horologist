@@ -29,7 +29,7 @@ fun SettingsButtonsPreview() {
     SettingsButtons(
         volumeState = VolumeState(4, 10),
         onVolumeClick = {},
-        onOutputClick = {},
+        onOutputClick = {}
     )
 }
 

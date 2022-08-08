@@ -39,7 +39,7 @@ fun PlaylistScreenPreview() {
                     PlaylistUiModel(
                         id = "id",
                         title = "Rock Classics",
-                        artworkUri = "https://www.example.com/album1.png",
+                        artworkUri = "https://www.example.com/album1.png"
                     )
                 )
                 add(
@@ -56,7 +56,7 @@ fun PlaylistScreenPreview() {
         scalingLazyListState = rememberScalingLazyListState(),
         playlistItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.FeaturedPlayList,
-            tintColor = Color.Green,
+            tintColor = Color.Green
         )
     )
 }
@@ -68,6 +68,6 @@ fun PlaylistScreenPreviewLoading() {
         playlistsScreenState = PlaylistsScreenState.Loading,
         onPlaylistItemClick = { },
         focusRequester = FocusRequester(),
-        scalingLazyListState = rememberScalingLazyListState(),
+        scalingLazyListState = rememberScalingLazyListState()
     )
 }

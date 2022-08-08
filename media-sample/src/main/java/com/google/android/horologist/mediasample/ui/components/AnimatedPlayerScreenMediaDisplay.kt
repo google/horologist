@@ -32,7 +32,7 @@ import com.google.android.horologist.media.ui.state.PlayerUiState
 @Composable
 public fun AnimatedPlayerScreenMediaDisplay(
     playerUiState: PlayerUiState,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val media = playerUiState.media
     if (!playerUiState.connected) {
@@ -41,7 +41,7 @@ public fun AnimatedPlayerScreenMediaDisplay(
         MarqueeTextMediaDisplay(
             modifier = modifier,
             title = media.title,
-            artist = media.artist,
+            artist = media.artist
         )
     } else {
         InfoMediaDisplay(

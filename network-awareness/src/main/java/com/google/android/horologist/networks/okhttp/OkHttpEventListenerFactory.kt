@@ -35,7 +35,7 @@ import java.net.Proxy
 public class OkHttpEventListenerFactory(
     private val networkingRulesEngine: NetworkingRulesEngine,
     private val delegateEventListenerFactory: EventListener.Factory,
-    private val dataRequestRepository: DataRequestRepository? = null,
+    private val dataRequestRepository: DataRequestRepository? = null
 ) : EventListener.Factory {
     override fun create(call: Call): EventListener = Listener(
         delegateEventListenerFactory.create(

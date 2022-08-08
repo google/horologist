@@ -87,7 +87,6 @@ public fun TilePreview(
             }
         },
         update = {
-
             val tileRenderer = androidx.wear.tiles.renderer.TileRenderer(
                 /* uiContext = */ it.context,
                 /* layout = */ tile.timeline?.timelineEntries?.first()?.layout!!,

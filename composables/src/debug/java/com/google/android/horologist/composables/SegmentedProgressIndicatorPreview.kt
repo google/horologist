@@ -33,7 +33,7 @@ private fun SegmentedProgressIndicatorRoundPreview() {
         ProgressIndicatorSegment(1f, Color.Cyan),
         ProgressIndicatorSegment(1f, Color.Magenta),
         ProgressIndicatorSegment(1f, Color.Yellow),
-        ProgressIndicatorSegment(2f, Color.Red),
+        ProgressIndicatorSegment(2f, Color.Red)
     )
 
     SegmentedProgressIndicator(

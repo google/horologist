@@ -48,7 +48,7 @@ import com.google.android.horologist.tiles.render.SingleTileLayoutRenderer
 public class MediaCollectionsTileRenderer(
     context: Context,
     private val materialTheme: Colors,
-    debugResourceMode: Boolean,
+    debugResourceMode: Boolean
 ) : SingleTileLayoutRenderer<MediaCollectionsTileRenderer.MediaCollectionsState, MediaCollectionsTileRenderer.ResourceState>(
     context,
     debugResourceMode
@@ -70,18 +70,21 @@ public class MediaCollectionsTileRenderer(
                     .setHeight(wrapDimensionProp)
                     .addContent(
                         collectionChip(
-                            state.collection1, deviceParameters
+                            state.collection1,
+                            deviceParameters
                         )
                     )
                     .addContent(spacer(4f))
                     .addContent(
                         collectionChip(
-                            state.collection2, deviceParameters
+                            state.collection2,
+                            deviceParameters
                         )
                     ).build()
             ).setPrimaryChipContent(
                 CompactChip.Builder(
-                    context, context.getString(state.chipName),
+                    context,
+                    context.getString(state.chipName),
                     Clickable.Builder().setOnClick(
                         state.chipAction
                     ).build(),
@@ -130,7 +133,7 @@ public class MediaCollectionsTileRenderer(
         @StringRes public val chipName: Int,
         public val chipAction: ActionBuilders.Action,
         public val collection1: MediaCollection,
-        public val collection2: MediaCollection,
+        public val collection2: MediaCollection
     )
 
     public data class ResourceState(

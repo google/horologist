@@ -52,7 +52,7 @@ import androidx.wear.compose.material.MaterialTheme
 internal fun SecondaryPlaceholderChip(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
-    enabled: Boolean = true,
+    enabled: Boolean = true
 ) {
     val backgroundColor = MaterialTheme.colors.onSurfaceVariant.copy(alpha = 0.38f)
 
@@ -72,9 +72,9 @@ internal fun SecondaryPlaceholderChip(
                 onClick = onClick,
                 role = Role.Button,
                 indication = rememberRipple(),
-                interactionSource = remember { MutableInteractionSource() },
+                interactionSource = remember { MutableInteractionSource() }
             )
-            .padding(ChipDefaults.ContentPadding),
+            .padding(ChipDefaults.ContentPadding)
     ) {
         Box(
             modifier = Modifier
@@ -90,7 +90,7 @@ internal fun SecondaryPlaceholderChip(
             modifier = Modifier
                 .fillMaxHeight()
                 .weight(1.0f),
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.Center
         ) {
             Box(
                 modifier = Modifier

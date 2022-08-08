@@ -61,19 +61,19 @@ fun UampSettingsScreen(
             Text(
                 text = stringResource(id = R.string.horologist_sample_settings),
                 modifier = Modifier.padding(bottom = 12.dp),
-                style = MaterialTheme.typography.title3,
+                style = MaterialTheme.typography.title3
             )
         }
         item {
             ActionSetting(
-                stringResource(id = R.string.horologist_sample_audio_debug),
+                stringResource(id = R.string.horologist_sample_audio_debug)
             ) {
                 navController.navigateToAudioDebug()
             }
         }
         item {
             ActionSetting(
-                stringResource(id = R.string.horologist_sample_samples),
+                stringResource(id = R.string.horologist_sample_samples)
             ) {
                 navController.navigateToSamples()
             }
@@ -139,7 +139,7 @@ fun UampSettingsScreen(
         item {
             val message = stringResource(id = R.string.horologist_sample_error)
             ActionSetting(
-                stringResource(id = R.string.horologist_show_test_dialog),
+                stringResource(id = R.string.horologist_show_test_dialog)
             ) {
                 settingsScreenViewModel.showDialog(message)
             }
@@ -159,7 +159,7 @@ fun UampSettingsScreen(
 fun ActionSetting(
     text: String,
     enabled: Boolean = true,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     Chip(
         onClick = onClick,
@@ -176,7 +176,7 @@ fun ToggleSetting(
     value: Boolean,
     text: String,
     enabled: Boolean = true,
-    onCheckedChange: (Boolean) -> Unit,
+    onCheckedChange: (Boolean) -> Unit
 ) {
     ToggleChip(
         checked = value,
@@ -185,7 +185,7 @@ fun ToggleSetting(
                 imageVector = ToggleChipDefaults.radioIcon(checked = value),
                 contentDescription = if (value) stringResource(id = R.string.horologist_on) else stringResource(
                     id = R.string.horologist_off
-                ),
+                )
             )
         },
         enabled = enabled,
@@ -202,7 +202,7 @@ fun CheckedSetting(
     value: Boolean,
     text: String,
     enabled: Boolean = true,
-    onCheckedChange: (Boolean) -> Unit,
+    onCheckedChange: (Boolean) -> Unit
 ) {
     ToggleChip(
         checked = value,
@@ -211,14 +211,14 @@ fun CheckedSetting(
                 imageVector = ToggleChipDefaults.checkboxIcon(checked = value),
                 contentDescription = if (value) stringResource(id = R.string.horologist_on) else stringResource(
                     id = R.string.horologist_off
-                ),
+                )
             )
         },
         enabled = enabled,
         onCheckedChange = onCheckedChange,
         label = {
             Text(text)
-        }, modifier = Modifier.fillMaxWidth()
-        )
-    }
-    
+        },
+        modifier = Modifier.fillMaxWidth()
+    )
+}

@@ -73,7 +73,7 @@ public fun WearNavScaffold(
         )
     },
     state: SwipeDismissableNavHostState = rememberSwipeDismissableNavHostState(),
-    builder: NavGraphBuilder.() -> Unit,
+    builder: NavGraphBuilder.() -> Unit
 ) {
     val currentBackStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
 
@@ -147,7 +147,7 @@ public fun WearNavScaffold(
             SwipeDismissableNavHost(
                 navController = navController,
                 startDestination = startDestination,
-                state = state,
+                state = state
             ) {
                 builder()
             }
@@ -185,7 +185,7 @@ private fun NavPositionIndicator(viewModel: NavScaffoldViewModel) {
 public data class ScaffoldContext<T : ScrollableState>(
     val backStackEntry: NavBackStackEntry,
     val scrollableState: T,
-    val viewModel: NavScaffoldViewModel,
+    val viewModel: NavScaffoldViewModel
 )
 
 /**

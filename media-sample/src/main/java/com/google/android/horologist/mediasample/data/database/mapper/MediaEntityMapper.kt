@@ -26,6 +26,6 @@ object MediaEntityMapper {
         mediaUrl = media.uri,
         artworkUrl = media.artworkUri ?: "",
         title = media.title,
-        artist = media.artist,
+        artist = media.artist
     )
 }

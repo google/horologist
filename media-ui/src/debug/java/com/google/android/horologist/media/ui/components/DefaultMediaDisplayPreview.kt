@@ -39,7 +39,7 @@ fun DefaultMediaDisplayPreview() {
 @Preview(
     "With long text",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun DefaultMediaDisplayPreviewLongText() {

@@ -40,7 +40,7 @@ fun MediaChipPreview() {
         onClick = {},
         placeholder = rememberVectorPainter(
             image = Icons.Default.Album,
-            tintColor = Color.Blue,
+            tintColor = Color.Blue
         )
     )
 }
@@ -48,7 +48,7 @@ fun MediaChipPreview() {
 @Preview(
     name = "No artwork",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun MediaChipPreviewNoArtwork() {
@@ -57,7 +57,7 @@ fun MediaChipPreviewNoArtwork() {
         onClick = {},
         placeholder = rememberVectorPainter(
             image = Icons.Default.Album,
-            tintColor = Color.Blue,
+            tintColor = Color.Blue
         )
     )
 }
@@ -65,7 +65,7 @@ fun MediaChipPreviewNoArtwork() {
 @Preview(
     name = "No title",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun MediaChipPreviewNoTitle() {
@@ -75,7 +75,7 @@ fun MediaChipPreviewNoTitle() {
         defaultTitle = "No title",
         placeholder = rememberVectorPainter(
             image = Icons.Default.Album,
-            tintColor = Color.Blue,
+            tintColor = Color.Blue
         )
     )
 }
@@ -83,7 +83,7 @@ fun MediaChipPreviewNoTitle() {
 @Preview(
     name = "Very long title",
     backgroundColor = 0xff000000,
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun MediaChipPreviewVeryLongTitle() {
@@ -96,7 +96,7 @@ fun MediaChipPreviewVeryLongTitle() {
         onClick = {},
         placeholder = rememberVectorPainter(
             image = Icons.Default.Album,
-            tintColor = Color.Blue,
+            tintColor = Color.Blue
         )
     )
 }

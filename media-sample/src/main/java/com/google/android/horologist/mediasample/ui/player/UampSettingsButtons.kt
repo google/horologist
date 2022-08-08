@@ -43,7 +43,8 @@ public fun UampSettingsButtons(
         FavoriteButton()
 
         SettingsButtonsDefaults.BrandIcon(
-            iconId = R.drawable.ic_uamp, enabled = enabled
+            iconId = R.drawable.ic_uamp,
+            enabled = enabled
         )
 
         SetVolumeButton(

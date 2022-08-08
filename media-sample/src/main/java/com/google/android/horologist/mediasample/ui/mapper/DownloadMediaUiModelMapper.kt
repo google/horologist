@@ -23,7 +23,7 @@ import com.google.android.horologist.mediasample.domain.model.MediaDownload
 object DownloadMediaUiModelMapper {
 
     fun map(
-        mediaDownload: MediaDownload,
+        mediaDownload: MediaDownload
     ): DownloadMediaUiModel = when (mediaDownload.status) {
         MediaDownload.Status.Idle,
         MediaDownload.Status.InProgress -> {

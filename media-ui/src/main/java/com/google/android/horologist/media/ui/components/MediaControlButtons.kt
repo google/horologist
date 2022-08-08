@@ -41,7 +41,7 @@ public fun MediaControlButtons(
     onSeekToNextButtonClick: () -> Unit,
     seekToNextButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     MediaControlButtons(
         onPlayButtonClick = onPlayButtonClick,
@@ -55,7 +55,7 @@ public fun MediaControlButtons(
         showProgress = true,
         modifier = modifier,
         percent = percent,
-        colors = colors,
+        colors = colors
     )
 }
 
@@ -75,7 +75,7 @@ public fun MediaControlButtons(
     onSeekToNextButtonClick: () -> Unit,
     seekToNextButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     MediaControlButtons(
         onPlayButtonClick = onPlayButtonClick,
@@ -88,7 +88,7 @@ public fun MediaControlButtons(
         seekToNextButtonEnabled = seekToNextButtonEnabled,
         showProgress = false,
         modifier = modifier,
-        colors = colors,
+        colors = colors
     )
 }
 
@@ -106,7 +106,7 @@ internal fun MediaControlButtons(
     showProgress: Boolean,
     modifier: Modifier = Modifier,
     percent: Float? = null,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     ControlButtonLayout(
         modifier = modifier,
@@ -114,7 +114,7 @@ internal fun MediaControlButtons(
             SeekToPreviousButton(
                 onClick = onSeekToPreviousButtonClick,
                 enabled = seekToPreviousButtonEnabled,
-                colors = colors,
+                colors = colors
             )
         },
         middleButton = {
@@ -127,7 +127,7 @@ internal fun MediaControlButtons(
                     enabled = playPauseButtonEnabled,
                     playing = playing,
                     percent = percent,
-                    colors = colors,
+                    colors = colors
                 )
             } else {
                 PlayPauseButton(
@@ -135,7 +135,7 @@ internal fun MediaControlButtons(
                     onPauseClick = onPauseButtonClick,
                     enabled = playPauseButtonEnabled,
                     playing = playing,
-                    colors = colors,
+                    colors = colors
                 )
             }
         },
@@ -143,7 +143,7 @@ internal fun MediaControlButtons(
             SeekToNextButton(
                 onClick = onSeekToNextButtonClick,
                 enabled = seekToNextButtonEnabled,
-                colors = colors,
+                colors = colors
             )
         }
     )

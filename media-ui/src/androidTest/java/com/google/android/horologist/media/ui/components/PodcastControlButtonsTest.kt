@@ -51,7 +51,7 @@ class PodcastControlButtonsTest {
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = true,
+                seekForwardButtonEnabled = true
             )
         }
 
@@ -78,7 +78,7 @@ class PodcastControlButtonsTest {
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = true,
+                seekForwardButtonEnabled = true
             )
         }
 
@@ -105,7 +105,7 @@ class PodcastControlButtonsTest {
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = true,
+                seekForwardButtonEnabled = true
             )
         }
 
@@ -132,7 +132,7 @@ class PodcastControlButtonsTest {
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = true,
+                seekForwardButtonEnabled = true
             )
         }
 
@@ -159,7 +159,7 @@ class PodcastControlButtonsTest {
                 onSeekBackButtonClick = { clicked = true },
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = true,
+                seekForwardButtonEnabled = true
             )
         }
 
@@ -186,7 +186,7 @@ class PodcastControlButtonsTest {
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = { clicked = true },
-                seekForwardButtonEnabled = true,
+                seekForwardButtonEnabled = true
             )
         }
 
@@ -211,7 +211,7 @@ class PodcastControlButtonsTest {
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = true,
+                seekForwardButtonEnabled = true
             )
         }
 
@@ -235,7 +235,7 @@ class PodcastControlButtonsTest {
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = false,
+                seekForwardButtonEnabled = false
             )
         }
 
@@ -264,7 +264,7 @@ class PodcastControlButtonsTest {
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = false,
+                seekForwardButtonEnabled = false
             )
         }
 
@@ -292,7 +292,7 @@ class PodcastControlButtonsTest {
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = seekBackButtonEnabled,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = false,
+                seekForwardButtonEnabled = false
             )
         }
 
@@ -320,7 +320,7 @@ class PodcastControlButtonsTest {
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = seekForwardButtonEnabled,
+                seekForwardButtonEnabled = seekForwardButtonEnabled
             )
         }
 
@@ -349,7 +349,7 @@ class PodcastControlButtonsTest {
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
                 seekForwardButtonEnabled = false,
-                seekBackButtonIncrement = seekBackButtonIncrement,
+                seekBackButtonIncrement = seekBackButtonIncrement
             )
         }
 

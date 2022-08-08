@@ -73,9 +73,10 @@ object NetworkModule {
     @Singleton
     @Provides
     fun cache(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): Cache = Cache(
-        application.cacheDir.resolve("HttpCache"), 10_000_000
+        application.cacheDir.resolve("HttpCache"),
+        10_000_000
     )
 
     @Singleton
@@ -105,7 +106,7 @@ object NetworkModule {
 
     @Provides
     fun networkingRules(
-        appConfig: AppConfig,
+        appConfig: AppConfig
     ): NetworkingRules = appConfig.strictNetworking!!
 
     @Provides
@@ -129,13 +130,13 @@ object NetworkModule {
 
     @Provides
     fun connectivityManager(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): ConnectivityManager =
         application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     @Provides
     fun wifiManager(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): WifiManager = application.getSystemService(Context.WIFI_SERVICE) as WifiManager
 
     @Singleton
@@ -143,9 +144,11 @@ object NetworkModule {
     fun highBandwidthRequester(
         connectivityManager: ConnectivityManager,
         @ForApplicationScope coroutineScope: CoroutineScope,
-        networkLogger: NetworkStatusLogger,
+        networkLogger: NetworkStatusLogger
     ) = HighBandwidthRequester(
-        connectivityManager, coroutineScope, networkLogger
+        connectivityManager,
+        coroutineScope,
+        networkLogger
     )
 
     @Singleton
@@ -187,7 +190,8 @@ object NetworkModule {
         Retrofit.Builder().addConverterFactory(moshiConverterFactory)
             .baseUrl(UampService.BASE_URL).callFactory(
                 NetworkAwareCallFactory(
-                    callFactory, RequestType.ApiRequest
+                    callFactory,
+                    RequestType.ApiRequest
                 )
             ).build()
 
@@ -204,7 +208,7 @@ object NetworkModule {
     fun imageLoader(
         @ApplicationContext application: Context,
         @CacheDir cacheDir: File,
-        callFactory: Call.Factory,
+        callFactory: Call.Factory
     ): ImageLoader = ImageLoader.Builder(application).crossfade(false)
         .components {
             add(SvgDecoder.Factory())
@@ -215,7 +219,8 @@ object NetworkModule {
         }.memoryCachePolicy(CachePolicy.ENABLED).diskCachePolicy(CachePolicy.ENABLED)
         .networkCachePolicy(CachePolicy.ENABLED).callFactory {
             NetworkAwareCallFactory(
-                callFactory, defaultRequestType = RequestType.ImageRequest
+                callFactory,
+                defaultRequestType = RequestType.ImageRequest
             )
         }.apply {
             if (BuildConfig.DEBUG) {

@@ -28,7 +28,7 @@ fun IconOnlyButtonPreview() {
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonType = StandardButtonType.IconOnly,
+        buttonType = StandardButtonType.IconOnly
     )
 }
 
@@ -40,7 +40,7 @@ fun IconOnlyButtonPreviewLarge() {
         contentDescription = "contentDescription",
         onClick = { },
         buttonType = StandardButtonType.IconOnly,
-        buttonSize = StandardButtonSize.Large,
+        buttonSize = StandardButtonSize.Large
     )
 }
 
@@ -52,7 +52,7 @@ fun IconOnlyButtonPreviewSmall() {
         contentDescription = "contentDescription",
         onClick = { },
         buttonType = StandardButtonType.IconOnly,
-        buttonSize = StandardButtonSize.Small,
+        buttonSize = StandardButtonSize.Small
     )
 }
 
@@ -64,7 +64,7 @@ fun IconOnlyButtonPreviewExtraSmall() {
         contentDescription = "contentDescription",
         onClick = { },
         buttonType = StandardButtonType.IconOnly,
-        buttonSize = StandardButtonSize.ExtraSmall,
+        buttonSize = StandardButtonSize.ExtraSmall
     )
 }
 
@@ -76,6 +76,6 @@ fun IconOnlyButtonPreviewDisabled() {
         contentDescription = "contentDescription",
         onClick = { },
         buttonType = StandardButtonType.IconOnly,
-        enabled = false,
+        enabled = false
     )
 }

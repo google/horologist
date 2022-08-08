@@ -25,7 +25,7 @@ import androidx.core.net.toUri
 public class NavDeepLinkIntentBuilder(
     private val application: Context,
     private val downloadUri: String,
-    private val playerUri: String,
+    private val playerUri: String
 ) : IntentBuilder {
     override fun buildDownloadIntent(): PendingIntent {
         val taskDetailIntent = Intent(

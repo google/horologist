@@ -63,5 +63,5 @@ public data class PlayerUiState(
     val trackPosition: TrackPositionUiModel?,
     val seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     val seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
-    val connected: Boolean,
+    val connected: Boolean
 )

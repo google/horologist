@@ -99,7 +99,7 @@ class MediaCollectionsTileTest(
                     name = "Podcasts",
                     artworkId = "2",
                     action = action
-                ),
+                )
             )
         }
 

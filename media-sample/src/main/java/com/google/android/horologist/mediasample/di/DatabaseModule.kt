@@ -37,7 +37,7 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun mediaDatabase(
-        @ApplicationContext context: Context,
+        @ApplicationContext context: Context
     ): MediaDatabase {
         return Room.databaseBuilder(
             context,
@@ -52,12 +52,12 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun mediaDownloadDao(
-        database: MediaDatabase,
+        database: MediaDatabase
     ): MediaDownloadDao = database.mediaDownloadDao()
 
     @Provides
     @Singleton
     fun playlistDao(
-        database: MediaDatabase,
+        database: MediaDatabase
     ): PlaylistDao = database.playlistDao()
 }

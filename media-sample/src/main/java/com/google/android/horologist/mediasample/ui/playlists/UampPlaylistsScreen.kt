@@ -34,7 +34,7 @@ fun UampPlaylistsScreen(
     onPlaylistItemClick: (PlaylistUiModel) -> Unit,
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val uiState by rememberStateWithLifecycle(uampPlaylistsScreenViewModel.uiState)
 
@@ -57,6 +57,6 @@ fun UampPlaylistsScreen(
         },
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
-        modifier = modifier,
+        modifier = modifier
     )
 }

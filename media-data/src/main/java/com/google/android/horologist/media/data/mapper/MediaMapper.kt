@@ -25,7 +25,7 @@ import com.google.android.horologist.media.model.Media
  */
 @ExperimentalHorologistMediaDataApi
 public class MediaMapper(
-    private val mediaExtrasMapper: MediaExtrasMapper,
+    private val mediaExtrasMapper: MediaExtrasMapper
 ) {
 
     /**
@@ -41,6 +41,6 @@ public class MediaMapper(
         title = mediaItem.mediaMetadata.displayTitle?.toString() ?: "",
         artist = mediaItem.mediaMetadata.artist?.toString() ?: defaultArtist,
         artworkUri = mediaItem.mediaMetadata.artworkUri?.toString(),
-        extras = mediaExtrasMapper.map(mediaItem),
+        extras = mediaExtrasMapper.map(mediaItem)
     )
 }

@@ -74,7 +74,7 @@ public fun VolumePositionIndicator(
             },
             range = 0F.rangeTo(
                 volumeState().max.toFloat()
-            ),
+            )
         )
     }
 }

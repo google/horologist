@@ -34,7 +34,7 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 @Composable
 public fun InfoMediaDisplay(
     modifier: Modifier = Modifier,
-    message: String? = null,
+    message: String? = null
 ) {
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
@@ -44,7 +44,7 @@ public fun InfoMediaDisplay(
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
             maxLines = 2,
-            style = MaterialTheme.typography.body2,
+            style = MaterialTheme.typography.body2
         )
     }
 }

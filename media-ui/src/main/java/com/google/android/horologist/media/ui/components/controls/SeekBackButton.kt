@@ -41,7 +41,7 @@ public fun SeekBackButton(
     enabled: Boolean = true,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
     iconSize: Dp = 30.dp,
-    tapTargetSize: DpSize = DpSize(48.dp, 60.dp),
+    tapTargetSize: DpSize = DpSize(48.dp, 60.dp)
 ) {
     val icon = when (seekButtonIncrement) {
         SeekButtonIncrement.Five -> Icons.Default.Replay5
@@ -67,6 +67,6 @@ public fun SeekBackButton(
         colors = colors,
         iconSize = iconSize,
         tapTargetSize = tapTargetSize,
-        iconAlign = Alignment.Start,
+        iconAlign = Alignment.Start
     )
 }

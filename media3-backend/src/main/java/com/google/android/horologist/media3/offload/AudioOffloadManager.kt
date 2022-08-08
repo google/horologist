@@ -123,7 +123,7 @@ public class AudioOffloadManager(
                         offloadTimes = it.offloadTimes.timesToNow(
                             sleepingForOffload = offloadStatus.value.sleepingForOffload,
                             updatedIsPlaying = isPlaying
-                        ),
+                        )
                     )
                 }
             }

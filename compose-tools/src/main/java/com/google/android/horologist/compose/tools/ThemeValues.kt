@@ -53,7 +53,7 @@ public val themeValues: List<ThemeValues> = listOf(
             primary = Color(0xFF6DD58C),
             primaryVariant = Color(0xFF1EA446),
             secondary = Color(0xFFFFBB29),
-            secondaryVariant = Color(0xFFD68400),
+            secondaryVariant = Color(0xFFD68400)
         )
     ),
     ThemeValues(
@@ -82,7 +82,7 @@ public val themeValues: List<ThemeValues> = listOf(
             secondary = Color(0xFFED612B), // Used for RSB
             surface = Color(0xFF202124), // Used for Device Chip
             onPrimary = Color(0xFFED612B),
-            onSurface = Color(0xFFED612B),
+            onSurface = Color(0xFFED612B)
         )
     ),
     ThemeValues(
@@ -96,7 +96,7 @@ public val themeValues: List<ThemeValues> = listOf(
             onPrimary = Color.White,
             onSurfaceVariant = Color(0xFFDADCE0),
             surface = Color(0xFF303133),
-            onError = Color.Black,
+            onError = Color.Black
         )
-    ),
+    )
 )

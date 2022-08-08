@@ -22,10 +22,10 @@ import androidx.room.Index
 @Entity(
     primaryKeys = ["playlistId", "mediaId"],
     indices = [
-        Index(value = ["mediaId"]),
+        Index(value = ["mediaId"])
     ]
 )
 data class PlaylistMediaEntity(
     val playlistId: String,
-    val mediaId: String,
+    val mediaId: String
 )

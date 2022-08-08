@@ -56,7 +56,7 @@ class MediaItemMapperTest {
             uri = uri,
             title = title,
             artist = artist,
-            artworkUri = artworkUri,
+            artworkUri = artworkUri
         )
 
         // when

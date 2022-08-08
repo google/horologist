@@ -38,7 +38,7 @@ public fun SetVolumeButton(
     onVolumeClick: () -> Unit,
     volumeState: VolumeState,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true,
+    enabled: Boolean = true
 ) {
     SettingsButton(
         modifier = modifier.size(ButtonDefaults.SmallButtonSize),

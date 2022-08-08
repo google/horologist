@@ -25,7 +25,7 @@ data class Settings(
     val loadItemsAtStartup: Boolean = true,
     val animated: Boolean = true,
     val debugOffload: Boolean = false,
-    val offloadMode: OffloadMode = OffloadMode.Background,
+    val offloadMode: OffloadMode = OffloadMode.Background
 ) {
     enum class OffloadMode(val strategy: AudioOffloadStrategy) {
         Always(AudioOffloadStrategy.Always),

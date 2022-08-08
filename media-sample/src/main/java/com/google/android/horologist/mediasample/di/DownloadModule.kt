@@ -31,7 +31,9 @@ import com.google.android.horologist.media3.service.NetworkAwareDownloadListener
 import com.google.android.horologist.mediasample.data.datasource.MediaDownloadLocalDataSource
 import com.google.android.horologist.mediasample.data.service.download.DownloadManagerListener
 import com.google.android.horologist.mediasample.data.service.download.MediaDownloadService
+import com.google.android.horologist.mediasample.di.annotation.Dispatcher
 import com.google.android.horologist.mediasample.di.annotation.DownloadFeature
+import com.google.android.horologist.mediasample.di.annotation.UampDispatchers.IO
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
 import com.google.android.horologist.networks.status.HighBandwidthRequester
@@ -40,8 +42,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import okhttp3.Call
 import java.util.concurrent.ExecutorService
@@ -59,7 +61,7 @@ object DownloadModule {
     @Provides
     fun downloadDataSourceFactory(
         okHttp: Call.Factory,
-        @DownloadFeature transferListener: TransferListener,
+        @DownloadFeature transferListener: TransferListener
     ): DataSource.Factory = OkHttpDataSource.Factory(
         NetworkAwareCallFactory(
             delegate = okHttp,
@@ -80,7 +82,7 @@ object DownloadModule {
     @Singleton
     @Provides
     fun downloadNotificationHelper(
-        @ApplicationContext applicationContext: Context,
+        @ApplicationContext applicationContext: Context
     ): DownloadNotificationHelper =
         DownloadNotificationHelper(
             applicationContext,
@@ -91,7 +93,7 @@ object DownloadModule {
     @Singleton
     @Provides
     fun databaseProvider(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): DatabaseProvider = StandaloneDatabaseProvider(application)
 
     @Singleton
@@ -121,13 +123,15 @@ object DownloadModule {
     @Singleton
     @Provides
     fun workManagerScheduler(
-        @ApplicationContext applicationContext: Context,
+        @ApplicationContext applicationContext: Context
     ) = WorkManagerScheduler(applicationContext, DOWNLOAD_WORK_MANAGER_SCHEDULER_WORK_NAME)
 
     @DownloadFeature
     @Provides
     @Singleton
-    fun coroutineScope(): CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    fun coroutineScope(
+        @Dispatcher(IO) ioDispatcher: CoroutineDispatcher
+    ): CoroutineScope = CoroutineScope(SupervisorJob() + ioDispatcher)
 
     @Provides
     @Singleton

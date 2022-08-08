@@ -60,7 +60,7 @@ public fun PlayPauseButton(
                 modifier = modifier,
                 colors = colors,
                 iconSize = iconSize,
-                tapTargetSize = tapTargetSize,
+                tapTargetSize = tapTargetSize
             )
         } else {
             PlayButton(
@@ -69,7 +69,7 @@ public fun PlayPauseButton(
                 modifier = modifier,
                 colors = colors,
                 iconSize = iconSize,
-                tapTargetSize = tapTargetSize,
+                tapTargetSize = tapTargetSize
             )
         }
     }
@@ -89,7 +89,7 @@ public fun PlayPauseProgressButton(
     tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
     progressColour: Color = MaterialTheme.colors.primary,
     trackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
-    backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
+    backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f)
 ) {
     PlayPauseButton(
         onPlayClick = onPlayClick,
@@ -112,7 +112,7 @@ public fun PlayPauseProgressButton(
                     .fillMaxSize(),
                 progress = percent.ifNan(0f),
                 indicatorColor = progressColour,
-                trackColor = trackColor,
+                trackColor = trackColor
             )
         }
     }

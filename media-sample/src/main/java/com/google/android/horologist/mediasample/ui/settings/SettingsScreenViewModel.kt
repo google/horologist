@@ -37,7 +37,7 @@ class SettingsScreenViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val snackbarManager: SnackbarManager,
     private val offloadManager: AudioOffloadManager,
-    private val logger: ErrorReporter,
+    private val logger: ErrorReporter
 ) : ViewModel() {
     val uiState: StateFlow<UiState> = settingsRepository.settingsFlow.map {
         UiState(
@@ -62,7 +62,7 @@ class SettingsScreenViewModel @Inject constructor(
         val animated: Boolean = true,
         val debugOffload: Boolean = false,
         val offloadMode: Settings.OffloadMode = Settings.OffloadMode.Background,
-        val writable: Boolean = false,
+        val writable: Boolean = false
     )
 
     fun setShowTimeTextInfo(enabled: Boolean) {

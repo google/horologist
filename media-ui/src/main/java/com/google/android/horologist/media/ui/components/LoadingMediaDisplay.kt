@@ -38,7 +38,7 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun LoadingMediaDisplay(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Box(

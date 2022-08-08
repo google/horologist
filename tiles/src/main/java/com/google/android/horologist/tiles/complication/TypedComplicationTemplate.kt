@@ -88,7 +88,7 @@ public abstract class TypedComplicationTemplate<T>(override val context: Context
         }
         .setTitle(
             PlainComplicationText.Builder(
-                text = title,
+                text = title
             )
                 .build()
         )
@@ -128,7 +128,7 @@ public abstract class TypedComplicationTemplate<T>(override val context: Context
         launchIntent: PendingIntent?
     ): LongTextComplicationData = LongTextComplicationData.Builder(
         text = PlainComplicationText.Builder(
-            text = text,
+            text = text
         )
             .build(),
         contentDescription = PlainComplicationText.Builder(
@@ -148,7 +148,7 @@ public abstract class TypedComplicationTemplate<T>(override val context: Context
         }
         .setTitle(
             PlainComplicationText.Builder(
-                text = title,
+                text = title
             )
                 .build()
         )

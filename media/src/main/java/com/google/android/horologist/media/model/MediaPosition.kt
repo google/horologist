@@ -25,12 +25,12 @@ import kotlin.time.Duration
  */
 @ExperimentalHorologistMediaApi
 public sealed class MediaPosition(
-    public open val current: Duration,
+    public open val current: Duration
 ) {
     public class KnownDuration internal constructor(
         override val current: Duration,
         public val duration: Duration,
-        public val percent: Float,
+        public val percent: Float
     ) : MediaPosition(current)
 
     public data class UnknownDuration(override val current: Duration) : MediaPosition(current)

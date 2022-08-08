@@ -26,33 +26,44 @@ import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.offload.AudioOffloadStatus
 import com.google.android.horologist.media3.util.toAudioFormat
+import com.google.android.horologist.mediasample.ui.AppConfig
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
+import javax.inject.Provider
 
 @HiltViewModel
 class AudioDebugScreenViewModel @Inject constructor(
-    private val audioOffloadManager: AudioOffloadManager,
+    private val audioOffloadManager: Provider<AudioOffloadManager>,
+    private val appConfig: AppConfig,
     private val audioSink: DefaultAudioSink,
-    playerRepository: PlayerRepository,
+    playerRepository: PlayerRepository
 ) : ViewModel() {
+    fun audioOffloadFlow(): Flow<AudioOffloadStatus> = if (appConfig.offloadEnabled) {
+        audioOffloadManager.get().offloadStatus
+    } else {
+        flowOf(AudioOffloadStatus.Disabled)
+    }
+
     val uiState: StateFlow<UiState?> = combine(
-        audioOffloadManager.offloadStatus,
+        audioOffloadFlow(),
         playerRepository.currentMedia
     ) { audioOffloadStatus, currentMedia ->
 
         UiState(
             currentTrack = currentMedia?.title,
             audioOffloadStatus = audioOffloadStatus,
-            formatSupported = isFormatSupported(audioOffloadStatus.format),
+            formatSupported = isFormatSupported(audioOffloadStatus.format)
         )
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
-        initialValue = null,
+        initialValue = null
     )
 
     public fun isFormatSupported(format: Format?): Boolean? {
@@ -70,6 +81,6 @@ class AudioDebugScreenViewModel @Inject constructor(
     data class UiState(
         val currentTrack: String?,
         val audioOffloadStatus: AudioOffloadStatus,
-        val formatSupported: Boolean?,
+        val formatSupported: Boolean?
     )
 }

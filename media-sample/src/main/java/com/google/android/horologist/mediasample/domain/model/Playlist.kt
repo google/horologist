@@ -22,5 +22,5 @@ data class Playlist(
     val id: String,
     val name: String,
     val artworkUri: String? = null,
-    val mediaList: List<Media>,
+    val mediaList: List<Media>
 )

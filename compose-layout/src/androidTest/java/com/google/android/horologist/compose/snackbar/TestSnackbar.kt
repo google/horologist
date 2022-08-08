@@ -29,7 +29,7 @@ import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistC
 @Composable
 public fun TestSnackbar(
     data: SnackbarData,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val duration = data.duration.toMillis(data.actionLabel != null, null)
     Confirmation(

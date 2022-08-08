@@ -32,7 +32,7 @@ public fun DataUsageTimeText(
     showData: Boolean,
     networkStatus: Networks,
     networkUsage: DataUsageReport?,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val style = CurvedTextStyle(MaterialTheme.typography.caption1)
     val context = LocalContext.current

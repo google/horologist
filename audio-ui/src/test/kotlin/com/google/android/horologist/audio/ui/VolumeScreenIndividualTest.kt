@@ -44,7 +44,7 @@ class VolumeScreenIndividualTest {
     fun volumeScreenAtMinimum() {
         val volumeState = VolumeState(
             current = 0,
-            max = 100,
+            max = 100
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
@@ -61,7 +61,7 @@ class VolumeScreenIndividualTest {
     fun volumeScreenAtMaximum() {
         val volumeState = VolumeState(
             current = 100,
-            max = 100,
+            max = 100
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
@@ -78,7 +78,7 @@ class VolumeScreenIndividualTest {
     fun volumeScreenWithLongTest() {
         val volumeState = VolumeState(
             current = 50,
-            max = 100,
+            max = 100
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Galaxy Watch 4")
 
@@ -95,7 +95,7 @@ class VolumeScreenIndividualTest {
     fun volumeScreenWithWatchSpeaker() {
         val volumeState = VolumeState(
             current = 50,
-            max = 100,
+            max = 100
         )
         // Media Router returns "Phone"
         val audioOutput = AudioOutput.WatchSpeaker("id", "Phone")

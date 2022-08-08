@@ -67,7 +67,7 @@ class ShowPlaylistChipTest {
                 ShowPlaylistChip(
                     artworkUri = null,
                     name = "Playlists",
-                    onClick = {},
+                    onClick = {}
                 )
             }
         }

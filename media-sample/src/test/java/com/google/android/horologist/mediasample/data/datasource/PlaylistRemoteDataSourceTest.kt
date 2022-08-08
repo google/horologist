@@ -36,7 +36,7 @@ class PlaylistRemoteDataSourceTest {
     fun setUp() {
         sut = PlaylistRemoteDataSource(
             ioDispatcher = testDispatcher,
-            uampService = uampService,
+            uampService = uampService
         )
     }
 

@@ -51,7 +51,7 @@ class VolumeScreenThemeTest(
     fun volumeScreenThemes() {
         val volumeState = VolumeState(
             current = 50,
-            max = 100,
+            max = 100
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 

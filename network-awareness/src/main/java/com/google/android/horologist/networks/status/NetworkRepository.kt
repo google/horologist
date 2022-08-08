@@ -42,7 +42,7 @@ import java.util.concurrent.ConcurrentHashMap
 public class NetworkRepository(
     private val connectivityManager: ConnectivityManager,
     private val coroutineScope: CoroutineScope,
-    private val logger: NetworkStatusLogger,
+    private val logger: NetworkStatusLogger
 ) {
     private val networks = ConcurrentHashMap<String, Network>()
     private val networkBuilders = ConcurrentHashMap<String, NetworkStatusBuilder>()
@@ -217,7 +217,7 @@ public class NetworkRepository(
             return NetworkRepository(
                 connectivityManager,
                 coroutineScope,
-                logger,
+                logger
             )
         }
     }

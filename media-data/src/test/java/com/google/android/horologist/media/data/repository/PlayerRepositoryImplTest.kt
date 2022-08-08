@@ -974,7 +974,7 @@ class PlayerRepositoryImplTest {
         uri = "uri",
         title = "title",
         artist = "artist",
-        artworkUri = "artworkUri",
+        artworkUri = "artworkUri"
     )
 
     private fun getStubMedia(id: String) = Media(
@@ -982,7 +982,7 @@ class PlayerRepositoryImplTest {
         uri = "asset://android_asset/media/mp4/testvid_1022ms.mp4",
         title = "title",
         artist = "artist",
-        artworkUri = "artworkUri",
+        artworkUri = "artworkUri"
     )
 
     private fun assertInitialState() {

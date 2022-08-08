@@ -36,7 +36,7 @@ import com.google.android.horologist.mediasample.R
  */
 @Composable
 public fun FavoriteButton(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     var faved by remember { mutableStateOf(false) }
     SettingsButton(

@@ -59,8 +59,10 @@ private enum class MarqueeComponents {
 private enum class AnimationState {
     // Text will scroll after some delay
     WaitingToScroll,
+
     // Text is scrolling
     Scrolling,
+
     // Initial state before or assuming it is determined that scrolling is not required
     NotNeeded,
 }
@@ -121,7 +123,8 @@ public fun MarqueeText(
     var measuredWidths by remember {
         mutableStateOf(
             ElementWidths(
-                text = 0.dp, container = 0.dp
+                text = 0.dp,
+                container = 0.dp
             )
         )
     }
@@ -175,7 +178,7 @@ public fun MarqueeText(
     }
 
     fun ContentDrawScope.drawFadeGradient(
-        leftEdge: Boolean,
+        leftEdge: Boolean
     ) {
         val width = edgeGradientWidth.toPx()
         drawRect(

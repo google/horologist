@@ -48,7 +48,7 @@ public fun InteractivePreviewAware(block: @Composable () -> Unit) {
 
         CompositionLocalProvider(
             LocalInteractivePreview.provides(interactive),
-            LocalStaticPreview.provides(!interactive),
+            LocalStaticPreview.provides(!interactive)
         ) {
             block()
         }

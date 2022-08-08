@@ -38,19 +38,19 @@ public fun ShuffleButton(
     shuffleOn: Boolean,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+    colors: ButtonColors = ButtonDefaults.iconButtonColors()
 ) {
     Button(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
-        colors = colors,
+        colors = colors
     ) {
         val icon = if (shuffleOn) Icons.Default.ShuffleOn else Icons.Default.Shuffle
         Icon(
             imageVector = icon,
             contentDescription = stringResource(id = R.string.horologist_shuffle_button_content_description),
-            modifier = Modifier.semantics { iconImageVector = icon },
+            modifier = Modifier.semantics { iconImageVector = icon }
         )
     }
 }

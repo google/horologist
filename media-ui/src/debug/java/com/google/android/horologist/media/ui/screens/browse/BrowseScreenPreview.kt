@@ -43,7 +43,7 @@ fun BrowseScreenPreview() {
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.FeaturedPlayList,
-            tintColor = Color.Green,
+            tintColor = Color.Green
         )
     )
 }
@@ -57,7 +57,7 @@ fun BrowseScreenPreviewNoDownloads() {
         onPlaylistsClick = { },
         onSettingsClick = { },
         focusRequester = FocusRequester(),
-        scalingLazyListState = rememberScalingLazyListState(),
+        scalingLazyListState = rememberScalingLazyListState()
     )
 }
 
@@ -70,7 +70,7 @@ fun BrowseScreenPreviewLoading() {
         onPlaylistsClick = { },
         onSettingsClick = { },
         focusRequester = FocusRequester(),
-        scalingLazyListState = rememberScalingLazyListState(),
+        scalingLazyListState = rememberScalingLazyListState()
     )
 }
 
@@ -87,7 +87,7 @@ fun BrowseScreenPreviewUampTheme() {
             scalingLazyListState = rememberScalingLazyListState(),
             downloadItemArtworkPlaceholder = rememberVectorPainter(
                 image = Icons.Default.FeaturedPlayList,
-                tintColor = Color.Green,
+                tintColor = Color.Green
             )
         )
     }
@@ -99,9 +99,9 @@ private val downloadList = buildList {
             PlaylistUiModel(
                 id = "id",
                 title = "Rock Classics",
-                artworkUri = "https://www.example.com/album1.png",
+                artworkUri = "https://www.example.com/album1.png"
             ),
-            percentage = 15,
+            percentage = 15
         )
     )
 

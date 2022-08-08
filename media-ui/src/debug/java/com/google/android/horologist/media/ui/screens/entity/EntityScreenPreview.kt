@@ -41,7 +41,7 @@ fun EntityScreenPreviewLoading() {
         onShuffleClick = { },
         onPlayClick = { },
         focusRequester = FocusRequester(),
-        scalingLazyListState = rememberScalingLazyListState(),
+        scalingLazyListState = rememberScalingLazyListState()
     )
 }
 
@@ -52,7 +52,7 @@ fun EntityScreenPreviewLoadedNoneDownloaded() {
         entityScreenState = EntityScreenState.Loaded(
             playlistUiModel = playlistUiModel,
             downloadList = unavailableDownloads,
-            downloading = false,
+            downloading = false
         ),
         onDownloadClick = { },
         onDownloadItemClick = { },
@@ -62,7 +62,7 @@ fun EntityScreenPreviewLoadedNoneDownloaded() {
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
-            tintColor = Color.Blue,
+            tintColor = Color.Blue
         )
     )
 }
@@ -74,7 +74,7 @@ fun EntityScreenPreviewLoadedNoneDownloadedDownloading() {
         entityScreenState = EntityScreenState.Loaded(
             playlistUiModel = playlistUiModel,
             downloadList = unavailableDownloads,
-            downloading = true,
+            downloading = true
         ),
         onDownloadClick = { },
         onDownloadItemClick = { },
@@ -84,7 +84,7 @@ fun EntityScreenPreviewLoadedNoneDownloadedDownloading() {
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
-            tintColor = Color.Blue,
+            tintColor = Color.Blue
         )
     )
 }
@@ -96,7 +96,7 @@ fun EntityScreenPreviewLoadedPartiallyDownloaded() {
         entityScreenState = EntityScreenState.Loaded(
             playlistUiModel = playlistUiModel,
             downloadList = mixedDownloads,
-            downloading = false,
+            downloading = false
         ),
         onDownloadClick = { },
         onDownloadItemClick = { },
@@ -106,7 +106,7 @@ fun EntityScreenPreviewLoadedPartiallyDownloaded() {
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
-            tintColor = Color.Blue,
+            tintColor = Color.Blue
         )
     )
 }
@@ -118,7 +118,7 @@ fun EntityScreenPreviewLoadedPartiallyDownloadedDownloading() {
         entityScreenState = EntityScreenState.Loaded(
             playlistUiModel = playlistUiModel,
             downloadList = mixedDownloads,
-            downloading = true,
+            downloading = true
         ),
         onDownloadClick = { },
         onDownloadItemClick = { },
@@ -128,7 +128,7 @@ fun EntityScreenPreviewLoadedPartiallyDownloadedDownloading() {
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
-            tintColor = Color.Blue,
+            tintColor = Color.Blue
         )
     )
 }
@@ -140,7 +140,7 @@ fun EntityScreenPreviewLoadedFullyDownloaded() {
         entityScreenState = EntityScreenState.Loaded(
             playlistUiModel = playlistUiModel,
             downloadList = availableDownloads,
-            downloading = false,
+            downloading = false
         ),
         onDownloadClick = { },
         onDownloadItemClick = { },
@@ -150,7 +150,7 @@ fun EntityScreenPreviewLoadedFullyDownloaded() {
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
-            tintColor = Color.Blue,
+            tintColor = Color.Blue
         )
     )
 }
@@ -161,7 +161,7 @@ private val unavailableDownloads = listOf(
             id = "id",
             title = "Song name",
             artist = "Artist name",
-            artworkUri = "artworkUri",
+            artworkUri = "artworkUri"
         )
     ),
     DownloadMediaUiModel.Unavailable(
@@ -169,9 +169,9 @@ private val unavailableDownloads = listOf(
             id = "id 2",
             title = "Song name 2",
             artist = "Artist name 2",
-            artworkUri = "artworkUri",
+            artworkUri = "artworkUri"
         )
-    ),
+    )
 )
 
 private val playlistUiModel = PlaylistUiModel(
@@ -185,7 +185,7 @@ private val mixedDownloads = listOf(
             id = "id",
             title = "Song name",
             artist = "Artist name",
-            artworkUri = "artworkUri",
+            artworkUri = "artworkUri"
         )
     ),
     DownloadMediaUiModel.Unavailable(
@@ -193,9 +193,9 @@ private val mixedDownloads = listOf(
             id = "id 2",
             title = "Song name 2",
             artist = "Artist name 2",
-            artworkUri = "artworkUri",
+            artworkUri = "artworkUri"
         )
-    ),
+    )
 )
 
 private val availableDownloads = listOf(
@@ -204,7 +204,7 @@ private val availableDownloads = listOf(
             id = "id",
             title = "Song name",
             artist = "Artist name",
-            artworkUri = "artworkUri",
+            artworkUri = "artworkUri"
         )
     ),
     DownloadMediaUiModel.Available(
@@ -212,7 +212,7 @@ private val availableDownloads = listOf(
             id = "id 2",
             title = "Song name 2",
             artist = "Artist name 2",
-            artworkUri = "artworkUri",
+            artworkUri = "artworkUri"
         )
-    ),
+    )
 )

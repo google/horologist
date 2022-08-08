@@ -22,7 +22,7 @@ import com.google.android.horologist.media.ui.uamp.UampTheme
 
 @WearLargeRoundDevicePreview
 @Composable
-fun PlayerScreenPreviewUampTheme() {
+fun PlayerScreenPreviewUamp() {
     UampTheme {
         DefaultMediaPreview()
     }

@@ -45,7 +45,7 @@ fun UampMediaPlayerScreen(
     onVolumeClick: () -> Unit,
     playerFocusRequester: FocusRequester,
     modifier: Modifier = Modifier,
-    settingsState: Settings?,
+    settingsState: Settings?
 ) {
     val volumeState by rememberStateWithLifecycle(flow = volumeViewModel.volumeState)
 
@@ -56,7 +56,7 @@ fun UampMediaPlayerScreen(
                 focusRequester = playerFocusRequester,
                 volumeViewModel.volumeScrollableState
             ),
-        positionIndicator = { VolumePositionIndicator(volumeState = { volumeState }) },
+        positionIndicator = { VolumePositionIndicator(volumeState = { volumeState }) }
     ) {
         PlayerScreen(
             playerViewModel = mediaPlayerScreenViewModel,
@@ -88,7 +88,7 @@ fun UampMediaPlayerScreen(
                             seekToPreviousButtonEnabled = it.seekToPreviousEnabled,
                             onSeekToNextButtonClick = { mediaPlayerScreenViewModel.skipToNextMedia() },
                             seekToNextButtonEnabled = it.seekToNextEnabled,
-                            percent = it.trackPosition?.percent ?: 0f,
+                            percent = it.trackPosition?.percent ?: 0f
                         )
                     } else {
                         DefaultPlayerScreenControlButtons(mediaPlayerScreenViewModel, it)
@@ -109,7 +109,7 @@ fun UampMediaPlayerScreen(
 @Composable
 public fun PlayerScreenPodcastControlButtons(
     playerViewModel: PlayerViewModel,
-    playerUiState: PlayerUiState,
+    playerUiState: PlayerUiState
 ) {
     PodcastControlButtons(
         onPlayButtonClick = { playerViewModel.play() },

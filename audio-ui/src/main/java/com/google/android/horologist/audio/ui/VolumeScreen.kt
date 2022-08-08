@@ -72,7 +72,7 @@ public fun VolumeScreen(
     showVolumeIndicator: Boolean = true,
     focusRequester: FocusRequester = remember { FocusRequester() },
     increaseIcon: @Composable () -> Unit = { IncreaseIcon() },
-    decreaseIcon: @Composable () -> Unit = { DecreaseIcon() },
+    decreaseIcon: @Composable () -> Unit = { DecreaseIcon() }
 ) {
     val volumeState by volumeViewModel.volumeState.collectAsState()
     val audioOutput by volumeViewModel.audioOutput.collectAsState()
@@ -88,7 +88,7 @@ public fun VolumeScreen(
         focusRequester = focusRequester,
         scrollableState = volumeViewModel.volumeScrollableState,
         increaseIcon = increaseIcon,
-        decreaseIcon = decreaseIcon,
+        decreaseIcon = decreaseIcon
     )
 }
 
@@ -122,7 +122,7 @@ public fun VolumeScreen(
             } else {
                 this
             }
-        },
+        }
     ) {
         val volumeState = volume()
         Stepper(
@@ -135,7 +135,7 @@ public fun VolumeScreen(
             },
             decreaseIcon = {
                 decreaseIcon()
-            },
+            }
         ) {
             DeviceChip(
                 modifier = Modifier.padding(horizontal = 18.dp),
@@ -160,7 +160,7 @@ public object VolumeScreenDefaults {
             modifier = Modifier
                 .size(26.dp),
             imageVector = Icons.Default.VolumeUp,
-            contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_up),
+            contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_up)
         )
     }
 
@@ -170,7 +170,7 @@ public object VolumeScreenDefaults {
             modifier = Modifier
                 .size(26.dp),
             imageVector = Icons.Default.VolumeDown,
-            contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_down),
+            contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_down)
         )
     }
 }

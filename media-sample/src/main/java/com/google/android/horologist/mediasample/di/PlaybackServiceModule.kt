@@ -67,6 +67,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import okhttp3.Call
+import javax.inject.Provider
 
 @Module
 @InstallIn(ServiceComponent::class)
@@ -175,7 +176,7 @@ object PlaybackServiceModule {
         audioOnlyRenderersFactory: RenderersFactory,
         analyticsCollector: AnalyticsCollector,
         mediaSourceFactory: MediaSource.Factory,
-        dataUpdates: DataUpdates,
+        dataUpdates: DataUpdates
     ) =
         ExoPlayer.Builder(service, audioOnlyRenderersFactory)
             .setAnalyticsCollector(analyticsCollector)
@@ -214,7 +215,7 @@ object PlaybackServiceModule {
         audioOutputSelector: AudioOutputSelector,
         playbackRules: PlaybackRules,
         logger: ErrorReporter,
-        audioOffloadManager: AudioOffloadManager,
+        audioOffloadManager: Provider<AudioOffloadManager>,
         appConfig: AppConfig
     ): Player =
         WearConfiguredPlayer(
@@ -223,7 +224,7 @@ object PlaybackServiceModule {
             audioOutputSelector = audioOutputSelector,
             playbackRules = playbackRules,
             errorReporter = logger,
-            coroutineScope = serviceCoroutineScope,
+            coroutineScope = serviceCoroutineScope
         ).also { wearConfiguredPlayer ->
             serviceCoroutineScope.launch {
                 wearConfiguredPlayer.startNoiseDetection()
@@ -231,7 +232,7 @@ object PlaybackServiceModule {
 
             if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
                 serviceCoroutineScope.launch {
-                    audioOffloadManager.connect(exoPlayer)
+                    audioOffloadManager.get().connect(exoPlayer)
                 }
             }
         }
@@ -240,7 +241,7 @@ object PlaybackServiceModule {
     @Provides
     fun librarySessionCallback(
         logger: ErrorReporter,
-        serviceCoroutineScope: CoroutineScope,
+        serviceCoroutineScope: CoroutineScope
     ): MediaLibrarySession.Callback =
         UampMediaLibrarySessionCallback(serviceCoroutineScope, logger)
 
@@ -259,7 +260,8 @@ object PlaybackServiceModule {
         )
             .setSessionActivity(intentBuilder.buildPlayerIntent())
             .build().also {
-                (service as LifecycleOwner).lifecycle.addObserver(object :
+                (service as LifecycleOwner).lifecycle.addObserver(
+                    object :
                         DefaultLifecycleObserver {
                         override fun onDestroy(owner: LifecycleOwner) {
                             it.release()

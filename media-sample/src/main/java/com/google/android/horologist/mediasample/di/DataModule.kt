@@ -30,6 +30,8 @@ import com.google.android.horologist.mediasample.data.datasource.PlaylistRemoteD
 import com.google.android.horologist.mediasample.data.repository.PlaylistDownloadRepositoryImpl
 import com.google.android.horologist.mediasample.data.repository.PlaylistRepositoryImpl
 import com.google.android.horologist.mediasample.data.service.download.MediaDownloadService
+import com.google.android.horologist.mediasample.di.annotation.Dispatcher
+import com.google.android.horologist.mediasample.di.annotation.UampDispatchers.IO
 import com.google.android.horologist.mediasample.domain.PlaylistDownloadRepository
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.SettingsRepository
@@ -38,6 +40,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
@@ -65,7 +68,7 @@ class DataModule {
     @Provides
     fun playlistRepository(
         playlistDownloadLocalDataSource: PlaylistLocalDataSource,
-        playlistRemoteDataSource: PlaylistRemoteDataSource,
+        playlistRemoteDataSource: PlaylistRemoteDataSource
     ): PlaylistRepository =
         PlaylistRepositoryImpl(playlistDownloadLocalDataSource, playlistRemoteDataSource)
 
@@ -90,7 +93,7 @@ class DataModule {
     @Provides
     @Singleton
     fun mediaDownloadLocalDataSource(
-        mediaDownloadDao: MediaDownloadDao,
+        mediaDownloadDao: MediaDownloadDao
     ): MediaDownloadLocalDataSource = MediaDownloadLocalDataSource(mediaDownloadDao)
 
     @Singleton
@@ -102,9 +105,14 @@ class DataModule {
     @Provides
     fun playlistRemoteDataSource(
         uampService: UampService,
+        @Dispatcher(IO) ioDispatcher: CoroutineDispatcher
     ): PlaylistRemoteDataSource =
         PlaylistRemoteDataSource(
-            ioDispatcher = Dispatchers.IO,
-            uampService = uampService,
+            ioDispatcher = ioDispatcher,
+            uampService = uampService
         )
+
+    @Provides
+    @Dispatcher(IO)
+    fun ioDispatcher(): CoroutineDispatcher = Dispatchers.IO
 }

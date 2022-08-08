@@ -46,7 +46,7 @@ fun VolumeScreenTestCase(
                     increaseVolume = { },
                     decreaseVolume = { },
                     onAudioOutputClick = { },
-                    showVolumeIndicator = false,
+                    showVolumeIndicator = false
                 )
             }
         }

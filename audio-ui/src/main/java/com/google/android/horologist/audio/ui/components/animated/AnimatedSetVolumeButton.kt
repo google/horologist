@@ -43,7 +43,7 @@ import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
 public fun AnimatedSetVolumeButton(
     onVolumeClick: () -> Unit,
     volumeState: VolumeState,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     if (LocalStaticPreview.current) {
         SetVolumeButton(
@@ -53,10 +53,10 @@ public fun AnimatedSetVolumeButton(
         )
     } else {
         val volumeUp by rememberLottieComposition(
-            spec = LottieCompositionSpec.Asset("lottie/VolumeUp.json"),
+            spec = LottieCompositionSpec.Asset("lottie/VolumeUp.json")
         )
         val volumeDown by rememberLottieComposition(
-            spec = LottieCompositionSpec.Asset("lottie/VolumeDown.json"),
+            spec = LottieCompositionSpec.Asset("lottie/VolumeDown.json")
         )
         val lottieAnimatable = rememberLottieAnimatable()
 
@@ -68,12 +68,12 @@ public fun AnimatedSetVolumeButton(
             if (volumeState.current > lastVolumeBefore) {
                 lottieAnimatable.animate(
                     iterations = 1,
-                    composition = volumeUp,
+                    composition = volumeUp
                 )
             } else {
                 lottieAnimatable.animate(
                     iterations = 1,
-                    composition = volumeDown,
+                    composition = volumeDown
                 )
             }
         }
@@ -81,7 +81,7 @@ public fun AnimatedSetVolumeButton(
         Button(
             modifier = modifier.size(ButtonDefaults.SmallButtonSize),
             onClick = onVolumeClick,
-            colors = ButtonDefaults.iconButtonColors(),
+            colors = ButtonDefaults.iconButtonColors()
         ) {
             LottieAnimation(
                 composition = volumeDown,

@@ -41,7 +41,7 @@ import coil.request.ImageRequest
 public fun ArtworkColorBackground(
     artworkUri: Any?,
     modifier: Modifier = Modifier,
-    defaultColor: Color? = null,
+    defaultColor: Color? = null
 ) {
     val context = LocalContext.current
     val imageLoader = context.imageLoader
@@ -69,7 +69,7 @@ public fun ArtworkColorBackground(
 @Composable
 public fun ColorBackground(
     color: Color?,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier

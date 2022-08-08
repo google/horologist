@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.database.model
+package com.google.android.horologist.mediasample.di.annotation
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import javax.inject.Qualifier
 
-@Entity
-data class PlaylistEntity(
-    @PrimaryKey val playlistId: String,
-    val name: String,
-    val artworkUri: String?
-)
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class Dispatcher(val uampDispatchers: UampDispatchers)
+
+enum class UampDispatchers {
+    IO
+}

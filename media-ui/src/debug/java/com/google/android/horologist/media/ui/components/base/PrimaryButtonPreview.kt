@@ -27,7 +27,7 @@ fun PrimaryButtonPreview() {
     StandardButton(
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
-        onClick = { },
+        onClick = { }
     )
 }
 
@@ -38,7 +38,7 @@ fun PrimaryButtonPreviewLarge() {
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonSize = StandardButtonSize.Large,
+        buttonSize = StandardButtonSize.Large
     )
 }
 
@@ -49,7 +49,7 @@ fun PrimaryButtonPreviewSmall() {
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonSize = StandardButtonSize.Small,
+        buttonSize = StandardButtonSize.Small
     )
 }
 
@@ -60,7 +60,7 @@ fun PrimaryButtonPreviewExtraSmall() {
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        buttonSize = StandardButtonSize.ExtraSmall,
+        buttonSize = StandardButtonSize.ExtraSmall
     )
 }
 
@@ -71,6 +71,6 @@ fun PrimaryButtonPreviewDisabled() {
         imageVector = Icons.Default.Check,
         contentDescription = "contentDescription",
         onClick = { },
-        enabled = false,
+        enabled = false
     )
 }

@@ -44,7 +44,7 @@ public fun MarqueeTextMediaDisplay(
             modifier = Modifier.fillMaxWidth(0.7f),
             color = MaterialTheme.colors.onBackground,
             style = MaterialTheme.typography.button,
-            textAlign = TextAlign.Center,
+            textAlign = TextAlign.Center
         )
         Text(
             text = artist.orEmpty(),
@@ -53,7 +53,7 @@ public fun MarqueeTextMediaDisplay(
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
-            style = MaterialTheme.typography.body2,
+            style = MaterialTheme.typography.body2
         )
     }
 }

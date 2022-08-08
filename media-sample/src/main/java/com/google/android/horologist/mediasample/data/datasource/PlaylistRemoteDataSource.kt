@@ -25,7 +25,7 @@ import kotlinx.coroutines.flow.flowOn
 
 class PlaylistRemoteDataSource(
     private val ioDispatcher: CoroutineDispatcher,
-    private val uampService: UampService,
+    private val uampService: UampService
 ) {
 
     fun getPlaylists(): Flow<CatalogApiModel> = flow {

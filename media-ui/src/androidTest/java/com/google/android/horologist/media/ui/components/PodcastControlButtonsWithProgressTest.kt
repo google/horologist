@@ -53,7 +53,7 @@ class PodcastControlButtonsWithProgressTest {
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = true,
+                seekForwardButtonEnabled = true
             )
         }
 
@@ -81,7 +81,7 @@ class PodcastControlButtonsWithProgressTest {
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = true,
+                seekForwardButtonEnabled = true
             )
         }
 
@@ -109,7 +109,7 @@ class PodcastControlButtonsWithProgressTest {
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = true,
+                seekForwardButtonEnabled = true
             )
         }
 
@@ -137,7 +137,7 @@ class PodcastControlButtonsWithProgressTest {
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = true,
+                seekForwardButtonEnabled = true
             )
         }
 
@@ -165,7 +165,7 @@ class PodcastControlButtonsWithProgressTest {
                 onSeekBackButtonClick = { clicked = true },
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = true,
+                seekForwardButtonEnabled = true
             )
         }
 
@@ -193,7 +193,7 @@ class PodcastControlButtonsWithProgressTest {
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = { clicked = true },
-                seekForwardButtonEnabled = true,
+                seekForwardButtonEnabled = true
             )
         }
 
@@ -221,7 +221,7 @@ class PodcastControlButtonsWithProgressTest {
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = true,
+                seekForwardButtonEnabled = true
             )
         }
 
@@ -246,7 +246,7 @@ class PodcastControlButtonsWithProgressTest {
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = false,
+                seekForwardButtonEnabled = false
             )
         }
 
@@ -276,7 +276,7 @@ class PodcastControlButtonsWithProgressTest {
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = false,
+                seekForwardButtonEnabled = false
             )
         }
 
@@ -306,7 +306,7 @@ class PodcastControlButtonsWithProgressTest {
                 seekBackButtonEnabled = seekBackButtonEnabled,
                 onSeekForwardButtonClick = {},
                 seekForwardButtonEnabled = false,
-                seekBackButtonIncrement = SeekButtonIncrement.Unknown,
+                seekBackButtonIncrement = SeekButtonIncrement.Unknown
             )
         }
 
@@ -335,7 +335,7 @@ class PodcastControlButtonsWithProgressTest {
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = seekForwardButtonEnabled,
+                seekForwardButtonEnabled = seekForwardButtonEnabled
             )
         }
 
@@ -365,7 +365,7 @@ class PodcastControlButtonsWithProgressTest {
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
                 seekForwardButtonEnabled = false,
-                seekBackButtonIncrement = seekBackButtonIncrement,
+                seekBackButtonIncrement = seekBackButtonIncrement
             )
         }
 
@@ -393,7 +393,7 @@ class PodcastControlButtonsWithProgressTest {
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
                 seekForwardButtonEnabled = false,
-                seekForwardButtonIncrement = seekForwardButtonIncrement,
+                seekForwardButtonIncrement = seekForwardButtonIncrement
             )
         }
 

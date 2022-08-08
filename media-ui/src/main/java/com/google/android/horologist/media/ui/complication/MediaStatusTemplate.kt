@@ -29,7 +29,7 @@ import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.tiles.complication.TypedComplicationTemplate
 
 public class MediaStatusTemplate(
-    context: Context,
+    context: Context
 ) :
     TypedComplicationTemplate<MediaStatusTemplate.Data>(context) {
 
@@ -47,7 +47,7 @@ public class MediaStatusTemplate(
         text = context.getString(R.string.horologist_preview_favorites),
         appIconRes = R.drawable.ic_baseline_queue_music_24,
         type = SmallImageType.ICON,
-        launchIntent = null,
+        launchIntent = null
     )
 
     override fun supportedTypes(): List<ComplicationType> =

@@ -49,12 +49,12 @@ public fun PlaylistsScreen(
         modifier = modifier
             .fillMaxSize()
             .scrollableColumn(focusRequester, scalingLazyListState),
-        state = scalingLazyListState,
+        state = scalingLazyListState
     ) {
         item {
             Title(
                 textId = R.string.horologist_browse_playlist_title,
-                modifier = Modifier.padding(bottom = 12.dp),
+                modifier = Modifier.padding(bottom = 12.dp)
             )
         }
 
@@ -69,7 +69,7 @@ public fun PlaylistsScreen(
                     icon = playlist.artworkUri,
                     largeIcon = true,
                     placeholder = playlistItemArtworkPlaceholder,
-                    chipType = StandardChipType.Secondary,
+                    chipType = StandardChipType.Secondary
                 )
             }
         } else if (playlistsScreenState is PlaylistsScreenState.Loading) {
@@ -89,7 +89,7 @@ public sealed class PlaylistsScreenState {
     public object Loading : PlaylistsScreenState()
 
     public data class Loaded(
-        val playlistList: List<PlaylistUiModel>,
+        val playlistList: List<PlaylistUiModel>
     ) : PlaylistsScreenState()
 
     public data class Failed(

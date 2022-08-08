@@ -30,7 +30,7 @@ import kotlinx.coroutines.flow.onEach
 
 class PlaylistRepositoryImpl(
     private val playlistLocalDataSource: PlaylistLocalDataSource,
-    private val playlistRemoteDataSource: PlaylistRemoteDataSource,
+    private val playlistRemoteDataSource: PlaylistRemoteDataSource
 ) : PlaylistRepository {
 
     override suspend fun get(playlistId: String): Playlist? {

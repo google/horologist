@@ -58,11 +58,11 @@ fun WearApp() {
     var time by remember { mutableStateOf(LocalDateTime.now()) }
 
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
     ) {
         SwipeDismissableNavHost(
             navController = navController,
-            startDestination = Screen.Menu.route,
+            startDestination = Screen.Menu.route
         ) {
             composable(route = Screen.Menu.route) {
                 MenuScreen(

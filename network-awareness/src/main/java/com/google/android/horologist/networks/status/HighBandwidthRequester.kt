@@ -37,7 +37,7 @@ import kotlin.coroutines.suspendCoroutine
 public class HighBandwidthRequester(
     private val connectivityManager: ConnectivityManager,
     private val coroutineScope: CoroutineScope,
-    private val logger: NetworkStatusLogger,
+    private val logger: NetworkStatusLogger
 ) {
     private val listeners: MutableSet<HighbandwidthListener> =
         Collections.newSetFromMap(ConcurrentHashMap())

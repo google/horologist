@@ -56,7 +56,7 @@ fun SamplesScreen(
             Text(
                 text = stringResource(id = R.string.horologist_sample_samples),
                 modifier = Modifier.padding(bottom = 12.dp),
-                style = MaterialTheme.typography.title3,
+                style = MaterialTheme.typography.title3
             )
         }
         items(uiState.samples) {

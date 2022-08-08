@@ -33,7 +33,7 @@ fun MarqueeTextTypicalPreview() {
         text = "A very long text strings",
         modifier = Modifier
             .width(100.dp),
-        textAlign = TextAlign.Center,
+        textAlign = TextAlign.Center
     )
 }
 
@@ -44,7 +44,7 @@ fun MarqueeTextShortTextPreview() {
         text = "A",
         modifier = Modifier
             .width(100.dp),
-        textAlign = TextAlign.Center,
+        textAlign = TextAlign.Center
     )
 }
 
@@ -56,6 +56,6 @@ fun MarqueeTextConstantScrollingPreview() {
         modifier = Modifier
             .width(100.dp),
         textAlign = TextAlign.Center,
-        pauseTime = 0.seconds,
+        pauseTime = 0.seconds
     )
 }

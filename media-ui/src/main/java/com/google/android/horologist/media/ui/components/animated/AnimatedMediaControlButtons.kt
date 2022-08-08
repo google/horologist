@@ -46,7 +46,7 @@ public fun AnimatedMediaControlButtons(
     onSeekToNextButtonClick: () -> Unit,
     seekToNextButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     AnimatedMediaControlButtons(
         onPlayButtonClick = onPlayButtonClick,
@@ -60,7 +60,7 @@ public fun AnimatedMediaControlButtons(
         showProgress = true,
         modifier = modifier,
         percent = percent,
-        colors = colors,
+        colors = colors
     )
 }
 
@@ -78,7 +78,7 @@ internal fun AnimatedMediaControlButtons(
     showProgress: Boolean,
     modifier: Modifier = Modifier,
     percent: Float? = null,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     ControlButtonLayout(
         modifier = modifier,
@@ -86,7 +86,7 @@ internal fun AnimatedMediaControlButtons(
             AnimatedSeekToPreviousButton(
                 onClick = onSeekToPreviousButtonClick,
                 enabled = seekToPreviousButtonEnabled,
-                colors = colors,
+                colors = colors
             )
         },
         middleButton = {
@@ -100,7 +100,7 @@ internal fun AnimatedMediaControlButtons(
                     playing = playing,
                     percent = percent,
                     modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
-                    colors = colors,
+                    colors = colors
                 )
             } else {
                 PlayPauseButton(
@@ -109,7 +109,7 @@ internal fun AnimatedMediaControlButtons(
                     enabled = playPauseButtonEnabled,
                     playing = playing,
                     modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
-                    colors = colors,
+                    colors = colors
                 )
             }
         },
@@ -117,7 +117,7 @@ internal fun AnimatedMediaControlButtons(
             AnimatedSeekToNextButton(
                 onClick = onSeekToNextButtonClick,
                 enabled = seekToNextButtonEnabled,
-                colors = colors,
+                colors = colors
             )
         }
     )

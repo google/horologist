@@ -15,7 +15,7 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistMedia3BackendApi::class,
+    ExperimentalHorologistMedia3BackendApi::class
 )
 
 package com.google.android.horologist.media3

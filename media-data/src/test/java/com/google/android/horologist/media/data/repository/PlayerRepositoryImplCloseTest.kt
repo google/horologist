@@ -145,7 +145,7 @@ class PlayerRepositoryImplCloseTest(
             },
             param("release") { sut: PlayerRepositoryImpl, _: Context ->
                 sut.release()
-            },
+            }
         )
 
         private fun param(
@@ -158,7 +158,7 @@ class PlayerRepositoryImplCloseTest(
             uri = "uri",
             title = "title",
             artist = "artist",
-            artworkUri = "artworkUri",
+            artworkUri = "artworkUri"
         )
     }
 }

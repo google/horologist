@@ -50,10 +50,11 @@ class MediaPlayerDeviceScreenTest(
         deviceConfig = device,
         theme = "android:ThemeOverlay.Material.Dark",
         maxPercentDifference = maxPercentDifference,
-        snapshotHandler = if (device == WEAR_OS_SQUARE)
+        snapshotHandler = if (device == WEAR_OS_SQUARE) {
             determineHandler(maxPercentDifference)
-        else
+        } else {
             WearSnapshotHandler(determineHandler(maxPercentDifference))
+        }
     )
 
     @Test

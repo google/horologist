@@ -62,22 +62,24 @@ class MediaPlayerStatesScreenTest(
             shuffleOn = false,
             playPauseEnabled = state.connected,
             playing = state.connected,
-            media = if (state.media)
+            media = if (state.media) {
                 MediaUiModel(
                     id = "",
                     title = "Weather with You",
                     artist = "Crowded House"
                 )
-            else
-                null,
-            trackPosition = if (state.media)
+            } else {
+                null
+            },
+            trackPosition = if (state.media) {
                 TrackPositionUiModel(
                     current = 30,
                     duration = 225,
                     percent = 0.133f
                 )
-            else
-                null,
+            } else {
+                null
+            },
             connected = state.connected
         )
 
@@ -91,7 +93,7 @@ class MediaPlayerStatesScreenTest(
     data class State(
         val connected: Boolean,
         val media: Boolean,
-        val name: String,
+        val name: String
     )
 
     companion object {

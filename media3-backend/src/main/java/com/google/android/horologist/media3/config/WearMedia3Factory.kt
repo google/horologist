@@ -30,29 +30,35 @@ import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendA
 public open class WearMedia3Factory(private val context: Context) {
     public fun audioSink(
         attemptOffload: Boolean,
-        offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_NOT_REQUIRED,
+        offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_NOT_REQUIRED
     ): DefaultAudioSink {
-
         return DefaultAudioSink.Builder()
             .setAudioCapabilities(AudioCapabilities.getCapabilities(context))
             .setAudioProcessorChain(DefaultAudioSink.DefaultAudioProcessorChain())
+            .setEnableFloatOutput(false) // default
+            .setEnableAudioTrackPlaybackParams(false) // default
             .setOffloadMode(
-                if (attemptOffload)
+                if (attemptOffload) {
                     offloadMode
-                else
+                } else {
                     DefaultAudioSink.OFFLOAD_MODE_DISABLED
+                }
             )
             .build()
     }
 
     public fun audioOnlyRenderersFactory(
         audioSink: AudioSink,
-        mediaCodecSelector: MediaCodecSelector = MediaCodecSelector.DEFAULT,
+        mediaCodecSelector: MediaCodecSelector = MediaCodecSelector.DEFAULT
     ): RenderersFactory =
         RenderersFactory { handler, _, audioListener, _, _ ->
             arrayOf(
                 MediaCodecAudioRenderer(
-                    context, mediaCodecSelector, handler, audioListener, audioSink
+                    context,
+                    mediaCodecSelector,
+                    handler,
+                    audioListener,
+                    audioSink
                 )
             )
         }

@@ -49,7 +49,7 @@ object ConfigModule {
     @Provides
     @CacheDir
     fun cacheDir(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): File =
         StrictMode.allowThreadDiskWrites().resetAfter {
             application.cacheDir

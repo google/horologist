@@ -39,7 +39,7 @@ import androidx.wear.compose.material.Text
 public fun WidthConstrainedBox(
     widths: List<Dp> = listOf(192.dp, 227.dp),
     comfortableHeight: Dp = 101.dp,
-    content: @Composable () -> Unit,
+    content: @Composable () -> Unit
 ) {
     Box(
         modifier = Modifier

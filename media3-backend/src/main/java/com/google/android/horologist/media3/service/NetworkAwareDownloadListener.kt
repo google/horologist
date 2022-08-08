@@ -31,8 +31,8 @@ import java.io.Closeable
  */
 @ExperimentalHorologistMedia3BackendApi
 public class NetworkAwareDownloadListener(
-    val appEventLogger: ErrorReporter,
-    val highBandwidthRequester: HighBandwidthRequester
+    private val appEventLogger: ErrorReporter,
+    private val highBandwidthRequester: HighBandwidthRequester
 ) : DownloadManager.Listener {
     private var networkRequest: Closeable? = null
 
@@ -54,11 +54,10 @@ public class NetworkAwareDownloadListener(
         download: Download,
         finalException: Exception?
     ) {
+        val percent = (download.percentDownloaded).toInt().coerceAtLeast(0)
         appEventLogger.logMessage(
-            "download ${download.request.uri.lastPathSegment} ${
-            (download.percentDownloaded).toInt().coerceAtLeast(0)
-            }% ${finalException?.message.orEmpty()}",
-            category = Downloads,
+            "download ${download.request.uri.lastPathSegment} $percent% ${finalException?.message.orEmpty()}",
+            category = Downloads
         )
 
         requestNetwork(downloadManager)

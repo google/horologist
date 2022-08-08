@@ -105,7 +105,7 @@ object DownloadModule {
         @DownloadFeature dataSourceFactory: DataSource.Factory,
         @DownloadFeature threadPool: ExecutorService,
         downloadManagerListener: DownloadManagerListener,
-        networkAwareListener: NetworkAwareDownloadListener,
+        networkAwareListener: NetworkAwareDownloadListener
     ) = DownloadManager(
         applicationContext,
         databaseProvider,
@@ -147,7 +147,7 @@ object DownloadModule {
     @Singleton
     fun networkAwareListener(
         errorReporter: ErrorReporter,
-        highBandwithRequester: HighBandwidthRequester,
+        highBandwithRequester: HighBandwidthRequester
     ): NetworkAwareDownloadListener = NetworkAwareDownloadListener(
         errorReporter,
         highBandwithRequester

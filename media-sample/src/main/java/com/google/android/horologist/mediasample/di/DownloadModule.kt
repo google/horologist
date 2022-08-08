@@ -27,6 +27,7 @@ import androidx.media3.exoplayer.offline.DownloadNotificationHelper
 import androidx.media3.exoplayer.workmanager.WorkManagerScheduler
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.logging.TransferListener
+import com.google.android.horologist.media3.service.NetworkAwareDownloadListener
 import com.google.android.horologist.mediasample.data.datasource.MediaDownloadLocalDataSource
 import com.google.android.horologist.mediasample.data.service.download.DownloadManagerListener
 import com.google.android.horologist.mediasample.data.service.download.MediaDownloadService
@@ -35,6 +36,7 @@ import com.google.android.horologist.mediasample.di.annotation.DownloadFeature
 import com.google.android.horologist.mediasample.di.annotation.UampDispatchers.IO
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
+import com.google.android.horologist.networks.status.HighBandwidthRequester
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -102,7 +104,8 @@ object DownloadModule {
         downloadCache: Cache,
         @DownloadFeature dataSourceFactory: DataSource.Factory,
         @DownloadFeature threadPool: ExecutorService,
-        downloadManagerListener: DownloadManagerListener
+        downloadManagerListener: DownloadManagerListener,
+        networkAwareListener: NetworkAwareDownloadListener
     ) = DownloadManager(
         applicationContext,
         databaseProvider,
@@ -111,6 +114,7 @@ object DownloadModule {
         threadPool
     ).also {
         it.addListener(downloadManagerListener)
+        it.addListener(networkAwareListener)
     }
 
     @Provides
@@ -137,5 +141,15 @@ object DownloadModule {
     ): DownloadManagerListener = DownloadManagerListener(
         coroutineScope,
         mediaDownloadLocalDataSource
+    )
+
+    @Provides
+    @Singleton
+    fun networkAwareListener(
+        errorReporter: ErrorReporter,
+        highBandwithRequester: HighBandwidthRequester
+    ): NetworkAwareDownloadListener = NetworkAwareDownloadListener(
+        errorReporter,
+        highBandwithRequester
     )
 }

@@ -14,21 +14,27 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.api.model
+package com.google.android.horologist.mediasample.data.database.dao
 
-import com.squareup.moshi.JsonClass
+import androidx.room.Dao
+import androidx.room.Query
 
-@JsonClass(generateAdapter = true)
-data class MusicApiModel(
-    val album: String,
-    val artist: String,
-    val duration: Int,
-    val genre: String,
-    val id: String,
-    val image: String,
-    val site: String,
-    val source: String,
-    val title: String,
-    val totalTrackCount: Int,
-    val trackNumber: Int
-)
+@Dao
+interface PlaylistMediaDao {
+
+    @Query(
+        value = """
+        DELETE FROM PlaylistMediaEntity
+        WHERE playlistId in (:playlistIds)
+    """
+    )
+    fun deleteByPlaylistId(playlistIds: List<String>)
+
+    @Query(
+        value = """
+        DELETE FROM PlaylistMediaEntity
+        WHERE mediaId in (:mediaIds)
+    """
+    )
+    fun deleteByMediaId(mediaIds: List<String>)
+}

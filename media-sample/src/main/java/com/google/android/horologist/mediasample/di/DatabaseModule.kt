@@ -19,8 +19,10 @@ package com.google.android.horologist.mediasample.di
 import android.content.Context
 import androidx.room.Room
 import com.google.android.horologist.mediasample.data.database.MediaDatabase
+import com.google.android.horologist.mediasample.data.database.dao.MediaDao
 import com.google.android.horologist.mediasample.data.database.dao.MediaDownloadDao
 import com.google.android.horologist.mediasample.data.database.dao.PlaylistDao
+import com.google.android.horologist.mediasample.data.database.dao.PlaylistMediaDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -60,4 +62,16 @@ object DatabaseModule {
     fun playlistDao(
         database: MediaDatabase
     ): PlaylistDao = database.playlistDao()
+
+    @Provides
+    @Singleton
+    fun playlistMediaDao(
+        database: MediaDatabase
+    ): PlaylistMediaDao = database.playlistMediaDao()
+
+    @Provides
+    @Singleton
+    fun mediaDao(
+        database: MediaDatabase
+    ): MediaDao = database.mediaDao()
 }

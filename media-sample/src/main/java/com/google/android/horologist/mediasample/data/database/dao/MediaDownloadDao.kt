@@ -29,7 +29,7 @@ interface MediaDownloadDao {
 
     @Query(
         value = """
-        SELECT * FROM mediadownloadentity
+        SELECT * FROM MediaDownloadEntity
         WHERE mediaId in (:mediaIds)
     """
     )
@@ -40,7 +40,7 @@ interface MediaDownloadDao {
 
     @Query(
         """
-        UPDATE mediadownloadentity
+        UPDATE MediaDownloadEntity
         SET status = :status
         WHERE mediaId = :mediaId
     """
@@ -49,9 +49,17 @@ interface MediaDownloadDao {
 
     @Query(
         """
-        DELETE FROM mediadownloadentity
+        DELETE FROM MediaDownloadEntity
         WHERE mediaId = :mediaId
     """
     )
     suspend fun delete(mediaId: String)
+
+    @Query(
+        """
+        DELETE FROM MediaDownloadEntity
+        WHERE mediaId in (:mediaIds)
+    """
+    )
+    suspend fun delete(mediaIds: List<String>)
 }

@@ -16,7 +16,10 @@
 
 package com.google.android.horologist.mediasample.data.datasource
 
+import androidx.room.RoomDatabase
+import androidx.room.withTransaction
 import com.google.android.horologist.mediasample.data.database.dao.PlaylistDao
+import com.google.android.horologist.mediasample.data.database.dao.PlaylistMediaDao
 import com.google.android.horologist.mediasample.data.database.mapper.MediaEntityMapper
 import com.google.android.horologist.mediasample.data.database.mapper.PlaylistEntityMapper
 import com.google.android.horologist.mediasample.data.database.mapper.PlaylistMediaEntityMapper
@@ -25,13 +28,14 @@ import com.google.android.horologist.mediasample.domain.model.Playlist
 import kotlinx.coroutines.flow.Flow
 
 class PlaylistLocalDataSource(
-    private val playlistDao: PlaylistDao
+    private val roomDatabase: RoomDatabase,
+    private val playlistDao: PlaylistDao,
+    private val playlistMediaDao: PlaylistMediaDao
 ) {
-    suspend fun isEmpty(): Boolean = playlistDao.getCount() == 0
 
-    suspend fun insert(playlists: List<Playlist>) {
+    suspend fun upsert(playlists: List<Playlist>) {
         playlists.forEach { playlist ->
-            playlistDao.insert(
+            playlistDao.upsert(
                 PlaylistEntityMapper.map(playlist),
                 playlist.mediaList.map(MediaEntityMapper::map),
                 playlist.mediaList.map { PlaylistMediaEntityMapper.map(playlist, it) }
@@ -45,8 +49,16 @@ class PlaylistLocalDataSource(
     fun getPopulatedStream(playlistId: String): Flow<PopulatedPlaylist> =
         playlistDao.getPopulatedStream(playlistId)
 
-    fun getAllPopulated(): Flow<List<PopulatedPlaylist>> = playlistDao.getAllPopulated()
+    fun getAllPopulated(): Flow<List<PopulatedPlaylist>> =
+        playlistDao.getAllPopulated()
 
     fun getAllDownloaded(): Flow<List<PopulatedPlaylist>> =
         playlistDao.getAllDownloaded()
+
+    suspend fun delete(playlistIds: List<String>) {
+        roomDatabase.withTransaction {
+            playlistMediaDao.deleteByPlaylistId(playlistIds)
+            playlistDao.delete(playlistIds)
+        }
+    }
 }

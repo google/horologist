@@ -20,11 +20,16 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.media3.exoplayer.offline.DownloadIndex
+import com.google.android.horologist.mediasample.data.api.NetworkChangeListService
 import com.google.android.horologist.mediasample.data.api.UampService
+import com.google.android.horologist.mediasample.data.database.MediaDatabase
+import com.google.android.horologist.mediasample.data.database.dao.MediaDao
 import com.google.android.horologist.mediasample.data.database.dao.MediaDownloadDao
 import com.google.android.horologist.mediasample.data.database.dao.PlaylistDao
+import com.google.android.horologist.mediasample.data.database.dao.PlaylistMediaDao
 import com.google.android.horologist.mediasample.data.datasource.Media3DownloadDataSource
 import com.google.android.horologist.mediasample.data.datasource.MediaDownloadLocalDataSource
+import com.google.android.horologist.mediasample.data.datasource.MediaLocalDataSource
 import com.google.android.horologist.mediasample.data.datasource.PlaylistLocalDataSource
 import com.google.android.horologist.mediasample.data.datasource.PlaylistRemoteDataSource
 import com.google.android.horologist.mediasample.data.repository.PlaylistDownloadRepositoryImpl
@@ -58,19 +63,32 @@ class DataModule {
         media3DownloadDataSource: Media3DownloadDataSource
     ): PlaylistDownloadRepository =
         PlaylistDownloadRepositoryImpl(
-            coroutineScope,
-            playlistLocalDataSource,
-            mediaDownloadLocalDataSource,
-            media3DownloadDataSource
+            coroutineScope = coroutineScope,
+            playlistLocalDataSource = playlistLocalDataSource,
+            mediaDownloadLocalDataSource = mediaDownloadLocalDataSource,
+            media3DownloadDataSource = media3DownloadDataSource
+        )
+
+    @Singleton
+    @Provides
+    fun playlistRepositoryImpl(
+        playlistDownloadLocalDataSource: PlaylistLocalDataSource,
+        playlistRemoteDataSource: PlaylistRemoteDataSource,
+        networkChangeListService: NetworkChangeListService,
+        mediaLocalDataSource: MediaLocalDataSource
+    ): PlaylistRepositoryImpl =
+        PlaylistRepositoryImpl(
+            playlistLocalDataSource = playlistDownloadLocalDataSource,
+            playlistRemoteDataSource = playlistRemoteDataSource,
+            networkChangeListService = networkChangeListService,
+            mediaLocalDataSource = mediaLocalDataSource
         )
 
     @Singleton
     @Provides
     fun playlistRepository(
-        playlistDownloadLocalDataSource: PlaylistLocalDataSource,
-        playlistRemoteDataSource: PlaylistRemoteDataSource
-    ): PlaylistRepository =
-        PlaylistRepositoryImpl(playlistDownloadLocalDataSource, playlistRemoteDataSource)
+        playlistRepositoryImpl: PlaylistRepositoryImpl
+    ): PlaylistRepository = playlistRepositoryImpl
 
     @Singleton
     @Provides
@@ -98,8 +116,16 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun playlistLocalDataSource(playlistDao: PlaylistDao): PlaylistLocalDataSource =
-        PlaylistLocalDataSource(playlistDao)
+    fun playlistLocalDataSource(
+        mediaDatabase: MediaDatabase,
+        playlistDao: PlaylistDao,
+        playlistMediaDao: PlaylistMediaDao
+    ): PlaylistLocalDataSource =
+        PlaylistLocalDataSource(
+            roomDatabase = mediaDatabase,
+            playlistDao = playlistDao,
+            playlistMediaDao = playlistMediaDao
+        )
 
     @Singleton
     @Provides
@@ -111,6 +137,24 @@ class DataModule {
             ioDispatcher = ioDispatcher,
             uampService = uampService
         )
+
+    @Singleton
+    @Provides
+    fun mediaLocalDataSource(
+        mediaDatabase: MediaDatabase,
+        mediaDao: MediaDao,
+        playlistMediaDao: PlaylistMediaDao,
+        mediaDownloadDao: MediaDownloadDao
+    ): MediaLocalDataSource = MediaLocalDataSource(
+        roomDatabase = mediaDatabase,
+        mediaDao = mediaDao,
+        playlistMediaDao = playlistMediaDao,
+        mediaDownloadDao = mediaDownloadDao
+    )
+
+    @Singleton
+    @Provides
+    fun networkChangeListService(): NetworkChangeListService = NetworkChangeListService()
 
     @Provides
     @Dispatcher(IO)

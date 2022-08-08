@@ -30,15 +30,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface PlaylistDao {
 
-    @Query(
-        value = """
-        SELECT COUNT(*) FROM PlaylistEntity
-    """
-    )
-    suspend fun getCount(): Int
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(
+    suspend fun upsert(
         playlistEntity: PlaylistEntity,
         mediaEntityList: List<MediaEntity>,
         playlistMediaEntityList: List<PlaylistMediaEntity>
@@ -51,7 +44,7 @@ interface PlaylistDao {
         WHERE playlistId = :playlistId
     """
     )
-    suspend fun getPopulated(playlistId: String): PopulatedPlaylist
+    suspend fun getPopulated(playlistId: String): PopulatedPlaylist?
 
     @Transaction
     @Query(
@@ -85,4 +78,12 @@ interface PlaylistDao {
     """
     )
     fun getAllDownloaded(): Flow<List<PopulatedPlaylist>>
+
+    @Query(
+        value = """
+        DELETE FROM PlaylistEntity
+        WHERE playlistId in (:playlistIds)
+    """
+    )
+    fun delete(playlistIds: List<String>)
 }

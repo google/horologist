@@ -50,6 +50,7 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 androidx-annotation = "androidx.annotation:annotation:1.4.0"
 androidx-complications-datasource-ktx = { module = "androidx.wear.watchface:watchface-complications-data-source-ktx", version.ref = "androidx-wear-watchface" }
 androidx-complications-rendering = { module = "androidx.wear.watchface:watchface-complications-rendering", version.ref = "androidx-wear-watchface" }
+androidx-compose-material = "androidx.compose.material:material:1.2.0"
 androidx-concurrent-future = { module = "androidx.concurrent:concurrent-futures", version.ref = "androidx-concurrent" }
 androidx-concurrent-future-ktx = { module = "androidx.concurrent:concurrent-futures-ktx", version.ref = "androidx-concurrent" }
 androidx-corektx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
@@ -126,6 +127,7 @@ moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "mosh
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
 paparazzi = { module = "app.cash.paparazzi:paparazzi", version.ref = "app-cash-paparazzi" }
 paparazziPlugin = { module = "app.cash.paparazzi:paparazzi-gradle-plugin", version.ref = "app-cash-paparazzi" }
+playservices-wearable = "com.google.android.gms:play-services-wearable:17.1.0"
 protobuf-kotlin-lite = "com.google.protobuf:protobuf-kotlin-lite:3.21.4"
 retrofit2-convertermoshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "com-squareup-retrofit2" }
 retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "com-squareup-retrofit2" }

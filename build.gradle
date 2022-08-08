@@ -15,6 +15,9 @@
  */
 
 buildscript {
+    ext {
+        compose_ui_version = '1.2.0-beta01'
+    }
     repositories {
         google()
         mavenCentral()
@@ -146,7 +149,7 @@ subprojects {
             freeCompilerArgs += "-Xjvm-default=all"
 
             // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-            if (!compile.name.endsWith("TestKotlin") && !compile.name.startsWith("compileDebug") && !project.name.contains("sample")) {
+            if (!compile.name.endsWith("TestKotlin") && !compile.name.startsWith("compileDebug") && !project.name.contains("sample") && !project.name.contains("datalayer")) {
                 // Enable explicit API mode
                 compile.kotlinOptions.freeCompilerArgs.add("-Xexplicit-api=strict")
             }

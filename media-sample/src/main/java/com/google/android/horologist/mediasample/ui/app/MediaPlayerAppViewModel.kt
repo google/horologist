@@ -88,7 +88,7 @@ class MediaPlayerAppViewModel @Inject constructor(
                     is IOException -> {
                         snackbarManager.showMessage(
                             UiMessage(
-                                message = resourceProvider.getString(R.string.horologist_sample_network_error),
+                                message = resourceProvider.getString(R.string.sample_network_error),
                                 error = true
                             )
                         )
@@ -139,7 +139,7 @@ class MediaPlayerAppViewModel @Inject constructor(
         } catch (e: IOException) {
             snackbarManager.showMessage(
                 UiMessage(
-                    message = resourceProvider.getString(R.string.horologist_sample_network_error),
+                    message = resourceProvider.getString(R.string.sample_network_error),
                     error = true
                 )
             )

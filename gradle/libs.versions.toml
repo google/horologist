@@ -53,6 +53,7 @@ androidx-complications-rendering = { module = "androidx.wear.watchface:watchface
 androidx-concurrent-future = { module = "androidx.concurrent:concurrent-futures", version.ref = "androidx-concurrent" }
 androidx-concurrent-future-ktx = { module = "androidx.concurrent:concurrent-futures-ktx", version.ref = "androidx-concurrent" }
 androidx-corektx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
+androidx-datastore = "androidx.datastore:datastore:1.0.0"
 androidx-datastore-preferences = "androidx.datastore:datastore-preferences:1.0.0"
 androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidxFragment" }
 androidx-lifecycle-process = { module = "androidx.lifecycle:lifecycle-process", version.ref = "androidxLifecycle" }
@@ -125,6 +126,7 @@ moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "mosh
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
 paparazzi = { module = "app.cash.paparazzi:paparazzi", version.ref = "app-cash-paparazzi" }
 paparazziPlugin = { module = "app.cash.paparazzi:paparazzi-gradle-plugin", version.ref = "app-cash-paparazzi" }
+protobuf-kotlin-lite = "com.google.protobuf:protobuf-kotlin-lite:3.21.4"
 retrofit2-convertermoshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "com-squareup-retrofit2" }
 retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "com-squareup-retrofit2" }
 robolectric = "org.robolectric:robolectric:4.8.1"
@@ -143,3 +145,4 @@ kotlinGradle = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 versionCatalogUpdate = { id = "nl.littlerobots.version-catalog-update", version.ref = "versionCatalogUpdate" }
+protobuf = "com.google.protobuf:0.8.19"

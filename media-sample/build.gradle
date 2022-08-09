@@ -20,6 +20,7 @@ plugins {
     id "org.jetbrains.kotlin.kapt"
     id 'dagger.hilt.android.plugin'
     id 'com.google.devtools.ksp'
+    id "com.google.protobuf"
 }
 
 Properties localProperties = new Properties()
@@ -94,23 +95,46 @@ android {
     }
 }
 
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.21.4'
+    }
+    plugins {
+        javalite {
+            artifact = 'com.google.protobuf:protoc-gen-javalite:3.0.0'
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java {
+                    option "lite"
+                }
+                kotlin {
+                    option "lite"
+                }
+            }
+        }
+    }
+}
+
 kapt {
     correctErrorTypes true
 }
 
 dependencies {
-    implementation projects.composeLayout
     implementation projects.audio
     implementation projects.audioUi
     implementation projects.composables
+    implementation projects.composeLayout
+    implementation projects.composeLayout
+    implementation projects.composeTools
     implementation projects.media
-    implementation projects.mediaUi
+    implementation projects.media3Backend
     implementation projects.mediaData
     implementation projects.mediaSync
+    implementation projects.mediaUi
     implementation projects.networkAwareness
-    implementation projects.composeTools
-    implementation projects.media3Backend
-    implementation projects.composeLayout
     implementation projects.tiles
 
     implementation projectOrDependency(":media-lib-datasource-okhttp", libs.androidx.media3.datasourceokhttp)
@@ -131,6 +155,10 @@ dependencies {
     implementation libs.androidx.activity.compose
     implementation libs.androidx.wear.tiles
     implementation libs.androidx.wear.tiles.material
+
+    api libs.androidx.datastore.preferences
+    api libs.androidx.datastore
+    implementation libs.protobuf.kotlin.lite
 
     implementation libs.androidx.complications.datasource.ktx
 

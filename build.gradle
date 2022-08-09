@@ -46,6 +46,7 @@ plugins {
     alias(libs.plugins.versionCatalogUpdate) apply false
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.kapt) apply false
+    alias(libs.plugins.protobuf) apply false
 }
 
 apply plugin: 'org.jetbrains.dokka'

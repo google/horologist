@@ -17,80 +17,29 @@
 package com.google.android.horologist.mediasample.domain
 
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.MutablePreferences
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
-import com.google.android.horologist.mediasample.domain.model.Settings
+import com.google.android.horologist.media3.offload.AudioOffloadStrategy
+import com.google.android.horologist.media3.offload.BackgroundAudioOffloadStrategy
+import com.google.android.horologist.mediasample.domain.proto.SettingsProto
+import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 
 class SettingsRepository(
-    private val dataStore: DataStore<Preferences>
+    private val dataStore: DataStore<Settings>
 ) {
-    suspend fun edit(transform: suspend (MutablePreferences) -> Unit) {
-        dataStore.edit {
+
+    suspend fun edit(transform: suspend (Settings) -> Settings) {
+        dataStore.updateData {
             transform(it)
         }
     }
 
-    suspend fun writePodcastControls(enabled: Boolean) {
-        edit {
-            it[PodcastControls] = enabled
-        }
-    }
-
-    suspend fun writeLoadItemsAtStartup(enabled: Boolean) {
-        edit {
-            it[LoadItemsAtStartup] = enabled
-        }
-    }
-
-    suspend fun writeShowTimeTextInfo(enabled: Boolean) {
-        edit {
-            it[ShowTimeTextInfo] = enabled
-        }
-    }
-
-    suspend fun writeAnimated(enabled: Boolean) {
-        edit {
-            it[Animated] = enabled
-        }
-    }
-
-    suspend fun writeDebugOffload(enabled: Boolean) {
-        edit {
-            it[DebugOffload] = enabled
-        }
-    }
-
-    suspend fun writeOffloadMode(mode: Settings.OffloadMode) {
-        edit {
-            it[OffloadMode] = mode.name
-        }
-    }
-
-    val settingsFlow: Flow<Settings> = dataStore.data.map {
-        it.toSettings()
-    }
-
-    companion object {
-        val ShowTimeTextInfo = booleanPreferencesKey("show_time_text_info")
-        val PodcastControls = booleanPreferencesKey("podcast_controls")
-        val LoadItemsAtStartup = booleanPreferencesKey("load_items_at_startup")
-        val Animated = booleanPreferencesKey("animated")
-        val DebugOffload = booleanPreferencesKey("debug_offload")
-        val OffloadMode = stringPreferencesKey("offload_mode")
-        fun Preferences.toSettings() = Settings(
-            showTimeTextInfo = this[ShowTimeTextInfo] ?: false,
-            podcastControls = this[PodcastControls] ?: false,
-            loadItemsAtStartup = this[LoadItemsAtStartup] ?: true,
-            animated = this[Animated] ?: true,
-            debugOffload = this[DebugOffload] ?: false,
-            offloadMode = this[OffloadMode]?.let {
-                Settings.OffloadMode.valueOf(it)
-            } ?: Settings.OffloadMode.Background
-        )
-    }
+    val settingsFlow: Flow<Settings> = dataStore.data
 }
+
+val SettingsProto.OffloadMode.strategy: AudioOffloadStrategy
+    get() = when (this) {
+        SettingsProto.OffloadMode.BACKGROUND -> BackgroundAudioOffloadStrategy
+        SettingsProto.OffloadMode.ALWAYS -> AudioOffloadStrategy.Always
+        SettingsProto.OffloadMode.NEVER -> AudioOffloadStrategy.Never
+        SettingsProto.OffloadMode.UNRECOGNIZED -> AudioOffloadStrategy.Never
+    }

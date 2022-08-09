@@ -26,7 +26,7 @@ import com.google.android.horologist.media3.offload.AudioOffloadStatus
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.SettingsRepository
-import com.google.android.horologist.mediasample.domain.model.Settings
+import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
 import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.mediasample.ui.util.ResourceProvider
 import com.google.android.horologist.networks.data.DataRequestRepository

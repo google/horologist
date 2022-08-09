@@ -23,7 +23,8 @@ import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.mediasample.domain.SettingsRepository
-import com.google.android.horologist.mediasample.domain.model.Settings
+import com.google.android.horologist.mediasample.domain.proto.SettingsProto.OffloadMode
+import com.google.android.horologist.mediasample.domain.proto.copy
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -61,43 +62,55 @@ class SettingsScreenViewModel @Inject constructor(
         val loadItemsAtStartup: Boolean = true,
         val animated: Boolean = true,
         val debugOffload: Boolean = false,
-        val offloadMode: Settings.OffloadMode = Settings.OffloadMode.Background,
+        val offloadMode: OffloadMode = OffloadMode.BACKGROUND,
         val writable: Boolean = false
     )
 
     fun setShowTimeTextInfo(enabled: Boolean) {
         viewModelScope.launch {
-            settingsRepository.writeShowTimeTextInfo(enabled)
+            settingsRepository.edit {
+                it.copy { showTimeTextInfo = enabled }
+            }
         }
     }
 
     fun setPodcastControls(enabled: Boolean) {
         viewModelScope.launch {
-            settingsRepository.writePodcastControls(enabled)
+            settingsRepository.edit {
+                it.copy { podcastControls = enabled }
+            }
         }
     }
 
     fun setLoadItemsAtStartup(enabled: Boolean) {
         viewModelScope.launch {
-            settingsRepository.writeLoadItemsAtStartup(enabled)
+            settingsRepository.edit {
+                it.copy { loadItemsAtStartup = enabled }
+            }
         }
     }
 
     fun setAnimated(enabled: Boolean) {
         viewModelScope.launch {
-            settingsRepository.writeAnimated(enabled)
+            settingsRepository.edit {
+                it.copy { animated = enabled }
+            }
         }
     }
 
     fun setDebugOffload(enabled: Boolean) {
         viewModelScope.launch {
-            settingsRepository.writeDebugOffload(enabled)
+            settingsRepository.edit {
+                it.copy { debugOffload = enabled }
+            }
         }
     }
 
-    fun setOffloadMode(mode: Settings.OffloadMode) {
+    fun setOffloadMode(mode: OffloadMode) {
         viewModelScope.launch {
-            settingsRepository.writeOffloadMode(mode)
+            settingsRepository.edit {
+                it.copy { offloadMode = mode }
+            }
         }
     }
 

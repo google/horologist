@@ -21,9 +21,6 @@ import android.content.Context
 import android.os.Build
 import android.os.Vibrator
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.media3.database.DatabaseProvider
 import androidx.media3.database.StandaloneDatabaseProvider
 import androidx.media3.datasource.cache.Cache
@@ -41,7 +38,10 @@ import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.data.log.Logging
 import com.google.android.horologist.mediasample.data.service.complication.DataUpdates
 import com.google.android.horologist.mediasample.data.service.complication.MediaStatusComplicationService
+import com.google.android.horologist.mediasample.data.settings.settingsStore
 import com.google.android.horologist.mediasample.domain.SettingsRepository
+import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
+import com.google.android.horologist.mediasample.domain.strategy
 import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.mediasample.ui.util.ResourceProvider
 import dagger.Module
@@ -91,16 +91,9 @@ object MediaApplicationModule {
     @Singleton
     @Provides
     fun prefsDataStore(
-        @ApplicationContext application: Context,
-        @ForApplicationScope coroutineScope: CoroutineScope
-    ): DataStore<Preferences> =
-        PreferenceDataStoreFactory.create(
-            corruptionHandler = null,
-            migrations = listOf(),
-            scope = coroutineScope
-        ) {
-            application.preferencesDataStoreFile("prefs")
-        }
+        @ApplicationContext application: Context
+    ): DataStore<Settings> =
+        application.settingsStore
 
     @Singleton
     @Provides

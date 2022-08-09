@@ -18,7 +18,6 @@ package com.google.android.horologist.mediasample.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.media3.exoplayer.offline.DownloadIndex
 import com.google.android.horologist.mediasample.data.api.NetworkChangeListService
 import com.google.android.horologist.mediasample.data.api.UampService
@@ -40,6 +39,7 @@ import com.google.android.horologist.mediasample.di.annotation.UampDispatchers.I
 import com.google.android.horologist.mediasample.domain.PlaylistDownloadRepository
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.SettingsRepository
+import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -93,7 +93,7 @@ class DataModule {
     @Singleton
     @Provides
     fun settingsRepository(
-        prefsDataStore: DataStore<Preferences>
+        prefsDataStore: DataStore<Settings>
     ) =
         SettingsRepository(prefsDataStore)
 

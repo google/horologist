@@ -37,7 +37,7 @@ import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.mediasample.domain.model.Settings
+import com.google.android.horologist.mediasample.domain.proto.SettingsProto.OffloadMode
 import com.google.android.horologist.mediasample.ui.navigation.navigateToAudioDebug
 import com.google.android.horologist.mediasample.ui.navigation.navigateToSamples
 
@@ -102,9 +102,10 @@ fun UampSettingsScreen(
                 enabled = uiState.writable
             ) {
                 val newMode = when (uiState.offloadMode) {
-                    Settings.OffloadMode.Background -> Settings.OffloadMode.Never
-                    Settings.OffloadMode.Never -> Settings.OffloadMode.Always
-                    Settings.OffloadMode.Always -> Settings.OffloadMode.Background
+                    OffloadMode.BACKGROUND -> OffloadMode.NEVER
+                    OffloadMode.NEVER -> OffloadMode.ALWAYS
+                    OffloadMode.ALWAYS -> OffloadMode.BACKGROUND
+                    OffloadMode.UNRECOGNIZED -> OffloadMode.BACKGROUND
                 }
                 settingsScreenViewModel.setOffloadMode(newMode)
             }

@@ -91,7 +91,7 @@ object MediaApplicationModule {
     @Singleton
     @Provides
     fun prefsDataStore(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): DataStore<Settings> =
         application.settingsStore
 

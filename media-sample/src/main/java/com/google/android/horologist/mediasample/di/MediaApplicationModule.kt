@@ -38,8 +38,8 @@ import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.data.log.Logging
 import com.google.android.horologist.mediasample.data.service.complication.DataUpdates
 import com.google.android.horologist.mediasample.data.service.complication.MediaStatusComplicationService
+import com.google.android.horologist.mediasample.data.settings.settingsStore
 import com.google.android.horologist.mediasample.domain.SettingsRepository
-import com.google.android.horologist.mediasample.domain.model.settingsStore
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
 import com.google.android.horologist.mediasample.domain.strategy
 import com.google.android.horologist.mediasample.ui.AppConfig
@@ -91,7 +91,7 @@ object MediaApplicationModule {
     @Singleton
     @Provides
     fun prefsDataStore(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): DataStore<Settings> =
         application.settingsStore
 

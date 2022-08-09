@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.domain.model
+package com.google.android.horologist.mediasample.data.settings
 
 import android.content.Context
 import androidx.datastore.core.CorruptionException
@@ -49,9 +49,7 @@ object SettingsSerializer : Serializer<Settings> {
     override suspend fun writeTo(t: Settings, output: OutputStream) = t.writeTo(output)
 }
 
-private const val DATA_STORE_FILE_NAME = "settings.pb"
-
 val Context.settingsStore: DataStore<Settings> by dataStore(
-    fileName = DATA_STORE_FILE_NAME,
+    fileName = "settings.pb",
     serializer = SettingsSerializer
 )

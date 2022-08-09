@@ -156,8 +156,8 @@ dependencies {
     implementation libs.androidx.wear.tiles
     implementation libs.androidx.wear.tiles.material
 
-    api libs.androidx.datastore.preferences
-    api libs.androidx.datastore
+    implementation libs.androidx.datastore.preferences
+    implementation libs.androidx.datastore
     implementation libs.protobuf.kotlin.lite
 
     implementation libs.androidx.complications.datasource.ktx

@@ -42,7 +42,7 @@ fun UampPlaylistsScreen(
         is PlaylistsScreenState.Loaded -> {
             val modifiedPlaylistList = (uiState as PlaylistsScreenState.Loaded).playlistList.map {
                 it.takeIf { it.title.isNotEmpty() }
-                    ?: it.copy(title = stringResource(id = R.string.horologist_no_title))
+                    ?: it.copy(title = stringResource(id = R.string.no_title))
             }
 
             PlaylistsScreenState.Loaded(modifiedPlaylistList)

@@ -82,7 +82,7 @@ class MediaCollectionsTileService : CoroutinesTileService() {
 
         return renderer.renderTimeline(
             state = MediaCollectionsTileRenderer.MediaCollectionsState(
-                R.string.horologist_sample_playlists,
+                R.string.sample_playlists,
                 appLauncher(),
                 MediaCollectionsTileRenderer.MediaCollection(
                     name = firstSong.title,
@@ -170,7 +170,7 @@ fun SampleTilePreview() {
 
     val tileState = remember {
         MediaCollectionsTileRenderer.MediaCollectionsState(
-            chipName = R.string.horologist_sample_playlists,
+            chipName = R.string.sample_playlists,
             chipAction = action,
             collection1 = MediaCollectionsTileRenderer.MediaCollection(
                 name = "Kyoto Songs",

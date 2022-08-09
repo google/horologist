@@ -43,6 +43,6 @@ public fun FavoriteButton(
         modifier = modifier,
         onClick = { faved = !faved },
         imageVector = if (faved) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-        contentDescription = stringResource(R.string.horologist_favorite_content_description)
+        contentDescription = stringResource(R.string.favorite_content_description)
     )
 }

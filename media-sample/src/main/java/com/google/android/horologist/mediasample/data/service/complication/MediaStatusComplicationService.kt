@@ -65,8 +65,8 @@ class MediaStatusComplicationService :
     }
 
     private fun notPlayingData() = Data(
-        text = getString(R.string.horologist_favorites),
-        title = getString(R.string.horologist_sample_app_name),
+        text = getString(R.string.favorites),
+        title = getString(R.string.sample_app_name),
         appIconRes = R.drawable.ic_baseline_queue_music_24,
         launchIntent = intentBuilder.buildPlayerIntent(),
         type = SmallImageType.ICON

@@ -88,7 +88,7 @@ class MediaCollectionsTileTest(
 
         val tileState = remember {
             MediaCollectionsTileRenderer.MediaCollectionsState(
-                chipName = R.string.horologist_sample_playlists_name,
+                chipName = R.string.sample_playlists_name,
                 chipAction = action,
                 collection1 = MediaCollectionsTileRenderer.MediaCollection(
                     name = "Liked Songs",

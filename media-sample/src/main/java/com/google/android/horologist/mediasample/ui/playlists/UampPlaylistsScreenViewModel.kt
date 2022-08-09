@@ -49,11 +49,11 @@ class UampPlaylistsScreenViewModel @Inject constructor(
                 is IOException -> {
                     snackbarManager.showMessage(
                         UiMessage(
-                            message = resourceProvider.getString(R.string.horologist_sample_network_error),
+                            message = resourceProvider.getString(R.string.sample_network_error),
                             error = true
                         )
                     )
-                    emit(PlaylistsScreenState.Failed(R.string.horologist_sample_network_error))
+                    emit(PlaylistsScreenState.Failed(R.string.sample_network_error))
                 }
                 else -> throw throwable
             }

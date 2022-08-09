@@ -68,7 +68,7 @@ class MediaDownloadService : DownloadService(
         private const val MEDIA_DOWNLOAD_FOREGROUND_NOTIFICATION_ID = 1
         const val MEDIA_DOWNLOAD_CHANNEL_ID = "download_channel"
         private const val MEDIA_DOWNLOAD_CHANNEL_NAME =
-            R.string.horologist_media_download_channel_name
+            R.string.media_download_channel_name
         private const val MEDIA_DOWNLOAD_CHANNEL_DESCRIPTION_NOT_PROVIDED = 0
         private const val MEDIA_DOWNLOAD_NOTIFICATION_ICON =
             R.drawable.ic_baseline_music_note_24_white

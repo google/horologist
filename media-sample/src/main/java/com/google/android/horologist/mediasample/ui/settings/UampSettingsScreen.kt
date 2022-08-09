@@ -59,21 +59,21 @@ fun UampSettingsScreen(
     ) {
         item {
             Text(
-                text = stringResource(id = R.string.horologist_sample_settings),
+                text = stringResource(id = R.string.sample_settings),
                 modifier = Modifier.padding(bottom = 12.dp),
                 style = MaterialTheme.typography.title3
             )
         }
         item {
             ActionSetting(
-                stringResource(id = R.string.horologist_sample_audio_debug)
+                stringResource(id = R.string.sample_audio_debug)
             ) {
                 navController.navigateToAudioDebug()
             }
         }
         item {
             ActionSetting(
-                stringResource(id = R.string.horologist_sample_samples)
+                stringResource(id = R.string.sample_samples)
             ) {
                 navController.navigateToSamples()
             }
@@ -81,7 +81,7 @@ fun UampSettingsScreen(
         item {
             CheckedSetting(
                 uiState.showTimeTextInfo,
-                stringResource(id = R.string.horologist_show_time_text_info),
+                stringResource(id = R.string.show_time_text_info),
                 enabled = uiState.writable
             ) {
                 settingsScreenViewModel.setShowTimeTextInfo(it)
@@ -90,7 +90,7 @@ fun UampSettingsScreen(
         item {
             CheckedSetting(
                 uiState.debugOffload,
-                stringResource(id = R.string.horologist_debug_offload),
+                stringResource(id = R.string.debug_offload),
                 enabled = uiState.writable
             ) {
                 settingsScreenViewModel.setDebugOffload(it)
@@ -98,7 +98,7 @@ fun UampSettingsScreen(
         }
         item {
             ActionSetting(
-                stringResource(id = R.string.horologist_offload_mode, uiState.offloadMode.name),
+                stringResource(id = R.string.offload_mode, uiState.offloadMode.name),
                 enabled = uiState.writable
             ) {
                 val newMode = when (uiState.offloadMode) {
@@ -113,7 +113,7 @@ fun UampSettingsScreen(
         item {
             CheckedSetting(
                 uiState.podcastControls,
-                stringResource(id = R.string.horologist_podcast_controls),
+                stringResource(id = R.string.podcast_controls),
                 enabled = uiState.writable
             ) {
                 settingsScreenViewModel.setPodcastControls(it)
@@ -122,7 +122,7 @@ fun UampSettingsScreen(
         item {
             CheckedSetting(
                 uiState.loadItemsAtStartup,
-                stringResource(id = R.string.horologist_load_items),
+                stringResource(id = R.string.load_items),
                 enabled = uiState.writable
             ) {
                 settingsScreenViewModel.setLoadItemsAtStartup(it)
@@ -131,23 +131,23 @@ fun UampSettingsScreen(
         item {
             CheckedSetting(
                 uiState.animated,
-                stringResource(id = R.string.horologist_animated),
+                stringResource(id = R.string.animated),
                 enabled = uiState.writable
             ) {
                 settingsScreenViewModel.setAnimated(it)
             }
         }
         item {
-            val message = stringResource(id = R.string.horologist_sample_error)
+            val message = stringResource(id = R.string.sample_error)
             ActionSetting(
-                stringResource(id = R.string.horologist_show_test_dialog)
+                stringResource(id = R.string.show_test_dialog)
             ) {
                 settingsScreenViewModel.showDialog(message)
             }
         }
         item {
             ActionSetting(
-                text = stringResource(id = R.string.horologist_logout),
+                text = stringResource(id = R.string.logout),
                 enabled = false
             ) {
                 settingsScreenViewModel.logout()
@@ -184,8 +184,8 @@ fun ToggleSetting(
         toggleControl = {
             Icon(
                 imageVector = ToggleChipDefaults.radioIcon(checked = value),
-                contentDescription = if (value) stringResource(id = R.string.horologist_on) else stringResource(
-                    id = R.string.horologist_off
+                contentDescription = if (value) stringResource(id = R.string.on) else stringResource(
+                    id = R.string.off
                 )
             )
         },
@@ -210,8 +210,8 @@ fun CheckedSetting(
         toggleControl = {
             Icon(
                 imageVector = ToggleChipDefaults.checkboxIcon(checked = value),
-                contentDescription = if (value) stringResource(id = R.string.horologist_on) else stringResource(
-                    id = R.string.horologist_off
+                contentDescription = if (value) stringResource(id = R.string.on) else stringResource(
+                    id = R.string.off
                 )
             )
         },

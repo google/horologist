@@ -1,0 +1,72 @@
+// Signature format: 4.0
+package com.google.android.horologist.media.sync.api {
+
+  public interface ChangeListVersionRepository {
+    method public suspend Object? getChangeListVersion(String model, kotlin.coroutines.Continuation<? super java.lang.Integer> p);
+    method public suspend Object? updateChangeListVersion(String model, int newVersion, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+  }
+
+  public interface CoroutineDispatcherProvider {
+    method public kotlinx.coroutines.CoroutineDispatcher getIODispatcher();
+  }
+
+  public final class NetworkChangeList {
+    ctor public NetworkChangeList(String id, int changeListVersion, boolean isDelete);
+    method public String component1();
+    method public int component2();
+    method public boolean component3();
+    method public com.google.android.horologist.media.sync.api.NetworkChangeList copy(String id, int changeListVersion, boolean isDelete);
+    method public int getChangeListVersion();
+    method public String getId();
+    method public boolean isDelete();
+    property public final int changeListVersion;
+    property public final String id;
+    property public final boolean isDelete;
+  }
+
+  public interface NotificationConfigurationProvider {
+    method public String getChannelDescription();
+    method public String getChannelName();
+    method @DrawableRes public int getNotificationIcon();
+    method public String getNotificationTitle();
+  }
+
+  public final class SyncUtilitiesKt {
+    method public static suspend Object? changeListSync(com.google.android.horologist.media.sync.api.Synchronizer, String model, kotlin.jvm.functions.Function2<? super java.lang.Integer,? super kotlin.coroutines.Continuation<? super java.util.List<? extends com.google.android.horologist.media.sync.api.NetworkChangeList>>,?> changeListFetcher, kotlin.jvm.functions.Function2<? super java.util.List<? extends java.lang.String>,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> modelDeleter, kotlin.jvm.functions.Function2<? super java.util.List<? extends java.lang.String>,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> modelUpdater, kotlin.coroutines.Continuation<? super java.lang.Boolean> p);
+    method public static suspend Object? changeListSync(com.google.android.horologist.media.sync.api.Synchronizer, java.util.List<java.lang.String> models, kotlin.jvm.functions.Function3<? super java.lang.String,? super java.lang.Integer,? super kotlin.coroutines.Continuation<? super java.util.List<? extends com.google.android.horologist.media.sync.api.NetworkChangeList>>,?> changeListFetcher, kotlin.jvm.functions.Function3<? super java.lang.String,? super java.util.List<? extends java.lang.String>,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> modelDeleter, kotlin.jvm.functions.Function3<? super java.lang.String,? super java.util.List<? extends java.lang.String>,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> modelUpdater, kotlin.coroutines.Continuation<? super java.lang.Boolean> p);
+  }
+
+  public interface Syncable {
+    method public suspend Object? syncWith(com.google.android.horologist.media.sync.api.Synchronizer synchronizer, kotlin.coroutines.Continuation<? super java.lang.Boolean> p);
+  }
+
+  public interface Synchronizer {
+    method public suspend Object? getChangeListVersions(String model, kotlin.coroutines.Continuation<? super java.lang.Integer> p);
+    method public default suspend Object? sync(com.google.android.horologist.media.sync.api.Syncable, kotlin.coroutines.Continuation<? super java.lang.Boolean> p);
+    method public suspend Object? updateChangeListVersions(String model, int version, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+  }
+
+}
+
+package com.google.android.horologist.media.sync.initializers {
+
+  public final class Sync {
+    method public void initialize(android.content.Context context);
+    field public static final com.google.android.horologist.media.sync.initializers.Sync INSTANCE;
+  }
+
+  public final class SyncInitializerKt {
+  }
+
+}
+
+package com.google.android.horologist.media.sync.workers {
+
+  public final class DelegatingWorkerKt {
+  }
+
+  public final class SyncWorkHelpersKt {
+  }
+
+}
+

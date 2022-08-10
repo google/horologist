@@ -40,6 +40,7 @@ include ':media-sync'
 include ':compose-tools'
 include ':paparazzi'
 include ':network-awareness'
+include ':datalayer'
 
 // Enable Gradle's version catalog support
 // https://docs.gradle.org/current/userguide/platforms.html

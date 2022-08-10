@@ -47,10 +47,10 @@ import kotlin.reflect.KClass
  */
 public class WearDataLayerRegistry(
     public val dataClient: DataClient,
-    public val nodeClient: NodeClient,
+    public val nodeClient: NodeClient
 ) {
     /**
-     * Returns a Proto DataStore for the given Proto structure.
+     * Returns a local Proto DataStore for the given Proto structure.
      *
      * @param path the path inside the data client namespace, of the form "/xyz/123"
      * @param coroutineScope the coroutine scope for
@@ -59,22 +59,21 @@ public class WearDataLayerRegistry(
         path: String,
         coroutineScope: CoroutineScope,
         serializer: Serializer<T>,
-        started: SharingStarted = SharingStarted.WhileSubscribed(5000),
+        started: SharingStarted = SharingStarted.WhileSubscribed(5000)
     ): DataStore<T?> {
         return WearLocalDataStore(
-            dataClient,
-            nodeClient,
+            this,
             started = started,
             coroutineScope = coroutineScope,
             serializer = serializer,
-            path = path,
+            path = path
         )
     }
 
     fun <T> protoFlow(
         targetNode: TargetNode,
         path: String,
-        serializer: Serializer<T>,
+        serializer: Serializer<T>
     ): Flow<T?> = flow {
         val nodeId = targetNode.evaluate(this@WearDataLayerRegistry)
 
@@ -88,14 +87,14 @@ public class WearDataLayerRegistry(
     fun preferencesDataStore(
         path: String,
         coroutineScope: CoroutineScope,
-        started: SharingStarted = SharingStarted.WhileSubscribed(5000),
+        started: SharingStarted = SharingStarted.WhileSubscribed(5000)
     ): DataStore<Preferences?> {
         return protoDataStore(path, coroutineScope, PreferencesSerializer, started)
     }
 
     fun <T> preferencesFlow(
         targetNode: TargetNode,
-        path: String,
+        path: String
     ): Flow<Preferences?> = protoFlow(targetNode, path, PreferencesSerializer)
 
     companion object {
@@ -113,12 +112,10 @@ public class WearDataLayerRegistry(
             return "/$prefix/${t.simpleName!!}"
         }
 
-        public fun buildUri(nodeId: String, path: String) {
-            return Uri.Builder()
-                .scheme(PutDataRequest.WEAR_URI_SCHEME)
-                .authority(nodeId)
-                .path(path)
-                .build()
-        }
+        public fun buildUri(nodeId: String, path: String): Uri = Uri.Builder()
+            .scheme(PutDataRequest.WEAR_URI_SCHEME)
+            .authority(nodeId)
+            .path(path)
+            .build()
     }
 }

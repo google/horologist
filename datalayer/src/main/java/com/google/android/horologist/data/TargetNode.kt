@@ -16,8 +16,6 @@
 
 package com.google.android.horologist.data
 
-import com.google.android.gms.wearable.Node
-import com.google.android.gms.wearable.NodeClient
 import kotlinx.coroutines.tasks.await
 
 /**
@@ -33,7 +31,7 @@ public interface TargetNode {
     /**
      * A reference to the Node for this device.
      */
-    public object ThisNode: TargetNode {
+    public object ThisNode : TargetNode {
         override suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String {
             return dataLayerRegistry.nodeClient.localNode.await().id
         }
@@ -49,13 +47,12 @@ public interface TargetNode {
         }
     }
 
-
     /**
      * A reference to a specific node id, via prior configuration.
      */
     public class SpecificNode(
         public val nodeId: String
-    ): TargetNode {
+    ) : TargetNode {
         override suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String {
             return nodeId
         }

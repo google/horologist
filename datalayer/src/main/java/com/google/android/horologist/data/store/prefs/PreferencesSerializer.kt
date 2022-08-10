@@ -18,7 +18,6 @@ package com.google.android.horologist.data.store.prefs
 
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
-import androidx.datastore.preferences.PreferencesProto
 import androidx.datastore.preferences.PreferencesProto.PreferenceMap
 import androidx.datastore.preferences.PreferencesProto.StringSet
 import androidx.datastore.preferences.PreferencesProto.Value

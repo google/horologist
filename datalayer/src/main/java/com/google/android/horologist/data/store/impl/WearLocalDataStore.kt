@@ -22,12 +22,11 @@ import android.annotation.SuppressLint
 import android.net.Uri
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
-import com.google.android.gms.wearable.DataClient
-import com.google.android.gms.wearable.NodeClient
 import com.google.android.gms.wearable.PutDataRequest
 import com.google.android.horologist.data.ExperimentalHorologistDataLayerApi
 import com.google.android.horologist.data.TargetNode
 import com.google.android.horologist.data.WearDataLayerRegistry
+import com.google.android.horologist.data.WearDataLayerRegistry.Companion.buildUri
 import com.google.android.horologist.data.store.flow.dataItemFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -41,7 +40,6 @@ import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.tasks.await
 import java.io.ByteArrayOutputStream
-import kotlin.reflect.KClass
 
 // Workaround https://issuetracker.google.com/issues/239451111
 @SuppressLint("VisibleForTests")
@@ -51,7 +49,7 @@ public class WearLocalDataStore<T>(
     started: SharingStarted = SharingStarted.Eagerly,
     coroutineScope: CoroutineScope,
     private val serializer: Serializer<T>,
-    private val path: String,
+    private val path: String
 ) : DataStore<T?> {
     private val nodeIdFlow = nodeIdFlow().shareIn(coroutineScope, started = started, replay = 1)
 
@@ -93,7 +91,7 @@ public class WearLocalDataStore<T>(
 
             wearDataLayerRegistry.dataClient.putDataItem(request).await()
         } else {
-            wearDataLayerRegistry.dataClient.deleteDataItems(buildUri(nodeId,path))
+            wearDataLayerRegistry.dataClient.deleteDataItems(nodeId.fullPath)
                 .await()
         }
 

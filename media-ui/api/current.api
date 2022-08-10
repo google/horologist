@@ -404,6 +404,63 @@ package com.google.android.horologist.media.ui.screens.playlist {
 
 }
 
+package com.google.android.horologist.media.ui.screens.sectioned {
+
+  @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class Section {
+    ctor public Section(com.google.android.horologist.media.ui.screens.sectioned.Section.State state, kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit>? headerContent, optional kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit>? footerContent);
+    method public com.google.android.horologist.media.ui.screens.sectioned.Section.State component1();
+    method public kotlin.jvm.functions.Function1<androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit>? component2();
+    method public kotlin.jvm.functions.Function1<androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit>? component3();
+    method public com.google.android.horologist.media.ui.screens.sectioned.Section copy(com.google.android.horologist.media.ui.screens.sectioned.Section.State state, kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit>? headerContent, kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit>? footerContent);
+    method public kotlin.jvm.functions.Function1<androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit>? getFooterContent();
+    method public kotlin.jvm.functions.Function1<androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit>? getHeaderContent();
+    method public com.google.android.horologist.media.ui.screens.sectioned.Section.State getState();
+    property public final kotlin.jvm.functions.Function1<androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit>? footerContent;
+    property public final kotlin.jvm.functions.Function1<androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit>? headerContent;
+    property public final com.google.android.horologist.media.ui.screens.sectioned.Section.State state;
+  }
+
+  public abstract static sealed class Section.State {
+  }
+
+  public static final class Section.State.Empty extends com.google.android.horologist.media.ui.screens.sectioned.Section.State {
+    ctor public Section.State.Empty(kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit> content);
+    method public kotlin.jvm.functions.Function1<androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit> component1();
+    method public com.google.android.horologist.media.ui.screens.sectioned.Section.State.Empty copy(kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit> content);
+    method public kotlin.jvm.functions.Function1<androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit> getContent();
+    property public final kotlin.jvm.functions.Function1<androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit> content;
+  }
+
+  public static final class Section.State.Failed extends com.google.android.horologist.media.ui.screens.sectioned.Section.State {
+    ctor public Section.State.Failed(kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit> content);
+    method public kotlin.jvm.functions.Function1<androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit> component1();
+    method public com.google.android.horologist.media.ui.screens.sectioned.Section.State.Failed copy(kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit> content);
+    method public kotlin.jvm.functions.Function1<androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit> getContent();
+    property public final kotlin.jvm.functions.Function1<androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit> content;
+  }
+
+  public static final class Section.State.Loaded extends com.google.android.horologist.media.ui.screens.sectioned.Section.State {
+    ctor public Section.State.Loaded(java.util.List<? extends kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit>> contentItems);
+    method public java.util.List<kotlin.jvm.functions.Function1<androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit>> component1();
+    method public com.google.android.horologist.media.ui.screens.sectioned.Section.State.Loaded copy(java.util.List<? extends kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit>> contentItems);
+    method public java.util.List<kotlin.jvm.functions.Function1<androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit>> getContentItems();
+    property public final java.util.List<kotlin.jvm.functions.Function1<androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit>> contentItems;
+  }
+
+  public static final class Section.State.Loading extends com.google.android.horologist.media.ui.screens.sectioned.Section.State {
+    ctor public Section.State.Loading(kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit> content);
+    method public kotlin.jvm.functions.Function1<androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit> component1();
+    method public com.google.android.horologist.media.ui.screens.sectioned.Section.State.Loading copy(kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit> content);
+    method public kotlin.jvm.functions.Function1<androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit> getContent();
+    property public final kotlin.jvm.functions.Function1<androidx.wear.compose.material.ScalingLazyListItemScope,kotlin.Unit> content;
+  }
+
+  public final class SectionedScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void SectionedScreen(java.util.List<com.google.android.horologist.media.ui.screens.sectioned.Section> sections, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier);
+  }
+
+}
+
 package com.google.android.horologist.media.ui.semantics {
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class CustomSemanticsProperties {

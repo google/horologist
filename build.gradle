@@ -15,9 +15,6 @@
  */
 
 buildscript {
-    ext {
-        compose_ui_version = '1.2.0-beta01'
-    }
     repositories {
         google()
         mavenCentral()

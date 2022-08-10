@@ -23,7 +23,6 @@ import com.google.android.gms.wearable.DataClient
 import com.google.android.gms.wearable.DataEventBuffer
 import com.google.android.gms.wearable.DataItem
 import com.google.android.gms.wearable.PutDataRequest
-import com.google.android.horologist.data.ExperimentalHorologistDataLayerApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -33,8 +32,7 @@ import java.io.ByteArrayInputStream
 
 // Workaround https://issuetracker.google.com/issues/239451111
 @SuppressLint("VisibleForTests")
-@ExperimentalHorologistDataLayerApi
-public fun <T> DataClient.dataItemFlow(
+internal fun <T> DataClient.dataItemFlow(
     nodeId: String,
     path: String,
     serializer: Serializer<T>,

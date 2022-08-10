@@ -53,7 +53,9 @@ public class WearDataLayerRegistry(
      * Returns a local Proto DataStore for the given Proto structure.
      *
      * @param path the path inside the data client namespace, of the form "/xyz/123"
-     * @param coroutineScope the coroutine scope for
+     * @param coroutineScope the coroutine scope used for the internal SharedFlow.
+     * @param serializer the data store Serializer
+     * @param started the SharingStarted mode for the internal SharedFlow.
      */
     fun <T> protoDataStore(
         path: String,
@@ -73,7 +75,7 @@ public class WearDataLayerRegistry(
     internal fun <T> protoFlow(
         targetNodeId: TargetNodeId,
         path: String,
-        serializer: Serializer<T>,
+        serializer: Serializer<T>
     ): Flow<T> = flow {
         val nodeId = targetNodeId.evaluate(this@WearDataLayerRegistry)
 
@@ -82,6 +84,13 @@ public class WearDataLayerRegistry(
         }
     }
 
+    /**
+     * Returns a local Preferences DataStore.
+     *
+     * @param path the path inside the data client namespace, of the form "/xyz/123"
+     * @param coroutineScope the coroutine scope used for the internal SharedFlow.
+     * @param started the SharingStarted mode for the internal SharedFlow.
+     */
     fun preferencesDataStore(
         path: String,
         coroutineScope: CoroutineScope,
@@ -104,17 +113,17 @@ public class WearDataLayerRegistry(
             nodeClient = Wearable.getNodeClient(application)
         )
 
-        public fun dataStorePath(t: KClass<*>, persisted: Boolean = false): String {
-            // Use predictable paths for persisted data that should survive backups
-            val prefix = if (persisted) "proto-persisted" else "proto"
-            return "/$prefix/${t.simpleName!!}"
-        }
-
         public fun buildUri(nodeId: String, path: String): Uri = Uri.Builder()
             .scheme(PutDataRequest.WEAR_URI_SCHEME)
             .authority(nodeId)
             .path(path)
             .build()
+
+        public fun dataStorePath(t: KClass<*>, persisted: Boolean = false): String {
+            // Use predictable paths for persisted data that should survive backups
+            val prefix = if (persisted) "proto-persisted" else "proto"
+            return "/$prefix/${t.simpleName!!}"
+        }
 
         fun preferencesPath(name: String, persisted: Boolean = false): String {
             // Use predictable paths for persisted data that should survive backups

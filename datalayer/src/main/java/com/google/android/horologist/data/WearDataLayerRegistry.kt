@@ -117,5 +117,11 @@ public class WearDataLayerRegistry(
             .authority(nodeId)
             .path(path)
             .build()
+
+        fun preferencesPath(name: String, persisted: Boolean = false): String {
+            // Use predictable paths for persisted data that should survive backups
+            val prefix = if (persisted) "proto-persisted" else "proto"
+            return "/$prefix/prefs/$name"
+        }
     }
 }

@@ -73,10 +73,10 @@ dependencies {
     implementation libs.kotlinx.coroutines.core
     implementation libs.androidx.wear
 
-    implementation 'com.google.android.gms:play-services-wearable:17.1.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4'
-    api "androidx.datastore:datastore:1.0.0"
-    api "androidx.datastore:datastore-preferences:1.0.0"
+    implementation libs.playservices.wearable
+    implementation libs.kotlinx.coroutines.playservices
+    implementation libs.androidx.datastore.preferences
+    implementation libs.androidx.datastore
 
     testImplementation libs.junit
     testImplementation libs.truth

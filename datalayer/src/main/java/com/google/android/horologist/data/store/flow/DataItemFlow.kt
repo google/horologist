@@ -21,9 +21,11 @@ import android.net.Uri
 import androidx.datastore.core.Serializer
 import com.google.android.gms.wearable.DataClient
 import com.google.android.gms.wearable.DataEventBuffer
+import com.google.android.gms.wearable.DataItem
 import com.google.android.gms.wearable.PutDataRequest
 import com.google.android.horologist.data.ExperimentalHorologistDataLayerApi
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
@@ -35,12 +37,13 @@ import java.io.ByteArrayInputStream
 public fun <T> DataClient.dataItemFlow(
     nodeId: String,
     path: String,
-    serializer: Serializer<T>
-) = callbackFlow {
+    serializer: Serializer<T>,
+    defaultValue: () -> T = { serializer.defaultValue }
+): Flow<T> = callbackFlow {
     val listener: (DataEventBuffer) -> Unit = {
         val dataItem = it[it.count - 1].dataItem
         val data = dataItem.data
-        this.trySend(data)
+        trySend(data)
     }
 
     val uri = Uri.Builder()
@@ -49,8 +52,9 @@ public fun <T> DataClient.dataItemFlow(
         .authority(nodeId)
         .build()
 
-    val item = this@dataItemFlow.getDataItem(uri).await()
-    trySend(item.data)
+    val item: DataItem? = this@dataItemFlow.getDataItem(uri).await()
+
+    trySend(item?.data)
 
     addListener(listener, uri, DataClient.FILTER_LITERAL)
 
@@ -58,5 +62,13 @@ public fun <T> DataClient.dataItemFlow(
         removeListener(listener)
     }
 }.map {
-    serializer.readFrom(ByteArrayInputStream(it))
+    if (it != null) {
+        serializer.parse(it)
+    } else {
+        defaultValue()
+    }
 }
+
+private suspend fun <T> Serializer<T>.parse(
+    data: ByteArray
+) = readFrom(ByteArrayInputStream(data))

@@ -14,12 +14,20 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package com.google.android.horologist.data
 
-import androidx.datastore.preferences.core.MutablePreferences
-import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.test.platform.app.InstrumentationRegistry
+import com.google.common.truth.Truth
+import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
@@ -30,22 +38,31 @@ class WearDataLayerRegistryTest {
     fun testPreferencesDataStore() = runTest {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
 
+        val scope = CoroutineScope(this.coroutineContext + Job())
+
         val registry = WearDataLayerRegistry.fromContext(context)
 
+        val path = WearDataLayerRegistry.preferencesPath("settings")
         val preferencesDataStore = registry.preferencesDataStore(
-            WearDataLayerRegistry.preferencesPath("settings"),
-            this
+            path,
+            scope
         )
 
-        preferencesDataStore.updateData {
-            it?.toMutablePreferences()?.apply {
-                this[aStringKey] = "a"
-            }
+        preferencesDataStore.edit {
+            it[aStringKey] = "a"
         }
 
-        val preferences = preferencesDataStore.data.first()
+        val preferences = preferencesDataStore.data.filter {
+            // We may possibly receive the existing item as a replay, so skip this.
+            it[aStringKey] == "a"
+        }.first()
 
-        val preferences2 = registry.
+        val preferences2 = registry.preferencesFlow(TargetNodeId.ThisNodeId, path).first()
+
+        assertThat(preferences).isEqualTo(preferences2)
+        assertThat(preferences[aStringKey]).isEqualTo("a")
+
+        scope.cancel()
     }
 
     companion object {

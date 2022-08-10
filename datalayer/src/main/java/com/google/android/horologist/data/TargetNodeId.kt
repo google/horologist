@@ -22,7 +22,7 @@ import kotlinx.coroutines.tasks.await
  * A selector for a Node to connect with over the data client without needing to resolve ahead of
  * time. The implementations could be anything from hardcoded value to querying the
  */
-public interface TargetNode {
+public interface TargetNodeId {
     /**
      * Return the node id for the given strategy.
      */
@@ -31,7 +31,7 @@ public interface TargetNode {
     /**
      * A reference to the Node for this device.
      */
-    public object ThisNode : TargetNode {
+    public object ThisNodeId : TargetNodeId {
         override suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String {
             return dataLayerRegistry.nodeClient.localNode.await().id
         }
@@ -41,7 +41,7 @@ public interface TargetNode {
      * A reference to the single paired node for the connected phone.
      * All wear devices must have a single connected device, although it may not be available.
      */
-    public object PairedPhone : TargetNode {
+    public object PairedPhone : TargetNodeId {
         override suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String? {
             return dataLayerRegistry.nodeClient.connectedNodes.await()?.firstOrNull()?.id
         }
@@ -50,9 +50,9 @@ public interface TargetNode {
     /**
      * A reference to a specific node id, via prior configuration.
      */
-    public class SpecificNode(
+    public class SpecificNodeId(
         public val nodeId: String
-    ) : TargetNode {
+    ) : TargetNodeId {
         override suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String {
             return nodeId
         }

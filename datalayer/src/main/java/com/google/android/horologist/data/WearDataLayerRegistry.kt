@@ -60,7 +60,7 @@ public class WearDataLayerRegistry(
         coroutineScope: CoroutineScope,
         serializer: Serializer<T>,
         started: SharingStarted = SharingStarted.WhileSubscribed(5000)
-    ): DataStore<T?> {
+    ): DataStore<T> {
         return WearLocalDataStore(
             this,
             started = started,
@@ -70,17 +70,15 @@ public class WearDataLayerRegistry(
         )
     }
 
-    fun <T> protoFlow(
-        targetNode: TargetNode,
+    internal fun <T> protoFlow(
+        targetNodeId: TargetNodeId,
         path: String,
-        serializer: Serializer<T>
-    ): Flow<T?> = flow {
-        val nodeId = targetNode.evaluate(this@WearDataLayerRegistry)
+        serializer: Serializer<T>,
+    ): Flow<T> = flow {
+        val nodeId = targetNodeId.evaluate(this@WearDataLayerRegistry)
 
         if (nodeId != null) {
             emitAll(dataClient.dataItemFlow(nodeId, path, serializer))
-        } else {
-            emit(null)
         }
     }
 
@@ -88,14 +86,14 @@ public class WearDataLayerRegistry(
         path: String,
         coroutineScope: CoroutineScope,
         started: SharingStarted = SharingStarted.WhileSubscribed(5000)
-    ): DataStore<Preferences?> {
+    ): DataStore<Preferences> {
         return protoDataStore(path, coroutineScope, PreferencesSerializer, started)
     }
 
-    fun <T> preferencesFlow(
-        targetNode: TargetNode,
+    fun preferencesFlow(
+        targetNodeId: TargetNodeId,
         path: String
-    ): Flow<Preferences?> = protoFlow(targetNode, path, PreferencesSerializer)
+    ): Flow<Preferences> = protoFlow(targetNodeId, path, PreferencesSerializer)
 
     companion object {
         /**

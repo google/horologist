@@ -24,20 +24,19 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
 import com.google.android.gms.wearable.PutDataRequest
 import com.google.android.horologist.data.ExperimentalHorologistDataLayerApi
-import com.google.android.horologist.data.TargetNode
+import com.google.android.horologist.data.TargetNodeId
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.WearDataLayerRegistry.Companion.buildUri
 import com.google.android.horologist.data.store.flow.dataItemFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.shareIn
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.tasks.await
 import java.io.ByteArrayOutputStream
 
@@ -50,11 +49,11 @@ public class WearLocalDataStore<T>(
     coroutineScope: CoroutineScope,
     private val serializer: Serializer<T>,
     private val path: String
-) : DataStore<T?> {
+) : DataStore<T> {
     private val nodeIdFlow = nodeIdFlow().shareIn(coroutineScope, started = started, replay = 1)
 
     private fun nodeIdFlow() = flow {
-        val nodeId = TargetNode.ThisNode.evaluate(wearDataLayerRegistry)
+        val nodeId = TargetNodeId.ThisNodeId.evaluate(wearDataLayerRegistry)
         emit(
             NodeIdAndPath(
                 nodeId = nodeId,
@@ -63,15 +62,15 @@ public class WearLocalDataStore<T>(
         )
     }
 
-    private val stateFlow: StateFlow<T?> = nodeIdFlow.flatMapLatest { (nodeId, _) ->
+    private val sharedFlow: SharedFlow<T> = nodeIdFlow.flatMapLatest { (nodeId, _) ->
         wearDataLayerRegistry.dataClient.dataItemFlow(
             nodeId,
             path,
             serializer
         )
-    }.stateIn(coroutineScope, started = SharingStarted.Eagerly, null)
+    }.shareIn(coroutineScope, started = SharingStarted.Eagerly, replay = 1)
 
-    override val data: Flow<T?> = stateFlow
+    override val data: Flow<T> = sharedFlow
 
     private suspend fun writeBytes(t: T): ByteArray {
         return ByteArrayOutputStream().apply {
@@ -79,10 +78,10 @@ public class WearLocalDataStore<T>(
         }.toByteArray()
     }
 
-    override suspend fun updateData(transform: suspend (t: T?) -> T?): T? {
+    override suspend fun updateData(transform: suspend (t: T) -> T): T {
         val nodeId = nodeIdFlow.first()
 
-        val newT = transform(stateFlow.value)
+        val newT = transform(sharedFlow.first())
 
         if (newT != null) {
             val request = PutDataRequest.create(path).apply {

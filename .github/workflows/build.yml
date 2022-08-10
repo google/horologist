@@ -50,7 +50,7 @@ jobs:
       - name: Metalava compatibility check
         run: |
           ./gradlew --scan --stacktrace \
-              metalavaCheckCompatibility
+              metalavaCheckCompatibilityRelease
 
       - name: Code analysis
         run: |

@@ -26,6 +26,14 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
+apply plugin: 'me.tylerbwong.gradle.metalava'
+
+metalava {
+    sourcePaths = ["src/main"]
+    filename = "api/current.api"
+    reportLintsAsErrors = true
+}
+
 dependencies {
 
     implementation libs.kotlinx.coroutines.core

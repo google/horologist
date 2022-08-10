@@ -1,7 +1,7 @@
 // Signature format: 4.0
 package com.google.android.horologist.networks {
 
-  @kotlin.RequiresOptIn(message="Horologist Network Awareness is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistNetworksApi {
+  @kotlin.RequiresOptIn(message="Horologist Network Awareness is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistNetworksApi {
   }
 
 }
@@ -260,7 +260,7 @@ package com.google.android.horologist.networks.db {
   }
 
   @androidx.room.Entity public final class DataUsage {
-    ctor public DataUsage(@androidx.room.ColumnInfo @androidx.room.PrimaryKey String networkType, @androidx.room.ColumnInfo long bytesTotal, @androidx.room.ColumnInfo int day);
+    ctor public DataUsage(@androidx.room.ColumnInfo(name="networkType") @androidx.room.PrimaryKey String networkType, @androidx.room.ColumnInfo(name="bytesTotal") long bytesTotal, @androidx.room.ColumnInfo(name="day") int day);
     method public String component1();
     method public long component2();
     method public int component3();
@@ -333,6 +333,10 @@ package com.google.android.horologist.networks.okhttp {
     field public static final com.google.android.horologist.networks.okhttp.AlwaysHttpsInterceptor INSTANCE;
   }
 
+  public final class AwaitKt {
+    method public static suspend Object? await(okhttp3.Call, kotlin.coroutines.Continuation<? super okhttp3.Response> p);
+  }
+
   public class DelegatingEventListener extends okhttp3.EventListener {
     ctor public DelegatingEventListener(okhttp3.EventListener delegate);
     method public void dnsEnd(okhttp3.Call call, String domainName, java.util.List<? extends java.net.InetAddress> inetAddressList);
@@ -373,10 +377,6 @@ package com.google.android.horologist.networks.okhttp {
     method public okhttp3.EventListener create(okhttp3.Call call);
   }
 
-  public final class OkhttpKt {
-    method public static suspend Object? await(okhttp3.Call, kotlin.coroutines.Continuation<? super okhttp3.Response> p);
-  }
-
   public final class RequestTypeHolder {
     ctor public RequestTypeHolder(optional com.google.android.horologist.networks.data.RequestType requestType, optional com.google.android.horologist.networks.data.NetworkType? networkType);
     method public com.google.android.horologist.networks.data.RequestType component1();
@@ -397,9 +397,6 @@ package com.google.android.horologist.networks.okhttp {
     method public com.google.android.horologist.networks.data.RequestType? getRequestTypeOrNull(okhttp3.Request);
     method public okhttp3.Request.Builder requestType(okhttp3.Request.Builder, com.google.android.horologist.networks.data.RequestType value);
     method public void setNetworkType(okhttp3.Request, com.google.android.horologist.networks.data.NetworkType? value);
-    property public final com.google.android.horologist.networks.data.NetworkType? networkType;
-    property public final com.google.android.horologist.networks.data.RequestType requestType;
-    property public final com.google.android.horologist.networks.data.RequestType? requestTypeOrNull;
   }
 
   public final class RequestVerifyingInterceptor implements okhttp3.Interceptor {
@@ -483,6 +480,9 @@ package com.google.android.horologist.networks.status {
     method public void onHighbandwidthUnAvailable();
   }
 
+  public final class IdKt {
+  }
+
   public final class NetworkRepository {
     ctor public NetworkRepository(android.net.ConnectivityManager connectivityManager, kotlinx.coroutines.CoroutineScope coroutineScope, com.google.android.horologist.networks.logging.NetworkStatusLogger logger);
     method public void close();
@@ -493,9 +493,6 @@ package com.google.android.horologist.networks.status {
 
   public static final class NetworkRepository.Companion {
     method public com.google.android.horologist.networks.status.NetworkRepository fromContext(android.content.Context application, kotlinx.coroutines.CoroutineScope coroutineScope, com.google.android.horologist.networks.logging.NetworkStatusLogger logger);
-  }
-
-  public final class UtilKt {
   }
 
 }

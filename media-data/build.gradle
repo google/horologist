@@ -67,6 +67,14 @@ android {
     }
 }
 
+apply plugin: 'me.tylerbwong.gradle.metalava'
+
+metalava {
+    sourcePaths = ["src/main"]
+    filename = "api/current.api"
+    reportLintsAsErrors = true
+}
+
 dependencies {
     implementation projects.media
 

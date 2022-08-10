@@ -1,7 +1,7 @@
 // Signature format: 4.0
 package com.google.android.horologist.audio.ui {
 
-  @kotlin.RequiresOptIn(message="Horologist Audio UI is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistAudioUiApi {
+  @kotlin.RequiresOptIn(message="Horologist Audio UI is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistAudioUiApi {
   }
 
   public final class VolumePositionIndicatorKt {
@@ -92,6 +92,8 @@ package com.google.android.horologist.audio.ui.components.animated {
     method @androidx.compose.runtime.Composable public static void InteractivePreviewAware(kotlin.jvm.functions.Function0<kotlin.Unit> block);
     method public static androidx.compose.runtime.ProvidableCompositionLocal<java.lang.Boolean> getLocalInteractivePreview();
     method public static androidx.compose.runtime.ProvidableCompositionLocal<java.lang.Boolean> getLocalStaticPreview();
+    property public static final androidx.compose.runtime.ProvidableCompositionLocal<java.lang.Boolean> LocalInteractivePreview;
+    property public static final androidx.compose.runtime.ProvidableCompositionLocal<java.lang.Boolean> LocalStaticPreview;
   }
 
 }
@@ -103,7 +105,6 @@ package com.google.android.horologist.audio.ui.semantics {
     method public androidx.compose.ui.semantics.SemanticsPropertyKey<androidx.compose.ui.graphics.vector.ImageVector> getIconImageVectorKey();
     method public void setIconImageVector(androidx.compose.ui.semantics.SemanticsPropertyReceiver, androidx.compose.ui.graphics.vector.ImageVector iconImageVector);
     property public final androidx.compose.ui.semantics.SemanticsPropertyKey<androidx.compose.ui.graphics.vector.ImageVector> IconImageVectorKey;
-    property public final androidx.compose.ui.graphics.vector.ImageVector iconImageVector;
     field public static final com.google.android.horologist.audio.ui.semantics.CustomSemanticsProperties INSTANCE;
   }
 

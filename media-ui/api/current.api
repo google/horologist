@@ -1,7 +1,7 @@
 // Signature format: 4.0
 package com.google.android.horologist.media.ui {
 
-  @kotlin.RequiresOptIn(message="Horologist Media UI is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistMediaUiApi {
+  @kotlin.RequiresOptIn(message="Horologist Media UI is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistMediaUiApi {
   }
 
 }
@@ -411,7 +411,6 @@ package com.google.android.horologist.media.ui.semantics {
     method public androidx.compose.ui.semantics.SemanticsPropertyKey<androidx.compose.ui.graphics.vector.ImageVector> getIconImageVectorKey();
     method public void setIconImageVector(androidx.compose.ui.semantics.SemanticsPropertyReceiver, androidx.compose.ui.graphics.vector.ImageVector iconImageVector);
     property public final androidx.compose.ui.semantics.SemanticsPropertyKey<androidx.compose.ui.graphics.vector.ImageVector> IconImageVectorKey;
-    property public final androidx.compose.ui.graphics.vector.ImageVector iconImageVector;
     field public static final com.google.android.horologist.media.ui.semantics.CustomSemanticsProperties INSTANCE;
   }
 
@@ -639,10 +638,6 @@ package com.google.android.horologist.media.ui.state.model {
 
 package com.google.android.horologist.media.ui.tiles {
 
-  public final class MaterialThemeKt {
-    method @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static androidx.wear.tiles.material.Colors toTileColors(androidx.wear.compose.material.Colors);
-  }
-
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class MediaCollectionsTileRenderer extends com.google.android.horologist.tiles.render.SingleTileLayoutRenderer<com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollectionsState,com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState> {
     ctor public MediaCollectionsTileRenderer(android.content.Context context, androidx.wear.tiles.material.Colors materialTheme, boolean debugResourceMode);
     method public void produceRequestedResources(androidx.wear.tiles.ResourceBuilders.Resources.Builder, com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState resourceResults, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters, java.util.List<java.lang.String> resourceIds);
@@ -689,6 +684,10 @@ package com.google.android.horologist.media.ui.tiles {
     method public java.util.Map<java.lang.String,androidx.wear.tiles.ResourceBuilders.ImageResource> getImages();
     property public final int appIcon;
     property public final java.util.Map<java.lang.String,androidx.wear.tiles.ResourceBuilders.ImageResource> images;
+  }
+
+  public final class ToTileColorsKt {
+    method @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static androidx.wear.tiles.material.Colors toTileColors(androidx.wear.compose.material.Colors);
   }
 
 }

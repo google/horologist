@@ -1,7 +1,7 @@
 // Signature format: 4.0
 package com.google.android.horologist.media3 {
 
-  @kotlin.RequiresOptIn(message="Horologist Media3 Backend is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistMedia3BackendApi {
+  @kotlin.RequiresOptIn(message="Horologist Media3 Backend is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistMedia3BackendApi {
   }
 
   @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public final class WearConfiguredPlayer extends androidx.media3.common.ForwardingPlayer {
@@ -284,7 +284,7 @@ package com.google.android.horologist.media3.util {
     method public static String getShortDescription(androidx.media3.common.Format);
   }
 
-  public final class TypesKt {
+  public final class ToAudioFormatKt {
     method public static android.media.AudioFormat? toAudioFormat(androidx.media3.common.Format);
   }
 

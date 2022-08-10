@@ -91,6 +91,14 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
     }
 }
 
+apply plugin: 'me.tylerbwong.gradle.metalava'
+
+metalava {
+    sourcePaths = ["src/main"]
+    filename = "api/current.api"
+    reportLintsAsErrors = true
+}
+
 dependencies {
     implementation libs.kotlin.stdlib
 

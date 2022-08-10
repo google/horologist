@@ -5,7 +5,7 @@ package com.google.android.horologist.composables {
     method @androidx.compose.runtime.Composable public static void DatePicker(kotlin.jvm.functions.Function1<? super java.time.LocalDate,kotlin.Unit> onDateConfirm, optional androidx.compose.ui.Modifier modifier, optional java.time.LocalDate date);
   }
 
-  @kotlin.RequiresOptIn(message="Composables is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention) public @interface ExperimentalHorologistComposablesApi {
+  @kotlin.RequiresOptIn(message="Composables is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistComposablesApi {
   }
 
   public final class MarqueeTextKt {

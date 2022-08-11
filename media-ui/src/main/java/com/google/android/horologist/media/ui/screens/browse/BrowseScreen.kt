@@ -123,7 +123,7 @@ public fun BrowseScreen(
         item {
             Title(
                 textId = R.string.horologist_browse_library_playlists,
-                modifier = Modifier.padding(top = 12.dp)
+                modifier = Modifier.padding(top = 12.dp, bottom = 12.dp)
             )
         }
 

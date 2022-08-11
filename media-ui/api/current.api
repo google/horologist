@@ -226,6 +226,81 @@ package com.google.android.horologist.media.ui.components.controls {
 
 }
 
+package com.google.android.horologist.media.ui.components.list.sectioned {
+
+  public final class Section<T> {
+    method public com.google.android.horologist.media.ui.components.list.sectioned.Section.State component1();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit>? component2();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit>? component3();
+    method public kotlin.jvm.functions.Function1<T,kotlin.Unit> component4();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit>? component5();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit>? component6();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit>? component7();
+    method public boolean component8();
+    method public com.google.android.horologist.media.ui.components.list.sectioned.Section<T> copy(com.google.android.horologist.media.ui.components.list.sectioned.Section.State state, kotlin.jvm.functions.Function0<kotlin.Unit>? headerContent, kotlin.jvm.functions.Function0<kotlin.Unit>? loadingContent, kotlin.jvm.functions.Function1<? super T,kotlin.Unit> loadedContent, kotlin.jvm.functions.Function0<kotlin.Unit>? failedContent, kotlin.jvm.functions.Function0<kotlin.Unit>? emptyContent, kotlin.jvm.functions.Function0<kotlin.Unit>? footerContent, boolean displayFooterOnlyOnLoadedState);
+    method public boolean getDisplayFooterOnlyOnLoadedState();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit>? getEmptyContent();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit>? getFailedContent();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit>? getFooterContent();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit>? getHeaderContent();
+    method public kotlin.jvm.functions.Function1<T,kotlin.Unit> getLoadedContent();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit>? getLoadingContent();
+    method public com.google.android.horologist.media.ui.components.list.sectioned.Section.State getState();
+    property public final boolean displayFooterOnlyOnLoadedState;
+    property public final kotlin.jvm.functions.Function0<kotlin.Unit>? emptyContent;
+    property public final kotlin.jvm.functions.Function0<kotlin.Unit>? failedContent;
+    property public final kotlin.jvm.functions.Function0<kotlin.Unit>? footerContent;
+    property public final kotlin.jvm.functions.Function0<kotlin.Unit>? headerContent;
+    property public final kotlin.jvm.functions.Function1<T,kotlin.Unit> loadedContent;
+    property public final kotlin.jvm.functions.Function0<kotlin.Unit>? loadingContent;
+    property public final com.google.android.horologist.media.ui.components.list.sectioned.Section.State state;
+  }
+
+  public abstract static sealed class Section.State {
+  }
+
+  public static final class Section.State.Empty extends com.google.android.horologist.media.ui.components.list.sectioned.Section.State {
+    field public static final com.google.android.horologist.media.ui.components.list.sectioned.Section.State.Empty INSTANCE;
+  }
+
+  public static final class Section.State.Failed extends com.google.android.horologist.media.ui.components.list.sectioned.Section.State {
+    field public static final com.google.android.horologist.media.ui.components.list.sectioned.Section.State.Failed INSTANCE;
+  }
+
+  public static final class Section.State.Loaded<T> extends com.google.android.horologist.media.ui.components.list.sectioned.Section.State {
+    ctor public Section.State.Loaded(java.util.List<? extends T> list);
+    method public java.util.List<T> component1();
+    method public com.google.android.horologist.media.ui.components.list.sectioned.Section.State.Loaded<T> copy(java.util.List<? extends T> list);
+    method public java.util.List<T> getList();
+    property public final java.util.List<T> list;
+  }
+
+  public static final class Section.State.Loading extends com.google.android.horologist.media.ui.components.list.sectioned.Section.State {
+    field public static final com.google.android.horologist.media.ui.components.list.sectioned.Section.State.Loading INSTANCE;
+  }
+
+  public final class SectionContentScope<T> {
+    ctor public SectionContentScope();
+    method public void empty(kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method public void failed(kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method public void footer(kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method public void header(kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method public void loaded(kotlin.jvm.functions.Function1<? super T,kotlin.Unit> content);
+    method public void loading(kotlin.jvm.functions.Function0<kotlin.Unit> content);
+  }
+
+  public final class SectionedListKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void SectionedList(androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.components.list.sectioned.SectionedListScope,kotlin.Unit> scope);
+  }
+
+  public final class SectionedListScope {
+    ctor public SectionedListScope();
+    method public <T> void section(java.util.List<? extends T> list, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.components.list.sectioned.SectionContentScope<T>,kotlin.Unit> builder);
+    method public <T> void section(com.google.android.horologist.media.ui.components.list.sectioned.Section.State state, optional boolean displayFooterOnlyOnLoadedState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.components.list.sectioned.SectionContentScope<T>,kotlin.Unit> builder);
+  }
+
+}
+
 package com.google.android.horologist.media.ui.navigation {
 
   public final class MediaNavController {

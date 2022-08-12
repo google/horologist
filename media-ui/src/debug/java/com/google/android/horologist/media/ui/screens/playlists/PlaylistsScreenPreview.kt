@@ -16,7 +16,7 @@
 
 @file:OptIn(ExperimentalHorologistMediaUiApi::class)
 
-package com.google.android.horologist.media.ui.screens.playlist
+package com.google.android.horologist.media.ui.screens.playlists
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FeaturedPlayList
@@ -33,7 +33,7 @@ import com.google.android.horologist.media.ui.utils.rememberVectorPainter
 
 @WearPreviewDevices
 @Composable
-fun PlaylistScreenPreview() {
+fun PlaylistsScreenPreview() {
     PlaylistsScreen(
         playlistsScreenState = PlaylistsScreenState.Loaded(
             buildList {
@@ -65,7 +65,7 @@ fun PlaylistScreenPreview() {
 
 @WearPreviewDevices
 @Composable
-fun PlaylistScreenPreviewLoading() {
+fun PlaylistsScreenPreviewLoading() {
     PlaylistsScreen(
         playlistsScreenState = PlaylistsScreenState.Loading(),
         onPlaylistItemClick = { },
@@ -76,7 +76,7 @@ fun PlaylistScreenPreviewLoading() {
 
 @WearPreviewDevices
 @Composable
-fun PlaylistScreenPreviewCustomLayout() {
+fun PlaylistsScreenPreviewCustomLayout() {
     PlaylistsScreen(
         playlists = listOf(
             Pair("Rock Classics", "Downloading 73%.."),

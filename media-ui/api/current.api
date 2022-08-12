@@ -373,30 +373,30 @@ package com.google.android.horologist.media.ui.screens.entity {
 
 }
 
-package com.google.android.horologist.media.ui.screens.playlist {
+package com.google.android.horologist.media.ui.screens.playlists {
 
   public final class PlaylistsScreenKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static <T> void PlaylistsScreen(java.util.List<? extends T> playlists, kotlin.jvm.functions.Function1<? super T,kotlin.Unit> playlistContent, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static <T> void PlaylistsScreen(com.google.android.horologist.media.ui.screens.playlist.PlaylistsScreenState<T> playlistsScreenState, kotlin.jvm.functions.Function1<? super T,kotlin.Unit> playlistContent, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlaylistsScreen(com.google.android.horologist.media.ui.screens.playlist.PlaylistsScreenState<com.google.android.horologist.media.ui.state.model.PlaylistUiModel> playlistsScreenState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.PlaylistUiModel,kotlin.Unit> onPlaylistItemClick, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? playlistItemArtworkPlaceholder);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static <T> void PlaylistsScreen(com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreenState<T> playlistsScreenState, kotlin.jvm.functions.Function1<? super T,kotlin.Unit> playlistContent, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlaylistsScreen(com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreenState<com.google.android.horologist.media.ui.state.model.PlaylistUiModel> playlistsScreenState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.PlaylistUiModel,kotlin.Unit> onPlaylistItemClick, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.painter.Painter? playlistItemArtworkPlaceholder);
   }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class PlaylistsScreenState<T> {
   }
 
-  public static final class PlaylistsScreenState.Failed<T> extends com.google.android.horologist.media.ui.screens.playlist.PlaylistsScreenState<T> {
+  public static final class PlaylistsScreenState.Failed<T> extends com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreenState<T> {
     ctor public PlaylistsScreenState.Failed();
   }
 
-  public static final class PlaylistsScreenState.Loaded<T> extends com.google.android.horologist.media.ui.screens.playlist.PlaylistsScreenState<T> {
+  public static final class PlaylistsScreenState.Loaded<T> extends com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreenState<T> {
     ctor public PlaylistsScreenState.Loaded(java.util.List<? extends T> playlistList);
     method public java.util.List<T> component1();
-    method public com.google.android.horologist.media.ui.screens.playlist.PlaylistsScreenState.Loaded<T> copy(java.util.List<? extends T> playlistList);
+    method public com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreenState.Loaded<T> copy(java.util.List<? extends T> playlistList);
     method public java.util.List<T> getPlaylistList();
     property public final java.util.List<T> playlistList;
   }
 
-  public static final class PlaylistsScreenState.Loading<T> extends com.google.android.horologist.media.ui.screens.playlist.PlaylistsScreenState<T> {
+  public static final class PlaylistsScreenState.Loading<T> extends com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreenState<T> {
     ctor public PlaylistsScreenState.Loading();
   }
 

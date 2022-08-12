@@ -18,7 +18,7 @@ package com.google.android.horologist.mediasample.ui.playlists
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.media.ui.screens.playlist.PlaylistsScreenState
+import com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreenState
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel

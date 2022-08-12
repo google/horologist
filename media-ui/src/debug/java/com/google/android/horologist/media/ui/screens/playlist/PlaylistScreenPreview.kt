@@ -26,6 +26,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.components.base.StandardChip
+import com.google.android.horologist.media.ui.components.base.StandardChipType
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.media.ui.utils.rememberVectorPainter
 
@@ -65,8 +67,29 @@ fun PlaylistScreenPreview() {
 @Composable
 fun PlaylistScreenPreviewLoading() {
     PlaylistsScreen(
-        playlistsScreenState = PlaylistsScreenState.Loading,
+        playlistsScreenState = PlaylistsScreenState.Loading(),
         onPlaylistItemClick = { },
+        focusRequester = FocusRequester(),
+        scalingLazyListState = rememberScalingLazyListState()
+    )
+}
+
+@WearPreviewDevices
+@Composable
+fun PlaylistScreenPreviewCustomLayout() {
+    PlaylistsScreen(
+        playlists = listOf(
+            Pair("Rock Classics", "Downloading 73%.."),
+            Pair("Pop Punk", "Completed")
+        ),
+        playlistContent = { (name, status) ->
+            StandardChip(
+                label = name,
+                onClick = { },
+                secondaryLabel = status,
+                chipType = StandardChipType.Primary
+            )
+        },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     )

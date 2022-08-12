@@ -32,7 +32,7 @@
     <string name="horologist_browse_library_title">Library</string>
     <string name="horologist_browse_library_playlists">Playlists</string>
     <string name="horologist_browse_library_settings">Settings</string>
-    <string name="horologist_browse_playlist_title">Playlist</string>
+    <string name="horologist_browse_playlist_title">Playlists</string>
     <string name="horologist_entity_button_download">Download to your watch</string>
     <string name="horologist_entity_button_downloading">Downloading…</string>
     <string name="horologist_entity_button_download_content_description">Download</string>

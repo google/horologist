@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.media.ui.screens.playlist
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -37,13 +36,30 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
 @ExperimentalHorologistMediaUiApi
 @Composable
-public fun PlaylistsScreen(
-    playlistsScreenState: PlaylistsScreenState,
-    onPlaylistItemClick: (PlaylistUiModel) -> Unit,
+public fun <T> PlaylistsScreen(
+    playlists: List<T>,
+    playlistContent: @Composable (playlist: T) -> Unit,
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
-    modifier: Modifier = Modifier,
-    playlistItemArtworkPlaceholder: Painter? = null
+    modifier: Modifier = Modifier
+) {
+    PlaylistsScreen(
+        playlistsScreenState = PlaylistsScreenState.Loaded(playlists),
+        playlistContent = playlistContent,
+        focusRequester = focusRequester,
+        scalingLazyListState = scalingLazyListState,
+        modifier = modifier
+    )
+}
+
+@ExperimentalHorologistMediaUiApi
+@Composable
+public fun <T> PlaylistsScreen(
+    playlistsScreenState: PlaylistsScreenState<T>,
+    playlistContent: @Composable (playlist: T) -> Unit,
+    focusRequester: FocusRequester,
+    scalingLazyListState: ScalingLazyListState,
+    modifier: Modifier = Modifier
 ) {
     ScalingLazyColumn(
         modifier = modifier
@@ -58,41 +74,69 @@ public fun PlaylistsScreen(
             )
         }
 
-        if (playlistsScreenState is PlaylistsScreenState.Loaded) {
-            items(count = playlistsScreenState.playlistList.size) { index ->
+        when (playlistsScreenState) {
+            is PlaylistsScreenState.Loaded<*> -> {
+                items(count = playlistsScreenState.playlistList.size) { index ->
 
-                val playlist = playlistsScreenState.playlistList[index]
-
-                StandardChip(
-                    label = playlist.title,
-                    onClick = { onPlaylistItemClick(playlist) },
-                    icon = playlist.artworkUri,
-                    largeIcon = true,
-                    placeholder = playlistItemArtworkPlaceholder,
-                    chipType = StandardChipType.Secondary
-                )
+                    @Suppress("UNCHECKED_CAST")
+                    // Suppress reason: PlaylistsScreen and PlaylistsScreenState share same T type.
+                    playlistContent(
+                        playlist = playlistsScreenState.playlistList[index] as T
+                    )
+                }
             }
-        } else if (playlistsScreenState is PlaylistsScreenState.Loading) {
-            items(count = 4) {
-                SecondaryPlaceholderChip()
+            is PlaylistsScreenState.Loading<*> -> {
+                items(count = 4) {
+                    SecondaryPlaceholderChip()
+                }
             }
+            // renders empty as it should display an error dialog
+            is PlaylistsScreenState.Failed -> Unit
         }
     }
+}
+
+@ExperimentalHorologistMediaUiApi
+@Composable
+public fun PlaylistsScreen(
+    playlistsScreenState: PlaylistsScreenState<PlaylistUiModel>,
+    onPlaylistItemClick: (PlaylistUiModel) -> Unit,
+    focusRequester: FocusRequester,
+    scalingLazyListState: ScalingLazyListState,
+    modifier: Modifier = Modifier,
+    playlistItemArtworkPlaceholder: Painter? = null
+) {
+    val playlistContent: @Composable (playlist: PlaylistUiModel) -> Unit = { playlist ->
+        StandardChip(
+            label = playlist.title,
+            onClick = { onPlaylistItemClick(playlist) },
+            icon = playlist.artworkUri,
+            largeIcon = true,
+            placeholder = playlistItemArtworkPlaceholder,
+            chipType = StandardChipType.Secondary
+        )
+    }
+
+    PlaylistsScreen(
+        playlistsScreenState = playlistsScreenState,
+        playlistContent = playlistContent,
+        focusRequester = focusRequester,
+        scalingLazyListState = scalingLazyListState,
+        modifier = modifier
+    )
 }
 
 /**
  * Represents the state of [PlaylistsScreen].
  */
 @ExperimentalHorologistMediaUiApi
-public sealed class PlaylistsScreenState {
+public sealed class PlaylistsScreenState<T> {
 
-    public object Loading : PlaylistsScreenState()
+    public class Loading<T> : PlaylistsScreenState<T>()
 
-    public data class Loaded(
-        val playlistList: List<PlaylistUiModel>
-    ) : PlaylistsScreenState()
+    public data class Loaded<T>(
+        val playlistList: List<T>
+    ) : PlaylistsScreenState<T>()
 
-    public data class Failed(
-        @StringRes val errorMessage: Int
-    ) : PlaylistsScreenState()
+    public class Failed<T> : PlaylistsScreenState<T>()
 }

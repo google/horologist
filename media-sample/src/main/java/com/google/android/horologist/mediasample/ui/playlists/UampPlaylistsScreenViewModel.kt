@@ -21,6 +21,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.ui.screens.playlist.PlaylistsScreenState
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
+import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.ui.mapper.PlaylistUiModelMapper
@@ -41,10 +42,10 @@ class UampPlaylistsScreenViewModel @Inject constructor(
     private val resourceProvider: ResourceProvider
 ) : ViewModel() {
 
-    val uiState: StateFlow<PlaylistsScreenState> =
+    val uiState: StateFlow<PlaylistsScreenState<PlaylistUiModel>> =
         playlistRepository.getAll().map {
             PlaylistsScreenState.Loaded(it.map(PlaylistUiModelMapper::map))
-        }.catch<PlaylistsScreenState> { throwable ->
+        }.catch<PlaylistsScreenState<PlaylistUiModel>> { throwable ->
             when (throwable) {
                 is IOException -> {
                     snackbarManager.showMessage(
@@ -53,13 +54,13 @@ class UampPlaylistsScreenViewModel @Inject constructor(
                             error = true
                         )
                     )
-                    emit(PlaylistsScreenState.Failed(R.string.sample_network_error))
+                    emit(PlaylistsScreenState.Failed())
                 }
                 else -> throw throwable
             }
         }.stateIn(
             viewModelScope,
             started = SharingStarted.Eagerly,
-            initialValue = PlaylistsScreenState.Loading
+            initialValue = PlaylistsScreenState.Loading()
         )
 }

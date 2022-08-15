@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.ui.screens
+package com.google.android.horologist.media.ui.screens.player
 
 import androidx.compose.runtime.Composable
 import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview

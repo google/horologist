@@ -35,7 +35,7 @@ import com.google.android.horologist.compose.navscaffold.WearNavScaffold
 import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
 import com.google.android.horologist.compose.navscaffold.wearNavComposable
 import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
-import com.google.android.horologist.media.ui.screens.PlayerLibraryPagerScreen
+import com.google.android.horologist.media.ui.screens.playerlibrarypager.PlayerLibraryPagerScreen
 import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
 
 /**

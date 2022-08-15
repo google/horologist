@@ -25,7 +25,7 @@ class WearArtworkUampService(
     private val uampService: UampService
 ) : UampService {
     private val githubPrefix =
-        "https://media.githubusercontent.com/media/google/horologist/main/media-sample/backend/images/drawable-mdpi"
+        "https://media.githubusercontent.com/media/google/horologist/main/media-sample/backend/images/"
 
     override suspend fun catalog(): CatalogApiModel {
         val originalCatalog = uampService.catalog()

@@ -40,8 +40,8 @@ import com.google.android.horologist.compose.tools.ExperimentalHorologistCompose
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.background.RadialBackground
-import com.google.android.horologist.media.ui.screens.DefaultPlayerScreenMediaDisplay
-import com.google.android.horologist.media.ui.screens.PlayerScreen
+import com.google.android.horologist.media.ui.screens.player.DefaultPlayerScreenMediaDisplay
+import com.google.android.horologist.media.ui.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
 
 @Composable

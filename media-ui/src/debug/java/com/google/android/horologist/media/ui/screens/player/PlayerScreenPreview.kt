@@ -16,7 +16,7 @@
 
 @file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistComposeToolsApi::class)
 
-package com.google.android.horologist.media.ui.screens
+package com.google.android.horologist.media.ui.screens.player
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

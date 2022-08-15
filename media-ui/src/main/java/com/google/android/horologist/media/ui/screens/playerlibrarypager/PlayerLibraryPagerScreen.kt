@@ -16,7 +16,7 @@
 
 @file:OptIn(ExperimentalPagerApi::class)
 
-package com.google.android.horologist.media.ui.screens
+package com.google.android.horologist.media.ui.screens.playerlibrarypager
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

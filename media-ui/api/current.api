@@ -302,21 +302,6 @@ package com.google.android.horologist.media.ui.navigation {
 
 }
 
-package com.google.android.horologist.media.ui.screens {
-
-  public final class PlayerLibraryPagerScreenKt {
-    method @androidx.compose.runtime.Composable public static void PlayerLibraryPagerScreen(com.google.accompanist.pager.PagerState pagerState, com.google.android.horologist.audio.ui.VolumeScrollableState volumeScrollableState, kotlin.jvm.functions.Function0<com.google.android.horologist.audio.VolumeState> volumeState, kotlin.jvm.functions.Function1<? super androidx.compose.ui.Modifier,kotlin.Unit> timeText, kotlin.jvm.functions.Function1<? super androidx.compose.ui.focus.FocusRequester,kotlin.Unit> playerScreen, kotlin.jvm.functions.Function2<? super androidx.compose.ui.focus.FocusRequester,? super androidx.wear.compose.material.ScalingLazyListState,kotlin.Unit> libraryScreen, androidx.navigation.NavBackStackEntry backStack, optional androidx.compose.ui.Modifier modifier);
-  }
-
-  public final class PlayerScreenKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void DefaultPlayerScreenControlButtons(com.google.android.horologist.media.ui.state.PlayerViewModel playerViewModel, com.google.android.horologist.media.ui.state.PlayerUiState playerUiState, optional boolean showProgress);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void DefaultPlayerScreenMediaDisplay(com.google.android.horologist.media.ui.state.PlayerUiState playerUiState, optional androidx.compose.ui.Modifier modifier);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlayerScreen(com.google.android.horologist.media.ui.state.PlayerViewModel playerViewModel, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.ColumnScope,? super com.google.android.horologist.media.ui.state.PlayerUiState,kotlin.Unit> mediaDisplay, optional kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.RowScope,? super com.google.android.horologist.media.ui.state.PlayerUiState,kotlin.Unit> controlButtons, optional kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.RowScope,? super com.google.android.horologist.media.ui.state.PlayerUiState,kotlin.Unit> buttons, optional kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.BoxScope,? super com.google.android.horologist.media.ui.state.PlayerUiState,kotlin.Unit> background);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlayerScreen(kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit> mediaDisplay, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> controlButtons, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> buttons, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> background);
-  }
-
-}
-
 package com.google.android.horologist.media.ui.screens.browse {
 
   public final class BrowseScreenKt {
@@ -369,6 +354,25 @@ package com.google.android.horologist.media.ui.screens.entity {
     method public com.google.android.horologist.media.ui.screens.entity.EntityScreenState.Loading copy(String playlistName);
     method public String getPlaylistName();
     property public final String playlistName;
+  }
+
+}
+
+package com.google.android.horologist.media.ui.screens.player {
+
+  public final class PlayerScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void DefaultPlayerScreenControlButtons(com.google.android.horologist.media.ui.state.PlayerViewModel playerViewModel, com.google.android.horologist.media.ui.state.PlayerUiState playerUiState, optional boolean showProgress);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void DefaultPlayerScreenMediaDisplay(com.google.android.horologist.media.ui.state.PlayerUiState playerUiState, optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlayerScreen(com.google.android.horologist.media.ui.state.PlayerViewModel playerViewModel, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.ColumnScope,? super com.google.android.horologist.media.ui.state.PlayerUiState,kotlin.Unit> mediaDisplay, optional kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.RowScope,? super com.google.android.horologist.media.ui.state.PlayerUiState,kotlin.Unit> controlButtons, optional kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.RowScope,? super com.google.android.horologist.media.ui.state.PlayerUiState,kotlin.Unit> buttons, optional kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.BoxScope,? super com.google.android.horologist.media.ui.state.PlayerUiState,kotlin.Unit> background);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlayerScreen(kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit> mediaDisplay, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> controlButtons, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> buttons, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> background);
+  }
+
+}
+
+package com.google.android.horologist.media.ui.screens.playerlibrarypager {
+
+  public final class PlayerLibraryPagerScreenKt {
+    method @androidx.compose.runtime.Composable public static void PlayerLibraryPagerScreen(com.google.accompanist.pager.PagerState pagerState, com.google.android.horologist.audio.ui.VolumeScrollableState volumeScrollableState, kotlin.jvm.functions.Function0<com.google.android.horologist.audio.VolumeState> volumeState, kotlin.jvm.functions.Function1<? super androidx.compose.ui.Modifier,kotlin.Unit> timeText, kotlin.jvm.functions.Function1<? super androidx.compose.ui.focus.FocusRequester,kotlin.Unit> playerScreen, kotlin.jvm.functions.Function2<? super androidx.compose.ui.focus.FocusRequester,? super androidx.wear.compose.material.ScalingLazyListState,kotlin.Unit> libraryScreen, androidx.navigation.NavBackStackEntry backStack, optional androidx.compose.ui.Modifier modifier);
   }
 
 }

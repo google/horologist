@@ -16,7 +16,7 @@
 
 @file:OptIn(ExperimentalHorologistMediaUiApi::class)
 
-package com.google.android.horologist.media.ui.screens
+package com.google.android.horologist.media.ui.screens.player
 
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.test.assertIsDisplayed

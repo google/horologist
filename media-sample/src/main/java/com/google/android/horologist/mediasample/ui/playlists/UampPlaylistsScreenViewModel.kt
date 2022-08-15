@@ -19,45 +19,27 @@ package com.google.android.horologist.mediasample.ui.playlists
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreenState
-import com.google.android.horologist.media.ui.snackbar.SnackbarManager
-import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
-import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.ui.mapper.PlaylistUiModelMapper
-import com.google.android.horologist.mediasample.ui.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
 class UampPlaylistsScreenViewModel @Inject constructor(
-    playlistRepository: PlaylistRepository,
-    private val snackbarManager: SnackbarManager,
-    private val resourceProvider: ResourceProvider
+    playlistRepository: PlaylistRepository
 ) : ViewModel() {
 
     val uiState: StateFlow<PlaylistsScreenState<PlaylistUiModel>> =
         playlistRepository.getAll().map {
             PlaylistsScreenState.Loaded(it.map(PlaylistUiModelMapper::map))
-        }.catch<PlaylistsScreenState<PlaylistUiModel>> { throwable ->
-            when (throwable) {
-                is IOException -> {
-                    snackbarManager.showMessage(
-                        UiMessage(
-                            message = resourceProvider.getString(R.string.sample_network_error),
-                            error = true
-                        )
-                    )
-                    emit(PlaylistsScreenState.Failed())
-                }
-                else -> throw throwable
-            }
+        }.catch<PlaylistsScreenState<PlaylistUiModel>> {
+            emit(PlaylistsScreenState.Failed())
         }.stateIn(
             viewModelScope,
             started = SharingStarted.Eagerly,

@@ -25,7 +25,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
-class EntityScreenStateTest {
+class CreatePlaylistDownloadScreenStateLoadedTest {
 
     @Test
     fun givenUnavailableDownloads_thenDownloadStateIsNone() {
@@ -50,17 +50,17 @@ class EntityScreenStateTest {
         )
 
         // when
-        val result = EntityScreenState.Loaded(
-            playlistUiModel = PlaylistUiModel(
+        val result = createPlaylistDownloadScreenStateLoaded(
+            playlistModel = PlaylistUiModel(
                 id = "id",
                 title = "title"
             ),
-            downloadList = downloads,
+            downloadMediaList = downloads,
             downloading = false
         ).downloadsState
 
         // then
-        assertThat(result).isEqualTo(EntityScreenState.Loaded.DownloadsState.None)
+        assertThat(result).isEqualTo(PlaylistDownloadScreenState.Loaded.DownloadMediaListState.None)
     }
 
     @Test
@@ -86,17 +86,17 @@ class EntityScreenStateTest {
         )
 
         // when
-        val result = EntityScreenState.Loaded(
-            playlistUiModel = PlaylistUiModel(
+        val result = createPlaylistDownloadScreenStateLoaded(
+            playlistModel = PlaylistUiModel(
                 id = "id",
                 title = "title"
             ),
-            downloadList = downloads,
+            downloadMediaList = downloads,
             downloading = false
         ).downloadsState
 
         // then
-        assertThat(result).isEqualTo(EntityScreenState.Loaded.DownloadsState.Partially)
+        assertThat(result).isEqualTo(PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Partially)
     }
 
     @Test
@@ -122,17 +122,17 @@ class EntityScreenStateTest {
         )
 
         // when
-        val result = EntityScreenState.Loaded(
-            playlistUiModel = PlaylistUiModel(
+        val result = createPlaylistDownloadScreenStateLoaded(
+            playlistModel = PlaylistUiModel(
                 id = "id",
                 title = "title"
             ),
-            downloadList = downloads,
+            downloadMediaList = downloads,
             downloading = false
         ).downloadsState
 
         // then
-        assertThat(result).isEqualTo(EntityScreenState.Loaded.DownloadsState.Fully)
+        assertThat(result).isEqualTo(PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Fully)
     }
 
     @Test
@@ -141,16 +141,16 @@ class EntityScreenStateTest {
         val downloads = emptyList<DownloadMediaUiModel>()
 
         // when
-        val result = EntityScreenState.Loaded(
-            playlistUiModel = PlaylistUiModel(
+        val result = createPlaylistDownloadScreenStateLoaded(
+            playlistModel = PlaylistUiModel(
                 id = "id",
                 title = "title"
             ),
-            downloadList = downloads,
+            downloadMediaList = downloads,
             downloading = false
         ).downloadsState
 
         // then
-        assertThat(result).isEqualTo(EntityScreenState.Loaded.DownloadsState.Fully)
+        assertThat(result).isEqualTo(PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Fully)
     }
 }

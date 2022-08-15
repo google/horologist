@@ -21,7 +21,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.ui.navigation.NavigationScreens
-import com.google.android.horologist.media.ui.screens.entity.EntityScreenState
+import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState
+import com.google.android.horologist.media.ui.screens.entity.createPlaylistDownloadScreenStateLoaded
+import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
+import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.mediasample.domain.PlaylistDownloadRepository
 import com.google.android.horologist.mediasample.domain.model.MediaDownload
 import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
@@ -41,27 +44,27 @@ class UampEntityScreenViewModel @Inject constructor(
     private val playerRepository: PlayerRepository
 ) : ViewModel() {
     private val playlistId: String = savedStateHandle[NavigationScreens.Collection.id]!!
-    private val playlistName: String = savedStateHandle[NavigationScreens.Collection.name]!!
 
     private val playlistDownload: StateFlow<PlaylistDownload?> =
         playlistDownloadRepository.get(playlistId)
             .stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = null)
 
-    val uiState: StateFlow<EntityScreenState> = playlistDownload.map { playlistDownload ->
-        if (playlistDownload != null) {
-            EntityScreenState.Loaded(
-                playlistUiModel = PlaylistUiModelMapper.map(playlistDownload.playlist),
-                downloadList = playlistDownload.mediaList.map(DownloadMediaUiModelMapper::map),
-                downloading = playlistDownload.mediaList.any { (_, status) -> status == MediaDownload.Status.InProgress }
-            )
-        } else {
-            EntityScreenState.Loading(playlistName)
-        }
-    }.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
-        EntityScreenState.Loading(playlistName)
-    )
+    val uiState: StateFlow<PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>> =
+        playlistDownload.map { playlistDownload ->
+            if (playlistDownload != null) {
+                createPlaylistDownloadScreenStateLoaded(
+                    playlistModel = PlaylistUiModelMapper.map(playlistDownload.playlist),
+                    downloadMediaList = playlistDownload.mediaList.map(DownloadMediaUiModelMapper::map),
+                    downloading = playlistDownload.mediaList.any { (_, status) -> status == MediaDownload.Status.InProgress }
+                )
+            } else {
+                PlaylistDownloadScreenState.Loading()
+            }
+        }.stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000),
+            PlaylistDownloadScreenState.Loading()
+        )
 
     fun play(mediaId: String? = null) {
         play(shuffled = false, mediaId = mediaId)

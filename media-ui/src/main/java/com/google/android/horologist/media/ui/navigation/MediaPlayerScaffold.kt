@@ -62,7 +62,7 @@ public fun MediaPlayerScaffold(
     volumeViewModel: VolumeViewModel,
     playerScreen: @Composable (FocusRequester) -> Unit,
     libraryScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
-    categoryEntityScreen: @Composable (String, String, FocusRequester, ScalingLazyListState) -> Unit,
+    categoryEntityScreen: @Composable (id: String, name: String, FocusRequester, ScalingLazyListState) -> Unit,
     mediaEntityScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
     playlistsScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
     settingsScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,

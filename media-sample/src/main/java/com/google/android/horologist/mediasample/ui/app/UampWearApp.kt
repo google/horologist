@@ -103,10 +103,11 @@ fun UampWearApp(
                     scalingLazyListState = scalingLazyListState
                 )
             },
-            categoryEntityScreen = { _, _, focusRequester, scalingLazyListState ->
+            categoryEntityScreen = { _, name, focusRequester, scalingLazyListState ->
                 val uampEntityScreenViewModel: UampEntityScreenViewModel = hiltViewModel()
 
                 UampEntityScreen(
+                    playlistName = name,
                     uampEntityScreenViewModel = uampEntityScreenViewModel,
                     onDownloadItemClick = {
                         navController.navigateToPlayer()

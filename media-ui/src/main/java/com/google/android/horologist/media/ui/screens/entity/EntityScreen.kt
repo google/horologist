@@ -16,50 +16,31 @@
 
 package com.google.android.horologist.media.ui.screens.entity
 
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Download
-import androidx.compose.material.icons.filled.DownloadDone
-import androidx.compose.material.icons.filled.Downloading
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ScalingLazyColumn
+import androidx.wear.compose.material.ScalingLazyListScope
 import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.media.ui.components.base.SecondaryPlaceholderChip
-import com.google.android.horologist.media.ui.components.base.StandardButton
-import com.google.android.horologist.media.ui.components.base.StandardButtonType
-import com.google.android.horologist.media.ui.components.base.StandardChip
-import com.google.android.horologist.media.ui.components.base.StandardChipType
 import com.google.android.horologist.media.ui.components.base.Title
-import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
-import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
+/**
+ * A screen that displays a media collection and allow actions to be taken on it.
+ */
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun EntityScreen(
-    entityScreenState: EntityScreenState,
-    onDownloadClick: (PlaylistUiModel) -> Unit,
-    onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
-    onShuffleClick: (PlaylistUiModel) -> Unit,
-    onPlayClick: (PlaylistUiModel) -> Unit,
+    headerContent: @Composable () -> Unit,
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
-    defaultMediaTitle: String = "",
-    downloadItemArtworkPlaceholder: Painter? = null
+    buttonsContent: (@Composable () -> Unit)? = null,
+    content: (ScalingLazyListScope.() -> Unit)? = null
 ) {
     ScalingLazyColumn(
         modifier = modifier
@@ -67,205 +48,130 @@ public fun EntityScreen(
             .scrollableColumn(focusRequester, scalingLazyListState),
         state = scalingLazyListState
     ) {
-        when (entityScreenState) {
-            is EntityScreenState.Loading -> {
-                item {
-                    Title(
-                        text = entityScreenState.playlistName,
-                        modifier = Modifier.padding(bottom = 12.dp)
-                    )
-                }
+        item {
+            headerContent()
+        }
 
-                item {
-                    StandardChip(
-                        label = stringResource(id = R.string.horologist_entity_button_download),
-                        onClick = { },
-                        modifier = Modifier.padding(bottom = 16.dp),
-                        icon = Icons.Default.Download,
-                        enabled = false
-                    )
-                }
-
-                items(count = 2) {
-                    SecondaryPlaceholderChip()
-                }
+        buttonsContent?.let {
+            item {
+                buttonsContent()
             }
+        }
 
-            is EntityScreenState.Loaded -> {
-                item {
-                    Title(
-                        text = entityScreenState.playlistUiModel.title,
-                        modifier = Modifier.padding(bottom = 12.dp)
-                    )
-                }
-
-                if (entityScreenState.downloadsState == EntityScreenState.Loaded.DownloadsState.None) {
-                    if (entityScreenState.downloading) {
-                        item {
-                            StandardChip(
-                                label = stringResource(id = R.string.horologist_entity_button_downloading),
-                                onClick = { onDownloadClick(entityScreenState.playlistUiModel) },
-                                modifier = Modifier.padding(bottom = 16.dp),
-                                icon = Icons.Default.Download
-                            )
-                        }
-                    } else {
-                        item {
-                            StandardChip(
-                                label = stringResource(id = R.string.horologist_entity_button_download),
-                                onClick = { onDownloadClick(entityScreenState.playlistUiModel) },
-                                modifier = Modifier.padding(bottom = 16.dp),
-                                icon = Icons.Default.Download
-                            )
-                        }
-                    }
-                } else {
-                    item {
-                        Row(
-                            modifier = Modifier
-                                .padding(bottom = 16.dp)
-                                .height(52.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            FirstButton(
-                                downloadsState = entityScreenState.downloadsState,
-                                downloading = entityScreenState.downloading,
-                                playlistUiModel = entityScreenState.playlistUiModel,
-                                onDownloadClick = onDownloadClick,
-                                modifier = Modifier
-                                    .padding(start = 6.dp)
-                                    .weight(weight = 0.3F, fill = false)
-                            )
-
-                            StandardButton(
-                                imageVector = Icons.Default.Shuffle,
-                                contentDescription = stringResource(id = R.string.horologist_entity_button_shuffle_content_description),
-                                onClick = { onShuffleClick(entityScreenState.playlistUiModel) },
-                                modifier = Modifier
-                                    .padding(start = 6.dp)
-                                    .weight(weight = 0.3F, fill = false)
-                            )
-
-                            StandardButton(
-                                imageVector = Icons.Filled.PlayArrow,
-                                contentDescription = stringResource(id = R.string.horologist_entity_button_play_content_description),
-                                onClick = { onPlayClick(entityScreenState.playlistUiModel) },
-                                modifier = Modifier
-                                    .padding(start = 6.dp)
-                                    .weight(weight = 0.3F, fill = false)
-                            )
-                        }
-                    }
-                }
-
-                items(count = entityScreenState.downloadList.size) { index ->
-                    val downloadMediaUiModel = entityScreenState.downloadList[index]
-                    val mediaUiModel = downloadMediaUiModel.mediaUiModel
-
-                    StandardChip(
-                        label = mediaUiModel.title ?: defaultMediaTitle,
-                        onClick = { onDownloadItemClick(downloadMediaUiModel) },
-                        secondaryLabel = mediaUiModel.artist,
-                        icon = mediaUiModel.artworkUri,
-                        largeIcon = true,
-                        placeholder = downloadItemArtworkPlaceholder,
-                        chipType = StandardChipType.Secondary,
-                        enabled = downloadMediaUiModel is DownloadMediaUiModel.Available
-                    )
-                }
-            }
+        content?.let {
+            content()
         }
     }
 }
 
+/**
+ * A screen that displays a [Media] collection and allow actions to be taken on it.
+ */
 @ExperimentalHorologistMediaUiApi
 @Composable
-private fun FirstButton(
-    downloadsState: EntityScreenState.Loaded.DownloadsState,
-    downloading: Boolean,
-    playlistUiModel: PlaylistUiModel,
-    onDownloadClick: (PlaylistUiModel) -> Unit,
-    modifier: Modifier = Modifier
+public fun <Media> EntityScreen(
+    headerContent: @Composable () -> Unit,
+    mediaList: List<Media>,
+    mediaContent: @Composable (media: Media) -> Unit,
+    focusRequester: FocusRequester,
+    scalingLazyListState: ScalingLazyListState,
+    modifier: Modifier = Modifier,
+    buttonsContent: (@Composable () -> Unit)? = null
 ) {
-    val (icon, contentDescription) = when (downloadsState) {
-        EntityScreenState.Loaded.DownloadsState.Partially -> {
-            if (downloading) {
-                Pair(
-                    Icons.Default.Downloading,
-                    R.string.horologist_entity_button_downloading_content_description
-                )
-            } else {
-                Pair(
-                    Icons.Default.Download,
-                    R.string.horologist_entity_button_download_content_description
-                )
+    EntityScreen(
+        headerContent = headerContent,
+        focusRequester = focusRequester,
+        scalingLazyListState = scalingLazyListState,
+        modifier = modifier,
+        buttonsContent = buttonsContent,
+        content = {
+            items(count = mediaList.size) { index ->
+                mediaContent(mediaList[index])
             }
         }
-        EntityScreenState.Loaded.DownloadsState.Fully -> {
-            Pair(
-                Icons.Default.DownloadDone,
-                R.string.horologist_entity_button_download_done_content_description
+    )
+}
+
+/**
+ * A screen that displays a [Media] collection and allow actions to be taken on it.
+ * The content displayed is based on the screen's [state][EntityScreenState].
+ */
+@ExperimentalHorologistMediaUiApi
+@Composable
+public fun <Media> EntityScreen(
+    entityScreenState: EntityScreenState<Media>,
+    headerContent: @Composable () -> Unit,
+    mediaContent: @Composable (media: Media) -> Unit,
+    mediaLoadingContent: @Composable () -> Unit,
+    focusRequester: FocusRequester,
+    scalingLazyListState: ScalingLazyListState,
+    modifier: Modifier = Modifier,
+    buttonsContent: (@Composable () -> Unit)? = null,
+    failedContent: (@Composable () -> Unit)? = null
+) {
+    when (entityScreenState) {
+        is EntityScreenState.Loading -> {
+            EntityScreen(
+                headerContent = headerContent,
+                focusRequester = focusRequester,
+                scalingLazyListState = scalingLazyListState,
+                modifier = modifier,
+                buttonsContent = buttonsContent,
+                content = {
+                    items(count = 2) {
+                        mediaLoadingContent()
+                    }
+                }
             )
         }
-        else -> {
-            error("Invalid state to be used with this button")
+
+        is EntityScreenState.Loaded -> {
+            EntityScreen(
+                headerContent = headerContent,
+                mediaList = entityScreenState.mediaList,
+                mediaContent = mediaContent,
+                focusRequester = focusRequester,
+                scalingLazyListState = scalingLazyListState,
+                modifier = modifier,
+                buttonsContent = buttonsContent
+            )
+        }
+
+        is EntityScreenState.Failed -> {
+            EntityScreen(
+                headerContent = headerContent,
+                focusRequester = focusRequester,
+                scalingLazyListState = scalingLazyListState,
+                modifier = modifier,
+                buttonsContent = buttonsContent,
+                content = failedContent?.let {
+                    { item { failedContent() } }
+                }
+
+            )
         }
     }
-
-    StandardButton(
-        imageVector = icon,
-        contentDescription = stringResource(id = contentDescription),
-        onClick = { onDownloadClick(playlistUiModel) },
-        modifier = modifier,
-        buttonType = StandardButtonType.Secondary
-    )
 }
 
 /**
  * Represents the state of [EntityScreen].
  */
 @ExperimentalHorologistMediaUiApi
-public sealed class EntityScreenState {
+public sealed class EntityScreenState<Media> {
+    public class Loading<Media> : EntityScreenState<Media>()
 
-    public data class Loading(
-        val playlistName: String
-    ) : EntityScreenState()
+    public data class Loaded<Media>(
+        val mediaList: List<Media>
+    ) : EntityScreenState<Media>()
 
-    public data class Loaded(
-        val playlistUiModel: PlaylistUiModel,
-        val downloadList: List<DownloadMediaUiModel>,
-        val downloading: Boolean = false
-    ) : EntityScreenState() {
+    public class Failed<Media> : EntityScreenState<Media>()
+}
 
-        internal val downloadsState: DownloadsState
-
-        init {
-            downloadsState = if (downloadList.isEmpty()) {
-                DownloadsState.Fully
-            } else {
-                var none = true
-                var fully = true
-
-                downloadList.forEach {
-                    if (it is DownloadMediaUiModel.Available) none = false
-                    if (it is DownloadMediaUiModel.Unavailable) fully = false
-                }
-
-                when {
-                    !none && !fully -> DownloadsState.Partially
-                    none -> DownloadsState.None
-                    else -> DownloadsState.Fully
-                }
-            }
-        }
-
-        /**
-         * Represents the state of the downloads.
-         */
-        internal enum class DownloadsState {
-            None,
-            Partially,
-            Fully
-        }
-    }
+/**
+ * A default implementation of a header for [EntityScreen].
+ */
+@ExperimentalHorologistMediaUiApi
+@Composable
+public fun DefaultEntityScreenHeader(title: String) {
+    Title(text = title, modifier = Modifier.padding(bottom = 12.dp))
 }

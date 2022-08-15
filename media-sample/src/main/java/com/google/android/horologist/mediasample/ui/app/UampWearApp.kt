@@ -134,6 +134,7 @@ fun UampWearApp(
                             playlistUiModel.title
                         )
                     },
+                    onErrorDialogCancelClick = { navController.popBackStack() },
                     focusRequester = focusRequester,
                     scalingLazyListState = scalingLazyListState
                 )

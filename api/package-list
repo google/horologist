@@ -18,6 +18,9 @@ com.google.android.horologist.compose.pager
 com.google.android.horologist.compose.snackbar
 module:compose-tools
 com.google.android.horologist.compose.tools
+module:datalayer
+com.google.android.horologist.data
+com.google.android.horologist.data.store.impl
 module:media
 com.google.android.horologist.media
 com.google.android.horologist.media.model
@@ -26,6 +29,9 @@ module:media-data
 com.google.android.horologist.media.data
 com.google.android.horologist.media.data.mapper
 com.google.android.horologist.media.data.repository
+module:media-sync
+com.google.android.horologist.media.sync.api
+com.google.android.horologist.media.sync.initializers
 module:media-ui
 com.google.android.horologist.media.ui
 com.google.android.horologist.media.ui.complication
@@ -36,10 +42,11 @@ com.google.android.horologist.media.ui.components.background
 com.google.android.horologist.media.ui.components.base
 com.google.android.horologist.media.ui.components.controls
 com.google.android.horologist.media.ui.navigation
-com.google.android.horologist.media.ui.screens
 com.google.android.horologist.media.ui.screens.browse
 com.google.android.horologist.media.ui.screens.entity
-com.google.android.horologist.media.ui.screens.playlist
+com.google.android.horologist.media.ui.screens.player
+com.google.android.horologist.media.ui.screens.playerlibrarypager
+com.google.android.horologist.media.ui.screens.playlists
 com.google.android.horologist.media.ui.semantics
 com.google.android.horologist.media.ui.snackbar
 com.google.android.horologist.media.ui.state

@@ -28,13 +28,10 @@ import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
 import com.google.android.horologist.mediasample.ui.mapper.DownloadMediaUiModelMapper
 import com.google.android.horologist.mediasample.ui.mapper.PlaylistUiModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -66,9 +63,6 @@ class UampEntityScreenViewModel @Inject constructor(
         EntityScreenState.Loading(playlistName)
     )
 
-    // https://github.com/google/horologist/issues/496
-    val finishedPlayExecution: MutableStateFlow<Boolean> = MutableStateFlow(false)
-
     fun play(mediaId: String? = null) {
         play(shuffled = false, mediaId = mediaId)
     }
@@ -84,18 +78,11 @@ class UampEntityScreenViewModel @Inject constructor(
                 .coerceAtLeast(0)
 
             playerRepository.setShuffleModeEnabled(shuffled)
+
             playerRepository.setMediaList(playlistDownload.playlist.mediaList)
-
-            // https://github.com/google/horologist/issues/496
-            viewModelScope.launch {
-                delay(100)
-
-                playerRepository.seekToDefaultPosition(index)
-                playerRepository.prepare()
-                playerRepository.play()
-
-                finishedPlayExecution.value = true
-            }
+            playerRepository.seekToDefaultPosition(index)
+            playerRepository.prepare()
+            playerRepository.play()
         }
     }
 

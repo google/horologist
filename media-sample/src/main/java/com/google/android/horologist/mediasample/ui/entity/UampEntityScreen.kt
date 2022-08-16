@@ -22,19 +22,24 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.compose.layout.StateUtils
 import com.google.android.horologist.media.ui.screens.entity.EntityScreen
-import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
 @Composable
 fun UampEntityScreen(
     uampEntityScreenViewModel: UampEntityScreenViewModel,
-    onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
+    onDownloadItemClick: () -> Unit,
     onShuffleClick: (PlaylistUiModel) -> Unit,
     onPlayClick: (PlaylistUiModel) -> Unit,
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState
 ) {
     val uiState by StateUtils.rememberStateWithLifecycle(flow = uampEntityScreenViewModel.uiState)
+
+    // https://github.com/google/horologist/issues/496
+    val finishedPlayExecution by StateUtils.rememberStateWithLifecycle(flow = uampEntityScreenViewModel.finishedPlayExecution)
+    if (finishedPlayExecution) {
+        onDownloadItemClick()
+    }
 
     EntityScreen(
         entityScreenState = uiState,
@@ -43,7 +48,6 @@ fun UampEntityScreen(
         },
         onDownloadItemClick = {
             uampEntityScreenViewModel.play(it.mediaUiModel.id)
-            onDownloadItemClick(it)
         },
         onShuffleClick = {
             uampEntityScreenViewModel.shufflePlay()

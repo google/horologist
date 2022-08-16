@@ -123,6 +123,9 @@ class PlayerRepositoryImplNotConnectedTest(
             param("setMedia") { sut: PlayerRepositoryImpl ->
                 sut.setMedia(getDummyMedia())
             },
+            param("setMediaListAndPlay") { sut: PlayerRepositoryImpl ->
+                sut.setMediaListAndPlay(listOf(getDummyMedia(), getDummyMedia()), 1)
+            },
             param("setMediaList") { sut: PlayerRepositoryImpl ->
                 sut.setMediaList(listOf(getDummyMedia()))
             },

@@ -112,6 +112,10 @@ class FakePlayerRepository : PlayerRepository {
         _currentMedia.value = mediaList[currentItemIndex]
     }
 
+    override fun setMediaListAndPlay(mediaList: List<Media>, index: Int) {
+        // do nothing
+    }
+
     override fun addMedia(media: Media) {
         // do nothing
     }

@@ -19,6 +19,7 @@ package com.google.android.horologist.media.data.repository
 import android.util.Log
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
+import androidx.media3.common.Timeline
 import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.data.mapper.MediaItemMapper
 import com.google.android.horologist.media.data.mapper.MediaMapper
@@ -90,6 +91,9 @@ public class PlayerRepositoryImpl(
 
     private var _playbackSpeed = MutableStateFlow(1f)
 
+    // https://github.com/google/horologist/issues/496
+    private var mediaIndexToSeekTo: Int? = null
+
     /**
      * The current playback speed relative to 1.0.
      */
@@ -97,6 +101,7 @@ public class PlayerRepositoryImpl(
         get() = _playbackSpeed
 
     private val listener = object : Player.Listener {
+
         override fun onEvents(player: Player, events: Player.Events) {
             if (events.contains(Player.EVENT_AVAILABLE_COMMANDS_CHANGED)) {
                 updateAvailableCommands(player)
@@ -123,6 +128,19 @@ public class PlayerRepositoryImpl(
             // https://exoplayer.dev/listening-to-player-events.html#individual-callbacks-vs-onevents
             if (PlayerStateMapper.affectsState(events)) {
                 updateState(player)
+            }
+        }
+
+        // https://github.com/google/horologist/issues/496
+        override fun onTimelineChanged(timeline: Timeline, reason: Int) {
+            mediaIndexToSeekTo?.let { index ->
+                _player.value?.let { player ->
+                    player.seekTo(index, 0)
+                    player.prepare()
+                    player.play()
+                }
+
+                mediaIndexToSeekTo = null
             }
         }
     }
@@ -312,6 +330,16 @@ public class PlayerRepositoryImpl(
         player.value?.let {
             it.setMediaItems(mediaList.map(mediaItemMapper::map))
             updatePosition()
+        }
+    }
+
+    override fun setMediaListAndPlay(mediaList: List<Media>, index: Int) {
+        checkNotClosed()
+
+        player.value?.let {
+            it.setMediaItems(mediaList.map(mediaItemMapper::map))
+
+            mediaIndexToSeekTo = index
         }
     }
 

@@ -132,9 +132,18 @@ public interface PlayerRepository {
      * Clears the playlist, adds the specified [Media] list and resets the position to
      * the default position.
      *
-     * @param mediaList The new [Media].
+     * @param mediaList The new [Media] list.
      */
     public fun setMediaList(mediaList: List<Media>)
+
+    /**
+     * Clears the playlist, adds the specified [Media] list and plays the [Media] at the position of
+     * the index passed as param.
+     *
+     * @param mediaList The new [Media] list.
+     * @param index The new position.
+     */
+    public fun setMediaListAndPlay(mediaList: List<Media>, index: Int)
 
     /**
      * Adds a [Media] to the end of the playlist.

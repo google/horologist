@@ -122,6 +122,9 @@ class PlayerRepositoryImplCloseTest(
             param("setMediaList") { sut: PlayerRepositoryImpl, _: Context ->
                 sut.setMediaList(listOf(getDummyMedia()))
             },
+            param("setMediaListAndPlay") { sut: PlayerRepositoryImpl, _: Context ->
+                sut.setMediaListAndPlay(listOf(getDummyMedia(), getDummyMedia()), 1)
+            },
             param("addMedia") { sut: PlayerRepositoryImpl, _: Context ->
                 sut.addMedia(getDummyMedia())
             },

@@ -29,6 +29,7 @@ import kotlin.time.Duration.Companion.seconds
 
 @OptIn(ExperimentalHorologistMediaApi::class)
 class StubPlayerRepository : PlayerRepository {
+
     override val connected: StateFlow<Boolean>
         get() = MutableStateFlow(false)
 
@@ -96,6 +97,10 @@ class StubPlayerRepository : PlayerRepository {
     }
 
     override fun setMediaList(mediaList: List<Media>) {
+        // do nothing
+    }
+
+    override fun setMediaListAndPlay(mediaList: List<Media>, index: Int) {
         // do nothing
     }
 

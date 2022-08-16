@@ -79,10 +79,7 @@ class UampEntityScreenViewModel @Inject constructor(
 
             playerRepository.setShuffleModeEnabled(shuffled)
 
-            playerRepository.setMediaList(playlistDownload.playlist.mediaList)
-            playerRepository.seekToDefaultPosition(index)
-            playerRepository.prepare()
-            playerRepository.play()
+            playerRepository.setMediaListAndPlay(playlistDownload.playlist.mediaList, index)
         }
     }
 

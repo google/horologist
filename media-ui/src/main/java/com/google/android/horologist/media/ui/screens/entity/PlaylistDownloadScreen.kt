@@ -73,6 +73,7 @@ public fun PlaylistDownloadScreen(
     EntityScreen(
         entityScreenState = entityScreenState,
         headerContent = { DefaultEntityScreenHeader(title = playlistName) },
+        loadingContent = { items(count = 2) { SecondaryPlaceholderChip() } },
         mediaContent = { downloadMediaUiModel ->
             val mediaUiModel = downloadMediaUiModel.mediaUiModel
 
@@ -86,9 +87,6 @@ public fun PlaylistDownloadScreen(
                 chipType = StandardChipType.Secondary,
                 enabled = downloadMediaUiModel is DownloadMediaUiModel.Available
             )
-        },
-        mediaLoadingContent = {
-            SecondaryPlaceholderChip()
         },
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,

@@ -101,8 +101,8 @@ public fun <Media> EntityScreen(
 public fun <Media> EntityScreen(
     entityScreenState: EntityScreenState<Media>,
     headerContent: @Composable () -> Unit,
+    loadingContent: ScalingLazyListScope.() -> Unit,
     mediaContent: @Composable (media: Media) -> Unit,
-    mediaLoadingContent: @Composable () -> Unit,
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
@@ -117,11 +117,7 @@ public fun <Media> EntityScreen(
                 scalingLazyListState = scalingLazyListState,
                 modifier = modifier,
                 buttonsContent = buttonsContent,
-                content = {
-                    items(count = 2) {
-                        mediaLoadingContent()
-                    }
-                }
+                content = loadingContent
             )
         }
 
@@ -147,7 +143,6 @@ public fun <Media> EntityScreen(
                 content = failedContent?.let {
                     { item { failedContent() } }
                 }
-
             )
         }
     }

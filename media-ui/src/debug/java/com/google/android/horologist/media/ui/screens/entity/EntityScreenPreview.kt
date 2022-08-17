@@ -115,8 +115,8 @@ fun EntityScreenPreviewLoadedState() {
     EntityScreen(
         entityScreenState = EntityScreenState.Loaded(listOf("Song 1", "Song 2")),
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
+        loadingContent = { },
         mediaContent = { song -> StandardChip(label = song, onClick = { }) },
-        mediaLoadingContent = { },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         buttonsContent = { ButtonContentForStatePreview() }
@@ -129,8 +129,8 @@ fun EntityScreenPreviewLoadingState() {
     EntityScreen(
         entityScreenState = EntityScreenState.Loading<String>(),
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
+        loadingContent = { items(count = 2) { SecondaryPlaceholderChip() } },
         mediaContent = { },
-        mediaLoadingContent = { SecondaryPlaceholderChip() },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         buttonsContent = { ButtonContentForStatePreview() }
@@ -143,8 +143,8 @@ fun EntityScreenPreviewFailedState() {
     EntityScreen(
         entityScreenState = EntityScreenState.Failed<String>(),
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
+        loadingContent = { },
         mediaContent = { },
-        mediaLoadingContent = { },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         buttonsContent = { ButtonContentForStatePreview() },

@@ -21,12 +21,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.compose.layout.StateUtils
-import com.google.android.horologist.media.ui.screens.entity.EntityScreen
+import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreen
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
 @Composable
 fun UampEntityScreen(
+    playlistName: String,
     uampEntityScreenViewModel: UampEntityScreenViewModel,
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
     onShuffleClick: (PlaylistUiModel) -> Unit,
@@ -36,8 +37,9 @@ fun UampEntityScreen(
 ) {
     val uiState by StateUtils.rememberStateWithLifecycle(flow = uampEntityScreenViewModel.uiState)
 
-    EntityScreen(
-        entityScreenState = uiState,
+    PlaylistDownloadScreen(
+        playlistName = playlistName,
+        playlistDownloadScreenState = uiState,
         onDownloadClick = {
             uampEntityScreenViewModel.download()
         },

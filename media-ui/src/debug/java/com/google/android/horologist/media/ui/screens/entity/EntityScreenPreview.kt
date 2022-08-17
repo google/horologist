@@ -18,201 +18,190 @@
 
 package com.google.android.horologist.media.ui.screens.entity
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MusicNote
+import androidx.compose.material.icons.filled.CloudOff
+import androidx.compose.material.icons.filled.Download
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.PlaylistPlay
+import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
-import com.google.android.horologist.media.ui.state.model.MediaUiModel
-import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
-import com.google.android.horologist.media.ui.utils.rememberVectorPainter
+import com.google.android.horologist.media.ui.components.base.SecondaryPlaceholderChip
+import com.google.android.horologist.media.ui.components.base.StandardButton
+import com.google.android.horologist.media.ui.components.base.StandardChip
 
 @WearPreviewDevices
 @Composable
-fun EntityScreenPreviewLoading() {
+fun EntityScreenPreview() {
     EntityScreen(
-        entityScreenState = EntityScreenState.Loading("Artist name"),
-        onDownloadClick = { },
-        onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
-        focusRequester = FocusRequester(),
-        scalingLazyListState = rememberScalingLazyListState()
-    )
-}
-
-@WearPreviewDevices
-@Composable
-fun EntityScreenPreviewLoadedNoneDownloaded() {
-    EntityScreen(
-        entityScreenState = EntityScreenState.Loaded(
-            playlistUiModel = playlistUiModel,
-            downloadList = unavailableDownloads,
-            downloading = false
-        ),
-        onDownloadClick = { },
-        onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
+        headerContent = {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
+                    .background(
+                        Brush.radialGradient(
+                            listOf(
+                                (Color.Green).copy(alpha = 0.3f),
+                                Color.Transparent
+                            )
+                        )
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Text("Playlist name")
+            }
+        },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
-        downloadItemArtworkPlaceholder = rememberVectorPainter(
-            image = Icons.Default.MusicNote,
-            tintColor = Color.Blue
-        )
+        buttonsContent = {
+            Row(
+                modifier = Modifier
+                    .padding(bottom = 16.dp)
+                    .height(52.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                StandardButton(
+                    imageVector = Icons.Default.Favorite,
+                    contentDescription = "Favorite",
+                    onClick = { },
+                    modifier = Modifier
+                        .padding(start = 6.dp)
+                        .weight(weight = 0.3F, fill = false)
+                )
+
+                StandardButton(
+                    imageVector = Icons.Default.PlaylistPlay,
+                    contentDescription = "Play",
+                    onClick = { },
+                    modifier = Modifier
+                        .padding(start = 6.dp)
+                        .weight(weight = 0.3F, fill = false)
+                )
+            }
+        },
+        content = {
+            item { StandardChip(label = "Song 1", onClick = { }) }
+            item { StandardChip(label = "Song 2", onClick = { }) }
+        }
     )
 }
 
 @WearPreviewDevices
 @Composable
-fun EntityScreenPreviewLoadedNoneDownloadedDownloading() {
+fun EntityScreenPreviewLoadedState() {
     EntityScreen(
-        entityScreenState = EntityScreenState.Loaded(
-            playlistUiModel = playlistUiModel,
-            downloadList = unavailableDownloads,
-            downloading = true
-        ),
-        onDownloadClick = { },
-        onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
+        entityScreenState = EntityScreenState.Loaded(listOf("Song 1", "Song 2")),
+        headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
+        mediaContent = { song -> StandardChip(label = song, onClick = { }) },
+        mediaLoadingContent = { },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
-        downloadItemArtworkPlaceholder = rememberVectorPainter(
-            image = Icons.Default.MusicNote,
-            tintColor = Color.Blue
-        )
+        buttonsContent = { ButtonContentForStatePreview() }
     )
 }
 
 @WearPreviewDevices
 @Composable
-fun EntityScreenPreviewLoadedPartiallyDownloaded() {
+fun EntityScreenPreviewLoadingState() {
     EntityScreen(
-        entityScreenState = EntityScreenState.Loaded(
-            playlistUiModel = playlistUiModel,
-            downloadList = mixedDownloads,
-            downloading = false
-        ),
-        onDownloadClick = { },
-        onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
+        entityScreenState = EntityScreenState.Loading<String>(),
+        headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
+        mediaContent = { },
+        mediaLoadingContent = { SecondaryPlaceholderChip() },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
-        downloadItemArtworkPlaceholder = rememberVectorPainter(
-            image = Icons.Default.MusicNote,
-            tintColor = Color.Blue
-        )
+        buttonsContent = { ButtonContentForStatePreview() }
     )
 }
 
 @WearPreviewDevices
 @Composable
-fun EntityScreenPreviewLoadedPartiallyDownloadedDownloading() {
+fun EntityScreenPreviewFailedState() {
     EntityScreen(
-        entityScreenState = EntityScreenState.Loaded(
-            playlistUiModel = playlistUiModel,
-            downloadList = mixedDownloads,
-            downloading = true
-        ),
-        onDownloadClick = { },
-        onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
+        entityScreenState = EntityScreenState.Failed<String>(),
+        headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
+        mediaContent = { },
+        mediaLoadingContent = { },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
-        downloadItemArtworkPlaceholder = rememberVectorPainter(
-            image = Icons.Default.MusicNote,
-            tintColor = Color.Blue
-        )
+        buttonsContent = { ButtonContentForStatePreview() },
+        failedContent = {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Icon(
+                    imageVector = Icons.Default.CloudOff,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(24.dp)
+                        .wrapContentSize(align = Alignment.Center)
+                )
+                Text(
+                    text = "Could not retrieve the playlist.",
+                    textAlign = TextAlign.Center
+                )
+            }
+        }
     )
 }
 
-@WearPreviewDevices
 @Composable
-fun EntityScreenPreviewLoadedFullyDownloaded() {
-    EntityScreen(
-        entityScreenState = EntityScreenState.Loaded(
-            playlistUiModel = playlistUiModel,
-            downloadList = availableDownloads,
-            downloading = false
-        ),
-        onDownloadClick = { },
-        onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
-        focusRequester = FocusRequester(),
-        scalingLazyListState = rememberScalingLazyListState(),
-        downloadItemArtworkPlaceholder = rememberVectorPainter(
-            image = Icons.Default.MusicNote,
-            tintColor = Color.Blue
+private fun ButtonContentForStatePreview() {
+    Row(
+        modifier = Modifier
+            .padding(bottom = 16.dp)
+            .height(52.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        StandardButton(
+            imageVector = Icons.Default.Download,
+            contentDescription = "Download",
+            onClick = { },
+            modifier = Modifier
+                .padding(start = 6.dp)
+                .weight(weight = 0.3F, fill = false)
         )
-    )
+
+        StandardButton(
+            imageVector = Icons.Default.Shuffle,
+            contentDescription = "Shuffle",
+            onClick = { },
+            modifier = Modifier
+                .padding(start = 6.dp)
+                .weight(weight = 0.3F, fill = false)
+        )
+
+        StandardButton(
+            imageVector = Icons.Default.PlayArrow,
+            contentDescription = "Play",
+            onClick = { },
+            modifier = Modifier
+                .padding(start = 6.dp)
+                .weight(weight = 0.3F, fill = false)
+        )
+    }
 }
-
-private val unavailableDownloads = listOf(
-    DownloadMediaUiModel.Unavailable(
-        MediaUiModel(
-            id = "id",
-            title = "Song name",
-            artist = "Artist name",
-            artworkUri = "artworkUri"
-        )
-    ),
-    DownloadMediaUiModel.Unavailable(
-        MediaUiModel(
-            id = "id 2",
-            title = "Song name 2",
-            artist = "Artist name 2",
-            artworkUri = "artworkUri"
-        )
-    )
-)
-
-private val playlistUiModel = PlaylistUiModel(
-    id = "id",
-    title = "Playlist name"
-)
-
-private val mixedDownloads = listOf(
-    DownloadMediaUiModel.Available(
-        MediaUiModel(
-            id = "id",
-            title = "Song name",
-            artist = "Artist name",
-            artworkUri = "artworkUri"
-        )
-    ),
-    DownloadMediaUiModel.Unavailable(
-        MediaUiModel(
-            id = "id 2",
-            title = "Song name 2",
-            artist = "Artist name 2",
-            artworkUri = "artworkUri"
-        )
-    )
-)
-
-private val availableDownloads = listOf(
-    DownloadMediaUiModel.Available(
-        MediaUiModel(
-            id = "id",
-            title = "Song name",
-            artist = "Artist name",
-            artworkUri = "artworkUri"
-        )
-    ),
-    DownloadMediaUiModel.Available(
-        MediaUiModel(
-            id = "id 2",
-            title = "Song name 2",
-            artist = "Artist name 2",
-            artworkUri = "artworkUri"
-        )
-    )
-)

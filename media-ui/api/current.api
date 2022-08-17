@@ -328,32 +328,64 @@ package com.google.android.horologist.media.ui.screens.browse {
 package com.google.android.horologist.media.ui.screens.entity {
 
   public final class EntityScreenKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void EntityScreen(com.google.android.horologist.media.ui.screens.entity.EntityScreenState entityScreenState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.PlaylistUiModel,kotlin.Unit> onDownloadClick, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel,kotlin.Unit> onDownloadItemClick, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.PlaylistUiModel,kotlin.Unit> onShuffleClick, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.PlaylistUiModel,kotlin.Unit> onPlayClick, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional String defaultMediaTitle, optional androidx.compose.ui.graphics.painter.Painter? downloadItemArtworkPlaceholder);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void DefaultEntityScreenHeader(String title);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void EntityScreen(kotlin.jvm.functions.Function0<kotlin.Unit> headerContent, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? buttonsContent, optional kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListScope,kotlin.Unit>? content);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static <Media> void EntityScreen(kotlin.jvm.functions.Function0<kotlin.Unit> headerContent, java.util.List<? extends Media> mediaList, kotlin.jvm.functions.Function1<? super Media,kotlin.Unit> mediaContent, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? buttonsContent);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static <Media> void EntityScreen(com.google.android.horologist.media.ui.screens.entity.EntityScreenState<Media> entityScreenState, kotlin.jvm.functions.Function0<kotlin.Unit> headerContent, kotlin.jvm.functions.Function1<? super Media,kotlin.Unit> mediaContent, kotlin.jvm.functions.Function0<kotlin.Unit> mediaLoadingContent, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? buttonsContent, optional kotlin.jvm.functions.Function0<kotlin.Unit>? failedContent);
   }
 
-  @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class EntityScreenState {
+  @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class EntityScreenState<Media> {
   }
 
-  public static final class EntityScreenState.Loaded extends com.google.android.horologist.media.ui.screens.entity.EntityScreenState {
-    ctor public EntityScreenState.Loaded(com.google.android.horologist.media.ui.state.model.PlaylistUiModel playlistUiModel, java.util.List<? extends com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel> downloadList, optional boolean downloading);
-    method public com.google.android.horologist.media.ui.state.model.PlaylistUiModel component1();
-    method public java.util.List<com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel> component2();
-    method public boolean component3();
-    method public com.google.android.horologist.media.ui.screens.entity.EntityScreenState.Loaded copy(com.google.android.horologist.media.ui.state.model.PlaylistUiModel playlistUiModel, java.util.List<? extends com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel> downloadList, boolean downloading);
-    method public java.util.List<com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel> getDownloadList();
+  public static final class EntityScreenState.Failed<Media> extends com.google.android.horologist.media.ui.screens.entity.EntityScreenState<Media> {
+    ctor public EntityScreenState.Failed();
+  }
+
+  public static final class EntityScreenState.Loaded<Media> extends com.google.android.horologist.media.ui.screens.entity.EntityScreenState<Media> {
+    ctor public EntityScreenState.Loaded(java.util.List<? extends Media> mediaList);
+    method public java.util.List<Media> component1();
+    method public com.google.android.horologist.media.ui.screens.entity.EntityScreenState.Loaded<Media> copy(java.util.List<? extends Media> mediaList);
+    method public java.util.List<Media> getMediaList();
+    property public final java.util.List<Media> mediaList;
+  }
+
+  public static final class EntityScreenState.Loading<Media> extends com.google.android.horologist.media.ui.screens.entity.EntityScreenState<Media> {
+    ctor public EntityScreenState.Loading();
+  }
+
+  public final class PlaylistDownloadScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlaylistDownloadScreen(String playlistName, com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState<com.google.android.horologist.media.ui.state.model.PlaylistUiModel,com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel> playlistDownloadScreenState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.PlaylistUiModel,kotlin.Unit> onDownloadClick, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel,kotlin.Unit> onDownloadItemClick, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.PlaylistUiModel,kotlin.Unit> onShuffleClick, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.PlaylistUiModel,kotlin.Unit> onPlayClick, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional String defaultMediaTitle, optional androidx.compose.ui.graphics.painter.Painter? downloadItemArtworkPlaceholder);
+    method @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded<com.google.android.horologist.media.ui.state.model.PlaylistUiModel,com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel> createPlaylistDownloadScreenStateLoaded(com.google.android.horologist.media.ui.state.model.PlaylistUiModel playlistModel, java.util.List<? extends com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel> downloadMediaList, optional boolean downloading);
+  }
+
+  @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class PlaylistDownloadScreenState<Collection, Media> {
+  }
+
+  public static final class PlaylistDownloadScreenState.Loaded<Collection, Media> extends com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState<Collection,Media> {
+    ctor public PlaylistDownloadScreenState.Loaded(Collection? collectionModel, java.util.List<? extends Media> mediaList, com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState downloadsState, optional boolean downloading);
+    method public Collection! component1();
+    method public java.util.List<Media> component2();
+    method public com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState component3();
+    method public boolean component4();
+    method public com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded<Collection,Media> copy(Collection! collectionModel, java.util.List<? extends Media> mediaList, com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState downloadsState, boolean downloading);
+    method public Collection! getCollectionModel();
     method public boolean getDownloading();
-    method public com.google.android.horologist.media.ui.state.model.PlaylistUiModel getPlaylistUiModel();
-    property public final java.util.List<com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel> downloadList;
+    method public com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState getDownloadsState();
+    method public java.util.List<Media> getMediaList();
+    property public final Collection! collectionModel;
     property public final boolean downloading;
-    property public final com.google.android.horologist.media.ui.state.model.PlaylistUiModel playlistUiModel;
+    property public final com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState downloadsState;
+    property public final java.util.List<Media> mediaList;
   }
 
-  public static final class EntityScreenState.Loading extends com.google.android.horologist.media.ui.screens.entity.EntityScreenState {
-    ctor public EntityScreenState.Loading(String playlistName);
-    method public String component1();
-    method public com.google.android.horologist.media.ui.screens.entity.EntityScreenState.Loading copy(String playlistName);
-    method public String getPlaylistName();
-    property public final String playlistName;
+  public enum PlaylistDownloadScreenState.Loaded.DownloadMediaListState {
+    enum_constant public static final com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState Fully;
+    enum_constant public static final com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState None;
+    enum_constant public static final com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState Partially;
+  }
+
+  public static final class PlaylistDownloadScreenState.Loading<Collection, Media> extends com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState<Collection,Media> {
+    ctor public PlaylistDownloadScreenState.Loading();
   }
 
 }

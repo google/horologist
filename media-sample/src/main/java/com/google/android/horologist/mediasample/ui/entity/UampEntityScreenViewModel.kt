@@ -26,7 +26,6 @@ import com.google.android.horologist.media.ui.screens.entity.createPlaylistDownl
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.mediasample.domain.PlaylistDownloadRepository
-import com.google.android.horologist.mediasample.domain.model.MediaDownload
 import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
 import com.google.android.horologist.mediasample.ui.mapper.DownloadMediaUiModelMapper
 import com.google.android.horologist.mediasample.ui.mapper.PlaylistUiModelMapper
@@ -54,8 +53,7 @@ class UampEntityScreenViewModel @Inject constructor(
             if (playlistDownload != null) {
                 createPlaylistDownloadScreenStateLoaded(
                     playlistModel = PlaylistUiModelMapper.map(playlistDownload.playlist),
-                    downloadMediaList = playlistDownload.mediaList.map(DownloadMediaUiModelMapper::map),
-                    downloading = playlistDownload.mediaList.any { (_, status) -> status is MediaDownload.Status.InProgress }
+                    downloadMediaList = playlistDownload.mediaList.map(DownloadMediaUiModelMapper::map)
                 )
             } else {
                 PlaylistDownloadScreenState.Loading()

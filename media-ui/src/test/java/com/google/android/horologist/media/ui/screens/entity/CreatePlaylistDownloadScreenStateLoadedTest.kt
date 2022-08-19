@@ -50,8 +50,7 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
                 id = "id",
                 title = "title"
             ),
-            downloadMediaList = downloads,
-            downloading = false
+            downloadMediaList = downloads
         ).downloadsState
 
         // then
@@ -82,8 +81,7 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
                 id = "id",
                 title = "title"
             ),
-            downloadMediaList = downloads,
-            downloading = false
+            downloadMediaList = downloads
         ).downloadsState
 
         // then
@@ -114,8 +112,7 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
                 id = "id",
                 title = "title"
             ),
-            downloadMediaList = downloads,
-            downloading = false
+            downloadMediaList = downloads
         ).downloadsState
 
         // then
@@ -133,8 +130,7 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
                 id = "id",
                 title = "title"
             ),
-            downloadMediaList = downloads,
-            downloading = false
+            downloadMediaList = downloads
         ).downloadsState
 
         // then

@@ -16,14 +16,15 @@
 
 package com.google.android.horologist.mediasample.data.mapper
 
+import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntity
 import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntityStatus
 import com.google.android.horologist.mediasample.domain.model.MediaDownload
 
 object MediaDownloadStatusMapper {
 
-    fun map(mediaDownloadEntityStatus: MediaDownloadEntityStatus): MediaDownload.Status = when (mediaDownloadEntityStatus) {
+    fun map(mediaDownloadEntity: MediaDownloadEntity): MediaDownload.Status = when (mediaDownloadEntity.status) {
         MediaDownloadEntityStatus.NotDownloaded -> MediaDownload.Status.Idle
-        MediaDownloadEntityStatus.Downloading -> MediaDownload.Status.InProgress
+        MediaDownloadEntityStatus.Downloading -> MediaDownload.Status.InProgress(mediaDownloadEntity.progress)
         MediaDownloadEntityStatus.Downloaded -> MediaDownload.Status.Completed
         MediaDownloadEntityStatus.Failed -> MediaDownload.Status.Idle
     }

@@ -44,7 +44,7 @@ fun UampEntityScreen(
             uampEntityScreenViewModel.download()
         },
         onDownloadItemClick = {
-            uampEntityScreenViewModel.play(it.mediaUiModel.id)
+            uampEntityScreenViewModel.play(it.id)
             onDownloadItemClick(it)
         },
         onShuffleClick = {

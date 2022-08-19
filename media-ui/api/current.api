@@ -583,22 +583,72 @@ package com.google.android.horologist.media.ui.state.mapper {
 package com.google.android.horologist.media.ui.state.model {
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class DownloadMediaUiModel {
-    method public com.google.android.horologist.media.ui.state.model.MediaUiModel getMediaUiModel();
-    property public com.google.android.horologist.media.ui.state.model.MediaUiModel mediaUiModel;
+    method public String? getArtworkUri();
+    method public String getId();
+    method public String? getTitle();
+    property public String? artworkUri;
+    property public String id;
+    property public String? title;
   }
 
-  public static final class DownloadMediaUiModel.Available extends com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel {
-    ctor public DownloadMediaUiModel.Available(com.google.android.horologist.media.ui.state.model.MediaUiModel mediaUiModel);
-    method public com.google.android.horologist.media.ui.state.model.MediaUiModel component1();
-    method public com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel.Available copy(com.google.android.horologist.media.ui.state.model.MediaUiModel mediaUiModel);
-    property public com.google.android.horologist.media.ui.state.model.MediaUiModel mediaUiModel;
+  public static final class DownloadMediaUiModel.Downloaded extends com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel {
+    ctor public DownloadMediaUiModel.Downloaded(String id, optional String? title, optional String? artist, optional String? artworkUri);
+    method public String component1();
+    method public String? component2();
+    method public String? component3();
+    method public String? component4();
+    method public com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel.Downloaded copy(String id, String? title, String? artist, String? artworkUri);
+    method public String? getArtist();
+    property public final String? artist;
+    property public String? artworkUri;
+    property public String id;
+    property public String? title;
   }
 
-  public static final class DownloadMediaUiModel.Unavailable extends com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel {
-    ctor public DownloadMediaUiModel.Unavailable(com.google.android.horologist.media.ui.state.model.MediaUiModel mediaUiModel);
-    method public com.google.android.horologist.media.ui.state.model.MediaUiModel component1();
-    method public com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel.Unavailable copy(com.google.android.horologist.media.ui.state.model.MediaUiModel mediaUiModel);
-    property public com.google.android.horologist.media.ui.state.model.MediaUiModel mediaUiModel;
+  public static final class DownloadMediaUiModel.Downloading extends com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel {
+    ctor public DownloadMediaUiModel.Downloading(String id, optional String? title, String progress, com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel.Size size, optional String? artworkUri);
+    method public String component1();
+    method public String? component2();
+    method public String component3();
+    method public com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel.Size component4();
+    method public String? component5();
+    method public com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel.Downloading copy(String id, String? title, String progress, com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel.Size size, String? artworkUri);
+    method public String getProgress();
+    method public com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel.Size getSize();
+    property public String? artworkUri;
+    property public String id;
+    property public final String progress;
+    property public final com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel.Size size;
+    property public String? title;
+  }
+
+  public static final class DownloadMediaUiModel.NotDownloaded extends com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel {
+    ctor public DownloadMediaUiModel.NotDownloaded(String id, optional String? title, optional String? artist, optional String? artworkUri);
+    method public String component1();
+    method public String? component2();
+    method public String? component3();
+    method public String? component4();
+    method public com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel.NotDownloaded copy(String id, String? title, String? artist, String? artworkUri);
+    method public String? getArtist();
+    property public final String? artist;
+    property public String? artworkUri;
+    property public String id;
+    property public String? title;
+  }
+
+  public abstract static sealed class DownloadMediaUiModel.Size {
+  }
+
+  public static final class DownloadMediaUiModel.Size.Known extends com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel.Size {
+    ctor public DownloadMediaUiModel.Size.Known(long sizeInBytes);
+    method public long component1();
+    method public com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel.Size.Known copy(long sizeInBytes);
+    method public long getSizeInBytes();
+    property public final long sizeInBytes;
+  }
+
+  public static final class DownloadMediaUiModel.Size.Unknown extends com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel.Size {
+    field public static final com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel.Size.Unknown INSTANCE;
   }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class MediaUiModel {

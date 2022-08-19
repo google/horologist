@@ -18,13 +18,15 @@ package com.google.android.horologist.mediasample.data.datasource
 
 import com.google.android.horologist.mediasample.data.api.UampService
 import com.google.android.horologist.mediasample.data.api.model.CatalogApiModel
+import com.google.android.horologist.mediasample.di.annotation.Dispatcher
+import com.google.android.horologist.mediasample.di.annotation.UampDispatchers.IO
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
 class PlaylistRemoteDataSource(
-    private val ioDispatcher: CoroutineDispatcher,
+    @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
     private val uampService: UampService
 ) {
 

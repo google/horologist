@@ -18,7 +18,6 @@ package com.google.android.horologist.mediasample.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.media3.exoplayer.offline.DownloadIndex
 import com.google.android.horologist.mediasample.data.api.NetworkChangeListService
 import com.google.android.horologist.mediasample.data.api.UampService
 import com.google.android.horologist.mediasample.data.database.MediaDatabase
@@ -100,12 +99,10 @@ class DataModule {
     @Singleton
     @Provides
     fun media3DownloadDataSource(
-        @ApplicationContext applicationContext: Context,
-        downloadIndex: DownloadIndex
+        @ApplicationContext applicationContext: Context
     ) = Media3DownloadDataSource(
         applicationContext,
-        MediaDownloadService::class.java,
-        downloadIndex
+        MediaDownloadService::class.java
     )
 
     @Provides

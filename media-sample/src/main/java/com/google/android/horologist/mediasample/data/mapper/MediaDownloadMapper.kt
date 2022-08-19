@@ -17,6 +17,7 @@
 package com.google.android.horologist.mediasample.data.mapper
 
 import com.google.android.horologist.media.model.Media
+import com.google.android.horologist.mediasample.data.database.dao.MediaDownloadDao.Companion.SIZE_UNKNOWN
 import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntity
 import com.google.android.horologist.mediasample.domain.model.MediaDownload
 import com.google.android.horologist.mediasample.domain.model.Playlist
@@ -25,7 +26,12 @@ object MediaDownloadMapper {
 
     fun map(media: Media, mediaDownloadEntity: MediaDownloadEntity): MediaDownload = MediaDownload(
         media = media,
-        status = MediaDownloadStatusMapper.map(mediaDownloadEntity.status)
+        status = MediaDownloadStatusMapper.map(mediaDownloadEntity),
+        size = if (mediaDownloadEntity.size == SIZE_UNKNOWN) {
+            MediaDownload.Size.Unknown
+        } else {
+            MediaDownload.Size.Known(mediaDownloadEntity.size)
+        }
     )
 
     fun map(
@@ -37,7 +43,8 @@ object MediaDownloadMapper {
                 map(media = media, mediaDownloadEntity = mediaDownloadEntity)
             } ?: MediaDownload(
                 media = media,
-                status = MediaDownload.Status.Idle
+                status = MediaDownload.Status.Idle,
+                size = MediaDownload.Size.Unknown
             )
         }
 }

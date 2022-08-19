@@ -19,6 +19,7 @@ package com.google.android.horologist.mediasample.data.service.download
 import androidx.media3.exoplayer.offline.Download
 import androidx.media3.exoplayer.offline.DownloadManager
 import com.google.android.horologist.mediasample.data.database.mapper.MediaDownloadEntityStatusMapper
+import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntityStatus
 import com.google.android.horologist.mediasample.data.datasource.MediaDownloadLocalDataSource
 import com.google.android.horologist.mediasample.di.annotation.DownloadFeature
 import kotlinx.coroutines.CoroutineScope
@@ -26,8 +27,17 @@ import kotlinx.coroutines.launch
 
 class DownloadManagerListener(
     @DownloadFeature private val coroutineScope: CoroutineScope,
-    private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource
+    private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
+    private val downloadProgressMonitor: DownloadProgressMonitor
 ) : DownloadManager.Listener {
+
+    override fun onInitialized(downloadManager: DownloadManager) {
+        downloadProgressMonitor.start(downloadManager)
+    }
+
+    override fun onIdle(downloadManager: DownloadManager) {
+        downloadProgressMonitor.stop()
+    }
 
     override fun onDownloadChanged(
         downloadManager: DownloadManager,
@@ -37,8 +47,15 @@ class DownloadManagerListener(
         coroutineScope.launch {
             val mediaId = download.request.id
             val status = MediaDownloadEntityStatusMapper.map(download.state)
-            mediaDownloadLocalDataSource.updateStatus(mediaId, status)
+
+            if (status == MediaDownloadEntityStatus.Downloaded) {
+                mediaDownloadLocalDataSource.setDownloaded(mediaId)
+            } else {
+                mediaDownloadLocalDataSource.updateStatus(mediaId, status)
+            }
         }
+
+        downloadProgressMonitor.start(downloadManager)
     }
 
     override fun onDownloadRemoved(downloadManager: DownloadManager, download: Download) {
@@ -46,5 +63,13 @@ class DownloadManagerListener(
             val mediaId = download.request.id
             mediaDownloadLocalDataSource.delete(mediaId)
         }
+    }
+
+    fun onServiceCreated(downloadManager: DownloadManager) {
+        downloadProgressMonitor.start(downloadManager)
+    }
+
+    fun onServiceDestroyed() {
+        downloadProgressMonitor.stop()
     }
 }

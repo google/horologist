@@ -55,7 +55,7 @@ class UampEntityScreenViewModel @Inject constructor(
                 createPlaylistDownloadScreenStateLoaded(
                     playlistModel = PlaylistUiModelMapper.map(playlistDownload.playlist),
                     downloadMediaList = playlistDownload.mediaList.map(DownloadMediaUiModelMapper::map),
-                    downloading = playlistDownload.mediaList.any { (_, status) -> status == MediaDownload.Status.InProgress }
+                    downloading = playlistDownload.mediaList.any { (_, status) -> status is MediaDownload.Status.InProgress }
                 )
             } else {
                 PlaylistDownloadScreenState.Loading()

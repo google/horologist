@@ -16,21 +16,45 @@
 
 package com.google.android.horologist.mediasample.ui.mapper
 
-import com.google.android.horologist.media.ui.state.mapper.MediaUiModelMapper
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.mediasample.domain.model.MediaDownload
 
 object DownloadMediaUiModelMapper {
 
+    private const val PROGRESS_FORMAT = "%.0f"
+    private const val SIZE_FORMAT = "%.0f"
+
     fun map(
         mediaDownload: MediaDownload
     ): DownloadMediaUiModel = when (mediaDownload.status) {
-        MediaDownload.Status.Idle,
-        MediaDownload.Status.InProgress -> {
-            DownloadMediaUiModel.Unavailable(MediaUiModelMapper.map(mediaDownload.media))
+        MediaDownload.Status.Idle -> {
+            DownloadMediaUiModel.NotDownloaded(
+                id = mediaDownload.media.id,
+                title = mediaDownload.media.title,
+                artist = mediaDownload.media.artist,
+                artworkUri = mediaDownload.media.artworkUri
+            )
+        }
+
+        is MediaDownload.Status.InProgress -> {
+            DownloadMediaUiModel.Downloading(
+                id = mediaDownload.media.id,
+                title = mediaDownload.media.title,
+                progress = PROGRESS_FORMAT.format(mediaDownload.status.progress),
+                size = when (mediaDownload.size) {
+                    is MediaDownload.Size.Known -> DownloadMediaUiModel.Size.Known(mediaDownload.size.sizeInBytes)
+                    is MediaDownload.Size.Unknown -> DownloadMediaUiModel.Size.Unknown
+                },
+                artworkUri = mediaDownload.media.artworkUri
+            )
         }
         MediaDownload.Status.Completed -> {
-            DownloadMediaUiModel.Available(MediaUiModelMapper.map(mediaDownload.media))
+            DownloadMediaUiModel.Downloaded(
+                id = mediaDownload.media.id,
+                title = mediaDownload.media.title,
+                artist = mediaDownload.media.artist,
+                artworkUri = mediaDownload.media.artworkUri
+            )
         }
     }
 }

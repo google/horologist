@@ -18,15 +18,12 @@ package com.google.android.horologist.mediasample.data.datasource
 
 import android.content.Context
 import android.net.Uri
-import androidx.media3.exoplayer.offline.Download
-import androidx.media3.exoplayer.offline.DownloadIndex
 import androidx.media3.exoplayer.offline.DownloadRequest
 import androidx.media3.exoplayer.offline.DownloadService
 
 class Media3DownloadDataSource(
     private val context: Context,
-    private val downloadService: Class<out DownloadService>,
-    private val downloadIndex: DownloadIndex
+    private val downloadService: Class<out DownloadService>
 ) {
 
     fun download(id: String, uri: Uri) {
@@ -48,6 +45,4 @@ class Media3DownloadDataSource(
             false
         )
     }
-
-    fun getDownload(id: String): Download? = downloadIndex.getDownload(id)
 }

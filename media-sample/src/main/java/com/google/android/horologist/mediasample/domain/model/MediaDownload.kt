@@ -20,12 +20,22 @@ import com.google.android.horologist.media.model.Media
 
 data class MediaDownload(
     val media: Media,
-    val status: Status
+    val status: Status,
+    val size: Size
 ) {
 
-    enum class Status {
-        Idle,
-        InProgress,
-        Completed
+    sealed class Status {
+
+        object Idle : Status()
+
+        data class InProgress(val progress: Float) : Status()
+
+        object Completed : Status()
+    }
+
+    public sealed class Size {
+        public object Unknown : Size()
+
+        public data class Known(val sizeInBytes: Long) : Size()
     }
 }

@@ -17,6 +17,9 @@
 package com.google.android.horologist.mediasample.data.datasource
 
 import com.google.android.horologist.mediasample.data.database.dao.MediaDownloadDao
+import com.google.android.horologist.mediasample.data.database.dao.MediaDownloadDao.Companion.DOWNLOAD_PROGRESS_END
+import com.google.android.horologist.mediasample.data.database.dao.MediaDownloadDao.Companion.DOWNLOAD_PROGRESS_START
+import com.google.android.horologist.mediasample.data.database.dao.MediaDownloadDao.Companion.SIZE_UNKNOWN
 import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntity
 import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntityStatus
 import kotlinx.coroutines.flow.Flow
@@ -28,11 +31,17 @@ class MediaDownloadLocalDataSource(
     fun get(mediaIds: List<String>): Flow<List<MediaDownloadEntity>> =
         mediaDownloadDao.getList(mediaIds)
 
+    suspend fun getAllDownloading(): List<MediaDownloadEntity> =
+        mediaDownloadDao.getAllByStatus(MediaDownloadEntityStatus.Downloading)
+            .distinctBy { it.mediaId }
+
     suspend fun add(mediaId: String) {
         mediaDownloadDao.insert(
             MediaDownloadEntity(
                 mediaId = mediaId,
-                status = MediaDownloadEntityStatus.NotDownloaded
+                status = MediaDownloadEntityStatus.NotDownloaded,
+                progress = DOWNLOAD_PROGRESS_START,
+                size = SIZE_UNKNOWN
             )
         )
     }
@@ -43,5 +52,19 @@ class MediaDownloadLocalDataSource(
 
     suspend fun updateStatus(mediaId: String, status: MediaDownloadEntityStatus) {
         mediaDownloadDao.updateStatus(mediaId = mediaId, status = status)
+    }
+
+    suspend fun updateProgress(mediaId: String, progress: Float, size: Long) {
+        mediaDownloadDao.updateProgress(mediaId = mediaId, progress = progress, size = size)
+    }
+
+    suspend fun setDownloaded(mediaId: String) {
+        mediaDownloadDao.updateStatusAndProgress(
+            MediaDownloadDao.StatusAndProgress(
+                mediaId = mediaId,
+                status = MediaDownloadEntityStatus.Downloaded,
+                progress = DOWNLOAD_PROGRESS_END
+            )
+        )
     }
 }

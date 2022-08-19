@@ -22,7 +22,9 @@ import androidx.room.PrimaryKey
 @Entity
 data class MediaDownloadEntity(
     @PrimaryKey val mediaId: String,
-    val status: MediaDownloadEntityStatus
+    val status: MediaDownloadEntityStatus,
+    val progress: Float,
+    val size: Long
 )
 
 enum class MediaDownloadEntityStatus {

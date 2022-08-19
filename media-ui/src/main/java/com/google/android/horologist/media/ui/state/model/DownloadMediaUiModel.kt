@@ -20,13 +20,47 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
 @ExperimentalHorologistMediaUiApi
 public sealed class DownloadMediaUiModel(
-    public open val mediaUiModel: MediaUiModel
+    public open val id: String,
+    public open val title: String? = null,
+    public open val artworkUri: String? = null
 ) {
-    public data class Available(
-        override val mediaUiModel: MediaUiModel
-    ) : DownloadMediaUiModel(mediaUiModel = mediaUiModel)
+    public data class Downloaded(
+        override val id: String,
+        override val title: String? = null,
+        val artist: String? = null,
+        override val artworkUri: String? = null
+    ) : DownloadMediaUiModel(
+        id = id,
+        title = title,
+        artworkUri = artworkUri
+    )
 
-    public data class Unavailable(
-        override val mediaUiModel: MediaUiModel
-    ) : DownloadMediaUiModel(mediaUiModel = mediaUiModel)
+    public data class Downloading(
+        override val id: String,
+        override val title: String? = null,
+        val progress: String,
+        val size: Size,
+        override val artworkUri: String? = null
+    ) : DownloadMediaUiModel(
+        id = id,
+        title = title,
+        artworkUri = artworkUri
+    )
+
+    public data class NotDownloaded(
+        override val id: String,
+        override val title: String? = null,
+        val artist: String? = null,
+        override val artworkUri: String? = null
+    ) : DownloadMediaUiModel(
+        id = id,
+        title = title,
+        artworkUri = artworkUri
+    )
+
+    public sealed class Size {
+        public object Unknown : Size()
+
+        public data class Known(val sizeInBytes: Long) : Size()
+    }
 }

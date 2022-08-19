@@ -48,6 +48,21 @@ class MediaDownloadService : DownloadService(
     @Inject
     lateinit var intentBuilder: IntentBuilder
 
+    @Inject
+    lateinit var downloadManagerListener: DownloadManagerListener
+
+    override fun onCreate() {
+        super.onCreate()
+
+        downloadManagerListener.onServiceCreated(downloadManagerParam)
+    }
+
+    override fun onDestroy() {
+        downloadManagerListener.onServiceDestroyed()
+
+        super.onDestroy()
+    }
+
     override fun getDownloadManager(): DownloadManager = downloadManagerParam
 
     override fun getScheduler(): Scheduler = workManagerScheduler

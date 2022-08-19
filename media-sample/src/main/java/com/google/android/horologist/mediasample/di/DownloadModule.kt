@@ -22,6 +22,7 @@ import androidx.media3.database.StandaloneDatabaseProvider
 import androidx.media3.datasource.DataSource
 import androidx.media3.datasource.cache.Cache
 import androidx.media3.datasource.okhttp.OkHttpDataSource
+import androidx.media3.exoplayer.offline.DownloadIndex
 import androidx.media3.exoplayer.offline.DownloadManager
 import androidx.media3.exoplayer.offline.DownloadNotificationHelper
 import androidx.media3.exoplayer.workmanager.WorkManagerScheduler
@@ -30,6 +31,7 @@ import com.google.android.horologist.media3.logging.TransferListener
 import com.google.android.horologist.media3.service.NetworkAwareDownloadListener
 import com.google.android.horologist.mediasample.data.datasource.MediaDownloadLocalDataSource
 import com.google.android.horologist.mediasample.data.service.download.DownloadManagerListener
+import com.google.android.horologist.mediasample.data.service.download.DownloadProgressMonitor
 import com.google.android.horologist.mediasample.data.service.download.MediaDownloadService
 import com.google.android.horologist.mediasample.di.annotation.Dispatcher
 import com.google.android.horologist.mediasample.di.annotation.DownloadFeature
@@ -118,7 +120,7 @@ object DownloadModule {
     }
 
     @Provides
-    fun downloadIndex(downloadManager: DownloadManager) = downloadManager.downloadIndex
+    fun downloadIndex(downloadManager: DownloadManager): DownloadIndex = downloadManager.downloadIndex
 
     @Singleton
     @Provides
@@ -137,10 +139,22 @@ object DownloadModule {
     @Singleton
     fun downloadManagerListener(
         @DownloadFeature coroutineScope: CoroutineScope,
-        mediaDownloadLocalDataSource: MediaDownloadLocalDataSource
+        mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
+        downloadProgressMonitor: DownloadProgressMonitor
     ): DownloadManagerListener = DownloadManagerListener(
-        coroutineScope,
-        mediaDownloadLocalDataSource
+        coroutineScope = coroutineScope,
+        mediaDownloadLocalDataSource = mediaDownloadLocalDataSource,
+        downloadProgressMonitor = downloadProgressMonitor
+    )
+
+    @Provides
+    @Singleton
+    fun downloadProgressMonitor(
+        @DownloadFeature coroutineScope: CoroutineScope,
+        mediaDownloadLocalDataSource: MediaDownloadLocalDataSource
+    ): DownloadProgressMonitor = DownloadProgressMonitor(
+        coroutineScope = coroutineScope,
+        mediaDownloadLocalDataSource = mediaDownloadLocalDataSource
     )
 
     @Provides

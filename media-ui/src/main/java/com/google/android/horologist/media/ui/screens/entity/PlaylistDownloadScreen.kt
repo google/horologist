@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.ui.screens.entity
 
+import android.text.format.Formatter
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -30,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ScalingLazyListState
@@ -75,17 +77,40 @@ public fun PlaylistDownloadScreen(
         headerContent = { DefaultEntityScreenHeader(title = playlistName) },
         loadingContent = { items(count = 2) { SecondaryPlaceholderChip() } },
         mediaContent = { downloadMediaUiModel ->
-            val mediaUiModel = downloadMediaUiModel.mediaUiModel
+
+            val secondaryLabel = when (downloadMediaUiModel) {
+                is DownloadMediaUiModel.Downloading -> {
+                    when (downloadMediaUiModel.size) {
+                        is DownloadMediaUiModel.Size.Known -> {
+                            val size = Formatter.formatShortFileSize(
+                                LocalContext.current,
+                                downloadMediaUiModel.size.sizeInBytes
+                            )
+                            stringResource(
+                                id = R.string.horologist_playlist_download_download_progress_known_size,
+                                downloadMediaUiModel.progress,
+                                size
+                            )
+                        }
+                        DownloadMediaUiModel.Size.Unknown -> stringResource(
+                            id = R.string.horologist_playlist_download_download_progress_unknown_size,
+                            downloadMediaUiModel.progress
+                        )
+                    }
+                }
+                is DownloadMediaUiModel.Downloaded -> downloadMediaUiModel.artist
+                is DownloadMediaUiModel.NotDownloaded -> downloadMediaUiModel.artist
+            }
 
             StandardChip(
-                label = mediaUiModel.title ?: defaultMediaTitle,
+                label = downloadMediaUiModel.title ?: defaultMediaTitle,
                 onClick = { onDownloadItemClick(downloadMediaUiModel) },
-                secondaryLabel = mediaUiModel.artist,
-                icon = mediaUiModel.artworkUri,
+                secondaryLabel = secondaryLabel,
+                icon = downloadMediaUiModel.artworkUri,
                 largeIcon = true,
                 placeholder = downloadItemArtworkPlaceholder,
                 chipType = StandardChipType.Secondary,
-                enabled = downloadMediaUiModel is DownloadMediaUiModel.Available
+                enabled = downloadMediaUiModel !is DownloadMediaUiModel.NotDownloaded
             )
         },
         focusRequester = focusRequester,
@@ -264,8 +289,8 @@ public fun createPlaylistDownloadScreenStateLoaded(
         var fully = true
 
         downloadMediaList.forEach {
-            if (it is DownloadMediaUiModel.Available) none = false
-            if (it is DownloadMediaUiModel.Unavailable) fully = false
+            if (it is DownloadMediaUiModel.Downloaded) none = false
+            if (it is DownloadMediaUiModel.NotDownloaded) fully = false
         }
 
         when {

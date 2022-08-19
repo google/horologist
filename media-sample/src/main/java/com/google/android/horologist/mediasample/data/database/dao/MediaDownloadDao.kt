@@ -20,6 +20,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntity
 import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntityStatus
 import kotlinx.coroutines.flow.Flow
@@ -35,6 +36,16 @@ interface MediaDownloadDao {
     )
     fun getList(mediaIds: List<String>): Flow<List<MediaDownloadEntity>>
 
+    @Query(
+        value = """
+        SELECT * FROM MediaDownloadEntity
+        WHERE status = :status
+    """
+    )
+    suspend fun getAllByStatus(
+        status: MediaDownloadEntityStatus
+    ): List<MediaDownloadEntity>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(mediaDownloadEntity: MediaDownloadEntity): Long
 
@@ -46,6 +57,19 @@ interface MediaDownloadDao {
     """
     )
     suspend fun updateStatus(mediaId: String, status: MediaDownloadEntityStatus)
+
+    @Query(
+        """
+        UPDATE MediaDownloadEntity
+        SET progress = :progress,
+        size = :size
+        WHERE mediaId = :mediaId
+    """
+    )
+    suspend fun updateProgress(mediaId: String, progress: Float, size: Long)
+
+    @Update(entity = MediaDownloadEntity::class)
+    suspend fun updateStatusAndProgress(statusAndProgress: StatusAndProgress)
 
     @Query(
         """
@@ -62,4 +86,16 @@ interface MediaDownloadDao {
     """
     )
     suspend fun delete(mediaIds: List<String>)
+
+    data class StatusAndProgress(
+        val mediaId: String,
+        val status: MediaDownloadEntityStatus,
+        val progress: Float
+    )
+
+    companion object {
+        internal const val DOWNLOAD_PROGRESS_START = 0f
+        internal const val DOWNLOAD_PROGRESS_END = 100f
+        internal const val SIZE_UNKNOWN = -1L
+    }
 }

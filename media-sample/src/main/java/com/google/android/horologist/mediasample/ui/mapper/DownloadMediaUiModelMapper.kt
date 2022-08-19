@@ -22,7 +22,6 @@ import com.google.android.horologist.mediasample.domain.model.MediaDownload
 object DownloadMediaUiModelMapper {
 
     private const val PROGRESS_FORMAT = "%.0f"
-    private const val SIZE_FORMAT = "%.0f"
 
     fun map(
         mediaDownload: MediaDownload

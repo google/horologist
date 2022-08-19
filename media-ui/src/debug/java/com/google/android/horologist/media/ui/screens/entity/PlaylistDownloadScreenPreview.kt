@@ -52,8 +52,7 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloaded() {
         playlistName = "Playlist name",
         playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
             playlistModel = playlistUiModel,
-            downloadMediaList = unavailableDownloads,
-            downloading = false
+            downloadMediaList = notDownloaded
         ),
         onDownloadClick = { },
         onDownloadItemClick = { },
@@ -75,8 +74,7 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
         playlistName = "Playlist name",
         playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
             playlistModel = playlistUiModel,
-            downloadMediaList = unavailableDownloads,
-            downloading = true
+            downloadMediaList = notDownloadedAndDownloading
         ),
         onDownloadClick = { },
         onDownloadItemClick = { },
@@ -98,8 +96,7 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloaded() {
         playlistName = "Playlist name",
         playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
             playlistModel = playlistUiModel,
-            downloadMediaList = mixedDownloads,
-            downloading = false
+            downloadMediaList = downloadedNotDownloaded
         ),
         onDownloadClick = { },
         onDownloadItemClick = { },
@@ -116,13 +113,12 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloaded() {
 
 @WearPreviewDevices
 @Composable
-fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloading() {
+fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize() {
     PlaylistDownloadScreen(
         playlistName = "Playlist name",
         playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
             playlistModel = playlistUiModel,
-            downloadMediaList = mixedDownloads,
-            downloading = true
+            downloadMediaList = downloadedAndDownloadingUnknown
         ),
         onDownloadClick = { },
         onDownloadItemClick = { },
@@ -144,8 +140,7 @@ fun PlaylistDownloadScreenPreviewLoadedFullyDownloaded() {
         playlistName = "Playlist name",
         playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
             playlistModel = playlistUiModel,
-            downloadMediaList = availableDownloads,
-            downloading = false
+            downloadMediaList = downloaded
         ),
         onDownloadClick = { },
         onDownloadItemClick = { },
@@ -160,7 +155,12 @@ fun PlaylistDownloadScreenPreviewLoadedFullyDownloaded() {
     )
 }
 
-private val unavailableDownloads = listOf(
+private val playlistUiModel = PlaylistUiModel(
+    id = "id",
+    title = "Playlist name"
+)
+
+private val notDownloaded = listOf(
     DownloadMediaUiModel.NotDownloaded(
         id = "id",
         title = "Song name",
@@ -175,12 +175,39 @@ private val unavailableDownloads = listOf(
     )
 )
 
-private val playlistUiModel = PlaylistUiModel(
-    id = "id",
-    title = "Playlist name"
+private val notDownloadedAndDownloading = listOf(
+    DownloadMediaUiModel.NotDownloaded(
+        id = "id",
+        title = "Song name",
+        artist = "Artist name",
+        artworkUri = "artworkUri"
+    ),
+    DownloadMediaUiModel.Downloading(
+        id = "id 2",
+        title = "Song name 2",
+        progress = "78",
+        size = DownloadMediaUiModel.Size.Known(sizeInBytes = 123456L),
+        artworkUri = "artworkUri"
+    )
 )
 
-private val mixedDownloads = listOf(
+private val downloadedAndDownloadingUnknown = listOf(
+    DownloadMediaUiModel.Downloaded(
+        id = "id",
+        title = "Song name",
+        artist = "Artist name",
+        artworkUri = "artworkUri"
+    ),
+    DownloadMediaUiModel.Downloading(
+        id = "id 2",
+        title = "Song name 2",
+        progress = "78",
+        size = DownloadMediaUiModel.Size.Unknown,
+        artworkUri = "artworkUri"
+    )
+)
+
+private val downloadedNotDownloaded = listOf(
     DownloadMediaUiModel.Downloaded(
         id = "id",
         title = "Song name",
@@ -195,7 +222,7 @@ private val mixedDownloads = listOf(
     )
 )
 
-private val availableDownloads = listOf(
+private val downloaded = listOf(
     DownloadMediaUiModel.Downloaded(
         id = "id",
         title = "Song name",

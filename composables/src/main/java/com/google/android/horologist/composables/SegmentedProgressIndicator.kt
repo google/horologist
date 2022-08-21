@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.onSizeChanged
@@ -121,7 +122,7 @@ public fun SegmentedProgressIndicator(
         var remainingProgress = progress.coerceIn(0.0f, 1.0f) * segmentableAngle
 
         val stroke = with(localDensity) {
-            Stroke(width = strokeWidth.toPx(), cap = androidx.compose.ui.graphics.StrokeCap.Round)
+            Stroke(width = strokeWidth.toPx(), cap = StrokeCap.Round)
         }
 
         Canvas(

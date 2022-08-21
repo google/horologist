@@ -114,6 +114,8 @@ public fun SegmentedProgressIndicator(
 
         var remainingProgress = progress.coerceIn(0.0f, 1.0f) * segmentableAngle
 
+        // This code is heavily inspired from the implementation of CircularProgressIndicator
+        // Please see https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/compose/compose-material/src/commonMain/kotlin/androidx/wear/compose/material/ProgressIndicator.kt?q=CircularProgressIndicator
         val stroke = with(localDensity) {
             Stroke(width = strokeWidth.toPx(), cap = StrokeCap.Round)
         }

@@ -17,14 +17,11 @@
 package com.google.android.horologist.composables
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.progressSemantics
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -33,7 +30,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.wear.compose.material.MaterialTheme
@@ -89,16 +85,13 @@ public fun SegmentedProgressIndicator(
     paddingAngle: Float = 0.0f,
     trackColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.1f)
 ) {
-    var boxMinDimension by remember { mutableStateOf(0) }
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier.onSizeChanged { boxMinDimension = min(it.width, it.height) }
+    BoxWithConstraints(
+        contentAlignment = Alignment.Center
     ) {
         val localDensity = LocalDensity.current
 
-        val boxMinDimensionDp = with(localDensity) {
-            boxMinDimension.toDp()
-        }
+        val boxMinDimensionDp = minOf(minWidth, minHeight)
+
         // The progress bar uses rounded ends. The small delta requires calculation to take account
         // for the rounded end to ensure that neighbouring segments meet correctly.
         val endDelta = remember(strokeWidth, boxMinDimensionDp) {

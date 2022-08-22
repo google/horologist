@@ -17,31 +17,22 @@
 package com.google.android.horologist.media.ui.components.base
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.MaterialTheme
 
@@ -56,7 +47,7 @@ internal fun SecondaryPlaceholderChip(
 ) {
     val backgroundColor = MaterialTheme.colors.onSurfaceVariant.copy(alpha = 0.38f)
 
-    Row(
+    Chip(
         modifier = modifier
             .height(52.dp) // ChipDefaults.Height
             .fillMaxWidth()
@@ -67,54 +58,39 @@ internal fun SecondaryPlaceholderChip(
                     .background(enabled = enabled).value,
                 contentScale = ContentScale.Crop
             )
-            .clickable(
-                enabled = enabled,
-                onClick = onClick,
-                role = Role.Button,
-                indication = rememberRipple(),
-                interactionSource = remember { MutableInteractionSource() }
-            )
-            .padding(ChipDefaults.ContentPadding)
-    ) {
-        Box(
-            modifier = Modifier
-                .align(Alignment.CenterVertically)
-                .clip(CircleShape)
-                .background(backgroundColor)
-                .size(ChipDefaults.LargeIconSize)
-        )
-
-        Spacer(modifier = Modifier.width(6.dp))
-
-        Column(
-            modifier = Modifier
-                .fillMaxHeight()
-                .weight(1.0f),
-            verticalArrangement = Arrangement.Center
-        ) {
-            Box(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(backgroundColor)
-                    .fillMaxWidth()
-                    .height(12.dp)
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Row(modifier = Modifier.fillMaxWidth()) {
+            .padding(end = 10.dp),
+        onClick = onClick,
+        enabled = enabled,
+        label = {
+            Column {
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(12.dp))
                         .background(backgroundColor)
-                        .weight(1.0f)
+                        .fillMaxWidth()
                         .height(12.dp)
                 )
-
-                Spacer(modifier = Modifier.width(20.dp))
+                Spacer(Modifier.size(8.dp))
             }
-        }
-
-        Spacer(modifier = Modifier.width(10.dp))
-    }
+        },
+        secondaryLabel = {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(end = 20.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(backgroundColor)
+                    .height(12.dp)
+            )
+        },
+        icon = {
+            Box(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .background(backgroundColor)
+                    .size(ChipDefaults.LargeIconSize)
+            )
+        },
+        colors = ChipDefaults.secondaryChipColors()
+    )
 }

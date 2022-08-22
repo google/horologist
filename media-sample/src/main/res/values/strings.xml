@@ -55,4 +55,6 @@
     <string name="sync_notification_channel_description">Background tasks for UAMP</string>
     <string name="playlists_no_playlists">No playlists available at the moment</string>
     <string name="playlists_failed_dialog_cancel_button_content_description">Cancel</string>
+    <string name="entity_no_playlists">Can’t find any songs in playlist</string>
+    <string name="entity_failed_dialog_cancel_button_content_description">Cancel</string>
 </resources>

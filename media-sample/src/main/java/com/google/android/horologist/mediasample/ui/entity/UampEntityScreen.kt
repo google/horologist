@@ -16,14 +16,33 @@
 
 package com.google.android.horologist.mediasample.ui.entity
 
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.Button
+import androidx.wear.compose.material.ButtonDefaults
+import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyListState
+import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.dialog.Alert
+import androidx.wear.compose.material.dialog.Dialog
 import com.google.android.horologist.compose.layout.StateUtils
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreen
+import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
+import com.google.android.horologist.mediasample.R
 
 @Composable
 fun UampEntityScreen(
@@ -32,6 +51,7 @@ fun UampEntityScreen(
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
     onShuffleClick: (PlaylistUiModel) -> Unit,
     onPlayClick: (PlaylistUiModel) -> Unit,
+    onErrorDialogCancelClick: () -> Unit,
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState
 ) {
@@ -58,4 +78,43 @@ fun UampEntityScreen(
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState
     )
+
+    // b/243381431 - it should stop listening to uiState emissions while dialog is presented
+    if (uiState is PlaylistDownloadScreenState.Failed) {
+        Dialog(
+            showDialog = true,
+            onDismissRequest = onErrorDialogCancelClick,
+            scrollState = scalingLazyListState
+        ) {
+            Alert(
+                title = {
+                    Text(
+                        text = stringResource(R.string.entity_no_playlists),
+                        color = MaterialTheme.colors.onBackground,
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.title3
+                    )
+                }
+            ) {
+                item {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Button(
+                            onClick = onErrorDialogCancelClick,
+                            colors = ButtonDefaults.secondaryButtonColors()
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Close,
+                                contentDescription = stringResource(id = R.string.entity_failed_dialog_cancel_button_content_description),
+                                modifier = Modifier
+                                    .size(24.dp)
+                                    .wrapContentSize(align = Alignment.Center)
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

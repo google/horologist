@@ -114,6 +114,7 @@ fun UampWearApp(
                     },
                     onShuffleClick = { navController.navigateToPlayer() },
                     onPlayClick = { navController.navigateToPlayer() },
+                    onErrorDialogCancelClick = { navController.popBackStack() },
                     focusRequester = focusRequester,
                     scalingLazyListState = scalingLazyListState
                 )

@@ -16,20 +16,22 @@
 
 package com.google.android.horologist.composables
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.progressSemantics
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
-import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ProgressIndicatorDefaults
 import kotlin.math.asin
@@ -83,14 +85,13 @@ public fun SegmentedProgressIndicator(
     paddingAngle: Float = 0.0f,
     trackColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.1f)
 ) {
-    var boxMinDimension by remember { mutableStateOf(0) }
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier.onSizeChanged { boxMinDimension = min(it.width, it.height) }
+    BoxWithConstraints(
+        contentAlignment = Alignment.Center
     ) {
-        val boxMinDimensionDp = with(LocalDensity.current) {
-            boxMinDimension.toDp()
-        }
+        val localDensity = LocalDensity.current
+
+        val boxMinDimensionDp = minOf(minWidth, minHeight)
+
         // The progress bar uses rounded ends. The small delta requires calculation to take account
         // for the rounded end to ensure that neighbouring segments meet correctly.
         val endDelta = remember(strokeWidth, boxMinDimensionDp) {
@@ -112,19 +113,89 @@ public fun SegmentedProgressIndicator(
         var currentStartAngle = startAngle + paddingAngle / 2
 
         var remainingProgress = progress.coerceIn(0.0f, 1.0f) * segmentableAngle
-        trackSegments.forEach { segment ->
-            val segmentAngle = (segment.weight * segmentableAngle) / totalWeight
-            CircularProgressIndicator(
-                modifier = modifier.fillMaxSize(),
-                progress = remainingProgress / segmentAngle,
-                startAngle = currentStartAngle + endDelta,
-                endAngle = currentStartAngle + segmentAngle - endDelta,
-                indicatorColor = segment.indicatorColor,
-                trackColor = segment.trackColor ?: trackColor,
-                strokeWidth = strokeWidth
-            )
-            currentStartAngle += segmentAngle + paddingAngle
-            remainingProgress -= segmentAngle
+
+        // This code is heavily inspired from the implementation of CircularProgressIndicator
+        // Please see https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/compose/compose-material/src/commonMain/kotlin/androidx/wear/compose/material/ProgressIndicator.kt?q=CircularProgressIndicator
+        val stroke = with(localDensity) {
+            Stroke(width = strokeWidth.toPx(), cap = StrokeCap.Round)
+        }
+
+        Canvas(
+            modifier = modifier
+                .fillMaxSize()
+                .progressSemantics(progress)
+        ) {
+            trackSegments.forEach { segment ->
+                val segmentAngle = (segment.weight * segmentableAngle) / totalWeight
+
+                val currentEndAngle = currentStartAngle + segmentAngle - endDelta
+                val startAngleWithDelta = currentStartAngle + endDelta
+                val backgroundSweep =
+                    360f - ((startAngleWithDelta - currentEndAngle) % 360 + 360) % 360
+                val sectionProgress = remainingProgress / segmentAngle
+                val progressSweep = backgroundSweep * sectionProgress.coerceIn(0f..1f)
+
+                val diameter = min(size.width, size.height)
+                val diameterOffset = stroke.width / 2
+                val arcDimen = diameter - 2 * diameterOffset
+
+                drawCircularProgressIndicator(
+                    segment = segment,
+                    currentStartAngle = currentStartAngle,
+                    endDelta = endDelta,
+                    backgroundSweep = backgroundSweep,
+                    diameterOffset = diameterOffset,
+                    diameter = diameter,
+                    arcDimen = arcDimen,
+                    stroke = stroke,
+                    progressSweep = progressSweep,
+                    trackColor = trackColor
+                )
+
+                currentStartAngle += segmentAngle + paddingAngle
+                remainingProgress -= segmentAngle
+            }
         }
     }
+}
+
+private fun DrawScope.drawCircularProgressIndicator(
+    segment: ProgressIndicatorSegment,
+    currentStartAngle: Float,
+    endDelta: Float,
+    backgroundSweep: Float,
+    diameterOffset: Float,
+    diameter: Float,
+    arcDimen: Float,
+    stroke: Stroke,
+    progressSweep: Float,
+    trackColor: Color
+) {
+    // Draw Track
+    drawArc(
+        color = segment.trackColor ?: trackColor,
+        startAngle = currentStartAngle + endDelta,
+        sweepAngle = backgroundSweep,
+        useCenter = false,
+        topLeft = Offset(
+            diameterOffset + (size.width - diameter) / 2,
+            diameterOffset + (size.height - diameter) / 2
+        ),
+        size = Size(arcDimen, arcDimen),
+        style = stroke
+    )
+
+    // Draw Progress
+    drawArc(
+        color = segment.indicatorColor,
+        startAngle = currentStartAngle + endDelta,
+        sweepAngle = progressSweep,
+        useCenter = false,
+        topLeft = Offset(
+            diameterOffset + (size.width - diameter) / 2,
+            diameterOffset + (size.height - diameter) / 2
+        ),
+        size = Size(arcDimen, arcDimen),
+        style = stroke
+    )
 }

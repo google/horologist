@@ -41,6 +41,7 @@ com.google.android.horologist.media.ui.components.animated
 com.google.android.horologist.media.ui.components.background
 com.google.android.horologist.media.ui.components.base
 com.google.android.horologist.media.ui.components.controls
+com.google.android.horologist.media.ui.components.list.sectioned
 com.google.android.horologist.media.ui.navigation
 com.google.android.horologist.media.ui.screens.browse
 com.google.android.horologist.media.ui.screens.entity

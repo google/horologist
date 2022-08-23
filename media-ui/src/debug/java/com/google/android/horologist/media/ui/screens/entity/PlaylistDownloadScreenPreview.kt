@@ -37,6 +37,7 @@ fun PlaylistDownloadScreenPreviewLoading() {
         playlistName = "Playlist name",
         playlistDownloadScreenState = PlaylistDownloadScreenState.Loading(),
         onDownloadClick = { },
+        onCancelDownloadClick = { },
         onDownloadItemClick = { },
         onShuffleClick = { },
         onPlayClick = { },
@@ -55,6 +56,7 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloaded() {
             downloadMediaList = notDownloaded
         ),
         onDownloadClick = { },
+        onCancelDownloadClick = { },
         onDownloadItemClick = { },
         onShuffleClick = { },
         onPlayClick = { },
@@ -77,6 +79,7 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
             downloadMediaList = notDownloadedAndDownloading
         ),
         onDownloadClick = { },
+        onCancelDownloadClick = { },
         onDownloadItemClick = { },
         onShuffleClick = { },
         onPlayClick = { },
@@ -99,6 +102,7 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloaded() {
             downloadMediaList = downloadedNotDownloaded
         ),
         onDownloadClick = { },
+        onCancelDownloadClick = { },
         onDownloadItemClick = { },
         onShuffleClick = { },
         onPlayClick = { },
@@ -121,6 +125,30 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize
             downloadMediaList = downloadedAndDownloadingUnknown
         ),
         onDownloadClick = { },
+        onCancelDownloadClick = { },
+        onDownloadItemClick = { },
+        onShuffleClick = { },
+        onPlayClick = { },
+        focusRequester = FocusRequester(),
+        scalingLazyListState = rememberScalingLazyListState(),
+        downloadItemArtworkPlaceholder = rememberVectorPainter(
+            image = Icons.Default.MusicNote,
+            tintColor = Color.Blue
+        )
+    )
+}
+
+@WearPreviewDevices
+@Composable
+fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting() {
+    PlaylistDownloadScreen(
+        playlistName = "Playlist name",
+        playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
+            playlistModel = playlistUiModel,
+            downloadMediaList = downloadedAndDownloadingWaiting
+        ),
+        onDownloadClick = { },
+        onCancelDownloadClick = { },
         onDownloadItemClick = { },
         onShuffleClick = { },
         onPlayClick = { },
@@ -143,6 +171,7 @@ fun PlaylistDownloadScreenPreviewLoadedFullyDownloaded() {
             downloadMediaList = downloaded
         ),
         onDownloadClick = { },
+        onCancelDownloadClick = { },
         onDownloadItemClick = { },
         onShuffleClick = { },
         onPlayClick = { },
@@ -162,6 +191,7 @@ fun PlaylistDownloadScreenPreviewFailed() {
         playlistName = "Playlist name",
         playlistDownloadScreenState = PlaylistDownloadScreenState.Failed(),
         onDownloadClick = { },
+        onCancelDownloadClick = { },
         onDownloadItemClick = { },
         onShuffleClick = { },
         onPlayClick = { },
@@ -200,7 +230,7 @@ private val notDownloadedAndDownloading = listOf(
     DownloadMediaUiModel.Downloading(
         id = "id 2",
         title = "Song name 2",
-        progress = "78",
+        progress = DownloadMediaUiModel.Progress.InProgress("78"),
         size = DownloadMediaUiModel.Size.Known(sizeInBytes = 123456L),
         artworkUri = "artworkUri"
     )
@@ -216,7 +246,23 @@ private val downloadedAndDownloadingUnknown = listOf(
     DownloadMediaUiModel.Downloading(
         id = "id 2",
         title = "Song name 2",
-        progress = "78",
+        progress = DownloadMediaUiModel.Progress.InProgress("78"),
+        size = DownloadMediaUiModel.Size.Unknown,
+        artworkUri = "artworkUri"
+    )
+)
+
+private val downloadedAndDownloadingWaiting = listOf(
+    DownloadMediaUiModel.Downloaded(
+        id = "id",
+        title = "Song name",
+        artist = "Artist name",
+        artworkUri = "artworkUri"
+    ),
+    DownloadMediaUiModel.Downloading(
+        id = "id 2",
+        title = "Song name 2",
+        progress = DownloadMediaUiModel.Progress.Waiting,
         size = DownloadMediaUiModel.Size.Unknown,
         artworkUri = "artworkUri"
     )

@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.mediasample.ui.playlists
 
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
@@ -48,8 +49,7 @@ fun UampPlaylistsScreen(
     onPlaylistItemClick: (PlaylistUiModel) -> Unit,
     onErrorDialogCancelClick: () -> Unit,
     focusRequester: FocusRequester,
-    scalingLazyListState: ScalingLazyListState,
-    modifier: Modifier = Modifier
+    scalingLazyListState: ScalingLazyListState
 ) {
     val uiState by rememberStateWithLifecycle(uampPlaylistsScreenViewModel.uiState)
 
@@ -72,8 +72,7 @@ fun UampPlaylistsScreen(
             onPlaylistItemClick(it)
         },
         focusRequester = focusRequester,
-        scalingLazyListState = scalingLazyListState,
-        modifier = modifier
+        scalingLazyListState = scalingLazyListState
     )
 
     // b/242302037 - it should stop listening to uiState emissions while dialog is presented
@@ -91,25 +90,27 @@ fun UampPlaylistsScreen(
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.title3
                     )
-                },
-                negativeButton = {
-                    Button(
-                        onClick = onErrorDialogCancelClick,
-                        colors = ButtonDefaults.secondaryButtonColors()
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Close,
-                            contentDescription = stringResource(id = R.string.playlists_failed_dialog_cancel_button_content_description),
-                            modifier = modifier
-                                .size(24.dp)
-                                .wrapContentSize(align = Alignment.Center)
-                        )
-                    }
-                },
-                positiveButton = {
-                    // b/242302037 - retry functionality to be defined
                 }
-            )
+            ) {
+                item {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Button(
+                            onClick = onErrorDialogCancelClick,
+                            colors = ButtonDefaults.secondaryButtonColors()
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Close,
+                                contentDescription = stringResource(id = R.string.playlists_failed_dialog_cancel_button_content_description),
+                                modifier = Modifier
+                                    .size(24.dp)
+                                    .wrapContentSize(align = Alignment.Center)
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 }

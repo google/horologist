@@ -155,6 +155,21 @@ fun PlaylistDownloadScreenPreviewLoadedFullyDownloaded() {
     )
 }
 
+@WearPreviewDevices
+@Composable
+fun PlaylistDownloadScreenPreviewFailed() {
+    PlaylistDownloadScreen(
+        playlistName = "Playlist name",
+        playlistDownloadScreenState = PlaylistDownloadScreenState.Failed(),
+        onDownloadClick = { },
+        onDownloadItemClick = { },
+        onShuffleClick = { },
+        onPlayClick = { },
+        focusRequester = FocusRequester(),
+        scalingLazyListState = rememberScalingLazyListState()
+    )
+}
+
 private val playlistUiModel = PlaylistUiModel(
     id = "id",
     title = "Playlist name"

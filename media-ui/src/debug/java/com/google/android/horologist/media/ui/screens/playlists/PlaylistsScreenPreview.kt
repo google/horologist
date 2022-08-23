@@ -76,6 +76,17 @@ fun PlaylistsScreenPreviewLoading() {
 
 @WearPreviewDevices
 @Composable
+fun PlaylistsScreenPreviewFailed() {
+    PlaylistsScreen(
+        playlistsScreenState = PlaylistsScreenState.Failed(),
+        onPlaylistItemClick = { },
+        focusRequester = FocusRequester(),
+        scalingLazyListState = rememberScalingLazyListState()
+    )
+}
+
+@WearPreviewDevices
+@Composable
 fun PlaylistsScreenPreviewCustomLayout() {
     PlaylistsScreen(
         playlists = listOf(

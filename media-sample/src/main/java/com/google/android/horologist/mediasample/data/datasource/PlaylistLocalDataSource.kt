@@ -46,7 +46,7 @@ class PlaylistLocalDataSource(
     suspend fun getPopulated(playlistId: String): PopulatedPlaylist? =
         playlistDao.getPopulated(playlistId)
 
-    fun getPopulatedStream(playlistId: String): Flow<PopulatedPlaylist> =
+    fun getPopulatedStream(playlistId: String): Flow<PopulatedPlaylist?> =
         playlistDao.getPopulatedStream(playlistId)
 
     fun getAllPopulated(): Flow<List<PopulatedPlaylist>> =

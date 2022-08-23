@@ -75,17 +75,14 @@ public fun <T> PlaylistsScreen(
         }
 
         when (playlistsScreenState) {
-            is PlaylistsScreenState.Loaded<*> -> {
+            is PlaylistsScreenState.Loaded<T> -> {
                 items(count = playlistsScreenState.playlistList.size) { index ->
-
-                    @Suppress("UNCHECKED_CAST")
-                    // Suppress reason: PlaylistsScreen and PlaylistsScreenState share same T type.
                     playlistContent(
-                        playlist = playlistsScreenState.playlistList[index] as T
+                        playlist = playlistsScreenState.playlistList[index]
                     )
                 }
             }
-            is PlaylistsScreenState.Loading<*> -> {
+            is PlaylistsScreenState.Loading<T> -> {
                 items(count = 4) {
                     SecondaryPlaceholderChip()
                 }

@@ -40,16 +40,20 @@ class PlaylistDownloadRepositoryImpl(
 ) : PlaylistDownloadRepository {
 
     @OptIn(FlowPreview::class)
-    override fun get(playlistId: String): Flow<PlaylistDownload> =
+    override fun get(playlistId: String): Flow<PlaylistDownload?> =
         playlistLocalDataSource.getPopulatedStream(playlistId).flatMapMerge { populatedPlaylist ->
-            combine(
-                flowOf(populatedPlaylist),
-                mediaDownloadLocalDataSource.get(
-                    populatedPlaylist.mediaList
-                        .map { it.mediaId }.toList()
-                )
-            ) { _, mediaDownloadList ->
-                PlaylistDownloadMapper.map(populatedPlaylist, mediaDownloadList)
+            if (populatedPlaylist != null) {
+                combine(
+                    flowOf(populatedPlaylist),
+                    mediaDownloadLocalDataSource.get(
+                        populatedPlaylist.mediaList
+                            .map { it.mediaId }.toList()
+                    )
+                ) { _, mediaDownloadList ->
+                    PlaylistDownloadMapper.map(populatedPlaylist, mediaDownloadList)
+                }
+            } else {
+                flowOf(null)
             }
         }
 

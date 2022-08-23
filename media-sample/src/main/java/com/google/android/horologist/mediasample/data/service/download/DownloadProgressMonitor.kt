@@ -21,7 +21,6 @@ import android.os.Looper
 import androidx.media3.exoplayer.offline.DownloadManager
 import com.google.android.horologist.mediasample.data.datasource.MediaDownloadLocalDataSource
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class DownloadProgressMonitor(
@@ -33,7 +32,6 @@ class DownloadProgressMonitor(
     private var running = false
 
     fun start(downloadManager: DownloadManager) {
-        Dispatchers.Main
         running = true
         update(downloadManager)
     }

@@ -70,6 +70,7 @@ public fun PlaylistDownloadScreen(
             is PlaylistDownloadScreenState.Loaded -> EntityScreenState.Loaded(
                 playlistDownloadScreenState.mediaList
             )
+            is PlaylistDownloadScreenState.Failed -> EntityScreenState.Failed()
         }
 
     EntityScreen(
@@ -136,6 +137,7 @@ private fun ButtonsContent(
     onPlayClick: (PlaylistUiModel) -> Unit
 ) {
     when (state) {
+        is PlaylistDownloadScreenState.Failed,
         is PlaylistDownloadScreenState.Loading -> {
             StandardChip(
                 label = stringResource(id = R.string.horologist_playlist_download_button_download),
@@ -270,6 +272,8 @@ public sealed class PlaylistDownloadScreenState<Collection, Media> {
             Fully
         }
     }
+
+    public class Failed<Collection, Media> : PlaylistDownloadScreenState<Collection, Media>()
 }
 
 /**

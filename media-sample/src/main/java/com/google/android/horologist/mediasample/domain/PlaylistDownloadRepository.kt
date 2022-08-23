@@ -25,7 +25,7 @@ import kotlinx.coroutines.flow.Flow
  */
 interface PlaylistDownloadRepository {
 
-    fun get(playlistId: String): Flow<PlaylistDownload>
+    fun get(playlistId: String): Flow<PlaylistDownload?>
 
     fun download(playlist: Playlist)
 }

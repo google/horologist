@@ -16,22 +16,22 @@
 
 package com.google.android.horologist.media.ui.screens.playlists
 
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
-import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.base.SecondaryPlaceholderChip
 import com.google.android.horologist.media.ui.components.base.StandardChip
 import com.google.android.horologist.media.ui.components.base.StandardChipType
 import com.google.android.horologist.media.ui.components.base.Title
+import com.google.android.horologist.media.ui.components.list.sectioned.Section
+import com.google.android.horologist.media.ui.components.list.sectioned.SectionedList
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
 @ExperimentalHorologistMediaUiApi
@@ -61,34 +61,37 @@ public fun <T> PlaylistsScreen(
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier
 ) {
-    ScalingLazyColumn(
+    SectionedList(
+        focusRequester = focusRequester,
+        scalingLazyListState = scalingLazyListState,
         modifier = modifier
-            .fillMaxSize()
-            .scrollableColumn(focusRequester, scalingLazyListState),
-        state = scalingLazyListState
     ) {
-        item {
-            Title(
-                textId = R.string.horologist_browse_playlist_title,
-                modifier = Modifier.padding(bottom = 12.dp)
-            )
+        val sectionState = when (playlistsScreenState) {
+            is PlaylistsScreenState.Loaded<T> -> {
+                Section.State.Loaded(playlistsScreenState.playlistList)
+            }
+            is PlaylistsScreenState.Failed -> Section.State.Failed
+            is PlaylistsScreenState.Loading -> Section.State.Loading
         }
 
-        when (playlistsScreenState) {
-            is PlaylistsScreenState.Loaded<T> -> {
-                items(count = playlistsScreenState.playlistList.size) { index ->
-                    playlistContent(
-                        playlist = playlistsScreenState.playlistList[index]
-                    )
-                }
+        section(state = sectionState) {
+            header {
+                Title(
+                    textId = R.string.horologist_browse_playlist_title,
+                    modifier = Modifier.padding(bottom = 12.dp)
+                )
             }
-            is PlaylistsScreenState.Loading<T> -> {
-                items(count = 4) {
+
+            loaded { playlistContent(it) }
+
+            loading {
+                Column {
                     SecondaryPlaceholderChip()
+                    SecondaryPlaceholderChip(modifier = Modifier.padding(top = 4.dp))
+                    SecondaryPlaceholderChip(modifier = Modifier.padding(top = 4.dp))
+                    SecondaryPlaceholderChip(modifier = Modifier.padding(top = 4.dp))
                 }
             }
-            // renders empty as it should display an error dialog
-            is PlaylistsScreenState.Failed -> Unit
         }
     }
 }

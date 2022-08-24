@@ -19,13 +19,12 @@ package com.google.android.horologist.components
 import android.app.Application
 import com.google.android.horologist.networks.InMemoryStatusLogger
 import com.google.android.horologist.networks.data.DataRequestRepository
-import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.status.NetworkRepository
 import com.google.android.horologist.sample.di.SampleAppDI
 import kotlinx.coroutines.CoroutineScope
 import okhttp3.Call
 
-class SampleApplication: Application() {
+class SampleApplication : Application() {
     lateinit var coroutineScope: CoroutineScope
     lateinit var networkLogger: InMemoryStatusLogger
     lateinit var networkRepository: NetworkRepository

@@ -49,7 +49,7 @@ public class NetworkScreenViewModel(
                     .build()
             ).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
-                    inMemory.logNetworkEvent("response: ${e}")
+                    inMemory.logNetworkEvent("response: $e")
                 }
 
                 override fun onResponse(call: Call, response: Response) {

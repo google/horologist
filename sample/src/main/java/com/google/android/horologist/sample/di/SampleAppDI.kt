@@ -64,7 +64,7 @@ object SampleAppDI {
         networkRepository: NetworkRepository,
         networkLogger: NetworkStatusLogger,
         dataRequestRepository: DataRequestRepository,
-        coroutineScope: CoroutineScope,
+        coroutineScope: CoroutineScope
     ): Call.Factory {
         val okhttpClient = OkHttpClient.Builder().build()
 

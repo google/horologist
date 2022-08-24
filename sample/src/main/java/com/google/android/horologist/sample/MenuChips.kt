@@ -192,3 +192,16 @@ fun FadeAwayChip(
         }
     )
 }
+
+@Composable
+fun NetworkChip(
+    navigateToRoute: () -> Unit
+) {
+    SampleChip(
+        onClick = { navigateToRoute() },
+        label = "Networks",
+        content = {
+            Text(text = "192.168.1.1", fontSize = 6f.sp)
+        }
+    )
+}

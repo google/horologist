@@ -21,14 +21,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.NavHostController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
-import com.google.android.horologist.networks.NetworksViewModel
-import com.google.android.horologist.networks.data.DataRequestRepository
-import com.google.android.horologist.networks.status.NetworkRepository
 import com.google.android.horologist.sample.di.SampleAppDI
 
 class NavActivity : ComponentActivity() {
-    lateinit var networkRepository: NetworkRepository
-    lateinit var dataRequestRepository: DataRequestRepository
     lateinit var navController: NavHostController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,10 +36,6 @@ class NavActivity : ComponentActivity() {
 
             NavWearApp(
                 navController = navController,
-                networksViewModelFactory = NetworksViewModel.Factory(
-                    networkRepository,
-                    dataRequestRepository
-                )
             )
         }
     }

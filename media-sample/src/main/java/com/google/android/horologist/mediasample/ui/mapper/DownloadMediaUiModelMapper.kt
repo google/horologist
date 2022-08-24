@@ -22,6 +22,7 @@ import com.google.android.horologist.mediasample.domain.model.MediaDownload
 object DownloadMediaUiModelMapper {
 
     private const val PROGRESS_FORMAT = "%.0f"
+    private const val PROGRESS_WAITING = 0f
 
     fun map(
         mediaDownload: MediaDownload
@@ -39,7 +40,11 @@ object DownloadMediaUiModelMapper {
             DownloadMediaUiModel.Downloading(
                 id = mediaDownload.media.id,
                 title = mediaDownload.media.title,
-                progress = PROGRESS_FORMAT.format(mediaDownload.status.progress),
+                progress = if (mediaDownload.status.progress == PROGRESS_WAITING) {
+                    DownloadMediaUiModel.Progress.Waiting
+                } else {
+                    DownloadMediaUiModel.Progress.InProgress(PROGRESS_FORMAT.format(mediaDownload.status.progress))
+                },
                 size = when (mediaDownload.size) {
                     is MediaDownload.Size.Known -> DownloadMediaUiModel.Size.Known(mediaDownload.size.sizeInBytes)
                     is MediaDownload.Size.Unknown -> DownloadMediaUiModel.Size.Unknown

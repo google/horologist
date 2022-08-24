@@ -27,7 +27,7 @@ import org.junit.Test
 class CreatePlaylistDownloadScreenStateLoadedTest {
 
     @Test
-    fun givenUnavailableDownloads_thenDownloadStateIsNone() {
+    fun givenNoDownloaded_thenDownloadMediaListStateIsNone() {
         // given
         val downloads = listOf(
             DownloadMediaUiModel.NotDownloaded(
@@ -41,6 +41,13 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
                 title = "Song name 2",
                 artist = "Artist name 2",
                 artworkUri = "artworkUri"
+            ),
+            DownloadMediaUiModel.Downloading(
+                id = "id 3",
+                title = "Song name 3",
+                artworkUri = "artworkUri",
+                progress = DownloadMediaUiModel.Progress.InProgress("60"),
+                size = DownloadMediaUiModel.Size.Known(sizeInBytes = 1280049)
             )
         )
 
@@ -51,14 +58,14 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
                 title = "title"
             ),
             downloadMediaList = downloads
-        ).downloadsState
+        ).downloadMediaListState
 
         // then
         assertThat(result).isEqualTo(PlaylistDownloadScreenState.Loaded.DownloadMediaListState.None)
     }
 
     @Test
-    fun givenMixedDownloads_thenDownloadStateIsPartially() {
+    fun givenMixed_thenDownloadMediaListStateIsPartially() {
         // given
         val downloads = listOf(
             DownloadMediaUiModel.Downloaded(
@@ -72,6 +79,13 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
                 title = "Song name 2",
                 artist = "Artist name 2",
                 artworkUri = "artworkUri"
+            ),
+            DownloadMediaUiModel.Downloading(
+                id = "id 3",
+                title = "Song name 3",
+                artworkUri = "artworkUri",
+                progress = DownloadMediaUiModel.Progress.InProgress("60"),
+                size = DownloadMediaUiModel.Size.Known(sizeInBytes = 1280049)
             )
         )
 
@@ -82,14 +96,46 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
                 title = "title"
             ),
             downloadMediaList = downloads
-        ).downloadsState
+        ).downloadMediaListState
 
         // then
         assertThat(result).isEqualTo(PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Partially)
     }
 
     @Test
-    fun givenAvailableDownloads_thenDownloadStateIsFully() {
+    fun givenDownloadedAndDownloading_thenDownloadMediaListStateIsPartially() {
+        // given
+        val downloads = listOf(
+            DownloadMediaUiModel.Downloaded(
+                id = "id",
+                title = "Song name",
+                artist = "Artist name",
+                artworkUri = "artworkUri"
+            ),
+            DownloadMediaUiModel.Downloading(
+                id = "id 2",
+                title = "Song name 2",
+                artworkUri = "artworkUri",
+                progress = DownloadMediaUiModel.Progress.InProgress("60"),
+                size = DownloadMediaUiModel.Size.Known(sizeInBytes = 1280049)
+            )
+        )
+
+        // when
+        val result = createPlaylistDownloadScreenStateLoaded(
+            playlistModel = PlaylistUiModel(
+                id = "id",
+                title = "title"
+            ),
+            downloadMediaList = downloads
+        ).downloadMediaListState
+
+        // then
+        assertThat(result).isEqualTo(PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Partially)
+    }
+
+    @Test
+    fun givenDownloaded_thenDownloadMediaListStateIsFully() {
         // given
         val downloads = listOf(
             DownloadMediaUiModel.Downloaded(
@@ -113,14 +159,14 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
                 title = "title"
             ),
             downloadMediaList = downloads
-        ).downloadsState
+        ).downloadMediaListState
 
         // then
         assertThat(result).isEqualTo(PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Fully)
     }
 
     @Test
-    fun givenEmptyDownloads_thenDownloadStateIsFully() {
+    fun givenEmptyDownloads_thenDownloadMediaListStateIsFully() {
         // given
         val downloads = emptyList<DownloadMediaUiModel>()
 
@@ -131,9 +177,105 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
                 title = "title"
             ),
             downloadMediaList = downloads
-        ).downloadsState
+        ).downloadMediaListState
 
         // then
         assertThat(result).isEqualTo(PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Fully)
+    }
+
+    @Test
+    fun givenNoDownloading_thenDownloadsProgressIsIdle() {
+        // given
+        val downloads = listOf(
+            DownloadMediaUiModel.Downloaded(
+                id = "id",
+                title = "Song name",
+                artist = "Artist name",
+                artworkUri = "artworkUri"
+            ),
+            DownloadMediaUiModel.NotDownloaded(
+                id = "id 2",
+                title = "Song name 2",
+                artist = "Artist name 2",
+                artworkUri = "artworkUri"
+            )
+        )
+
+        // when
+        val result = createPlaylistDownloadScreenStateLoaded(
+            playlistModel = PlaylistUiModel(
+                id = "id",
+                title = "title"
+            ),
+            downloadMediaList = downloads
+        ).downloadsProgress
+
+        // then
+        assertThat(result).isEqualTo(PlaylistDownloadScreenState.Loaded.DownloadsProgress.Idle)
+    }
+
+    @Test
+    fun givenDownloading_thenDownloadsProgressIsInProgress() {
+        // given
+        val downloads = listOf(
+            DownloadMediaUiModel.Downloaded(
+                id = "id",
+                title = "Song name",
+                artist = "Artist name",
+                artworkUri = "artworkUri"
+            ),
+            DownloadMediaUiModel.NotDownloaded(
+                id = "id 2",
+                title = "Song name 2",
+                artist = "Artist name 2",
+                artworkUri = "artworkUri"
+            ),
+            DownloadMediaUiModel.Downloading(
+                id = "id 3",
+                title = "Song name 3",
+                artworkUri = "artworkUri",
+                progress = DownloadMediaUiModel.Progress.InProgress("60"),
+                size = DownloadMediaUiModel.Size.Known(sizeInBytes = 1280049)
+            ),
+            DownloadMediaUiModel.Downloading(
+                id = "id 4",
+                title = "Song name 4",
+                artworkUri = "artworkUri",
+                progress = DownloadMediaUiModel.Progress.InProgress("60"),
+                size = DownloadMediaUiModel.Size.Known(sizeInBytes = 1280049)
+            )
+        )
+
+        // when
+        val result = createPlaylistDownloadScreenStateLoaded(
+            playlistModel = PlaylistUiModel(
+                id = "id",
+                title = "title"
+            ),
+            downloadMediaList = downloads
+        ).downloadsProgress
+
+        // then
+        assertThat(result).isEqualTo(
+            PlaylistDownloadScreenState.Loaded.DownloadsProgress.InProgress(0.25F)
+        )
+    }
+
+    @Test
+    fun givenEmptyDownloads_thenDownloadsProgressIsIdle() {
+        // given
+        val downloads = emptyList<DownloadMediaUiModel>()
+
+        // when
+        val result = createPlaylistDownloadScreenStateLoaded(
+            playlistModel = PlaylistUiModel(
+                id = "id",
+                title = "title"
+            ),
+            downloadMediaList = downloads
+        ).downloadsProgress
+
+        // then
+        assertThat(result).isEqualTo(PlaylistDownloadScreenState.Loaded.DownloadsProgress.Idle)
     }
 }

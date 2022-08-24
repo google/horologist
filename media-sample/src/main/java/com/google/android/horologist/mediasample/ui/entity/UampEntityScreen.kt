@@ -63,6 +63,9 @@ fun UampEntityScreen(
         onDownloadClick = {
             uampEntityScreenViewModel.download()
         },
+        onCancelDownloadClick = {
+            /* TO BE IMPLEMENTED */
+        },
         onDownloadItemClick = {
             uampEntityScreenViewModel.play(it.id)
             onDownloadItemClick(it)

@@ -36,6 +36,7 @@ import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.PauseButton
 import com.google.android.horologist.media.ui.components.controls.PlayButton
+import com.google.android.horologist.media.ui.util.ifNan
 
 @ExperimentalHorologistMediaUiApi
 @Composable
@@ -117,5 +118,3 @@ public fun PlayPauseProgressButton(
         }
     }
 }
-
-private fun Float.ifNan(default: Float) = if (isNaN()) default else this

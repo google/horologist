@@ -41,7 +41,6 @@ public class InMemoryStatusLogger : NetworkStatusLogger {
 
     override fun debugNetworkEvent(event: String) {
         println(event)
-//        add(Event.Message(event))
     }
 
     override fun logNetworkResponse(

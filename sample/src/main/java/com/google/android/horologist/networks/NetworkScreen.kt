@@ -17,12 +17,14 @@
 package com.google.android.horologist.networks
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material.Button
+import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
@@ -40,10 +42,14 @@ fun NetworkScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item {
-            Button(onClick = { viewModel.makeRequest() }) {
-                Text("Request")
+            Button(onClick = { viewModel.makeRequests() }) {
+                Text("Requests")
             }
         }
+        items(uiState.responses.entries.toList()) { (name, response) ->
+            Text(text = "$name: $response")
+        }
+
         item {
             ListHeader {
                 Text("Networks")
@@ -51,8 +57,19 @@ fun NetworkScreen(
         }
         items(uiState.networks.networks) {
             val downloads = uiState.dataUsage.dataByType[it.type.typeName] ?: 0
-            Text(text = "${it.id} ${it.type.name} ${it.status}\nbytes: $downloads")
+            Chip(
+
+                modifier = Modifier.fillMaxWidth(),
+                label = {
+                    Text(text = "${it.id} ${it.type.typeName} ${it.status}")
+                },
+                onClick = { },
+                secondaryLabel = {
+                Text(text = "bytes: $downloads")
+            })
+
         }
+
         item {
             ListHeader {
                 Text("Events")

@@ -64,9 +64,9 @@ object SampleAppDI {
         networkRepository: NetworkRepository,
         networkLogger: NetworkStatusLogger,
         dataRequestRepository: DataRequestRepository,
-        coroutineScope: CoroutineScope
+        coroutineScope: CoroutineScope,
+        okHttpClient: OkHttpClient
     ): Call.Factory {
-        val okhttpClient = OkHttpClient.Builder().build()
 
         val networkingRules = NetworkingRules.Conservative
 
@@ -89,11 +89,12 @@ object SampleAppDI {
             networkingRulesEngine = networkingRulesEngine,
             highBandwidthRequester = highBandwidthRequester,
             dataRequestRepository = dataRequestRepository,
-            rootClient = okhttpClient
+            rootClient = okHttpClient
         )
     }
 
     fun inject(sampleApplication: SampleApplication) {
+        sampleApplication.okHttpClient = OkHttpClient.Builder().build()
         sampleApplication.coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
         sampleApplication.networkLogger = InMemoryStatusLogger()
         sampleApplication.dataRequestRepository = getDataRequestRepository()
@@ -107,7 +108,8 @@ object SampleAppDI {
             networkRepository = sampleApplication.networkRepository,
             networkLogger = sampleApplication.networkLogger,
             dataRequestRepository = sampleApplication.dataRequestRepository,
-            coroutineScope = sampleApplication.coroutineScope
+            coroutineScope = sampleApplication.coroutineScope,
+            okHttpClient = sampleApplication.okHttpClient
         )
     }
 }

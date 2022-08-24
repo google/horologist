@@ -25,50 +25,66 @@ import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.status.NetworkRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import okhttp3.Call
-import okhttp3.Callback
+import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.Response
 import java.io.IOException
 
 public class NetworkScreenViewModel(
     private val networkRepository: NetworkRepository,
     private val dataRequestRepository: DataRequestRepository,
     private val inMemory: InMemoryStatusLogger,
-    private val callFactory: Call.Factory
+    private val callFactory: Call.Factory,
+    private val okHttpClient: OkHttpClient
 ) : ViewModel() {
-    fun makeRequest() {
-        viewModelScope.launch {
-            callFactory.newCall(
-                Request.Builder()
-                    .url("https://github.com/google/horologist/raw/main/media-sample/backend/images/album_art.jpg")
-                    .build()
-            ).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    inMemory.logNetworkEvent("response: $e")
-                }
+    val request = Request.Builder()
+        .url("https://github.com/google/horologist/raw/main/media-sample/backend/images/album_art.jpg")
+        .build()
 
-                override fun onResponse(call: Call, response: Response) {
-                    response.body?.bytes()
-                }
-            })
+    fun makeRequests() {
+        viewModelScope.launch {
+            val networkSelectingResponse = makeRequest(callFactory)
+            delay(50)
+            val standardCallResponse = makeRequest(okHttpClient)
+
+            responses.value = mapOf("network aware" to networkSelectingResponse.await(), "standard" to standardCallResponse.await())
         }
     }
+
+    private fun CoroutineScope.makeRequest(callFactory1: Call.Factory) =
+        async {
+            try {
+                callFactory1.newCall(request).executeAsync().use {
+                    it.body!!.bytes()
+                    it.code.toString()
+                }
+            } catch (e: IOException) {
+                e.toString()
+            }
+        }
+
+    private val responses = MutableStateFlow(mapOf<String, String>())
 
     val state =
         combine(
             networkRepository.networkStatus,
             dataRequestRepository.currentPeriodUsage(),
-            inMemory.events
-        ) { networkStatus, currentPeriodUsage, requests ->
+            inMemory.events,
+            responses
+        ) { networkStatus, currentPeriodUsage, requests, responses ->
             NetworkScreenUiState(
                 networks = networkStatus,
                 dataUsage = currentPeriodUsage,
-                requests = requests
+                requests = requests,
+                responses = responses
             )
         }
             .stateIn(
@@ -77,14 +93,16 @@ public class NetworkScreenViewModel(
                 initialValue = NetworkScreenUiState(
                     networks = networkRepository.networkStatus.value,
                     dataUsage = DataUsageReport.Empty,
-                    requests = listOf()
+                    requests = listOf(),
+                    responses = mapOf()
                 )
             )
 
     data class NetworkScreenUiState(
         val networks: Networks,
         val dataUsage: DataUsageReport,
-        val requests: List<InMemoryStatusLogger.Event>
+        val requests: List<InMemoryStatusLogger.Event>,
+        val responses: Map<String, String>
     )
 
     public object Factory : ViewModelProvider.Factory {
@@ -99,7 +117,8 @@ public class NetworkScreenViewModel(
                 networkRepository = application.networkRepository,
                 dataRequestRepository = application.dataRequestRepository,
                 inMemory = application.networkLogger,
-                callFactory = application.networkAwareCallFactory
+                callFactory = application.networkAwareCallFactory,
+                okHttpClient = application.okHttpClient
             ) as T
         }
     }

@@ -23,8 +23,10 @@ import com.google.android.horologist.networks.status.NetworkRepository
 import com.google.android.horologist.sample.di.SampleAppDI
 import kotlinx.coroutines.CoroutineScope
 import okhttp3.Call
+import okhttp3.OkHttpClient
 
 class SampleApplication : Application() {
+    lateinit var okHttpClient: OkHttpClient
     lateinit var coroutineScope: CoroutineScope
     lateinit var networkLogger: InMemoryStatusLogger
     lateinit var networkRepository: NetworkRepository

@@ -65,9 +65,9 @@ fun NetworkScreen(
                 },
                 onClick = { },
                 secondaryLabel = {
-                Text(text = "bytes: $downloads")
-            })
-
+                    Text(text = "bytes: $downloads")
+                }
+            )
         }
 
         item {

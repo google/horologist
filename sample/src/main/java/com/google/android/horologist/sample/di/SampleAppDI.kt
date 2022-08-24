@@ -67,7 +67,6 @@ object SampleAppDI {
         coroutineScope: CoroutineScope,
         okHttpClient: OkHttpClient
     ): Call.Factory {
-
         val networkingRules = NetworkingRules.Conservative
 
         val connectivityManager =

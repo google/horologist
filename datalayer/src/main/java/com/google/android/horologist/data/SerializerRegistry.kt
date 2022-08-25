@@ -28,6 +28,7 @@ class SerializerRegistry {
 
     public inline fun <reified T : Any> serializerForType() = serializerForType(T::class)
 
+    @Suppress("UNCHECKED_CAST")
     public fun <T : Any> serializerForType(type : KClass<T>): Serializer<T> =
         serializers[type] as Serializer<T>?
             ?: throw IllegalStateException("Serializer for ${type} not registered")

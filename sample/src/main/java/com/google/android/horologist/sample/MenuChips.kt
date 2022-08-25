@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Pages
 import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -202,6 +203,22 @@ fun NetworkChip(
         label = "Networks",
         content = {
             Text(text = "192.168.1.1", fontSize = 6f.sp)
+        }
+    )
+}
+
+@Composable
+fun PagingChip(
+    navigateToRoute: () -> Unit
+) {
+    SampleChip(
+        onClick = { navigateToRoute() },
+        label = "Paging",
+        content = {
+            Icon(
+                imageVector = Icons.Default.Pages,
+                contentDescription = "Paging"
+            )
         }
     )
 }

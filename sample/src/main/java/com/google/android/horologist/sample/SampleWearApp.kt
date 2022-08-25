@@ -59,6 +59,9 @@ fun SampleWearApp() {
             composable(Screen.Network.route) {
                 NetworkScreen()
             }
+            composable(Screen.Paging.route) {
+                PagingScreen()
+            }
             composable(Screen.FillMaxRectangle.route) {
                 FillMaxRectangleScreen()
             }

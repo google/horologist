@@ -64,6 +64,9 @@ fun MenuScreen(
             FillMaxRectangleChip(navigateToRoute)
         }
         item {
+            PagingChip { navigateToRoute(Screen.Paging.route) }
+        }
+        item {
             VolumeScreenChip(navigateToRoute)
         }
         item {

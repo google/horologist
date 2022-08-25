@@ -16,15 +16,24 @@
 
 package com.google.android.horologist.sample.di
 
-import android.app.Activity
+import android.content.Context
+import android.net.ConnectivityManager
+import com.google.android.horologist.components.SampleApplication
 import com.google.android.horologist.navsample.NavActivity
+import com.google.android.horologist.networks.InMemoryStatusLogger
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
+import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
+import com.google.android.horologist.networks.rules.NetworkingRules
+import com.google.android.horologist.networks.rules.NetworkingRulesEngine
+import com.google.android.horologist.networks.status.HighBandwidthRequester
 import com.google.android.horologist.networks.status.NetworkRepository
 import com.google.android.horologist.sample.MainActivity
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import okhttp3.Call
+import okhttp3.OkHttpClient
 
 /**
  * Simple DI implementation - to be replaced by hilt.
@@ -34,19 +43,72 @@ object SampleAppDI {
     fun inject(mainActivity: MainActivity) {
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
+    @Suppress("UNUSED_PARAMETER")
     fun inject(navActivity: NavActivity) {
-        // TODO these should be application scoped, and not the activity lifecycle.
-        // Do not use GlobalScope in real applition code.
-        navActivity.dataRequestRepository = getDataRequestRepository()
-        navActivity.networkRepository = getNetworkRepository(navActivity, GlobalScope)
     }
 
-    private fun getNetworkRepository(activity: Activity, coroutineScope: CoroutineScope): NetworkRepository {
-        return NetworkRepository.fromContext(activity, coroutineScope, NetworkStatusLogger.Logging)
+    private fun getNetworkRepository(
+        context: Context,
+        coroutineScope: CoroutineScope,
+        networkLogger: NetworkStatusLogger
+    ): NetworkRepository {
+        return NetworkRepository.fromContext(context, coroutineScope, networkLogger)
     }
 
     private fun getDataRequestRepository(): DataRequestRepository {
         return DataRequestRepository.InMemoryDataRequestRepository
+    }
+
+    private fun getNetworkAwareCallFactory(
+        context: Context,
+        networkRepository: NetworkRepository,
+        networkLogger: NetworkStatusLogger,
+        dataRequestRepository: DataRequestRepository,
+        coroutineScope: CoroutineScope,
+        okHttpClient: OkHttpClient
+    ): Call.Factory {
+        val networkingRules = NetworkingRules.Conservative
+
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val highBandwidthRequester = HighBandwidthRequester(
+            connectivityManager = connectivityManager,
+            coroutineScope = coroutineScope,
+            logger = networkLogger
+        )
+
+        val networkingRulesEngine = NetworkingRulesEngine(
+            networkRepository = networkRepository,
+            logger = networkLogger,
+            networkingRules = networkingRules
+        )
+
+        return NetworkSelectingCallFactory(
+            networkingRulesEngine = networkingRulesEngine,
+            highBandwidthRequester = highBandwidthRequester,
+            dataRequestRepository = dataRequestRepository,
+            rootClient = okHttpClient
+        )
+    }
+
+    fun inject(sampleApplication: SampleApplication) {
+        sampleApplication.okHttpClient = OkHttpClient.Builder().build()
+        sampleApplication.coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+        sampleApplication.networkLogger = InMemoryStatusLogger()
+        sampleApplication.dataRequestRepository = getDataRequestRepository()
+        sampleApplication.networkRepository = getNetworkRepository(
+            context = sampleApplication,
+            coroutineScope = sampleApplication.coroutineScope,
+            networkLogger = sampleApplication.networkLogger
+        )
+        sampleApplication.networkAwareCallFactory = getNetworkAwareCallFactory(
+            context = sampleApplication,
+            networkRepository = sampleApplication.networkRepository,
+            networkLogger = sampleApplication.networkLogger,
+            dataRequestRepository = sampleApplication.dataRequestRepository,
+            coroutineScope = sampleApplication.coroutineScope,
+            okHttpClient = sampleApplication.okHttpClient
+        )
     }
 }

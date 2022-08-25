@@ -29,4 +29,5 @@ sealed class Screen(
     object TimePicker : Screen("timePicker")
     object TimeWithSecondsPicker : Screen("timeWithSecondsPicker")
     object TimeWithoutSecondsPicker : Screen("timeWithoutSecondsPicker")
+    object Network : Screen("network")
 }

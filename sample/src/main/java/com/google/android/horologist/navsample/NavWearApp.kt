@@ -45,21 +45,20 @@ import com.google.android.horologist.compose.navscaffold.wearNavComposable
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
 import com.google.android.horologist.navsample.snackbar.SnackbarViewModel
-import com.google.android.horologist.networks.NetworksViewModel
+import com.google.android.horologist.networks.NetworkStatusViewModel
 import com.google.android.horologist.networks.ui.DataUsageTimeText
 
 @Composable
 fun NavWearApp(
-    navController: NavHostController,
-    networksViewModelFactory: NetworksViewModel.Factory
+    navController: NavHostController
 ) {
     val snackbarViewModel = viewModel<SnackbarViewModel>(factory = SnackbarViewModel.Factory)
-    val networksViewModel = viewModel<NetworksViewModel>(factory = networksViewModelFactory)
+    val networkStatusViewModel = viewModel<NetworkStatusViewModel>(factory = NetworkStatusViewModel.Factory)
 
     val swipeDismissState = rememberSwipeToDismissBoxState()
     val navState = rememberSwipeDismissableNavHostState(swipeDismissState)
 
-    val state by rememberStateWithLifecycle(networksViewModel.state)
+    val state by rememberStateWithLifecycle(networkStatusViewModel.state)
 
     WearNavScaffold(
         startDestination = NavScreen.Menu.route,

@@ -112,7 +112,7 @@ public fun PagerScreen(
 
         val pagerScreenState = remember { PageScreenIndicatorState(state) }
         HorizontalPageIndicator(
-            modifier = Modifier.padding(bottom = 6.dp),
+            modifier = Modifier.padding(6.dp),
             pageIndicatorState = pagerScreenState
         )
     }

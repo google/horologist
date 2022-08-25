@@ -88,4 +88,6 @@ class UampEntityScreenViewModel @Inject constructor(
     }
 
     fun download() = playlistDownload.value?.let { playlistDownloadRepository.download(it.playlist) }
+
+    fun remove() = playlistDownload.value?.let { playlistDownloadRepository.remove(it.playlist) }
 }

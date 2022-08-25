@@ -66,4 +66,10 @@ class PlaylistDownloadRepositoryImpl(
             }
         }
     }
+
+    override fun remove(playlist: Playlist) {
+        playlist.mediaList.forEach { media ->
+            media3DownloadDataSource.removeDownload(media.id)
+        }
+    }
 }

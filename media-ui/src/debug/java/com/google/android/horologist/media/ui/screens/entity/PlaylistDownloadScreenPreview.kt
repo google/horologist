@@ -36,11 +36,11 @@ fun PlaylistDownloadScreenPreviewLoading() {
     PlaylistDownloadScreen(
         playlistName = "Playlist name",
         playlistDownloadScreenState = PlaylistDownloadScreenState.Loading(),
-        onDownloadClick = { },
-        onCancelDownloadClick = { },
+        onDownloadButtonClick = { },
+        onCancelDownloadButtonClick = { },
         onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
+        onShuffleButtonClick = { },
+        onPlayButtonClick = { },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     )
@@ -55,11 +55,11 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloaded() {
             playlistModel = playlistUiModel,
             downloadMediaList = notDownloaded
         ),
-        onDownloadClick = { },
-        onCancelDownloadClick = { },
+        onDownloadButtonClick = { },
+        onCancelDownloadButtonClick = { },
         onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
+        onShuffleButtonClick = { },
+        onPlayButtonClick = { },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
@@ -78,11 +78,11 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
             playlistModel = playlistUiModel,
             downloadMediaList = notDownloadedAndDownloading
         ),
-        onDownloadClick = { },
-        onCancelDownloadClick = { },
+        onDownloadButtonClick = { },
+        onCancelDownloadButtonClick = { },
         onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
+        onShuffleButtonClick = { },
+        onPlayButtonClick = { },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
@@ -101,11 +101,11 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloaded() {
             playlistModel = playlistUiModel,
             downloadMediaList = downloadedNotDownloaded
         ),
-        onDownloadClick = { },
-        onCancelDownloadClick = { },
+        onDownloadButtonClick = { },
+        onCancelDownloadButtonClick = { },
         onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
+        onShuffleButtonClick = { },
+        onPlayButtonClick = { },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
@@ -124,11 +124,11 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize
             playlistModel = playlistUiModel,
             downloadMediaList = downloadedAndDownloadingUnknown
         ),
-        onDownloadClick = { },
-        onCancelDownloadClick = { },
+        onDownloadButtonClick = { },
+        onCancelDownloadButtonClick = { },
         onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
+        onShuffleButtonClick = { },
+        onPlayButtonClick = { },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
@@ -147,11 +147,11 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting() {
             playlistModel = playlistUiModel,
             downloadMediaList = downloadedAndDownloadingWaiting
         ),
-        onDownloadClick = { },
-        onCancelDownloadClick = { },
+        onDownloadButtonClick = { },
+        onCancelDownloadButtonClick = { },
         onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
+        onShuffleButtonClick = { },
+        onPlayButtonClick = { },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
@@ -170,11 +170,11 @@ fun PlaylistDownloadScreenPreviewLoadedFullyDownloaded() {
             playlistModel = playlistUiModel,
             downloadMediaList = downloaded
         ),
-        onDownloadClick = { },
-        onCancelDownloadClick = { },
+        onDownloadButtonClick = { },
+        onCancelDownloadButtonClick = { },
         onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
+        onShuffleButtonClick = { },
+        onPlayButtonClick = { },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
@@ -190,11 +190,11 @@ fun PlaylistDownloadScreenPreviewFailed() {
     PlaylistDownloadScreen(
         playlistName = "Playlist name",
         playlistDownloadScreenState = PlaylistDownloadScreenState.Failed(),
-        onDownloadClick = { },
-        onCancelDownloadClick = { },
+        onDownloadButtonClick = { },
+        onCancelDownloadButtonClick = { },
         onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
+        onShuffleButtonClick = { },
+        onPlayButtonClick = { },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     )

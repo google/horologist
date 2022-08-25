@@ -17,7 +17,6 @@
 package com.google.android.horologist.data
 
 import com.google.android.gms.wearable.DataEventBuffer
-import com.google.android.gms.wearable.Node
 import com.google.android.gms.wearable.WearableListenerService
 
 /**
@@ -36,7 +35,7 @@ import com.google.android.gms.wearable.WearableListenerService
  * </service>
  * ```
  */
-abstract class WearDataService: WearableListenerService() {
+abstract class WearDataService : WearableListenerService() {
     abstract val registry: WearDataLayerRegistry
 
     override fun onDataChanged(dataEventBuffer: DataEventBuffer) {

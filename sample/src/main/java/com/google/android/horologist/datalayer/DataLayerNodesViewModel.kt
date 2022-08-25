@@ -1,8 +1,7 @@
 /*
  * Copyright 2022 The Android Open Source Project
  *
- * Li
- * censed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -42,7 +41,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 public class DataLayerNodesViewModel(
-    private val registry: WearDataLayerRegistry,
+    private val registry: WearDataLayerRegistry
 ) : ViewModel() {
     val nodes = flow {
         val self = registry.nodeClient.localNode.await()
@@ -56,9 +55,11 @@ public class DataLayerNodesViewModel(
     val protoState = flow {
         val ids = nodes.first().map { it.id }
 
-        val flow: Flow<Map<String, Data>> = combine(ids.map {
-            registry.protoFlow(it)
-        }) {
+        val flow: Flow<Map<String, Data>> = combine(
+            ids.map {
+                registry.protoFlow(it)
+            }
+        ) {
             it.zip(ids) { data, id -> id to data }.toMap()
         }
 
@@ -94,7 +95,7 @@ public class DataLayerNodesViewModel(
     data class UIState(
         val nodes: List<Node> = listOf(),
         val protoMap: Map<String, Data> = mapOf(),
-        val thisData: Data? = null,
+        val thisData: Data? = null
     )
 
     public object Factory : ViewModelProvider.Factory {

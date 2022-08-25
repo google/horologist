@@ -38,10 +38,12 @@ fun DataLayerNodesScreen(
             Text("Nodes")
         }
         items(state.nodes) {
-            Chip(onClick = { },
+            Chip(
+                onClick = { },
                 label = {
                     Text("${it.displayName}(${it.id}) ${if (it.isNearby) "NEAR" else ""}")
-                })
+                }
+            )
         }
         item {
             Text("Data")
@@ -58,7 +60,7 @@ fun DataLayerNodesScreen(
                 Text("This Value: None")
             }
         }
-        items(state.protoMap.entries.toList()) {(id, data) ->
+        items(state.protoMap.entries.toList()) { (id, data) ->
             Text("$id Value: ${data.value} (${data.name})")
         }
     }

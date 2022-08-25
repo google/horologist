@@ -22,7 +22,7 @@ import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.WearDataService
 
 @OptIn(ExperimentalHorologistDataLayerApi::class)
-class SampleDataService: WearDataService() {
+class SampleDataService : WearDataService() {
     override lateinit var registry: WearDataLayerRegistry
 
     override fun onCreate() {

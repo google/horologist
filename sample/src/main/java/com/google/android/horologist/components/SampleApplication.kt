@@ -48,7 +48,7 @@ class SampleApplication : Application() {
         registry = WearDataLayerRegistry.fromContext(this, coroutineScope).apply {
             registerSerializer(SampleDataSerializer)
 
-            registerProtoDataListener(object: ProtoDataListener<SampleProto.Data> {
+            registerProtoDataListener(object : ProtoDataListener<SampleProto.Data> {
                 override fun dataAdded(nodeId: String, path: String, value: SampleProto.Data) {
                     println("Data Added: $nodeId $path $value")
                 }

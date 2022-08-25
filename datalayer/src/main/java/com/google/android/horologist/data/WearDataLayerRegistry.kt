@@ -55,7 +55,7 @@ public class WearDataLayerRegistry(
     public val nodeClient: NodeClient,
     public val messageClient: MessageClient,
     public val capabilityClient: CapabilityClient,
-    private val coroutineScope: CoroutineScope,
+    private val coroutineScope: CoroutineScope
 ) {
     public val serializers: SerializerRegistry = SerializerRegistry()
     private val protoDataListeners: MutableList<ProtoDataListenerRegistration<*>> = mutableListOf()
@@ -99,11 +99,11 @@ public class WearDataLayerRegistry(
         }
     }
 
-    inline fun <reified T: Any> registerSerializer(serializer: Serializer<T>) {
+    inline fun <reified T : Any> registerSerializer(serializer: Serializer<T>) {
         serializers.registerSerializer(serializer)
     }
 
-    inline fun <reified T: Any> registerProtoDataListener(
+    inline fun <reified T : Any> registerProtoDataListener(
         path: String,
         listener: ProtoDataListener<T>
     ) {
@@ -111,7 +111,7 @@ public class WearDataLayerRegistry(
         registerProtoDataListener(path, listener, serializer)
     }
 
-    fun <T: Any> registerProtoDataListener(
+    fun <T : Any> registerProtoDataListener(
         path: String,
         listener: ProtoDataListener<T>,
         serializer: Serializer<T>

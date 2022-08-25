@@ -29,14 +29,14 @@ object ProtoDataStoreHelper {
             nodeId
         ),
         serializers.serializerForType<T>(),
-        WearDataLayerRegistry.dataStorePath(T::class),
+        WearDataLayerRegistry.dataStorePath(T::class)
     )
 
     inline fun <reified T : Any> WearDataLayerRegistry.protoDataStore(coroutineScope: CoroutineScope) =
         this.protoDataStore(
             WearDataLayerRegistry.dataStorePath(T::class),
             coroutineScope,
-            serializers.serializerForType<T>(),
+            serializers.serializerForType<T>()
         )
 
     inline fun <reified T : Any> WearDataLayerRegistry.registerProtoDataListener(listener: ProtoDataListener<T>) {

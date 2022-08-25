@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistNetworksApi::class)
+
 package com.google.android.horologist.networks.rules
 
+import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.RequestType.ImageRequest
 import com.google.android.horologist.networks.rules.Fixtures.bt
 import com.google.android.horologist.networks.rules.Fixtures.cell

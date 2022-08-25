@@ -30,7 +30,7 @@ if (localFile.exists()) {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.google.android.horologist.mediasample"

@@ -26,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.focus.FocusRequester
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.saveable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.PositionIndicator
@@ -37,7 +38,6 @@ import androidx.wear.compose.material.VignettePosition
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode.Off
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode.On
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode.WhenScrollable
-import com.google.android.horologist.compose.navscaffold.util.saveable
 
 /**
  * A ViewModel that backs the WearNavScaffold to allow each composable to interact and effect

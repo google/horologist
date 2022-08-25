@@ -78,7 +78,6 @@ fun PagingScreen() {
             }
         }
     }
-
 }
 
 class MyBackend {
@@ -133,8 +132,12 @@ class MyBackend {
             }
 
             override fun getRefreshKey(state: PagingState<Int, String>): Int? {
-                return ((state.anchorPosition
-                    ?: 0) - state.config.initialLoadSize / 2).coerceAtLeast(0)
+                return (
+                    (
+                        state.anchorPosition
+                            ?: 0
+                        ) - state.config.initialLoadSize / 2
+                    ).coerceAtLeast(0)
             }
         }
     }

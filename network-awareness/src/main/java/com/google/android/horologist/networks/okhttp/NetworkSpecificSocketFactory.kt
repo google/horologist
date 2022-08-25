@@ -16,11 +16,13 @@
 
 package com.google.android.horologist.networks.okhttp
 
+import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkStatus
 import java.net.InetAddress
 import java.net.Socket
 import javax.net.SocketFactory
 
+@ExperimentalHorologistNetworksApi
 public class NetworkSpecificSocketFactory(
     private val networkStatus: NetworkStatus,
     private val socketFactory: SocketFactory = getDefault()

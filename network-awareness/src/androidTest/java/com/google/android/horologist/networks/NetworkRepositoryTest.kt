@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalCoroutinesApi::class, ExperimentalCoroutinesApi::class)
+@file:OptIn(
+    ExperimentalCoroutinesApi::class,
+    ExperimentalHorologistNetworksApi::class
+)
 
 package com.google.android.horologist.networks
 

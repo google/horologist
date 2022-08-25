@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalCoroutinesApi::class)
+@file:OptIn(ExperimentalCoroutinesApi::class, ExperimentalCoroutinesApi::class)
 
 package com.google.android.horologist.data
 
@@ -44,7 +44,6 @@ class WearDataLayerRegistryTest {
 
         val registry = WearDataLayerRegistry.fromContext(context, scope)
 
-        val path = WearDataLayerRegistry.preferencesPath("settings")
         val preferencesDataStore = registry.protoDataStore<Preferences>(scope)
 
         preferencesDataStore.edit {

@@ -26,6 +26,7 @@ import com.google.android.gms.wearable.Node
 import com.google.android.horologist.components.SampleApplication
 import com.google.android.horologist.data.ProtoDataStoreHelper.protoDataStore
 import com.google.android.horologist.data.ProtoDataStoreHelper.protoFlow
+import com.google.android.horologist.data.TargetNodeId
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.proto.SampleProto.Data
 import com.google.android.horologist.data.proto.copy
@@ -56,9 +57,7 @@ public class DataLayerNodesViewModel(
         val ids = nodes.first().map { it.id }
 
         val flow: Flow<Map<String, Data>> = combine(
-            ids.map {
-                registry.protoFlow(it)
-            }
+            ids.map { registry.protoFlow<Data>(TargetNodeId.SpecificNodeId(it)) }
         ) {
             it.zip(ids) { data, id -> id to data }.toMap()
         }

@@ -24,10 +24,8 @@ import kotlinx.coroutines.CoroutineScope
  * lookup the serializer.
  */
 object ProtoDataStoreHelper {
-    inline fun <reified T : Any> WearDataLayerRegistry.protoFlow(nodeId: String) = this.protoFlow(
-        TargetNodeId.SpecificNodeId(
-            nodeId
-        ),
+    inline fun <reified T : Any> WearDataLayerRegistry.protoFlow(node: TargetNodeId) = this.protoFlow(
+        node,
         serializers.serializerForType<T>(),
         WearDataLayerRegistry.dataStorePath(T::class)
     )

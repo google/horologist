@@ -18,9 +18,12 @@
 
 package com.google.android.horologist.data
 
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.test.platform.app.InstrumentationRegistry
+import com.google.android.horologist.data.ProtoDataStoreHelper.protoDataStore
+import com.google.android.horologist.data.ProtoDataStoreHelper.protoFlow
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -42,10 +45,7 @@ class WearDataLayerRegistryTest {
         val registry = WearDataLayerRegistry.fromContext(context, scope)
 
         val path = WearDataLayerRegistry.preferencesPath("settings")
-        val preferencesDataStore = registry.preferencesDataStore(
-            path,
-            scope
-        )
+        val preferencesDataStore = registry.protoDataStore<Preferences>(scope)
 
         preferencesDataStore.edit {
             it[aStringKey] = "a"
@@ -56,7 +56,7 @@ class WearDataLayerRegistryTest {
             it[aStringKey] == "a"
         }.first()
 
-        val preferences2 = registry.preferencesFlow(TargetNodeId.ThisNodeId, path).first()
+        val preferences2 = registry.protoFlow<Preferences>(TargetNodeId.ThisNodeId).first()
 
         assertThat(preferences).isEqualTo(preferences2)
         assertThat(preferences[aStringKey]).isEqualTo("a")

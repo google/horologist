@@ -20,9 +20,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -57,29 +61,35 @@ fun UampEntityScreen(
 ) {
     val uiState by StateUtils.rememberStateWithLifecycle(flow = uampEntityScreenViewModel.uiState)
 
+    var showCancelDownloadsDialog by remember { mutableStateOf(false) }
+    var showRemoveDownloadsDialog by remember { mutableStateOf(false) }
+
     PlaylistDownloadScreen(
         playlistName = playlistName,
         playlistDownloadScreenState = uiState,
-        onDownloadClick = {
+        onDownloadButtonClick = {
             uampEntityScreenViewModel.download()
         },
-        onCancelDownloadClick = {
-            /* TO BE IMPLEMENTED */
+        onCancelDownloadButtonClick = {
+            showCancelDownloadsDialog = true
         },
         onDownloadItemClick = {
             uampEntityScreenViewModel.play(it.id)
             onDownloadItemClick(it)
         },
-        onShuffleClick = {
+        onShuffleButtonClick = {
             uampEntityScreenViewModel.shufflePlay()
             onShuffleClick(it)
         },
-        onPlayClick = {
+        onPlayButtonClick = {
             uampEntityScreenViewModel.play()
             onPlayClick(it)
         },
         focusRequester = focusRequester,
-        scalingLazyListState = scalingLazyListState
+        scalingLazyListState = scalingLazyListState,
+        onDownloadCompletedButtonClick = {
+            showRemoveDownloadsDialog = true
+        }
     )
 
     // b/243381431 - it should stop listening to uiState emissions while dialog is presented
@@ -119,5 +129,84 @@ fun UampEntityScreen(
                 }
             }
         }
+    }
+
+    EntityDialog(
+        text = stringResource(R.string.entity_dialog_cancel_downloads),
+        onCancelButtonClick = {
+            showCancelDownloadsDialog = false
+        },
+        onProceedButtonClick = {
+            showCancelDownloadsDialog = false
+            uampEntityScreenViewModel.remove()
+        },
+        showDialog = showCancelDownloadsDialog,
+        scalingLazyListState = scalingLazyListState
+    )
+
+    EntityDialog(
+        text = stringResource(R.string.entity_dialog_remove_downloads, playlistName),
+        onCancelButtonClick = {
+            showRemoveDownloadsDialog = false
+        },
+        onProceedButtonClick = {
+            showRemoveDownloadsDialog = false
+            uampEntityScreenViewModel.remove()
+        },
+        showDialog = showRemoveDownloadsDialog,
+        scalingLazyListState = scalingLazyListState
+    )
+}
+
+@Composable
+private fun EntityDialog(
+    text: String,
+    onCancelButtonClick: () -> Unit,
+    onProceedButtonClick: () -> Unit,
+    showDialog: Boolean,
+    scalingLazyListState: ScalingLazyListState
+) {
+    Dialog(
+        showDialog = showDialog,
+        onDismissRequest = onCancelButtonClick,
+        scrollState = scalingLazyListState
+    ) {
+        Alert(
+            title = {
+                Text(
+                    text = text,
+                    color = MaterialTheme.colors.onBackground,
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.title3
+                )
+            },
+            negativeButton = {
+                Button(
+                    onClick = onCancelButtonClick,
+                    colors = ButtonDefaults.secondaryButtonColors()
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Close,
+                        contentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description),
+                        modifier = Modifier
+                            .size(24.dp)
+                            .wrapContentSize(align = Alignment.Center)
+                    )
+                }
+            },
+            positiveButton = {
+                Button(
+                    onClick = onProceedButtonClick
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Check,
+                        contentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
+                        modifier = Modifier
+                            .size(24.dp)
+                            .wrapContentSize(align = Alignment.Center)
+                    )
+                }
+            }
+        )
     }
 }

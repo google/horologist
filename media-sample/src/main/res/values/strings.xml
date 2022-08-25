@@ -57,4 +57,8 @@
     <string name="playlists_failed_dialog_cancel_button_content_description">Cancel</string>
     <string name="entity_no_playlists">Can’t find any songs in playlist</string>
     <string name="entity_failed_dialog_cancel_button_content_description">Cancel</string>
+    <string name="entity_dialog_cancel_button_content_description">Cancel</string>
+    <string name="entity_dialog_proceed_button_content_description">Proceed</string>
+    <string name="entity_dialog_cancel_downloads">Are you sure you want to cancel download?</string>
+    <string name="entity_dialog_remove_downloads">Remove %s from watch?</string>
 </resources>

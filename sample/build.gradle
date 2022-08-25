@@ -96,12 +96,6 @@ protobuf {
         javalite {
             artifact = 'com.google.protobuf:protoc-gen-javalite:3.0.0'
         }
-        grpc {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.47.0"
-        }
-        grpckt {
-            artifact = "io.grpc:protoc-gen-grpc-kotlin:1.3.0:jdk8@jar"
-        }
     }
     generateProtoTasks {
         all().each { task ->
@@ -110,14 +104,6 @@ protobuf {
                     option "lite"
                 }
                 kotlin {
-                    option "lite"
-                }
-            }
-            task.plugins {
-                grpc {
-                    option "lite"
-                }
-                grpckt {
                     option "lite"
                 }
             }

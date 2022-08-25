@@ -16,12 +16,14 @@
 
 package com.google.android.horologist.networks.okhttp
 
+import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.requestTypeOrNull
 import okhttp3.Call
 import okhttp3.Request
 
+@ExperimentalHorologistNetworksApi
 public class NetworkAwareCallFactory(
     private val delegate: Call.Factory,
     private val defaultRequestType: RequestType
@@ -31,6 +33,7 @@ public class NetworkAwareCallFactory(
     }
 }
 
+@ExperimentalHorologistNetworksApi
 public fun Request.withDefaultRequestType(defaultRequestType: RequestType): Request =
     if (requestTypeOrNull == null) {
         newBuilder()

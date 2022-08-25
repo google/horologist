@@ -17,8 +17,10 @@
 package com.google.android.horologist.networks.ui
 
 import androidx.compose.ui.graphics.Color
+import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.Status
 
+@ExperimentalHorologistNetworksApi
 internal val Status.color: Color
     get() = when (this) {
         is Status.Available -> Color.Green

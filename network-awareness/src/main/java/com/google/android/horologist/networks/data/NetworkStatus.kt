@@ -18,10 +18,12 @@ package com.google.android.horologist.networks.data
 
 import android.net.LinkProperties
 import android.net.NetworkCapabilities
+import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import java.net.Inet6Address
 import java.net.InetAddress
 import java.net.Socket
 
+@ExperimentalHorologistNetworksApi
 public data class NetworkStatus(
     public val id: String,
     public val status: Status,

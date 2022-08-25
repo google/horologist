@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.networks.okhttp
 
+import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
@@ -24,6 +25,7 @@ import com.google.android.horologist.networks.status.HighBandwidthRequester
 import okhttp3.Interceptor
 import okhttp3.Response
 
+@ExperimentalHorologistNetworksApi
 public class NetworkEstablishingInterceptor(
     private val networkingRulesEngine: NetworkingRulesEngine,
     private val highBandwidthRequester: HighBandwidthRequester

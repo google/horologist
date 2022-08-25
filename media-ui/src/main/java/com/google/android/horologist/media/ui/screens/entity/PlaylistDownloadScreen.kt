@@ -66,14 +66,15 @@ import com.google.android.horologist.media.ui.util.ifNan
 public fun PlaylistDownloadScreen(
     playlistName: String,
     playlistDownloadScreenState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
-    onDownloadClick: (PlaylistUiModel) -> Unit,
-    onCancelDownloadClick: (PlaylistUiModel) -> Unit,
+    onDownloadButtonClick: (PlaylistUiModel) -> Unit,
+    onCancelDownloadButtonClick: (PlaylistUiModel) -> Unit,
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
-    onShuffleClick: (PlaylistUiModel) -> Unit,
-    onPlayClick: (PlaylistUiModel) -> Unit,
+    onShuffleButtonClick: (PlaylistUiModel) -> Unit,
+    onPlayButtonClick: (PlaylistUiModel) -> Unit,
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
+    onDownloadCompletedButtonClick: ((PlaylistUiModel) -> Unit)? = null,
     defaultMediaTitle: String = "",
     downloadItemArtworkPlaceholder: Painter? = null
 ) {
@@ -138,10 +139,12 @@ public fun PlaylistDownloadScreen(
         buttonsContent = {
             ButtonsContent(
                 state = playlistDownloadScreenState,
-                onDownloadClick = onDownloadClick,
-                onCancelDownloadClick = onCancelDownloadClick,
-                onShuffleClick = onShuffleClick,
-                onPlayClick = onPlayClick
+                onDownloadButtonClick = onDownloadButtonClick,
+                onCancelDownloadButtonClick = onCancelDownloadButtonClick,
+                onDownloadCompletedButtonClick = onDownloadCompletedButtonClick
+                    ?: { /* do nothing */ },
+                onShuffleButtonClick = onShuffleButtonClick,
+                onPlayButtonClick = onPlayButtonClick
             )
         }
     )
@@ -151,10 +154,11 @@ public fun PlaylistDownloadScreen(
 @Composable
 private fun ButtonsContent(
     state: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
-    onDownloadClick: (PlaylistUiModel) -> Unit,
-    onCancelDownloadClick: (PlaylistUiModel) -> Unit,
-    onShuffleClick: (PlaylistUiModel) -> Unit,
-    onPlayClick: (PlaylistUiModel) -> Unit
+    onDownloadButtonClick: (PlaylistUiModel) -> Unit,
+    onCancelDownloadButtonClick: (PlaylistUiModel) -> Unit,
+    onDownloadCompletedButtonClick: (PlaylistUiModel) -> Unit,
+    onShuffleButtonClick: (PlaylistUiModel) -> Unit,
+    onPlayButtonClick: (PlaylistUiModel) -> Unit
 ) {
     when (state) {
         is PlaylistDownloadScreenState.Failed,
@@ -173,14 +177,14 @@ private fun ButtonsContent(
                 if (state.downloadsProgress is DownloadsProgress.InProgress) {
                     StandardChip(
                         label = stringResource(id = R.string.horologist_playlist_download_button_cancel),
-                        onClick = { },
+                        onClick = { onCancelDownloadButtonClick(state.collectionModel) },
                         modifier = Modifier.padding(bottom = 16.dp),
                         icon = Icons.Default.Close
                     )
                 } else {
                     StandardChip(
                         label = stringResource(id = R.string.horologist_playlist_download_button_download),
-                        onClick = { onDownloadClick(state.collectionModel) },
+                        onClick = { onDownloadButtonClick(state.collectionModel) },
                         modifier = Modifier.padding(bottom = 16.dp),
                         icon = Icons.Default.Download
                     )
@@ -196,8 +200,9 @@ private fun ButtonsContent(
                         downloadMediaListState = state.downloadMediaListState,
                         downloadsProgress = state.downloadsProgress,
                         collectionModel = state.collectionModel,
-                        onDownloadClick = onDownloadClick,
-                        onCancelDownloadClick = onCancelDownloadClick,
+                        onDownloadButtonClick = onDownloadButtonClick,
+                        onCancelDownloadButtonClick = onCancelDownloadButtonClick,
+                        onDownloadCompletedButtonClick = onDownloadCompletedButtonClick,
                         modifier = Modifier
                             .padding(start = 6.dp)
                             .weight(weight = 0.3F, fill = false)
@@ -206,7 +211,7 @@ private fun ButtonsContent(
                     StandardButton(
                         imageVector = Icons.Default.Shuffle,
                         contentDescription = stringResource(id = R.string.horologist_playlist_download_button_shuffle_content_description),
-                        onClick = { onShuffleClick(state.collectionModel) },
+                        onClick = { onShuffleButtonClick(state.collectionModel) },
                         modifier = Modifier
                             .padding(start = 6.dp)
                             .weight(weight = 0.3F, fill = false)
@@ -215,7 +220,7 @@ private fun ButtonsContent(
                     StandardButton(
                         imageVector = Icons.Filled.PlayArrow,
                         contentDescription = stringResource(id = R.string.horologist_playlist_download_button_play_content_description),
-                        onClick = { onPlayClick(state.collectionModel) },
+                        onClick = { onPlayButtonClick(state.collectionModel) },
                         modifier = Modifier
                             .padding(start = 6.dp)
                             .weight(weight = 0.3F, fill = false)
@@ -232,13 +237,14 @@ private fun <Collection> FirstButton(
     downloadMediaListState: PlaylistDownloadScreenState.Loaded.DownloadMediaListState,
     downloadsProgress: DownloadsProgress,
     collectionModel: Collection,
-    onDownloadClick: (Collection) -> Unit,
-    onCancelDownloadClick: (Collection) -> Unit,
+    onDownloadButtonClick: (Collection) -> Unit,
+    onCancelDownloadButtonClick: (Collection) -> Unit,
+    onDownloadCompletedButtonClick: (Collection) -> Unit,
     modifier: Modifier = Modifier
 ) {
     if (downloadsProgress is DownloadsProgress.InProgress) {
         Button(
-            onClick = { onCancelDownloadClick(collectionModel) },
+            onClick = { onCancelDownloadButtonClick(collectionModel) },
             modifier = modifier.size(StandardButtonSize.Default.tapTargetSize),
             enabled = true,
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent)
@@ -267,7 +273,7 @@ private fun <Collection> FirstButton(
         StandardButton(
             imageVector = Icons.Default.Download,
             contentDescription = stringResource(id = R.string.horologist_playlist_download_button_download_content_description),
-            onClick = { onDownloadClick(collectionModel) },
+            onClick = { onDownloadButtonClick(collectionModel) },
             modifier = modifier,
             buttonType = StandardButtonType.Secondary
         )
@@ -275,7 +281,7 @@ private fun <Collection> FirstButton(
         StandardButton(
             imageVector = Icons.Default.DownloadDone,
             contentDescription = stringResource(id = R.string.horologist_playlist_download_button_download_done_content_description),
-            onClick = { /* do nothing */ },
+            onClick = { onDownloadCompletedButtonClick(collectionModel) },
             modifier = modifier,
             buttonType = StandardButtonType.Secondary
         )

@@ -16,19 +16,14 @@
 
 package com.google.android.horologist.networks.rules
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-
-@ExperimentalHorologistNetworksApi
 public sealed interface RequestCheck {
     public val isForbidden: Boolean
 }
 
-@ExperimentalHorologistNetworksApi
 public data class Fail(public val reason: String) : RequestCheck {
     override val isForbidden: Boolean = true
 }
 
-@ExperimentalHorologistNetworksApi
 public object Allow : RequestCheck {
     override val isForbidden: Boolean = false
 }

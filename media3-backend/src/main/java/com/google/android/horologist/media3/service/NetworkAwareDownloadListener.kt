@@ -22,7 +22,6 @@ import androidx.media3.exoplayer.scheduler.Requirements
 import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.logging.ErrorReporter.Category.Downloads
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.status.HighBandwidthRequester
 import java.io.Closeable
 
@@ -31,7 +30,6 @@ import java.io.Closeable
  * the required network.  Also includes event logging.
  */
 @ExperimentalHorologistMedia3BackendApi
-@ExperimentalHorologistNetworksApi
 public class NetworkAwareDownloadListener(
     private val appEventLogger: ErrorReporter,
     private val highBandwidthRequester: HighBandwidthRequester

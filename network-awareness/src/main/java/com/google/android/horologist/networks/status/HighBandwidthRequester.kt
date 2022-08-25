@@ -20,7 +20,6 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
@@ -35,7 +34,6 @@ import java.util.concurrent.ConcurrentHashMap
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-@ExperimentalHorologistNetworksApi
 public class HighBandwidthRequester(
     private val connectivityManager: ConnectivityManager,
     private val coroutineScope: CoroutineScope,

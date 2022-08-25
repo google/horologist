@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.networks.db
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.DataRequest
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.DataUsageReport
@@ -28,7 +27,6 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneOffset
 
-@ExperimentalHorologistNetworksApi
 public class DBDataRequestRepository(
     public val networkUsageDao: NetworkUsageDao,
     public val coroutineScope: CoroutineScope

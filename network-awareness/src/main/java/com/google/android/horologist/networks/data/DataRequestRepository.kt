@@ -16,12 +16,10 @@
 
 package com.google.android.horologist.networks.data
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.time.Instant
 
-@ExperimentalHorologistNetworksApi
 public interface DataRequestRepository {
     public fun storeRequest(dataRequest: DataRequest)
     public fun currentPeriodUsage(): Flow<DataUsageReport>

@@ -16,12 +16,10 @@
 
 package com.google.android.horologist.networks.okhttp
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.RequestType
 import okhttp3.Request
 
-@ExperimentalHorologistNetworksApi
 public data class RequestTypeHolder(
     public var requestType: RequestType = RequestType.UnknownRequest,
     public var networkType: NetworkType? = null

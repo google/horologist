@@ -16,16 +16,12 @@
 
 package com.google.android.horologist.networks.data
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-
-@ExperimentalHorologistNetworksApi
 public sealed interface NetworkType {
     public val name: String?
     public val typeName: String
     public val highBatteryUsage: Boolean?
     public val metered: Boolean?
 
-    @ExperimentalHorologistNetworksApi
     public data class Wifi(
         override val name: String,
         public val ssid: String? = null
@@ -37,7 +33,6 @@ public sealed interface NetworkType {
         override val metered: Boolean = false
     }
 
-    @ExperimentalHorologistNetworksApi
     public data class Cellular(
         override val name: String,
         override val metered: Boolean?
@@ -46,7 +41,6 @@ public sealed interface NetworkType {
         override val highBatteryUsage: Boolean = true
     }
 
-    @ExperimentalHorologistNetworksApi
     public data class Bluetooth(override val name: String) : NetworkType {
         override val typeName: String = ble
         override val highBatteryUsage: Boolean = false
@@ -55,7 +49,6 @@ public sealed interface NetworkType {
         override val metered: Boolean = false
     }
 
-    @ExperimentalHorologistNetworksApi
     public data class Unknown(
         override val name: String? = unknown,
         override val metered: Boolean? = null

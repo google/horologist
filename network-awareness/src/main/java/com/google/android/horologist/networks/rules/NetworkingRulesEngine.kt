@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.networks.rules
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.RequestType
@@ -28,7 +27,6 @@ import java.net.InetSocketAddress
  * Networking Rules that bridges between app specific rules
  * and specific network actions, like opening a network socket.
  */
-@ExperimentalHorologistNetworksApi
 public class NetworkingRulesEngine(
     internal val networkRepository: NetworkRepository,
     internal val logger: NetworkStatusLogger = NetworkStatusLogger.Logging,

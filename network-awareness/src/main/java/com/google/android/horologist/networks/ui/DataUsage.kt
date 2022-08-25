@@ -131,7 +131,6 @@ internal fun Long.toSize(context: Context): String {
     return Formatter.formatShortFileSize(context, this)
 }
 
-@ExperimentalHorologistNetworksApi
 private fun NetworkStatus.tint(active: Boolean): Color {
     return if (!active && this.status == Status.Available) {
         Color.Blue
@@ -143,7 +142,6 @@ private fun NetworkStatus.tint(active: Boolean): Color {
     }
 }
 
-@ExperimentalHorologistNetworksApi
 internal val NetworkType.icon
     get() = when (this) {
         is NetworkType.Wifi -> Icons.Filled.Wifi

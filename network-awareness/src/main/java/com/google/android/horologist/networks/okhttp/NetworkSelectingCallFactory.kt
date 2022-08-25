@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.networks.okhttp
 
+import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.RequestType
@@ -32,6 +33,7 @@ import okio.IOException
 import okio.Timeout
 import java.util.concurrent.ConcurrentHashMap
 
+@ExperimentalHorologistNetworksApi
 public class NetworkSelectingCallFactory(
     private val networkingRulesEngine: NetworkingRulesEngine,
     private val highBandwidthRequester: HighBandwidthRequester,

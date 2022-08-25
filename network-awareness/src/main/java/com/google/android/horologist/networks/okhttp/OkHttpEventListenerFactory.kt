@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.networks.okhttp
 
+import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.DataRequest
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.NetworkType
@@ -32,6 +33,7 @@ import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Proxy
 
+@ExperimentalHorologistNetworksApi
 public class OkHttpEventListenerFactory(
     private val networkingRulesEngine: NetworkingRulesEngine,
     private val delegateEventListenerFactory: EventListener.Factory,

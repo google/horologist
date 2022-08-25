@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.networks.rules
 
+import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.Networks
@@ -27,6 +28,7 @@ import com.google.android.horologist.networks.data.RequestType
  * - Only use LTE for downloads if user enabled.
  * - Don't use metered LTE for logs and metrics.
  */
+@ExperimentalHorologistNetworksApi
 public interface NetworkingRules {
     /**
      * Is this request considered high bandwidth and should activate LTE or Wifi.
@@ -55,6 +57,7 @@ public interface NetworkingRules {
      * Lenient rules that allow most request types on any network but prefer
      * Wifi when available.
      */
+    @ExperimentalHorologistNetworksApi
     public object Lenient : NetworkingRules {
         override fun isHighBandwidthRequest(requestType: RequestType): Boolean {
             return requestType is RequestType.MediaRequest
@@ -79,6 +82,7 @@ public interface NetworkingRules {
      * Conservative rules that don't allow Streaming, and only allow Downloads
      * over high bandwidth networks.
      */
+    @ExperimentalHorologistNetworksApi
     public object Conservative : NetworkingRules {
         override fun isHighBandwidthRequest(requestType: RequestType): Boolean {
             return requestType is RequestType.MediaRequest

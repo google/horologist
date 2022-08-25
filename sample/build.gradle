@@ -15,8 +15,8 @@
  */
 
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
+apply plugin: "com.google.protobuf"
 
 android {
     compileSdkVersion 32
@@ -73,10 +73,55 @@ android {
         freeCompilerArgs += "-opt-in=com.google.android.horologist.composables.ExperimentalHorologistComposablesApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.networks.ExperimentalHorologistNetworksApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.data.ExperimentalHorologistDataLayerApi"
     }
 
     composeOptions {
         kotlinCompilerExtensionVersion libs.versions.compose.compiler.get()
+    }
+}
+
+sourceSets {
+    main.java.srcDirs("build/generated/source/proto/debug/java")
+    main.java.srcDirs("build/generated/source/proto/debug/grpc")
+    main.java.srcDirs("build/generated/source/proto/debug/kotlin")
+    main.java.srcDirs("build/generated/source/proto/debug/grpckt")
+}
+
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.21.4'
+    }
+    plugins {
+        javalite {
+            artifact = 'com.google.protobuf:protoc-gen-javalite:3.0.0'
+        }
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.47.0"
+        }
+        grpckt {
+            artifact = "io.grpc:protoc-gen-grpc-kotlin:1.3.0:jdk8@jar"
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java {
+                    option "lite"
+                }
+                kotlin {
+                    option "lite"
+                }
+            }
+            task.plugins {
+                grpc {
+                    option "lite"
+                }
+                grpckt {
+                    option "lite"
+                }
+            }
+        }
     }
 }
 
@@ -91,6 +136,7 @@ dependencies {
     implementation projects.networkAwareness
     implementation projects.tiles
     implementation projects.composeTools
+    implementation projects.datalayer
 
     implementation libs.compose.ui.tooling
     implementation libs.compose.ui.util
@@ -109,12 +155,21 @@ dependencies {
     implementation libs.androidx.activity.compose
     implementation libs.androidx.wear.tiles
     implementation libs.androidx.wear.tiles.material
+    implementation libs.kotlinx.coroutines.playservices
 
     implementation libs.coil
 
     implementation libs.lottie.compose
 
     implementation libs.kotlin.stdlib
+
+    implementation "com.google.protobuf:protobuf-kotlin-lite:3.21.4"
+
+    api("io.grpc:grpc-stub:1.47.0")
+    api("io.grpc:grpc-protobuf-lite:1.47.0")
+    api("io.grpc:grpc-kotlin-stub:1.3.0")
+    api("io.grpc:grpc-stub:1.47.0")
+    api("com.google.protobuf:protobuf-javalite:3.21.5")
 
     debugImplementation projects.composeTools
 

@@ -39,7 +39,7 @@ class WearDataLayerRegistryTest {
 
         val scope = CoroutineScope(this.coroutineContext + Job())
 
-        val registry = WearDataLayerRegistry.fromContext(context)
+        val registry = WearDataLayerRegistry.fromContext(context, scope)
 
         val path = WearDataLayerRegistry.preferencesPath("settings")
         val preferencesDataStore = registry.preferencesDataStore(

@@ -102,13 +102,15 @@ fun MediaPlayerTestCase(
                 ) {
                     Box(modifier = Modifier.fillMaxSize()) {
                         PagerScreen(count = 2) {
-                            PlayerScreen(
-                                modifier = Modifier.fillMaxSize(),
-                                mediaDisplay = { mediaDisplay() },
-                                controlButtons = { controlButtons() },
-                                buttons = { buttons() },
-                                background = background
-                            )
+                            if (it == 0) {
+                                PlayerScreen(
+                                    modifier = Modifier.fillMaxSize(),
+                                    mediaDisplay = { mediaDisplay() },
+                                    controlButtons = { controlButtons() },
+                                    buttons = { buttons() },
+                                    background = background
+                                )
+                            }
                         }
                     }
                 }

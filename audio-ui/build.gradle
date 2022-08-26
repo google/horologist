@@ -110,6 +110,7 @@ dependencies {
 
     api libs.wearcompose.material
     api libs.wearcompose.foundation
+    implementation libs.androidx.corektx
 
     implementation libs.compose.material.iconscore
     implementation libs.compose.material.iconsext

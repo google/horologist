@@ -16,61 +16,74 @@
 
 package com.google.android.horologist.audio.ui
 
+import android.graphics.drawable.GradientDrawable
+import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.compose.ui.layout.LayoutInfo
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.node.RootForTest
+import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewRootForTest
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsNode
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
+import androidx.core.view.children
+import androidx.core.view.doOnPreDraw
 import app.cash.paparazzi.RenderExtension
 
 class ComposeA11yExtension : RenderExtension {
-    private var rootForTest: RootForTest? = null
+    private lateinit var rootForTest: RootForTest
 
     init {
         ViewRootForTest.onViewCreatedCallback = { viewRoot ->
             viewRoot.view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
                 override fun onViewAttachedToWindow(p0: View?) {
-                    Exception("Attach").printStackTrace()
-
-                    if (p0 is RootForTest) {
-                        rootForTest = p0
-                    }
+                    rootForTest = p0 as RootForTest
                 }
 
                 override fun onViewDetachedFromWindow(p0: View?) {
-                    if (p0 is RootForTest) {
-                        printChildren(p0.semanticsOwner.rootSemanticsNode)
-                    }
                 }
             })
         }
     }
 
+    data class AccessibilityElement(
+        val layoutInfo: LayoutInfo,
+        val contentDescription: List<String>?,
+        val stateDescription: String?,
+        val onClickLabel: String?,
+    )
+
     private fun printChildren(p0: SemanticsNode) {
+        processAccessibleChildren(p0) {
+            println("Position: ${it.layoutInfo.coordinates.positionInRoot()} ${it.layoutInfo.coordinates.size}")
+            if (it.contentDescription != null) {
+                println("Content Description ${it.contentDescription}")
+            }
+            if (it.stateDescription != null) {
+                println("State Description ${it.stateDescription}")
+            }
+            if (it.onClickLabel != null) {
+                println("On Click ${it.onClickLabel}")
+            }
+        }
+    }
+
+
+    private fun processAccessibleChildren(p0: SemanticsNode, fn: (AccessibilityElement) -> Unit) {
         val contentDescription = p0.config.getOrNull(SemanticsProperties.ContentDescription)
         val stateDescription = p0.config.getOrNull(SemanticsProperties.StateDescription)
         val onClickLabel = p0.config.getOrNull(SemanticsActions.OnClick)?.label
 
         if (contentDescription != null || stateDescription != null || onClickLabel != null) {
-            println("Position: ${p0.layoutInfo.coordinates.positionInRoot()} ${p0.layoutInfo.coordinates.size}")
-            if (contentDescription != null) {
-                println("Content Description $contentDescription")
-            }
-            if (stateDescription != null) {
-                println("State Description $stateDescription")
-            }
-            if (onClickLabel != null) {
-                println("On Click $onClickLabel")
-            }
+            fn(AccessibilityElement(p0.layoutInfo, contentDescription, stateDescription, onClickLabel))
         }
 
         p0.children.forEach {
-            printChildren(it)
+            processAccessibleChildren(it, fn)
         }
     }
 
@@ -83,15 +96,13 @@ class ComposeA11yExtension : RenderExtension {
     }
 
     override fun renderView(contentView: View): View {
-        Exception("renderView").printStackTrace()
-
-        rootForTest?.let {
-            printChildren(it.semanticsOwner.rootSemanticsNode)
-        }
+        val composeView = (contentView as ViewGroup).children.first() as ComposeView
 
         return LinearLayout(contentView.context).apply {
+            val linearLayout = this
+
             orientation = LinearLayout.HORIZONTAL
-            weightSum = 2f
+            weightSum = 1f
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -106,14 +117,48 @@ class ComposeA11yExtension : RenderExtension {
                     1f
                 )
             )
-            addView(
-                buildAccessibilityView(contentView),
-                LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    1f
-                )
-            )
+//            val accessibilityView = buildAccessibilityView(contentView)
+//            addView(
+//                accessibilityView,
+//                LinearLayout.LayoutParams(
+//                    ViewGroup.LayoutParams.MATCH_PARENT,
+//                    ViewGroup.LayoutParams.MATCH_PARENT,
+//                    1f
+//                )
+//            )
+
+            composeView.doOnPreDraw {
+                printChildren(rootForTest.semanticsOwner.rootSemanticsNode)
+                processAccessibleChildren(rootForTest.semanticsOwner.rootSemanticsNode) {
+                    linearLayout.addView(View(context).apply {
+                        val innerMargin = dip(4)
+
+                        layoutParams = ViewGroup.LayoutParams(
+                            dip(DEFAULT_RECT_SIZE),
+                            dip(DEFAULT_RECT_SIZE)
+                        )
+                        background = GradientDrawable(
+                            GradientDrawable.Orientation.TOP_BOTTOM,
+                            intArrayOf(android.graphics.Color.CYAN, android.graphics.Color.CYAN)
+                        ).apply {
+                            cornerRadius = dip(DEFAULT_RECT_SIZE / 4f)
+                        }
+                        setPaddingRelative(innerMargin, innerMargin, innerMargin, innerMargin)
+                    })
+                }
+            }
         }
     }
 }
+
+private fun View.dip(value: Float): Float =
+    TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        value,
+        resources.displayMetrics
+    )
+
+private fun View.dip(value: Int): Int = dip(value.toFloat()).toInt()
+
+const val DEFAULT_TEXT_SIZE: Float = 10f
+const val DEFAULT_RECT_SIZE: Int = 16

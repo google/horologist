@@ -36,10 +36,11 @@ fun PlaylistDownloadScreenPreviewLoading() {
     PlaylistDownloadScreen(
         playlistName = "Playlist name",
         playlistDownloadScreenState = PlaylistDownloadScreenState.Loading(),
-        onDownloadClick = { },
+        onDownloadButtonClick = { },
+        onCancelDownloadButtonClick = { },
         onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
+        onShuffleButtonClick = { },
+        onPlayButtonClick = { },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     )
@@ -54,10 +55,11 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloaded() {
             playlistModel = playlistUiModel,
             downloadMediaList = notDownloaded
         ),
-        onDownloadClick = { },
+        onDownloadButtonClick = { },
+        onCancelDownloadButtonClick = { },
         onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
+        onShuffleButtonClick = { },
+        onPlayButtonClick = { },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
@@ -76,10 +78,11 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
             playlistModel = playlistUiModel,
             downloadMediaList = notDownloadedAndDownloading
         ),
-        onDownloadClick = { },
+        onDownloadButtonClick = { },
+        onCancelDownloadButtonClick = { },
         onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
+        onShuffleButtonClick = { },
+        onPlayButtonClick = { },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
@@ -98,10 +101,11 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloaded() {
             playlistModel = playlistUiModel,
             downloadMediaList = downloadedNotDownloaded
         ),
-        onDownloadClick = { },
+        onDownloadButtonClick = { },
+        onCancelDownloadButtonClick = { },
         onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
+        onShuffleButtonClick = { },
+        onPlayButtonClick = { },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
@@ -120,10 +124,34 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize
             playlistModel = playlistUiModel,
             downloadMediaList = downloadedAndDownloadingUnknown
         ),
-        onDownloadClick = { },
+        onDownloadButtonClick = { },
+        onCancelDownloadButtonClick = { },
         onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
+        onShuffleButtonClick = { },
+        onPlayButtonClick = { },
+        focusRequester = FocusRequester(),
+        scalingLazyListState = rememberScalingLazyListState(),
+        downloadItemArtworkPlaceholder = rememberVectorPainter(
+            image = Icons.Default.MusicNote,
+            tintColor = Color.Blue
+        )
+    )
+}
+
+@WearPreviewDevices
+@Composable
+fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting() {
+    PlaylistDownloadScreen(
+        playlistName = "Playlist name",
+        playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
+            playlistModel = playlistUiModel,
+            downloadMediaList = downloadedAndDownloadingWaiting
+        ),
+        onDownloadButtonClick = { },
+        onCancelDownloadButtonClick = { },
+        onDownloadItemClick = { },
+        onShuffleButtonClick = { },
+        onPlayButtonClick = { },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
@@ -142,10 +170,11 @@ fun PlaylistDownloadScreenPreviewLoadedFullyDownloaded() {
             playlistModel = playlistUiModel,
             downloadMediaList = downloaded
         ),
-        onDownloadClick = { },
+        onDownloadButtonClick = { },
+        onCancelDownloadButtonClick = { },
         onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
+        onShuffleButtonClick = { },
+        onPlayButtonClick = { },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
@@ -161,10 +190,11 @@ fun PlaylistDownloadScreenPreviewFailed() {
     PlaylistDownloadScreen(
         playlistName = "Playlist name",
         playlistDownloadScreenState = PlaylistDownloadScreenState.Failed(),
-        onDownloadClick = { },
+        onDownloadButtonClick = { },
+        onCancelDownloadButtonClick = { },
         onDownloadItemClick = { },
-        onShuffleClick = { },
-        onPlayClick = { },
+        onShuffleButtonClick = { },
+        onPlayButtonClick = { },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     )
@@ -200,7 +230,7 @@ private val notDownloadedAndDownloading = listOf(
     DownloadMediaUiModel.Downloading(
         id = "id 2",
         title = "Song name 2",
-        progress = "78",
+        progress = DownloadMediaUiModel.Progress.InProgress("78"),
         size = DownloadMediaUiModel.Size.Known(sizeInBytes = 123456L),
         artworkUri = "artworkUri"
     )
@@ -216,7 +246,23 @@ private val downloadedAndDownloadingUnknown = listOf(
     DownloadMediaUiModel.Downloading(
         id = "id 2",
         title = "Song name 2",
-        progress = "78",
+        progress = DownloadMediaUiModel.Progress.InProgress("78"),
+        size = DownloadMediaUiModel.Size.Unknown,
+        artworkUri = "artworkUri"
+    )
+)
+
+private val downloadedAndDownloadingWaiting = listOf(
+    DownloadMediaUiModel.Downloaded(
+        id = "id",
+        title = "Song name",
+        artist = "Artist name",
+        artworkUri = "artworkUri"
+    ),
+    DownloadMediaUiModel.Downloading(
+        id = "id 2",
+        title = "Song name 2",
+        progress = DownloadMediaUiModel.Progress.Waiting,
         size = DownloadMediaUiModel.Size.Unknown,
         artworkUri = "artworkUri"
     )

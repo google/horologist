@@ -14,12 +14,6 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.networks
+package com.google.android.horologist.media.ui.util
 
-import com.google.android.horologist.networks.data.DataUsageReport
-import com.google.android.horologist.networks.data.Networks
-
-data class NetworkStatusAppState(
-    val networks: Networks,
-    val dataUsage: DataUsageReport? = null
-)
+internal fun Float.ifNan(default: Float) = if (isNaN()) default else this

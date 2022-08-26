@@ -58,6 +58,9 @@ fun MenuScreen(
         state = scrollState
     ) {
         item {
+            NetworkChip { navigateToRoute(Screen.Network.route) }
+        }
+        item {
             FillMaxRectangleChip(navigateToRoute)
         }
         item {

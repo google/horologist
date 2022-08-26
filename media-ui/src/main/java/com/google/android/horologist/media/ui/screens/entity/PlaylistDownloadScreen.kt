@@ -17,33 +17,45 @@
 package com.google.android.horologist.media.ui.screens.entity
 
 import android.text.format.Formatter
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.DownloadDone
-import androidx.compose.material.icons.filled.Downloading
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.Button
+import androidx.wear.compose.material.ButtonDefaults
+import androidx.wear.compose.material.CircularProgressIndicator
+import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.base.SecondaryPlaceholderChip
 import com.google.android.horologist.media.ui.components.base.StandardButton
+import com.google.android.horologist.media.ui.components.base.StandardButtonSize
 import com.google.android.horologist.media.ui.components.base.StandardButtonType
 import com.google.android.horologist.media.ui.components.base.StandardChip
 import com.google.android.horologist.media.ui.components.base.StandardChipType
+import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
+import com.google.android.horologist.media.ui.util.ifNan
 
 /**
  * An implementation of [EntityScreen] using [PlaylistUiModel] and [DownloadMediaUiModel] as
@@ -54,13 +66,15 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 public fun PlaylistDownloadScreen(
     playlistName: String,
     playlistDownloadScreenState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
-    onDownloadClick: (PlaylistUiModel) -> Unit,
+    onDownloadButtonClick: (PlaylistUiModel) -> Unit,
+    onCancelDownloadButtonClick: (PlaylistUiModel) -> Unit,
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
-    onShuffleClick: (PlaylistUiModel) -> Unit,
-    onPlayClick: (PlaylistUiModel) -> Unit,
+    onShuffleButtonClick: (PlaylistUiModel) -> Unit,
+    onPlayButtonClick: (PlaylistUiModel) -> Unit,
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
+    onDownloadCompletedButtonClick: ((PlaylistUiModel) -> Unit)? = null,
     defaultMediaTitle: String = "",
     downloadItemArtworkPlaceholder: Painter? = null
 ) {
@@ -81,22 +95,27 @@ public fun PlaylistDownloadScreen(
 
             val secondaryLabel = when (downloadMediaUiModel) {
                 is DownloadMediaUiModel.Downloading -> {
-                    when (downloadMediaUiModel.size) {
-                        is DownloadMediaUiModel.Size.Known -> {
-                            val size = Formatter.formatShortFileSize(
-                                LocalContext.current,
-                                downloadMediaUiModel.size.sizeInBytes
-                            )
-                            stringResource(
-                                id = R.string.horologist_playlist_download_download_progress_known_size,
-                                downloadMediaUiModel.progress,
-                                size
+                    when (downloadMediaUiModel.progress) {
+                        is DownloadMediaUiModel.Progress.Waiting -> stringResource(
+                            id = R.string.horologist_playlist_download_download_progress_waiting
+                        )
+                        is DownloadMediaUiModel.Progress.InProgress -> when (downloadMediaUiModel.size) {
+                            is DownloadMediaUiModel.Size.Known -> {
+                                val size = Formatter.formatShortFileSize(
+                                    LocalContext.current,
+                                    downloadMediaUiModel.size.sizeInBytes
+                                )
+                                stringResource(
+                                    id = R.string.horologist_playlist_download_download_progress_known_size,
+                                    downloadMediaUiModel.progress.progress,
+                                    size
+                                )
+                            }
+                            DownloadMediaUiModel.Size.Unknown -> stringResource(
+                                id = R.string.horologist_playlist_download_download_progress_unknown_size,
+                                downloadMediaUiModel.progress
                             )
                         }
-                        DownloadMediaUiModel.Size.Unknown -> stringResource(
-                            id = R.string.horologist_playlist_download_download_progress_unknown_size,
-                            downloadMediaUiModel.progress
-                        )
                     }
                 }
                 is DownloadMediaUiModel.Downloaded -> downloadMediaUiModel.artist
@@ -120,9 +139,12 @@ public fun PlaylistDownloadScreen(
         buttonsContent = {
             ButtonsContent(
                 state = playlistDownloadScreenState,
-                onDownloadClick = onDownloadClick,
-                onShuffleClick = onShuffleClick,
-                onPlayClick = onPlayClick
+                onDownloadButtonClick = onDownloadButtonClick,
+                onCancelDownloadButtonClick = onCancelDownloadButtonClick,
+                onDownloadCompletedButtonClick = onDownloadCompletedButtonClick
+                    ?: { /* do nothing */ },
+                onShuffleButtonClick = onShuffleButtonClick,
+                onPlayButtonClick = onPlayButtonClick
             )
         }
     )
@@ -132,16 +154,18 @@ public fun PlaylistDownloadScreen(
 @Composable
 private fun ButtonsContent(
     state: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
-    onDownloadClick: (PlaylistUiModel) -> Unit,
-    onShuffleClick: (PlaylistUiModel) -> Unit,
-    onPlayClick: (PlaylistUiModel) -> Unit
+    onDownloadButtonClick: (PlaylistUiModel) -> Unit,
+    onCancelDownloadButtonClick: (PlaylistUiModel) -> Unit,
+    onDownloadCompletedButtonClick: (PlaylistUiModel) -> Unit,
+    onShuffleButtonClick: (PlaylistUiModel) -> Unit,
+    onPlayButtonClick: (PlaylistUiModel) -> Unit
 ) {
     when (state) {
         is PlaylistDownloadScreenState.Failed,
         is PlaylistDownloadScreenState.Loading -> {
             StandardChip(
                 label = stringResource(id = R.string.horologist_playlist_download_button_download),
-                onClick = { },
+                onClick = { /* do nothing */ },
                 modifier = Modifier.padding(bottom = 16.dp),
                 icon = Icons.Default.Download,
                 enabled = false
@@ -149,18 +173,18 @@ private fun ButtonsContent(
         }
 
         is PlaylistDownloadScreenState.Loaded -> {
-            if (state.downloadsState == PlaylistDownloadScreenState.Loaded.DownloadMediaListState.None) {
-                if (state.downloading) {
+            if (state.downloadMediaListState == PlaylistDownloadScreenState.Loaded.DownloadMediaListState.None) {
+                if (state.downloadsProgress is DownloadsProgress.InProgress) {
                     StandardChip(
-                        label = stringResource(id = R.string.horologist_playlist_download_button_downloading),
-                        onClick = { },
+                        label = stringResource(id = R.string.horologist_playlist_download_button_cancel),
+                        onClick = { onCancelDownloadButtonClick(state.collectionModel) },
                         modifier = Modifier.padding(bottom = 16.dp),
-                        icon = Icons.Default.Download
+                        icon = Icons.Default.Close
                     )
                 } else {
                     StandardChip(
                         label = stringResource(id = R.string.horologist_playlist_download_button_download),
-                        onClick = { onDownloadClick(state.collectionModel) },
+                        onClick = { onDownloadButtonClick(state.collectionModel) },
                         modifier = Modifier.padding(bottom = 16.dp),
                         icon = Icons.Default.Download
                     )
@@ -173,10 +197,12 @@ private fun ButtonsContent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     FirstButton(
-                        downloadMediaListState = state.downloadsState,
-                        downloading = state.downloading,
+                        downloadMediaListState = state.downloadMediaListState,
+                        downloadsProgress = state.downloadsProgress,
                         collectionModel = state.collectionModel,
-                        onDownloadClick = onDownloadClick,
+                        onDownloadButtonClick = onDownloadButtonClick,
+                        onCancelDownloadButtonClick = onCancelDownloadButtonClick,
+                        onDownloadCompletedButtonClick = onDownloadCompletedButtonClick,
                         modifier = Modifier
                             .padding(start = 6.dp)
                             .weight(weight = 0.3F, fill = false)
@@ -185,7 +211,7 @@ private fun ButtonsContent(
                     StandardButton(
                         imageVector = Icons.Default.Shuffle,
                         contentDescription = stringResource(id = R.string.horologist_playlist_download_button_shuffle_content_description),
-                        onClick = { onShuffleClick(state.collectionModel) },
+                        onClick = { onShuffleButtonClick(state.collectionModel) },
                         modifier = Modifier
                             .padding(start = 6.dp)
                             .weight(weight = 0.3F, fill = false)
@@ -194,7 +220,7 @@ private fun ButtonsContent(
                     StandardButton(
                         imageVector = Icons.Filled.PlayArrow,
                         contentDescription = stringResource(id = R.string.horologist_playlist_download_button_play_content_description),
-                        onClick = { onPlayClick(state.collectionModel) },
+                        onClick = { onPlayButtonClick(state.collectionModel) },
                         modifier = Modifier
                             .padding(start = 6.dp)
                             .weight(weight = 0.3F, fill = false)
@@ -209,43 +235,59 @@ private fun ButtonsContent(
 @Composable
 private fun <Collection> FirstButton(
     downloadMediaListState: PlaylistDownloadScreenState.Loaded.DownloadMediaListState,
-    downloading: Boolean,
+    downloadsProgress: DownloadsProgress,
     collectionModel: Collection,
-    onDownloadClick: (Collection) -> Unit,
+    onDownloadButtonClick: (Collection) -> Unit,
+    onCancelDownloadButtonClick: (Collection) -> Unit,
+    onDownloadCompletedButtonClick: (Collection) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val (icon, contentDescription) = when (downloadMediaListState) {
-        PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Partially -> {
-            if (downloading) {
-                Pair(
-                    Icons.Default.Downloading,
-                    R.string.horologist_playlist_download_button_downloading_content_description
-                )
-            } else {
-                Pair(
-                    Icons.Default.Download,
-                    R.string.horologist_playlist_download_button_download_content_description
-                )
-            }
-        }
-        PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Fully -> {
-            Pair(
-                Icons.Default.DownloadDone,
-                R.string.horologist_playlist_download_button_download_done_content_description
+    if (downloadsProgress is DownloadsProgress.InProgress) {
+        Button(
+            onClick = { onCancelDownloadButtonClick(collectionModel) },
+            modifier = modifier.size(StandardButtonSize.Default.tapTargetSize),
+            enabled = true,
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent)
+        ) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        ButtonDefaults
+                            .secondaryButtonColors()
+                            .backgroundColor(enabled = true).value
+                    ),
+                progress = downloadsProgress.progress.ifNan(0f),
+                indicatorColor = MaterialTheme.colors.primary,
+                trackColor = MaterialTheme.colors.onSurface.copy(alpha = 0.10f)
+            )
+            Icon(
+                imageVector = Icons.Default.Close,
+                contentDescription = stringResource(id = R.string.horologist_playlist_download_button_cancel_content_description),
+                modifier = Modifier
+                    .size(StandardButtonSize.Default.iconSize)
+                    .align(Alignment.Center)
             )
         }
-        else -> {
-            error("Invalid state to be used with this button")
-        }
+    } else if (downloadMediaListState == PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Partially) {
+        StandardButton(
+            imageVector = Icons.Default.Download,
+            contentDescription = stringResource(id = R.string.horologist_playlist_download_button_download_content_description),
+            onClick = { onDownloadButtonClick(collectionModel) },
+            modifier = modifier,
+            buttonType = StandardButtonType.Secondary
+        )
+    } else if (downloadMediaListState == PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Fully) {
+        StandardButton(
+            imageVector = Icons.Default.DownloadDone,
+            contentDescription = stringResource(id = R.string.horologist_playlist_download_button_download_done_content_description),
+            onClick = { onDownloadCompletedButtonClick(collectionModel) },
+            modifier = modifier,
+            buttonType = StandardButtonType.Secondary
+        )
+    } else {
+        error("Invalid state to be used with this button")
     }
-
-    StandardButton(
-        imageVector = icon,
-        contentDescription = stringResource(id = contentDescription),
-        onClick = { onDownloadClick(collectionModel) },
-        modifier = modifier,
-        buttonType = StandardButtonType.Secondary
-    )
 }
 
 /**
@@ -259,17 +301,28 @@ public sealed class PlaylistDownloadScreenState<Collection, Media> {
     public data class Loaded<Collection, Media>(
         val collectionModel: Collection,
         val mediaList: List<Media>,
-        val downloadsState: DownloadMediaListState,
-        val downloading: Boolean = false
+        val downloadMediaListState: DownloadMediaListState,
+        val downloadsProgress: DownloadsProgress = DownloadsProgress.Idle
     ) : PlaylistDownloadScreenState<Collection, Media>() {
 
         /**
-         * Represents the state of the list of [Media] when [PlaylistDownloadScreenState] is [Loaded].
+         * Represents the state of the list of [Loaded.mediaList] when [PlaylistDownloadScreenState]
+         * is [Loaded].
          */
         public enum class DownloadMediaListState {
             None,
             Partially,
             Fully
+        }
+
+        /**
+         * Represents the status of the downloads when [PlaylistDownloadScreenState] is [Loaded].
+         */
+        public sealed class DownloadsProgress {
+
+            public object Idle : DownloadsProgress()
+
+            public data class InProgress(val progress: Float) : DownloadsProgress()
         }
     }
 
@@ -278,25 +331,38 @@ public sealed class PlaylistDownloadScreenState<Collection, Media> {
 
 /**
  * A helper function to build a [EntityScreenState.Loaded] with [PlaylistUiModel] and
- * [DownloadMediaUiModel], calculating the value of [PlaylistDownloadScreenState.Loaded.downloadsState].
+ * [DownloadMediaUiModel], calculating the value of [PlaylistDownloadScreenState.Loaded.downloadMediaListState].
  */
 @ExperimentalHorologistMediaUiApi
 public fun createPlaylistDownloadScreenStateLoaded(
     playlistModel: PlaylistUiModel,
     downloadMediaList: List<DownloadMediaUiModel>
 ): PlaylistDownloadScreenState.Loaded<PlaylistUiModel, DownloadMediaUiModel> {
-    var downloading = false
+    var downloadsProgress: DownloadsProgress = DownloadsProgress.Idle
 
     val downloadsState = if (downloadMediaList.isEmpty()) {
         PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Fully
     } else {
         var none = true
         var fully = true
+        var downloading = false
 
+        var downloadedCount = 0
         downloadMediaList.forEach {
-            if (it is DownloadMediaUiModel.Downloaded) none = false
+            if (it is DownloadMediaUiModel.Downloaded) {
+                downloadedCount++
+                none = false
+            }
             if (it is DownloadMediaUiModel.NotDownloaded) fully = false
-            if (it is DownloadMediaUiModel.Downloading) downloading = true
+            if (it is DownloadMediaUiModel.Downloading) {
+                fully = false
+                downloading = true
+            }
+        }
+
+        if (downloading) {
+            downloadsProgress =
+                DownloadsProgress.InProgress(downloadedCount.toFloat() / downloadMediaList.size)
         }
 
         when {
@@ -309,7 +375,7 @@ public fun createPlaylistDownloadScreenStateLoaded(
     return PlaylistDownloadScreenState.Loaded(
         collectionModel = playlistModel,
         mediaList = downloadMediaList,
-        downloadsState = downloadsState,
-        downloading = downloading
+        downloadMediaListState = downloadsState,
+        downloadsProgress = downloadsProgress
     )
 }

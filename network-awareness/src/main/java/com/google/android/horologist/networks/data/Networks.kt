@@ -16,8 +16,10 @@
 
 package com.google.android.horologist.networks.data
 
+import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import java.net.InetAddress
 
+@ExperimentalHorologistNetworksApi
 public data class Networks(val activeNetwork: NetworkStatus?, val networks: List<NetworkStatus>) {
     public fun findNetworkByAddress(localSocketAddress: InetAddress): NetworkStatus? {
         return networks.find { networkStatus ->

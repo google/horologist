@@ -20,13 +20,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import com.google.android.horologist.components.SampleApplication
 import com.google.android.horologist.networks.data.DataRequestRepository
+import com.google.android.horologist.networks.data.DataUsageReport
+import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.status.NetworkRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
-public class NetworksViewModel(
+public class NetworkStatusViewModel(
     private val networkRepository: NetworkRepository,
     private val dataRequestRepository: DataRequestRepository
 ) : ViewModel() {
@@ -46,15 +49,21 @@ public class NetworksViewModel(
                 )
             )
 
-    public class Factory(
-        private val networkRepository: NetworkRepository,
-        private val dataRequestRepository: DataRequestRepository
-    ) : ViewModelProvider.Factory {
+    data class NetworkStatusAppState(
+        val networks: Networks,
+        val dataUsage: DataUsageReport? = null
+    )
+
+    public object Factory : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-            check(modelClass == NetworksViewModel::class.java)
+            check(modelClass == NetworkStatusViewModel::class.java)
 
-            return NetworksViewModel(
+            val application = extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as SampleApplication
+            val networkRepository = application.networkRepository
+            val dataRequestRepository = application.dataRequestRepository
+
+            return NetworkStatusViewModel(
                 networkRepository = networkRepository,
                 dataRequestRepository = dataRequestRepository
             ) as T

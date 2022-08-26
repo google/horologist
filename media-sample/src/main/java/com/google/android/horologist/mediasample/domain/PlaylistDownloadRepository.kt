@@ -28,4 +28,6 @@ interface PlaylistDownloadRepository {
     fun get(playlistId: String): Flow<PlaylistDownload?>
 
     fun download(playlist: Playlist)
+
+    fun remove(playlist: Playlist)
 }

@@ -34,14 +34,15 @@
     <string name="horologist_browse_library_settings">Settings</string>
     <string name="horologist_browse_playlist_title">Playlists</string>
     <string name="horologist_playlist_download_button_download">Download to your watch</string>
-    <string name="horologist_playlist_download_button_downloading">Downloading…</string>
-    <string name="horologist_playlist_download_button_download_content_description">Download</string>
-    <string name="horologist_playlist_download_button_downloading_content_description">Downloading</string>
-    <string name="horologist_playlist_download_button_download_done_content_description">Download done</string>
+    <string name="horologist_playlist_download_button_cancel">Cancel</string>
+    <string name="horologist_playlist_download_button_download_content_description">Download available</string>
+    <string name="horologist_playlist_download_button_cancel_content_description">Cancel downloads</string>
+    <string name="horologist_playlist_download_button_download_done_content_description">Downloaded</string>
     <string name="horologist_playlist_download_button_shuffle_content_description">Shuffle</string>
     <string name="horologist_playlist_download_button_play_content_description">Play</string>
     <string name="horologist_playlist_download_download_progress_unknown_size">%1$s%%</string>
     <string name="horologist_playlist_download_download_progress_known_size">%1$s%% of %2$s</string>
+    <string name="horologist_playlist_download_download_progress_waiting">Waiting…</string>
     <string name="horologist_preview_app_name">UAMP</string>
     <string name="horologist_preview_favorites">Favorites</string>
 </resources>

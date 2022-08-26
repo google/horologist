@@ -16,13 +16,18 @@
 
 package com.google.android.horologist.networks.data
 
+import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+
+@ExperimentalHorologistNetworksApi
 public interface RequestType {
+    @ExperimentalHorologistNetworksApi
     public object ImageRequest : RequestType {
         override fun toString(): String {
             return "image"
         }
     }
 
+    @ExperimentalHorologistNetworksApi
     public class MediaRequest(public val type: MediaRequestType) : RequestType {
         public val name: String = "media-${type.toString().lowercase()}"
         public enum class MediaRequestType {
@@ -31,18 +36,21 @@ public interface RequestType {
         override fun toString(): String = name
     }
 
+    @ExperimentalHorologistNetworksApi
     public object ApiRequest : RequestType {
         override fun toString(): String {
             return "api"
         }
     }
 
+    @ExperimentalHorologistNetworksApi
     public object LogsRequest : RequestType {
         override fun toString(): String {
             return "logs"
         }
     }
 
+    @ExperimentalHorologistNetworksApi
     public object UnknownRequest : RequestType {
         override fun toString(): String {
             return "unknown"

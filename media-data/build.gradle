@@ -17,6 +17,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'com.google.devtools.ksp'
     id 'org.jetbrains.dokka'
 }
 
@@ -82,6 +83,10 @@ dependencies {
     implementation libs.kotlinx.coroutines.core
     implementation libs.androidx.wear
     implementation projectOrDependency(":media-lib-common", libs.androidx.media3.common)
+    implementation projectOrDependency(":media-lib-exoplayer", libs.androidx.media3.exoplayer)
+    implementation libs.room.common
+    implementation libs.room.ktx
+    ksp libs.room.compiler
 
     testImplementation libs.junit
     testImplementation libs.truth

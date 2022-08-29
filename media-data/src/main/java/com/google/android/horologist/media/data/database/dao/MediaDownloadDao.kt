@@ -14,19 +14,24 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.database.dao
+package com.google.android.horologist.media.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntity
-import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntityStatus
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.media.data.database.model.MediaDownloadEntity
+import com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * DAO for [MediaDownloadEntity].
+ */
+@ExperimentalHorologistMediaDataApi
 @Dao
-interface MediaDownloadDao {
+public interface MediaDownloadDao {
 
     @Query(
         value = """
@@ -34,7 +39,7 @@ interface MediaDownloadDao {
         WHERE mediaId in (:mediaIds)
     """
     )
-    fun getList(mediaIds: List<String>): Flow<List<MediaDownloadEntity>>
+    public fun getList(mediaIds: List<String>): Flow<List<MediaDownloadEntity>>
 
     @Query(
         value = """
@@ -42,12 +47,12 @@ interface MediaDownloadDao {
         WHERE status = :status
     """
     )
-    suspend fun getAllByStatus(
+    public suspend fun getAllByStatus(
         status: MediaDownloadEntityStatus
     ): List<MediaDownloadEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(mediaDownloadEntity: MediaDownloadEntity): Long
+    public suspend fun insert(mediaDownloadEntity: MediaDownloadEntity): Long
 
     @Query(
         """
@@ -56,7 +61,7 @@ interface MediaDownloadDao {
         WHERE mediaId = :mediaId
     """
     )
-    suspend fun updateStatus(mediaId: String, status: MediaDownloadEntityStatus)
+    public suspend fun updateStatus(mediaId: String, status: MediaDownloadEntityStatus)
 
     @Query(
         """
@@ -66,10 +71,10 @@ interface MediaDownloadDao {
         WHERE mediaId = :mediaId
     """
     )
-    suspend fun updateProgress(mediaId: String, progress: Float, size: Long)
+    public suspend fun updateProgress(mediaId: String, progress: Float, size: Long)
 
     @Update(entity = MediaDownloadEntity::class)
-    suspend fun updateStatusAndProgress(statusAndProgress: StatusAndProgress)
+    public suspend fun updateStatusAndProgress(statusAndProgress: StatusAndProgress)
 
     @Query(
         """
@@ -77,7 +82,7 @@ interface MediaDownloadDao {
         WHERE mediaId = :mediaId
     """
     )
-    suspend fun delete(mediaId: String)
+    public suspend fun delete(mediaId: String)
 
     @Query(
         """
@@ -85,17 +90,17 @@ interface MediaDownloadDao {
         WHERE mediaId in (:mediaIds)
     """
     )
-    suspend fun delete(mediaIds: List<String>)
+    public suspend fun delete(mediaIds: List<String>)
 
-    data class StatusAndProgress(
+    public data class StatusAndProgress(
         val mediaId: String,
         val status: MediaDownloadEntityStatus,
         val progress: Float
     )
 
-    companion object {
-        internal const val DOWNLOAD_PROGRESS_START = 0f
-        internal const val DOWNLOAD_PROGRESS_END = 100f
-        internal const val SIZE_UNKNOWN = -1L
+    public companion object {
+        public const val DOWNLOAD_PROGRESS_START: Float = 0f
+        public const val DOWNLOAD_PROGRESS_END: Float = 100f
+        public const val SIZE_UNKNOWN: Long = -1L
     }
 }

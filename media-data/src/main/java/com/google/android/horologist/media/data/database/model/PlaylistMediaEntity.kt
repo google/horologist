@@ -14,14 +14,23 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.database.model
+package com.google.android.horologist.media.data.database.model
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.Index
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 
-@Entity
-data class PlaylistEntity(
-    @PrimaryKey val playlistId: String,
-    val name: String,
-    val artworkUri: String?
+/**
+ * Cross-reference table that holds relationship between [PlaylistEntity] and [MediaEntity].
+ */
+@ExperimentalHorologistMediaDataApi
+@Entity(
+    primaryKeys = ["playlistId", "mediaId"],
+    indices = [
+        Index(value = ["mediaId"])
+    ]
+)
+public data class PlaylistMediaEntity(
+    val playlistId: String,
+    val mediaId: String
 )

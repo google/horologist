@@ -14,27 +14,30 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.database.dao
+package com.google.android.horologist.media.data.database.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.media.data.database.model.MediaEntity
 
+/**
+ * DAO for [MediaEntity].
+ */
+@ExperimentalHorologistMediaDataApi
 @Dao
-interface PlaylistMediaDao {
+public interface MediaDao {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public suspend fun upsert(mediaList: List<MediaEntity>)
 
     @Query(
         value = """
-        DELETE FROM PlaylistMediaEntity
-        WHERE playlistId in (:playlistIds)
-    """
-    )
-    fun deleteByPlaylistId(playlistIds: List<String>)
-
-    @Query(
-        value = """
-        DELETE FROM PlaylistMediaEntity
+        DELETE FROM MediaEntity
         WHERE mediaId in (:mediaIds)
     """
     )
-    fun deleteByMediaId(mediaIds: List<String>)
+    public suspend fun delete(mediaIds: List<String>)
 }

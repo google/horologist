@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.database.model
+package com.google.android.horologist.media.data.database.model
 
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 
 /**
  * [PlaylistEntity] populated with a list of [MediaEntity].
  */
-data class PopulatedPlaylist(
+@ExperimentalHorologistMediaDataApi
+public data class PopulatedPlaylist(
     @Embedded val playlist: PlaylistEntity,
     @Relation(
         parentColumn = "playlistId",

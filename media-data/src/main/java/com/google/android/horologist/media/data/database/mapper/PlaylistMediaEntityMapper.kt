@@ -14,16 +14,24 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.database.mapper
+package com.google.android.horologist.media.data.database.mapper
 
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.media.data.database.model.PlaylistMediaEntity
+import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.Playlist
-import com.google.android.horologist.mediasample.data.database.model.PlaylistEntity
 
-object PlaylistEntityMapper {
+/**
+ * Functions to map models from other layers and / or packages into a [PlaylistMediaEntity].
+ */
+@ExperimentalHorologistMediaDataApi
+public object PlaylistMediaEntityMapper {
 
-    fun map(playlist: Playlist): PlaylistEntity = PlaylistEntity(
+    /**
+     * Maps from a [Playlist] and [Media].
+     */
+    public fun map(playlist: Playlist, media: Media): PlaylistMediaEntity = PlaylistMediaEntity(
         playlistId = playlist.id,
-        name = playlist.name,
-        artworkUri = playlist.artworkUri
+        mediaId = media.id
     )
 }

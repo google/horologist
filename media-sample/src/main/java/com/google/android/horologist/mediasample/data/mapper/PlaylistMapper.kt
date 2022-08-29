@@ -16,11 +16,11 @@
 
 package com.google.android.horologist.mediasample.data.mapper
 
+import com.google.android.horologist.media.data.database.model.PlaylistEntity
+import com.google.android.horologist.media.data.database.model.PopulatedPlaylist
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.Playlist
 import com.google.android.horologist.mediasample.data.api.model.CatalogApiModel
-import com.google.android.horologist.mediasample.data.database.model.PlaylistEntity
-import com.google.android.horologist.mediasample.data.database.model.PopulatedPlaylist
 
 /**
  * Maps a [CatalogApiModel] into a [List] of [Playlist].

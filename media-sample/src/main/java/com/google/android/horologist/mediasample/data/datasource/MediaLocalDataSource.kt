@@ -18,11 +18,11 @@ package com.google.android.horologist.mediasample.data.datasource
 
 import androidx.room.RoomDatabase
 import androidx.room.withTransaction
+import com.google.android.horologist.media.data.database.dao.MediaDao
+import com.google.android.horologist.media.data.database.dao.MediaDownloadDao
+import com.google.android.horologist.media.data.database.dao.PlaylistMediaDao
+import com.google.android.horologist.media.data.database.mapper.MediaEntityMapper
 import com.google.android.horologist.media.model.Media
-import com.google.android.horologist.mediasample.data.database.dao.MediaDao
-import com.google.android.horologist.mediasample.data.database.dao.MediaDownloadDao
-import com.google.android.horologist.mediasample.data.database.dao.PlaylistMediaDao
-import com.google.android.horologist.mediasample.data.database.mapper.MediaEntityMapper
 
 class MediaLocalDataSource(
     private val roomDatabase: RoomDatabase,

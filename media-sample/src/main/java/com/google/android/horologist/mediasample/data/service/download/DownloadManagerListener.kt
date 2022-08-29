@@ -18,8 +18,8 @@ package com.google.android.horologist.mediasample.data.service.download
 
 import androidx.media3.exoplayer.offline.Download
 import androidx.media3.exoplayer.offline.DownloadManager
-import com.google.android.horologist.mediasample.data.database.mapper.MediaDownloadEntityStatusMapper
-import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntityStatus
+import com.google.android.horologist.media.data.database.mapper.MediaDownloadEntityStatusMapper
+import com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus
 import com.google.android.horologist.mediasample.data.datasource.MediaDownloadLocalDataSource
 import com.google.android.horologist.mediasample.di.annotation.DownloadFeature
 import kotlinx.coroutines.CoroutineScope

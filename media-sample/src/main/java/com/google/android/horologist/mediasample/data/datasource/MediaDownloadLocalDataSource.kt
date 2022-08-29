@@ -16,12 +16,12 @@
 
 package com.google.android.horologist.mediasample.data.datasource
 
-import com.google.android.horologist.mediasample.data.database.dao.MediaDownloadDao
-import com.google.android.horologist.mediasample.data.database.dao.MediaDownloadDao.Companion.DOWNLOAD_PROGRESS_END
-import com.google.android.horologist.mediasample.data.database.dao.MediaDownloadDao.Companion.DOWNLOAD_PROGRESS_START
-import com.google.android.horologist.mediasample.data.database.dao.MediaDownloadDao.Companion.SIZE_UNKNOWN
-import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntity
-import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntityStatus
+import com.google.android.horologist.media.data.database.dao.MediaDownloadDao
+import com.google.android.horologist.media.data.database.dao.MediaDownloadDao.Companion.DOWNLOAD_PROGRESS_END
+import com.google.android.horologist.media.data.database.dao.MediaDownloadDao.Companion.DOWNLOAD_PROGRESS_START
+import com.google.android.horologist.media.data.database.dao.MediaDownloadDao.Companion.SIZE_UNKNOWN
+import com.google.android.horologist.media.data.database.model.MediaDownloadEntity
+import com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus
 import kotlinx.coroutines.flow.Flow
 
 class MediaDownloadLocalDataSource(

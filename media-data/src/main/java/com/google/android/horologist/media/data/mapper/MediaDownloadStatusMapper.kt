@@ -14,15 +14,23 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.mapper
+package com.google.android.horologist.media.data.mapper
 
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.data.database.model.MediaDownloadEntity
 import com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus
 import com.google.android.horologist.media.model.MediaDownload
 
-object MediaDownloadStatusMapper {
+/**
+ * Functions to map models from other layers and / or packages into a [MediaDownload.Status].
+ */
+@ExperimentalHorologistMediaDataApi
+public object MediaDownloadStatusMapper {
 
-    fun map(mediaDownloadEntity: MediaDownloadEntity): MediaDownload.Status = when (mediaDownloadEntity.status) {
+    /**
+     * Maps from a [MediaDownloadEntity].
+     */
+    public fun map(mediaDownloadEntity: MediaDownloadEntity): MediaDownload.Status = when (mediaDownloadEntity.status) {
         MediaDownloadEntityStatus.NotDownloaded -> MediaDownload.Status.Idle
         MediaDownloadEntityStatus.Downloading -> MediaDownload.Status.InProgress(mediaDownloadEntity.progress)
         MediaDownloadEntityStatus.Downloaded -> MediaDownload.Status.Completed

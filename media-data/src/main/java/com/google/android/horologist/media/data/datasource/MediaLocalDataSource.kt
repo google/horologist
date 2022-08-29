@@ -14,27 +14,32 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.datasource
+package com.google.android.horologist.media.data.datasource
 
 import androidx.room.RoomDatabase
 import androidx.room.withTransaction
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.data.database.dao.MediaDao
 import com.google.android.horologist.media.data.database.dao.MediaDownloadDao
 import com.google.android.horologist.media.data.database.dao.PlaylistMediaDao
 import com.google.android.horologist.media.data.database.mapper.MediaEntityMapper
 import com.google.android.horologist.media.model.Media
 
-class MediaLocalDataSource(
+/**
+ * Local data source of [Media].
+ */
+@ExperimentalHorologistMediaDataApi
+public class MediaLocalDataSource(
     private val roomDatabase: RoomDatabase,
     private val mediaDao: MediaDao,
     private val playlistMediaDao: PlaylistMediaDao,
     private val mediaDownloadDao: MediaDownloadDao
 ) {
 
-    suspend fun upsert(mediaList: List<Media>) =
+    public suspend fun upsert(mediaList: List<Media>): Unit =
         mediaDao.upsert(mediaList.map(MediaEntityMapper::map))
 
-    suspend fun delete(mediaIds: List<String>) {
+    public suspend fun delete(mediaIds: List<String>) {
         roomDatabase.withTransaction {
             mediaDownloadDao.delete(mediaIds)
             playlistMediaDao.deleteByMediaId(mediaIds)

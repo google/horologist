@@ -14,17 +14,25 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.mapper
+package com.google.android.horologist.media.data.mapper
 
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.data.database.dao.MediaDownloadDao.Companion.SIZE_UNKNOWN
 import com.google.android.horologist.media.data.database.model.MediaDownloadEntity
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.MediaDownload
 import com.google.android.horologist.media.model.Playlist
 
-object MediaDownloadMapper {
+/**
+ * Functions to map models from other layers and / or packages into a [MediaDownload].
+ */
+@ExperimentalHorologistMediaDataApi
+public object MediaDownloadMapper {
 
-    fun map(media: Media, mediaDownloadEntity: MediaDownloadEntity): MediaDownload = MediaDownload(
+    /**
+     * Maps from [Media] and [MediaDownloadEntity].
+     */
+    public fun map(media: Media, mediaDownloadEntity: MediaDownloadEntity): MediaDownload = MediaDownload(
         media = media,
         status = MediaDownloadStatusMapper.map(mediaDownloadEntity),
         size = if (mediaDownloadEntity.size == SIZE_UNKNOWN) {
@@ -34,7 +42,10 @@ object MediaDownloadMapper {
         }
     )
 
-    fun map(
+    /**
+     * Maps from [Playlist] and a list of [MediaDownloadEntity].
+     */
+    public fun map(
         playlist: Playlist,
         mediaDownloadEntityList: List<MediaDownloadEntity>
     ): List<MediaDownload> =

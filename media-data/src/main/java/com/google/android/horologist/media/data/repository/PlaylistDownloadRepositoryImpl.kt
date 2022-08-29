@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.repository
+package com.google.android.horologist.media.data.repository
 
 import androidx.core.net.toUri
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.media.data.datasource.Media3DownloadDataSource
+import com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource
+import com.google.android.horologist.media.data.datasource.PlaylistLocalDataSource
+import com.google.android.horologist.media.data.mapper.PlaylistDownloadMapper
 import com.google.android.horologist.media.model.Playlist
 import com.google.android.horologist.media.model.PlaylistDownload
 import com.google.android.horologist.media.repository.PlaylistDownloadRepository
-import com.google.android.horologist.mediasample.data.datasource.Media3DownloadDataSource
-import com.google.android.horologist.mediasample.data.datasource.MediaDownloadLocalDataSource
-import com.google.android.horologist.mediasample.data.datasource.PlaylistLocalDataSource
-import com.google.android.horologist.mediasample.data.mapper.PlaylistDownloadMapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -32,11 +33,13 @@ import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
-class PlaylistDownloadRepositoryImpl(
+@ExperimentalHorologistMediaDataApi
+public class PlaylistDownloadRepositoryImpl(
     private val coroutineScope: CoroutineScope,
     private val playlistLocalDataSource: PlaylistLocalDataSource,
     private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
-    private val media3DownloadDataSource: Media3DownloadDataSource
+    private val media3DownloadDataSource: Media3DownloadDataSource,
+    private val playlistDownloadMapper: PlaylistDownloadMapper
 ) : PlaylistDownloadRepository {
 
     @OptIn(FlowPreview::class)
@@ -50,7 +53,7 @@ class PlaylistDownloadRepositoryImpl(
                             .map { it.mediaId }.toList()
                     )
                 ) { _, mediaDownloadList ->
-                    PlaylistDownloadMapper.map(populatedPlaylist, mediaDownloadList)
+                    playlistDownloadMapper.map(populatedPlaylist, mediaDownloadList)
                 }
             } else {
                 flowOf(null)

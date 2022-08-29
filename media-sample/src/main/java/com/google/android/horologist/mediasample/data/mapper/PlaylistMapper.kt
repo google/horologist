@@ -16,9 +16,6 @@
 
 package com.google.android.horologist.mediasample.data.mapper
 
-import com.google.android.horologist.media.data.database.model.PlaylistEntity
-import com.google.android.horologist.media.data.database.model.PopulatedPlaylist
-import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.Playlist
 import com.google.android.horologist.mediasample.data.api.model.CatalogApiModel
 
@@ -38,21 +35,6 @@ object PlaylistMapper {
                     mediaList = entry.value.map(MediaMapper::map)
                 )
             }
-
-    fun map(populatedPlaylist: PopulatedPlaylist): Playlist =
-        Playlist(
-            id = populatedPlaylist.playlist.playlistId,
-            name = populatedPlaylist.playlist.name,
-            artworkUri = populatedPlaylist.playlist.artworkUri,
-            mediaList = populatedPlaylist.mediaList.map(MediaMapper::map)
-        )
-
-    fun map(playlistEntity: PlaylistEntity, mediaList: List<Media>): Playlist = Playlist(
-        id = playlistEntity.playlistId,
-        name = playlistEntity.name,
-        artworkUri = playlistEntity.artworkUri,
-        mediaList = mediaList
-    )
 
     private fun sanitize(it: String): String {
         return it.replace("[^A-Za-z]".toRegex(), "")

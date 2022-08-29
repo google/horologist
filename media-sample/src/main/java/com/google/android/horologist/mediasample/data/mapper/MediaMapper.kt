@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.mediasample.data.mapper
 
-import com.google.android.horologist.media.data.database.model.MediaEntity
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.mediasample.data.api.model.MusicApiModel
 
@@ -31,13 +30,5 @@ object MediaMapper {
         title = musicApiModel.title,
         artist = musicApiModel.artist,
         artworkUri = musicApiModel.image
-    )
-
-    fun map(media: MediaEntity): Media = Media(
-        id = media.mediaId,
-        uri = media.mediaUrl,
-        title = media.title ?: "",
-        artist = media.artist ?: "",
-        artworkUri = media.artworkUrl
     )
 }

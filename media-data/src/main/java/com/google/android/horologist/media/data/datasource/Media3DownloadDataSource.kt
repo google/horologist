@@ -14,19 +14,25 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.datasource
+package com.google.android.horologist.media.data.datasource
 
 import android.content.Context
 import android.net.Uri
 import androidx.media3.exoplayer.offline.DownloadRequest
 import androidx.media3.exoplayer.offline.DownloadService
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.media.model.MediaDownload
 
-class Media3DownloadDataSource(
+/**
+ * Media3 data source of [MediaDownload].
+ */
+@ExperimentalHorologistMediaDataApi
+public class Media3DownloadDataSource(
     private val context: Context,
     private val downloadService: Class<out DownloadService>
 ) {
 
-    fun download(id: String, uri: Uri) {
+    public fun download(id: String, uri: Uri) {
         val downloadRequest = DownloadRequest.Builder(id, uri).build()
 
         DownloadService.sendAddDownload(
@@ -37,7 +43,7 @@ class Media3DownloadDataSource(
         )
     }
 
-    fun removeDownload(id: String) {
+    public fun removeDownload(id: String) {
         DownloadService.sendRemoveDownload(
             context,
             downloadService,

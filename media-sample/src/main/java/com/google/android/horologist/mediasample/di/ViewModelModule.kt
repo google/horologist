@@ -22,8 +22,6 @@ import android.content.ComponentName
 import android.content.Context
 import androidx.media3.session.MediaBrowser
 import androidx.media3.session.SessionToken
-import com.google.android.horologist.media.data.mapper.MediaExtrasMapper
-import com.google.android.horologist.media.data.mapper.MediaExtrasMapperNoopImpl
 import com.google.android.horologist.media.data.mapper.MediaItemExtrasMapper
 import com.google.android.horologist.media.data.mapper.MediaItemExtrasMapperNoopImpl
 import com.google.android.horologist.media.data.mapper.MediaItemMapper
@@ -118,15 +116,7 @@ object ViewModelModule {
     ): PlayerRepository = playerRepositoryImpl
 
     @Provides
-    fun mediaExtrasMapper(): MediaExtrasMapper = MediaExtrasMapperNoopImpl
-
-    @Provides
     fun mediaItemExtrasMapper(): MediaItemExtrasMapper = MediaItemExtrasMapperNoopImpl
-
-    @Provides
-    @ActivityRetainedScoped
-    fun mediaMapper(mediaExtrasMapper: MediaExtrasMapper): MediaMapper =
-        MediaMapper(mediaExtrasMapper)
 
     @Provides
     @ActivityRetainedScoped

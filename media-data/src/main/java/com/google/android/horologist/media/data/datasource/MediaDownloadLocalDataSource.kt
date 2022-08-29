@@ -14,28 +14,34 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.datasource
+package com.google.android.horologist.media.data.datasource
 
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.data.database.dao.MediaDownloadDao
 import com.google.android.horologist.media.data.database.dao.MediaDownloadDao.Companion.DOWNLOAD_PROGRESS_END
 import com.google.android.horologist.media.data.database.dao.MediaDownloadDao.Companion.DOWNLOAD_PROGRESS_START
 import com.google.android.horologist.media.data.database.dao.MediaDownloadDao.Companion.SIZE_UNKNOWN
 import com.google.android.horologist.media.data.database.model.MediaDownloadEntity
 import com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus
+import com.google.android.horologist.media.model.MediaDownload
 import kotlinx.coroutines.flow.Flow
 
-class MediaDownloadLocalDataSource(
+/**
+ * Local data source of [MediaDownload].
+ */
+@ExperimentalHorologistMediaDataApi
+public class MediaDownloadLocalDataSource(
     private val mediaDownloadDao: MediaDownloadDao
 ) {
 
-    fun get(mediaIds: List<String>): Flow<List<MediaDownloadEntity>> =
+    public fun get(mediaIds: List<String>): Flow<List<MediaDownloadEntity>> =
         mediaDownloadDao.getList(mediaIds)
 
-    suspend fun getAllDownloading(): List<MediaDownloadEntity> =
+    public suspend fun getAllDownloading(): List<MediaDownloadEntity> =
         mediaDownloadDao.getAllByStatus(MediaDownloadEntityStatus.Downloading)
             .distinctBy { it.mediaId }
 
-    suspend fun add(mediaId: String) {
+    public suspend fun add(mediaId: String) {
         mediaDownloadDao.insert(
             MediaDownloadEntity(
                 mediaId = mediaId,
@@ -46,19 +52,19 @@ class MediaDownloadLocalDataSource(
         )
     }
 
-    suspend fun delete(mediaId: String) {
+    public suspend fun delete(mediaId: String) {
         mediaDownloadDao.delete(mediaId)
     }
 
-    suspend fun updateStatus(mediaId: String, status: MediaDownloadEntityStatus) {
+    public suspend fun updateStatus(mediaId: String, status: MediaDownloadEntityStatus) {
         mediaDownloadDao.updateStatus(mediaId = mediaId, status = status)
     }
 
-    suspend fun updateProgress(mediaId: String, progress: Float, size: Long) {
+    public suspend fun updateProgress(mediaId: String, progress: Float, size: Long) {
         mediaDownloadDao.updateProgress(mediaId = mediaId, progress = progress, size = size)
     }
 
-    suspend fun setDownloaded(mediaId: String) {
+    public suspend fun setDownloaded(mediaId: String) {
         mediaDownloadDao.updateStatusAndProgress(
             MediaDownloadDao.StatusAndProgress(
                 mediaId = mediaId,

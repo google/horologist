@@ -19,7 +19,7 @@ package com.google.android.horologist.mediasample.data.service.download
 import android.os.Handler
 import android.os.Looper
 import androidx.media3.exoplayer.offline.DownloadManager
-import com.google.android.horologist.mediasample.data.datasource.MediaDownloadLocalDataSource
+import com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

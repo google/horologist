@@ -32,11 +32,11 @@ import coil.ImageLoader
 import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.compose.tools.WearPreviewFontSizes
+import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
 import com.google.android.horologist.media.ui.tiles.toTileColors
 import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.ui.app.MediaActivity
 import com.google.android.horologist.mediasample.ui.app.UampColors
 import com.google.android.horologist.tiles.CoroutinesTileService

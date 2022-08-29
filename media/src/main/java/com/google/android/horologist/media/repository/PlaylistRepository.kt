@@ -14,24 +14,32 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.domain
+package com.google.android.horologist.media.repository
 
+import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import com.google.android.horologist.media.model.Media
-import com.google.android.horologist.mediasample.domain.model.Playlist
+import com.google.android.horologist.media.model.Playlist
 import kotlinx.coroutines.flow.Flow
 
 /**
  * A repository of [Playlist].
  */
-interface PlaylistRepository {
-
-    suspend fun get(playlistId: String): Playlist?
-
-    fun getAll(): Flow<List<Playlist>>
+@ExperimentalHorologistMediaApi
+public interface PlaylistRepository {
 
     /**
-     * Returns only [Playlist]s that contain at least one [Media] with download in progress or
-     * completed.
+     * Returns the [playlist][Playlist] with the supplied [id][playlistId], if there is any.
      */
-    fun getAllDownloaded(): Flow<List<Playlist>>
+    public suspend fun get(playlistId: String): Playlist?
+
+    /**
+     * Returns all [playlists][Playlist] available.
+     */
+    public fun getAll(): Flow<List<Playlist>>
+
+    /**
+     * Returns only [playlists][Playlist] that contain at least one [media][Media] with download in
+     * progress or completed.
+     */
+    public fun getAllDownloaded(): Flow<List<Playlist>>
 }

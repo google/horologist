@@ -14,9 +14,17 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.domain.model
+package com.google.android.horologist.media.model
 
-data class PlaylistDownload(
-    val playlist: Playlist,
-    val mediaList: List<MediaDownload>
+import com.google.android.horologist.media.ExperimentalHorologistMediaApi
+
+/**
+ * Representation of a playlist.
+ */
+@ExperimentalHorologistMediaApi
+public data class Playlist(
+    val id: String,
+    val name: String,
+    val artworkUri: String? = null,
+    val mediaList: List<Media>
 )

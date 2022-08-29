@@ -16,8 +16,8 @@
 
 package com.google.android.horologist.mediasample.ui.mapper
 
+import com.google.android.horologist.media.model.MediaDownload
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
-import com.google.android.horologist.mediasample.domain.model.MediaDownload
 
 object DownloadMediaUiModelMapper {
 
@@ -37,16 +37,20 @@ object DownloadMediaUiModelMapper {
         }
 
         is MediaDownload.Status.InProgress -> {
+            val mediaDownloadStatus = (mediaDownload.status as MediaDownload.Status.InProgress)
             DownloadMediaUiModel.Downloading(
                 id = mediaDownload.media.id,
                 title = mediaDownload.media.title,
-                progress = if (mediaDownload.status.progress == PROGRESS_WAITING) {
+                progress = if (mediaDownloadStatus.progress == PROGRESS_WAITING) {
                     DownloadMediaUiModel.Progress.Waiting
                 } else {
-                    DownloadMediaUiModel.Progress.InProgress(PROGRESS_FORMAT.format(mediaDownload.status.progress))
+                    DownloadMediaUiModel.Progress.InProgress(PROGRESS_FORMAT.format(mediaDownloadStatus.progress))
                 },
                 size = when (mediaDownload.size) {
-                    is MediaDownload.Size.Known -> DownloadMediaUiModel.Size.Known(mediaDownload.size.sizeInBytes)
+                    is MediaDownload.Size.Known -> {
+                        val mediaDownloadSize = mediaDownload.size as MediaDownload.Size.Known
+                        DownloadMediaUiModel.Size.Known(mediaDownloadSize.sizeInBytes)
+                    }
                     is MediaDownload.Size.Unknown -> DownloadMediaUiModel.Size.Unknown
                 },
                 artworkUri = mediaDownload.media.artworkUri

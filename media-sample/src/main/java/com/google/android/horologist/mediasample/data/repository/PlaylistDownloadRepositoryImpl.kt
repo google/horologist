@@ -17,13 +17,13 @@
 package com.google.android.horologist.mediasample.data.repository
 
 import androidx.core.net.toUri
+import com.google.android.horologist.media.model.Playlist
+import com.google.android.horologist.media.model.PlaylistDownload
+import com.google.android.horologist.media.repository.PlaylistDownloadRepository
 import com.google.android.horologist.mediasample.data.datasource.Media3DownloadDataSource
 import com.google.android.horologist.mediasample.data.datasource.MediaDownloadLocalDataSource
 import com.google.android.horologist.mediasample.data.datasource.PlaylistLocalDataSource
 import com.google.android.horologist.mediasample.data.mapper.PlaylistDownloadMapper
-import com.google.android.horologist.mediasample.domain.PlaylistDownloadRepository
-import com.google.android.horologist.mediasample.domain.model.Playlist
-import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow

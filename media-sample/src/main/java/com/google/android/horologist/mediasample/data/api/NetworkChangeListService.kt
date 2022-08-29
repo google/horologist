@@ -16,9 +16,9 @@
 
 package com.google.android.horologist.mediasample.data.api
 
+import com.google.android.horologist.media.model.Playlist
 import com.google.android.horologist.media.sync.api.NetworkChangeList
 import com.google.android.horologist.mediasample.di.SyncModule
-import com.google.android.horologist.mediasample.domain.model.Playlist
 
 /**
  * Retrieves a [NetworkChangeList] based on the difference of the data stored locally and in remote.

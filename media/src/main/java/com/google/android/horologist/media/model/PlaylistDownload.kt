@@ -14,20 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.domain
+package com.google.android.horologist.media.model
 
-import com.google.android.horologist.mediasample.domain.model.Playlist
-import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
-import kotlinx.coroutines.flow.Flow
+import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 
 /**
- * A repository of [PlaylistDownload].
+ * Representation of a [Playlist] download.
  */
-interface PlaylistDownloadRepository {
-
-    fun get(playlistId: String): Flow<PlaylistDownload?>
-
-    fun download(playlist: Playlist)
-
-    fun remove(playlist: Playlist)
-}
+@ExperimentalHorologistMediaApi
+public data class PlaylistDownload(
+    val playlist: Playlist,
+    val mediaList: List<MediaDownload>
+)

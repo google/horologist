@@ -19,14 +19,14 @@ package com.google.android.horologist.mediasample.ui.entity
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.horologist.media.model.PlaylistDownload
 import com.google.android.horologist.media.repository.PlayerRepository
+import com.google.android.horologist.media.repository.PlaylistDownloadRepository
 import com.google.android.horologist.media.ui.navigation.NavigationScreens
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState
 import com.google.android.horologist.media.ui.screens.entity.createPlaylistDownloadScreenStateLoaded
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
-import com.google.android.horologist.mediasample.domain.PlaylistDownloadRepository
-import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
 import com.google.android.horologist.mediasample.ui.mapper.DownloadMediaUiModelMapper
 import com.google.android.horologist.mediasample.ui.mapper.PlaylistUiModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel

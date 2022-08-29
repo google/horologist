@@ -17,10 +17,10 @@
 package com.google.android.horologist.mediasample.data.mapper
 
 import com.google.android.horologist.media.model.Media
+import com.google.android.horologist.media.model.MediaDownload
+import com.google.android.horologist.media.model.Playlist
 import com.google.android.horologist.mediasample.data.database.dao.MediaDownloadDao.Companion.SIZE_UNKNOWN
 import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntity
-import com.google.android.horologist.mediasample.domain.model.MediaDownload
-import com.google.android.horologist.mediasample.domain.model.Playlist
 
 object MediaDownloadMapper {
 

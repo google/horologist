@@ -23,7 +23,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import app.cash.paparazzi.Paparazzi
-import com.google.android.horologist.media.ui.a11y.ComposeA11yExtension
+import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel

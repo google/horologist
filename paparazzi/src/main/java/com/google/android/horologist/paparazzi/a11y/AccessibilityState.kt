@@ -16,8 +16,37 @@
 
 package com.google.android.horologist.paparazzi.a11y
 
+import android.graphics.Rect
+
+/**
+ * Shared representation of the accessibility elements in a Compose view.
+ * A bridge between the ComposeA11yExtension and A11ySnapshotHandler.
+ */
 public data class AccessibilityState(
-    public val width: Int,
-    public val height: Int,
-    public val elements: List<AccessibilityElement>
-)
+  val width: Int,
+  val height: Int,
+  val elements: List<Element>
+) {
+  public data class Element(
+    val displayBounds: Rect,
+    val touchBounds: Rect?,
+    val text: List<String>?,
+    val contentDescription: List<String>?,
+    val stateDescription: String?,
+    val onClickLabel: String?,
+    val role: String?,
+    val disabled: Boolean,
+    val heading: Boolean,
+    val customActions: List<CustomAction>?
+  ) {
+    public fun scaleBy(scale: Float): Element {
+      return copy(displayBounds = displayBounds * scale, touchBounds = touchBounds?.times(scale))
+    }
+
+    internal operator fun Rect.times(scale: Float): Rect {
+      return Rect((left * scale).toInt(), (top * scale).toInt(), (right * scale).toInt(), (bottom * scale).toInt())
+    }
+  }
+
+  public data class CustomAction(val label: String)
+}

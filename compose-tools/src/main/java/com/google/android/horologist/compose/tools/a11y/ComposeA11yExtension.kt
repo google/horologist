@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.ui.a11y
+package com.google.android.horologist.compose.tools.a11y
 
 import android.view.View
 import android.view.ViewGroup
@@ -26,14 +26,11 @@ import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsNode
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
-import androidx.core.view.children
-import androidx.core.view.doOnPreDraw
 import app.cash.paparazzi.RenderExtension
-import com.google.android.horologist.paparazzi.a11y.AccessibilityElement
 import com.google.android.horologist.paparazzi.a11y.AccessibilityState
 
 class ComposeA11yExtension : RenderExtension {
-    public lateinit var accessibilityState: AccessibilityState
+    lateinit var accessibilityState: AccessibilityState
 
     private lateinit var rootForTest: RootForTest
 
@@ -52,25 +49,34 @@ class ComposeA11yExtension : RenderExtension {
         }
     }
 
-    private fun processAccessibleChildren(p0: SemanticsNode, fn: (AccessibilityElement) -> Unit) {
+    private fun processAccessibleChildren(
+        p0: SemanticsNode,
+        fn: (AccessibilityState.Element) -> Unit
+    ) {
         val contentDescription = p0.config.getOrNull(SemanticsProperties.ContentDescription)
         val stateDescription = p0.config.getOrNull(SemanticsProperties.StateDescription)
         val onClickLabel = p0.config.getOrNull(SemanticsActions.OnClick)?.label
         val role = p0.config.getOrNull(SemanticsProperties.Role)?.toString()
         val disabled = p0.config.getOrNull(SemanticsProperties.Disabled) != null
+        val heading = p0.config.getOrNull(SemanticsProperties.Heading) != null
+        val customActions = p0.config.getOrNull(SemanticsActions.CustomActions)
+        val text = p0.config.getOrNull(SemanticsProperties.Text)
 
         if (contentDescription != null || stateDescription != null || onClickLabel != null || role != null) {
             val position = p0.boundsInRoot.toAndroidRect()
             val touchBounds = p0.touchBoundsInRoot.toAndroidRect()
             fn(
-                AccessibilityElement(
+                AccessibilityState.Element(
                     position,
                     if (touchBounds != position) touchBounds else null,
+                    text?.map { it.toString() },
                     contentDescription,
                     stateDescription,
                     onClickLabel,
                     role,
-                    disabled
+                    disabled,
+                    heading,
+                    customActions?.map { AccessibilityState.CustomAction(label = it.label) }
                 )
             )
         }
@@ -81,19 +87,29 @@ class ComposeA11yExtension : RenderExtension {
     }
 
     override fun renderView(contentView: View): View {
-        val composeView = (contentView as ViewGroup).children.first() as ComposeView
+        val composeView = (contentView as ViewGroup).getChildAt(0) as ComposeView
 
         // Capture the accessibility elements during the drawing phase after
         // measurement and layout has occurred
-        composeView.doOnPreDraw {
-            val elements = buildList {
-                processAccessibleChildren(rootForTest.semanticsOwner.rootSemanticsNode) {
-                    add(it)
-                }
-            }
-            accessibilityState = AccessibilityState(contentView.width, contentView.height, elements)
+        composeView.viewTreeObserver.addOnPreDrawListener {
+            extractAccessibilityState()
+            true
         }
 
         return contentView
+    }
+
+    private fun extractAccessibilityState() {
+        val rootSemanticsNode = rootForTest.semanticsOwner.rootSemanticsNode
+        val elements = buildList {
+            processAccessibleChildren(rootSemanticsNode) {
+                add(it)
+            }
+        }
+        accessibilityState = AccessibilityState(
+            rootSemanticsNode.size.width,
+            rootSemanticsNode.size.height,
+            elements
+        )
     }
 }

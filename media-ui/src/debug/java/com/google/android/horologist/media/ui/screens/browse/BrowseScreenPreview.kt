@@ -44,7 +44,7 @@ fun BrowseScreenPreview() {
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.FeaturedPlayList,
             tintColor = Color.Green
-        )
+        ),
     )
 }
 
@@ -57,7 +57,7 @@ fun BrowseScreenPreviewNoDownloads() {
         onPlaylistsClick = { },
         onSettingsClick = { },
         focusRequester = FocusRequester(),
-        scalingLazyListState = rememberScalingLazyListState()
+        scalingLazyListState = rememberScalingLazyListState(),
     )
 }
 
@@ -70,7 +70,7 @@ fun BrowseScreenPreviewLoading() {
         onPlaylistsClick = { },
         onSettingsClick = { },
         focusRequester = FocusRequester(),
-        scalingLazyListState = rememberScalingLazyListState()
+        scalingLazyListState = rememberScalingLazyListState(),
     )
 }
 
@@ -88,7 +88,7 @@ fun BrowseScreenPreviewUampTheme() {
             downloadItemArtworkPlaceholder = rememberVectorPainter(
                 image = Icons.Default.FeaturedPlayList,
                 tintColor = Color.Green
-            )
+            ),
         )
     }
 }

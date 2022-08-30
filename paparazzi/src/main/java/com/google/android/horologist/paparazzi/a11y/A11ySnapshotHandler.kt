@@ -24,136 +24,200 @@ import java.awt.Color
 import java.awt.Composite
 import java.awt.Graphics2D
 import java.awt.image.BufferedImage
+import kotlin.math.max
 
 public class A11ySnapshotHandler(
     private val delegate: SnapshotHandler,
-    private val accessibilityStateFn: () -> AccessibilityState
+    private val accessibilityStateFn: () -> AccessibilityState,
+    private val overlayRenderer: (AccessibilityState, BufferedImage) -> BufferedImage =
+    { accessibilityState, image ->
+      drawBoxes(accessibilityState, image)
+    },
+    private val legendRenderer: (AccessibilityState, BufferedImage) -> BufferedImage =
+    { accessibilityState, image ->
+      drawLegend(accessibilityState, image)
+    }
 ) : SnapshotHandler {
+
+  override fun close() {
+    delegate.close()
+  }
+
+  override fun newFrameHandler(
+    snapshot: Snapshot,
+    frameCount: Int,
+    fps: Int
+  ): SnapshotHandler.FrameHandler {
+    val delegateFrameHandler = delegate.newFrameHandler(snapshot, frameCount, fps)
+    return object : SnapshotHandler.FrameHandler {
+      override fun close() {
+        delegateFrameHandler.close()
+      }
+
+      override fun handle(image: BufferedImage) {
+        val accessibilityState = accessibilityStateFn()
+
+        val overlay = overlayRenderer(accessibilityState, image)
+        val legend = legendRenderer(accessibilityState, image)
+
+        val modifiedImage = concatImages(overlay, legend, image)
+
+        delegateFrameHandler.handle(modifiedImage)
+      }
+    }
+  }
+
+  public companion object {
     private val colors =
-        listOf(Color.BLUE, Color.CYAN, Color.GREEN, Color.GRAY, Color.PINK, Color.MAGENTA, Color.YELLOW, Color.ORANGE)
+      listOf(
+        Color.BLUE,
+        Color.CYAN,
+        Color.GREEN,
+        Color.GRAY,
+        Color.PINK,
+        Color.MAGENTA,
+        Color.YELLOW,
+        Color.ORANGE
+      )
 
-    override fun close() {
-        delegate.close()
-    }
+    private fun concatImages(
+      overlay: BufferedImage,
+      legend: BufferedImage,
+      image: BufferedImage
+    ): BufferedImage {
+      val modifiedImage =
+        BufferedImage(overlay.width + legend.width, max(overlay.height, legend.height), image.type)
 
-    private fun colorFor(i: Int): Int = colors[i % colors.size].rgb
-
-    override fun newFrameHandler(
-        snapshot: Snapshot,
-        frameCount: Int,
-        fps: Int
-    ): SnapshotHandler.FrameHandler {
-        val delegateFrameHandler = delegate.newFrameHandler(snapshot, frameCount, fps)
-        return object : SnapshotHandler.FrameHandler {
-            override fun close() {
-                delegateFrameHandler.close()
-            }
-
-            override fun handle(image: BufferedImage) {
-                val modifiedImage = BufferedImage(image.width * 2, image.height, image.type)
-
-                val accessibilityState = accessibilityStateFn()
-
-                // TODO handle rectangles
-                val scale = 1000f / accessibilityState.height
-
-                val accessibilityItems = accessibilityState.elements.mapIndexed { i, it ->
-                    AccessibilityItem(
-                        i,
-                        it.contentDescription?.firstOrNull() ?: it.stateDescription
-                            ?: it.onClickLabel ?: "N/A",
-                        colorFor(i),
-                        it.scaleBy(scale)
-                    )
-                }
-
-                modifiedImage.createGraphics().apply {
-                    drawScreenshotImage(image = image, alpha = 0.5f)
-
-                    drawBoxes(accessibilityItems)
-
-                    drawLegend(accessibilityItems)
-
-                    dispose()
-                }
-
-                delegateFrameHandler.handle(modifiedImage)
-            }
-        }
-    }
-
-    private fun Graphics2D.drawScreenshotImage(image: BufferedImage, alpha: Float = 1f) {
-        withComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha)) {
-            drawImage(image, 0, 0, image.width, image.height, null)
-        }
+      modifiedImage.withGraphics2D {
+        drawImage(overlay, 0, 0, overlay.width, overlay.height, null)
+        drawImage(legend, overlay.width, 0, legend.width, legend.height, null)
+      }
+      return modifiedImage
     }
 
     private fun Graphics2D.withComposite(newComposite: Composite, fn: () -> Unit = {}) {
-        val current = composite
-        composite = newComposite
+      val current = composite
+      composite = newComposite
 
-        fn()
+      fn()
 
-        composite = current
+      composite = current
     }
 
-    private fun Graphics2D.drawBoxes(accessibilityItems: List<AccessibilityItem>) {
-        accessibilityItems.forEach {
-            val color = Color(it.color)
-            paint = color
-            stroke = BasicStroke(3f)
-            drawRect(
-                it.element.displayBounds.left,
-                it.element.displayBounds.top,
-                it.element.displayBounds.width(),
-                it.element.displayBounds.height()
-            )
-            paint = Color(color.red, color.green, color.blue, 255 / 3)
-            fillRect(
-                it.element.displayBounds.left,
-                it.element.displayBounds.top,
-                it.element.displayBounds.width(),
-                it.element.displayBounds.height()
-            )
-            if (it.element.touchBounds != null) {
-                drawRect(
-                    it.element.touchBounds.left,
-                    it.element.touchBounds.top,
-                    it.element.touchBounds.width(),
-                    it.element.touchBounds.height()
-                )
-            }
+    private fun BufferedImage.withGraphics2D(fn: Graphics2D.() -> Unit = {}): BufferedImage {
+      createGraphics().apply {
+        try {
+          fn()
+        } finally {
+          dispose()
         }
+      }
+
+      return this
     }
 
-    private fun Graphics2D.drawLegend(accessibilityItems: List<AccessibilityItem>) {
+    internal fun drawBoxes(
+        accessibilityState: AccessibilityState,
+        image: BufferedImage
+    ): BufferedImage {
+      val modifiedImage = BufferedImage(image.width, image.height, image.type)
+
+      val scale = 1000f / max(accessibilityState.height, accessibilityState.width)
+
+      return modifiedImage.withGraphics2D {
+        withComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f)) {
+          drawImage(image, 0, 0, image.width, image.height, null)
+        }
+
+        accessibilityState.elements.forEachIndexed { i, it ->
+          paint = colorForIndex(i)
+          stroke = BasicStroke(3f)
+          val element = it.scaleBy(scale)
+          drawRect(
+            element.displayBounds.left,
+            element.displayBounds.top,
+            element.displayBounds.width(),
+            element.displayBounds.height()
+          )
+          paint = Color(color.red, color.green, color.blue, 255 / 3)
+          fillRect(
+            element.displayBounds.left,
+            element.displayBounds.top,
+            element.displayBounds.width(),
+            element.displayBounds.height()
+          )
+          if (element.touchBounds != null) {
+            drawRect(
+              element.touchBounds.left,
+              element.touchBounds.top,
+              element.touchBounds.width(),
+              element.touchBounds.height()
+            )
+          }
+        }
+      }
+    }
+
+    internal fun drawLegend(
+        accessibilityState: AccessibilityState,
+        image: BufferedImage
+    ): BufferedImage {
+      val modifiedImage = BufferedImage(600, image.height, image.type)
+
+      return modifiedImage.withGraphics2D {
         paint = Color.WHITE
-        fillRect(1000, 0, 1000, 1000)
+        fillRect(0, 0, modifiedImage.width, modifiedImage.height)
 
         font = font.deriveFont(20f)
+        stroke = BasicStroke(3f)
 
         var index = 1
-        accessibilityItems.forEach { it ->
-            paint = Color(it.color)
-            if (it.element.role != null || it.element.disabled) {
-                val role = if (it.element.role != null) "Role " + it.element.role + " " else ""
-                val disabled = if (it.element.disabled) "Disabled" else ""
-                drawString(role + disabled, 1050f, 28f * index++)
+        accessibilityState.elements.forEachIndexed { i, it ->
+          paint = Color.BLACK
+
+          val start = index
+          if (it.role != null || it.disabled) {
+            val role = if (it.role != null) "Role " + it.role + " " else ""
+            val heading = if (it.heading) "Heading " else ""
+            val disabled = if (it.disabled) "Disabled" else ""
+            drawString(role + heading + disabled, 50f, 28f * index++)
+          }
+          if (it.contentDescription != null) {
+            drawString(
+              "Content Description " + it.contentDescription.joinToString(", "),
+              1050f,
+              28f * index++
+            )
+          } else if (it.text != null) {
+            drawString(
+                "Text " + it.text.joinToString(", "),
+                1050f,
+                28f * index++
+            )
+          }
+          if (it.stateDescription != null) {
+            drawString("State Description " + it.stateDescription, 50f, 28f * index++)
+          }
+          if (it.onClickLabel != null) {
+            drawString("On Click " + it.onClickLabel, 50f, 28f * index++)
+          }
+          if (it.customActions != null) {
+            it.customActions.forEach {
+              drawString("Custom Action " + it.label, 50f, 28f * index++)
             }
-            if (it.element.contentDescription != null) {
-                drawString(
-                    "Content Description " + it.element.contentDescription.joinToString(", "),
-                    1050f,
-                    28f * index++
-                )
-            }
-            if (it.element.stateDescription != null) {
-                drawString("State Description " + it.element.stateDescription, 1050f, 28f * index++)
-            }
-            if (it.element.onClickLabel != null) {
-                drawString("On Click " + it.element.onClickLabel, 1050f, 28f * index++)
-            }
-            index++
+          }
+          val end = index
+
+          paint = colorForIndex(i)
+          drawRect(10, start * 28 - 21, modifiedImage.width - 20, (end - start) * 28)
+
+          index++
         }
+      }
     }
+
+    private fun colorForIndex(i: Int): Color {
+      return colors[i % colors.size]
+    }
+  }
 }

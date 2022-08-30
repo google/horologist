@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("UNCHECKED_CAST")
+
 package com.google.android.horologist.compose.tools.a11y
 
 import androidx.compose.foundation.lazy.LazyListState

@@ -184,11 +184,59 @@ package com.google.android.horologist.media.data.database.model {
 
 }
 
+package com.google.android.horologist.media.data.datasource {
+
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class Media3DownloadDataSource {
+    ctor public Media3DownloadDataSource(android.content.Context context, Class<? extends androidx.media3.exoplayer.offline.DownloadService> downloadService);
+    method public void download(String id, android.net.Uri uri);
+    method public void removeDownload(String id);
+  }
+
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaDownloadLocalDataSource {
+    ctor public MediaDownloadLocalDataSource(com.google.android.horologist.media.data.database.dao.MediaDownloadDao mediaDownloadDao);
+    method public suspend Object? add(String mediaId, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public suspend Object? delete(String mediaId, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.MediaDownloadEntity>> get(java.util.List<java.lang.String> mediaIds);
+    method public suspend Object? getAllDownloading(kotlin.coroutines.Continuation<? super java.util.List<? extends com.google.android.horologist.media.data.database.model.MediaDownloadEntity>> p);
+    method public suspend Object? setDownloaded(String mediaId, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public suspend Object? updateProgress(String mediaId, float progress, long size, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public suspend Object? updateStatus(String mediaId, com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus status, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+  }
+
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaLocalDataSource {
+    ctor public MediaLocalDataSource(androidx.room.RoomDatabase roomDatabase, com.google.android.horologist.media.data.database.dao.MediaDao mediaDao, com.google.android.horologist.media.data.database.dao.PlaylistMediaDao playlistMediaDao, com.google.android.horologist.media.data.database.dao.MediaDownloadDao mediaDownloadDao);
+    method public suspend Object? delete(java.util.List<java.lang.String> mediaIds, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public suspend Object? upsert(java.util.List<com.google.android.horologist.media.model.Media> mediaList, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+  }
+
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlaylistLocalDataSource {
+    ctor public PlaylistLocalDataSource(androidx.room.RoomDatabase roomDatabase, com.google.android.horologist.media.data.database.dao.PlaylistDao playlistDao, com.google.android.horologist.media.data.database.dao.PlaylistMediaDao playlistMediaDao);
+    method public suspend Object? delete(java.util.List<java.lang.String> playlistIds, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.PopulatedPlaylist>> getAllDownloaded();
+    method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.PopulatedPlaylist>> getAllPopulated();
+    method public suspend Object? getPopulated(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.data.database.model.PopulatedPlaylist> p);
+    method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.media.data.database.model.PopulatedPlaylist> getPopulatedStream(String playlistId);
+    method public suspend Object? upsert(java.util.List<com.google.android.horologist.media.model.Playlist> playlists, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+  }
+
+}
+
 package com.google.android.horologist.media.data.mapper {
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class CommandMapper {
     method public com.google.android.horologist.media.model.Command map(@androidx.media3.common.Player.Command int command);
     field public static final com.google.android.horologist.media.data.mapper.CommandMapper INSTANCE;
+  }
+
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaDownloadMapper {
+    method public com.google.android.horologist.media.model.MediaDownload map(com.google.android.horologist.media.model.Media media, com.google.android.horologist.media.data.database.model.MediaDownloadEntity mediaDownloadEntity);
+    method public java.util.List<com.google.android.horologist.media.model.MediaDownload> map(com.google.android.horologist.media.model.Playlist playlist, java.util.List<com.google.android.horologist.media.data.database.model.MediaDownloadEntity> mediaDownloadEntityList);
+    field public static final com.google.android.horologist.media.data.mapper.MediaDownloadMapper INSTANCE;
+  }
+
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaDownloadStatusMapper {
+    method public com.google.android.horologist.media.model.MediaDownload.Status map(com.google.android.horologist.media.data.database.model.MediaDownloadEntity mediaDownloadEntity);
+    field public static final com.google.android.horologist.media.data.mapper.MediaDownloadStatusMapper INSTANCE;
   }
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public interface MediaExtrasMapper {
@@ -217,6 +265,7 @@ package com.google.android.horologist.media.data.mapper {
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaMapper {
     ctor public MediaMapper(com.google.android.horologist.media.data.mapper.MediaExtrasMapper mediaExtrasMapper);
     method public com.google.android.horologist.media.model.Media map(androidx.media3.common.MediaItem mediaItem, optional String defaultArtist);
+    method public com.google.android.horologist.media.model.Media map(com.google.android.horologist.media.data.database.model.MediaEntity media);
   }
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaPositionMapper {
@@ -228,6 +277,16 @@ package com.google.android.horologist.media.data.mapper {
     method public boolean affectsState(androidx.media3.common.Player.Events events);
     method public com.google.android.horologist.media.model.PlayerState map(androidx.media3.common.Player player);
     field public static final com.google.android.horologist.media.data.mapper.PlayerStateMapper INSTANCE;
+  }
+
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlaylistDownloadMapper {
+    ctor public PlaylistDownloadMapper(com.google.android.horologist.media.data.mapper.PlaylistMapper playlistMapper);
+    method public com.google.android.horologist.media.model.PlaylistDownload map(com.google.android.horologist.media.data.database.model.PopulatedPlaylist populatedPlaylist, java.util.List<com.google.android.horologist.media.data.database.model.MediaDownloadEntity> mediaDownloadEntity);
+  }
+
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlaylistMapper {
+    ctor public PlaylistMapper(com.google.android.horologist.media.data.mapper.MediaMapper mediaMapper);
+    method public com.google.android.horologist.media.model.Playlist map(com.google.android.horologist.media.data.database.model.PopulatedPlaylist populatedPlaylist);
   }
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class SetCommandMapper {
@@ -285,6 +344,20 @@ package com.google.android.horologist.media.data.repository {
     property public final kotlinx.coroutines.flow.StateFlow<java.lang.Float> playbackSpeed;
     property public final kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Player> player;
     property public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> shuffleModeEnabled;
+  }
+
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlaylistDownloadRepositoryImpl implements com.google.android.horologist.media.repository.PlaylistDownloadRepository {
+    ctor public PlaylistDownloadRepositoryImpl(kotlinx.coroutines.CoroutineScope coroutineScope, com.google.android.horologist.media.data.datasource.PlaylistLocalDataSource playlistLocalDataSource, com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource mediaDownloadLocalDataSource, com.google.android.horologist.media.data.datasource.Media3DownloadDataSource media3DownloadDataSource, com.google.android.horologist.media.data.mapper.PlaylistDownloadMapper playlistDownloadMapper);
+    method public void download(com.google.android.horologist.media.model.Playlist playlist);
+    method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.media.model.PlaylistDownload> get(String playlistId);
+    method public void remove(com.google.android.horologist.media.model.Playlist playlist);
+  }
+
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlaylistRepositoryImpl implements com.google.android.horologist.media.repository.PlaylistRepository {
+    ctor public PlaylistRepositoryImpl(com.google.android.horologist.media.data.datasource.PlaylistLocalDataSource playlistLocalDataSource, com.google.android.horologist.media.data.mapper.PlaylistMapper playlistMapper);
+    method public suspend Object? get(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.model.Playlist> p);
+    method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.model.Playlist>> getAll();
+    method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.model.Playlist>> getAllDownloaded();
   }
 
 }

@@ -22,6 +22,7 @@ import android.net.Uri
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.media.data.database.model.MediaEntity
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test
@@ -145,5 +146,59 @@ class MediaMapperTest {
         assertThat(result.extras[id]).isEqualTo(id)
         assertThat(result.extras[uri]).isEqualTo(Uri.parse(uri))
         assertThat(result.extras[artist]).isEqualTo(artist)
+    }
+
+    @Test
+    fun `given MediaEntity then maps correctly`() {
+        // given
+        val id = "id"
+        val uri = "uri"
+        val title = "title"
+        val artist = "artist"
+        val artworkUri = "artworkUri"
+
+        val mediaEntity = MediaEntity(
+            mediaId = id,
+            mediaUrl = uri,
+            artworkUrl = artworkUri,
+            title = title,
+            artist = artist
+        )
+
+        // when
+        val result = sut.map(mediaEntity)
+
+        // then
+        assertThat(result.id).isEqualTo(id)
+        assertThat(result.uri).isEqualTo(uri)
+        assertThat(result.title).isEqualTo(title)
+        assertThat(result.artist).isEqualTo(artist)
+        assertThat(result.artworkUri).isEqualTo(artworkUri)
+    }
+
+    @Test
+    fun `given MediaEntity with null values then maps correctly`() {
+        // given
+        val id = "id"
+        val uri = "uri"
+        val artworkUri = "artworkUri"
+
+        val mediaEntity = MediaEntity(
+            mediaId = id,
+            mediaUrl = uri,
+            artworkUrl = artworkUri,
+            title = null,
+            artist = null
+        )
+
+        // when
+        val result = sut.map(mediaEntity)
+
+        // then
+        assertThat(result.id).isEqualTo(id)
+        assertThat(result.uri).isEqualTo(uri)
+        assertThat(result.title).isEqualTo("")
+        assertThat(result.artist).isEqualTo("")
+        assertThat(result.artworkUri).isEqualTo(artworkUri)
     }
 }

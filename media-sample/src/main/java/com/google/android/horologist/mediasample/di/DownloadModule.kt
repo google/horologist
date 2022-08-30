@@ -26,10 +26,10 @@ import androidx.media3.exoplayer.offline.DownloadIndex
 import androidx.media3.exoplayer.offline.DownloadManager
 import androidx.media3.exoplayer.offline.DownloadNotificationHelper
 import androidx.media3.exoplayer.workmanager.WorkManagerScheduler
+import com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.logging.TransferListener
 import com.google.android.horologist.media3.service.NetworkAwareDownloadListener
-import com.google.android.horologist.mediasample.data.datasource.MediaDownloadLocalDataSource
 import com.google.android.horologist.mediasample.data.service.download.DownloadManagerListener
 import com.google.android.horologist.mediasample.data.service.download.DownloadProgressMonitor
 import com.google.android.horologist.mediasample.data.service.download.MediaDownloadService

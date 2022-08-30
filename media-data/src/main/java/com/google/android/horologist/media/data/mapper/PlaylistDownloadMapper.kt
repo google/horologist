@@ -14,19 +14,29 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.mapper
+package com.google.android.horologist.media.data.mapper
 
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.data.database.model.MediaDownloadEntity
 import com.google.android.horologist.media.data.database.model.PopulatedPlaylist
 import com.google.android.horologist.media.model.PlaylistDownload
 
-object PlaylistDownloadMapper {
+/**
+ * Functions to map models from other layers and / or packages into a [PlaylistDownload].
+ */
+@ExperimentalHorologistMediaDataApi
+public class PlaylistDownloadMapper(
+    private val playlistMapper: PlaylistMapper
+) {
 
-    fun map(
+    /**
+     * Maps from a [PopulatedPlaylist] and a list of [MediaDownloadEntity].
+     */
+    public fun map(
         populatedPlaylist: PopulatedPlaylist,
         mediaDownloadEntity: List<MediaDownloadEntity>
     ): PlaylistDownload {
-        val playlist = PlaylistMapper.map(populatedPlaylist)
+        val playlist = playlistMapper.map(populatedPlaylist)
         return PlaylistDownload(
             playlist = playlist,
             mediaList = MediaDownloadMapper.map(playlist, mediaDownloadEntity)

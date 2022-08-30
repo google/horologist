@@ -16,45 +16,34 @@
 
 package com.google.android.horologist.mediasample.data.repository
 
+import com.google.android.horologist.media.data.datasource.MediaLocalDataSource
+import com.google.android.horologist.media.data.datasource.PlaylistLocalDataSource
+import com.google.android.horologist.media.data.mapper.PlaylistMapper
 import com.google.android.horologist.media.model.Playlist
-import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.media.sync.api.Syncable
 import com.google.android.horologist.media.sync.api.Synchronizer
 import com.google.android.horologist.media.sync.api.changeListSync
 import com.google.android.horologist.mediasample.data.api.NetworkChangeListService
-import com.google.android.horologist.mediasample.data.datasource.MediaLocalDataSource
-import com.google.android.horologist.mediasample.data.datasource.PlaylistLocalDataSource
 import com.google.android.horologist.mediasample.data.datasource.PlaylistRemoteDataSource
-import com.google.android.horologist.mediasample.data.mapper.PlaylistMapper
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import com.google.android.horologist.mediasample.data.mapper.PlaylistMapper as MediaSamplePlaylistMapper
 
-class PlaylistRepositoryImpl(
+class PlaylistRepositorySyncable(
     private val playlistLocalDataSource: PlaylistLocalDataSource,
     private val playlistRemoteDataSource: PlaylistRemoteDataSource,
     private val networkChangeListService: NetworkChangeListService,
-    private val mediaLocalDataSource: MediaLocalDataSource
-) : PlaylistRepository, Syncable {
-
-    override suspend fun get(playlistId: String): Playlist? =
-        playlistLocalDataSource.getPopulated(playlistId)?.let(PlaylistMapper::map)
-
-    override fun getAll(): Flow<List<Playlist>> =
-        playlistLocalDataSource.getAllPopulated()
-            .map { it.map(PlaylistMapper::map) }
-
-    override fun getAllDownloaded(): Flow<List<Playlist>> =
-        playlistLocalDataSource.getAllDownloaded()
-            .map { it.map(PlaylistMapper::map) }
+    private val mediaLocalDataSource: MediaLocalDataSource,
+    private val playlistMapper: PlaylistMapper
+) : Syncable {
 
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
         val localPlaylists = playlistLocalDataSource.getAllPopulated()
             .first()
-            .map(PlaylistMapper::map)
+            .map(playlistMapper::map)
 
         val remotePlaylists = playlistRemoteDataSource.getPlaylists()
-            .map(PlaylistMapper::map)
+            .map(MediaSamplePlaylistMapper::map)
             .first()
 
         return synchronizer.changeListSync(

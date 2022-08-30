@@ -17,11 +17,13 @@
 package com.google.android.horologist.media.data.mapper
 
 import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
 import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.media.data.database.model.MediaEntity
 import com.google.android.horologist.media.model.Media
 
 /**
- * Maps a [MediaItem] into a [Media].
+ * Functions to map models from other layers and / or packages into a [Media].
  */
 @ExperimentalHorologistMediaDataApi
 public class MediaMapper(
@@ -29,8 +31,10 @@ public class MediaMapper(
 ) {
 
     /**
+     * Maps from a [MediaItem].
+     *
      * @param mediaItem [MediaItem] to be mapped.
-     * @param defaultArtist value for [Media.artist].
+     * @param defaultArtist value for [Media.artist] for when [MediaMetadata.artist] is null.
      */
     public fun map(
         mediaItem: MediaItem,
@@ -42,5 +46,16 @@ public class MediaMapper(
         artist = mediaItem.mediaMetadata.artist?.toString() ?: defaultArtist,
         artworkUri = mediaItem.mediaMetadata.artworkUri?.toString(),
         extras = mediaExtrasMapper.map(mediaItem)
+    )
+
+    /**
+     * Maps from a [MediaEntity].
+     */
+    public fun map(media: MediaEntity): Media = Media(
+        id = media.mediaId,
+        uri = media.mediaUrl,
+        title = media.title ?: "",
+        artist = media.artist ?: "",
+        artworkUri = media.artworkUrl
     )
 }

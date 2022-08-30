@@ -23,17 +23,22 @@ import com.google.android.horologist.media.data.database.dao.MediaDao
 import com.google.android.horologist.media.data.database.dao.MediaDownloadDao
 import com.google.android.horologist.media.data.database.dao.PlaylistDao
 import com.google.android.horologist.media.data.database.dao.PlaylistMediaDao
+import com.google.android.horologist.media.data.datasource.Media3DownloadDataSource
+import com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource
+import com.google.android.horologist.media.data.datasource.MediaLocalDataSource
+import com.google.android.horologist.media.data.datasource.PlaylistLocalDataSource
+import com.google.android.horologist.media.data.mapper.MediaExtrasMapper
+import com.google.android.horologist.media.data.mapper.MediaExtrasMapperNoopImpl
+import com.google.android.horologist.media.data.mapper.MediaMapper
+import com.google.android.horologist.media.data.mapper.PlaylistDownloadMapper
+import com.google.android.horologist.media.data.mapper.PlaylistMapper
+import com.google.android.horologist.media.data.repository.PlaylistDownloadRepositoryImpl
+import com.google.android.horologist.media.data.repository.PlaylistRepositoryImpl
 import com.google.android.horologist.media.repository.PlaylistDownloadRepository
 import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.mediasample.data.api.NetworkChangeListService
 import com.google.android.horologist.mediasample.data.api.UampService
-import com.google.android.horologist.mediasample.data.datasource.Media3DownloadDataSource
-import com.google.android.horologist.mediasample.data.datasource.MediaDownloadLocalDataSource
-import com.google.android.horologist.mediasample.data.datasource.MediaLocalDataSource
-import com.google.android.horologist.mediasample.data.datasource.PlaylistLocalDataSource
 import com.google.android.horologist.mediasample.data.datasource.PlaylistRemoteDataSource
-import com.google.android.horologist.mediasample.data.repository.PlaylistDownloadRepositoryImpl
-import com.google.android.horologist.mediasample.data.repository.PlaylistRepositoryImpl
 import com.google.android.horologist.mediasample.data.service.download.MediaDownloadService
 import com.google.android.horologist.mediasample.di.annotation.Dispatcher
 import com.google.android.horologist.mediasample.di.annotation.UampDispatchers.IO
@@ -59,28 +64,26 @@ class DataModule {
         @ForApplicationScope coroutineScope: CoroutineScope,
         playlistLocalDataSource: PlaylistLocalDataSource,
         mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
-        media3DownloadDataSource: Media3DownloadDataSource
+        media3DownloadDataSource: Media3DownloadDataSource,
+        playlistDownloadMapper: PlaylistDownloadMapper
     ): PlaylistDownloadRepository =
         PlaylistDownloadRepositoryImpl(
             coroutineScope = coroutineScope,
             playlistLocalDataSource = playlistLocalDataSource,
             mediaDownloadLocalDataSource = mediaDownloadLocalDataSource,
-            media3DownloadDataSource = media3DownloadDataSource
+            media3DownloadDataSource = media3DownloadDataSource,
+            playlistDownloadMapper = playlistDownloadMapper
         )
 
     @Singleton
     @Provides
     fun playlistRepositoryImpl(
         playlistDownloadLocalDataSource: PlaylistLocalDataSource,
-        playlistRemoteDataSource: PlaylistRemoteDataSource,
-        networkChangeListService: NetworkChangeListService,
-        mediaLocalDataSource: MediaLocalDataSource
+        playlistMapper: PlaylistMapper
     ): PlaylistRepositoryImpl =
         PlaylistRepositoryImpl(
             playlistLocalDataSource = playlistDownloadLocalDataSource,
-            playlistRemoteDataSource = playlistRemoteDataSource,
-            networkChangeListService = networkChangeListService,
-            mediaLocalDataSource = mediaLocalDataSource
+            playlistMapper = playlistMapper
         )
 
     @Singleton
@@ -148,6 +151,20 @@ class DataModule {
         playlistMediaDao = playlistMediaDao,
         mediaDownloadDao = mediaDownloadDao
     )
+
+    @Provides
+    fun playlistDownloadMapper(playlistMapper: PlaylistMapper): PlaylistDownloadMapper =
+        PlaylistDownloadMapper(playlistMapper)
+
+    @Provides
+    fun mediaExtrasMapper(): MediaExtrasMapper = MediaExtrasMapperNoopImpl
+
+    @Provides
+    fun mediaMapper(mediaExtrasMapper: MediaExtrasMapper): MediaMapper =
+        MediaMapper(mediaExtrasMapper)
+
+    @Provides
+    fun playlistMapper(mediaMapper: MediaMapper): PlaylistMapper = PlaylistMapper(mediaMapper)
 
     @Singleton
     @Provides

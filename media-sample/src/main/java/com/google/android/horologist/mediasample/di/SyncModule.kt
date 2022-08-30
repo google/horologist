@@ -17,12 +17,17 @@
 package com.google.android.horologist.mediasample.di
 
 import android.content.Context
+import com.google.android.horologist.media.data.datasource.MediaLocalDataSource
+import com.google.android.horologist.media.data.datasource.PlaylistLocalDataSource
+import com.google.android.horologist.media.data.mapper.PlaylistMapper
 import com.google.android.horologist.media.sync.api.ChangeListVersionRepository
 import com.google.android.horologist.media.sync.api.CoroutineDispatcherProvider
 import com.google.android.horologist.media.sync.api.NotificationConfigurationProvider
 import com.google.android.horologist.media.sync.api.Syncable
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.mediasample.data.repository.PlaylistRepositoryImpl
+import com.google.android.horologist.mediasample.data.api.NetworkChangeListService
+import com.google.android.horologist.mediasample.data.datasource.PlaylistRemoteDataSource
+import com.google.android.horologist.mediasample.data.repository.PlaylistRepositorySyncable
 import com.google.android.horologist.mediasample.di.annotation.Dispatcher
 import com.google.android.horologist.mediasample.di.annotation.UampDispatchers.IO
 import dagger.Module
@@ -86,8 +91,24 @@ object SyncModule {
     @Singleton
     @Provides
     fun syncables(
-        playlistRepositoryImpl: PlaylistRepositoryImpl
+        playlistRepositorySyncable: PlaylistRepositorySyncable
     ): Array<Syncable> = arrayOf(
-        playlistRepositoryImpl
+        playlistRepositorySyncable
     )
+
+    @Provides
+    fun playlistRepositorySyncable(
+        playlistLocalDataSource: PlaylistLocalDataSource,
+        playlistRemoteDataSource: PlaylistRemoteDataSource,
+        networkChangeListService: NetworkChangeListService,
+        mediaLocalDataSource: MediaLocalDataSource,
+        playlistMapper: PlaylistMapper
+    ): PlaylistRepositorySyncable =
+        PlaylistRepositorySyncable(
+            playlistLocalDataSource,
+            playlistRemoteDataSource,
+            networkChangeListService,
+            mediaLocalDataSource,
+            playlistMapper
+        )
 }

@@ -20,7 +20,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.getBoundsInRoot
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.test.filters.MediumTest
@@ -56,13 +55,6 @@ class VolumeScreenA11yTest {
         composeTestRule.onNodeWithContentDescription("Increase Volume")
             .assertIsDisplayed()
             .assertHasClickAction()
-
-        val onNodeWithContentDescription =
-            composeTestRule.onNodeWithContentDescription("Increase Volume")
-        val message = onNodeWithContentDescription.getBoundsInRoot()
-        println(message)
-        println(composeTestRule.onNodeWithContentDescription("Pixelbuds").getBoundsInRoot())
-        println(composeTestRule.onNodeWithContentDescription("Decrease Volume").getBoundsInRoot())
 
         composeTestRule.onNodeWithContentDescription("Pixelbuds")
             .assertIsDisplayed()

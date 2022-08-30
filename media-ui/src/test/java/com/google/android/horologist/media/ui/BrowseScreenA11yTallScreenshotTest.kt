@@ -27,8 +27,8 @@ import app.cash.paparazzi.Paparazzi
 import com.android.ide.common.rendering.api.SessionParams
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
-import com.google.android.horologist.media.ui.compose.TallPreview
-import com.google.android.horologist.media.ui.compose.forceState
+import com.google.android.horologist.compose.tools.a11y.TallPreview
+import com.google.android.horologist.compose.tools.a11y.forceState
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreen
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreenState
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
@@ -70,7 +70,7 @@ class BrowseScreenA11yTallScreenshotTest {
                 width = GALAXY_WATCH4_CLASSIC_LARGE.screenWidth,
                 height = 650
             ) { scalingParams ->
-                PlayerPreview(state = scrollState, round = false) {
+                PlayerLibraryPreview(state = scrollState, round = false) {
                     BrowseScreen(
                         browseScreenState = screenState,
                         onDownloadItemClick = { },

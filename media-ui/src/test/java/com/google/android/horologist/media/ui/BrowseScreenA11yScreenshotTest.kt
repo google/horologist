@@ -21,24 +21,12 @@
 
 package com.google.android.horologist.media.ui
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.graphics.Color
-import androidx.wear.compose.material.PositionIndicator
-import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.ScalingLazyListState
-import androidx.wear.compose.material.TimeSource
-import androidx.wear.compose.material.TimeText
 import app.cash.paparazzi.Paparazzi
-import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
-import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
-import com.google.android.horologist.media.ui.compose.forceState
+import com.google.android.horologist.compose.tools.a11y.forceState
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreen
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreenState
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
@@ -80,7 +68,7 @@ class BrowseScreenA11yScreenshotTest {
         val screenState = BrowseScreenState.Loaded(downloadList)
 
         paparazzi.snapshot {
-            PlayerPreview(state = scrollState) {
+            PlayerLibraryPreview(state = scrollState) {
                 BrowseScreen(
                     browseScreenState = screenState,
                     onDownloadItemClick = { },
@@ -101,7 +89,7 @@ class BrowseScreenA11yScreenshotTest {
         val screenState = BrowseScreenState.Loaded(downloadList)
 
         paparazzi.snapshot {
-            PlayerPreview(state = scrollState) {
+            PlayerLibraryPreview(state = scrollState) {
                 BrowseScreen(
                     browseScreenState = screenState,
                     onDownloadItemClick = { },
@@ -110,40 +98,6 @@ class BrowseScreenA11yScreenshotTest {
                     focusRequester = FocusRequester(),
                     scalingLazyListState = scrollState
                 )
-            }
-        }
-    }
-}
-
-@Composable
-fun PlayerPreview(
-    state: ScalingLazyListState? = null,
-    round: Boolean = true,
-    function: @Composable () -> Unit
-) {
-    RoundPreview(round = round) {
-        PagerScreen(count = 2) {
-            if (it == 0) {
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    timeText = {
-                        TimeText(
-                            timeSource = object : TimeSource {
-                                override val currentTime: String
-                                    @Composable get() = "10:10"
-                            }
-                        )
-                    },
-                    positionIndicator = {
-                        if (state != null) {
-                            PositionIndicator(state)
-                        }
-                    }
-                ) {
-                    Box(modifier = Modifier.background(Color.Black)) {
-                        function()
-                    }
-                }
             }
         }
     }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.ui.compose
+package com.google.android.horologist.compose.tools.a11y
 
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.MutableState

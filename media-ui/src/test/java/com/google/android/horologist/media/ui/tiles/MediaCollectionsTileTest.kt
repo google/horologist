@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistComposeToolsApi::class, ExperimentalHorologistMediaUiApi::class)
+@file:OptIn(ExperimentalHorologistComposeToolsApi::class, ExperimentalHorologistMediaUiApi::class,
+    ExperimentalHorologistPaparazziApi::class
+)
 
 package com.google.android.horologist.media.ui.tiles
 
@@ -34,6 +36,7 @@ import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.uamp.UampColors
+import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WEAR_OS_SMALL_ROUND
 import com.google.android.horologist.paparazzi.WEAR_OS_SQUARE

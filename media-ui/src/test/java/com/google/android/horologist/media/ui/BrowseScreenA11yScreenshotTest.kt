@@ -14,19 +14,35 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class)
+@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistPaparazziApi::class,
+    ExperimentalHorologistComposeToolsApi::class
+)
 
 package com.google.android.horologist.media.ui
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.graphics.Color
+import androidx.wear.compose.material.PositionIndicator
+import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.ScalingLazyListState
+import androidx.wear.compose.material.TimeSource
+import androidx.wear.compose.material.TimeText
 import app.cash.paparazzi.Paparazzi
+import com.google.android.horologist.compose.pager.PagerScreen
+import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.media.ui.compose.forceState
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreen
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreenState
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
+import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
 import com.google.android.horologist.paparazzi.a11y.A11ySnapshotHandler
@@ -58,19 +74,21 @@ class BrowseScreenA11yScreenshotTest {
     @Test
     fun browseScreen() {
         val scrollState = ScalingLazyListState()
-        scrollState.forceState(0, 0)
+        scrollState.forceState(0, -40)
 
         val screenState = BrowseScreenState.Loaded(downloadList)
 
         paparazzi.snapshot {
-            BrowseScreen(
-                browseScreenState = screenState,
-                onDownloadItemClick = { },
-                onPlaylistsClick = { },
-                onSettingsClick = { },
-                focusRequester = FocusRequester(),
-                scalingLazyListState = scrollState,
-            )
+            PlayerPreview(state = scrollState) {
+                BrowseScreen(
+                    browseScreenState = screenState,
+                    onDownloadItemClick = { },
+                    onPlaylistsClick = { },
+                    onSettingsClick = { },
+                    focusRequester = FocusRequester(),
+                    scalingLazyListState = scrollState
+                )
+            }
         }
     }
 
@@ -82,14 +100,46 @@ class BrowseScreenA11yScreenshotTest {
         val screenState = BrowseScreenState.Loaded(downloadList)
 
         paparazzi.snapshot {
-            BrowseScreen(
-                browseScreenState = screenState,
-                onDownloadItemClick = { },
-                onPlaylistsClick = { },
-                onSettingsClick = { },
-                focusRequester = FocusRequester(),
-                scalingLazyListState = scrollState,
-            )
+            PlayerPreview(state = scrollState) {
+                BrowseScreen(
+                    browseScreenState = screenState,
+                    onDownloadItemClick = { },
+                    onPlaylistsClick = { },
+                    onSettingsClick = { },
+                    focusRequester = FocusRequester(),
+                    scalingLazyListState = scrollState
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun PlayerPreview(state: ScalingLazyListState? = null, function: @Composable () -> Unit) {
+    RoundPreview(round = true) {
+        PagerScreen(count = 2) {
+            Scaffold(
+                modifier = Modifier.fillMaxSize(),
+                timeText = {
+                    TimeText(
+                        timeSource = object : TimeSource {
+                            override val currentTime: String
+                                @Composable get() = "10:10"
+                        }
+                    )
+                },
+                positionIndicator = {
+                    if (state != null) {
+                        PositionIndicator(state)
+                    }
+                }
+            ) {
+                if (it == 0) {
+                    Box(modifier = Modifier.background(Color.Black)) {
+                        function()
+                    }
+                }
+            }
         }
     }
 }

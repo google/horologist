@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistPaparazziApi::class)
+
 package com.google.android.horologist.compose.tools.a11y
 
 import android.view.View
@@ -27,10 +29,21 @@ import androidx.compose.ui.semantics.SemanticsNode
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import app.cash.paparazzi.RenderExtension
+import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.a11y.AccessibilityState
 
-class ComposeA11yExtension : RenderExtension {
-    lateinit var accessibilityState: AccessibilityState
+/**
+ * Paparazzi Render Extension that collects Accessibility information for Compose
+ * hierarchies.
+ *
+ * Currently captures Content Description, State Description, On Click, Role, Disabled,
+ * Heading, Custom Actions, Text, and Progress.  These are saved as AccessibilityState.Element in
+ * the [accessibilityState] list.
+ */
+@ExperimentalHorologistComposeToolsApi
+public class ComposeA11yExtension : RenderExtension {
+    public lateinit var accessibilityState: AccessibilityState
 
     private lateinit var rootForTest: RootForTest
 
@@ -61,8 +74,10 @@ class ComposeA11yExtension : RenderExtension {
         val heading = p0.config.getOrNull(SemanticsProperties.Heading) != null
         val customActions = p0.config.getOrNull(SemanticsActions.CustomActions)
         val text = p0.config.getOrNull(SemanticsProperties.Text)
+        val progress = p0.config.getOrNull(SemanticsProperties.ProgressBarRangeInfo)
+        val hasProgressAction = p0.config.getOrNull(SemanticsActions.SetProgress) != null
 
-        if (contentDescription != null || stateDescription != null || onClickLabel != null || role != null) {
+        if (contentDescription != null || stateDescription != null || onClickLabel != null || role != null || progress != null || text != null) {
             val position = p0.boundsInRoot.toAndroidRect()
             val touchBounds = p0.touchBoundsInRoot.toAndroidRect()
             fn(
@@ -76,7 +91,10 @@ class ComposeA11yExtension : RenderExtension {
                     role,
                     disabled,
                     heading,
-                    customActions?.map { AccessibilityState.CustomAction(label = it.label) }
+                    customActions?.map { AccessibilityState.CustomAction(label = it.label) },
+                    progress?.let {
+                        AccessibilityState.Progress(it.current, it.range, it.steps, hasProgressAction)
+                    }
                 )
             )
         }

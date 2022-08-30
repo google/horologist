@@ -143,9 +143,10 @@ dependencies {
     testImplementation libs.kotlinx.coroutines.test
     testImplementation libs.truth
     testImplementation libs.robolectric
-    testImplementation projects.paparazzi
     testImplementation projects.audio
     testImplementation projects.audioUi
+    testImplementation projects.paparazzi
+    testImplementation libs.paparazzi
 
     androidTestImplementation libs.compose.ui.test.junit4
     androidTestImplementation libs.truth

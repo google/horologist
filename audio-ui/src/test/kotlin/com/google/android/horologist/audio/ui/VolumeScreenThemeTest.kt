@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistAudioApi::class, ExperimentalHorologistComposeToolsApi::class)
+@file:OptIn(ExperimentalHorologistAudioApi::class, ExperimentalHorologistComposeToolsApi::class,
+    ExperimentalHorologistPaparazziApi::class
+)
 
 package com.google.android.horologist.audio.ui
 
@@ -25,6 +27,7 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.themeValues
+import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
 import com.google.android.horologist.paparazzi.determineHandler

@@ -16,19 +16,8 @@
 
 package com.google.android.horologist.paparazzi
 
-import app.cash.paparazzi.HtmlReportWriter
-import app.cash.paparazzi.SnapshotHandler
-import app.cash.paparazzi.SnapshotVerifier
-
-@ExperimentalHorologistPaparazziApi
-public val isVerifying: Boolean =
-    System.getProperty("paparazzi.test.verify")?.toBoolean() == true
-
-@ExperimentalHorologistPaparazziApi
-public fun determineHandler(maxPercentDifference: Double): SnapshotHandler {
-    return if (isVerifying) {
-        SnapshotVerifier(maxPercentDifference)
-    } else {
-        HtmlReportWriter()
-    }
-}
+@RequiresOptIn(
+    message = "Horologist Paparazzi is experimental. The API may be changed in the future."
+)
+@Retention(AnnotationRetention.BINARY)
+public annotation class ExperimentalHorologistPaparazziApi

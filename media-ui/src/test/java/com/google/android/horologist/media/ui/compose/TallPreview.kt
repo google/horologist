@@ -29,7 +29,7 @@ import androidx.wear.compose.material.ScalingParams
 fun TallPreview(
     width: Int,
     height: Int,
-    function: @Composable (ScalingParams) -> Unit,
+    function: @Composable (ScalingParams) -> Unit
 ) {
     with(LocalDensity.current) {
         Box(

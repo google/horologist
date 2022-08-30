@@ -44,6 +44,6 @@ fun UampBrowseScreen(
         onSettingsClick = onSettingsClick,
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
-        modifier = modifier,
+        modifier = modifier
     )
 }

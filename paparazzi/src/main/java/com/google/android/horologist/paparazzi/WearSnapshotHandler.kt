@@ -21,6 +21,7 @@ import app.cash.paparazzi.SnapshotHandler
 import java.awt.geom.Ellipse2D
 import java.awt.image.BufferedImage
 
+@ExperimentalHorologistPaparazziApi
 public class WearSnapshotHandler(private val delegate: SnapshotHandler) : SnapshotHandler {
     override fun close() {
         delegate.close()

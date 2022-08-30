@@ -115,8 +115,12 @@ class BrowseScreenA11yScreenshotTest {
 }
 
 @Composable
-fun PlayerPreview(state: ScalingLazyListState? = null, function: @Composable () -> Unit) {
-    RoundPreview(round = true) {
+fun PlayerPreview(
+    state: ScalingLazyListState? = null,
+    round: Boolean = true,
+    function: @Composable () -> Unit
+) {
+    RoundPreview(round = round) {
         PagerScreen(count = 2) {
             Scaffold(
                 modifier = Modifier.fillMaxSize(),

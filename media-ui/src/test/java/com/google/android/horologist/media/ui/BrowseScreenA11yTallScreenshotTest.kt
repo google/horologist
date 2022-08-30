@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistPaparazziApi::class,
+@file:OptIn(
+    ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistPaparazziApi::class,
     ExperimentalHorologistComposeToolsApi::class
 )
 
@@ -65,11 +66,11 @@ class BrowseScreenA11yTallScreenshotTest {
         val screenState = BrowseScreenState.Loaded(downloadList)
 
         paparazzi.snapshot {
-            PlayerPreview(state = scrollState) {
-                TallPreview(
-                    width = GALAXY_WATCH4_CLASSIC_LARGE.screenWidth,
-                    height = 650
-                ) { scalingParams ->
+            TallPreview(
+                width = GALAXY_WATCH4_CLASSIC_LARGE.screenWidth,
+                height = 650
+            ) { scalingParams ->
+                PlayerPreview(state = scrollState, round = false) {
                     BrowseScreen(
                         browseScreenState = screenState,
                         onDownloadItemClick = { },

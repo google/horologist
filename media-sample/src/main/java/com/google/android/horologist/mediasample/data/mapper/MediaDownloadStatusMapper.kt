@@ -16,9 +16,9 @@
 
 package com.google.android.horologist.mediasample.data.mapper
 
+import com.google.android.horologist.media.data.database.model.MediaDownloadEntity
+import com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus
 import com.google.android.horologist.media.model.MediaDownload
-import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntity
-import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntityStatus
 
 object MediaDownloadStatusMapper {
 

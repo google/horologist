@@ -14,14 +14,22 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.database.mapper
+package com.google.android.horologist.media.data.database.mapper
 
 import androidx.media3.exoplayer.offline.Download
-import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntityStatus
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus
 
-object MediaDownloadEntityStatusMapper {
+/**
+ * Functions to map models from other layers and / or packages into a [MediaDownloadEntityStatus].
+ */
+@ExperimentalHorologistMediaDataApi
+public object MediaDownloadEntityStatusMapper {
 
-    fun map(@Download.State state: Int): MediaDownloadEntityStatus = when (state) {
+    /**
+     * Maps from a [Download.State].
+     */
+    public fun map(@Download.State state: Int): MediaDownloadEntityStatus = when (state) {
         Download.STATE_QUEUED,
         Download.STATE_DOWNLOADING,
         Download.STATE_RESTARTING -> MediaDownloadEntityStatus.Downloading

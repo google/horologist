@@ -14,24 +14,29 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.database.dao
+package com.google.android.horologist.media.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import com.google.android.horologist.mediasample.data.database.model.MediaEntity
-import com.google.android.horologist.mediasample.data.database.model.PlaylistEntity
-import com.google.android.horologist.mediasample.data.database.model.PlaylistMediaEntity
-import com.google.android.horologist.mediasample.data.database.model.PopulatedPlaylist
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.media.data.database.model.MediaEntity
+import com.google.android.horologist.media.data.database.model.PlaylistEntity
+import com.google.android.horologist.media.data.database.model.PlaylistMediaEntity
+import com.google.android.horologist.media.data.database.model.PopulatedPlaylist
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * DAO for [PlaylistEntity].
+ */
+@ExperimentalHorologistMediaDataApi
 @Dao
-interface PlaylistDao {
+public interface PlaylistDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(
+    public suspend fun upsert(
         playlistEntity: PlaylistEntity,
         mediaEntityList: List<MediaEntity>,
         playlistMediaEntityList: List<PlaylistMediaEntity>
@@ -44,7 +49,7 @@ interface PlaylistDao {
         WHERE playlistId = :playlistId
     """
     )
-    suspend fun getPopulated(playlistId: String): PopulatedPlaylist?
+    public suspend fun getPopulated(playlistId: String): PopulatedPlaylist?
 
     @Transaction
     @Query(
@@ -53,7 +58,7 @@ interface PlaylistDao {
         WHERE playlistId = :playlistId
     """
     )
-    fun getPopulatedStream(playlistId: String): Flow<PopulatedPlaylist?>
+    public fun getPopulatedStream(playlistId: String): Flow<PopulatedPlaylist?>
 
     @Transaction
     @Query(
@@ -61,7 +66,7 @@ interface PlaylistDao {
         SELECT * FROM PlaylistEntity
     """
     )
-    fun getAllPopulated(): Flow<List<PopulatedPlaylist>>
+    public fun getAllPopulated(): Flow<List<PopulatedPlaylist>>
 
     @Transaction
     @Query(
@@ -77,7 +82,7 @@ interface PlaylistDao {
         )
     """
     )
-    fun getAllDownloaded(): Flow<List<PopulatedPlaylist>>
+    public fun getAllDownloaded(): Flow<List<PopulatedPlaylist>>
 
     @Query(
         value = """
@@ -85,5 +90,5 @@ interface PlaylistDao {
         WHERE playlistId in (:playlistIds)
     """
     )
-    fun delete(playlistIds: List<String>)
+    public fun delete(playlistIds: List<String>)
 }

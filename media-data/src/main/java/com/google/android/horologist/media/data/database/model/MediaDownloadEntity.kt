@@ -14,17 +14,27 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.database.model
+package com.google.android.horologist.media.data.database.model
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 
+/**
+ * A table to store [media][MediaEntity] download information.
+ */
+@ExperimentalHorologistMediaDataApi
 @Entity
-data class MediaEntity(
+public data class MediaDownloadEntity(
     @PrimaryKey val mediaId: String,
-    @ColumnInfo val mediaUrl: String,
-    @ColumnInfo val artworkUrl: String,
-    @ColumnInfo val title: String?,
-    @ColumnInfo val artist: String?
+    val status: MediaDownloadEntityStatus,
+    val progress: Float,
+    val size: Long
 )
+
+/**
+ * Represents the download status of [MediaDownloadEntity].
+ */
+public enum class MediaDownloadEntityStatus {
+    NotDownloaded, Downloading, Downloaded, Failed
+}

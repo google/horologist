@@ -16,9 +16,9 @@
 
 package com.google.android.horologist.mediasample.data.mapper
 
+import com.google.android.horologist.media.data.database.model.MediaEntity
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.mediasample.data.api.model.MusicApiModel
-import com.google.android.horologist.mediasample.data.database.model.MediaEntity
 
 /**
  * Mappers for [Media].

@@ -14,18 +14,22 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.database.mapper
+package com.google.android.horologist.media.data.database.model
 
-import com.google.android.horologist.media.model.Media
-import com.google.android.horologist.mediasample.data.database.model.MediaEntity
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 
-object MediaEntityMapper {
-
-    fun map(media: Media): MediaEntity = MediaEntity(
-        mediaId = media.id,
-        mediaUrl = media.uri,
-        artworkUrl = media.artworkUri ?: "",
-        title = media.title,
-        artist = media.artist
-    )
-}
+/**
+ * A table to store media information.
+ */
+@ExperimentalHorologistMediaDataApi
+@Entity
+public data class MediaEntity(
+    @PrimaryKey val mediaId: String,
+    @ColumnInfo val mediaUrl: String,
+    @ColumnInfo val artworkUrl: String,
+    @ColumnInfo val title: String?,
+    @ColumnInfo val artist: String?
+)

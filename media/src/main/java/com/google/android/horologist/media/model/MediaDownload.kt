@@ -14,25 +14,35 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.domain.model
+package com.google.android.horologist.media.model
 
-import com.google.android.horologist.media.model.Media
+import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 
-data class MediaDownload(
+/**
+ * Representation of a [Media] download.
+ */
+@ExperimentalHorologistMediaApi
+public data class MediaDownload(
     val media: Media,
     val status: Status,
     val size: Size
 ) {
 
-    sealed class Status {
+    /**
+     * Status of the download of a [MediaDownload].
+     */
+    public sealed class Status {
 
-        object Idle : Status()
+        public object Idle : Status()
 
-        data class InProgress(val progress: Float) : Status()
+        public data class InProgress(val progress: Float) : Status()
 
-        object Completed : Status()
+        public object Completed : Status()
     }
 
+    /**
+     * Size of the download of a [MediaDownload].
+     */
     public sealed class Size {
         public object Unknown : Size()
 

@@ -16,8 +16,8 @@
 
 package com.google.android.horologist.mediasample.ui.mapper
 
+import com.google.android.horologist.media.model.Playlist
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
-import com.google.android.horologist.mediasample.domain.model.Playlist
 
 /**
  * Maps a [Playlist] into a [PlaylistUiModel].

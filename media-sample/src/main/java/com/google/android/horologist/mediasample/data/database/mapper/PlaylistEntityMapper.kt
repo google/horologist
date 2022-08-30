@@ -16,8 +16,8 @@
 
 package com.google.android.horologist.mediasample.data.database.mapper
 
+import com.google.android.horologist.media.model.Playlist
 import com.google.android.horologist.mediasample.data.database.model.PlaylistEntity
-import com.google.android.horologist.mediasample.domain.model.Playlist
 
 object PlaylistEntityMapper {
 

@@ -16,9 +16,9 @@
 
 package com.google.android.horologist.mediasample.data.mapper
 
+import com.google.android.horologist.media.model.PlaylistDownload
 import com.google.android.horologist.mediasample.data.database.model.MediaDownloadEntity
 import com.google.android.horologist.mediasample.data.database.model.PopulatedPlaylist
-import com.google.android.horologist.mediasample.domain.model.PlaylistDownload
 
 object PlaylistDownloadMapper {
 

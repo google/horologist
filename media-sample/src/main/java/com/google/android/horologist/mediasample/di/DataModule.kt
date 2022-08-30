@@ -18,6 +18,8 @@ package com.google.android.horologist.mediasample.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore
+import com.google.android.horologist.media.repository.PlaylistDownloadRepository
+import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.mediasample.data.api.NetworkChangeListService
 import com.google.android.horologist.mediasample.data.api.UampService
 import com.google.android.horologist.mediasample.data.database.MediaDatabase
@@ -35,8 +37,6 @@ import com.google.android.horologist.mediasample.data.repository.PlaylistReposit
 import com.google.android.horologist.mediasample.data.service.download.MediaDownloadService
 import com.google.android.horologist.mediasample.di.annotation.Dispatcher
 import com.google.android.horologist.mediasample.di.annotation.UampDispatchers.IO
-import com.google.android.horologist.mediasample.domain.PlaylistDownloadRepository
-import com.google.android.horologist.mediasample.domain.PlaylistRepository
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
 import dagger.Module

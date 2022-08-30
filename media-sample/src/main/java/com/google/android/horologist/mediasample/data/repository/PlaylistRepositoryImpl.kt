@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.mediasample.data.repository
 
+import com.google.android.horologist.media.model.Playlist
+import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.media.sync.api.Syncable
 import com.google.android.horologist.media.sync.api.Synchronizer
 import com.google.android.horologist.media.sync.api.changeListSync
@@ -24,8 +26,6 @@ import com.google.android.horologist.mediasample.data.datasource.MediaLocalDataS
 import com.google.android.horologist.mediasample.data.datasource.PlaylistLocalDataSource
 import com.google.android.horologist.mediasample.data.datasource.PlaylistRemoteDataSource
 import com.google.android.horologist.mediasample.data.mapper.PlaylistMapper
-import com.google.android.horologist.mediasample.domain.PlaylistRepository
-import com.google.android.horologist.mediasample.domain.model.Playlist
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map

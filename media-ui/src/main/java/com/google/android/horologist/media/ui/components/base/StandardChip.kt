@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.Text
 import coil.compose.rememberAsyncImagePainter
 
@@ -110,7 +111,8 @@ internal fun StandardChip(
                             modifier = Modifier
                                 .size(iconSize)
                                 .clip(CircleShape),
-                            contentScale = ContentScale.Crop
+                            contentScale = ContentScale.Crop,
+                            alpha = LocalContentAlpha.current
                         )
                     }
                 }

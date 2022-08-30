@@ -23,25 +23,25 @@ import androidx.compose.runtime.MutableState
 import androidx.wear.compose.material.ScalingLazyListState
 import kotlin.reflect.full.declaredMemberProperties
 
-fun ScalingLazyListState.forceState(topIndex: Int, topScrollOffset: Int) {
+public fun ScalingLazyListState.forceState(topIndex: Int, topScrollOffset: Int) {
     this.lazyListState.scrollPositionScrollOffset.value = topScrollOffset
     this.lazyListState.scrollPositionIndex = topIndex
     this.initialized.value = true
 }
 
-val ScalingLazyListState.initialized: MutableState<Boolean>
+private val ScalingLazyListState.initialized: MutableState<Boolean>
     get() {
         return ScalingLazyListState::class.declaredMemberProperties.first { it.name == "initialized" }
             .get(this) as MutableState<Boolean>
     }
 
-val ScalingLazyListState.lazyListState: LazyListState
+private val ScalingLazyListState.lazyListState: LazyListState
     get() {
         return ScalingLazyListState::class.declaredMemberProperties.first { it.name == "lazyListState" }
             .get(this) as LazyListState
     }
 
-val LazyListState.scrollPosition: Any
+private val LazyListState.scrollPosition: Any
     get() {
         return LazyListState::class.java.declaredFields.first { it.name == "scrollPosition" }
             .apply {
@@ -50,7 +50,7 @@ val LazyListState.scrollPosition: Any
             .get(this) as Any
     }
 
-var LazyListState.scrollPositionIndex: Int
+private var LazyListState.scrollPositionIndex: Int
     get() {
         val positionType = Class.forName("androidx.compose.foundation.lazy.LazyListScrollPosition")
         val dataIndexType = Class.forName("androidx.compose.foundation.lazy.DataIndex")
@@ -80,7 +80,7 @@ var LazyListState.scrollPositionIndex: Int
             .set(dataIndex.value, value)
     }
 
-val LazyListState.scrollPositionScrollOffset: MutableState<Int>
+private val LazyListState.scrollPositionScrollOffset: MutableState<Int>
     get() {
         val type = Class.forName("androidx.compose.foundation.lazy.LazyListScrollPosition")
         return type.declaredFields

@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistPaparazziApi::class,
+@file:OptIn(
+    ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistPaparazziApi::class,
     ExperimentalHorologistComposeToolsApi::class
 )
 
@@ -122,23 +123,23 @@ fun PlayerPreview(
 ) {
     RoundPreview(round = round) {
         PagerScreen(count = 2) {
-            Scaffold(
-                modifier = Modifier.fillMaxSize(),
-                timeText = {
-                    TimeText(
-                        timeSource = object : TimeSource {
-                            override val currentTime: String
-                                @Composable get() = "10:10"
+            if (it == 0) {
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    timeText = {
+                        TimeText(
+                            timeSource = object : TimeSource {
+                                override val currentTime: String
+                                    @Composable get() = "10:10"
+                            }
+                        )
+                    },
+                    positionIndicator = {
+                        if (state != null) {
+                            PositionIndicator(state)
                         }
-                    )
-                },
-                positionIndicator = {
-                    if (state != null) {
-                        PositionIndicator(state)
                     }
-                }
-            ) {
-                if (it == 0) {
+                ) {
                     Box(modifier = Modifier.background(Color.Black)) {
                         function()
                     }

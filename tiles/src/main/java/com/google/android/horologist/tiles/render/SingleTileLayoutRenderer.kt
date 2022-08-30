@@ -89,14 +89,14 @@ public abstract class SingleTileLayoutRenderer<T, R>(
     ): LayoutElement
 
     final override fun produceRequestedResources(
-        resourceResults: R,
+        resourceState: R,
         requestParams: RequestBuilders.ResourcesRequest
     ): Resources {
         return Resources.Builder()
             .setVersion(requestParams.version)
             .apply {
                 produceRequestedResources(
-                    resourceResults,
+                    resourceState,
                     requestParams.deviceParameters!!,
                     requestParams.resourceIds
                 )
@@ -108,7 +108,7 @@ public abstract class SingleTileLayoutRenderer<T, R>(
      * Add resources directly to the builder.
      */
     public open fun Resources.Builder.produceRequestedResources(
-        resourceResults: R,
+        resourceState: R,
         deviceParameters: DeviceParametersBuilders.DeviceParameters,
         resourceIds: MutableList<String>
     ) {

@@ -112,11 +112,11 @@ public class MediaCollectionsTileRenderer(
         .build()
 
     override fun Resources.Builder.produceRequestedResources(
-        resourceResults: ResourceState,
+        resourceState: ResourceState,
         deviceParameters: DeviceParameters,
         resourceIds: MutableList<String>
     ) {
-        resourceResults.images.forEach { (image, imageResource) ->
+        resourceState.images.forEach { (image, imageResource) ->
             if (imageResource != null) {
                 addIdToImageMapping(image, imageResource)
             }

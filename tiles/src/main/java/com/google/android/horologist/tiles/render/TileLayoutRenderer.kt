@@ -50,12 +50,12 @@ public interface TileLayoutRenderer<T, R> {
      * [androidx.wear.tiles.RequestBuilders.ResourcesRequest.getResourceIds] and if not empty
      * only return the requested resources.
      *
-     * @param resourceResults the state of the resources, typically a data class containing loaded
+     * @param resourceState the state of the resources, typically a data class containing loaded
      * bitmaps.
      * @param requestParams the incoming request params.
      */
     public fun produceRequestedResources(
-        resourceResults: R,
+        resourceState: R,
         requestParams: RequestBuilders.ResourcesRequest
     ): Resources
 }

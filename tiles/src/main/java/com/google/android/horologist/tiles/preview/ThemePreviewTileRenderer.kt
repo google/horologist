@@ -102,7 +102,7 @@ public class ThemePreviewTileRenderer(context: Context, private val thisTheme: C
             .build()
 
     override fun ResourceBuilders.Resources.Builder.produceRequestedResources(
-        resourceResults: Unit,
+        resourceState: Unit,
         deviceParameters: DeviceParameters,
         resourceIds: MutableList<String>
     ) {

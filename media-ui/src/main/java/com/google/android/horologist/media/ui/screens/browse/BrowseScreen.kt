@@ -31,7 +31,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyColumn
+import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingLazyListState
+import androidx.wear.compose.material.ScalingParams
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
@@ -58,13 +60,15 @@ public fun BrowseScreen(
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
-    downloadItemArtworkPlaceholder: Painter? = null
+    downloadItemArtworkPlaceholder: Painter? = null,
+    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams()
 ) {
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize()
             .scrollableColumn(focusRequester, scalingLazyListState),
-        state = scalingLazyListState
+        state = scalingLazyListState,
+        scalingParams = scalingParams
     ) {
         item {
             Title(

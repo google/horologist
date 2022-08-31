@@ -29,6 +29,7 @@ import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
 import com.google.android.horologist.paparazzi.a11y.A11ySnapshotHandler
 import com.google.android.horologist.paparazzi.determineHandler
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
@@ -53,6 +54,7 @@ class VolumeScreenA11yScreenshotTest {
         )
     )
 
+    @Ignore("https://github.com/google/horologist/issues/535")
     @Test
     fun volumeScreenAtMinimums() {
         val volumeState = VolumeState(

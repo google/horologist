@@ -18,10 +18,10 @@ package com.google.android.horologist.paparazzi
 
 import app.cash.paparazzi.Snapshot
 import app.cash.paparazzi.SnapshotHandler
-import java.awt.Graphics2D
 import java.awt.geom.Ellipse2D
 import java.awt.image.BufferedImage
 
+@ExperimentalHorologistPaparazziApi
 public class WearSnapshotHandler(private val delegate: SnapshotHandler) : SnapshotHandler {
     override fun close() {
         delegate.close()
@@ -29,9 +29,11 @@ public class WearSnapshotHandler(private val delegate: SnapshotHandler) : Snapsh
 
     private fun frameImage(image: BufferedImage): BufferedImage {
         val newImage = BufferedImage(image.width, image.height, image.type)
-        val g: Graphics2D = newImage.createGraphics()
-        g.clip = Ellipse2D.Float(0f, 0f, image.height.toFloat(), image.width.toFloat())
-        g.drawImage(image, 0, 0, image.width, image.height, null)
+        newImage.createGraphics().apply {
+            clip = Ellipse2D.Float(0f, 0f, image.height.toFloat(), image.width.toFloat())
+            drawImage(image, 0, 0, image.width, image.height, null)
+            dispose()
+        }
         return newImage
     }
 

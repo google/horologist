@@ -14,64 +14,59 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistAudioApi::class,
-    ExperimentalHorologistComposeToolsApi::class,
-    ExperimentalHorologistPaparazziApi::class
-)
+@file:OptIn(ExperimentalHorologistComposeToolsApi::class, ExperimentalHorologistPaparazziApi::class)
 
 package com.google.android.horologist.audio.ui
 
+import androidx.wear.compose.material.MaterialTheme
 import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
-import com.google.android.horologist.compose.tools.ThemeValues
-import com.google.android.horologist.compose.tools.themeValues
+import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
+import com.google.android.horologist.paparazzi.a11y.A11ySnapshotHandler
 import com.google.android.horologist.paparazzi.determineHandler
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
 
-@RunWith(Parameterized::class)
-class VolumeScreenThemeTest(
-    private val themeValue: ThemeValues
-) {
+class VolumeScreenA11yScreenshotTest {
     private val maxPercentDifference = 0.1
+
+    val composeA11yExtension = ComposeA11yExtension()
 
     @get:Rule
     val paparazzi = Paparazzi(
         deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
         theme = "android:ThemeOverlay.Material.Dark",
         maxPercentDifference = maxPercentDifference,
-        snapshotHandler = WearSnapshotHandler(determineHandler(maxPercentDifference))
+        renderExtensions = setOf(composeA11yExtension),
+        snapshotHandler = WearSnapshotHandler(
+            A11ySnapshotHandler(
+                delegate = determineHandler(
+                    maxPercentDifference = maxPercentDifference
+                ),
+                accessibilityStateFn = { composeA11yExtension.accessibilityState }
+            )
+        )
     )
 
     @Test
-    fun volumeScreenThemes() {
+    fun volumeScreenAtMinimums() {
         val volumeState = VolumeState(
-            current = 50,
+            current = 0,
             max = 100
         )
         val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
-        paparazzi.snapshot(name = themeValue.safeName) {
+        paparazzi.snapshot {
             VolumeScreenTestCase(
-                colors = themeValue.colors,
+                colors = MaterialTheme.colors,
                 volumeState = volumeState,
                 audioOutput = audioOutput
             )
         }
-    }
-
-    companion object {
-        @JvmStatic
-        @Parameterized.Parameters
-        fun colours() = themeValues
     }
 }

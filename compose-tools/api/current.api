@@ -75,3 +75,24 @@ package com.google.android.horologist.compose.tools {
 
 }
 
+package com.google.android.horologist.compose.tools.a11y {
+
+  @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public final class ComposeA11yExtension implements app.cash.paparazzi.RenderExtension {
+    ctor public ComposeA11yExtension();
+    method public com.google.android.horologist.paparazzi.a11y.AccessibilityState getAccessibilityState();
+    method public android.view.View renderView(android.view.View contentView);
+    method public void setAccessibilityState(com.google.android.horologist.paparazzi.a11y.AccessibilityState accessibilityState);
+    property public final com.google.android.horologist.paparazzi.a11y.AccessibilityState accessibilityState;
+    field public com.google.android.horologist.paparazzi.a11y.AccessibilityState accessibilityState;
+  }
+
+  public final class ForceStateKt {
+    method public static void forceState(androidx.wear.compose.material.ScalingLazyListState, int topIndex, int topScrollOffset);
+  }
+
+  public final class TallPreviewKt {
+    method @androidx.compose.runtime.Composable public static void TallPreview(int width, int height, kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingParams,kotlin.Unit> function);
+  }
+
+}
+

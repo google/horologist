@@ -37,12 +37,11 @@ import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
 import com.google.android.horologist.paparazzi.a11y.A11ySnapshotHandler
 import com.google.android.horologist.paparazzi.determineHandler
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
 class BrowseScreenA11yScreenshotTest {
-    private val maxPercentDifference = 0.1
+    private val maxPercentDifference = 1.0
 
     val composeA11yExtension = ComposeA11yExtension()
 
@@ -62,7 +61,6 @@ class BrowseScreenA11yScreenshotTest {
         )
     )
 
-    @Ignore("https://github.com/google/horologist/issues/535")
     @Test
     fun browseScreen() {
         val scrollState = ScalingLazyListState()
@@ -84,7 +82,6 @@ class BrowseScreenA11yScreenshotTest {
         }
     }
 
-    @Ignore("https://github.com/google/horologist/issues/535")
     @Test
     fun secondPage() {
         val scrollState = ScalingLazyListState()

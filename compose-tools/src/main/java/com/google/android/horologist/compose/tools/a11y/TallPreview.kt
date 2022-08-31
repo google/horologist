@@ -26,7 +26,7 @@ import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingParams
 
 @Composable
-fun TallPreview(
+public fun TallPreview(
     width: Int,
     height: Int,
     function: @Composable (ScalingParams) -> Unit

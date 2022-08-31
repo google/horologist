@@ -15,7 +15,8 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistPaparazziApi::class,
+    ExperimentalHorologistMediaUiApi::class,
+    ExperimentalHorologistPaparazziApi::class,
     ExperimentalHorologistComposeToolsApi::class
 )
 

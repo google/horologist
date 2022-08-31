@@ -100,13 +100,13 @@ class SampleTileRenderer(context: Context) :
             .build()
 
     override fun Resources.Builder.produceRequestedResources(
-        resourceResults: ResourceState,
+        resourceState: ResourceState,
         deviceParameters: DeviceParameters,
         resourceIds: MutableList<String>
     ) {
         addIdToImageMapping(Icon1, drawableResToImageResource(TileIcon))
-        if (resourceResults.image != null) {
-            addIdToImageMapping(Image1, resourceResults.image)
+        if (resourceState.image != null) {
+            addIdToImageMapping(Image1, resourceState.image)
         }
     }
 

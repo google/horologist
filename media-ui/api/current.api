@@ -834,7 +834,7 @@ package com.google.android.horologist.media.ui.tiles {
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class MediaCollectionsTileRenderer extends com.google.android.horologist.tiles.render.SingleTileLayoutRenderer<com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollectionsState,com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState> {
     ctor public MediaCollectionsTileRenderer(android.content.Context context, androidx.wear.tiles.material.Colors materialTheme, boolean debugResourceMode);
-    method public void produceRequestedResources(androidx.wear.tiles.ResourceBuilders.Resources.Builder, com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState resourceResults, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters, java.util.List<java.lang.String> resourceIds);
+    method public void produceRequestedResources(androidx.wear.tiles.ResourceBuilders.Resources.Builder, com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.ResourceState resourceState, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters, java.util.List<java.lang.String> resourceIds);
     method public androidx.wear.tiles.LayoutElementBuilders.LayoutElement renderTile(com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer.MediaCollectionsState state, androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters deviceParameters);
   }
 

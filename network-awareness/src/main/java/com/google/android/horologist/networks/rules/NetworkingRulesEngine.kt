@@ -32,7 +32,7 @@ import java.net.InetSocketAddress
 public class NetworkingRulesEngine(
     internal val networkRepository: NetworkRepository,
     internal val logger: NetworkStatusLogger = NetworkStatusLogger.Logging,
-    private val networkingRules: NetworkingRules = NetworkingRules.Conservative
+    private val networkingRules: NetworkingRules = NetworkingRules.Lenient
 ) {
     public fun preferredNetwork(requestType: RequestType): NetworkStatus? {
         val networks = networkRepository.networkStatus.value

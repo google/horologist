@@ -25,7 +25,7 @@ import java.io.File
 
 data class AppConfig(
     val offloadEnabled: Boolean = Build.VERSION.SDK_INT >= 30,
-    val strictNetworking: NetworkingRules? = NetworkingRules.Conservative,
+    val strictNetworking: NetworkingRules? = NetworkingRules.Lenient,
     val deeplinkUriPrefix: String = "uamp${if (BuildConfig.DEBUG) "-debug" else ""}://uamp",
     val cacheItems: Boolean = true,
     val cacheWriteBack: Boolean = true,

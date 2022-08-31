@@ -40,7 +40,7 @@ public sealed interface NetworkType {
     @ExperimentalHorologistNetworksApi
     public data class Cellular(
         override val name: String,
-        override val metered: Boolean?
+        override val metered: Boolean? = null
     ) : NetworkType {
         override val typeName: String = cell
         override val highBatteryUsage: Boolean = true

@@ -23,6 +23,9 @@ import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendA
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.logging.ErrorReporter.Category.Downloads
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.networks.data.RequestType.MediaRequest
+import com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType
+import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 import com.google.android.horologist.networks.status.HighBandwidthRequester
 import java.io.Closeable
 
@@ -34,7 +37,8 @@ import java.io.Closeable
 @ExperimentalHorologistNetworksApi
 public class NetworkAwareDownloadListener(
     private val appEventLogger: ErrorReporter,
-    private val highBandwidthRequester: HighBandwidthRequester
+    private val highBandwidthRequester: HighBandwidthRequester,
+    private val networkingRulesEngine: NetworkingRulesEngine,
 ) : DownloadManager.Listener {
     private var networkRequest: Closeable? = null
 
@@ -102,7 +106,9 @@ public class NetworkAwareDownloadListener(
     private fun requestNetwork(downloadManager: DownloadManager) {
         if (networkRequest != null) {
             if (downloadManager.currentDownloads.isNotEmpty() && !downloadManager.isWaitingForRequirements) {
-                networkRequest = highBandwidthRequester.requestHighBandwidth(wait = false)
+                val types = networkingRulesEngine.supportedTypes(MediaRequest(MediaRequestType.Download))
+
+                networkRequest = highBandwidthRequester.requestHighBandwidth(types, wait = false)
             }
         }
     }

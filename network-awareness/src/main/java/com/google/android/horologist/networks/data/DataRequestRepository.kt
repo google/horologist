@@ -26,7 +26,8 @@ public interface DataRequestRepository {
     public fun storeRequest(dataRequest: DataRequest)
     public fun currentPeriodUsage(): Flow<DataUsageReport>
 
-    public object InMemoryDataRequestRepository : DataRequestRepository {
+    @ExperimentalHorologistNetworksApi
+    public class InMemoryDataRequestRepository : DataRequestRepository {
         private val from = Instant.now()
         private var ble = 0L
         private var wifi = 0L

@@ -38,6 +38,7 @@ import com.google.android.horologist.mediasample.di.annotation.DownloadFeature
 import com.google.android.horologist.mediasample.di.annotation.UampDispatchers.IO
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
+import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 import com.google.android.horologist.networks.status.HighBandwidthRequester
 import dagger.Module
 import dagger.Provides
@@ -161,9 +162,11 @@ object DownloadModule {
     @Singleton
     fun networkAwareListener(
         errorReporter: ErrorReporter,
-        highBandwithRequester: HighBandwidthRequester
+        highBandwithRequester: HighBandwidthRequester,
+        networkingRulesEngine: NetworkingRulesEngine
     ): NetworkAwareDownloadListener = NetworkAwareDownloadListener(
         errorReporter,
-        highBandwithRequester
+        highBandwithRequester,
+        networkingRulesEngine
     )
 }

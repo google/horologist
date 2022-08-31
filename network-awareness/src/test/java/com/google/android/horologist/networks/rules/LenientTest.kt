@@ -20,10 +20,11 @@ package com.google.android.horologist.networks.rules
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.RequestType.ImageRequest
-import com.google.android.horologist.networks.rules.Fixtures.bt
-import com.google.android.horologist.networks.rules.Fixtures.cell
-import com.google.android.horologist.networks.rules.Fixtures.wifi
+import com.google.android.horologist.networks.rules.helpers.Fixtures.bt
+import com.google.android.horologist.networks.rules.helpers.Fixtures.cell
+import com.google.android.horologist.networks.rules.helpers.Fixtures.wifi
 import com.google.android.horologist.networks.rules.NetworkingRules.Lenient
+import com.google.android.horologist.networks.rules.helpers.Fixtures
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 

@@ -21,6 +21,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
@@ -40,7 +41,7 @@ public class HighBandwidthRequester(
     private val connectivityManager: ConnectivityManager,
     private val coroutineScope: CoroutineScope,
     private val logger: NetworkStatusLogger
-) {
+): HighBandwidthRequesting {
     private val listeners: MutableSet<HighbandwidthListener> =
         Collections.newSetFromMap(ConcurrentHashMap())
 
@@ -53,19 +54,24 @@ public class HighBandwidthRequester(
     private val timeoutMs = 3000
 
     @Synchronized
-    public fun requestHighBandwidth(
-        types: List<Int> = listOf(
-            NetworkCapabilities.TRANSPORT_WIFI,
-            NetworkCapabilities.TRANSPORT_CELLULAR
-        ),
+    override fun requestHighBandwidth(
+        requestedTypes: List<String>,
         wait: Boolean
     ): Closeable? {
         highBandwidthRequests++
 
+        val networkTypes = requestedTypes.mapNotNull {
+            when (it) {
+                NetworkType.wifi -> NetworkCapabilities.TRANSPORT_WIFI
+                NetworkType.cell -> NetworkCapabilities.TRANSPORT_CELLULAR
+                else -> null
+            }
+        }
+
         if (networkRequestResult == null) {
             logger.logNetworkEvent("Starting high bandwidth network request")
             this.networkRequestResult = coroutineScope.async {
-                startCallback(types)
+                startCallback(networkTypes)
             }
         }
 

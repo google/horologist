@@ -21,14 +21,14 @@ import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 import com.google.android.horologist.networks.rules.NoSuitableNetwork
-import com.google.android.horologist.networks.status.HighBandwidthRequester
+import com.google.android.horologist.networks.status.HighBandwidthRequesting
 import okhttp3.Interceptor
 import okhttp3.Response
 
 @ExperimentalHorologistNetworksApi
 public class NetworkEstablishingInterceptor(
     private val networkingRulesEngine: NetworkingRulesEngine,
-    private val highBandwidthRequester: HighBandwidthRequester
+    private val highBandwidthRequester: HighBandwidthRequesting
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
@@ -42,7 +42,9 @@ public class NetworkEstablishingInterceptor(
 
     public fun <T> withValidNetwork(requestType: RequestType, block: () -> T): T {
         return if (networkingRulesEngine.isHighBandwidthRequest(requestType)) {
-            val token = highBandwidthRequester.requestHighBandwidth(wait = true)
+            val types = networkingRulesEngine.supportedTypes(requestType)
+
+            val token = highBandwidthRequester.requestHighBandwidth(requestedTypes = types, wait = true)
                 ?: throw NoSuitableNetwork("Unable to request high bandwidth network")
 
             token.use {

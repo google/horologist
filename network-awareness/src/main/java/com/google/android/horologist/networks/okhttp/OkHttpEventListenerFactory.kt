@@ -23,6 +23,7 @@ import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.networkType
 import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
+import com.google.android.horologist.networks.status.NetworkRepository
 import okhttp3.Call
 import okhttp3.Connection
 import okhttp3.EventListener
@@ -36,6 +37,7 @@ import java.net.Proxy
 @ExperimentalHorologistNetworksApi
 public class OkHttpEventListenerFactory(
     private val networkingRulesEngine: NetworkingRulesEngine,
+    private val networkRepository: NetworkRepository,
     private val delegateEventListenerFactory: EventListener.Factory,
     private val dataRequestRepository: DataRequestRepository? = null
 ) : EventListener.Factory {
@@ -69,7 +71,7 @@ public class OkHttpEventListenerFactory(
 
         override fun connectionAcquired(call: Call, connection: Connection) {
             val localAddress = connection.socket().localAddress
-            val network = networkingRulesEngine.networkRepository.networkByAddress(localAddress)
+            val network = networkRepository.networkByAddress(localAddress)
             val networkType = network?.type ?: NetworkType.Unknown(localAddress.toString())
 
             val requestType = call.request().requestType

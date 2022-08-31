@@ -22,7 +22,8 @@ import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
-import com.google.android.horologist.networks.status.HighBandwidthRequester
+import com.google.android.horologist.networks.status.HighBandwidthRequesting
+import com.google.android.horologist.networks.status.NetworkRepository
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.ConnectionPool
@@ -36,7 +37,8 @@ import java.util.concurrent.ConcurrentHashMap
 @ExperimentalHorologistNetworksApi
 public class NetworkSelectingCallFactory(
     private val networkingRulesEngine: NetworkingRulesEngine,
-    private val highBandwidthRequester: HighBandwidthRequester,
+    private val highBandwidthRequester: HighBandwidthRequesting,
+    private val networkRepository: NetworkRepository,
     dataRequestRepository: DataRequestRepository?,
     rootClient: OkHttpClient
 ) : Call.Factory {
@@ -50,7 +52,8 @@ public class NetworkSelectingCallFactory(
             OkHttpEventListenerFactory(
                 networkingRulesEngine = networkingRulesEngine,
                 dataRequestRepository = dataRequestRepository,
-                delegateEventListenerFactory = rootClient.eventListenerFactory
+                delegateEventListenerFactory = rootClient.eventListenerFactory,
+                networkRepository = networkRepository
             )
         )
         .build()
@@ -63,7 +66,16 @@ public class NetworkSelectingCallFactory(
         val requestType = finalRequest.requestType
 
         val networkStatus =
-            networkingRulesEngine.preferredNetwork(requestType) ?: return FailedCall(finalRequest)
+            networkingRulesEngine.preferredNetwork(requestType)
+
+        if (networkStatus == null) {
+            val networks =
+                networkingRulesEngine.networkStatus.value.networks.map {
+                    it.type.typeName
+                }
+            val reason = "No suitable network for $requestType in $networks"
+            return FailedCall(finalRequest, reason)
+        }
 
         val client = clientForNetwork(networkStatus)
 
@@ -76,12 +88,17 @@ public class NetworkSelectingCallFactory(
         return clients.computeIfAbsent(networkStatus.id) {
             defaultClient.newBuilder()
                 .connectionPool(ConnectionPool())
-                .addInterceptor(
-                    NetworkEstablishingInterceptor(
-                        networkingRulesEngine = networkingRulesEngine,
-                        highBandwidthRequester = highBandwidthRequester
+                .apply {
+                    // Add first, since it's logically unrelated to other requests (may not hold)
+                    // and allows us to add a test interceptor at the end
+                    interceptors().add(
+                        0,
+                        NetworkEstablishingInterceptor(
+                            networkingRulesEngine = networkingRulesEngine,
+                            highBandwidthRequester = highBandwidthRequester
+                        )
                     )
-                )
+                }
                 .socketFactory(
                     NetworkSpecificSocketFactory(
                         networkStatus = networkStatus
@@ -113,7 +130,8 @@ public class NetworkSelectingCallFactory(
         override fun timeout(): Timeout = delegate.timeout()
     }
 
-    private inner class FailedCall(private val request: Request) : Call {
+    private inner class FailedCall(private val request: Request, private val message: String) :
+        Call {
         private var cancelled = false
         private var executed = false
 
@@ -124,11 +142,11 @@ public class NetworkSelectingCallFactory(
         override fun clone(): Call = newCall(request())
 
         override fun enqueue(responseCallback: Callback) {
-            responseCallback.onFailure(this, IOException("No suitable network for request"))
+            responseCallback.onFailure(this, IOException(message))
         }
 
         override fun execute(): Response {
-            throw IOException("No suitable network for request")
+            throw IOException(message)
         }
 
         override fun isCanceled(): Boolean = cancelled

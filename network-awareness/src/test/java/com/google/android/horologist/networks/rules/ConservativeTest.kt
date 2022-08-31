@@ -23,10 +23,11 @@ import com.google.android.horologist.networks.data.RequestType.ImageRequest
 import com.google.android.horologist.networks.data.RequestType.MediaRequest
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType.Download
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType.Stream
-import com.google.android.horologist.networks.rules.Fixtures.bt
-import com.google.android.horologist.networks.rules.Fixtures.cell
-import com.google.android.horologist.networks.rules.Fixtures.wifi
+import com.google.android.horologist.networks.rules.helpers.Fixtures.bt
+import com.google.android.horologist.networks.rules.helpers.Fixtures.cell
+import com.google.android.horologist.networks.rules.helpers.Fixtures.wifi
 import com.google.android.horologist.networks.rules.NetworkingRules.Conservative
+import com.google.android.horologist.networks.rules.helpers.Fixtures
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 

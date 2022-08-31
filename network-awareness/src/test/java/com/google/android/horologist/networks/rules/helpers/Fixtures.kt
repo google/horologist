@@ -16,7 +16,7 @@
 
 @file:OptIn(ExperimentalHorologistNetworksApi::class)
 
-package com.google.android.horologist.networks.rules
+package com.google.android.horologist.networks.rules.helpers
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkStatus

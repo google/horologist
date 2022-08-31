@@ -82,7 +82,6 @@ class BrowseScreenA11yScreenshotTest {
         }
     }
 
-    @Ignore("https://github.com/google/horologist/issues/535")
     @Test
     fun secondPage() {
         val scrollState = ScalingLazyListState()

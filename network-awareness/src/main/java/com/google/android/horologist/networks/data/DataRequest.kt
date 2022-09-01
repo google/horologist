@@ -22,7 +22,7 @@ import java.time.Instant
 @ExperimentalHorologistNetworksApi
 public data class DataRequest(
     public val requestType: RequestType,
-    public val networkType: NetworkType,
+    public val networkInfo: NetworkInfo,
     public val dataBytes: Long,
     public val time: Instant = Instant.now()
 )

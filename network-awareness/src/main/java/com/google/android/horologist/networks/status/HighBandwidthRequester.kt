@@ -21,7 +21,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-import com.google.android.horologist.networks.data.NetworkType
+import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
@@ -62,8 +62,8 @@ public class HighBandwidthRequester(
 
         val networkTypes = requestedTypes.mapNotNull {
             when (it) {
-                NetworkType.wifi -> NetworkCapabilities.TRANSPORT_WIFI
-                NetworkType.cell -> NetworkCapabilities.TRANSPORT_CELLULAR
+                NetworkInfo.wifi -> NetworkCapabilities.TRANSPORT_WIFI
+                NetworkInfo.cell -> NetworkCapabilities.TRANSPORT_CELLULAR
                 else -> null
             }
         }

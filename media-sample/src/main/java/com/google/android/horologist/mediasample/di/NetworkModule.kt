@@ -37,6 +37,7 @@ import com.google.android.horologist.networks.rules.NetworkingRules
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 import com.google.android.horologist.networks.status.HighBandwidthRequester
 import com.google.android.horologist.networks.status.NetworkRepository
+import com.google.android.horologist.networks.status.NetworkRepositoryImpl
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -64,10 +65,9 @@ object NetworkModule {
         @ApplicationContext application: Context,
         @ForApplicationScope coroutineScope: CoroutineScope,
         networkLogger: NetworkStatusLogger
-    ): NetworkRepository = NetworkRepository.fromContext(
+    ): NetworkRepository = NetworkRepositoryImpl.fromContext(
         application,
-        coroutineScope,
-        networkLogger
+        coroutineScope
     )
 
     @Singleton
@@ -115,7 +115,7 @@ object NetworkModule {
     @Singleton
     @Provides
     fun dataRequestRepository(): DataRequestRepository =
-        DataRequestRepository.InMemoryDataRequestRepository
+        DataRequestRepository.InMemoryDataRequestRepository()
 
     @Provides
     fun networkingRulesEngine(
@@ -158,12 +158,14 @@ object NetworkModule {
         okhttpClient: OkHttpClient,
         networkingRulesEngine: NetworkingRulesEngine,
         highBandwidthRequester: HighBandwidthRequester,
-        dataRequestRepository: DataRequestRepository
+        dataRequestRepository: DataRequestRepository,
+        networkRepository: NetworkRepository
     ): Call.Factory =
         if (appConfig.strictNetworking != null) {
             NetworkSelectingCallFactory(
                 networkingRulesEngine,
                 highBandwidthRequester,
+                networkRepository,
                 dataRequestRepository,
                 okhttpClient
             )

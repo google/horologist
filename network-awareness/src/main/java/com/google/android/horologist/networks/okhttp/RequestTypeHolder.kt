@@ -17,17 +17,17 @@
 package com.google.android.horologist.networks.okhttp
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-import com.google.android.horologist.networks.data.NetworkType
+import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.RequestType
 import okhttp3.Request
 
 @ExperimentalHorologistNetworksApi
 public data class RequestTypeHolder(
     public var requestType: RequestType = RequestType.UnknownRequest,
-    public var networkType: NetworkType? = null
+    public var networkInfo: NetworkInfo? = null
 ) {
     override fun toString(): String {
-        return "$requestType/$networkType"
+        return "$requestType/$networkInfo"
     }
 
     public companion object {
@@ -37,12 +37,12 @@ public data class RequestTypeHolder(
         public val Request.requestType: RequestType
             get() = requestTypeOrNull ?: RequestType.UnknownRequest
 
-        public var Request.networkType: NetworkType?
+        public var Request.networkInfo: NetworkInfo?
             get() {
-                return this.tag(RequestTypeHolder::class.java)!!.networkType
+                return this.tag(RequestTypeHolder::class.java)!!.networkInfo
             }
             set(value) {
-                this.tag(RequestTypeHolder::class.java)!!.networkType = value
+                this.tag(RequestTypeHolder::class.java)!!.networkInfo = value
             }
 
         public fun Request.Builder.requestType(value: RequestType): Request.Builder {

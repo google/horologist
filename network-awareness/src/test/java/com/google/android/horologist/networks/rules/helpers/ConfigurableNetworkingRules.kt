@@ -20,7 +20,7 @@ package com.google.android.horologist.networks.rules.helpers
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkStatus
-import com.google.android.horologist.networks.data.NetworkType
+import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.rules.Allow
@@ -30,8 +30,8 @@ import com.google.android.horologist.networks.rules.RequestCheck
 
 class ConfigurableNetworkingRules : NetworkingRules {
     val highBandwidthTypes: MutableMap<RequestType, Boolean> = mutableMapOf()
-    val validRequests: MutableMap<Pair<RequestType, NetworkType>, Boolean> = mutableMapOf()
-    val preferredNetworks: MutableMap<RequestType, NetworkType> = mutableMapOf()
+    val validRequests: MutableMap<Pair<RequestType, NetworkInfo>, Boolean> = mutableMapOf()
+    val preferredNetworks: MutableMap<RequestType, NetworkInfo> = mutableMapOf()
 
     override fun isHighBandwidthRequest(requestType: RequestType): Boolean {
         return highBandwidthTypes[requestType] ?: false
@@ -39,10 +39,10 @@ class ConfigurableNetworkingRules : NetworkingRules {
 
     override fun checkValidRequest(
         requestType: RequestType,
-        currentNetworkType: NetworkType
+        currentNetworkInfo: NetworkInfo
     ): RequestCheck {
-        val allowed = validRequests[Pair(requestType, currentNetworkType)] ?: true
-        return if (allowed) Allow else Fail("not allowed $requestType on $currentNetworkType")
+        val allowed = validRequests[Pair(requestType, currentNetworkInfo)] ?: true
+        return if (allowed) Allow else Fail("not allowed $requestType on $currentNetworkInfo")
     }
 
     override fun getPreferredNetwork(

@@ -18,12 +18,10 @@ package com.google.android.horologist.networks.rules
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkStatus
-import com.google.android.horologist.networks.data.NetworkType
-import com.google.android.horologist.networks.data.Networks
+import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.status.NetworkRepository
-import kotlinx.coroutines.flow.StateFlow
 import java.net.InetSocketAddress
 
 /**
@@ -32,21 +30,21 @@ import java.net.InetSocketAddress
  */
 @ExperimentalHorologistNetworksApi
 public class NetworkingRulesEngine(
-    internal val networkStatus: StateFlow<Networks>,
+    internal val networkRepository: NetworkRepository,
     internal val logger: NetworkStatusLogger = NetworkStatusLogger.Logging,
     private val networkingRules: NetworkingRules = NetworkingRules.Lenient
 ) {
     public fun preferredNetwork(requestType: RequestType): NetworkStatus? {
-        val networks = networkStatus.value
+        val networks = networkRepository.networkStatus.value
 
         return networkingRules.getPreferredNetwork(networks, requestType)
     }
 
     public fun checkValidRequest(
         requestType: RequestType,
-        currentNetworkType: NetworkType?
+        currentNetworkInfo: NetworkInfo?
     ): RequestCheck {
-        return networkingRules.checkValidRequest(requestType, currentNetworkType ?: NetworkType.Unknown("unknown"))
+        return networkingRules.checkValidRequest(requestType, currentNetworkInfo ?: NetworkInfo.Unknown("unknown"))
     }
 
     public fun isHighBandwidthRequest(requestType: RequestType): Boolean {
@@ -54,17 +52,17 @@ public class NetworkingRulesEngine(
     }
 
     @Suppress("UNUSED_PARAMETER")
-    public fun reportConnectionFailure(inetSocketAddress: InetSocketAddress, networkType: NetworkType?) {
+    public fun reportConnectionFailure(inetSocketAddress: InetSocketAddress, networkInfo: NetworkInfo?) {
         // TODO check for no internet on BLE and other scenarios
     }
 
     fun supportedTypes(requestType: RequestType): List<String> {
         return buildList {
-            if (checkValidRequest(requestType, NetworkType.Wifi("test")) is Allow) {
-                add(NetworkType.wifi)
+            if (checkValidRequest(requestType, NetworkInfo.Wifi("test")) is Allow) {
+                add(NetworkInfo.wifi)
             }
-            if (checkValidRequest(requestType, NetworkType.Cellular("test")) is Allow) {
-                add(NetworkType.cell)
+            if (checkValidRequest(requestType, NetworkInfo.Cellular("test")) is Allow) {
+                add(NetworkInfo.cell)
             }
         }
     }

@@ -27,7 +27,7 @@ import java.net.Socket
 public data class NetworkStatus(
     public val id: String,
     public val status: Status,
-    public val type: NetworkType,
+    public val type: NetworkInfo,
     public val addresses: List<InetAddress>,
     public val capabilities: NetworkCapabilities?,
     public val linkProperties: LinkProperties?,

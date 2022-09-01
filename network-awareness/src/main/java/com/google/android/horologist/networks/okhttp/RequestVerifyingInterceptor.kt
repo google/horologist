@@ -17,7 +17,7 @@
 package com.google.android.horologist.networks.okhttp
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.networkType
+import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.networkInfo
 import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.rules.ForbiddenRequest
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
@@ -32,7 +32,7 @@ public class RequestVerifyingInterceptor(
         val request = chain.request()
 
         val requestType = request.requestType
-        val networkType = request.networkType
+        val networkType = request.networkInfo
 
         val check = networkingRulesEngine.checkValidRequest(requestType, networkType)
 

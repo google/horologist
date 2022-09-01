@@ -24,6 +24,7 @@ import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 import com.google.android.horologist.networks.status.HighBandwidthRequesting
 import com.google.android.horologist.networks.status.NetworkRepository
+import com.google.android.horologist.networks.status.NetworkRepositoryImpl
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.ConnectionPool
@@ -70,7 +71,7 @@ public class NetworkSelectingCallFactory(
 
         if (networkStatus == null) {
             val networks =
-                networkingRulesEngine.networkStatus.value.networks.map {
+                networkRepository.networkStatus.value.networks.map {
                     it.type.typeName
                 }
             val reason = "No suitable network for $requestType in $networks"

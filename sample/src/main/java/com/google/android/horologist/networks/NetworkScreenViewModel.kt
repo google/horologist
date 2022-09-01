@@ -24,7 +24,7 @@ import com.google.android.horologist.components.SampleApplication
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.Networks
-import com.google.android.horologist.networks.status.NetworkRepository
+import com.google.android.horologist.networks.status.NetworkRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -39,7 +39,7 @@ import okhttp3.Request
 import java.io.IOException
 
 public class NetworkScreenViewModel(
-    private val networkRepository: NetworkRepository,
+    private val networkRepository: NetworkRepositoryImpl,
     private val dataRequestRepository: DataRequestRepository,
     private val inMemory: InMemoryStatusLogger,
     private val callFactory: Call.Factory,

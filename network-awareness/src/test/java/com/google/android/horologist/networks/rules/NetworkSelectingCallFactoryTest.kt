@@ -20,13 +20,13 @@ package com.google.android.horologist.networks.rules
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.DataRequestRepository
-import com.google.android.horologist.networks.data.NetworkType
+import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType.Download
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
-import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.networkType
+import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.networkInfo
 import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.rules.helpers.ConfigurableNetworkingRules
 import com.google.android.horologist.networks.rules.helpers.TestHighBandwidthRequester
@@ -72,9 +72,9 @@ class NetworkSelectingCallFactoryTest {
 
         callFactory.newCall(request).execute()
 
-        val networkType = request.networkType
+        val networkType = request.networkInfo
 
-        Truth.assertThat(networkType?.typeName).isEqualTo(NetworkType.ble)
+        Truth.assertThat(networkType?.typeName).isEqualTo(NetworkInfo.ble)
     }
 
     @Test
@@ -85,8 +85,8 @@ class NetworkSelectingCallFactoryTest {
 
         callFactory.newCall(request).execute()
 
-        val networkType = request.networkType
+        val networkType = request.networkInfo
 
-        Truth.assertThat(networkType?.typeName).isEqualTo(NetworkType.wifi)
+        Truth.assertThat(networkType?.typeName).isEqualTo(NetworkInfo.wifi)
     }
 }

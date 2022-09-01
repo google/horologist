@@ -18,7 +18,7 @@ package com.google.android.horologist.networks.rules.helpers
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkStatus
-import com.google.android.horologist.networks.data.NetworkType
+import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.Status
 import com.google.android.horologist.networks.status.HighBandwidthRequesting
@@ -30,8 +30,8 @@ import java.io.Closeable
 class TestHighBandwidthRequester(private val networkStatus: MutableStateFlow<Networks>) :
     HighBandwidthRequesting {
     private val available = mutableListOf(
-        NetworkType.wifi,
-        NetworkType.cell
+        NetworkInfo.wifi,
+        NetworkInfo.cell
     )
 
     override fun requestHighBandwidth(requestedTypes: List<String>, wait: Boolean): Closeable? {
@@ -47,8 +47,8 @@ class TestHighBandwidthRequester(private val networkStatus: MutableStateFlow<Net
                 val networkType = possibleConnections.first()
 
                 addedNetwork = when (networkType) {
-                    NetworkType.wifi -> WifiNetwork
-                    NetworkType.cell -> CellNetwork
+                    NetworkInfo.wifi -> WifiNetwork
+                    NetworkInfo.cell -> CellNetwork
                     else -> null
                 }
 
@@ -70,7 +70,7 @@ class TestHighBandwidthRequester(private val networkStatus: MutableStateFlow<Net
     }
 
     companion object {
-        val WifiNetwork = NetworkStatus(id = "wifi1", Status.Available, NetworkType.Wifi("wifi1"), listOf(), null, null, {})
-        val CellNetwork = NetworkStatus(id = "cell1", Status.Available, NetworkType.Cellular("cell1"), listOf(), null, null, {})
+        val WifiNetwork = NetworkStatus(id = "wifi1", Status.Available, NetworkInfo.Wifi("wifi1"), listOf(), null, null, {})
+        val CellNetwork = NetworkStatus(id = "cell1", Status.Available, NetworkInfo.Cellular("cell1"), listOf(), null, null, {})
     }
 }

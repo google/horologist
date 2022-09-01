@@ -19,8 +19,8 @@ package com.google.android.horologist.networks.okhttp
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.DataRequest
 import com.google.android.horologist.networks.data.DataRequestRepository
-import com.google.android.horologist.networks.data.NetworkType
-import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.networkType
+import com.google.android.horologist.networks.data.NetworkInfo
+import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.networkInfo
 import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 import com.google.android.horologist.networks.status.NetworkRepository
@@ -57,12 +57,12 @@ public class OkHttpEventListenerFactory(
             protocol: Protocol?,
             ioe: IOException
         ) {
-            networkingRulesEngine.logger.logNetworkEvent("connect failed $inetSocketAddress ${call.request().networkType}")
+            networkingRulesEngine.logger.logNetworkEvent("connect failed $inetSocketAddress ${call.request().networkInfo}")
 
             if (proxy.type() == Proxy.Type.DIRECT) {
                 networkingRulesEngine.reportConnectionFailure(
                     inetSocketAddress,
-                    call.request().networkType
+                    call.request().networkInfo
                 )
             }
 
@@ -72,12 +72,12 @@ public class OkHttpEventListenerFactory(
         override fun connectionAcquired(call: Call, connection: Connection) {
             val localAddress = connection.socket().localAddress
             val network = networkRepository.networkByAddress(localAddress)
-            val networkType = network?.type ?: NetworkType.Unknown(localAddress.toString())
+            val networkInfo = network?.type ?: NetworkInfo.Unknown(localAddress.toString())
 
             val requestType = call.request().requestType
-            call.request().networkType = networkType
+            call.request().networkInfo = networkInfo
 
-            networkingRulesEngine.logger.debugNetworkEvent("HTTPS request $requestType ${networkType.typeName} $localAddress")
+            networkingRulesEngine.logger.debugNetworkEvent("HTTPS request $requestType ${networkInfo.typeName} $localAddress")
 
             super.connectionAcquired(call, connection)
         }
@@ -121,17 +121,17 @@ public class OkHttpEventListenerFactory(
         @Suppress("UNUSED_PARAMETER")
         private fun recordBytes(call: Call, msg: String? = null) {
             val requestType = call.request().requestType
-            val networkType = call.request().networkType ?: NetworkType.Unknown("unknown")
+            val networkInfo = call.request().networkInfo ?: NetworkInfo.Unknown("unknown")
 
             networkingRulesEngine.logger.logNetworkResponse(
                 requestType,
-                networkType,
+                networkInfo,
                 bytesTransferred
             )
             dataRequestRepository?.storeRequest(
                 DataRequest(
                     requestType,
-                    networkType,
+                    networkInfo,
                     bytesTransferred
                 )
             )

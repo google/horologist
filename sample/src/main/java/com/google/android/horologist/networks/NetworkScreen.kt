@@ -77,7 +77,7 @@ fun NetworkScreen(
         }
         items(uiState.requests.takeLast(5).reversed()) {
             if (it is InMemoryStatusLogger.Event.NetworkResponse) {
-                Text(text = "Network: ${it.networkType.typeName} ${it.bytesTransferred}")
+                Text(text = "Network: ${it.networkInfo.typeName} ${it.bytesTransferred}")
             } else {
                 Text(text = it.message)
             }

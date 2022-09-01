@@ -26,8 +26,7 @@ import android.net.ConnectivityManager
 import androidx.activity.ComponentActivity
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
-import com.google.android.horologist.networks.logging.NetworkStatusLogger
-import com.google.android.horologist.networks.status.NetworkRepository
+import com.google.android.horologist.networks.status.NetworkRepositoryImpl
 import com.google.common.truth.Truth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -42,7 +41,7 @@ import org.junit.Test
 
 @MediumTest
 class NetworkRepositoryTest {
-    private lateinit var networkRepository: NetworkRepository
+    private lateinit var networkRepository: NetworkRepositoryImpl
     private lateinit var context: Context
     val scope = TestScope()
 
@@ -52,7 +51,7 @@ class NetworkRepositoryTest {
 
         context = InstrumentationRegistry.getInstrumentation().context
         networkRepository =
-            NetworkRepository.fromContext(context, scope, NetworkStatusLogger.Logging)
+            NetworkRepositoryImpl.fromContext(context, scope)
     }
 
     @After

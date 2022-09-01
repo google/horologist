@@ -39,7 +39,7 @@ import androidx.wear.compose.material.curvedText
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.NetworkStatus
-import com.google.android.horologist.networks.data.NetworkType
+import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.Status
 
@@ -144,10 +144,10 @@ private fun NetworkStatus.tint(active: Boolean): Color {
 }
 
 @ExperimentalHorologistNetworksApi
-internal val NetworkType.icon
+internal val NetworkInfo.icon
     get() = when (this) {
-        is NetworkType.Wifi -> Icons.Filled.Wifi
-        is NetworkType.Cellular -> Icons.Filled.SignalCellularAlt
-        is NetworkType.Bluetooth -> Icons.Filled.Bluetooth
+        is NetworkInfo.Wifi -> Icons.Filled.Wifi
+        is NetworkInfo.Cellular -> Icons.Filled.SignalCellularAlt
+        is NetworkInfo.Bluetooth -> Icons.Filled.Bluetooth
         else -> Icons.Filled.HelpOutline
     }

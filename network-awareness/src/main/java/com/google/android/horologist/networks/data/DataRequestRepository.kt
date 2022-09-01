@@ -40,20 +40,20 @@ public interface DataRequestRepository {
         override fun currentPeriodUsage(): Flow<DataUsageReport> = _currentPeriodUsage
 
         override fun storeRequest(dataRequest: DataRequest) {
-            when (dataRequest.networkType) {
-                is NetworkType.Cellular -> cell += dataRequest.dataBytes
-                is NetworkType.Bluetooth -> ble += dataRequest.dataBytes
-                is NetworkType.Wifi -> wifi += dataRequest.dataBytes
-                is NetworkType.Unknown -> unknown += dataRequest.dataBytes
+            when (dataRequest.networkInfo) {
+                is NetworkInfo.Cellular -> cell += dataRequest.dataBytes
+                is NetworkInfo.Bluetooth -> ble += dataRequest.dataBytes
+                is NetworkInfo.Wifi -> wifi += dataRequest.dataBytes
+                is NetworkInfo.Unknown -> unknown += dataRequest.dataBytes
             }
 
             _currentPeriodUsage.value =
                 DataUsageReport(
                     dataByType = mapOf(
-                        NetworkType.cell to cell,
-                        NetworkType.ble to ble,
-                        NetworkType.wifi to wifi,
-                        NetworkType.unknown to unknown
+                        NetworkInfo.cell to cell,
+                        NetworkInfo.ble to ble,
+                        NetworkInfo.wifi to wifi,
+                        NetworkInfo.unknown to unknown
                     ),
                     from = from,
                     to = Instant.now()

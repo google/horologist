@@ -48,7 +48,7 @@ public class DBDataRequestRepository(
 
             if (rows == 0) {
                 rows =
-                    networkUsageDao.insert(DataUsage(dataRequest.networkType.typeName, bytes, day))
+                    networkUsageDao.insert(DataUsage(dataRequest.networkInfo.typeName, bytes, day))
                         .toInt()
 
                 if (rows == -1) {

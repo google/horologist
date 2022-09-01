@@ -17,12 +17,10 @@
 package com.google.android.horologist.composables
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.progressSemantics
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -35,7 +33,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ProgressIndicatorDefaults
 import kotlin.math.asin
-import kotlin.math.min
 
 /**
  * Represents a segment of the track in a [SegmentedProgressIndicator].
@@ -85,76 +82,64 @@ public fun SegmentedProgressIndicator(
     paddingAngle: Float = 0.0f,
     trackColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.1f)
 ) {
-    BoxWithConstraints(
-        contentAlignment = Alignment.Center
+    val localDensity = LocalDensity.current
+
+    val totalWeight = remember(trackSegments) {
+        trackSegments.sumOf { it.weight.toDouble() }.toFloat()
+    }
+    // The degrees of the circle that are available for progress indication, once any padding
+    // between segments is accounted for. This will be shared by weighting across the segments.
+    val segmentableAngle = (endAngle - startAngle) - trackSegments.size * paddingAngle
+
+    // This code is heavily inspired from the implementation of CircularProgressIndicator
+    // Please see https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/compose/compose-material/src/commonMain/kotlin/androidx/wear/compose/material/ProgressIndicator.kt?q=CircularProgressIndicator
+    val stroke = with(localDensity) {
+        Stroke(width = strokeWidth.toPx(), cap = StrokeCap.Round)
+    }
+
+    Canvas(
+        modifier = modifier
+            .fillMaxSize()
+            .progressSemantics(progress)
     ) {
-        val localDensity = LocalDensity.current
-
-        val boxMinDimensionDp = minOf(minWidth, minHeight)
-
         // The progress bar uses rounded ends. The small delta requires calculation to take account
         // for the rounded end to ensure that neighbouring segments meet correctly.
-        val endDelta = remember(strokeWidth, boxMinDimensionDp) {
-            (
-                asin(
-                    strokeWidth.value /
-                        (boxMinDimensionDp.value - strokeWidth.value)
-                ) * 180 / Math.PI
-                ).toFloat()
-        }
-        val totalWeight = remember(trackSegments) {
-            trackSegments.sumOf { it.weight.toDouble() }.toFloat()
-        }
-        // The degrees of the circle that are available for progress indication, once any padding
-        // between segments is accounted for. This will be shared by weighting across the segments.
-        val segmentableAngle = (endAngle - startAngle) - trackSegments.size * paddingAngle
-
+        val endDelta =
+            (asin(
+                strokeWidth.toPx()
+                    / (size.minDimension - strokeWidth.toPx())
+            ) * 180 / Math.PI).toFloat()
         // The first segment needs half a padding between it and the start point.
         var currentStartAngle = startAngle + paddingAngle / 2
-
         var remainingProgress = progress.coerceIn(0.0f, 1.0f) * segmentableAngle
 
-        // This code is heavily inspired from the implementation of CircularProgressIndicator
-        // Please see https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/compose/compose-material/src/commonMain/kotlin/androidx/wear/compose/material/ProgressIndicator.kt?q=CircularProgressIndicator
-        val stroke = with(localDensity) {
-            Stroke(width = strokeWidth.toPx(), cap = StrokeCap.Round)
-        }
+        trackSegments.forEach { segment ->
+            val segmentAngle = (segment.weight * segmentableAngle) / totalWeight
+            val currentEndAngle = currentStartAngle + segmentAngle - endDelta
+            val startAngleWithDelta = currentStartAngle + endDelta
+            val backgroundSweep =
+                360f - ((startAngleWithDelta - currentEndAngle) % 360 + 360) % 360
+            val sectionProgress = remainingProgress / segmentAngle
+            val progressSweep = backgroundSweep * sectionProgress.coerceIn(0f..1f)
 
-        Canvas(
-            modifier = modifier
-                .fillMaxSize()
-                .progressSemantics(progress)
-        ) {
-            trackSegments.forEach { segment ->
-                val segmentAngle = (segment.weight * segmentableAngle) / totalWeight
+            val diameterOffset = stroke.width / 2
+            val arcDimen = size.minDimension - 2 * diameterOffset
 
-                val currentEndAngle = currentStartAngle + segmentAngle - endDelta
-                val startAngleWithDelta = currentStartAngle + endDelta
-                val backgroundSweep =
-                    360f - ((startAngleWithDelta - currentEndAngle) % 360 + 360) % 360
-                val sectionProgress = remainingProgress / segmentAngle
-                val progressSweep = backgroundSweep * sectionProgress.coerceIn(0f..1f)
+            drawCircularProgressIndicator(
+                segment = segment,
+                currentStartAngle = currentStartAngle,
+                endDelta = endDelta,
+                backgroundSweep = backgroundSweep,
+                diameterOffset = diameterOffset,
+                diameter = size.minDimension,
+                arcDimen = arcDimen,
+                stroke = stroke,
+                progressSweep = progressSweep,
+                trackColor = trackColor
+            )
 
-                val diameter = min(size.width, size.height)
-                val diameterOffset = stroke.width / 2
-                val arcDimen = diameter - 2 * diameterOffset
-
-                drawCircularProgressIndicator(
-                    segment = segment,
-                    currentStartAngle = currentStartAngle,
-                    endDelta = endDelta,
-                    backgroundSweep = backgroundSweep,
-                    diameterOffset = diameterOffset,
-                    diameter = diameter,
-                    arcDimen = arcDimen,
-                    stroke = stroke,
-                    progressSweep = progressSweep,
-                    trackColor = trackColor
-                )
-
-                currentStartAngle += segmentAngle + paddingAngle
-                remainingProgress -= segmentAngle
-            }
+            currentStartAngle += segmentAngle + paddingAngle
+            remainingProgress -= segmentAngle
         }
     }
 }

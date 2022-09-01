@@ -42,11 +42,15 @@ import kotlin.math.asin
  * @param indicatorColor The color of the indicator bar.
  * @param trackColor The color of the background progress track. This is optional and if not
  * specified will default to the [trackColor] of the overall [SegmentedProgressIndicator].
+ * @param inProgressTrackColor The color of the background progress track when this segment is in
+ * progress. This is optional, and if specified will take precedence to the [trackColor] of the
+ * segment or the overall [SegmentedProgressIndicator], when the segment is in progress.
  */
 public data class ProgressIndicatorSegment(
     val weight: Float,
     val indicatorColor: Color,
-    val trackColor: Color? = null
+    val trackColor: Color? = null,
+    val inProgressTrackColor: Color? = null
 )
 
 /**
@@ -158,16 +162,25 @@ private fun DrawScope.drawCircularProgressIndicator(
     progressSweep: Float,
     trackColor: Color
 ) {
+    val offset = Offset(
+        diameterOffset + (size.width - diameter) / 2,
+        diameterOffset + (size.height - diameter) / 2
+    )
+
+    val localTrackColor = when {
+        segment.inProgressTrackColor != null && progressSweep > 0 && progressSweep < backgroundSweep ->
+            segment.inProgressTrackColor
+        segment.trackColor != null -> segment.trackColor
+        else -> trackColor
+    }
+
     // Draw Track
     drawArc(
-        color = segment.trackColor ?: trackColor,
+        color = localTrackColor,
         startAngle = currentStartAngle + endDelta,
         sweepAngle = backgroundSweep,
         useCenter = false,
-        topLeft = Offset(
-            diameterOffset + (size.width - diameter) / 2,
-            diameterOffset + (size.height - diameter) / 2
-        ),
+        topLeft = offset,
         size = Size(arcDimen, arcDimen),
         style = stroke
     )
@@ -178,10 +191,7 @@ private fun DrawScope.drawCircularProgressIndicator(
         startAngle = currentStartAngle + endDelta,
         sweepAngle = progressSweep,
         useCenter = false,
-        topLeft = Offset(
-            diameterOffset + (size.width - diameter) / 2,
-            diameterOffset + (size.height - diameter) / 2
-        ),
+        topLeft = offset,
         size = Size(arcDimen, arcDimen),
         style = stroke
     )

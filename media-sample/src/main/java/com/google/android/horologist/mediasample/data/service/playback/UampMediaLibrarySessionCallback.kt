@@ -21,14 +21,14 @@ import androidx.media3.session.LibraryResult
 import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaSession
 import com.google.android.horologist.media3.logging.ErrorReporter
-import com.google.android.horologist.media3.service.CoroutinesMediaLibrarySessionCallback
+import com.google.android.horologist.media3.service.SuspendingMediaLibrarySessionCallback
 import com.google.common.collect.ImmutableList
 import kotlinx.coroutines.CoroutineScope
 
 class UampMediaLibrarySessionCallback(
     serviceScope: CoroutineScope,
     appEventLogger: ErrorReporter
-) : CoroutinesMediaLibrarySessionCallback(serviceScope, appEventLogger) {
+) : SuspendingMediaLibrarySessionCallback(serviceScope, appEventLogger) {
     override suspend fun onGetLibraryRootInternal(
         session: MediaLibraryService.MediaLibrarySession,
         browser: MediaSession.ControllerInfo,

@@ -22,14 +22,14 @@ import androidx.wear.tiles.RequestBuilders.ResourcesRequest
 import androidx.wear.tiles.RequestBuilders.TileRequest
 import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
-import com.google.android.horologist.tiles.CoroutinesTileService
 import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
+import com.google.android.horologist.tiles.SuspendingTileService
 
 /**
  * A base class for a Preview only TileService using a TileLayoutRenderer.
  */
 public abstract class RendererPreviewTileService<T, R, S : TileLayoutRenderer<T, R>> :
-    CoroutinesTileService() {
+    SuspendingTileService() {
     private lateinit var renderer: S
 
     override fun onCreate() {

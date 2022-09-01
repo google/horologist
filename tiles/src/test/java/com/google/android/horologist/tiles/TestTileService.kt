@@ -29,7 +29,7 @@ import androidx.wear.tiles.TimelineBuilders.TimelineEntry
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
 
-public class TestTileService : CoroutinesTileService() {
+public class TestTileService : SuspendingTileService() {
     var delayDuration = 0.seconds
     var started = 0
     var cancelled = 0

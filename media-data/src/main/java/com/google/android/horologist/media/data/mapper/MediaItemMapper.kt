@@ -44,6 +44,7 @@ public class MediaItemMapper(
             .setUri(parsedUri)
 
         mediaMetadataBuilder
+            .setTitle(mediaItem.title)
             .setDisplayTitle(mediaItem.title)
             .setArtist(mediaItem.artist)
             .setArtworkUri(artworkUri)

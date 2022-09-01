@@ -21,6 +21,7 @@ package com.google.android.horologist.composables
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
@@ -48,7 +49,12 @@ class SegmentedProgressIndicatorTest {
                 ProgressIndicatorSegment(1f, Color.Green),
                 ProgressIndicatorSegment(1f, Color.Cyan),
                 ProgressIndicatorSegment(1f, Color.Magenta),
-                ProgressIndicatorSegment(1f, Color.Yellow),
+                ProgressIndicatorSegment(
+                    weight = 1f,
+                    indicatorColor = Color.Yellow,
+                    inProgressTrackColor = Color.Yellow.copy(alpha = 0.35f)
+                        .compositeOver(Color.Gray)
+                ),
                 ProgressIndicatorSegment(2f, Color.Red)
             )
 

@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistTilesApi::class)
+
 package com.google.android.horologist.tiles
 
 import androidx.wear.tiles.LayoutElementBuilders.Column

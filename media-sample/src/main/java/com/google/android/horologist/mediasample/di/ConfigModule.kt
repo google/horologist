@@ -39,7 +39,7 @@ object ConfigModule {
     @Singleton
     @Provides
     @IsEmulator
-    fun isEmulator() = Build.PRODUCT.startsWith("sdk_gwear")
+    fun isEmulator() = listOf(Build.PRODUCT, Build.MODEL).any { it.startsWith("sdk_gwear") }
 
     @Singleton
     @Provides

@@ -63,7 +63,7 @@ object SyncModule {
             override fun getNotificationTitle(): String =
                 application.getString(R.string.sync_notification_title)
 
-            override fun getNotificationIcon(): Int = R.drawable.ic_uamp
+            override fun getNotificationIcon(): Int = R.drawable.ic_uamp_headset
 
             override fun getChannelName(): String =
                 application.getString(R.string.sync_notification_channel_name)

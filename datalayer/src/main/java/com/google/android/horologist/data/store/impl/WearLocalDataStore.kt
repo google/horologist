@@ -27,7 +27,6 @@ import com.google.android.horologist.data.ExperimentalHorologistDataLayerApi
 import com.google.android.horologist.data.TargetNodeId
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.WearDataLayerRegistry.Companion.buildUri
-import com.google.android.horologist.data.store.flow.dataItemFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow

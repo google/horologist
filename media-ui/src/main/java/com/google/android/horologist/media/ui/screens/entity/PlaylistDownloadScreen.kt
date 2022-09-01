@@ -113,7 +113,7 @@ public fun PlaylistDownloadScreen(
                             }
                             DownloadMediaUiModel.Size.Unknown -> stringResource(
                                 id = R.string.horologist_playlist_download_download_progress_unknown_size,
-                                downloadMediaUiModel.progress
+                                downloadMediaUiModel.progress.progress
                             )
                         }
                     }

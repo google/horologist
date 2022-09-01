@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.data.store.flow
+package com.google.android.horologist.data.store.impl
 
 import android.annotation.SuppressLint
 import android.net.Uri
@@ -32,7 +32,7 @@ import java.io.ByteArrayInputStream
 
 // Workaround https://issuetracker.google.com/issues/239451111
 @SuppressLint("VisibleForTests")
-internal fun <T> DataClient.dataItemFlow(
+public fun <T> DataClient.dataItemFlow(
     nodeId: String,
     path: String,
     serializer: Serializer<T>,

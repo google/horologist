@@ -21,19 +21,24 @@ import android.content.Context
 import android.net.Uri
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
-import androidx.datastore.preferences.core.Preferences
+import com.google.android.gms.wearable.CapabilityClient
 import com.google.android.gms.wearable.DataClient
+import com.google.android.gms.wearable.DataEvent
+import com.google.android.gms.wearable.MessageClient
 import com.google.android.gms.wearable.NodeClient
 import com.google.android.gms.wearable.PutDataRequest
 import com.google.android.gms.wearable.Wearable
-import com.google.android.horologist.data.store.flow.dataItemFlow
+import com.google.android.horologist.data.store.ProtoDataListener
+import com.google.android.horologist.data.store.impl.ProtoDataListenerRegistration
 import com.google.android.horologist.data.store.impl.WearLocalDataStore
+import com.google.android.horologist.data.store.impl.dataItemFlow
 import com.google.android.horologist.data.store.prefs.PreferencesSerializer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.runBlocking
 import kotlin.reflect.KClass
 
 // Workaround https://issuetracker.google.com/issues/239451111
@@ -47,8 +52,18 @@ import kotlin.reflect.KClass
  */
 public class WearDataLayerRegistry(
     public val dataClient: DataClient,
-    public val nodeClient: NodeClient
+    public val nodeClient: NodeClient,
+    public val messageClient: MessageClient,
+    public val capabilityClient: CapabilityClient,
+    private val coroutineScope: CoroutineScope
 ) {
+    public val serializers: SerializerRegistry = SerializerRegistry()
+    private val protoDataListeners: MutableList<ProtoDataListenerRegistration<*>> = mutableListOf()
+
+    init {
+        serializers.registerSerializer(PreferencesSerializer)
+    }
+
     /**
      * Returns a local Proto DataStore for the given Proto structure.
      *
@@ -72,10 +87,10 @@ public class WearDataLayerRegistry(
         )
     }
 
-    internal fun <T> protoFlow(
+    fun <T> protoFlow(
         targetNodeId: TargetNodeId,
-        path: String,
-        serializer: Serializer<T>
+        serializer: Serializer<T>,
+        path: String
     ): Flow<T> = flow {
         val nodeId = targetNodeId.evaluate(this@WearDataLayerRegistry)
 
@@ -84,33 +99,67 @@ public class WearDataLayerRegistry(
         }
     }
 
-    /**
-     * Returns a local Preferences DataStore.
-     *
-     * @param path the path inside the data client namespace, of the form "/xyz/123"
-     * @param coroutineScope the coroutine scope used for the internal SharedFlow.
-     * @param started the SharingStarted mode for the internal SharedFlow.
-     */
-    fun preferencesDataStore(
-        path: String,
-        coroutineScope: CoroutineScope,
-        started: SharingStarted = SharingStarted.WhileSubscribed(5000)
-    ): DataStore<Preferences> {
-        return protoDataStore(path, coroutineScope, PreferencesSerializer, started)
+    inline fun <reified T : Any> registerSerializer(serializer: Serializer<T>) {
+        serializers.registerSerializer(serializer)
     }
 
-    fun preferencesFlow(
-        targetNodeId: TargetNodeId,
-        path: String
-    ): Flow<Preferences> = protoFlow(targetNodeId, path, PreferencesSerializer)
+    inline fun <reified T : Any> registerProtoDataListener(
+        path: String,
+        listener: ProtoDataListener<T>
+    ) {
+        val serializer = serializers.serializerForType<T>()
+        registerProtoDataListener(path, listener, serializer)
+    }
+
+    fun <T : Any> registerProtoDataListener(
+        path: String,
+        listener: ProtoDataListener<T>,
+        serializer: Serializer<T>
+    ) {
+        val element = ProtoDataListenerRegistration(path, serializer, listener)
+        protoDataListeners.add(element)
+    }
+
+    fun onDataChanged(dataEvents: List<DataEvent>) {
+        runBlocking {
+            dataEvents.forEach { dataEvent ->
+                val listeners = protoDataListeners.filter { it.path == dataEvent.dataItem.uri.path }
+
+                if (listeners.isNotEmpty()) {
+                    fireListeners(dataEvent, listeners)
+                }
+            }
+        }
+    }
+
+    private suspend fun fireListeners(
+        dataEvent: DataEvent,
+        listeners: List<ProtoDataListenerRegistration<*>>
+    ) {
+        val nodeId = dataEvent.dataItem.uri.host!!
+        val path = dataEvent.dataItem.uri.path!!
+        if (dataEvent.type == DataEvent.TYPE_CHANGED) {
+            val data = dataEvent.dataItem.data
+            listeners.forEach {
+                it.dataAdded(nodeId, path, data)
+            }
+        } else {
+            listeners.forEach {
+                it.dataDeleted(nodeId, path)
+            }
+        }
+    }
 
     companion object {
         /**
          * Create an instance looking up Wearable DataClient and NodeClient using the given context.
          */
-        fun fromContext(application: Context): WearDataLayerRegistry = WearDataLayerRegistry(
+        fun fromContext(application: Context, coroutineScope: CoroutineScope): WearDataLayerRegistry = WearDataLayerRegistry(
             dataClient = Wearable.getDataClient(application),
-            nodeClient = Wearable.getNodeClient(application)
+            nodeClient = Wearable.getNodeClient(application),
+            messageClient = Wearable.getMessageClient(application),
+            capabilityClient = Wearable.getCapabilityClient(application),
+            coroutineScope = coroutineScope
         )
 
         public fun buildUri(nodeId: String, path: String): Uri = Uri.Builder()
@@ -121,13 +170,13 @@ public class WearDataLayerRegistry(
 
         public fun dataStorePath(t: KClass<*>, persisted: Boolean = false): String {
             // Use predictable paths for persisted data that should survive backups
-            val prefix = if (persisted) "proto-persisted" else "proto"
+            val prefix = if (persisted) "proto/persisted" else "proto"
             return "/$prefix/${t.simpleName!!}"
         }
 
         fun preferencesPath(name: String, persisted: Boolean = false): String {
             // Use predictable paths for persisted data that should survive backups
-            val prefix = if (persisted) "proto-persisted" else "proto"
+            val prefix = if (persisted) "proto/persisted" else "proto"
             return "/$prefix/prefs/$name"
         }
     }

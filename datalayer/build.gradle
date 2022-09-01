@@ -71,10 +71,11 @@ dependencies {
     implementation libs.kotlinx.coroutines.core
     implementation libs.androidx.wear
 
-    implementation libs.playservices.wearable
+    api libs.playservices.wearable
     implementation libs.kotlinx.coroutines.playservices
-    implementation libs.androidx.datastore.preferences
-    implementation libs.androidx.datastore
+    api libs.androidx.datastore.preferences
+    api libs.androidx.datastore
+    api libs.protobuf.kotlin.lite
 
     testImplementation libs.junit
     testImplementation libs.truth

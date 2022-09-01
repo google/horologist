@@ -61,6 +61,9 @@ fun MenuScreen(
             NetworkChip { navigateToRoute(Screen.Network.route) }
         }
         item {
+            DataLayerNodesChip { navigateToRoute(Screen.DataLayerNodes.route) }
+        }
+        item {
             FillMaxRectangleChip(navigateToRoute)
         }
         item {

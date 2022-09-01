@@ -18,6 +18,7 @@ com.google.android.horologist.compose.pager
 com.google.android.horologist.compose.snackbar
 module:compose-tools
 com.google.android.horologist.compose.tools
+com.google.android.horologist.compose.tools.a11y
 module:datalayer
 com.google.android.horologist.data
 com.google.android.horologist.data.store.impl
@@ -27,6 +28,11 @@ com.google.android.horologist.media.model
 com.google.android.horologist.media.repository
 module:media-data
 com.google.android.horologist.media.data
+com.google.android.horologist.media.data.database
+com.google.android.horologist.media.data.database.dao
+com.google.android.horologist.media.data.database.mapper
+com.google.android.horologist.media.data.database.model
+com.google.android.horologist.media.data.datasource
 com.google.android.horologist.media.data.mapper
 com.google.android.horologist.media.data.repository
 module:media-sync

@@ -205,3 +205,16 @@ fun NetworkChip(
         }
     )
 }
+
+@Composable
+fun DataLayerNodesChip(
+    navigateToRoute: () -> Unit
+) {
+    SampleChip(
+        onClick = { navigateToRoute() },
+        label = "Data Layer Nodes",
+        content = {
+            Text(text = "Nodes")
+        }
+    )
+}

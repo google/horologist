@@ -19,6 +19,7 @@ package com.google.android.horologist.mediasample.data.service.download
 import android.os.Handler
 import android.os.Looper
 import androidx.media3.exoplayer.offline.DownloadManager
+import com.google.android.horologist.media.data.database.dao.MediaDownloadDao.Companion.DOWNLOAD_PROGRESS_START
 import com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -50,7 +51,9 @@ class DownloadProgressMonitor(
                     downloadManager.downloadIndex.getDownload(it.mediaId)?.let { download ->
                         mediaDownloadLocalDataSource.updateProgress(
                             mediaId = download.request.id,
-                            progress = download.percentDownloaded,
+                            progress = download.percentDownloaded
+                                // it can return -1 (C.PERCENTAGE_UNSET)
+                                .coerceAtLeast(DOWNLOAD_PROGRESS_START),
                             size = download.contentLength
                         )
                     }

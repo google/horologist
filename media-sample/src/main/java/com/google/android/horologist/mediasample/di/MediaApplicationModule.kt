@@ -107,26 +107,6 @@ object MediaApplicationModule {
 
     @Singleton
     @Provides
-    fun audioSink(
-        appConfig: AppConfig,
-        wearMedia3Factory: WearMedia3Factory,
-        audioOffloadListener: AudioOffloadListener,
-        settingsRepository: SettingsRepository
-    ): DefaultAudioSink {
-        // TODO check this is basically free at this point
-        val offloadEnabled = runBlocking {
-            settingsRepository.settingsFlow.first().offloadMode.strategy != AudioOffloadStrategy.Never
-        }
-
-        return wearMedia3Factory.audioSink(
-            attemptOffload = offloadEnabled && appConfig.offloadEnabled,
-            offloadMode = if (offloadEnabled) appConfig.offloadMode else DefaultAudioSink.OFFLOAD_MODE_DISABLED,
-            audioOffloadListener = audioOffloadListener
-        )
-    }
-
-    @Singleton
-    @Provides
     fun audioOffloadListener(
         listeners: AudioOffloadListenerList
     ): AudioOffloadListener = listeners

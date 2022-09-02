@@ -35,6 +35,7 @@ import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.navigation.IntentBuilder
 import com.google.android.horologist.media3.navigation.NavDeepLinkIntentBuilder
 import com.google.android.horologist.media3.offload.AudioOffloadManager
+import com.google.android.horologist.media3.offload.AudioOffloadStrategy
 import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.data.log.Logging
 import com.google.android.horologist.mediasample.data.service.complication.DataUpdates
@@ -54,8 +55,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.io.File
 import javax.inject.Singleton
 
@@ -107,13 +110,20 @@ object MediaApplicationModule {
     fun audioSink(
         appConfig: AppConfig,
         wearMedia3Factory: WearMedia3Factory,
-        audioOffloadListener: AudioOffloadListener
-    ): DefaultAudioSink =
-        wearMedia3Factory.audioSink(
-            attemptOffload = appConfig.offloadEnabled,
-            offloadMode = appConfig.offloadMode,
+        audioOffloadListener: AudioOffloadListener,
+        settingsRepository: SettingsRepository
+    ): DefaultAudioSink {
+        // TODO check this is basically free at this point
+        val offloadEnabled = runBlocking {
+            settingsRepository.settingsFlow.first().offloadMode.strategy != AudioOffloadStrategy.Never
+        }
+
+        return wearMedia3Factory.audioSink(
+            attemptOffload = offloadEnabled && appConfig.offloadEnabled,
+            offloadMode = if (offloadEnabled) appConfig.offloadMode else DefaultAudioSink.OFFLOAD_MODE_DISABLED,
             audioOffloadListener = audioOffloadListener
         )
+    }
 
     @Singleton
     @Provides

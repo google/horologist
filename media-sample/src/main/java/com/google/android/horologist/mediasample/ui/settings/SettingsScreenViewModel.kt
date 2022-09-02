@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.mediasample.ui.settings
 
+import android.os.Process
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
@@ -125,5 +126,9 @@ class SettingsScreenViewModel @Inject constructor(
                 error = true
             )
         )
+    }
+
+    fun forceStop() {
+        Process.killProcess(Process.myPid())
     }
 }

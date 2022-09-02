@@ -26,7 +26,7 @@ import androidx.media3.database.StandaloneDatabaseProvider
 import androidx.media3.datasource.cache.Cache
 import androidx.media3.datasource.cache.NoOpCacheEvictor
 import androidx.media3.datasource.cache.SimpleCache
-import androidx.media3.exoplayer.audio.DefaultAudioSink
+import androidx.media3.exoplayer.ExoPlayer.AudioOffloadListener
 import androidx.wear.watchface.complications.datasource.ComplicationDataSourceUpdateRequester
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media3.config.WearMedia3Factory
@@ -103,14 +103,13 @@ object MediaApplicationModule {
 
     @Singleton
     @Provides
-    fun audioSink(
-        appConfig: AppConfig,
-        wearMedia3Factory: WearMedia3Factory
-    ): DefaultAudioSink =
-        wearMedia3Factory.audioSink(
-            attemptOffload = appConfig.offloadEnabled,
-            offloadMode = appConfig.offloadMode
-        )
+    fun audioOffloadListener(
+        listeners: AudioOffloadListenerList
+    ): AudioOffloadListener = listeners
+
+    @Singleton
+    @Provides
+    fun audioOffloadListenerList(): AudioOffloadListenerList = AudioOffloadListenerList()
 
     @Singleton
     @Provides
@@ -125,7 +124,8 @@ object MediaApplicationModule {
         logger: ErrorReporter,
         settingsRepository: SettingsRepository,
         @ForApplicationScope coroutineScope: CoroutineScope,
-        appConfig: AppConfig
+        appConfig: AppConfig,
+        audioOffloadListenerList: AudioOffloadListenerList
     ): AudioOffloadManager {
         val audioOffloadStrategyFlow =
             settingsRepository.settingsFlow.map { it.offloadMode.strategy }
@@ -134,6 +134,8 @@ object MediaApplicationModule {
             audioOffloadStrategyFlow
         ).also { audioOffloadManager ->
             if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
+                audioOffloadListenerList.addListener(audioOffloadManager.audioOffloadListener)
+
                 coroutineScope.launch {
                     settingsRepository.settingsFlow.map { it.debugOffload }
                         .collectLatest { debug ->

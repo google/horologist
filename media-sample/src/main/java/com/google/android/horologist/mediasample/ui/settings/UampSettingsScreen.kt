@@ -138,6 +138,13 @@ fun UampSettingsScreen(
             }
         }
         item {
+            ActionSetting(
+                text = stringResource(id = R.string.force_stop)
+            ) {
+                settingsScreenViewModel.forceStop()
+            }
+        }
+        item {
             val message = stringResource(id = R.string.sample_error)
             ActionSetting(
                 stringResource(id = R.string.show_test_dialog)

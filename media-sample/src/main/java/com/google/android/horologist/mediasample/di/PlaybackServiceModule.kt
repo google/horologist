@@ -73,7 +73,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import okhttp3.Call
 import javax.inject.Provider
-import javax.inject.Singleton
 
 @Module
 @InstallIn(ServiceComponent::class)

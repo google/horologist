@@ -27,7 +27,6 @@ import androidx.media3.datasource.cache.Cache
 import androidx.media3.datasource.cache.NoOpCacheEvictor
 import androidx.media3.datasource.cache.SimpleCache
 import androidx.media3.exoplayer.ExoPlayer.AudioOffloadListener
-import androidx.media3.exoplayer.audio.DefaultAudioSink
 import androidx.wear.watchface.complications.datasource.ComplicationDataSourceUpdateRequester
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media3.config.WearMedia3Factory
@@ -35,7 +34,6 @@ import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.navigation.IntentBuilder
 import com.google.android.horologist.media3.navigation.NavDeepLinkIntentBuilder
 import com.google.android.horologist.media3.offload.AudioOffloadManager
-import com.google.android.horologist.media3.offload.AudioOffloadStrategy
 import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.data.log.Logging
 import com.google.android.horologist.mediasample.data.service.complication.DataUpdates
@@ -55,10 +53,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import java.io.File
 import javax.inject.Singleton
 

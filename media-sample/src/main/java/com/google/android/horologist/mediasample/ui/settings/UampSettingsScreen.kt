@@ -139,7 +139,7 @@ fun UampSettingsScreen(
         }
         item {
             ActionSetting(
-                text = stringResource(id = R.string.force_stop),
+                text = stringResource(id = R.string.force_stop)
             ) {
                 settingsScreenViewModel.forceStop()
             }

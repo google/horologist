@@ -21,6 +21,7 @@ com.google.android.horologist.compose.tools
 com.google.android.horologist.compose.tools.a11y
 module:datalayer
 com.google.android.horologist.data
+com.google.android.horologist.data.store
 com.google.android.horologist.data.store.impl
 module:media
 com.google.android.horologist.media

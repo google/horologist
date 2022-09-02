@@ -24,10 +24,11 @@ import java.io.Closeable
 
 @ExperimentalHorologistNetworksApi
 interface HighBandwidthRequester {
-    fun requestHighBandwidth(
-        requestedTypes: List<NetworkType>,
-        wait: Boolean
-    ): Closeable?
+    fun requestHighBandwidth(requestedTypes: List<NetworkType>): RequestToken
 
     val requestedNetworks: StateFlow<Set<NetworkType>>
+
+    interface RequestToken: Closeable {
+        suspend fun awaitGranted(): NetworkType?
+    }
 }

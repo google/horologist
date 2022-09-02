@@ -109,7 +109,7 @@ public class NetworkAwareDownloadListener(
             if (downloadManager.currentDownloads.isNotEmpty() && !downloadManager.isWaitingForRequirements) {
                 val types = networkingRulesEngine.supportedTypes(MediaRequest(MediaRequestType.Download))
 
-                networkRequest = highBandwidthRequester.requestHighBandwidth(types, wait = false)
+                networkRequest = highBandwidthRequester.requestHighBandwidth(types)
             }
         }
     }

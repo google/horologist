@@ -35,7 +35,6 @@ import com.google.android.horologist.media.ui.screens.player.DefaultPlayerScreen
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
-import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
 import com.google.android.horologist.mediasample.ui.components.AnimatedPlayerScreenMediaDisplay
 
 @Composable
@@ -45,9 +44,9 @@ fun UampMediaPlayerScreen(
     onVolumeClick: () -> Unit,
     playerFocusRequester: FocusRequester,
     modifier: Modifier = Modifier,
-    settingsState: Settings?
 ) {
     val volumeState by rememberStateWithLifecycle(flow = volumeViewModel.volumeState)
+    val settingsState by rememberStateWithLifecycle(flow = mediaPlayerScreenViewModel.settingsState)
 
     Scaffold(
         modifier = modifier

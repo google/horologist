@@ -17,19 +17,30 @@
 package com.google.android.horologist.mediasample.ui.player
 
 import androidx.lifecycle.viewModelScope
+import com.google.android.horologist.compose.layout.StateUtils
 import com.google.android.horologist.media.data.repository.PlayerRepositoryImpl
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.media3.audio.AudioOutputSelector
+import com.google.android.horologist.mediasample.domain.SettingsRepository
+import com.google.android.horologist.mediasample.domain.proto.SettingsProto
+import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
+import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeTextViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.seconds
 
 @HiltViewModel
 class MediaPlayerScreenViewModel @Inject constructor(
     playerRepository: PlayerRepositoryImpl,
-    private val audioOutputSelector: AudioOutputSelector
+    settingsRepository: SettingsRepository,
 ) : PlayerViewModel(playerRepository) {
     init {
         viewModelScope.launch {
@@ -40,4 +51,11 @@ class MediaPlayerScreenViewModel @Inject constructor(
             }
         }
     }
+
+    val settingsState: StateFlow<Settings> = settingsRepository.settingsFlow
+        .stateIn(
+            viewModelScope,
+            started = SharingStarted.WhileSubscribed(5.seconds.inWholeMilliseconds),
+            initialValue = Settings.getDefaultInstance()
+        )
 }

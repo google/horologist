@@ -40,6 +40,7 @@ import com.google.android.horologist.media.ui.navigation.MediaPlayerScaffold
 import com.google.android.horologist.mediasample.ui.browse.UampBrowseScreen
 import com.google.android.horologist.mediasample.ui.debug.AudioDebugScreen
 import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeText
+import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeTextViewModel
 import com.google.android.horologist.mediasample.ui.debug.SamplesScreen
 import com.google.android.horologist.mediasample.ui.entity.UampEntityScreen
 import com.google.android.horologist.mediasample.ui.entity.UampEntityScreenViewModel
@@ -56,17 +57,13 @@ fun UampWearApp(
     intent: Intent
 ) {
     val appViewModel: MediaPlayerAppViewModel = hiltViewModel()
-
     val volumeViewModel: VolumeViewModel = hiltViewModel()
+    val mediaInfoTimeTextViewModel: MediaInfoTimeTextViewModel = hiltViewModel()
 
     val timeText: @Composable (Modifier) -> Unit = { modifier ->
-
         MediaInfoTimeText(
             modifier = modifier,
-            showData = settingsState?.showTimeTextInfo ?: false,
-            networkStatus = networkStatus,
-            networkUsage = networkUsage,
-            offloadStatus = offloadStatus
+            mediaInfoTimeTextViewModel = mediaInfoTimeTextViewModel
         )
     }
 
@@ -81,7 +78,6 @@ fun UampWearApp(
                         navController.navigateToVolume()
                     },
                     playerFocusRequester = focusRequester,
-                    settingsState = settingsState
                 )
             },
             libraryScreen = { focusRequester, scalingLazyListState ->

@@ -43,9 +43,8 @@ public class HighBandwidthRequesterImpl(
     private val connectivityManager: ConnectivityManager,
     private val coroutineScope: CoroutineScope,
     private val logger: NetworkStatusLogger
-): HighBandwidthRequester {
-    private val listeners: MutableSet<HighbandwidthListener> =
-        Collections.newSetFromMap(ConcurrentHashMap())
+) : HighBandwidthRequester {
+    private val _requests = MutableStateFlow<Set<NetworkType>>(setOf())
 
     private val _requestedNetworks = MutableStateFlow<Set<NetworkType>>(setOf())
     override val requestedNetworks: StateFlow<Set<NetworkType>> = _requestedNetworks.asStateFlow()
@@ -58,13 +57,14 @@ public class HighBandwidthRequesterImpl(
 
     private val timeoutMs = 3000
 
-    @Synchronized
     override fun requestHighBandwidth(
-        requestedTypes: List<NetworkType>,
-        wait: Boolean
-    ): Closeable? {
-        highBandwidthRequests++
+        requestedTypes: List<NetworkType>
+    ): HighBandwidthRequester.RequestToken {
+    }
 
+    override fun xxxx(
+        requestedTypes: List<NetworkType>
+    ): HighBandwidthRequester.RequestToken {
         val networkTypes = requestedTypes.mapNotNull {
             when (it) {
                 NetworkType.Wifi -> NetworkCapabilities.TRANSPORT_WIFI
@@ -153,14 +153,5 @@ public class HighBandwidthRequesterImpl(
             networkRequestResult = null
             listeners.forEach { it.onHighbandwidthUnAvailable() }
         }
-    }
-
-    public fun addListener(highBandwidthListener: HighbandwidthListener) {
-        listeners.add(highBandwidthListener)
-    }
-
-    public interface HighbandwidthListener {
-        public fun onHighbandwidthAvailable(priorityNetwork: Network)
-        public fun onHighbandwidthUnAvailable()
     }
 }

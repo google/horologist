@@ -55,7 +55,7 @@ class MediaInfoTimeTextViewModel @Inject constructor(
                 networkRepository.networkStatus,
                 audioOffloadManager.offloadStatus,
                 dataRequestRepository.currentPeriodUsage(),
-                highBandwidthRequester.requestedNetworks()
+                highBandwidthRequester.requestedNetworks
             ) { networkStatus, offloadStatus, currentPeriodUsage, requestedNetworks ->
                 UiState(
                     enabled = enabled,

@@ -20,7 +20,6 @@ import android.app.Application
 import android.app.NotificationManager
 import androidx.annotation.CallSuper
 import androidx.media3.datasource.cache.Cache
-import androidx.media3.exoplayer.audio.DefaultAudioSink
 import androidx.test.annotation.UiThreadTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
@@ -45,9 +44,6 @@ abstract class BaseContainerTest {
 
     @Inject
     protected lateinit var audioOffloadManager: AudioOffloadManager
-
-    @Inject
-    protected lateinit var audioSink: DefaultAudioSink
 
     @Inject
     protected lateinit var audioOutputRepository: SystemAudioRepository

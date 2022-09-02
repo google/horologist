@@ -37,8 +37,12 @@ class UampPlaylistsScreenViewModel @Inject constructor(
 
     val uiState: StateFlow<PlaylistsScreenState<PlaylistUiModel>> =
         playlistRepository.getAll().map {
-            PlaylistsScreenState.Loaded(it.map(PlaylistUiModelMapper::map))
-        }.catch<PlaylistsScreenState<PlaylistUiModel>> {
+            if (it.isNotEmpty()) {
+                PlaylistsScreenState.Loaded(it.map(PlaylistUiModelMapper::map))
+            } else {
+                PlaylistsScreenState.Failed()
+            }
+        }.catch {
             emit(PlaylistsScreenState.Failed())
         }.stateIn(
             viewModelScope,

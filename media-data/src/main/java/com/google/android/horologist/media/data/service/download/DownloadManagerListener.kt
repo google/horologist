@@ -14,19 +14,30 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.service.download
+package com.google.android.horologist.media.data.service.download
 
 import androidx.media3.exoplayer.offline.Download
 import androidx.media3.exoplayer.offline.DownloadManager
+import androidx.media3.exoplayer.offline.DownloadService
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.data.database.mapper.MediaDownloadEntityStatusMapper
 import com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus
 import com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource
-import com.google.android.horologist.mediasample.di.annotation.DownloadFeature
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-class DownloadManagerListener(
-    @DownloadFeature private val coroutineScope: CoroutineScope,
+/**
+ * Implementation of listener for [DownloadManager] events which can also get notified of
+ * [DownloadService][DownloadService] [creation][onDownloadServiceCreated] and
+ * [destruction][onDownloadServiceDestroyed] events.
+ *
+ * Uses [MediaDownloadLocalDataSource] to persist the [DownloadManager] events.
+ *
+ * Uses [DownloadProgressMonitor] to monitor progress of downloads.
+ */
+@ExperimentalHorologistMediaDataApi
+public class DownloadManagerListener(
+    private val coroutineScope: CoroutineScope,
     private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
     private val downloadProgressMonitor: DownloadProgressMonitor
 ) : DownloadManager.Listener {
@@ -65,11 +76,17 @@ class DownloadManagerListener(
         }
     }
 
-    fun onServiceCreated(downloadManager: DownloadManager) {
+    /**
+     * Starts [DownloadProgressMonitor] when [DownloadService] is created.
+     */
+    internal fun onDownloadServiceCreated(downloadManager: DownloadManager) {
         downloadProgressMonitor.start(downloadManager)
     }
 
-    fun onServiceDestroyed() {
+    /**
+     * Stops [DownloadProgressMonitor] when [DownloadService] is destroyed.
+     */
+    internal fun onDownloadServiceDestroyed() {
         downloadProgressMonitor.stop()
     }
 }

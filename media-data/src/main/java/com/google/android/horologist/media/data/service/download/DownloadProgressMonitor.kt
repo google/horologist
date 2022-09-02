@@ -14,17 +14,24 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.data.service.download
+package com.google.android.horologist.media.data.service.download
 
 import android.os.Handler
 import android.os.Looper
 import androidx.media3.exoplayer.offline.DownloadManager
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.data.database.dao.MediaDownloadDao.Companion.DOWNLOAD_PROGRESS_START
 import com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-class DownloadProgressMonitor(
+/**
+ * Monitors the progress of downloads, polling [DownloadManager] every
+ * [specified interval][UPDATE_INTERVAL_MILLIS] and uses [MediaDownloadLocalDataSource] to persist
+ * the progress.
+ */
+@ExperimentalHorologistMediaDataApi
+public class DownloadProgressMonitor(
     private val coroutineScope: CoroutineScope,
     private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource
 ) {
@@ -32,12 +39,12 @@ class DownloadProgressMonitor(
     private val handler = Handler(Looper.getMainLooper())
     private var running = false
 
-    fun start(downloadManager: DownloadManager) {
+    internal fun start(downloadManager: DownloadManager) {
         running = true
         update(downloadManager)
     }
 
-    fun stop() {
+    internal fun stop() {
         running = false
         handler.removeCallbacksAndMessages(null)
     }
@@ -69,7 +76,7 @@ class DownloadProgressMonitor(
         }
     }
 
-    companion object {
-        private const val UPDATE_INTERVAL_MILLIS = 1000L
+    private companion object {
+        const val UPDATE_INTERVAL_MILLIS = 1000L
     }
 }

@@ -124,7 +124,7 @@
                 android:resource="@drawable/ic_uamp" />
         </service>
 
-        <service android:name=".data.service.download.MediaDownloadService"
+        <service android:name=".data.service.download.MediaDownloadServiceImpl"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.exoplayer.downloadService.action.RESTART"/>

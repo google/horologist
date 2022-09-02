@@ -85,6 +85,7 @@ dependencies {
     implementation libs.androidx.wear
     implementation projectOrDependency(":media-lib-common", libs.androidx.media3.common)
     implementation projectOrDependency(":media-lib-exoplayer", libs.androidx.media3.exoplayer)
+    implementation projectOrDependency(":media-lib-exoplayer-workmanager", libs.androidx.media3.exoplayerworkmanager)
     implementation libs.room.common
     implementation libs.room.ktx
     ksp libs.room.compiler

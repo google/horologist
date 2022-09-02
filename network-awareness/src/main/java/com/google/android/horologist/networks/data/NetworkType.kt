@@ -14,15 +14,11 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.networks.status
+package com.google.android.horologist.networks.data
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-import java.io.Closeable
-
-@OptIn(ExperimentalHorologistNetworksApi::class)
-interface HighBandwidthRequesting {
-    fun requestHighBandwidth(
-        requestedTypes: List<String>,
-        wait: Boolean
-    ): Closeable?
+enum class NetworkType(name: String) {
+    Wifi("wifi"),
+    Cell("cell"),
+    BT("BT"),
+    Unknown("unknown")
 }

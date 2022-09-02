@@ -32,7 +32,7 @@ object Fixtures {
     val wifi = NetworkStatus(
         id = "wlan0",
         status = Status.Available,
-        type = NetworkInfo.Wifi("wifi", null),
+        networkInfo = NetworkInfo.Wifi("wifi", null),
         addresses = listOf(),
         capabilities = null,
         linkProperties = null,
@@ -42,7 +42,7 @@ object Fixtures {
     val bt = NetworkStatus(
         id = "bt",
         status = Status.Available,
-        type = NetworkInfo.Bluetooth("bt"),
+        networkInfo = NetworkInfo.Bluetooth("bt"),
         addresses = listOf(),
         capabilities = null,
         linkProperties = null,
@@ -52,7 +52,7 @@ object Fixtures {
     val cell = NetworkStatus(
         id = "cell",
         status = Status.Available,
-        type = NetworkInfo.Cellular("cell", false),
+        networkInfo = NetworkInfo.Cellular("cell", false),
         addresses = listOf(),
         capabilities = null,
         linkProperties = null,

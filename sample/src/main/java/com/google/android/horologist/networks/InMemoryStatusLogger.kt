@@ -48,7 +48,7 @@ public class InMemoryStatusLogger : NetworkStatusLogger {
         networkInfo: NetworkInfo,
         bytesTransferred: Long
     ) {
-        val event = "response $requestType ${networkInfo.typeName} ${bytesTransferred}B"
+        val event = "response $requestType ${networkInfo.type} ${bytesTransferred}B"
         add(Event.NetworkResponse(event, requestType, networkInfo, bytesTransferred))
     }
 

@@ -26,7 +26,7 @@ import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
 import com.google.android.horologist.networks.rules.NetworkingRules
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
-import com.google.android.horologist.networks.status.HighBandwidthRequester
+import com.google.android.horologist.networks.status.HighBandwidthRequesterImpl
 import com.google.android.horologist.networks.status.NetworkRepository
 import com.google.android.horologist.sample.MainActivity
 import kotlinx.coroutines.CoroutineScope
@@ -72,7 +72,7 @@ object SampleAppDI {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-        val highBandwidthRequester = HighBandwidthRequester(
+        val highBandwidthRequester = HighBandwidthRequesterImpl(
             connectivityManager = connectivityManager,
             coroutineScope = coroutineScope,
             logger = networkLogger

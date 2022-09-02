@@ -50,10 +50,10 @@ public interface DataRequestRepository {
             _currentPeriodUsage.value =
                 DataUsageReport(
                     dataByType = mapOf(
-                        NetworkInfo.cell to cell,
-                        NetworkInfo.ble to ble,
-                        NetworkInfo.wifi to wifi,
-                        NetworkInfo.unknown to unknown
+                        NetworkType.Cell to cell,
+                        NetworkType.BT to ble,
+                        NetworkType.Wifi to wifi,
+                        NetworkType.Unknown to unknown
                     ),
                     from = from,
                     to = Instant.now()

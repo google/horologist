@@ -72,12 +72,12 @@ public class OkHttpEventListenerFactory(
         override fun connectionAcquired(call: Call, connection: Connection) {
             val localAddress = connection.socket().localAddress
             val network = networkRepository.networkByAddress(localAddress)
-            val networkInfo = network?.type ?: NetworkInfo.Unknown(localAddress.toString())
+            val networkInfo = network?.networkInfo ?: NetworkInfo.Unknown(localAddress.toString())
 
             val requestType = call.request().requestType
             call.request().networkInfo = networkInfo
 
-            networkingRulesEngine.logger.debugNetworkEvent("HTTPS request $requestType ${networkInfo.typeName} $localAddress")
+            networkingRulesEngine.logger.debugNetworkEvent("HTTPS request $requestType ${networkInfo.type} $localAddress")
 
             super.connectionAcquired(call, connection)
         }

@@ -51,7 +51,7 @@ class ConfigurableNetworkingRules : NetworkingRules {
     ): NetworkStatus? {
         val preferredNetwork = preferredNetworks[requestType]
         return if (preferredNetwork != null) {
-            networks.networks.find { it.type == preferredNetwork }
+            networks.networks.find { it.networkInfo == preferredNetwork }
         } else {
             networks.activeNetwork
         }

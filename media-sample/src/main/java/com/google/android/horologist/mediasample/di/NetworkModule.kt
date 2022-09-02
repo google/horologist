@@ -36,6 +36,7 @@ import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
 import com.google.android.horologist.networks.rules.NetworkingRules
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 import com.google.android.horologist.networks.status.HighBandwidthRequester
+import com.google.android.horologist.networks.status.HighBandwidthRequesterImpl
 import com.google.android.horologist.networks.status.NetworkRepository
 import com.google.android.horologist.networks.status.NetworkRepositoryImpl
 import com.squareup.moshi.Moshi
@@ -145,7 +146,7 @@ object NetworkModule {
         connectivityManager: ConnectivityManager,
         @ForApplicationScope coroutineScope: CoroutineScope,
         networkLogger: NetworkStatusLogger
-    ) = HighBandwidthRequester(
+    ): HighBandwidthRequester = HighBandwidthRequesterImpl(
         connectivityManager,
         coroutineScope,
         networkLogger

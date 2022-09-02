@@ -22,9 +22,8 @@ import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
-import com.google.android.horologist.networks.status.HighBandwidthRequesting
+import com.google.android.horologist.networks.status.HighBandwidthRequester
 import com.google.android.horologist.networks.status.NetworkRepository
-import com.google.android.horologist.networks.status.NetworkRepositoryImpl
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.ConnectionPool
@@ -38,7 +37,7 @@ import java.util.concurrent.ConcurrentHashMap
 @ExperimentalHorologistNetworksApi
 public class NetworkSelectingCallFactory(
     private val networkingRulesEngine: NetworkingRulesEngine,
-    private val highBandwidthRequester: HighBandwidthRequesting,
+    private val highBandwidthRequester: HighBandwidthRequester,
     private val networkRepository: NetworkRepository,
     dataRequestRepository: DataRequestRepository?,
     rootClient: OkHttpClient
@@ -72,7 +71,7 @@ public class NetworkSelectingCallFactory(
         if (networkStatus == null) {
             val networks =
                 networkRepository.networkStatus.value.networks.map {
-                    it.type.typeName
+                    it.networkInfo.type
                 }
             val reason = "No suitable network for $requestType in $networks"
             return FailedCall(finalRequest, reason)

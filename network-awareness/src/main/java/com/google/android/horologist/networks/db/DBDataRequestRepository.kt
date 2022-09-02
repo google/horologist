@@ -20,6 +20,7 @@ import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.DataRequest
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.DataUsageReport
+import com.google.android.horologist.networks.data.NetworkType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -48,7 +49,7 @@ public class DBDataRequestRepository(
 
             if (rows == 0) {
                 rows =
-                    networkUsageDao.insert(DataUsage(dataRequest.networkInfo.typeName, bytes, day))
+                    networkUsageDao.insert(DataUsage(dataRequest.networkInfo.type.name, bytes, day))
                         .toInt()
 
                 if (rows == -1) {
@@ -76,10 +77,10 @@ public class DBDataRequestRepository(
 
             DataUsageReport(
                 dataByType = mapOf(
-                    "ble" to ble,
-                    "cell" to cell,
-                    "wifi" to wifi,
-                    "unknown" to unknown
+                    NetworkType.BT to ble,
+                    NetworkType.Cell to cell,
+                    NetworkType.Wifi to wifi,
+                    NetworkType.Unknown to unknown
                 ),
                 from = from,
                 to = to

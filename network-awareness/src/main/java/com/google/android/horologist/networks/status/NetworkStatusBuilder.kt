@@ -74,7 +74,7 @@ internal data class NetworkStatusBuilder(
         return NetworkStatus(
             id = id,
             status = status,
-            type = readTransportType(),
+            networkInfo = readTransportType(),
             addresses = linkProperties?.linkAddresses?.map { it.address }.orEmpty(),
             capabilities = networkCapabilities,
             linkProperties = linkProperties,

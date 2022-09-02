@@ -79,7 +79,7 @@ public interface NetworkingRules {
             networks: Networks,
             requestType: RequestType
         ): NetworkStatus? {
-            val wifi = networks.networks.firstOrNull { it.type is Wifi }
+            val wifi = networks.networks.firstOrNull { it.networkInfo is Wifi }
             return wifi ?: networks.networks.firstOrNull()
         }
     }
@@ -129,12 +129,12 @@ public interface NetworkingRules {
             networks: Networks,
             requestType: RequestType
         ): NetworkStatus? {
-            val wifi = networks.networks.firstOrNull { it.type is Wifi }
+            val wifi = networks.networks.firstOrNull { it.networkInfo is Wifi }
 
             if (wifi != null) return wifi
 
-            val cell = networks.networks.firstOrNull { it.type is Cellular }
-            val ble = networks.networks.firstOrNull { it.type is Bluetooth }
+            val cell = networks.networks.firstOrNull { it.networkInfo is Cellular }
+            val ble = networks.networks.firstOrNull { it.networkInfo is Bluetooth }
 
             return if (requestType is MediaRequest) {
                 if (requestType.type == Download) {

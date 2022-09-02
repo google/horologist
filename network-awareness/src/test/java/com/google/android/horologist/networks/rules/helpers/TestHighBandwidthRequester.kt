@@ -21,14 +21,14 @@ import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.Status
-import com.google.android.horologist.networks.status.HighBandwidthRequesting
+import com.google.android.horologist.networks.status.HighBandwidthRequester
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import java.io.Closeable
 
 @OptIn(ExperimentalHorologistNetworksApi::class)
 class TestHighBandwidthRequester(private val networkStatus: MutableStateFlow<Networks>) :
-    HighBandwidthRequesting {
+    HighBandwidthRequester {
     private val available = mutableListOf(
         NetworkInfo.wifi,
         NetworkInfo.cell
@@ -38,7 +38,7 @@ class TestHighBandwidthRequester(private val networkStatus: MutableStateFlow<Net
         var addedNetwork: NetworkStatus? = null
 
         networkStatus.update { networks ->
-            val currentTypes = networks.networks.map { it.type.typeName }
+            val currentTypes = networks.networks.map { it.networkInfo.type }
 
             val noCurrentConnections = currentTypes.intersect(requestedTypes).isEmpty()
             val possibleConnections = available.intersect(requestedTypes)

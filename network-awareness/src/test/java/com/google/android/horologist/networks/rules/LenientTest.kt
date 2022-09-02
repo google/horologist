@@ -43,10 +43,10 @@ class LenientTest {
 
     @Test
     fun checkValidRequest() {
-        assertThat(Lenient.checkValidRequest(ImageRequest, wifi.type)).isInstanceOf(Allow::class.java)
+        assertThat(Lenient.checkValidRequest(ImageRequest, wifi.networkInfo)).isInstanceOf(Allow::class.java)
 
-        assertThat(Lenient.checkValidRequest(ImageRequest, cell.type)).isInstanceOf(Allow::class.java)
+        assertThat(Lenient.checkValidRequest(ImageRequest, cell.networkInfo)).isInstanceOf(Allow::class.java)
 
-        assertThat(Lenient.checkValidRequest(ImageRequest, bt.type)).isInstanceOf(Allow::class.java)
+        assertThat(Lenient.checkValidRequest(ImageRequest, bt.networkInfo)).isInstanceOf(Allow::class.java)
     }
 }

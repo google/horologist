@@ -21,7 +21,7 @@ import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 @ExperimentalHorologistNetworksApi
 public sealed interface NetworkInfo {
     public val name: String?
-    public val typeName: String
+    public val type: NetworkType
     public val highBatteryUsage: Boolean?
     public val metered: Boolean?
 
@@ -30,7 +30,7 @@ public sealed interface NetworkInfo {
         override val name: String,
         public val ssid: String? = null
     ) : NetworkInfo {
-        override val typeName: String = wifi
+        override val type: NetworkType = NetworkType.Wifi
         override val highBatteryUsage: Boolean = false
 
         // TODO should this be checked
@@ -42,13 +42,13 @@ public sealed interface NetworkInfo {
         override val name: String,
         override val metered: Boolean? = null
     ) : NetworkInfo {
-        override val typeName: String = cell
+        override val type: NetworkType = NetworkType.Cell
         override val highBatteryUsage: Boolean = true
     }
 
     @ExperimentalHorologistNetworksApi
     public data class Bluetooth(override val name: String) : NetworkInfo {
-        override val typeName: String = ble
+        override val type: NetworkType = NetworkType.BT
         override val highBatteryUsage: Boolean = false
 
         // TODO should this be checked
@@ -57,17 +57,13 @@ public sealed interface NetworkInfo {
 
     @ExperimentalHorologistNetworksApi
     public data class Unknown(
-        override val name: String? = unknown,
+        override val name: String? = "unknown",
         override val metered: Boolean? = null
     ) : NetworkInfo {
-        override val typeName: String = unknown
+        override val type: NetworkType = NetworkType.Unknown
         override val highBatteryUsage: Boolean? = null
     }
 
     public companion object {
-        public const val wifi: String = "wifi"
-        public const val cell: String = "cell"
-        public const val ble: String = "ble"
-        public const val unknown: String = "unknown"
     }
 }

@@ -194,7 +194,7 @@ public class NetworkRepositoryImpl(
         return network
     }
 
-    private val highBandwidthListener = object : HighBandwidthRequester.HighbandwidthListener {
+    private val highBandwidthListener = object : HighBandwidthRequesterImpl.HighbandwidthListener {
         override fun onHighbandwidthAvailable(priorityNetwork: Network) {
             this@NetworkRepositoryImpl.priorityNetwork = priorityNetwork
             postUpdate()

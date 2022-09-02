@@ -63,22 +63,22 @@ class ConservativeTest {
 
     @Test
     fun checkValidRequestForImages() {
-        assertThat(Conservative.checkValidRequest(ImageRequest, wifi.type)).isInstanceOf(Allow::class.java)
-        assertThat(Conservative.checkValidRequest(ImageRequest, cell.type)).isInstanceOf(Allow::class.java)
-        assertThat(Conservative.checkValidRequest(ImageRequest, bt.type)).isInstanceOf(Allow::class.java)
+        assertThat(Conservative.checkValidRequest(ImageRequest, wifi.networkInfo)).isInstanceOf(Allow::class.java)
+        assertThat(Conservative.checkValidRequest(ImageRequest, cell.networkInfo)).isInstanceOf(Allow::class.java)
+        assertThat(Conservative.checkValidRequest(ImageRequest, bt.networkInfo)).isInstanceOf(Allow::class.java)
     }
 
     @Test
     fun checkValidRequestForMediaDownloads() {
-        assertThat(Conservative.checkValidRequest(MediaRequest(Download), wifi.type)).isInstanceOf(Allow::class.java)
-        assertThat(Conservative.checkValidRequest(MediaRequest(Download), cell.type)).isInstanceOf(Fail::class.java)
-        assertThat(Conservative.checkValidRequest(MediaRequest(Download), bt.type)).isInstanceOf(Fail::class.java)
+        assertThat(Conservative.checkValidRequest(MediaRequest(Download), wifi.networkInfo)).isInstanceOf(Allow::class.java)
+        assertThat(Conservative.checkValidRequest(MediaRequest(Download), cell.networkInfo)).isInstanceOf(Fail::class.java)
+        assertThat(Conservative.checkValidRequest(MediaRequest(Download), bt.networkInfo)).isInstanceOf(Fail::class.java)
     }
 
     @Test
     fun checkValidRequestForMediaStream() {
-        assertThat(Conservative.checkValidRequest(MediaRequest(Stream), wifi.type)).isInstanceOf(Allow::class.java)
-        assertThat(Conservative.checkValidRequest(MediaRequest(Stream), cell.type)).isInstanceOf(Fail::class.java)
-        assertThat(Conservative.checkValidRequest(MediaRequest(Stream), bt.type)).isInstanceOf(Allow::class.java)
+        assertThat(Conservative.checkValidRequest(MediaRequest(Stream), wifi.networkInfo)).isInstanceOf(Allow::class.java)
+        assertThat(Conservative.checkValidRequest(MediaRequest(Stream), cell.networkInfo)).isInstanceOf(Fail::class.java)
+        assertThat(Conservative.checkValidRequest(MediaRequest(Stream), bt.networkInfo)).isInstanceOf(Allow::class.java)
     }
 }

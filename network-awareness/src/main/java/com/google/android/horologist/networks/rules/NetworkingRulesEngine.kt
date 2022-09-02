@@ -19,6 +19,7 @@ package com.google.android.horologist.networks.rules
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.NetworkInfo
+import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.status.NetworkRepository
@@ -56,13 +57,13 @@ public class NetworkingRulesEngine(
         // TODO check for no internet on BLE and other scenarios
     }
 
-    fun supportedTypes(requestType: RequestType): List<String> {
+    fun supportedTypes(requestType: RequestType): List<NetworkType> {
         return buildList {
             if (checkValidRequest(requestType, NetworkInfo.Wifi("test")) is Allow) {
-                add(NetworkInfo.wifi)
+                add(NetworkType.Wifi)
             }
             if (checkValidRequest(requestType, NetworkInfo.Cellular("test")) is Allow) {
-                add(NetworkInfo.cell)
+                add(NetworkType.Cell)
             }
         }
     }

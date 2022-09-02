@@ -74,7 +74,7 @@ class NetworkSelectingCallFactoryTest {
 
         val networkType = request.networkInfo
 
-        Truth.assertThat(networkType?.typeName).isEqualTo(NetworkInfo.ble)
+        Truth.assertThat(networkType?.type).isEqualTo(NetworkInfo.ble)
     }
 
     @Test
@@ -87,6 +87,6 @@ class NetworkSelectingCallFactoryTest {
 
         val networkType = request.networkInfo
 
-        Truth.assertThat(networkType?.typeName).isEqualTo(NetworkInfo.wifi)
+        Truth.assertThat(networkType?.type).isEqualTo(NetworkInfo.wifi)
     }
 }

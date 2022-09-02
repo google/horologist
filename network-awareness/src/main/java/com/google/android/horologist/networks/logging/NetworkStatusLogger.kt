@@ -52,7 +52,7 @@ public interface NetworkStatusLogger {
             networkInfo: NetworkInfo,
             bytesTransferred: Long
         ) {
-            Log.d("networks", "response $requestType ${networkInfo.typeName} ${bytesTransferred}B")
+            Log.d("networks", "response $requestType ${networkInfo.type} ${bytesTransferred}B")
         }
     }
 
@@ -77,7 +77,7 @@ public interface NetworkStatusLogger {
             networkInfo: NetworkInfo,
             bytesTransferred: Long
         ) {
-            val event = "response $requestType ${networkInfo.typeName} ${bytesTransferred}B"
+            val event = "response $requestType ${networkInfo.type} ${bytesTransferred}B"
             events.add(event)
         }
     }

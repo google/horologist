@@ -22,17 +22,11 @@ import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
-import com.google.android.horologist.media3.offload.AudioOffloadManager
-import com.google.android.horologist.media3.offload.AudioOffloadStatus
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
 import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.mediasample.ui.util.ResourceProvider
-import com.google.android.horologist.networks.data.DataRequestRepository
-import com.google.android.horologist.networks.data.DataUsageReport
-import com.google.android.horologist.networks.data.Networks
-import com.google.android.horologist.networks.status.NetworkRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.SharingStarted
@@ -47,36 +41,16 @@ import kotlinx.coroutines.flow.reduce
 import kotlinx.coroutines.flow.stateIn
 import java.io.IOException
 import javax.inject.Inject
-import kotlin.time.Duration.Companion.seconds
 
 @HiltViewModel
 class MediaPlayerAppViewModel @Inject constructor(
-    networkRepository: NetworkRepository,
-    dataRequestRepository: DataRequestRepository,
     appConfig: AppConfig,
     private val settingsRepository: SettingsRepository,
     private val playerRepository: PlayerRepository,
     private val playlistRepository: PlaylistRepository,
     private val snackbarManager: SnackbarManager,
     private val resourceProvider: ResourceProvider,
-    private val audioOffloadManager: AudioOffloadManager
 ) : ViewModel() {
-    val networkStatus: StateFlow<Networks> = networkRepository.networkStatus
-
-    val offloadStatus: StateFlow<AudioOffloadStatus?> = audioOffloadManager.offloadStatus
-
-    val networkUsage: StateFlow<DataUsageReport?> = dataRequestRepository.currentPeriodUsage()
-        .stateIn(
-            viewModelScope,
-            started = SharingStarted.WhileSubscribed(5.seconds.inWholeMilliseconds),
-            initialValue = null
-        )
-
-    val settingsState: StateFlow<Settings?> = settingsRepository.settingsFlow.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
-        null
-    )
 
     val deepLinkPrefix: String = appConfig.deeplinkUriPrefix
 

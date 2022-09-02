@@ -23,6 +23,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bluetooth
 import androidx.compose.material.icons.filled.HelpOutline
 import androidx.compose.material.icons.filled.SignalCellularAlt
+import androidx.compose.material.icons.filled.Square
 import androidx.compose.material.icons.filled.Wifi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -40,6 +41,7 @@ import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.NetworkInfo
+import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.Status
 
@@ -49,41 +51,32 @@ public fun CurvedScope.curveDataUsage(
     networkStatus: Networks,
     networkUsage: DataUsageReport?,
     style: CurvedTextStyle,
-    context: Context
+    context: Context,
+    requestedNetworks: Set<NetworkType>?
 ) {
     val activeNetwork = networkStatus.activeNetwork
 
-    networkStatus.networks.filterNot { it.id == activeNetwork?.id }.forEach {
+    networkStatus.networks.forEach {
         curvedComposable(radialAlignment = CurvedAlignment.Radial.Outer) {
             Icon(
                 modifier = modifier
                     .size(12.dp),
-                imageVector = it.type.icon,
+                imageVector = it.networkInfo.icon,
                 contentDescription = null,
-                tint = it.tint(active = false)
+                tint = it.tint(active = activeNetwork?.id == it.id)
             )
+            if (requestedNetworks?.contains(it.networkInfo.type) == true) {
+                Icon(
+                    modifier = modifier.size(14.dp),
+                    imageVector = Icons.Default.Square,
+                    contentDescription = null,
+                    tint = it.tint(active = activeNetwork?.id == it.id)
+                )
+            }
         }
-        val usage = networkUsage?.dataByType?.get(it.type.typeName)
+        val usage = networkUsage?.dataByType?.get(it.networkInfo.type)
         if (usage != null) {
             curvedText(text = usage.toSize(context), style = style)
-        }
-    }
-    activeNetwork?.let {
-        curvedComposable(radialAlignment = CurvedAlignment.Radial.Outer) {
-            Icon(
-                modifier = modifier
-                    .size(16.dp),
-                imageVector = it.type.icon,
-                contentDescription = null,
-                tint = it.tint(active = true)
-            )
-        }
-        val usage = networkUsage?.dataByType?.get(activeNetwork.type.typeName)
-        if (usage != null) {
-            curvedText(
-                text = usage.toSize(context),
-                style = style
-            )
         }
     }
 }
@@ -101,11 +94,11 @@ public fun LinearDataUsage(
     networkStatus.networks.filterNot { it.id == activeNetwork?.id }.forEach {
         Icon(
             modifier = Modifier.size(12.dp),
-            imageVector = it.type.icon,
+            imageVector = it.networkInfo.icon,
             contentDescription = null,
             tint = it.tint(active = false)
         )
-        val usage = networkUsage?.dataByType?.get(it.type.typeName)
+        val usage = networkUsage?.dataByType?.get(it.networkInfo.type)
         if (usage != null) {
             Text(text = usage.toSize(context), style = style)
         }
@@ -113,11 +106,11 @@ public fun LinearDataUsage(
     activeNetwork?.let {
         Icon(
             modifier = Modifier.size(16.dp),
-            imageVector = it.type.icon,
+            imageVector = it.networkInfo.icon,
             contentDescription = null,
             tint = it.tint(active = true)
         )
-        val usage = networkUsage?.dataByType?.get(activeNetwork.type.typeName)
+        val usage = networkUsage?.dataByType?.get(activeNetwork.networkInfo.type)
         if (usage != null) {
             Text(
                 text = usage.toSize(context),

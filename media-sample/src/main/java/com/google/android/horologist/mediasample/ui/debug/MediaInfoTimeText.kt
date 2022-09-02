@@ -17,6 +17,7 @@
 package com.google.android.horologist.mediasample.ui.debug
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.wear.compose.foundation.CurvedScope
@@ -24,44 +25,63 @@ import androidx.wear.compose.foundation.CurvedTextStyle
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.curvedText
+import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.media3.offload.AudioOffloadStatus
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.DataUsageReport
+import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.ui.curveDataUsage
 
 @Composable
 public fun MediaInfoTimeText(
-    showData: Boolean,
+    mediaInfoTimeTextViewModel: MediaInfoTimeTextViewModel,
+    modifier: Modifier = Modifier
+) {
+    val uiState by rememberStateWithLifecycle(mediaInfoTimeTextViewModel.uiState)
+
+    if (uiState.enabled) {
+        MediaInfoTimeText(
+            modifier = modifier,
+            networkStatus = uiState.networks,
+            networkUsage = uiState.dataUsageReport,
+            offloadStatus = uiState.audioOffloadStatus,
+            requestedNetworks = uiState.requestedNetworks,
+        )
+    } else {
+        TimeText(modifier = modifier)
+    }
+}
+
+@Composable
+public fun MediaInfoTimeText(
     networkStatus: Networks,
     networkUsage: DataUsageReport?,
     offloadStatus: AudioOffloadStatus?,
+    requestedNetworks: Set<NetworkType>?,
     modifier: Modifier = Modifier
 ) {
     val style = CurvedTextStyle(MaterialTheme.typography.caption3)
     val context = LocalContext.current
 
-    if (showData) {
-        TimeText(
-            modifier = modifier,
-            startCurvedContent = {
-                curveDataUsage(
-                    networkStatus = networkStatus,
-                    networkUsage = networkUsage,
-                    style = style,
-                    context = context
-                )
-            },
-            endCurvedContent = {
-                offloadDataStatus(
-                    offloadStatus = offloadStatus,
-                    style = style
-                )
-            }
-        )
-    } else {
-        TimeText(modifier = modifier)
-    }
+    TimeText(
+        modifier = modifier,
+        startCurvedContent = {
+            curveDataUsage(
+                networkStatus = networkStatus,
+                networkUsage = networkUsage,
+                style = style,
+                context = context,
+                requestedNetworks = requestedNetworks
+            )
+        },
+        endCurvedContent = {
+            offloadDataStatus(
+                offloadStatus = offloadStatus,
+                style = style
+            )
+        }
+    )
 }
 
 @ExperimentalHorologistNetworksApi

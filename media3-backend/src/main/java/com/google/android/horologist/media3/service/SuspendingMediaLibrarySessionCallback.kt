@@ -34,7 +34,7 @@ import kotlinx.coroutines.guava.future
  * Each metho is implemented like for like,
  */
 @ExperimentalHorologistMedia3BackendApi
-public abstract class CoroutinesMediaLibrarySessionCallback(
+public abstract class SuspendingMediaLibrarySessionCallback(
     private val serviceScope: CoroutineScope,
     private val appEventLogger: ErrorReporter
 ) :

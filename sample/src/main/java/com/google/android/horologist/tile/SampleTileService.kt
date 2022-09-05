@@ -21,10 +21,10 @@ import androidx.wear.tiles.RequestBuilders.TileRequest
 import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
 import com.google.android.horologist.sample.R
-import com.google.android.horologist.tiles.CoroutinesTileService
+import com.google.android.horologist.tiles.SuspendingTileService
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 
-class SampleTileService : CoroutinesTileService() {
+class SampleTileService : SuspendingTileService() {
     private lateinit var renderer: SampleTileRenderer
 
     private var count = 0

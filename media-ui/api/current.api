@@ -137,9 +137,6 @@ package com.google.android.horologist.media.ui.components.background {
 
 package com.google.android.horologist.media.ui.components.base {
 
-  public final class SecondaryPlaceholderChipKt {
-  }
-
   public final class StandardButtonKt {
   }
 
@@ -290,7 +287,7 @@ package com.google.android.horologist.media.ui.components.list.sectioned {
   }
 
   public final class SectionedListKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void SectionedList(androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.components.list.sectioned.SectionedListScope,kotlin.Unit> scope);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void SectionedList(androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ScalingParams scalingParams, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.components.list.sectioned.SectionedListScope,kotlin.Unit> scope);
   }
 
   public final class SectionedListScope {
@@ -385,6 +382,10 @@ package com.google.android.horologist.media.ui.screens.browse {
   }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class BrowseScreenState {
+  }
+
+  public static final class BrowseScreenState.Failed extends com.google.android.horologist.media.ui.screens.browse.BrowseScreenState {
+    field public static final com.google.android.horologist.media.ui.screens.browse.BrowseScreenState.Failed INSTANCE;
   }
 
   public static final class BrowseScreenState.Loaded extends com.google.android.horologist.media.ui.screens.browse.BrowseScreenState {
@@ -658,6 +659,11 @@ package com.google.android.horologist.media.ui.state {
 
 package com.google.android.horologist.media.ui.state.mapper {
 
+  @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class DownloadMediaUiModelMapper {
+    method public com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel map(com.google.android.horologist.media.model.MediaDownload mediaDownload);
+    field public static final com.google.android.horologist.media.ui.state.mapper.DownloadMediaUiModelMapper INSTANCE;
+  }
+
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class MediaUiModelMapper {
     method public com.google.android.horologist.media.ui.state.model.MediaUiModel map(com.google.android.horologist.media.model.Media media);
     field public static final com.google.android.horologist.media.ui.state.mapper.MediaUiModelMapper INSTANCE;
@@ -666,6 +672,16 @@ package com.google.android.horologist.media.ui.state.mapper {
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class PlayerUiStateMapper {
     method public com.google.android.horologist.media.ui.state.PlayerUiState map(com.google.android.horologist.media.model.PlayerState currentState, java.util.Set<? extends com.google.android.horologist.media.model.Command> availableCommands, com.google.android.horologist.media.model.Media? media, com.google.android.horologist.media.model.MediaPosition? mediaPosition, boolean shuffleModeEnabled, boolean connected, optional com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekBackButtonIncrement, optional com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekForwardButtonIncrement);
     field public static final com.google.android.horologist.media.ui.state.mapper.PlayerUiStateMapper INSTANCE;
+  }
+
+  @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class PlaylistDownloadUiModelMapper {
+    method public com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel.Completed map(com.google.android.horologist.media.model.Playlist playlist);
+    field public static final com.google.android.horologist.media.ui.state.mapper.PlaylistDownloadUiModelMapper INSTANCE;
+  }
+
+  @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class PlaylistUiModelMapper {
+    method public com.google.android.horologist.media.ui.state.model.PlaylistUiModel map(com.google.android.horologist.media.model.Playlist playlist);
+    field public static final com.google.android.horologist.media.ui.state.mapper.PlaylistUiModelMapper INSTANCE;
   }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class TrackPositionUiModelMapper {

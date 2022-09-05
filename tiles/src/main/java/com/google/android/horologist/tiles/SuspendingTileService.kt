@@ -39,7 +39,8 @@ import kotlinx.coroutines.launch
  * Also acts like a LifecycleService, allowing lifecycleScope,
  * and general lifecycle operations.
  */
-public abstract class CoroutinesTileService : TileService(), LifecycleOwner {
+@ExperimentalHorologistTilesApi
+public abstract class SuspendingTileService : TileService(), LifecycleOwner {
     // Code from LifecycleService
 
     @Suppress("LeakingThis")

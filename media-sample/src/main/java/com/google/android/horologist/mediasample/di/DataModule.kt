@@ -39,7 +39,7 @@ import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.mediasample.data.api.NetworkChangeListService
 import com.google.android.horologist.mediasample.data.api.UampService
 import com.google.android.horologist.mediasample.data.datasource.PlaylistRemoteDataSource
-import com.google.android.horologist.mediasample.data.service.download.MediaDownloadService
+import com.google.android.horologist.mediasample.data.service.download.MediaDownloadServiceImpl
 import com.google.android.horologist.mediasample.di.annotation.Dispatcher
 import com.google.android.horologist.mediasample.di.annotation.UampDispatchers.IO
 import com.google.android.horologist.mediasample.domain.SettingsRepository
@@ -105,7 +105,7 @@ class DataModule {
         @ApplicationContext applicationContext: Context
     ) = Media3DownloadDataSource(
         applicationContext,
-        MediaDownloadService::class.java
+        MediaDownloadServiceImpl::class.java
     )
 
     @Provides

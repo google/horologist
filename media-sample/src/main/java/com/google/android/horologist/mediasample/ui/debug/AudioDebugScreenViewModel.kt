@@ -21,17 +21,20 @@ import android.os.Build
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.media3.common.Format
-import androidx.media3.exoplayer.audio.DefaultAudioSink
+import androidx.media3.session.MediaBrowser
+import androidx.media3.session.MediaController
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.offload.AudioOffloadStatus
 import com.google.android.horologist.media3.util.toAudioFormat
 import com.google.android.horologist.mediasample.ui.AppConfig
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
@@ -41,9 +44,14 @@ import javax.inject.Provider
 class AudioDebugScreenViewModel @Inject constructor(
     private val audioOffloadManager: Provider<AudioOffloadManager>,
     private val appConfig: AppConfig,
-    private val audioSink: DefaultAudioSink,
-    playerRepository: PlayerRepository
+    playerRepository: PlayerRepository,
+    private val mediaController: Deferred<MediaBrowser>
 ) : ViewModel() {
+    val mediaControllerFlow = flow {
+        emit(null)
+        emit(mediaController.await())
+    }
+
     fun audioOffloadFlow(): Flow<AudioOffloadStatus> = if (appConfig.offloadEnabled) {
         audioOffloadManager.get().offloadStatus
     } else {
@@ -52,13 +60,14 @@ class AudioDebugScreenViewModel @Inject constructor(
 
     val uiState: StateFlow<UiState?> = combine(
         audioOffloadFlow(),
-        playerRepository.currentMedia
-    ) { audioOffloadStatus, currentMedia ->
+        playerRepository.currentMedia,
+        mediaControllerFlow
+    ) { audioOffloadStatus, currentMedia, mediaController ->
 
         UiState(
             currentTrack = currentMedia?.title,
             audioOffloadStatus = audioOffloadStatus,
-            formatSupported = isFormatSupported(audioOffloadStatus.format)
+            formatSupported = isFormatSupported(mediaController, audioOffloadStatus.format)
         )
     }.stateIn(
         scope = viewModelScope,
@@ -66,11 +75,15 @@ class AudioDebugScreenViewModel @Inject constructor(
         initialValue = null
     )
 
-    public fun isFormatSupported(format: Format?): Boolean? {
+    public fun isFormatSupported(mediaController: MediaController?, format: Format?): Boolean? {
         val audioFormat = format?.toAudioFormat() ?: return null
 
+        if (mediaController == null) {
+            return null
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val audioAttributes = audioSink.audioAttributes.audioAttributesV21.audioAttributes
+            val audioAttributes = mediaController.audioAttributes.audioAttributesV21.audioAttributes
             return AudioManager.isOffloadedPlaybackSupported(audioFormat, audioAttributes)
         }
 

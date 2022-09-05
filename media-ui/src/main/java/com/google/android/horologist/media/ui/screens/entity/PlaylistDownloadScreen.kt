@@ -40,13 +40,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
+import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyListState
+import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.media.ui.components.base.SecondaryPlaceholderChip
 import com.google.android.horologist.media.ui.components.base.StandardButton
 import com.google.android.horologist.media.ui.components.base.StandardButtonSize
 import com.google.android.horologist.media.ui.components.base.StandardButtonType
@@ -90,7 +91,7 @@ public fun PlaylistDownloadScreen(
     EntityScreen(
         entityScreenState = entityScreenState,
         headerContent = { DefaultEntityScreenHeader(title = playlistName) },
-        loadingContent = { items(count = 2) { SecondaryPlaceholderChip() } },
+        loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },
         mediaContent = { downloadMediaUiModel ->
 
             val secondaryLabel = when (downloadMediaUiModel) {

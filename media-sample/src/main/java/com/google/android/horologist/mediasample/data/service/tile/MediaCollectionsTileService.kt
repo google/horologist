@@ -39,8 +39,8 @@ import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.app.MediaActivity
 import com.google.android.horologist.mediasample.ui.app.UampColors
-import com.google.android.horologist.tiles.CoroutinesTileService
 import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
+import com.google.android.horologist.tiles.SuspendingTileService
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 import com.google.android.horologist.tiles.images.loadImageResource
 import com.google.android.horologist.tiles.images.toImageResource
@@ -54,7 +54,7 @@ import javax.inject.Inject
  * Links to the MediaActivity, with extras for collection and optionally mediaId.
  */
 @AndroidEntryPoint
-class MediaCollectionsTileService : CoroutinesTileService() {
+class MediaCollectionsTileService : SuspendingTileService() {
 
     @Inject
     lateinit var playlistRepository: PlaylistRepository

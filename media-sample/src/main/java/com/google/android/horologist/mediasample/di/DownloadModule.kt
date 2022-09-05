@@ -27,12 +27,12 @@ import androidx.media3.exoplayer.offline.DownloadManager
 import androidx.media3.exoplayer.offline.DownloadNotificationHelper
 import androidx.media3.exoplayer.workmanager.WorkManagerScheduler
 import com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource
+import com.google.android.horologist.media.data.service.download.DownloadManagerListener
+import com.google.android.horologist.media.data.service.download.DownloadProgressMonitor
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.logging.TransferListener
 import com.google.android.horologist.media3.service.NetworkAwareDownloadListener
-import com.google.android.horologist.mediasample.data.service.download.DownloadManagerListener
-import com.google.android.horologist.mediasample.data.service.download.DownloadProgressMonitor
-import com.google.android.horologist.mediasample.data.service.download.MediaDownloadService
+import com.google.android.horologist.mediasample.data.service.download.MediaDownloadServiceImpl
 import com.google.android.horologist.mediasample.di.annotation.Dispatcher
 import com.google.android.horologist.mediasample.di.annotation.DownloadFeature
 import com.google.android.horologist.mediasample.di.annotation.UampDispatchers.IO
@@ -89,7 +89,7 @@ object DownloadModule {
     ): DownloadNotificationHelper =
         DownloadNotificationHelper(
             applicationContext,
-            MediaDownloadService.MEDIA_DOWNLOAD_CHANNEL_ID
+            MediaDownloadServiceImpl.MEDIA_DOWNLOAD_CHANNEL_ID
         )
 
     @DownloadFeature

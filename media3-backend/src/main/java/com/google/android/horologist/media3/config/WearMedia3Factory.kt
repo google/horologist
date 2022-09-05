@@ -19,6 +19,7 @@
 package com.google.android.horologist.media3.config
 
 import android.content.Context
+import androidx.media3.exoplayer.ExoPlayer.AudioOffloadListener
 import androidx.media3.exoplayer.RenderersFactory
 import androidx.media3.exoplayer.audio.AudioCapabilities
 import androidx.media3.exoplayer.audio.AudioSink
@@ -30,11 +31,16 @@ import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendA
 public open class WearMedia3Factory(private val context: Context) {
     public fun audioSink(
         attemptOffload: Boolean,
-        offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_NOT_REQUIRED
+        offloadMode: Int = DefaultAudioSink.OFFLOAD_MODE_ENABLED_GAPLESS_NOT_REQUIRED,
+        @Suppress("UNUSED_PARAMETER") audioOffloadListener: AudioOffloadListener?
     ): DefaultAudioSink {
         return DefaultAudioSink.Builder()
             .setAudioCapabilities(AudioCapabilities.getCapabilities(context))
             .setAudioProcessorChain(DefaultAudioSink.DefaultAudioProcessorChain())
+            // Expose when https://github.com/androidx/media/commit/7893531888608555fb09e77f12897752650131d5
+            // is in 1.0-RC1
+            // For now requires `media3.checkout=false` in local.properties
+//            .setExperimentalAudioOffloadListener(audioOffloadListener)
             .setEnableFloatOutput(false) // default
             .setEnableAudioTrackPlaybackParams(false) // default
             .setOffloadMode(

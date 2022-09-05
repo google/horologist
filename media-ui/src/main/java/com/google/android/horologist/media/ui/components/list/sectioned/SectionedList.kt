@@ -21,8 +21,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.ScalingLazyColumn
+import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingLazyListScope
 import androidx.wear.compose.material.ScalingLazyListState
+import androidx.wear.compose.material.ScalingParams
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
@@ -36,13 +38,15 @@ public fun SectionedList(
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
+    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
     scope: SectionedListScope.() -> Unit
 ) {
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize()
             .scrollableColumn(focusRequester, scalingLazyListState),
-        state = scalingLazyListState
+        state = scalingLazyListState,
+        scalingParams = scalingParams
     ) {
         SectionedListScope().apply(scope).sections.forEach { section ->
             section.display(this)

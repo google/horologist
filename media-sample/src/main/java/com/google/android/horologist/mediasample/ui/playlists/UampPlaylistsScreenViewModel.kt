@@ -20,8 +20,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreenState
+import com.google.android.horologist.media.ui.state.mapper.PlaylistUiModelMapper
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
-import com.google.android.horologist.mediasample.ui.mapper.PlaylistUiModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -37,8 +37,12 @@ class UampPlaylistsScreenViewModel @Inject constructor(
 
     val uiState: StateFlow<PlaylistsScreenState<PlaylistUiModel>> =
         playlistRepository.getAll().map {
-            PlaylistsScreenState.Loaded(it.map(PlaylistUiModelMapper::map))
-        }.catch<PlaylistsScreenState<PlaylistUiModel>> {
+            if (it.isNotEmpty()) {
+                PlaylistsScreenState.Loaded(it.map(PlaylistUiModelMapper::map))
+            } else {
+                PlaylistsScreenState.Failed()
+            }
+        }.catch {
             emit(PlaylistsScreenState.Failed())
         }.stateIn(
             viewModelScope,

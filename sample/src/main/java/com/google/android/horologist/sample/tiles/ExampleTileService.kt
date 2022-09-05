@@ -28,9 +28,9 @@ import androidx.wear.tiles.ResourceBuilders
 import androidx.wear.tiles.TileBuilders.Tile
 import androidx.wear.tiles.TimelineBuilders.Timeline
 import androidx.wear.tiles.TimelineBuilders.TimelineEntry
-import com.google.android.horologist.tiles.CoroutinesTileService
+import com.google.android.horologist.tiles.SuspendingTileService
 
-class ExampleTileService : CoroutinesTileService() {
+class ExampleTileService : SuspendingTileService() {
     private lateinit var batteryManager: BatteryManager
 
     override fun onCreate() {

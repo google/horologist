@@ -362,3 +362,30 @@ package com.google.android.horologist.media.data.repository {
 
 }
 
+package com.google.android.horologist.media.data.service.download {
+
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class DownloadManagerListener implements androidx.media3.exoplayer.offline.DownloadManager.Listener {
+    ctor public DownloadManagerListener(kotlinx.coroutines.CoroutineScope coroutineScope, com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource mediaDownloadLocalDataSource, com.google.android.horologist.media.data.service.download.DownloadProgressMonitor downloadProgressMonitor);
+  }
+
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class DownloadProgressMonitor {
+    ctor public DownloadProgressMonitor(kotlinx.coroutines.CoroutineScope coroutineScope, com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource mediaDownloadLocalDataSource);
+    field public static final long UPDATE_INTERVAL_MILLIS = 1000L; // 0x3e8L
+  }
+
+  @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public abstract class MediaDownloadService extends androidx.media3.exoplayer.offline.DownloadService {
+    ctor public MediaDownloadService(int foregroundNotificationId, long foregroundNotificationUpdateInterval, String? channelId, @StringRes int channelNameResourceId, @StringRes int channelDescriptionResourceId, @DrawableRes int notificationIcon);
+    method protected abstract android.app.PendingIntent getDownloadIntent();
+    method protected abstract com.google.android.horologist.media.data.service.download.DownloadManagerListener getDownloadManagerListener();
+    method protected abstract androidx.media3.exoplayer.offline.DownloadNotificationHelper getDownloadNotificationHelper();
+    method protected android.app.Notification getForegroundNotification(java.util.List<androidx.media3.exoplayer.offline.Download> downloads, int notMetRequirements);
+    method protected androidx.media3.exoplayer.scheduler.Scheduler getScheduler();
+    method protected abstract androidx.media3.exoplayer.workmanager.WorkManagerScheduler getWorkManagerScheduler();
+    property protected abstract android.app.PendingIntent downloadIntent;
+    property protected abstract com.google.android.horologist.media.data.service.download.DownloadManagerListener downloadManagerListener;
+    property protected abstract androidx.media3.exoplayer.offline.DownloadNotificationHelper downloadNotificationHelper;
+    property protected abstract androidx.media3.exoplayer.workmanager.WorkManagerScheduler workManagerScheduler;
+  }
+
+}
+

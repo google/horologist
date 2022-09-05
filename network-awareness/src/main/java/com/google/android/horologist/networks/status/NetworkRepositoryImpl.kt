@@ -58,14 +58,14 @@ public class NetworkRepositoryImpl(
 
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
-            networks[network.toString()] = network
+            networks[network.id] = network
             getOrBuild(network, Status.Available)
 
             postUpdate()
         }
 
         override fun onLost(network: Network) {
-            val networkString = network.toString()
+            val networkString = network.id
             getOrBuild(network, Status.Lost)
 
             coroutineScope.launch {
@@ -88,7 +88,9 @@ public class NetworkRepositoryImpl(
             network: Network,
             networkCapabilities: NetworkCapabilities
         ) {
-            getOrBuild(network).networkCapabilities = networkCapabilities
+            getOrBuild(network).apply {
+                this.networkCapabilities = networkCapabilities
+            }
             postUpdate()
         }
 
@@ -99,16 +101,28 @@ public class NetworkRepositoryImpl(
             getOrBuild(network).apply {
                 linkProperties = networkLinkProperties
                 networkLinkProperties.linkAddresses.forEach {
-                    linkAddresses[it.address] = network.toString()
+                    linkAddresses[it.address] = network.id
                 }
             }
             postUpdate()
         }
     }
 
-    // TODO consider deferring the init work here.
+    override fun updateNetworkAvailability(network: Network) {
+        val id = network.id
+
+        if (!networks.contains(id)) {
+            networks[id] = network
+
+            getOrBuild(network, Status.Available).apply {
+                networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+            }
+
+            postUpdate()
+        }
+    }
+
     init {
-        // TODO check this ordering is ok? read before subscribe.
         @Suppress("DEPRECATION")
         connectivityManager.allNetworks.forEach { network ->
             getOrBuild(network).apply {
@@ -135,7 +149,7 @@ public class NetworkRepositoryImpl(
 
     private fun getOrBuild(network: Network, status: Status? = null): NetworkStatusBuilder {
         return networkBuilders.getOrPut(
-            network.toString()
+            network.id
         ) {
             NetworkStatusBuilder(network = network, id = network.toString())
         }.apply {

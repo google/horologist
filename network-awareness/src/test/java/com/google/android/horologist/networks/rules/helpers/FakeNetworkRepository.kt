@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.networks.rules.helpers
 
+import android.net.Network
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.NetworkStatus
@@ -37,6 +38,9 @@ class FakeNetworkRepository : NetworkRepository {
         return networkStatus.value.networks.firstOrNull {
             it.addresses.contains(localAddress)
         }
+    }
+
+    override fun updateNetworkAvailability(network: Network) {
     }
 
     fun pinNetwork(value: NetworkType?) {

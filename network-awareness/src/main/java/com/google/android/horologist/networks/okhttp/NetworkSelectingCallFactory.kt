@@ -75,8 +75,6 @@ public class NetworkSelectingCallFactory(
 
         val highBandwidthRequest = networkingRulesEngine.isHighBandwidthRequest(requestType)
 
-        println("" + request.url + " " + highBandwidthRequest)
-
         return if (highBandwidthRequest) {
             HighBandwidthCall(this, finalRequest)
         } else {

@@ -156,9 +156,11 @@ object NetworkModule {
     @Singleton
     @Provides
     fun simpleHighBandwidthRequester(
-        connectivityManager: ConnectivityManager
+        connectivityManager: ConnectivityManager,
+        networkRepository: NetworkRepository
     ) = SimpleHighBandwidthNetworkMediator(
-        connectivityManager
+        connectivityManager,
+        networkRepository
     )
 
     @Singleton
@@ -170,9 +172,11 @@ object NetworkModule {
     @Singleton
     @Provides
     fun networkRequester(
-        connectivityManager: ConnectivityManager
+        connectivityManager: ConnectivityManager,
+        networkRepository: NetworkRepository
     ): NetworkRequester = NetworkRequesterImpl(
-        connectivityManager
+        connectivityManager,
+        networkRepository
     )
 
     @Singleton

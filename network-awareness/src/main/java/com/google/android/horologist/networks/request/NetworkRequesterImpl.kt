@@ -23,12 +23,14 @@ import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.networkType
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest
+import com.google.android.horologist.networks.status.NetworkRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
 @ExperimentalHorologistNetworksApi
 public class NetworkRequesterImpl(
-    private val connectivityManager: ConnectivityManager
+    private val connectivityManager: ConnectivityManager,
+    private val networkRepository: NetworkRepository
 ) : NetworkRequester {
     private val requestedNetworks = MutableStateFlow<HighBandwidthRequest?>(null)
     override val pinnedNetwork: MutableStateFlow<NetworkType?> = MutableStateFlow(null)
@@ -56,6 +58,8 @@ public class NetworkRequesterImpl(
 
     private val networkCallback: NetworkCallback = object : NetworkCallback() {
         override fun onAvailable(network: Network) {
+            networkRepository.updateNetworkAvailability(network)
+
             val type = connectivityManager.networkType(network)
 
             pinnedNetwork.update { type }

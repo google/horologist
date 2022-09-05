@@ -24,7 +24,7 @@ import androidx.compose.material.icons.filled.Bluetooth
 import androidx.compose.material.icons.filled.HelpOutline
 import androidx.compose.material.icons.filled.SignalCellularAlt
 import androidx.compose.material.icons.filled.Wifi
-import androidx.compose.material.icons.outlined.StarOutline
+import androidx.compose.material.icons.outlined.Square
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -40,7 +40,6 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.curvedText
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.DataUsageReport
-import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.Networks
@@ -57,27 +56,50 @@ public fun CurvedScope.curveDataUsage(
 ) {
     val activeNetwork = networkStatus.activeNetwork
 
-    networkStatus.networks.forEach {
+    val networks = networkStatus.networks
+    val types = networks.map { it.networkInfo.type }
+    networks.forEach {
         curvedComposable(radialAlignment = CurvedAlignment.Radial.Outer) {
-            Icon(
-                modifier = modifier
-                    .size(12.dp),
-                imageVector = it.networkInfo.icon,
-                contentDescription = null,
-                tint = it.tint(active = activeNetwork?.id == it.id)
-            )
             if (requestedNetwork == it.networkInfo.type) {
                 Icon(
-                    modifier = modifier.size(14.dp).alpha(0.6f),
-                    imageVector = Icons.Outlined.StarOutline,
+                    modifier = modifier
+                        .size(14.dp)
+                        .alpha(0.6f),
+                    imageVector = Icons.Outlined.Square,
                     contentDescription = null,
                     tint = Color.Yellow
                 )
             }
+            Icon(
+                modifier = modifier
+                    .size(12.dp),
+                imageVector = it.networkInfo.type.icon,
+                contentDescription = null,
+                tint = it.tint(active = activeNetwork?.id == it.id)
+            )
         }
         val usage = networkUsage?.dataByType?.get(it.networkInfo.type)
         if (usage != null) {
             curvedText(text = usage.toSize(context), style = style)
+        }
+    }
+    if (networkUsage?.dataByType != null) {
+        val keys = networkUsage.dataByType.keys
+        val missingTypes = keys - types.toSet()
+        missingTypes.forEach {
+            val usage = networkUsage.dataByType[it]
+            if (usage != null && usage > 0) {
+                curvedComposable(radialAlignment = CurvedAlignment.Radial.Outer) {
+                    Icon(
+                        modifier = modifier
+                            .size(12.dp),
+                        imageVector = it.icon,
+                        contentDescription = null,
+                        tint = Color.LightGray
+                    )
+                }
+                curvedText(text = usage.toSize(context), style = style)
+            }
         }
     }
 }
@@ -95,7 +117,7 @@ public fun LinearDataUsage(
     networkStatus.networks.filterNot { it.id == activeNetwork?.id }.forEach {
         Icon(
             modifier = Modifier.size(12.dp),
-            imageVector = it.networkInfo.icon,
+            imageVector = it.networkInfo.type.icon,
             contentDescription = null,
             tint = it.tint(active = false)
         )
@@ -107,7 +129,7 @@ public fun LinearDataUsage(
     activeNetwork?.let {
         Icon(
             modifier = Modifier.size(16.dp),
-            imageVector = it.networkInfo.icon,
+            imageVector = it.networkInfo.type.icon,
             contentDescription = null,
             tint = it.tint(active = true)
         )
@@ -138,10 +160,10 @@ private fun NetworkStatus.tint(active: Boolean): Color {
 }
 
 @ExperimentalHorologistNetworksApi
-internal val NetworkInfo.icon
+internal val NetworkType.icon
     get() = when (this) {
-        is NetworkInfo.Wifi -> Icons.Filled.Wifi
-        is NetworkInfo.Cellular -> Icons.Filled.SignalCellularAlt
-        is NetworkInfo.Bluetooth -> Icons.Filled.Bluetooth
+        NetworkType.Wifi -> Icons.Filled.Wifi
+        NetworkType.Cell -> Icons.Filled.SignalCellularAlt
+        NetworkType.BT -> Icons.Filled.Bluetooth
         else -> Icons.Filled.HelpOutline
     }

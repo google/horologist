@@ -25,6 +25,7 @@ import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.NetworkType.Cell
 import com.google.android.horologist.networks.data.NetworkType.Wifi
 import com.google.android.horologist.networks.data.networkType
+import com.google.android.horologist.networks.status.NetworkRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
@@ -36,7 +37,8 @@ import kotlinx.coroutines.flow.first
  */
 @ExperimentalHorologistNetworksApi
 public class SimpleHighBandwidthNetworkMediator(
-    private val connectivityManager: ConnectivityManager
+    private val connectivityManager: ConnectivityManager,
+    private val networkRepository: NetworkRepository
 ) : HighBandwidthNetworkMediator {
     @GuardedBy("this")
     private var aggregatedRequests = AggregatedRequests()
@@ -85,6 +87,8 @@ public class SimpleHighBandwidthNetworkMediator(
         }
 
         override fun onAvailable(network: Network) {
+            networkRepository.updateNetworkAvailability(network)
+
             val oldNetworkType = networkState.value
 
             val newNetworkType = connectivityManager.networkType(network)

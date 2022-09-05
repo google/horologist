@@ -26,6 +26,7 @@ import android.net.ConnectivityManager
 import androidx.activity.ComponentActivity
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
+import com.google.android.horologist.networks.data.id
 import com.google.android.horologist.networks.status.NetworkRepositoryImpl
 import com.google.common.truth.Truth
 import kotlinx.coroutines.Dispatchers
@@ -72,7 +73,7 @@ class NetworkRepositoryTest {
             context.getSystemService(ComponentActivity.CONNECTIVITY_SERVICE) as ConnectivityManager
 
         val networkIds = connectivityManager.allNetworks.map { it.toString() }
-        val activeNetworkId = connectivityManager.activeNetwork.toString()
+        val activeNetworkId = connectivityManager.activeNetwork?.id
 
         val map: List<String> = networks.networks.map { it.id }
         Truth.assertThat(map).containsExactlyElementsIn(networkIds)

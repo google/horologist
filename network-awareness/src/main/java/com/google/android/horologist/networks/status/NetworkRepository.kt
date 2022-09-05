@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.networks.status
 
+import android.net.Network
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.Networks
@@ -27,4 +28,5 @@ public interface NetworkRepository {
     public val networkStatus: StateFlow<Networks>
 
     public fun networkByAddress(localAddress: InetAddress): NetworkStatus?
+    fun updateNetworkAvailability(network: Network)
 }

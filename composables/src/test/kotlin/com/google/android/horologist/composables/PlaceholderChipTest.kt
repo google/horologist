@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistPaparazziApi::class)
+@file:OptIn(ExperimentalHorologistPaparazziApi::class, ExperimentalHorologistComposablesApi::class)
 
-package com.google.android.horologist.media.ui.components.base
+package com.google.android.horologist.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.wear.compose.material.ChipDefaults
 import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
@@ -31,7 +32,7 @@ import com.google.android.horologist.paparazzi.determineHandler
 import org.junit.Rule
 import org.junit.Test
 
-class SecondaryPlaceholderChipTest {
+class PlaceholderChipTest {
 
     private val maxPercentDifference = 0.1
 
@@ -47,7 +48,16 @@ class SecondaryPlaceholderChipTest {
     fun default() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SecondaryPlaceholderChip()
+                PlaceholderChip()
+            }
+        }
+    }
+
+    @Test
+    fun secondaryColors() {
+        paparazzi.snapshot {
+            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
+                PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
             }
         }
     }

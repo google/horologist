@@ -23,10 +23,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.ScalingLazyListState
+import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.media.ui.components.base.SecondaryPlaceholderChip
 import com.google.android.horologist.media.ui.components.base.StandardChip
 import com.google.android.horologist.media.ui.components.base.StandardChipType
 import com.google.android.horologist.media.ui.components.base.Title
@@ -86,10 +87,19 @@ public fun <T> PlaylistsScreen(
 
             loading {
                 Column {
-                    SecondaryPlaceholderChip()
-                    SecondaryPlaceholderChip(modifier = Modifier.padding(top = 4.dp))
-                    SecondaryPlaceholderChip(modifier = Modifier.padding(top = 4.dp))
-                    SecondaryPlaceholderChip(modifier = Modifier.padding(top = 4.dp))
+                    PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
+                    PlaceholderChip(
+                        modifier = Modifier.padding(top = 4.dp),
+                        colors = ChipDefaults.secondaryChipColors()
+                    )
+                    PlaceholderChip(
+                        modifier = Modifier.padding(top = 4.dp),
+                        colors = ChipDefaults.secondaryChipColors()
+                    )
+                    PlaceholderChip(
+                        modifier = Modifier.padding(top = 4.dp),
+                        colors = ChipDefaults.secondaryChipColors()
+                    )
                 }
             }
         }

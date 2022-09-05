@@ -25,28 +25,28 @@ import com.google.android.horologist.media3.logging.ErrorReporter.Category.Downl
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.RequestType.MediaRequest
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType
+import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
+import com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
-import com.google.android.horologist.networks.status.HighBandwidthRequester
-import com.google.android.horologist.networks.status.HighBandwidthRequesterImpl
 import java.io.Closeable
 
 /**
  * Simple implementation of DownloadListener for downloading with
- * the required network.  Also includes event logging.
+ * a required high bandwidth network.  Also includes event logging.
  */
 @ExperimentalHorologistMedia3BackendApi
 @ExperimentalHorologistNetworksApi
 public class NetworkAwareDownloadListener(
     private val appEventLogger: ErrorReporter,
-    private val highBandwidthRequester: HighBandwidthRequester,
-    private val networkingRulesEngine: NetworkingRulesEngine,
+    private val highBandwidthNetworkMediator: HighBandwidthNetworkMediator,
+    private val networkingRulesEngine: NetworkingRulesEngine
 ) : DownloadManager.Listener {
     private var networkRequest: Closeable? = null
 
     override fun onInitialized(downloadManager: DownloadManager) {
         appEventLogger.logMessage("init", category = Downloads)
 
-        requestNetwork(downloadManager)
+        updateNetworkState(downloadManager)
     }
 
     override fun onDownloadsPausedChanged(
@@ -67,7 +67,7 @@ public class NetworkAwareDownloadListener(
             category = Downloads
         )
 
-        requestNetwork(downloadManager)
+        updateNetworkState(downloadManager)
     }
 
     override fun onDownloadRemoved(downloadManager: DownloadManager, download: Download) {
@@ -75,7 +75,7 @@ public class NetworkAwareDownloadListener(
     }
 
     override fun onIdle(downloadManager: DownloadManager) {
-        freeNetwork()
+        updateNetworkState(downloadManager)
 
         appEventLogger.logMessage("idle", category = Downloads)
     }
@@ -92,11 +92,7 @@ public class NetworkAwareDownloadListener(
         downloadManager: DownloadManager,
         waitingForRequirements: Boolean
     ) {
-        if (waitingForRequirements) {
-            freeNetwork()
-        } else {
-            requestNetwork(downloadManager)
-        }
+        updateNetworkState(downloadManager)
 
         appEventLogger.logMessage(
             "waitingForRequirements $waitingForRequirements",
@@ -104,21 +100,32 @@ public class NetworkAwareDownloadListener(
         )
     }
 
-    private fun requestNetwork(downloadManager: DownloadManager) {
-        if (networkRequest != null) {
-            if (downloadManager.currentDownloads.isNotEmpty() && !downloadManager.isWaitingForRequirements) {
-                val types = networkingRulesEngine.supportedTypes(MediaRequest(MediaRequestType.Download))
+    private fun updateNetworkState(downloadManager: DownloadManager) {
+        val hasReadyDownloads =
+            downloadManager.currentDownloads.isNotEmpty() && !downloadManager.isWaitingForRequirements
 
-                networkRequest = highBandwidthRequester.requestHighBandwidth(types)
+        if (hasReadyDownloads) {
+            if (networkRequest == null) {
+                val types =
+                    networkingRulesEngine.supportedTypes(MediaRequest(MediaRequestType.Download))
+                val request = HighBandwidthRequest.from(types)
+
+                appEventLogger.logMessage(
+                    "Requesting network for downloads $networkRequest",
+                    category = Downloads
+                )
+
+                networkRequest = highBandwidthNetworkMediator.requestHighBandwidthNetwork(request)
+            }
+        } else {
+            if (networkRequest != null) {
+                appEventLogger.logMessage("Releasing network for downloads", category = Downloads)
+                networkRequest?.close()
+                networkRequest = null
             }
         }
     }
 
     private val Download.name: String
         get() = this.request.uri.lastPathSegment ?: "unknown"
-
-    private fun freeNetwork() {
-        networkRequest?.close()
-        networkRequest = null
-    }
 }

@@ -16,9 +16,18 @@
 
 package com.google.android.horologist.networks.data
 
-enum class NetworkType(name: String) {
-    Wifi("wifi"),
-    Cell("cell"),
-    BT("BT"),
-    Unknown("unknown")
+import android.net.NetworkCapabilities
+
+/**
+ * A constrained model of the Android transport types such as
+ * [NetworkCapabilities.TRANSPORT_CELLULAR], [NetworkCapabilities.TRANSPORT_WIFI],
+ * [NetworkCapabilities.TRANSPORT_BLUETOOTH].
+ *
+ * Used to simplify app code now needing to make decisions based on these types.
+ */
+public enum class NetworkType {
+    Wifi,
+    Cell,
+    BT,
+    Unknown
 }

@@ -23,8 +23,8 @@ import kotlinx.coroutines.flow.StateFlow
 import java.net.InetAddress
 
 @ExperimentalHorologistNetworksApi
-interface NetworkRepository {
-    val networkStatus: StateFlow<Networks>
+public interface NetworkRepository {
+    public val networkStatus: StateFlow<Networks>
 
-    fun networkByAddress(localAddress: InetAddress): NetworkStatus?
+    public fun networkByAddress(localAddress: InetAddress): NetworkStatus?
 }

@@ -28,7 +28,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollection
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollections
@@ -77,7 +76,7 @@ fun UampWearApp(
                     onVolumeClick = {
                         navController.navigateToVolume()
                     },
-                    playerFocusRequester = focusRequester,
+                    playerFocusRequester = focusRequester
                 )
             },
             libraryScreen = { focusRequester, scalingLazyListState ->

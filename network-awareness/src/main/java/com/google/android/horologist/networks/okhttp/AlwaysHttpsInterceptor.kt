@@ -20,6 +20,9 @@ import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import okhttp3.Interceptor
 import okhttp3.Response
 
+/**
+ * Interceptor that forces all requests to the https url.
+ */
 @ExperimentalHorologistNetworksApi
 public object AlwaysHttpsInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {

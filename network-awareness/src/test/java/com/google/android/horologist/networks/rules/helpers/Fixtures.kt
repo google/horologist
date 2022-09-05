@@ -19,8 +19,8 @@
 package com.google.android.horologist.networks.rules.helpers
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.NetworkInfo
+import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.Status
 

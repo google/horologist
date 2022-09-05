@@ -23,10 +23,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bluetooth
 import androidx.compose.material.icons.filled.HelpOutline
 import androidx.compose.material.icons.filled.SignalCellularAlt
-import androidx.compose.material.icons.filled.Square
 import androidx.compose.material.icons.filled.Wifi
+import androidx.compose.material.icons.outlined.StarOutline
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -39,8 +40,8 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.curvedText
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.DataUsageReport
-import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.NetworkInfo
+import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.Status
@@ -52,7 +53,7 @@ public fun CurvedScope.curveDataUsage(
     networkUsage: DataUsageReport?,
     style: CurvedTextStyle,
     context: Context,
-    requestedNetworks: Set<NetworkType>?
+    requestedNetwork: NetworkType?
 ) {
     val activeNetwork = networkStatus.activeNetwork
 
@@ -65,12 +66,12 @@ public fun CurvedScope.curveDataUsage(
                 contentDescription = null,
                 tint = it.tint(active = activeNetwork?.id == it.id)
             )
-            if (requestedNetworks?.contains(it.networkInfo.type) == true) {
+            if (requestedNetwork == it.networkInfo.type) {
                 Icon(
-                    modifier = modifier.size(14.dp),
-                    imageVector = Icons.Default.Square,
+                    modifier = modifier.size(14.dp).alpha(0.6f),
+                    imageVector = Icons.Outlined.StarOutline,
                     contentDescription = null,
-                    tint = it.tint(active = activeNetwork?.id == it.id)
+                    tint = Color.Yellow
                 )
             }
         }

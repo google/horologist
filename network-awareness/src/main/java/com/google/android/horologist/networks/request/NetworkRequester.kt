@@ -14,28 +14,25 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.networks.data
+package com.google.android.horologist.networks.request
 
 import android.net.ConnectivityManager
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-import java.net.InetAddress
+import com.google.android.horologist.networks.data.NetworkType
+import com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest
+import kotlinx.coroutines.flow.StateFlow
 
 /**
- * A data class for the full current state of the interesting parts of [ConnectivityManager].
+ * Slightly coroutine aware API for [ConnectivityManager.requestNetwork].
+ *
+ * Assumes a single owner, and allows setting and clearing the [HighBandwidthRequest]
+ * and will returns a StateFlow of the [pinnedNetwork].
  */
 @ExperimentalHorologistNetworksApi
-public data class Networks(
-    val activeNetwork: NetworkStatus?,
-    val networks: List<NetworkStatus>
-) {
-    public fun findNetworkByAddress(localSocketAddress: InetAddress): NetworkStatus? {
-        return networks.find { networkStatus ->
-            networkStatus.addresses.find {
-                it == localSocketAddress
-            } != null
-        }
-    }
+public interface NetworkRequester {
+    public fun clearRequest()
 
-    public val status: Status
-        get() = networks.firstOrNull { it.status == Status.Available }?.status ?: Status.Lost
+    public fun setRequests(request: HighBandwidthRequest)
+
+    public val pinnedNetwork: StateFlow<NetworkType?>
 }

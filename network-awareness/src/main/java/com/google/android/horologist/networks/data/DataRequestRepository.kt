@@ -18,46 +18,13 @@ package com.google.android.horologist.networks.data
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import java.time.Instant
 
+/**
+ * A Data Request Repository for recording network data usage including [RequestType] and
+ * [NetworkType].
+ */
 @ExperimentalHorologistNetworksApi
 public interface DataRequestRepository {
     public fun storeRequest(dataRequest: DataRequest)
     public fun currentPeriodUsage(): Flow<DataUsageReport>
-
-    @ExperimentalHorologistNetworksApi
-    public class InMemoryDataRequestRepository : DataRequestRepository {
-        private val from = Instant.now()
-        private var ble = 0L
-        private var wifi = 0L
-        private var cell = 0L
-        private var unknown = 0L
-
-        private val _currentPeriodUsage: MutableStateFlow<DataUsageReport> =
-            MutableStateFlow(DataUsageReport(dataByType = mapOf(), from = from, to = from))
-
-        override fun currentPeriodUsage(): Flow<DataUsageReport> = _currentPeriodUsage
-
-        override fun storeRequest(dataRequest: DataRequest) {
-            when (dataRequest.networkInfo) {
-                is NetworkInfo.Cellular -> cell += dataRequest.dataBytes
-                is NetworkInfo.Bluetooth -> ble += dataRequest.dataBytes
-                is NetworkInfo.Wifi -> wifi += dataRequest.dataBytes
-                is NetworkInfo.Unknown -> unknown += dataRequest.dataBytes
-            }
-
-            _currentPeriodUsage.value =
-                DataUsageReport(
-                    dataByType = mapOf(
-                        NetworkType.Cell to cell,
-                        NetworkType.BT to ble,
-                        NetworkType.Wifi to wifi,
-                        NetworkType.Unknown to unknown
-                    ),
-                    from = from,
-                    to = Instant.now()
-                )
-        }
-    }
 }

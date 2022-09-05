@@ -17,20 +17,16 @@
 package com.google.android.horologist.mediasample.ui.app
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.SettingsRepository
-import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
 import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.mediasample.ui.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filter
@@ -38,7 +34,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.reduce
-import kotlinx.coroutines.flow.stateIn
 import java.io.IOException
 import javax.inject.Inject
 
@@ -49,7 +44,7 @@ class MediaPlayerAppViewModel @Inject constructor(
     private val playerRepository: PlayerRepository,
     private val playlistRepository: PlaylistRepository,
     private val snackbarManager: SnackbarManager,
-    private val resourceProvider: ResourceProvider,
+    private val resourceProvider: ResourceProvider
 ) : ViewModel() {
 
     val deepLinkPrefix: String = appConfig.deeplinkUriPrefix

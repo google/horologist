@@ -22,12 +22,15 @@ import com.google.android.horologist.components.SampleApplication
 import com.google.android.horologist.navsample.NavActivity
 import com.google.android.horologist.networks.InMemoryStatusLogger
 import com.google.android.horologist.networks.data.DataRequestRepository
+import com.google.android.horologist.networks.data.InMemoryDataRequestRepository
+import com.google.android.horologist.networks.highbandwidth.AggregatedHighBandwidthNetworkMediator
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
+import com.google.android.horologist.networks.request.NetworkRequesterImpl
 import com.google.android.horologist.networks.rules.NetworkingRules
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
-import com.google.android.horologist.networks.status.HighBandwidthRequesterImpl
 import com.google.android.horologist.networks.status.NetworkRepository
+import com.google.android.horologist.networks.status.NetworkRepositoryImpl
 import com.google.android.horologist.sample.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -49,14 +52,13 @@ object SampleAppDI {
 
     private fun getNetworkRepository(
         context: Context,
-        coroutineScope: CoroutineScope,
-        networkLogger: NetworkStatusLogger
+        coroutineScope: CoroutineScope
     ): NetworkRepository {
-        return NetworkRepository.fromContext(context, coroutineScope, networkLogger)
+        return NetworkRepositoryImpl.fromContext(context, coroutineScope)
     }
 
     private fun getDataRequestRepository(): DataRequestRepository {
-        return DataRequestRepository.InMemoryDataRequestRepository
+        return InMemoryDataRequestRepository()
     }
 
     private fun getNetworkAwareCallFactory(
@@ -72,9 +74,10 @@ object SampleAppDI {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-        val highBandwidthRequester = HighBandwidthRequesterImpl(
-            connectivityManager = connectivityManager,
-            coroutineScope = coroutineScope,
+        val networkRequester = NetworkRequesterImpl(connectivityManager)
+
+        val highBandwidthRequester = AggregatedHighBandwidthNetworkMediator(
+            networkRequester = networkRequester,
             logger = networkLogger
         )
 
@@ -86,9 +89,11 @@ object SampleAppDI {
 
         return NetworkSelectingCallFactory(
             networkingRulesEngine = networkingRulesEngine,
-            highBandwidthRequester = highBandwidthRequester,
+            highBandwidthNetworkMediator = highBandwidthRequester,
             dataRequestRepository = dataRequestRepository,
-            rootClient = okHttpClient
+            rootClient = okHttpClient,
+            networkRepository = networkRepository,
+            coroutineScope = coroutineScope
         )
     }
 
@@ -99,8 +104,7 @@ object SampleAppDI {
         sampleApplication.dataRequestRepository = getDataRequestRepository()
         sampleApplication.networkRepository = getNetworkRepository(
             context = sampleApplication,
-            coroutineScope = sampleApplication.coroutineScope,
-            networkLogger = sampleApplication.networkLogger
+            coroutineScope = sampleApplication.coroutineScope
         )
         sampleApplication.networkAwareCallFactory = getNetworkAwareCallFactory(
             context = sampleApplication,

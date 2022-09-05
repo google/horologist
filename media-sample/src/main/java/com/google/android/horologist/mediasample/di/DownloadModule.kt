@@ -36,11 +36,10 @@ import com.google.android.horologist.mediasample.data.service.download.MediaDown
 import com.google.android.horologist.mediasample.di.annotation.Dispatcher
 import com.google.android.horologist.mediasample.di.annotation.DownloadFeature
 import com.google.android.horologist.mediasample.di.annotation.UampDispatchers.IO
-import com.google.android.horologist.networks.data.RequestType
+import com.google.android.horologist.networks.data.RequestType.MediaRequest.Companion.DownloadRequest
+import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
 import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
-import com.google.android.horologist.networks.status.HighBandwidthRequester
-import com.google.android.horologist.networks.status.HighBandwidthRequesterImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -69,7 +68,7 @@ object DownloadModule {
     ): DataSource.Factory = OkHttpDataSource.Factory(
         NetworkAwareCallFactory(
             delegate = okHttp,
-            defaultRequestType = RequestType.MediaRequest(RequestType.MediaRequest.MediaRequestType.Download)
+            defaultRequestType = DownloadRequest
         )
     ).setTransferListener(transferListener)
 
@@ -163,7 +162,7 @@ object DownloadModule {
     @Singleton
     fun networkAwareListener(
         errorReporter: ErrorReporter,
-        highBandwithRequester: HighBandwidthRequester,
+        highBandwithRequester: HighBandwidthNetworkMediator,
         networkingRulesEngine: NetworkingRulesEngine
     ): NetworkAwareDownloadListener = NetworkAwareDownloadListener(
         errorReporter,

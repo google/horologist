@@ -25,10 +25,11 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import androidx.activity.ComponentActivity
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.NetworkInfo
+import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.Status
+import com.google.android.horologist.networks.data.id
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -42,8 +43,8 @@ import java.util.concurrent.ConcurrentHashMap
 @ExperimentalHorologistNetworksApi
 public class NetworkRepositoryImpl(
     private val connectivityManager: ConnectivityManager,
-    private val coroutineScope: CoroutineScope,
-): NetworkRepository {
+    private val coroutineScope: CoroutineScope
+) : NetworkRepository {
     private val networks = ConcurrentHashMap<String, Network>()
     private val networkBuilders = ConcurrentHashMap<String, NetworkStatusBuilder>()
     private val linkAddresses = ConcurrentHashMap<InetAddress, String>()
@@ -194,29 +195,17 @@ public class NetworkRepositoryImpl(
         return network
     }
 
-    private val highBandwidthListener = object : HighBandwidthRequesterImpl.HighbandwidthListener {
-        override fun onHighbandwidthAvailable(priorityNetwork: Network) {
-            this@NetworkRepositoryImpl.priorityNetwork = priorityNetwork
-            postUpdate()
-        }
-
-        override fun onHighbandwidthUnAvailable() {
-            this@NetworkRepositoryImpl.priorityNetwork = null
-            postUpdate()
-        }
-    }
-
     public companion object {
         @ExperimentalHorologistNetworksApi
         public fun fromContext(
             application: Context,
-            coroutineScope: CoroutineScope,
+            coroutineScope: CoroutineScope
         ): NetworkRepositoryImpl {
             val connectivityManager =
                 application.getSystemService(ComponentActivity.CONNECTIVITY_SERVICE) as ConnectivityManager
             return NetworkRepositoryImpl(
                 connectivityManager,
-                coroutineScope,
+                coroutineScope
             )
         }
     }

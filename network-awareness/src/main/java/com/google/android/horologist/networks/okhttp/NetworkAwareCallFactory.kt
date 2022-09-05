@@ -18,27 +18,22 @@ package com.google.android.horologist.networks.okhttp
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.RequestType
-import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.requestType
-import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.requestTypeOrNull
+import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.withDefaultRequestType
 import okhttp3.Call
 import okhttp3.Request
 
+/**
+ * [Call.Factory] wrapper that sets of known [Request.requestType] that a shared
+ * [NetworkSelectingCallFactory] can make network decisions and bring up high bandwidth networks
+ * based on the request type.
+ */
 @ExperimentalHorologistNetworksApi
 public class NetworkAwareCallFactory(
     private val delegate: Call.Factory,
     private val defaultRequestType: RequestType
 ) : Call.Factory {
     override fun newCall(request: Request): Call {
-        return delegate.newCall(request.withDefaultRequestType(defaultRequestType))
+        val finalRequest = request.withDefaultRequestType(defaultRequestType)
+        return delegate.newCall(finalRequest)
     }
 }
-
-@ExperimentalHorologistNetworksApi
-public fun Request.withDefaultRequestType(defaultRequestType: RequestType): Request =
-    if (requestTypeOrNull == null) {
-        newBuilder()
-            .requestType(defaultRequestType)
-            .build()
-    } else {
-        this
-    }

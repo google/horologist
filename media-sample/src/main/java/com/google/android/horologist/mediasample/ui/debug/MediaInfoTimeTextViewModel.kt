@@ -25,7 +25,7 @@ import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.Networks
-import com.google.android.horologist.networks.status.HighBandwidthRequester
+import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
 import com.google.android.horologist.networks.status.NetworkRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -43,8 +43,8 @@ class MediaInfoTimeTextViewModel @Inject constructor(
     networkRepository: NetworkRepository,
     dataRequestRepository: DataRequestRepository,
     audioOffloadManager: AudioOffloadManager,
-    highBandwidthRequester: HighBandwidthRequester,
-    settingsRepository: SettingsRepository,
+    highBandwidthNetworkMediator: HighBandwidthNetworkMediator,
+    settingsRepository: SettingsRepository
 ) : ViewModel() {
     val enabledFlow: Flow<Boolean> =
         settingsRepository.settingsFlow.map { it.showTimeTextInfo }
@@ -55,14 +55,14 @@ class MediaInfoTimeTextViewModel @Inject constructor(
                 networkRepository.networkStatus,
                 audioOffloadManager.offloadStatus,
                 dataRequestRepository.currentPeriodUsage(),
-                highBandwidthRequester.requestedNetworks
-            ) { networkStatus, offloadStatus, currentPeriodUsage, requestedNetworks ->
+                highBandwidthNetworkMediator.pinned
+            ) { networkStatus, offloadStatus, currentPeriodUsage, requestedNetwork ->
                 UiState(
                     enabled = enabled,
                     networks = networkStatus,
                     audioOffloadStatus = offloadStatus,
                     dataUsageReport = currentPeriodUsage,
-                    requestedNetworks = requestedNetworks
+                    requestedNetwork = requestedNetwork
                 )
             }
         } else {
@@ -80,6 +80,6 @@ class MediaInfoTimeTextViewModel @Inject constructor(
         val networks: Networks = Networks(null, listOf()),
         val audioOffloadStatus: AudioOffloadStatus? = null,
         val dataUsageReport: DataUsageReport? = null,
-        val requestedNetworks: Set<NetworkType>? = setOf()
+        val requestedNetwork: NetworkType? = null
     )
 }

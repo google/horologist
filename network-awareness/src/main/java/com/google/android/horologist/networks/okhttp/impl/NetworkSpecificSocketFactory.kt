@@ -14,16 +14,21 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.networks.okhttp
+package com.google.android.horologist.networks.okhttp.impl
 
+import android.net.Network
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkStatus
 import java.net.InetAddress
 import java.net.Socket
 import javax.net.SocketFactory
 
+/**
+ * SocketFactory that only creates connections on a specific Network Address.
+ * Uses [Network.bindSocket] to control the network on outgoing socket connections.
+ */
 @ExperimentalHorologistNetworksApi
-public class NetworkSpecificSocketFactory(
+internal class NetworkSpecificSocketFactory(
     private val networkStatus: NetworkStatus,
     private val socketFactory: SocketFactory = getDefault()
 ) : SocketFactory() {

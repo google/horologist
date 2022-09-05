@@ -14,21 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.networks.status
+package com.google.android.horologist.networks.highbandwidth
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkType
-import kotlinx.coroutines.flow.StateFlow
 import java.io.Closeable
 
-
-@ExperimentalHorologistNetworksApi
-interface HighBandwidthRequester {
-    fun requestHighBandwidth(requestedTypes: List<NetworkType>): RequestToken
-
-    val requestedNetworks: StateFlow<Set<NetworkType>>
-
-    interface RequestToken: Closeable {
-        suspend fun awaitGranted(): NetworkType?
-    }
+/**
+ * Cancellable network request token. Allows caller to release the connection or await it becoming
+ * available.
+ */
+public interface HighBandwithConnectionLease : Closeable {
+    public suspend fun awaitGranted(): NetworkType
 }

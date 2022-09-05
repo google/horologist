@@ -17,11 +17,11 @@
 package com.google.android.horologist.networks.rules
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.NetworkInfo.Bluetooth
 import com.google.android.horologist.networks.data.NetworkInfo.Cellular
 import com.google.android.horologist.networks.data.NetworkInfo.Wifi
+import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.data.RequestType.MediaRequest

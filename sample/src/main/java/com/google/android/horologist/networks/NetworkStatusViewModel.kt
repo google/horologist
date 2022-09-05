@@ -24,13 +24,13 @@ import com.google.android.horologist.components.SampleApplication
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.Networks
-import com.google.android.horologist.networks.status.NetworkRepositoryImpl
+import com.google.android.horologist.networks.status.NetworkRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
 public class NetworkStatusViewModel(
-    private val networkRepository: NetworkRepositoryImpl,
+    private val networkRepository: NetworkRepository,
     private val dataRequestRepository: DataRequestRepository
 ) : ViewModel() {
     val state =

@@ -17,13 +17,12 @@
 package com.google.android.horologist.networks.rules
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.NetworkInfo
+import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.status.NetworkRepository
-import java.net.InetSocketAddress
 
 /**
  * Networking Rules that bridges between app specific rules
@@ -52,12 +51,7 @@ public class NetworkingRulesEngine(
         return networkingRules.isHighBandwidthRequest(requestType)
     }
 
-    @Suppress("UNUSED_PARAMETER")
-    public fun reportConnectionFailure(inetSocketAddress: InetSocketAddress, networkInfo: NetworkInfo?) {
-        // TODO check for no internet on BLE and other scenarios
-    }
-
-    fun supportedTypes(requestType: RequestType): List<NetworkType> {
+    public fun supportedTypes(requestType: RequestType): List<NetworkType> {
         return buildList {
             if (checkValidRequest(requestType, NetworkInfo.Wifi("test")) is Allow) {
                 add(NetworkType.Wifi)

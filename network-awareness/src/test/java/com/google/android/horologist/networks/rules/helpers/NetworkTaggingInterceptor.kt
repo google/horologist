@@ -14,32 +14,32 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.networks.okhttp
+package com.google.android.horologist.networks.rules.helpers
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.networkInfo
-import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.requestType
-import com.google.android.horologist.networks.rules.ForbiddenRequest
+import com.google.android.horologist.networks.okhttp.networkInfo
+import com.google.android.horologist.networks.okhttp.requestType
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 import okhttp3.Interceptor
+import okhttp3.Protocol
 import okhttp3.Response
+import okhttp3.ResponseBody.Companion.toResponseBody
 
 @ExperimentalHorologistNetworksApi
-public class RequestVerifyingInterceptor(
+class NetworkTaggingInterceptor(
+    private val networkRepository: FakeNetworkRepository,
     private val networkingRulesEngine: NetworkingRulesEngine
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-
-        val requestType = request.requestType
-        val networkType = request.networkInfo
-
-        val check = networkingRulesEngine.checkValidRequest(requestType, networkType)
-
-        if (check.isForbidden) {
-            throw ForbiddenRequest("Request $requestType is forbidden on $networkType")
-        }
-
-        return chain.proceed(request)
+        val networkInfo = networkingRulesEngine.preferredNetwork(request.requestType)
+        request.networkInfo = networkInfo?.networkInfo
+        return Response.Builder()
+            .request(request)
+            .code(200)
+            .message("OK")
+            .protocol(Protocol.HTTP_1_1)
+            .body("".toResponseBody())
+            .build()
     }
 }

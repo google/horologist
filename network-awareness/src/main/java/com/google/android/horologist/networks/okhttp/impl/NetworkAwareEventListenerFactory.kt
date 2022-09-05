@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.networks.okhttp
+package com.google.android.horologist.networks.okhttp.impl
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.DataRequest
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.NetworkInfo
-import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.networkInfo
-import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.requestType
+import com.google.android.horologist.networks.okhttp.ForwardingEventListener
+import com.google.android.horologist.networks.okhttp.highBandwithConnectionLease
+import com.google.android.horologist.networks.okhttp.networkInfo
+import com.google.android.horologist.networks.okhttp.requestType
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 import com.google.android.horologist.networks.status.NetworkRepository
 import okhttp3.Call
@@ -34,20 +36,24 @@ import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Proxy
 
+/**
+ * Internal [EventListener] that records estimated request and response sizes to
+ * the [DataRequestRepository] as well as closing [High]
+ */
 @ExperimentalHorologistNetworksApi
-public class OkHttpEventListenerFactory(
+public class NetworkAwareEventListenerFactory(
     private val networkingRulesEngine: NetworkingRulesEngine,
     private val networkRepository: NetworkRepository,
     private val delegateEventListenerFactory: EventListener.Factory,
     private val dataRequestRepository: DataRequestRepository? = null
 ) : EventListener.Factory {
     override fun create(call: Call): EventListener = Listener(
-        delegateEventListenerFactory.create(
-            call
-        )
+        delegateEventListenerFactory.create(call)
     )
 
-    private inner class Listener(delegate: EventListener) : DelegatingEventListener(delegate) {
+    private inner class Listener(
+        delegate: EventListener
+    ) : ForwardingEventListener(delegate) {
         private var bytesTransferred: Long = 0
 
         override fun connectFailed(
@@ -58,13 +64,6 @@ public class OkHttpEventListenerFactory(
             ioe: IOException
         ) {
             networkingRulesEngine.logger.logNetworkEvent("connect failed $inetSocketAddress ${call.request().networkInfo}")
-
-            if (proxy.type() == Proxy.Type.DIRECT) {
-                networkingRulesEngine.reportConnectionFailure(
-                    inetSocketAddress,
-                    call.request().networkInfo
-                )
-            }
 
             super.connectFailed(call, inetSocketAddress, proxy, protocol, ioe)
         }
@@ -109,11 +108,15 @@ public class OkHttpEventListenerFactory(
         override fun callEnd(call: Call) {
             recordBytes(call, null)
 
+            call.request().highBandwithConnectionLease?.close()
+
             super.callEnd(call)
         }
 
         override fun callFailed(call: Call, ioe: IOException) {
             recordBytes(call, ioe.message)
+
+            call.request().highBandwithConnectionLease?.close()
 
             super.callFailed(call, ioe)
         }

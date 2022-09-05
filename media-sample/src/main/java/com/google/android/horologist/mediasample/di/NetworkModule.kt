@@ -29,14 +29,18 @@ import com.google.android.horologist.mediasample.data.api.UampService
 import com.google.android.horologist.mediasample.data.api.WearArtworkUampService
 import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.networks.data.DataRequestRepository
+import com.google.android.horologist.networks.data.InMemoryDataRequestRepository
 import com.google.android.horologist.networks.data.RequestType
+import com.google.android.horologist.networks.highbandwidth.AggregatedHighBandwidthNetworkMediator
+import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
+import com.google.android.horologist.networks.highbandwidth.SimpleHighBandwidthNetworkMediator
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
 import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
+import com.google.android.horologist.networks.request.NetworkRequester
+import com.google.android.horologist.networks.request.NetworkRequesterImpl
 import com.google.android.horologist.networks.rules.NetworkingRules
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
-import com.google.android.horologist.networks.status.HighBandwidthRequester
-import com.google.android.horologist.networks.status.HighBandwidthRequesterImpl
 import com.google.android.horologist.networks.status.NetworkRepository
 import com.google.android.horologist.networks.status.NetworkRepositoryImpl
 import com.squareup.moshi.Moshi
@@ -64,8 +68,7 @@ object NetworkModule {
     @Provides
     fun networkRepository(
         @ApplicationContext application: Context,
-        @ForApplicationScope coroutineScope: CoroutineScope,
-        networkLogger: NetworkStatusLogger
+        @ForApplicationScope coroutineScope: CoroutineScope
     ): NetworkRepository = NetworkRepositoryImpl.fromContext(
         application,
         coroutineScope
@@ -116,7 +119,7 @@ object NetworkModule {
     @Singleton
     @Provides
     fun dataRequestRepository(): DataRequestRepository =
-        DataRequestRepository.InMemoryDataRequestRepository()
+        InMemoryDataRequestRepository()
 
     @Provides
     fun networkingRulesEngine(
@@ -142,14 +145,34 @@ object NetworkModule {
 
     @Singleton
     @Provides
+    fun aggregatingHighBandwidthRequester(
+        networkLogger: NetworkStatusLogger,
+        networkRequester: NetworkRequester
+    ) = AggregatedHighBandwidthNetworkMediator(
+        networkLogger,
+        networkRequester
+    )
+
+    @Singleton
+    @Provides
+    fun simpleHighBandwidthRequester(
+        connectivityManager: ConnectivityManager
+    ) = SimpleHighBandwidthNetworkMediator(
+        connectivityManager
+    )
+
+    @Singleton
+    @Provides
     fun highBandwidthRequester(
-        connectivityManager: ConnectivityManager,
-        @ForApplicationScope coroutineScope: CoroutineScope,
-        networkLogger: NetworkStatusLogger
-    ): HighBandwidthRequester = HighBandwidthRequesterImpl(
-        connectivityManager,
-        coroutineScope,
-        networkLogger
+        simpleHighBandwidthNetworkMediator: SimpleHighBandwidthNetworkMediator
+    ): HighBandwidthNetworkMediator = simpleHighBandwidthNetworkMediator
+
+    @Singleton
+    @Provides
+    fun networkRequester(
+        connectivityManager: ConnectivityManager
+    ): NetworkRequester = NetworkRequesterImpl(
+        connectivityManager
     )
 
     @Singleton
@@ -158,17 +181,19 @@ object NetworkModule {
         appConfig: AppConfig,
         okhttpClient: OkHttpClient,
         networkingRulesEngine: NetworkingRulesEngine,
-        highBandwidthRequester: HighBandwidthRequester,
+        highBandwidthNetworkMediator: HighBandwidthNetworkMediator,
         dataRequestRepository: DataRequestRepository,
-        networkRepository: NetworkRepository
+        networkRepository: NetworkRepository,
+        @ForApplicationScope coroutineScope: CoroutineScope
     ): Call.Factory =
         if (appConfig.strictNetworking != null) {
             NetworkSelectingCallFactory(
                 networkingRulesEngine,
-                highBandwidthRequester,
+                highBandwidthNetworkMediator,
                 networkRepository,
                 dataRequestRepository,
-                okhttpClient
+                okhttpClient,
+                coroutineScope
             )
         } else {
             okhttpClient
@@ -190,8 +215,10 @@ object NetworkModule {
         callFactory: Call.Factory,
         moshiConverterFactory: MoshiConverterFactory
     ) =
-        Retrofit.Builder().addConverterFactory(moshiConverterFactory)
-            .baseUrl(UampService.BASE_URL).callFactory(
+        Retrofit.Builder()
+            .addConverterFactory(moshiConverterFactory)
+            .baseUrl(UampService.BASE_URL)
+            .callFactory(
                 NetworkAwareCallFactory(
                     callFactory,
                     RequestType.ApiRequest
@@ -212,15 +239,20 @@ object NetworkModule {
         @ApplicationContext application: Context,
         @CacheDir cacheDir: File,
         callFactory: Call.Factory
-    ): ImageLoader = ImageLoader.Builder(application).crossfade(false)
+    ): ImageLoader = ImageLoader.Builder(application)
+        .crossfade(false)
         .components {
             add(SvgDecoder.Factory())
-        }.respectCacheHeaders(false).diskCache {
+        }
+        .respectCacheHeaders(false).diskCache {
             DiskCache.Builder()
                 .directory(cacheDir.resolve("image_cache"))
                 .build()
-        }.memoryCachePolicy(CachePolicy.ENABLED).diskCachePolicy(CachePolicy.ENABLED)
-        .networkCachePolicy(CachePolicy.ENABLED).callFactory {
+        }
+        .memoryCachePolicy(CachePolicy.ENABLED)
+        .diskCachePolicy(CachePolicy.ENABLED)
+        .networkCachePolicy(CachePolicy.ENABLED)
+        .callFactory {
             NetworkAwareCallFactory(
                 callFactory,
                 defaultRequestType = RequestType.ImageRequest

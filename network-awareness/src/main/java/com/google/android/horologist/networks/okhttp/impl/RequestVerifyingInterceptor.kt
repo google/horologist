@@ -14,33 +14,40 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.networks.rules.helpers
+package com.google.android.horologist.networks.okhttp.impl
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.okhttp.networkInfo
 import com.google.android.horologist.networks.okhttp.requestType
+import com.google.android.horologist.networks.rules.ForbiddenRequest
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 import okhttp3.Interceptor
-import okhttp3.Protocol
 import okhttp3.Response
-import okhttp3.ResponseBody.Companion.toResponseBody
 
+/**
+ * Interceptor that short circuits and requests on unsuitable
+ * networks, such that accidental downloads over expensive networks are
+ * not possible.
+ *
+ * No specific rules are implemented, instead deferring to
+ * [com.google.android.horologist.networks.rules.NetworkingRules]
+ */
 @ExperimentalHorologistNetworksApi
-class DeadEndInterceptor(
-    private val networkRepository: FakeNetworkRepository,
+public class RequestVerifyingInterceptor(
     private val networkingRulesEngine: NetworkingRulesEngine
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-        val networkInfo = networkingRulesEngine.preferredNetwork(request.requestType)
-        request.networkInfo = networkInfo?.networkInfo
-        return Response.Builder()
-            .request(request)
-            .code(200)
-            .message("OK")
-            .protocol(Protocol.HTTP_1_1)
-            .body("".toResponseBody())
-            .build()
+
+        val requestType = request.requestType
+        val networkType = request.networkInfo
+
+        val check = networkingRulesEngine.checkValidRequest(requestType, networkType)
+
+        if (check.isForbidden) {
+            throw ForbiddenRequest("Request $requestType is forbidden on $networkType")
+        }
+
+        return chain.proceed(request)
     }
 }

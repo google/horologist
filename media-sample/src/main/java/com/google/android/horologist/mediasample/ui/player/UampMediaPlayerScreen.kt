@@ -43,7 +43,7 @@ fun UampMediaPlayerScreen(
     volumeViewModel: VolumeViewModel,
     onVolumeClick: () -> Unit,
     playerFocusRequester: FocusRequester,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val volumeState by rememberStateWithLifecycle(flow = volumeViewModel.volumeState)
     val settingsState by rememberStateWithLifecycle(flow = mediaPlayerScreenViewModel.settingsState)
@@ -60,7 +60,7 @@ fun UampMediaPlayerScreen(
         PlayerScreen(
             playerViewModel = mediaPlayerScreenViewModel,
             mediaDisplay = { playerUiState ->
-                if (settingsState?.animated == true) {
+                if (settingsState.animated) {
                     AnimatedPlayerScreenMediaDisplay(playerUiState)
                 } else {
                     DefaultPlayerScreenMediaDisplay(playerUiState)
@@ -74,10 +74,10 @@ fun UampMediaPlayerScreen(
                 )
             },
             controlButtons = {
-                if (settingsState?.podcastControls == true) {
+                if (settingsState.podcastControls) {
                     PlayerScreenPodcastControlButtons(mediaPlayerScreenViewModel, it)
                 } else {
-                    if (settingsState?.animated == true) {
+                    if (settingsState.animated) {
                         AnimatedMediaControlButtons(
                             onPlayButtonClick = { mediaPlayerScreenViewModel.play() },
                             onPauseButtonClick = { mediaPlayerScreenViewModel.pause() },

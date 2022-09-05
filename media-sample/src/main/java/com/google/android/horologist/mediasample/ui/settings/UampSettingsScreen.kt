@@ -65,6 +65,15 @@ fun UampSettingsScreen(
             )
         }
         item {
+            CheckedSetting(
+                uiState.networkRequest != null,
+                stringResource(id = R.string.request_network),
+                enabled = uiState.writable
+            ) {
+                settingsScreenViewModel.toggleNetworkRequest()
+            }
+        }
+        item {
             ActionSetting(
                 stringResource(id = R.string.sample_audio_debug)
             ) {

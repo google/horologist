@@ -14,44 +14,60 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistNetworksApi::class)
+@file:OptIn(ExperimentalHorologistNetworksApi::class, ExperimentalCoroutinesApi::class)
 
 package com.google.android.horologist.networks.rules
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-import com.google.android.horologist.networks.data.DataRequestRepository
-import com.google.android.horologist.networks.data.NetworkInfo
-import com.google.android.horologist.networks.data.Networks
+import com.google.android.horologist.networks.data.InMemoryDataRequestRepository
+import com.google.android.horologist.networks.data.NetworkType
+import com.google.android.horologist.networks.data.NetworkType.BT
 import com.google.android.horologist.networks.data.RequestType
+import com.google.android.horologist.networks.data.RequestType.MediaRequest.Companion.DownloadRequest
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType.Download
-import com.google.android.horologist.networks.logging.NetworkStatusLogger
+import com.google.android.horologist.networks.highbandwidth.AggregatedHighBandwidthNetworkMediator
 import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
-import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.networkInfo
-import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.requestType
+import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.requestType
+import com.google.android.horologist.networks.okhttp.networkInfo
 import com.google.android.horologist.networks.rules.helpers.ConfigurableNetworkingRules
-import com.google.android.horologist.networks.rules.helpers.TestHighBandwidthRequester
 import com.google.android.horologist.networks.rules.helpers.DeadEndInterceptor
-import com.google.common.truth.Truth
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.google.android.horologist.networks.rules.helpers.FakeNetworkRepository
+import com.google.android.horologist.networks.rules.helpers.FakeNetworkRequester
+import com.google.android.horologist.networks.rules.helpers.TestLogger
+import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestScope
+import okhttp3.Call
+import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.Response
+import org.junit.Assert.assertThrows
 import org.junit.Test
+import java.io.IOException
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.ExecutionException
+import java.util.concurrent.TimeUnit
 
 class NetworkSelectingCallFactoryTest {
-    private val networkStatus =
-        MutableStateFlow(Networks(activeNetwork = null, networks = listOf()))
-    private val logger = NetworkStatusLogger.InMemory()
+    private val testScope = TestScope()
+    private val networkRepository = FakeNetworkRepository()
+    private val logger = TestLogger()
     private val networkingRules = ConfigurableNetworkingRules()
-    private val highBandwidthRequester = TestHighBandwidthRequester(networkStatus)
-    private val dataRequestRepository = DataRequestRepository.InMemoryDataRequestRepository()
+    private val networkRequester = FakeNetworkRequester(networkRepository)
+    private val highBandwidthRequester = AggregatedHighBandwidthNetworkMediator(
+        logger,
+        networkRequester
+    )
+    private val dataRequestRepository = InMemoryDataRequestRepository()
 
     private val networkingRulesEngine = NetworkingRulesEngine(
-        networkStatus = networkStatus,
+        networkRepository = networkRepository,
         logger = logger,
         networkingRules = networkingRules
     )
 
-    private val deadEndInterceptor = DeadEndInterceptor()
+    private val deadEndInterceptor = DeadEndInterceptor(networkRepository, networkingRulesEngine)
 
     private val rootClient = OkHttpClient.Builder()
         .addInterceptor(deadEndInterceptor)
@@ -59,14 +75,17 @@ class NetworkSelectingCallFactoryTest {
 
     private val callFactory = NetworkSelectingCallFactory(
         networkingRulesEngine = networkingRulesEngine,
-        highBandwidthRequester = highBandwidthRequester,
+        highBandwidthNetworkMediator = highBandwidthRequester,
         dataRequestRepository = dataRequestRepository,
-        rootClient = rootClient
+        rootClient = rootClient,
+        networkRepository = networkRepository,
+        coroutineScope = testScope
     )
 
     @Test
     fun normalConnectionForImages() {
         val request = Request.Builder()
+            .url("https://example.org/image.png")
             .requestType(RequestType.ImageRequest)
             .build()
 
@@ -74,19 +93,125 @@ class NetworkSelectingCallFactoryTest {
 
         val networkType = request.networkInfo
 
-        Truth.assertThat(networkType?.type).isEqualTo(NetworkInfo.ble)
+        assertThat(networkType?.type).isEqualTo(BT)
     }
 
     @Test
     fun requestHighBandwidthForDownloads() {
+        networkingRules.preferredNetworks[RequestType.MediaRequest(Download)] = NetworkType.Wifi
+        networkingRules.highBandwidthTypes[RequestType.MediaRequest(Download)] = true
+        networkRequester.supportedNetworks = listOf(NetworkType.Wifi)
+
         val request = Request.Builder()
+            .url("https://example.org/music.mp3")
             .requestType(RequestType.MediaRequest(Download))
             .build()
 
-        callFactory.newCall(request).execute()
+        val response = callFactory.newCall(request).execute()
+        response.close()
 
         val networkType = request.networkInfo
 
-        Truth.assertThat(networkType?.type).isEqualTo(NetworkInfo.wifi)
+        assertThat(networkType?.type).isEqualTo(NetworkType.Wifi)
+
+        println("Checking")
+        assertThat(highBandwidthRequester.pinned.value).isNull()
+    }
+
+    @Test
+    fun requestHighBandwidthForDownloadsButFails() {
+        networkingRules.preferredNetworks[DownloadRequest] = NetworkType.Wifi
+        networkingRules.highBandwidthTypes[DownloadRequest] = true
+        networkingRules.validRequests[Pair(DownloadRequest, BT)] = false
+        networkRequester.supportedNetworks = listOf()
+
+        val request = Request.Builder()
+            .url("https://example.org/music.mp3")
+            .requestType(RequestType.MediaRequest(Download))
+            .build()
+
+        val thrown = assertThrows(IOException::class.java) {
+            callFactory.newCall(request).execute()
+        }
+
+        assertThat(thrown).hasMessageThat().isEqualTo("Unable to use BT for media-download")
+
+        assertThat(highBandwidthRequester.pinned.value).isNull()
+    }
+
+    @Test
+    fun enqueueNormalConnectionForImages() {
+        val request = Request.Builder()
+            .url("https://example.org/image.png")
+            .requestType(RequestType.ImageRequest)
+            .build()
+
+        callFactory.newCall(request).executeAsync()
+
+        val networkType = request.networkInfo
+
+        assertThat(networkType?.type).isEqualTo(BT)
+    }
+
+    @Test
+    fun enqueueRequestHighBandwidthForDownloads() {
+        networkingRules.preferredNetworks[RequestType.MediaRequest(Download)] = NetworkType.Wifi
+        networkingRules.highBandwidthTypes[RequestType.MediaRequest(Download)] = true
+        networkRequester.supportedNetworks = listOf(NetworkType.Wifi)
+
+        val request = Request.Builder()
+            .url("https://example.org/music.mp3")
+            .requestType(RequestType.MediaRequest(Download))
+            .build()
+
+        val response = callFactory.newCall(request).executeAsync()
+        response.close()
+
+        val networkType = request.networkInfo
+
+        assertThat(networkType?.type).isEqualTo(NetworkType.Wifi)
+
+        assertThat(highBandwidthRequester.pinned.value).isNull()
+    }
+
+    @Test
+    fun enqueueRequestHighBandwidthForDownloadsButFails() {
+        networkingRules.preferredNetworks[DownloadRequest] = NetworkType.Wifi
+        networkingRules.highBandwidthTypes[DownloadRequest] = true
+        networkingRules.validRequests[Pair(DownloadRequest, BT)] = false
+        networkRequester.supportedNetworks = listOf()
+
+        val request = Request.Builder()
+            .url("https://example.org/music.mp3")
+            .requestType(RequestType.MediaRequest(Download))
+            .build()
+
+        val thrown = assertThrows(IOException::class.java) {
+            callFactory.newCall(request).executeAsync()
+        }
+
+        assertThat(thrown).hasMessageThat().isEqualTo("Unable to use BT for media-download")
+
+        assertThat(highBandwidthRequester.pinned.value).isNull()
+    }
+}
+
+private fun Call.executeAsync(): Response {
+    val future = CompletableFuture<Response>()
+
+    enqueue(object : Callback {
+        override fun onFailure(call: Call, e: IOException) {
+            future.completeExceptionally(e)
+        }
+
+        override fun onResponse(call: Call, response: Response) {
+            future.complete(response)
+        }
+    })
+
+    return try {
+        future.get(5, TimeUnit.SECONDS)
+    } catch (ee: ExecutionException) {
+        throw ee.cause!!
     }
 }

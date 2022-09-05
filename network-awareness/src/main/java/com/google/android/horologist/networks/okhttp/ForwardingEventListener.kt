@@ -29,7 +29,10 @@ import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.net.Proxy
 
-public open class DelegatingEventListener(
+/**
+ * Forwarding implementation of EventListener to allow for easy overrides of particular events.
+ */
+public open class ForwardingEventListener(
     private val delegate: EventListener
 ) : EventListener() {
     override fun cacheConditionalHit(call: Call, cachedResponse: Response) {

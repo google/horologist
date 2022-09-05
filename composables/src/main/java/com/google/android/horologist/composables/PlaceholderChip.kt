@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.ui.components.base
+package com.google.android.horologist.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -33,16 +33,19 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
+import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.MaterialTheme
 
 /**
- * Secondary placeholder chip.
+ * A placeholder chip to be displayed while the contents of the [Chip] is being loaded.
  */
+@ExperimentalHorologistComposablesApi
 @Composable
-internal fun SecondaryPlaceholderChip(
+public fun PlaceholderChip(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
+    colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = true
 ) {
     val backgroundColor = MaterialTheme.colors.onSurfaceVariant.copy(alpha = 0.38f)
@@ -53,8 +56,7 @@ internal fun SecondaryPlaceholderChip(
             .fillMaxWidth()
             .clip(shape = MaterialTheme.shapes.small)
             .paint(
-                painter = ChipDefaults
-                    .secondaryChipColors()
+                painter = colors
                     .background(enabled = enabled).value,
                 contentScale = ContentScale.Crop
             )
@@ -91,6 +93,6 @@ internal fun SecondaryPlaceholderChip(
                     .size(ChipDefaults.LargeIconSize)
             )
         },
-        colors = ChipDefaults.secondaryChipColors()
+        colors = colors
     )
 }

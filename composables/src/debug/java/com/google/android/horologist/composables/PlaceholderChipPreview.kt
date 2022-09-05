@@ -14,13 +14,22 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.ui.components.base
+@file:OptIn(ExperimentalHorologistComposablesApi::class)
+
+package com.google.android.horologist.composables
 
 import androidx.compose.runtime.Composable
+import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.compose.tools.WearPreview
 
 @WearPreview
 @Composable
-fun SecondaryPlaceholderChipPreview() {
-    SecondaryPlaceholderChip()
+fun PlaceholderChipPreview() {
+    PlaceholderChip()
+}
+
+@WearPreview
+@Composable
+fun PlaceholderChipPreviewWithSecondaryColors() {
+    PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
 }

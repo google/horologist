@@ -27,12 +27,13 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberScalingLazyListState
+import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.components.base.SecondaryPlaceholderChip
 import com.google.android.horologist.media.ui.components.base.StandardChip
 import com.google.android.horologist.media.ui.components.base.StandardChipType
 import com.google.android.horologist.media.ui.components.base.Title
@@ -118,7 +119,7 @@ private fun DownloadsHeader() {
 
 @Composable
 private fun DownloadsLoading() {
-    SecondaryPlaceholderChip()
+    PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
 }
 
 @Composable
@@ -193,7 +194,7 @@ private fun FavouritesHeader() {
 
 @Composable
 private fun FavouritesLoading() {
-    SecondaryPlaceholderChip()
+    PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
 }
 
 @Composable

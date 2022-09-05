@@ -43,12 +43,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberScalingLazyListState
+import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.components.base.SecondaryPlaceholderChip
 import com.google.android.horologist.media.ui.components.base.StandardButton
 import com.google.android.horologist.media.ui.components.base.StandardChip
 
@@ -129,7 +130,7 @@ fun EntityScreenPreviewLoadingState() {
     EntityScreen(
         entityScreenState = EntityScreenState.Loading<String>(),
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
-        loadingContent = { items(count = 2) { SecondaryPlaceholderChip() } },
+        loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },
         mediaContent = { },
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),

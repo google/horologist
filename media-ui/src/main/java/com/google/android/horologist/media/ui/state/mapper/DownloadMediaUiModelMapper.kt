@@ -14,17 +14,25 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui.mapper
+package com.google.android.horologist.media.ui.state.mapper
 
 import com.google.android.horologist.media.model.MediaDownload
+import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 
-object DownloadMediaUiModelMapper {
+/**
+ * Functions to map models from other layers and / or packages into a [DownloadMediaUiModel].
+ */
+@ExperimentalHorologistMediaUiApi
+public object DownloadMediaUiModelMapper {
 
     private const val PROGRESS_FORMAT = "%.0f"
     private const val PROGRESS_WAITING = 0f
 
-    fun map(
+    /**
+     * Maps from [MediaDownload].
+     */
+    public fun map(
         mediaDownload: MediaDownload
     ): DownloadMediaUiModel = when (mediaDownload.status) {
         MediaDownload.Status.Idle -> {
@@ -56,6 +64,7 @@ object DownloadMediaUiModelMapper {
                 artworkUri = mediaDownload.media.artworkUri
             )
         }
+
         MediaDownload.Status.Completed -> {
             DownloadMediaUiModel.Downloaded(
                 id = mediaDownload.media.id,

@@ -21,7 +21,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.model.Playlist
 import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreenState
-import com.google.android.horologist.mediasample.ui.mapper.PlaylistDownloadUiModelMapper
+import com.google.android.horologist.media.ui.state.mapper.PlaylistDownloadUiModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

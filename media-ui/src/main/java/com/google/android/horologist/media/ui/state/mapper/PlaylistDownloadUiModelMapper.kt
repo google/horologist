@@ -14,16 +14,21 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui.mapper
+package com.google.android.horologist.media.ui.state.mapper
 
 import com.google.android.horologist.media.model.Playlist
+import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 
 /**
- * Maps a [Playlist] into a [PlaylistDownloadUiModel].
+ * Functions to map models from other layers and / or packages into a [PlaylistDownloadUiModel].
  */
-object PlaylistDownloadUiModelMapper {
+@ExperimentalHorologistMediaUiApi
+public object PlaylistDownloadUiModelMapper {
 
-    fun map(playlist: Playlist): PlaylistDownloadUiModel =
+    /**
+     * Maps from [Playlist].
+     */
+    public fun map(playlist: Playlist): PlaylistDownloadUiModel.Completed =
         PlaylistDownloadUiModel.Completed(PlaylistUiModelMapper.map(playlist))
 }

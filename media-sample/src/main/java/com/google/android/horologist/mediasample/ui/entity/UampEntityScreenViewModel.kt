@@ -25,10 +25,10 @@ import com.google.android.horologist.media.repository.PlaylistDownloadRepository
 import com.google.android.horologist.media.ui.navigation.NavigationScreens
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState
 import com.google.android.horologist.media.ui.screens.entity.createPlaylistDownloadScreenStateLoaded
+import com.google.android.horologist.media.ui.state.mapper.DownloadMediaUiModelMapper
+import com.google.android.horologist.media.ui.state.mapper.PlaylistUiModelMapper
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
-import com.google.android.horologist.mediasample.ui.mapper.DownloadMediaUiModelMapper
-import com.google.android.horologist.mediasample.ui.mapper.PlaylistUiModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

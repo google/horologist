@@ -256,14 +256,6 @@ package com.google.android.horologist.media3.rules {
 
 package com.google.android.horologist.media3.service {
 
-  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public abstract class CoroutinesMediaLibrarySessionCallback implements androidx.media3.session.MediaLibraryService.MediaLibrarySession.Callback {
-    ctor public CoroutinesMediaLibrarySessionCallback(kotlinx.coroutines.CoroutineScope serviceScope, com.google.android.horologist.media3.logging.ErrorReporter appEventLogger);
-    method protected suspend Object? onAddMediaItemsInternal(androidx.media3.session.MediaSession mediaSession, androidx.media3.session.MediaSession.ControllerInfo controller, java.util.List<androidx.media3.common.MediaItem> mediaItems, kotlin.coroutines.Continuation<? super java.util.List<androidx.media3.common.MediaItem>> p);
-    method protected abstract suspend Object? onGetChildrenInternal(androidx.media3.session.MediaLibraryService.MediaLibrarySession session, androidx.media3.session.MediaSession.ControllerInfo browser, String parentId, int page, int pageSize, androidx.media3.session.MediaLibraryService.LibraryParams? params, kotlin.coroutines.Continuation<? super androidx.media3.session.LibraryResult<com.google.common.collect.ImmutableList<androidx.media3.common.MediaItem>>> p);
-    method protected abstract suspend Object? onGetItemInternal(androidx.media3.session.MediaLibraryService.MediaLibrarySession session, androidx.media3.session.MediaSession.ControllerInfo browser, String mediaId, kotlin.coroutines.Continuation<? super androidx.media3.session.LibraryResult<androidx.media3.common.MediaItem>> p);
-    method protected abstract suspend Object? onGetLibraryRootInternal(androidx.media3.session.MediaLibraryService.MediaLibrarySession session, androidx.media3.session.MediaSession.ControllerInfo browser, androidx.media3.session.MediaLibraryService.LibraryParams? params, kotlin.coroutines.Continuation<? super androidx.media3.session.LibraryResult<androidx.media3.common.MediaItem>> p);
-  }
-
   public abstract class LifecycleMediaLibraryService extends androidx.media3.session.MediaLibraryService implements androidx.lifecycle.LifecycleOwner {
     ctor public LifecycleMediaLibraryService();
     method public androidx.lifecycle.Lifecycle getLifecycle();
@@ -276,6 +268,14 @@ package com.google.android.horologist.media3.service {
 
   @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class NetworkAwareDownloadListener implements androidx.media3.exoplayer.offline.DownloadManager.Listener {
     ctor public NetworkAwareDownloadListener(com.google.android.horologist.media3.logging.ErrorReporter appEventLogger, com.google.android.horologist.networks.status.HighBandwidthRequester highBandwidthRequester);
+  }
+
+  @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public abstract class SuspendingMediaLibrarySessionCallback implements androidx.media3.session.MediaLibraryService.MediaLibrarySession.Callback {
+    ctor public SuspendingMediaLibrarySessionCallback(kotlinx.coroutines.CoroutineScope serviceScope, com.google.android.horologist.media3.logging.ErrorReporter appEventLogger);
+    method protected suspend Object? onAddMediaItemsInternal(androidx.media3.session.MediaSession mediaSession, androidx.media3.session.MediaSession.ControllerInfo controller, java.util.List<androidx.media3.common.MediaItem> mediaItems, kotlin.coroutines.Continuation<? super java.util.List<androidx.media3.common.MediaItem>> p);
+    method protected abstract suspend Object? onGetChildrenInternal(androidx.media3.session.MediaLibraryService.MediaLibrarySession session, androidx.media3.session.MediaSession.ControllerInfo browser, String parentId, int page, int pageSize, androidx.media3.session.MediaLibraryService.LibraryParams? params, kotlin.coroutines.Continuation<? super androidx.media3.session.LibraryResult<com.google.common.collect.ImmutableList<androidx.media3.common.MediaItem>>> p);
+    method protected abstract suspend Object? onGetItemInternal(androidx.media3.session.MediaLibraryService.MediaLibrarySession session, androidx.media3.session.MediaSession.ControllerInfo browser, String mediaId, kotlin.coroutines.Continuation<? super androidx.media3.session.LibraryResult<androidx.media3.common.MediaItem>> p);
+    method protected abstract suspend Object? onGetLibraryRootInternal(androidx.media3.session.MediaLibraryService.MediaLibrarySession session, androidx.media3.session.MediaSession.ControllerInfo browser, androidx.media3.session.MediaLibraryService.LibraryParams? params, kotlin.coroutines.Continuation<? super androidx.media3.session.LibraryResult<androidx.media3.common.MediaItem>> p);
   }
 
 }

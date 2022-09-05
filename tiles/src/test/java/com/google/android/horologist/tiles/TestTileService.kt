@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistTilesApi::class)
+
 package com.google.android.horologist.tiles
 
 import androidx.wear.tiles.LayoutElementBuilders.Column
@@ -29,7 +31,7 @@ import androidx.wear.tiles.TimelineBuilders.TimelineEntry
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
 
-public class TestTileService : CoroutinesTileService() {
+public class TestTileService : SuspendingTileService() {
     var delayDuration = 0.seconds
     var started = 0
     var cancelled = 0

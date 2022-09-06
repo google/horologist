@@ -16,6 +16,9 @@
 
 package com.google.android.horologist.networks.okhttp.impl
 
+import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.requestType
+import com.google.android.horologist.networks.okhttp.requestType
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Request
@@ -26,6 +29,7 @@ import okio.Timeout
 /**
  * A call that must fail because no suitable network is available.
  */
+@ExperimentalHorologistNetworksApi
 internal class FailedCall(
     private val callFactory: Call.Factory,
     private val request: Request,
@@ -38,7 +42,12 @@ internal class FailedCall(
         cancelled = true
     }
 
-    override fun clone(): Call = callFactory.newCall(request)
+    override fun clone(): Call {
+        val request = request()
+        // Remove network and lease from new request
+        val cleanRequest = request.newBuilder().requestType(request.requestType).build()
+        return callFactory.newCall(cleanRequest)
+    }
 
     override fun enqueue(responseCallback: Callback) {
         responseCallback.onFailure(this, IOException(message))

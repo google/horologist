@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
+import com.google.android.horologist.mediasample.di.IsEmulator
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.OffloadMode
 import com.google.android.horologist.mediasample.domain.proto.copy
@@ -41,7 +42,8 @@ import javax.inject.Inject
 class SettingsScreenViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val snackbarManager: SnackbarManager,
-    private val highBandwidthNetworkMediator: HighBandwidthNetworkMediator
+    private val highBandwidthNetworkMediator: HighBandwidthNetworkMediator,
+    @IsEmulator private val isEmulator: Boolean
 ) : ViewModel() {
     private val networkRequest = MutableStateFlow<HighBandwithConnectionLease?>(null)
 
@@ -141,7 +143,8 @@ class SettingsScreenViewModel @Inject constructor(
                 it.close()
                 null
             } else {
-                highBandwidthNetworkMediator.requestHighBandwidthNetwork(HighBandwidthRequest.All)
+                val type = if (isEmulator) HighBandwidthRequest.Cell else HighBandwidthRequest.All
+                highBandwidthNetworkMediator.requestHighBandwidthNetwork(type)
             }
         }
     }

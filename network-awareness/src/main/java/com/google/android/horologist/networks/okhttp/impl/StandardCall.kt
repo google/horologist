@@ -16,6 +16,9 @@
 
 package com.google.android.horologist.networks.okhttp.impl
 
+import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.requestType
+import com.google.android.horologist.networks.okhttp.requestType
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Request
@@ -26,13 +29,19 @@ import okio.Timeout
  * A standard call Wrapper, that exists solely to ensure that the
  * [NetworkSelectingCallFactory] is used for [clone].
  */
+@ExperimentalHorologistNetworksApi
 internal class StandardCall(
     private val callFactory: Call.Factory,
     private val delegate: Call
 ) : Call {
     override fun cancel(): Unit = delegate.cancel()
 
-    override fun clone(): Call = callFactory.newCall(request())
+    override fun clone(): Call {
+        val request = request()
+        // Remove network and lease from new request
+        val cleanRequest = request.newBuilder().requestType(request.requestType).build()
+        return callFactory.newCall(cleanRequest)
+    }
 
     override fun enqueue(responseCallback: Callback) {
         return delegate.enqueue(responseCallback)

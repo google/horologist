@@ -119,6 +119,14 @@ public interface NetworkingRules {
                             Fail("streaming only possible over Wifi or BT")
                         }
                     }
+                    MediaRequest.MediaRequestType.Live -> {
+                        // Only allow Live (continuous) Stream over BT
+                        if (currentNetworkInfo is Bluetooth) {
+                            Allow
+                        } else {
+                            Fail("live streams only possible over BT")
+                        }
+                    }
                 }
             }
 

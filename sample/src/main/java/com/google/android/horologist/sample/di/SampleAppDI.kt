@@ -74,7 +74,10 @@ object SampleAppDI {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-        val networkRequester = NetworkRequesterImpl(connectivityManager)
+        val networkRequester = NetworkRequesterImpl(
+            connectivityManager,
+            networkRepository
+        )
 
         val highBandwidthRequester = AggregatedHighBandwidthNetworkMediator(
             networkRequester = networkRequester,

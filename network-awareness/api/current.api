@@ -219,6 +219,7 @@ package com.google.android.horologist.networks.data {
 
   public enum RequestType.MediaRequest.MediaRequestType {
     enum_constant public static final com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType Download;
+    enum_constant public static final com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType Live;
     enum_constant public static final com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType Stream;
   }
 
@@ -362,7 +363,7 @@ package com.google.android.horologist.networks.highbandwidth {
   }
 
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class SimpleHighBandwidthNetworkMediator implements com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator {
-    ctor public SimpleHighBandwidthNetworkMediator(android.net.ConnectivityManager connectivityManager);
+    ctor public SimpleHighBandwidthNetworkMediator(android.net.ConnectivityManager connectivityManager, com.google.android.horologist.networks.status.NetworkRepository networkRepository);
     method public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.data.NetworkType> getPinned();
     method public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest> getRequested();
     method public com.google.android.horologist.networks.highbandwidth.HighBandwithConnectionLease requestHighBandwidthNetwork(com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest request);
@@ -486,7 +487,7 @@ package com.google.android.horologist.networks.request {
   }
 
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class NetworkRequesterImpl implements com.google.android.horologist.networks.request.NetworkRequester {
-    ctor public NetworkRequesterImpl(android.net.ConnectivityManager connectivityManager);
+    ctor public NetworkRequesterImpl(android.net.ConnectivityManager connectivityManager, com.google.android.horologist.networks.status.NetworkRepository networkRepository);
     method public void clearRequest();
     method public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.data.NetworkType> getPinnedNetwork();
     method public void setRequests(com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest request);
@@ -561,6 +562,7 @@ package com.google.android.horologist.networks.status {
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public interface NetworkRepository {
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.data.Networks> getNetworkStatus();
     method public com.google.android.horologist.networks.data.NetworkStatus? networkByAddress(java.net.InetAddress localAddress);
+    method public void updateNetworkAvailability(android.net.Network network);
     property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.data.Networks> networkStatus;
   }
 
@@ -569,6 +571,7 @@ package com.google.android.horologist.networks.status {
     method public void close();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.data.Networks> getNetworkStatus();
     method public com.google.android.horologist.networks.data.NetworkStatus? networkByAddress(java.net.InetAddress localAddress);
+    method public void updateNetworkAvailability(android.net.Network network);
     property public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.data.Networks> networkStatus;
     field public static final com.google.android.horologist.networks.status.NetworkRepositoryImpl.Companion Companion;
   }

@@ -35,7 +35,7 @@ public interface RequestType {
     public data class MediaRequest(public val type: MediaRequestType) : RequestType {
         public val name: String = "media-${type.toString().lowercase()}"
         public enum class MediaRequestType {
-            Stream, Download
+            Stream, Download, Live
         }
         override fun toString(): String = name
 

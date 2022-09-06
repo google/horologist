@@ -88,6 +88,7 @@ metalava {
 }
 
 dependencies {
+    implementation projects.composeLayout
     implementation libs.kotlin.stdlib
     implementation libs.androidx.wear
     implementation libs.wearcompose.material

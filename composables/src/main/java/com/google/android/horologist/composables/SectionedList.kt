@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.ui.components.list.sectioned
+@file:OptIn(ExperimentalHorologistComposablesApi::class)
+
+package com.google.android.horologist.composables
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -26,13 +28,12 @@ import androidx.wear.compose.material.ScalingLazyListScope
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.ScalingParams
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
 /**
  * A list component that is split into [sections][Section].
  * Each [Section] has its own [state][Section.State] controlled individually.
  */
-@ExperimentalHorologistMediaUiApi
+@ExperimentalHorologistComposablesApi
 @Composable
 public fun SectionedList(
     focusRequester: FocusRequester,
@@ -95,6 +96,7 @@ internal fun <T> Section<T>.display(scope: ScalingLazyListScope) {
 /**
  * A section in [SectionedList].
  */
+@ExperimentalHorologistComposablesApi
 public data class Section<T> internal constructor(
     val state: State,
     val headerContent: (@Composable () -> Unit)? = null,
@@ -124,6 +126,7 @@ public data class Section<T> internal constructor(
 /**
  * Receiver scope which is used by [SectionedList].
  */
+@ExperimentalHorologistComposablesApi
 public class SectionedListScope {
 
     internal val sections: MutableList<Section<*>> = mutableListOf()
@@ -176,6 +179,7 @@ public class SectionedListScope {
 /**
  * Receiver scope which is used by [SectionedListScope].
  */
+@ExperimentalHorologistComposablesApi
 public class SectionContentScope<T> {
 
     internal var headerContent: @Composable () -> Unit = { }

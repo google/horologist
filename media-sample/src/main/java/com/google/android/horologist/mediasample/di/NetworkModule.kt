@@ -37,9 +37,9 @@ import com.google.android.horologist.networks.highbandwidth.SimpleHighBandwidthN
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
 import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
+import com.google.android.horologist.networks.okhttp.impl.NetworkLoggingEventListenerFactory
 import com.google.android.horologist.networks.request.NetworkRequester
 import com.google.android.horologist.networks.request.NetworkRequesterImpl
-import com.google.android.horologist.networks.rules.NetworkingRules
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 import com.google.android.horologist.networks.status.NetworkRepository
 import com.google.android.horologist.networks.status.NetworkRepositoryImpl
@@ -58,6 +58,7 @@ import okhttp3.logging.LoggingEventListener
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.File
+import javax.inject.Provider
 import javax.inject.Singleton
 
 @Module
@@ -109,11 +110,6 @@ object NetworkModule {
     }
 
     @Provides
-    fun networkingRules(
-        appConfig: AppConfig
-    ): NetworkingRules = appConfig.strictNetworking!!
-
-    @Provides
     fun networkLogger(): NetworkStatusLogger = NetworkStatusLogger.Logging
 
     @Singleton
@@ -125,11 +121,11 @@ object NetworkModule {
     fun networkingRulesEngine(
         networkRepository: NetworkRepository,
         networkLogger: NetworkStatusLogger,
-        networkingRules: NetworkingRules
+        appConfig: AppConfig
     ): NetworkingRulesEngine = NetworkingRulesEngine(
         networkRepository = networkRepository,
         logger = networkLogger,
-        networkingRules = networkingRules
+        networkingRules = appConfig.strictNetworking!!
     )
 
     @Provides
@@ -184,23 +180,33 @@ object NetworkModule {
     fun networkAwareCallFactory(
         appConfig: AppConfig,
         okhttpClient: OkHttpClient,
-        networkingRulesEngine: NetworkingRulesEngine,
-        highBandwidthNetworkMediator: HighBandwidthNetworkMediator,
+        networkingRulesEngine: Provider<NetworkingRulesEngine>,
+        highBandwidthNetworkMediator: Provider<HighBandwidthNetworkMediator>,
         dataRequestRepository: DataRequestRepository,
         networkRepository: NetworkRepository,
-        @ForApplicationScope coroutineScope: CoroutineScope
+        @ForApplicationScope coroutineScope: CoroutineScope,
+        logger: NetworkStatusLogger
     ): Call.Factory =
         if (appConfig.strictNetworking != null) {
             NetworkSelectingCallFactory(
-                networkingRulesEngine,
-                highBandwidthNetworkMediator,
+                networkingRulesEngine.get(),
+                highBandwidthNetworkMediator.get(),
                 networkRepository,
                 dataRequestRepository,
                 okhttpClient,
                 coroutineScope
             )
         } else {
-            okhttpClient
+            okhttpClient.newBuilder()
+                .eventListenerFactory(
+                    NetworkLoggingEventListenerFactory(
+                        logger,
+                        networkRepository,
+                        okhttpClient.eventListenerFactory,
+                        dataRequestRepository
+                    )
+                )
+                .build()
         }
 
     @Singleton

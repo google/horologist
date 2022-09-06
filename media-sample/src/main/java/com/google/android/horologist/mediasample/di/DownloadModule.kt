@@ -36,6 +36,7 @@ import com.google.android.horologist.mediasample.data.service.download.MediaDown
 import com.google.android.horologist.mediasample.di.annotation.Dispatcher
 import com.google.android.horologist.mediasample.di.annotation.DownloadFeature
 import com.google.android.horologist.mediasample.di.annotation.UampDispatchers.IO
+import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.Companion.DownloadRequest
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
 import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
@@ -51,6 +52,7 @@ import kotlinx.coroutines.SupervisorJob
 import okhttp3.Call
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import javax.inject.Provider
 import javax.inject.Singleton
 
 @Module
@@ -63,11 +65,11 @@ object DownloadModule {
     @Singleton
     @Provides
     fun downloadDataSourceFactory(
-        okHttp: Call.Factory,
+        callFactory: Call.Factory,
         @DownloadFeature transferListener: TransferListener
     ): DataSource.Factory = OkHttpDataSource.Factory(
         NetworkAwareCallFactory(
-            delegate = okHttp,
+            delegate = callFactory,
             defaultRequestType = DownloadRequest
         )
     ).setTransferListener(transferListener)
@@ -108,7 +110,8 @@ object DownloadModule {
         @DownloadFeature dataSourceFactory: DataSource.Factory,
         @DownloadFeature threadPool: ExecutorService,
         downloadManagerListener: DownloadManagerListener,
-        networkAwareListener: NetworkAwareDownloadListener
+        appConfig: AppConfig,
+        networkAwareListener: Provider<NetworkAwareDownloadListener>
     ) = DownloadManager(
         applicationContext,
         databaseProvider,
@@ -117,7 +120,9 @@ object DownloadModule {
         threadPool
     ).also {
         it.addListener(downloadManagerListener)
-        it.addListener(networkAwareListener)
+        if (appConfig.strictNetworking != null) {
+            it.addListener(networkAwareListener.get())
+        }
     }
 
     @Provides

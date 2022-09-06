@@ -442,8 +442,12 @@ package com.google.android.horologist.networks.okhttp {
 
 package com.google.android.horologist.networks.okhttp.impl {
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class NetworkAwareEventListenerFactory implements okhttp3.EventListener.Factory {
+  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class NetworkAwareEventListenerFactory extends com.google.android.horologist.networks.okhttp.impl.NetworkLoggingEventListenerFactory {
     ctor public NetworkAwareEventListenerFactory(com.google.android.horologist.networks.rules.NetworkingRulesEngine networkingRulesEngine, com.google.android.horologist.networks.status.NetworkRepository networkRepository, okhttp3.EventListener.Factory delegateEventListenerFactory, optional com.google.android.horologist.networks.data.DataRequestRepository? dataRequestRepository);
+  }
+
+  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public class NetworkLoggingEventListenerFactory implements okhttp3.EventListener.Factory {
+    ctor public NetworkLoggingEventListenerFactory(com.google.android.horologist.networks.logging.NetworkStatusLogger logger, com.google.android.horologist.networks.status.NetworkRepository networkRepository, okhttp3.EventListener.Factory delegateEventListenerFactory, optional com.google.android.horologist.networks.data.DataRequestRepository? dataRequestRepository);
     method public okhttp3.EventListener create(okhttp3.Call call);
   }
 

@@ -14,30 +14,31 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class)
+@file:OptIn(ExperimentalHorologistComposablesApi::class)
 
-package com.google.android.horologist.media.ui.components.list.sectioned
+package com.google.android.horologist.composables
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberScalingLazyListState
-import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.compose.tools.WearPreviewDevices
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.components.base.StandardChip
-import com.google.android.horologist.media.ui.components.base.StandardChipType
-import com.google.android.horologist.media.ui.components.base.Title
-import com.google.android.horologist.media.ui.utils.rememberVectorPainter
 
 @WearPreviewDevices
 @Composable
@@ -111,9 +112,12 @@ private fun downloadsSection(scope: SectionedListScope, state: Section.State) {
 
 @Composable
 private fun DownloadsHeader() {
-    Title(
+    Text(
         text = "Downloads",
-        modifier = Modifier.padding(bottom = 12.dp)
+        modifier = Modifier.padding(bottom = 12.dp),
+        overflow = TextOverflow.Ellipsis,
+        maxLines = 3,
+        style = MaterialTheme.typography.title3
     )
 }
 
@@ -123,17 +127,30 @@ private fun DownloadsLoading() {
 }
 
 @Composable
-private fun DownloadsLoaded(label: String) {
-    StandardChip(
-        label = label,
+private fun DownloadsLoaded(text: String) {
+    Chip(
+        label = {
+            Text(
+                text = text,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Left,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 2
+            )
+        },
         onClick = { },
-        icon = "icon",
-        largeIcon = true,
-        placeholder = rememberVectorPainter(
-            image = Icons.Default.FeaturedPlayList,
-            tintColor = Color.Green
-        ),
-        chipType = StandardChipType.Secondary
+        modifier = Modifier.fillMaxWidth(),
+        icon = {
+            Icon(
+                imageVector = Icons.Default.FeaturedPlayList,
+                contentDescription = null, // hidden from talkback
+                modifier = Modifier
+                    .size(ChipDefaults.LargeIconSize)
+                    .clip(CircleShape),
+                tint = Color.Green
+            )
+        },
+        colors = ChipDefaults.secondaryChipColors()
     )
 }
 
@@ -159,10 +176,19 @@ private fun DownloadsEmpty() {
 
 @Composable
 private fun DownloadsFooter() {
-    StandardChip(
-        label = "More downloads..",
+    Chip(
+        label = {
+            Text(
+                text = "More downloads..",
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 2
+            )
+        },
         onClick = { },
-        chipType = StandardChipType.Secondary
+        modifier = Modifier.fillMaxWidth(),
+        colors = ChipDefaults.secondaryChipColors()
     )
 }
 
@@ -186,9 +212,12 @@ private fun favouritesSection(scope: SectionedListScope, state: Section.State) {
 
 @Composable
 private fun FavouritesHeader() {
-    Title(
+    Text(
         text = "Favourites",
-        modifier = Modifier.padding(top = 12.dp, bottom = 12.dp)
+        modifier = Modifier.padding(top = 12.dp, bottom = 12.dp),
+        overflow = TextOverflow.Ellipsis,
+        maxLines = 3,
+        style = MaterialTheme.typography.title3
     )
 }
 
@@ -198,17 +227,30 @@ private fun FavouritesLoading() {
 }
 
 @Composable
-private fun FavouritesLoaded(label: String) {
-    StandardChip(
-        label = label,
+private fun FavouritesLoaded(text: String) {
+    Chip(
+        label = {
+            Text(
+                text = text,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Left,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 2
+            )
+        },
         onClick = { },
-        icon = "icon",
-        largeIcon = true,
-        placeholder = rememberVectorPainter(
-            image = Icons.Default.FeaturedPlayList,
-            tintColor = Color.Green
-        ),
-        chipType = StandardChipType.Secondary
+        modifier = Modifier.fillMaxWidth(),
+        icon = {
+            Icon(
+                imageVector = Icons.Default.FeaturedPlayList,
+                contentDescription = null, // hidden from talkback
+                modifier = Modifier
+                    .size(ChipDefaults.LargeIconSize)
+                    .clip(CircleShape),
+                tint = Color.Green
+            )
+        },
+        colors = ChipDefaults.secondaryChipColors()
     )
 }
 
@@ -234,9 +276,18 @@ private fun FavouritesEmpty() {
 
 @Composable
 fun FavouritesFooter() {
-    StandardChip(
-        label = "More favourites..",
+    Chip(
+        label = {
+            Text(
+                text = "More favourites..",
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 2
+            )
+        },
         onClick = { },
-        chipType = StandardChipType.Secondary
+        modifier = Modifier.fillMaxWidth(),
+        colors = ChipDefaults.secondaryChipColors()
     )
 }

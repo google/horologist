@@ -26,13 +26,13 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.composables.PlaceholderChip
+import com.google.android.horologist.composables.Section
+import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.base.StandardChip
 import com.google.android.horologist.media.ui.components.base.StandardChipType
 import com.google.android.horologist.media.ui.components.base.Title
-import com.google.android.horologist.media.ui.components.list.sectioned.Section
-import com.google.android.horologist.media.ui.components.list.sectioned.SectionedList
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
 @ExperimentalHorologistMediaUiApi

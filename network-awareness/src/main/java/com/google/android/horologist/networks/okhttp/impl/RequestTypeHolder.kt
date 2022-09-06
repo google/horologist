@@ -14,35 +14,39 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.networks.okhttp
+package com.google.android.horologist.networks.okhttp.impl
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-import com.google.android.horologist.networks.data.NetworkType
+import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.RequestType
+import com.google.android.horologist.networks.highbandwidth.HighBandwithConnectionLease
+import com.google.android.horologist.networks.okhttp.requestTypeOrNull
 import okhttp3.Request
 
+/**
+ * Payload logic to carry additional request/call details on the
+ * Request object, for use by this libraries interceptors and event
+ * listeners.
+ */
 @ExperimentalHorologistNetworksApi
 public data class RequestTypeHolder(
     public var requestType: RequestType = RequestType.UnknownRequest,
-    public var networkType: NetworkType? = null
+    public var networkInfo: NetworkInfo? = null,
+    public var highBandwithConnectionLease: HighBandwithConnectionLease? = null
 ) {
     override fun toString(): String {
-        return "$requestType/$networkType"
+        return "$requestType/$networkInfo"
     }
 
     public companion object {
-        public val Request.requestTypeOrNull: RequestType?
-            get() = this.tag(RequestTypeHolder::class.java)?.requestType
-
-        public val Request.requestType: RequestType
-            get() = requestTypeOrNull ?: RequestType.UnknownRequest
-
-        public var Request.networkType: NetworkType?
-            get() {
-                return this.tag(RequestTypeHolder::class.java)!!.networkType
-            }
-            set(value) {
-                this.tag(RequestTypeHolder::class.java)!!.networkType = value
+        @ExperimentalHorologistNetworksApi
+        public fun Request.withDefaultRequestType(defaultRequestType: RequestType): Request =
+            if (requestTypeOrNull == null) {
+                newBuilder()
+                    .requestType(defaultRequestType)
+                    .build()
+            } else {
+                this
             }
 
         public fun Request.Builder.requestType(value: RequestType): Request.Builder {

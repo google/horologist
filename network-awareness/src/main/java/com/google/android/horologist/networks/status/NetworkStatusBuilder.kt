@@ -22,8 +22,8 @@ import android.net.NetworkCapabilities
 import android.net.wifi.WifiInfo
 import android.os.Build
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.NetworkStatus
-import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.Status
 
 @ExperimentalHorologistNetworksApi
@@ -33,9 +33,9 @@ internal data class NetworkStatusBuilder(
     var status: Status = Status.Unknown,
     var linkProperties: LinkProperties? = null,
     var networkCapabilities: NetworkCapabilities? = null,
-    var type: NetworkType? = null
+    var type: NetworkInfo? = null
 ) {
-    private fun readTransportType(): NetworkType {
+    private fun readTransportType(): NetworkInfo {
         val name = linkProperties?.interfaceName ?: "unknown"
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -44,7 +44,7 @@ internal data class NetworkStatusBuilder(
             val wifiInfo = transportInfo as? WifiInfo
 
             if (wifiInfo != null) {
-                return NetworkType.Wifi(name, wifiInfo.ssid)
+                return NetworkInfo.Wifi(name, wifiInfo.ssid)
             }
         }
 
@@ -57,12 +57,12 @@ internal data class NetworkStatusBuilder(
         val metered = networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) == false
 
         return when {
-            isTransport(NetworkCapabilities.TRANSPORT_WIFI) -> NetworkType.Wifi(name, null)
-            isTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> NetworkType.Cellular(name, metered = metered)
-            name.startsWith("rmnet") -> NetworkType.Cellular(name, metered = metered)
-            name.startsWith("wlan") -> NetworkType.Wifi(name, null)
-            isTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> NetworkType.Bluetooth(name)
-            else -> NetworkType.Unknown(name)
+            isTransport(NetworkCapabilities.TRANSPORT_WIFI) -> NetworkInfo.Wifi(name, null)
+            isTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> NetworkInfo.Cellular(name, metered = metered)
+            name.startsWith("rmnet") -> NetworkInfo.Cellular(name, metered = metered)
+            name.startsWith("wlan") -> NetworkInfo.Wifi(name, null)
+            isTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> NetworkInfo.Bluetooth(name)
+            else -> NetworkInfo.Unknown(name)
         }
     }
 
@@ -74,7 +74,7 @@ internal data class NetworkStatusBuilder(
         return NetworkStatus(
             id = id,
             status = status,
-            type = readTransportType(),
+            networkInfo = readTransportType(),
             addresses = linkProperties?.linkAddresses?.map { it.address }.orEmpty(),
             capabilities = networkCapabilities,
             linkProperties = linkProperties,

@@ -56,12 +56,12 @@ fun NetworkScreen(
             }
         }
         items(uiState.networks.networks) {
-            val downloads = uiState.dataUsage.dataByType[it.type.typeName] ?: 0
+            val downloads = uiState.dataUsage.dataByType[it.networkInfo.type] ?: 0
             Chip(
 
                 modifier = Modifier.fillMaxWidth(),
                 label = {
-                    Text(text = "${it.id} ${it.type.typeName} ${it.status}")
+                    Text(text = "${it.id} ${it.networkInfo.type} ${it.status}")
                 },
                 onClick = { },
                 secondaryLabel = {
@@ -77,7 +77,7 @@ fun NetworkScreen(
         }
         items(uiState.requests.takeLast(5).reversed()) {
             if (it is InMemoryStatusLogger.Event.NetworkResponse) {
-                Text(text = "Network: ${it.networkType.typeName} ${it.bytesTransferred}")
+                Text(text = "Network: ${it.networkInfo.type} ${it.bytesTransferred}")
             } else {
                 Text(text = it.message)
             }

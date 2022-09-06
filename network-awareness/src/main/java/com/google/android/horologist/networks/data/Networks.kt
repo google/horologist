@@ -16,11 +16,18 @@
 
 package com.google.android.horologist.networks.data
 
+import android.net.ConnectivityManager
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import java.net.InetAddress
 
+/**
+ * A data class for the full current state of the interesting parts of [ConnectivityManager].
+ */
 @ExperimentalHorologistNetworksApi
-public data class Networks(val activeNetwork: NetworkStatus?, val networks: List<NetworkStatus>) {
+public data class Networks(
+    val activeNetwork: NetworkStatus?,
+    val networks: List<NetworkStatus>
+) {
     public fun findNetworkByAddress(localSocketAddress: InetAddress): NetworkStatus? {
         return networks.find { networkStatus ->
             networkStatus.addresses.find {

@@ -17,11 +17,11 @@
 package com.google.android.horologist.networks.rules
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.networks.data.NetworkInfo
+import com.google.android.horologist.networks.data.NetworkInfo.Bluetooth
+import com.google.android.horologist.networks.data.NetworkInfo.Cellular
+import com.google.android.horologist.networks.data.NetworkInfo.Wifi
 import com.google.android.horologist.networks.data.NetworkStatus
-import com.google.android.horologist.networks.data.NetworkType
-import com.google.android.horologist.networks.data.NetworkType.Bluetooth
-import com.google.android.horologist.networks.data.NetworkType.Cellular
-import com.google.android.horologist.networks.data.NetworkType.Wifi
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.data.RequestType.MediaRequest
@@ -45,7 +45,7 @@ public interface NetworkingRules {
      */
     public fun checkValidRequest(
         requestType: RequestType,
-        currentNetworkType: NetworkType
+        currentNetworkInfo: NetworkInfo
     ): RequestCheck
 
     /**
@@ -70,7 +70,7 @@ public interface NetworkingRules {
 
         override fun checkValidRequest(
             requestType: RequestType,
-            currentNetworkType: NetworkType
+            currentNetworkInfo: NetworkInfo
         ): RequestCheck {
             return Allow
         }
@@ -79,7 +79,7 @@ public interface NetworkingRules {
             networks: Networks,
             requestType: RequestType
         ): NetworkStatus? {
-            val wifi = networks.networks.firstOrNull { it.type is Wifi }
+            val wifi = networks.networks.firstOrNull { it.networkInfo is Wifi }
             return wifi ?: networks.networks.firstOrNull()
         }
     }
@@ -96,7 +96,7 @@ public interface NetworkingRules {
 
         override fun checkValidRequest(
             requestType: RequestType,
-            currentNetworkType: NetworkType
+            currentNetworkInfo: NetworkInfo
         ): RequestCheck {
             if (requestType is MediaRequest) {
                 return when (requestType.type) {
@@ -104,7 +104,7 @@ public interface NetworkingRules {
                         // Only allow Downloads over Wifi
                         // BT will hog the limited bandwidth
                         // Cell may include charges and should be checked with user
-                        if (currentNetworkType is Wifi) {
+                        if (currentNetworkInfo is Wifi) {
                             Allow
                         } else {
                             Fail("downloads only possible over Wifi")
@@ -113,10 +113,18 @@ public interface NetworkingRules {
                     MediaRequest.MediaRequestType.Stream -> {
                         // Only allow Stream over Wifi or BT
                         // BT may hog the limited bandwidth, but hopefully is small stream.
-                        if (currentNetworkType is Wifi || currentNetworkType is Bluetooth) {
+                        if (currentNetworkInfo is Wifi || currentNetworkInfo is Bluetooth) {
                             Allow
                         } else {
                             Fail("streaming only possible over Wifi or BT")
+                        }
+                    }
+                    MediaRequest.MediaRequestType.Live -> {
+                        // Only allow Live (continuous) Stream over BT
+                        if (currentNetworkInfo is Bluetooth) {
+                            Allow
+                        } else {
+                            Fail("live streams only possible over BT")
                         }
                     }
                 }
@@ -129,12 +137,12 @@ public interface NetworkingRules {
             networks: Networks,
             requestType: RequestType
         ): NetworkStatus? {
-            val wifi = networks.networks.firstOrNull { it.type is Wifi }
+            val wifi = networks.networks.firstOrNull { it.networkInfo is Wifi }
 
             if (wifi != null) return wifi
 
-            val cell = networks.networks.firstOrNull { it.type is Cellular }
-            val ble = networks.networks.firstOrNull { it.type is Bluetooth }
+            val cell = networks.networks.firstOrNull { it.networkInfo is Cellular }
+            val ble = networks.networks.firstOrNull { it.networkInfo is Bluetooth }
 
             return if (requestType is MediaRequest) {
                 if (requestType.type == Download) {

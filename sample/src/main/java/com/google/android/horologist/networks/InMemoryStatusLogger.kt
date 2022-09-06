@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.networks
 
-import com.google.android.horologist.networks.data.NetworkType
+import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,11 +45,11 @@ public class InMemoryStatusLogger : NetworkStatusLogger {
 
     override fun logNetworkResponse(
         requestType: RequestType,
-        networkType: NetworkType,
+        networkInfo: NetworkInfo,
         bytesTransferred: Long
     ) {
-        val event = "response $requestType ${networkType.typeName} ${bytesTransferred}B"
-        add(Event.NetworkResponse(event, requestType, networkType, bytesTransferred))
+        val event = "response $requestType ${networkInfo.type} ${bytesTransferred}B"
+        add(Event.NetworkResponse(event, requestType, networkInfo, bytesTransferred))
     }
 
     sealed interface Event {
@@ -58,7 +58,7 @@ public class InMemoryStatusLogger : NetworkStatusLogger {
         data class NetworkResponse(
             override val message: String,
             val requestType: RequestType,
-            val networkType: NetworkType,
+            val networkInfo: NetworkInfo,
             val bytesTransferred: Long
         ) : Event
 

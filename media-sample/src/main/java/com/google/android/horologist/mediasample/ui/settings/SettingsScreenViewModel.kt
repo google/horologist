@@ -21,16 +21,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
-import com.google.android.horologist.media3.logging.ErrorReporter
-import com.google.android.horologist.media3.offload.AudioOffloadManager
+import com.google.android.horologist.mediasample.di.IsEmulator
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.OffloadMode
 import com.google.android.horologist.mediasample.domain.proto.copy
+import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
+import com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest
+import com.google.android.horologist.networks.highbandwidth.HighBandwithConnectionLease
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -38,24 +42,28 @@ import javax.inject.Inject
 class SettingsScreenViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val snackbarManager: SnackbarManager,
-    private val offloadManager: AudioOffloadManager,
-    private val logger: ErrorReporter
+    private val highBandwidthNetworkMediator: HighBandwidthNetworkMediator,
+    @IsEmulator private val isEmulator: Boolean
 ) : ViewModel() {
-    val uiState: StateFlow<UiState> = settingsRepository.settingsFlow.map {
-        UiState(
-            showTimeTextInfo = it.showTimeTextInfo,
-            podcastControls = it.podcastControls,
-            loadItemsAtStartup = it.loadItemsAtStartup,
-            offloadMode = it.offloadMode,
-            animated = it.animated,
-            debugOffload = it.debugOffload,
-            writable = true
+    private val networkRequest = MutableStateFlow<HighBandwithConnectionLease?>(null)
+
+    val uiState: StateFlow<UiState> =
+        combine(settingsRepository.settingsFlow, networkRequest) { it, networkRequest ->
+            UiState(
+                showTimeTextInfo = it.showTimeTextInfo,
+                podcastControls = it.podcastControls,
+                loadItemsAtStartup = it.loadItemsAtStartup,
+                offloadMode = it.offloadMode,
+                animated = it.animated,
+                debugOffload = it.debugOffload,
+                writable = true,
+                networkRequest = networkRequest
+            )
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = UiState(writable = false)
         )
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
-        initialValue = UiState(writable = false)
-    )
 
     data class UiState(
         val showTimeTextInfo: Boolean = false,
@@ -64,7 +72,8 @@ class SettingsScreenViewModel @Inject constructor(
         val animated: Boolean = true,
         val debugOffload: Boolean = false,
         val offloadMode: OffloadMode = OffloadMode.BACKGROUND,
-        val writable: Boolean = false
+        val writable: Boolean = false,
+        val networkRequest: HighBandwithConnectionLease? = null
     )
 
     fun setShowTimeTextInfo(enabled: Boolean) {
@@ -126,6 +135,22 @@ class SettingsScreenViewModel @Inject constructor(
                 error = true
             )
         )
+    }
+
+    fun toggleNetworkRequest() {
+        networkRequest.update {
+            if (it != null) {
+                it.close()
+                null
+            } else {
+                val type = if (isEmulator) HighBandwidthRequest.Cell else HighBandwidthRequest.All
+                highBandwidthNetworkMediator.requestHighBandwidthNetwork(type)
+            }
+        }
+    }
+
+    override fun onCleared() {
+        networkRequest.value?.close()
     }
 
     fun forceStop() {

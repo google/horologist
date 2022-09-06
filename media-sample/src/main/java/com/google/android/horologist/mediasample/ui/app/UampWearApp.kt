@@ -28,7 +28,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollection
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollections
@@ -40,6 +39,7 @@ import com.google.android.horologist.media.ui.navigation.MediaPlayerScaffold
 import com.google.android.horologist.mediasample.ui.browse.UampBrowseScreen
 import com.google.android.horologist.mediasample.ui.debug.AudioDebugScreen
 import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeText
+import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeTextViewModel
 import com.google.android.horologist.mediasample.ui.debug.SamplesScreen
 import com.google.android.horologist.mediasample.ui.entity.UampEntityScreen
 import com.google.android.horologist.mediasample.ui.entity.UampEntityScreenViewModel
@@ -56,21 +56,13 @@ fun UampWearApp(
     intent: Intent
 ) {
     val appViewModel: MediaPlayerAppViewModel = hiltViewModel()
-    val settingsState by rememberStateWithLifecycle(flow = appViewModel.settingsState)
-
     val volumeViewModel: VolumeViewModel = hiltViewModel()
+    val mediaInfoTimeTextViewModel: MediaInfoTimeTextViewModel = hiltViewModel()
 
     val timeText: @Composable (Modifier) -> Unit = { modifier ->
-        val networkUsage by rememberStateWithLifecycle(appViewModel.networkUsage)
-        val networkStatus by rememberStateWithLifecycle(appViewModel.networkStatus)
-        val offloadStatus by rememberStateWithLifecycle(appViewModel.offloadStatus)
-
         MediaInfoTimeText(
             modifier = modifier,
-            showData = settingsState?.showTimeTextInfo ?: false,
-            networkStatus = networkStatus,
-            networkUsage = networkUsage,
-            offloadStatus = offloadStatus
+            mediaInfoTimeTextViewModel = mediaInfoTimeTextViewModel
         )
     }
 
@@ -84,8 +76,7 @@ fun UampWearApp(
                     onVolumeClick = {
                         navController.navigateToVolume()
                     },
-                    playerFocusRequester = focusRequester,
-                    settingsState = settingsState
+                    playerFocusRequester = focusRequester
                 )
             },
             libraryScreen = { focusRequester, scalingLazyListState ->

@@ -29,14 +29,20 @@ import com.google.android.horologist.mediasample.data.api.UampService
 import com.google.android.horologist.mediasample.data.api.WearArtworkUampService
 import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.networks.data.DataRequestRepository
+import com.google.android.horologist.networks.data.InMemoryDataRequestRepository
 import com.google.android.horologist.networks.data.RequestType
+import com.google.android.horologist.networks.highbandwidth.AggregatedHighBandwidthNetworkMediator
+import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
+import com.google.android.horologist.networks.highbandwidth.SimpleHighBandwidthNetworkMediator
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
 import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
-import com.google.android.horologist.networks.rules.NetworkingRules
+import com.google.android.horologist.networks.okhttp.impl.NetworkLoggingEventListenerFactory
+import com.google.android.horologist.networks.request.NetworkRequester
+import com.google.android.horologist.networks.request.NetworkRequesterImpl
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
-import com.google.android.horologist.networks.status.HighBandwidthRequester
 import com.google.android.horologist.networks.status.NetworkRepository
+import com.google.android.horologist.networks.status.NetworkRepositoryImpl
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -52,6 +58,7 @@ import okhttp3.logging.LoggingEventListener
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.File
+import javax.inject.Provider
 import javax.inject.Singleton
 
 @Module
@@ -62,12 +69,10 @@ object NetworkModule {
     @Provides
     fun networkRepository(
         @ApplicationContext application: Context,
-        @ForApplicationScope coroutineScope: CoroutineScope,
-        networkLogger: NetworkStatusLogger
-    ): NetworkRepository = NetworkRepository.fromContext(
+        @ForApplicationScope coroutineScope: CoroutineScope
+    ): NetworkRepository = NetworkRepositoryImpl.fromContext(
         application,
-        coroutineScope,
-        networkLogger
+        coroutineScope
     )
 
     @Singleton
@@ -105,27 +110,22 @@ object NetworkModule {
     }
 
     @Provides
-    fun networkingRules(
-        appConfig: AppConfig
-    ): NetworkingRules = appConfig.strictNetworking!!
-
-    @Provides
     fun networkLogger(): NetworkStatusLogger = NetworkStatusLogger.Logging
 
     @Singleton
     @Provides
     fun dataRequestRepository(): DataRequestRepository =
-        DataRequestRepository.InMemoryDataRequestRepository
+        InMemoryDataRequestRepository()
 
     @Provides
     fun networkingRulesEngine(
         networkRepository: NetworkRepository,
         networkLogger: NetworkStatusLogger,
-        networkingRules: NetworkingRules
+        appConfig: AppConfig
     ): NetworkingRulesEngine = NetworkingRulesEngine(
         networkRepository = networkRepository,
         logger = networkLogger,
-        networkingRules = networkingRules
+        networkingRules = appConfig.strictNetworking!!
     )
 
     @Provides
@@ -141,14 +141,38 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun highBandwidthRequester(
+    fun aggregatingHighBandwidthRequester(
+        networkLogger: NetworkStatusLogger,
+        networkRequester: NetworkRequester
+    ) = AggregatedHighBandwidthNetworkMediator(
+        networkLogger,
+        networkRequester
+    )
+
+    @Singleton
+    @Provides
+    fun simpleHighBandwidthRequester(
         connectivityManager: ConnectivityManager,
-        @ForApplicationScope coroutineScope: CoroutineScope,
-        networkLogger: NetworkStatusLogger
-    ) = HighBandwidthRequester(
+        networkRepository: NetworkRepository
+    ) = SimpleHighBandwidthNetworkMediator(
         connectivityManager,
-        coroutineScope,
-        networkLogger
+        networkRepository
+    )
+
+    @Singleton
+    @Provides
+    fun highBandwidthRequester(
+        simpleHighBandwidthNetworkMediator: SimpleHighBandwidthNetworkMediator
+    ): HighBandwidthNetworkMediator = simpleHighBandwidthNetworkMediator
+
+    @Singleton
+    @Provides
+    fun networkRequester(
+        connectivityManager: ConnectivityManager,
+        networkRepository: NetworkRepository
+    ): NetworkRequester = NetworkRequesterImpl(
+        connectivityManager,
+        networkRepository
     )
 
     @Singleton
@@ -156,19 +180,33 @@ object NetworkModule {
     fun networkAwareCallFactory(
         appConfig: AppConfig,
         okhttpClient: OkHttpClient,
-        networkingRulesEngine: NetworkingRulesEngine,
-        highBandwidthRequester: HighBandwidthRequester,
-        dataRequestRepository: DataRequestRepository
+        networkingRulesEngine: Provider<NetworkingRulesEngine>,
+        highBandwidthNetworkMediator: Provider<HighBandwidthNetworkMediator>,
+        dataRequestRepository: DataRequestRepository,
+        networkRepository: NetworkRepository,
+        @ForApplicationScope coroutineScope: CoroutineScope,
+        logger: NetworkStatusLogger
     ): Call.Factory =
         if (appConfig.strictNetworking != null) {
             NetworkSelectingCallFactory(
-                networkingRulesEngine,
-                highBandwidthRequester,
+                networkingRulesEngine.get(),
+                highBandwidthNetworkMediator.get(),
+                networkRepository,
                 dataRequestRepository,
-                okhttpClient
+                okhttpClient,
+                coroutineScope
             )
         } else {
-            okhttpClient
+            okhttpClient.newBuilder()
+                .eventListenerFactory(
+                    NetworkLoggingEventListenerFactory(
+                        logger,
+                        networkRepository,
+                        okhttpClient.eventListenerFactory,
+                        dataRequestRepository
+                    )
+                )
+                .build()
         }
 
     @Singleton
@@ -187,8 +225,10 @@ object NetworkModule {
         callFactory: Call.Factory,
         moshiConverterFactory: MoshiConverterFactory
     ) =
-        Retrofit.Builder().addConverterFactory(moshiConverterFactory)
-            .baseUrl(UampService.BASE_URL).callFactory(
+        Retrofit.Builder()
+            .addConverterFactory(moshiConverterFactory)
+            .baseUrl(UampService.BASE_URL)
+            .callFactory(
                 NetworkAwareCallFactory(
                     callFactory,
                     RequestType.ApiRequest
@@ -209,15 +249,20 @@ object NetworkModule {
         @ApplicationContext application: Context,
         @CacheDir cacheDir: File,
         callFactory: Call.Factory
-    ): ImageLoader = ImageLoader.Builder(application).crossfade(false)
+    ): ImageLoader = ImageLoader.Builder(application)
+        .crossfade(false)
         .components {
             add(SvgDecoder.Factory())
-        }.respectCacheHeaders(false).diskCache {
+        }
+        .respectCacheHeaders(false).diskCache {
             DiskCache.Builder()
                 .directory(cacheDir.resolve("image_cache"))
                 .build()
-        }.memoryCachePolicy(CachePolicy.ENABLED).diskCachePolicy(CachePolicy.ENABLED)
-        .networkCachePolicy(CachePolicy.ENABLED).callFactory {
+        }
+        .memoryCachePolicy(CachePolicy.ENABLED)
+        .diskCachePolicy(CachePolicy.ENABLED)
+        .networkCachePolicy(CachePolicy.ENABLED)
+        .callFactory {
             NetworkAwareCallFactory(
                 callFactory,
                 defaultRequestType = RequestType.ImageRequest

@@ -18,7 +18,7 @@ package com.google.android.horologist.networks.logging
 
 import android.util.Log
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-import com.google.android.horologist.networks.data.NetworkType
+import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.RequestType
 
 @ExperimentalHorologistNetworksApi
@@ -29,7 +29,7 @@ public interface NetworkStatusLogger {
 
     public fun logNetworkResponse(
         requestType: RequestType,
-        networkType: NetworkType,
+        networkInfo: NetworkInfo,
         bytesTransferred: Long
     )
 
@@ -49,10 +49,10 @@ public interface NetworkStatusLogger {
 
         override fun logNetworkResponse(
             requestType: RequestType,
-            networkType: NetworkType,
+            networkInfo: NetworkInfo,
             bytesTransferred: Long
         ) {
-            Log.d("networks", "response $requestType ${networkType.typeName} ${bytesTransferred}B")
+            Log.d("networks", "response $requestType ${networkInfo.type} ${bytesTransferred}B")
         }
     }
 
@@ -74,10 +74,10 @@ public interface NetworkStatusLogger {
 
         override fun logNetworkResponse(
             requestType: RequestType,
-            networkType: NetworkType,
+            networkInfo: NetworkInfo,
             bytesTransferred: Long
         ) {
-            val event = "response $requestType ${networkType.typeName} ${bytesTransferred}B"
+            val event = "response $requestType ${networkInfo.type} ${bytesTransferred}B"
             events.add(event)
         }
     }

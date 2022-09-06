@@ -16,58 +16,18 @@
 
 package com.google.android.horologist.networks.data
 
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import android.net.NetworkCapabilities
 
-@ExperimentalHorologistNetworksApi
-public sealed interface NetworkType {
-    public val name: String?
-    public val typeName: String
-    public val highBatteryUsage: Boolean?
-    public val metered: Boolean?
-
-    @ExperimentalHorologistNetworksApi
-    public data class Wifi(
-        override val name: String,
-        public val ssid: String? = null
-    ) : NetworkType {
-        override val typeName: String = wifi
-        override val highBatteryUsage: Boolean = false
-
-        // TODO should this be checked
-        override val metered: Boolean = false
-    }
-
-    @ExperimentalHorologistNetworksApi
-    public data class Cellular(
-        override val name: String,
-        override val metered: Boolean?
-    ) : NetworkType {
-        override val typeName: String = cell
-        override val highBatteryUsage: Boolean = true
-    }
-
-    @ExperimentalHorologistNetworksApi
-    public data class Bluetooth(override val name: String) : NetworkType {
-        override val typeName: String = ble
-        override val highBatteryUsage: Boolean = false
-
-        // TODO should this be checked
-        override val metered: Boolean = false
-    }
-
-    @ExperimentalHorologistNetworksApi
-    public data class Unknown(
-        override val name: String? = unknown,
-        override val metered: Boolean? = null
-    ) : NetworkType {
-        override val typeName: String = unknown
-        override val highBatteryUsage: Boolean? = null
-    }
-
-    public companion object {
-        public const val wifi: String = "wifi"
-        public const val cell: String = "cell"
-        public const val ble: String = "ble"
-        public const val unknown: String = "unknown"
-    }
+/**
+ * A constrained model of the Android transport types such as
+ * [NetworkCapabilities.TRANSPORT_CELLULAR], [NetworkCapabilities.TRANSPORT_WIFI],
+ * [NetworkCapabilities.TRANSPORT_BLUETOOTH].
+ *
+ * Used to simplify app code now needing to make decisions based on these types.
+ */
+public enum class NetworkType {
+    Wifi,
+    Cell,
+    BT,
+    Unknown
 }

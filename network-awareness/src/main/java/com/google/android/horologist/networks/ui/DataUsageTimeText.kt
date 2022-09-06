@@ -24,6 +24,7 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.DataUsageReport
+import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.Networks
 
 @ExperimentalHorologistNetworksApi
@@ -32,7 +33,8 @@ public fun DataUsageTimeText(
     showData: Boolean,
     networkStatus: Networks,
     networkUsage: DataUsageReport?,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    requestedNetwork: NetworkType? = null
 ) {
     val style = CurvedTextStyle(MaterialTheme.typography.caption1)
     val context = LocalContext.current
@@ -45,7 +47,8 @@ public fun DataUsageTimeText(
                     networkStatus = networkStatus,
                     networkUsage = networkUsage,
                     style = style,
-                    context = context
+                    context = context,
+                    requestedNetwork = requestedNetwork
                 )
             },
             startLinearContent = {

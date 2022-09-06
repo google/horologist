@@ -24,6 +24,10 @@ import okhttp3.Response
 import java.io.IOException
 import kotlin.coroutines.resumeWithException
 
+/**
+ * Suspending version of [Call.execute] built on top of
+ * [Call.enqueue] and [suspendCancellableCoroutine].
+ */
 @OptIn(ExperimentalCoroutinesApi::class)
 public suspend fun Call.await(): Response {
     return suspendCancellableCoroutine { cont ->

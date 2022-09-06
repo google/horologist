@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.networks.okhttp
+package com.google.android.horologist.networks.okhttp.impl
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.DataRequest
 import com.google.android.horologist.networks.data.DataRequestRepository
-import com.google.android.horologist.networks.data.NetworkType
-import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.networkType
-import com.google.android.horologist.networks.okhttp.RequestTypeHolder.Companion.requestType
-import com.google.android.horologist.networks.rules.NetworkingRulesEngine
+import com.google.android.horologist.networks.data.NetworkInfo
+import com.google.android.horologist.networks.logging.NetworkStatusLogger
+import com.google.android.horologist.networks.okhttp.ForwardingEventListener
+import com.google.android.horologist.networks.okhttp.networkInfo
+import com.google.android.horologist.networks.okhttp.requestType
+import com.google.android.horologist.networks.status.NetworkRepository
 import okhttp3.Call
 import okhttp3.Connection
 import okhttp3.EventListener
@@ -33,19 +35,24 @@ import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Proxy
 
+/**
+ * Internal [EventListener] that records estimated request and response sizes to
+ * the [DataRequestRepository] as well as closing [High]
+ */
 @ExperimentalHorologistNetworksApi
-public class OkHttpEventListenerFactory(
-    private val networkingRulesEngine: NetworkingRulesEngine,
+public open class NetworkLoggingEventListenerFactory(
+    private val logger: NetworkStatusLogger,
+    private val networkRepository: NetworkRepository,
     private val delegateEventListenerFactory: EventListener.Factory,
     private val dataRequestRepository: DataRequestRepository? = null
 ) : EventListener.Factory {
     override fun create(call: Call): EventListener = Listener(
-        delegateEventListenerFactory.create(
-            call
-        )
+        delegateEventListenerFactory.create(call)
     )
 
-    private inner class Listener(delegate: EventListener) : DelegatingEventListener(delegate) {
+    internal open inner class Listener(
+        delegate: EventListener
+    ) : ForwardingEventListener(delegate) {
         private var bytesTransferred: Long = 0
 
         override fun connectFailed(
@@ -55,27 +62,20 @@ public class OkHttpEventListenerFactory(
             protocol: Protocol?,
             ioe: IOException
         ) {
-            networkingRulesEngine.logger.logNetworkEvent("connect failed $inetSocketAddress ${call.request().networkType}")
-
-            if (proxy.type() == Proxy.Type.DIRECT) {
-                networkingRulesEngine.reportConnectionFailure(
-                    inetSocketAddress,
-                    call.request().networkType
-                )
-            }
+            logger.logNetworkEvent("connect failed $inetSocketAddress ${call.request().networkInfo}")
 
             super.connectFailed(call, inetSocketAddress, proxy, protocol, ioe)
         }
 
         override fun connectionAcquired(call: Call, connection: Connection) {
             val localAddress = connection.socket().localAddress
-            val network = networkingRulesEngine.networkRepository.networkByAddress(localAddress)
-            val networkType = network?.type ?: NetworkType.Unknown(localAddress.toString())
+            val network = networkRepository.networkByAddress(localAddress)
+            val networkInfo = network?.networkInfo ?: NetworkInfo.Unknown(localAddress.toString())
 
             val requestType = call.request().requestType
-            call.request().networkType = networkType
+            call.request().networkInfo = networkInfo
 
-            networkingRulesEngine.logger.debugNetworkEvent("HTTPS request $requestType ${networkType.typeName} $localAddress")
+            logger.debugNetworkEvent("HTTPS request $requestType ${networkInfo.type} $localAddress")
 
             super.connectionAcquired(call, connection)
         }
@@ -119,17 +119,17 @@ public class OkHttpEventListenerFactory(
         @Suppress("UNUSED_PARAMETER")
         private fun recordBytes(call: Call, msg: String? = null) {
             val requestType = call.request().requestType
-            val networkType = call.request().networkType ?: NetworkType.Unknown("unknown")
+            val networkInfo = call.request().networkInfo ?: NetworkInfo.Unknown("unknown")
 
-            networkingRulesEngine.logger.logNetworkResponse(
+            logger.logNetworkResponse(
                 requestType,
-                networkType,
+                networkInfo,
                 bytesTransferred
             )
             dataRequestRepository?.storeRequest(
                 DataRequest(
                     requestType,
-                    networkType,
+                    networkInfo,
                     bytesTransferred
                 )
             )

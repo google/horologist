@@ -14,9 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.networks.status
+package com.google.android.horologist.networks.highbandwidth
 
-import android.net.Network
+import com.google.android.horologist.networks.data.NetworkType
+import java.io.Closeable
 
-internal val Network.id
-    get() = this.toString()
+/**
+ * Cancellable network request token. Allows caller to release the connection or await it becoming
+ * available.
+ */
+public interface HighBandwithConnectionLease : Closeable {
+    public suspend fun awaitGranted(): NetworkType
+}

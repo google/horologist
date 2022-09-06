@@ -20,7 +20,7 @@ import java.time.Instant
 import java.time.temporal.ChronoUnit
 
 public data class DataUsageReport(
-    public val dataByType: Map<String, Long>,
+    public val dataByType: Map<NetworkType, Long>,
     public val from: Instant,
     public val to: Instant
 ) {

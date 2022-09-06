@@ -18,6 +18,10 @@ package com.google.android.horologist.networks.data
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 
+/**
+ * An open domain model for RequestTypes in a typical Wear application.
+ * Allows decisions such as suitable networks to be made based on the traffic.
+ */
 @ExperimentalHorologistNetworksApi
 public interface RequestType {
     @ExperimentalHorologistNetworksApi
@@ -28,12 +32,17 @@ public interface RequestType {
     }
 
     @ExperimentalHorologistNetworksApi
-    public class MediaRequest(public val type: MediaRequestType) : RequestType {
+    public data class MediaRequest(public val type: MediaRequestType) : RequestType {
         public val name: String = "media-${type.toString().lowercase()}"
         public enum class MediaRequestType {
-            Stream, Download
+            Stream, Download, Live
         }
         override fun toString(): String = name
+
+        public companion object {
+            public val DownloadRequest: MediaRequest = MediaRequest(MediaRequestType.Download)
+            public val StreamRequest: MediaRequest = MediaRequest(MediaRequestType.Stream)
+        }
     }
 
     @ExperimentalHorologistNetworksApi

@@ -27,7 +27,7 @@ import java.net.Socket
 public data class NetworkStatus(
     public val id: String,
     public val status: Status,
-    public val type: NetworkType,
+    public val networkInfo: NetworkInfo,
     public val addresses: List<InetAddress>,
     public val capabilities: NetworkCapabilities?,
     public val linkProperties: LinkProperties?,
@@ -37,6 +37,6 @@ public data class NetworkStatus(
         get() = addresses.minByOrNull { it is Inet6Address }
 
     override fun toString(): String {
-        return "NetworkStatus(id=$id, status=$status, type=$type, addresses=$addresses)"
+        return "NetworkStatus(id=$id, status=$status, type=$networkInfo, addresses=$addresses)"
     }
 }

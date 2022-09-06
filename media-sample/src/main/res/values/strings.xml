@@ -61,5 +61,6 @@
     <string name="entity_dialog_proceed_button_content_description">Proceed</string>
     <string name="entity_dialog_cancel_downloads">Are you sure you want to cancel download?</string>
     <string name="entity_dialog_remove_downloads">Remove %s from watch?</string>
+    <string name="request_network">Request Network</string>
     <string name="force_stop">Force Stop</string>
 </resources>

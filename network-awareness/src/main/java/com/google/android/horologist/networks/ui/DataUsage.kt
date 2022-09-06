@@ -24,8 +24,10 @@ import androidx.compose.material.icons.filled.Bluetooth
 import androidx.compose.material.icons.filled.HelpOutline
 import androidx.compose.material.icons.filled.SignalCellularAlt
 import androidx.compose.material.icons.filled.Wifi
+import androidx.compose.material.icons.outlined.Square
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -49,41 +51,55 @@ public fun CurvedScope.curveDataUsage(
     networkStatus: Networks,
     networkUsage: DataUsageReport?,
     style: CurvedTextStyle,
-    context: Context
+    context: Context,
+    requestedNetwork: NetworkType?
 ) {
     val activeNetwork = networkStatus.activeNetwork
 
-    networkStatus.networks.filterNot { it.id == activeNetwork?.id }.forEach {
+    val networks = networkStatus.networks
+    val types = networks.map { it.networkInfo.type }
+    networks.forEach {
         curvedComposable(radialAlignment = CurvedAlignment.Radial.Outer) {
+            if (requestedNetwork == it.networkInfo.type) {
+                Icon(
+                    modifier = modifier
+                        .size(14.dp)
+                        .alpha(0.6f),
+                    imageVector = Icons.Outlined.Square,
+                    contentDescription = null,
+                    tint = Color.Yellow
+                )
+            }
             Icon(
                 modifier = modifier
                     .size(12.dp),
-                imageVector = it.type.icon,
+                imageVector = it.networkInfo.type.icon,
                 contentDescription = null,
-                tint = it.tint(active = false)
+                tint = it.tint(active = activeNetwork?.id == it.id)
             )
         }
-        val usage = networkUsage?.dataByType?.get(it.type.typeName)
+        val usage = networkUsage?.dataByType?.get(it.networkInfo.type)
         if (usage != null) {
             curvedText(text = usage.toSize(context), style = style)
         }
     }
-    activeNetwork?.let {
-        curvedComposable(radialAlignment = CurvedAlignment.Radial.Outer) {
-            Icon(
-                modifier = modifier
-                    .size(16.dp),
-                imageVector = it.type.icon,
-                contentDescription = null,
-                tint = it.tint(active = true)
-            )
-        }
-        val usage = networkUsage?.dataByType?.get(activeNetwork.type.typeName)
-        if (usage != null) {
-            curvedText(
-                text = usage.toSize(context),
-                style = style
-            )
+    if (networkUsage?.dataByType != null) {
+        val keys = networkUsage.dataByType.keys
+        val missingTypes = keys - types.toSet()
+        missingTypes.forEach {
+            val usage = networkUsage.dataByType[it]
+            if (usage != null && usage > 0) {
+                curvedComposable(radialAlignment = CurvedAlignment.Radial.Outer) {
+                    Icon(
+                        modifier = modifier
+                            .size(12.dp),
+                        imageVector = it.icon,
+                        contentDescription = null,
+                        tint = Color.LightGray
+                    )
+                }
+                curvedText(text = usage.toSize(context), style = style)
+            }
         }
     }
 }
@@ -101,11 +117,11 @@ public fun LinearDataUsage(
     networkStatus.networks.filterNot { it.id == activeNetwork?.id }.forEach {
         Icon(
             modifier = Modifier.size(12.dp),
-            imageVector = it.type.icon,
+            imageVector = it.networkInfo.type.icon,
             contentDescription = null,
             tint = it.tint(active = false)
         )
-        val usage = networkUsage?.dataByType?.get(it.type.typeName)
+        val usage = networkUsage?.dataByType?.get(it.networkInfo.type)
         if (usage != null) {
             Text(text = usage.toSize(context), style = style)
         }
@@ -113,11 +129,11 @@ public fun LinearDataUsage(
     activeNetwork?.let {
         Icon(
             modifier = Modifier.size(16.dp),
-            imageVector = it.type.icon,
+            imageVector = it.networkInfo.type.icon,
             contentDescription = null,
             tint = it.tint(active = true)
         )
-        val usage = networkUsage?.dataByType?.get(activeNetwork.type.typeName)
+        val usage = networkUsage?.dataByType?.get(activeNetwork.networkInfo.type)
         if (usage != null) {
             Text(
                 text = usage.toSize(context),
@@ -146,8 +162,8 @@ private fun NetworkStatus.tint(active: Boolean): Color {
 @ExperimentalHorologistNetworksApi
 internal val NetworkType.icon
     get() = when (this) {
-        is NetworkType.Wifi -> Icons.Filled.Wifi
-        is NetworkType.Cellular -> Icons.Filled.SignalCellularAlt
-        is NetworkType.Bluetooth -> Icons.Filled.Bluetooth
+        NetworkType.Wifi -> Icons.Filled.Wifi
+        NetworkType.Cell -> Icons.Filled.SignalCellularAlt
+        NetworkType.BT -> Icons.Filled.Bluetooth
         else -> Icons.Filled.HelpOutline
     }

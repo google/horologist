@@ -127,12 +127,12 @@ object PlaybackServiceModule {
     @ServiceScoped
     @Provides
     fun streamDataSourceFactory(
-        networkAwareCallFactory: Call.Factory,
+        callFactory: Call.Factory,
         transferListener: TransferListener
     ): OkHttpDataSource.Factory =
         OkHttpDataSource.Factory(
             NetworkAwareCallFactory(
-                networkAwareCallFactory,
+                callFactory,
                 defaultRequestType = RequestType.UnknownRequest
             )
         )

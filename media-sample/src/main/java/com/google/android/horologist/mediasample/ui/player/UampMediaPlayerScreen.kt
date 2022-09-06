@@ -35,7 +35,6 @@ import com.google.android.horologist.media.ui.screens.player.DefaultPlayerScreen
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
-import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
 import com.google.android.horologist.mediasample.ui.components.AnimatedPlayerScreenMediaDisplay
 
 @Composable
@@ -44,10 +43,10 @@ fun UampMediaPlayerScreen(
     volumeViewModel: VolumeViewModel,
     onVolumeClick: () -> Unit,
     playerFocusRequester: FocusRequester,
-    modifier: Modifier = Modifier,
-    settingsState: Settings?
+    modifier: Modifier = Modifier
 ) {
     val volumeState by rememberStateWithLifecycle(flow = volumeViewModel.volumeState)
+    val settingsState by rememberStateWithLifecycle(flow = mediaPlayerScreenViewModel.settingsState)
 
     Scaffold(
         modifier = modifier
@@ -61,7 +60,7 @@ fun UampMediaPlayerScreen(
         PlayerScreen(
             playerViewModel = mediaPlayerScreenViewModel,
             mediaDisplay = { playerUiState ->
-                if (settingsState?.animated == true) {
+                if (settingsState.animated) {
                     AnimatedPlayerScreenMediaDisplay(playerUiState)
                 } else {
                     DefaultPlayerScreenMediaDisplay(playerUiState)
@@ -75,10 +74,10 @@ fun UampMediaPlayerScreen(
                 )
             },
             controlButtons = {
-                if (settingsState?.podcastControls == true) {
+                if (settingsState.podcastControls) {
                     PlayerScreenPodcastControlButtons(mediaPlayerScreenViewModel, it)
                 } else {
-                    if (settingsState?.animated == true) {
+                    if (settingsState.animated) {
                         AnimatedMediaControlButtons(
                             onPlayButtonClick = { mediaPlayerScreenViewModel.play() },
                             onPauseButtonClick = { mediaPlayerScreenViewModel.pause() },

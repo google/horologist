@@ -22,10 +22,8 @@ package com.google.android.horologist.media3
 
 import android.content.Context
 import android.net.Uri
-import androidx.media3.common.ForwardingPlayer
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
-import androidx.media3.common.Player
 import androidx.media3.test.utils.TestExoPlayerBuilder
 import androidx.test.core.app.ApplicationProvider
 import com.google.android.horologist.audio.AudioOutput
@@ -123,54 +121,6 @@ class WearConfiguredPlayerTest {
                 e.printStackTrace()
             }
         }
-    }
-
-    @Test
-    fun emitsAPauseEventIfUnableToPlay() = runTest {
-        val playbackRules = object : PlaybackRules {
-            override suspend fun canPlayItem(mediaItem: MediaItem): Boolean {
-                return true
-            }
-
-            override fun canPlayWithOutput(audioOutput: AudioOutput): Boolean {
-                return audioOutput is AudioOutput.BluetoothHeadset
-            }
-        }
-
-        val audioOutputSelector = FakeAudioOutputSelector(null, audioOutputRepository)
-
-        val wearConfiguredPlayer = WearConfiguredPlayer(
-            player,
-            audioOutputRepository,
-            audioOutputSelector,
-            playbackRules,
-            errorReporter,
-            coroutineScope = this
-        )
-
-        val playWhenReadyEvents = mutableListOf<Boolean>()
-        wearConfiguredPlayer.addListener(object : Player.Listener {
-            override fun onPlayWhenReadyChanged(playWhenReady: Boolean, reason: Int) {
-                assertThat(reason).isEqualTo(ForwardingPlayer.PLAY_WHEN_READY_CHANGE_REASON_AUDIO_BECOMING_NOISY)
-                playWhenReadyEvents.add(playWhenReady)
-            }
-        })
-
-        wearConfiguredPlayer.setMediaItem(mediaItem1)
-        wearConfiguredPlayer.prepare()
-        wearConfiguredPlayer.play()
-
-        advanceUntilIdle()
-
-        assertThat(playWhenReadyEvents).isEqualTo(listOf(false))
-
-        wearConfiguredPlayer.play()
-
-        advanceUntilIdle()
-
-        assertThat(playWhenReadyEvents).isEqualTo(listOf(false, false))
-
-        assertThat(player.playWhenReady).isFalse()
     }
 
     fun exampleMediaItem(id: String) = MediaItem.Builder()

@@ -23,4 +23,15 @@
     <string name="tile_text">Hello world</string>
     <string name="tile_sample_label">Sample Tile</string>
     <string name="sample_tile_description">Sample tile description</string>
+    <string name="sectionedlist_samples_menu">SectionedList Samples</string>
+    <string name="sectionedlist_stateless_sections_menu">Stateless sections</string>
+    <string name="sectionedlist_stateful_sections_menu">Stateful sections</string>
+    <string name="sectionedlist_samples_title">SectionedList samples</string>
+    <string name="sectionedlist_recommendations_title">Recommendations</string>
+    <string name="sectionedlist_trending_title">Trending</string>
+    <string name="sectionedlist_downloads_button">Downloads</string>
+    <string name="sectionedlist_your_library_button">Your library</string>
+    <string name="sectionedlist_settings_button">Settings</string>
+    <string name="sectionedlist_see_more_button">See more</string>
+    <string name="sectionedlist_failed_to_load">Failed to load, tap to try again.</string>
 </resources>

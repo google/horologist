@@ -37,6 +37,9 @@ import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.android.horologist.datalayer.DataLayerNodesScreen
 import com.google.android.horologist.datalayer.DataLayerNodesViewModel
 import com.google.android.horologist.networks.NetworkScreen
+import com.google.android.horologist.sectionedlist.SectionedListMenuScreen
+import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefulScreen
+import com.google.android.horologist.sectionedlist.stateless.SectionedListStatelessScreen
 import java.time.LocalDateTime
 
 @Composable
@@ -124,6 +127,18 @@ fun SampleWearApp() {
                     },
                     showSeconds = false
                 )
+            }
+            composable(route = Screen.SectionedListMenuScreen.route) {
+                SectionedListMenuScreen(
+                    modifier = Modifier.fillMaxSize(),
+                    navigateToRoute = { route -> navController.navigate(route) }
+                )
+            }
+            composable(Screen.SectionedListStatelessScreen.route) {
+                SectionedListStatelessScreen()
+            }
+            composable(Screen.SectionedListStatefulScreen.route) {
+                SectionedListStatefulScreen()
             }
         }
     }

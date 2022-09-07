@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -89,6 +90,16 @@ fun MenuScreen(
         }
         item {
             TimeWithoutSecondsPickerChip(time) { navigateToRoute(Screen.TimeWithoutSecondsPicker.route) }
+        }
+        item {
+            Chip(
+                label = {
+                    Text(text = stringResource(id = R.string.sectionedlist_samples_menu))
+                },
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.SectionedListMenuScreen.route) },
+                colors = ChipDefaults.primaryChipColors()
+            )
         }
     }
 

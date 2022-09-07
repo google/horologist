@@ -32,4 +32,8 @@ sealed class Screen(
     object Network : Screen("network")
 
     object DataLayerNodes : Screen("nodes")
+
+    object SectionedListMenuScreen : Screen("sectionedListMenuScreen")
+    object SectionedListStatelessScreen : Screen("sectionedListStatelessScreen")
+    object SectionedListStatefulScreen : Screen("sectionedListStatefulScreen")
 }

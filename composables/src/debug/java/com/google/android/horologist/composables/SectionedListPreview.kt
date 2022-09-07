@@ -143,7 +143,7 @@ private fun DownloadsLoaded(text: String) {
         icon = {
             Icon(
                 imageVector = Icons.Default.FeaturedPlayList,
-                contentDescription = null, // hidden from talkback
+                contentDescription = null,
                 modifier = Modifier
                     .size(ChipDefaults.LargeIconSize)
                     .clip(CircleShape),
@@ -243,7 +243,7 @@ private fun FavouritesLoaded(text: String) {
         icon = {
             Icon(
                 imageVector = Icons.Default.FeaturedPlayList,
-                contentDescription = null, // hidden from talkback
+                contentDescription = null,
                 modifier = Modifier
                     .size(ChipDefaults.LargeIconSize)
                     .clip(CircleShape),

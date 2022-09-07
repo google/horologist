@@ -63,67 +63,67 @@ fun SampleWearApp() {
                 DataLayerNodesScreen(
                     viewModel = viewModel(factory = DataLayerNodesViewModel.Factory)
                 )
-                composable(Screen.Network.route) {
-                    NetworkScreen()
-                }
-                composable(Screen.FillMaxRectangle.route) {
-                    FillMaxRectangleScreen()
-                }
-                composable(Screen.Volume.route) {
-                    val focusRequester = remember { FocusRequester() }
+            }
+            composable(Screen.Network.route) {
+                NetworkScreen()
+            }
+            composable(Screen.FillMaxRectangle.route) {
+                FillMaxRectangleScreen()
+            }
+            composable(Screen.Volume.route) {
+                val focusRequester = remember { FocusRequester() }
 
-                    VolumeScreen(focusRequester = focusRequester)
+                VolumeScreen(focusRequester = focusRequester)
 
-                    LaunchedEffect(Unit) {
-                        focusRequester.requestFocus()
+                LaunchedEffect(Unit) {
+                    focusRequester.requestFocus()
+                }
+            }
+            composable(Screen.FadeAway.route) {
+                FadeAwayScreenLazyColumn()
+            }
+            composable(Screen.FadeAwaySLC.route) {
+                FadeAwayScreenScalingLazyColumn()
+            }
+            composable(Screen.FadeAwayColumn.route) {
+                FadeAwayScreenColumn()
+            }
+            composable(Screen.DatePicker.route) {
+                DatePicker(
+                    date = time.toLocalDate(),
+                    onDateConfirm = {
+                        time = time.toLocalTime().atDate(it)
+                        navController.popBackStack()
                     }
-                }
-                composable(Screen.FadeAway.route) {
-                    FadeAwayScreenLazyColumn()
-                }
-                composable(Screen.FadeAwaySLC.route) {
-                    FadeAwayScreenScalingLazyColumn()
-                }
-                composable(Screen.FadeAwayColumn.route) {
-                    FadeAwayScreenColumn()
-                }
-                composable(Screen.DatePicker.route) {
-                    DatePicker(
-                        date = time.toLocalDate(),
-                        onDateConfirm = {
-                            time = time.toLocalTime().atDate(it)
-                            navController.popBackStack()
-                        }
-                    )
-                }
-                composable(Screen.TimePicker.route) {
-                    TimePickerWith12HourClock(
-                        time = time.toLocalTime(),
-                        onTimeConfirm = {
-                            time = time.toLocalDate().atTime(it)
-                            navController.popBackStack()
-                        }
-                    )
-                }
-                composable(Screen.TimeWithSecondsPicker.route) {
-                    TimePicker(
-                        time = time.toLocalTime(),
-                        onTimeConfirm = {
-                            time = time.toLocalDate().atTime(it)
-                            navController.popBackStack()
-                        }
-                    )
-                }
-                composable(Screen.TimeWithoutSecondsPicker.route) {
-                    TimePicker(
-                        time = time.toLocalTime(),
-                        onTimeConfirm = {
-                            time = time.toLocalDate().atTime(it)
-                            navController.popBackStack()
-                        },
-                        showSeconds = false
-                    )
-                }
+                )
+            }
+            composable(Screen.TimePicker.route) {
+                TimePickerWith12HourClock(
+                    time = time.toLocalTime(),
+                    onTimeConfirm = {
+                        time = time.toLocalDate().atTime(it)
+                        navController.popBackStack()
+                    }
+                )
+            }
+            composable(Screen.TimeWithSecondsPicker.route) {
+                TimePicker(
+                    time = time.toLocalTime(),
+                    onTimeConfirm = {
+                        time = time.toLocalDate().atTime(it)
+                        navController.popBackStack()
+                    }
+                )
+            }
+            composable(Screen.TimeWithoutSecondsPicker.route) {
+                TimePicker(
+                    time = time.toLocalTime(),
+                    onTimeConfirm = {
+                        time = time.toLocalDate().atTime(it)
+                        navController.popBackStack()
+                    },
+                    showSeconds = false
+                )
             }
         }
     }

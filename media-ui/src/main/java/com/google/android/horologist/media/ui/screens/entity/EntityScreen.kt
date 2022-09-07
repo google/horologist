@@ -19,9 +19,12 @@ package com.google.android.horologist.media.ui.screens.entity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListScope
 import androidx.wear.compose.material.ScalingLazyListState
@@ -144,6 +147,12 @@ public fun <Media> EntityScreen(
                     { item { failedContent() } }
                 }
             )
+        }
+    }
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+    LaunchedEffect(entityScreenState) {
+        if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+            focusRequester.requestFocus()
         }
     }
 }

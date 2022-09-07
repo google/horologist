@@ -93,6 +93,15 @@ public class WearConfiguredPlayer(
                 wrappedPlayer.play()
             }
         } else {
+            // Flush our still not playing state, relevant since a MediaController
+            // May assume play is successful if we don't error
+            withContext(Dispatchers.Main) {
+                listeners.forEach {
+                    it.onPlayWhenReadyChanged(false, PLAY_WHEN_READY_CHANGE_REASON_AUDIO_BECOMING_NOISY)
+                    it.onIsPlayingChanged(false)
+                }
+            }
+
             val newAudioOutput = audioOutputSelector.selectNewOutput(currentAudioOutput)
 
             val canPlayWithNewOutput =
@@ -118,5 +127,19 @@ public class WearConfiguredPlayer(
         } else {
             pause()
         }
+    }
+
+    // Stored to allow some synthetic events
+    private val listeners = mutableListOf<Player.Listener>()
+
+    override fun addListener(listener: Player.Listener) {
+        listeners.add(listener)
+
+        super.addListener(listener)
+    }
+
+    override fun removeListener(listener: Player.Listener) {
+        listeners.remove(listener)
+        super.removeListener(listener)
     }
 }

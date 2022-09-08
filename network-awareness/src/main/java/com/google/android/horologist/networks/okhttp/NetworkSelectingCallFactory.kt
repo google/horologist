@@ -25,6 +25,7 @@ import com.google.android.horologist.networks.okhttp.impl.FailedCall
 import com.google.android.horologist.networks.okhttp.impl.HighBandwidthCall
 import com.google.android.horologist.networks.okhttp.impl.NetworkAwareEventListenerFactory
 import com.google.android.horologist.networks.okhttp.impl.NetworkSpecificSocketFactory
+import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.withDefaultRequestType
 import com.google.android.horologist.networks.okhttp.impl.RequestVerifyingInterceptor
 import com.google.android.horologist.networks.okhttp.impl.StandardCall
@@ -106,6 +107,9 @@ public class NetworkSelectingCallFactory(
 
         val client = clientForNetwork(networkStatus)
 
+        // Set the network so we don't have to guess later, which
+        // can be problematic
+        request.networkInfo = networkStatus.networkInfo
         val call = client.newCall(request)
 
         return StandardCall(this, call)

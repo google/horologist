@@ -18,9 +18,13 @@ package com.google.android.horologist.mediasample.di.config
 
 import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.NetworkStatus
+import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.RequestType
+import com.google.android.horologist.networks.data.RequestType.MediaRequest.Companion.DownloadRequest
+import com.google.android.horologist.networks.data.RequestType.MediaRequest.Companion.LiveRequest
 import com.google.android.horologist.networks.rules.Allow
+import com.google.android.horologist.networks.rules.Fail
 import com.google.android.horologist.networks.rules.NetworkingRules
 import com.google.android.horologist.networks.rules.RequestCheck
 
@@ -36,14 +40,56 @@ object UampNetworkingRules : NetworkingRules {
         requestType: RequestType,
         currentNetworkInfo: NetworkInfo
     ): RequestCheck {
-        return Allow
+        return if (requestType == DownloadRequest && currentNetworkInfo.type == NetworkType.BT) {
+            Fail("Media Downloads not allowed over BT")
+        } else {
+            Allow
+        }
     }
 
     override fun getPreferredNetwork(
         networks: Networks,
         requestType: RequestType
     ): NetworkStatus? {
-        val wifi = networks.networks.firstOrNull { it.networkInfo is NetworkInfo.Wifi }
-        return wifi ?: networks.networks.firstOrNull()
+        if (requestType is RequestType.MediaRequest) {
+            return getPreferredNetworkForMedia(networks, requestType)
+        } else if (requestType is RequestType.ImageRequest) {
+            // arbitrary, mainly for testing
+            return networks.networks.prefer(NetworkType.BT)
+        } else {
+            return networks.networks.prefer(NetworkType.Wifi)
+        }
     }
+
+    private fun getPreferredNetworkForMedia(
+        networks: Networks,
+        requestType: RequestType
+    ): NetworkStatus? {
+        val wifi = networks.networks.firstOrNull { it.networkInfo is NetworkInfo.Wifi }
+
+        // Always prefer Wifi if active
+        if (wifi != null) {
+            return wifi
+        }
+
+        return when (requestType) {
+            DownloadRequest -> {
+                // For downloads force LTE as the backup to Wifi, to avoid slow downloads.
+                networks.networks.firstOrNull {
+                    it.networkInfo.type == NetworkType.Cell
+                }
+            }
+            LiveRequest -> {
+                // For live streaming, assume a low bandwidth and use power efficient BT
+                networks.networks.firstOrNull {
+                    it.networkInfo.type == NetworkType.BT
+                }
+            }
+            else -> networks.networks.firstOrNull()
+        }
+    }
+}
+
+private fun List<NetworkStatus>.prefer(type: NetworkType): NetworkStatus? {
+    return firstOrNull { it.networkInfo.type == type } ?: firstOrNull()
 }

@@ -17,24 +17,15 @@
 package com.google.android.horologist.networks.rules.helpers
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.requestType
-import com.google.android.horologist.networks.okhttp.networkInfo
-import com.google.android.horologist.networks.okhttp.requestType
-import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 import okhttp3.Interceptor
 import okhttp3.Protocol
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
 
 @ExperimentalHorologistNetworksApi
-class DeadEndInterceptor(
-    private val networkRepository: FakeNetworkRepository,
-    private val networkingRulesEngine: NetworkingRulesEngine
-) : Interceptor {
+object DeadEndInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-        val networkInfo = networkingRulesEngine.preferredNetwork(request.requestType)
-        request.networkInfo = networkInfo?.networkInfo
         return Response.Builder()
             .request(request)
             .code(200)

@@ -67,7 +67,7 @@ class NetworkSelectingCallFactoryTest {
         networkingRules = networkingRules
     )
 
-    private val deadEndInterceptor = DeadEndInterceptor(networkRepository, networkingRulesEngine)
+    private val deadEndInterceptor = DeadEndInterceptor
 
     private val rootClient = OkHttpClient.Builder()
         .addInterceptor(deadEndInterceptor)
@@ -114,7 +114,6 @@ class NetworkSelectingCallFactoryTest {
 
         assertThat(networkType?.type).isEqualTo(NetworkType.Wifi)
 
-        println("Checking")
         assertThat(highBandwidthRequester.pinned.value).isNull()
     }
 

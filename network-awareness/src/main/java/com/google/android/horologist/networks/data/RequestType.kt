@@ -24,6 +24,9 @@ import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
  */
 @ExperimentalHorologistNetworksApi
 public interface RequestType {
+    /**
+     * A request for image, say via Coil.
+     */
     @ExperimentalHorologistNetworksApi
     public object ImageRequest : RequestType {
         override fun toString(): String {
@@ -31,6 +34,9 @@ public interface RequestType {
         }
     }
 
+    /**
+     * A request for media, likely via Media3.
+     */
     @ExperimentalHorologistNetworksApi
     public data class MediaRequest(public val type: MediaRequestType) : RequestType {
         public val name: String = "media-${type.toString().lowercase()}"
@@ -42,9 +48,13 @@ public interface RequestType {
         public companion object {
             public val DownloadRequest: MediaRequest = MediaRequest(MediaRequestType.Download)
             public val StreamRequest: MediaRequest = MediaRequest(MediaRequestType.Stream)
+            public val LiveRequest: MediaRequest = MediaRequest(MediaRequestType.Download)
         }
     }
 
+    /**
+     * An API request such as fetching playslists or login.
+     */
     @ExperimentalHorologistNetworksApi
     public object ApiRequest : RequestType {
         override fun toString(): String {
@@ -52,6 +62,9 @@ public interface RequestType {
         }
     }
 
+    /**
+     * A request to ship app logs to the server.
+     */
     @ExperimentalHorologistNetworksApi
     public object LogsRequest : RequestType {
         override fun toString(): String {
@@ -59,6 +72,9 @@ public interface RequestType {
         }
     }
 
+    /**
+     * A request not tagged by the caller.
+     */
     @ExperimentalHorologistNetworksApi
     public object UnknownRequest : RequestType {
         override fun toString(): String {

@@ -212,8 +212,10 @@ package com.google.android.horologist.networks.data {
 
   public static final class RequestType.MediaRequest.Companion {
     method public com.google.android.horologist.networks.data.RequestType.MediaRequest getDownloadRequest();
+    method public com.google.android.horologist.networks.data.RequestType.MediaRequest getLiveRequest();
     method public com.google.android.horologist.networks.data.RequestType.MediaRequest getStreamRequest();
     property public final com.google.android.horologist.networks.data.RequestType.MediaRequest DownloadRequest;
+    property public final com.google.android.horologist.networks.data.RequestType.MediaRequest LiveRequest;
     property public final com.google.android.horologist.networks.data.RequestType.MediaRequest StreamRequest;
   }
 

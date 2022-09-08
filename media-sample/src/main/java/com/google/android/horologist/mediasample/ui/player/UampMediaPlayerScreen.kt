@@ -23,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
-import com.google.android.horologist.mediasample.ui.util.ReportFullyDrawn
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
@@ -37,6 +36,7 @@ import com.google.android.horologist.media.ui.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.mediasample.ui.components.AnimatedPlayerScreenMediaDisplay
+import com.google.android.horologist.mediasample.ui.util.ReportFullyDrawn
 
 @Composable
 fun UampMediaPlayerScreen(

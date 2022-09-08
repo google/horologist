@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.google.android.horologist.mediasample.benchmark
 
 import android.content.Intent
@@ -61,7 +62,6 @@ class BaselineProfile {
                 val intent = Intent()
                 intent.action = ACTION
                 startActivityAndWait(intent)
-
             }
         )
     }

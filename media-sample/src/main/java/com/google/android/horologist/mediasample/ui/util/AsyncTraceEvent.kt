@@ -19,7 +19,7 @@ package com.google.android.horologist.mediasample.ui.util
 import androidx.tracing.Trace
 import java.util.concurrent.atomic.AtomicInteger
 
-class AsyncTraceEvent(val name: String): AutoCloseable {
+class AsyncTraceEvent(val name: String) : AutoCloseable {
     val id = idGenerator.getAndIncrement()
 
     init {

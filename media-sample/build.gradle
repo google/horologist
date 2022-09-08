@@ -56,7 +56,17 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig signingConfigs.debug
+        }
+        benchmark {
+            initWith buildTypes.release
+
+            signingConfig signingConfigs.debug
+            debuggable false
+
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', 'proguard-benchmark.pro'
+
+            matchingFallbacks = ['release']
         }
     }
 
@@ -188,6 +198,8 @@ dependencies {
     implementation libs.dagger.hiltandroid
     kapt libs.dagger.hiltandroidcompiler
     implementation libs.hilt.navigationcompose
+
+    implementation libs.androidx.metrics.performance
 
     implementation projectOrDependency(":media-lib-exoplayer-workmanager", libs.androidx.media3.exoplayerworkmanager)
 

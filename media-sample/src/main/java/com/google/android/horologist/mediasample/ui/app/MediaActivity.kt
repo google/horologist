@@ -21,14 +21,18 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.NavHostController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.google.android.horologist.mediasample.ui.util.JankPrinter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MediaActivity : ComponentActivity() {
+    private lateinit var jankPrinter: JankPrinter
     lateinit var navController: NavHostController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        jankPrinter = JankPrinter()
 
         setTheme(android.R.style.Theme_DeviceDefault)
 
@@ -39,6 +43,8 @@ class MediaActivity : ComponentActivity() {
                 intent = intent
             )
         }
+
+        jankPrinter.installJankStats(this, navController)
     }
 
     companion object {

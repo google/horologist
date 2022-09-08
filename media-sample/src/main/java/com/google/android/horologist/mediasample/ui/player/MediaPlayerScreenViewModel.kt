@@ -46,6 +46,8 @@ class MediaPlayerScreenViewModel @Inject constructor(
         }
     }
 
+    val playerState = playerRepository.player
+
     val settingsState: StateFlow<Settings> = settingsRepository.settingsFlow
         .stateIn(
             viewModelScope,

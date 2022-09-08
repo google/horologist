@@ -15,15 +15,12 @@
  */
 package com.google.android.horologist.mediasample.ui.util;
 
-import android.app.Activity
 import android.util.Log
 import android.view.ViewGroup
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.platform.ComposeView
-import androidx.lifecycle.lifecycleScope
 import androidx.metrics.performance.JankStats
 import androidx.metrics.performance.PerformanceMetricsState
-import androidx.navigation.NavController
 import com.google.android.horologist.media.ui.navigation.NavigationScreens
 import com.google.android.horologist.mediasample.BuildConfig
 import kotlinx.coroutines.Dispatchers
@@ -40,8 +37,8 @@ class JankPrinter {
 
     private fun Long.nanosToMillis() = "${TimeUnit.NANOSECONDS.toMillis(this)}ms"
 
-    fun installJankStats(activity: ComponentActivity, navController: NavController) {
-        if (BuildConfig.DEBUG) {
+    fun installJankStats(activity: ComponentActivity) {
+        if (!BuildConfig.DEBUG) {
             // Assume Compose is used
             val contentView = activity.window.decorView.findViewById<ViewGroup>(android.R.id.content)
                 .getChildAt(0) as ComposeView
@@ -69,16 +66,10 @@ class JankPrinter {
                 // been optimised.
                 jankHeuristicMultiplier = 3f
             }
-
-            activity.lifecycleScope.launchWhenResumed {
-                navController.currentBackStackEntryFlow.collect {
-                    setRouteState(route = it.destination.route)
-                }
-            }
         }
     }
 
-    private fun setRouteState(route: String?) {
+    fun setRouteState(route: String?) {
         stateHolder?.state?.let {
             if (route != null) {
                 it.addState("route", route)

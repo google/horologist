@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.android.wearable.composeadvanced.presentation.ui.util
+package com.google.android.horologist.mediasample.ui.util
 
 import android.app.Activity
 import android.view.View

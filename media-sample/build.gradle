@@ -207,6 +207,8 @@ dependencies {
     implementation libs.room.ktx
     ksp libs.room.compiler
 
+    implementation libs.androidx.tracing
+
     testImplementation libs.junit
     testImplementation libs.truth
     testImplementation libs.androidx.test.ext.ktx

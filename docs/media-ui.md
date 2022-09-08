@@ -19,7 +19,7 @@ There is a guide on the usage of the stateful `PlayerScreen` [here][stateful pla
 
 ## Demo app
 
-A sample usage of [PlayerScreen][player screen] can be found in the [sample][sample app package] app in this project, in the [media][media screen sample package] package.
+A sample usage of [PlayerScreen][player screen] can be found in the [media sample][media sample app package] app in this project.
 
 ![](playerscreen.png){: loading=lazy align=center }
 
@@ -45,5 +45,4 @@ dependencies {
  [playerviewmodel]: https://github.com/google/horologist/blob/main/media-ui/src/main/java/com/google/android/horologist/media/ui/state/PlayerViewModel.kt
  [stateful playerscreen guide]: https://google.github.io/horologist/media-playerscreen/
  [player screen]: https://github.com/google/horologist/blob/main/media-ui/src/main/java/com/google/android/horologist/media/ui/screens/PlayerScreen.kt
- [sample app package]: https://github.com/google/horologist/tree/main/sample
- [media screen sample package]: https://github.com/google/horologist/tree/main/sample/src/main/java/com/google/android/horologist/sample/media
+ [media sample app package]: https://github.com/google/horologist/tree/main/media-sample

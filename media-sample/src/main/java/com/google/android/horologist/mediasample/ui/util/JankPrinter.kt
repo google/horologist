@@ -67,7 +67,7 @@ class JankPrinter {
             }.apply {
                 // 3x isn't very noticeable for a few frames and settles down after the app has
                 // been optimised.
-                jankHeuristicMultiplier = 1f
+                jankHeuristicMultiplier = 3f
             }
 
             activity.lifecycleScope.launchWhenResumed {

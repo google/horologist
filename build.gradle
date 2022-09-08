@@ -52,36 +52,36 @@ plugins {
 apply plugin: 'org.jetbrains.dokka'
 apply plugin: 'com.dropbox.affectedmoduledetector'
 
-//tasks.withType(org.jetbrains.dokka.gradle.DokkaMultiModuleTask).configureEach {
-//    outputDirectory = rootProject.file('docs/api')
-//    failOnWarning = true
-//}
+tasks.withType(org.jetbrains.dokka.gradle.DokkaMultiModuleTask).configureEach {
+    outputDirectory = rootProject.file('docs/api')
+    failOnWarning = true
+}
 
-//affectedModuleDetector {
-//    baseDir = "${project.rootDir}"
-//    pathsAffectingAllModules = [
-//            "gradle/libs.versions.toml",
-//    ]
-//    excludedModules = [
-//            "sample",
-//            "paparazzi",
-//    ]
-//
-//    logFilename = "output.log"
-//    logFolder = "${rootProject.buildDir}/reports/affectedModuleDetector"
-//
-//    String baseRef = findProperty("affected_base_ref")
-//    // If we have a base ref to diff against, extract the branch name and use it
-//    if (baseRef != null && !baseRef.isEmpty()) {
-//        // Remove the prefix from the head.
-//        // TODO: need to support other types of git refs
-//        specifiedBranch = baseRef.replace('refs/heads/', '')
-//        compareFrom = "SpecifiedBranchCommit"
-//    } else {
-//        // Otherwise we use the previous commit. This is mostly used for commits to main.
-//        compareFrom = "PreviousCommit"
-//    }
-//}
+affectedModuleDetector {
+    baseDir = "${project.rootDir}"
+    pathsAffectingAllModules = [
+            "gradle/libs.versions.toml",
+    ]
+    excludedModules = [
+            "sample",
+            "paparazzi",
+    ]
+
+    logFilename = "output.log"
+    logFolder = "${rootProject.buildDir}/reports/affectedModuleDetector"
+
+    String baseRef = findProperty("affected_base_ref")
+    // If we have a base ref to diff against, extract the branch name and use it
+    if (baseRef != null && !baseRef.isEmpty()) {
+        // Remove the prefix from the head.
+        // TODO: need to support other types of git refs
+        specifiedBranch = baseRef.replace('refs/heads/', '')
+        compareFrom = "SpecifiedBranchCommit"
+    } else {
+        // Otherwise we use the previous commit. This is mostly used for commits to main.
+        compareFrom = "PreviousCommit"
+    }
+}
 
 allprojects {
     repositories {
@@ -94,148 +94,148 @@ allprojects {
         }
     }
 
-//    plugins.withId("com.vanniktech.maven.publish") {
-//        mavenPublish {
-//            androidVariantToPublish = "release"
-//            sonatypeHost = "DEFAULT"
-//        }
-//    }
+    plugins.withId("com.vanniktech.maven.publish") {
+        mavenPublish {
+            androidVariantToPublish = "release"
+            sonatypeHost = "DEFAULT"
+        }
+    }
 }
 
-//subprojects {
-//    apply plugin: 'com.diffplug.spotless'
-//
-//    spotless {
-//        kotlin {
-//            target "**/*.kt"
-//            ktlint(libs.versions.ktlint.get())
-//            licenseHeaderFile rootProject.file('spotless/copyright.txt')
-//        }
-//
-//        groovyGradle {
-//            target '**/*.gradle'
-//            greclipse().configFile(rootProject.file('spotless/greclipse.properties'))
-//            licenseHeaderFile rootProject.file('spotless/copyright.txt'),
-//                    '(buildscript|apply|import|plugins)'
-//        }
-//    }
-//
-//    configurations.configureEach { Configuration configuration ->
-//        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-//            // Make sure that we're using the Android version of Guava
-//            if (configuration.name.containsIgnoreCase("android")
-//                    && details.requested.group == 'com.google.guava'
-//                    && details.requested.module.name == 'guava'
-//                    && details.requested.version.contains('jre')) {
-//                details.useVersion details.requested.version.replace('jre', 'android')
-//            }
-//        }
-//    }
-//
-//    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach { compile ->
-//        kotlinOptions {
-//            if (System.getenv("CI") == "true") {
-//                // Treat all Kotlin warnings as errors
-//                allWarningsAsErrors = true
-//            }
-//            // Set JVM target to 1.8
-//            jvmTarget = "1.8"
-//            // Allow use of @OptIn
-//            freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-//            // Enable default methods in interfaces
-//            freeCompilerArgs += "-Xjvm-default=all"
-//
-//            // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-//            if (!compile.name.endsWith("TestKotlin") && !compile.name.startsWith("compileDebug") && !project.name.contains("sample") && !project.name.contains("datalayer")) {
-//                // Enable explicit API mode
-//                compile.kotlinOptions.freeCompilerArgs.add("-Xexplicit-api=strict")
-//            }
-//        }
-//    }
-//
-//    // Read in the signing.properties file if it is exists
-//    def signingPropsFile = rootProject.file('release/signing.properties')
-//    if (signingPropsFile.exists()) {
-//        def localProperties = new Properties()
-//        signingPropsFile.withInputStream { is -> localProperties.load(is) }
-//        localProperties.each { prop -> project.ext.set(prop.key, prop.value) }
-//    }
-//
-//    // Must be afterEvaluate or else com.vanniktech.maven.publish will overwrite our
-//    // dokka and version configuration.
-//    afterEvaluate {
-//        if (tasks.findByName('dokkaHtmlPartial') == null) {
-//            // If dokka isn't enabled on this module, skip
-//            return
-//        }
-//
-//        tasks.named('dokkaHtmlPartial') {
-//            dokkaSourceSets.configureEach {
-//                reportUndocumented.set(true)
-//                skipEmptyPackages.set(true)
-//                skipDeprecated.set(true)
-//                jdkVersion.set(8)
-//
-//                // Add Android SDK packages
-//                noAndroidSdkLink.set(false)
-//
-//                // Add samples from :sample module
-//                samples.from(rootProject.file("sample/src/main/java/"))
-//
-//                // AndroidX + Compose docs
-//                externalDocumentationLink {
-//                    url.set(new URL("https://developer.android.com/reference/"))
-//                    packageListUrl.set(new URL("https://developer.android.com/reference/androidx/package-list"))
-//                }
-//                externalDocumentationLink {
-//                    url.set(new URL("https://developer.android.com/reference/kotlin/"))
-//                    packageListUrl.set(new URL("https://developer.android.com/reference/kotlin/androidx/package-list"))
-//                }
-//
-//                sourceLink {
-//                    localDirectory.set(project.file("src/main/java"))
-//                    // URL showing where the source code can be accessed through the web browser
-//                    remoteUrl.set(new URL("https://github.com/google/horologist/blob/main/${project.name}/src/main/java"))
-//                    // Suffix which is used to append the line number to the URL. Use #L for GitHub
-//                    remoteLineSuffix.set("#L")
-//                }
-//            }
-//        }
-//    }
-//
-//    afterEvaluate {
-//        def composeSnapshot = libs.versions.composesnapshot.get()
-//        if (composeSnapshot.length() > 1) {
-//            // We're depending on a Jetpack Compose snapshot, update the library version name
-//            // to indicate it's from a Compose snapshot
-//            def versionName = project.properties.get('VERSION_NAME')
-//            if (versionName.contains("SNAPSHOT")) {
-//                version = versionName.replace('-SNAPSHOT', ".compose-${composeSnapshot}-SNAPSHOT")
-//            }
-//        }
-//
-//        if (!version.endsWith('SNAPSHOT')) {
-//            // If we're not a SNAPSHOT library version, we fail the build if we're relying on
-//            // any snapshot dependencies
-//            configurations.configureEach { configuration ->
-//                configuration.dependencies.configureEach { dependency ->
-//                    if (dependency instanceof ProjectDependency) {
-//                        // We don't care about internal project dependencies
-//                        return
+subprojects {
+    apply plugin: 'com.diffplug.spotless'
+
+    spotless {
+        kotlin {
+            target "**/*.kt"
+            ktlint(libs.versions.ktlint.get())
+            licenseHeaderFile rootProject.file('spotless/copyright.txt')
+        }
+
+        groovyGradle {
+            target '**/*.gradle'
+            greclipse().configFile(rootProject.file('spotless/greclipse.properties'))
+            licenseHeaderFile rootProject.file('spotless/copyright.txt'),
+                    '(buildscript|apply|import|plugins)'
+        }
+    }
+
+    configurations.configureEach { Configuration configuration ->
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            // Make sure that we're using the Android version of Guava
+            if (configuration.name.containsIgnoreCase("android")
+                    && details.requested.group == 'com.google.guava'
+                    && details.requested.module.name == 'guava'
+                    && details.requested.version.contains('jre')) {
+                details.useVersion details.requested.version.replace('jre', 'android')
+            }
+        }
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach { compile ->
+        kotlinOptions {
+            if (System.getenv("CI") == "true") {
+                // Treat all Kotlin warnings as errors
+                allWarningsAsErrors = true
+            }
+            // Set JVM target to 1.8
+            jvmTarget = "1.8"
+            // Allow use of @OptIn
+            freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+            // Enable default methods in interfaces
+            freeCompilerArgs += "-Xjvm-default=all"
+
+            // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+            if (!compile.name.endsWith("TestKotlin") && !compile.name.startsWith("compileDebug") && !project.name.contains("sample") && !project.name.contains("datalayer")) {
+                // Enable explicit API mode
+                compile.kotlinOptions.freeCompilerArgs.add("-Xexplicit-api=strict")
+            }
+        }
+    }
+
+    // Read in the signing.properties file if it is exists
+    def signingPropsFile = rootProject.file('release/signing.properties')
+    if (signingPropsFile.exists()) {
+        def localProperties = new Properties()
+        signingPropsFile.withInputStream { is -> localProperties.load(is) }
+        localProperties.each { prop -> project.ext.set(prop.key, prop.value) }
+    }
+
+    // Must be afterEvaluate or else com.vanniktech.maven.publish will overwrite our
+    // dokka and version configuration.
+    afterEvaluate {
+        if (tasks.findByName('dokkaHtmlPartial') == null) {
+            // If dokka isn't enabled on this module, skip
+            return
+        }
+
+        tasks.named('dokkaHtmlPartial') {
+            dokkaSourceSets.configureEach {
+                reportUndocumented.set(true)
+                skipEmptyPackages.set(true)
+                skipDeprecated.set(true)
+                jdkVersion.set(8)
+
+                // Add Android SDK packages
+                noAndroidSdkLink.set(false)
+
+                // Add samples from :sample module
+                samples.from(rootProject.file("sample/src/main/java/"))
+
+                // AndroidX + Compose docs
+                externalDocumentationLink {
+                    url.set(new URL("https://developer.android.com/reference/"))
+                    packageListUrl.set(new URL("https://developer.android.com/reference/androidx/package-list"))
+                }
+                externalDocumentationLink {
+                    url.set(new URL("https://developer.android.com/reference/kotlin/"))
+                    packageListUrl.set(new URL("https://developer.android.com/reference/kotlin/androidx/package-list"))
+                }
+
+                sourceLink {
+                    localDirectory.set(project.file("src/main/java"))
+                    // URL showing where the source code can be accessed through the web browser
+                    remoteUrl.set(new URL("https://github.com/google/horologist/blob/main/${project.name}/src/main/java"))
+                    // Suffix which is used to append the line number to the URL. Use #L for GitHub
+                    remoteLineSuffix.set("#L")
+                }
+            }
+        }
+    }
+
+    afterEvaluate {
+        def composeSnapshot = libs.versions.composesnapshot.get()
+        if (composeSnapshot.length() > 1) {
+            // We're depending on a Jetpack Compose snapshot, update the library version name
+            // to indicate it's from a Compose snapshot
+            def versionName = project.properties.get('VERSION_NAME')
+            if (versionName.contains("SNAPSHOT")) {
+                version = versionName.replace('-SNAPSHOT', ".compose-${composeSnapshot}-SNAPSHOT")
+            }
+        }
+
+        if (!version.endsWith('SNAPSHOT')) {
+            // If we're not a SNAPSHOT library version, we fail the build if we're relying on
+            // any snapshot dependencies
+            configurations.configureEach { configuration ->
+                configuration.dependencies.configureEach { dependency ->
+                    if (dependency instanceof ProjectDependency) {
+                        // We don't care about internal project dependencies
+                        return
+                    }
+
+                    def depVersion = dependency.version
+                    // TODO reenable https://github.com/google/horologist/issues/34
+//                    if (depVersion != null && depVersion.endsWith('SNAPSHOT')) {
+//                        throw new IllegalArgumentException(
+//                                "Using SNAPSHOT dependency with non-SNAPSHOT library version: $dependency"
+//                        )
 //                    }
-//
-//                    def depVersion = dependency.version
-//                    // TODO reenable https://github.com/google/horologist/issues/34
-////                    if (depVersion != null && depVersion.endsWith('SNAPSHOT')) {
-////                        throw new IllegalArgumentException(
-////                                "Using SNAPSHOT dependency with non-SNAPSHOT library version: $dependency"
-////                        )
-////                    }
-//                }
-//            }
-//        }
-//    }
-//}
+                }
+            }
+        }
+    }
+}
 
 def projectOrDependency(module, dependency = null) {
     return findProject(module) ?: dependency
@@ -248,12 +248,12 @@ tasks.named("dependencyUpdates").configure {
     }
 }
 
-//if (!getPluginManager().hasPlugin("nl.littlerobots.version-catalog-update")) {
-//    apply plugin: "nl.littlerobots.version-catalog-update"
-//}
+if (!getPluginManager().hasPlugin("nl.littlerobots.version-catalog-update")) {
+    apply plugin: "nl.littlerobots.version-catalog-update"
+}
 
-//versionCatalogUpdate {
-//    keep {
-//        keepUnusedVersions = true
-//    }
-//}
+versionCatalogUpdate {
+    keep {
+        keepUnusedVersions = true
+    }
+}

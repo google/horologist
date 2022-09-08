@@ -36,6 +36,7 @@ com.google.android.horologist.media.data.database.model
 com.google.android.horologist.media.data.datasource
 com.google.android.horologist.media.data.mapper
 com.google.android.horologist.media.data.repository
+com.google.android.horologist.media.data.service.download
 module:media-sync
 com.google.android.horologist.media.sync.api
 com.google.android.horologist.media.sync.initializers
@@ -48,7 +49,6 @@ com.google.android.horologist.media.ui.components.animated
 com.google.android.horologist.media.ui.components.background
 com.google.android.horologist.media.ui.components.base
 com.google.android.horologist.media.ui.components.controls
-com.google.android.horologist.media.ui.components.list.sectioned
 com.google.android.horologist.media.ui.navigation
 com.google.android.horologist.media.ui.screens.browse
 com.google.android.horologist.media.ui.screens.entity
@@ -77,8 +77,11 @@ module:network-awareness
 com.google.android.horologist.networks
 com.google.android.horologist.networks.data
 com.google.android.horologist.networks.db
+com.google.android.horologist.networks.highbandwidth
 com.google.android.horologist.networks.logging
 com.google.android.horologist.networks.okhttp
+com.google.android.horologist.networks.okhttp.impl
+com.google.android.horologist.networks.request
 com.google.android.horologist.networks.rules
 com.google.android.horologist.networks.status
 com.google.android.horologist.networks.ui

@@ -72,6 +72,11 @@
                     android:host="uamp"
                     android:scheme="uamp${schemeSuffix}" />
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="com.google.android.horologist.mediasample.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
 
         <service

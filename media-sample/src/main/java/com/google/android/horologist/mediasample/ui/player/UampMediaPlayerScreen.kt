@@ -36,6 +36,7 @@ import com.google.android.horologist.media.ui.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.mediasample.ui.components.AnimatedPlayerScreenMediaDisplay
+import com.google.android.horologist.mediasample.ui.util.ReportFullyDrawn
 
 @Composable
 fun UampMediaPlayerScreen(
@@ -102,6 +103,11 @@ fun UampMediaPlayerScreen(
                 )
             }
         )
+    }
+
+    val player by rememberStateWithLifecycle(mediaPlayerScreenViewModel.playerState)
+    if (player != null) {
+        ReportFullyDrawn()
     }
 }
 

@@ -68,14 +68,20 @@ public open class NetworkLoggingEventListenerFactory(
         }
 
         override fun connectionAcquired(call: Call, connection: Connection) {
+            val request = call.request()
+
             val localAddress = connection.socket().localAddress
-            val network = networkRepository.networkByAddress(localAddress)
-            val networkInfo = network?.networkInfo ?: NetworkInfo.Unknown(localAddress.toString())
+            val currentNetworkInfo = request.networkInfo
+            val networkInfo = if (currentNetworkInfo == null) {
+                val network = networkRepository.networkByAddress(localAddress)
+                network?.networkInfo ?: NetworkInfo.Unknown(localAddress.toString()).also {
+                    request.networkInfo = it
+                }
+            } else {
+                currentNetworkInfo
+            }
 
-            val requestType = call.request().requestType
-            call.request().networkInfo = networkInfo
-
-            logger.debugNetworkEvent("HTTPS request $requestType ${networkInfo.type} $localAddress")
+            logger.debugNetworkEvent("HTTPS request ${request.requestType} ${networkInfo.type} $localAddress")
 
             super.connectionAcquired(call, connection)
         }

@@ -40,7 +40,7 @@ public fun SectionedList(
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
-    scope: SectionedListScope.() -> Unit
+    content: SectionedListScope.() -> Unit
 ) {
     ScalingLazyColumn(
         modifier = modifier
@@ -49,7 +49,7 @@ public fun SectionedList(
         state = scalingLazyListState,
         scalingParams = scalingParams
     ) {
-        SectionedListScope().apply(scope).sections.forEach { section ->
+        SectionedListScope().apply(content).sections.forEach { section ->
             section.display(this)
         }
     }
@@ -58,37 +58,37 @@ public fun SectionedList(
 internal fun <T> Section<T>.display(scope: ScalingLazyListScope) {
     val section = this
     section.headerContent?.let { content ->
-        scope.item { content() }
+        scope.item { SectionContentScope.content() }
     }
 
     when (section.state) {
         Section.State.Loading -> {
             section.loadingContent?.let { content ->
-                scope.item { content() }
+                scope.item { SectionContentScope.content() }
             }
         }
         is Section.State.Loaded<*> -> {
             val list = section.state.list
             scope.items(list.size) { index ->
                 @Suppress("UNCHECKED_CAST")
-                section.loadedContent(list[index] as T)
+                section.loadedContent(SectionContentScope, list[index] as T)
             }
         }
         Section.State.Failed -> {
             section.failedContent?.let { content ->
-                scope.item { content() }
+                scope.item { SectionContentScope.content() }
             }
         }
         Section.State.Empty -> {
             section.emptyContent?.let { content ->
-                scope.item { content() }
+                scope.item { SectionContentScope.content() }
             }
         }
     }
 
     section.footerContent?.let { content ->
         if (!displayFooterOnlyOnLoadedState || state is Section.State.Loaded<*>) {
-            scope.item { content() }
+            scope.item { SectionContentScope.content() }
         }
     }
 }
@@ -99,12 +99,12 @@ internal fun <T> Section<T>.display(scope: ScalingLazyListScope) {
 @ExperimentalHorologistComposablesApi
 public data class Section<T> internal constructor(
     val state: State,
-    val headerContent: (@Composable () -> Unit)? = null,
-    val loadingContent: (@Composable () -> Unit)? = null,
-    val loadedContent: @Composable (T) -> Unit,
-    val failedContent: (@Composable () -> Unit)? = null,
-    val emptyContent: (@Composable () -> Unit)? = null,
-    val footerContent: (@Composable () -> Unit)? = null,
+    val headerContent: (@Composable SectionContentScope.() -> Unit)? = null,
+    val loadingContent: (@Composable SectionContentScope.() -> Unit)? = null,
+    val loadedContent: @Composable SectionContentScope.(T) -> Unit,
+    val failedContent: (@Composable SectionContentScope.() -> Unit)? = null,
+    val emptyContent: (@Composable SectionContentScope.() -> Unit)? = null,
+    val footerContent: (@Composable SectionContentScope.() -> Unit)? = null,
     val displayFooterOnlyOnLoadedState: Boolean = true
 ) {
     /**
@@ -124,28 +124,36 @@ public data class Section<T> internal constructor(
 }
 
 /**
- * Receiver scope which is used by [SectionedList].
+ * DSL marker used to distinguish between scopes of [SectionedList].
+ */
+@DslMarker
+internal annotation class SectionScopeMarker
+
+/**
+ * Receiver scope which is used by content parameter in [SectionedList].
  */
 @ExperimentalHorologistComposablesApi
+@SectionScopeMarker
 public class SectionedListScope {
 
     internal val sections: MutableList<Section<*>> = mutableListOf()
 
+    @SectionScopeMarker
     public fun <T> section(
         state: Section.State,
         displayFooterOnlyOnLoadedState: Boolean = true,
-        builder: SectionContentScope<T>.() -> Unit
+        content: SectionScope<T>.() -> Unit
     ) {
-        with(SectionContentScope<T>().apply(builder)) {
+        SectionScope<T>().apply(content).let { scope ->
             sections.add(
                 Section(
                     state = state,
-                    headerContent = this.headerContent,
-                    loadingContent = this.loadingContent,
-                    loadedContent = this.loadedContent,
-                    failedContent = this.failedContent,
-                    emptyContent = this.emptyContent,
-                    footerContent = this.footerContent,
+                    headerContent = scope.headerContent,
+                    loadingContent = scope.loadingContent,
+                    loadedContent = scope.loadedContent,
+                    failedContent = scope.failedContent,
+                    emptyContent = scope.emptyContent,
+                    footerContent = scope.footerContent,
                     displayFooterOnlyOnLoadedState = displayFooterOnlyOnLoadedState
                 )
             )
@@ -155,72 +163,88 @@ public class SectionedListScope {
     /**
      * Add a section in [loaded][Section.State.Loaded] state.
      */
+    @SectionScopeMarker
     public fun <T> section(
         list: List<T>,
-        builder: SectionContentScope<T>.() -> Unit
+        content: SectionScope<T>.() -> Unit
     ): Unit = section(
         state = Section.State.Loaded(list),
         displayFooterOnlyOnLoadedState = true,
-        builder = builder
+        content = content
     )
 
     /**
      * Add a section in [loaded][Section.State.Loaded] state with a single item.
      */
+    @SectionScopeMarker
     public fun section(
-        builder: SectionContentScope<Unit>.() -> Unit
+        content: SectionScope<Unit>.() -> Unit
     ): Unit = section(
         state = Section.State.Loaded(listOf(Unit)),
         displayFooterOnlyOnLoadedState = true,
-        builder = builder
+        content = content
     )
 }
 
 /**
- * Receiver scope which is used by [SectionedListScope].
+ * Receiver scope which is used by content parameter in [SectionedListScope] functions.
  */
 @ExperimentalHorologistComposablesApi
-public class SectionContentScope<T> {
+@SectionScopeMarker
+public class SectionScope<T> {
 
-    internal var headerContent: @Composable () -> Unit = { }
+    internal var headerContent: @Composable SectionContentScope.() -> Unit = { }
         private set
 
-    internal var loadingContent: @Composable () -> Unit = { }
+    internal var loadingContent: @Composable SectionContentScope.() -> Unit = { }
         private set
 
-    internal var loadedContent: @Composable (T) -> Unit = { }
+    internal var loadedContent: @Composable SectionContentScope.(T) -> Unit = { }
         private set
 
-    internal var failedContent: @Composable () -> Unit = { }
+    internal var failedContent: @Composable SectionContentScope.() -> Unit = { }
         private set
 
-    internal var emptyContent: @Composable () -> Unit = { }
+    internal var emptyContent: @Composable SectionContentScope.() -> Unit = { }
         private set
 
-    internal var footerContent: @Composable () -> Unit = { }
+    internal var footerContent: @Composable SectionContentScope.() -> Unit = { }
         private set
 
-    public fun header(content: @Composable () -> Unit) {
+    @SectionScopeMarker
+    public fun header(content: @Composable SectionContentScope.() -> Unit) {
         headerContent = content
     }
 
-    public fun loading(content: @Composable () -> Unit) {
+    @SectionScopeMarker
+    public fun loading(content: @Composable SectionContentScope.() -> Unit) {
         loadingContent = content
     }
 
-    public fun loaded(content: @Composable (T) -> Unit) {
+    @SectionScopeMarker
+    public fun loaded(content: @Composable SectionContentScope.(T) -> Unit) {
         loadedContent = content
     }
 
-    public fun failed(content: @Composable () -> Unit) {
+    @SectionScopeMarker
+    public fun failed(content: @Composable SectionContentScope.() -> Unit) {
         failedContent = content
     }
 
-    public fun empty(content: @Composable () -> Unit) {
+    @SectionScopeMarker
+    public fun empty(content: @Composable SectionContentScope.() -> Unit) {
         emptyContent = content
     }
 
-    public fun footer(content: @Composable () -> Unit) {
+    @SectionScopeMarker
+    public fun footer(content: @Composable SectionContentScope.() -> Unit) {
         footerContent = content
     }
 }
+
+/**
+ * Receiver scope which is used by content parameter in [SectionScope] functions.
+ */
+@ExperimentalHorologistComposablesApi
+@SectionScopeMarker
+public object SectionContentScope

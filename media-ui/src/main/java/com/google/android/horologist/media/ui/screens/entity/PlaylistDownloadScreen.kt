@@ -51,6 +51,7 @@ import com.google.android.horologist.composables.ExperimentalHorologistComposabl
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
+import com.google.android.horologist.media.ui.components.base.IconProgressState
 import com.google.android.horologist.media.ui.components.base.StandardButton
 import com.google.android.horologist.media.ui.components.base.StandardButtonSize
 import com.google.android.horologist.media.ui.components.base.StandardButtonType
@@ -126,11 +127,25 @@ public fun PlaylistDownloadScreen(
                 is DownloadMediaUiModel.NotDownloaded -> downloadMediaUiModel.artist
             }
 
+            val iconLoadingState = when (downloadMediaUiModel) {
+                is DownloadMediaUiModel.Downloaded -> null
+                is DownloadMediaUiModel.Downloading -> {
+                    when (downloadMediaUiModel.progress) {
+                        is DownloadMediaUiModel.Progress.InProgress -> IconProgressState.InProgress(downloadMediaUiModel.progress.progress.toFloat())
+                        is DownloadMediaUiModel.Progress.Waiting -> IconProgressState.Waiting
+                    }
+                }
+                is DownloadMediaUiModel.NotDownloaded -> null
+            }
+
             StandardChip(
                 label = downloadMediaUiModel.title ?: defaultMediaTitle,
                 onClick = { onDownloadItemClick(downloadMediaUiModel) },
                 secondaryLabel = secondaryLabel,
                 icon = downloadMediaUiModel.artworkUri,
+                iconProgressState = iconLoadingState,
+                iconProgressIndicatorColor = MaterialTheme.colors.primary,
+                iconProgressTrackColor = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
                 largeIcon = true,
                 placeholder = downloadItemArtworkPlaceholder,
                 chipType = StandardChipType.Secondary,

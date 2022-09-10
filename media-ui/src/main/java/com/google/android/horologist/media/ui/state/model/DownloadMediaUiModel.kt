@@ -61,7 +61,7 @@ public sealed class DownloadMediaUiModel(
     public sealed class Progress {
         public object Waiting : Progress()
 
-        public data class InProgress(val progress: String) : Progress()
+        public data class InProgress(val progress: Float) : Progress()
     }
 
     public sealed class Size {

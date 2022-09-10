@@ -46,7 +46,7 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
                 id = "id 3",
                 title = "Song name 3",
                 artworkUri = "artworkUri",
-                progress = DownloadMediaUiModel.Progress.InProgress("60"),
+                progress = DownloadMediaUiModel.Progress.InProgress(60f),
                 size = DownloadMediaUiModel.Size.Known(sizeInBytes = 1280049)
             )
         )
@@ -84,7 +84,7 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
                 id = "id 3",
                 title = "Song name 3",
                 artworkUri = "artworkUri",
-                progress = DownloadMediaUiModel.Progress.InProgress("60"),
+                progress = DownloadMediaUiModel.Progress.InProgress(60f),
                 size = DownloadMediaUiModel.Size.Known(sizeInBytes = 1280049)
             )
         )
@@ -116,7 +116,7 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
                 id = "id 2",
                 title = "Song name 2",
                 artworkUri = "artworkUri",
-                progress = DownloadMediaUiModel.Progress.InProgress("60"),
+                progress = DownloadMediaUiModel.Progress.InProgress(60f),
                 size = DownloadMediaUiModel.Size.Known(sizeInBytes = 1280049)
             )
         )
@@ -234,14 +234,14 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
                 id = "id 3",
                 title = "Song name 3",
                 artworkUri = "artworkUri",
-                progress = DownloadMediaUiModel.Progress.InProgress("60"),
+                progress = DownloadMediaUiModel.Progress.InProgress(60f),
                 size = DownloadMediaUiModel.Size.Known(sizeInBytes = 1280049)
             ),
             DownloadMediaUiModel.Downloading(
                 id = "id 4",
                 title = "Song name 4",
                 artworkUri = "artworkUri",
-                progress = DownloadMediaUiModel.Progress.InProgress("60"),
+                progress = DownloadMediaUiModel.Progress.InProgress(60f),
                 size = DownloadMediaUiModel.Size.Known(sizeInBytes = 1280049)
             )
         )

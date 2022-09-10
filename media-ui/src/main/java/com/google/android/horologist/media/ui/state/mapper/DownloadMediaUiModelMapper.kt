@@ -29,7 +29,6 @@ import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 @ExperimentalHorologistMediaUiApi
 public object DownloadMediaUiModelMapper {
 
-    private const val PROGRESS_FORMAT = "%.0f"
     private const val PROGRESS_WAITING = 0f
 
     /**
@@ -55,7 +54,7 @@ public object DownloadMediaUiModelMapper {
                 progress = if (mediaDownloadStatus.progress == PROGRESS_WAITING) {
                     DownloadMediaUiModel.Progress.Waiting
                 } else {
-                    DownloadMediaUiModel.Progress.InProgress(PROGRESS_FORMAT.format(mediaDownloadStatus.progress))
+                    DownloadMediaUiModel.Progress.InProgress(mediaDownloadStatus.progress)
                 },
                 size = when (mediaDownload.size) {
                     is MediaDownload.Size.Known -> {

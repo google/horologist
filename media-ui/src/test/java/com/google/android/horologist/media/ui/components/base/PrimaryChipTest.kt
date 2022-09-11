@@ -257,6 +257,22 @@ class PrimaryChipTest {
         }
     }
 
+    @Test
+    fun enabledWithIconProgress() {
+        paparazzi.snapshot {
+            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
+                StandardChip(
+                    label = "Primary label",
+                    onClick = { },
+                    secondaryLabel = "75% of 13MB",
+                    icon = "iconUri",
+                    enabled = true,
+                    iconProgressState = IconProgressState.InProgress(75f)
+                )
+            }
+        }
+    }
+
     companion object {
 
         private val Icon12dp: ImageVector

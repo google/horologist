@@ -131,7 +131,9 @@ public fun PlaylistDownloadScreen(
                 is DownloadMediaUiModel.Downloaded -> null
                 is DownloadMediaUiModel.Downloading -> {
                     when (downloadMediaUiModel.progress) {
-                        is DownloadMediaUiModel.Progress.InProgress -> IconProgressState.InProgress(downloadMediaUiModel.progress.progress.toFloat())
+                        is DownloadMediaUiModel.Progress.InProgress -> IconProgressState.InProgress(
+                            downloadMediaUiModel.progress.progress
+                        )
                         is DownloadMediaUiModel.Progress.Waiting -> IconProgressState.Waiting
                     }
                 }

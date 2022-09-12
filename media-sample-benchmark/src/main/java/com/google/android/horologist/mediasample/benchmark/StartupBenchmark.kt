@@ -44,7 +44,7 @@ class StartupBenchmark(
         packageName = PACKAGE_NAME,
         metrics = listOf(StartupTimingMetric(), TraceSectionMetric("SyncWorker")),
         compilationMode = compilationMode,
-        iterations = 1,
+        iterations = 10,
         startupMode = StartupMode.COLD
     ) {
         startActivityAndWait()

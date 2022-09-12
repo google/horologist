@@ -174,13 +174,16 @@ private fun BoxScope.CircularProgressBar(
     iconProgressIndicatorColor: Color?,
     iconProgressTrackColor: Color?
 ) {
+    val defaultTrackColor = MaterialTheme.colors.onSurface.copy(alpha = 0.10f)
+    val defaultIndicatorColor = MaterialTheme.colors.primary
+
     if (iconProgressState is IconProgressState.InProgress) {
         CircularProgressIndicator(
             modifier = Modifier
                 .size(iconSize + indicatorPadding)
                 .align(Alignment.Center),
-            indicatorColor = iconProgressIndicatorColor ?: MaterialTheme.colors.onBackground,
-            trackColor = iconProgressTrackColor ?: MaterialTheme.colors.background,
+            indicatorColor = iconProgressIndicatorColor ?: defaultIndicatorColor,
+            trackColor = iconProgressTrackColor ?: defaultTrackColor,
             progress = iconProgressState.progress / 100
         )
     } else {
@@ -188,8 +191,8 @@ private fun BoxScope.CircularProgressBar(
             modifier = Modifier
                 .size(iconSize + indicatorPadding)
                 .align(Alignment.Center),
-            indicatorColor = iconProgressIndicatorColor ?: MaterialTheme.colors.onBackground,
-            trackColor = iconProgressTrackColor ?: MaterialTheme.colors.background
+            indicatorColor = iconProgressIndicatorColor ?: defaultIndicatorColor,
+            trackColor = iconProgressTrackColor ?: defaultTrackColor
         )
     }
 }

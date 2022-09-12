@@ -35,29 +35,29 @@ package com.google.android.horologist.composables {
 
   @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public final class Section<T> {
     method public com.google.android.horologist.composables.Section.State component1();
-    method public kotlin.jvm.functions.Function0<kotlin.Unit>? component2();
-    method public kotlin.jvm.functions.Function0<kotlin.Unit>? component3();
-    method public kotlin.jvm.functions.Function1<T,kotlin.Unit> component4();
-    method public kotlin.jvm.functions.Function0<kotlin.Unit>? component5();
-    method public kotlin.jvm.functions.Function0<kotlin.Unit>? component6();
-    method public kotlin.jvm.functions.Function0<kotlin.Unit>? component7();
+    method public kotlin.jvm.functions.Function1<com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? component2();
+    method public kotlin.jvm.functions.Function1<com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? component3();
+    method public kotlin.jvm.functions.Function2<com.google.android.horologist.composables.SectionContentScope,T,kotlin.Unit> component4();
+    method public kotlin.jvm.functions.Function1<com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? component5();
+    method public kotlin.jvm.functions.Function1<com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? component6();
+    method public kotlin.jvm.functions.Function1<com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? component7();
     method public boolean component8();
-    method public com.google.android.horologist.composables.Section<T> copy(com.google.android.horologist.composables.Section.State state, kotlin.jvm.functions.Function0<kotlin.Unit>? headerContent, kotlin.jvm.functions.Function0<kotlin.Unit>? loadingContent, kotlin.jvm.functions.Function1<? super T,kotlin.Unit> loadedContent, kotlin.jvm.functions.Function0<kotlin.Unit>? failedContent, kotlin.jvm.functions.Function0<kotlin.Unit>? emptyContent, kotlin.jvm.functions.Function0<kotlin.Unit>? footerContent, boolean displayFooterOnlyOnLoadedState);
+    method public com.google.android.horologist.composables.Section<T> copy(com.google.android.horologist.composables.Section.State state, kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? headerContent, kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? loadingContent, kotlin.jvm.functions.Function2<? super com.google.android.horologist.composables.SectionContentScope,? super T,kotlin.Unit> loadedContent, kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? failedContent, kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? emptyContent, kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? footerContent, boolean displayFooterOnlyOnLoadedState);
     method public boolean getDisplayFooterOnlyOnLoadedState();
-    method public kotlin.jvm.functions.Function0<kotlin.Unit>? getEmptyContent();
-    method public kotlin.jvm.functions.Function0<kotlin.Unit>? getFailedContent();
-    method public kotlin.jvm.functions.Function0<kotlin.Unit>? getFooterContent();
-    method public kotlin.jvm.functions.Function0<kotlin.Unit>? getHeaderContent();
-    method public kotlin.jvm.functions.Function1<T,kotlin.Unit> getLoadedContent();
-    method public kotlin.jvm.functions.Function0<kotlin.Unit>? getLoadingContent();
+    method public kotlin.jvm.functions.Function1<com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? getEmptyContent();
+    method public kotlin.jvm.functions.Function1<com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? getFailedContent();
+    method public kotlin.jvm.functions.Function1<com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? getFooterContent();
+    method public kotlin.jvm.functions.Function1<com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? getHeaderContent();
+    method public kotlin.jvm.functions.Function2<com.google.android.horologist.composables.SectionContentScope,T,kotlin.Unit> getLoadedContent();
+    method public kotlin.jvm.functions.Function1<com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? getLoadingContent();
     method public com.google.android.horologist.composables.Section.State getState();
     property public final boolean displayFooterOnlyOnLoadedState;
-    property public final kotlin.jvm.functions.Function0<kotlin.Unit>? emptyContent;
-    property public final kotlin.jvm.functions.Function0<kotlin.Unit>? failedContent;
-    property public final kotlin.jvm.functions.Function0<kotlin.Unit>? footerContent;
-    property public final kotlin.jvm.functions.Function0<kotlin.Unit>? headerContent;
-    property public final kotlin.jvm.functions.Function1<T,kotlin.Unit> loadedContent;
-    property public final kotlin.jvm.functions.Function0<kotlin.Unit>? loadingContent;
+    property public final kotlin.jvm.functions.Function1<com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? emptyContent;
+    property public final kotlin.jvm.functions.Function1<com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? failedContent;
+    property public final kotlin.jvm.functions.Function1<com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? footerContent;
+    property public final kotlin.jvm.functions.Function1<com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? headerContent;
+    property public final kotlin.jvm.functions.Function2<com.google.android.horologist.composables.SectionContentScope,T,kotlin.Unit> loadedContent;
+    property public final kotlin.jvm.functions.Function1<com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? loadingContent;
     property public final com.google.android.horologist.composables.Section.State state;
   }
 
@@ -84,25 +84,29 @@ package com.google.android.horologist.composables {
     field public static final com.google.android.horologist.composables.Section.State.Loading INSTANCE;
   }
 
-  @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public final class SectionContentScope<T> {
-    ctor public SectionContentScope();
-    method public void empty(kotlin.jvm.functions.Function0<kotlin.Unit> content);
-    method public void failed(kotlin.jvm.functions.Function0<kotlin.Unit> content);
-    method public void footer(kotlin.jvm.functions.Function0<kotlin.Unit> content);
-    method public void header(kotlin.jvm.functions.Function0<kotlin.Unit> content);
-    method public void loaded(kotlin.jvm.functions.Function1<? super T,kotlin.Unit> content);
-    method public void loading(kotlin.jvm.functions.Function0<kotlin.Unit> content);
+  @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public final class SectionContentScope {
+    field public static final com.google.android.horologist.composables.SectionContentScope INSTANCE;
+  }
+
+  @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public final class SectionScope<T> {
+    ctor public SectionScope();
+    method public void empty(kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope,kotlin.Unit> content);
+    method public void failed(kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope,kotlin.Unit> content);
+    method public void footer(kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope,kotlin.Unit> content);
+    method public void header(kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope,kotlin.Unit> content);
+    method public void loaded(kotlin.jvm.functions.Function2<? super com.google.android.horologist.composables.SectionContentScope,? super T,kotlin.Unit> content);
+    method public void loading(kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope,kotlin.Unit> content);
   }
 
   public final class SectionedListKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void SectionedList(androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ScalingParams scalingParams, kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionedListScope,kotlin.Unit> scope);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void SectionedList(androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ScalingParams scalingParams, kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionedListScope,kotlin.Unit> content);
   }
 
   @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public final class SectionedListScope {
     ctor public SectionedListScope();
-    method public <T> void section(com.google.android.horologist.composables.Section.State state, optional boolean displayFooterOnlyOnLoadedState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope<T>,kotlin.Unit> builder);
-    method public <T> void section(java.util.List<? extends T> list, kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope<T>,kotlin.Unit> builder);
-    method public void section(kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope<kotlin.Unit>,kotlin.Unit> builder);
+    method public <T> void section(com.google.android.horologist.composables.Section.State state, optional boolean displayFooterOnlyOnLoadedState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionScope<T>,kotlin.Unit> content);
+    method public <T> void section(java.util.List<? extends T> list, kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionScope<T>,kotlin.Unit> content);
+    method public void section(kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionScope<kotlin.Unit>,kotlin.Unit> content);
   }
 
   public final class SegmentedProgressIndicatorKt {

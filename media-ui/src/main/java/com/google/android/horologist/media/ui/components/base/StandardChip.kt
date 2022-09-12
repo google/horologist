@@ -184,7 +184,8 @@ private fun BoxScope.CircularProgressBar(
                 .align(Alignment.Center),
             indicatorColor = iconProgressIndicatorColor ?: defaultIndicatorColor,
             trackColor = iconProgressTrackColor ?: defaultTrackColor,
-            progress = iconProgressState.progress / 100
+            progress = iconProgressState.progress / 100,
+            strokeWidth = 2.dp
         )
     } else {
         CircularProgressIndicator(
@@ -192,7 +193,8 @@ private fun BoxScope.CircularProgressBar(
                 .size(iconSize + indicatorPadding)
                 .align(Alignment.Center),
             indicatorColor = iconProgressIndicatorColor ?: defaultIndicatorColor,
-            trackColor = iconProgressTrackColor ?: defaultTrackColor
+            trackColor = iconProgressTrackColor ?: defaultTrackColor,
+            strokeWidth = 2.dp
         )
     }
 }

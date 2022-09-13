@@ -16,7 +16,7 @@ When submitting a PR, please check API compatibility and lint rules first.
 A good first step is 
 
 ```
-$ ./gradlew spotlessApply spotlessCheck compileDebugSources compileReleaseSources metalavaGenerateSignature lintDebug
+$ ./gradlew spotlessApply spotlessCheck compileDebugSources compileReleaseSources metalavaGenerateSignatureDebug lintDebug
 ```
 
 Also make sure you have [Git LFS]([url](https://git-lfs.github.com/)) installed.

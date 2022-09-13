@@ -25,6 +25,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.TimeText
+import androidx.wear.compose.navigation.SwipeDismissableNavHostState
+import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.audio.ui.VolumeScreen
@@ -54,6 +56,8 @@ import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
  * @param deepLinkPrefix the app specific prefix for external deeplinks
  * @param navController the media focused navigation controller.
  * @param additionalNavRoutes additional nav routes exposed for extra screens.
+ * @param pagerState the [PagerState] controlling the Player / Browse screen position.
+ * @param navHostState the [SwipeDismissableNavHostState] including swipe to dismiss state.
  */
 @Composable
 public fun MediaPlayerScaffold(
@@ -75,6 +79,7 @@ public fun MediaPlayerScaffold(
         TimeText(modifier = it)
     },
     pagerState: PagerState = rememberPagerState(initialPage = 0),
+    navHostState: SwipeDismissableNavHostState = rememberSwipeDismissableNavHostState(),
     deepLinkPrefix: String,
     navController: NavHostController,
     additionalNavRoutes: NavGraphBuilder.() -> Unit = {}
@@ -89,7 +94,8 @@ public fun MediaPlayerScaffold(
                 modifier = Modifier.fillMaxSize(),
                 hostState = snackbarViewModel.snackbarHostState
             )
-        }
+        },
+        state = navHostState
     ) {
         wearNavComposable(
             route = NavigationScreens.Player.navRoute,

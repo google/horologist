@@ -21,13 +21,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
+import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollection
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollections
@@ -58,6 +59,9 @@ fun UampWearApp(
     val appViewModel: MediaPlayerAppViewModel = hiltViewModel()
     val volumeViewModel: VolumeViewModel = hiltViewModel()
     val mediaInfoTimeTextViewModel: MediaInfoTimeTextViewModel = hiltViewModel()
+
+    val pagerState = rememberPagerState(initialPage = 0)
+    val navHostState = rememberSwipeDismissableNavHostState()
 
     val timeText: @Composable (Modifier) -> Unit = { modifier ->
         MediaInfoTimeText(
@@ -140,6 +144,8 @@ fun UampWearApp(
                     navController = navController
                 )
             },
+            navHostState = navHostState,
+            pagerState = pagerState,
             snackbarViewModel = hiltViewModel<SnackbarViewModel>(),
             volumeViewModel = hiltViewModel<VolumeViewModel>(),
             timeText = timeText,

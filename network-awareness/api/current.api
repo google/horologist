@@ -360,7 +360,7 @@ package com.google.android.horologist.networks.highbandwidth {
     property public final com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest Wifi;
   }
 
-  public interface HighBandwithConnectionLease extends java.io.Closeable {
+  public interface HighBandwithConnectionLease extends java.lang.AutoCloseable {
     method public suspend Object? awaitGranted(kotlin.coroutines.Continuation<? super com.google.android.horologist.networks.data.NetworkType> p);
   }
 

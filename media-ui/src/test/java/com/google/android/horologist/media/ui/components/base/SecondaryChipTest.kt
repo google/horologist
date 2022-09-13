@@ -20,6 +20,7 @@ package com.google.android.horologist.media.ui.components.base
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.materialPath
@@ -246,6 +247,48 @@ class SecondaryChipTest {
                     label = "Primary label",
                     onClick = { },
                     icon = Icons.Default.Image,
+                    chipType = StandardChipType.Secondary
+                )
+            }
+        }
+    }
+
+    @Test
+    fun withProgressIcon() {
+        paparazzi.snapshot {
+            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
+                StandardChip(
+                    label = "Primary label",
+                    onClick = { },
+                    icon = {
+                        StandardChipIconWithProgress(
+                            progress = 75f,
+                            icon = Icon48dp,
+                            largeIcon = true
+                        )
+                    },
+                    chipType = StandardChipType.Secondary
+                )
+            }
+        }
+    }
+
+    @Test
+    fun withSquareIcon() {
+        paparazzi.snapshot {
+            // This was made to showcase that the icon can be any composable in this version of
+            // StandardChip.
+            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
+                StandardChip(
+                    label = "Primary label",
+                    onClick = { },
+                    icon = {
+                        Box(
+                            Modifier
+                                .size(32.dp)
+                                .background(Color.White)
+                        )
+                    },
                     chipType = StandardChipType.Secondary
                 )
             }

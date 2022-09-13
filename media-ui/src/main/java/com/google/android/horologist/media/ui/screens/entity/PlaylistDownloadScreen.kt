@@ -51,11 +51,11 @@ import com.google.android.horologist.composables.ExperimentalHorologistComposabl
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.media.ui.components.base.IconProgressState
 import com.google.android.horologist.media.ui.components.base.StandardButton
 import com.google.android.horologist.media.ui.components.base.StandardButtonSize
 import com.google.android.horologist.media.ui.components.base.StandardButtonType
 import com.google.android.horologist.media.ui.components.base.StandardChip
+import com.google.android.horologist.media.ui.components.base.StandardChipIconWithProgress
 import com.google.android.horologist.media.ui.components.base.StandardChipType
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
@@ -127,32 +127,52 @@ public fun PlaylistDownloadScreen(
                 is DownloadMediaUiModel.NotDownloaded -> downloadMediaUiModel.artist
             }
 
-            val iconLoadingState = when (downloadMediaUiModel) {
-                is DownloadMediaUiModel.Downloaded -> null
-                is DownloadMediaUiModel.Downloading -> {
-                    when (downloadMediaUiModel.progress) {
-                        is DownloadMediaUiModel.Progress.InProgress -> IconProgressState.InProgress(
-                            downloadMediaUiModel.progress.progress
-                        )
-                        is DownloadMediaUiModel.Progress.Waiting -> IconProgressState.Waiting
-                    }
+            when (downloadMediaUiModel) {
+                is DownloadMediaUiModel.Downloaded,
+                is DownloadMediaUiModel.NotDownloaded -> {
+                    StandardChip(
+                        label = downloadMediaUiModel.title ?: defaultMediaTitle,
+                        onClick = { onDownloadItemClick(downloadMediaUiModel) },
+                        secondaryLabel = secondaryLabel,
+                        icon = downloadMediaUiModel.artworkUri,
+                        largeIcon = true,
+                        placeholder = downloadItemArtworkPlaceholder,
+                        chipType = StandardChipType.Secondary,
+                        enabled = downloadMediaUiModel !is DownloadMediaUiModel.NotDownloaded
+                    )
                 }
-                is DownloadMediaUiModel.NotDownloaded -> null
+                is DownloadMediaUiModel.Downloading -> {
+                    StandardChip(
+                        label = downloadMediaUiModel.title ?: defaultMediaTitle,
+                        onClick = { onDownloadItemClick(downloadMediaUiModel) },
+                        secondaryLabel = secondaryLabel,
+                        icon = {
+                            when (downloadMediaUiModel.progress) {
+                                is DownloadMediaUiModel.Progress.InProgress -> {
+                                    StandardChipIconWithProgress(
+                                        modifier = modifier,
+                                        placeholder = downloadItemArtworkPlaceholder,
+                                        progress = downloadMediaUiModel.progress.progress,
+                                        largeIcon = true,
+                                        icon = downloadMediaUiModel.artworkUri
+                                    )
+                                }
+                                is DownloadMediaUiModel.Progress.Waiting -> {
+                                    StandardChipIconWithProgress(
+                                        modifier = modifier,
+                                        placeholder = downloadItemArtworkPlaceholder,
+                                        largeIcon = true,
+                                        icon = downloadMediaUiModel.artworkUri
+                                    )
+                                }
+                            }
+                        },
+                        largeIcon = true,
+                        chipType = StandardChipType.Secondary,
+                        enabled = true
+                    )
+                }
             }
-
-            StandardChip(
-                label = downloadMediaUiModel.title ?: defaultMediaTitle,
-                onClick = { onDownloadItemClick(downloadMediaUiModel) },
-                secondaryLabel = secondaryLabel,
-                icon = downloadMediaUiModel.artworkUri,
-                iconProgressState = iconLoadingState,
-                iconProgressIndicatorColor = MaterialTheme.colors.primary,
-                iconProgressTrackColor = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
-                largeIcon = true,
-                placeholder = downloadItemArtworkPlaceholder,
-                chipType = StandardChipType.Secondary,
-                enabled = downloadMediaUiModel !is DownloadMediaUiModel.NotDownloaded
-            )
         },
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,

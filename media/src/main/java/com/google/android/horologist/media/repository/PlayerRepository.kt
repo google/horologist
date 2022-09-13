@@ -173,7 +173,7 @@ public interface PlayerRepository {
 
     /**
      * Returns the number of [Media] in the playlist.
-     * */
+     */
     public fun getMediaCount(): Int
 
     /**

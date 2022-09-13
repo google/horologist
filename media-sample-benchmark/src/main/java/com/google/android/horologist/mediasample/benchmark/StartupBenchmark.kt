@@ -17,8 +17,10 @@
 package com.google.android.horologist.mediasample.benchmark
 
 import androidx.benchmark.macro.CompilationMode
+import androidx.benchmark.macro.ExperimentalMetricApi
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
+import androidx.benchmark.macro.TraceSectionMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.filters.LargeTest
 import org.junit.Ignore
@@ -30,6 +32,7 @@ import org.junit.runners.Parameterized
 @LargeTest
 @RunWith(Parameterized::class)
 @Ignore("Until we disable in CI runs")
+@OptIn(ExperimentalMetricApi::class)
 class StartupBenchmark(
     private val compilationMode: CompilationMode
 ) {
@@ -39,14 +42,14 @@ class StartupBenchmark(
     @Test
     fun startup() = benchmarkRule.measureRepeated(
         packageName = PACKAGE_NAME,
-        metrics = listOf(StartupTimingMetric()),
+        metrics = listOf(StartupTimingMetric(), TraceSectionMetric("SyncWorker")),
         compilationMode = compilationMode,
         iterations = 10,
         startupMode = StartupMode.COLD
     ) {
         startActivityAndWait()
         // sleep to allow time for report fully drawn
-        Thread.sleep(2000)
+        Thread.sleep(5000)
     }
 
     companion object {

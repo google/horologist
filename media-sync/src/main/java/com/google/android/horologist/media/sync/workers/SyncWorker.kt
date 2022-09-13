@@ -59,7 +59,7 @@ internal class SyncWorker @AssistedInject constructor(
         )
 
     override suspend fun doWork(): Result = withContext(coroutineDispatcherProvider.getIODispatcher()) {
-        traceAsync("Sync", 0) {
+        traceAsync("SyncWorker", 0) {
             // First sync the repositories in parallel
             val deferredSyncCalls = Array(syncables.size) { index ->
                 async { syncables[index].sync() }

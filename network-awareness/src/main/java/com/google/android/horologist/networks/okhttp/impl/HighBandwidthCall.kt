@@ -75,15 +75,21 @@ internal class HighBandwidthCall(
                 token.awaitGranted()
             }
 
-            callFactory.newDirectCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    responseCallback.onFailure(this@HighBandwidthCall, e)
-                }
+            synchronized(this) {
+                if (cancelled) {
+                    request.highBandwithConnectionLease?.close()
+                } else {
+                    callFactory.newDirectCall(request).enqueue(object : Callback {
+                        override fun onFailure(call: Call, e: IOException) {
+                            responseCallback.onFailure(this@HighBandwidthCall, e)
+                        }
 
-                override fun onResponse(call: Call, response: Response) {
-                    responseCallback.onResponse(this@HighBandwidthCall, response)
+                        override fun onResponse(call: Call, response: Response) {
+                            responseCallback.onResponse(this@HighBandwidthCall, response)
+                        }
+                    })
                 }
-            })
+            }
         }
     }
 

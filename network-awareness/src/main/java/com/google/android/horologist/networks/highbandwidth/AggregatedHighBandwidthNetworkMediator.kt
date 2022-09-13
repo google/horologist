@@ -26,6 +26,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Implementation of `HighBandwidthNetworkMediator` that locally aggregates requests and
@@ -44,12 +45,23 @@ public class AggregatedHighBandwidthNetworkMediator(
     override fun requestHighBandwidthNetwork(
         request: HighBandwidthRequest
     ): HighBandwithConnectionLease {
+        registerRequest(request)
+
+        return SingleHighBandwithConnectionLease(request)
+    }
+
+    private fun registerRequest(request: HighBandwidthRequest) {
         synchronized(this) {
             requests += request
             update()
         }
+    }
 
-        return SingleHighBandwithConnectionLease(request)
+    private fun unregisterRequest(request: HighBandwidthRequest) {
+        synchronized(this) {
+            requests -= request
+            update()
+        }
     }
 
     private fun update() {
@@ -66,7 +78,6 @@ public class AggregatedHighBandwidthNetworkMediator(
             } else {
                 if (currentRequested != null) {
                     requested.value = null
-                    Exception().printStackTrace()
                     logger.logNetworkEvent("Releasing High Bandwidth Network")
                     networkRequester.clearRequest()
                 }
@@ -76,14 +87,16 @@ public class AggregatedHighBandwidthNetworkMediator(
     }
 
     private inner class SingleHighBandwithConnectionLease(private val request: HighBandwidthRequest) : HighBandwithConnectionLease {
+        private val closed = AtomicBoolean(false)
+
         override suspend fun awaitGranted(): NetworkType {
             return networkRequester.pinnedNetwork.filterNotNull().first()
         }
 
         override fun close() {
-            synchronized(this) {
-                requests -= request
-                update()
+            // Avoid any conditions closing this twice
+            if (closed.compareAndSet(false, true)) {
+                unregisterRequest(request)
             }
         }
     }

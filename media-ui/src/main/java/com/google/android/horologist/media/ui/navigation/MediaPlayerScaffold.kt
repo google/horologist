@@ -56,6 +56,8 @@ import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
  * @param deepLinkPrefix the app specific prefix for external deeplinks
  * @param navController the media focused navigation controller.
  * @param additionalNavRoutes additional nav routes exposed for extra screens.
+ * @param pagerState the [PagerState] controlling the Player / Browse screen position.
+ * @param navHostState the [SwipeDismissableNavHostState] including swipe to dismiss state.
  */
 @Composable
 public fun MediaPlayerScaffold(

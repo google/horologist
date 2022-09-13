@@ -42,10 +42,10 @@ jobs:
             ~/.gradle/caches/build-cache-*
           key: gradle-${{ hashFiles('checksum.txt') }}
 
-      - name: Build
+      - name: Build (Debug)
         run: |
           ./gradlew --scan --stacktrace \
-              assemble
+              assembleDebug
 
       - name: Metalava compatibility check
         run: |

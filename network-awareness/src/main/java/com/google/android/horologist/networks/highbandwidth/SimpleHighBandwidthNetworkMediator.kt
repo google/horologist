@@ -19,6 +19,7 @@ package com.google.android.horologist.networks.highbandwidth
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
+import android.net.NetworkRequest
 import androidx.annotation.GuardedBy
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkType
@@ -29,6 +30,7 @@ import com.google.android.horologist.networks.status.NetworkRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Implementation of `HighBandwidthNetworkMediator` that defers all logic to `ConnectivityManager`.
@@ -51,38 +53,57 @@ public class SimpleHighBandwidthNetworkMediator(
 
     override fun requestHighBandwidthNetwork(request: HighBandwidthRequest): HighBandwithConnectionLease {
         val token = CallbackHighBandwithConnectionLease(request)
-        connectivityManager.requestNetwork(request.toNetworkRequest(), token)
+        val networkRequest = request.toNetworkRequest()
+
+        registerRequest(networkRequest, token)
+
         return token
     }
 
-    private inner class CallbackHighBandwithConnectionLease(private val request: HighBandwidthRequest) :
+    private fun registerRequest(
+        networkRequest: NetworkRequest,
+        callback: CallbackHighBandwithConnectionLease
+    ) {
+        connectivityManager.requestNetwork(networkRequest, callback)
+    }
+
+    private fun unregisterRequest(
+        callback: CallbackHighBandwithConnectionLease
+    ) {
+        connectivityManager.unregisterNetworkCallback(callback)
+    }
+
+    private fun updateAggregatedRequests(fn: (AggregatedRequests) -> AggregatedRequests) {
+        synchronized(this) {
+            aggregatedRequests = fn(aggregatedRequests)
+
+            requested.value = if (aggregatedRequests.isNonZero) {
+                aggregatedRequests.toRequest()
+            } else {
+                null
+            }
+        }
+    }
+
+    private fun updatePinnedCount(fn: (AggregatedNetworkCount) -> AggregatedNetworkCount) {
+        synchronized(this) {
+            pinnedCount = fn(pinnedCount)
+
+            pinned.value = pinnedCount.toNetworkType()
+        }
+    }
+
+    internal inner class CallbackHighBandwithConnectionLease(
+        internal val request: HighBandwidthRequest
+    ) :
         NetworkCallback(),
         HighBandwithConnectionLease {
         private val networkState = MutableStateFlow<NetworkType?>(null)
+        private val closed = AtomicBoolean(false)
 
         init {
             updateAggregatedRequests {
                 it + request
-            }
-        }
-
-        private fun updateAggregatedRequests(fn: (AggregatedRequests) -> AggregatedRequests) {
-            synchronized(this) {
-                aggregatedRequests = fn(aggregatedRequests)
-
-                requested.value = if (aggregatedRequests.isNonZero) {
-                    aggregatedRequests.toRequest()
-                } else {
-                    null
-                }
-            }
-        }
-
-        private fun updatePinnedCount(fn: (AggregatedNetworkCount) -> AggregatedNetworkCount) {
-            synchronized(this) {
-                pinnedCount = fn(pinnedCount)
-
-                pinned.value = pinnedCount.toNetworkType()
             }
         }
 
@@ -113,16 +134,19 @@ public class SimpleHighBandwidthNetworkMediator(
         }
 
         override fun close() {
-            connectivityManager.unregisterNetworkCallback(this)
+            // Avoid any conditions closing this twice
+            if (closed.compareAndSet(false, true)) {
+                unregisterRequest(this)
 
-            val oldNetworkType = networkState.value
+                val oldNetworkType = networkState.value
 
-            updatePinnedCount {
-                it - oldNetworkType
-            }
+                updatePinnedCount {
+                    it - oldNetworkType
+                }
 
-            updateAggregatedRequests {
-                it - request
+                updateAggregatedRequests {
+                    it - request
+                }
             }
         }
     }

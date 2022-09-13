@@ -17,12 +17,11 @@
 package com.google.android.horologist.networks.highbandwidth
 
 import com.google.android.horologist.networks.data.NetworkType
-import java.io.Closeable
 
 /**
  * Cancellable network request token. Allows caller to release the connection or await it becoming
  * available.
  */
-public interface HighBandwithConnectionLease : Closeable {
+public interface HighBandwithConnectionLease : AutoCloseable {
     public suspend fun awaitGranted(): NetworkType
 }

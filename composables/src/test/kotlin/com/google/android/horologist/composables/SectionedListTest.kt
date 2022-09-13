@@ -44,8 +44,6 @@ import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.TimeSource
-import androidx.wear.compose.material.TimeText
 import app.cash.paparazzi.Paparazzi
 import com.android.ide.common.rendering.api.SessionParams
 import com.google.android.horologist.compose.tools.RoundPreview
@@ -191,14 +189,6 @@ class SectionedListTest {
         RoundPreview(round = true) {
             Scaffold(
                 modifier = Modifier.fillMaxSize(),
-                timeText = {
-                    TimeText(
-                        timeSource = object : TimeSource {
-                            override val currentTime: String
-                                @Composable get() = "10:10"
-                        }
-                    )
-                },
                 positionIndicator = {
                     PositionIndicator(scrollState)
                 }

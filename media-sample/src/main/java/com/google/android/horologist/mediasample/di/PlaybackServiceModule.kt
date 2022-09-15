@@ -58,6 +58,7 @@ import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.strategy
 import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.networks.data.RequestType
+import com.google.android.horologist.networks.data.RequestType.MediaRequest.Companion.StreamRequest
 import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
 import dagger.Module
 import dagger.Provides
@@ -133,7 +134,7 @@ object PlaybackServiceModule {
         OkHttpDataSource.Factory(
             NetworkAwareCallFactory(
                 callFactory,
-                defaultRequestType = RequestType.UnknownRequest
+                defaultRequestType = StreamRequest
             )
         )
             .setTransferListener(transferListener)

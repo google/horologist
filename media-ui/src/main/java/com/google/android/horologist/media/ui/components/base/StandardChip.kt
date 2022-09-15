@@ -143,9 +143,7 @@ internal fun StandardChip(
 }
 
 /**
- * This composable is a override of the [StandardChip] with a injectable icon slot.
- * It can typically be used to add a icon with for instance a progress indicator that has different
- * states.
+ * An implementation of [StandardChip] allowing full customization of the icon displayed.
  */
 @Composable
 internal fun StandardChip(

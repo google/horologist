@@ -57,7 +57,6 @@ import com.google.android.horologist.mediasample.data.service.playback.UampMedia
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.strategy
 import com.google.android.horologist.mediasample.ui.AppConfig
-import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.Companion.StreamRequest
 import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
 import dagger.Module

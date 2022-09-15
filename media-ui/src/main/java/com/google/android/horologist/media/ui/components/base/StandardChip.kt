@@ -142,7 +142,67 @@ internal fun StandardChip(
     )
 }
 
+/**
+ * An implementation of [StandardChip] allowing full customization of the icon displayed.
+ */
+@Composable
+internal fun StandardChip(
+    label: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    secondaryLabel: String? = null,
+    icon: @Composable BoxScope.() -> Unit,
+    largeIcon: Boolean = false,
+    chipType: StandardChipType = StandardChipType.Primary,
+    enabled: Boolean = true
+) {
+    val hasSecondaryLabel = secondaryLabel != null
+
+    val labelParam: (@Composable RowScope.() -> Unit) =
+        {
+            Text(
+                text = label,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Left,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = if (hasSecondaryLabel) 1 else 2
+            )
+        }
+
+    val secondaryLabelParam: (@Composable RowScope.() -> Unit)? =
+        secondaryLabel?.let {
+            {
+                Text(
+                    text = secondaryLabel,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1
+                )
+            }
+        }
+
+    val contentPadding = if (largeIcon) {
+        val horizontalPadding = 10.dp
+        val verticalPadding = 6.dp // same as Chip.ChipVerticalPadding
+        PaddingValues(horizontal = horizontalPadding, vertical = verticalPadding)
+    } else {
+        ChipDefaults.ContentPadding
+    }
+
+    Chip(
+        label = labelParam,
+        onClick = onClick,
+        modifier = modifier.fillMaxWidth(),
+        secondaryLabel = secondaryLabelParam,
+        icon = icon,
+        colors = when (chipType) {
+            StandardChipType.Primary -> ChipDefaults.primaryChipColors()
+            StandardChipType.Secondary -> ChipDefaults.secondaryChipColors()
+        },
+        enabled = enabled,
+        contentPadding = contentPadding
+    )
+}
+
 internal enum class StandardChipType {
-    Primary,
-    Secondary
+    Primary, Secondary
 }

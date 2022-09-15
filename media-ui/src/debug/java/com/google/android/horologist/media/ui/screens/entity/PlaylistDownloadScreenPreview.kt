@@ -230,7 +230,7 @@ private val notDownloadedAndDownloading = listOf(
     DownloadMediaUiModel.Downloading(
         id = "id 2",
         title = "Song name 2",
-        progress = DownloadMediaUiModel.Progress.InProgress("78"),
+        progress = DownloadMediaUiModel.Progress.InProgress(78f),
         size = DownloadMediaUiModel.Size.Known(sizeInBytes = 123456L),
         artworkUri = "artworkUri"
     )
@@ -246,7 +246,7 @@ private val downloadedAndDownloadingUnknown = listOf(
     DownloadMediaUiModel.Downloading(
         id = "id 2",
         title = "Song name 2",
-        progress = DownloadMediaUiModel.Progress.InProgress("78"),
+        progress = DownloadMediaUiModel.Progress.InProgress(78f),
         size = DownloadMediaUiModel.Size.Unknown,
         artworkUri = "artworkUri"
     )

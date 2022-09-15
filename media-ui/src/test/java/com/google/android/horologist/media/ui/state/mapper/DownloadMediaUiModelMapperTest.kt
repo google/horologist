@@ -95,41 +95,6 @@ class DownloadMediaUiModelMapperTest {
     }
 
     @Test
-    fun givenStatusInProgressNonZeroSizeKnown_thenMapsCorrectly() {
-        // given
-        val id = "id"
-        val title = "title"
-        val artist = "artist"
-        val artworkUri = "artworkUri"
-        val sizeInBytes = 12345L
-        val mediaDownload = MediaDownload(
-            media = Media(
-                id = id,
-                uri = "",
-                title = title,
-                artist = artist,
-                artworkUri = artworkUri
-            ),
-            status = MediaDownload.Status.InProgress(progress = 25.9F),
-            size = MediaDownload.Size.Known(sizeInBytes = sizeInBytes)
-        )
-
-        // when
-        val result = DownloadMediaUiModelMapper.map(mediaDownload)
-
-        // then
-        assertThat(result).isEqualTo(
-            DownloadMediaUiModel.Downloading(
-                id = id,
-                title = title,
-                artworkUri = artworkUri,
-                progress = DownloadMediaUiModel.Progress.InProgress(progress = "26"),
-                size = DownloadMediaUiModel.Size.Known(sizeInBytes)
-            )
-        )
-    }
-
-    @Test
     fun givenStatusCompleted_thenMapsCorrectly() {
         // given
         val id = "id"

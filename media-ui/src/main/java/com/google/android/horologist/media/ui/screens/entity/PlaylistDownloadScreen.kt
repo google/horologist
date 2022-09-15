@@ -55,6 +55,7 @@ import com.google.android.horologist.media.ui.components.base.StandardButton
 import com.google.android.horologist.media.ui.components.base.StandardButtonSize
 import com.google.android.horologist.media.ui.components.base.StandardButtonType
 import com.google.android.horologist.media.ui.components.base.StandardChip
+import com.google.android.horologist.media.ui.components.base.StandardChipIconWithProgress
 import com.google.android.horologist.media.ui.components.base.StandardChipType
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
@@ -126,16 +127,52 @@ public fun PlaylistDownloadScreen(
                 is DownloadMediaUiModel.NotDownloaded -> downloadMediaUiModel.artist
             }
 
-            StandardChip(
-                label = downloadMediaUiModel.title ?: defaultMediaTitle,
-                onClick = { onDownloadItemClick(downloadMediaUiModel) },
-                secondaryLabel = secondaryLabel,
-                icon = downloadMediaUiModel.artworkUri,
-                largeIcon = true,
-                placeholder = downloadItemArtworkPlaceholder,
-                chipType = StandardChipType.Secondary,
-                enabled = downloadMediaUiModel !is DownloadMediaUiModel.NotDownloaded
-            )
+            when (downloadMediaUiModel) {
+                is DownloadMediaUiModel.Downloaded,
+                is DownloadMediaUiModel.NotDownloaded -> {
+                    StandardChip(
+                        label = downloadMediaUiModel.title ?: defaultMediaTitle,
+                        onClick = { onDownloadItemClick(downloadMediaUiModel) },
+                        secondaryLabel = secondaryLabel,
+                        icon = downloadMediaUiModel.artworkUri,
+                        largeIcon = true,
+                        placeholder = downloadItemArtworkPlaceholder,
+                        chipType = StandardChipType.Secondary,
+                        enabled = downloadMediaUiModel !is DownloadMediaUiModel.NotDownloaded
+                    )
+                }
+                is DownloadMediaUiModel.Downloading -> {
+                    StandardChip(
+                        label = downloadMediaUiModel.title ?: defaultMediaTitle,
+                        onClick = { onDownloadItemClick(downloadMediaUiModel) },
+                        secondaryLabel = secondaryLabel,
+                        icon = {
+                            when (downloadMediaUiModel.progress) {
+                                is DownloadMediaUiModel.Progress.InProgress -> {
+                                    StandardChipIconWithProgress(
+                                        modifier = modifier,
+                                        placeholder = downloadItemArtworkPlaceholder,
+                                        progress = downloadMediaUiModel.progress.progress,
+                                        largeIcon = true,
+                                        icon = downloadMediaUiModel.artworkUri
+                                    )
+                                }
+                                is DownloadMediaUiModel.Progress.Waiting -> {
+                                    StandardChipIconWithProgress(
+                                        modifier = modifier,
+                                        placeholder = downloadItemArtworkPlaceholder,
+                                        largeIcon = true,
+                                        icon = downloadMediaUiModel.artworkUri
+                                    )
+                                }
+                            }
+                        },
+                        largeIcon = true,
+                        chipType = StandardChipType.Secondary,
+                        enabled = true
+                    )
+                }
+            }
         },
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,

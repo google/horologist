@@ -140,6 +140,9 @@ package com.google.android.horologist.media.ui.components.base {
   public final class StandardButtonKt {
   }
 
+  public final class StandardChipIconWithProgressKt {
+  }
+
   public final class StandardChipKt {
   }
 
@@ -675,11 +678,11 @@ package com.google.android.horologist.media.ui.state.model {
   }
 
   public static final class DownloadMediaUiModel.Progress.InProgress extends com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel.Progress {
-    ctor public DownloadMediaUiModel.Progress.InProgress(String progress);
-    method public String component1();
-    method public com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel.Progress.InProgress copy(String progress);
-    method public String getProgress();
-    property public final String progress;
+    ctor public DownloadMediaUiModel.Progress.InProgress(float progress);
+    method public float component1();
+    method public com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel.Progress.InProgress copy(float progress);
+    method public float getProgress();
+    property public final float progress;
   }
 
   public static final class DownloadMediaUiModel.Progress.Waiting extends com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel.Progress {

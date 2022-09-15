@@ -41,7 +41,7 @@
     <string name="horologist_playlist_download_button_shuffle_content_description">Shuffle</string>
     <string name="horologist_playlist_download_button_play_content_description">Play</string>
     <string name="horologist_playlist_download_download_progress_unknown_size">%1$s%%</string>
-    <string name="horologist_playlist_download_download_progress_known_size">%1$s%% of %2$s</string>
+    <string name="horologist_playlist_download_download_progress_known_size">%1$.0f%% of %2$s</string>
     <string name="horologist_playlist_download_download_progress_waiting">Waiting…</string>
     <string name="horologist_preview_app_name">UAMP</string>
     <string name="horologist_preview_favorites">Favorites</string>

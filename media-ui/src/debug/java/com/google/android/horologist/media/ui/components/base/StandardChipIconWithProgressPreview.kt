@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
     showBackground = true
 )
 @Composable
-fun SecondaryChipIconWithProgressPreview() {
+fun StandardChipIconWithProgressPreview() {
     StandardChipIconWithProgress()
 }
 
@@ -40,7 +40,7 @@ fun SecondaryChipIconWithProgressPreview() {
     showBackground = true
 )
 @Composable
-fun SecondaryChipIconWithProgressInProgressPreview() {
+fun StandardChipIconWithProgressInProgressPreview() {
     StandardChipIconWithProgress(progress = 75f)
 }
 
@@ -51,7 +51,7 @@ fun SecondaryChipIconWithProgressInProgressPreview() {
     showBackground = true
 )
 @Composable
-fun SecondaryChipIconWithProgressInProgressLargeIconPreview() {
+fun StandardChipIconWithProgressInProgressLargeIconPreview() {
     StandardChipIconWithProgress(
         progress = 75f,
         largeIcon = true,
@@ -66,7 +66,7 @@ fun SecondaryChipIconWithProgressInProgressLargeIconPreview() {
     showBackground = true
 )
 @Composable
-fun SecondaryChipIconWithProgressInProgressMediumIconPreview() {
+fun StandardChipIconWithProgressInProgressMediumIconPreview() {
     StandardChipIconWithProgress(progress = 75f, icon = Icon32dp)
 }
 
@@ -77,7 +77,7 @@ fun SecondaryChipIconWithProgressInProgressMediumIconPreview() {
     showBackground = true
 )
 @Composable
-fun SecondaryChipIconWithProgressInProgressSmallIconPreview() {
+fun StandardChipIconWithProgressInProgressSmallIconPreview() {
     StandardChipIconWithProgress(progress = 75f, icon = Icon12dp)
 }
 

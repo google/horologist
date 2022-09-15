@@ -41,8 +41,10 @@ private val indicatorPadding = 8.dp
 private val progressBarStrokeWidth = 2.dp
 
 /**
- * A default icon implementation for [StandardChip] that accepts an icon as slot.
-
+ * A default icon implementation to be used with a [StandardChip] that accepts an icon as slot.
+ * This implementation displays an icon with a circular progress indicator around it.
+ * The progress indicator is in an indeterminate state and spins indefinitely.
+ *
  * @param modifier [Modifier] to apply to this layout node.
  * @param icon image or icon to be displayed in the center of this view.
  * @param largeIcon true if it should display the icon with in a large size.
@@ -109,14 +111,18 @@ internal fun StandardChipIconWithProgress(
 }
 
 /**
- * A default icon implementation for [StandardChip] that accepts an icon as slot.
-
+ * A default icon implementation to be used with a [StandardChip] that accepts an icon as slot.
+ * This implementation displays an icon with a circular progress indicator around it.
+ * The progress indicator express the proportion of completion of an ongoing task.
+ *
  * @param modifier [Modifier] to apply to this layout node.
  * @param icon image or icon to be displayed in the center of this view.
  * @param largeIcon true if it should display the icon with in a large size.
  * @param progressIndicatorColor the color of the progress indicator that is around the icon.
  * @param progressTrackColor the color of the background for the progress indicator.
  * @param placeholder A [Painter] that is displayed while the image is loading.
+ * @param progress The progress of this progress indicator where 0.0 represents no progress and 1.0
+ * represents completion. Values outside of this range are coerced into the range 0..1.
  */
 @Composable
 internal fun StandardChipIconWithProgress(

@@ -41,17 +41,14 @@ private val indicatorPadding = 8.dp
 private val progressBarStrokeWidth = 2.dp
 
 /**
- * This is a variant of the [StandardChip] that has the possibility to add a progress indicator
- * around the primary icon.
- *
- * @param modifier
- * @param icon
- * @param iconProgressIndicatorColor Will be the color of the progress indicator that is around the icon.
- * @param iconProgressTrackColor Will be the color of the background for the progress indicator.
- * we will not show a progress bar.
- * @param largeIcon If this is true we know that we are dealing with a large icon and will give the
- * component different padding.
- * @param placeholder
+ * A default icon implementation for [StandardChip] that accepts an icon as slot.
+
+ * @param modifier [Modifier] to apply to this layout node.
+ * @param icon image or icon to be displayed in the center of this view.
+ * @param largeIcon true if it should display the icon with in a large size.
+ * @param progressIndicatorColor the color of the progress indicator that is around the icon.
+ * @param progressTrackColor the color of the background for the progress indicator.
+ * @param placeholder A [Painter] that is displayed while the image is loading.
  */
 @Composable
 internal fun StandardChipIconWithProgress(
@@ -59,8 +56,8 @@ internal fun StandardChipIconWithProgress(
     largeIcon: Boolean = false,
     icon: Any? = null,
     placeholder: Painter? = null,
-    iconProgressIndicatorColor: Color = MaterialTheme.colors.primary,
-    iconProgressTrackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f)
+    progressIndicatorColor: Color = MaterialTheme.colors.primary,
+    progressTrackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f)
 ) {
     val iconSize = if (largeIcon) {
         ChipDefaults.LargeIconSize
@@ -78,8 +75,8 @@ internal fun StandardChipIconWithProgress(
             progress = null,
             size = iconSize - progressBarStrokeWidth,
             indicatorPadding = indicatorPadding,
-            iconProgressIndicatorColor = iconProgressIndicatorColor,
-            iconProgressTrackColor = iconProgressTrackColor
+            iconProgressIndicatorColor = progressIndicatorColor,
+            iconProgressTrackColor = progressTrackColor
         )
         when (icon) {
             is ImageVector -> {
@@ -112,18 +109,14 @@ internal fun StandardChipIconWithProgress(
 }
 
 /**
- * This is a variant of the [StandardChip] that has the possibility to add a progress indicator
- * around the primary icon.
- *
- * @param progress This is the progress of the circular progress indicator around the icon.
- * @param modifier
- * @param icon
- * @param iconProgressIndicatorColor Will be the color of the progress indicator that is around the icon.
- * @param iconProgressTrackColor Will be the color of the background for the progress indicator.
- * we will not show a progress bar.
- * @param largeIcon If this is true we know that we are dealing with a large icon and will give the
- * component different padding.
- * @param placeholder
+ * A default icon implementation for [StandardChip] that accepts an icon as slot.
+
+ * @param modifier [Modifier] to apply to this layout node.
+ * @param icon image or icon to be displayed in the center of this view.
+ * @param largeIcon true if it should display the icon with in a large size.
+ * @param progressIndicatorColor the color of the progress indicator that is around the icon.
+ * @param progressTrackColor the color of the background for the progress indicator.
+ * @param placeholder A [Painter] that is displayed while the image is loading.
  */
 @Composable
 internal fun StandardChipIconWithProgress(
@@ -132,8 +125,8 @@ internal fun StandardChipIconWithProgress(
     largeIcon: Boolean = false,
     icon: Any? = null,
     placeholder: Painter? = null,
-    iconProgressIndicatorColor: Color = MaterialTheme.colors.primary,
-    iconProgressTrackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f)
+    progressIndicatorColor: Color = MaterialTheme.colors.primary,
+    progressTrackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f)
 ) {
     val iconSize = if (largeIcon) {
         ChipDefaults.LargeIconSize
@@ -151,8 +144,8 @@ internal fun StandardChipIconWithProgress(
             progress = progress,
             size = iconSize - progressBarStrokeWidth,
             indicatorPadding = indicatorPadding,
-            iconProgressIndicatorColor = iconProgressIndicatorColor,
-            iconProgressTrackColor = iconProgressTrackColor
+            iconProgressIndicatorColor = progressIndicatorColor,
+            iconProgressTrackColor = progressTrackColor
         )
 
         when (icon) {

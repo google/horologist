@@ -30,34 +30,7 @@ import androidx.compose.ui.unit.dp
 )
 @Composable
 fun SecondaryChipIconWithProgressPreview() {
-    StandardChip(
-        label = "Primary label",
-        onClick = { },
-        icon = {
-            StandardChipIconWithProgress()
-        },
-        largeIcon = true,
-        chipType = StandardChipType.Secondary
-    )
-}
-
-@Preview(
-    name = "Waiting Progress State",
-    group = "Variants",
-    backgroundColor = 0xff000000,
-    showBackground = true
-)
-@Composable
-fun SecondaryChipIconWithProgressWaitingPreview() {
-    StandardChip(
-        label = "Primary label",
-        onClick = { },
-        icon = {
-            StandardChipIconWithProgress()
-        },
-        largeIcon = true,
-        chipType = StandardChipType.Secondary
-    )
+    StandardChipIconWithProgress()
 }
 
 @Preview(
@@ -68,17 +41,7 @@ fun SecondaryChipIconWithProgressWaitingPreview() {
 )
 @Composable
 fun SecondaryChipIconWithProgressInProgressPreview() {
-    StandardChip(
-        label = "Primary label",
-        onClick = { },
-        icon = {
-            StandardChipIconWithProgress(
-                progress = 75f
-            )
-        },
-        largeIcon = true,
-        chipType = StandardChipType.Secondary
-    )
+    StandardChipIconWithProgress(progress = 75f)
 }
 
 @Preview(
@@ -89,18 +52,10 @@ fun SecondaryChipIconWithProgressInProgressPreview() {
 )
 @Composable
 fun SecondaryChipIconWithProgressInProgressLargeIconPreview() {
-    StandardChip(
-        label = "Primary label",
-        onClick = { },
-        icon = {
-            StandardChipIconWithProgress(
-                progress = 75f,
-                largeIcon = true,
-                icon = Icon48dp
-            )
-        },
+    StandardChipIconWithProgress(
+        progress = 75f,
         largeIcon = true,
-        chipType = StandardChipType.Secondary
+        icon = Icon48dp
     )
 }
 
@@ -112,18 +67,7 @@ fun SecondaryChipIconWithProgressInProgressLargeIconPreview() {
 )
 @Composable
 fun SecondaryChipIconWithProgressInProgressMediumIconPreview() {
-    StandardChip(
-        label = "Primary label",
-        onClick = { },
-        icon = {
-            StandardChipIconWithProgress(
-                progress = 75f,
-                icon = Icon32dp
-            )
-        },
-        largeIcon = true,
-        chipType = StandardChipType.Secondary
-    )
+    StandardChipIconWithProgress(progress = 75f, icon = Icon32dp)
 }
 
 @Preview(
@@ -134,18 +78,7 @@ fun SecondaryChipIconWithProgressInProgressMediumIconPreview() {
 )
 @Composable
 fun SecondaryChipIconWithProgressInProgressSmallIconPreview() {
-    StandardChip(
-        label = "Primary label",
-        onClick = { },
-        icon = {
-            StandardChipIconWithProgress(
-                progress = 75f,
-                icon = Icon12dp
-            )
-        },
-        largeIcon = true,
-        chipType = StandardChipType.Secondary
-    )
+    StandardChipIconWithProgress(progress = 75f, icon = Icon12dp)
 }
 
 private val Icon12dp: ImageVector

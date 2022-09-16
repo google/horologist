@@ -68,7 +68,6 @@ package com.google.android.horologist.networks.data {
     property public abstract Boolean? metered;
     property public abstract String? name;
     property public abstract com.google.android.horologist.networks.data.NetworkType type;
-    field public static final com.google.android.horologist.networks.data.NetworkInfo.Companion Companion;
   }
 
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static final class NetworkInfo.Bluetooth implements com.google.android.horologist.networks.data.NetworkInfo {
@@ -98,9 +97,6 @@ package com.google.android.horologist.networks.data {
     property public Boolean? metered;
     property public String name;
     property public com.google.android.horologist.networks.data.NetworkType type;
-  }
-
-  public static final class NetworkInfo.Companion {
   }
 
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static final class NetworkInfo.Unknown implements com.google.android.horologist.networks.data.NetworkInfo {
@@ -451,6 +447,12 @@ package com.google.android.horologist.networks.okhttp.impl {
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public class NetworkLoggingEventListenerFactory implements okhttp3.EventListener.Factory {
     ctor public NetworkLoggingEventListenerFactory(com.google.android.horologist.networks.logging.NetworkStatusLogger logger, com.google.android.horologist.networks.status.NetworkRepository networkRepository, okhttp3.EventListener.Factory delegateEventListenerFactory, optional com.google.android.horologist.networks.data.DataRequestRepository? dataRequestRepository);
     method public okhttp3.EventListener create(okhttp3.Call call);
+    field public static final com.google.android.horologist.networks.okhttp.impl.NetworkLoggingEventListenerFactory.Companion Companion;
+  }
+
+  public static final class NetworkLoggingEventListenerFactory.Companion {
+    method public java.util.concurrent.atomic.AtomicInteger getIdGenerator();
+    property public final java.util.concurrent.atomic.AtomicInteger idGenerator;
   }
 
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class RequestTypeHolder {

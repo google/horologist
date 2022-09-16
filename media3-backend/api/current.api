@@ -280,6 +280,14 @@ package com.google.android.horologist.media3.service {
 
 }
 
+package com.google.android.horologist.media3.tracing {
+
+  public final class TracingListener implements androidx.media3.common.Player.Listener {
+    ctor public TracingListener();
+  }
+
+}
+
 package com.google.android.horologist.media3.util {
 
   public final class PrintKt {

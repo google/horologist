@@ -23,6 +23,7 @@ import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.Companion.DownloadRequest
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.Companion.LiveRequest
+import com.google.android.horologist.networks.data.RequestType.UnknownRequest
 import com.google.android.horologist.networks.rules.Allow
 import com.google.android.horologist.networks.rules.Fail
 import com.google.android.horologist.networks.rules.NetworkingRules
@@ -33,6 +34,9 @@ import com.google.android.horologist.networks.rules.RequestCheck
  */
 object UampNetworkingRules : NetworkingRules {
     override fun isHighBandwidthRequest(requestType: RequestType): Boolean {
+        // For testing purposes fail if we get unknown requests
+        check(requestType != UnknownRequest)
+
         return requestType is RequestType.MediaRequest
     }
 

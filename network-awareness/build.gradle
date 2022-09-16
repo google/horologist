@@ -103,6 +103,8 @@ dependencies {
     implementation libs.room.ktx
     ksp libs.room.compiler
 
+    implementation libs.androidx.tracing.ktx
+
     debugImplementation libs.compose.ui.test.manifest
     debugImplementation libs.compose.ui.toolingpreview
 

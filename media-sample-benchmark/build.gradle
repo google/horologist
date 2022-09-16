@@ -61,6 +61,8 @@ dependencies {
     implementation libs.androidx.test.ext.ktx
     implementation libs.espresso.core
     implementation libs.androidx.test.uiautomator
+    implementation libs.kotlinx.coroutines.android
+    implementation projectOrDependency(":media-lib-session", libs.androidx.media3.session)
 }
 
 androidComponents {

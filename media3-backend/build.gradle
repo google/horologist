@@ -114,6 +114,7 @@ dependencies {
     implementation libs.kotlinx.coroutines.guava
     implementation libs.androidx.corektx
     implementation libs.androidx.lifecycle.service
+    implementation libs.androidx.tracing.ktx
 
     testImplementation libs.junit
     testImplementation libs.truth

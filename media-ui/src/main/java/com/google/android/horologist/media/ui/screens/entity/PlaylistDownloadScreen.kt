@@ -20,6 +20,7 @@ package com.google.android.horologist.media.ui.screens.entity
 
 import android.text.format.Formatter
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -142,31 +143,34 @@ public fun PlaylistDownloadScreen(
                     )
                 }
                 is DownloadMediaUiModel.Downloading -> {
+                    val icon: @Composable BoxScope.() -> Unit =
+                        when (downloadMediaUiModel.progress) {
+                            is DownloadMediaUiModel.Progress.InProgress -> {
+                                {
+                                    StandardChipIconWithProgress(
+                                        progress = downloadMediaUiModel.progress.progress,
+                                        icon = downloadMediaUiModel.artworkUri,
+                                        largeIcon = true,
+                                        placeholder = downloadItemArtworkPlaceholder
+                                    )
+                                }
+                            }
+                            is DownloadMediaUiModel.Progress.Waiting -> {
+                                {
+                                    StandardChipIconWithProgress(
+                                        icon = downloadMediaUiModel.artworkUri,
+                                        largeIcon = true,
+                                        placeholder = downloadItemArtworkPlaceholder
+                                    )
+                                }
+                            }
+                        }
+
                     StandardChip(
                         label = downloadMediaUiModel.title ?: defaultMediaTitle,
                         onClick = { onDownloadItemClick(downloadMediaUiModel) },
                         secondaryLabel = secondaryLabel,
-                        icon = {
-                            when (downloadMediaUiModel.progress) {
-                                is DownloadMediaUiModel.Progress.InProgress -> {
-                                    StandardChipIconWithProgress(
-                                        modifier = modifier,
-                                        placeholder = downloadItemArtworkPlaceholder,
-                                        progress = downloadMediaUiModel.progress.progress,
-                                        largeIcon = true,
-                                        icon = downloadMediaUiModel.artworkUri
-                                    )
-                                }
-                                is DownloadMediaUiModel.Progress.Waiting -> {
-                                    StandardChipIconWithProgress(
-                                        modifier = modifier,
-                                        placeholder = downloadItemArtworkPlaceholder,
-                                        largeIcon = true,
-                                        icon = downloadMediaUiModel.artworkUri
-                                    )
-                                }
-                            }
-                        },
+                        icon = icon,
                         largeIcon = true,
                         chipType = StandardChipType.Secondary,
                         enabled = true

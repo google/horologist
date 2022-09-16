@@ -58,31 +58,6 @@ internal fun StandardChip(
     chipType: StandardChipType = StandardChipType.Primary,
     enabled: Boolean = true
 ) {
-    val hasSecondaryLabel = secondaryLabel != null
-    val hasIcon = icon != null
-
-    val labelParam: (@Composable RowScope.() -> Unit) =
-        {
-            Text(
-                text = label,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Left else TextAlign.Center,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = if (hasSecondaryLabel) 1 else 2
-            )
-        }
-
-    val secondaryLabelParam: (@Composable RowScope.() -> Unit)? =
-        secondaryLabel?.let {
-            {
-                Text(
-                    text = secondaryLabel,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1
-                )
-            }
-        }
-
     val iconParam: (@Composable BoxScope.() -> Unit)? =
         icon?.let {
             {
@@ -119,26 +94,15 @@ internal fun StandardChip(
             }
         }
 
-    val contentPadding = if (largeIcon) {
-        val horizontalPadding = 10.dp
-        val verticalPadding = 6.dp // same as Chip.ChipVerticalPadding
-        PaddingValues(horizontal = horizontalPadding, vertical = verticalPadding)
-    } else {
-        ChipDefaults.ContentPadding
-    }
-
-    Chip(
-        label = labelParam,
+    StandardChip(
+        label = label,
         onClick = onClick,
-        modifier = modifier.fillMaxWidth(),
-        secondaryLabel = secondaryLabelParam,
+        modifier = modifier,
+        secondaryLabel = secondaryLabel,
         icon = iconParam,
-        colors = when (chipType) {
-            StandardChipType.Primary -> ChipDefaults.primaryChipColors()
-            StandardChipType.Secondary -> ChipDefaults.secondaryChipColors()
-        },
-        enabled = enabled,
-        contentPadding = contentPadding
+        largeIcon = largeIcon,
+        chipType = chipType,
+        enabled = enabled
     )
 }
 
@@ -151,19 +115,20 @@ internal fun StandardChip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     secondaryLabel: String? = null,
-    icon: @Composable BoxScope.() -> Unit,
+    icon: (@Composable BoxScope.() -> Unit)?,
     largeIcon: Boolean = false,
     chipType: StandardChipType = StandardChipType.Primary,
     enabled: Boolean = true
 ) {
     val hasSecondaryLabel = secondaryLabel != null
+    val hasIcon = icon != null
 
     val labelParam: (@Composable RowScope.() -> Unit) =
         {
             Text(
                 text = label,
                 modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Left,
+                textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Left else TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = if (hasSecondaryLabel) 1 else 2
             )

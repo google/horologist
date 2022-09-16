@@ -52,6 +52,7 @@ import com.google.android.horologist.media3.navigation.IntentBuilder
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.offload.AudioOffloadStrategy
 import com.google.android.horologist.media3.rules.PlaybackRules
+import com.google.android.horologist.media3.tracing.TracingListener
 import com.google.android.horologist.mediasample.data.service.complication.DataUpdates
 import com.google.android.horologist.mediasample.data.service.playback.UampMediaLibrarySessionCallback
 import com.google.android.horologist.mediasample.domain.SettingsRepository
@@ -231,6 +232,8 @@ object PlaybackServiceModule {
             errorReporter = logger,
             coroutineScope = serviceCoroutineScope
         ).also { wearConfiguredPlayer ->
+            exoPlayer.addListener(TracingListener())
+
             serviceCoroutineScope.launch {
                 wearConfiguredPlayer.startNoiseDetection()
             }

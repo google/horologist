@@ -16,17 +16,24 @@
 
 package com.google.android.horologist.mediasample.benchmark
 
+import android.content.ComponentName
 import android.content.Intent
 import androidx.benchmark.macro.ExperimentalBaselineProfilesApi
 import androidx.benchmark.macro.junit4.BaselineProfileRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import com.google.android.horologist.mediasample.benchmark.MediaControllerHelper.startPlaying
+import com.google.android.horologist.mediasample.benchmark.MediaControllerHelper.stopPlaying
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.time.Duration.Companion.seconds
 
 // This test generates a baseline profile rules file that can be added to the app to configure
 // the classes and methods that are pre-compiled at installation time, rather than JIT'd at runtime.
@@ -62,6 +69,25 @@ class BaselineProfile {
                 val intent = Intent()
                 intent.action = ACTION
                 startActivityAndWait(intent)
+
+                val mediaController = MediaControllerHelper.lookupController(
+                    ComponentName(
+                        PACKAGE_NAME,
+                        PlaybackBenchmark.PlaybackService
+                    )
+                ).get()
+
+                runBlocking(Dispatchers.Main) {
+                    mediaController.startPlaying(TestMedia.Intro)
+
+                    delay(5.seconds)
+
+                    if (!mediaController.isPlaying) {
+                        throw IllegalStateException("Not playing after 10 seconds")
+                    }
+
+                    mediaController.stopPlaying()
+                }
             }
         )
     }

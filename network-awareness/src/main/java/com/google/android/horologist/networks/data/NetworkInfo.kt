@@ -63,7 +63,4 @@ public sealed interface NetworkInfo {
         override val type: NetworkType = NetworkType.Unknown
         override val highBatteryUsage: Boolean? = null
     }
-
-    public companion object {
-    }
 }

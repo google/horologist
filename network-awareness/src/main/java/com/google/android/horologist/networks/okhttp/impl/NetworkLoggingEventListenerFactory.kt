@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.networks.okhttp.impl
 
+import androidx.tracing.Trace
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.DataRequest
 import com.google.android.horologist.networks.data.DataRequestRepository
@@ -34,6 +35,7 @@ import okhttp3.Response
 import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Proxy
+import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * Internal [EventListener] that records estimated request and response sizes to
@@ -53,7 +55,9 @@ public open class NetworkLoggingEventListenerFactory(
     internal open inner class Listener(
         delegate: EventListener
     ) : ForwardingEventListener(delegate) {
+        private var callDetails: String? = null
         private var bytesTransferred: Long = 0
+        private val id = idGenerator.incrementAndGet()
 
         override fun connectFailed(
             call: Call,
@@ -82,6 +86,11 @@ public open class NetworkLoggingEventListenerFactory(
             }
 
             logger.debugNetworkEvent("HTTPS request ${request.requestType} ${networkInfo.type} $localAddress")
+
+            callDetails =
+                "HTTP ${call.request().requestType} ${call.request().networkInfo?.type?.name ?: "Unknown"}".also {
+                    Trace.beginAsyncSection(it, id)
+                }
 
             super.connectionAcquired(call, connection)
         }
@@ -113,11 +122,19 @@ public open class NetworkLoggingEventListenerFactory(
         override fun callEnd(call: Call) {
             recordBytes(call, null)
 
+            callDetails?.let {
+                Trace.endAsyncSection(it, id)
+            }
+
             super.callEnd(call)
         }
 
         override fun callFailed(call: Call, ioe: IOException) {
             recordBytes(call, ioe.message)
+
+            callDetails?.let {
+                Trace.endAsyncSection(it, id)
+            }
 
             super.callFailed(call, ioe)
         }
@@ -140,5 +157,9 @@ public open class NetworkLoggingEventListenerFactory(
                 )
             )
         }
+    }
+
+    public companion object {
+        public val idGenerator: AtomicInteger = AtomicInteger(0)
     }
 }

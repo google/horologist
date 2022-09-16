@@ -21,6 +21,7 @@ import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
 import android.net.NetworkRequest
 import androidx.annotation.GuardedBy
+import androidx.tracing.Trace
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.NetworkType.Cell
@@ -30,6 +31,7 @@ import com.google.android.horologist.networks.status.NetworkRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.update
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -89,7 +91,19 @@ public class SimpleHighBandwidthNetworkMediator(
         synchronized(this) {
             pinnedCount = fn(pinnedCount)
 
-            pinned.value = pinnedCount.toNetworkType()
+            pinned.update { current ->
+                val new = pinnedCount.toNetworkType()
+
+                if (current != new) {
+                    if (current == null) {
+                        Trace.beginAsyncSection("HighBandwidth", 0)
+                    } else if (new == null) {
+                        Trace.endAsyncSection("HighBandwidth", 0)
+                    }
+                }
+
+                new
+            }
         }
     }
 

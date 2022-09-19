@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
-import com.google.android.horologist.media.ui.screens.browse.BrowseScreen
+import com.google.android.horologist.media.ui.screens.browse.PlaylistDownloadBrowseScreen
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 
 @Composable
@@ -37,7 +37,7 @@ fun UampBrowseScreen(
 ) {
     val uiState by rememberStateWithLifecycle(uampBrowseScreenViewModel.uiState)
 
-    BrowseScreen(
+    PlaylistDownloadBrowseScreen(
         browseScreenState = uiState,
         onDownloadItemClick = onDownloadItemClick,
         onPlaylistsClick = onPlaylistsClick,

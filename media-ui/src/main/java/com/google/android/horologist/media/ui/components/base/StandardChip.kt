@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.ui.components.base
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
@@ -30,6 +31,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -200,6 +202,31 @@ internal fun StandardChip(
         },
         enabled = enabled,
         contentPadding = contentPadding
+    )
+}
+
+@Composable
+internal fun StandardChip(
+    @StringRes labelId: Int,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    secondaryLabel: String? = null,
+    icon: Any? = null,
+    largeIcon: Boolean = false,
+    placeholder: Painter? = null,
+    chipType: StandardChipType = StandardChipType.Primary,
+    enabled: Boolean = true
+) {
+    StandardChip(
+        label = stringResource(id = labelId),
+        onClick = onClick,
+        modifier = modifier,
+        secondaryLabel = secondaryLabel,
+        icon = icon,
+        largeIcon = largeIcon,
+        placeholder = placeholder,
+        chipType = chipType,
+        enabled = enabled
     )
 }
 

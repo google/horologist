@@ -20,7 +20,7 @@
     ExperimentalHorologistComposeToolsApi::class
 )
 
-package com.google.android.horologist.media.ui
+package com.google.android.horologist.media.ui.screens.browse
 
 import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.ScalingLazyListState
@@ -30,8 +30,8 @@ import com.google.android.horologist.compose.tools.ExperimentalHorologistCompose
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.compose.tools.a11y.TallPreview
 import com.google.android.horologist.compose.tools.a11y.forceState
-import com.google.android.horologist.media.ui.screens.browse.BrowseScreen
-import com.google.android.horologist.media.ui.screens.browse.BrowseScreenState
+import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.PlayerLibraryPreview
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.a11y.A11ySnapshotHandler
@@ -39,10 +39,10 @@ import com.google.android.horologist.paparazzi.determineHandler
 import org.junit.Rule
 import org.junit.Test
 
-class BrowseScreenA11yTallScreenshotTest {
+class PlaylistDownloadBrowseScreenA11yTallScreenshotTest {
     private val maxPercentDifference = 1.0
 
-    val composeA11yExtension = ComposeA11yExtension()
+    private val composeA11yExtension = ComposeA11yExtension()
 
     @get:Rule
     val paparazzi = Paparazzi(
@@ -72,7 +72,7 @@ class BrowseScreenA11yTallScreenshotTest {
                 height = 650
             ) { scalingParams ->
                 PlayerLibraryPreview(state = scrollState, round = false) {
-                    BrowseScreen(
+                    PlaylistDownloadBrowseScreen(
                         browseScreenState = screenState,
                         onDownloadItemClick = { },
                         onPlaylistsClick = { },

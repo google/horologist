@@ -34,6 +34,7 @@ package com.google.android.horologist.composables {
   }
 
   @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public final class Section<T> {
+    ctor public Section(com.google.android.horologist.composables.Section.State state, optional kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? headerContent, optional kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? loadingContent, kotlin.jvm.functions.Function2<? super com.google.android.horologist.composables.SectionContentScope,? super T,kotlin.Unit> loadedContent, optional kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? failedContent, optional kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? emptyContent, optional kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? footerContent, optional boolean displayFooterOnlyOnLoadedState);
     method public com.google.android.horologist.composables.Section.State component1();
     method public kotlin.jvm.functions.Function1<com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? component2();
     method public kotlin.jvm.functions.Function1<com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? component3();
@@ -100,6 +101,7 @@ package com.google.android.horologist.composables {
 
   public final class SectionedListKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void SectionedList(androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ScalingParams scalingParams, kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionedListScope,kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void SectionedList(androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ScalingParams scalingParams, optional java.util.List<? extends com.google.android.horologist.composables.Section<?>> sections);
   }
 
   @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public final class SectionedListScope {

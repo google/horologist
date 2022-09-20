@@ -50,11 +50,11 @@ public fun <T> DataClient.dataItemFlow(
         .authority(nodeId)
         .build()
 
-    val item: DataItem? = this@dataItemFlow.getDataItem(uri).await()
+    addListener(listener, uri, DataClient.FILTER_LITERAL).await() // Ensure we are subscribed to updates first,
+
+    val item: DataItem? = this@dataItemFlow.getDataItem(uri).await() // then get the current value.
 
     trySend(item?.data)
-
-    addListener(listener, uri, DataClient.FILTER_LITERAL)
 
     awaitClose {
         removeListener(listener)

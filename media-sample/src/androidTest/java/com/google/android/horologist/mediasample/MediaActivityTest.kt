@@ -24,7 +24,6 @@ import com.google.android.horologist.media.ui.navigation.MediaNavController.navi
 import com.google.android.horologist.mediasample.ui.app.MediaActivity
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
@@ -36,7 +35,6 @@ class MediaActivityTest {
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
-
 
     @Test
     fun testEvent() {

@@ -48,7 +48,6 @@ import org.junit.runner.RunWith
 
 @MediumTest
 @RunWith(AndroidJUnit4::class)
-@Ignore("https://github.com/google/horologist/issues/66")
 class SnackbarHostTest {
 
     @get:Rule
@@ -110,7 +109,6 @@ class SnackbarHostTest {
     }
 
     @Test
-    @Ignore("ComposeTimeoutException: Condition still not satisfied after 5000 ms")
     fun snackbarHost_returnedResult() {
         val hostState = SnackbarHostState()
         lateinit var scope: CoroutineScope

@@ -159,7 +159,7 @@ public open class NetworkLoggingEventListenerFactory(
         }
     }
 
-    public companion object {
-        public val idGenerator: AtomicInteger = AtomicInteger(0)
+    private companion object {
+        private val idGenerator: AtomicInteger = AtomicInteger(0)
     }
 }

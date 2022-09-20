@@ -27,7 +27,7 @@ import kotlin.time.Duration
 public sealed class MediaPosition(
     public open val current: Duration
 ) {
-    public class KnownDuration internal constructor(
+    public data class KnownDuration internal constructor(
         override val current: Duration,
         public val duration: Duration,
         public val percent: Float

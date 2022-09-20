@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistComposablesApi::class)
-
 package com.google.android.horologist
 
 import androidx.compose.runtime.getValue
@@ -30,13 +28,10 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.composables.DatePicker
-import com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import java.time.LocalDate
 
-@Ignore("Race condition in tests on beta02")
 class DatePickerTest {
     @get:Rule
     val composeTestRule = createComposeRule()

@@ -22,16 +22,22 @@ import androidx.test.filters.LargeTest
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToLibrary
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToVolume
 import com.google.android.horologist.mediasample.ui.app.MediaActivity
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
 @LargeTest
+@HiltAndroidTest
 class MediaActivityTest {
     @get:Rule
     var rule = createAndroidComposeRule<MediaActivity>()
 
-    @Ignore("https://github.com/google/horologist/issues/282")
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
+
+
     @Test
     fun testEvent() {
         val scenario = rule.activityRule.scenario

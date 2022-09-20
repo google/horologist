@@ -447,6 +447,12 @@ package com.google.android.horologist.networks.okhttp.impl {
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public class NetworkLoggingEventListenerFactory implements okhttp3.EventListener.Factory {
     ctor public NetworkLoggingEventListenerFactory(com.google.android.horologist.networks.logging.NetworkStatusLogger logger, com.google.android.horologist.networks.status.NetworkRepository networkRepository, okhttp3.EventListener.Factory delegateEventListenerFactory, optional com.google.android.horologist.networks.data.DataRequestRepository? dataRequestRepository);
     method public okhttp3.EventListener create(okhttp3.Call call);
+    field public static final com.google.android.horologist.networks.okhttp.impl.NetworkLoggingEventListenerFactory.Companion Companion;
+  }
+
+  public static final class NetworkLoggingEventListenerFactory.Companion {
+    method public java.util.concurrent.atomic.AtomicInteger getIdGenerator();
+    property public final java.util.concurrent.atomic.AtomicInteger idGenerator;
   }
 
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class RequestTypeHolder {

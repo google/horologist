@@ -19,99 +19,135 @@
 package com.google.android.horologist.media.ui.screens.browse
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.FeaturedPlayList
+import androidx.compose.material.icons.filled.Login
+import androidx.compose.material.icons.filled.MusicNote
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.PlaylistPlay
+import androidx.compose.material.icons.filled.Podcasts
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.rememberScalingLazyListState
+import com.google.android.horologist.composables.PlaceholderChip
+import com.google.android.horologist.composables.Section
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
-import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
-import com.google.android.horologist.media.ui.uamp.UampTheme
-import com.google.android.horologist.media.ui.utils.rememberVectorPainter
+import com.google.android.horologist.media.ui.R
+import com.google.android.horologist.media.ui.components.base.StandardChip
+import com.google.android.horologist.media.ui.components.base.StandardChipType
 
 @WearPreviewDevices
 @Composable
 fun BrowseScreenPreview() {
-    BrowseScreen(
-        browseScreenState = BrowseScreenState.Loaded(downloadList),
-        onDownloadItemClick = { },
-        onPlaylistsClick = { },
-        onSettingsClick = { },
-        focusRequester = FocusRequester(),
-        scalingLazyListState = rememberScalingLazyListState(),
-        downloadItemArtworkPlaceholder = rememberVectorPainter(
-            image = Icons.Default.FeaturedPlayList,
-            tintColor = Color.Green
+    BrowseScreenPreviewSample(
+        trendingSectionState = Section.State.Loaded(
+            list = listOf("Mozart", "Beethoven")
+        ),
+        downloadsSectionState = Section.State.Loaded(
+            list = listOf(
+                "Puccini" to "O mio babbino caro",
+                "J.S. Bach" to "Toccata and Fugue in D minor"
+            )
         )
-    )
-}
-
-@WearPreviewDevices
-@Composable
-fun BrowseScreenPreviewNoDownloads() {
-    BrowseScreen(
-        browseScreenState = BrowseScreenState.Loaded(emptyList()),
-        onDownloadItemClick = { },
-        onPlaylistsClick = { },
-        onSettingsClick = { },
-        focusRequester = FocusRequester(),
-        scalingLazyListState = rememberScalingLazyListState()
     )
 }
 
 @WearPreviewDevices
 @Composable
 fun BrowseScreenPreviewLoading() {
-    BrowseScreen(
-        browseScreenState = BrowseScreenState.Loading,
-        onDownloadItemClick = { },
-        onPlaylistsClick = { },
-        onSettingsClick = { },
-        focusRequester = FocusRequester(),
-        scalingLazyListState = rememberScalingLazyListState()
+    BrowseScreenPreviewSample(
+        trendingSectionState = Section.State.Loading,
+        downloadsSectionState = Section.State.Loading
     )
 }
 
 @WearPreviewDevices
 @Composable
-fun BrowseScreenPreviewUampTheme() {
-    UampTheme {
-        BrowseScreen(
-            browseScreenState = BrowseScreenState.Loaded(downloadList),
-            onDownloadItemClick = { },
-            onPlaylistsClick = { },
-            onSettingsClick = { },
-            focusRequester = FocusRequester(),
-            scalingLazyListState = rememberScalingLazyListState(),
-            downloadItemArtworkPlaceholder = rememberVectorPainter(
-                image = Icons.Default.FeaturedPlayList,
-                tintColor = Color.Green
+fun BrowseScreenPreviewFailed() {
+    BrowseScreenPreviewSample(
+        trendingSectionState = Section.State.Failed,
+        downloadsSectionState = Section.State.Failed
+    )
+}
+
+@Composable
+private fun BrowseScreenPreviewSample(
+    trendingSectionState: Section.State,
+    downloadsSectionState: Section.State
+) {
+    BrowseScreen(
+        focusRequester = FocusRequester(),
+        scalingLazyListState = rememberScalingLazyListState()
+    ) {
+        button(
+            BrowseScreenPlaylistsSectionButton(
+                textId = R.string.horologist_browse_screen_preview_sign_in,
+                icon = Icons.Default.Login,
+                onClick = { }
+            )
+        )
+
+        section(
+            state = trendingSectionState,
+            titleId = R.string.horologist_browse_screen_preview_trending_title,
+            emptyMessageId = R.string.horologist_browse_screen_preview_trending_empty,
+            failedMessageId = R.string.horologist_browse_screen_preview_trending_failed
+        ) {
+            loaded { item: String ->
+                StandardChip(
+                    label = item,
+                    onClick = { },
+                    icon = Icons.Default.Person,
+                    chipType = StandardChipType.Secondary
+                )
+            }
+
+            loading {
+                PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
+            }
+        }
+
+        downloadsSection<Pair<String, String>>(
+            state = downloadsSectionState
+        ) {
+            loaded { item ->
+                StandardChip(
+                    label = item.first,
+                    onClick = { },
+                    secondaryLabel = item.second,
+                    icon = Icons.Default.MusicNote,
+                    chipType = StandardChipType.Secondary
+                )
+            }
+
+            loading {
+                PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
+            }
+
+            footer {
+                StandardChip(
+                    label = stringResource(id = R.string.horologist_browse_screen_preview_see_more_button),
+                    onClick = { },
+                    chipType = StandardChipType.Secondary
+                )
+            }
+        }
+
+        playlistsSection(
+            buttons = listOf(
+                BrowseScreenPlaylistsSectionButton(
+                    textId = R.string.horologist_browse_screen_preview_playlists_button,
+                    icon = Icons.Default.PlaylistPlay,
+                    onClick = { }
+                ),
+
+                BrowseScreenPlaylistsSectionButton(
+                    textId = R.string.horologist_browse_screen_preview_podcasts_button,
+                    icon = Icons.Default.Podcasts,
+                    onClick = { }
+                )
             )
         )
     }
-}
-
-private val downloadList = buildList {
-    add(
-        PlaylistDownloadUiModel.InProgress(
-            PlaylistUiModel(
-                id = "id",
-                title = "Rock Classics",
-                artworkUri = "https://www.example.com/album1.png"
-            ),
-            percentage = 15
-        )
-    )
-
-    add(
-        PlaylistDownloadUiModel.Completed(
-            PlaylistUiModel(
-                id = "id",
-                title = "Pop Punk",
-                artworkUri = "https://www.example.com/album2.png"
-            )
-        )
-    )
 }

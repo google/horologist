@@ -18,27 +18,23 @@
 
 package com.google.android.horologist.media.ui.screens.browse
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Downloading
-import androidx.compose.material.icons.filled.PlaylistPlay
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.ScalingParams
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
-import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
+import com.google.android.horologist.composables.SectionContentScope
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
@@ -48,124 +44,190 @@ import com.google.android.horologist.media.ui.components.base.Title
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 
 /**
- * A screen to:
- * - display user's list of [downloaded playlists][PlaylistDownloadUiModel];
- * - provide access to libraries;
- * - provide access to settings;
+ * A screen to browse contents of a media app.
+ *
+ * This is an opinionated implementation that allows a lot of customisation. If further
+ * customisation is required, then [SectionedList] should be used directly.
+ *
+ * This screen provide an implementation of:
+ * - a section to display user's list of [downloads][BrowseScreenScope.downloadsSection];
+ * - a section to display user's list of [playlists][BrowseScreenScope.playlistsSection];
+ * - a [button][BrowseScreenScope.button] to be used to navigate to another screen;
  */
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun BrowseScreen(
-    browseScreenState: BrowseScreenState,
-    onDownloadItemClick: (PlaylistDownloadUiModel) -> Unit,
-    onPlaylistsClick: () -> Unit,
-    onSettingsClick: () -> Unit,
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
-    downloadItemArtworkPlaceholder: Painter? = null,
-    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams()
+    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
+    content: BrowseScreenScope.() -> Unit
 ) {
     SectionedList(
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
         modifier = modifier,
-        scalingParams = scalingParams
+        scalingParams = scalingParams,
+        sections = BrowseScreenScope().apply(content).sections
+    )
+}
+
+/**
+ * Receiver scope which is used by content parameter in [BrowseScreen].
+ */
+@ExperimentalHorologistMediaUiApi
+@BrowseScreenScopeMarker
+public class BrowseScreenScope {
+
+    internal val sections: MutableList<Section<*>> = mutableListOf()
+
+    @BrowseScreenScopeMarker
+    public fun <T> section(
+        state: Section.State,
+        @StringRes titleId: Int,
+        @StringRes emptyMessageId: Int,
+        @StringRes failedMessageId: Int? = null,
+        displayFooterOnlyOnLoadedState: Boolean = true,
+        content: BrowseScreenSectionScope<T>.() -> Unit
     ) {
-        val downloadsSectionState = when (browseScreenState) {
-            is BrowseScreenState.Loading -> Section.State.Loading
-            is BrowseScreenState.Loaded -> {
-                if (browseScreenState.downloadList.isEmpty()) {
-                    Section.State.Empty
-                } else {
-                    Section.State.Loaded(browseScreenState.downloadList)
-                }
-            }
-            is BrowseScreenState.Failed ->
-                // display empty state
-                Section.State.Empty
-        }
-
-        section(state = downloadsSectionState) {
-            header {
-                Title(
-                    textId = R.string.horologist_browse_downloads_title,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-            }
-
-            loading {
-                PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
-            }
-
-            loaded { download: PlaylistDownloadUiModel ->
-                when (download) {
-                    is PlaylistDownloadUiModel.Completed -> {
-                        StandardChip(
-                            label = download.playlistUiModel.title,
-                            onClick = { onDownloadItemClick(download) },
-                            icon = download.playlistUiModel.artworkUri,
-                            largeIcon = true,
-                            placeholder = downloadItemArtworkPlaceholder,
-                            chipType = StandardChipType.Secondary
+        val scope = BrowseScreenSectionScope<T>().apply(content)
+        val firstSectionAdded = sections.isEmpty()
+        sections.add(
+            Section(
+                state = state,
+                headerContent = {
+                    Title(
+                        textId = titleId,
+                        modifier = if (firstSectionAdded) {
+                            Modifier.padding(bottom = 8.dp)
+                        } else {
+                            Modifier.padding(top = 8.dp, bottom = 8.dp)
+                        }
+                    )
+                },
+                loadingContent = scope.loadingContent,
+                loadedContent = scope.loadedContent,
+                failedContent = {
+                    failedMessageId?.let {
+                        Text(
+                            text = stringResource(id = failedMessageId),
+                            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.body2
                         )
                     }
-                    is PlaylistDownloadUiModel.InProgress -> {
-                        StandardChip(
-                            label = download.playlistUiModel.title,
-                            onClick = { onDownloadItemClick(download) },
-                            secondaryLabel = stringResource(
-                                id = R.string.horologist_browse_downloads_progress,
-                                download.percentage
-                            ),
-                            icon = Icons.Default.Downloading,
-                            placeholder = downloadItemArtworkPlaceholder,
-                            chipType = StandardChipType.Secondary
-                        )
-                    }
-                }
-            }
-
-            empty {
-                Text(
-                    text = stringResource(id = R.string.horologist_browse_downloads_empty),
-                    modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.body2
-                )
-            }
-        }
-
-        section(
-            list = listOf(
-                Triple(
-                    R.string.horologist_browse_library_playlists,
-                    Icons.Default.PlaylistPlay,
-                    onPlaylistsClick
-                ),
-                Triple(
-                    R.string.horologist_browse_library_settings,
-                    Icons.Default.Settings,
-                    onSettingsClick
-                )
+                },
+                emptyContent = {
+                    Text(
+                        text = stringResource(id = emptyMessageId),
+                        modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.body2
+                    )
+                },
+                footerContent = scope.footerContent,
+                displayFooterOnlyOnLoadedState = displayFooterOnlyOnLoadedState
             )
-        ) {
-            header {
-                Title(
-                    textId = R.string.horologist_browse_library_playlists,
-                    modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
-                )
-            }
+        )
+    }
 
-            loaded { item ->
-                StandardChip(
-                    label = stringResource(id = item.first),
-                    onClick = item.third,
-                    icon = item.second,
-                    chipType = StandardChipType.Secondary
-                )
-            }
-        }
+    @BrowseScreenScopeMarker
+    public fun <T> downloadsSection(
+        state: Section.State,
+        displayFooterOnlyOnLoadedState: Boolean = true,
+        content: BrowseScreenSectionScope<T>.() -> Unit
+    ) {
+        section(
+            state = state,
+            titleId = R.string.horologist_browse_downloads_title,
+            emptyMessageId = R.string.horologist_browse_downloads_empty,
+            failedMessageId = null,
+            displayFooterOnlyOnLoadedState = displayFooterOnlyOnLoadedState,
+            content = content
+        )
+    }
+
+    @BrowseScreenScopeMarker
+    public fun playlistsSection(buttons: List<BrowseScreenPlaylistsSectionButton>) {
+        val firstSectionAdded = sections.isEmpty()
+        sections.add(
+            Section(
+                state = Section.State.Loaded(buttons),
+                headerContent = {
+                    Title(
+                        textId = R.string.horologist_browse_library_playlists,
+                        modifier = if (firstSectionAdded) {
+                            Modifier.padding(bottom = 8.dp)
+                        } else {
+                            Modifier.padding(top = 8.dp, bottom = 8.dp)
+                        }
+                    )
+                },
+                loadedContent = { item: BrowseScreenPlaylistsSectionButton ->
+                    StandardChip(
+                        labelId = item.textId,
+                        onClick = item.onClick,
+                        icon = item.icon,
+                        chipType = StandardChipType.Secondary
+                    )
+                }
+            )
+        )
+    }
+
+    @BrowseScreenScopeMarker
+    public fun button(button: BrowseScreenPlaylistsSectionButton) {
+        sections.add(
+            Section(
+                state = Section.State.Loaded(listOf(button)),
+                loadedContent = { item: BrowseScreenPlaylistsSectionButton ->
+                    StandardChip(
+                        labelId = item.textId,
+                        onClick = item.onClick,
+                        icon = item.icon,
+                        chipType = StandardChipType.Secondary
+                    )
+                }
+            )
+        )
+    }
+}
+
+/**
+ * DSL marker used to distinguish between scopes of [BrowseScreen].
+ */
+@DslMarker
+internal annotation class BrowseScreenScopeMarker
+
+/**
+ * Receiver scope which is used by content parameter in [BrowseScreenScope].
+ */
+@ExperimentalHorologistMediaUiApi
+@BrowseScreenScopeMarker
+public class BrowseScreenSectionScope<T> {
+
+    internal var loadingContent: @Composable SectionContentScope.() -> Unit = { }
+        private set
+
+    internal var loadedContent: @Composable SectionContentScope.(T) -> Unit = { }
+        private set
+
+    internal var footerContent: @Composable SectionContentScope.() -> Unit = { }
+        private set
+
+    @BrowseScreenScopeMarker
+    public fun loading(content: @Composable SectionContentScope.() -> Unit) {
+        loadingContent = content
+    }
+
+    @BrowseScreenScopeMarker
+    public fun loaded(content: @Composable SectionContentScope.(T) -> Unit) {
+        loadedContent = content
+    }
+
+    @BrowseScreenScopeMarker
+    public fun footer(content: @Composable SectionContentScope.() -> Unit) {
+        footerContent = content
     }
 }
 
@@ -183,3 +245,10 @@ public sealed class BrowseScreenState {
 
     public object Failed : BrowseScreenState()
 }
+
+@ExperimentalHorologistMediaUiApi
+public data class BrowseScreenPlaylistsSectionButton(
+    @StringRes val textId: Int,
+    val icon: ImageVector,
+    val onClick: () -> Unit
+)

@@ -20,7 +20,7 @@
     ExperimentalHorologistComposeToolsApi::class
 )
 
-package com.google.android.horologist.media.ui
+package com.google.android.horologist.media.ui.screens.browse
 
 import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.ScalingLazyListState
@@ -28,8 +28,8 @@ import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.compose.tools.a11y.forceState
-import com.google.android.horologist.media.ui.screens.browse.BrowseScreen
-import com.google.android.horologist.media.ui.screens.browse.BrowseScreenState
+import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.PlayerLibraryPreview
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
@@ -40,10 +40,10 @@ import com.google.android.horologist.paparazzi.determineHandler
 import org.junit.Rule
 import org.junit.Test
 
-class BrowseScreenA11yScreenshotTest {
+class PlaylistDownloadBrowseScreenA11yScreenshotTest {
     private val maxPercentDifference = 1.0
 
-    val composeA11yExtension = ComposeA11yExtension()
+    private val composeA11yExtension = ComposeA11yExtension()
 
     @get:Rule
     val paparazzi = Paparazzi(
@@ -70,7 +70,7 @@ class BrowseScreenA11yScreenshotTest {
 
         paparazzi.snapshot {
             PlayerLibraryPreview(state = scrollState) {
-                BrowseScreen(
+                PlaylistDownloadBrowseScreen(
                     browseScreenState = screenState,
                     onDownloadItemClick = { },
                     onPlaylistsClick = { },
@@ -91,7 +91,7 @@ class BrowseScreenA11yScreenshotTest {
 
         paparazzi.snapshot {
             PlayerLibraryPreview(state = scrollState) {
-                BrowseScreen(
+                PlaylistDownloadBrowseScreen(
                     browseScreenState = screenState,
                     onDownloadItemClick = { },
                     onPlaylistsClick = { },

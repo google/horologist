@@ -42,6 +42,28 @@ public fun SectionedList(
     scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
     content: SectionedListScope.() -> Unit
 ) {
+    SectionedList(
+        focusRequester = focusRequester,
+        scalingLazyListState = scalingLazyListState,
+        modifier = modifier,
+        scalingParams = scalingParams,
+        sections = SectionedListScope().apply(content).sections
+    )
+}
+
+/**
+ * A list component that is split into [sections][Section].
+ * Each [Section] has its own [state][Section.State] controlled individually.
+ */
+@ExperimentalHorologistComposablesApi
+@Composable
+public fun SectionedList(
+    focusRequester: FocusRequester,
+    scalingLazyListState: ScalingLazyListState,
+    modifier: Modifier = Modifier,
+    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
+    sections: List<Section<*>> = emptyList()
+) {
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -49,7 +71,7 @@ public fun SectionedList(
         state = scalingLazyListState,
         scalingParams = scalingParams
     ) {
-        SectionedListScope().apply(content).sections.forEach { section ->
+        sections.forEach { section ->
             section.display(this)
         }
     }
@@ -97,7 +119,7 @@ internal fun <T> Section<T>.display(scope: ScalingLazyListScope) {
  * A section in [SectionedList].
  */
 @ExperimentalHorologistComposablesApi
-public data class Section<T> internal constructor(
+public data class Section<T> constructor(
     val state: State,
     val headerContent: (@Composable SectionContentScope.() -> Unit)? = null,
     val loadingContent: (@Composable SectionContentScope.() -> Unit)? = null,

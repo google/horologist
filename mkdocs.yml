@@ -22,11 +22,15 @@ nav:
       - 'Guide': composables.md
   - 'Compose Layout':
       - 'Guide': compose-layout.md
+  - 'Data Layer':
+      - 'Guide': datalayer.md
   - 'Media':
       - 'Domain Guide': media.md
       - 'UI Guide': media-ui.md
       - 'Data Guide': media-data.md
       - 'Stateful PlayerScreen Guide': media-playerscreen.md
+  - 'Network Awareness':
+      - 'Guide': network-awareness.md
   - 'Tiles':
       - 'Guide': tiles.md
   - 'Snapshots': using-snapshot-version.md

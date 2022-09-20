@@ -2,7 +2,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.google.android.horologist/horologist-media-data)](https://search.maven.org/search?q=g:com.google.android.horologist)
 
-For more information, visit the documentation: https://google.github.io/horologist/media-data
+For more information, visit the documentation: https://google.github.io/horologist/datalayer
 
 ## Download
 
@@ -28,4 +28,4 @@ dependencies {
 }
 ```
 
-[snap]: https://oss.sonatype.org/content/repositories/snapshots/com/google/android/horologist/horologist-media-data/
+[snap]: https://oss.sonatype.org/content/repositories/snapshots/com/google/android/horologist/horologist-datalayer/

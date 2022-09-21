@@ -23,10 +23,6 @@ import android.os.Looper.getMainLooper
 import androidx.media3.test.utils.TestExoPlayerBuilder
 import androidx.test.core.app.ApplicationProvider
 import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
-import com.google.android.horologist.media.data.mapper.MediaExtrasMapperNoopImpl
-import com.google.android.horologist.media.data.mapper.MediaItemExtrasMapperNoopImpl
-import com.google.android.horologist.media.data.mapper.MediaItemMapper
-import com.google.android.horologist.media.data.mapper.MediaMapper
 import com.google.android.horologist.media.model.Media
 import org.junit.Assert.assertThrows
 import org.junit.Before
@@ -54,10 +50,7 @@ class PlayerRepositoryImplCloseTest(
         shadowOf(getMainLooper()).idle()
 
         context = ApplicationProvider.getApplicationContext()
-        sut = PlayerRepositoryImpl(
-            mediaMapper = MediaMapper(MediaExtrasMapperNoopImpl),
-            mediaItemMapper = MediaItemMapper(MediaItemExtrasMapperNoopImpl)
-        )
+        sut = PlayerRepositoryImpl()
     }
 
     @Test

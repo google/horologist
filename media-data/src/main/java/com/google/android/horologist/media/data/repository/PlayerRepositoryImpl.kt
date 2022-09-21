@@ -21,6 +21,8 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.Timeline
 import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.media.data.mapper.MediaExtrasMapperNoopImpl
+import com.google.android.horologist.media.data.mapper.MediaItemExtrasMapperNoopImpl
 import com.google.android.horologist.media.data.mapper.MediaItemMapper
 import com.google.android.horologist.media.data.mapper.MediaMapper
 import com.google.android.horologist.media.data.mapper.MediaPositionMapper
@@ -47,8 +49,8 @@ import kotlin.time.toDuration
  */
 @ExperimentalHorologistMediaDataApi
 public class PlayerRepositoryImpl(
-    private val mediaMapper: MediaMapper,
-    private val mediaItemMapper: MediaItemMapper
+    private val mediaMapper: MediaMapper = MediaMapper(MediaExtrasMapperNoopImpl),
+    private val mediaItemMapper: MediaItemMapper = MediaItemMapper(MediaItemExtrasMapperNoopImpl)
 ) : PlayerRepository, Closeable {
 
     private var onClose: (() -> Unit)? = null

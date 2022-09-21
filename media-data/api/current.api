@@ -299,7 +299,7 @@ package com.google.android.horologist.media.data.mapper {
 package com.google.android.horologist.media.data.repository {
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlayerRepositoryImpl implements java.io.Closeable com.google.android.horologist.media.repository.PlayerRepository {
-    ctor public PlayerRepositoryImpl(com.google.android.horologist.media.data.mapper.MediaMapper mediaMapper, com.google.android.horologist.media.data.mapper.MediaItemMapper mediaItemMapper);
+    ctor public PlayerRepositoryImpl(optional com.google.android.horologist.media.data.mapper.MediaMapper mediaMapper, optional com.google.android.horologist.media.data.mapper.MediaItemMapper mediaItemMapper);
     method public void addMedia(com.google.android.horologist.media.model.Media media);
     method public void addMedia(int index, com.google.android.horologist.media.model.Media media);
     method public void clearMediaList();

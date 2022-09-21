@@ -53,7 +53,8 @@ fun NavWearApp(
     navController: NavHostController
 ) {
     val snackbarViewModel = viewModel<SnackbarViewModel>(factory = SnackbarViewModel.Factory)
-    val networkStatusViewModel = viewModel<NetworkStatusViewModel>(factory = NetworkStatusViewModel.Factory)
+    val networkStatusViewModel =
+        viewModel<NetworkStatusViewModel>(factory = NetworkStatusViewModel.Factory)
 
     val swipeDismissState = rememberSwipeToDismissBoxState()
     val navState = rememberSwipeDismissableNavHostState(swipeDismissState)
@@ -81,7 +82,12 @@ fun NavWearApp(
     ) {
         scalingLazyColumnComposable(
             NavScreen.Menu.route,
-            scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 0) }
+            scrollStateBuilder = {
+                ScalingLazyListState(
+                    initialCenterItemIndex = 0,
+                    initialCenterItemScrollOffset = 50
+                )
+            }
         ) {
             NavMenuScreen(
                 navigateToRoute = { route -> navController.navigate(route) },
@@ -108,7 +114,7 @@ fun NavWearApp(
 
         scrollStateComposable(
             NavScreen.Column.route,
-            scrollStateBuilder = { ScrollState(0) }
+            scrollStateBuilder = { ScrollState(initial = 0) }
         ) {
             BigColumn(
                 scrollState = it.scrollableState,

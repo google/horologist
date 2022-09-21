@@ -24,6 +24,46 @@ import com.google.android.horologist.media.ui.components.controls.MediaButtonDef
 import com.google.android.horologist.media.ui.components.controls.SeekBackButton
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.media.ui.components.controls.SeekForwardButton
+import com.google.android.horologist.media.ui.state.PlayerUiState
+import com.google.android.horologist.media.ui.state.PlayerViewModel
+
+/**
+ * Stateful version of [PodcastControlButtons].
+ *
+ * This version listens to [PlayerUiState]s emitted from [PlayerViewModel] to update the controls.
+ */
+@ExperimentalHorologistMediaUiApi
+@Composable
+public fun PodcastControlButtons(
+    playerViewModel: PlayerViewModel,
+    playerUiState: PlayerUiState,
+    modifier: Modifier = Modifier,
+    showProgress: Boolean = true,
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
+) {
+    val percent = if (showProgress) {
+        playerUiState.trackPosition?.percent ?: 0f
+    } else {
+        null
+    }
+
+    PodcastControlButtons(
+        onPlayButtonClick = { playerViewModel.play() },
+        onPauseButtonClick = { playerViewModel.pause() },
+        playPauseButtonEnabled = playerUiState.playPauseEnabled,
+        playing = playerUiState.playing,
+        onSeekBackButtonClick = { playerViewModel.skipToPreviousMedia() },
+        seekBackButtonIncrement = playerUiState.seekBackButtonIncrement,
+        seekBackButtonEnabled = playerUiState.seekBackEnabled,
+        onSeekForwardButtonClick = { playerViewModel.skipToNextMedia() },
+        seekForwardButtonIncrement = playerUiState.seekForwardButtonIncrement,
+        seekForwardButtonEnabled = playerUiState.seekForwardEnabled,
+        showProgress = showProgress,
+        modifier = modifier,
+        percent = percent,
+        colors = colors
+    )
+}
 
 /**
  * Standard Podcast control buttons, showing [SeekBackButton], [PlayPauseProgressButton] and

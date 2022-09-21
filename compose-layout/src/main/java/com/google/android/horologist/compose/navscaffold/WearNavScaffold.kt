@@ -101,8 +101,8 @@ public fun WearNavScaffold(
 
                                 timeText(
                                     Modifier.fadeAwayScalingLazyList(
-                                        viewModel.initialIndex!!,
-                                        viewModel.initialOffset!!
+                                        viewModel.initialIndex ?: 1,
+                                        viewModel.initialOffset ?: 0
                                     ) {
                                         scalingLazyListState
                                     }

@@ -47,7 +47,9 @@ class MediaMapperTest {
         val id = "id"
         val uri = "uri"
         val title = "title"
+        val displayTitle = "displayTitle"
         val artist = "artist"
+        val albumArtist = "albumArtist"
         val artworkUri = "artworkUri"
 
         val mediaItem = MediaItem.Builder()
@@ -55,8 +57,10 @@ class MediaMapperTest {
             .setUri(Uri.parse(uri))
             .setMediaMetadata(
                 MediaMetadata.Builder()
-                    .setDisplayTitle(title)
+                    .setTitle(title)
+                    .setDisplayTitle(displayTitle)
                     .setArtist(artist)
+                    .setAlbumArtist(albumArtist)
                     .setArtworkUri(Uri.parse(artworkUri))
                     .build()
             )
@@ -68,7 +72,7 @@ class MediaMapperTest {
         // then
         assertThat(result.id).isEqualTo(id)
         assertThat(result.uri).isEqualTo(uri)
-        assertThat(result.title).isEqualTo(title)
+        assertThat(result.title).isEqualTo(displayTitle)
         assertThat(result.artist).isEqualTo(artist)
         assertThat(result.artworkUri).isEqualTo(artworkUri)
     }
@@ -98,6 +102,36 @@ class MediaMapperTest {
         assertThat(result.uri).isEqualTo(uri)
         assertThat(result.title).isEqualTo("")
         assertThat(result.artist).isEqualTo(artist)
+        assertThat(result.artworkUri).isNull()
+    }
+
+    @Test
+    fun `given MediaItem without displayTitle and artist falls back to albumArtist and title`() {
+        // given
+        val id = "id"
+        val uri = "uri"
+        val title = "title"
+        val albumArtist = "albumArtist"
+
+        val mediaItem = MediaItem.Builder()
+            .setMediaId(id)
+            .setUri(Uri.parse(uri))
+            .setMediaMetadata(
+                MediaMetadata.Builder()
+                    .setTitle(title)
+                    .setAlbumArtist(albumArtist)
+                    .build()
+            )
+            .build()
+
+        // when
+        val result = sut.map(mediaItem)
+
+        // then
+        assertThat(result.id).isEqualTo(id)
+        assertThat(result.uri).isEqualTo(uri)
+        assertThat(result.title).isEqualTo(title)
+        assertThat(result.artist).isEqualTo(albumArtist)
         assertThat(result.artworkUri).isNull()
     }
 

@@ -25,7 +25,6 @@ import com.google.android.horologist.networks.data.NetworkType.BT
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.Companion.DownloadRequest
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType.Download
-import com.google.android.horologist.networks.highbandwidth.AggregatedHighBandwidthNetworkMediator
 import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
 import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.okhttp.networkInfo

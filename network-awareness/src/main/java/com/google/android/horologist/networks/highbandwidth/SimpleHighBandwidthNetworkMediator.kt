@@ -24,14 +24,13 @@ import androidx.annotation.GuardedBy
 import androidx.tracing.Trace
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkType
-import com.google.android.horologist.networks.data.NetworkType.Cell
-import com.google.android.horologist.networks.data.NetworkType.Wifi
 import com.google.android.horologist.networks.data.networkType
 import com.google.android.horologist.networks.status.NetworkRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
+import java.time.Instant
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -75,8 +74,8 @@ public class SimpleHighBandwidthNetworkMediator(
         connectivityManager.unregisterNetworkCallback(callback)
     }
 
-    private fun updateAggregatedRequests(fn: (AggregatedRequests) -> AggregatedRequests) {
-        synchronized(this) {
+    private fun updateAggregatedRequests(fn: (AggregatedRequests) -> AggregatedRequests): AggregatedRequests {
+        return synchronized(this) {
             aggregatedRequests = fn(aggregatedRequests)
 
             requested.value = if (aggregatedRequests.isNonZero) {
@@ -84,6 +83,8 @@ public class SimpleHighBandwidthNetworkMediator(
             } else {
                 null
             }
+
+            aggregatedRequests
         }
     }
 
@@ -112,21 +113,19 @@ public class SimpleHighBandwidthNetworkMediator(
     ) :
         NetworkCallback(),
         HighBandwithConnectionLease {
+        private var statusAtRequest: AggregatedRequests = updateAggregatedRequests {
+            it + request
+        }
         private val networkState = MutableStateFlow<NetworkType?>(null)
         private val closed = AtomicBoolean(false)
 
-        init {
-            updateAggregatedRequests {
-                it + request
-            }
-        }
-
         override fun onAvailable(network: Network) {
+            val newNetworkType = connectivityManager.networkType(network)
+
             networkRepository.updateNetworkAvailability(network)
 
             val oldNetworkType = networkState.value
 
-            val newNetworkType = connectivityManager.networkType(network)
             networkState.value = newNetworkType
             updatePinnedCount {
                 it + newNetworkType - oldNetworkType
@@ -143,8 +142,22 @@ public class SimpleHighBandwidthNetworkMediator(
             networkState.value = null
         }
 
-        override suspend fun awaitGranted(): NetworkType {
+        override suspend fun awaitGranted(): NetworkType? {
+            if (isAlreadyTimedOut()) {
+                return null
+            }
+
             return networkState.filterNotNull().first()
+        }
+
+        private fun isAlreadyTimedOut(): Boolean {
+            val cutoff = Instant.now().minusSeconds(3)
+            val wifiRequestedAt = statusAtRequest.wifiRequestedAt
+            val cellRequestedAt = statusAtRequest.cellRequestedAt
+            val wifiTimedOut = !request.wifi || wifiRequestedAt != null && cutoff > wifiRequestedAt
+            val cellTimedOut = !request.cell || cellRequestedAt != null && cutoff > cellRequestedAt
+
+            return wifiTimedOut && cellTimedOut
         }
 
         override fun close() {
@@ -161,37 +174,6 @@ public class SimpleHighBandwidthNetworkMediator(
                 updateAggregatedRequests {
                     it - request
                 }
-            }
-        }
-    }
-
-    private data class AggregatedNetworkCount(
-        val wifi: Int = 0,
-        val cell: Int = 0
-    ) {
-        operator fun plus(networkType: NetworkType?): AggregatedNetworkCount {
-            return when (networkType) {
-                Wifi -> copy(wifi = wifi + 1)
-                Cell -> copy(cell = cell + 1)
-                else -> this
-            }
-        }
-
-        operator fun minus(networkType: NetworkType?): AggregatedNetworkCount {
-            return when (networkType) {
-                Wifi -> copy(wifi = wifi - 1)
-                Cell -> copy(cell = cell - 1)
-                else -> this
-            }
-        }
-
-        fun toNetworkType(): NetworkType? {
-            return if (cell > 0) {
-                Cell
-            } else if (wifi > 0) {
-                Wifi
-            } else {
-                null
             }
         }
     }

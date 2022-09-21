@@ -68,12 +68,16 @@ internal class HighBandwidthCall(
     }
 
     override fun enqueue(responseCallback: Callback) {
+        val requestedAt = System.currentTimeMillis()
         val token = requestNetwork()
 
         callFactory.coroutineScope.launch(Dispatchers.Default) {
-            withTimeoutOrNull(callFactory.timeout) {
+            val grantedNetwork = withTimeoutOrNull(callFactory.timeout) {
                 token.awaitGranted()
             }
+
+            val took = System.currentTimeMillis() - requestedAt
+            println("${request.url} took ${took.toFloat() / 1000}ms and got $grantedNetwork")
 
             synchronized(this) {
                 if (cancelled) {

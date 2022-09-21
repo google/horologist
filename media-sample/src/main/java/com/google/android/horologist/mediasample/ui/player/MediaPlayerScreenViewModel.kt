@@ -21,6 +21,8 @@ import com.google.android.horologist.media.data.repository.PlayerRepositoryImpl
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
+import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
+import com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
@@ -34,7 +36,8 @@ import kotlin.time.Duration.Companion.seconds
 @HiltViewModel
 class MediaPlayerScreenViewModel @Inject constructor(
     playerRepository: PlayerRepositoryImpl,
-    settingsRepository: SettingsRepository
+    settingsRepository: SettingsRepository,
+    highBandwidthNetworkMediator: HighBandwidthNetworkMediator
 ) : PlayerViewModel(playerRepository) {
     init {
         viewModelScope.launch {
@@ -44,6 +47,8 @@ class MediaPlayerScreenViewModel @Inject constructor(
                 playerRepository.updatePosition()
             }
         }
+
+        highBandwidthNetworkMediator.requestHighBandwidthNetwork(HighBandwidthRequest.All)
     }
 
     val playerState = playerRepository.player

@@ -17,11 +17,14 @@
 package com.google.android.horologist.networks.highbandwidth
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import java.time.Instant
 
 @ExperimentalHorologistNetworksApi
 internal data class AggregatedRequests(
     val wifi: Int = 0,
-    val cell: Int = 0
+    val cell: Int = 0,
+    val wifiRequestedAt: Instant? = null,
+    val cellRequestedAt: Instant? = null,
 ) {
     init {
         check(wifi >= 0 && cell >= 0)
@@ -31,17 +34,37 @@ internal data class AggregatedRequests(
         get() = wifi > 0 || cell > 0
 
     operator fun plus(request: HighBandwidthRequest): AggregatedRequests {
+        return update(if (request.wifi) 1 else 0, if (request.cell) 1 else 0)
+    }
+
+    private fun update(
+        additionalWifi: Int,
+        additionalCell: Int
+    ): AggregatedRequests {
+        val newWifi = wifi + additionalWifi
+        val newCell = cell + additionalCell
+
+        val newWifiRequestedAt = when {
+            newWifi == 0 && wifi > 0 -> null
+            wifi == 0 && newWifi > 0 -> Instant.now()
+            else -> wifiRequestedAt
+        }
+        val newCellRequestedAt = when {
+            newCell == 0 && cell > 0 -> null
+            cell == 0 && newCell > 0 -> Instant.now()
+            else -> cellRequestedAt
+        }
+
         return copy(
-            wifi = wifi + if (request.wifi) 1 else 0,
-            cell = cell + if (request.cell) 1 else 0
+            wifi = newWifi,
+            cell = newCell,
+            wifiRequestedAt = newWifiRequestedAt,
+            cellRequestedAt = newCellRequestedAt
         )
     }
 
     operator fun minus(request: HighBandwidthRequest): AggregatedRequests {
-        return copy(
-            wifi = wifi - if (request.wifi) 1 else 0,
-            cell = cell - if (request.cell) 1 else 0
-        )
+        return update(if (request.wifi) -1 else 0, if (request.cell) -1 else 0)
     }
 
     fun toRequest(): HighBandwidthRequest {

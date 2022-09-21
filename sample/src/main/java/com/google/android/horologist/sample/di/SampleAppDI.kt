@@ -23,7 +23,6 @@ import com.google.android.horologist.navsample.NavActivity
 import com.google.android.horologist.networks.InMemoryStatusLogger
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.InMemoryDataRequestRepository
-import com.google.android.horologist.networks.highbandwidth.AggregatedHighBandwidthNetworkMediator
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
 import com.google.android.horologist.networks.request.NetworkRequesterImpl

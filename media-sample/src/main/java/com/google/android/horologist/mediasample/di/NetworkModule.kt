@@ -31,7 +31,6 @@ import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.InMemoryDataRequestRepository
 import com.google.android.horologist.networks.data.RequestType
-import com.google.android.horologist.networks.highbandwidth.AggregatedHighBandwidthNetworkMediator
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
 import com.google.android.horologist.networks.highbandwidth.SimpleHighBandwidthNetworkMediator
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
@@ -141,16 +140,6 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun aggregatingHighBandwidthRequester(
-        networkLogger: NetworkStatusLogger,
-        networkRequester: NetworkRequester
-    ) = AggregatedHighBandwidthNetworkMediator(
-        networkLogger,
-        networkRequester
-    )
-
-    @Singleton
-    @Provides
     fun simpleHighBandwidthRequester(
         connectivityManager: ConnectivityManager,
         networkRepository: NetworkRepository
@@ -254,13 +243,14 @@ object NetworkModule {
         .components {
             add(SvgDecoder.Factory())
         }
-        .respectCacheHeaders(false).diskCache {
-            DiskCache.Builder()
-                .directory(cacheDir.resolve("image_cache"))
-                .build()
-        }
-        .memoryCachePolicy(CachePolicy.ENABLED)
-        .diskCachePolicy(CachePolicy.ENABLED)
+        .respectCacheHeaders(false)
+//        .diskCache {
+//            DiskCache.Builder()
+//                .directory(cacheDir.resolve("image_cache"))
+//                .build()
+//        }
+        .memoryCachePolicy(CachePolicy.DISABLED)
+        .diskCachePolicy(CachePolicy.DISABLED)
         .networkCachePolicy(CachePolicy.ENABLED)
         .callFactory {
             NetworkAwareCallFactory(

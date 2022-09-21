@@ -37,7 +37,7 @@ object UampNetworkingRules : NetworkingRules {
         // For testing purposes fail if we get unknown requests
         check(requestType != UnknownRequest)
 
-        return requestType is RequestType.MediaRequest
+        return requestType is RequestType.MediaRequest || requestType is RequestType.ImageRequest
     }
 
     override fun checkValidRequest(

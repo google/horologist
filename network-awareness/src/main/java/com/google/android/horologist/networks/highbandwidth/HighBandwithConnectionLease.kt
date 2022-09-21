@@ -23,5 +23,5 @@ import com.google.android.horologist.networks.data.NetworkType
  * available.
  */
 public interface HighBandwithConnectionLease : AutoCloseable {
-    public suspend fun awaitGranted(): NetworkType
+    public suspend fun awaitGranted(): NetworkType?
 }

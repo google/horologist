@@ -78,8 +78,8 @@ class StandardChipIconWithProgressTest {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
                 StandardChipIconWithProgress(
                     progress = 75f,
-                    largeIcon = true,
-                    icon = Icon48dp
+                    icon = Icon48dp,
+                    largeIcon = true
                 )
             }
         }

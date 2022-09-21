@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistComposablesApi::class)
+@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistComposablesApi::class)
 
 package com.google.android.horologist.media.ui.screens.entity
 
 import android.text.format.Formatter
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -32,6 +34,7 @@ import androidx.compose.material.icons.filled.DownloadDone
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -46,6 +49,7 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.ProgressIndicatorDefaults
 import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
 import com.google.android.horologist.composables.PlaceholderChip
@@ -97,82 +101,12 @@ public fun PlaylistDownloadScreen(
         headerContent = { DefaultEntityScreenHeader(title = playlistName) },
         loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },
         mediaContent = { downloadMediaUiModel ->
-
-            val secondaryLabel = when (downloadMediaUiModel) {
-                is DownloadMediaUiModel.Downloading -> {
-                    when (downloadMediaUiModel.progress) {
-                        is DownloadMediaUiModel.Progress.Waiting -> stringResource(
-                            id = R.string.horologist_playlist_download_download_progress_waiting
-                        )
-                        is DownloadMediaUiModel.Progress.InProgress -> when (downloadMediaUiModel.size) {
-                            is DownloadMediaUiModel.Size.Known -> {
-                                val size = Formatter.formatShortFileSize(
-                                    LocalContext.current,
-                                    downloadMediaUiModel.size.sizeInBytes
-                                )
-                                stringResource(
-                                    id = R.string.horologist_playlist_download_download_progress_known_size,
-                                    downloadMediaUiModel.progress.progress,
-                                    size
-                                )
-                            }
-                            DownloadMediaUiModel.Size.Unknown -> stringResource(
-                                id = R.string.horologist_playlist_download_download_progress_unknown_size,
-                                downloadMediaUiModel.progress.progress
-                            )
-                        }
-                    }
-                }
-                is DownloadMediaUiModel.Downloaded -> downloadMediaUiModel.artist
-                is DownloadMediaUiModel.NotDownloaded -> downloadMediaUiModel.artist
-            }
-
-            when (downloadMediaUiModel) {
-                is DownloadMediaUiModel.Downloaded,
-                is DownloadMediaUiModel.NotDownloaded -> {
-                    StandardChip(
-                        label = downloadMediaUiModel.title ?: defaultMediaTitle,
-                        onClick = { onDownloadItemClick(downloadMediaUiModel) },
-                        secondaryLabel = secondaryLabel,
-                        icon = downloadMediaUiModel.artworkUri,
-                        largeIcon = true,
-                        placeholder = downloadItemArtworkPlaceholder,
-                        chipType = StandardChipType.Secondary,
-                        enabled = downloadMediaUiModel !is DownloadMediaUiModel.NotDownloaded
-                    )
-                }
-                is DownloadMediaUiModel.Downloading -> {
-                    StandardChip(
-                        label = downloadMediaUiModel.title ?: defaultMediaTitle,
-                        onClick = { onDownloadItemClick(downloadMediaUiModel) },
-                        secondaryLabel = secondaryLabel,
-                        icon = {
-                            when (downloadMediaUiModel.progress) {
-                                is DownloadMediaUiModel.Progress.InProgress -> {
-                                    StandardChipIconWithProgress(
-                                        modifier = modifier,
-                                        placeholder = downloadItemArtworkPlaceholder,
-                                        progress = downloadMediaUiModel.progress.progress,
-                                        largeIcon = true,
-                                        icon = downloadMediaUiModel.artworkUri
-                                    )
-                                }
-                                is DownloadMediaUiModel.Progress.Waiting -> {
-                                    StandardChipIconWithProgress(
-                                        modifier = modifier,
-                                        placeholder = downloadItemArtworkPlaceholder,
-                                        largeIcon = true,
-                                        icon = downloadMediaUiModel.artworkUri
-                                    )
-                                }
-                            }
-                        },
-                        largeIcon = true,
-                        chipType = StandardChipType.Secondary,
-                        enabled = true
-                    )
-                }
-            }
+            MediaContent(
+                downloadMediaUiModel = downloadMediaUiModel,
+                onDownloadItemClick = onDownloadItemClick,
+                defaultMediaTitle = defaultMediaTitle,
+                downloadItemArtworkPlaceholder = downloadItemArtworkPlaceholder
+            )
         },
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
@@ -191,7 +125,98 @@ public fun PlaylistDownloadScreen(
     )
 }
 
-@ExperimentalHorologistMediaUiApi
+@Composable
+private fun MediaContent(
+    downloadMediaUiModel: DownloadMediaUiModel,
+    onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
+    defaultMediaTitle: String = "",
+    downloadItemArtworkPlaceholder: Painter? = null
+) {
+    val secondaryLabel = when (downloadMediaUiModel) {
+        is DownloadMediaUiModel.Downloading -> {
+            when (downloadMediaUiModel.progress) {
+                is DownloadMediaUiModel.Progress.Waiting -> stringResource(
+                    id = R.string.horologist_playlist_download_download_progress_waiting
+                )
+                is DownloadMediaUiModel.Progress.InProgress -> when (downloadMediaUiModel.size) {
+                    is DownloadMediaUiModel.Size.Known -> {
+                        val size = Formatter.formatShortFileSize(
+                            LocalContext.current,
+                            downloadMediaUiModel.size.sizeInBytes
+                        )
+                        stringResource(
+                            id = R.string.horologist_playlist_download_download_progress_known_size,
+                            downloadMediaUiModel.progress.progress,
+                            size
+                        )
+                    }
+                    DownloadMediaUiModel.Size.Unknown -> stringResource(
+                        id = R.string.horologist_playlist_download_download_progress_unknown_size,
+                        downloadMediaUiModel.progress.progress
+                    )
+                }
+            }
+        }
+        is DownloadMediaUiModel.Downloaded -> downloadMediaUiModel.artist
+        is DownloadMediaUiModel.NotDownloaded -> downloadMediaUiModel.artist
+    }
+
+    when (downloadMediaUiModel) {
+        is DownloadMediaUiModel.Downloaded,
+        is DownloadMediaUiModel.NotDownloaded -> {
+            StandardChip(
+                label = downloadMediaUiModel.title ?: defaultMediaTitle,
+                onClick = { onDownloadItemClick(downloadMediaUiModel) },
+                secondaryLabel = secondaryLabel,
+                icon = downloadMediaUiModel.artworkUri,
+                largeIcon = true,
+                placeholder = downloadItemArtworkPlaceholder,
+                chipType = StandardChipType.Secondary,
+                enabled = downloadMediaUiModel !is DownloadMediaUiModel.NotDownloaded
+            )
+        }
+        is DownloadMediaUiModel.Downloading -> {
+            val icon: @Composable BoxScope.() -> Unit =
+                when (downloadMediaUiModel.progress) {
+                    is DownloadMediaUiModel.Progress.InProgress -> {
+                        {
+                            val progress by animateFloatAsState(
+                                targetValue = downloadMediaUiModel.progress.progress,
+                                animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec
+                            )
+
+                            StandardChipIconWithProgress(
+                                progress = progress,
+                                icon = downloadMediaUiModel.artworkUri,
+                                largeIcon = true,
+                                placeholder = downloadItemArtworkPlaceholder
+                            )
+                        }
+                    }
+                    is DownloadMediaUiModel.Progress.Waiting -> {
+                        {
+                            StandardChipIconWithProgress(
+                                icon = downloadMediaUiModel.artworkUri,
+                                largeIcon = true,
+                                placeholder = downloadItemArtworkPlaceholder
+                            )
+                        }
+                    }
+                }
+
+            StandardChip(
+                label = downloadMediaUiModel.title ?: defaultMediaTitle,
+                onClick = { onDownloadItemClick(downloadMediaUiModel) },
+                secondaryLabel = secondaryLabel,
+                icon = icon,
+                largeIcon = true,
+                chipType = StandardChipType.Secondary,
+                enabled = true
+            )
+        }
+    }
+}
+
 @Composable
 private fun ButtonsContent(
     state: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
@@ -272,7 +297,6 @@ private fun ButtonsContent(
     }
 }
 
-@ExperimentalHorologistMediaUiApi
 @Composable
 private fun <Collection> FirstButton(
     downloadMediaListState: PlaylistDownloadScreenState.Loaded.DownloadMediaListState,
@@ -284,6 +308,11 @@ private fun <Collection> FirstButton(
     modifier: Modifier = Modifier
 ) {
     if (downloadsProgress is DownloadsProgress.InProgress) {
+        val progress by animateFloatAsState(
+            targetValue = downloadsProgress.progress.ifNan(0f),
+            animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec
+        )
+
         Button(
             onClick = { onCancelDownloadButtonClick(collectionModel) },
             modifier = modifier.size(StandardButtonSize.Default.tapTargetSize),
@@ -298,7 +327,7 @@ private fun <Collection> FirstButton(
                             .secondaryButtonColors()
                             .backgroundColor(enabled = true).value
                     ),
-                progress = downloadsProgress.progress.ifNan(0f),
+                progress = progress,
                 indicatorColor = MaterialTheme.colors.primary,
                 trackColor = MaterialTheme.colors.onSurface.copy(alpha = 0.10f)
             )

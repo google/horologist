@@ -28,7 +28,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.CircularProgressIndicator
@@ -46,68 +45,30 @@ private val progressBarStrokeWidth = 2.dp
  * The progress indicator is in an indeterminate state and spins indefinitely.
  *
  * @param modifier [Modifier] to apply to this layout node.
- * @param icon image or icon to be displayed in the center of this view.
- * @param largeIcon true if it should display the icon with in a large size.
- * @param progressIndicatorColor the color of the progress indicator that is around the icon.
- * @param progressTrackColor the color of the background for the progress indicator.
- * @param placeholder A [Painter] that is displayed while the image is loading.
+ * @param icon Image or icon to be displayed in the center of this view.
+ * @param largeIcon True if it should display the icon with in a large size.
+ * @param placeholder A [Painter] that is displayed while the icon image is loading.
+ * @param progressIndicatorColor The color of the progress indicator that is around the icon.
+ * @param progressTrackColor The color of the background for the progress indicator.
  */
 @Composable
 internal fun StandardChipIconWithProgress(
     modifier: Modifier = Modifier,
-    largeIcon: Boolean = false,
     icon: Any? = null,
+    largeIcon: Boolean = false,
     placeholder: Painter? = null,
     progressIndicatorColor: Color = MaterialTheme.colors.primary,
     progressTrackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f)
 ) {
-    val iconSize = if (largeIcon) {
-        ChipDefaults.LargeIconSize
-    } else {
-        ChipDefaults.IconSize
-    }
-
-    Box(
+    StandardChipIconWithProgressInternal(
+        progress = null,
+        icon = icon,
+        largeIcon = largeIcon,
+        placeholder = placeholder,
+        progressIndicatorColor = progressIndicatorColor,
+        progressTrackColor = progressTrackColor,
         modifier = modifier
-            .size(iconSize)
-            .clip(CircleShape)
-    ) {
-        CircularProgressBar(
-            modifier = Modifier.align(Alignment.Center),
-            progress = null,
-            size = iconSize - progressBarStrokeWidth,
-            indicatorPadding = indicatorPadding,
-            iconProgressIndicatorColor = progressIndicatorColor,
-            iconProgressTrackColor = progressTrackColor
-        )
-        when (icon) {
-            is ImageVector -> {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = null, // hidden from talkback
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .size(iconSize - indicatorPadding)
-                        .clip(CircleShape)
-                )
-            }
-            else -> {
-                Image(
-                    painter = rememberAsyncImagePainter(
-                        model = icon,
-                        placeholder = placeholder
-                    ),
-                    contentDescription = null, // hidden from talkback
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .size(iconSize - indicatorPadding)
-                        .clip(CircleShape),
-                    contentScale = ContentScale.Crop,
-                    alpha = LocalContentAlpha.current
-                )
-            }
-        }
-    }
+    )
 }
 
 /**
@@ -115,24 +76,45 @@ internal fun StandardChipIconWithProgress(
  * This implementation displays an icon with a circular progress indicator around it.
  * The progress indicator express the proportion of completion of an ongoing task.
  *
- * @param modifier [Modifier] to apply to this layout node.
- * @param icon image or icon to be displayed in the center of this view.
- * @param largeIcon true if it should display the icon with in a large size.
- * @param progressIndicatorColor the color of the progress indicator that is around the icon.
- * @param progressTrackColor the color of the background for the progress indicator.
- * @param placeholder A [Painter] that is displayed while the image is loading.
  * @param progress The progress of this progress indicator where 0.0 represents no progress and 1.0
  * represents completion. Values outside of this range are coerced into the range 0..1.
+ * @param modifier [Modifier] to apply to this layout node.
+ * @param icon Image or icon to be displayed in the center of this view.
+ * @param largeIcon True if it should display the icon with in a large size.
+ * @param placeholder A [Painter] that is displayed while the icon image is loading.
+ * @param progressIndicatorColor The color of the progress indicator that is around the icon.
+ * @param progressTrackColor The color of the background for the progress indicator.
  */
 @Composable
 internal fun StandardChipIconWithProgress(
     progress: Float,
     modifier: Modifier = Modifier,
-    largeIcon: Boolean = false,
     icon: Any? = null,
+    largeIcon: Boolean = false,
     placeholder: Painter? = null,
     progressIndicatorColor: Color = MaterialTheme.colors.primary,
     progressTrackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f)
+) {
+    StandardChipIconWithProgressInternal(
+        progress = progress,
+        icon = icon,
+        largeIcon = largeIcon,
+        placeholder = placeholder,
+        progressIndicatorColor = progressIndicatorColor,
+        progressTrackColor = progressTrackColor,
+        modifier = modifier
+    )
+}
+
+@Composable
+private fun StandardChipIconWithProgressInternal(
+    progress: Float?,
+    icon: Any?,
+    largeIcon: Boolean,
+    placeholder: Painter?,
+    progressIndicatorColor: Color,
+    progressTrackColor: Color,
+    modifier: Modifier = Modifier
 ) {
     val iconSize = if (largeIcon) {
         ChipDefaults.LargeIconSize
@@ -145,14 +127,24 @@ internal fun StandardChipIconWithProgress(
             .size(iconSize)
             .clip(CircleShape)
     ) {
-        CircularProgressBar(
-            modifier = Modifier.align(Alignment.Center),
-            progress = progress,
-            size = iconSize - progressBarStrokeWidth,
-            indicatorPadding = indicatorPadding,
-            iconProgressIndicatorColor = progressIndicatorColor,
-            iconProgressTrackColor = progressTrackColor
-        )
+        if (progress != null) {
+            CircularProgressIndicator(
+                modifier = modifier
+                    .size(iconSize - progressBarStrokeWidth + indicatorPadding),
+                indicatorColor = progressIndicatorColor,
+                trackColor = progressTrackColor,
+                progress = progress / 100,
+                strokeWidth = progressBarStrokeWidth
+            )
+        } else {
+            CircularProgressIndicator(
+                modifier = modifier
+                    .size(iconSize - progressBarStrokeWidth + indicatorPadding),
+                indicatorColor = progressIndicatorColor,
+                trackColor = progressTrackColor,
+                strokeWidth = progressBarStrokeWidth
+            )
+        }
 
         when (icon) {
             is ImageVector -> {
@@ -181,34 +173,5 @@ internal fun StandardChipIconWithProgress(
                 )
             }
         }
-    }
-}
-
-@Composable
-private fun CircularProgressBar(
-    modifier: Modifier = Modifier,
-    progress: Float?,
-    size: Dp,
-    indicatorPadding: Dp,
-    iconProgressIndicatorColor: Color,
-    iconProgressTrackColor: Color
-) {
-    if (progress != null) {
-        CircularProgressIndicator(
-            modifier = modifier
-                .size(size + indicatorPadding),
-            indicatorColor = iconProgressIndicatorColor,
-            trackColor = iconProgressTrackColor,
-            progress = progress / 100,
-            strokeWidth = 2.dp
-        )
-    } else {
-        CircularProgressIndicator(
-            modifier = modifier
-                .size(size + indicatorPadding),
-            indicatorColor = iconProgressIndicatorColor,
-            trackColor = iconProgressTrackColor,
-            strokeWidth = 2.dp
-        )
     }
 }

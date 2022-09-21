@@ -100,7 +100,10 @@ public fun WearNavScaffold(
                                     viewModel.scrollableState as ScalingLazyListState
 
                                 timeText(
-                                    Modifier.fadeAwayScalingLazyList(viewModel.initialIndex!!) {
+                                    Modifier.fadeAwayScalingLazyList(
+                                        viewModel.initialIndex!!,
+                                        viewModel.initialOffset!!
+                                    ) {
                                         scalingLazyListState
                                     }
                                 )

@@ -70,6 +70,7 @@ class NavScaffoldTest {
 
         lateinit var aScrollState: ScalingLazyListState
         lateinit var bScrollState: ScalingLazyListState
+        lateinit var cScrollState: ScalingLazyListState
         lateinit var navController: NavHostController
 
         fun NavGraphBuilder.scrollingList(
@@ -101,6 +102,7 @@ class NavScaffoldTest {
             navController = rememberSwipeDismissableNavController()
             aScrollState = rememberScalingLazyListState(initialCenterItemIndex = 0)
             bScrollState = rememberScalingLazyListState(initialCenterItemIndex = 10)
+            cScrollState = rememberScalingLazyListState(initialCenterItemScrollOffset = 50)
 
             WearNavScaffold(
                 startDestination = "a",
@@ -108,6 +110,7 @@ class NavScaffoldTest {
             ) {
                 scrollingList("a", aScrollState)
                 scrollingList("b", bScrollState)
+                scrollingList("c", cScrollState)
             }
         }
 
@@ -126,6 +129,16 @@ class NavScaffoldTest {
         val bViewModel =
             ViewModelProvider(navController.currentBackStackEntry!!).get<NavScaffoldViewModel>()
         assertSame(bScrollState, bViewModel.scrollableState)
+
+        withContext(Dispatchers.Main) {
+            navController.navigate("c")
+        }
+
+        composeTestRule.awaitIdle()
+
+        val cViewModel =
+            ViewModelProvider(navController.currentBackStackEntry!!).get<NavScaffoldViewModel>()
+        assertSame(cScrollState, cViewModel.scrollableState)
     }
 
     @Test

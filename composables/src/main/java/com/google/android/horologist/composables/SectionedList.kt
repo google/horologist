@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingLazyListScope
@@ -40,6 +41,7 @@ public fun SectionedList(
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
+    autoCentering: AutoCenteringParams? = AutoCenteringParams(),
     content: SectionedListScope.() -> Unit
 ) {
     SectionedList(
@@ -47,6 +49,7 @@ public fun SectionedList(
         scalingLazyListState = scalingLazyListState,
         modifier = modifier,
         scalingParams = scalingParams,
+        autoCentering = autoCentering,
         sections = SectionedListScope().apply(content).sections
     )
 }
@@ -62,6 +65,7 @@ public fun SectionedList(
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
+    autoCentering: AutoCenteringParams? = AutoCenteringParams(),
     sections: List<Section<*>> = emptyList()
 ) {
     ScalingLazyColumn(
@@ -69,7 +73,8 @@ public fun SectionedList(
             .fillMaxSize()
             .scrollableColumn(focusRequester, scalingLazyListState),
         state = scalingLazyListState,
-        scalingParams = scalingParams
+        scalingParams = scalingParams,
+        autoCentering = autoCentering
     ) {
         sections.forEach { section ->
             section.display(this)

@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.stringResource
+import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingLazyListState
@@ -51,13 +52,15 @@ public fun PlaylistDownloadBrowseScreen(
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     downloadItemArtworkPlaceholder: Painter? = null,
-    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams()
+    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
+    autoCentering: AutoCenteringParams? = AutoCenteringParams()
 ) {
     BrowseScreen(
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
         modifier = modifier,
-        scalingParams = scalingParams
+        scalingParams = scalingParams,
+        autoCentering = autoCentering
     ) {
         val downloadsSectionState = when (browseScreenState) {
             is BrowseScreenState.Loading -> Section.State.Loading

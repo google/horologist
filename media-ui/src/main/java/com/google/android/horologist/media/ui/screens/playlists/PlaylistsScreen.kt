@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
@@ -63,12 +64,14 @@ public fun <T> PlaylistsScreen(
     playlistContent: @Composable (playlist: T) -> Unit,
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    autoCentering: AutoCenteringParams? = AutoCenteringParams()
 ) {
     SectionedList(
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
-        modifier = modifier
+        modifier = modifier,
+        autoCentering = autoCentering
     ) {
         val sectionState = when (playlistsScreenState) {
             is PlaylistsScreenState.Loaded<T> -> {
@@ -117,6 +120,7 @@ public fun PlaylistsScreen(
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
+    autoCentering: AutoCenteringParams? = AutoCenteringParams(),
     playlistItemArtworkPlaceholder: Painter? = null
 ) {
     val playlistContent: @Composable (playlist: PlaylistUiModel) -> Unit = { playlist ->
@@ -135,7 +139,8 @@ public fun PlaylistsScreen(
         playlistContent = playlistContent,
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
-        modifier = modifier
+        modifier = modifier,
+        autoCentering = autoCentering
     )
 }
 

@@ -21,7 +21,7 @@ package com.google.android.horologist.media.ui.state
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
-import com.google.android.horologist.test.toolbox.testdoubles.StubPlayerRepository
+import com.google.android.horologist.test.toolbox.testdoubles.MockPlayerRepository
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -34,7 +34,7 @@ class PlayerViewModelTest {
 
     @Before
     fun setUp() {
-        sut = PlayerViewModel(StubPlayerRepository())
+        sut = PlayerViewModel(MockPlayerRepository())
     }
 
     @Test

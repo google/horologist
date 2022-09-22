@@ -33,8 +33,8 @@ import com.google.android.horologist.media.ui.components.background.ArtworkColor
 import com.google.android.horologist.media.ui.screens.player.DefaultPlayerScreenControlButtons
 import com.google.android.horologist.media.ui.screens.player.DefaultPlayerScreenMediaDisplay
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
+import com.google.android.horologist.media.ui.state.PlayerUiController
 import com.google.android.horologist.media.ui.state.PlayerUiState
-import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.mediasample.ui.components.AnimatedPlayerScreenMediaDisplay
 import com.google.android.horologist.mediasample.ui.util.ReportFullyDrawn
 
@@ -74,24 +74,24 @@ fun UampMediaPlayerScreen(
                     enabled = it.connected
                 )
             },
-            controlButtons = {
+            controlButtons = { playerUiController, playerUiState ->
                 if (settingsState.podcastControls) {
-                    PlayerScreenPodcastControlButtons(mediaPlayerScreenViewModel, it)
+                    PlayerScreenPodcastControlButtons(playerUiController, playerUiState)
                 } else {
                     if (settingsState.animated) {
                         AnimatedMediaControlButtons(
-                            onPlayButtonClick = { mediaPlayerScreenViewModel.play() },
-                            onPauseButtonClick = { mediaPlayerScreenViewModel.pause() },
-                            playPauseButtonEnabled = it.playPauseEnabled,
-                            playing = it.playing,
-                            onSeekToPreviousButtonClick = { mediaPlayerScreenViewModel.skipToPreviousMedia() },
-                            seekToPreviousButtonEnabled = it.seekToPreviousEnabled,
-                            onSeekToNextButtonClick = { mediaPlayerScreenViewModel.skipToNextMedia() },
-                            seekToNextButtonEnabled = it.seekToNextEnabled,
-                            percent = it.trackPosition?.percent ?: 0f
+                            onPlayButtonClick = { playerUiController.play() },
+                            onPauseButtonClick = { playerUiController.pause() },
+                            playPauseButtonEnabled = playerUiState.playPauseEnabled,
+                            playing = playerUiState.playing,
+                            onSeekToPreviousButtonClick = { playerUiController.skipToPreviousMedia() },
+                            seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
+                            onSeekToNextButtonClick = { playerUiController.skipToNextMedia() },
+                            seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
+                            percent = playerUiState.trackPosition?.percent ?: 0f
                         )
                     } else {
-                        DefaultPlayerScreenControlButtons(mediaPlayerScreenViewModel, it)
+                        DefaultPlayerScreenControlButtons(playerUiController, playerUiState)
                     }
                 }
             },
@@ -113,18 +113,18 @@ fun UampMediaPlayerScreen(
 
 @Composable
 public fun PlayerScreenPodcastControlButtons(
-    playerViewModel: PlayerViewModel,
+    playerUiController: PlayerUiController,
     playerUiState: PlayerUiState
 ) {
     PodcastControlButtons(
-        onPlayButtonClick = { playerViewModel.play() },
-        onPauseButtonClick = { playerViewModel.pause() },
+        onPlayButtonClick = { playerUiController.play() },
+        onPauseButtonClick = { playerUiController.pause() },
         playPauseButtonEnabled = playerUiState.playPauseEnabled,
         playing = playerUiState.playing,
         percent = playerUiState.trackPosition?.percent ?: 0f,
-        onSeekBackButtonClick = { playerViewModel.seekBack() },
+        onSeekBackButtonClick = { playerUiController.seekBack() },
         seekBackButtonEnabled = playerUiState.seekBackEnabled,
-        onSeekForwardButtonClick = { playerViewModel.seekForward() },
+        onSeekForwardButtonClick = { playerUiController.seekForward() },
         seekForwardButtonEnabled = playerUiState.seekForwardEnabled,
         seekBackButtonIncrement = playerUiState.seekBackButtonIncrement,
         seekForwardButtonIncrement = playerUiState.seekForwardButtonIncrement

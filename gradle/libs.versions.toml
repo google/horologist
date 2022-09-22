@@ -30,6 +30,7 @@ googledagger = "2.43.2"
 gradlePlugin = "7.2.2"
 io-coil-kt = "2.1.0"
 junit = "4.13.2"
+kolinter = "3.12.0"
 kotlin = "1.7.0"
 kotlinxCoroutine = "1.6.4"
 ksp = "1.7.0-1.0.6"
@@ -39,6 +40,7 @@ moshi = "1.13.0"
 room = "2.4.3"
 spotless = "6.9.0"
 truth = "1.1.3"
+twitterComposeRulesKtlint = "0.0.13"
 versionCatalogUpdate = "0.5.3"
 wearcompose = "1.0.0"
 
@@ -143,6 +145,7 @@ room-common = { module = "androidx.room:room-common", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
+twitter-compose-rules-ktlint = { module = "com.twitter.compose.rules:ktlint", version.ref = "twitterComposeRulesKtlint" }
 wearcompose-foundation = { module = "androidx.wear.compose:compose-foundation", version.ref = "wearcompose" }
 wearcompose-material = { module = "androidx.wear.compose:compose-material", version.ref = "wearcompose" }
 wearcompose-navigation = { module = "androidx.wear.compose:compose-navigation", version.ref = "wearcompose" }
@@ -150,6 +153,7 @@ wearcompose-navigation = { module = "androidx.wear.compose:compose-navigation", 
 [plugins]
 benManes = { id = "com.github.ben-manes.versions", version.ref = "benManes" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kolinter = { id = "org.jmailen.kotlinter", version.ref = "kolinter" }
 kotlinGradle = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }

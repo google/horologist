@@ -46,19 +46,15 @@ android {
         freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
     }
 
-    lintOptions {
-        textReport true
-        textOutput 'stdout'
-        // We run a full lint analysis as build part in CI, so skip vital checks for assemble tasks
-        checkReleaseBuilds false
+    packagingOptions {
+        resources {
+            excludes += [
+                '/META-INF/AL2.0',
+                '/META-INF/LGPL2.1'
+            ]
+        }
     }
 
-    packagingOptions {
-        // Some of the META-INF files conflict with coroutines-test. Exclude them to enable
-        // our test APK to build (has no effect on our AARs)
-        excludes += "/META-INF/AL2.0"
-        excludes += "/META-INF/LGPL2.1"
-    }
 
     testOptions {
         unitTests {
@@ -66,6 +62,14 @@ android {
         }
         animationsDisabled true
     }
+
+    lint {
+        checkReleaseBuilds false
+        textOutput file('stdout')
+        textReport true
+    }
+
+    namespace 'com.google.android.horologist.media.data'
 }
 
 apply plugin: 'me.tylerbwong.gradle.metalava'

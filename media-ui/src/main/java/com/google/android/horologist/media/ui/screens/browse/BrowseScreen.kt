@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingLazyListState
@@ -61,6 +62,7 @@ public fun BrowseScreen(
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
+    autoCentering: AutoCenteringParams? = AutoCenteringParams(),
     content: BrowseScreenScope.() -> Unit
 ) {
     SectionedList(
@@ -68,6 +70,7 @@ public fun BrowseScreen(
         scalingLazyListState = scalingLazyListState,
         modifier = modifier,
         scalingParams = scalingParams,
+        autoCentering = autoCentering,
         sections = BrowseScreenScope().apply(content).sections
     )
 }

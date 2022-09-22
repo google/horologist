@@ -43,6 +43,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.ChipDefaults
@@ -83,6 +84,7 @@ public fun PlaylistDownloadScreen(
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
+    autoCentering: AutoCenteringParams? = AutoCenteringParams(),
     onDownloadCompletedButtonClick: ((PlaylistUiModel) -> Unit)? = null,
     defaultMediaTitle: String = "",
     downloadItemArtworkPlaceholder: Painter? = null
@@ -111,6 +113,7 @@ public fun PlaylistDownloadScreen(
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
         modifier = modifier,
+        autoCentering = autoCentering,
         buttonsContent = {
             ButtonsContent(
                 state = playlistDownloadScreenState,

@@ -99,11 +99,6 @@ dependencies {
     kapt libs.dagger.hiltandroidcompiler
     kapt libs.hilt.ext.compiler
 
-    androidTestImplementation libs.junit
-    androidTestImplementation libs.truth
-    androidTestImplementation libs.androidx.work.testing
-    androidTestImplementation libs.dagger.hiltandroidtesting
-
     kaptAndroidTest libs.dagger.hiltandroidcompiler
     kaptAndroidTest libs.hilt.ext.compiler
 }

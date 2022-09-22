@@ -185,6 +185,9 @@ public sealed class EntityScreenState<Media> {
  */
 @ExperimentalHorologistMediaUiApi
 @Composable
-public fun DefaultEntityScreenHeader(title: String) {
-    Title(text = title, modifier = Modifier.padding(bottom = 12.dp))
+public fun DefaultEntityScreenHeader(
+    title: String,
+    modifier: Modifier = Modifier
+) {
+    Title(text = title, modifier = modifier.padding(bottom = 12.dp))
 }

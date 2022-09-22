@@ -72,6 +72,8 @@ fun UampWearApp(
 
     UampTheme {
         MediaPlayerScaffold(
+            snackbarViewModel = hiltViewModel<SnackbarViewModel>(),
+            volumeViewModel = hiltViewModel<VolumeViewModel>(),
             playerScreen = { focusRequester ->
                 UampMediaPlayerScreen(
                     modifier = Modifier.fillMaxSize(),
@@ -144,42 +146,39 @@ fun UampWearApp(
                     navController = navController
                 )
             },
-            navHostState = navHostState,
-            pagerState = pagerState,
-            snackbarViewModel = hiltViewModel<SnackbarViewModel>(),
-            volumeViewModel = hiltViewModel<VolumeViewModel>(),
-            timeText = timeText,
             deepLinkPrefix = appViewModel.deepLinkPrefix,
             navController = navController,
-            additionalNavRoutes = {
-                scalingLazyColumnComposable(
-                    route = AudioDebug.navRoute,
-                    arguments = AudioDebug.arguments,
-                    deepLinks = AudioDebug.deepLinks(appViewModel.deepLinkPrefix),
-                    scrollStateBuilder = { ScalingLazyListState() }
-                ) {
-                    AudioDebugScreen(
-                        focusRequester = it.viewModel.focusRequester,
-                        state = it.scrollableState,
-                        audioDebugScreenViewModel = hiltViewModel()
-                    )
-                }
-
-                scalingLazyColumnComposable(
-                    route = Samples.navRoute,
-                    arguments = Samples.arguments,
-                    deepLinks = Samples.deepLinks(appViewModel.deepLinkPrefix),
-                    scrollStateBuilder = { ScalingLazyListState() }
-                ) {
-                    SamplesScreen(
-                        focusRequester = it.viewModel.focusRequester,
-                        state = it.scrollableState,
-                        samplesScreenViewModel = hiltViewModel(),
-                        navController = navController
-                    )
-                }
+            timeText = timeText,
+            pagerState = pagerState,
+            navHostState = navHostState
+        ) {
+            scalingLazyColumnComposable(
+                route = AudioDebug.navRoute,
+                arguments = AudioDebug.arguments,
+                deepLinks = AudioDebug.deepLinks(appViewModel.deepLinkPrefix),
+                scrollStateBuilder = { ScalingLazyListState() }
+            ) {
+                AudioDebugScreen(
+                    focusRequester = it.viewModel.focusRequester,
+                    state = it.scrollableState,
+                    audioDebugScreenViewModel = hiltViewModel()
+                )
             }
-        )
+
+            scalingLazyColumnComposable(
+                route = Samples.navRoute,
+                arguments = Samples.arguments,
+                deepLinks = Samples.deepLinks(appViewModel.deepLinkPrefix),
+                scrollStateBuilder = { ScalingLazyListState() }
+            ) {
+                SamplesScreen(
+                    focusRequester = it.viewModel.focusRequester,
+                    state = it.scrollableState,
+                    samplesScreenViewModel = hiltViewModel(),
+                    navController = navController
+                )
+            }
+        }
     }
 
     LaunchedEffect(Unit) {

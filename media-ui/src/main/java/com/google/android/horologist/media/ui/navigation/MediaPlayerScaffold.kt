@@ -65,7 +65,6 @@ import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
  */
 @Composable
 public fun MediaPlayerScaffold(
-    modifier: Modifier = Modifier,
     snackbarViewModel: SnackbarViewModel,
     volumeViewModel: VolumeViewModel,
     playerScreen: @Composable (FocusRequester) -> Unit,
@@ -74,6 +73,9 @@ public fun MediaPlayerScaffold(
     mediaEntityScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
     playlistsScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
     settingsScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
+    deepLinkPrefix: String,
+    navController: NavHostController,
+    modifier: Modifier = Modifier,
     volumeScreen: @Composable (FocusRequester) -> Unit = { focusRequester ->
         VolumeScreen(
             focusRequester = focusRequester
@@ -84,21 +86,19 @@ public fun MediaPlayerScaffold(
     },
     pagerState: PagerState = rememberPagerState(initialPage = 0),
     navHostState: SwipeDismissableNavHostState = rememberSwipeDismissableNavHostState(),
-    deepLinkPrefix: String,
-    navController: NavHostController,
     additionalNavRoutes: NavGraphBuilder.() -> Unit = {}
 ) {
     WearNavScaffold(
-        modifier = modifier,
         startDestination = NavigationScreens.Player.navRoute,
-        timeText = timeText,
         navController = navController,
+        modifier = modifier,
         snackbar = {
             DialogSnackbarHost(
                 modifier = Modifier.fillMaxSize(),
                 hostState = snackbarViewModel.snackbarHostState
             )
         },
+        timeText = timeText,
         state = navHostState
     ) {
         wearNavComposable(

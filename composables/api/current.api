@@ -112,7 +112,7 @@ package com.google.android.horologist.composables {
   }
 
   public final class SegmentedProgressIndicatorKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void SegmentedProgressIndicator(optional androidx.compose.ui.Modifier modifier, java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> trackSegments, float progress, optional float startAngle, optional float endAngle, optional float strokeWidth, optional float paddingAngle, optional long trackColor);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void SegmentedProgressIndicator(java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> trackSegments, float progress, optional androidx.compose.ui.Modifier modifier, optional float startAngle, optional float endAngle, optional float strokeWidth, optional float paddingAngle, optional long trackColor);
   }
 
   public final class TimePickerKt {

@@ -37,12 +37,12 @@ private fun SegmentedProgressIndicatorRoundPreview() {
     )
 
     SegmentedProgressIndicator(
-        modifier = Modifier.fillMaxSize(),
         trackSegments = segments,
         progress = 0.5833f,
+        modifier = Modifier.fillMaxSize(),
         strokeWidth = 10.dp,
-        trackColor = Color.Gray,
-        paddingAngle = 2f
+        paddingAngle = 2f,
+        trackColor = Color.Gray
     )
 }
 
@@ -57,11 +57,11 @@ private fun SegmentedProgressIndicatorSquarePreview() {
     )
 
     SegmentedProgressIndicator(
-        modifier = Modifier.fillMaxSize(),
         trackSegments = segments,
         progress = 0.75f,
+        modifier = Modifier.fillMaxSize(),
         strokeWidth = 15.dp,
-        trackColor = Color.Gray,
-        paddingAngle = 2f
+        paddingAngle = 2f,
+        trackColor = Color.Gray
     )
 }

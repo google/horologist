@@ -201,6 +201,15 @@ subprojects {
                 }
             }
         }
+
+        plugins.withId('com.android.library') {
+            android {
+                lint {
+                    // Remove once fixed: https://issuetracker.google.com/196420849
+                    disable("ExpiringTargetSdkVersion")
+                }
+            }
+        }
     }
 
     afterEvaluate {

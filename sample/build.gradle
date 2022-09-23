@@ -80,6 +80,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion libs.versions.compose.compiler.get()
     }
+    namespace 'com.google.android.horologist.sample'
 }
 
 sourceSets {

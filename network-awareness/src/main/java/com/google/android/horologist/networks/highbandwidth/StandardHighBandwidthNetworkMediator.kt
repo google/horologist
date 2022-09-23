@@ -31,6 +31,8 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withTimeoutOrNull
 import java.util.concurrent.atomic.AtomicBoolean
@@ -49,8 +51,12 @@ public class StandardHighBandwidthNetworkMediator(
 
     override val pinned: Flow<Set<NetworkType>> = requests.flatMapLatest {
         val grantedNetworks = it.types.values.mapNotNull { countAndLease -> countAndLease.lease?.grantedNetwork }
-        combine(grantedNetworks) { networks ->
-            networks.mapNotNull { it?.second } .toSet()
+        if (grantedNetworks.isEmpty()) {
+            flowOf(setOf())
+        } else {
+            combine(grantedNetworks) { networks ->
+                networks.mapNotNull { it?.second }.toSet()
+            }
         }
     }
 

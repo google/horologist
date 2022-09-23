@@ -34,7 +34,7 @@ public fun DataUsageTimeText(
     networkStatus: Networks,
     networkUsage: DataUsageReport?,
     modifier: Modifier = Modifier,
-    requestedNetwork: NetworkType? = null
+    pinnedNetworks: Set<NetworkType> = setOf()
 ) {
     val style = CurvedTextStyle(MaterialTheme.typography.caption1)
     val context = LocalContext.current
@@ -48,7 +48,7 @@ public fun DataUsageTimeText(
                     networkUsage = networkUsage,
                     style = style,
                     context = context,
-                    requestedNetwork = requestedNetwork
+                    pinnedNetworks = pinnedNetworks
                 )
             },
             startLinearContent = {

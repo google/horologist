@@ -52,7 +52,7 @@ public fun CurvedScope.curveDataUsage(
     networkUsage: DataUsageReport?,
     style: CurvedTextStyle,
     context: Context,
-    requestedNetwork: NetworkType?
+    pinnedNetworks: Set<NetworkType>
 ) {
     val activeNetwork = networkStatus.activeNetwork
 
@@ -60,7 +60,7 @@ public fun CurvedScope.curveDataUsage(
     val types = networks.map { it.networkInfo.type }
     networks.forEach {
         curvedComposable(radialAlignment = CurvedAlignment.Radial.Outer) {
-            if (requestedNetwork == it.networkInfo.type) {
+            if (pinnedNetworks.contains(it.networkInfo.type)) {
                 Icon(
                     modifier = modifier
                         .size(14.dp)

@@ -315,9 +315,9 @@ package com.google.android.horologist.networks.highbandwidth {
   }
 
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public interface HighBandwidthNetworkMediator {
-    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.data.NetworkType> getPinned();
+    method public kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.horologist.networks.data.NetworkType>> getPinned();
     method public com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease requestHighBandwidthNetwork(com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest request);
-    property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.data.NetworkType> pinned;
+    property public abstract kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.horologist.networks.data.NetworkType>> pinned;
   }
 
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class HighBandwidthRequest {
@@ -351,10 +351,10 @@ package com.google.android.horologist.networks.highbandwidth {
 
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class StandardHighBandwidthNetworkMediator implements com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator {
     ctor public StandardHighBandwidthNetworkMediator(com.google.android.horologist.networks.logging.NetworkStatusLogger logger, com.google.android.horologist.networks.request.NetworkRequester networkRequester);
-    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.data.NetworkType> getPinned();
+    method public kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.horologist.networks.data.NetworkType>> getPinned();
     method public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest> getRequested();
     method public com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease requestHighBandwidthNetwork(com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest request);
-    property public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.data.NetworkType> pinned;
+    property public kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.horologist.networks.data.NetworkType>> pinned;
     property public final kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest> requested;
   }
 
@@ -580,11 +580,11 @@ package com.google.android.horologist.networks.ui {
 
   public final class DataUsageKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static void LinearDataUsage(com.google.android.horologist.networks.data.Networks networkStatus, com.google.android.horologist.networks.data.DataUsageReport? networkUsage, androidx.compose.ui.text.TextStyle style, android.content.Context context);
-    method @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static void curveDataUsage(androidx.wear.compose.foundation.CurvedScope, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.networks.data.Networks networkStatus, com.google.android.horologist.networks.data.DataUsageReport? networkUsage, androidx.wear.compose.foundation.CurvedTextStyle style, android.content.Context context, com.google.android.horologist.networks.data.NetworkType? requestedNetwork);
+    method @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static void curveDataUsage(androidx.wear.compose.foundation.CurvedScope, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.networks.data.Networks networkStatus, com.google.android.horologist.networks.data.DataUsageReport? networkUsage, androidx.wear.compose.foundation.CurvedTextStyle style, android.content.Context context, java.util.Set<? extends com.google.android.horologist.networks.data.NetworkType> pinnedNetworks);
   }
 
   public final class DataUsageTimeTextKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static void DataUsageTimeText(boolean showData, com.google.android.horologist.networks.data.Networks networkStatus, com.google.android.horologist.networks.data.DataUsageReport? networkUsage, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.networks.data.NetworkType? requestedNetwork);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public static void DataUsageTimeText(boolean showData, com.google.android.horologist.networks.data.Networks networkStatus, com.google.android.horologist.networks.data.DataUsageReport? networkUsage, optional androidx.compose.ui.Modifier modifier, optional java.util.Set<? extends com.google.android.horologist.networks.data.NetworkType> pinnedNetworks);
   }
 
 }

@@ -31,7 +31,7 @@ import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.InMemoryDataRequestRepository
 import com.google.android.horologist.networks.data.RequestType
-import com.google.android.horologist.networks.highbandwidth.AggregatedHighBandwidthNetworkMediator
+import com.google.android.horologist.networks.highbandwidth.StandardHighBandwidthNetworkMediator
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
 import com.google.android.horologist.networks.highbandwidth.SimpleHighBandwidthNetworkMediator
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
@@ -144,7 +144,7 @@ object NetworkModule {
     fun aggregatingHighBandwidthRequester(
         networkLogger: NetworkStatusLogger,
         networkRequester: NetworkRequester
-    ) = AggregatedHighBandwidthNetworkMediator(
+    ) = StandardHighBandwidthNetworkMediator(
         networkLogger,
         networkRequester
     )

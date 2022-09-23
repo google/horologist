@@ -14,25 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.networks.highbandwidth
+package com.google.android.horologist.networks.request
 
-import java.io.Closeable
-import kotlin.time.Duration
+import android.net.Network
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Cancellable network request token. Allows caller to release the connection or await it becoming
  * available.
  */
-public interface HighBandwithConnectionLease: Closeable {
-    /**
-     * Await a connection being granted on this lease. The
-     * connection could be immediately revoked, so apps
-     * should check available networks after this call completes.
-     * May return immediately if a network is unlikely to be
-     * granted.
-     *
-     * @param timeout the length of time to wait for a likely network.
-     * @return whether a network was found
-     */
-    public suspend fun awaitGranted(timeout: Duration): Boolean
+public interface NetworkLease : AutoCloseable {
+    val grantedNetwork: Flow<Network?>
 }

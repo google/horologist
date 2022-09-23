@@ -20,6 +20,7 @@ import android.net.ConnectivityManager
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest
+import com.google.android.horologist.networks.highbandwidth.HighBandwithConnectionLease
 import kotlinx.coroutines.flow.StateFlow
 
 /**
@@ -30,9 +31,9 @@ import kotlinx.coroutines.flow.StateFlow
  */
 @ExperimentalHorologistNetworksApi
 public interface NetworkRequester {
-    public fun clearRequest()
-
-    public fun setRequests(request: HighBandwidthRequest)
-
-    public val pinnedNetwork: StateFlow<NetworkType?>
+    /**
+     * Make a request for a high bandwidth network, with request details provided in
+     * `request`. Returns a cancellation Token, that also allows waiting for a connection.
+     */
+    public fun requestHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease
 }

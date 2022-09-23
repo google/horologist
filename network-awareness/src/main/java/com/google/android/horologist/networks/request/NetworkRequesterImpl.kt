@@ -24,49 +24,35 @@ import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.networkType
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest
 import com.google.android.horologist.networks.status.NetworkRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
 @ExperimentalHorologistNetworksApi
 public class NetworkRequesterImpl(
     private val connectivityManager: ConnectivityManager,
-    private val networkRepository: NetworkRepository
 ) : NetworkRequester {
-    private val requestedNetworks = MutableStateFlow<HighBandwidthRequest?>(null)
-    override val pinnedNetwork: MutableStateFlow<NetworkType?> = MutableStateFlow(null)
+    override fun requestHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease {
+        val lease = NetworkLeaseImpl()
 
-    override fun clearRequest() {
-        requestedNetworks.update {
-            check(it != null)
+        connectivityManager.requestNetwork(request.toNetworkRequest(), lease)
 
-            connectivityManager.unregisterNetworkCallback(networkCallback)
-            pinnedNetwork.value = null
-
-            null
-        }
+        return lease
     }
 
-    override fun setRequests(request: HighBandwidthRequest) {
-        requestedNetworks.update {
-            check(it == null)
+    inner class NetworkLeaseImpl : NetworkCallback(), NetworkLease {
+        override val grantedNetwork: MutableStateFlow<Network?> = MutableStateFlow(null)
 
-            connectivityManager.requestNetwork(request.toNetworkRequest(), networkCallback)
-
-            request
-        }
-    }
-
-    private val networkCallback: NetworkCallback = object : NetworkCallback() {
         override fun onAvailable(network: Network) {
-            networkRepository.updateNetworkAvailability(network)
-
-            val type = connectivityManager.networkType(network)
-
-            pinnedNetwork.update { type }
+            grantedNetwork.value = network
         }
 
         override fun onUnavailable() {
-            pinnedNetwork.update { null }
+            grantedNetwork.value = null
+        }
+
+        override fun close() {
+            connectivityManager.unregisterNetworkCallback(this)
         }
     }
 }

@@ -357,7 +357,7 @@ package com.google.android.horologist.networks.highbandwidth {
   }
 
   public interface HighBandwithConnectionLease extends java.lang.AutoCloseable {
-    method public suspend Object? awaitGranted(kotlin.coroutines.Continuation<? super com.google.android.horologist.networks.data.NetworkType> p);
+    method public suspend Object? awaitGranted(long timeout, kotlin.coroutines.Continuation<? super java.lang.Boolean> p);
   }
 
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class SimpleHighBandwidthNetworkMediator implements com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator {

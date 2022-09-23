@@ -33,7 +33,7 @@ import com.google.android.horologist.networks.data.InMemoryDataRequestRepository
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.highbandwidth.StandardHighBandwidthNetworkMediator
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
-import com.google.android.horologist.networks.highbandwidth.SimpleHighBandwidthNetworkMediator
+import com.google.android.horologist.networks.highbandwidth.StandardHighBandwidthNetworkMediator
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
 import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
@@ -151,19 +151,9 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun simpleHighBandwidthRequester(
-        connectivityManager: ConnectivityManager,
-        networkRepository: NetworkRepository
-    ) = SimpleHighBandwidthNetworkMediator(
-        connectivityManager,
-        networkRepository
-    )
-
-    @Singleton
-    @Provides
     fun highBandwidthRequester(
-        simpleHighBandwidthNetworkMediator: SimpleHighBandwidthNetworkMediator
-    ): HighBandwidthNetworkMediator = simpleHighBandwidthNetworkMediator
+        highBandwidthNetworkMediator: StandardHighBandwidthNetworkMediator
+    ): HighBandwidthNetworkMediator = highBandwidthNetworkMediator
 
     @Singleton
     @Provides

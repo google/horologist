@@ -14,17 +14,26 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package com.google.android.horologist.networks.highbandwidth
 
+import android.net.Network
 import androidx.annotation.GuardedBy
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
+import com.google.android.horologist.networks.request.NetworkLease
 import com.google.android.horologist.networks.request.NetworkRequester
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withTimeoutOrNull
 import java.util.concurrent.atomic.AtomicBoolean
@@ -39,68 +48,107 @@ public class StandardHighBandwidthNetworkMediator(
     private val logger: NetworkStatusLogger,
     private val networkRequester: NetworkRequester
 ) : HighBandwidthNetworkMediator {
-    @GuardedBy("this")
-    private var requests = AggregatedRequests()
-    public val requested: MutableStateFlow<HighBandwidthRequest?> = MutableStateFlow(null)
-    override val pinned: StateFlow<NetworkType?> = networkRequester.pinnedNetwork
+    private val requests: MutableStateFlow<Requests> = MutableStateFlow(Requests())
+
+    override val pinned: Flow<Set<NetworkType>> = requests.flatMapLatest {
+        it.leases
+    }
+
+    data class CountAndLease(
+        val count: Int = 0,
+        val lease: NetworkLease? = null,
+    )
+
+    data class Requests(
+        val wifiOnly: CountAndLease = CountAndLease(),
+        val cellOnly: CountAndLease = CountAndLease(),
+        val either: CountAndLease = CountAndLease(),
+    ) {
+        fun forRequest(request: HighBandwidthRequest): CountAndLease {
+
+        }
+
+        fun withUpdated(
+            request: HighBandwidthRequest,
+            existing: CountAndLease
+        ): Requests {
+            if (request.isCellOnly) {
+                return this.copy()
+            } else if (request.isWifiOnly) {
+                return this.copy()
+            } else {
+                return this.copy()
+            }
+        }
+
+        val leases: Flow<Set<NetworkType>>
+            get() {
+                val leaseNetworks = listOfNotNull(
+                    wifiOnly.lease?.grantedNetwork,
+                    cellOnly.lease?.grantedNetwork,
+                    either.lease?.grantedNetwork
+                )
+                return combine(leaseNetworks) { networks ->
+                    networks.mapNotNull {
+                        it?.second
+                    }.toSet()
+                }
+            }
+    }
 
     override fun requestHighBandwidthNetwork(
         request: HighBandwidthRequest
     ): HighBandwidthConnectionLease {
-        registerRequest(request)
+        requests.update {
+            processRequest(it, request)
+        }
 
-        return SingleHighBandwidthConnectionLease(request)
+        val lease = requests.value.forRequest(request).lease!!
+
+        return SingleHighBandwidthConnectionLease(request, lease)
     }
 
-    private fun registerRequest(request: HighBandwidthRequest) {
-        synchronized(this) {
-            requests += request
-            update()
+    private fun processRequest(
+        requests: Requests,
+        request: HighBandwidthRequest
+    ): Requests {
+        val existing = requests.forRequest(request)
+
+        return requests.withUpdated(request, existing)
+    }
+
+    private fun releaseHighBandwidthNetwork(
+        request: HighBandwidthRequest
+    ) {
+        requests.update {
+            processRelease(it, request)
         }
     }
 
-    private fun unregisterRequest(request: HighBandwidthRequest) {
-        synchronized(this) {
-            requests -= request
-            update()
-        }
+    private fun processRelease(
+        it: Requests,
+        request: HighBandwidthRequest
+    ): Requests {
+        return it
     }
 
-    private fun update() {
-        requested.update { currentRequested ->
-            if (requests.isNonZero) {
-                val newRequested = requests.toRequest()
-                if (currentRequested == null) {
-                    val request = newRequested
-                    requested.value = request
-                    logger.logNetworkEvent("Requesting High Bandwidth Network for $request")
-                    networkRequester.setRequests(request)
-                }
-                newRequested
-            } else {
-                if (currentRequested != null) {
-                    requested.value = null
-                    logger.logNetworkEvent("Releasing High Bandwidth Network")
-                    networkRequester.clearRequest()
-                }
-                null
-            }
-        }
-    }
-
-    private inner class SingleHighBandwidthConnectionLease(private val request: HighBandwidthRequest) : HighBandwidthConnectionLease {
+    private inner class SingleHighBandwidthConnectionLease(
+        private val request: HighBandwidthRequest,
+        private val lease: NetworkLease
+    ) :
+        HighBandwidthConnectionLease {
         private val closed = AtomicBoolean(false)
 
         override suspend fun awaitGranted(timeout: Duration): Boolean {
             return withTimeoutOrNull(timeout) {
-                networkRequester.pinnedNetwork.filterNotNull().first()
+                lease.grantedNetwork.filterNotNull().first()
             } != null
         }
 
         override fun close() {
             // Avoid any conditions closing this twice
             if (closed.compareAndSet(false, true)) {
-                unregisterRequest(request)
+                releaseHighBandwidthNetwork(request)
             }
         }
     }

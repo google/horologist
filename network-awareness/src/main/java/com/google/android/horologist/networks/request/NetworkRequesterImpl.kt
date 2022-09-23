@@ -19,32 +19,32 @@ package com.google.android.horologist.networks.request
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
+import android.net.NetworkRequest
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkType
+import com.google.android.horologist.networks.data.NetworkType.Unknown
 import com.google.android.horologist.networks.data.networkType
-import com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest
-import com.google.android.horologist.networks.status.NetworkRepository
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
 
 @ExperimentalHorologistNetworksApi
 public class NetworkRequesterImpl(
     private val connectivityManager: ConnectivityManager,
 ) : NetworkRequester {
-    override fun requestHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease {
+    override fun requestHighBandwidthNetwork(request: NetworkRequest): NetworkLease {
         val lease = NetworkLeaseImpl()
 
-        connectivityManager.requestNetwork(request.toNetworkRequest(), lease)
+        connectivityManager.requestNetwork(request, lease)
 
         return lease
     }
 
     inner class NetworkLeaseImpl : NetworkCallback(), NetworkLease {
-        override val grantedNetwork: MutableStateFlow<Network?> = MutableStateFlow(null)
+        override val grantedNetwork: MutableStateFlow<Pair<Network, NetworkType>?> =
+            MutableStateFlow(null)
 
         override fun onAvailable(network: Network) {
-            grantedNetwork.value = network
+            grantedNetwork.value =
+                Pair(network, connectivityManager.networkType(network) ?: Unknown)
         }
 
         override fun onUnavailable() {
@@ -53,6 +53,7 @@ public class NetworkRequesterImpl(
 
         override fun close() {
             connectivityManager.unregisterNetworkCallback(this)
+            grantedNetwork.value = null
         }
     }
 }

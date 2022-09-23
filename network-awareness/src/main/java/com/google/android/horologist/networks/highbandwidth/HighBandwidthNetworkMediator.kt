@@ -18,6 +18,7 @@ package com.google.android.horologist.networks.highbandwidth
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkType
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 
 /**
@@ -31,7 +32,7 @@ public interface HighBandwidthNetworkMediator {
     /**
      * The current resulting network specifically from high bandwidth requests.
      */
-    public val pinned: StateFlow<NetworkType?>
+    public val pinned: Flow<Set<NetworkType>>
 
     /**
      * Make a request for a high bandwidth network, with request details provided in

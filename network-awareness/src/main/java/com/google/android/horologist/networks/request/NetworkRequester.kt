@@ -17,17 +17,14 @@
 package com.google.android.horologist.networks.request
 
 import android.net.ConnectivityManager
+import android.net.NetworkRequest
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest
-import com.google.android.horologist.networks.highbandwidth.HighBandwithConnectionLease
-import kotlinx.coroutines.flow.StateFlow
 
 /**
  * Slightly coroutine aware API for [ConnectivityManager.requestNetwork].
  *
- * Assumes a single owner, and allows setting and clearing the [HighBandwidthRequest]
- * and will returns a StateFlow of the [pinnedNetwork].
+ * Subscription with a listener is replaced with a closable lease, with the current network.
  */
 @ExperimentalHorologistNetworksApi
 public interface NetworkRequester {
@@ -35,5 +32,5 @@ public interface NetworkRequester {
      * Make a request for a high bandwidth network, with request details provided in
      * `request`. Returns a cancellation Token, that also allows waiting for a connection.
      */
-    public fun requestHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease
+    public fun requestHighBandwidthNetwork(request: NetworkRequest): NetworkLease
 }

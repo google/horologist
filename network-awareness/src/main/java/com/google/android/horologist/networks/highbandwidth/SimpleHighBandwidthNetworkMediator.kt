@@ -55,8 +55,8 @@ public class SimpleHighBandwidthNetworkMediator(
     private var pinnedCount = AggregatedNetworkCount()
     override val pinned: MutableStateFlow<NetworkType?> = MutableStateFlow(null)
 
-    override fun requestHighBandwidthNetwork(request: HighBandwidthRequest): HighBandwithConnectionLease {
-        val token = CallbackHighBandwithConnectionLease(request)
+    override fun requestHighBandwidthNetwork(request: HighBandwidthRequest): HighBandwidthConnectionLease {
+        val token = CallbackHighBandwidthConnectionLease(request)
         val networkRequest = request.toNetworkRequest()
 
         registerRequest(networkRequest, token)
@@ -66,13 +66,13 @@ public class SimpleHighBandwidthNetworkMediator(
 
     private fun registerRequest(
         networkRequest: NetworkRequest,
-        callback: CallbackHighBandwithConnectionLease
+        callback: CallbackHighBandwidthConnectionLease
     ) {
         connectivityManager.requestNetwork(networkRequest, callback)
     }
 
     private fun unregisterRequest(
-        callback: CallbackHighBandwithConnectionLease
+        callback: CallbackHighBandwidthConnectionLease
     ) {
         connectivityManager.unregisterNetworkCallback(callback)
     }
@@ -109,11 +109,11 @@ public class SimpleHighBandwidthNetworkMediator(
         }
     }
 
-    internal inner class CallbackHighBandwithConnectionLease(
+    internal inner class CallbackHighBandwidthConnectionLease(
         internal val request: HighBandwidthRequest
     ) :
         NetworkCallback(),
-        HighBandwithConnectionLease {
+        HighBandwidthConnectionLease {
         private val networkState = MutableStateFlow<NetworkType?>(null)
         private val closed = AtomicBoolean(false)
 

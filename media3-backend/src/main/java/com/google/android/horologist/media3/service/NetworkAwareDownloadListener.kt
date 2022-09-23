@@ -27,7 +27,7 @@ import com.google.android.horologist.networks.data.RequestType.MediaRequest
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest
-import com.google.android.horologist.networks.highbandwidth.HighBandwithConnectionLease
+import com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 
 /**
@@ -41,7 +41,7 @@ public class NetworkAwareDownloadListener(
     private val highBandwidthNetworkMediator: HighBandwidthNetworkMediator,
     private val networkingRulesEngine: NetworkingRulesEngine
 ) : DownloadManager.Listener {
-    private var networkRequest: HighBandwithConnectionLease? = null
+    private var networkRequest: HighBandwidthConnectionLease? = null
 
     override fun onInitialized(downloadManager: DownloadManager) {
         appEventLogger.logMessage("init", category = Downloads)

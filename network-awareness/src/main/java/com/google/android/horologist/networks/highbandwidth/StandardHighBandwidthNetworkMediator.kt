@@ -18,8 +18,6 @@
 
 package com.google.android.horologist.networks.highbandwidth
 
-import android.net.Network
-import androidx.annotation.GuardedBy
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
@@ -28,12 +26,11 @@ import com.google.android.horologist.networks.request.NetworkRequester
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withTimeoutOrNull
 import java.util.concurrent.atomic.AtomicBoolean
@@ -51,49 +48,42 @@ public class StandardHighBandwidthNetworkMediator(
     private val requests: MutableStateFlow<Requests> = MutableStateFlow(Requests())
 
     override val pinned: Flow<Set<NetworkType>> = requests.flatMapLatest {
-        it.leases
+        val grantedNetworks = it.types.values.mapNotNull { countAndLease -> countAndLease.lease?.grantedNetwork }
+        combine(grantedNetworks) { networks ->
+            networks.mapNotNull { it?.second } .toSet()
+        }
     }
 
     data class CountAndLease(
         val count: Int = 0,
         val lease: NetworkLease? = null,
-    )
+    ) {
+        init {
+            if (lease != null) {
+                check(count > 0)
+            } else {
+                check(count == 0)
+            }
+        }
+    }
 
     data class Requests(
-        val wifiOnly: CountAndLease = CountAndLease(),
-        val cellOnly: CountAndLease = CountAndLease(),
-        val either: CountAndLease = CountAndLease(),
+        val types: Map<HighBandwidthRequest.Type, CountAndLease> = mapOf(
+            HighBandwidthRequest.Type.All to CountAndLease(),
+            HighBandwidthRequest.Type.CellOnly to CountAndLease(),
+            HighBandwidthRequest.Type.WifiOnly to CountAndLease()
+        )
     ) {
-        fun forRequest(request: HighBandwidthRequest): CountAndLease {
-
-        }
-
-        fun withUpdated(
-            request: HighBandwidthRequest,
-            existing: CountAndLease
+        fun update(
+            type: HighBandwidthRequest.Type,
+            fn: (CountAndLease) -> CountAndLease
         ): Requests {
-            if (request.isCellOnly) {
-                return this.copy()
-            } else if (request.isWifiOnly) {
-                return this.copy()
-            } else {
-                return this.copy()
-            }
-        }
+            val currentCountAndLease = types[type]!!
 
-        val leases: Flow<Set<NetworkType>>
-            get() {
-                val leaseNetworks = listOfNotNull(
-                    wifiOnly.lease?.grantedNetwork,
-                    cellOnly.lease?.grantedNetwork,
-                    either.lease?.grantedNetwork
-                )
-                return combine(leaseNetworks) { networks ->
-                    networks.mapNotNull {
-                        it?.second
-                    }.toSet()
-                }
-            }
+            val newCountAndLease = fn(currentCountAndLease)
+
+            return copy(types = types.plus(type to newCountAndLease))
+        }
     }
 
     override fun requestHighBandwidthNetwork(
@@ -103,7 +93,7 @@ public class StandardHighBandwidthNetworkMediator(
             processRequest(it, request)
         }
 
-        val lease = requests.value.forRequest(request).lease!!
+        val lease = requests.value.types[request.type]?.lease!!
 
         return SingleHighBandwidthConnectionLease(request, lease)
     }
@@ -112,9 +102,13 @@ public class StandardHighBandwidthNetworkMediator(
         requests: Requests,
         request: HighBandwidthRequest
     ): Requests {
-        val existing = requests.forRequest(request)
-
-        return requests.withUpdated(request, existing)
+        return requests.update(request.type) {
+            it.copy(
+                count = it.count + 1,
+                lease = it.lease
+                    ?: networkRequester.requestHighBandwidthNetwork(request.toNetworkRequest())
+            )
+        }
     }
 
     private fun releaseHighBandwidthNetwork(
@@ -126,10 +120,22 @@ public class StandardHighBandwidthNetworkMediator(
     }
 
     private fun processRelease(
-        it: Requests,
+        requests: Requests,
         request: HighBandwidthRequest
     ): Requests {
-        return it
+        return requests.update(request.type) {
+            val newLease = if (it.count == 1) {
+                it.lease!!.close()
+                null
+            } else {
+                it.lease
+            }
+
+            it.copy(
+                count = it.count - 1,
+                lease = newLease
+            )
+        }
     }
 
     private inner class SingleHighBandwidthConnectionLease(

@@ -33,9 +33,6 @@ public data class HighBandwidthRequest(
     val requestType: RequestType? = null,
     val url: HttpUrl? = null
 ) {
-    val isCellOnly: Boolean
-    get
-
     public fun toNetworkRequest(): NetworkRequest {
         return NetworkRequest.Builder()
             .apply {

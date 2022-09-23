@@ -117,7 +117,7 @@ internal fun StandardChip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     secondaryLabel: String? = null,
-    icon: (@Composable BoxScope.() -> Unit)?,
+    icon: (@Composable BoxScope.() -> Unit)? = null,
     largeIcon: Boolean = false,
     chipType: StandardChipType = StandardChipType.Primary,
     enabled: Boolean = true

@@ -77,9 +77,9 @@ public data class ProgressIndicatorSegment(
 @ExperimentalHorologistComposablesApi
 @Composable
 public fun SegmentedProgressIndicator(
-    modifier: Modifier = Modifier,
     trackSegments: List<ProgressIndicatorSegment>,
     progress: Float,
+    modifier: Modifier = Modifier,
     startAngle: Float = -90.0f,
     endAngle: Float = 270.0f,
     strokeWidth: Dp = ProgressIndicatorDefaults.StrokeWidth,

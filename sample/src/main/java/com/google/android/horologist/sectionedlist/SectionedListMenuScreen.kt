@@ -66,7 +66,7 @@ fun SectionedListMenuScreen(
                     label = {
                         Text(text = stringResource(id = item.first))
                     },
-                    modifier = modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     onClick = { navigateToRoute(item.second) },
                     colors = ChipDefaults.primaryChipColors()
                 )

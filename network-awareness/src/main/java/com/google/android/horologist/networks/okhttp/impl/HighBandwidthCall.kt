@@ -27,7 +27,6 @@ import com.google.android.horologist.networks.okhttp.requestType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Request
@@ -68,12 +67,10 @@ internal class HighBandwidthCall(
     }
 
     override fun enqueue(responseCallback: Callback) {
-        val token = requestNetwork()
-
         callFactory.coroutineScope.launch(Dispatchers.Default) {
-            withTimeoutOrNull(callFactory.timeout) {
-                token.awaitGranted()
-            }
+            val token = requestNetwork()
+
+            token.awaitGranted(callFactory.timeout)
 
             synchronized(this) {
                 if (cancelled) {
@@ -97,9 +94,7 @@ internal class HighBandwidthCall(
         val token = requestNetwork()
 
         runBlocking {
-            withTimeoutOrNull(callFactory.timeout) {
-                token.awaitGranted()
-            }
+            token.awaitGranted(callFactory.timeout)
         }
 
         return callFactory.newDirectCall(request).execute()

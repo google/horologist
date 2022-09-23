@@ -26,7 +26,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.withTimeoutOrNull
 import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.time.Duration
 
 /**
  * Implementation of `HighBandwidthNetworkMediator` that locally aggregates requests and
@@ -89,8 +91,10 @@ public class AggregatedHighBandwidthNetworkMediator(
     private inner class SingleHighBandwithConnectionLease(private val request: HighBandwidthRequest) : HighBandwithConnectionLease {
         private val closed = AtomicBoolean(false)
 
-        override suspend fun awaitGranted(): NetworkType {
-            return networkRequester.pinnedNetwork.filterNotNull().first()
+        override suspend fun awaitGranted(timeout: Duration): Boolean {
+            return withTimeoutOrNull(timeout) {
+                networkRequester.pinnedNetwork.filterNotNull().first()
+            } != null
         }
 
         override fun close() {

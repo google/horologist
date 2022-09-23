@@ -26,7 +26,6 @@ import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Comp
 import com.google.android.horologist.networks.okhttp.requestType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.Call
 import okhttp3.Callback
@@ -94,15 +93,7 @@ internal class HighBandwidthCall(
     }
 
     override fun execute(): Response {
-        val token = requestNetwork()
-
-        runBlocking {
-            withTimeoutOrNull(callFactory.timeout) {
-                token.awaitGranted()
-            }
-        }
-
-        return callFactory.newDirectCall(request).execute()
+        throw IOException("High Bandwidth Requests are not supported with execute")
     }
 
     private fun requestNetwork(): HighBandwithConnectionLease {

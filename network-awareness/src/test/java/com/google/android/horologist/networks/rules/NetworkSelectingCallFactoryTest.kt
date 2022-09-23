@@ -97,45 +97,17 @@ class NetworkSelectingCallFactoryTest {
     }
 
     @Test
-    fun requestHighBandwidthForDownloads() {
-        networkingRules.preferredNetworks[RequestType.MediaRequest(Download)] = NetworkType.Wifi
+    fun executeFailsOnHighBandwidthCalls() {
         networkingRules.highBandwidthTypes[RequestType.MediaRequest(Download)] = true
-        networkRequester.supportedNetworks = listOf(NetworkType.Wifi)
 
         val request = Request.Builder()
             .url("https://example.org/music.mp3")
             .requestType(RequestType.MediaRequest(Download))
             .build()
 
-        val response = callFactory.newCall(request).execute()
-        response.close()
-
-        val networkType = request.networkInfo
-
-        assertThat(networkType?.type).isEqualTo(NetworkType.Wifi)
-
-        assertThat(highBandwidthRequester.pinned.value).isNull()
-    }
-
-    @Test
-    fun requestHighBandwidthForDownloadsButFails() {
-        networkingRules.preferredNetworks[DownloadRequest] = NetworkType.Wifi
-        networkingRules.highBandwidthTypes[DownloadRequest] = true
-        networkingRules.validRequests[Pair(DownloadRequest, BT)] = false
-        networkRequester.supportedNetworks = listOf()
-
-        val request = Request.Builder()
-            .url("https://example.org/music.mp3")
-            .requestType(RequestType.MediaRequest(Download))
-            .build()
-
-        val thrown = assertThrows(IOException::class.java) {
+        assertThrows("High Bandwidth Requests are not supported with execute", IOException::class.java) {
             callFactory.newCall(request).execute()
         }
-
-        assertThat(thrown).hasMessageThat().isEqualTo("Unable to use BT for media-download")
-
-        assertThat(highBandwidthRequester.pinned.value).isNull()
     }
 
     @Test

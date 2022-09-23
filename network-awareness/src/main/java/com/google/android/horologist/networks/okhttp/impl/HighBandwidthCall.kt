@@ -26,7 +26,6 @@ import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Comp
 import com.google.android.horologist.networks.okhttp.requestType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Request

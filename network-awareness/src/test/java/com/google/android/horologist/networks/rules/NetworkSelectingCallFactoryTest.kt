@@ -142,7 +142,7 @@ class NetworkSelectingCallFactoryTest {
 
         assertThat(networkType?.type).isEqualTo(NetworkType.Wifi)
 
-        assertThat(highBandwidthRequester.pinned.value).isNull()
+        assertThat(highBandwidthRequester.pinned.value).isEmpty()
     }
 
     @Test

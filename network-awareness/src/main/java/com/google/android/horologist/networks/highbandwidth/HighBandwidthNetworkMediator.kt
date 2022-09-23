@@ -19,7 +19,6 @@ package com.google.android.horologist.networks.highbandwidth
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkType
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
 
 /**
  * Mediator for High Bandwidth requests, such as Cell or Wifi.

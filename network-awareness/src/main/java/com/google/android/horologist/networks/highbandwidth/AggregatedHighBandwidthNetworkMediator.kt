@@ -39,7 +39,7 @@ public class AggregatedHighBandwidthNetworkMediator(
 ) : HighBandwidthNetworkMediator {
     @GuardedBy("this")
     private var requests = AggregatedRequests()
-    override val requested: MutableStateFlow<HighBandwidthRequest?> = MutableStateFlow(null)
+    public val requested: MutableStateFlow<HighBandwidthRequest?> = MutableStateFlow(null)
     override val pinned: StateFlow<NetworkType?> = networkRequester.pinnedNetwork
 
     override fun requestHighBandwidthNetwork(

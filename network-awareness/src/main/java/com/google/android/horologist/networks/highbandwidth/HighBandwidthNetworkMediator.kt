@@ -29,11 +29,6 @@ import kotlinx.coroutines.flow.StateFlow
 @ExperimentalHorologistNetworksApi
 public interface HighBandwidthNetworkMediator {
     /**
-     * The current aggregate request state.
-     */
-    public val requested: StateFlow<HighBandwidthRequest?>
-
-    /**
      * The current resulting network specifically from high bandwidth requests.
      */
     public val pinned: StateFlow<NetworkType?>

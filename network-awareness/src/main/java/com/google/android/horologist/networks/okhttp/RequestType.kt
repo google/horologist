@@ -21,7 +21,7 @@ package com.google.android.horologist.networks.okhttp
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.RequestType
-import com.google.android.horologist.networks.highbandwidth.HighBandwithConnectionLease
+import com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease
 import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder
 import okhttp3.Request
 
@@ -39,10 +39,10 @@ public var Request.networkInfo: NetworkInfo?
         this.tag(RequestTypeHolder::class.java)!!.networkInfo = value
     }
 
-public var Request.highBandwithConnectionLease: HighBandwithConnectionLease?
+public var Request.highBandwidthConnectionLease: HighBandwidthConnectionLease?
     get() {
-        return this.tag(RequestTypeHolder::class.java)!!.highBandwithConnectionLease
+        return this.tag(RequestTypeHolder::class.java)!!.highBandwidthConnectionLease
     }
     set(value) {
-        this.tag(RequestTypeHolder::class.java)!!.highBandwithConnectionLease = value
+        this.tag(RequestTypeHolder::class.java)!!.highBandwidthConnectionLease = value
     }

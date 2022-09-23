@@ -37,9 +37,9 @@ class FakeNetworkRequester(
     }
 
     override fun setRequests(request: HighBandwidthRequest) {
-        val newNetworkType = if (request.cell && supportedNetworks.contains(Cell)) {
+        val newNetworkType = if (request.type.cell && supportedNetworks.contains(Cell)) {
             Cell
-        } else if (request.wifi && supportedNetworks.contains(Wifi)) {
+        } else if (request.type.wifi && supportedNetworks.contains(Wifi)) {
             Wifi
         } else {
             null

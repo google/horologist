@@ -18,10 +18,10 @@ package com.google.android.horologist.networks.okhttp.impl
 
 import androidx.annotation.GuardedBy
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest
-import com.google.android.horologist.networks.highbandwidth.HighBandwithConnectionLease
 import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
-import com.google.android.horologist.networks.okhttp.highBandwithConnectionLease
+import com.google.android.horologist.networks.okhttp.highBandwidthConnectionLease
 import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.okhttp.requestType
 import kotlinx.coroutines.Dispatchers
@@ -35,7 +35,7 @@ import okio.Timeout
 import java.io.IOException
 
 /**
- * A deferred call that needs to wait for [HighBandwithConnectionLease.awaitGranted]
+ * A deferred call that needs to wait for [HighBandwidthConnectionLease.awaitGranted]
  * or timeout before continuing. This gives the ConnectivityManager
  * time to bring up a high bandwidth network in response to an
  * OkHttp call.
@@ -56,7 +56,7 @@ internal class HighBandwidthCall(
             cancelled = true
             call?.cancel()
         }
-        request.highBandwithConnectionLease?.close()
+        request.highBandwidthConnectionLease?.close()
     }
 
     override fun clone(): Call {
@@ -73,7 +73,7 @@ internal class HighBandwidthCall(
 
             synchronized(this) {
                 if (cancelled) {
-                    request.highBandwithConnectionLease?.close()
+                    request.highBandwidthConnectionLease?.close()
                 } else {
                     callFactory.newDirectCall(request).enqueue(object : Callback {
                         override fun onFailure(call: Call, e: IOException) {
@@ -93,7 +93,7 @@ internal class HighBandwidthCall(
         throw IOException("High Bandwidth Requests are not supported with execute")
     }
 
-    private fun requestNetwork(): HighBandwithConnectionLease {
+    private fun requestNetwork(): HighBandwidthConnectionLease {
         val requestType = request.requestType
         val types = HighBandwidthRequest.from(
             callFactory.networkingRulesEngine.supportedTypes(requestType)
@@ -101,7 +101,7 @@ internal class HighBandwidthCall(
 
         val token =
             callFactory.highBandwidthNetworkMediator.requestHighBandwidthNetwork(request = types)
-        request.highBandwithConnectionLease = token
+        request.highBandwidthConnectionLease = token
 
         return token
     }

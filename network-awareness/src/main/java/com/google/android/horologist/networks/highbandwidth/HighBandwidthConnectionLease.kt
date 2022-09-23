@@ -16,14 +16,13 @@
 
 package com.google.android.horologist.networks.highbandwidth
 
-import java.io.Closeable
 import kotlin.time.Duration
 
 /**
  * Cancellable network request token. Allows caller to release the connection or await it becoming
  * available.
  */
-public interface HighBandwithConnectionLease: Closeable {
+public interface HighBandwidthConnectionLease : AutoCloseable {
     /**
      * Await a connection being granted on this lease. The
      * connection could be immediately revoked, so apps

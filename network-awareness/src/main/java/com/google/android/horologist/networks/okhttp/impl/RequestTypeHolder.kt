@@ -19,7 +19,7 @@ package com.google.android.horologist.networks.okhttp.impl
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkInfo
 import com.google.android.horologist.networks.data.RequestType
-import com.google.android.horologist.networks.highbandwidth.HighBandwithConnectionLease
+import com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease
 import com.google.android.horologist.networks.okhttp.requestTypeOrNull
 import okhttp3.Request
 
@@ -32,7 +32,7 @@ import okhttp3.Request
 public data class RequestTypeHolder(
     public var requestType: RequestType = RequestType.UnknownRequest,
     public var networkInfo: NetworkInfo? = null,
-    public var highBandwithConnectionLease: HighBandwithConnectionLease? = null
+    public var highBandwidthConnectionLease: HighBandwidthConnectionLease? = null
 ) {
     override fun toString(): String {
         return "$requestType/$networkInfo"

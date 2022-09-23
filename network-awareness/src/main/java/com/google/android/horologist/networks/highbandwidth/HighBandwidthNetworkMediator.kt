@@ -37,5 +37,5 @@ public interface HighBandwidthNetworkMediator {
      * Make a request for a high bandwidth network, with request details provided in
      * `request`. Returns a cancellation Token, that also allows waiting for a connection.
      */
-    public fun requestHighBandwidthNetwork(request: HighBandwidthRequest): HighBandwithConnectionLease
+    public fun requestHighBandwidthNetwork(request: HighBandwidthRequest): HighBandwidthConnectionLease
 }

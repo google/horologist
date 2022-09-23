@@ -31,9 +31,8 @@ import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.InMemoryDataRequestRepository
 import com.google.android.horologist.networks.data.RequestType
-import com.google.android.horologist.networks.highbandwidth.AggregatedHighBandwidthNetworkMediator
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
-import com.google.android.horologist.networks.highbandwidth.SimpleHighBandwidthNetworkMediator
+import com.google.android.horologist.networks.highbandwidth.StandardHighBandwidthNetworkMediator
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
 import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
@@ -144,26 +143,16 @@ object NetworkModule {
     fun aggregatingHighBandwidthRequester(
         networkLogger: NetworkStatusLogger,
         networkRequester: NetworkRequester
-    ) = AggregatedHighBandwidthNetworkMediator(
+    ) = StandardHighBandwidthNetworkMediator(
         networkLogger,
         networkRequester
     )
 
     @Singleton
     @Provides
-    fun simpleHighBandwidthRequester(
-        connectivityManager: ConnectivityManager,
-        networkRepository: NetworkRepository
-    ) = SimpleHighBandwidthNetworkMediator(
-        connectivityManager,
-        networkRepository
-    )
-
-    @Singleton
-    @Provides
     fun highBandwidthRequester(
-        simpleHighBandwidthNetworkMediator: SimpleHighBandwidthNetworkMediator
-    ): HighBandwidthNetworkMediator = simpleHighBandwidthNetworkMediator
+        highBandwidthNetworkMediator: StandardHighBandwidthNetworkMediator
+    ): HighBandwidthNetworkMediator = highBandwidthNetworkMediator
 
     @Singleton
     @Provides

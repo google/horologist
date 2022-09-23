@@ -25,7 +25,7 @@ import com.google.android.horologist.networks.data.NetworkType.BT
 import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.Companion.DownloadRequest
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType.Download
-import com.google.android.horologist.networks.highbandwidth.AggregatedHighBandwidthNetworkMediator
+import com.google.android.horologist.networks.highbandwidth.StandardHighBandwidthNetworkMediator
 import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
 import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.okhttp.networkInfo
@@ -55,7 +55,7 @@ class NetworkSelectingCallFactoryTest {
     private val logger = TestLogger()
     private val networkingRules = ConfigurableNetworkingRules()
     private val networkRequester = FakeNetworkRequester(networkRepository)
-    private val highBandwidthRequester = AggregatedHighBandwidthNetworkMediator(
+    private val highBandwidthRequester = StandardHighBandwidthNetworkMediator(
         logger,
         networkRequester
     )

@@ -46,10 +46,10 @@ public class AggregatedHighBandwidthNetworkMediator(
 
     override fun requestHighBandwidthNetwork(
         request: HighBandwidthRequest
-    ): HighBandwithConnectionLease {
+    ): HighBandwidthConnectionLease {
         registerRequest(request)
 
-        return SingleHighBandwithConnectionLease(request)
+        return SingleHighBandwidthConnectionLease(request)
     }
 
     private fun registerRequest(request: HighBandwidthRequest) {
@@ -88,7 +88,7 @@ public class AggregatedHighBandwidthNetworkMediator(
         }
     }
 
-    private inner class SingleHighBandwithConnectionLease(private val request: HighBandwidthRequest) : HighBandwithConnectionLease {
+    private inner class SingleHighBandwidthConnectionLease(private val request: HighBandwidthRequest) : HighBandwidthConnectionLease {
         private val closed = AtomicBoolean(false)
 
         override suspend fun awaitGranted(timeout: Duration): Boolean {

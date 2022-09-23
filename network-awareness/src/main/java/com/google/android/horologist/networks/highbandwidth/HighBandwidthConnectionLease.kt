@@ -22,7 +22,7 @@ import kotlin.time.Duration
  * Cancellable network request token. Allows caller to release the connection or await it becoming
  * available.
  */
-public interface HighBandwithConnectionLease : AutoCloseable {
+public interface HighBandwidthConnectionLease : AutoCloseable {
     /**
      * Await a connection being granted on this lease. The
      * connection could be immediately revoked, so apps

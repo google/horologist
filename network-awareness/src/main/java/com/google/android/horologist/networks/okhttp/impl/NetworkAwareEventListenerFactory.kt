@@ -18,7 +18,7 @@ package com.google.android.horologist.networks.okhttp.impl
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.DataRequestRepository
-import com.google.android.horologist.networks.okhttp.highBandwithConnectionLease
+import com.google.android.horologist.networks.okhttp.highBandwidthConnectionLease
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 import com.google.android.horologist.networks.status.NetworkRepository
 import okhttp3.Call
@@ -50,13 +50,13 @@ public class NetworkAwareEventListenerFactory(
         override fun callEnd(call: Call) {
             super.callEnd(call)
 
-            call.request().highBandwithConnectionLease?.close()
+            call.request().highBandwidthConnectionLease?.close()
         }
 
         override fun callFailed(call: Call, ioe: IOException) {
             super.callFailed(call, ioe)
 
-            call.request().highBandwithConnectionLease?.close()
+            call.request().highBandwidthConnectionLease?.close()
         }
     }
 }

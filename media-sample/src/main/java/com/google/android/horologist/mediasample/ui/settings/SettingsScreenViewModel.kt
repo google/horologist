@@ -25,9 +25,9 @@ import com.google.android.horologist.mediasample.di.IsEmulator
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.OffloadMode
 import com.google.android.horologist.mediasample.domain.proto.copy
+import com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest
-import com.google.android.horologist.networks.highbandwidth.HighBandwithConnectionLease
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -45,7 +45,7 @@ class SettingsScreenViewModel @Inject constructor(
     private val highBandwidthNetworkMediator: HighBandwidthNetworkMediator,
     @IsEmulator private val isEmulator: Boolean
 ) : ViewModel() {
-    private val networkRequest = MutableStateFlow<HighBandwithConnectionLease?>(null)
+    private val networkRequest = MutableStateFlow<HighBandwidthConnectionLease?>(null)
 
     val uiState: StateFlow<UiState> =
         combine(settingsRepository.settingsFlow, networkRequest) { it, networkRequest ->
@@ -73,7 +73,7 @@ class SettingsScreenViewModel @Inject constructor(
         val debugOffload: Boolean = false,
         val offloadMode: OffloadMode = OffloadMode.BACKGROUND,
         val writable: Boolean = false,
-        val networkRequest: HighBandwithConnectionLease? = null
+        val networkRequest: HighBandwidthConnectionLease? = null
     )
 
     fun setShowTimeTextInfo(enabled: Boolean) {

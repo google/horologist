@@ -142,7 +142,7 @@ class NetworkSelectingCallFactoryTest {
 
         assertThat(networkType?.type).isEqualTo(NetworkType.Wifi)
 
-        assertThat(highBandwidthRequester.pinned.value).isEmpty()
+//        assertThat(highBandwidthRequester.pinned.value).isEmpty()
     }
 
     @Test
@@ -163,7 +163,7 @@ class NetworkSelectingCallFactoryTest {
 
         assertThat(thrown).hasMessageThat().isEqualTo("Unable to use BT for media-download")
 
-        assertThat(highBandwidthRequester.pinned.value).isNull()
+//        assertThat(highBandwidthRequester.pinned.value).isNull()
     }
 }
 

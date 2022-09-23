@@ -356,9 +356,6 @@ package com.google.android.horologist.networks.highbandwidth {
     enum_constant public static final com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest.Type WifiOnly;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class SimpleHighBandwidthNetworkMediator implements com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator {
-    ctor public SimpleHighBandwidthNetworkMediator(android.net.ConnectivityManager connectivityManager, com.google.android.horologist.networks.status.NetworkRepository networkRepository);
-    method public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.data.NetworkType> getPinned();
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class StandardHighBandwidthNetworkMediator implements com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator {
     ctor public StandardHighBandwidthNetworkMediator(com.google.android.horologist.networks.logging.NetworkStatusLogger logger, com.google.android.horologist.networks.request.NetworkRequester networkRequester);
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.data.NetworkType> getPinned();

@@ -31,8 +31,6 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withTimeoutOrNull
 import java.util.concurrent.atomic.AtomicBoolean
@@ -112,9 +110,14 @@ public class StandardHighBandwidthNetworkMediator(
             it.copy(
                 count = it.count + 1,
                 lease = it.lease
-                    ?: networkRequester.requestHighBandwidthNetwork(request.toNetworkRequest())
+                    ?: makeHighBandwidthNetwork(request)
             )
         }
+    }
+
+    fun makeHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease {
+        logger.logNetworkEvent("Requesting High Bandwidth Network for ${request.type}")
+        return networkRequester.requestHighBandwidthNetwork(request.toNetworkRequest())
     }
 
     private fun releaseHighBandwidthNetwork(
@@ -131,7 +134,7 @@ public class StandardHighBandwidthNetworkMediator(
     ): Requests {
         return requests.update(request.type) {
             val newLease = if (it.count == 1) {
-                it.lease!!.close()
+                releaseHighBandwidthNetwork(request, it.lease!!)
                 null
             } else {
                 it.lease
@@ -142,6 +145,11 @@ public class StandardHighBandwidthNetworkMediator(
                 lease = newLease
             )
         }
+    }
+
+    fun releaseHighBandwidthNetwork(request: HighBandwidthRequest, lease: NetworkLease) {
+        logger.logNetworkEvent("Releasing High Bandwidth Network for ${request.type}")
+        lease.close()
     }
 
     private inner class SingleHighBandwidthConnectionLease(

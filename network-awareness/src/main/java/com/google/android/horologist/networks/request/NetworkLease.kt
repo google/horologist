@@ -28,13 +28,4 @@ import kotlinx.coroutines.flow.flowOf
  */
 public interface NetworkLease : AutoCloseable {
     val grantedNetwork: Flow<Pair<Network, NetworkType>?>
-
-    companion object {
-        val None = object: NetworkLease {
-            override val grantedNetwork: Flow<Pair<Network, NetworkType>?> = flowOf(null)
-
-            override fun close() {
-            }
-        }
-    }
 }

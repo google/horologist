@@ -25,9 +25,9 @@ import com.google.android.horologist.mediasample.di.IsEmulator
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.OffloadMode
 import com.google.android.horologist.mediasample.domain.proto.copy
+import com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest
-import com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

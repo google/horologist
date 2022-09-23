@@ -18,8 +18,8 @@ package com.google.android.horologist.networks.okhttp.impl
 
 import androidx.annotation.GuardedBy
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-import com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease
+import com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest
 import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
 import com.google.android.horologist.networks.okhttp.highBandwidthConnectionLease
 import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.requestType

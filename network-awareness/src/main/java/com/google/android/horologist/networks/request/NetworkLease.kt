@@ -19,11 +19,13 @@ package com.google.android.horologist.networks.request
 import android.net.Network
 import com.google.android.horologist.networks.data.NetworkType
 import kotlinx.coroutines.flow.Flow
+import java.time.Instant
 
 /**
  * Cancellable network request lease. Allows caller to close or observe the current network as a
  * flow.
  */
 public interface NetworkLease : AutoCloseable {
+    public val acquiredAt: Instant
     public val grantedNetwork: Flow<Pair<Network, NetworkType>?>
 }

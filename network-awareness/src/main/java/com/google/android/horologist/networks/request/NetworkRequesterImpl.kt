@@ -25,6 +25,7 @@ import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.NetworkType.Unknown
 import com.google.android.horologist.networks.data.networkType
 import kotlinx.coroutines.flow.MutableStateFlow
+import java.time.Instant
 
 @ExperimentalHorologistNetworksApi
 public class NetworkRequesterImpl(
@@ -39,6 +40,8 @@ public class NetworkRequesterImpl(
     }
 
     private inner class NetworkLeaseImpl : NetworkCallback(), NetworkLease {
+        override val acquiredAt: Instant = Instant.now()
+
         override val grantedNetwork: MutableStateFlow<Pair<Network, NetworkType>?> =
             MutableStateFlow(null)
 

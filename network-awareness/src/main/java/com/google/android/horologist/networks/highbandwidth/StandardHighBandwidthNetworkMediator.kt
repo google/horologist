@@ -160,7 +160,13 @@ public class StandardHighBandwidthNetworkMediator(
         private val closed = AtomicBoolean(false)
 
         override suspend fun awaitGranted(timeout: Duration): Boolean {
-            return withTimeoutOrNull(timeout) {
+            val timeoutMillis = lease.acquiredAt.toEpochMilli() + timeout.inWholeMilliseconds - System.currentTimeMillis()
+
+            if (timeoutMillis <= 0L) {
+                return false
+            }
+
+            return withTimeoutOrNull(timeoutMillis) {
                 lease.grantedNetwork.filterNotNull().first()
             } != null
         }

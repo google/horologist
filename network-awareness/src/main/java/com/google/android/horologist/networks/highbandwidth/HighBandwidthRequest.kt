@@ -29,18 +29,17 @@ import okhttp3.HttpUrl
  */
 @ExperimentalHorologistNetworksApi
 public data class HighBandwidthRequest(
-    val wifi: Boolean = true,
-    val cell: Boolean = true,
+    val type: Type = Type.All,
     val requestType: RequestType? = null,
     val url: HttpUrl? = null
 ) {
     public fun toNetworkRequest(): NetworkRequest {
         return NetworkRequest.Builder()
             .apply {
-                if (cell) {
+                if (type.cell) {
                     addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
                 }
-                if (wifi) {
+                if (type.wifi) {
                     addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
                 }
             }
@@ -48,20 +47,28 @@ public data class HighBandwidthRequest(
             .build()
     }
 
-    init {
-        check(wifi || cell)
+    public enum class Type(public val wifi: Boolean, public val cell: Boolean) {
+        WifiOnly(true, false),
+        CellOnly(false, true),
+        All(true, true), ;
     }
 
     public companion object {
-        public val All: HighBandwidthRequest = HighBandwidthRequest(wifi = true, cell = true)
-        public val Wifi: HighBandwidthRequest = HighBandwidthRequest(wifi = true, cell = false)
-        public val Cell: HighBandwidthRequest = HighBandwidthRequest(wifi = false, cell = true)
+        public val All: HighBandwidthRequest = HighBandwidthRequest(Type.All)
+        public val Wifi: HighBandwidthRequest = HighBandwidthRequest(Type.WifiOnly)
+        public val Cell: HighBandwidthRequest = HighBandwidthRequest(Type.CellOnly)
 
         public fun from(supportedTypes: List<NetworkType>): HighBandwidthRequest {
-            return HighBandwidthRequest(
-                wifi = supportedTypes.contains(NetworkType.Wifi),
-                cell = supportedTypes.contains(NetworkType.Cell)
-            )
+            val wifi = supportedTypes.contains(NetworkType.Wifi)
+            val cell = supportedTypes.contains(NetworkType.Cell)
+
+            val type = when {
+                wifi && cell -> Type.All
+                wifi -> Type.WifiOnly
+                cell -> Type.CellOnly
+                else -> throw IllegalStateException("must be cell or wifi at least")
+            }
+            return HighBandwidthRequest(type)
         }
     }
 }

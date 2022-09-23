@@ -330,21 +330,18 @@ package com.google.android.horologist.networks.highbandwidth {
   }
 
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class HighBandwidthRequest {
-    ctor public HighBandwidthRequest(optional boolean wifi, optional boolean cell, optional com.google.android.horologist.networks.data.RequestType? requestType, optional okhttp3.HttpUrl? url);
-    method public boolean component1();
-    method public boolean component2();
-    method public com.google.android.horologist.networks.data.RequestType? component3();
-    method public okhttp3.HttpUrl? component4();
-    method public com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest copy(boolean wifi, boolean cell, com.google.android.horologist.networks.data.RequestType? requestType, okhttp3.HttpUrl? url);
-    method public boolean getCell();
+    ctor public HighBandwidthRequest(optional com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest.Type type, optional com.google.android.horologist.networks.data.RequestType? requestType, optional okhttp3.HttpUrl? url);
+    method public com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest.Type component1();
+    method public com.google.android.horologist.networks.data.RequestType? component2();
+    method public okhttp3.HttpUrl? component3();
+    method public com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest copy(com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest.Type type, com.google.android.horologist.networks.data.RequestType? requestType, okhttp3.HttpUrl? url);
     method public com.google.android.horologist.networks.data.RequestType? getRequestType();
+    method public com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest.Type getType();
     method public okhttp3.HttpUrl? getUrl();
-    method public boolean getWifi();
     method public android.net.NetworkRequest toNetworkRequest();
-    property public final boolean cell;
     property public final com.google.android.horologist.networks.data.RequestType? requestType;
+    property public final com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest.Type type;
     property public final okhttp3.HttpUrl? url;
-    property public final boolean wifi;
     field public static final com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest.Companion Companion;
   }
 
@@ -356,6 +353,16 @@ package com.google.android.horologist.networks.highbandwidth {
     property public final com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest All;
     property public final com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest Cell;
     property public final com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest Wifi;
+  }
+
+  public enum HighBandwidthRequest.Type {
+    method public final boolean getCell();
+    method public final boolean getWifi();
+    property public final boolean cell;
+    property public final boolean wifi;
+    enum_constant public static final com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest.Type All;
+    enum_constant public static final com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest.Type CellOnly;
+    enum_constant public static final com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest.Type WifiOnly;
   }
 
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class SimpleHighBandwidthNetworkMediator implements com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator {

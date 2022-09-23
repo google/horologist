@@ -32,19 +32,26 @@ internal data class AggregatedRequests(
 
     operator fun plus(request: HighBandwidthRequest): AggregatedRequests {
         return copy(
-            wifi = wifi + if (request.wifi) 1 else 0,
-            cell = cell + if (request.cell) 1 else 0
+            wifi = wifi + if (request.type.wifi) 1 else 0,
+            cell = cell + if (request.type.cell) 1 else 0
         )
     }
 
     operator fun minus(request: HighBandwidthRequest): AggregatedRequests {
         return copy(
-            wifi = wifi - if (request.wifi) 1 else 0,
-            cell = cell - if (request.cell) 1 else 0
+            wifi = wifi - if (request.type.wifi) 1 else 0,
+            cell = cell - if (request.type.cell) 1 else 0
         )
     }
 
     fun toRequest(): HighBandwidthRequest {
-        return HighBandwidthRequest(wifi > 0, cell > 0)
+        val type = when {
+            wifi > 0 && cell > 0 -> HighBandwidthRequest.Type.All
+            wifi > 0 -> HighBandwidthRequest.Type.WifiOnly
+            cell > 0 -> HighBandwidthRequest.Type.CellOnly
+            else -> throw IllegalStateException("must be cell or wifi at least")
+        }
+
+        return HighBandwidthRequest(type)
     }
 }

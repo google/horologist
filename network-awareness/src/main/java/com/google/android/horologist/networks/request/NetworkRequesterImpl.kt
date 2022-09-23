@@ -28,7 +28,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 @ExperimentalHorologistNetworksApi
 public class NetworkRequesterImpl(
-    private val connectivityManager: ConnectivityManager,
+    private val connectivityManager: ConnectivityManager
 ) : NetworkRequester {
     override fun requestHighBandwidthNetwork(request: NetworkRequest): NetworkLease {
         val lease = NetworkLeaseImpl()
@@ -38,7 +38,7 @@ public class NetworkRequesterImpl(
         return lease
     }
 
-    inner class NetworkLeaseImpl : NetworkCallback(), NetworkLease {
+    private inner class NetworkLeaseImpl : NetworkCallback(), NetworkLease {
         override val grantedNetwork: MutableStateFlow<Pair<Network, NetworkType>?> =
             MutableStateFlow(null)
 

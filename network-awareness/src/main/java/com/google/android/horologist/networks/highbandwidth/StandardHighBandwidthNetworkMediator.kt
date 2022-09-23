@@ -58,9 +58,9 @@ public class StandardHighBandwidthNetworkMediator(
         }
     }
 
-    data class CountAndLease(
+    private data class CountAndLease(
         val count: Int = 0,
-        val lease: NetworkLease? = null,
+        val lease: NetworkLease? = null
     ) {
         init {
             if (lease != null) {
@@ -71,7 +71,7 @@ public class StandardHighBandwidthNetworkMediator(
         }
     }
 
-    data class Requests(
+    private data class Requests(
         val types: Map<HighBandwidthRequest.Type, CountAndLease> = mapOf(
             HighBandwidthRequest.Type.All to CountAndLease(),
             HighBandwidthRequest.Type.CellOnly to CountAndLease(),
@@ -115,7 +115,7 @@ public class StandardHighBandwidthNetworkMediator(
         }
     }
 
-    fun makeHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease {
+    private fun makeHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease {
         logger.logNetworkEvent("Requesting High Bandwidth Network for ${request.type}")
         return networkRequester.requestHighBandwidthNetwork(request.toNetworkRequest())
     }
@@ -147,7 +147,7 @@ public class StandardHighBandwidthNetworkMediator(
         }
     }
 
-    fun releaseHighBandwidthNetwork(request: HighBandwidthRequest, lease: NetworkLease) {
+    private fun releaseHighBandwidthNetwork(request: HighBandwidthRequest, lease: NetworkLease) {
         logger.logNetworkEvent("Releasing High Bandwidth Network for ${request.type}")
         lease.close()
     }

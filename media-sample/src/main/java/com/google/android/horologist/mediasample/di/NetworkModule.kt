@@ -157,9 +157,9 @@ object NetworkModule {
     @Singleton
     @Provides
     fun networkRequester(
-        connectivityManager: ConnectivityManager,
+        connectivityManager: ConnectivityManager
     ): NetworkRequester = NetworkRequesterImpl(
-        connectivityManager,
+        connectivityManager
     )
 
     @Singleton

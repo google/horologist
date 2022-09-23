@@ -35,7 +35,7 @@ import kotlin.time.Duration
  * then makes specific network requests when requests moves from 0 to 1 and back.
  */
 @ExperimentalHorologistNetworksApi
-public class AggregatedHighBandwidthNetworkMediator(
+public class StandardHighBandwidthNetworkMediator(
     private val logger: NetworkStatusLogger,
     private val networkRequester: NetworkRequester
 ) : HighBandwidthNetworkMediator {

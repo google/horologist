@@ -56,13 +56,13 @@ class MediaInfoTimeTextViewModel @Inject constructor(
                 audioOffloadManager.offloadStatus,
                 dataRequestRepository.currentPeriodUsage(),
                 highBandwidthNetworkMediator.pinned
-            ) { networkStatus, offloadStatus, currentPeriodUsage, requestedNetwork ->
+            ) { networkStatus, offloadStatus, currentPeriodUsage, pinnedNetworks ->
                 UiState(
                     enabled = enabled,
                     networks = networkStatus,
                     audioOffloadStatus = offloadStatus,
                     dataUsageReport = currentPeriodUsage,
-                    requestedNetwork = requestedNetwork
+                    pinnedNetworks = pinnedNetworks
                 )
             }
         } else {
@@ -80,6 +80,6 @@ class MediaInfoTimeTextViewModel @Inject constructor(
         val networks: Networks = Networks(null, listOf()),
         val audioOffloadStatus: AudioOffloadStatus? = null,
         val dataUsageReport: DataUsageReport? = null,
-        val requestedNetwork: NetworkType? = null
+        val pinnedNetworks: Set<NetworkType> = setOf()
     )
 }

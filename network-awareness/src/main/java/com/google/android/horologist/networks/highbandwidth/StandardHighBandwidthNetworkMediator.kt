@@ -21,10 +21,11 @@ import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.request.NetworkRequester
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withTimeoutOrNull
 import java.util.concurrent.atomic.AtomicBoolean
@@ -42,7 +43,7 @@ public class StandardHighBandwidthNetworkMediator(
     @GuardedBy("this")
     private var requests = AggregatedRequests()
     public val requested: MutableStateFlow<HighBandwidthRequest?> = MutableStateFlow(null)
-    override val pinned: StateFlow<NetworkType?> = networkRequester.pinnedNetwork
+    override val pinned: Flow<Set<NetworkType>> = networkRequester.pinnedNetwork.map { setOfNotNull(it) }
 
     override fun requestHighBandwidthNetwork(
         request: HighBandwidthRequest

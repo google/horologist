@@ -46,7 +46,7 @@ public fun MediaInfoTimeText(
             networkStatus = uiState.networks,
             networkUsage = uiState.dataUsageReport,
             offloadStatus = uiState.audioOffloadStatus,
-            requestedNetwork = uiState.requestedNetwork
+            pinnedNetworks = uiState.pinnedNetworks
         )
     } else {
         TimeText(modifier = modifier)
@@ -58,7 +58,7 @@ public fun MediaInfoTimeText(
     networkStatus: Networks,
     networkUsage: DataUsageReport?,
     offloadStatus: AudioOffloadStatus?,
-    requestedNetwork: NetworkType?,
+    pinnedNetworks: Set<NetworkType>,
     modifier: Modifier = Modifier
 ) {
     val style = CurvedTextStyle(MaterialTheme.typography.caption3)
@@ -72,7 +72,7 @@ public fun MediaInfoTimeText(
                 networkUsage = networkUsage,
                 style = style,
                 context = context,
-                requestedNetwork = requestedNetwork
+                pinnedNetworks = pinnedNetworks
             )
         },
         endCurvedContent = {

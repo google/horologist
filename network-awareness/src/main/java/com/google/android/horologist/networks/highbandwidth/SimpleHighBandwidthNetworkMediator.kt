@@ -32,7 +32,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.withTimeoutOrNull
 import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.time.Duration
 
 /**
  * Implementation of `HighBandwidthNetworkMediator` that defers all logic to `ConnectivityManager`.
@@ -47,7 +49,7 @@ public class SimpleHighBandwidthNetworkMediator(
     @GuardedBy("this")
     private var aggregatedRequests = AggregatedRequests()
 
-    override val requested: MutableStateFlow<HighBandwidthRequest?> = MutableStateFlow(null)
+    public val requested: MutableStateFlow<HighBandwidthRequest?> = MutableStateFlow(null)
 
     @GuardedBy("this")
     private var pinnedCount = AggregatedNetworkCount()
@@ -143,8 +145,10 @@ public class SimpleHighBandwidthNetworkMediator(
             networkState.value = null
         }
 
-        override suspend fun awaitGranted(): NetworkType {
-            return networkState.filterNotNull().first()
+        override suspend fun awaitGranted(timeout: Duration): Boolean {
+            return withTimeoutOrNull(timeout) {
+                networkState.filterNotNull().first()
+            } != null
         }
 
         override fun close() {

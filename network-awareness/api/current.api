@@ -316,15 +316,13 @@ package com.google.android.horologist.networks.highbandwidth {
     method public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest> getRequested();
     method public com.google.android.horologist.networks.highbandwidth.HighBandwithConnectionLease requestHighBandwidthNetwork(com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest request);
     property public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.data.NetworkType> pinned;
-    property public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest> requested;
+    property public final kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest> requested;
   }
 
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public interface HighBandwidthNetworkMediator {
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.data.NetworkType> getPinned();
-    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest> getRequested();
     method public com.google.android.horologist.networks.highbandwidth.HighBandwithConnectionLease requestHighBandwidthNetwork(com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest request);
     property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.data.NetworkType> pinned;
-    property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest> requested;
   }
 
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class HighBandwidthRequest {
@@ -357,7 +355,7 @@ package com.google.android.horologist.networks.highbandwidth {
   }
 
   public interface HighBandwithConnectionLease extends java.lang.AutoCloseable {
-    method public suspend Object? awaitGranted(kotlin.coroutines.Continuation<? super com.google.android.horologist.networks.data.NetworkType> p);
+    method public suspend Object? awaitGranted(long timeout, kotlin.coroutines.Continuation<? super java.lang.Boolean> p);
   }
 
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class SimpleHighBandwidthNetworkMediator implements com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator {
@@ -366,7 +364,7 @@ package com.google.android.horologist.networks.highbandwidth {
     method public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest> getRequested();
     method public com.google.android.horologist.networks.highbandwidth.HighBandwithConnectionLease requestHighBandwidthNetwork(com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest request);
     property public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.data.NetworkType> pinned;
-    property public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest> requested;
+    property public final kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest> requested;
   }
 
 }

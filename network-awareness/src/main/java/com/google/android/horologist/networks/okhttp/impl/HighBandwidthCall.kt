@@ -67,12 +67,10 @@ internal class HighBandwidthCall(
     }
 
     override fun enqueue(responseCallback: Callback) {
-        val token = requestNetwork()
-
         callFactory.coroutineScope.launch(Dispatchers.Default) {
-            withTimeoutOrNull(callFactory.timeout) {
-                token.awaitGranted()
-            }
+            val token = requestNetwork()
+
+            token.awaitGranted(callFactory.timeout)
 
             synchronized(this) {
                 if (cancelled) {

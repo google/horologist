@@ -40,8 +40,6 @@ class FakeNetworkRequester(
             null
         }
 
-        println("Network $newNetworkType")
-
         networkRepository.pinNetwork(newNetworkType)
         val networkReference = if (newNetworkType != null) {
             NetworkReference("1", newNetworkType)

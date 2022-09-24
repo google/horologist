@@ -95,13 +95,8 @@ public class StandardHighBandwidthNetworkMediator(
     override fun requestHighBandwidthNetwork(
         request: HighBandwidthRequest
     ): HighBandwidthConnectionLease {
-        try {
-            requests.update {
-                processRequest(it, request)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            println()
+        requests.update {
+            processRequest(it, request)
         }
 
         val lease = requests.value.types[request.type]?.lease!!
@@ -168,9 +163,7 @@ public class StandardHighBandwidthNetworkMediator(
 
         override suspend fun awaitGranted(timeout: Duration): Boolean {
             return withTimeoutOrNull(timeout) {
-                lease.grantedNetwork.onEach {
-                    println("Granted $it")
-                }.filterNotNull().first()
+                lease.grantedNetwork.filterNotNull().first()
             } != null
         }
 

@@ -19,10 +19,9 @@ package com.google.android.horologist.networks.request
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
-import android.net.NetworkRequest
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.NetworkType.Unknown
+import com.google.android.horologist.networks.data.id
 import com.google.android.horologist.networks.data.networkType
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -30,21 +29,21 @@ import kotlinx.coroutines.flow.MutableStateFlow
 public class NetworkRequesterImpl(
     private val connectivityManager: ConnectivityManager
 ) : NetworkRequester {
-    override fun requestHighBandwidthNetwork(request: NetworkRequest): NetworkLease {
+    override fun requestHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease {
         val lease = NetworkLeaseImpl()
 
-        connectivityManager.requestNetwork(request, lease)
+        connectivityManager.requestNetwork(request.toNetworkRequest(), lease)
 
         return lease
     }
 
     private inner class NetworkLeaseImpl : NetworkCallback(), NetworkLease {
-        override val grantedNetwork: MutableStateFlow<Pair<Network, NetworkType>?> =
+        override val grantedNetwork: MutableStateFlow<NetworkReference?> =
             MutableStateFlow(null)
 
         override fun onAvailable(network: Network) {
             grantedNetwork.value =
-                Pair(network, connectivityManager.networkType(network) ?: Unknown)
+                NetworkReference(network.id, connectivityManager.networkType(network) ?: Unknown)
         }
 
         override fun onUnavailable() {

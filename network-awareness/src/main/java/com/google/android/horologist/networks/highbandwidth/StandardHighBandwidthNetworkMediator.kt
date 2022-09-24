@@ -21,6 +21,7 @@ package com.google.android.horologist.networks.highbandwidth
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
+import com.google.android.horologist.networks.request.HighBandwidthRequest
 import com.google.android.horologist.networks.request.NetworkLease
 import com.google.android.horologist.networks.request.NetworkRequester
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -31,6 +32,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withTimeoutOrNull
 import java.util.concurrent.atomic.AtomicBoolean
@@ -53,7 +55,7 @@ public class StandardHighBandwidthNetworkMediator(
             flowOf(setOf())
         } else {
             combine(grantedNetworks) { networks ->
-                networks.mapNotNull { it?.second }.toSet()
+                networks.mapNotNull { it?.type }.toSet()
             }
         }
     }
@@ -93,8 +95,13 @@ public class StandardHighBandwidthNetworkMediator(
     override fun requestHighBandwidthNetwork(
         request: HighBandwidthRequest
     ): HighBandwidthConnectionLease {
-        requests.update {
-            processRequest(it, request)
+        try {
+            requests.update {
+                processRequest(it, request)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            println()
         }
 
         val lease = requests.value.types[request.type]?.lease!!
@@ -117,7 +124,7 @@ public class StandardHighBandwidthNetworkMediator(
 
     private fun makeHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease {
         logger.logNetworkEvent("Requesting High Bandwidth Network for ${request.type}")
-        return networkRequester.requestHighBandwidthNetwork(request.toNetworkRequest())
+        return networkRequester.requestHighBandwidthNetwork(request)
     }
 
     private fun releaseHighBandwidthNetwork(
@@ -161,7 +168,9 @@ public class StandardHighBandwidthNetworkMediator(
 
         override suspend fun awaitGranted(timeout: Duration): Boolean {
             return withTimeoutOrNull(timeout) {
-                lease.grantedNetwork.filterNotNull().first()
+                lease.grantedNetwork.onEach {
+                    println("Granted $it")
+                }.filterNotNull().first()
             } != null
         }
 

@@ -16,8 +16,6 @@
 
 package com.google.android.horologist.networks.request
 
-import android.net.Network
-import com.google.android.horologist.networks.data.NetworkType
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -25,5 +23,5 @@ import kotlinx.coroutines.flow.Flow
  * flow.
  */
 public interface NetworkLease : AutoCloseable {
-    public val grantedNetwork: Flow<Pair<Network, NetworkType>?>
+    public val grantedNetwork: Flow<NetworkReference?>
 }

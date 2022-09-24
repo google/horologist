@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.networks.highbandwidth
+package com.google.android.horologist.networks.request
 
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest

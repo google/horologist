@@ -24,7 +24,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DataObject
 import androidx.compose.material.icons.filled.Logout
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -41,7 +40,6 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.navigation.navigateToDeveloperOptions
@@ -51,8 +49,8 @@ fun UampSettingsScreen(
     focusRequester: FocusRequester,
     state: ScalingLazyListState,
     settingsScreenViewModel: SettingsScreenViewModel,
-    modifier: Modifier = Modifier,
-    navController: NavHostController
+    navController: NavHostController,
+    modifier: Modifier = Modifier
 ) {
     ScalingLazyColumn(
         modifier = modifier

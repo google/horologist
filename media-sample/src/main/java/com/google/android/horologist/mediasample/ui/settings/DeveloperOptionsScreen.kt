@@ -46,7 +46,7 @@ fun DeveloperOptionsScreen(
     state: ScalingLazyListState,
     developerOptionsScreenViewModel: DeveloperOptionsScreenViewModel,
     navController: NavHostController,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val uiState by rememberStateWithLifecycle(developerOptionsScreenViewModel.uiState)
 

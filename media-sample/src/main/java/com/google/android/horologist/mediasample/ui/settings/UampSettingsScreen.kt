@@ -54,8 +54,6 @@ fun UampSettingsScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController
 ) {
-    val uiState by rememberStateWithLifecycle(settingsScreenViewModel.uiState)
-
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize()

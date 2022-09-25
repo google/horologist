@@ -19,7 +19,7 @@
     <string name="sample_media_activity">UAMP</string>
     <string name="no_title">No title</string>
     <string name="load_items">Load Initial Items</string>
-    <string name="logout">Logout</string>
+    <string name="logout">Sign-out</string>
     <string name="podcast_controls">Podcast Controls</string>
     <string name="off">Off</string>
     <string name="on">On</string>
@@ -37,6 +37,7 @@
     <string name="play_gapless_samples_fraunhofer">Fraunhofer gapless</string>
     <string name="play_gapless_samples_stripped">Gapless Stripped</string>
     <string name="sample_settings">Settings</string>
+    <string name="sample_developer_options">Developer Options</string>
     <string name="media_download_channel_name">Downloads</string>
     <string name="sample_audio_debug">Audio Debug Info</string>
     <string name="sample_debug_format">Format: %1s</string>

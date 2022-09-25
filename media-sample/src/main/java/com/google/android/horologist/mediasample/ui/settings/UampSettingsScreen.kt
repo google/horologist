@@ -189,32 +189,6 @@ fun ActionSetting(
 }
 
 @Composable
-fun ToggleSetting(
-    value: Boolean,
-    text: String,
-    enabled: Boolean = true,
-    onCheckedChange: (Boolean) -> Unit
-) {
-    ToggleChip(
-        checked = value,
-        toggleControl = {
-            Icon(
-                imageVector = ToggleChipDefaults.radioIcon(checked = value),
-                contentDescription = if (value) stringResource(id = R.string.on) else stringResource(
-                    id = R.string.off
-                )
-            )
-        },
-        enabled = enabled,
-        onCheckedChange = onCheckedChange,
-        label = {
-            Text(text)
-        },
-        modifier = Modifier.fillMaxWidth()
-    )
-}
-
-@Composable
 fun CheckedSetting(
     value: Boolean,
     text: String,

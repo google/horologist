@@ -321,7 +321,7 @@ package com.google.android.horologist.networks.highbandwidth {
   }
 
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class StandardHighBandwidthNetworkMediator implements com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator {
-    ctor public StandardHighBandwidthNetworkMediator(com.google.android.horologist.networks.logging.NetworkStatusLogger logger, com.google.android.horologist.networks.request.NetworkRequester networkRequester);
+    ctor public StandardHighBandwidthNetworkMediator(com.google.android.horologist.networks.logging.NetworkStatusLogger logger, com.google.android.horologist.networks.request.NetworkRequester networkRequester, kotlinx.coroutines.CoroutineScope coroutineScope, long delayToRelease);
     method public kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.horologist.networks.data.NetworkType>> getPinned();
     method public com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease requestHighBandwidthNetwork(com.google.android.horologist.networks.request.HighBandwidthRequest request);
     property public kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.horologist.networks.data.NetworkType>> pinned;

@@ -161,7 +161,7 @@ public class StandardHighBandwidthNetworkMediator(
             }
 
             countAndLease.copy(
-                count = countAndLease.count - 1,
+                count = countAndLease.count - 1
             )
         }
     }

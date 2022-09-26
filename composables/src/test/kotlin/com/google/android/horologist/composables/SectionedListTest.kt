@@ -78,9 +78,9 @@ class SectionedListTest {
                     focusRequester = FocusRequester(),
                     scalingLazyListState = scrollState
                 ) {
-                    downloadsSection(scope = this, state = Section.State.Loading)
+                    downloadsSection(scope = this, state = Section.State.Loading())
 
-                    favouritesSection(scope = this, state = Section.State.Empty)
+                    favouritesSection(scope = this, state = Section.State.Empty())
                 }
             }
         }
@@ -99,7 +99,7 @@ class SectionedListTest {
                 ) {
                     downloadsSection(scope = this, state = Section.State.Loaded(downloads))
 
-                    favouritesSection(scope = this, state = Section.State.Failed)
+                    favouritesSection(scope = this, state = Section.State.Failed())
                 }
             }
         }
@@ -118,7 +118,7 @@ class SectionedListTest {
                 ) {
                     downloadsSection(scope = this, state = Section.State.Loaded(downloads))
 
-                    favouritesSection(scope = this, state = Section.State.Failed)
+                    favouritesSection(scope = this, state = Section.State.Failed())
                 }
             }
         }
@@ -135,7 +135,7 @@ class SectionedListTest {
                     focusRequester = FocusRequester(),
                     scalingLazyListState = scrollState
                 ) {
-                    downloadsSection(scope = this, state = Section.State.Failed)
+                    downloadsSection(scope = this, state = Section.State.Failed())
 
                     favouritesSection(scope = this, state = Section.State.Loaded(favourites))
                 }
@@ -154,7 +154,7 @@ class SectionedListTest {
                     focusRequester = FocusRequester(),
                     scalingLazyListState = scrollState
                 ) {
-                    downloadsSection(scope = this, state = Section.State.Failed)
+                    downloadsSection(scope = this, state = Section.State.Failed())
 
                     favouritesSection(scope = this, state = Section.State.Loaded(favourites))
                 }
@@ -173,9 +173,9 @@ class SectionedListTest {
                     focusRequester = FocusRequester(),
                     scalingLazyListState = scrollState
                 ) {
-                    downloadsSection(scope = this, state = Section.State.Empty)
+                    downloadsSection(scope = this, state = Section.State.Empty())
 
-                    favouritesSection(scope = this, state = Section.State.Loading)
+                    favouritesSection(scope = this, state = Section.State.Loading())
                 }
             }
         }
@@ -202,7 +202,7 @@ class SectionedListTest {
 
     private val downloads = listOf("Nu Metal Essentials", "00s Rock")
 
-    private fun downloadsSection(scope: SectionedListScope, state: Section.State) {
+    private fun downloadsSection(scope: SectionedListScope, state: Section.State<String>) {
         scope.section(state = state) {
             header { DownloadsHeader() }
 
@@ -302,7 +302,7 @@ class SectionedListTest {
 
     private val favourites = listOf("Dance Anthems", "Indie Jukebox")
 
-    private fun favouritesSection(scope: SectionedListScope, state: Section.State) {
+    private fun favouritesSection(scope: SectionedListScope, state: Section.State<String>) {
         scope.section(state = state) {
             header { FavouritesHeader() }
 

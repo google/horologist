@@ -63,17 +63,17 @@ public fun PlaylistDownloadBrowseScreen(
         autoCentering = autoCentering
     ) {
         val downloadsSectionState = when (browseScreenState) {
-            is BrowseScreenState.Loading -> Section.State.Loading
+            is BrowseScreenState.Loading -> Section.State.Loading()
             is BrowseScreenState.Loaded -> {
                 if (browseScreenState.downloadList.isEmpty()) {
-                    Section.State.Empty
+                    Section.State.Empty()
                 } else {
                     Section.State.Loaded(browseScreenState.downloadList)
                 }
             }
             is BrowseScreenState.Failed ->
                 // display empty state
-                Section.State.Empty
+                Section.State.Empty()
         }
 
         downloadsSection(state = downloadsSectionState) {

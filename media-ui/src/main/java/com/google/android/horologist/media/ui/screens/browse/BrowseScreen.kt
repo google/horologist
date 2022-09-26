@@ -86,7 +86,7 @@ public class BrowseScreenScope {
 
     @BrowseScreenScopeMarker
     public fun <T> section(
-        state: Section.State,
+        state: Section.State<T>,
         @StringRes titleId: Int,
         @StringRes emptyMessageId: Int,
         @StringRes failedMessageId: Int? = null,
@@ -136,7 +136,7 @@ public class BrowseScreenScope {
 
     @BrowseScreenScopeMarker
     public fun <T> downloadsSection(
-        state: Section.State,
+        state: Section.State<T>,
         displayFooterOnlyOnLoadedState: Boolean = true,
         content: BrowseScreenSectionScope<T>.() -> Unit
     ) {

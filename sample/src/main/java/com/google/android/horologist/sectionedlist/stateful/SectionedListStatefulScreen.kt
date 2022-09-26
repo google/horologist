@@ -88,13 +88,13 @@ fun SectionedListStatefulScreen(
             }
         }
 
-        val recommendationsState: Section.State =
+        val recommendationsState: Section.State<Recommendation> =
             when (val recommendationSectionState = state.recommendationSectionState) {
-                RecommendationSectionState.Loading -> Section.State.Loading
+                RecommendationSectionState.Loading -> Section.State.Loading()
                 is RecommendationSectionState.Loaded -> Section.State.Loaded(
                     recommendationSectionState.list
                 )
-                RecommendationSectionState.Failed -> Section.State.Failed
+                RecommendationSectionState.Failed -> Section.State.Failed()
             }
 
         section(recommendationsState) {
@@ -128,13 +128,13 @@ fun SectionedListStatefulScreen(
             }
         }
 
-        val trendingState: Section.State =
+        val trendingState: Section.State<Trending> =
             when (val recommendationSectionState = state.trendingSectionState) {
-                TrendingSectionState.Loading -> Section.State.Loading
+                TrendingSectionState.Loading -> Section.State.Loading()
                 is TrendingSectionState.Loaded -> Section.State.Loaded(
                     recommendationSectionState.list
                 )
-                TrendingSectionState.Failed -> Section.State.Failed
+                TrendingSectionState.Failed -> Section.State.Failed()
             }
 
         section(trendingState) {

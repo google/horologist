@@ -40,6 +40,9 @@ import kotlin.time.Duration
 /**
  * Implementation of `HighBandwidthNetworkMediator` that locally aggregates requests and
  * then makes specific network requests when requests moves from 0 to 1 and back.
+ *
+ * The implementation of [HighBandwidthConnectionLease#awaitGranted] is from the time the lease
+ * was granted, not from when the request is made.
  */
 @ExperimentalHorologistNetworksApi
 public class StandardHighBandwidthNetworkMediator(
@@ -49,7 +52,8 @@ public class StandardHighBandwidthNetworkMediator(
     private val requests: MutableStateFlow<Requests> = MutableStateFlow(Requests())
 
     override val pinned: Flow<Set<NetworkType>> = requests.flatMapLatest {
-        val grantedNetworks = it.types.values.mapNotNull { countAndLease -> countAndLease.lease?.grantedNetwork }
+        val grantedNetworks =
+            it.types.values.mapNotNull { countAndLease -> countAndLease.lease?.grantedNetwork }
         if (grantedNetworks.isEmpty()) {
             flowOf(setOf())
         } else {
@@ -100,7 +104,7 @@ public class StandardHighBandwidthNetworkMediator(
 
         val lease = requests.value.types[request.type]?.lease!!
 
-        return SingleHighBandwidthConnectionLease(request, lease)
+        return CoalescedHighBandwidthConnectionLease(request, lease)
     }
 
     private fun processRequest(
@@ -153,15 +157,21 @@ public class StandardHighBandwidthNetworkMediator(
         lease.close()
     }
 
-    private inner class SingleHighBandwidthConnectionLease(
+    private inner class CoalescedHighBandwidthConnectionLease(
         private val request: HighBandwidthRequest,
         private val lease: NetworkLease
-    ) :
-        HighBandwidthConnectionLease {
+    ) : HighBandwidthConnectionLease {
         private val closed = AtomicBoolean(false)
 
         override suspend fun awaitGranted(timeout: Duration): Boolean {
-            return withTimeoutOrNull(timeout) {
+            val timeoutMillis =
+                lease.acquiredAt.toEpochMilli() + timeout.inWholeMilliseconds - System.currentTimeMillis()
+
+            if (timeoutMillis <= 0L) {
+                return false
+            }
+
+            return withTimeoutOrNull(timeoutMillis) {
                 lease.grantedNetwork.filterNotNull().first()
             } != null
         }

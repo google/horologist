@@ -24,6 +24,7 @@ import com.google.android.horologist.networks.request.NetworkLease
 import com.google.android.horologist.networks.request.NetworkReference
 import com.google.android.horologist.networks.request.NetworkRequester
 import kotlinx.coroutines.flow.MutableStateFlow
+import java.time.Instant
 
 @OptIn(ExperimentalHorologistNetworksApi::class)
 class FakeNetworkRequester(
@@ -48,6 +49,8 @@ class FakeNetworkRequester(
         }
 
         return object : NetworkLease {
+            override val acquiredAt: Instant = Instant.now()
+
             override val grantedNetwork = MutableStateFlow(networkReference)
 
             override fun close() {

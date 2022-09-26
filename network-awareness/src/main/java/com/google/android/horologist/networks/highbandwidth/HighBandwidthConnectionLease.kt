@@ -31,7 +31,7 @@ public interface HighBandwidthConnectionLease : AutoCloseable {
      * granted.
      *
      * @param timeout the length of time to wait for a likely network.
-     * @return whether a network was found
+     * @return whether a network was found within the timeout.
      */
     public suspend fun awaitGranted(timeout: Duration): Boolean
 }

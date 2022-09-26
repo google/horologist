@@ -27,7 +27,7 @@ import com.google.android.horologist.networks.data.RequestType.MediaRequest
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
-import com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest
+import com.google.android.horologist.networks.request.HighBandwidthRequest
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 
 /**

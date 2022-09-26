@@ -14,18 +14,24 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package com.google.android.horologist.networks.highbandwidth
 
-import androidx.annotation.GuardedBy
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
+import com.google.android.horologist.networks.request.HighBandwidthRequest
+import com.google.android.horologist.networks.request.NetworkLease
 import com.google.android.horologist.networks.request.NetworkRequester
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withTimeoutOrNull
 import java.util.concurrent.atomic.AtomicBoolean
@@ -40,68 +46,130 @@ public class StandardHighBandwidthNetworkMediator(
     private val logger: NetworkStatusLogger,
     private val networkRequester: NetworkRequester
 ) : HighBandwidthNetworkMediator {
-    @GuardedBy("this")
-    private var requests = AggregatedRequests()
-    public val requested: MutableStateFlow<HighBandwidthRequest?> = MutableStateFlow(null)
-    override val pinned: Flow<Set<NetworkType>> = networkRequester.pinnedNetwork.map { setOfNotNull(it) }
+    private val requests: MutableStateFlow<Requests> = MutableStateFlow(Requests())
 
-    override fun requestHighBandwidthNetwork(
-        request: HighBandwidthRequest
-    ): HighBandwidthConnectionLease {
-        registerRequest(request)
-
-        return SingleHighBandwidthConnectionLease(request)
-    }
-
-    private fun registerRequest(request: HighBandwidthRequest) {
-        synchronized(this) {
-            requests += request
-            update()
-        }
-    }
-
-    private fun unregisterRequest(request: HighBandwidthRequest) {
-        synchronized(this) {
-            requests -= request
-            update()
-        }
-    }
-
-    private fun update() {
-        requested.update { currentRequested ->
-            if (requests.isNonZero) {
-                val newRequested = requests.toRequest()
-                if (currentRequested == null) {
-                    val request = newRequested
-                    requested.value = request
-                    logger.logNetworkEvent("Requesting High Bandwidth Network for $request")
-                    networkRequester.setRequests(request)
-                }
-                newRequested
-            } else {
-                if (currentRequested != null) {
-                    requested.value = null
-                    logger.logNetworkEvent("Releasing High Bandwidth Network")
-                    networkRequester.clearRequest()
-                }
-                null
+    override val pinned: Flow<Set<NetworkType>> = requests.flatMapLatest {
+        val grantedNetworks = it.types.values.mapNotNull { countAndLease -> countAndLease.lease?.grantedNetwork }
+        if (grantedNetworks.isEmpty()) {
+            flowOf(setOf())
+        } else {
+            combine(grantedNetworks) { networks ->
+                networks.mapNotNull { it?.type }.toSet()
             }
         }
     }
 
-    private inner class SingleHighBandwidthConnectionLease(private val request: HighBandwidthRequest) : HighBandwidthConnectionLease {
+    private data class CountAndLease(
+        val count: Int = 0,
+        val lease: NetworkLease? = null
+    ) {
+        init {
+            if (lease != null) {
+                check(count > 0)
+            } else {
+                check(count == 0)
+            }
+        }
+    }
+
+    private data class Requests(
+        val types: Map<HighBandwidthRequest.Type, CountAndLease> = mapOf(
+            HighBandwidthRequest.Type.All to CountAndLease(),
+            HighBandwidthRequest.Type.CellOnly to CountAndLease(),
+            HighBandwidthRequest.Type.WifiOnly to CountAndLease()
+        )
+    ) {
+        fun update(
+            type: HighBandwidthRequest.Type,
+            fn: (CountAndLease) -> CountAndLease
+        ): Requests {
+            val currentCountAndLease = types[type]!!
+
+            val newCountAndLease = fn(currentCountAndLease)
+
+            return copy(types = types.plus(type to newCountAndLease))
+        }
+    }
+
+    override fun requestHighBandwidthNetwork(
+        request: HighBandwidthRequest
+    ): HighBandwidthConnectionLease {
+        requests.update {
+            processRequest(it, request)
+        }
+
+        val lease = requests.value.types[request.type]?.lease!!
+
+        return SingleHighBandwidthConnectionLease(request, lease)
+    }
+
+    private fun processRequest(
+        requests: Requests,
+        request: HighBandwidthRequest
+    ): Requests {
+        return requests.update(request.type) {
+            it.copy(
+                count = it.count + 1,
+                lease = it.lease
+                    ?: makeHighBandwidthNetwork(request)
+            )
+        }
+    }
+
+    private fun makeHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease {
+        logger.logNetworkEvent("Requesting High Bandwidth Network for ${request.type}")
+        return networkRequester.requestHighBandwidthNetwork(request)
+    }
+
+    private fun releaseHighBandwidthNetwork(
+        request: HighBandwidthRequest
+    ) {
+        requests.update {
+            processRelease(it, request)
+        }
+    }
+
+    private fun processRelease(
+        requests: Requests,
+        request: HighBandwidthRequest
+    ): Requests {
+        return requests.update(request.type) {
+            val newLease = if (it.count == 1) {
+                releaseHighBandwidthNetwork(request, it.lease!!)
+                null
+            } else {
+                it.lease
+            }
+
+            it.copy(
+                count = it.count - 1,
+                lease = newLease
+            )
+        }
+    }
+
+    private fun releaseHighBandwidthNetwork(request: HighBandwidthRequest, lease: NetworkLease) {
+        logger.logNetworkEvent("Releasing High Bandwidth Network for ${request.type}")
+        lease.close()
+    }
+
+    private inner class SingleHighBandwidthConnectionLease(
+        private val request: HighBandwidthRequest,
+        private val lease: NetworkLease
+    ) :
+        HighBandwidthConnectionLease {
         private val closed = AtomicBoolean(false)
 
         override suspend fun awaitGranted(timeout: Duration): Boolean {
             return withTimeoutOrNull(timeout) {
-                networkRequester.pinnedNetwork.filterNotNull().first()
+                lease.grantedNetwork.filterNotNull().first()
             } != null
         }
 
         override fun close() {
             // Avoid any conditions closing this twice
             if (closed.compareAndSet(false, true)) {
-                unregisterRequest(request)
+                releaseHighBandwidthNetwork(request)
             }
         }
     }

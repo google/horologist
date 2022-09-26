@@ -18,6 +18,7 @@ package com.google.android.horologist.networks.highbandwidth
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.NetworkType
+import com.google.android.horologist.networks.request.HighBandwidthRequest
 import kotlinx.coroutines.flow.Flow
 
 /**

@@ -16,19 +16,12 @@
 
 package com.google.android.horologist.networks.request
 
-import android.net.ConnectivityManager
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import kotlinx.coroutines.flow.Flow
 
 /**
- * Slightly coroutine aware API for [ConnectivityManager.requestNetwork].
- *
- * Subscription with a listener is replaced with a closable lease, with the current network.
+ * Cancellable network request lease. Allows caller to close or observe the current network as a
+ * flow.
  */
-@ExperimentalHorologistNetworksApi
-public interface NetworkRequester {
-    /**
-     * Make a request for a high bandwidth network, with request details provided in
-     * `request`. Returns a cancellation Token, that also allows waiting for a connection.
-     */
-    public fun requestHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease
+public interface NetworkLease : AutoCloseable {
+    public val grantedNetwork: Flow<NetworkReference?>
 }

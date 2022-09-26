@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#media-library" class="md-skip">
+        <a href="#media-domain-library" class="md-skip">
           Skip to content
         </a>
       
@@ -473,40 +473,9 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Domain Guide
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         Domain Guide
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#download" class="md-nav__link">
-    Download
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -755,21 +724,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#download" class="md-nav__link">
-    Download
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -788,16 +742,19 @@
   </a>
 
 
-<h1 id="media-library">Media library<a class="headerlink" href="#media-library" title="Permanent link">&para;</a></h1>
-<h2 id="download">Download<a class="headerlink" href="#download" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="n">repositories</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">mavenCentral</span><span class="o">()</span><span class="w"></span>
-<span class="o">}</span><span class="w"></span>
-
-<span class="n">dependencies</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;com.google.android.horologist:horologist-media:&lt;version&gt;&quot;</span><span class="w"></span>
-<span class="o">}</span><span class="w"></span>
-</code></pre></div>
+<h1 id="media-domain-library">Media Domain library<a class="headerlink" href="#media-domain-library" title="Permanent link">&para;</a></h1>
+<p>This library currently contains a set of models and repositories that are common to media apps. But
+it can be expanded in the future to also include common use cases, as
+per <a href="https://developer.android.com/topic/architecture/domain-layer">domain layer guide</a>.</p>
+<p>The <a href="https://developer.android.com/topic/architecture/data-layer">data</a>
+and <a href="https://developer.android.com/topic/architecture/domain-layer">domain</a> layer guides seem to
+imply that the definitions of the repositories should belong to the data layer. This would make the
+domain library dependent on a specific data library. In this project, the repositories are defined (
+not implemented) in the domain layer. This makes the domain layer independent of external layers,
+and any implementation of the repositories can be used: the ones provided by the toolkit, or custom
+implementations provided by your project.</p>
+<p>The reason for having a domain library is described in
+the <a href="../media-toolkit/#architecture-overview">architecture overview</a>.</p>
 
 
 

@@ -512,29 +512,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#previews" class="md-nav__link">
-    Previews
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#state" class="md-nav__link">
-    State
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#demo-app" class="md-nav__link">
-    Demo app
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#download" class="md-nav__link">
-    Download
+  <a href="#stateful-components" class="md-nav__link">
+    Stateful components
   </a>
   
 </li>
@@ -783,29 +762,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#previews" class="md-nav__link">
-    Previews
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#state" class="md-nav__link">
-    State
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#demo-app" class="md-nav__link">
-    Demo app
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#download" class="md-nav__link">
-    Download
+  <a href="#stateful-components" class="md-nav__link">
+    Stateful components
   </a>
   
 </li>
@@ -831,30 +789,43 @@
 
 
 <h1 id="media-ui-library">Media UI library<a class="headerlink" href="#media-ui-library" title="Permanent link">&para;</a></h1>
-<p>This library contains a set of composables for media player apps.</p>
-<ul>
-<li><a href="https://github.com/google/horologist/tree/main/media-ui/src/main/java/com/google/android/horologist/media/ui/components/controls">Controls</a>: individual controls</li>
-<li><a href="https://github.com/google/horologist/tree/main/media-ui/src/main/java/com/google/android/horologist/media/ui/components">Components</a>: composables that might combine multiple controls</li>
-<li><a href="https://github.com/google/horologist/tree/main/media-ui/src/main/java/com/google/android/horologist/media/ui/screens">Screens</a>: full screen composables</li>
-</ul>
-<h2 id="previews">Previews<a class="headerlink" href="#previews" title="Permanent link">&para;</a></h2>
-<p>The previews of the composables can be found in the <a href="https://github.com/google/horologist/tree/main/media-ui/src/debug/java/com/google/android/horologist/media/ui">debug</a> folder of the module.</p>
-<h2 id="state">State<a class="headerlink" href="#state" title="Permanent link">&para;</a></h2>
-<p>This library also provides a <a href="https://github.com/google/horologist/tree/main/media-ui/src/main/java/com/google/android/horologist/media/ui/state">state</a> package with a <a href="https://github.com/google/horologist/blob/main/media-ui/src/main/java/com/google/android/horologist/media/ui/state/PlayerUiState.kt">PlayerUiState</a> and its own UI <a href="https://github.com/google/horologist/tree/main/media-ui/src/main/java/com/google/android/horologist/media/ui/state/model">models</a> to represent the state of common components that are displayed on a player screen. 
-They can be used with your own ViewModel implementation or with the <a href="https://github.com/google/horologist/blob/main/media-ui/src/main/java/com/google/android/horologist/media/ui/state/PlayerViewModel.kt">PlayerViewModel</a> provided.</p>
-<p>There is a guide on the usage of the stateful <code>PlayerScreen</code> <a href="https://google.github.io/horologist/media-playerscreen/">here</a>.</p>
-<h2 id="demo-app">Demo app<a class="headerlink" href="#demo-app" title="Permanent link">&para;</a></h2>
-<p>A sample usage of <a href="https://github.com/google/horologist/blob/main/media-ui/src/main/java/com/google/android/horologist/media/ui/screens/PlayerScreen.kt">PlayerScreen</a> can be found in the <a href="https://github.com/google/horologist/tree/main/media-sample">media sample</a> app in this project.</p>
-<p><img align="center" alt="" loading="lazy" src="playerscreen.png" /></p>
-<h2 id="download">Download<a class="headerlink" href="#download" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="n">repositories</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">mavenCentral</span><span class="o">()</span><span class="w"></span>
-<span class="o">}</span><span class="w"></span>
-
-<span class="n">dependencies</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;com.google.android.horologist:horologist-media-ui:&lt;version&gt;&quot;</span><span class="w"></span>
-<span class="o">}</span><span class="w"></span>
+<p>This library contains a set of composables for media player apps:</p>
+<p>Individual controls like Play, Pause and Seek buttons;
+Components that might combine multiple controls, like <code>PlayPauseButton</code> and <code>MediaControlButtons</code>;
+Screens, like <code>PlayerScreen</code>, <code>BrowseScreen</code> and <code>EntityScreen</code>.</p>
+<p>The previews of the composables can be found in the <code>debug</code> folder of the module source code.</p>
+<p>This library is not dependent on any specific player implementation as
+per <a href="../media-toolkit/#architecture-overview">architecture overview</a>.</p>
+<h2 id="stateful-components">Stateful components<a class="headerlink" href="#stateful-components" title="Permanent link">&para;</a></h2>
+<p>Most of the components available in this library contain an overloaded version of themselves which
+accept either a UI model (<code>MediaUiModel</code>, <code>PlaylistUiModel</code>) or <code>PlayerUiState</code> or <code>PlayerViewModel</code>
+as parameters. We call those versions “stateful components”, which is a different definition from
+the <a href="https://developer.android.com/jetpack/compose/state#stateful-vs-stateless">compose documentation</a>
+.</p>
+<p>While the stateless components provide full customization, the stateful components provide
+convenience (if the default implementation suits your project requirements), as can be seen in the
+example below.</p>
+<p>Stateless <code>PodcastControlButtons</code> usage:</p>
+<div class="highlight"><pre><span></span><code><span class="n">PodcastControlButtons</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">onPlayButtonClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="n">onPauseButtonClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="n">playPauseButtonEnabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">playing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">percent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0f</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">onSeekBackButtonClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="n">seekBackButtonEnabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">onSeekForwardButtonClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="n">seekForwardButtonEnabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 </code></pre></div>
+<p>Stateful <code>PodcastControlButtons</code> usage:</p>
+<div class="highlight"><pre><span></span><code><span class="n">PodcastControlButtons</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">playerViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">viewModel</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">playerUiState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">playerUiState</span><span class="p">,</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Further examples on how to use these components can be found in
+the <a href="https://google.github.io/horologist/media-playerscreen/">Stateful PlayerScreen guide</a>.</p>
 
 
 

@@ -526,9 +526,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#download" class="md-nav__link">
-    Download
+  <a href="#mediadownloadservice" class="md-nav__link">
+    MediaDownloadService
   </a>
+  
+    <nav class="md-nav" aria-label="MediaDownloadService">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -762,9 +775,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#download" class="md-nav__link">
-    Download
+  <a href="#mediadownloadservice" class="md-nav__link">
+    MediaDownloadService
   </a>
+  
+    <nav class="md-nav" aria-label="MediaDownloadService">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -789,17 +815,31 @@
 
 
 <h1 id="media-data-library">Media Data library<a class="headerlink" href="#media-data-library" title="Permanent link">&para;</a></h1>
-<p><a href="https://search.maven.org/search?q=g:com.google.android.horologist"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/com.google.android.horologist/horologist-media-data" /></a></p>
-<p>For more information, visit the documentation: https://google.github.io/horologist/media-data</p>
-<h2 id="download">Download<a class="headerlink" href="#download" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="n">repositories</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">mavenCentral</span><span class="o">()</span><span class="w"></span>
-<span class="o">}</span><span class="w"></span>
-
-<span class="n">dependencies</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;com.google.android.horologist:horologist-media-data:&lt;version&gt;&quot;</span><span class="w"></span>
-<span class="o">}</span><span class="w"></span>
-</code></pre></div>
+<p>This library contains the implementation of the repositories defined in
+the <a href="https://google.github.io/horologist/media/">media domain library</a>, using <a href="https://developer.android.com/jetpack/androidx/releases/media3">Media3</a> and
+an internal database as data sources.</p>
+<p>It also exposes its data sources classes so they can be used by your custom repositories.</p>
+<h2 id="mediadownloadservice">MediaDownloadService<a class="headerlink" href="#mediadownloadservice" title="Permanent link">&para;</a></h2>
+<p>An implementation of <a href="https://developer.android.com/jetpack/androidx/releases/media3">Media3</a>’s <code>DownloadService</code> that, in conjunction with auxiliary
+classes, will monitor the state and progress of media downloads, and update the information in the
+internal database.</p>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Add your own implementation of the service, extending <code>MediaDownloadService</code>;</p>
+</li>
+<li>
+<p>Add your service implementation to your app’s <code>AndroidManifest.xml</code>:
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;service</span> <span class="na">android:name=</span><span class="s">&quot;MediaDownloadServiceImpl&quot;</span>
+    <span class="na">android:exported=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;intent-filter&gt;</span>
+        <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&quot;com.google.android.exoplayer.downloadService.action.RESTART&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&quot;android.intent.category.DEFAULT&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/intent-filter&gt;</span>
+<span class="nt">&lt;/service&gt;</span>
+</code></pre></div></p>
+</li>
+</ol>
 
 
 

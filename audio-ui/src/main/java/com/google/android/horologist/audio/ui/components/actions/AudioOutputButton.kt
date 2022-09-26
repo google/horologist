@@ -35,7 +35,7 @@ public fun AudioOutputButton(
     enabled: Boolean = true
 ) {
     SettingsButton(
-        modifier = modifier.size(ButtonDefaults.SmallButtonSize),
+        modifier = modifier,
         onClick = onOutputClick,
         enabled = enabled,
         imageVector = Icons.Default.Radio,

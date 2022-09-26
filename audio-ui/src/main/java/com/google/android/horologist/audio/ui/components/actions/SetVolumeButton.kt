@@ -41,7 +41,7 @@ public fun SetVolumeButton(
     enabled: Boolean = true
 ) {
     SettingsButton(
-        modifier = modifier.size(ButtonDefaults.SmallButtonSize),
+        modifier = modifier,
         onClick = onVolumeClick,
         enabled = enabled,
         imageVector = when {

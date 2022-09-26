@@ -157,12 +157,10 @@ public class StandardHighBandwidthNetworkMediator(
     private inner class SingleHighBandwidthConnectionLease(
         private val request: HighBandwidthRequest,
         private val lease: NetworkLease
-    ) :
-        HighBandwidthConnectionLease {
+    ) : HighBandwidthConnectionLease {
         private val closed = AtomicBoolean(false)
 
         override suspend fun awaitGranted(timeout: Duration): Boolean {
-            lease.grantedNetwork.filterNotNull().first()
             val timeoutMillis =
                 lease.acquiredAt.toEpochMilli() + timeout.inWholeMilliseconds - System.currentTimeMillis()
 

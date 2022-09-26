@@ -19,7 +19,7 @@
     
     
       
-        <title>Media Toolkit - Horologist</title>
+        <title>Overview - Horologist</title>
       
     
     
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Media Toolkit
+              Overview
             
           </span>
         </div>
@@ -434,12 +434,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
       
       
       
@@ -460,10 +462,79 @@
               
   
   
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Overview
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Overview
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-overview" class="md-nav__link">
+    Architecture overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    Getting started
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
   
     <li class="md-nav__item">
-      <a href="../media/" class="md-nav__link">
-        Domain Guide
+      <a href="../simple-media-app-guide/" class="md-nav__link">
+        Simple app guide
       </a>
     </li>
   
@@ -477,7 +548,21 @@
   
     <li class="md-nav__item">
       <a href="../media-ui/" class="md-nav__link">
-        UI Guide
+        Media UI lib
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../media/" class="md-nav__link">
+        Media Domain lib
       </a>
     </li>
   
@@ -491,7 +576,35 @@
   
     <li class="md-nav__item">
       <a href="../media-data/" class="md-nav__link">
-        Data Guide
+        Media Data lib
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../media3-backend/" class="md-nav__link">
+        Media3 Backend lib
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../media-sample/" class="md-nav__link">
+        Media Sample app
       </a>
     </li>
   
@@ -765,27 +878,27 @@
 Wear OS and a sample app that you can run to see the toolkit in action.</p>
 <p>The following modules in the Horologist project are part of the toolkit:</p>
 <ul>
-<li><a href="./media-ui">media-ui</a>: common media UI components and screens like <code>PlayerScreen</code>.</li>
-<li><a href="./media">media</a>: domain model for media related functionality. Provides an abstraction to the UI
+<li><a href="../media-ui/">media-ui</a>: common media UI components and screens like <code>PlayerScreen</code>.</li>
+<li><a href="../media/">media</a>: domain model for media related functionality. Provides an abstraction to the UI
   module (<code>media-ui</code>) that is agnostic to the <code>Player</code> implementation.</li>
-<li><a href="./media-data">media-data</a>: implementation of the domain module (<code>media</code>) using Media3.</li>
-<li><a href="./media3-backend">media3-backend</a>: <code>Player</code> on top of Media3 including functionalities such as
+<li><a href="../media-data/">media-data</a>: implementation of the domain module (<code>media</code>) using Media3.</li>
+<li><a href="../media3-backend/">media3-backend</a>: <code>Player</code> on top of Media3 including functionalities such as
   avoiding playing music on the watch speaker.</li>
-<li><a href="./media-sample">media-sample</a>: sample app to listen to downloaded music.</li>
+<li><a href="../media-sample/">media-sample</a>: sample app to listen to downloaded music.</li>
 </ul>
 <h2 id="architecture-overview">Architecture overview<a class="headerlink" href="#architecture-overview" title="Permanent link">&para;</a></h2>
 <p>The Media Toolkit libraries are separated by layers (UI, domain and data) following
 the <a href="https://developer.android.com/topic/architecture#recommended-app-arch">recommended app architecture</a>
 .</p>
 <p>The reason for including a domain layer is to provide flexibility to projects to use
-the <a href="https://google.github.io/horologist/media-ui/">UI library</a> or the <a href="https://google.github.io/horologist/media-data/">data library</a> independently.</p>
+the <a href="../media-ui/">UI library</a> or the <a href="../media-data/">data library</a> independently.</p>
 <p>For example, if your project already contains an implementation for the player and you are only
 interested in using the media screens provided by the toolkit, then only
-the <a href="https://google.github.io/horologist/media-ui/">UI library</a> needs to be added as a dependency. Thus, no extra dependencies (
+the <a href="../media-ui/">UI library</a> needs to be added as a dependency. Thus, no extra dependencies (
 e.g. <a href="https://developer.android.com/jetpack/androidx/releases/media3">Media3</a>) will be added to your project.</p>
 <p>On the other hand, if your project does not need any of the media screens or media UI components
-provided by the <a href="https://google.github.io/horologist/media-ui/">UI library</a>, and you are only interested in the player implementation,
-then only the <a href="https://google.github.io/horologist/media-data/">data library</a> needs to be added as a dependency to your project.</p>
+provided by the <a href="../media-ui/">UI library</a>, and you are only interested in the player implementation,
+then only the <a href="../media-data/">data library</a> needs to be added as a dependency to your project.</p>
 <h2 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
 <p>The usage of the toolkit will vary according to the requirements of your project.</p>
 <p>As per <a href="#architecture-overview">architecture overview</a>, your project might not need to add all the
@@ -794,7 +907,7 @@ library required to your project for a guide on how to get started.</p>
 <p>For a walkthrough on how to build a very simple media application using some libraries of the
 toolkit, refer to this <a href="../simple-media-app-guide/">guide</a>.</p>
 <p>For good reference on how to use all the libraries available in the toolkit, refer to the code of
-the <a href="https://google.github.io/horologist/media-sample/">media-sample</a> app.</p>
+the <a href="../media-sample/">media-sample</a> app.</p>
 
 
 
@@ -810,6 +923,42 @@ the <a href="https://google.github.io/horologist/media-sample/">media-sample</a>
       </main>
       
         <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../datalayer/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Guide" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Guide
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../simple-media-app-guide/" class="md-footer__link md-footer__link--next" aria-label="Next: Simple app guide" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Simple app guide
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">

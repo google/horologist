@@ -16,8 +16,6 @@
 
 package com.google.android.horologist.networks.request
 
-import android.net.Network
-import com.google.android.horologist.networks.data.NetworkType
 import kotlinx.coroutines.flow.Flow
 import java.time.Instant
 

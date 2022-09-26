@@ -17,7 +17,6 @@
 package com.google.android.horologist.networks.request
 
 import android.net.ConnectivityManager
-import android.net.NetworkRequest
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 
 /**

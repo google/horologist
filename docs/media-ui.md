@@ -49,4 +49,4 @@ PodcastControlButtons(
 ```
 
 Further examples on how to use these components can be found in
-the [Stateful PlayerScreen guide](https://google.github.io/horologist/media-playerscreen/).
+the [Stateful PlayerScreen guide](media-playerscreen.md).

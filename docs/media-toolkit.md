@@ -7,13 +7,13 @@ Wear OS and a sample app that you can run to see the toolkit in action.
 
 The following modules in the Horologist project are part of the toolkit:
 
-- [media-ui](./media-ui): common media UI components and screens like `PlayerScreen`.
-- [media](./media): domain model for media related functionality. Provides an abstraction to the UI
+- [media-ui](media-ui.md): common media UI components and screens like `PlayerScreen`.
+- [media](media.md): domain model for media related functionality. Provides an abstraction to the UI
   module (`media-ui`) that is agnostic to the `Player` implementation.
-- [media-data](./media-data): implementation of the domain module (`media`) using Media3.
-- [media3-backend](./media3-backend): `Player` on top of Media3 including functionalities such as
+- [media-data](media-data.md): implementation of the domain module (`media`) using Media3.
+- [media3-backend](media3-backend.md): `Player` on top of Media3 including functionalities such as
   avoiding playing music on the watch speaker.
-- [media-sample](./media-sample): sample app to listen to downloaded music.
+- [media-sample](media-sample.md): sample app to listen to downloaded music.
 
 ## Architecture overview
 
@@ -47,10 +47,10 @@ toolkit, refer to this [guide](simple-media-app-guide.md).
 For good reference on how to use all the libraries available in the toolkit, refer to the code of
 the [media-sample][media sample] app.
 
-[ui library]: https://google.github.io/horologist/media-ui/
+[ui library]: media-ui.md
 
-[data library]: https://google.github.io/horologist/media-data/
+[data library]: media-data.md
 
 [media3]: https://developer.android.com/jetpack/androidx/releases/media3
 
-[media sample]: https://google.github.io/horologist/media-sample/
+[media sample]: media-sample.md

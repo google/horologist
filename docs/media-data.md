@@ -1,7 +1,7 @@
 # Media Data library
 
 This library contains the implementation of the repositories defined in
-the [media domain library](https://google.github.io/horologist/media/), using [Media3][media3] and
+the [media domain library](../media), using [Media3][media3] and
 an internal database as data sources.
 
 It also exposes its data sources classes so they can be used by your custom repositories.

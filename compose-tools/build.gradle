@@ -76,6 +76,7 @@ android {
     }
     lint {
         checkReleaseBuilds false
+        textOutput file('stdout')
         textReport true
     }
     namespace 'com.google.android.horologist.compose.tools'

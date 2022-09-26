@@ -234,7 +234,7 @@ object PlaybackServiceModule {
         ).also { wearConfiguredPlayer ->
             exoPlayer.addListener(TracingListener())
 
-            serviceCoroutineScope.launch {
+            serviceCoroutineScope.launch(Dispatchers.Main) {
                 wearConfiguredPlayer.startNoiseDetection()
             }
 

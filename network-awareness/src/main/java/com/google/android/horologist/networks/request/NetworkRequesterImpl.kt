@@ -41,6 +41,10 @@ public class NetworkRequesterImpl(
     private inner class NetworkLeaseImpl : NetworkCallback(), NetworkLease {
         override val acquiredAt: Instant = Instant.now()
 
+        init {
+            println("acquired")
+        }
+
         override val grantedNetwork: MutableStateFlow<NetworkReference?> =
             MutableStateFlow(null)
 
@@ -54,6 +58,7 @@ public class NetworkRequesterImpl(
         }
 
         override fun close() {
+            println("release")
             connectivityManager.unregisterNetworkCallback(this)
             grantedNetwork.value = null
         }

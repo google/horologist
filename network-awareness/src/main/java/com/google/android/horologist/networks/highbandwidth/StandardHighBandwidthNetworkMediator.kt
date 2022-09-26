@@ -24,7 +24,11 @@ import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.request.HighBandwidthRequest
 import com.google.android.horologist.networks.request.NetworkLease
 import com.google.android.horologist.networks.request.NetworkRequester
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
@@ -33,6 +37,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.time.Duration
@@ -47,9 +52,13 @@ import kotlin.time.Duration
 @ExperimentalHorologistNetworksApi
 public class StandardHighBandwidthNetworkMediator(
     private val logger: NetworkStatusLogger,
-    private val networkRequester: NetworkRequester
+    private val networkRequester: NetworkRequester,
+    private val coroutineScope: CoroutineScope,
+    private val delayToRelease: Duration
 ) : HighBandwidthNetworkMediator {
     private val requests: MutableStateFlow<Requests> = MutableStateFlow(Requests())
+
+    private var pendingCancel: Job? = null
 
     override val pinned: Flow<Set<NetworkType>> = requests.flatMapLatest {
         val grantedNetworks =
@@ -68,10 +77,8 @@ public class StandardHighBandwidthNetworkMediator(
         val lease: NetworkLease? = null
     ) {
         init {
-            if (lease != null) {
-                check(count > 0)
-            } else {
-                check(count == 0)
+            if (count > 0) {
+                check(lease != null)
             }
         }
     }
@@ -107,14 +114,20 @@ public class StandardHighBandwidthNetworkMediator(
         return CoalescedHighBandwidthConnectionLease(request, lease)
     }
 
+    // Guarded by [requests.update]
     private fun processRequest(
         requests: Requests,
         request: HighBandwidthRequest
     ): Requests {
-        return requests.update(request.type) {
-            it.copy(
-                count = it.count + 1,
-                lease = it.lease
+        pendingCancel?.let {
+            it.cancel()
+            pendingCancel = null
+        }
+
+        return requests.update(request.type) { countAndLease ->
+            countAndLease.copy(
+                count = countAndLease.count + 1,
+                lease = countAndLease.lease
                     ?: makeHighBandwidthNetwork(request)
             )
         }
@@ -133,22 +146,49 @@ public class StandardHighBandwidthNetworkMediator(
         }
     }
 
+    // Guarded by [requests.update]
     private fun processRelease(
         requests: Requests,
         request: HighBandwidthRequest
     ): Requests {
-        return requests.update(request.type) {
-            val newLease = if (it.count == 1) {
-                releaseHighBandwidthNetwork(request, it.lease!!)
-                null
-            } else {
-                it.lease
+        return requests.update(request.type) { countAndLease ->
+            val shouldCancelLease = countAndLease.count == 1
+            if (shouldCancelLease) {
+                check(pendingCancel == null)
+                pendingCancel = coroutineScope.launch(Dispatchers.Default) {
+                    processCancel(request)
+                }
             }
 
-            it.copy(
-                count = it.count - 1,
-                lease = newLease
+            countAndLease.copy(
+                count = countAndLease.count - 1,
             )
+        }
+    }
+
+    private suspend fun processCancel(
+        request: HighBandwidthRequest
+    ) {
+        delay(delayToRelease)
+
+        requests.update {
+            actuallyRelease(it, request)
+        }
+    }
+
+    // Guarded by [requests.update]
+    private fun actuallyRelease(
+        requests: Requests,
+        request: HighBandwidthRequest
+    ): Requests {
+        return requests.update(request.type) { countAndLease ->
+            // Should only be here if count hasn't changed since scheduled
+            check(countAndLease.count == 0)
+            check(countAndLease.lease != null)
+
+            releaseHighBandwidthNetwork(request, countAndLease.lease)
+
+            countAndLease.copy(lease = null)
         }
     }
 

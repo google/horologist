@@ -89,24 +89,26 @@ internal fun <T> Section<T>.display(scope: ScalingLazyListScope) {
     }
 
     when (section.state) {
-        Section.State.Loading -> {
+        is Section.State.Loading -> {
             section.loadingContent?.let { content ->
                 scope.item { SectionContentScope.content() }
             }
         }
-        is Section.State.Loaded<*> -> {
+
+        is Section.State.Loaded -> {
             val list = section.state.list
             scope.items(list.size) { index ->
-                @Suppress("UNCHECKED_CAST")
-                section.loadedContent(SectionContentScope, list[index] as T)
+                section.loadedContent(SectionContentScope, list[index])
             }
         }
-        Section.State.Failed -> {
+
+        is Section.State.Failed -> {
             section.failedContent?.let { content ->
                 scope.item { SectionContentScope.content() }
             }
         }
-        Section.State.Empty -> {
+
+        is Section.State.Empty -> {
             section.emptyContent?.let { content ->
                 scope.item { SectionContentScope.content() }
             }
@@ -125,7 +127,7 @@ internal fun <T> Section<T>.display(scope: ScalingLazyListScope) {
  */
 @ExperimentalHorologistComposablesApi
 public data class Section<T> constructor(
-    val state: State,
+    val state: State<T>,
     val headerContent: (@Composable SectionContentScope.() -> Unit)? = null,
     val loadingContent: (@Composable SectionContentScope.() -> Unit)? = null,
     val loadedContent: @Composable SectionContentScope.(T) -> Unit,
@@ -137,16 +139,16 @@ public data class Section<T> constructor(
     /**
      * A state of a [Section].
      */
-    public sealed class State {
-        public object Loading : State()
+    public sealed class State<T> {
+        public class Loading<T> : State<T>()
 
         public data class Loaded<T>(
             val list: List<T>
-        ) : State()
+        ) : State<T>()
 
-        public object Failed : State()
+        public class Failed<T> : State<T>()
 
-        public object Empty : State()
+        public class Empty<T> : State<T>()
     }
 }
 
@@ -167,7 +169,7 @@ public class SectionedListScope {
 
     @SectionScopeMarker
     public fun <T> section(
-        state: Section.State,
+        state: Section.State<T>,
         displayFooterOnlyOnLoadedState: Boolean = true,
         content: SectionScope<T>.() -> Unit
     ) {

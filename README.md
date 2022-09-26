@@ -12,7 +12,7 @@ The toolkit includes:
 - [horologist-media](./media): domain model for Media related functionality. Provides an abstraction to the UI module (`horologist-media-ui`) that is agnostic to the Player implementation.
 - [horologist-media-data](./media-data): implementation of the domain module (`horologist-media`) using [Media3](https://developer.android.com/jetpack/androidx/releases/media3).
 - [horologist-media3-backend](./media3-backend): Player on top of Media3 including functionalities such as avoiding playing music on the watch speaker.
-- [horologist-media-sample](./media-sample): sample app to listen to downloaded music or streaming.
+- [horologist-media-sample](./media-sample): sample app to listen to downloaded music.
 
 Player Screen | Browse Screen | Entity Screen
 :------------:|:-------------:|:-------------:

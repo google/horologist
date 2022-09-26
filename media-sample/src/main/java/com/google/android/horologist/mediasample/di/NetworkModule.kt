@@ -59,6 +59,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.File
 import javax.inject.Provider
 import javax.inject.Singleton
+import kotlin.time.Duration.Companion.seconds
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -142,10 +143,13 @@ object NetworkModule {
     @Provides
     fun aggregatingHighBandwidthRequester(
         networkLogger: NetworkStatusLogger,
-        networkRequester: NetworkRequester
+        networkRequester: NetworkRequester,
+        @ForApplicationScope coroutineScope: CoroutineScope
     ) = StandardHighBandwidthNetworkMediator(
         networkLogger,
-        networkRequester
+        networkRequester,
+        coroutineScope,
+        3.seconds
     )
 
     @Singleton
@@ -157,11 +161,9 @@ object NetworkModule {
     @Singleton
     @Provides
     fun networkRequester(
-        connectivityManager: ConnectivityManager,
-        networkRepository: NetworkRepository
+        connectivityManager: ConnectivityManager
     ): NetworkRequester = NetworkRequesterImpl(
-        connectivityManager,
-        networkRepository
+        connectivityManager
     )
 
     @Singleton

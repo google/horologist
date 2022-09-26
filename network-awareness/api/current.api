@@ -316,53 +316,15 @@ package com.google.android.horologist.networks.highbandwidth {
 
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public interface HighBandwidthNetworkMediator {
     method public kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.horologist.networks.data.NetworkType>> getPinned();
-    method public com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease requestHighBandwidthNetwork(com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest request);
+    method public com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease requestHighBandwidthNetwork(com.google.android.horologist.networks.request.HighBandwidthRequest request);
     property public abstract kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.horologist.networks.data.NetworkType>> pinned;
   }
 
-  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class HighBandwidthRequest {
-    ctor public HighBandwidthRequest(optional com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest.Type type, optional com.google.android.horologist.networks.data.RequestType? requestType, optional okhttp3.HttpUrl? url);
-    method public com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest.Type component1();
-    method public com.google.android.horologist.networks.data.RequestType? component2();
-    method public okhttp3.HttpUrl? component3();
-    method public com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest copy(com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest.Type type, com.google.android.horologist.networks.data.RequestType? requestType, okhttp3.HttpUrl? url);
-    method public com.google.android.horologist.networks.data.RequestType? getRequestType();
-    method public com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest.Type getType();
-    method public okhttp3.HttpUrl? getUrl();
-    method public android.net.NetworkRequest toNetworkRequest();
-    property public final com.google.android.horologist.networks.data.RequestType? requestType;
-    property public final com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest.Type type;
-    property public final okhttp3.HttpUrl? url;
-    field public static final com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest.Companion Companion;
-  }
-
-  public static final class HighBandwidthRequest.Companion {
-    method public com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest from(java.util.List<? extends com.google.android.horologist.networks.data.NetworkType> supportedTypes);
-    method public com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest getAll();
-    method public com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest getCell();
-    method public com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest getWifi();
-    property public final com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest All;
-    property public final com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest Cell;
-    property public final com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest Wifi;
-  }
-
-  public enum HighBandwidthRequest.Type {
-    method public final boolean getCell();
-    method public final boolean getWifi();
-    property public final boolean cell;
-    property public final boolean wifi;
-    enum_constant public static final com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest.Type All;
-    enum_constant public static final com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest.Type CellOnly;
-    enum_constant public static final com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest.Type WifiOnly;
-  }
-
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class StandardHighBandwidthNetworkMediator implements com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator {
-    ctor public StandardHighBandwidthNetworkMediator(com.google.android.horologist.networks.logging.NetworkStatusLogger logger, com.google.android.horologist.networks.request.NetworkRequester networkRequester);
+    ctor public StandardHighBandwidthNetworkMediator(com.google.android.horologist.networks.logging.NetworkStatusLogger logger, com.google.android.horologist.networks.request.NetworkRequester networkRequester, kotlinx.coroutines.CoroutineScope coroutineScope, long delayToRelease);
     method public kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.horologist.networks.data.NetworkType>> getPinned();
-    method public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest> getRequested();
-    method public com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease requestHighBandwidthNetwork(com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest request);
+    method public com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease requestHighBandwidthNetwork(com.google.android.horologist.networks.request.HighBandwidthRequest request);
     property public kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.horologist.networks.data.NetworkType>> pinned;
-    property public final kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest> requested;
   }
 
 }
@@ -477,19 +439,67 @@ package com.google.android.horologist.networks.okhttp.impl {
 
 package com.google.android.horologist.networks.request {
 
+  @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class HighBandwidthRequest {
+    ctor public HighBandwidthRequest(optional com.google.android.horologist.networks.request.HighBandwidthRequest.Type type, optional com.google.android.horologist.networks.data.RequestType? requestType, optional okhttp3.HttpUrl? url);
+    method public com.google.android.horologist.networks.request.HighBandwidthRequest.Type component1();
+    method public com.google.android.horologist.networks.data.RequestType? component2();
+    method public okhttp3.HttpUrl? component3();
+    method public com.google.android.horologist.networks.request.HighBandwidthRequest copy(com.google.android.horologist.networks.request.HighBandwidthRequest.Type type, com.google.android.horologist.networks.data.RequestType? requestType, okhttp3.HttpUrl? url);
+    method public com.google.android.horologist.networks.data.RequestType? getRequestType();
+    method public com.google.android.horologist.networks.request.HighBandwidthRequest.Type getType();
+    method public okhttp3.HttpUrl? getUrl();
+    method public android.net.NetworkRequest toNetworkRequest();
+    property public final com.google.android.horologist.networks.data.RequestType? requestType;
+    property public final com.google.android.horologist.networks.request.HighBandwidthRequest.Type type;
+    property public final okhttp3.HttpUrl? url;
+    field public static final com.google.android.horologist.networks.request.HighBandwidthRequest.Companion Companion;
+  }
+
+  public static final class HighBandwidthRequest.Companion {
+    method public com.google.android.horologist.networks.request.HighBandwidthRequest from(java.util.List<? extends com.google.android.horologist.networks.data.NetworkType> supportedTypes);
+    method public com.google.android.horologist.networks.request.HighBandwidthRequest getAll();
+    method public com.google.android.horologist.networks.request.HighBandwidthRequest getCell();
+    method public com.google.android.horologist.networks.request.HighBandwidthRequest getWifi();
+    property public final com.google.android.horologist.networks.request.HighBandwidthRequest All;
+    property public final com.google.android.horologist.networks.request.HighBandwidthRequest Cell;
+    property public final com.google.android.horologist.networks.request.HighBandwidthRequest Wifi;
+  }
+
+  public enum HighBandwidthRequest.Type {
+    method public final boolean getCell();
+    method public final boolean getWifi();
+    property public final boolean cell;
+    property public final boolean wifi;
+    enum_constant public static final com.google.android.horologist.networks.request.HighBandwidthRequest.Type All;
+    enum_constant public static final com.google.android.horologist.networks.request.HighBandwidthRequest.Type CellOnly;
+    enum_constant public static final com.google.android.horologist.networks.request.HighBandwidthRequest.Type WifiOnly;
+  }
+
+  public interface NetworkLease extends java.lang.AutoCloseable {
+    method public java.time.Instant getAcquiredAt();
+    method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.networks.request.NetworkReference> getGrantedNetwork();
+    property public abstract java.time.Instant acquiredAt;
+    property public abstract kotlinx.coroutines.flow.Flow<com.google.android.horologist.networks.request.NetworkReference> grantedNetwork;
+  }
+
+  public final class NetworkReference {
+    ctor public NetworkReference(String id, com.google.android.horologist.networks.data.NetworkType type);
+    method public String component1();
+    method public com.google.android.horologist.networks.data.NetworkType component2();
+    method public com.google.android.horologist.networks.request.NetworkReference copy(String id, com.google.android.horologist.networks.data.NetworkType type);
+    method public String getId();
+    method public com.google.android.horologist.networks.data.NetworkType getType();
+    property public final String id;
+    property public final com.google.android.horologist.networks.data.NetworkType type;
+  }
+
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public interface NetworkRequester {
-    method public void clearRequest();
-    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.data.NetworkType> getPinnedNetwork();
-    method public void setRequests(com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest request);
-    property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.networks.data.NetworkType> pinnedNetwork;
+    method public com.google.android.horologist.networks.request.NetworkLease requestHighBandwidthNetwork(com.google.android.horologist.networks.request.HighBandwidthRequest request);
   }
 
   @com.google.android.horologist.networks.ExperimentalHorologistNetworksApi public final class NetworkRequesterImpl implements com.google.android.horologist.networks.request.NetworkRequester {
-    ctor public NetworkRequesterImpl(android.net.ConnectivityManager connectivityManager, com.google.android.horologist.networks.status.NetworkRepository networkRepository);
-    method public void clearRequest();
-    method public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.data.NetworkType> getPinnedNetwork();
-    method public void setRequests(com.google.android.horologist.networks.highbandwidth.HighBandwidthRequest request);
-    property public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.networks.data.NetworkType> pinnedNetwork;
+    ctor public NetworkRequesterImpl(android.net.ConnectivityManager connectivityManager);
+    method public com.google.android.horologist.networks.request.NetworkLease requestHighBandwidthNetwork(com.google.android.horologist.networks.request.HighBandwidthRequest request);
   }
 
 }

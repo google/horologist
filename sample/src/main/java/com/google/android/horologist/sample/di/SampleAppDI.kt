@@ -37,6 +37,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import okhttp3.Call
 import okhttp3.OkHttpClient
+import kotlin.time.Duration.Companion.seconds
 
 /**
  * Simple DI implementation - to be replaced by hilt.
@@ -75,13 +76,14 @@ object SampleAppDI {
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
         val networkRequester = NetworkRequesterImpl(
-            connectivityManager,
-            networkRepository
+            connectivityManager
         )
 
         val highBandwidthRequester = StandardHighBandwidthNetworkMediator(
             networkRequester = networkRequester,
-            logger = networkLogger
+            logger = networkLogger,
+            coroutineScope = coroutineScope,
+            delayToRelease = 3.seconds
         )
 
         val networkingRulesEngine = NetworkingRulesEngine(

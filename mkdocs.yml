@@ -25,9 +25,13 @@ nav:
   - 'Data Layer':
       - 'Guide': datalayer.md
   - 'Media':
-      - 'Domain Guide': media.md
-      - 'UI Guide': media-ui.md
-      - 'Data Guide': media-data.md
+      - 'Overview': media-toolkit.md
+      - 'Simple app guide': simple-media-app-guide.md
+      - 'Media UI lib': media-ui.md
+      - 'Media Domain lib': media.md
+      - 'Media Data lib': media-data.md
+      - 'Media3 Backend lib': media3-backend.md
+      - 'Media Sample app': media-sample.md
       - 'Stateful PlayerScreen Guide': media-playerscreen.md
   - 'Network Awareness':
       - 'Guide': network-awareness.md

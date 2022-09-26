@@ -16,19 +16,9 @@
 
 package com.google.android.horologist.networks.request
 
-import android.net.ConnectivityManager
-import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
+import com.google.android.horologist.networks.data.NetworkType
 
-/**
- * Slightly coroutine aware API for [ConnectivityManager.requestNetwork].
- *
- * Subscription with a listener is replaced with a closable lease, with the current network.
- */
-@ExperimentalHorologistNetworksApi
-public interface NetworkRequester {
-    /**
-     * Make a request for a high bandwidth network, with request details provided in
-     * `request`. Returns a cancellation Token, that also allows waiting for a connection.
-     */
-    public fun requestHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease
-}
+public data class NetworkReference(
+    val id: String,
+    val type: NetworkType
+)

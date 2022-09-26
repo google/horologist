@@ -43,6 +43,7 @@ import com.google.android.horologist.media.ui.components.DefaultMediaDisplay
 import com.google.android.horologist.media.ui.components.InfoMediaDisplay
 import com.google.android.horologist.media.ui.components.LoadingMediaDisplay
 import com.google.android.horologist.media.ui.components.MediaControlButtons
+import com.google.android.horologist.media.ui.state.PlayerUiController
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 
@@ -50,7 +51,7 @@ import com.google.android.horologist.media.ui.state.PlayerViewModel
 public typealias MediaDisplay = @Composable ColumnScope.(playerUiState: PlayerUiState) -> Unit
 
 @OptIn(ExperimentalHorologistMediaUiApi::class)
-public typealias ControlButtons = @Composable RowScope.(playerUiState: PlayerUiState) -> Unit
+public typealias ControlButtons = @Composable RowScope.(playerUiController: PlayerUiController, playerUiState: PlayerUiState) -> Unit
 
 @OptIn(ExperimentalHorologistMediaUiApi::class)
 public typealias SettingsButtons = @Composable RowScope.(playerUiState: PlayerUiState) -> Unit
@@ -71,8 +72,8 @@ public fun PlayerScreen(
     mediaDisplay: MediaDisplay = { playerUiState ->
         DefaultPlayerScreenMediaDisplay(playerUiState)
     },
-    controlButtons: ControlButtons = { playerUiState ->
-        DefaultPlayerScreenControlButtons(playerViewModel, playerUiState)
+    controlButtons: ControlButtons = { playerUiController, playerUiState ->
+        DefaultPlayerScreenControlButtons(playerUiController, playerUiState)
     },
     buttons: SettingsButtons = {},
     background: PlayerBackground = {}
@@ -81,7 +82,7 @@ public fun PlayerScreen(
 
     PlayerScreen(
         mediaDisplay = { mediaDisplay(playerUiState) },
-        controlButtons = { controlButtons(playerUiState) },
+        controlButtons = { controlButtons(playerViewModel.playerUiController, playerUiState) },
         buttons = {
             buttons(playerUiState)
         },
@@ -121,18 +122,18 @@ public fun DefaultPlayerScreenMediaDisplay(
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun DefaultPlayerScreenControlButtons(
-    playerViewModel: PlayerViewModel,
+    playerController: PlayerUiController,
     playerUiState: PlayerUiState,
     showProgress: Boolean = true
 ) {
     MediaControlButtons(
-        onPlayButtonClick = { playerViewModel.play() },
-        onPauseButtonClick = { playerViewModel.pause() },
+        onPlayButtonClick = { playerController.play() },
+        onPauseButtonClick = { playerController.pause() },
         playPauseButtonEnabled = playerUiState.playPauseEnabled,
         playing = playerUiState.playing,
-        onSeekToPreviousButtonClick = { playerViewModel.skipToPreviousMedia() },
+        onSeekToPreviousButtonClick = { playerController.skipToPreviousMedia() },
         seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
-        onSeekToNextButtonClick = { playerViewModel.skipToNextMedia() },
+        onSeekToNextButtonClick = { playerController.skipToNextMedia() },
         seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
         showProgress = showProgress,
         percent = playerUiState.trackPosition?.percent ?: 0f

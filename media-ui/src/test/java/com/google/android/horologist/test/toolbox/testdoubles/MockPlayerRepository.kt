@@ -28,25 +28,32 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 @OptIn(ExperimentalHorologistMediaApi::class)
-class StubPlayerRepository : PlayerRepository {
+class MockPlayerRepository(
+    private val connectedValue: Boolean = false,
+    private val availableCommandsValue: Set<Command> = emptySet(),
+    private val currentStateValue: PlayerState = PlayerState.Idle,
+    private val currentMediaValue: Media? = null,
+    private val mediaPositionValue: MediaPosition? = null,
+    private val shuffleModeEnabledValue: Boolean = false
+) : PlayerRepository {
 
     override val connected: StateFlow<Boolean>
-        get() = MutableStateFlow(false)
+        get() = MutableStateFlow(connectedValue)
 
     override val availableCommands: StateFlow<Set<Command>>
-        get() = MutableStateFlow(emptySet())
+        get() = MutableStateFlow(availableCommandsValue)
 
     override val currentState: StateFlow<PlayerState>
-        get() = MutableStateFlow(PlayerState.Idle)
+        get() = MutableStateFlow(currentStateValue)
 
     override val currentMedia: StateFlow<Media?>
-        get() = MutableStateFlow(null)
+        get() = MutableStateFlow(currentMediaValue)
 
     override val mediaPosition: StateFlow<MediaPosition?>
-        get() = MutableStateFlow(null)
+        get() = MutableStateFlow(mediaPositionValue)
 
     override val shuffleModeEnabled: StateFlow<Boolean>
-        get() = MutableStateFlow(false)
+        get() = MutableStateFlow(shuffleModeEnabledValue)
 
     override fun prepare() {
         // do nothing

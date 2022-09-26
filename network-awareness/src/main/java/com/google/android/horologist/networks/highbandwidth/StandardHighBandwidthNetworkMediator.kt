@@ -49,7 +49,8 @@ public class StandardHighBandwidthNetworkMediator(
     private val requests: MutableStateFlow<Requests> = MutableStateFlow(Requests())
 
     override val pinned: Flow<Set<NetworkType>> = requests.flatMapLatest {
-        val grantedNetworks = it.types.values.mapNotNull { countAndLease -> countAndLease.lease?.grantedNetwork }
+        val grantedNetworks =
+            it.types.values.mapNotNull { countAndLease -> countAndLease.lease?.grantedNetwork }
         if (grantedNetworks.isEmpty()) {
             flowOf(setOf())
         } else {
@@ -161,9 +162,9 @@ public class StandardHighBandwidthNetworkMediator(
         private val closed = AtomicBoolean(false)
 
         override suspend fun awaitGranted(timeout: Duration): Boolean {
-            return withTimeoutOrNull(timeout) {
-                lease.grantedNetwork.filterNotNull().first()
-            val timeoutMillis = lease.acquiredAt.toEpochMilli() + timeout.inWholeMilliseconds - System.currentTimeMillis()
+            lease.grantedNetwork.filterNotNull().first()
+            val timeoutMillis =
+                lease.acquiredAt.toEpochMilli() + timeout.inWholeMilliseconds - System.currentTimeMillis()
 
             if (timeoutMillis <= 0L) {
                 return false

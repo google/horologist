@@ -37,6 +37,7 @@ object UampNetworkingRules : NetworkingRules {
         // For testing purposes fail if we get unknown requests
         check(requestType != UnknownRequest)
 
+        // For testing purposes use high bandwidth for images
         return requestType is RequestType.MediaRequest || requestType is RequestType.ImageRequest
     }
 

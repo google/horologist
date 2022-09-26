@@ -160,7 +160,7 @@ public class StandardHighBandwidthNetworkMediator(
             }
         }
 
-        countAndLease.updateCount(delta = - 1)
+        countAndLease.updateCount(delta = -1)
     }
 
     private suspend fun processCancel(

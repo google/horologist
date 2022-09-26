@@ -81,6 +81,11 @@ public class StandardHighBandwidthNetworkMediator(
                 check(lease != null)
             }
         }
+
+        fun updateCount(newLease: NetworkLease? = lease, delta: Int) = copy(
+            count = count + delta,
+            lease = newLease
+        )
     }
 
     private data class Requests(
@@ -118,19 +123,15 @@ public class StandardHighBandwidthNetworkMediator(
     private fun processRequest(
         requests: Requests,
         request: HighBandwidthRequest
-    ): Requests {
+    ): Requests = requests.update(request.type) { countAndLease ->
         pendingCancel?.let {
             it.cancel()
             pendingCancel = null
         }
 
-        return requests.update(request.type) { countAndLease ->
-            countAndLease.copy(
-                count = countAndLease.count + 1,
-                lease = countAndLease.lease
-                    ?: makeHighBandwidthNetwork(request)
-            )
-        }
+        val newLease = countAndLease.lease ?: makeHighBandwidthNetwork(request)
+
+        countAndLease.updateCount(delta = 1, newLease = newLease)
     }
 
     private fun makeHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease {
@@ -150,20 +151,16 @@ public class StandardHighBandwidthNetworkMediator(
     private fun processRelease(
         requests: Requests,
         request: HighBandwidthRequest
-    ): Requests {
-        return requests.update(request.type) { countAndLease ->
-            val shouldCancelLease = countAndLease.count == 1
-            if (shouldCancelLease) {
-                check(pendingCancel == null)
-                pendingCancel = coroutineScope.launch(Dispatchers.Default) {
-                    processCancel(request)
-                }
+    ): Requests = requests.update(request.type) { countAndLease ->
+        val shouldCancelLease = countAndLease.count == 1
+        if (shouldCancelLease) {
+            check(pendingCancel == null)
+            pendingCancel = coroutineScope.launch(Dispatchers.Default) {
+                processCancel(request)
             }
-
-            countAndLease.copy(
-                count = countAndLease.count - 1
-            )
         }
+
+        countAndLease.updateCount(delta = - 1)
     }
 
     private suspend fun processCancel(
@@ -180,16 +177,14 @@ public class StandardHighBandwidthNetworkMediator(
     private fun actuallyRelease(
         requests: Requests,
         request: HighBandwidthRequest
-    ): Requests {
-        return requests.update(request.type) { countAndLease ->
-            // Should only be here if count hasn't changed since scheduled
-            check(countAndLease.count == 0)
-            check(countAndLease.lease != null)
+    ): Requests = requests.update(request.type) { countAndLease ->
+        // Should only be here if count hasn't changed since scheduled
+        check(countAndLease.count == 0)
+        check(countAndLease.lease != null)
 
-            releaseHighBandwidthNetwork(request, countAndLease.lease)
+        releaseHighBandwidthNetwork(request, countAndLease.lease)
 
-            countAndLease.copy(lease = null)
-        }
+        countAndLease.updateCount(newLease = null, delta = 0)
     }
 
     private fun releaseHighBandwidthNetwork(request: HighBandwidthRequest, lease: NetworkLease) {

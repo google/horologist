@@ -48,6 +48,7 @@ import java.io.IOException
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeUnit
+import kotlin.time.Duration.Companion.seconds
 
 class NetworkSelectingCallFactoryTest {
     private val testScope = TestScope()
@@ -57,7 +58,9 @@ class NetworkSelectingCallFactoryTest {
     private val networkRequester = FakeNetworkRequester(networkRepository)
     private val highBandwidthRequester = StandardHighBandwidthNetworkMediator(
         logger,
-        networkRequester
+        networkRequester,
+        testScope,
+        3.seconds
     )
     private val dataRequestRepository = InMemoryDataRequestRepository()
 

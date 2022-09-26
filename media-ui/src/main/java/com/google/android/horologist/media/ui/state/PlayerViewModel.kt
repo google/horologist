@@ -23,90 +23,26 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
-import com.google.android.horologist.media.ui.state.mapper.PlayerUiStateMapper
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
 @ExperimentalHorologistMediaUiApi
 public open class PlayerViewModel(
-    private val playerRepository: PlayerRepository
+    playerRepository: PlayerRepository
 ) : ViewModel() {
 
-    private data class StaticState(
-        val connected: Boolean,
-        val shuffleModeEnabled: Boolean,
-        val seekBackButtonIncrement: SeekButtonIncrement,
-        val seekForwardButtonIncrement: SeekButtonIncrement
-    )
+    private val producer = PlayerUiStateProducer(playerRepository)
 
-    private val staticFlow = combine(
-        playerRepository.connected,
-        playerRepository.shuffleModeEnabled
-    ) { connected, shuffleModeEnabled ->
-        val seekBackSeconds = playerRepository.getSeekBackIncrement().inWholeSeconds.toInt()
-        val seekForwardSeconds = playerRepository.getSeekForwardIncrement().inWholeSeconds.toInt()
-
-        StaticState(
-            connected = connected,
-            shuffleModeEnabled = shuffleModeEnabled,
-            seekBackButtonIncrement = SeekButtonIncrement.ofSeconds(seekBackSeconds),
-            seekForwardButtonIncrement = SeekButtonIncrement.ofSeconds(seekForwardSeconds)
-        )
-    }
-
-    public val playerUiState: StateFlow<PlayerUiState> = combine(
-        playerRepository.currentState,
-        playerRepository.availableCommands,
-        playerRepository.currentMedia,
-        playerRepository.mediaPosition,
-        staticFlow
-    ) { currentState, availableCommands, media, mediaPosition, staticData ->
-        PlayerUiStateMapper.map(
-            currentState = currentState,
-            availableCommands = availableCommands,
-            media = media,
-            mediaPosition = mediaPosition,
-            shuffleModeEnabled = staticData.shuffleModeEnabled,
-            connected = playerRepository.connected.value,
-            seekBackButtonIncrement = staticData.seekBackButtonIncrement,
-            seekForwardButtonIncrement = staticData.seekForwardButtonIncrement
-        )
-    }.stateIn(
+    public val playerUiState: StateFlow<PlayerUiState> = producer.playerUiStateFlow.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
         initialValue = INITIAL_PLAYER_UI_STATE
     )
 
-    public fun play() {
-        // Prepare is needed to ensure playback
-        playerRepository.prepare()
-        playerRepository.play()
-    }
-
-    public fun pause() {
-        playerRepository.pause()
-    }
-
-    public fun skipToPreviousMedia() {
-        playerRepository.skipToPreviousMedia()
-    }
-
-    public fun skipToNextMedia() {
-        playerRepository.skipToNextMedia()
-    }
-
-    public fun seekBack() {
-        playerRepository.seekBack()
-    }
-
-    public fun seekForward() {
-        playerRepository.seekForward()
-    }
+    public val playerUiController: PlayerUiController = PlayerUiController(playerRepository)
 
     public companion object {
         private val INITIAL_MEDIA = MediaUiModel(id = "", title = null, artist = null)

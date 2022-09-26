@@ -72,9 +72,9 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                controlButtons = { playerUiState ->
+                controlButtons = { playerUiController, playerUiState ->
                     DefaultPlayerScreenControlButtons(
-                        playerViewModel = playerViewModel,
+                        playerController = playerUiController,
                         playerUiState = playerUiState,
                         showProgress = showProgress
                     )
@@ -322,7 +322,7 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = PlayerViewModel(FakePlayerRepository()),
-                controlButtons = { Text("Custom") }
+                controlButtons = { _, _ -> Text("Custom") }
             )
         }
 

@@ -24,18 +24,18 @@ import com.google.android.horologist.media.ui.components.controls.MediaButtonDef
 import com.google.android.horologist.media.ui.components.controls.SeekBackButton
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.media.ui.components.controls.SeekForwardButton
+import com.google.android.horologist.media.ui.state.PlayerUiController
 import com.google.android.horologist.media.ui.state.PlayerUiState
-import com.google.android.horologist.media.ui.state.PlayerViewModel
 
 /**
- * Stateful version of [PodcastControlButtons].
+ * Convenience wrapper of [PodcastControlButtons].
  *
- * This version listens to [PlayerUiState]s emitted from [PlayerViewModel] to update the controls.
+ * This version passes events to the provided [PlayerUiController].
  */
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun PodcastControlButtons(
-    playerViewModel: PlayerViewModel,
+    playerController: PlayerUiController,
     playerUiState: PlayerUiState,
     modifier: Modifier = Modifier,
     showProgress: Boolean = true,
@@ -48,14 +48,14 @@ public fun PodcastControlButtons(
     }
 
     PodcastControlButtons(
-        onPlayButtonClick = { playerViewModel.play() },
-        onPauseButtonClick = { playerViewModel.pause() },
+        onPlayButtonClick = { playerController.play() },
+        onPauseButtonClick = { playerController.pause() },
         playPauseButtonEnabled = playerUiState.playPauseEnabled,
         playing = playerUiState.playing,
-        onSeekBackButtonClick = { playerViewModel.skipToPreviousMedia() },
+        onSeekBackButtonClick = { playerController.skipToPreviousMedia() },
         seekBackButtonIncrement = playerUiState.seekBackButtonIncrement,
         seekBackButtonEnabled = playerUiState.seekBackEnabled,
-        onSeekForwardButtonClick = { playerViewModel.skipToNextMedia() },
+        onSeekForwardButtonClick = { playerController.skipToNextMedia() },
         seekForwardButtonIncrement = playerUiState.seekForwardButtonIncrement,
         seekForwardButtonEnabled = playerUiState.seekForwardEnabled,
         showProgress = showProgress,

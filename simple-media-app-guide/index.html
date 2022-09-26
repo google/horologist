@@ -520,6 +520,20 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#1-add-dependency" class="md-nav__link">
+    1 - Add dependency
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-add-playerscreen" class="md-nav__link">
+    2 - Add PlayerScreen
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#result" class="md-nav__link">
     Result
   </a>
@@ -536,15 +550,36 @@
     Make the screen functional
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#-the-defaultmediadisplay-component-which-accepts-a-mediauimodel-instance-as-parameter" class="md-nav__link">
-    - the DefaultMediaDisplay component, which accepts a MediaUiModel instance as parameter;
+    <nav class="md-nav" aria-label="Make the screen functional">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-add-dependencies" class="md-nav__link">
+    1 - Add dependencies
   </a>
   
-    <nav class="md-nav" aria-label="- the DefaultMediaDisplay component, which accepts a MediaUiModel instance as parameter;">
-      <ul class="md-nav__list">
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-add-viewmodel" class="md-nav__link">
+    2 - Add ViewModel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-add-init-block" class="md-nav__link">
+    3 - Add init block
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-create-an-instance-of-the-viewmodel" class="md-nav__link">
+    4 - Create an instance of the ViewModel
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#result_1" class="md-nav__link">
@@ -866,6 +901,20 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#1-add-dependency" class="md-nav__link">
+    1 - Add dependency
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-add-playerscreen" class="md-nav__link">
+    2 - Add PlayerScreen
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#result" class="md-nav__link">
     Result
   </a>
@@ -882,15 +931,36 @@
     Make the screen functional
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#-the-defaultmediadisplay-component-which-accepts-a-mediauimodel-instance-as-parameter" class="md-nav__link">
-    - the DefaultMediaDisplay component, which accepts a MediaUiModel instance as parameter;
+    <nav class="md-nav" aria-label="Make the screen functional">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-add-dependencies" class="md-nav__link">
+    1 - Add dependencies
   </a>
   
-    <nav class="md-nav" aria-label="- the DefaultMediaDisplay component, which accepts a MediaUiModel instance as parameter;">
-      <ul class="md-nav__list">
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-add-viewmodel" class="md-nav__link">
+    2 - Add ViewModel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-add-init-block" class="md-nav__link">
+    3 - Add init block
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-create-an-instance-of-the-viewmodel" class="md-nav__link">
+    4 - Create an instance of the ViewModel
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#result_1" class="md-nav__link">
@@ -934,15 +1004,11 @@ of playing a media which is hosted on the internet.</p>
 <li>Jetpack Compose;</li>
 </ul>
 <h2 id="display-a-playerscreen">Display a PlayerScreen<a class="headerlink" href="#display-a-playerscreen" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Add dependency</li>
-</ol>
+<h3 id="1-add-dependency">1 - Add dependency<a class="headerlink" href="#1-add-dependency" title="Permanent link">&para;</a></h3>
 <p>Add dependency on <code>media-ui</code> to your project’s <code>build.gradle</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;com.google.android.horologist:horologist-media-ui:$horologist_version&quot;</span><span class="w"></span>
 </code></pre></div>
-<ol>
-<li>Add <code>PlayerScreen</code></li>
-</ol>
+<h3 id="2-add-playerscreen">2 - Add <code>PlayerScreen</code><a class="headerlink" href="#2-add-playerscreen" title="Permanent link">&para;</a></h3>
 <p>Add the following code to your <code>Activity</code>’s <code>onCreate</code> function:</p>
 <div class="highlight"><pre><span></span><code><span class="n">setContent</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">PlayerScreen</span><span class="p">(</span><span class="w"></span>
@@ -979,26 +1045,20 @@ provided by the UI library, as values to parameters of <code>PlayerScreen</code>
 <p><img align="center" alt="" loading="lazy" src="simple_media_app_not_functional.png" /></p>
 <p>None of the controls are working, as they were not implemented yet.</p>
 <h2 id="make-the-screen-functional">Make the screen functional<a class="headerlink" href="#make-the-screen-functional" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Add dependencies</li>
-</ol>
+<h3 id="1-add-dependencies">1 - Add dependencies<a class="headerlink" href="#1-add-dependencies" title="Permanent link">&para;</a></h3>
 <p>Add dependency on <code>media-data</code>, <code>compose-layout</code> and <code>media3-exoplayer</code> to your project’s
 build.gradle:</p>
 <div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;com.google.android.horologist:horologist-media-data:$horologist_version&quot;</span><span class="w"></span>
 <span class="n">implementation</span><span class="o">(</span><span class="s2">&quot;androidx.media3:media3-exoplayer:$media3_version&quot;</span><span class="o">)</span><span class="w"></span>
 </code></pre></div>
-<ol>
-<li>Add <code>ViewModel</code></li>
-</ol>
+<h3 id="2-add-viewmodel">2 - Add <code>ViewModel</code><a class="headerlink" href="#2-add-viewmodel" title="Permanent link">&para;</a></h3>
 <p>Add a <code>ViewModel</code> extending <code>PlayerViewModel</code>, providing an instance of <code>PlayerRepositoryImpl</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">MyViewModel</span><span class="p">(</span><span class="w"></span>
 <span class="w">    </span><span class="n">player</span><span class="p">:</span><span class="w"> </span><span class="n">Player</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="n">playerRepository</span><span class="p">:</span><span class="w"> </span><span class="n">PlayerRepositoryImpl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PlayerRepositoryImpl</span><span class="p">()</span><span class="w"></span>
 <span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">PlayerViewModel</span><span class="p">(</span><span class="n">playerRepository</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
 </code></pre></div>
-<ol>
-<li>Add init block</li>
-</ol>
+<h3 id="3-add-init-block">3 - Add init block<a class="headerlink" href="#3-add-init-block" title="Permanent link">&para;</a></h3>
 <p>Add the following init block to the <code>ViewModel</code> to connect the <code>Player</code> to the <code>PlayerRepository</code>,
 set a media and update the position of the player every second:</p>
 <div class="highlight"><pre><span></span><code><span class="k">init</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -1022,9 +1082,7 @@ set a media and update the position of the player every second:</p>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
-<ol>
-<li>Create an instance of the <code>ViewModel</code></li>
-</ol>
+<h3 id="4-create-an-instance-of-the-viewmodel">4 - Create an instance of the <code>ViewModel</code><a class="headerlink" href="#4-create-an-instance-of-the-viewmodel" title="Permanent link">&para;</a></h3>
 <p>Change your <code>Activity</code>’s <code>onCreate</code> function to:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">player</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ExoPlayer</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="na">build</span><span class="p">()</span><span class="w"></span>
 <span class="c1">// ViewModels should NOT be created here like this</span><span class="w"></span>
@@ -1045,10 +1103,14 @@ set a media and update the position of the player every second:</p>
 </code></pre></div>
 <p>We are creating an instance of <code>ExoPlayer</code>, passing it to the <code>ViewModel</code>.</p>
 <p>Then for the <code>PlayerScreen</code> slots we are using:</p>
-<h2 id="-the-defaultmediadisplay-component-which-accepts-a-mediauimodel-instance-as-parameter">- the <code>DefaultMediaDisplay</code> component, which accepts a <code>MediaUiModel</code> instance as parameter;<a class="headerlink" href="#-the-defaultmediadisplay-component-which-accepts-a-mediauimodel-instance-as-parameter" title="Permanent link">&para;</a></h2>
-<p>the <a href="https://docs.google.com/document/d/1UZBMLPbkuHbGDf_BiGU673uCJPjLy8laDeHAyfbIPCY/edit#heading=h.6a12zpdsph5c">stateful</a>
-version of <code>PodcastControlButtons</code>, which accepts instances of <code>PlayerViewModel</code> and <code>PlayerUiState</code>
-as parameters to hook the controls with the <code>ViewModel</code>;</p>
+<ul>
+<li>the <code>DefaultMediaDisplay</code> component, which accepts a <code>MediaUiModel</code> instance as parameter;</li>
+<li>the
+  <a href="https://docs.google.com/document/d/1UZBMLPbkuHbGDf_BiGU673uCJPjLy8laDeHAyfbIPCY/edit#heading=h.6a12zpdsph5c">stateful</a>
+  version of <code>PodcastControlButtons</code>, which accepts instances of <code>PlayerViewModel</code>
+  and <code>PlayerUiState</code>
+  as parameters to hook the controls with the <code>ViewModel</code>;</li>
+</ul>
 <h3 id="result_1">Result<a class="headerlink" href="#result_1" title="Permanent link">&para;</a></h3>
 <p>Run the app again and this time, play with the screen controls as the app should be able to play,
 pause, and seek the media now:</p>

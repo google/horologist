@@ -34,3 +34,11 @@ public fun NavController.navigateToSamples() {
 public object Samples : NavigationScreens("samples") {
     public fun destination(): String = navRoute
 }
+
+public fun NavController.navigateToDeveloperOptions() {
+    navigate(DeveloperOptions.destination())
+}
+
+public object DeveloperOptions : NavigationScreens("developerOptions") {
+    public fun destination(): String = navRoute
+}

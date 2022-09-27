@@ -16,41 +16,42 @@
 
 package com.google.android.horologist.mediasample.ui.settings
 
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DataObject
+import androidx.compose.material.icons.filled.Logout
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Chip
+import androidx.wear.compose.material.ChipColors
+import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.ToggleChip
-import androidx.wear.compose.material.ToggleChipDefaults
-import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.mediasample.domain.proto.SettingsProto.OffloadMode
-import com.google.android.horologist.mediasample.ui.navigation.navigateToAudioDebug
-import com.google.android.horologist.mediasample.ui.navigation.navigateToSamples
+import com.google.android.horologist.mediasample.ui.navigation.navigateToDeveloperOptions
 
 @Composable
 fun UampSettingsScreen(
     focusRequester: FocusRequester,
     state: ScalingLazyListState,
     settingsScreenViewModel: SettingsScreenViewModel,
-    modifier: Modifier = Modifier,
-    navController: NavHostController
+    navController: NavHostController,
+    modifier: Modifier = Modifier
 ) {
-    val uiState by rememberStateWithLifecycle(settingsScreenViewModel.uiState)
-
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -65,109 +66,21 @@ fun UampSettingsScreen(
             )
         }
         item {
-            CheckedSetting(
-                uiState.networkRequest != null,
-                stringResource(id = R.string.request_network),
-                enabled = uiState.writable
-            ) {
-                settingsScreenViewModel.toggleNetworkRequest()
-            }
-        }
-        item {
             ActionSetting(
-                stringResource(id = R.string.sample_audio_debug)
-            ) {
-                navController.navigateToAudioDebug()
-            }
-        }
-        item {
-            ActionSetting(
-                stringResource(id = R.string.sample_samples)
-            ) {
-                navController.navigateToSamples()
-            }
-        }
-        item {
-            CheckedSetting(
-                uiState.showTimeTextInfo,
-                stringResource(id = R.string.show_time_text_info),
-                enabled = uiState.writable
-            ) {
-                settingsScreenViewModel.setShowTimeTextInfo(it)
-            }
-        }
-        item {
-            CheckedSetting(
-                uiState.debugOffload,
-                stringResource(id = R.string.debug_offload),
-                enabled = uiState.writable
-            ) {
-                settingsScreenViewModel.setDebugOffload(it)
-            }
-        }
-        item {
-            ActionSetting(
-                stringResource(id = R.string.offload_mode, uiState.offloadMode.name),
-                enabled = uiState.writable
-            ) {
-                val newMode = when (uiState.offloadMode) {
-                    OffloadMode.BACKGROUND -> OffloadMode.NEVER
-                    OffloadMode.NEVER -> OffloadMode.ALWAYS
-                    OffloadMode.ALWAYS -> OffloadMode.BACKGROUND
-                    OffloadMode.UNRECOGNIZED -> OffloadMode.BACKGROUND
-                }
-                settingsScreenViewModel.setOffloadMode(newMode)
-            }
-        }
-        item {
-            CheckedSetting(
-                uiState.podcastControls,
-                stringResource(id = R.string.podcast_controls),
-                enabled = uiState.writable
-            ) {
-                settingsScreenViewModel.setPodcastControls(it)
-            }
-        }
-        item {
-            CheckedSetting(
-                uiState.loadItemsAtStartup,
-                stringResource(id = R.string.load_items),
-                enabled = uiState.writable
-            ) {
-                settingsScreenViewModel.setLoadItemsAtStartup(it)
-            }
-        }
-        item {
-            CheckedSetting(
-                uiState.animated,
-                stringResource(id = R.string.animated),
-                enabled = uiState.writable
-            ) {
-                settingsScreenViewModel.setAnimated(it)
-            }
-        }
-        item {
-            ActionSetting(
-                text = stringResource(id = R.string.force_stop)
-            ) {
-                settingsScreenViewModel.forceStop()
-            }
-        }
-        item {
-            val message = stringResource(id = R.string.sample_error)
-            ActionSetting(
-                stringResource(id = R.string.show_test_dialog)
-            ) {
-                settingsScreenViewModel.showDialog(message)
-            }
+                text = stringResource(id = R.string.sample_developer_options),
+                icon = Icons.Default.DataObject,
+                colors = ChipDefaults.secondaryChipColors(),
+                onClick = { navController.navigateToDeveloperOptions() }
+            )
         }
         item {
             ActionSetting(
                 text = stringResource(id = R.string.logout),
-                enabled = false
-            ) {
-                settingsScreenViewModel.logout()
-            }
+                icon = Icons.Default.Logout,
+                colors = ChipDefaults.secondaryChipColors(),
+                enabled = false,
+                onClick = { settingsScreenViewModel.logout() }
+            )
         }
     }
 }
@@ -175,41 +88,34 @@ fun UampSettingsScreen(
 @Composable
 fun ActionSetting(
     text: String,
+    icon: ImageVector? = null,
     enabled: Boolean = true,
+    colors: ChipColors = ChipDefaults.primaryChipColors(),
     onClick: () -> Unit
 ) {
+    val hasIcon = icon != null
+    val labelParam: (@Composable RowScope.() -> Unit) =
+        {
+            Text(
+                text = text,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = if (hasIcon) TextAlign.Left else TextAlign.Center,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 2
+            )
+        }
+
     Chip(
         onClick = onClick,
-        label = {
-            Text(text)
-        },
+        label = labelParam,
         enabled = enabled,
-        modifier = Modifier.fillMaxWidth()
-    )
-}
-
-@Composable
-fun CheckedSetting(
-    value: Boolean,
-    text: String,
-    enabled: Boolean = true,
-    onCheckedChange: (Boolean) -> Unit
-) {
-    ToggleChip(
-        checked = value,
-        toggleControl = {
-            Icon(
-                imageVector = ToggleChipDefaults.checkboxIcon(checked = value),
-                contentDescription = if (value) stringResource(id = R.string.on) else stringResource(
-                    id = R.string.off
-                )
-            )
+        modifier = Modifier.fillMaxWidth(),
+        colors = colors,
+        icon = {
+            if (icon != null) {
+                Icon(imageVector = icon, contentDescription = text)
+            }
         },
-        enabled = enabled,
-        onCheckedChange = onCheckedChange,
-        label = {
-            Text(text)
-        },
-        modifier = Modifier.fillMaxWidth()
+        contentPadding = ChipDefaults.ContentPadding
     )
 }

@@ -49,7 +49,10 @@ class VolumeScreenThemeTest(
         deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
         theme = "android:ThemeOverlay.Material.Dark",
         maxPercentDifference = maxPercentDifference,
-        snapshotHandler = WearSnapshotHandler(determineHandler(maxPercentDifference))
+        snapshotHandler = WearSnapshotHandler(
+            determineHandler(maxPercentDifference),
+            round = true
+        )
     )
 
     @Test

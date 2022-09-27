@@ -22,11 +22,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material.Chip
+import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Text
 
 @Composable
-fun SingleLineNoIconChip(text: String) {
+fun SingleLineNoIconChip(
+    text: String,
+    colors: ChipColors = ChipDefaults.secondaryChipColors()
+) {
     Chip(
         label = {
             Text(
@@ -39,6 +43,6 @@ fun SingleLineNoIconChip(text: String) {
         },
         onClick = { },
         modifier = Modifier.fillMaxWidth(),
-        colors = ChipDefaults.secondaryChipColors()
+        colors = colors
     )
 }

@@ -38,6 +38,7 @@ import com.google.android.horologist.datalayer.DataLayerNodesScreen
 import com.google.android.horologist.datalayer.DataLayerNodesViewModel
 import com.google.android.horologist.networks.NetworkScreen
 import com.google.android.horologist.sectionedlist.SectionedListMenuScreen
+import com.google.android.horologist.sectionedlist.expandable.SectionedListExpandableScreen
 import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefulScreen
 import com.google.android.horologist.sectionedlist.stateless.SectionedListStatelessScreen
 import java.time.LocalDateTime
@@ -139,6 +140,9 @@ fun SampleWearApp() {
             }
             composable(Screen.SectionedListStatefulScreen.route) {
                 SectionedListStatefulScreen()
+            }
+            composable(Screen.SectionedListExpandableScreen.route) {
+                SectionedListExpandableScreen()
             }
         }
     }

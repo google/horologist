@@ -314,7 +314,6 @@ package com.google.android.horologist.media.data.repository {
     method public int getMediaCount();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.MediaPosition> getMediaPosition();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Float> getPlaybackSpeed();
-    method public kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Player> getPlayer();
     method public long getSeekBackIncrement();
     method public long getSeekForwardIncrement();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getShuffleModeEnabled();
@@ -342,7 +341,6 @@ package com.google.android.horologist.media.data.repository {
     property public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.PlayerState> currentState;
     property public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.MediaPosition> mediaPosition;
     property public final kotlinx.coroutines.flow.StateFlow<java.lang.Float> playbackSpeed;
-    property public final kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Player> player;
     property public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> shuffleModeEnabled;
   }
 

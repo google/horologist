@@ -105,8 +105,8 @@ fun UampMediaPlayerScreen(
         )
     }
 
-    val player by rememberStateWithLifecycle(mediaPlayerScreenViewModel.playerState)
-    if (player != null) {
+    val playerConnected by rememberStateWithLifecycle(mediaPlayerScreenViewModel.playerConnectedState)
+    if (playerConnected) {
         ReportFullyDrawn()
     }
 }

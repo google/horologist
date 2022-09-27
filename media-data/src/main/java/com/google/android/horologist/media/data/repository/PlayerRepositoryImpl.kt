@@ -61,7 +61,7 @@ public class PlayerRepositoryImpl(
     /**
      * The active player, or null if no active player is currently available.
      */
-    public val player: StateFlow<Player?>
+    internal val player: StateFlow<Player?>
         get() = _player
 
     private val _connected = MutableStateFlow(false)

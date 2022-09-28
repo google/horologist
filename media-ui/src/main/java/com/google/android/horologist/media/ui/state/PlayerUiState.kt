@@ -65,11 +65,11 @@ public data class PlayerUiState(
     val seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     val connected: Boolean
 ) {
-    companion object {
+    public companion object {
         /**
          * Value for UIs before a connected player is available.
          */
-        val NotConnected = PlayerUiState(
+        public val NotConnected = PlayerUiState(
             playEnabled = false,
             pauseEnabled = false,
             seekBackEnabled = false,

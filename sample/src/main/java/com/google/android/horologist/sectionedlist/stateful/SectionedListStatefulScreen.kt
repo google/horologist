@@ -51,6 +51,7 @@ import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
+import com.google.android.horologist.composables.SectionedListScope
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
@@ -77,110 +78,134 @@ fun SectionedListStatefulScreen(
         scalingLazyListState = scalingLazyListState,
         modifier = modifier
     ) {
-        section(
-            listOf(
-                Pair(R.string.sectionedlist_downloads_button, Icons.Default.DownloadDone),
-                Pair(R.string.sectionedlist_your_library_button, Icons.Default.LibraryMusic)
-            )
-        ) {
-            loaded { item ->
-                SingleLineChip(text = stringResource(item.first), imageVector = item.second)
-            }
-        }
+        topMenuSection()
 
-        val recommendationsState: Section.State =
-            when (val recommendationSectionState = state.recommendationSectionState) {
-                RecommendationSectionState.Loading -> Section.State.Loading
-                is RecommendationSectionState.Loaded -> Section.State.Loaded(
-                    recommendationSectionState.list
-                )
-                RecommendationSectionState.Failed -> Section.State.Failed
-            }
+        recommendationsSection(state = state, viewModel = viewModel)
 
-        section(recommendationsState) {
-            header {
-                Title(stringResource(id = R.string.sectionedlist_recommendations_title))
-            }
+        trendingSection(state = state, viewModel = viewModel)
 
-            loaded { recommendation: Recommendation ->
-                SingleLineChip(
-                    text = recommendation.playlistName,
-                    imageVector = recommendation.icon
-                )
-            }
-
-            loading {
-                Column {
-                    PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
-                    PlaceholderChip(
-                        modifier = Modifier.padding(top = 4.dp),
-                        colors = ChipDefaults.secondaryChipColors()
-                    )
-                }
-            }
-
-            failed {
-                FailedView(onClick = { viewModel.loadRecommendations() })
-            }
-
-            footer {
-                SingleLineNoIconChip(stringResource(id = R.string.sectionedlist_see_more_button))
-            }
-        }
-
-        val trendingState: Section.State =
-            when (val recommendationSectionState = state.trendingSectionState) {
-                TrendingSectionState.Loading -> Section.State.Loading
-                is TrendingSectionState.Loaded -> Section.State.Loaded(
-                    recommendationSectionState.list
-                )
-                TrendingSectionState.Failed -> Section.State.Failed
-            }
-
-        section(trendingState) {
-            header {
-                Title(stringResource(id = R.string.sectionedlist_trending_title))
-            }
-
-            loaded { trending: Trending ->
-                TwoLinesChip(
-                    primaryLabel = trending.name,
-                    secondaryLabel = trending.artist,
-                    imageVector = Icons.Default.MusicNote
-                )
-            }
-
-            loading {
-                Column {
-                    PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
-                    PlaceholderChip(
-                        modifier = Modifier.padding(top = 4.dp),
-                        colors = ChipDefaults.secondaryChipColors()
-                    )
-                }
-            }
-
-            failed {
-                FailedView(onClick = { viewModel.loadTrending() })
-            }
-
-            footer {
-                SingleLineNoIconChip(stringResource(id = R.string.sectionedlist_see_more_button))
-            }
-        }
-
-        section {
-            loaded {
-                SingleLineChip(
-                    text = stringResource(R.string.sectionedlist_settings_button),
-                    imageVector = Icons.Default.Settings
-                )
-            }
-        }
+        bottomMenuSection()
     }
 
     LaunchedEffect(Unit) {
         focusRequester.requestFocus()
+    }
+}
+
+private fun SectionedListScope.topMenuSection() {
+    section(
+        listOf(
+            Pair(R.string.sectionedlist_downloads_button, Icons.Default.DownloadDone),
+            Pair(R.string.sectionedlist_your_library_button, Icons.Default.LibraryMusic)
+        )
+    ) {
+        loaded { item ->
+            SingleLineChip(text = stringResource(item.first), imageVector = item.second)
+        }
+    }
+}
+
+private fun SectionedListScope.recommendationsSection(
+    state: SectionedListStatefulScreenViewModel.UiState,
+    viewModel: SectionedListStatefulScreenViewModel
+) {
+    val recommendationsState: Section.State<Recommendation> =
+        when (val recommendationSectionState = state.recommendationSectionState) {
+            RecommendationSectionState.Loading -> Section.State.Loading()
+            is RecommendationSectionState.Loaded -> Section.State.Loaded(
+                recommendationSectionState.list
+            )
+
+            RecommendationSectionState.Failed -> Section.State.Failed()
+        }
+
+    section(recommendationsState) {
+        header {
+            Title(stringResource(id = R.string.sectionedlist_recommendations_title))
+        }
+
+        loaded { recommendation: Recommendation ->
+            SingleLineChip(
+                text = recommendation.playlistName,
+                imageVector = recommendation.icon
+            )
+        }
+
+        loading {
+            Column {
+                PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
+                PlaceholderChip(
+                    modifier = Modifier.padding(top = 4.dp),
+                    colors = ChipDefaults.secondaryChipColors()
+                )
+            }
+        }
+
+        failed {
+            FailedView(onClick = { viewModel.loadRecommendations() })
+        }
+
+        footer {
+            SingleLineNoIconChip(stringResource(id = R.string.sectionedlist_see_more_button))
+        }
+    }
+}
+
+private fun SectionedListScope.trendingSection(
+    state: SectionedListStatefulScreenViewModel.UiState,
+    viewModel: SectionedListStatefulScreenViewModel
+) {
+    val trendingState: Section.State<Trending> =
+        when (val recommendationSectionState = state.trendingSectionState) {
+            TrendingSectionState.Loading -> Section.State.Loading()
+            is TrendingSectionState.Loaded -> Section.State.Loaded(
+                recommendationSectionState.list
+            )
+
+            TrendingSectionState.Failed -> Section.State.Failed()
+        }
+
+    section(trendingState) {
+        header {
+            Title(stringResource(id = R.string.sectionedlist_trending_title))
+        }
+
+        loaded { trending: Trending ->
+            TwoLinesChip(
+                primaryLabel = trending.name,
+                secondaryLabel = trending.artist,
+                imageVector = Icons.Default.MusicNote
+            )
+        }
+
+        loading {
+            Column {
+                PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
+                PlaceholderChip(
+                    modifier = Modifier.padding(top = 4.dp),
+                    colors = ChipDefaults.secondaryChipColors()
+                )
+            }
+        }
+
+        failed {
+            FailedView(onClick = { viewModel.loadTrending() })
+        }
+
+        footer {
+            SingleLineNoIconChip(stringResource(id = R.string.sectionedlist_see_more_button))
+        }
+    }
+}
+
+private fun SectionedListScope.bottomMenuSection() {
+    section {
+        loaded {
+            SingleLineChip(
+                text = stringResource(R.string.sectionedlist_settings_button),
+                imageVector = Icons.Default.Settings
+            )
+        }
     }
 }
 

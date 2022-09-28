@@ -11,7 +11,7 @@ This guide assumes that you are familiar with:
 
 ## Display a PlayerScreen
 
-1. Add dependency
+### 1 - Add dependency
 
 Add dependency on `media-ui` to your project’s `build.gradle`:
 
@@ -19,7 +19,7 @@ Add dependency on `media-ui` to your project’s `build.gradle`:
 implementation "com.google.android.horologist:horologist-media-ui:$horologist_version"
 ```
 
-2. Add `PlayerScreen`
+### 2 - Add `PlayerScreen`
 
 Add the following code to your `Activity`’s `onCreate` function:
 
@@ -67,7 +67,7 @@ None of the controls are working, as they were not implemented yet.
 
 ## Make the screen functional
 
-1. Add dependencies
+### 1 - Add dependencies
 
 Add dependency on `media-data`, `compose-layout` and `media3-exoplayer` to your project’s
 build.gradle:
@@ -77,7 +77,7 @@ implementation "com.google.android.horologist:horologist-media-data:$horologist_
 implementation("androidx.media3:media3-exoplayer:$media3_version")
 ```
 
-2. Add `ViewModel`
+### 2 - Add `ViewModel`
 
 Add a `ViewModel` extending `PlayerViewModel`, providing an instance of `PlayerRepositoryImpl`:
 
@@ -88,7 +88,7 @@ class MyViewModel(
 ) : PlayerViewModel(playerRepository) {}
 ```
 
-3. Add init block
+### 3 - Add init block
 
 Add the following init block to the `ViewModel` to connect the `Player` to the `PlayerRepository`,
 set a media and update the position of the player every second:
@@ -116,7 +116,7 @@ init {
 }
 ```
 
-4. Create an instance of the `ViewModel`
+### 4 - Create an instance of the `ViewModel`
 
 Change your `Activity`’s `onCreate` function to:
 
@@ -144,10 +144,11 @@ We are creating an instance of `ExoPlayer`, passing it to the `ViewModel`.
 Then for the `PlayerScreen` slots we are using:
 
 - the `DefaultMediaDisplay` component, which accepts a `MediaUiModel` instance as parameter;
--
-the [stateful](https://docs.google.com/document/d/1UZBMLPbkuHbGDf_BiGU673uCJPjLy8laDeHAyfbIPCY/edit#heading=h.6a12zpdsph5c)
-version of `PodcastControlButtons`, which accepts instances of `PlayerViewModel` and `PlayerUiState`
-as parameters to hook the controls with the `ViewModel`;
+- the
+  [stateful](https://docs.google.com/document/d/1UZBMLPbkuHbGDf_BiGU673uCJPjLy8laDeHAyfbIPCY/edit#heading=h.6a12zpdsph5c)
+  version of `PodcastControlButtons`, which accepts instances of `PlayerViewModel`
+  and `PlayerUiState`
+  as parameters to hook the controls with the `ViewModel`;
 
 ### Result
 

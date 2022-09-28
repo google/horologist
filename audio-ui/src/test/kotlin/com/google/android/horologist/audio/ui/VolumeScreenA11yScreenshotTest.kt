@@ -49,7 +49,8 @@ class VolumeScreenA11yScreenshotTest {
                     maxPercentDifference = maxPercentDifference
                 ),
                 accessibilityStateFn = { composeA11yExtension.accessibilityState }
-            )
+            ),
+            round = true
         )
     )
 

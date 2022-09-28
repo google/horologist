@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.audio.ui.components.actions
 
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.VolumeDown
 import androidx.compose.material.icons.filled.VolumeMute
@@ -24,7 +23,6 @@ import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.wear.compose.material.ButtonDefaults
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.R
 
@@ -41,7 +39,7 @@ public fun SetVolumeButton(
     enabled: Boolean = true
 ) {
     SettingsButton(
-        modifier = modifier.size(ButtonDefaults.SmallButtonSize),
+        modifier = modifier,
         onClick = onVolumeClick,
         enabled = enabled,
         imageVector = when {

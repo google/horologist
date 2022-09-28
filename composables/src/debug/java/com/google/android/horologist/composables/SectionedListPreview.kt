@@ -47,9 +47,9 @@ fun SectionedListPreviewLoadingSection() {
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     ) {
-        downloadsSection(scope = this, state = Section.State.Loading)
+        downloadsSection(state = Section.State.Loading())
 
-        favouritesSection(scope = this, state = Section.State.Empty)
+        favouritesSection(state = Section.State.Empty())
     }
 }
 
@@ -60,9 +60,9 @@ fun SectionedListPreviewLoadedSection() {
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     ) {
-        downloadsSection(scope = this, state = Section.State.Loaded(downloads))
+        downloadsSection(state = Section.State.Loaded(downloads))
 
-        favouritesSection(scope = this, state = Section.State.Failed)
+        favouritesSection(state = Section.State.Failed())
     }
 }
 
@@ -73,9 +73,9 @@ fun SectionedListPreviewFailedSection() {
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     ) {
-        downloadsSection(scope = this, state = Section.State.Failed)
+        downloadsSection(state = Section.State.Failed())
 
-        favouritesSection(scope = this, state = Section.State.Loaded(favourites))
+        favouritesSection(state = Section.State.Loaded(favourites))
     }
 }
 
@@ -86,16 +86,16 @@ fun SectionedListPreviewEmptySection() {
         focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     ) {
-        downloadsSection(scope = this, state = Section.State.Empty)
+        downloadsSection(state = Section.State.Empty())
 
-        favouritesSection(scope = this, state = Section.State.Loading)
+        favouritesSection(state = Section.State.Loading())
     }
 }
 
 private val downloads = listOf("Nu Metal Essentials", "00s Rock")
 
-private fun downloadsSection(scope: SectionedListScope, state: Section.State) {
-    scope.section(state = state) {
+private fun SectionedListScope.downloadsSection(state: Section.State<String>) {
+    section(state = state) {
         header { DownloadsHeader() }
 
         loading { DownloadsLoading() }
@@ -194,8 +194,8 @@ private fun DownloadsFooter() {
 
 private val favourites = listOf("Dance Anthems", "Indie Jukebox")
 
-private fun favouritesSection(scope: SectionedListScope, state: Section.State) {
-    scope.section(state = state) {
+private fun SectionedListScope.favouritesSection(state: Section.State<String>) {
+    section(state = state) {
         header { FavouritesHeader() }
 
         loading { FavouritesLoading() }

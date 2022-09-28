@@ -45,10 +45,12 @@ import com.google.android.horologist.mediasample.ui.debug.SamplesScreen
 import com.google.android.horologist.mediasample.ui.entity.UampEntityScreen
 import com.google.android.horologist.mediasample.ui.entity.UampEntityScreenViewModel
 import com.google.android.horologist.mediasample.ui.navigation.AudioDebug
+import com.google.android.horologist.mediasample.ui.navigation.DeveloperOptions
 import com.google.android.horologist.mediasample.ui.navigation.Samples
 import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreenViewModel
+import com.google.android.horologist.mediasample.ui.settings.DeveloperOptionsScreen
 import com.google.android.horologist.mediasample.ui.settings.UampSettingsScreen
 
 @Composable
@@ -72,8 +74,6 @@ fun UampWearApp(
 
     UampTheme {
         MediaPlayerScaffold(
-            snackbarViewModel = hiltViewModel<SnackbarViewModel>(),
-            volumeViewModel = hiltViewModel<VolumeViewModel>(),
             playerScreen = { focusRequester ->
                 UampMediaPlayerScreen(
                     modifier = Modifier.fillMaxSize(),
@@ -146,39 +146,56 @@ fun UampWearApp(
                     navController = navController
                 )
             },
+            navHostState = navHostState,
+            pagerState = pagerState,
+            snackbarViewModel = hiltViewModel<SnackbarViewModel>(),
+            volumeViewModel = hiltViewModel<VolumeViewModel>(),
+            timeText = timeText,
             deepLinkPrefix = appViewModel.deepLinkPrefix,
             navController = navController,
-            timeText = timeText,
-            pagerState = pagerState,
-            navHostState = navHostState
-        ) {
-            scalingLazyColumnComposable(
-                route = AudioDebug.navRoute,
-                arguments = AudioDebug.arguments,
-                deepLinks = AudioDebug.deepLinks(appViewModel.deepLinkPrefix),
-                scrollStateBuilder = { ScalingLazyListState() }
-            ) {
-                AudioDebugScreen(
-                    focusRequester = it.viewModel.focusRequester,
-                    state = it.scrollableState,
-                    audioDebugScreenViewModel = hiltViewModel()
-                )
-            }
+            additionalNavRoutes = {
+                scalingLazyColumnComposable(
+                    route = AudioDebug.navRoute,
+                    arguments = AudioDebug.arguments,
+                    deepLinks = AudioDebug.deepLinks(appViewModel.deepLinkPrefix),
+                    scrollStateBuilder = { ScalingLazyListState() }
+                ) {
+                    AudioDebugScreen(
+                        focusRequester = it.viewModel.focusRequester,
+                        state = it.scrollableState,
+                        audioDebugScreenViewModel = hiltViewModel()
+                    )
+                }
 
-            scalingLazyColumnComposable(
-                route = Samples.navRoute,
-                arguments = Samples.arguments,
-                deepLinks = Samples.deepLinks(appViewModel.deepLinkPrefix),
-                scrollStateBuilder = { ScalingLazyListState() }
-            ) {
-                SamplesScreen(
-                    focusRequester = it.viewModel.focusRequester,
-                    state = it.scrollableState,
-                    samplesScreenViewModel = hiltViewModel(),
-                    navController = navController
-                )
+                scalingLazyColumnComposable(
+                    route = Samples.navRoute,
+                    arguments = Samples.arguments,
+                    deepLinks = Samples.deepLinks(appViewModel.deepLinkPrefix),
+                    scrollStateBuilder = { ScalingLazyListState() }
+                ) {
+                    SamplesScreen(
+                        focusRequester = it.viewModel.focusRequester,
+                        state = it.scrollableState,
+                        samplesScreenViewModel = hiltViewModel(),
+                        navController = navController
+                    )
+                }
+
+                scalingLazyColumnComposable(
+                    route = DeveloperOptions.navRoute,
+                    arguments = DeveloperOptions.arguments,
+                    deepLinks = DeveloperOptions.deepLinks(appViewModel.deepLinkPrefix),
+                    scrollStateBuilder = { ScalingLazyListState() }
+                ) {
+                    DeveloperOptionsScreen(
+                        focusRequester = it.viewModel.focusRequester,
+                        state = it.scrollableState,
+                        developerOptionsScreenViewModel = hiltViewModel(),
+                        navController = navController
+                    )
+                }
             }
-        }
+        )
     }
 
     LaunchedEffect(Unit) {

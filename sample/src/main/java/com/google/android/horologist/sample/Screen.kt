@@ -36,4 +36,5 @@ sealed class Screen(
     object SectionedListMenuScreen : Screen("sectionedListMenuScreen")
     object SectionedListStatelessScreen : Screen("sectionedListStatelessScreen")
     object SectionedListStatefulScreen : Screen("sectionedListStatefulScreen")
+    object SectionedListExpandableScreen : Screen("sectionedListExpandableScreen")
 }

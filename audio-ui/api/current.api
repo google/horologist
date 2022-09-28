@@ -16,14 +16,14 @@ package com.google.android.horologist.audio.ui {
 
   public final class VolumeScreenKt {
     method @androidx.compose.runtime.Composable public static void VolumeScreen(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.audio.ui.VolumeViewModel volumeViewModel, optional boolean showVolumeIndicator, optional androidx.compose.ui.focus.FocusRequester focusRequester, optional kotlin.jvm.functions.Function0<kotlin.Unit> increaseIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> decreaseIcon);
-    method @androidx.compose.runtime.Composable public static void VolumeScreen(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.VolumeState> volume, com.google.android.horologist.audio.AudioOutput audioOutput, kotlin.jvm.functions.Function0<kotlin.Unit> increaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> decreaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> onAudioOutputClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> increaseIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> decreaseIcon, optional boolean showVolumeIndicator, optional androidx.compose.ui.focus.FocusRequester focusRequester, optional androidx.compose.foundation.gestures.ScrollableState? scrollableState);
+    method @androidx.compose.runtime.Composable public static void VolumeScreen(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.VolumeState> volume, com.google.android.horologist.audio.AudioOutput audioOutput, kotlin.jvm.functions.Function0<kotlin.Unit> increaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> decreaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> onAudioOutputClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> increaseIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> decreaseIcon, optional boolean showVolumeIndicator, optional androidx.compose.ui.focus.FocusRequester focusRequester, optional kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit>? onRotaryInput);
   }
 
-  public final class VolumeScrollableState implements androidx.compose.foundation.gestures.ScrollableState {
-    ctor public VolumeScrollableState(com.google.android.horologist.audio.VolumeRepository volumeRepository, android.os.Vibrator vibrator);
-    method public float dispatchRawDelta(float delta);
-    method public boolean isScrollInProgress();
-    method public suspend Object? scroll(androidx.compose.foundation.MutatePriority scrollPriority, kotlin.jvm.functions.Function2<? super androidx.compose.foundation.gestures.ScrollScope,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> block, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+  @Deprecated public final class VolumeScrollableState implements androidx.compose.foundation.gestures.ScrollableState {
+    ctor @Deprecated public VolumeScrollableState(com.google.android.horologist.audio.VolumeRepository volumeRepository, android.os.Vibrator vibrator);
+    method @Deprecated public float dispatchRawDelta(float delta);
+    method @Deprecated public boolean isScrollInProgress();
+    method @Deprecated public suspend Object? scroll(androidx.compose.foundation.MutatePriority scrollPriority, kotlin.jvm.functions.Function2<? super androidx.compose.foundation.gestures.ScrollScope,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> block, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
     property public boolean isScrollInProgress;
   }
 
@@ -31,12 +31,11 @@ package com.google.android.horologist.audio.ui {
     ctor public VolumeViewModel(com.google.android.horologist.audio.VolumeRepository volumeRepository, com.google.android.horologist.audio.AudioOutputRepository audioOutputRepository, optional kotlin.jvm.functions.Function0<kotlin.Unit> onCleared, android.os.Vibrator vibrator);
     method public final void decreaseVolume();
     method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> getAudioOutput();
-    method public final com.google.android.horologist.audio.ui.VolumeScrollableState getVolumeScrollableState();
     method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.VolumeState> getVolumeState();
     method public final void increaseVolume();
     method public final void launchOutputSelection();
+    method public final void onRotaryInput(float change);
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> audioOutput;
-    property public final com.google.android.horologist.audio.ui.VolumeScrollableState volumeScrollableState;
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.VolumeState> volumeState;
     field public static final com.google.android.horologist.audio.ui.VolumeViewModel.Companion Companion;
   }

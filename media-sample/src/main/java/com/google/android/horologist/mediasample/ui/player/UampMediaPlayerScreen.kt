@@ -16,17 +16,19 @@
 
 package com.google.android.horologist.mediasample.ui.player
 
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
-import com.google.android.horologist.compose.navscaffold.scrollableColumn
+import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
 import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
@@ -52,10 +54,9 @@ fun UampMediaPlayerScreen(
     Scaffold(
         modifier = modifier
             .fillMaxSize()
-            .scrollableColumn(
-                focusRequester = playerFocusRequester,
-                volumeViewModel.volumeScrollableState
-            ),
+            .onRotaryInputAccumulated(volumeViewModel::onRotaryInput)
+            .focusRequester(playerFocusRequester)
+            .focusable(),
         positionIndicator = { VolumePositionIndicator(volumeState = { volumeState }) }
     ) {
         PlayerScreen(

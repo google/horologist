@@ -31,6 +31,7 @@ import com.google.android.horologist.audio.VolumeRepository
  * ScrollableState integration for VolumeControl to scroll events
  * via RSB/Bezel to trigger volume changes.
  */
+@Deprecated("Use Modifier.onRotaryInputAccumulated")
 public class VolumeScrollableState(
     private val volumeRepository: VolumeRepository,
     private val vibrator: Vibrator

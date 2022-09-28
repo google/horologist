@@ -113,6 +113,8 @@ dependencies {
     implementation libs.androidx.navigation.compose
     implementation libs.androidx.navigation.ui.ktx
 
+    testImplementation libs.junit
+    testImplementation libs.truth
     androidTestImplementation libs.compose.ui.test.junit4
     debugImplementation libs.compose.ui.test.manifest
     androidTestImplementation libs.espresso.core

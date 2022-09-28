@@ -14,14 +14,10 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalComposeUiApi::class)
-
 package com.google.android.horologist.audio.ui
 
 import android.media.AudioManager
 import androidx.compose.foundation.focusable
-import androidx.compose.foundation.gestures.ScrollableState
-import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -33,12 +29,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.input.rotary.onRotaryScrollEvent
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -50,7 +43,7 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumeScreenDefaults.DecreaseIcon
 import com.google.android.horologist.audio.ui.VolumeScreenDefaults.IncreaseIcon
 import com.google.android.horologist.audio.ui.components.DeviceChip
-import kotlinx.coroutines.launch
+import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 
 /**
  * Volume Screen with an [InlineSlider] and Increase/Decrease buttons for the Audio Stream Volume.
@@ -86,7 +79,7 @@ public fun VolumeScreen(
         onAudioOutputClick = { volumeViewModel.launchOutputSelection() },
         showVolumeIndicator = showVolumeIndicator,
         focusRequester = focusRequester,
-        scrollableState = volumeViewModel.volumeScrollableState,
+        onRotaryInput = volumeViewModel::onRotaryInput,
         increaseIcon = increaseIcon,
         decreaseIcon = decreaseIcon
     )
@@ -104,19 +97,12 @@ public fun VolumeScreen(
     decreaseIcon: @Composable () -> Unit = { DecreaseIcon() },
     showVolumeIndicator: Boolean = true,
     focusRequester: FocusRequester = remember { FocusRequester() },
-    scrollableState: ScrollableState? = null
+    onRotaryInput: ((change: Float) -> Unit)? = null
 ) {
     Box(
         modifier = modifier.fillMaxSize().run {
-            if (scrollableState != null) {
-                val coroutineScope = rememberCoroutineScope()
-
-                onRotaryScrollEvent {
-                    coroutineScope.launch {
-                        scrollableState.scrollBy(it.verticalScrollPixels)
-                    }
-                    true
-                }
+            if (onRotaryInput != null) {
+                onRotaryInputAccumulated(onRotaryInput)
                     .focusRequester(focusRequester)
                     .focusable()
             } else {

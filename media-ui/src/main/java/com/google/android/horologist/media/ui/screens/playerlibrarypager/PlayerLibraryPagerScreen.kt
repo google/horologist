@@ -18,11 +18,13 @@
 
 package com.google.android.horologist.media.ui.screens.playerlibrarypager
 
+import androidx.compose.foundation.focusable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.navigation.NavBackStackEntry
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
@@ -32,12 +34,11 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
-import com.google.android.horologist.audio.ui.VolumeScrollableState
 import com.google.android.horologist.compose.layout.fadeAwayScalingLazyList
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
-import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.compose.pager.FocusOnResume
 import com.google.android.horologist.compose.pager.PagerScreen
+import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import com.google.android.horologist.media.ui.navigation.NavigationScreens
 import java.util.concurrent.CancellationException
 
@@ -49,7 +50,7 @@ import java.util.concurrent.CancellationException
 @Composable
 public fun PlayerLibraryPagerScreen(
     pagerState: PagerState,
-    volumeScrollableState: VolumeScrollableState,
+    onRotaryInput: (change: Float) -> Unit,
     volumeState: () -> VolumeState,
     timeText: @Composable (Modifier) -> Unit,
     playerScreen: @Composable (FocusRequester) -> Unit,
@@ -82,10 +83,9 @@ public fun PlayerLibraryPagerScreen(
 
                 Scaffold(
                     modifier = Modifier
-                        .scrollableColumn(
-                            focusRequester = playerFocusRequester,
-                            volumeScrollableState
-                        ),
+                        .onRotaryInputAccumulated(onRotaryInput)
+                        .focusRequester(playerFocusRequester)
+                        .focusable(),
                     timeText = {
                         timeText(Modifier)
                     },

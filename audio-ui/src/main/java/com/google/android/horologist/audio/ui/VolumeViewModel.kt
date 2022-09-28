@@ -17,7 +17,10 @@
 package com.google.android.horologist.audio.ui
 
 import android.media.AudioManager
+import android.os.Build
+import android.os.VibrationEffect
 import android.os.Vibrator
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -25,7 +28,6 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.AudioOutputRepository
-import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.audio.VolumeRepository
 import com.google.android.horologist.audio.VolumeState
@@ -42,19 +44,23 @@ import kotlinx.coroutines.flow.StateFlow
  * See [AudioManager.STREAM_MUSIC]
  */
 @ExperimentalHorologistAudioUiApi
-@OptIn(ExperimentalHorologistAudioApi::class)
 public open class VolumeViewModel(
     internal val volumeRepository: VolumeRepository,
     internal val audioOutputRepository: AudioOutputRepository,
     private val onCleared: () -> Unit = {},
-    vibrator: Vibrator
+    private val vibrator: Vibrator
 ) : ViewModel() {
     public val volumeState: StateFlow<VolumeState> = volumeRepository.volumeState
 
     public val audioOutput: StateFlow<AudioOutput> = audioOutputRepository.audioOutput
 
-    public val volumeScrollableState: VolumeScrollableState =
-        VolumeScrollableState(volumeRepository, vibrator)
+    public fun onRotaryInput(change: Float) {
+        when {
+            change > 0 -> increaseVolume()
+            change < 0 -> decreaseVolume()
+        }
+        performHaptics()
+    }
 
     public fun increaseVolume() {
         volumeRepository.increaseVolume()
@@ -72,8 +78,23 @@ public open class VolumeViewModel(
         onCleared.invoke()
     }
 
+    private fun performHaptics() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val effect = VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK)
+            vibrator.vibrate(effect)
+        } else {
+            notSupported()
+        }
+    }
+
+    private fun notSupported() {
+        Log.i(TAG, "Effect not supported")
+    }
+
     @ExperimentalHorologistAudioUiApi
     public companion object {
+        private const val TAG = "VolumeViewModel"
+
         public val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val application = this[APPLICATION_KEY]!!

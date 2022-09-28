@@ -33,6 +33,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.composables.SectionedList
+import com.google.android.horologist.composables.SectionedListScope
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sectionedlist.component.SingleLineChip
@@ -51,77 +52,93 @@ fun SectionedListStatelessScreen(
         scalingLazyListState = scalingLazyListState,
         modifier = modifier
     ) {
-        // Section without header and without footer
-        section(
-            listOf(
-                Pair(R.string.sectionedlist_downloads_button, Icons.Default.DownloadDone),
-                Pair(R.string.sectionedlist_your_library_button, Icons.Default.LibraryMusic)
-            )
-        ) {
-            loaded { item ->
-                SingleLineChip(text = stringResource(item.first), imageVector = item.second)
-            }
-        }
+        topMenuSection()
 
-        // Section with header and footer
-        section(
-            listOf(
-                Pair("Running playlist", Icons.Default.DirectionsRun),
-                Pair("Focus", Icons.Default.SelfImprovement),
-                Pair("Summer hits", Icons.Default.LightMode)
-            )
-        ) {
-            header {
-                Title(stringResource(id = R.string.sectionedlist_recommendations_title))
-            }
+        recommendationsSection()
 
-            loaded { item ->
-                SingleLineChip(item.first, item.second)
-            }
+        trendingSection()
 
-            footer {
-                SingleLineNoIconChip(stringResource(id = R.string.sectionedlist_see_more_button))
-            }
-        }
-
-        // Section with header and footer
-        section(
-            listOf(
-                Pair("Bad Habits", "Ed Sheeran"),
-                Pair("There'd Better Be A Mirrorball", "Arctic Monkeys"),
-                Pair("180 Hours", "Dudu Kanegae")
-            )
-        ) {
-            header {
-                Title(stringResource(id = R.string.sectionedlist_trending_title))
-            }
-
-            loaded { item ->
-                TwoLinesChip(
-                    primaryLabel = item.first,
-                    secondaryLabel = item.second,
-                    imageVector = Icons.Default.MusicNote
-                )
-            }
-
-            footer {
-                SingleLineNoIconChip(stringResource(id = R.string.sectionedlist_see_more_button))
-            }
-        }
-
-        // Section with single item
-        section {
-            loaded {
-                SingleLineChip(
-                    text = stringResource(R.string.sectionedlist_settings_button),
-                    imageVector = Icons.Default.Settings
-                )
-            }
-        }
+        bottomMenuSection()
     }
 
     LaunchedEffect(Unit) {
         focusRequester.requestFocus()
+    }
+}
+
+private fun SectionedListScope.topMenuSection() {
+    // Section without header and without footer
+    section(
+        listOf(
+            Pair(R.string.sectionedlist_downloads_button, Icons.Default.DownloadDone),
+            Pair(R.string.sectionedlist_your_library_button, Icons.Default.LibraryMusic)
+        )
+    ) {
+        loaded { item ->
+            SingleLineChip(text = stringResource(item.first), imageVector = item.second)
+        }
+    }
+}
+
+private fun SectionedListScope.recommendationsSection() {
+    // Section with header and footer
+    section(
+        listOf(
+            Pair("Running playlist", Icons.Default.DirectionsRun),
+            Pair("Focus", Icons.Default.SelfImprovement),
+            Pair("Summer hits", Icons.Default.LightMode)
+        )
+    ) {
+        header {
+            Title(stringResource(id = R.string.sectionedlist_recommendations_title))
+        }
+
+        loaded { item ->
+            SingleLineChip(item.first, item.second)
+        }
+
+        footer {
+            SingleLineNoIconChip(stringResource(id = R.string.sectionedlist_see_more_button))
+        }
+    }
+}
+
+private fun SectionedListScope.trendingSection() {
+    // Section with header and footer
+    section(
+        listOf(
+            Pair("Bad Habits", "Ed Sheeran"),
+            Pair("There'd Better Be A Mirrorball", "Arctic Monkeys"),
+            Pair("180 Hours", "Dudu Kanegae")
+        )
+    ) {
+        header {
+            Title(stringResource(id = R.string.sectionedlist_trending_title))
+        }
+
+        loaded { item ->
+            TwoLinesChip(
+                primaryLabel = item.first,
+                secondaryLabel = item.second,
+                imageVector = Icons.Default.MusicNote
+            )
+        }
+
+        footer {
+            SingleLineNoIconChip(stringResource(id = R.string.sectionedlist_see_more_button))
+        }
+    }
+}
+
+private fun SectionedListScope.bottomMenuSection() {
+    // Section with single item
+    section {
+        loaded {
+            SingleLineChip(
+                text = stringResource(R.string.sectionedlist_settings_button),
+                imageVector = Icons.Default.Settings
+            )
+        }
     }
 }
 

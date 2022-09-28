@@ -608,6 +608,12 @@ package com.google.android.horologist.media.ui.state {
     property public final boolean shuffleEnabled;
     property public final boolean shuffleOn;
     property public final com.google.android.horologist.media.ui.state.model.TrackPositionUiModel? trackPosition;
+    field public static final com.google.android.horologist.media.ui.state.PlayerUiState.Companion Companion;
+  }
+
+  public static final class PlayerUiState.Companion {
+    method public com.google.android.horologist.media.ui.state.PlayerUiState getNotConnected();
+    property public final com.google.android.horologist.media.ui.state.PlayerUiState NotConnected;
   }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class PlayerUiStateProducer {
@@ -622,10 +628,6 @@ package com.google.android.horologist.media.ui.state {
     method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.ui.state.PlayerUiState> getPlayerUiState();
     property public final com.google.android.horologist.media.ui.state.PlayerUiController playerUiController;
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.ui.state.PlayerUiState> playerUiState;
-    field public static final com.google.android.horologist.media.ui.state.PlayerViewModel.Companion Companion;
-  }
-
-  public static final class PlayerViewModel.Companion {
   }
 
 }

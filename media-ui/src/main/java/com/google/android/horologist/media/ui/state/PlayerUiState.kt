@@ -64,4 +64,25 @@ public data class PlayerUiState(
     val seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     val seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     val connected: Boolean
-)
+) {
+    companion object {
+        /**
+         * Value for UIs before a connected player is available.
+         */
+        val NotConnected = PlayerUiState(
+            playEnabled = false,
+            pauseEnabled = false,
+            seekBackEnabled = false,
+            seekForwardEnabled = false,
+            seekToPreviousEnabled = false,
+            seekToNextEnabled = false,
+            shuffleEnabled = false,
+            shuffleOn = false,
+            playPauseEnabled = false,
+            playing = false,
+            media = null,
+            trackPosition = null,
+            connected = false
+        )
+    }
+}

@@ -46,8 +46,8 @@ public fun SettingsButton(
     contentDescription: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    iconSize: Dp = 24.dp,
-    tapTargetSize: Dp = 48.dp
+    iconSize: Dp = 26.dp,
+    tapTargetSize: Dp = 52.dp
 ) {
     Button(
         modifier = modifier.size(tapTargetSize),

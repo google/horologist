@@ -32,7 +32,11 @@ import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
 
 @Composable
-fun SingleLineChip(text: String, imageVector: ImageVector) {
+fun SingleLineChip(
+    text: String,
+    imageVector: ImageVector,
+    iconTint: Color = Color.Gray
+) {
     Chip(
         label = {
             Text(
@@ -52,7 +56,7 @@ fun SingleLineChip(text: String, imageVector: ImageVector) {
                 modifier = Modifier
                     .size(ChipDefaults.LargeIconSize)
                     .clip(CircleShape),
-                tint = Color.Gray
+                tint = iconTint
             )
         },
         colors = ChipDefaults.secondaryChipColors()

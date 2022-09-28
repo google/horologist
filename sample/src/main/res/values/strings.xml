@@ -26,6 +26,7 @@
     <string name="sectionedlist_samples_menu">SectionedList Samples</string>
     <string name="sectionedlist_stateless_sections_menu">Stateless sections</string>
     <string name="sectionedlist_stateful_sections_menu">Stateful sections</string>
+    <string name="sectionedlist_expandable_sections_menu">Expandable sections</string>
     <string name="sectionedlist_samples_title">SectionedList samples</string>
     <string name="sectionedlist_recommendations_title">Recommendations</string>
     <string name="sectionedlist_trending_title">Trending</string>
@@ -34,4 +35,9 @@
     <string name="sectionedlist_settings_button">Settings</string>
     <string name="sectionedlist_see_more_button">See more</string>
     <string name="sectionedlist_failed_to_load">Failed to load, tap to try again.</string>
+    <string name="sectionedlist_my_tasks">My tasks</string>
+    <string name="sectionedlist_today">Today</string>
+    <string name="sectionedlist_tomorrow">Tomorrow</string>
+    <string name="sectionedlist_later_week">Later this week</string>
+    <string name="sectionedlist_more_tasks">More tasks…</string>
 </resources>

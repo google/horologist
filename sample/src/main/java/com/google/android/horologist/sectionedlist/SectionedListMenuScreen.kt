@@ -54,6 +54,10 @@ fun SectionedListMenuScreen(
                 Pair(
                     R.string.sectionedlist_stateful_sections_menu,
                     Screen.SectionedListStatefulScreen.route
+                ),
+                Pair(
+                    R.string.sectionedlist_expandable_sections_menu,
+                    Screen.SectionedListExpandableScreen.route
                 )
             )
         ) {

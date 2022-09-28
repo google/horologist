@@ -22,7 +22,10 @@ import java.awt.geom.Ellipse2D
 import java.awt.image.BufferedImage
 
 @ExperimentalHorologistPaparazziApi
-public class WearSnapshotHandler(private val delegate: SnapshotHandler) : SnapshotHandler {
+public class WearSnapshotHandler(
+    private val delegate: SnapshotHandler,
+    private val round: Boolean = true
+) : SnapshotHandler {
     override fun close() {
         delegate.close()
     }
@@ -49,11 +52,10 @@ public class WearSnapshotHandler(private val delegate: SnapshotHandler) : Snapsh
             }
 
             override fun handle(image: BufferedImage) {
-                val isSquare = snapshot.testName.methodName.contains("square", ignoreCase = true)
-                val processedImage = if (isSquare) {
-                    image
-                } else {
+                val processedImage = if (round) {
                     frameImage(image)
+                } else {
+                    image
                 }
 
                 delegateFrameHandler.handle(processedImage)

@@ -23,8 +23,6 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.MediaUiModel
-import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -39,34 +37,8 @@ public open class PlayerViewModel(
     public val playerUiState: StateFlow<PlayerUiState> = producer.playerUiStateFlow.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
-        initialValue = INITIAL_PLAYER_UI_STATE
+        initialValue = PlayerUiState.NotConnected
     )
 
     public val playerUiController: PlayerUiController = PlayerUiController(playerRepository)
-
-    public companion object {
-        private val INITIAL_MEDIA = MediaUiModel(id = "", title = null, artist = null)
-
-        private val INITIAL_TRACK_POSITION = TrackPositionUiModel(
-            current = 0,
-            duration = 0,
-            percent = 0f
-        )
-
-        private val INITIAL_PLAYER_UI_STATE = PlayerUiState(
-            playEnabled = false,
-            pauseEnabled = false,
-            seekBackEnabled = false,
-            seekForwardEnabled = false,
-            seekToPreviousEnabled = false,
-            seekToNextEnabled = false,
-            shuffleEnabled = false,
-            shuffleOn = false,
-            playPauseEnabled = false,
-            playing = false,
-            media = INITIAL_MEDIA,
-            trackPosition = INITIAL_TRACK_POSITION,
-            connected = false
-        )
-    }
 }

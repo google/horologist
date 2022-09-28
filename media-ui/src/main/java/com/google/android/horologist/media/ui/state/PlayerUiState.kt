@@ -69,7 +69,7 @@ public data class PlayerUiState(
         /**
          * Value for UIs before a connected player is available.
          */
-        public val NotConnected = PlayerUiState(
+        public val NotConnected: PlayerUiState = PlayerUiState(
             playEnabled = false,
             pauseEnabled = false,
             seekBackEnabled = false,

@@ -28,6 +28,7 @@ import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingLazyListScope
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.ScalingParams
+import com.google.android.horologist.composables.Section.Companion.DEFAULT_LOADING_CONTENT_COUNT
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 
 /**
@@ -91,7 +92,7 @@ internal fun <T> Section<T>.display(scope: ScalingLazyListScope) {
     when (section.state) {
         is Section.State.Loading -> {
             section.loadingContent?.let { content ->
-                scope.item { SectionContentScope.content() }
+                scope.items(section.loadingContentCount) { SectionContentScope.content() }
             }
         }
 
@@ -130,6 +131,7 @@ public data class Section<T> constructor(
     val state: State<T>,
     val headerContent: (@Composable SectionContentScope.() -> Unit)? = null,
     val loadingContent: (@Composable SectionContentScope.() -> Unit)? = null,
+    val loadingContentCount: Int = DEFAULT_LOADING_CONTENT_COUNT,
     val loadedContent: @Composable SectionContentScope.(T) -> Unit,
     val failedContent: (@Composable SectionContentScope.() -> Unit)? = null,
     val emptyContent: (@Composable SectionContentScope.() -> Unit)? = null,
@@ -149,6 +151,10 @@ public data class Section<T> constructor(
         public class Failed<T> : State<T>()
 
         public class Empty<T> : State<T>()
+    }
+
+    internal companion object {
+        const val DEFAULT_LOADING_CONTENT_COUNT = 1
     }
 }
 
@@ -179,6 +185,7 @@ public class SectionedListScope {
                     state = state,
                     headerContent = scope.headerContent,
                     loadingContent = scope.loadingContent,
+                    loadingContentCount = scope.loadingContentCount,
                     loadedContent = scope.loadedContent,
                     failedContent = scope.failedContent,
                     emptyContent = scope.emptyContent,
@@ -228,6 +235,9 @@ public class SectionScope<T> {
     internal var loadingContent: @Composable SectionContentScope.() -> Unit = { }
         private set
 
+    internal var loadingContentCount: Int = DEFAULT_LOADING_CONTENT_COUNT
+        private set
+
     internal var loadedContent: @Composable SectionContentScope.(T) -> Unit = { }
         private set
 
@@ -246,7 +256,12 @@ public class SectionScope<T> {
     }
 
     @SectionScopeMarker
-    public fun loading(content: @Composable SectionContentScope.() -> Unit) {
+    public fun loading(
+        count: Int = DEFAULT_LOADING_CONTENT_COUNT,
+        content: @Composable SectionContentScope.() -> Unit
+    ) {
+        check(count > 0) { "count has to be greater than zero." }
+        loadingContentCount = count
         loadingContent = content
     }
 

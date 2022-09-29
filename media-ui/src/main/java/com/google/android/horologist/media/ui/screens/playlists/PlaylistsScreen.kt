@@ -77,6 +77,7 @@ public fun <T> PlaylistsScreen(
             is PlaylistsScreenState.Loaded<T> -> {
                 Section.State.Loaded(playlistsScreenState.playlistList)
             }
+
             is PlaylistsScreenState.Failed -> Section.State.Failed()
             is PlaylistsScreenState.Loading -> Section.State.Loading()
         }
@@ -91,21 +92,9 @@ public fun <T> PlaylistsScreen(
 
             loaded { playlistContent(it) }
 
-            loading {
+            loading(count = 4) {
                 Column {
                     PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
-                    PlaceholderChip(
-                        modifier = Modifier.padding(top = 4.dp),
-                        colors = ChipDefaults.secondaryChipColors()
-                    )
-                    PlaceholderChip(
-                        modifier = Modifier.padding(top = 4.dp),
-                        colors = ChipDefaults.secondaryChipColors()
-                    )
-                    PlaceholderChip(
-                        modifier = Modifier.padding(top = 4.dp),
-                        colors = ChipDefaults.secondaryChipColors()
-                    )
                 }
             }
         }

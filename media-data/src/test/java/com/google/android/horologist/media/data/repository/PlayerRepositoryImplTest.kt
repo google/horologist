@@ -366,7 +366,7 @@ class PlayerRepositoryImplTest {
         sut.connect(player) {}
 
         // when
-        val result = sut.getSeekBackIncrement()
+        val result = sut.seekBackIncrement.value
 
         // then
         assertThat(result).isEqualTo(seekIncrement.milliseconds)
@@ -380,7 +380,7 @@ class PlayerRepositoryImplTest {
         sut.connect(player) {}
 
         // when
-        val result = sut.getSeekForwardIncrement()
+        val result = sut.seekForwardIncrement.value
 
         // then
         assertThat(result).isEqualTo(seekIncrement.milliseconds)

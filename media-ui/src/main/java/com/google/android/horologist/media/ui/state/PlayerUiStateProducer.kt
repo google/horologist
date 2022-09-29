@@ -21,10 +21,10 @@ package com.google.android.horologist.media.ui.state
 import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.media.ui.state.mapper.PlayerUiStateMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlin.time.Duration
 
 /**
  * Produces a flow of [PlayerUiState] based on events produced by a [PlayerRepository].
@@ -34,27 +34,26 @@ import kotlinx.coroutines.flow.combine
  */
 @ExperimentalHorologistMediaUiApi
 public class PlayerUiStateProducer(
-    private val playerRepository: PlayerRepository
+    playerRepository: PlayerRepository
 ) {
     private data class StaticState(
         val connected: Boolean,
         val shuffleModeEnabled: Boolean,
-        val seekBackButtonIncrement: SeekButtonIncrement,
-        val seekForwardButtonIncrement: SeekButtonIncrement
+        val seekBackButtonIncrement: Duration?,
+        val seekForwardButtonIncrement: Duration?
     )
 
     private val staticFlow = combine(
         playerRepository.connected,
-        playerRepository.shuffleModeEnabled
-    ) { connected, shuffleModeEnabled ->
-        val seekBackSeconds = playerRepository.getSeekBackIncrement().inWholeSeconds.toInt()
-        val seekForwardSeconds = playerRepository.getSeekForwardIncrement().inWholeSeconds.toInt()
-
+        playerRepository.shuffleModeEnabled,
+        playerRepository.seekBackIncrement,
+        playerRepository.seekForwardIncrement
+    ) { connected, shuffleModeEnabled, seekBackIncrement, seekForwardIncrement ->
         StaticState(
             connected = connected,
             shuffleModeEnabled = shuffleModeEnabled,
-            seekBackButtonIncrement = SeekButtonIncrement.ofSeconds(seekBackSeconds),
-            seekForwardButtonIncrement = SeekButtonIncrement.ofSeconds(seekForwardSeconds)
+            seekBackButtonIncrement = seekBackIncrement,
+            seekForwardButtonIncrement = seekForwardIncrement
         )
     }
 
@@ -71,9 +70,9 @@ public class PlayerUiStateProducer(
             media = media,
             mediaPosition = mediaPosition,
             shuffleModeEnabled = staticData.shuffleModeEnabled,
-            connected = playerRepository.connected.value,
-            seekBackButtonIncrement = staticData.seekBackButtonIncrement,
-            seekForwardButtonIncrement = staticData.seekForwardButtonIncrement
+            connected = staticData.connected,
+            seekBackIncrement = staticData.seekBackButtonIncrement,
+            seekForwardIncrement = staticData.seekForwardButtonIncrement
         )
     }
 }

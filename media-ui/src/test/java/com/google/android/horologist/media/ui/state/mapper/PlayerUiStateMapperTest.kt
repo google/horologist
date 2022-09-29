@@ -24,7 +24,7 @@ import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.MediaPosition
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.PlayerUiState
+import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.assertNotNull
 import org.junit.Test
@@ -48,27 +48,20 @@ class PlayerUiStateMapperTest {
             media = null,
             mediaPosition = null,
             shuffleModeEnabled = false,
-            connected = false
+            connected = false,
+            seekBackIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
-        assertThat(result).isEqualTo(
-            PlayerUiState(
-                playEnabled = false,
-                pauseEnabled = false,
-                seekBackEnabled = false,
-                seekForwardEnabled = false,
-                seekToPreviousEnabled = false,
-                seekToNextEnabled = false,
-                shuffleEnabled = false,
-                shuffleOn = false,
-                playPauseEnabled = false,
-                playing = false,
-                media = null,
-                trackPosition = null,
-                connected = false
-            )
-        )
+        assertThat(result.playEnabled).isFalse()
+        assertThat(result.pauseEnabled).isFalse()
+        assertThat(result.seekBackEnabled).isFalse()
+        assertThat(result.seekForwardEnabled).isFalse()
+        assertThat(result.seekToPreviousEnabled).isFalse()
+        assertThat(result.seekToNextEnabled).isFalse()
+        assertThat(result.shuffleEnabled).isFalse()
+        assertThat(result.playPauseEnabled).isFalse()
     }
 
     @Test
@@ -83,7 +76,9 @@ class PlayerUiStateMapperTest {
             media = null,
             mediaPosition = null,
             shuffleModeEnabled = false,
-            connected = true
+            connected = true,
+            seekBackIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -102,7 +97,9 @@ class PlayerUiStateMapperTest {
             media = null,
             mediaPosition = null,
             shuffleModeEnabled = false,
-            connected = true
+            connected = true,
+            seekBackIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -121,7 +118,9 @@ class PlayerUiStateMapperTest {
             media = null,
             mediaPosition = null,
             shuffleModeEnabled = false,
-            connected = true
+            connected = true,
+            seekBackIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -140,7 +139,9 @@ class PlayerUiStateMapperTest {
             media = null,
             mediaPosition = null,
             shuffleModeEnabled = false,
-            connected = true
+            connected = true,
+            seekBackIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -159,7 +160,9 @@ class PlayerUiStateMapperTest {
             media = null,
             mediaPosition = null,
             shuffleModeEnabled = false,
-            connected = true
+            connected = true,
+            seekBackIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -178,7 +181,9 @@ class PlayerUiStateMapperTest {
             media = null,
             mediaPosition = null,
             shuffleModeEnabled = false,
-            connected = true
+            connected = true,
+            seekBackIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -197,7 +202,9 @@ class PlayerUiStateMapperTest {
             media = null,
             mediaPosition = null,
             shuffleModeEnabled = false,
-            connected = true
+            connected = true,
+            seekBackIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -216,7 +223,9 @@ class PlayerUiStateMapperTest {
             media = null,
             mediaPosition = null,
             shuffleModeEnabled = shuffleEnabled,
-            connected = true
+            connected = true,
+            seekBackIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -235,7 +244,9 @@ class PlayerUiStateMapperTest {
             media = null,
             mediaPosition = null,
             shuffleModeEnabled = shuffleEnabled,
-            connected = true
+            connected = true,
+            seekBackIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -254,7 +265,9 @@ class PlayerUiStateMapperTest {
             media = null,
             mediaPosition = null,
             shuffleModeEnabled = false,
-            connected = true
+            connected = true,
+            seekBackIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -273,7 +286,9 @@ class PlayerUiStateMapperTest {
             media = null,
             mediaPosition = null,
             shuffleModeEnabled = false,
-            connected = true
+            connected = true,
+            seekBackIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -292,7 +307,9 @@ class PlayerUiStateMapperTest {
             media = null,
             mediaPosition = null,
             shuffleModeEnabled = false,
-            connected = true
+            connected = true,
+            seekBackIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -319,7 +336,9 @@ class PlayerUiStateMapperTest {
             media = media,
             mediaPosition = null,
             shuffleModeEnabled = false,
-            connected = true
+            connected = true,
+            seekBackIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -344,7 +363,9 @@ class PlayerUiStateMapperTest {
             media = null,
             mediaPosition = mediaPosition,
             shuffleModeEnabled = false,
-            connected = true
+            connected = true,
+            seekBackIncrement = null,
+            seekForwardIncrement = null
         )
 
         // then
@@ -353,5 +374,47 @@ class PlayerUiStateMapperTest {
         assertThat(expectedTrackPosition.current).isEqualTo(current.inWholeMilliseconds)
         assertThat(expectedTrackPosition.duration).isEqualTo(duration.inWholeMilliseconds)
         assertThat(expectedTrackPosition.percent).isEqualTo(0.5f)
+    }
+
+    @Test
+    fun givenIncrements_thenIncrementsAreMappedCorrectly() {
+        // given
+        val forward = 12.seconds
+        val back = 23.seconds
+
+        // when
+        val result = PlayerUiStateMapper.map(
+            currentState = PlayerState.Ready,
+            availableCommands = emptySet(),
+            media = null,
+            mediaPosition = null,
+            shuffleModeEnabled = false,
+            connected = true,
+            seekBackIncrement = back,
+            seekForwardIncrement = forward
+        )
+
+        // then
+        assertThat(result.seekBackButtonIncrement).isEqualTo(SeekButtonIncrement.ofSeconds(23))
+        assertThat(result.seekForwardButtonIncrement).isEqualTo(SeekButtonIncrement.ofSeconds(12))
+    }
+
+    @Test
+    fun givenNullIncrements_thenIncrementsAreUnknown() {
+        // when
+        val result = PlayerUiStateMapper.map(
+            currentState = PlayerState.Ready,
+            availableCommands = emptySet(),
+            media = null,
+            mediaPosition = null,
+            shuffleModeEnabled = false,
+            connected = true,
+            seekBackIncrement = null,
+            seekForwardIncrement = null
+        )
+
+        // then
+        assertThat(result.seekBackButtonIncrement).isEqualTo(SeekButtonIncrement.Unknown)
+        assertThat(result.seekForwardButtonIncrement).isEqualTo(SeekButtonIncrement.Unknown)
     }
 }

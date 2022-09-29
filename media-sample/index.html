@@ -15,11 +15,11 @@
         <link rel="canonical" href="https://google.github.io/horologist/media-sample/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.5.3">
+      <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.3">
     
     
       
-        <title>Media Sample app - Horologist</title>
+        <title>Media sample app - Horologist</title>
       
     
     
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Media Sample app
+              Media sample app
             
           </span>
         </div>
@@ -557,9 +557,47 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Media sample app
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
-        Media Sample app
+        Media sample app
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audio" class="md-nav__link">
+    Audio
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -780,6 +818,28 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audio" class="md-nav__link">
+    Audio
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -798,12 +858,46 @@
   </a>
 
 
-<h1 id="media-sample-app">Media Sample app<a class="headerlink" href="#media-sample-app" title="Permanent link">&para;</a></h1>
-<p>This is an example of a media app for Wear OS. It supports listening to downloaded music.</p>
-<p>It loads a <a href="https://storage.googleapis.com/uamp/catalog.json">music catalog</a> from a remote server
-and allows the user to browse the albums and songs. Tapping on a song will play it through connected
-speakers or headphones. Under the hood it
+<h1 id="media-sample-app">Media sample app<a class="headerlink" href="#media-sample-app" title="Permanent link">&para;</a></h1>
+<p>The goal of this sample is to show how to implement an audio media app for Wear OS, using the
+Horologist media libraries, following the design principles described
+in <a href="https://developer.android.com/training/wearables/principles#media-apps">Considerations for media apps</a>
+.</p>
+<p>The app supports listening to downloaded music. It loads
+a <a href="https://storage.googleapis.com/uamp/catalog.json">music catalog</a> from a remote server and allows
+the user to browse the albums and songs. Tapping on a song will play it through connected speakers
+or headphones. Under the hood it
 uses <a href="https://developer.android.com/jetpack/androidx/releases/media3">Media3</a>.</p>
+<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
+<p>The app showcases the implementation of the following features:</p>
+<ul>
+<li>Media playback, restricted to paired Bluetooth devices</li>
+<li>Launch of Bluetooth settings to connect devices for media playback</li>
+<li>Volume control</li>
+<li>Radial background based on media artwork color palette</li>
+<li>Download media</li>
+<li>API sync with WorkManager</li>
+<li>Network rules</li>
+<li>Splash screen</li>
+<li>Marquee text for song titles</li>
+<li>Tiles</li>
+</ul>
+<p>This list is not exhaustive.</p>
+<h2 id="audio">Audio<a class="headerlink" href="#audio" title="Permanent link">&para;</a></h2>
+<p>Music provided by the <a href="http://freemusicarchive.org/">Free Music Archive</a>.</p>
+<ul>
+<li><a href="http://freemusicarchive.org/music/The_Kyoto_Connection/Wake_Up_1957/">Wake Up</a> by
+  <a href="http://freemusicarchive.org/music/The_Kyoto_Connection/">The Kyoto Connection</a>.</li>
+</ul>
+<p>Recordings provided by the <a href="https://library.soundfield.com/">Ambisonic Sound Library</a>.</p>
+<ul>
+<li><a href="https://library.soundfield.com/track/163">Pre Game Marching Band</a> by Watson Wu</li>
+<li><a href="https://library.soundfield.com/track/129">Chickens on a Farm</a> by Watson Wu</li>
+<li><a href="https://library.soundfield.com/track/55">Rural Market Busker</a> by Stephan Schutze</li>
+<li><a href="https://library.soundfield.com/track/65">Steamtrain Interior</a> by Stephan Schutze</li>
+<li><a href="https://library.soundfield.com/track/57">Rural Road Car Pass</a> by Stephan Schutze</li>
+<li><a href="https://library.soundfield.com/track/114">10 Feet from Shore</a> by Watson Wu</li>
+</ul>
 
 
 

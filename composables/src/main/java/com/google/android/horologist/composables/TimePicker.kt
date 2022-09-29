@@ -40,6 +40,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -63,6 +64,8 @@ import androidx.wear.compose.material.PickerScope
 import androidx.wear.compose.material.PickerState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberPickerState
+import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
+import kotlinx.coroutines.launch
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoField
@@ -430,14 +433,20 @@ internal fun PickerWithRSB(
 ) {
     Picker(
         state = state,
-        modifier = modifier
+        modifier = modifier.run {
+            val coroutineScope = rememberCoroutineScope()
+            onRotaryInputAccumulated {
+                coroutineScope.launch {
+                    if (it > 0) {
+                        state.scrollToOption(state.selectedOption + 1)
+                    } else {
+                        state.scrollToOption(state.selectedOption - 1)
+                    }
+                }
+            }
+        }
             .focusRequester(focusRequester)
             .focusable(),
-//        .rsbScroll(
-//            scrollableState = state,
-//            flingBehavior = flingBehavior,
-//            focusRequester = focusRequester
-//        )
         flingBehavior = flingBehavior,
         readOnly = readOnly,
         readOnlyLabel = readOnlyLabel,

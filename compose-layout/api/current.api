@@ -125,6 +125,19 @@ package com.google.android.horologist.compose.pager {
 
 }
 
+package com.google.android.horologist.compose.rotaryinput {
+
+  public final class AccumulatedRotaryInputModifierKt {
+    method public static androidx.compose.ui.Modifier onRotaryInputAccumulated(androidx.compose.ui.Modifier, kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit> onValueChange);
+  }
+
+  public final class GenericMotionRotaryInputAccumulator {
+    ctor public GenericMotionRotaryInputAccumulator(android.content.Context context, kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit> onValueChange);
+    method public boolean onGenericMotionEvent(android.view.MotionEvent event);
+  }
+
+}
+
 package com.google.android.horologist.compose.snackbar {
 
   public final class DialogSnackbarHostKt {

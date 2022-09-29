@@ -16,12 +16,11 @@
 
 package com.google.android.horologist.compose.rotaryinput
 
-import android.annotation.TargetApi
 import android.content.Context
-import android.os.Build
-import android.view.InputDevice
 import android.view.MotionEvent
 import android.view.ViewConfiguration
+import androidx.core.view.InputDeviceCompat
+import androidx.core.view.MotionEventCompat
 import androidx.core.view.ViewConfigurationCompat
 
 /**
@@ -29,8 +28,7 @@ import androidx.core.view.ViewConfigurationCompat
  *
  * This should normally be passed events received from [android.view.View.onGenericMotionEvent].
  */
-@TargetApi(Build.VERSION_CODES.R)
-public class GenericMotionRotaryInputAccumulator constructor(
+public class GenericMotionRotaryInputAccumulator(
     context: Context,
     onValueChange: (change: Float) -> Unit
 ) {
@@ -60,17 +58,18 @@ public class GenericMotionRotaryInputAccumulator constructor(
      * Reads [android.view.MotionEvent] to determine whether they are rotary input events and to
      * obtain axis value.
      */
-    private class RotaryInputEventReader constructor(context: Context) {
-        private var scaledScrollFactor =
+    private class RotaryInputEventReader(context: Context) {
+        private val scaledScrollFactor =
             ViewConfigurationCompat.getScaledVerticalScrollFactor(
                 ViewConfiguration.get(context),
                 context
             )
 
         fun isRotaryScrollEvent(ev: MotionEvent): Boolean =
-            ev.source == InputDevice.SOURCE_ROTARY_ENCODER && ev.action == MotionEvent.ACTION_SCROLL
+            ev.source == InputDeviceCompat.SOURCE_ROTARY_ENCODER &&
+                ev.action == MotionEvent.ACTION_SCROLL
 
         fun getScrollDistance(ev: MotionEvent): Float =
-            -ev.getAxisValue(MotionEvent.AXIS_SCROLL) * scaledScrollFactor
+            -ev.getAxisValue(MotionEventCompat.AXIS_SCROLL) * scaledScrollFactor
     }
 }

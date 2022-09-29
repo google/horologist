@@ -106,13 +106,11 @@ public fun VolumeScreen(
 ) {
     Box(
         modifier = modifier.fillMaxSize().run {
-            if (onVolumeChangeByScroll != null) {
-                onRotaryInputAccumulated(onVolumeChangeByScroll)
+            onVolumeChangeByScroll?.let {
+                onRotaryInputAccumulated(it)
                     .focusRequester(focusRequester)
                     .focusable()
-            } else {
-                this
-            }
+            } ?: this
         }
     ) {
         val volumeState = volume()

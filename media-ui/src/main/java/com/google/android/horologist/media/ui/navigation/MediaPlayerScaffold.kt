@@ -113,7 +113,12 @@ public fun MediaPlayerScaffold(
 
             PlayerLibraryPagerScreen(
                 pagerState = pagerState,
-                onRotaryInput = volumeViewModel::onRotaryInput,
+                onVolumeChangeByScroll = {
+                    when {
+                        it > 0 -> volumeViewModel.increaseVolumeWithHaptics()
+                        it < 0 -> volumeViewModel.increaseVolumeWithHaptics()
+                    }
+                },
                 volumeState = { volumeState },
                 timeText = timeText,
                 playerScreen = {

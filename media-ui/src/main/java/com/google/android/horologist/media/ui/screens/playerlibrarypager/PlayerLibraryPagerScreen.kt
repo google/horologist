@@ -50,7 +50,7 @@ import java.util.concurrent.CancellationException
 @Composable
 public fun PlayerLibraryPagerScreen(
     pagerState: PagerState,
-    onRotaryInput: (change: Float) -> Unit,
+    onVolumeChangeByScroll: (scrollPixels: Float) -> Unit,
     volumeState: () -> VolumeState,
     timeText: @Composable (Modifier) -> Unit,
     playerScreen: @Composable (FocusRequester) -> Unit,
@@ -83,7 +83,7 @@ public fun PlayerLibraryPagerScreen(
 
                 Scaffold(
                     modifier = Modifier
-                        .onRotaryInputAccumulated(onRotaryInput)
+                        .onRotaryInputAccumulated(onVolumeChangeByScroll)
                         .focusRequester(playerFocusRequester)
                         .focusable(),
                     timeText = {

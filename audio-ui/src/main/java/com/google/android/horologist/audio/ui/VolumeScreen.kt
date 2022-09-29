@@ -79,7 +79,12 @@ public fun VolumeScreen(
         onAudioOutputClick = { volumeViewModel.launchOutputSelection() },
         showVolumeIndicator = showVolumeIndicator,
         focusRequester = focusRequester,
-        onRotaryInput = volumeViewModel::onRotaryInput,
+        onVolumeChangeByScroll = {
+            when {
+                it > 0 -> volumeViewModel.increaseVolumeWithHaptics()
+                it < 0 -> volumeViewModel.increaseVolumeWithHaptics()
+            }
+        },
         increaseIcon = increaseIcon,
         decreaseIcon = decreaseIcon
     )
@@ -97,12 +102,12 @@ public fun VolumeScreen(
     decreaseIcon: @Composable () -> Unit = { DecreaseIcon() },
     showVolumeIndicator: Boolean = true,
     focusRequester: FocusRequester = remember { FocusRequester() },
-    onRotaryInput: ((change: Float) -> Unit)? = null
+    onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)? = null
 ) {
     Box(
         modifier = modifier.fillMaxSize().run {
-            if (onRotaryInput != null) {
-                onRotaryInputAccumulated(onRotaryInput)
+            if (onVolumeChangeByScroll != null) {
+                onRotaryInputAccumulated(onVolumeChangeByScroll)
                     .focusRequester(focusRequester)
                     .focusable()
             } else {

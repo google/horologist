@@ -54,7 +54,12 @@ fun UampMediaPlayerScreen(
     Scaffold(
         modifier = modifier
             .fillMaxSize()
-            .onRotaryInputAccumulated(volumeViewModel::onRotaryInput)
+            .onRotaryInputAccumulated {
+                when {
+                    it > 0 -> volumeViewModel.increaseVolumeWithHaptics()
+                    it < 0 -> volumeViewModel.increaseVolumeWithHaptics()
+                }
+            }
             .focusRequester(playerFocusRequester)
             .focusable(),
         positionIndicator = { VolumePositionIndicator(volumeState = { volumeState }) }

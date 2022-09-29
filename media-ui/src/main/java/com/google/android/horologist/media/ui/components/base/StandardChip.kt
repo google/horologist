@@ -41,6 +41,7 @@ import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.Text
 import coil.compose.rememberAsyncImagePainter
+import com.google.android.horologist.media.ui.util.CONTENT_DESCRIPTION_HIDDEN_FROM_TALKBACK
 
 /**
  * This composable fulfils the redlines of the following components:
@@ -73,7 +74,7 @@ internal fun StandardChip(
                     if (icon is ImageVector) {
                         Icon(
                             imageVector = icon,
-                            contentDescription = null, // hidden from talkback
+                            contentDescription = CONTENT_DESCRIPTION_HIDDEN_FROM_TALKBACK,
                             modifier = Modifier
                                 .size(iconSize)
                                 .clip(CircleShape)
@@ -84,7 +85,7 @@ internal fun StandardChip(
                                 model = icon,
                                 placeholder = placeholder
                             ),
-                            contentDescription = null, // hidden from talkback
+                            contentDescription = CONTENT_DESCRIPTION_HIDDEN_FROM_TALKBACK,
                             modifier = Modifier
                                 .size(iconSize)
                                 .clip(CircleShape),

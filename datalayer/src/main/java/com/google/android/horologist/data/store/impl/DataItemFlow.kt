@@ -20,7 +20,7 @@ import android.annotation.SuppressLint
 import android.net.Uri
 import androidx.datastore.core.Serializer
 import com.google.android.gms.wearable.DataClient
-import com.google.android.gms.wearable.DataEventBuffer
+import com.google.android.gms.wearable.DataClient.OnDataChangedListener
 import com.google.android.gms.wearable.DataItem
 import com.google.android.gms.wearable.PutDataRequest
 import kotlinx.coroutines.channels.awaitClose
@@ -38,7 +38,7 @@ public fun <T> DataClient.dataItemFlow(
     serializer: Serializer<T>,
     defaultValue: () -> T = { serializer.defaultValue }
 ): Flow<T> = callbackFlow {
-    val listener: (DataEventBuffer) -> Unit = {
+    val listener = OnDataChangedListener {
         val dataItem = it[it.count - 1].dataItem
         val data = dataItem.data
         trySend(data)
@@ -50,7 +50,11 @@ public fun <T> DataClient.dataItemFlow(
         .authority(nodeId)
         .build()
 
-    addListener(listener, uri, DataClient.FILTER_LITERAL).await() // Ensure we are subscribed to updates first,
+    addListener(
+        listener,
+        uri,
+        DataClient.FILTER_LITERAL
+    ).await() // Ensure we are subscribed to updates first,
 
     val item: DataItem? = this@dataItemFlow.getDataItem(uri).await() // then get the current value.
 

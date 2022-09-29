@@ -131,13 +131,9 @@ private fun SectionedListScope.recommendationsSection(
             )
         }
 
-        loading {
+        loading(count = 2) {
             Column {
                 PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
-                PlaceholderChip(
-                    modifier = Modifier.padding(top = 4.dp),
-                    colors = ChipDefaults.secondaryChipColors()
-                )
             }
         }
 
@@ -178,13 +174,9 @@ private fun SectionedListScope.trendingSection(
             )
         }
 
-        loading {
+        loading(count = 2) {
             Column {
                 PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
-                PlaceholderChip(
-                    modifier = Modifier.padding(top = 4.dp),
-                    colors = ChipDefaults.secondaryChipColors()
-                )
             }
         }
 

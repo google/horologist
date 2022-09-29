@@ -12,7 +12,7 @@ that will make you app work well for users on a range of Wear OS devices.
 
 These build on top of the [Media3](https://developer.android.com/jetpack/androidx/releases/media3)
 player featuring ExoPlayer which is optimised for Wear Playback, and is the standard playback
-engine for Wear media apps.
+engine for Wear OS media apps.
 
 All functionality is demonstrated in the `media-sample` app, and as such is not described here
 with extensive code samples.
@@ -20,7 +20,10 @@ with extensive code samples.
 ### Bluetooth Headphone Connections
 
 Any extended playback such as music, podcasts, or radio should only use a connected bluetooth
-speaker.  When not connected, the default Watch Speaker will be used and so this must be actively 
+speaker. See https://developer.android.com/training/wearables/principles#bluetooh-headphones for
+principles applying to Media and Wear OS apps generally.
+
+When not connected, the default Watch Speaker will be used and so this must be actively 
 avoided.
 
 Horologist provides the `PlaybackRules` abstraction that allows you to intercept playback requests

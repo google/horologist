@@ -31,7 +31,7 @@ nav:
       - 'Media Domain lib': media.md
       - 'Media Data lib': media-data.md
       - 'Media3 Backend lib': media3-backend.md
-      - 'Media Sample app': media-sample.md
+      - 'Media sample app': media-sample.md
       - 'Stateful PlayerScreen Guide': media-playerscreen.md
   - 'Network Awareness':
       - 'Guide': network-awareness.md

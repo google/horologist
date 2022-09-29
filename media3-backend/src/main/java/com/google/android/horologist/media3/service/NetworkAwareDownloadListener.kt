@@ -31,8 +31,8 @@ import com.google.android.horologist.networks.request.HighBandwidthRequest
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 
 /**
- * Simple implementation of DownloadListener for downloading with
- * a required high bandwidth network.  Also includes event logging.
+ * Simple implementation of [DownloadManager.Listener] for downloading with
+ * a required high bandwidth network. Also includes event logging.
  */
 @ExperimentalHorologistMedia3BackendApi
 @ExperimentalHorologistNetworksApi

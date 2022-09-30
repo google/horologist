@@ -71,8 +71,8 @@ class PlayerUiStateProducerTest {
                 playing = true,
                 media = MediaUiModel(id = "id", title = "title", artist = "artist"),
                 trackPosition = TrackPositionUiModel(current = 2000, duration = 20000, percent = 0.1f),
-                seekBackButtonIncrement = SeekButtonIncrement.Other(0),
-                seekForwardButtonIncrement = SeekButtonIncrement.Other(0),
+                seekBackButtonIncrement = SeekButtonIncrement.Unknown,
+                seekForwardButtonIncrement = SeekButtonIncrement.Unknown,
                 connected = true
             )
         )

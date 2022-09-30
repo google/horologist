@@ -98,14 +98,8 @@ class PlayerRepositoryImplNotConnectedTest(
             param("skipToNextMedia") { sut: PlayerRepositoryImpl ->
                 sut.skipToNextMedia()
             },
-            param("getSeekBackIncrement") { sut: PlayerRepositoryImpl ->
-                sut.getSeekBackIncrement()
-            },
             param("seekBack") { sut: PlayerRepositoryImpl ->
                 sut.seekBack()
-            },
-            param("getSeekForwardIncrement") { sut: PlayerRepositoryImpl ->
-                sut.getSeekForwardIncrement()
             },
             param("seekForward") { sut: PlayerRepositoryImpl ->
                 sut.seekForward()

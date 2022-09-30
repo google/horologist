@@ -274,7 +274,6 @@ package com.google.android.horologist.media.data.mapper {
   }
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlayerStateMapper {
-    method public boolean affectsState(androidx.media3.common.Player.Events events);
     method public com.google.android.horologist.media.model.PlayerState map(androidx.media3.common.Player player);
     field public static final com.google.android.horologist.media.data.mapper.PlayerStateMapper INSTANCE;
   }
@@ -315,8 +314,8 @@ package com.google.android.horologist.media.data.repository {
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.MediaPosition> getMediaPosition();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Float> getPlaybackSpeed();
     method public kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Player> getPlayer();
-    method public long getSeekBackIncrement();
-    method public long getSeekForwardIncrement();
+    method public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> getSeekBackIncrement();
+    method public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> getSeekForwardIncrement();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getShuffleModeEnabled();
     method public boolean hasNextMedia();
     method public boolean hasPreviousMedia();
@@ -343,6 +342,8 @@ package com.google.android.horologist.media.data.repository {
     property public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.MediaPosition> mediaPosition;
     property public final kotlinx.coroutines.flow.StateFlow<java.lang.Float> playbackSpeed;
     property public final kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Player> player;
+    property public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> seekBackIncrement;
+    property public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> seekForwardIncrement;
     property public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> shuffleModeEnabled;
   }
 

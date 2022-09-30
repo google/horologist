@@ -58,6 +58,16 @@ public interface PlayerRepository {
     public val shuffleModeEnabled: StateFlow<Boolean>
 
     /**
+     * Returns the [seekBack] increment.
+     */
+    public val seekBackIncrement: StateFlow<Duration?>
+
+    /**
+     * Returns the [seekForward] increment.
+     */
+    public val seekForwardIncrement: StateFlow<Duration?>
+
+    /**
      * Prepares the player. E.g. player will start acquiring all the required resources to play.
      */
     public fun prepare()
@@ -98,19 +108,9 @@ public interface PlayerRepository {
     public fun skipToNextMedia()
 
     /**
-     * Returns the [seekBack] increment.
-     */
-    public fun getSeekBackIncrement(): Duration
-
-    /**
      * Seeks back in the [current media][currentMedia] by [seek back increment][getSeekBackIncrement].
      */
     public fun seekBack()
-
-    /**
-     * Returns the [seekForward] increment.
-     */
-    public fun getSeekForwardIncrement(): Duration
 
     /**
      * Seek forward in the [current media][currentMedia] by [seek forward increment][getSeekForwardIncrement].

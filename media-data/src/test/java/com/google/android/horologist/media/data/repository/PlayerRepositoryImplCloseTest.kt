@@ -94,14 +94,8 @@ class PlayerRepositoryImplCloseTest(
             param("skipToNextMedia") { sut: PlayerRepositoryImpl, _: Context ->
                 sut.skipToNextMedia()
             },
-            param("getSeekBackIncrement") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.getSeekBackIncrement()
-            },
             param("seekBack") { sut: PlayerRepositoryImpl, _: Context ->
                 sut.seekBack()
-            },
-            param("getSeekForwardIncrement") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.getSeekForwardIncrement()
             },
             param("seekForward") { sut: PlayerRepositoryImpl, _: Context ->
                 sut.seekForward()

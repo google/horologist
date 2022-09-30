@@ -25,7 +25,6 @@ import com.google.android.horologist.media.repository.PlayerRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlin.time.Duration
-import kotlin.time.Duration.Companion.seconds
 
 @OptIn(ExperimentalHorologistMediaApi::class)
 class MockPlayerRepository(
@@ -34,7 +33,9 @@ class MockPlayerRepository(
     private val currentStateValue: PlayerState = PlayerState.Idle,
     private val currentMediaValue: Media? = null,
     private val mediaPositionValue: MediaPosition? = null,
-    private val shuffleModeEnabledValue: Boolean = false
+    private val shuffleModeEnabledValue: Boolean = false,
+    private val seekBackIncrementValue: Duration? = null,
+    private val seekForwardIncrementValue: Duration? = null
 ) : PlayerRepository {
 
     override val connected: StateFlow<Boolean>
@@ -54,6 +55,12 @@ class MockPlayerRepository(
 
     override val shuffleModeEnabled: StateFlow<Boolean>
         get() = MutableStateFlow(shuffleModeEnabledValue)
+
+    override val seekBackIncrement: StateFlow<Duration?>
+        get() = MutableStateFlow(seekBackIncrementValue)
+
+    override val seekForwardIncrement: StateFlow<Duration?>
+        get() = MutableStateFlow(seekForwardIncrementValue)
 
     override fun prepare() {
         // do nothing
@@ -83,13 +90,9 @@ class MockPlayerRepository(
         // do nothing
     }
 
-    override fun getSeekBackIncrement(): Duration = 0.seconds
-
     override fun seekBack() {
         // do nothing
     }
-
-    override fun getSeekForwardIncrement(): Duration = 0.seconds
 
     override fun seekForward() {
         // do nothing

@@ -26,6 +26,7 @@ import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.media.ui.state.PlayerUiState
+import kotlin.time.Duration
 
 /**
  * Map [PlayerState], [Command] plus other set of properties into a [PlayerUiState].
@@ -40,8 +41,8 @@ public object PlayerUiStateMapper {
         mediaPosition: MediaPosition?,
         shuffleModeEnabled: Boolean,
         connected: Boolean,
-        seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
-        seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown
+        seekBackIncrement: Duration?,
+        seekForwardIncrement: Duration?
     ): PlayerUiState {
         val playPauseCommandAvailable = availableCommands.contains(Command.PlayPause)
 
@@ -59,8 +60,8 @@ public object PlayerUiStateMapper {
             media = media?.let(MediaUiModelMapper::map),
             trackPosition = mediaPosition?.let(TrackPositionUiModelMapper::map),
             connected = connected,
-            seekBackButtonIncrement = seekBackButtonIncrement,
-            seekForwardButtonIncrement = seekForwardButtonIncrement
+            seekBackButtonIncrement = seekBackIncrement?.let { SeekButtonIncrement.ofSeconds(it.inWholeSeconds.toInt()) } ?: SeekButtonIncrement.Unknown,
+            seekForwardButtonIncrement = seekForwardIncrement?.let { SeekButtonIncrement.ofSeconds(it.inWholeSeconds.toInt()) } ?: SeekButtonIncrement.Unknown
         )
     }
 }

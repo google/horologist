@@ -47,13 +47,4 @@ public object PlayerStateMapper {
         Player.STATE_ENDED -> PlayerState.Ended
         else -> throw IllegalArgumentException("Invalid media3 player state: $media3PlayerState")
     }
-
-    public fun affectsState(events: Player.Events): Boolean {
-        return events.containsAny(
-            Player.EVENT_IS_LOADING_CHANGED,
-            Player.EVENT_IS_PLAYING_CHANGED,
-            Player.EVENT_PLAYBACK_STATE_CHANGED,
-            Player.EVENT_PLAY_WHEN_READY_CHANGED
-        )
-    }
 }

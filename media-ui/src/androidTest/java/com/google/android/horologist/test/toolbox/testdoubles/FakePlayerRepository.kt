@@ -49,6 +49,12 @@ class FakePlayerRepository : PlayerRepository {
     private var _shuffleModeEnabled = MutableStateFlow(false)
     override val shuffleModeEnabled: StateFlow<Boolean> = _shuffleModeEnabled
 
+    private var _seekBackIncrement = MutableStateFlow<Duration?>(null)
+    override val seekBackIncrement: StateFlow<Duration?> = _seekBackIncrement
+
+    private var _seekForwardIncrement = MutableStateFlow<Duration?>(null)
+    override val seekForwardIncrement: StateFlow<Duration?> = _seekForwardIncrement
+
     private var _mediaList: List<Media>? = null
     private var currentItemIndex = -1
 
@@ -85,13 +91,9 @@ class FakePlayerRepository : PlayerRepository {
         _currentMedia.value = _mediaList!![currentItemIndex]
     }
 
-    override fun getSeekBackIncrement(): Duration = 0.seconds // not implemented
-
     override fun seekBack() {
         // do nothing
     }
-
-    override fun getSeekForwardIncrement(): Duration = 0.seconds // not implemented
 
     override fun seekForward() {
         // do nothing

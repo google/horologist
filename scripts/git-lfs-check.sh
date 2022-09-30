@@ -20,7 +20,7 @@
 set -ex
 
 # compares files that match .gitattributes filter to those actually tracked by git-lfs
-diff <(git ls-files ':(attr:filter=lfs)' | sort) <(git lfs ls-files -n | sort) >/dev/null
+diff <(git ls-files ':(attr:filter=lfs)' | sort) <(git lfs ls-files -n | sort)
 
 ret=$?
 if [[ $ret -ne 0 ]]; then

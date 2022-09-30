@@ -113,12 +113,25 @@ package com.google.android.horologist.media.ui.components.animated {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void AnimatedMediaControlButtons(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseButtonClick, boolean playPauseButtonEnabled, boolean playing, float percent, kotlin.jvm.functions.Function0<kotlin.Unit> onSeekToPreviousButtonClick, boolean seekToPreviousButtonEnabled, kotlin.jvm.functions.Function0<kotlin.Unit> onSeekToNextButtonClick, boolean seekToNextButtonEnabled, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ButtonColors colors);
   }
 
+  public final class AnimatedPlayPauseButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void AnimatedPlayPauseButton(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseClick, boolean playing, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize, optional kotlin.jvm.functions.Function0<kotlin.Unit> progress);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void AnimatedPlayPauseProgressButton(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseClick, boolean playing, float percent, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize, optional long progressColour, optional long trackColor, optional long backgroundColor);
+  }
+
+  public final class AnimatedPlayerScreenMediaDisplayKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void AnimatedPlayerScreenMediaDisplay(com.google.android.horologist.media.ui.state.PlayerUiState playerUiState, optional androidx.compose.ui.Modifier modifier);
+  }
+
   public final class AnimatedSeekToNextButtonKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void AnimatedSeekToNextButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize);
   }
 
   public final class AnimatedSeekToPreviousButtonKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void AnimatedSeekToPreviousButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize);
+  }
+
+  public final class MarqueeTextMediaDisplayKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void MarqueeTextMediaDisplay(optional androidx.compose.ui.Modifier modifier, optional String? title, optional String? artist);
   }
 
 }

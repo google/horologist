@@ -42,6 +42,10 @@ jobs:
             ~/.gradle/caches/build-cache-*
           key: gradle-${{ hashFiles('checksum.txt') }}
 
+      - name: Check GIT lfs images
+        run: |
+          ./scripts/git-lfs-check.sh
+
       - name: Build (Debug)
         run: |
           ./gradlew --scan --stacktrace \

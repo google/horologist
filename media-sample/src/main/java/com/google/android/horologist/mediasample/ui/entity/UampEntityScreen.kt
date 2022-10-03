@@ -25,7 +25,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -61,8 +61,8 @@ fun UampEntityScreen(
 ) {
     val uiState by StateUtils.rememberStateWithLifecycle(flow = uampEntityScreenViewModel.uiState)
 
-    var showCancelDownloadsDialog by remember { mutableStateOf(false) }
-    var showRemoveDownloadsDialog by remember { mutableStateOf(false) }
+    var showCancelDownloadsDialog by rememberSaveable { mutableStateOf(false) }
+    var showRemoveDownloadsDialog by rememberSaveable { mutableStateOf(false) }
 
     PlaylistDownloadScreen(
         playlistName = playlistName,

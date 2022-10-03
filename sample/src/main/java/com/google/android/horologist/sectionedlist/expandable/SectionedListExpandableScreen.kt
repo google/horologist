@@ -29,6 +29,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -74,9 +75,9 @@ fun SectionedListExpandableScreen(
     scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
     focusRequester: FocusRequester = remember { FocusRequester() }
 ) {
-    var todaySectionExpanded by remember { mutableStateOf(true) }
-    var tomorrowSectionExpanded by remember { mutableStateOf(true) }
-    var laterSectionExpanded by remember { mutableStateOf(false) }
+    var todaySectionExpanded by rememberSaveable { mutableStateOf(true) }
+    var tomorrowSectionExpanded by rememberSaveable { mutableStateOf(true) }
+    var laterSectionExpanded by rememberSaveable { mutableStateOf(false) }
 
     val todaySectionState = getState(todaySectionExpanded, todayTasks)
     val tomorrowSectionState = getState(tomorrowSectionExpanded, tomorrowTasks)

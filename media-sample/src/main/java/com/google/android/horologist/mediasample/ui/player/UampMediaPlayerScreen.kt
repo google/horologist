@@ -31,13 +31,13 @@ import com.google.android.horologist.compose.layout.StateUtils.rememberStateWith
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
+import com.google.android.horologist.media.ui.components.animated.AnimatedPlayerScreenMediaDisplay
 import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
 import com.google.android.horologist.media.ui.screens.player.DefaultPlayerScreenControlButtons
 import com.google.android.horologist.media.ui.screens.player.DefaultPlayerScreenMediaDisplay
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiController
 import com.google.android.horologist.media.ui.state.PlayerUiState
-import com.google.android.horologist.mediasample.ui.components.AnimatedPlayerScreenMediaDisplay
 import com.google.android.horologist.mediasample.ui.util.ReportFullyDrawn
 
 @Composable

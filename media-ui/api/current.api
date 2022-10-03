@@ -882,5 +882,8 @@ package com.google.android.horologist.media.ui.util {
   public final class IfNanKt {
   }
 
+  public final class TalkbackKt {
+  }
+
 }
 

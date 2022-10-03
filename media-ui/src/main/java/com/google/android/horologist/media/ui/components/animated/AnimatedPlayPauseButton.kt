@@ -135,7 +135,7 @@ public fun AnimatedPlayPauseButton(
 }
 
 @Composable
-fun animateLottieProgressAsState(
+internal fun animateLottieProgressAsState(
     targetValue: Float,
     composition: LottieComposition?,
     clipSpec: LottieClipSpec?

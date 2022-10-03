@@ -17,6 +17,9 @@
 package com.google.android.horologist.media.ui.util
 
 /**
- * Make explicit that a conscious decision was made to hide the content description from talkback.
+ * Make explicit that a conscious decision was made to mark an element as decorative, so it does not
+ * have associated actions or state.
+ *
+ * https://developer.android.com/jetpack/compose/accessibility#describe-visual
  */
-internal val CONTENT_DESCRIPTION_HIDDEN_FROM_TALKBACK: String? = null
+internal val DECORATIVE_ELEMENT_CONTENT_DESCRIPTION: String? = null

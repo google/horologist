@@ -35,6 +35,7 @@ import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.MaterialTheme
 import coil.compose.rememberAsyncImagePainter
+import com.google.android.horologist.media.ui.util.CONTENT_DESCRIPTION_HIDDEN_FROM_TALKBACK
 
 private val indicatorPadding = 8.dp
 private val progressBarStrokeWidth = 2.dp
@@ -150,7 +151,7 @@ private fun StandardChipIconWithProgressInternal(
             is ImageVector -> {
                 Icon(
                     imageVector = icon,
-                    contentDescription = null, // hidden from talkback
+                    contentDescription = CONTENT_DESCRIPTION_HIDDEN_FROM_TALKBACK,
                     modifier = Modifier
                         .align(Alignment.Center)
                         .size(iconSize - indicatorPadding)
@@ -163,7 +164,7 @@ private fun StandardChipIconWithProgressInternal(
                         model = icon,
                         placeholder = placeholder
                     ),
-                    contentDescription = null, // hidden from talkback
+                    contentDescription = CONTENT_DESCRIPTION_HIDDEN_FROM_TALKBACK,
                     modifier = Modifier
                         .align(Alignment.Center)
                         .size(iconSize - indicatorPadding)

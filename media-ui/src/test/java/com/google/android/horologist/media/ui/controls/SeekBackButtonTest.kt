@@ -14,24 +14,19 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistPaparazziApi::class)
+@file:OptIn(ExperimentalHorologistPaparazziApi::class, ExperimentalHorologistMediaUiApi::class)
 
-package com.google.android.horologist.media.ui.components
+package com.google.android.horologist.media.ui.controls
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.height
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Album
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.MediaUiModel
-import com.google.android.horologist.media.ui.utils.rememberVectorPainter
+import com.google.android.horologist.media.ui.components.controls.SeekBackButton
+import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
@@ -39,7 +34,7 @@ import com.google.android.horologist.paparazzi.determineHandler
 import org.junit.Rule
 import org.junit.Test
 
-class MediaChipTest {
+class SeekBackButtonTest {
 
     private val maxPercentDifference = 0.1
 
@@ -52,81 +47,60 @@ class MediaChipTest {
     )
 
     @Test
-    fun givenMediaWithArtwork_thenDisplaysArtwork() {
+    fun givenIncrementIsFive_thenIconIsFive() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                MediaChip(
-                    title = "Red Hot Chilli Peppers",
-                    artworkUri = "artworkUri",
+                SeekBackButton(
                     onClick = {},
-                    placeholder = rememberVectorPainter(image = Icons.Default.Album)
+                    seekButtonIncrement = SeekButtonIncrement.Five
                 )
             }
         }
     }
 
     @Test
-    fun givenMediaWithNOArtwork_thenDoesNOTDisplayArtwork() {
+    fun givenIncrementIsTen_thenIconIsTen() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                MediaChip(
-                    title = "Red Hot Chilli Peppers",
-                    artworkUri = null,
+                SeekBackButton(
                     onClick = {},
-                    placeholder = rememberVectorPainter(image = Icons.Default.Album)
+                    seekButtonIncrement = SeekButtonIncrement.Ten
                 )
             }
         }
     }
 
     @Test
-    fun givenVeryLongTitle_thenEllipsizeAt2ndLine() {
+    fun givenIncrementIsThirty_thenIconIsThirty() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                MediaChip(
-                    title = "Very very very very very very very very very very very long title",
-                    artworkUri = "artworkUri",
+                SeekBackButton(
                     onClick = {},
-                    placeholder = rememberVectorPainter(image = Icons.Default.Album)
+                    seekButtonIncrement = SeekButtonIncrement.Thirty
                 )
             }
         }
     }
 
     @Test
-    fun givenNOTitle_thenDisplaysDefaultTitle() {
+    fun givenIncrementIsOtherValue_thenIconIsDefault() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                MediaChip(
-                    media = MediaUiModel(id = "id", artworkUri = "artworkUri"),
+                SeekBackButton(
                     onClick = {},
-                    defaultTitle = "No title",
-                    placeholder = rememberVectorPainter(
-                        image = Icons.Default.Album,
-                        tintColor = Color.Blue
-                    )
+                    seekButtonIncrement = SeekButtonIncrement.Other(15)
                 )
             }
         }
     }
 
     @Test
-    fun givenModifier_thenAppliesModifierCorrectly() {
+    fun givenIncrementIsUnknown_thenIconIsDefault() {
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                MediaChip(
-                    media = MediaUiModel(
-                        id = "id",
-                        title = "Red Hot Chilli Peppers",
-                        artworkUri = "artworkUri"
-                    ),
+                SeekBackButton(
                     onClick = {},
-                    modifier = Modifier
-                        .height(120.dp),
-                    placeholder = rememberVectorPainter(
-                        image = Icons.Default.Album,
-                        tintColor = Color.Blue
-                    )
+                    seekButtonIncrement = SeekButtonIncrement.Unknown
                 )
             }
         }

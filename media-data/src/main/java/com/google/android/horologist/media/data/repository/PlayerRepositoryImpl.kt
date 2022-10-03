@@ -19,6 +19,7 @@ package com.google.android.horologist.media.data.repository
 import android.util.Log
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
+import androidx.media3.common.Timeline
 import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.data.mapper.MediaExtrasMapperNoopImpl
 import com.google.android.horologist.media.data.mapper.MediaItemExtrasMapperNoopImpl
@@ -104,7 +105,8 @@ public class PlayerRepositoryImpl(
             Player.EVENT_PLAYBACK_PARAMETERS_CHANGED to ::updatePlaybackSpeed,
             Player.EVENT_SEEK_BACK_INCREMENT_CHANGED to ::updateSeekBackIncrement,
             Player.EVENT_SEEK_FORWARD_INCREMENT_CHANGED to ::updateSeekForwardIncrement,
-            Player.EVENT_TIMELINE_CHANGED to ::updateTimeline,
+            // Moved below until https://github.com/google/horologist/issues/496 solved
+//            Player.EVENT_TIMELINE_CHANGED to ::updateTimeline,
 
             // Reason for handling these events here, instead of using individual callbacks
             // (onIsLoadingChanged, onIsPlayingChanged, onPlaybackStateChanged, etc):
@@ -126,6 +128,10 @@ public class PlayerRepositoryImpl(
                     called.add(handler)
                 }
             }
+        }
+
+        override fun onTimelineChanged(timeline: Timeline, reason: Int) {
+            updateTimeline(player.value!!)
         }
     }
 

@@ -20,7 +20,7 @@ package com.google.android.horologist.tiles {
 package com.google.android.horologist.tiles.canvas {
 
   public final class CanvasKt {
-    method @RequiresApi(android.os.Build.VERSION_CODES.O) public static androidx.wear.tiles.ResourceBuilders.ImageResource canvasToImageResource(long size, androidx.compose.ui.unit.Density density, kotlin.jvm.functions.Function1<? super androidx.compose.ui.graphics.drawscope.DrawScope,kotlin.Unit> onDraw);
+    method @RequiresApi(android.os.Build.VERSION_CODES.O) public static androidx.wear.tiles.ResourceBuilders.ImageResourceXXX canvasToImageResource(long size, androidx.compose.ui.unit.Density density, kotlin.jvm.functions.Function1<? super androidx.compose.ui.graphics.drawscope.DrawScope,kotlin.Unit> onDraw);
     method public static void drawToBitmap(android.graphics.Bitmap bitmap, androidx.compose.ui.unit.Density density, long size, kotlin.jvm.functions.Function1<? super androidx.compose.ui.graphics.drawscope.DrawScope,kotlin.Unit> onDraw);
   }
 

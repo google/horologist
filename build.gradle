@@ -120,6 +120,18 @@ subprojects {
         }
     }
 
+    // If we have a POM Artifact ID, we should generate API files
+    if (project.hasProperty('POM_ARTIFACT_ID')) {
+        println(project.name)
+        apply plugin: 'me.tylerbwong.gradle.metalava'
+
+        metalava {
+            sourcePaths.setFrom("src/main")
+            filename = "api/current.api"
+            reportLintsAsErrors = true
+        }
+    }
+
     configurations.configureEach { Configuration configuration ->
         resolutionStrategy.eachDependency { DependencyResolveDetails details ->
             // Make sure that we're using the Android version of Guava

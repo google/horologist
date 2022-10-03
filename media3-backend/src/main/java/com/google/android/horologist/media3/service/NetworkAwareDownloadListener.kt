@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media3.service
 
+import android.annotation.SuppressLint
 import androidx.media3.exoplayer.offline.Download
 import androidx.media3.exoplayer.offline.DownloadManager
 import androidx.media3.exoplayer.scheduler.Requirements
@@ -34,6 +35,7 @@ import com.google.android.horologist.networks.rules.NetworkingRulesEngine
  * Simple implementation of [DownloadManager.Listener] for downloading with
  * a required high bandwidth network. Also includes event logging.
  */
+@SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistMedia3BackendApi
 @ExperimentalHorologistNetworksApi
 public class NetworkAwareDownloadListener(

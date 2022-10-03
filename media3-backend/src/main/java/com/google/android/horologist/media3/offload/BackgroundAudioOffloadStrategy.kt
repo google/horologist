@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media3.offload
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -27,6 +28,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
+@SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistMedia3BackendApi
 /**
  * Background Strategy for enabling or disabling the audio offload mode,

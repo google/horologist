@@ -29,26 +29,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import app.cash.paparazzi.Paparazzi
+import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.media.ui.utils.rememberVectorPainter
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
-import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
-import com.google.android.horologist.paparazzi.WearSnapshotHandler
-import com.google.android.horologist.paparazzi.determineHandler
+import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test
 
 class SecondaryChipTest {
 
-    private val maxPercentDifference = 0.1
-
     @get:Rule
-    val paparazzi = Paparazzi(
-        deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
-        theme = "android:ThemeOverlay.Material.Dark",
-        maxPercentDifference = maxPercentDifference,
-        snapshotHandler = WearSnapshotHandler(determineHandler(maxPercentDifference))
-    )
+    val paparazzi = WearPaparazzi()
 
     @Test
     fun default() {
@@ -298,19 +289,24 @@ class SecondaryChipTest {
     @Test
     fun disabledWithIconPlaceholder() {
         paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChip(
-                    label = "Primary label",
-                    onClick = { },
-                    secondaryLabel = "Secondary label",
-                    icon = "iconUri",
-                    placeholder = rememberVectorPainter(
-                        image = Icons.Default.Image,
-                        tintColor = Color.Black
-                    ),
-                    chipType = StandardChipType.Secondary,
-                    enabled = false
-                )
+            FakeImageLoader.NotFound.override {
+                Box(
+                    modifier = Modifier.background(Color.Black),
+                    contentAlignment = Alignment.Center
+                ) {
+                    StandardChip(
+                        label = "Primary label",
+                        onClick = { },
+                        secondaryLabel = "Secondary label",
+                        icon = "iconUri",
+                        placeholder = rememberVectorPainter(
+                            image = Icons.Default.Image,
+                            tintColor = Color.Black
+                        ),
+                        chipType = StandardChipType.Secondary,
+                        enabled = false
+                    )
+                }
             }
         }
     }

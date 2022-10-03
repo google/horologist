@@ -30,7 +30,7 @@ if (localFile.exists()) {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.google.android.horologist.mediasample"
@@ -208,7 +208,7 @@ dependencies {
     implementation libs.room.ktx
     ksp libs.room.compiler
 
-    implementation libs.androidx.tracing
+    implementation libs.androidx.tracing.ktx
 
     testImplementation libs.junit
     testImplementation libs.truth

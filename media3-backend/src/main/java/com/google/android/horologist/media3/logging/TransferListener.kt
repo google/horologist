@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.media3.logging
 
+import android.annotation.SuppressLint
 import androidx.media3.datasource.DataSource
 import androidx.media3.datasource.DataSpec
 import androidx.media3.datasource.TransferListener
@@ -30,6 +31,7 @@ import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendA
  * Default implementation is a noop currently, but can be edited to allow logging when
  * investigating a playback issue.
  */
+@SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistMedia3BackendApi
 public class TransferListener(
     private val appEventLogger: ErrorReporter

@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.data.service.download
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.PendingIntent
 import androidx.annotation.DrawableRes
@@ -40,6 +41,7 @@ import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataA
  * @param channelDescriptionResourceId see [DownloadService].
  * @param notificationIcon see `smallIcon` in [DownloadNotificationHelper.buildProgressNotification].
  */
+@SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistMediaDataApi
 public abstract class MediaDownloadService(
     foregroundNotificationId: Int,

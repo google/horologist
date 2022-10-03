@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media3
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.media3.common.ForwardingPlayer
 import androidx.media3.common.MediaItem
@@ -38,6 +39,7 @@ import kotlinx.coroutines.withContext
  * Wrapper for a UI hosted Player instance to enforce Playback Rules.
  * @see [PlaybackRules]
  */
+@SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistMedia3BackendApi
 public class WearConfiguredPlayer(
     player: Player,

@@ -22,7 +22,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
 
     defaultConfig {
         minSdk 25
@@ -113,6 +113,7 @@ dependencies {
 
     implementation libs.androidx.wear.tiles
     implementation libs.androidx.wear.tiles.renderer
+    implementation libs.coil
 
     compileOnly projects.paparazzi
 

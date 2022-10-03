@@ -99,13 +99,6 @@ package com.google.android.horologist.compose.navscaffold {
 
 }
 
-package com.google.android.horologist.compose.navscaffold.util {
-
-  public final class SaveableKt {
-  }
-
-}
-
 package com.google.android.horologist.compose.pager {
 
   public final class PageScreenIndicatorState implements androidx.wear.compose.material.PageIndicatorState {

@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.mediasample.data.service.download
 
+import android.annotation.SuppressLint
 import android.app.PendingIntent
 import androidx.media3.exoplayer.offline.DownloadManager
 import androidx.media3.exoplayer.offline.DownloadNotificationHelper
@@ -27,6 +28,7 @@ import com.google.android.horologist.mediasample.R
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@SuppressLint("UnsafeOptInUsageError")
 @AndroidEntryPoint
 class MediaDownloadServiceImpl : MediaDownloadService(
     foregroundNotificationId = MEDIA_DOWNLOAD_FOREGROUND_NOTIFICATION_ID,

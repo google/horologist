@@ -28,39 +28,34 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
-import app.cash.paparazzi.Paparazzi
+import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.utils.rememberVectorPainter
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
-import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
-import com.google.android.horologist.paparazzi.WearSnapshotHandler
-import com.google.android.horologist.paparazzi.determineHandler
+import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test
 
 class MediaChipTest {
-
-    private val maxPercentDifference = 0.1
-
     @get:Rule
-    val paparazzi = Paparazzi(
-        deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
-        theme = "android:ThemeOverlay.Material.Dark",
-        maxPercentDifference = maxPercentDifference,
-        snapshotHandler = WearSnapshotHandler(determineHandler(maxPercentDifference))
-    )
+    val paparazzi = WearPaparazzi()
 
     @Test
     fun givenMediaWithArtwork_thenDisplaysArtwork() {
         paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                MediaChip(
-                    title = "Red Hot Chilli Peppers",
-                    artworkUri = "artworkUri",
-                    onClick = {},
-                    placeholder = rememberVectorPainter(image = Icons.Default.Album)
-                )
+            FakeImageLoader.Never.override {
+                Box(
+                    modifier = Modifier.background(Color.Black),
+                    contentAlignment = Alignment.Center
+                ) {
+                    MediaChip(
+                        title = "Red Hot Chilli Peppers",
+                        artworkUri = "artworkUri",
+                        onClick = {},
+                        placeholder = rememberVectorPainter(image = Icons.Default.Album)
+                    )
+                }
             }
         }
     }
@@ -68,13 +63,18 @@ class MediaChipTest {
     @Test
     fun givenMediaWithNOArtwork_thenDoesNOTDisplayArtwork() {
         paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                MediaChip(
-                    title = "Red Hot Chilli Peppers",
-                    artworkUri = null,
-                    onClick = {},
-                    placeholder = rememberVectorPainter(image = Icons.Default.Album)
-                )
+            FakeImageLoader.NotFound.override {
+                Box(
+                    modifier = Modifier.background(Color.Black),
+                    contentAlignment = Alignment.Center
+                ) {
+                    MediaChip(
+                        title = "Red Hot Chilli Peppers",
+                        artworkUri = null,
+                        onClick = {},
+                        placeholder = rememberVectorPainter(image = Icons.Default.Album)
+                    )
+                }
             }
         }
     }
@@ -82,13 +82,18 @@ class MediaChipTest {
     @Test
     fun givenVeryLongTitle_thenEllipsizeAt2ndLine() {
         paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                MediaChip(
-                    title = "Very very very very very very very very very very very long title",
-                    artworkUri = "artworkUri",
-                    onClick = {},
-                    placeholder = rememberVectorPainter(image = Icons.Default.Album)
-                )
+            FakeImageLoader.NotFound.override {
+                Box(
+                    modifier = Modifier.background(Color.Black),
+                    contentAlignment = Alignment.Center
+                ) {
+                    MediaChip(
+                        title = "Very very very very very very very very very very very long title",
+                        artworkUri = "artworkUri",
+                        onClick = {},
+                        placeholder = rememberVectorPainter(image = Icons.Default.Album)
+                    )
+                }
             }
         }
     }
@@ -96,16 +101,21 @@ class MediaChipTest {
     @Test
     fun givenNOTitle_thenDisplaysDefaultTitle() {
         paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                MediaChip(
-                    media = MediaUiModel(id = "id", artworkUri = "artworkUri"),
-                    onClick = {},
-                    defaultTitle = "No title",
-                    placeholder = rememberVectorPainter(
-                        image = Icons.Default.Album,
-                        tintColor = Color.Blue
+            FakeImageLoader.Never.override {
+                Box(
+                    modifier = Modifier.background(Color.Black),
+                    contentAlignment = Alignment.Center
+                ) {
+                    MediaChip(
+                        media = MediaUiModel(id = "id", artworkUri = "artworkUri"),
+                        onClick = {},
+                        defaultTitle = "No title",
+                        placeholder = rememberVectorPainter(
+                            image = Icons.Default.Album,
+                            tintColor = Color.Blue
+                        )
                     )
-                )
+                }
             }
         }
     }
@@ -113,21 +123,26 @@ class MediaChipTest {
     @Test
     fun givenModifier_thenAppliesModifierCorrectly() {
         paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                MediaChip(
-                    media = MediaUiModel(
-                        id = "id",
-                        title = "Red Hot Chilli Peppers",
-                        artworkUri = "artworkUri"
-                    ),
-                    onClick = {},
-                    modifier = Modifier
-                        .height(120.dp),
-                    placeholder = rememberVectorPainter(
-                        image = Icons.Default.Album,
-                        tintColor = Color.Blue
+            FakeImageLoader.Never.override {
+                Box(
+                    modifier = Modifier.background(Color.Black),
+                    contentAlignment = Alignment.Center
+                ) {
+                    MediaChip(
+                        media = MediaUiModel(
+                            id = "id",
+                            title = "Red Hot Chilli Peppers",
+                            artworkUri = "artworkUri"
+                        ),
+                        onClick = {},
+                        modifier = Modifier
+                            .height(120.dp),
+                        placeholder = rememberVectorPainter(
+                            image = Icons.Default.Album,
+                            tintColor = Color.Blue
+                        )
                     )
-                )
+                }
             }
         }
     }

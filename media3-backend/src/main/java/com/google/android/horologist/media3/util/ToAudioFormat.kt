@@ -24,7 +24,7 @@ import androidx.media3.common.MimeTypes
 import androidx.media3.common.util.Assertions
 import androidx.media3.common.util.Util
 
-@SuppressLint("WrongConstant")
+@SuppressLint("WrongConstant", "UnsafeOptInUsageError")
 public fun Format.toAudioFormat(): AudioFormat? {
     val encoding: @C.Encoding Int =
         MimeTypes.getEncoding(Assertions.checkNotNull(sampleMimeType), codecs)

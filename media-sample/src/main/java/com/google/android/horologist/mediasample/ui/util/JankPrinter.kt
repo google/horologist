@@ -24,8 +24,6 @@ import androidx.metrics.performance.JankStats
 import androidx.metrics.performance.PerformanceMetricsState
 import com.google.android.horologist.media.ui.navigation.NavigationScreens
 import com.google.android.horologist.mediasample.BuildConfig
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.asExecutor
 import java.util.concurrent.TimeUnit
 
 /**
@@ -44,18 +42,17 @@ class JankPrinter {
             val contentView = activity.window.decorView.findViewById<ViewGroup>(android.R.id.content)
                 .getChildAt(0) as ComposeView
 
-            stateHolder = PerformanceMetricsState.getForHierarchy(contentView).apply {
-                state?.addState("Activity", activity.javaClass.simpleName)
-                state?.addState("route", NavigationScreens.Player.navRoute)
+            stateHolder = PerformanceMetricsState.getHolderForHierarchy(contentView).apply {
+                state?.putState("Activity", activity.javaClass.simpleName)
+                state?.putState("route", NavigationScreens.Player.navRoute)
             }
 
             jankStats = JankStats.createAndTrack(
-                activity.window,
-                Dispatchers.Default.asExecutor()
+                activity.window
             ) {
                 if (it.isJank) {
                     val route =
-                        it.states.find { state -> state.stateName == "route" }?.state.orEmpty()
+                        it.states.find { state -> state.key == "route" }?.value.orEmpty()
                     val duration = it.frameDurationUiNanos.nanosToMillis()
                     Log.w("Jank", "Jank $duration route:$route non:$nonJank")
                     nonJank = 0
@@ -73,7 +70,7 @@ class JankPrinter {
     fun setRouteState(route: String?) {
         stateHolder?.state?.let {
             if (route != null) {
-                it.addState("route", route)
+                it.putState("route", route)
             } else {
                 it.removeState("route")
             }

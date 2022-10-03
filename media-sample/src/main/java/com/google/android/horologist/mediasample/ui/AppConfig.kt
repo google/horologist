@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.mediasample.ui
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.media3.exoplayer.audio.DefaultAudioSink
 import com.google.android.horologist.media3.rules.PlaybackRules
@@ -24,6 +25,7 @@ import com.google.android.horologist.mediasample.di.config.UampNetworkingRules
 import com.google.android.horologist.networks.rules.NetworkingRules
 import java.io.File
 
+@SuppressLint("UnsafeOptInUsageError")
 data class AppConfig(
     val offloadEnabled: Boolean = Build.VERSION.SDK_INT >= 30,
     val strictNetworking: NetworkingRules? = UampNetworkingRules,

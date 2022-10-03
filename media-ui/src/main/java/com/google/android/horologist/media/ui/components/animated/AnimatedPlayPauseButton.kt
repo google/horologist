@@ -83,8 +83,8 @@ public fun AnimatedPlayPauseButton(
     } else {
         val composition: LottieComposition? by rememberLottieComposition(
             spec = LottieCompositionSpec.Asset(
-                "lottie/PlayPause.json",
-            ),
+                "lottie/PlayPause.json"
+            )
         )
         val clipSpec = remember { LottieClipSpec.Frame(max = 14) }
         val lottieProgress by animateLottieProgressAsState(

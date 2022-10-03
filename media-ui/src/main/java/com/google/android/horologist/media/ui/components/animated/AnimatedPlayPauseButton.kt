@@ -87,7 +87,7 @@ public fun AnimatedPlayPauseButton(
             ),
         )
         val clipSpec = remember { LottieClipSpec.Frame(max = 14) }
-        val progress by animateLottieProgressAsState(
+        val lottieProgress by animateLottieProgressAsState(
             targetValue = if (playing) 1f else 0f,
             composition = composition,
             clipSpec = clipSpec
@@ -127,7 +127,7 @@ public fun AnimatedPlayPauseButton(
                         .align(Alignment.Center)
                         .graphicsLayer(alpha = LocalContentAlpha.current),
                     composition = composition,
-                    progress = { progress }
+                    progress = { lottieProgress }
                 )
             }
         }

@@ -892,10 +892,10 @@ package com.google.android.horologist.media.ui.tiles {
 
 package com.google.android.horologist.media.ui.util {
 
-  public final class IfNanKt {
+  public final class A11yKt {
   }
 
-  public final class TalkbackKt {
+  public final class IfNanKt {
   }
 
 }

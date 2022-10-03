@@ -212,7 +212,7 @@ private fun FailedView(onClick: () -> Unit) {
     ) {
         Icon(
             imageVector = Icons.Default.CloudOff,
-            contentDescription = null, // hidden from talkback
+            contentDescription = null, // decorative element
             modifier = Modifier
                 .size(ChipDefaults.LargeIconSize)
                 .clip(CircleShape),

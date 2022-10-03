@@ -59,7 +59,7 @@ fun TwoLinesChip(
         icon = {
             Icon(
                 imageVector = imageVector,
-                contentDescription = null, // hidden from talkback
+                contentDescription = null, // decorative element
                 modifier = Modifier
                     .size(ChipDefaults.LargeIconSize)
                     .clip(CircleShape),

@@ -19,6 +19,7 @@
           <option value="spotlessCheck" />
           <option value="compileDebugSources" />
           <option value="compileReleaseSources" />
+          <option value="metalavaGenerateSignature" />
           <option value="metalavaGenerateSignatureRelease" />
           <option value="lintDebug" />
         </list>

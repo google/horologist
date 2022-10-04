@@ -20,11 +20,9 @@ import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import app.cash.paparazzi.RenderExtension
 import app.cash.paparazzi.SnapshotHandler
-import app.cash.paparazzi.androidHome
-import app.cash.paparazzi.detectEnvironment
 import com.android.ide.common.rendering.api.SessionParams
 
-private val DefaultMaxPercentDifference = 0.1
+private const val DefaultMaxPercentDifference = 0.1
 
 @ExperimentalHorologistPaparazziApi
 public fun WearPaparazzi(
@@ -45,11 +43,6 @@ public fun WearPaparazzi(
         maxPercentDifference = maxPercentDifference,
         snapshotHandler = snapshotHandler,
         renderExtensions = renderExtensions,
-        renderingMode = renderingMode,
-        // Workaround https://github.com/cashapp/paparazzi/pull/487#issuecomment-1195584088
-        environment = detectEnvironment().copy(
-            platformDir = "${androidHome()}/platforms/android-32",
-            compileSdkVersion = 32
-        )
+        renderingMode = renderingMode
     )
 }

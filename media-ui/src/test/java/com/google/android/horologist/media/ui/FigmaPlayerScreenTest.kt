@@ -26,7 +26,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import app.cash.paparazzi.DeviceConfig
-import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
@@ -39,8 +38,7 @@ import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziAp
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WEAR_OS_SMALL_ROUND
 import com.google.android.horologist.paparazzi.WEAR_OS_SQUARE
-import com.google.android.horologist.paparazzi.WearSnapshotHandler
-import com.google.android.horologist.paparazzi.determineHandler
+import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
@@ -52,18 +50,9 @@ import org.junit.runners.Parameterized
 class FigmaPlayerScreenTest(
     private val deviceConfig: DeviceConfig
 ) {
-    private val maxPercentDifference = 0.1
-
     @get:Rule
-    val paparazzi = Paparazzi(
-        deviceConfig = deviceConfig,
-        theme = "android:ThemeOverlay.Material.Dark",
-        maxPercentDifference = maxPercentDifference,
-        snapshotHandler = if (deviceConfig == WEAR_OS_SQUARE) {
-            determineHandler(maxPercentDifference)
-        } else {
-            WearSnapshotHandler(determineHandler(maxPercentDifference))
-        }
+    val paparazzi = WearPaparazzi(
+        deviceConfig = deviceConfig
     )
 
     @Test

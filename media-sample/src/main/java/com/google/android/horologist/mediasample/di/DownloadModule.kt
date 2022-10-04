@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.mediasample.di
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.media3.database.DatabaseProvider
 import androidx.media3.database.StandaloneDatabaseProvider
@@ -55,6 +56,7 @@ import java.util.concurrent.Executors
 import javax.inject.Provider
 import javax.inject.Singleton
 
+@SuppressLint("UnsafeOptInUsageError")
 @Module
 @InstallIn(SingletonComponent::class)
 object DownloadModule {

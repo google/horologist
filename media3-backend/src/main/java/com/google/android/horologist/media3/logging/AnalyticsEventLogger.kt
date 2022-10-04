@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media3.logging
 
+import android.annotation.SuppressLint
 import androidx.media3.common.Format
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.PlaybackException
@@ -32,6 +33,7 @@ import java.io.IOException
  *
  * Most logging behaviour is inherited from EventLogger.
  */
+@SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistMedia3BackendApi
 public class AnalyticsEventLogger(
     private val appEventLogger: ErrorReporter

@@ -24,16 +24,16 @@ package com.google.android.horologist.media.ui.screens.browse
 
 import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.ScalingLazyListState
-import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.compose.tools.a11y.forceState
+import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.PlayerLibraryPreview
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
-import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
+import com.google.android.horologist.paparazzi.WearPaparazzi
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
 import com.google.android.horologist.paparazzi.a11y.A11ySnapshotHandler
 import com.google.android.horologist.paparazzi.determineHandler
@@ -46,9 +46,7 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest {
     private val composeA11yExtension = ComposeA11yExtension()
 
     @get:Rule
-    val paparazzi = Paparazzi(
-        deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
-        theme = "android:ThemeOverlay.Material.Dark",
+    val paparazzi = WearPaparazzi(
         maxPercentDifference = maxPercentDifference,
         renderExtensions = setOf(composeA11yExtension),
         snapshotHandler = WearSnapshotHandler(
@@ -89,16 +87,18 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest {
 
         val screenState = BrowseScreenState.Loaded(downloadList)
 
-        paparazzi.snapshot {
-            PlayerLibraryPreview(state = scrollState) {
-                PlaylistDownloadBrowseScreen(
-                    browseScreenState = screenState,
-                    onDownloadItemClick = { },
-                    onPlaylistsClick = { },
-                    onSettingsClick = { },
-                    focusRequester = FocusRequester(),
-                    scalingLazyListState = scrollState
-                )
+        FakeImageLoader.NotFound.override {
+            paparazzi.snapshot {
+                PlayerLibraryPreview(state = scrollState) {
+                    PlaylistDownloadBrowseScreen(
+                        browseScreenState = screenState,
+                        onDownloadItemClick = { },
+                        onPlaylistsClick = { },
+                        onSettingsClick = { },
+                        focusRequester = FocusRequester(),
+                        scalingLazyListState = scrollState
+                    )
+                }
             }
         }
     }

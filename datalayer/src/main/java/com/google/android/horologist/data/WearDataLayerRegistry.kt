@@ -139,7 +139,7 @@ public class WearDataLayerRegistry(
         val nodeId = dataEvent.dataItem.uri.host!!
         val path = dataEvent.dataItem.uri.path!!
         if (dataEvent.type == DataEvent.TYPE_CHANGED) {
-            val data = dataEvent.dataItem.data
+            val data = dataEvent.dataItem.data!!
             listeners.forEach {
                 it.dataAdded(nodeId, path, data)
             }

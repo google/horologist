@@ -16,8 +16,10 @@
 
 package com.google.android.horologist.mediasample.di
 
+import android.annotation.SuppressLint
 import androidx.media3.exoplayer.ExoPlayer.AudioOffloadListener
 
+@SuppressLint("UnsafeOptInUsageError")
 class AudioOffloadListenerList : AudioOffloadListener {
     private val audioOffloadListeners = mutableListOf<AudioOffloadListener>()
 

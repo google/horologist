@@ -44,27 +44,18 @@ import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
-import app.cash.paparazzi.Paparazzi
 import com.android.ide.common.rendering.api.SessionParams
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.compose.tools.a11y.forceState
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
-import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
-import com.google.android.horologist.paparazzi.WearSnapshotHandler
+import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test
 
 class SectionedListTest {
-
-    private val maxPercentDifference = 0.1
-
     @get:Rule
-    val paparazzi = Paparazzi(
-        deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
-        theme = "android:ThemeOverlay.Material.Dark",
-        maxPercentDifference = maxPercentDifference,
-        renderingMode = SessionParams.RenderingMode.V_SCROLL,
-        snapshotHandler = WearSnapshotHandler(determineHandler(maxPercentDifference))
+    val paparazzi = WearPaparazzi(
+        renderingMode = SessionParams.RenderingMode.V_SCROLL
     )
 
     @Test

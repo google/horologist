@@ -19,7 +19,6 @@
 package com.google.android.horologist.media.ui
 
 import androidx.compose.runtime.Composable
-import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumeScreen
@@ -27,21 +26,15 @@ import com.google.android.horologist.compose.tools.ExperimentalHorologistCompose
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.media.ui.uamp.UampTheme
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
-import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
-import com.google.android.horologist.paparazzi.WearSnapshotHandler
-import com.google.android.horologist.paparazzi.determineHandler
+import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test
 
 class FigmaVolumeScreenTest {
-    private val maxPercentDifference = 5.0
 
     @get:Rule
-    val paparazzi = Paparazzi(
-        deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
-        theme = "android:ThemeOverlay.Material.Dark",
-        maxPercentDifference = maxPercentDifference,
-        snapshotHandler = WearSnapshotHandler(determineHandler(maxPercentDifference))
+    val paparazzi = WearPaparazzi(
+        maxPercentDifference = 5.0
     )
 
     @Test

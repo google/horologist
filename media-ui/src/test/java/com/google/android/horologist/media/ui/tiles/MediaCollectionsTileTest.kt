@@ -31,7 +31,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.wear.tiles.ActionBuilders
 import app.cash.paparazzi.DeviceConfig
-import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.compose.tools.TileLayoutPreview
@@ -42,8 +41,7 @@ import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziAp
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WEAR_OS_SMALL_ROUND
 import com.google.android.horologist.paparazzi.WEAR_OS_SQUARE
-import com.google.android.horologist.paparazzi.WearSnapshotHandler
-import com.google.android.horologist.paparazzi.determineHandler
+import com.google.android.horologist.paparazzi.WearPaparazzi
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 import org.junit.Rule
 import org.junit.Test
@@ -55,16 +53,7 @@ class MediaCollectionsTileTest(
     private val deviceConfig: DeviceConfig
 ) {
     @get:Rule
-    val paparazzi = Paparazzi(
-        deviceConfig = deviceConfig,
-        theme = "android:ThemeOverlay.Material.Dark",
-        maxPercentDifference = 0.1,
-        snapshotHandler = if (deviceConfig == WEAR_OS_SQUARE) {
-            determineHandler(0.1)
-        } else {
-            WearSnapshotHandler(determineHandler(0.1))
-        }
-    )
+    val paparazzi = WearPaparazzi(deviceConfig = deviceConfig)
 
     val name = when (deviceConfig) {
         WEAR_OS_SQUARE -> "square"

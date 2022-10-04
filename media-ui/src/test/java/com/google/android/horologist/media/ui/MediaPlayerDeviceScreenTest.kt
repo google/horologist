@@ -27,7 +27,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import app.cash.paparazzi.DeviceConfig
-import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
@@ -37,8 +36,7 @@ import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziAp
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WEAR_OS_SMALL_ROUND
 import com.google.android.horologist.paparazzi.WEAR_OS_SQUARE
-import com.google.android.horologist.paparazzi.WearSnapshotHandler
-import com.google.android.horologist.paparazzi.determineHandler
+import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -48,19 +46,8 @@ import org.junit.runners.Parameterized
 class MediaPlayerDeviceScreenTest(
     private val device: DeviceConfig
 ) {
-    private val maxPercentDifference = 0.1
-
     @get:Rule
-    val paparazzi = Paparazzi(
-        deviceConfig = device,
-        theme = "android:ThemeOverlay.Material.Dark",
-        maxPercentDifference = maxPercentDifference,
-        snapshotHandler = if (device == WEAR_OS_SQUARE) {
-            determineHandler(maxPercentDifference)
-        } else {
-            WearSnapshotHandler(determineHandler(maxPercentDifference))
-        }
-    )
+    val paparazzi = WearPaparazzi(deviceConfig = device)
 
     @Test
     fun mediaPlayerScreen() {

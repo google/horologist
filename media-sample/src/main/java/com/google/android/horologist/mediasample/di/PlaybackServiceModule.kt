@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.mediasample.di
 
+import android.annotation.SuppressLint
 import android.app.Service
 import android.os.Build
 import androidx.lifecycle.DefaultLifecycleObserver
@@ -75,6 +76,7 @@ import kotlinx.coroutines.runBlocking
 import okhttp3.Call
 import javax.inject.Provider
 
+@SuppressLint("UnsafeOptInUsageError")
 @Module
 @InstallIn(ServiceComponent::class)
 object PlaybackServiceModule {

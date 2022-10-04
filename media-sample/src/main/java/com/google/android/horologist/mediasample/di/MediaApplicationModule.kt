@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.mediasample.di
 
+import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
 import android.os.Build
@@ -58,6 +59,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Singleton
 
+@SuppressLint("UnsafeOptInUsageError")
 @Module
 @InstallIn(SingletonComponent::class)
 object MediaApplicationModule {

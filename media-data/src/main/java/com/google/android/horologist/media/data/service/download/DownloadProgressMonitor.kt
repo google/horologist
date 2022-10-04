@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.data.service.download
 
+import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
 import androidx.media3.exoplayer.offline.DownloadManager
@@ -30,6 +31,7 @@ import kotlinx.coroutines.launch
  * [specified interval][UPDATE_INTERVAL_MILLIS] and uses [MediaDownloadLocalDataSource] to persist
  * the progress.
  */
+@SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistMediaDataApi
 public class DownloadProgressMonitor(
     private val coroutineScope: CoroutineScope,

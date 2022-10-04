@@ -19,30 +19,17 @@
 package com.google.android.horologist.audio.ui
 
 import androidx.wear.compose.material.MaterialTheme
-import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
-import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
-import com.google.android.horologist.paparazzi.WearSnapshotHandler
-import com.google.android.horologist.paparazzi.determineHandler
+import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test
 
 class VolumeScreenIndividualTest {
-    private val maxPercentDifference = 0.1
-
     @get:Rule
-    val paparazzi = Paparazzi(
-        deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
-        theme = "android:ThemeOverlay.Material.Dark",
-        maxPercentDifference = maxPercentDifference,
-        snapshotHandler = WearSnapshotHandler(
-            determineHandler(maxPercentDifference),
-            round = true
-        )
-    )
+    val paparazzi = WearPaparazzi()
 
     @Test
     fun volumeScreenAtMinimum() {

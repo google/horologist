@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media3.offload
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.media3.common.Format
@@ -42,6 +43,7 @@ import kotlinx.coroutines.withContext
  *
  * Enables Audio Offload when in the background, and also logs key events.
  */
+@SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistMedia3BackendApi
 public class AudioOffloadManager(
     private val errorReporter: ErrorReporter,

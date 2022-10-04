@@ -25,6 +25,8 @@ gradleEnterprise {
     }
 }
 
+rootProject.name = 'horologist'
+
 include ':sample'
 include ':compose-layout'
 include ':composables'

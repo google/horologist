@@ -27,13 +27,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
+import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
-import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
+import com.google.android.horologist.paparazzi.WearPaparazzi
 import com.google.android.horologist.paparazzi.a11y.A11ySnapshotHandler
 import com.google.android.horologist.paparazzi.determineHandler
 import org.junit.Rule
@@ -45,9 +45,7 @@ class MediaChipA11yTest {
     private val composeA11yExtension = ComposeA11yExtension()
 
     @get:Rule
-    val paparazzi = Paparazzi(
-        deviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
-        theme = "android:ThemeOverlay.Material.Dark",
+    val paparazzi = WearPaparazzi(
         maxPercentDifference = maxPercentDifference,
         renderExtensions = setOf(composeA11yExtension),
         snapshotHandler = A11ySnapshotHandler(
@@ -61,18 +59,20 @@ class MediaChipA11yTest {
     @Test
     fun a11y() {
         paparazzi.snapshot {
-            Box(
-                modifier = Modifier.background(Color.Black),
-                contentAlignment = Alignment.Center
-            ) {
-                MediaChip(
-                    media = MediaUiModel(
-                        id = "id",
-                        title = "Red Hot Chilli Peppers",
-                        artworkUri = "https://example.org/image.png"
-                    ),
-                    onClick = {}
-                )
+            FakeImageLoader.NotFound.override {
+                Box(
+                    modifier = Modifier.background(Color.Black),
+                    contentAlignment = Alignment.Center
+                ) {
+                    MediaChip(
+                        media = MediaUiModel(
+                            id = "id",
+                            title = "Red Hot Chilli Peppers",
+                            artworkUri = "https://example.org/image.png"
+                        ),
+                        onClick = {}
+                    )
+                }
             }
         }
     }

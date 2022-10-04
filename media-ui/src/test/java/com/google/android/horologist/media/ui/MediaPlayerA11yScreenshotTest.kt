@@ -23,7 +23,6 @@
 package com.google.android.horologist.media.ui
 
 import app.cash.paparazzi.DeviceConfig
-import app.cash.paparazzi.Paparazzi
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.media.ui.state.PlayerUiState
@@ -34,6 +33,7 @@ import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziAp
 import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
 import com.google.android.horologist.paparazzi.WEAR_OS_SMALL_ROUND
 import com.google.android.horologist.paparazzi.WEAR_OS_SQUARE
+import com.google.android.horologist.paparazzi.WearPaparazzi
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
 import com.google.android.horologist.paparazzi.a11y.A11ySnapshotHandler
 import com.google.android.horologist.paparazzi.determineHandler
@@ -51,9 +51,8 @@ class MediaPlayerA11yScreenshotTest(
     val composeA11yExtension = ComposeA11yExtension()
 
     @get:Rule
-    val paparazzi = Paparazzi(
+    val paparazzi = WearPaparazzi(
         deviceConfig = device,
-        theme = "android:ThemeOverlay.Material.Dark",
         maxPercentDifference = maxPercentDifference,
         renderExtensions = setOf(composeA11yExtension),
         snapshotHandler = WearSnapshotHandler(

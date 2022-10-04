@@ -111,8 +111,15 @@ package com.google.android.horologist.media.model {
   }
 
   public static final class MediaPosition.KnownDuration extends com.google.android.horologist.media.model.MediaPosition {
+    method public long component1-UwyO8pc();
+    method public long component2-UwyO8pc();
+    method public float component3();
+    method public com.google.android.horologist.media.model.MediaPosition.KnownDuration copy-NqJ4yvY(long current, long duration, float percent);
+    method public boolean equals(Object? other);
     method public long getDuration();
     method public float getPercent();
+    method public int hashCode();
+    method public String toString();
     property public long current;
     property public final long duration;
     property public final float percent;
@@ -186,8 +193,8 @@ package com.google.android.horologist.media.repository {
     method public com.google.android.horologist.media.model.Media? getMediaAt(int index);
     method public int getMediaCount();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.MediaPosition> getMediaPosition();
-    method public long getSeekBackIncrement();
-    method public long getSeekForwardIncrement();
+    method public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> getSeekBackIncrement();
+    method public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> getSeekForwardIncrement();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getShuffleModeEnabled();
     method public boolean hasNextMedia();
     method public boolean hasPreviousMedia();
@@ -210,6 +217,8 @@ package com.google.android.horologist.media.repository {
     property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.Media> currentMedia;
     property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.PlayerState> currentState;
     property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.MediaPosition> mediaPosition;
+    property public abstract kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> seekBackIncrement;
+    property public abstract kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> seekForwardIncrement;
     property public abstract kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> shuffleModeEnabled;
   }
 

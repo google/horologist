@@ -99,7 +99,7 @@ package com.google.android.horologist.compose.tools.a11y {
 package com.google.android.horologist.compose.tools.coil {
 
   public final class FakeImageLoader implements coil.ImageLoader {
-    ctor public FakeImageLoader(kotlin.jvm.functions.Function1<? super coil.request.ImageRequest,? extends coil.request.ImageResult> imageFn);
+    ctor public FakeImageLoader(kotlin.jvm.functions.Function2<? super coil.request.ImageRequest,? super kotlin.coroutines.Continuation<? super coil.request.ImageResult>,?> imageFn);
     method public coil.request.Disposable enqueue(coil.request.ImageRequest request);
     method public suspend Object? execute(coil.request.ImageRequest request, kotlin.coroutines.Continuation<? super coil.request.ImageResult> p);
     method public coil.ComponentRegistry getComponents();
@@ -117,9 +117,11 @@ package com.google.android.horologist.compose.tools.coil {
   }
 
   public static final class FakeImageLoader.Companion {
+    method public com.google.android.horologist.compose.tools.coil.FakeImageLoader getNever();
     method public com.google.android.horologist.compose.tools.coil.FakeImageLoader getNotFound();
     method public coil.request.ImageResult loadErrorBitmap(android.content.Context context, coil.request.ImageRequest request, @DrawableRes int id);
     method public coil.request.ImageResult loadSuccessBitmap(android.content.Context context, coil.request.ImageRequest request, @DrawableRes int id);
+    property public final com.google.android.horologist.compose.tools.coil.FakeImageLoader Never;
     property public final com.google.android.horologist.compose.tools.coil.FakeImageLoader NotFound;
   }
 

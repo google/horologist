@@ -43,6 +43,6 @@ public fun WearPaparazzi(
         maxPercentDifference = maxPercentDifference,
         snapshotHandler = snapshotHandler,
         renderExtensions = renderExtensions,
-        renderingMode = renderingMode,
+        renderingMode = renderingMode
     )
 }

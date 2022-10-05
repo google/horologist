@@ -171,6 +171,9 @@ internal fun StandardChip(
     )
 }
 
+/**
+ * An alternative function to [StandardChip] that allows a string resource id to be passed as label.
+ */
 @Composable
 internal fun StandardChip(
     @StringRes labelId: Int,

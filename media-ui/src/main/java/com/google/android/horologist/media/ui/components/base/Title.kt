@@ -20,10 +20,16 @@ import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 
+/**
+ * An alternative function to [Title] that allows a string resource id to be passed as text.
+ */
 @Composable
 internal fun Title(
     @StringRes textId: Int,
@@ -35,6 +41,10 @@ internal fun Title(
     )
 }
 
+/**
+ * This composable fulfils the redlines of the following components:
+ * - Primary title;
+ */
 @Composable
 internal fun Title(
     text: String,
@@ -42,7 +52,8 @@ internal fun Title(
 ) {
     Text(
         text = text,
-        modifier = modifier,
+        modifier = modifier.semantics { heading() },
+        textAlign = TextAlign.Center,
         overflow = TextOverflow.Ellipsis,
         maxLines = 3,
         style = MaterialTheme.typography.title3

@@ -20,7 +20,6 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import androidx.annotation.DrawableRes
-import androidx.compose.ui.platform.LocalInspectionMode
 import coil.Coil
 import coil.ComponentRegistry
 import coil.ImageLoader

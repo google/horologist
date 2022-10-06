@@ -23,10 +23,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.materialPath
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.media.ui.utils.rememberVectorPainter
@@ -232,22 +234,25 @@ class PrimaryChipTest {
     @Test
     fun disabledWithIconPlaceholder() {
         paparazzi.snapshot {
-            FakeImageLoader.NotFound.override {
-                Box(
-                    modifier = Modifier.background(Color.Black),
-                    contentAlignment = Alignment.Center
-                ) {
-                    StandardChip(
-                        label = "Primary label",
-                        onClick = { },
-                        secondaryLabel = "Secondary label",
-                        icon = "iconUri",
-                        placeholder = rememberVectorPainter(
-                            image = Icons.Default.Image,
-                            tintColor = Color.Black
-                        ),
-                        enabled = false
-                    )
+            FakeImageLoader.Never.override {
+                // In inspection mode will jump to placeholder
+                CompositionLocalProvider(LocalInspectionMode.provides(true)) {
+                    Box(
+                        modifier = Modifier.background(Color.Black),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        StandardChip(
+                            label = "Primary label",
+                            onClick = { },
+                            secondaryLabel = "Secondary label",
+                            icon = "iconUri",
+                            placeholder = rememberVectorPainter(
+                                image = Icons.Default.Image,
+                                tintColor = Color.Black
+                            ),
+                            enabled = false
+                        )
+                    }
                 }
             }
         }

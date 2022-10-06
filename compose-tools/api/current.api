@@ -118,14 +118,21 @@ package com.google.android.horologist.compose.tools.coil {
 
   public static final class FakeImageLoader.Companion {
     method public com.google.android.horologist.compose.tools.coil.FakeImageLoader Fixed(@DrawableRes int resId);
+    method public Integer? dataAsResourceId(Object? data);
     method public com.google.android.horologist.compose.tools.coil.FakeImageLoader getNever();
     method public com.google.android.horologist.compose.tools.coil.FakeImageLoader getNotFound();
     method public com.google.android.horologist.compose.tools.coil.FakeImageLoader getResources();
-    method public coil.request.ImageResult loadErrorBitmap(android.content.Context context, coil.request.ImageRequest request, @DrawableRes int id);
+    method public int getTestIconResource();
+    method public String getTestIconResourceUri();
+    method public String getTestUriPrefix();
+    method public coil.request.ImageResult loadErrorBitmap(coil.request.ImageRequest request);
     method public coil.request.ImageResult loadSuccessBitmap(android.content.Context context, coil.request.ImageRequest request, @DrawableRes int id);
     property public final com.google.android.horologist.compose.tools.coil.FakeImageLoader Never;
     property public final com.google.android.horologist.compose.tools.coil.FakeImageLoader NotFound;
     property public final com.google.android.horologist.compose.tools.coil.FakeImageLoader Resources;
+    property public final int TestIconResource;
+    property public final String TestIconResourceUri;
+    property public final String TestUriPrefix;
   }
 
 }

@@ -17,8 +17,6 @@
 package com.google.android.horologist.compose.tools.coil
 
 import android.content.Context
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import androidx.annotation.DrawableRes
 import coil.Coil
 import coil.ComponentRegistry
@@ -34,7 +32,6 @@ import coil.request.ImageResult
 import coil.request.SuccessResult
 import com.google.android.horologist.compose.tools.R
 import kotlinx.coroutines.awaitCancellation
-import java.io.FileNotFoundException
 import java.io.IOException
 
 // https://coil-kt.github.io/coil/image_loaders/#testing
@@ -78,13 +75,12 @@ public class FakeImageLoader(private val imageFn: suspend (ImageRequest) -> Imag
         public val Resources: FakeImageLoader =
             FakeImageLoader { request ->
                 val context = request.context
-                val data = request.data as? Int
-                val drawable = data?.let { context.getDrawable(data) }
+                val data = dataAsResourceId(request.data)
 
-                if (drawable != null) {
-                    SuccessResult(drawable, request, DataSource.DISK)
+                if (data != null) {
+                    loadSuccessBitmap(context, request, data)
                 } else {
-                    ErrorResult(context.getDrawable(R.drawable.ic_uamp), request, FileNotFoundException(request.data.toString()))
+                    loadErrorBitmap(context, request)
                 }
             }
 
@@ -99,27 +95,37 @@ public class FakeImageLoader(private val imageFn: suspend (ImageRequest) -> Imag
             request: ImageRequest,
             @DrawableRes id: Int
         ): ImageResult {
-            val bitmap = BitmapFactory.decodeResource(context.resources, id)
-            val result = BitmapDrawable(context.resources, bitmap)
+            val drawable = context.getDrawable(id)!!
             return SuccessResult(
-                drawable = result,
+                drawable = drawable,
                 request = request,
-                dataSource = DataSource.NETWORK
+                dataSource = DataSource.DISK
             )
         }
 
         public fun loadErrorBitmap(
             context: Context,
-            request: ImageRequest,
-            @DrawableRes id: Int
+            request: ImageRequest
         ): ImageResult {
-            val bitmap = BitmapFactory.decodeResource(context.resources, id)
-            val result = BitmapDrawable(context.resources, bitmap)
             return ErrorResult(
-                drawable = result,
+                drawable = null,
                 request = request,
                 throwable = IOException("request for fake image failed")
             )
         }
+
+        public fun dataAsResourceId(data: Any?): Int? {
+            return if (data is Int) {
+                data
+            } else if (data is String && data.startsWith(TestUriPrefix)) {
+                data.substring(TestUriPrefix.length).toInt()
+            } else {
+                null
+            }
+        }
+
+        @DrawableRes public val TestIconResource: Int = R.drawable.ic_uamp
+        public val TestUriPrefix: String = "android.resource://com.google.android.horologist.compose.tools/"
+        public val TestIconResourceUri: String = TestUriPrefix + TestIconResource
     }
 }

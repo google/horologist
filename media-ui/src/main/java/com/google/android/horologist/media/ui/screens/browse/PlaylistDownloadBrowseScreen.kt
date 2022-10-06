@@ -113,12 +113,12 @@ public fun PlaylistDownloadBrowseScreen(
         playlistsSection(
             buttons = listOf(
                 BrowseScreenPlaylistsSectionButton(
-                    textId = R.string.horologist_browse_library_playlists,
+                    textId = R.string.horologist_browse_library_playlists_button,
                     icon = Icons.Default.PlaylistPlay,
                     onClick = onPlaylistsClick
                 ),
                 BrowseScreenPlaylistsSectionButton(
-                    textId = R.string.horologist_browse_library_settings,
+                    textId = R.string.horologist_browse_library_settings_button,
                     icon = Icons.Default.Settings,
                     onClick = onSettingsClick
                 )

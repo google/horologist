@@ -80,7 +80,7 @@ public class FakeImageLoader(private val imageFn: suspend (ImageRequest) -> Imag
                 if (data != null) {
                     loadSuccessBitmap(context, request, data)
                 } else {
-                    loadErrorBitmap(context, request)
+                    loadErrorBitmap(request)
                 }
             }
 
@@ -104,7 +104,6 @@ public class FakeImageLoader(private val imageFn: suspend (ImageRequest) -> Imag
         }
 
         public fun loadErrorBitmap(
-            context: Context,
             request: ImageRequest
         ): ImageResult {
             return ErrorResult(

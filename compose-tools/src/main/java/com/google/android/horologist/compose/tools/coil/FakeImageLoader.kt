@@ -17,8 +17,6 @@
 package com.google.android.horologist.compose.tools.coil
 
 import android.content.Context
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import androidx.annotation.DrawableRes
 import coil.Coil
 import coil.ComponentRegistry
@@ -32,11 +30,13 @@ import coil.request.ErrorResult
 import coil.request.ImageRequest
 import coil.request.ImageResult
 import coil.request.SuccessResult
+import com.google.android.horologist.compose.tools.R
 import kotlinx.coroutines.awaitCancellation
 import java.io.IOException
 
 // https://coil-kt.github.io/coil/image_loaders/#testing
-public class FakeImageLoader(private val imageFn: suspend (ImageRequest) -> ImageResult) : ImageLoader {
+public class FakeImageLoader(private val imageFn: suspend (ImageRequest) -> ImageResult) :
+    ImageLoader {
     override val defaults: DefaultRequestOptions = DefaultRequestOptions()
     override val components: ComponentRegistry = ComponentRegistry()
     override val memoryCache: MemoryCache? get() = null
@@ -55,6 +55,7 @@ public class FakeImageLoader(private val imageFn: suspend (ImageRequest) -> Imag
     // To be replaced by https://github.com/coil-kt/coil/pull/1451
     public inline fun override(function: () -> Unit) {
         Coil.setImageLoader(this)
+
         try {
             function()
         } finally {
@@ -71,32 +72,59 @@ public class FakeImageLoader(private val imageFn: suspend (ImageRequest) -> Imag
         public val Never: FakeImageLoader =
             FakeImageLoader { awaitCancellation() }
 
+        public val Resources: FakeImageLoader =
+            FakeImageLoader { request ->
+                val context = request.context
+                val data = dataAsResourceId(request.data)
+
+                if (data != null) {
+                    loadSuccessBitmap(context, request, data)
+                } else {
+                    loadErrorBitmap(request)
+                }
+            }
+
+        public fun Fixed(@DrawableRes resId: Int): FakeImageLoader =
+            FakeImageLoader { request ->
+                val drawable = request.context.getDrawable(resId)!!
+                SuccessResult(drawable, request, DataSource.DISK)
+            }
+
         public fun loadSuccessBitmap(
             context: Context,
             request: ImageRequest,
             @DrawableRes id: Int
         ): ImageResult {
-            val bitmap = BitmapFactory.decodeResource(context.resources, id)
-            val result = BitmapDrawable(context.resources, bitmap)
+            val drawable = context.getDrawable(id)!!
             return SuccessResult(
-                drawable = result,
+                drawable = drawable,
                 request = request,
-                dataSource = DataSource.NETWORK
+                dataSource = DataSource.DISK
             )
         }
 
         public fun loadErrorBitmap(
-            context: Context,
-            request: ImageRequest,
-            @DrawableRes id: Int
+            request: ImageRequest
         ): ImageResult {
-            val bitmap = BitmapFactory.decodeResource(context.resources, id)
-            val result = BitmapDrawable(context.resources, bitmap)
             return ErrorResult(
-                drawable = result,
+                drawable = null,
                 request = request,
                 throwable = IOException("request for fake image failed")
             )
         }
+
+        public fun dataAsResourceId(data: Any?): Int? {
+            return if (data is Int) {
+                data
+            } else if (data is String && data.startsWith(TestUriPrefix)) {
+                data.substring(TestUriPrefix.length).toInt()
+            } else {
+                null
+            }
+        }
+
+        @DrawableRes public val TestIconResource: Int = R.drawable.ic_uamp
+        public val TestUriPrefix: String = "android.resource://com.google.android.horologist.compose.tools/"
+        public val TestIconResourceUri: String = TestUriPrefix + TestIconResource
     }
 }

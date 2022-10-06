@@ -20,14 +20,12 @@ package com.google.android.horologist.media.ui.components.actions
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.FeaturedPlayList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
@@ -43,16 +41,15 @@ class ShowPlaylistChipTest {
     @Test
     fun givenArtwork_thenDisplaysArtwork() {
         paparazzi.snapshot {
-            FakeImageLoader.NotFound.override {
+            FakeImageLoader.Resources.override {
                 Box(
                     modifier = Modifier.background(Color.Black),
                     contentAlignment = Alignment.Center
                 ) {
                     ShowPlaylistChip(
-                        artworkUri = "artworkUri",
+                        artworkUri = R.drawable.ic_uamp,
                         name = "Playlists",
-                        onClick = {},
-                        placeholder = rememberVectorPainter(image = Icons.Default.FeaturedPlayList)
+                        onClick = {}
                     )
                 }
             }
@@ -62,7 +59,7 @@ class ShowPlaylistChipTest {
     @Test
     fun givenNOArtwork_thenDoesNOTDisplayArtwork() {
         paparazzi.snapshot {
-            FakeImageLoader.NotFound.override {
+            FakeImageLoader.Resources.override {
                 Box(
                     modifier = Modifier.background(Color.Black),
                     contentAlignment = Alignment.Center
@@ -78,18 +75,17 @@ class ShowPlaylistChipTest {
     }
 
     @Test
-    fun givenNOName_thenDoesNOTDisplayArtwork() {
+    fun givenNOName_thenDoesDisplayArtwork() {
         paparazzi.snapshot {
-            FakeImageLoader.NotFound.override {
+            FakeImageLoader.Resources.override {
                 Box(
                     modifier = Modifier.background(Color.Black),
                     contentAlignment = Alignment.Center
                 ) {
                     ShowPlaylistChip(
-                        artworkUri = "artworkUri",
+                        artworkUri = R.drawable.ic_uamp,
                         name = null,
-                        onClick = {},
-                        placeholder = rememberVectorPainter(image = Icons.Default.FeaturedPlayList)
+                        onClick = {}
                     )
                 }
             }
@@ -99,16 +95,15 @@ class ShowPlaylistChipTest {
     @Test
     fun givenVeryLongTitle_thenEllipsizeAt2ndLine() {
         paparazzi.snapshot {
-            FakeImageLoader.NotFound.override {
+            FakeImageLoader.Resources.override {
                 Box(
                     modifier = Modifier.background(Color.Black),
                     contentAlignment = Alignment.Center
                 ) {
                     ShowPlaylistChip(
-                        artworkUri = "artworkUri",
+                        artworkUri = R.drawable.ic_uamp,
                         name = "Very very very very very very very very very very very very very very very very very very very long title",
-                        onClick = {},
-                        placeholder = rememberVectorPainter(image = Icons.Default.FeaturedPlayList)
+                        onClick = {}
                     )
                 }
             }

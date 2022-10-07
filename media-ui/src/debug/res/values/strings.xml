@@ -16,11 +16,11 @@
   -->
 
 <resources>
-    <string name="horologist_browse_screen_preview_sign_in">Sign in</string>
-    <string name="horologist_browse_screen_preview_trending_title">Trending</string>
-    <string name="horologist_browse_screen_preview_trending_empty">No trending music at the moment, try again later.</string>
-    <string name="horologist_browse_screen_preview_trending_failed">Failed to load, tap to try again.</string>
-    <string name="horologist_browse_screen_preview_see_more_button">See more…</string>
-    <string name="horologist_browse_screen_preview_playlists_button">Playlists</string>
-    <string name="horologist_browse_screen_preview_podcasts_button">Podcasts</string>
+    <string description="This string is used in the preview." translatable="false" name="horologist_browse_screen_preview_sign_in">Sign in</string>
+    <string description="This string is used in the preview." translatable="false" name="horologist_browse_screen_preview_trending_title">Trending</string>
+    <string description="This string is used in the preview." translatable="false" name="horologist_browse_screen_preview_trending_empty">No trending music at the moment, try again later.</string>
+    <string description="This string is used in the preview." translatable="false" name="horologist_browse_screen_preview_trending_failed">Failed to load, tap to try again.</string>
+    <string description="This string is used in the preview." translatable="false" name="horologist_browse_screen_preview_see_more_button">See more…</string>
+    <string description="This string is used in the preview." translatable="false" name="horologist_browse_screen_preview_playlists_button">Playlists</string>
+    <string description="This string is used in the preview." translatable="false" name="horologist_browse_screen_preview_podcasts_button">Podcasts</string>
 </resources>

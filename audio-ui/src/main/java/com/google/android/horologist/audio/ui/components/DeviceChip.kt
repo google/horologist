@@ -99,8 +99,8 @@ public fun AudioOutput.icon(): ImageVector {
 @Composable
 private fun volumeDescription(volumeState: VolumeState, audioOutput: AudioOutput): String {
     return if (audioOutput is AudioOutput.BluetoothHeadset) {
-        stringResource(id = R.string.horologist_volume_screen_connected, volumeState.current)
+        stringResource(id = R.string.horologist_volume_screen_connected_state, volumeState.current)
     } else {
-        stringResource(id = R.string.horologist_volume_screen_not_connected)
+        stringResource(id = R.string.horologist_volume_screen_not_connected_state)
     }
 }

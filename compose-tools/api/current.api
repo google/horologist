@@ -90,6 +90,11 @@ package com.google.android.horologist.compose.tools.a11y {
     method public static void forceState(androidx.wear.compose.material.ScalingLazyListState, int topIndex, int topScrollOffset);
   }
 
+  @kotlin.annotation.MustBeDocumented @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.SOURCE) @kotlin.annotation.Target(allowedTargets={kotlin.annotation.AnnotationTarget.ANNOTATION_CLASS, kotlin.annotation.AnnotationTarget.FUNCTION}) public @interface PreviewForCharLimit {
+    method public abstract String[] stringResIds();
+    property public abstract String[] stringResIds;
+  }
+
   public final class TallPreviewKt {
     method @androidx.compose.runtime.Composable public static void TallPreview(int width, int height, kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingParams,kotlin.Unit> function);
   }

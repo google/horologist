@@ -45,8 +45,10 @@ import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.compose.tools.WearPreviewFontSizes
 import com.google.android.horologist.compose.tools.WearPreviewThemes
+import com.google.android.horologist.compose.tools.a11y.PreviewForCharLimit
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
+import com.google.android.horologist.media.ui.components.InfoMediaDisplay
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.TextMediaDisplay
 import com.google.android.horologist.media.ui.components.background.RadialBackground
@@ -342,6 +344,53 @@ fun DefaultMediaPreview() {
                 },
                 background = {
                     RadialBackground(color = Color.Yellow)
+                }
+            )
+        }
+    }
+}
+
+@PreviewForCharLimit(stringResIds = ["horologist_nothing_playing"])
+@WearPreviewDevices
+@WearPreviewFontSizes
+@Composable
+fun PlayerScreenPreviewForCharLimit() {
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        timeText = { TimeText() }
+    ) {
+        PagerScreen(count = 2) {
+            PlayerScreen(
+                mediaDisplay = {
+                    InfoMediaDisplay(
+                        message = "W".repeat(20)
+                    )
+                },
+                controlButtons = {
+                    MediaControlButtons(
+                        onPlayButtonClick = {},
+                        onPauseButtonClick = {},
+                        playPauseButtonEnabled = true,
+                        playing = true,
+                        percent = 0.25F,
+                        onSeekToNextButtonClick = {},
+                        seekToNextButtonEnabled = true,
+                        onSeekToPreviousButtonClick = {},
+                        seekToPreviousButtonEnabled = true
+                    )
+                },
+                buttons = {
+                    SettingsButtons(
+                        volumeState = VolumeState(5, 10),
+                        onVolumeClick = { },
+                        onOutputClick = { },
+                        brandIcon = {
+                            SettingsButtonsDefaults.BrandIcon(
+                                R.drawable.ic_uamp,
+                                enabled = true
+                            )
+                        }
+                    )
                 }
             )
         }

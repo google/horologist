@@ -35,6 +35,13 @@ import androidx.wear.compose.material.ScalingLazyListState
  * Scroll Away the item based on a regular scrolling item, like a Column.
  * Does not include fading or scaling.
  */
+@Deprecated(
+    "Replaced by scrollAway",
+    replaceWith = ReplaceWith(
+        "this.scrollAway(scrollStateFn())",
+        "com.google.android.horologist.compose.layout.scrollAway"
+    ),
+)
 public fun Modifier.fadeAway(scrollStateFn: () -> ScrollState): Modifier = composed {
     val scrollState = scrollStateFn()
     val y = scrollState.value / LocalDensity.current.density
@@ -48,6 +55,13 @@ public fun Modifier.fadeAway(scrollStateFn: () -> ScrollState): Modifier = compo
  * The logic assumes the first item is large enough to fully fade away the item, if this is not the
  * case then a custom implementation should be used.
  */
+@Deprecated(
+    "Replaced by scrollAway",
+    replaceWith = ReplaceWith(
+        "this.scrollAway(scrollStateFn())",
+        "com.google.android.horologist.compose.layout.scrollAway"
+    ),
+)
 public fun Modifier.fadeAwayLazyList(scrollStateFn: () -> LazyListState): Modifier = composed {
     val scrollState = remember { scrollStateFn() }
     val isFirst by remember(scrollState) { derivedStateOf { scrollState.firstVisibleItemIndex == 0 } }
@@ -72,6 +86,14 @@ public fun Modifier.fadeAwayLazyList(scrollStateFn: () -> LazyListState): Modifi
  * @param initialIndex The initial index must match that provided to [ScalingLazyListState].
  * @param initialOffset The initial offset must match that provided to [ScalingLazyListState].
  */
+@Deprecated(
+    "Replaced by scrollAway",
+    replaceWith = ReplaceWith(
+        "this.scrollAway(scrollStateFn(), initialIndex, initialOffset.dp)",
+        "com.google.android.horologist.compose.layout.scrollAway",
+        "androidx.compose.ui.unit.dp"
+    ),
+)
 public fun Modifier.fadeAwayScalingLazyList(
     initialIndex: Int = 1,
     initialOffset: Int = 0,

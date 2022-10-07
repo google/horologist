@@ -71,13 +71,13 @@ fun MenuScreen(
             VolumeScreenChip(navigateToRoute)
         }
         item {
-            FadeAwayChip("Fade Away") { navigateToRoute(Screen.FadeAway.route) }
+            ScrollAwayChip("Scroll Away") { navigateToRoute(Screen.FadeAway.route) }
         }
         item {
-            FadeAwayChip("Fade Away SLC") { navigateToRoute(Screen.FadeAwaySLC.route) }
+            ScrollAwayChip("Scroll Away SLC") { navigateToRoute(Screen.FadeAwaySLC.route) }
         }
         item {
-            FadeAwayChip("Fade Away Column") { navigateToRoute(Screen.FadeAwayColumn.route) }
+            ScrollAwayChip("Scroll Away Column") { navigateToRoute(Screen.FadeAwayColumn.route) }
         }
         item {
             TimePickerChip(time) { navigateToRoute(Screen.TimePicker.route) }

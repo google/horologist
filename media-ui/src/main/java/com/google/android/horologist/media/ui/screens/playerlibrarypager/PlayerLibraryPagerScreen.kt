@@ -25,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
@@ -35,6 +36,7 @@ import com.google.accompanist.pager.PagerState
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.compose.layout.fadeAwayScalingLazyList
+import com.google.android.horologist.compose.layout.scrollAway
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.pager.FocusOnResume
 import com.google.android.horologist.compose.pager.PagerScreen
@@ -104,7 +106,7 @@ public fun PlayerLibraryPagerScreen(
                 val state = rememberScalingLazyListState()
                 Scaffold(
                     timeText = {
-                        timeText(Modifier.fadeAwayScalingLazyList(scrollStateFn = { state }))
+                        timeText(Modifier.scrollAway(state, 1, 0.dp))
                     },
                     positionIndicator = {
                         PositionIndicator(

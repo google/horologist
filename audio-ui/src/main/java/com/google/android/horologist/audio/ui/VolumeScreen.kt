@@ -149,7 +149,7 @@ public object VolumeScreenDefaults {
             modifier = Modifier
                 .size(26.dp),
             imageVector = Icons.Default.VolumeUp,
-            contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_up)
+            contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_up_content_description)
         )
     }
 
@@ -159,7 +159,7 @@ public object VolumeScreenDefaults {
             modifier = Modifier
                 .size(26.dp),
             imageVector = Icons.Default.VolumeDown,
-            contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_down)
+            contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_down_content_description)
         )
     }
 }

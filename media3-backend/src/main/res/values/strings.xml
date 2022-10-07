@@ -15,5 +15,5 @@
   -->
 
 <resources>
-    <string name="horologist_cant_play_item">Can\'t play item</string>
+    <string description="This string is reported by the Player component when it can't play an item due to the configured playback rules. Clients of this library might choose to display this message on the screen, to the end user." name="horologist_cant_play_item">Can\'t play item</string>
 </resources>

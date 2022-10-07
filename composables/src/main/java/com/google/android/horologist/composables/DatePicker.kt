@@ -205,7 +205,7 @@ public fun DatePicker(
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Check,
-                        contentDescription = stringResource(id = R.string.horologist_picker_confirm_button),
+                        contentDescription = stringResource(id = R.string.horologist_picker_confirm_button_content_description),
                         modifier = Modifier
                             .size(24.dp)
                             .wrapContentSize(align = Alignment.Center)

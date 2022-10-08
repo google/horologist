@@ -18,6 +18,9 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
     }
 
     dependencies {
@@ -87,6 +90,9 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
 
         def composeSnapshot = libs.versions.composesnapshot.get()
         if (composeSnapshot.length() > 1) {

@@ -46,7 +46,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.curvedText
 import androidx.wear.compose.material.rememberScalingLazyListState
-import com.google.android.horologist.compose.layout.fadeAwayScalingLazyList
+import com.google.android.horologist.compose.layout.scrollAway
 
 class ScratchActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,12 +114,11 @@ fun WearApp() {
             timeText = {
                 TimeText(
                     modifier = Modifier
-                        .fadeAwayScalingLazyList(
-                            initialIndex = initialOffset.index,
-                            initialOffset = initialOffset.offset
-                        ) {
-                            listState
-                        },
+                        .scrollAway(
+                            listState, itemIndex = initialOffset.index,
+                            offset = initialOffset.offset
+                                .dp
+                        ),
                     startCurvedContent = {
                         curvedText("${listState.centerItemIndex}/${listState.centerItemScrollOffset}")
                     }

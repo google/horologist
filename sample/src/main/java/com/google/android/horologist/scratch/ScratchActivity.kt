@@ -115,7 +115,8 @@ fun WearApp() {
                 TimeText(
                     modifier = Modifier
                         .scrollAway(
-                            listState, itemIndex = initialOffset.index,
+                            listState,
+                            itemIndex = initialOffset.index,
                             offset = initialOffset.offset
                                 .dp
                         ),

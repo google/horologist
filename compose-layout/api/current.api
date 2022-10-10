@@ -2,13 +2,19 @@
 package com.google.android.horologist.compose.layout {
 
   public final class FadeAwayKt {
-    method public static androidx.compose.ui.Modifier fadeAway(androidx.compose.ui.Modifier, kotlin.jvm.functions.Function0<androidx.compose.foundation.ScrollState> scrollStateFn);
-    method public static androidx.compose.ui.Modifier fadeAwayLazyList(androidx.compose.ui.Modifier, kotlin.jvm.functions.Function0<androidx.compose.foundation.lazy.LazyListState> scrollStateFn);
-    method public static androidx.compose.ui.Modifier fadeAwayScalingLazyList(androidx.compose.ui.Modifier, optional int initialIndex, optional int initialOffset, kotlin.jvm.functions.Function0<androidx.wear.compose.material.ScalingLazyListState> scrollStateFn);
+    method @Deprecated public static androidx.compose.ui.Modifier fadeAway(androidx.compose.ui.Modifier, kotlin.jvm.functions.Function0<androidx.compose.foundation.ScrollState> scrollStateFn);
+    method @Deprecated public static androidx.compose.ui.Modifier fadeAwayLazyList(androidx.compose.ui.Modifier, kotlin.jvm.functions.Function0<androidx.compose.foundation.lazy.LazyListState> scrollStateFn);
+    method @Deprecated public static androidx.compose.ui.Modifier fadeAwayScalingLazyList(androidx.compose.ui.Modifier, optional int initialIndex, optional int initialOffset, kotlin.jvm.functions.Function0<androidx.wear.compose.material.ScalingLazyListState> scrollStateFn);
   }
 
   public final class FillMaxRectangleKt {
     method @androidx.compose.runtime.Stable public static androidx.compose.ui.Modifier fillMaxRectangle(androidx.compose.ui.Modifier);
+  }
+
+  public final class ScrollAwayKt {
+    method public static androidx.compose.ui.Modifier scrollAway(androidx.compose.ui.Modifier, androidx.compose.foundation.ScrollState scrollState, optional float offset);
+    method public static androidx.compose.ui.Modifier scrollAway(androidx.compose.ui.Modifier, androidx.compose.foundation.lazy.LazyListState scrollState, optional int itemIndex, optional float offset);
+    method public static androidx.compose.ui.Modifier scrollAway(androidx.compose.ui.Modifier, androidx.wear.compose.material.ScalingLazyListState scrollState, optional int itemIndex, optional float offset);
   }
 
   public final class StateUtils {

@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -45,7 +45,7 @@ import androidx.wear.compose.material.ScalingLazyListState
  */
 public fun Modifier.scrollAway(
     scrollState: ScrollState,
-    offset: Dp = 0.dp,
+    offset: Dp = 0.dp
 ): Modifier = scrollAway { scrollState.value - offset.toPx() }
 
 /**
@@ -61,7 +61,7 @@ public fun Modifier.scrollAway(
 public fun Modifier.scrollAway(
     scrollState: LazyListState,
     itemIndex: Int = 0,
-    offset: Dp = 0.dp,
+    offset: Dp = 0.dp
 ): Modifier {
     val targetItem = scrollState.layoutInfo.visibleItemsInfo.find { it.index == itemIndex }
     return if (targetItem != null) {
@@ -84,7 +84,7 @@ public fun Modifier.scrollAway(
 public fun Modifier.scrollAway(
     scrollState: ScalingLazyListState,
     itemIndex: Int = 1,
-    offset: Dp = 0.dp,
+    offset: Dp = 0.dp
 ): Modifier {
     val targetItem = scrollState.layoutInfo.visibleItemsInfo.find { it.index == itemIndex }
     return if (targetItem != null) {

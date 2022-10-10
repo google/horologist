@@ -20,12 +20,14 @@ import androidx.wear.watchface.complications.data.ComplicationData
 import androidx.wear.watchface.complications.data.ComplicationType
 import androidx.wear.watchface.complications.datasource.ComplicationRequest
 import androidx.wear.watchface.complications.datasource.SuspendingComplicationDataSourceService
+import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
 
 /**
  * A complication service based on a [ComplicationTemplate].
  * The implementation is effectively two parts, first creating some simple data model
  * using a suspending [data] function. Then a render phase.
  */
+@ExperimentalHorologistTilesApi
 public abstract class DataComplicationService<D, R : ComplicationTemplate<D>> :
     SuspendingComplicationDataSourceService() {
     public abstract val renderer: R

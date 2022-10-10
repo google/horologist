@@ -19,10 +19,12 @@ package com.google.android.horologist.tiles.complication
 import android.content.Context
 import androidx.wear.watchface.complications.data.ComplicationData
 import androidx.wear.watchface.complications.data.ComplicationType
+import com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
 
 /**
  * A complication renderer from Data to any of the supported types.
  */
+@ExperimentalHorologistTilesApi
 public interface ComplicationTemplate<D> {
     public val context: Context
 

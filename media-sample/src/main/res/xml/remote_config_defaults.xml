@@ -22,10 +22,10 @@
     </entry>
     <entry>
         <key>perf_enabled</key>
-        <value>false</value>
+        <value>true</value>
     </entry>
     <entry>
         <key>analytics_enabled</key>
-        <value>false</value>
+        <value>true</value>
     </entry>
 </defaults>

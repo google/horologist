@@ -24,4 +24,8 @@
         <key>perf_enabled</key>
         <value>false</value>
     </entry>
+    <entry>
+        <key>analytics_enabled</key>
+        <value>false</value>
+    </entry>
 </defaults>

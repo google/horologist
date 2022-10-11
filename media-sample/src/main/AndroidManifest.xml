@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2022 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,8 +38,8 @@
 
     <application
         android:name=".ui.app.MediaApplication"
-        android:appCategory="audio"
         android:allowBackup="false"
+        android:appCategory="audio"
         android:icon="@drawable/ic_uamp"
         android:label="@string/sample_app_name"
         android:supportsRtl="true"
@@ -55,10 +54,14 @@
 
         <meta-data
             android:name="firebase_performance_logcat_enabled"
-            android:value="true" />
+            android:value="false" />
 
         <meta-data
             android:name="firebase_performance_collection_enabled"
+            android:value="false" />
+
+        <meta-data
+            android:name="firebase_analytics_collection_enabled"
             android:value="false" />
 
         <activity
@@ -90,8 +93,7 @@
         <service
             android:name=".data.service.playback.PlaybackService"
             android:exported="true"
-            android:foregroundServiceType="mediaPlayback"
-            >
+            android:foregroundServiceType="mediaPlayback">
             <intent-filter>
                 <action android:name="androidx.media3.session.MediaLibraryService" />
             </intent-filter>
@@ -137,11 +139,12 @@
                 android:resource="@drawable/ic_uamp" />
         </service>
 
-        <service android:name=".data.service.download.MediaDownloadServiceImpl"
+        <service
+            android:name=".data.service.download.MediaDownloadServiceImpl"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.android.exoplayer.downloadService.action.RESTART"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="com.google.android.exoplayer.downloadService.action.RESTART" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
     </application>

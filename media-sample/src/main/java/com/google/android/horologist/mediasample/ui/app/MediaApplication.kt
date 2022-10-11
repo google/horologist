@@ -24,6 +24,7 @@ import com.google.android.horologist.media.sync.initializers.Sync
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.firebase.FirebaseApp
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.perf.ktx.performance
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
@@ -57,8 +58,13 @@ class MediaApplication : Application(), ImageLoaderFactory {
             })
         }
 
-        Firebase.performance.isPerformanceCollectionEnabled = true
-//            remoteConfig.getBoolean("perf_enabled")
+        if (remoteConfig.getBoolean("perf_enabled")) {
+            Firebase.performance.isPerformanceCollectionEnabled = true
+        }
+
+        if (remoteConfig.getBoolean("analytics_enabled")) {
+            FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(true)
+        }
     }
 
     fun setStrictMode() {

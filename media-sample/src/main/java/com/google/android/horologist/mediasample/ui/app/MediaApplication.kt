@@ -21,7 +21,14 @@ import android.os.StrictMode
 import coil.ImageLoader
 import coil.ImageLoaderFactory
 import com.google.android.horologist.media.sync.initializers.Sync
+import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.AppConfig
+import com.google.firebase.FirebaseApp
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.perf.ktx.performance
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
@@ -40,6 +47,18 @@ class MediaApplication : Application(), ImageLoaderFactory {
 
         // Initialize Sync; the system responsible for keeping data in the app up to date.
         Sync.initialize(context = this)
+
+        FirebaseApp.initializeApp(this)
+
+        val remoteConfig: FirebaseRemoteConfig = Firebase.remoteConfig.apply {
+            setDefaultsAsync(R.xml.remote_config_defaults)
+            setConfigSettingsAsync(remoteConfigSettings {
+                minimumFetchIntervalInSeconds = 3600
+            })
+        }
+
+        Firebase.performance.isPerformanceCollectionEnabled = true
+//            remoteConfig.getBoolean("perf_enabled")
     }
 
     fun setStrictMode() {

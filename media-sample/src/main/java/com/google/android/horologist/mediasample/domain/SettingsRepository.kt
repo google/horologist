@@ -19,13 +19,21 @@ package com.google.android.horologist.mediasample.domain
 import androidx.datastore.core.DataStore
 import com.google.android.horologist.media3.offload.AudioOffloadStrategy
 import com.google.android.horologist.media3.offload.BackgroundAudioOffloadStrategy
+import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
+import com.google.android.horologist.mediasample.domain.proto.copy
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class SettingsRepository(
     private val dataStore: DataStore<Settings>
 ) {
+    val remoteConfig = Firebase.remoteConfig
 
     suspend fun edit(transform: suspend (Settings) -> Settings) {
         dataStore.updateData {
@@ -33,7 +41,11 @@ class SettingsRepository(
         }
     }
 
-    val settingsFlow: Flow<Settings> = dataStore.data
+    val settingsFlow: Flow<Settings> = dataStore.data.map {
+        it.copy {
+            podcastControls = remoteConfig.getBoolean("podcast_controls")
+        }
+    }
 }
 
 val SettingsProto.OffloadMode.strategy: AudioOffloadStrategy

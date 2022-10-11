@@ -21,6 +21,9 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'com.google.devtools.ksp'
     id "com.google.protobuf"
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+    id 'com.google.firebase.firebase-perf'
 }
 
 Properties localProperties = new Properties()
@@ -182,6 +185,18 @@ dependencies {
 
     implementation libs.moshi.adapters
     implementation libs.moshi.kotlin
+
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:30.5.0')
+
+    if (project.file("google-services.json").exists()) {
+        implementation 'com.google.firebase:firebase-crashlytics-ktx'
+        implementation 'com.google.firebase:firebase-common-ktx'
+        implementation 'com.google.firebase:firebase-config-ktx'
+        implementation 'com.google.firebase:firebase-analytics-ktx'
+        implementation 'com.google.firebase:firebase-perf-ktx'
+    }
+
     ksp libs.moshi.kotlin.codegen
 
     implementation libs.androidx.palette.ktx
@@ -190,6 +205,7 @@ dependencies {
 
     implementation libs.kotlin.stdlib
     implementation libs.kotlinx.coroutines.guava
+    implementation libs.kotlinx.coroutines.playservices
 
     debugImplementation projects.composeTools
 

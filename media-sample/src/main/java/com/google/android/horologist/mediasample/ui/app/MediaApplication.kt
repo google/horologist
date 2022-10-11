@@ -22,7 +22,10 @@ import coil.ImageLoader
 import coil.ImageLoaderFactory
 import com.google.android.horologist.media.sync.initializers.Sync
 import com.google.android.horologist.mediasample.R
+import com.google.android.horologist.mediasample.data.settings.ObsoleteUrlFactory
 import com.google.android.horologist.mediasample.ui.AppConfig
+import com.google.android.horologist.networks.data.RequestType
+import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
 import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.ktx.Firebase
@@ -31,7 +34,10 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import dagger.hilt.android.HiltAndroidApp
+import okhttp3.Call
+import java.net.URL
 import javax.inject.Inject
+
 
 @HiltAndroidApp
 class MediaApplication : Application(), ImageLoaderFactory {
@@ -41,6 +47,9 @@ class MediaApplication : Application(), ImageLoaderFactory {
     @Inject
     lateinit var appConfig: AppConfig
 
+    @Inject
+    lateinit var callFactory: Call.Factory
+
     override fun onCreate() {
         super.onCreate()
 
@@ -48,6 +57,15 @@ class MediaApplication : Application(), ImageLoaderFactory {
 
         // Initialize Sync; the system responsible for keeping data in the app up to date.
         Sync.initialize(context = this)
+
+        URL.setURLStreamHandlerFactory(
+            ObsoleteUrlFactory(
+                NetworkAwareCallFactory(
+                    callFactory,
+                    RequestType.LogsRequest
+                )
+            )
+        )
 
         FirebaseApp.initializeApp(this)
 

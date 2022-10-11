@@ -45,7 +45,9 @@ object UampNetworkingRules : NetworkingRules {
         requestType: RequestType,
         currentNetworkInfo: NetworkInfo
     ): RequestCheck {
-        return if (requestType == DownloadRequest && currentNetworkInfo.type == NetworkType.BT) {
+        return if (requestType == RequestType.LogsRequest && currentNetworkInfo.type == NetworkType.Cell) {
+            Fail("Logs not allowed over Cell")
+        } else if (requestType == DownloadRequest && currentNetworkInfo.type == NetworkType.BT) {
             Fail("Media Downloads not allowed over BT")
         } else {
             Allow
@@ -84,12 +86,14 @@ object UampNetworkingRules : NetworkingRules {
                     it.networkInfo.type == NetworkType.Cell
                 }
             }
+
             LiveRequest -> {
                 // For live streaming, assume a low bandwidth and use power efficient BT
                 networks.networks.firstOrNull {
                     it.networkInfo.type == NetworkType.BT
                 }
             }
+
             else -> networks.networks.firstOrNull()
         }
     }

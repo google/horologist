@@ -33,6 +33,7 @@ import com.google.android.horologist.media.ui.PlayerLibraryPreview
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
+import com.google.android.horologist.paparazzi.RoundNonFullScreenDevice
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
 import com.google.android.horologist.paparazzi.a11y.A11ySnapshotHandler
@@ -47,6 +48,7 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest {
 
     @get:Rule
     val paparazzi = WearPaparazzi(
+        deviceConfig = RoundNonFullScreenDevice,
         maxPercentDifference = maxPercentDifference,
         renderExtensions = setOf(composeA11yExtension),
         snapshotHandler = WearSnapshotHandler(

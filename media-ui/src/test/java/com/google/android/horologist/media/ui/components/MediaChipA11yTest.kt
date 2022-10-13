@@ -33,6 +33,7 @@ import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
+import com.google.android.horologist.paparazzi.RoundNonFullScreenDevice
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import com.google.android.horologist.paparazzi.a11y.A11ySnapshotHandler
 import com.google.android.horologist.paparazzi.determineHandler
@@ -46,6 +47,7 @@ class MediaChipA11yTest {
 
     @get:Rule
     val paparazzi = WearPaparazzi(
+        deviceConfig = RoundNonFullScreenDevice,
         maxPercentDifference = maxPercentDifference,
         renderExtensions = setOf(composeA11yExtension),
         snapshotHandler = A11ySnapshotHandler(

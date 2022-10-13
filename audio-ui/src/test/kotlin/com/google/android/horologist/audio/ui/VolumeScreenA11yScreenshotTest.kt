@@ -24,6 +24,7 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
+import com.google.android.horologist.paparazzi.RoundNonFullScreenDevice
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import com.google.android.horologist.paparazzi.WearSnapshotHandler
 import com.google.android.horologist.paparazzi.a11y.A11ySnapshotHandler
@@ -38,6 +39,8 @@ class VolumeScreenA11yScreenshotTest {
 
     @get:Rule
     val paparazzi = WearPaparazzi(
+        // TODO https://github.com/cashapp/paparazzi/issues/609
+        deviceConfig = RoundNonFullScreenDevice,
         renderExtensions = setOf(composeA11yExtension),
         maxPercentDifference = maxPercentDifference,
         snapshotHandler = WearSnapshotHandler(

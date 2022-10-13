@@ -24,6 +24,7 @@ package com.google.android.horologist.media.ui.screens.browse
 
 import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.ScalingLazyListState
+import app.cash.paparazzi.DeviceConfig
 import com.android.ide.common.rendering.api.SessionParams
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
@@ -32,7 +33,7 @@ import com.google.android.horologist.compose.tools.a11y.forceState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.PlayerLibraryPreview
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
-import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
+import com.google.android.horologist.paparazzi.RoundNonFullScreenDevice
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import com.google.android.horologist.paparazzi.a11y.A11ySnapshotHandler
 import com.google.android.horologist.paparazzi.determineHandler
@@ -46,6 +47,7 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest {
 
     @get:Rule
     val paparazzi = WearPaparazzi(
+        deviceConfig = RoundNonFullScreenDevice,
         maxPercentDifference = maxPercentDifference,
         renderExtensions = setOf(composeA11yExtension),
         renderingMode = SessionParams.RenderingMode.V_SCROLL,
@@ -66,7 +68,7 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest {
 
         paparazzi.snapshot {
             TallPreview(
-                width = GALAXY_WATCH4_CLASSIC_LARGE.screenWidth,
+                width = DeviceConfig.GALAXY_WATCH4_CLASSIC_LARGE.screenWidth,
                 height = 650
             ) { scalingParams ->
                 PlayerLibraryPreview(state = scrollState, round = false) {

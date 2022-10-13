@@ -38,9 +38,6 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.uamp.UampColors
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
-import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
-import com.google.android.horologist.paparazzi.WEAR_OS_SMALL_ROUND
-import com.google.android.horologist.paparazzi.WEAR_OS_SQUARE
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 import org.junit.Rule
@@ -56,16 +53,16 @@ class MediaCollectionsTileTest(
     val paparazzi = WearPaparazzi(deviceConfig = deviceConfig)
 
     val name = when (deviceConfig) {
-        WEAR_OS_SQUARE -> "square"
-        WEAR_OS_SMALL_ROUND -> "small_round"
-        GALAXY_WATCH4_CLASSIC_LARGE -> "large_round"
+        DeviceConfig.WEAR_OS_SQUARE -> "square"
+        DeviceConfig.WEAR_OS_SMALL_ROUND -> "small_round"
+        DeviceConfig.GALAXY_WATCH4_CLASSIC_LARGE -> "large_round"
         else -> "unknown"
     }
 
     @Test
     fun mediaCollectionsTile() {
         paparazzi.snapshot(name = name) {
-            RoundPreview(round = deviceConfig != WEAR_OS_SQUARE) {
+            RoundPreview(round = deviceConfig != DeviceConfig.WEAR_OS_SQUARE) {
                 Box(modifier = Modifier.background(Color.Black)) {
                     SampleTilePreview()
                 }
@@ -125,6 +122,10 @@ class MediaCollectionsTileTest(
     companion object {
         @JvmStatic
         @Parameterized.Parameters
-        fun devices() = listOf(WEAR_OS_SQUARE, WEAR_OS_SMALL_ROUND, GALAXY_WATCH4_CLASSIC_LARGE)
+        fun devices() = listOf(
+            DeviceConfig.WEAR_OS_SQUARE,
+            DeviceConfig.WEAR_OS_SMALL_ROUND,
+            DeviceConfig.GALAXY_WATCH4_CLASSIC_LARGE
+        )
     }
 }

@@ -17,67 +17,8 @@
 package com.google.android.horologist.paparazzi
 
 import app.cash.paparazzi.DeviceConfig
-import com.android.resources.Density
-import com.android.resources.Keyboard
-import com.android.resources.KeyboardState
-import com.android.resources.Navigation
-import com.android.resources.ScreenOrientation
-import com.android.resources.ScreenRatio
-import com.android.resources.ScreenSize
-import com.android.resources.TouchScreen
+import com.android.resources.ScreenRound
 
-// https://www.techidence.com/galaxy-watch4-features-reviews-and-price/
-public val GALAXY_WATCH4_CLASSIC_LARGE: DeviceConfig = DeviceConfig(
-    screenHeight = 454,
-    screenWidth = 454,
-    xdpi = 320,
-    ydpi = 320,
-    orientation = ScreenOrientation.PORTRAIT,
-    density = Density.XHIGH,
-    ratio = ScreenRatio.NOTLONG,
-    size = ScreenSize.SMALL,
-    keyboard = Keyboard.NOKEY,
-    touchScreen = TouchScreen.FINGER,
-    keyboardState = KeyboardState.HIDDEN,
-    softButtons = true,
-    navigation = Navigation.NONAV,
-    released = "October 15, 2020"
-)
-
-// https://android.googlesource.com/platform/tools/base/+/mirror-goog-studio-master-dev/sdklib/src/main/java/com/android/sdklib/devices/wear.xml
-@JvmField
-public val WEAR_OS_SMALL_ROUND: DeviceConfig = DeviceConfig(
-    screenHeight = 384,
-    screenWidth = 384,
-    xdpi = 320,
-    ydpi = 320,
-    orientation = ScreenOrientation.PORTRAIT,
-    density = Density.XHIGH,
-    ratio = ScreenRatio.LONG,
-    size = ScreenSize.SMALL,
-    keyboard = Keyboard.NOKEY,
-    touchScreen = TouchScreen.FINGER,
-    keyboardState = KeyboardState.HIDDEN,
-    softButtons = true,
-    navigation = Navigation.NONAV,
-    released = "June 7, 2014"
-)
-
-// https://android.googlesource.com/platform/tools/base/+/mirror-goog-studio-master-dev/sdklib/src/main/java/com/android/sdklib/devices/wear.xml
-@JvmField
-public val WEAR_OS_SQUARE: DeviceConfig = DeviceConfig(
-    screenHeight = 280,
-    screenWidth = 280,
-    xdpi = 240,
-    ydpi = 240,
-    orientation = ScreenOrientation.PORTRAIT,
-    density = Density.HIGH,
-    ratio = ScreenRatio.LONG,
-    size = ScreenSize.SMALL,
-    keyboard = Keyboard.NOKEY,
-    touchScreen = TouchScreen.FINGER,
-    keyboardState = KeyboardState.HIDDEN,
-    softButtons = true,
-    navigation = Navigation.NONAV,
-    released = "June 7, 2014"
-)
+// A11y tests shouldn't be automatically cropped to a circle
+public val RoundNonFullScreenDevice: DeviceConfig =
+    DeviceConfig.GALAXY_WATCH4_CLASSIC_LARGE.copy(screenRound = ScreenRound.NOTROUND)

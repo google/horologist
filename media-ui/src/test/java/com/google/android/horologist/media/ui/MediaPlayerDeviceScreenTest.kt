@@ -33,9 +33,6 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.media.ui.uamp.UampColors
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
-import com.google.android.horologist.paparazzi.GALAXY_WATCH4_CLASSIC_LARGE
-import com.google.android.horologist.paparazzi.WEAR_OS_SMALL_ROUND
-import com.google.android.horologist.paparazzi.WEAR_OS_SQUARE
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test
@@ -81,6 +78,10 @@ class MediaPlayerDeviceScreenTest(
     companion object {
         @JvmStatic
         @Parameterized.Parameters
-        fun devices() = listOf(GALAXY_WATCH4_CLASSIC_LARGE, WEAR_OS_SMALL_ROUND, WEAR_OS_SQUARE)
+        fun devices() = listOf(
+            DeviceConfig.GALAXY_WATCH4_CLASSIC_LARGE,
+            DeviceConfig.WEAR_OS_SMALL_ROUND,
+            DeviceConfig.WEAR_OS_SQUARE
+        )
     }
 }

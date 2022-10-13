@@ -26,14 +26,10 @@ private const val DefaultMaxPercentDifference = 0.1
 
 @ExperimentalHorologistPaparazziApi
 public fun WearPaparazzi(
-    deviceConfig: DeviceConfig = GALAXY_WATCH4_CLASSIC_LARGE,
+    deviceConfig: DeviceConfig = DeviceConfig.GALAXY_WATCH4_CLASSIC_LARGE,
     theme: String = "android:ThemeOverlay.Material.Dark",
     maxPercentDifference: Double = DefaultMaxPercentDifference,
-    round: Boolean = deviceConfig != WEAR_OS_SQUARE,
-    snapshotHandler: SnapshotHandler = WearSnapshotHandler(
-        determineHandler(maxPercentDifference),
-        round = round
-    ),
+    snapshotHandler: SnapshotHandler = determineHandler(maxPercentDifference),
     renderExtensions: Set<RenderExtension> = setOf(),
     renderingMode: SessionParams.RenderingMode = SessionParams.RenderingMode.NORMAL
 ): Paparazzi {

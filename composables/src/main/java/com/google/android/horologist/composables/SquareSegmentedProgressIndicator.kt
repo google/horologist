@@ -16,7 +16,11 @@
 
 package com.google.android.horologist.composables
 
-import androidx.compose.animation.core.*
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -32,8 +36,8 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.compositeOver
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,8 +54,11 @@ fun SquareSegmentedProgressIndicator(
     modifier: Modifier = Modifier,
     progress: Float,
     strokeWidth: Dp = ProgressIndicatorDefaults.StrokeWidth,
+    indicatorColor: Color,
 ) {
-    // TODO: Require progress to be more than 0 and less or 1
+    require(progress in 0.0..1.0) {
+        Error("The progress must be between 0 and 1")
+    }
 
     val trackColor = MaterialTheme.colors.onBackground.copy(alpha = 0.1f)
 
@@ -60,6 +67,8 @@ fun SquareSegmentedProgressIndicator(
     val stroke = with(localDensity) {
         Stroke(width = strokeWidth.toPx(), cap = StrokeCap.Round)
     }
+
+    val strokeEndDelta = stroke.width
 
     Canvas(
         modifier = modifier
@@ -73,14 +82,16 @@ fun SquareSegmentedProgressIndicator(
             progress = 1f,
             trackColor = trackColor,
             stroke = stroke,
+            strokeEndDelta = strokeEndDelta,
         )
 
         // Draw progress
         drawRoundedSquare(
             canvasSize = this.size,
             progress = progress,
-            trackColor = Color.Yellow.copy(alpha = 0.35f).compositeOver(Color.Gray),
+            trackColor = indicatorColor,
             stroke = stroke,
+            strokeEndDelta = strokeEndDelta,
         )
     }
 }
@@ -90,6 +101,7 @@ private fun DrawScope.drawRoundedSquare(
     progress: Float,
     trackColor: Color,
     stroke: Stroke,
+    strokeEndDelta: Float,
 ) {
     val cornerRadius = canvasSize.height / 8f // 1/8 of the line
     val cornerDiameter = cornerRadius * 2
@@ -119,6 +131,7 @@ private fun DrawScope.drawRoundedSquare(
             lineType = LineType.End,
             size = canvasSize,
             cornerRadius = cornerRadius,
+            strokeEndDelta = strokeEndDelta,
         )
         // Right Line
         drawLine(
@@ -157,6 +170,7 @@ private fun DrawScope.drawRoundedSquare(
             lineType = LineType.Bottom,
             size = canvasSize,
             cornerRadius = cornerRadius,
+            strokeEndDelta = strokeEndDelta,
         )
         // Bottom Line
         drawLine(
@@ -192,6 +206,7 @@ private fun DrawScope.drawRoundedSquare(
             lineType = LineType.Start,
             size = canvasSize,
             cornerRadius = cornerRadius,
+            strokeEndDelta = strokeEndDelta,
         )
         // Left Line
         drawLine(
@@ -225,6 +240,7 @@ private fun DrawScope.drawRoundedSquare(
             lineType = LineType.Top,
             size = canvasSize,
             cornerRadius = cornerRadius,
+            strokeEndDelta = strokeEndDelta,
         )
         drawLine(
             color = trackColor,
@@ -249,14 +265,15 @@ class SquareSegmentedProgress {
         lineType: LineType,
         size: Size,
         cornerRadius: Float,
+        strokeEndDelta: Float,
     ): Pair<Offset, Offset> {
         return when (lineType) {
             LineType.Top -> {
-                val startX = cornerRadius
+                val startX = cornerRadius + strokeEndDelta
                 val startY = 0f
                 val endX = min(
-                    ((progress - 0.75f) * 4) * size.width - cornerRadius,
-                    size.width - cornerRadius
+                    ((progress - 0.75f) * 4) * size.width - cornerRadius + strokeEndDelta,
+                    size.width - cornerRadius - strokeEndDelta
                 )
                 val endY = 0f
 
@@ -264,31 +281,34 @@ class SquareSegmentedProgress {
             }
             LineType.End -> {
                 val startX = size.width
-                val startY = cornerRadius
+                val startY = cornerRadius + strokeEndDelta
                 val endX = size.width
                 val endY =
-                    min((progress * 4) * size.height + cornerRadius, size.height - cornerRadius)
+                    min(
+                        (progress * 4) * size.height + cornerRadius - strokeEndDelta,
+                        size.height - cornerRadius - strokeEndDelta
+                    )
 
                 Offset(startX, startY) to Offset(endX, endY)
             }
             LineType.Start -> {
                 val startX = 0f
-                val startY = size.height - cornerRadius
+                val startY = size.height - cornerRadius - strokeEndDelta
                 val endX = 0f
                 val endY = max(
-                    size.height - cornerRadius - ((progress - 0.5f) * 4) * size.height,
-                    cornerRadius
+                    size.height - cornerRadius - ((progress - 0.5f) * 4) * size.height + strokeEndDelta,
+                    cornerRadius + strokeEndDelta
                 )
 
                 Offset(startX, startY) to Offset(endX, endY)
             }
             LineType.Bottom -> {
-                val startX = size.width - cornerRadius
+                val startX = size.width - cornerRadius - strokeEndDelta
                 val startY = size.height
 
                 val endX = max(
-                    size.width + cornerRadius - ((progress - 0.2f) * 4) * size.width,
-                    cornerRadius
+                    size.width + cornerRadius - ((progress - 0.2f) * 4) * size.width + strokeEndDelta,
+                    cornerRadius + strokeEndDelta
                 )
                 val endY = size.height
 
@@ -365,6 +385,13 @@ fun Preview() {
             repeatMode = RepeatMode.Reverse
         )
     )
+
+    val color = animateColorAsState(
+        targetValue = if (progress > 0.7f) Color.Red.copy(alpha = 0.55f)
+            .compositeOver(Color.Gray) else if (progress > 0.35) Color.Yellow.copy(alpha = 0.35f)
+            .compositeOver(Color.Gray) else Color.Green.copy(alpha = 0.35f)
+            .compositeOver(Color.Gray)
+    )
     Box(modifier = Modifier.size(300.dp)) {
 
         SquareSegmentedProgressIndicator(
@@ -376,12 +403,13 @@ fun Preview() {
                     switch.value = !switch.value
                     progressState.value = if (switch.value) 1f else 0f
                 },
-            progress = progress
+            progress = progress,
+            indicatorColor = color.value,
         )
         Text(
             modifier = Modifier.align(Alignment.Center),
             text = progress.toString().dropLast(5),
-            color = Color.Yellow.copy(alpha = 0.35f).compositeOver(Color.Gray)
+            color = color.value
         )
     }
 }
@@ -394,6 +422,8 @@ fun PreviewNoAnim() {
         modifier = Modifier
             .height(300.dp)
             .width(300.dp),
-        progress = 0.55f
+        progress = 0.81f,
+        indicatorColor = Color.Yellow.copy(alpha = 0.35f)
+            .compositeOver(Color.Gray)
     )
 }

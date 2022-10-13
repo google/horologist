@@ -29,11 +29,7 @@ public fun WearPaparazzi(
     deviceConfig: DeviceConfig = DeviceConfig.GALAXY_WATCH4_CLASSIC_LARGE,
     theme: String = "android:ThemeOverlay.Material.Dark",
     maxPercentDifference: Double = DefaultMaxPercentDifference,
-    round: Boolean = deviceConfig != DeviceConfig.WEAR_OS_SQUARE,
-    snapshotHandler: SnapshotHandler = WearSnapshotHandler(
-        determineHandler(maxPercentDifference),
-        round = round
-    ),
+    snapshotHandler: SnapshotHandler = determineHandler(maxPercentDifference),
     renderExtensions: Set<RenderExtension> = setOf(),
     renderingMode: SessionParams.RenderingMode = SessionParams.RenderingMode.NORMAL
 ): Paparazzi {

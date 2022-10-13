@@ -23,6 +23,7 @@
 package com.google.android.horologist.media.ui
 
 import app.cash.paparazzi.DeviceConfig
+import com.android.resources.ScreenRound
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.media.ui.state.PlayerUiState
@@ -49,7 +50,7 @@ class MediaPlayerA11yScreenshotTest(
 
     @get:Rule
     val paparazzi = WearPaparazzi(
-        deviceConfig = device,
+        deviceConfig = device.copy(screenRound = ScreenRound.NOTROUND),
         maxPercentDifference = maxPercentDifference,
         renderExtensions = setOf(composeA11yExtension),
         snapshotHandler = WearSnapshotHandler(

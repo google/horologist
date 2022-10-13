@@ -16,26 +16,32 @@
 
 package com.google.android.horologist.composables
 
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.ProgressIndicatorDefaults
+import androidx.wear.compose.material.Text
 import java.lang.Float.max
 import java.lang.Float.min
 
@@ -43,155 +49,190 @@ import java.lang.Float.min
 fun SquareSegmentedProgressIndicator(
     modifier: Modifier = Modifier,
     progress: Float,
+    strokeWidth: Dp = ProgressIndicatorDefaults.StrokeWidth,
 ) {
     // TODO: Require progress to be more than 0 and less or 1
 
-    val trackColor = Color.Red
+    val trackColor = MaterialTheme.colors.onBackground.copy(alpha = 0.1f)
+
+    val localDensity = LocalDensity.current
+
+    val stroke = with(localDensity) {
+        Stroke(width = strokeWidth.toPx(), cap = StrokeCap.Round)
+    }
 
     Canvas(
         modifier = modifier
-            .background(color = Color.Blue)
+            .background(color = MaterialTheme.colors.background)
             .padding(36.dp)
     ) {
-        val cornerRadius = this.size.height / 8f // 1/8 of the line
-        val cornerDiameter = cornerRadius * 2
 
-        val arcSize = Size(width = cornerDiameter, height = cornerDiameter)
+        // Draw track
+        drawRoundedSquare(
+            canvasSize = this.size,
+            progress = 1f,
+            trackColor = trackColor,
+            stroke = stroke,
+        )
 
-        // Top Right Corner
-        if (progress > 0f) {
-            drawArc(
-                color = trackColor,
-                startAngle = 270f,
-                sweepAngle = SquareSegmentedProgress().calculateSweepDegrees(
-                    CornerType.TopEnd,
-                    progress = progress
-                ),
-                useCenter = false,
-                style = Stroke(width = 20f),
-                size = arcSize,
-                topLeft = Offset(this.size.width - cornerDiameter, 0f)
+        // Draw progress
+        drawRoundedSquare(
+            canvasSize = this.size,
+            progress = progress,
+            trackColor = Color.Yellow.copy(alpha = 0.35f).compositeOver(Color.Gray),
+            stroke = stroke,
+        )
+    }
+}
+
+private fun DrawScope.drawRoundedSquare(
+    canvasSize: Size,
+    progress: Float,
+    trackColor: Color,
+    stroke: Stroke,
+) {
+    val cornerRadius = canvasSize.height / 8f // 1/8 of the line
+    val cornerDiameter = cornerRadius * 2
+
+    val arcSize = Size(width = cornerDiameter, height = cornerDiameter)
+
+    // Top Right Corner
+    if (progress > 0f) {
+        drawArc(
+            color = trackColor,
+            startAngle = 270f,
+            sweepAngle = SquareSegmentedProgress().calculateSweepDegrees(
+                CornerType.TopEnd,
+                progress = progress
+            ),
+            useCenter = false,
+            style = stroke,
+            size = arcSize,
+            topLeft = Offset(canvasSize.width - cornerDiameter, 0f)
+        )
+    }
+
+    // Right line
+    if (progress > 0.1f) {
+        val lineOffsetEnd = SquareSegmentedProgress().calculateLineProgress(
+            progress = progress,
+            lineType = LineType.End,
+            size = canvasSize,
+            cornerRadius = cornerRadius,
+        )
+        // Right Line
+        drawLine(
+            color = trackColor,
+            start = lineOffsetEnd.first,
+            end = lineOffsetEnd.second,
+            strokeWidth = stroke.width,
+            cap = stroke.cap,
+        )
+
+
+    }
+    // Bottom Right Corner
+    if (progress > 0.2) {
+        drawArc(
+            color = trackColor,
+            startAngle = 0f,
+            sweepAngle = SquareSegmentedProgress().calculateSweepDegrees(
+                CornerType.BottomEnd,
+                progress = progress
+            ),
+            useCenter = false,
+            style = stroke,
+            size = arcSize,
+            topLeft = Offset(
+                canvasSize.width - cornerDiameter,
+                canvasSize.height - cornerDiameter
             )
-        }
+        )
+    }
 
-        // Right line
-        if (progress > 0.1f) {
-            val lineOffsetEnd = SquareSegmentedProgress().calculateLineProgress(
-                progress = progress,
-                lineType = LineType.End,
-                size = this.size,
-                cornerRadius = cornerRadius,
-            )
-            // Right Line
-            drawLine(
-                color = trackColor,
-                start = lineOffsetEnd.first,
-                end = lineOffsetEnd.second,
-                strokeWidth = 20f
-            )
-
-
-        }
-        // Bottom Right Corner
-        if (progress > 0.2) {
-            drawArc(
-                color = trackColor,
-                startAngle = 0f,
-                sweepAngle = SquareSegmentedProgress().calculateSweepDegrees(
-                    CornerType.BottomEnd,
-                    progress = progress
-                ),
-                useCenter = false,
-                style = Stroke(width = 20f),
-                size = arcSize,
-                topLeft = Offset(
-                    this.size.width - cornerDiameter,
-                    this.size.height - cornerDiameter
-                )
-            )
-        }
-
+    // Bottom Line
+    if (progress > 0.3f) {
+        val lineOffsetBottom = SquareSegmentedProgress().calculateLineProgress(
+            progress = progress,
+            lineType = LineType.Bottom,
+            size = canvasSize,
+            cornerRadius = cornerRadius,
+        )
         // Bottom Line
-        if (progress > 0.3f) {
-            val lineOffsetBottom = SquareSegmentedProgress().calculateLineProgress(
+        drawLine(
+            color = trackColor,
+            start = lineOffsetBottom.first,
+            end = lineOffsetBottom.second,
+            strokeWidth = stroke.width,
+            cap = stroke.cap,
+        )
+    }
+
+    // Bottom Right Corner
+    if (progress > 0.45) {
+        // Bottom Left Corner
+        drawArc(
+            color = trackColor,
+            startAngle = 90f,
+            sweepAngle = SquareSegmentedProgress().calculateSweepDegrees(
+                CornerType.BottomStart,
+                progress
+            ),
+            useCenter = false,
+            style = stroke,
+            size = arcSize,
+            topLeft = Offset(0f, canvasSize.height - cornerDiameter)
+        )
+    }
+
+    // Start Line
+    if (progress > 0.55f) {
+        val lineOffsetLeft = SquareSegmentedProgress().calculateLineProgress(
+            progress = progress,
+            lineType = LineType.Start,
+            size = canvasSize,
+            cornerRadius = cornerRadius,
+        )
+        // Left Line
+        drawLine(
+            color = trackColor,
+            start = lineOffsetLeft.first,
+            end = lineOffsetLeft.second,
+            strokeWidth = stroke.width,
+            cap = stroke.cap,
+        )
+    }
+
+    // Top Right Corner
+    if (progress > 0.70f) {
+        drawArc(
+            color = trackColor,
+            startAngle = 180f,
+            sweepAngle = SquareSegmentedProgress().calculateSweepDegrees(
+                cornerType = CornerType.TopStart,
                 progress = progress,
-                lineType = LineType.Bottom,
-                size = this.size,
-                cornerRadius = cornerRadius,
-            )
-            // Bottom Line
-            drawLine(
-                color = trackColor,
-                start = lineOffsetBottom.first,
-                end = lineOffsetBottom.second,
-                strokeWidth = 20f
-            )
-        }
+            ),
+            useCenter = false,
+            style = stroke,
+            size = arcSize
+        )
+    }
 
-        // Bottom Right Corner
-        if (progress > 0.45) {
-            // Bottom Left Corner
-            drawArc(
-                color = trackColor,
-                startAngle = 90f,
-                sweepAngle = SquareSegmentedProgress().calculateSweepDegrees(
-                    CornerType.BottomStart,
-                    progress
-                ),
-                useCenter = false,
-                style = Stroke(width = 20f),
-                size = arcSize,
-                topLeft = Offset(0f, this.size.height - cornerDiameter)
-            )
-        }
-
-        // Start Line
-        if (progress > 0.55f) {
-            val lineOffsetLeft = SquareSegmentedProgress().calculateLineProgress(
-                progress = progress,
-                lineType = LineType.Start,
-                size = this.size,
-                cornerRadius = cornerRadius,
-            )
-            // Left Line
-            drawLine(
-                color = trackColor,
-                start = lineOffsetLeft.first,
-                end = lineOffsetLeft.second,
-                strokeWidth = 20f
-            )
-        }
-
-        // Top Right Corner
-        if (progress > 0.70f) {
-            drawArc(
-                color = trackColor,
-                startAngle = 180f,
-                sweepAngle = SquareSegmentedProgress().calculateSweepDegrees(
-                    cornerType = CornerType.TopStart,
-                    progress = progress,
-                ),
-                useCenter = false,
-                style = Stroke(width = 20f),
-                size = arcSize
-            )
-        }
-
-        // Top Line
-        if (progress > 0.80f) {
-            val lineOffsetTop = SquareSegmentedProgress().calculateLineProgress(
-                progress = progress,
-                lineType = LineType.Top,
-                size = this.size,
-                cornerRadius = cornerRadius,
-            )
-            drawLine(
-                color = trackColor,
-                start = lineOffsetTop.first,
-                end = lineOffsetTop.second,
-                strokeWidth = 20f,
-            )
-        }
+    // Top Line
+    if (progress > 0.80f) {
+        val lineOffsetTop = SquareSegmentedProgress().calculateLineProgress(
+            progress = progress,
+            lineType = LineType.Top,
+            size = canvasSize,
+            cornerRadius = cornerRadius,
+        )
+        drawLine(
+            color = trackColor,
+            start = lineOffsetTop.first,
+            end = lineOffsetTop.second,
+            strokeWidth = stroke.width,
+            cap = stroke.cap,
+        )
     }
 }
 
@@ -257,8 +298,11 @@ class SquareSegmentedProgress {
     }
 
     /**
-     * Returns the startSweep and sweepDegrees for the corners of
+     * Returns the sweepDegrees for the corners of
      * the rounded rectangle.
+     *
+     * @param cornerType Which of the corners that we are looking at.
+     * @param progress The current progress of the segment.
      */
     fun calculateSweepDegrees(
         cornerType: CornerType,
@@ -316,22 +360,30 @@ fun Preview() {
     }
     val progress by animateFloatAsState(
         targetValue = progressState.value,
-        animationSpec = spring(
-            dampingRatio = 0.2f,
-            stiffness = 0.1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 3000),
+            repeatMode = RepeatMode.Reverse
         )
     )
+    Box(modifier = Modifier.size(300.dp)) {
 
-    SquareSegmentedProgressIndicator(
-        modifier = Modifier
-            .height(300.dp)
-            .width(300.dp)
-            .clickable {
-                switch.value = !switch.value
-                progressState.value = if (switch.value) 1f else 0f
-            },
-        progress = progress
-    )
+        SquareSegmentedProgressIndicator(
+            modifier = Modifier
+                .align(Alignment.Center)
+                .height(300.dp)
+                .width(300.dp)
+                .clickable {
+                    switch.value = !switch.value
+                    progressState.value = if (switch.value) 1f else 0f
+                },
+            progress = progress
+        )
+        Text(
+            modifier = Modifier.align(Alignment.Center),
+            text = progress.toString().dropLast(5),
+            color = Color.Yellow.copy(alpha = 0.35f).compositeOver(Color.Gray)
+        )
+    }
 }
 
 @Preview(device = Devices.WEAR_OS_SQUARE)

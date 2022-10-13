@@ -41,21 +41,19 @@ import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.rememberScalingLazyListState
-import com.google.android.horologist.compose.layout.fadeAway
-import com.google.android.horologist.compose.layout.fadeAwayLazyList
-import com.google.android.horologist.compose.layout.fadeAwayScalingLazyList
+import com.google.android.horologist.compose.layout.scrollAway
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
 
 @Composable
-fun FadeAwayScreenLazyColumn() {
+fun ScrollScreenLazyColumn() {
     val scrollState = rememberLazyListState()
     val focusRequester = remember { FocusRequester() }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         timeText = {
-            TimeText(modifier = Modifier.fadeAwayLazyList(scrollStateFn = { scrollState }))
+            TimeText(modifier = Modifier.scrollAway(scrollState))
         },
         positionIndicator = {
             PositionIndicator(lazyListState = scrollState)
@@ -78,14 +76,14 @@ fun FadeAwayScreenLazyColumn() {
 }
 
 @Composable
-fun FadeAwayScreenScalingLazyColumn() {
+fun ScrollAwayScreenScalingLazyColumn() {
     val scrollState = rememberScalingLazyListState()
     val focusRequester = remember { FocusRequester() }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         timeText = {
-            TimeText(modifier = Modifier.fadeAwayScalingLazyList(scrollStateFn = { scrollState }))
+            TimeText(modifier = Modifier.scrollAway(scrollState, 1, 0.dp))
         },
         positionIndicator = {
             PositionIndicator(scalingLazyListState = scrollState)
@@ -107,14 +105,14 @@ fun FadeAwayScreenScalingLazyColumn() {
 }
 
 @Composable
-fun FadeAwayScreenColumn() {
+fun ScrollAwayScreenColumn() {
     val scrollState = rememberScrollState()
     val focusRequester = remember { FocusRequester() }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         timeText = {
-            TimeText(modifier = Modifier.fadeAway(scrollStateFn = { scrollState }))
+            TimeText(modifier = Modifier.scrollAway(scrollState))
         },
         positionIndicator = {
             PositionIndicator(scrollState = scrollState)
@@ -157,5 +155,5 @@ private fun ExampleCard(modifier: Modifier, i: Int) {
 @WearLargeRoundDevicePreview
 @Composable
 fun FadeAwayScreenPreview() {
-    FadeAwayScreenLazyColumn()
+    ScrollScreenLazyColumn()
 }

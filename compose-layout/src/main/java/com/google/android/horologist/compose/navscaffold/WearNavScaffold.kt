@@ -29,6 +29,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -47,9 +48,7 @@ import androidx.wear.compose.navigation.SwipeDismissableNavHostState
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.currentBackStackEntryAsState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
-import com.google.android.horologist.compose.layout.fadeAway
-import com.google.android.horologist.compose.layout.fadeAwayLazyList
-import com.google.android.horologist.compose.layout.fadeAwayScalingLazyList
+import com.google.android.horologist.compose.layout.scrollAway
 
 /**
  * A Navigation and Scroll aware [Scaffold].
@@ -90,39 +89,39 @@ public fun WearNavScaffold(
                         when (viewModel.scrollType) {
                             NavScaffoldViewModel.ScrollType.ScrollState -> {
                                 timeText(
-                                    Modifier.fadeAway {
-                                        viewModel.scrollableState as ScrollState
-                                    }
+                                    Modifier.scrollAway(viewModel.scrollableState as ScrollState)
                                 )
                             }
+
                             NavScaffoldViewModel.ScrollType.ScalingLazyColumn -> {
                                 val scalingLazyListState =
                                     viewModel.scrollableState as ScalingLazyListState
 
                                 timeText(
-                                    Modifier.fadeAwayScalingLazyList(
+                                    Modifier.scrollAway(
+                                        scalingLazyListState,
                                         viewModel.initialIndex ?: 1,
-                                        viewModel.initialOffset ?: 0
-                                    ) {
-                                        scalingLazyListState
-                                    }
+                                        (viewModel.initialOffset ?: 0).dp
+                                    )
                                 )
                             }
+
                             NavScaffoldViewModel.ScrollType.LazyList -> {
                                 timeText(
-                                    Modifier.fadeAwayLazyList {
-                                        viewModel.scrollableState as LazyListState
-                                    }
+                                    Modifier.scrollAway(viewModel.scrollableState as LazyListState)
                                 )
                             }
+
                             else -> {
                                 timeText(Modifier)
                             }
                         }
                     }
+
                     NavScaffoldViewModel.TimeTextMode.On -> {
                         timeText(Modifier)
                     }
+
                     else -> {
                     }
                 }
@@ -167,15 +166,18 @@ private fun NavPositionIndicator(viewModel: NavScaffoldViewModel) {
             PositionIndicator(
                 scrollState = viewModel.scrollableState as ScrollState
             )
+
         NavScaffoldViewModel.ScrollType.ScalingLazyColumn -> {
             PositionIndicator(
                 scalingLazyListState = viewModel.scrollableState as ScalingLazyListState
             )
         }
+
         NavScaffoldViewModel.ScrollType.LazyList ->
             PositionIndicator(
                 lazyListState = viewModel.scrollableState as LazyListState
             )
+
         else -> {}
     }
 }

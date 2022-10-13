@@ -180,7 +180,7 @@ fun TimeWithoutSecondsPickerChip(
 }
 
 @Composable
-fun FadeAwayChip(
+fun ScrollAwayChip(
     label: String,
     navigateToRoute: () -> Unit
 ) {

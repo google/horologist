@@ -84,13 +84,13 @@ fun SampleWearApp() {
                 }
             }
             composable(Screen.FadeAway.route) {
-                FadeAwayScreenLazyColumn()
+                ScrollScreenLazyColumn()
             }
             composable(Screen.FadeAwaySLC.route) {
-                FadeAwayScreenScalingLazyColumn()
+                ScrollAwayScreenScalingLazyColumn()
             }
             composable(Screen.FadeAwayColumn.route) {
-                FadeAwayScreenColumn()
+                ScrollAwayScreenColumn()
             }
             composable(Screen.DatePicker.route) {
                 DatePicker(

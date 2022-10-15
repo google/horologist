@@ -27,6 +27,7 @@ import androidx.media3.common.Player
 import androidx.media3.common.util.Clock
 import androidx.media3.datasource.cache.Cache
 import androidx.media3.datasource.cache.CacheDataSource
+import androidx.media3.datasource.cache.CacheDataSource.Factory
 import androidx.media3.datasource.okhttp.OkHttpDataSource
 import androidx.media3.exoplayer.DefaultLoadControl
 import androidx.media3.exoplayer.ExoPlayer
@@ -53,6 +54,7 @@ import com.google.android.horologist.media3.navigation.IntentBuilder
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.offload.AudioOffloadStrategy
 import com.google.android.horologist.media3.rules.PlaybackRules
+import com.google.android.horologist.media3.service.PrefetchListener
 import com.google.android.horologist.media3.tracing.TracingListener
 import com.google.android.horologist.mediasample.data.service.complication.DataUpdates
 import com.google.android.horologist.mediasample.data.service.playback.UampMediaLibrarySessionCallback
@@ -176,6 +178,16 @@ object PlaybackServiceModule {
         return DefaultMediaSourceFactory(dataSourceFactory, extractorsFactory)
     }
 
+
+    @ServiceScoped
+    @Provides
+    fun prefetchListener(
+        serviceCoroutineScope: CoroutineScope,
+        cacheDataSourceFactory: Factory
+    ): PrefetchListener {
+        return PrefetchListener(serviceCoroutineScope, cacheDataSourceFactory)
+    }
+
     @ServiceScoped
     @Provides
     fun exoPlayer(
@@ -184,7 +196,8 @@ object PlaybackServiceModule {
         audioOnlyRenderersFactory: RenderersFactory,
         analyticsCollector: AnalyticsCollector,
         mediaSourceFactory: MediaSource.Factory,
-        dataUpdates: DataUpdates
+        dataUpdates: DataUpdates,
+        prefetcher: PrefetchListener
     ) =
         ExoPlayer.Builder(service, audioOnlyRenderersFactory)
             .setAnalyticsCollector(analyticsCollector)
@@ -198,6 +211,7 @@ object PlaybackServiceModule {
             .build().apply {
                 addListener(analyticsCollector)
                 addListener(dataUpdates.listener)
+                addListener(prefetcher)
             }
 
     @ServiceScoped

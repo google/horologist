@@ -104,9 +104,16 @@ object NetworkModule {
         cache: Cache,
         alwaysHttpsInterceptor: Interceptor
     ): OkHttpClient {
-        return OkHttpClient.Builder().followSslRedirects(false)
+        return OkHttpClient.Builder()
+            .followSslRedirects(false)
             .addInterceptor(alwaysHttpsInterceptor)
-            .eventListenerFactory(LoggingEventListener.Factory()).cache(cache).build()
+            .apply {
+                if (BuildConfig.DEBUG) {
+//                    eventListenerFactory(LoggingEventListener.Factory())
+                }
+            }
+            .cache(cache)
+            .build()
     }
 
     @Provides

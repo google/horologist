@@ -33,6 +33,7 @@ internal class SquareSegmentedProgressTest {
             lineType = LineType.End,
             size = size,
             cornerRadius = 13.5f,
+            strokeEndDelta = 0f,
         )
 
         assertEquals(expected, actual)
@@ -41,13 +42,14 @@ internal class SquareSegmentedProgressTest {
     @Test
     fun `SquareSegmentedProgress SHOULD return correct offset WHEN linetype is End under progress`() {
         val size = Size(100f, 100f)
-        val expected = Offset(100f, 0f) to Offset(100f, 80f)
+        val expected = Offset(100f, 45f) to Offset(100f, 35f)
 
         val actual = SquareSegmentedProgress().calculateLineProgress(
             progress = 0.20f,
             lineType = LineType.End,
             size = size,
             cornerRadius = 45f,
+            strokeEndDelta = 0f,
         )
 
         assertEquals(expected, actual)
@@ -63,6 +65,7 @@ internal class SquareSegmentedProgressTest {
             lineType = LineType.Bottom,
             size = size,
             cornerRadius = 13.5f,
+            strokeEndDelta = 0f,
         )
 
         assertEquals(expected, actual)
@@ -77,7 +80,8 @@ internal class SquareSegmentedProgressTest {
             progress = 0.9f,
             lineType = LineType.Bottom,
             size = size,
-            cornerRadius = 13.5f
+            cornerRadius = 13.5f,
+            strokeEndDelta = 0f,
         )
 
         assertEquals(expected, actual)
@@ -86,13 +90,14 @@ internal class SquareSegmentedProgressTest {
     @Test
     fun `SquareSegmentedProgress SHOULD return correct offset WHEN linetype is Start`() {
         val size = Size(100f, 100f)
-        val expected = Offset(0f, 86.5f) to Offset(0f, 13.5f)
+        val expected = Offset(0.0f, 86.5f) to Offset(0.0f, 16.5f)
 
         val actual = SquareSegmentedProgress().calculateLineProgress(
             progress = 0.8f,
             lineType = LineType.Start,
             size = size,
             cornerRadius = 13.5f,
+            strokeEndDelta = 0f
         )
 
         assertEquals(expected, actual)
@@ -101,13 +106,14 @@ internal class SquareSegmentedProgressTest {
     @Test
     fun `SquareSegmentedProgress SHOULD return correct offset WHEN linetype is Start under progress`() {
         val size = Size(100f, 100f)
-        val expected = Offset(0f, 100f) to Offset(0f, 25f)
+        val expected = Offset(0f, 55f) to Offset(0f, 45f)
 
         val actual = SquareSegmentedProgress().calculateLineProgress(
             progress = 0.6875f,
             lineType = LineType.Start,
             size = size,
             cornerRadius = 45f,
+            strokeEndDelta = 0f,
         )
 
         assertEquals(expected, actual)
@@ -123,6 +129,7 @@ internal class SquareSegmentedProgressTest {
             lineType = LineType.Top,
             size = size,
             cornerRadius = 13.5f,
+            strokeEndDelta = 0f,
         )
 
         assertEquals(expected, actual)
@@ -131,13 +138,14 @@ internal class SquareSegmentedProgressTest {
     @Test
     fun `SquareSegmentedProgress SHOULD return correct offset WHEN linetype is Top under progress`() {
         val size = Size(100f, 100f)
-        val expected = Offset(0f, 0f) to Offset(75f, 0f)
+        val expected = Offset(45f, 0f) to Offset(55f, 0f)
 
         val actual = SquareSegmentedProgress().calculateLineProgress(
             progress = 0.9375f,
             lineType = LineType.Top,
             size = size,
             cornerRadius = 45f,
+            strokeEndDelta = 0f,
         )
 
         assertEquals(expected, actual)

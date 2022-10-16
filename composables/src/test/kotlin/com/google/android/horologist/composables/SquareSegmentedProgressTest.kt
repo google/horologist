@@ -34,6 +34,8 @@ internal class SquareSegmentedProgressTest {
             size = size,
             cornerRadius = 13.5f,
             strokeEndDelta = 0f,
+            sectionEndProgress = 0.125f,
+            startOffset = 0f
         )
 
         assertEquals(expected, actual)
@@ -50,6 +52,8 @@ internal class SquareSegmentedProgressTest {
             size = size,
             cornerRadius = 45f,
             strokeEndDelta = 0f,
+            sectionEndProgress = 0.25f,
+            startOffset = 0f
         )
 
         assertEquals(expected, actual)
@@ -66,6 +70,8 @@ internal class SquareSegmentedProgressTest {
             size = size,
             cornerRadius = 13.5f,
             strokeEndDelta = 0f,
+            sectionEndProgress = 0.375f,
+            startOffset = 0f
         )
 
         assertEquals(expected, actual)
@@ -82,6 +88,8 @@ internal class SquareSegmentedProgressTest {
             size = size,
             cornerRadius = 13.5f,
             strokeEndDelta = 0f,
+            sectionEndProgress = 0.5f,
+            startOffset = 0f
         )
 
         assertEquals(expected, actual)
@@ -97,7 +105,9 @@ internal class SquareSegmentedProgressTest {
             lineType = LineType.Start,
             size = size,
             cornerRadius = 13.5f,
-            strokeEndDelta = 0f
+            strokeEndDelta = 0f,
+            sectionEndProgress = 0.625f,
+            startOffset = 0f
         )
 
         assertEquals(expected, actual)
@@ -114,6 +124,8 @@ internal class SquareSegmentedProgressTest {
             size = size,
             cornerRadius = 45f,
             strokeEndDelta = 0f,
+            sectionEndProgress = 0.625f,
+            startOffset = 0f
         )
 
         assertEquals(expected, actual)
@@ -130,6 +142,8 @@ internal class SquareSegmentedProgressTest {
             size = size,
             cornerRadius = 13.5f,
             strokeEndDelta = 0f,
+            sectionEndProgress = 0.7f,
+            startOffset = 0f
         )
 
         assertEquals(expected, actual)
@@ -146,6 +160,8 @@ internal class SquareSegmentedProgressTest {
             size = size,
             cornerRadius = 45f,
             strokeEndDelta = 0f,
+            sectionEndProgress = 0.7f,
+            startOffset = 0f
         )
 
         assertEquals(expected, actual)

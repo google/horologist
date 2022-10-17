@@ -37,6 +37,7 @@ fun PlaylistDownloadBrowseScreenPreview() {
     PlaylistDownloadBrowseScreen(
         browseScreenState = BrowseScreenState.Loaded(downloadList),
         onDownloadItemClick = { },
+        onDownloadItemInProgressClick = { },
         onPlaylistsClick = { },
         onSettingsClick = { },
         focusRequester = FocusRequester(),
@@ -54,6 +55,7 @@ fun PlaylistDownloadBrowseScreenPreviewNoDownloads() {
     PlaylistDownloadBrowseScreen(
         browseScreenState = BrowseScreenState.Loaded(emptyList()),
         onDownloadItemClick = { },
+        onDownloadItemInProgressClick = { },
         onPlaylistsClick = { },
         onSettingsClick = { },
         focusRequester = FocusRequester(),
@@ -67,6 +69,7 @@ fun PlaylistDownloadBrowseScreenPreviewLoading() {
     PlaylistDownloadBrowseScreen(
         browseScreenState = BrowseScreenState.Loading,
         onDownloadItemClick = { },
+        onDownloadItemInProgressClick = { },
         onPlaylistsClick = { },
         onSettingsClick = { },
         focusRequester = FocusRequester(),
@@ -81,6 +84,7 @@ fun PlaylistDownloadBrowseScreenPreviewUampTheme() {
         PlaylistDownloadBrowseScreen(
             browseScreenState = BrowseScreenState.Loaded(downloadList),
             onDownloadItemClick = { },
+            onDownloadItemInProgressClick = { },
             onPlaylistsClick = { },
             onSettingsClick = { },
             focusRequester = FocusRequester(),

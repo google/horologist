@@ -73,6 +73,7 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest {
                 PlaylistDownloadBrowseScreen(
                     browseScreenState = screenState,
                     onDownloadItemClick = { },
+                    onDownloadItemInProgressClick = { },
                     onPlaylistsClick = { },
                     onSettingsClick = { },
                     focusRequester = FocusRequester(),
@@ -95,6 +96,7 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest {
                     PlaylistDownloadBrowseScreen(
                         browseScreenState = screenState,
                         onDownloadItemClick = { },
+                        onDownloadItemInProgressClick = { },
                         onPlaylistsClick = { },
                         onSettingsClick = { },
                         focusRequester = FocusRequester(),

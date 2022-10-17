@@ -75,6 +75,7 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest {
                     PlaylistDownloadBrowseScreen(
                         browseScreenState = screenState,
                         onDownloadItemClick = { },
+                        onDownloadItemInProgressClick = { },
                         onPlaylistsClick = { },
                         onSettingsClick = { },
                         focusRequester = FocusRequester(),

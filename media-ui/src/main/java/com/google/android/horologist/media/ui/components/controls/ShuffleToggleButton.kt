@@ -21,35 +21,51 @@ import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.material.icons.filled.ShuffleOn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
-import androidx.wear.compose.material.Button
-import androidx.wear.compose.material.ButtonColors
-import androidx.wear.compose.material.ButtonDefaults
+import androidx.compose.ui.semantics.stateDescription
 import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.ToggleButton
+import androidx.wear.compose.material.ToggleButtonColors
+import androidx.wear.compose.material.ToggleButtonDefaults.toggleButtonColors
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.semantics.CustomSemanticsProperties.iconImageVector
+import com.google.android.horologist.media.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 
 @ExperimentalHorologistMediaUiApi
 @Composable
-public fun ShuffleButton(
-    onClick: () -> Unit,
+public fun ShuffleToggleButton(
     shuffleOn: Boolean,
+    onToggle: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors()
+    colors: ToggleButtonColors = toggleButtonColors(
+        checkedBackgroundColor = Color.Transparent,
+        checkedContentColor = MaterialTheme.colors.onSurface,
+        uncheckedBackgroundColor = Color.Transparent,
+        uncheckedContentColor = MaterialTheme.colors.onSurface
+    )
 ) {
-    Button(
-        onClick = onClick,
-        modifier = modifier,
+    val onLabel =
+        stringResource(id = R.string.horologist_shuffle_button_on_content_description)
+    val offLabel =
+        stringResource(id = R.string.horologist_shuffle_button_off_content_description)
+    ToggleButton(
+        modifier = modifier.semantics {
+            stateDescription = if (shuffleOn) onLabel else offLabel
+        },
+        onCheckedChange = onToggle,
         enabled = enabled,
-        colors = colors
+        colors = colors,
+        checked = shuffleOn
     ) {
         val icon = if (shuffleOn) Icons.Default.ShuffleOn else Icons.Default.Shuffle
         Icon(
             imageVector = icon,
-            contentDescription = stringResource(id = R.string.horologist_shuffle_button_content_description),
+            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
             modifier = Modifier.semantics { iconImageVector = icon }
         )
     }

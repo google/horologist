@@ -27,7 +27,7 @@ import com.google.android.horologist.test.toolbox.matchers.hasIconImageVector
 import org.junit.Rule
 import org.junit.Test
 
-class ShuffleButtonTest {
+class ShuffleToggleButtonTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -36,8 +36,8 @@ class ShuffleButtonTest {
     fun givenShuffleIsOn_thenIconIsShuffleOn() {
         // given
         composeTestRule.setContent {
-            ShuffleButton(
-                onClick = {},
+            ShuffleToggleButton(
+                onToggle = {},
                 shuffleOn = true
             )
         }
@@ -50,8 +50,8 @@ class ShuffleButtonTest {
     fun givenShuffleIsOff_thenIconIsShuffle() {
         // given
         composeTestRule.setContent {
-            ShuffleButton(
-                onClick = {},
+            ShuffleToggleButton(
+                onToggle = {},
                 shuffleOn = false
             )
         }

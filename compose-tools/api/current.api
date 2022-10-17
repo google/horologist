@@ -114,6 +114,7 @@ package com.google.android.horologist.compose.tools.coil {
     property public coil.disk.DiskCache? diskCache;
     property public coil.memory.MemoryCache? memoryCache;
     field public static final com.google.android.horologist.compose.tools.coil.FakeImageLoader.Companion Companion;
+    field public static final String TestUriPrefix = "android.resource://com.google.android.horologist.compose.tools/";
   }
 
   public static final class FakeImageLoader.Companion {
@@ -124,7 +125,6 @@ package com.google.android.horologist.compose.tools.coil {
     method public com.google.android.horologist.compose.tools.coil.FakeImageLoader getResources();
     method public int getTestIconResource();
     method public String getTestIconResourceUri();
-    method public String getTestUriPrefix();
     method public coil.request.ImageResult loadErrorBitmap(coil.request.ImageRequest request);
     method public coil.request.ImageResult loadSuccessBitmap(android.content.Context context, coil.request.ImageRequest request, @DrawableRes int id);
     property public final com.google.android.horologist.compose.tools.coil.FakeImageLoader Never;
@@ -132,7 +132,6 @@ package com.google.android.horologist.compose.tools.coil {
     property public final com.google.android.horologist.compose.tools.coil.FakeImageLoader Resources;
     property public final int TestIconResource;
     property public final String TestIconResourceUri;
-    property public final String TestUriPrefix;
   }
 
 }

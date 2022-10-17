@@ -20,7 +20,7 @@
     ExperimentalHorologistMediaUiApi::class
 )
 
-package com.google.android.horologist.media.ui.components
+package com.google.android.horologist.media.ui.components.actions
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -31,7 +31,7 @@ import com.google.android.horologist.compose.tools.ExperimentalHorologistCompose
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.MediaUiModel
+import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.RoundNonFullScreenDevice
 import com.google.android.horologist.paparazzi.WearPaparazzi
@@ -40,7 +40,7 @@ import com.google.android.horologist.paparazzi.determineHandler
 import org.junit.Rule
 import org.junit.Test
 
-class MediaChipA11yTest {
+class ShowPlaylistChipA11yTest {
     private val maxPercentDifference = 1.0
 
     private val composeA11yExtension = ComposeA11yExtension()
@@ -66,12 +66,9 @@ class MediaChipA11yTest {
                     modifier = Modifier.background(Color.Black),
                     contentAlignment = Alignment.Center
                 ) {
-                    MediaChip(
-                        media = MediaUiModel(
-                            id = "id",
-                            title = "Red Hot Chilli Peppers",
-                            artworkUri = FakeImageLoader.TestIconResourceUri
-                        ),
+                    ShowPlaylistChip(
+                        artworkUri = R.drawable.ic_uamp,
+                        name = "Playlists",
                         onClick = {}
                     )
                 }

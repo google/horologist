@@ -24,9 +24,12 @@ package com.google.android.horologist.media.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Album
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
@@ -40,7 +43,7 @@ import com.google.android.horologist.paparazzi.determineHandler
 import org.junit.Rule
 import org.junit.Test
 
-class MediaChipA11yTest {
+class MediaArtworkA11yTest {
     private val maxPercentDifference = 1.0
 
     private val composeA11yExtension = ComposeA11yExtension()
@@ -66,13 +69,13 @@ class MediaChipA11yTest {
                     modifier = Modifier.background(Color.Black),
                     contentAlignment = Alignment.Center
                 ) {
-                    MediaChip(
+                    MediaArtwork(
                         media = MediaUiModel(
                             id = "id",
-                            title = "Red Hot Chilli Peppers",
+                            title = "title",
                             artworkUri = FakeImageLoader.TestIconResourceUri
                         ),
-                        onClick = {}
+                        placeholder = rememberVectorPainter(image = Icons.Default.Album)
                     )
                 }
             }

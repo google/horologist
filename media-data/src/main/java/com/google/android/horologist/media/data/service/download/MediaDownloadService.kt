@@ -19,8 +19,12 @@ package com.google.android.horologist.media.data.service.download
 import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.PendingIntent
+import android.content.Intent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ServiceLifecycleDispatcher
 import androidx.media3.exoplayer.offline.Download
 import androidx.media3.exoplayer.offline.DownloadNotificationHelper
 import androidx.media3.exoplayer.offline.DownloadService
@@ -56,16 +60,30 @@ public abstract class MediaDownloadService(
     channelId,
     channelNameResourceId,
     channelDescriptionResourceId
-) {
+), LifecycleOwner {
+    private val dispatcher = ServiceLifecycleDispatcher(this)
 
     override fun onCreate() {
+        dispatcher.onServicePreSuperOnCreate()
+
         super.onCreate()
 
         downloadManagerListener.onDownloadServiceCreated(downloadManager)
     }
 
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        dispatcher.onServicePreSuperOnStart()
+        return super.onStartCommand(intent, flags, startId)
+    }
+
+    override fun getLifecycle(): Lifecycle {
+        return dispatcher.lifecycle
+    }
+
     override fun onDestroy() {
         downloadManagerListener.onDownloadServiceDestroyed()
+
+        dispatcher.onServicePreSuperOnDestroy()
 
         super.onDestroy()
     }

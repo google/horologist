@@ -53,8 +53,8 @@ fun UampEntityScreen(
     playlistName: String,
     uampEntityScreenViewModel: UampEntityScreenViewModel,
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
-    onShuffleClick: (PlaylistUiModel) -> Unit,
-    onPlayClick: (PlaylistUiModel) -> Unit,
+    onShuffleClick: (PlaylistUiModel?) -> Unit,
+    onPlayClick: (PlaylistUiModel?) -> Unit,
     onErrorDialogCancelClick: () -> Unit,
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState

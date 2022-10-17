@@ -76,18 +76,19 @@ import com.google.android.horologist.media.ui.util.ifNan
 public fun PlaylistDownloadScreen(
     playlistName: String,
     playlistDownloadScreenState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
-    onDownloadButtonClick: (PlaylistUiModel) -> Unit,
-    onCancelDownloadButtonClick: (PlaylistUiModel) -> Unit,
+    onDownloadButtonClick: (PlaylistUiModel?) -> Unit,
+    onCancelDownloadButtonClick: (PlaylistUiModel?) -> Unit,
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
-    onShuffleButtonClick: (PlaylistUiModel) -> Unit,
-    onPlayButtonClick: (PlaylistUiModel) -> Unit,
+    onShuffleButtonClick: (PlaylistUiModel?) -> Unit,
+    onPlayButtonClick: (PlaylistUiModel?) -> Unit,
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     autoCentering: AutoCenteringParams? = AutoCenteringParams(),
-    onDownloadCompletedButtonClick: ((PlaylistUiModel) -> Unit)? = null,
+    onDownloadCompletedButtonClick: ((PlaylistUiModel?) -> Unit)? = null,
     defaultMediaTitle: String = "",
-    downloadItemArtworkPlaceholder: Painter? = null
+    downloadItemArtworkPlaceholder: Painter? = null,
+    streamingOnly: Boolean = true
 ) {
     val entityScreenState: EntityScreenState<DownloadMediaUiModel> =
         when (playlistDownloadScreenState) {
@@ -115,15 +116,42 @@ public fun PlaylistDownloadScreen(
         modifier = modifier,
         autoCentering = autoCentering,
         buttonsContent = {
-            ButtonsContent(
-                state = playlistDownloadScreenState,
-                onDownloadButtonClick = onDownloadButtonClick,
-                onCancelDownloadButtonClick = onCancelDownloadButtonClick,
-                onDownloadCompletedButtonClick = onDownloadCompletedButtonClick
-                    ?: { /* do nothing */ },
-                onShuffleButtonClick = onShuffleButtonClick,
-                onPlayButtonClick = onPlayButtonClick
-            )
+            if (streamingOnly) {
+                Row(
+                    modifier = Modifier
+                        .padding(bottom = 16.dp)
+                        .height(52.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    StandardButton(
+                        imageVector = Icons.Default.Shuffle,
+                        contentDescription = stringResource(id = R.string.horologist_playlist_download_button_shuffle_content_description),
+                        onClick = { onShuffleButtonClick(null) },
+                        modifier = Modifier
+                            .padding(start = 6.dp)
+                            .weight(weight = 0.3F, fill = false)
+                    )
+
+                    StandardButton(
+                        imageVector = Icons.Filled.PlayArrow,
+                        contentDescription = stringResource(id = R.string.horologist_playlist_download_button_play_content_description),
+                        onClick = { onPlayButtonClick(null) },
+                        modifier = Modifier
+                            .padding(start = 6.dp)
+                            .weight(weight = 0.3F, fill = false)
+                    )
+                }
+            } else {
+                ButtonsContent(
+                    state = playlistDownloadScreenState,
+                    onDownloadButtonClick = onDownloadButtonClick,
+                    onCancelDownloadButtonClick = onCancelDownloadButtonClick,
+                    onDownloadCompletedButtonClick = onDownloadCompletedButtonClick
+                        ?: { /* do nothing */ },
+                    onShuffleButtonClick = onShuffleButtonClick,
+                    onPlayButtonClick = onPlayButtonClick
+                )
+            }
         }
     )
 }

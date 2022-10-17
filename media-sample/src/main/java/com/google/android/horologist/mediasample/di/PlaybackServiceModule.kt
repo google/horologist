@@ -54,7 +54,7 @@ import com.google.android.horologist.media3.navigation.IntentBuilder
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.offload.AudioOffloadStrategy
 import com.google.android.horologist.media3.rules.PlaybackRules
-import com.google.android.horologist.media3.service.PrefetchListener
+import com.google.android.horologist.media3.service.PlaylistPrefetcher
 import com.google.android.horologist.media3.tracing.TracingListener
 import com.google.android.horologist.mediasample.data.service.complication.DataUpdates
 import com.google.android.horologist.mediasample.data.service.playback.UampMediaLibrarySessionCallback
@@ -70,8 +70,6 @@ import dagger.hilt.android.components.ServiceComponent
 import dagger.hilt.android.scopes.ServiceScoped
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -89,6 +87,7 @@ object PlaybackServiceModule {
             /* backBufferDurationMs = */ 30_000,
             /* retainBackBufferFromKeyframe = */ false
         )
+        .setPrioritizeTimeOverSizeThresholds(true)
         .build()
 
     @ServiceScoped
@@ -183,9 +182,10 @@ object PlaybackServiceModule {
     @Provides
     fun prefetchListener(
         serviceCoroutineScope: CoroutineScope,
-        cacheDataSourceFactory: Factory
-    ): PrefetchListener {
-        return PrefetchListener(serviceCoroutineScope, cacheDataSourceFactory)
+        cacheDataSourceFactory: Factory,
+        eventLogger: ErrorReporter
+    ): PlaylistPrefetcher {
+        return PlaylistPrefetcher(serviceCoroutineScope, cacheDataSourceFactory, eventLogger)
     }
 
     @ServiceScoped
@@ -197,7 +197,7 @@ object PlaybackServiceModule {
         analyticsCollector: AnalyticsCollector,
         mediaSourceFactory: MediaSource.Factory,
         dataUpdates: DataUpdates,
-        prefetcher: PrefetchListener
+        prefetcher: PlaylistPrefetcher
     ) =
         ExoPlayer.Builder(service, audioOnlyRenderersFactory)
             .setAnalyticsCollector(analyticsCollector)

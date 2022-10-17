@@ -52,11 +52,11 @@ public class TransferListener(
         dataSpec: DataSpec,
         isNetwork: Boolean
     ) {
-        appEventLogger.logMessage("init $isNetwork", category = ErrorReporter.Category.Network)
+        appEventLogger.logMessage("init $isNetwork ${dataSpec.uri.pathSegments.lastOrNull()}", category = ErrorReporter.Category.Network)
     }
 
     override fun onTransferStart(source: DataSource, dataSpec: DataSpec, isNetwork: Boolean) {
-        appEventLogger.logMessage("start $isNetwork", category = ErrorReporter.Category.Network)
+        appEventLogger.logMessage("start $isNetwork ${dataSpec.uri.pathSegments.lastOrNull()}", category = ErrorReporter.Category.Network)
     }
 
     override fun onBytesTransferred(
@@ -68,6 +68,6 @@ public class TransferListener(
     }
 
     override fun onTransferEnd(source: DataSource, dataSpec: DataSpec, isNetwork: Boolean) {
-        appEventLogger.logMessage("end $isNetwork", category = ErrorReporter.Category.Network)
+        appEventLogger.logMessage("end $isNetwork ${dataSpec.uri.pathSegments.lastOrNull()}", category = ErrorReporter.Category.Network)
     }
 }

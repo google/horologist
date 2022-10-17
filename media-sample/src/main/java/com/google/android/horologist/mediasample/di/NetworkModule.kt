@@ -109,7 +109,7 @@ object NetworkModule {
             .addInterceptor(alwaysHttpsInterceptor)
             .apply {
                 if (BuildConfig.DEBUG) {
-//                    eventListenerFactory(LoggingEventListener.Factory())
+                    eventListenerFactory(LoggingEventListener.Factory())
                 }
             }
             .cache(cache)

@@ -92,6 +92,7 @@ dependencies {
     implementation libs.room.common
     implementation libs.room.ktx
     ksp libs.room.compiler
+    implementation libs.androidx.lifecycle.service
 
     testImplementation libs.junit
     testImplementation libs.truth

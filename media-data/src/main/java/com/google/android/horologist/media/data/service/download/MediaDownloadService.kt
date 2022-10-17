@@ -60,7 +60,8 @@ public abstract class MediaDownloadService(
     channelId,
     channelNameResourceId,
     channelDescriptionResourceId
-), LifecycleOwner {
+),
+    LifecycleOwner {
     private val dispatcher = ServiceLifecycleDispatcher(this)
 
     override fun onCreate() {

@@ -234,8 +234,8 @@ package com.google.android.horologist.media.ui.components.controls {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void SeekToPreviousButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize);
   }
 
-  public final class ShuffleButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void ShuffleButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, boolean shuffleOn, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors);
+  public final class ShuffleToggleButtonKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void ShuffleToggleButton(boolean shuffleOn, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onToggle, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ToggleButtonColors colors);
   }
 
 }

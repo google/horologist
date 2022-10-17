@@ -25,7 +25,7 @@ import com.google.android.horologist.media.ui.components.controls.SeekButtonIncr
 import com.google.android.horologist.media.ui.components.controls.SeekForwardButton
 import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
 import com.google.android.horologist.media.ui.components.controls.SeekToPreviousButton
-import com.google.android.horologist.media.ui.components.controls.ShuffleButton
+import com.google.android.horologist.media.ui.components.controls.ShuffleToggleButton
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
@@ -38,8 +38,8 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
  * @param seekForwardEnabled whether [SeekForwardButton] button is enabled
  * @param seekToPreviousEnabled whether [SeekToPreviousButton] is enabled
  * @param seekToNextEnabled whether [SeekToNextButton] is enabled
- * @param shuffleEnabled whether [ShuffleButton] is enabled
- * @param shuffleOn whether [ShuffleButton] should display a shuffle on icon
+ * @param shuffleEnabled whether [ShuffleToggleButton] is enabled
+ * @param shuffleOn whether [ShuffleToggleButton] should display a shuffle on icon
  * @param playPauseEnabled whether [PlayPauseButton] is enabled
  * @param playing whether [PlayPauseButton] should display the play or pause button
  * @param media current [MediaUiModel]

@@ -20,10 +20,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.media.ui.screens.browse.PlaylistDownloadBrowseScreen
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
+import com.google.android.horologist.mediasample.R
 
 @Composable
 fun UampBrowseScreen(
@@ -40,10 +42,14 @@ fun UampBrowseScreen(
     PlaylistDownloadBrowseScreen(
         browseScreenState = uiState,
         onDownloadItemClick = onDownloadItemClick,
+        onDownloadItemInProgressClick = {
+            // TODO: https://github.com/google/horologist/issues/678
+        },
         onPlaylistsClick = onPlaylistsClick,
         onSettingsClick = onSettingsClick,
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
-        modifier = modifier
+        modifier = modifier,
+        onDownloadItemInProgressClickActionLabel = stringResource(id = R.string.browse_download_cancel_action_label)
     )
 }

@@ -73,10 +73,12 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest {
                 PlaylistDownloadBrowseScreen(
                     browseScreenState = screenState,
                     onDownloadItemClick = { },
+                    onDownloadItemInProgressClick = { },
                     onPlaylistsClick = { },
                     onSettingsClick = { },
                     focusRequester = FocusRequester(),
-                    scalingLazyListState = scrollState
+                    scalingLazyListState = scrollState,
+                    onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }
         }
@@ -95,10 +97,12 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest {
                     PlaylistDownloadBrowseScreen(
                         browseScreenState = screenState,
                         onDownloadItemClick = { },
+                        onDownloadItemInProgressClick = { },
                         onPlaylistsClick = { },
                         onSettingsClick = { },
                         focusRequester = FocusRequester(),
-                        scalingLazyListState = scrollState
+                        scalingLazyListState = scrollState,
+                        onDownloadItemInProgressClickActionLabel = "cancel"
                     )
                 }
             }

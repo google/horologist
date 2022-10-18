@@ -100,10 +100,8 @@ class MediaPlayerAppViewModel @Inject constructor(
 
                 waitForConnection()
 
-                playerRepository.setMediaList(playlist.mediaList)
-                playerRepository.seekToDefaultPosition(index)
-                playerRepository.prepare()
-                playerRepository.play()
+                playerRepository.setCurrentMediaListId(collectionId)
+                playerRepository.setMediaListAndPlay(playlist.mediaList, index)
             }
         } catch (e: IOException) {
             snackbarManager.showMessage(

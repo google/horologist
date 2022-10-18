@@ -73,6 +73,9 @@ public class PlayerRepositoryImpl(
     /**
      * The current media playing, or that would play when user hit play.
      */
+    private var _currentMediaListId = MutableStateFlow<String?>(null)
+    override val currentMediaListId: StateFlow<String?> get() = _currentMediaListId
+
     private var _currentMedia = MutableStateFlow<Media?>(null)
     override val currentMedia: StateFlow<Media?> get() = _currentMedia
 
@@ -336,7 +339,6 @@ public class PlayerRepositoryImpl(
 
         player.value?.let {
             it.setMediaItems(mediaList.map(mediaItemMapper::map))
-
             mediaIndexToSeekTo = index
         }
     }
@@ -407,5 +409,17 @@ public class PlayerRepositoryImpl(
 
     private companion object {
         private val TAG = PlayerRepositoryImpl::class.java.simpleName
+    }
+
+    override fun setCurrentMediaListId(mediaListId: String) {
+        _currentMediaListId.value = mediaListId
+    }
+
+    public fun getCurrentMediaListId(): String? {
+        return _currentMediaListId.value
+    }
+
+    public fun getCurrentMediaPosition(): Long? {
+        return _player.value?.currentPosition
     }
 }

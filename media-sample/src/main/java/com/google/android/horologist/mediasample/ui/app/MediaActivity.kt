@@ -40,6 +40,7 @@ class MediaActivity : ComponentActivity() {
         setContent {
             navController = rememberSwipeDismissableNavController()
             UampWearApp(
+                context = this.applicationContext,
                 navController = navController,
                 intent = intent
             )

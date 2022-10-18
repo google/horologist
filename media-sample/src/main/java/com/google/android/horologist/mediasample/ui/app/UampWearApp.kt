@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.mediasample.ui.app
 
+import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -37,6 +38,7 @@ import com.google.android.horologist.media.ui.navigation.MediaNavController.navi
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToSettings
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToVolume
 import com.google.android.horologist.media.ui.navigation.MediaPlayerScaffold
+import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.browse.UampBrowseScreen
 import com.google.android.horologist.mediasample.ui.debug.AudioDebugScreen
 import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeText
@@ -55,9 +57,16 @@ import com.google.android.horologist.mediasample.ui.settings.UampSettingsScreen
 
 @Composable
 fun UampWearApp(
+    context: Context,
     navController: NavHostController,
     intent: Intent
 ) {
+    val preferences by lazy {
+        context.getSharedPreferences(
+            context.getString(R.string.sample_shared_preferences),
+            Context.MODE_PRIVATE
+        )
+    }
     val appViewModel: MediaPlayerAppViewModel = hiltViewModel()
     val volumeViewModel: VolumeViewModel = hiltViewModel()
     val mediaInfoTimeTextViewModel: MediaInfoTimeTextViewModel = hiltViewModel()
@@ -199,8 +208,17 @@ fun UampWearApp(
     }
 
     LaunchedEffect(Unit) {
-        val collectionId = intent.getAndRemoveKey(MediaActivity.CollectionKey)
-        val mediaId = intent.getAndRemoveKey(MediaActivity.MediaIdKey)
+        val lastPlayedCollection: String? = preferences.getString(context.getString(R.string.sample_current_media_list_id), null)
+        val lastPlayedMedia: String? = preferences.getString(context.getString(R.string.sample_current_media_item), null)
+
+        var collectionId = intent.getAndRemoveKey(MediaActivity.CollectionKey)
+        if (collectionId == null && lastPlayedCollection != null) {
+            collectionId = lastPlayedCollection
+        }
+        var mediaId = intent.getAndRemoveKey(MediaActivity.MediaIdKey)
+        if (mediaId == null && lastPlayedMedia != null) {
+            mediaId = lastPlayedMedia
+        }
 
         if (collectionId != null) {
             appViewModel.playItems(mediaId, collectionId)

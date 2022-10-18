@@ -16,12 +16,15 @@
 
 package com.google.android.horologist.mediasample.ui.player
 
+import android.content.Context
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.data.repository.PlayerRepositoryImpl
 import com.google.android.horologist.media.ui.state.PlayerViewModel
+import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -33,15 +36,27 @@ import kotlin.time.Duration.Companion.seconds
 
 @HiltViewModel
 class MediaPlayerScreenViewModel @Inject constructor(
+    @ApplicationContext context: Context,
     playerRepository: PlayerRepositoryImpl,
     settingsRepository: SettingsRepository
 ) : PlayerViewModel(playerRepository) {
+    private val preferences by lazy {
+        context.getSharedPreferences(
+            context.getString(R.string.sample_shared_preferences),
+            Context.MODE_PRIVATE
+        )
+    }
+
     init {
         viewModelScope.launch {
             // update the track position while app is in foreground
             while (isActive) {
                 delay(1000)
                 playerRepository.updatePosition()
+
+                // Write to SharedPreferences
+                preferences.edit().putString(context.getString(R.string.sample_current_media_list_id), playerRepository.getCurrentMediaListId()).apply()
+                preferences.edit().putString(context.getString(R.string.sample_current_media_item), playerRepository.currentMedia?.value?.id).apply()
             }
         }
     }

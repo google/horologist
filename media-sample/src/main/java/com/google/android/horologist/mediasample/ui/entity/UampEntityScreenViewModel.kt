@@ -82,7 +82,7 @@ class UampEntityScreenViewModel @Inject constructor(
                 .coerceAtLeast(0)
 
             playerRepository.setShuffleModeEnabled(shuffled)
-
+            playerRepository.setCurrentMediaListId(playlistId)
             playerRepository.setMediaListAndPlay(playlistDownload.playlist.mediaList, index)
         }
     }

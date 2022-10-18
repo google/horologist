@@ -42,6 +42,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.Button
@@ -81,6 +85,7 @@ public fun PlaylistDownloadScreen(
     onDownloadButtonClick: (PlaylistUiModel) -> Unit,
     onCancelDownloadButtonClick: (PlaylistUiModel) -> Unit,
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
+    onDownloadItemInProgressClick: (DownloadMediaUiModel) -> Unit,
     onShuffleButtonClick: (PlaylistUiModel) -> Unit,
     onPlayButtonClick: (PlaylistUiModel) -> Unit,
     focusRequester: FocusRequester,
@@ -90,7 +95,8 @@ public fun PlaylistDownloadScreen(
     autoCentering: AutoCenteringParams? = AutoCenteringParams(),
     onDownloadCompletedButtonClick: ((PlaylistUiModel) -> Unit)? = null,
     defaultMediaTitle: String = "",
-    downloadItemArtworkPlaceholder: Painter? = null
+    downloadItemArtworkPlaceholder: Painter? = null,
+    onDownloadItemInProgressClickActionLabel: String? = null
 ) {
     val entityScreenState: EntityScreenState<DownloadMediaUiModel> =
         when (playlistDownloadScreenState) {
@@ -98,6 +104,7 @@ public fun PlaylistDownloadScreen(
             is PlaylistDownloadScreenState.Loaded -> EntityScreenState.Loaded(
                 playlistDownloadScreenState.mediaList
             )
+
             is PlaylistDownloadScreenState.Failed -> EntityScreenState.Failed()
         }
 
@@ -109,8 +116,10 @@ public fun PlaylistDownloadScreen(
             MediaContent(
                 downloadMediaUiModel = downloadMediaUiModel,
                 onDownloadItemClick = onDownloadItemClick,
+                onDownloadItemInProgressClick = onDownloadItemInProgressClick,
                 defaultMediaTitle = defaultMediaTitle,
-                downloadItemArtworkPlaceholder = downloadItemArtworkPlaceholder
+                downloadItemArtworkPlaceholder = downloadItemArtworkPlaceholder,
+                onDownloadItemInProgressClickActionLabel = onDownloadItemInProgressClickActionLabel
             )
         },
         focusRequester = focusRequester,
@@ -136,15 +145,20 @@ public fun PlaylistDownloadScreen(
 private fun MediaContent(
     downloadMediaUiModel: DownloadMediaUiModel,
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
+    onDownloadItemInProgressClick: (DownloadMediaUiModel) -> Unit,
     defaultMediaTitle: String = "",
-    downloadItemArtworkPlaceholder: Painter? = null
+    downloadItemArtworkPlaceholder: Painter?,
+    onDownloadItemInProgressClickActionLabel: String?
 ) {
+    val mediaTitle = downloadMediaUiModel.title ?: defaultMediaTitle
+
     val secondaryLabel = when (downloadMediaUiModel) {
         is DownloadMediaUiModel.Downloading -> {
             when (downloadMediaUiModel.progress) {
                 is DownloadMediaUiModel.Progress.Waiting -> stringResource(
                     id = R.string.horologist_playlist_download_download_progress_waiting
                 )
+
                 is DownloadMediaUiModel.Progress.InProgress -> when (downloadMediaUiModel.size) {
                     is DownloadMediaUiModel.Size.Known -> {
                         val size = Formatter.formatShortFileSize(
@@ -157,6 +171,7 @@ private fun MediaContent(
                             size
                         )
                     }
+
                     DownloadMediaUiModel.Size.Unknown -> stringResource(
                         id = R.string.horologist_playlist_download_download_progress_unknown_size,
                         downloadMediaUiModel.progress.progress
@@ -164,6 +179,7 @@ private fun MediaContent(
                 }
             }
         }
+
         is DownloadMediaUiModel.Downloaded -> downloadMediaUiModel.artist
         is DownloadMediaUiModel.NotDownloaded -> downloadMediaUiModel.artist
     }
@@ -172,7 +188,7 @@ private fun MediaContent(
         is DownloadMediaUiModel.Downloaded,
         is DownloadMediaUiModel.NotDownloaded -> {
             StandardChip(
-                label = downloadMediaUiModel.title ?: defaultMediaTitle,
+                label = mediaTitle,
                 onClick = { onDownloadItemClick(downloadMediaUiModel) },
                 secondaryLabel = secondaryLabel,
                 icon = downloadMediaUiModel.artworkUri,
@@ -182,6 +198,7 @@ private fun MediaContent(
                 enabled = downloadMediaUiModel !is DownloadMediaUiModel.NotDownloaded
             )
         }
+
         is DownloadMediaUiModel.Downloading -> {
             val icon: @Composable BoxScope.() -> Unit =
                 when (downloadMediaUiModel.progress) {
@@ -194,15 +211,18 @@ private fun MediaContent(
 
                             StandardChipIconWithProgress(
                                 progress = progress,
+                                modifier = Modifier.clearAndSetSemantics { },
                                 icon = downloadMediaUiModel.artworkUri,
                                 largeIcon = true,
                                 placeholder = downloadItemArtworkPlaceholder
                             )
                         }
                     }
+
                     is DownloadMediaUiModel.Progress.Waiting -> {
                         {
                             StandardChipIconWithProgress(
+                                modifier = Modifier.clearAndSetSemantics { },
                                 icon = downloadMediaUiModel.artworkUri,
                                 largeIcon = true,
                                 placeholder = downloadItemArtworkPlaceholder
@@ -211,9 +231,25 @@ private fun MediaContent(
                     }
                 }
 
+            val customContentDescription = stringResource(
+                id = R.string.horologist_playlist_download_media_chip_download_content_description,
+                mediaTitle
+            )
+            val customModifier = onDownloadItemInProgressClickActionLabel?.let {
+                Modifier.semantics {
+                    contentDescription = customContentDescription
+
+                    onClick(
+                        label = onDownloadItemInProgressClickActionLabel,
+                        action = null
+                    )
+                }
+            } ?: Modifier
+
             StandardChip(
-                label = downloadMediaUiModel.title ?: defaultMediaTitle,
-                onClick = { onDownloadItemClick(downloadMediaUiModel) },
+                label = mediaTitle,
+                onClick = { onDownloadItemInProgressClick(downloadMediaUiModel) },
+                modifier = customModifier,
                 secondaryLabel = secondaryLabel,
                 icon = icon,
                 largeIcon = true,
@@ -319,15 +355,22 @@ private fun <Collection> FirstButton(
             targetValue = downloadsProgress.progress.ifNan(0f),
             animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec
         )
+        val label =
+            stringResource(id = R.string.horologist_playlist_download_progress_button_cancel_action_label)
 
         Button(
             onClick = { onCancelDownloadButtonClick(collectionModel) },
-            modifier = modifier.size(StandardButtonSize.Default.tapTargetSize),
+            modifier = modifier
+                .size(StandardButtonSize.Default.tapTargetSize)
+                .semantics(mergeDescendants = true) {
+                    onClick(label = label, action = null)
+                },
             enabled = true,
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent)
         ) {
             CircularProgressIndicator(
                 modifier = Modifier
+                    .clearAndSetSemantics { }
                     .fillMaxSize()
                     .background(
                         ButtonDefaults
@@ -340,7 +383,7 @@ private fun <Collection> FirstButton(
             )
             Icon(
                 imageVector = Icons.Default.Close,
-                contentDescription = stringResource(id = R.string.horologist_playlist_download_button_cancel_content_description),
+                contentDescription = stringResource(id = R.string.horologist_playlist_download_progress_button_cancel_content_description),
                 modifier = Modifier
                     .size(StandardButtonSize.Default.iconSize)
                     .align(Alignment.Center)
@@ -355,11 +398,18 @@ private fun <Collection> FirstButton(
             buttonType = StandardButtonType.Secondary
         )
     } else if (downloadMediaListState == PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Fully) {
+        val label =
+            stringResource(id = R.string.horologist_playlist_download_button_remove_download_action_label)
         StandardButton(
             imageVector = Icons.Default.DownloadDone,
             contentDescription = stringResource(id = R.string.horologist_playlist_download_button_download_done_content_description),
             onClick = { onDownloadCompletedButtonClick(collectionModel) },
-            modifier = modifier,
+            modifier = modifier.semantics {
+                onClick(
+                    label = label,
+                    action = null
+                )
+            },
             buttonType = StandardButtonType.Secondary
         )
     } else {

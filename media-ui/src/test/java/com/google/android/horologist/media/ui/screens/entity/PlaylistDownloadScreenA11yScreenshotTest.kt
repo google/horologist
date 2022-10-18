@@ -77,10 +77,12 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadButtonClick = { },
                     onCancelDownloadButtonClick = { },
                     onDownloadItemClick = { },
+                    onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
                     focusRequester = FocusRequester(),
-                    scalingLazyListState = scrollState
+                    scalingLazyListState = scrollState,
+                    onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }
         }
@@ -102,6 +104,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadButtonClick = { },
                     onCancelDownloadButtonClick = { },
                     onDownloadItemClick = { },
+                    onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
                     focusRequester = FocusRequester(),
@@ -109,7 +112,8 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
                         tintColor = Color.Blue
-                    )
+                    ),
+                    onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }
         }
@@ -131,6 +135,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadButtonClick = { },
                     onCancelDownloadButtonClick = { },
                     onDownloadItemClick = { },
+                    onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
                     focusRequester = FocusRequester(),
@@ -138,7 +143,8 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
                         tintColor = Color.Blue
-                    )
+                    ),
+                    onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }
         }
@@ -160,6 +166,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadButtonClick = { },
                     onCancelDownloadButtonClick = { },
                     onDownloadItemClick = { },
+                    onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
                     focusRequester = FocusRequester(),
@@ -167,7 +174,8 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
                         tintColor = Color.Blue
-                    )
+                    ),
+                    onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }
         }
@@ -189,6 +197,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadButtonClick = { },
                     onCancelDownloadButtonClick = { },
                     onDownloadItemClick = { },
+                    onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
                     focusRequester = FocusRequester(),
@@ -196,7 +205,8 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
                         tintColor = Color.Blue
-                    )
+                    ),
+                    onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }
         }
@@ -218,6 +228,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadButtonClick = { },
                     onCancelDownloadButtonClick = { },
                     onDownloadItemClick = { },
+                    onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
                     focusRequester = FocusRequester(),
@@ -225,7 +236,8 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
                         tintColor = Color.Blue
-                    )
+                    ),
+                    onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }
         }
@@ -247,6 +259,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadButtonClick = { },
                     onCancelDownloadButtonClick = { },
                     onDownloadItemClick = { },
+                    onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
                     focusRequester = FocusRequester(),
@@ -254,7 +267,8 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
                         tintColor = Color.Blue
-                    )
+                    ),
+                    onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }
         }
@@ -273,10 +287,12 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadButtonClick = { },
                     onCancelDownloadButtonClick = { },
                     onDownloadItemClick = { },
+                    onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
                     focusRequester = FocusRequester(),
-                    scalingLazyListState = scrollState
+                    scalingLazyListState = scrollState,
+                    onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }
         }

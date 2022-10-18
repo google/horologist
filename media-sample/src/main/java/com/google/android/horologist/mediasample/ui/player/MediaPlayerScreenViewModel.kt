@@ -56,7 +56,7 @@ class MediaPlayerScreenViewModel @Inject constructor(
 
                 // Write to SharedPreferences
                 preferences.edit().putString(context.getString(R.string.sample_current_media_list_id), playerRepository.getCurrentMediaListId()).apply()
-                preferences.edit().putString(context.getString(R.string.sample_current_media_item), playerRepository.currentMedia.value?.id).apply()
+                preferences.edit().putString(context.getString(R.string.sample_current_media_item), playerRepository.currentMedia?.value?.id).apply()
             }
         }
     }

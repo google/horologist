@@ -30,9 +30,10 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MediaActivity: ComponentActivity() {
+class MediaActivity : ComponentActivity() {
     private lateinit var jankPrinter: JankPrinter
     lateinit var navController: NavHostController
+
     @Inject lateinit var settingsRepository: SettingsRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {

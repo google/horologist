@@ -40,6 +40,9 @@ class FakePlayerRepository : PlayerRepository {
     private var _currentState = MutableStateFlow(PlayerState.Idle)
     override val currentState: StateFlow<PlayerState> = _currentState
 
+    private var _currentMediaListId = MutableStateFlow<String?>(null)
+    override val currentMediaListId: StateFlow<String?> get() = _currentMediaListId
+
     private var _currentMedia: MutableStateFlow<Media?> = MutableStateFlow(null)
     override val currentMedia: StateFlow<Media?> = _currentMedia
 
@@ -101,6 +104,10 @@ class FakePlayerRepository : PlayerRepository {
 
     override fun setShuffleModeEnabled(shuffleModeEnabled: Boolean) {
         // do nothing
+    }
+
+    override fun setCurrentMediaListId(mediaListId: String) {
+        _currentMediaListId.value = mediaListId
     }
 
     override fun setMedia(media: Media) {

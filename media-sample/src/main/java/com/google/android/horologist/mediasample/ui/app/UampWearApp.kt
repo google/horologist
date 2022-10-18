@@ -54,11 +54,14 @@ import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScree
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreenViewModel
 import com.google.android.horologist.mediasample.ui.settings.DeveloperOptionsScreen
 import com.google.android.horologist.mediasample.ui.settings.UampSettingsScreen
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 
 @Composable
 fun UampWearApp(
     context: Context,
     navController: NavHostController,
+    loadItemsAtStartupFlow: Flow<Boolean>,
     intent: Intent
 ) {
     val preferences by lazy {
@@ -208,16 +211,19 @@ fun UampWearApp(
     }
 
     LaunchedEffect(Unit) {
-        val lastPlayedCollection: String? = preferences.getString(context.getString(R.string.sample_current_media_list_id), null)
-        val lastPlayedMedia: String? = preferences.getString(context.getString(R.string.sample_current_media_item), null)
-
         var collectionId = intent.getAndRemoveKey(MediaActivity.CollectionKey)
-        if (collectionId == null && lastPlayedCollection != null) {
-            collectionId = lastPlayedCollection
-        }
         var mediaId = intent.getAndRemoveKey(MediaActivity.MediaIdKey)
-        if (mediaId == null && lastPlayedMedia != null) {
-            mediaId = lastPlayedMedia
+
+        if (loadItemsAtStartupFlow.first()) {
+            val lastPlayedCollection: String? = preferences.getString(context.getString(R.string.sample_current_media_list_id), null)
+            val lastPlayedMedia: String? = preferences.getString(context.getString(R.string.sample_current_media_item), null)
+
+            if (collectionId == null && lastPlayedCollection != null) {
+                collectionId = lastPlayedCollection
+            }
+            if (mediaId == null && lastPlayedMedia != null) {
+                mediaId = lastPlayedMedia
+            }
         }
 
         if (collectionId != null) {

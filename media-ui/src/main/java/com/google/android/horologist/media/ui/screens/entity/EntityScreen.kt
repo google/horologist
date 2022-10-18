@@ -27,8 +27,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.ScalingLazyColumn
+import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingLazyListScope
 import androidx.wear.compose.material.ScalingLazyListState
+import androidx.wear.compose.material.ScalingParams
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.base.Title
@@ -43,6 +45,7 @@ public fun EntityScreen(
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
+    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
     autoCentering: AutoCenteringParams? = AutoCenteringParams(),
     buttonsContent: (@Composable () -> Unit)? = null,
     content: (ScalingLazyListScope.() -> Unit)? = null
@@ -52,6 +55,7 @@ public fun EntityScreen(
             .fillMaxSize()
             .scrollableColumn(focusRequester, scalingLazyListState),
         state = scalingLazyListState,
+        scalingParams = scalingParams,
         autoCentering = autoCentering
     ) {
         item {
@@ -82,6 +86,7 @@ public fun <Media> EntityScreen(
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
+    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
     autoCentering: AutoCenteringParams? = AutoCenteringParams(),
     buttonsContent: (@Composable () -> Unit)? = null
 ) {
@@ -90,6 +95,7 @@ public fun <Media> EntityScreen(
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
         modifier = modifier,
+        scalingParams = scalingParams,
         autoCentering = autoCentering,
         buttonsContent = buttonsContent,
         content = {
@@ -114,6 +120,7 @@ public fun <Media> EntityScreen(
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
+    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
     autoCentering: AutoCenteringParams? = AutoCenteringParams(),
     buttonsContent: (@Composable () -> Unit)? = null,
     failedContent: (@Composable () -> Unit)? = null
@@ -125,6 +132,7 @@ public fun <Media> EntityScreen(
                 focusRequester = focusRequester,
                 scalingLazyListState = scalingLazyListState,
                 modifier = modifier,
+                scalingParams = scalingParams,
                 autoCentering = autoCentering,
                 buttonsContent = buttonsContent,
                 content = loadingContent
@@ -139,6 +147,7 @@ public fun <Media> EntityScreen(
                 focusRequester = focusRequester,
                 scalingLazyListState = scalingLazyListState,
                 modifier = modifier,
+                scalingParams = scalingParams,
                 autoCentering = autoCentering,
                 buttonsContent = buttonsContent
             )
@@ -151,6 +160,7 @@ public fun <Media> EntityScreen(
                 scalingLazyListState = scalingLazyListState,
                 modifier = modifier,
                 autoCentering = autoCentering,
+                scalingParams = scalingParams,
                 buttonsContent = buttonsContent,
                 content = failedContent?.let {
                     { item { failedContent() } }

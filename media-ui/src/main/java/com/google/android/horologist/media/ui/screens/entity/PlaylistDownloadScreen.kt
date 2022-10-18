@@ -51,7 +51,9 @@ import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ProgressIndicatorDefaults
+import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingLazyListState
+import androidx.wear.compose.material.ScalingParams
 import com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
@@ -84,6 +86,7 @@ public fun PlaylistDownloadScreen(
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
+    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
     autoCentering: AutoCenteringParams? = AutoCenteringParams(),
     onDownloadCompletedButtonClick: ((PlaylistUiModel) -> Unit)? = null,
     defaultMediaTitle: String = "",
@@ -113,6 +116,7 @@ public fun PlaylistDownloadScreen(
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
         modifier = modifier,
+        scalingParams = scalingParams,
         autoCentering = autoCentering,
         buttonsContent = {
             ButtonsContent(

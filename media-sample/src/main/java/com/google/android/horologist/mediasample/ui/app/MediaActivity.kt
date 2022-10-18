@@ -23,7 +23,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavHostController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.mediasample.domain.SettingsRepository
-import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.mediasample.ui.util.JankPrinter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow

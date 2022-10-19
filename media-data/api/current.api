@@ -308,9 +308,6 @@ package com.google.android.horologist.media.data.repository {
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getConnected();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.Media> getCurrentMedia();
     method public int getCurrentMediaIndex();
-    method public kotlinx.coroutines.flow.StateFlow<java.lang.String> getCurrentMediaListId();
-    method public String? getCurrentMediaListId();
-    method public Long? getCurrentMediaPosition();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.PlayerState> getCurrentState();
     method public com.google.android.horologist.media.model.Media? getMediaAt(int index);
     method public int getMediaCount();
@@ -330,7 +327,6 @@ package com.google.android.horologist.media.data.repository {
     method public void seekBack();
     method public void seekForward();
     method public void seekToDefaultPosition(int mediaIndex);
-    method public void setCurrentMediaListId(String mediaListId);
     method public void setMedia(com.google.android.horologist.media.model.Media media);
     method public void setMediaList(java.util.List<com.google.android.horologist.media.model.Media> mediaList);
     method public void setMediaListAndPlay(java.util.List<com.google.android.horologist.media.model.Media> mediaList, int index);
@@ -342,7 +338,6 @@ package com.google.android.horologist.media.data.repository {
     property public kotlinx.coroutines.flow.StateFlow<java.util.Set<com.google.android.horologist.media.model.Command>> availableCommands;
     property public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> connected;
     property public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.Media> currentMedia;
-    property public kotlinx.coroutines.flow.StateFlow<java.lang.String> currentMediaListId;
     property public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.PlayerState> currentState;
     property public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.MediaPosition> mediaPosition;
     property public final kotlinx.coroutines.flow.StateFlow<java.lang.Float> playbackSpeed;

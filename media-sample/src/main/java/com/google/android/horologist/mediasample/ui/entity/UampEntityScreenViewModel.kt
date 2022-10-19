@@ -29,19 +29,23 @@ import com.google.android.horologist.media.ui.state.mapper.DownloadMediaUiModelM
 import com.google.android.horologist.media.ui.state.mapper.PlaylistUiModelMapper
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
+import com.google.android.horologist.mediasample.domain.SettingsRepository
+import com.google.android.horologist.mediasample.domain.proto.copy
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class UampEntityScreenViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val playlistDownloadRepository: PlaylistDownloadRepository,
-    private val playerRepository: PlayerRepository
+    private val playerRepository: PlayerRepository,
+    private val settingsRepository: SettingsRepository
 ) : ViewModel() {
     private val playlistId: String = savedStateHandle[NavigationScreens.Collection.id]!!
 
@@ -80,9 +84,10 @@ class UampEntityScreenViewModel @Inject constructor(
             val index = playlistDownload.mediaList
                 .indexOfFirst { it.media.id == mediaId }
                 .coerceAtLeast(0)
-
+            viewModelScope.launch {
+                settingsRepository.edit { it.copy { currentMediaListId = playlistId } }
+            }
             playerRepository.setShuffleModeEnabled(shuffled)
-            playerRepository.setCurrentMediaListId(playlistId)
             playerRepository.setMediaListAndPlay(playlistDownload.playlist.mediaList, index)
         }
     }

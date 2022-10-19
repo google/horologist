@@ -45,11 +45,6 @@ public interface PlayerRepository {
     /**
      * Returns the current [Media] playing, or that would play when player starts playing.
      */
-    public val currentMediaListId: StateFlow<String?>
-
-    /**
-     * Returns the current [Media] playing, or that would play when player starts playing.
-     */
     public val currentMedia: StateFlow<Media?>
 
     /**
@@ -126,11 +121,6 @@ public interface PlayerRepository {
      * Sets whether shuffling of [Media] is enabled.
      */
     public fun setShuffleModeEnabled(shuffleModeEnabled: Boolean)
-
-    /**
-     * Sets the current playlist id.
-     */
-    public fun setCurrentMediaListId(mediaListId: String)
 
     /**
      * Clears the playlist, adds the specified [Media] and resets the position to

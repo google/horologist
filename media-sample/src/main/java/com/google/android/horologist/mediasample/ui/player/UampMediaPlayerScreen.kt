@@ -16,19 +16,12 @@
 
 package com.google.android.horologist.mediasample.ui.player
 
-import androidx.compose.foundation.focusable
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Scaffold
-import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
-import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedPlayerScreenMediaDisplay
@@ -45,71 +38,57 @@ fun UampMediaPlayerScreen(
     mediaPlayerScreenViewModel: MediaPlayerScreenViewModel,
     volumeViewModel: VolumeViewModel,
     onVolumeClick: () -> Unit,
-    playerFocusRequester: FocusRequester,
     modifier: Modifier = Modifier
 ) {
     val volumeState by rememberStateWithLifecycle(flow = volumeViewModel.volumeState)
     val settingsState by rememberStateWithLifecycle(flow = mediaPlayerScreenViewModel.settingsState)
 
-    Scaffold(
-        modifier = modifier
-            .fillMaxSize()
-            .onRotaryInputAccumulated {
-                when {
-                    it > 0 -> volumeViewModel.increaseVolumeWithHaptics()
-                    it < 0 -> volumeViewModel.increaseVolumeWithHaptics()
-                }
+    PlayerScreen(
+        modifier = modifier,
+        playerViewModel = mediaPlayerScreenViewModel,
+        mediaDisplay = { playerUiState ->
+            if (settingsState.animated) {
+                AnimatedPlayerScreenMediaDisplay(playerUiState)
+            } else {
+                DefaultPlayerScreenMediaDisplay(playerUiState)
             }
-            .focusRequester(playerFocusRequester)
-            .focusable(),
-        positionIndicator = { VolumePositionIndicator(volumeState = { volumeState }) }
-    ) {
-        PlayerScreen(
-            playerViewModel = mediaPlayerScreenViewModel,
-            mediaDisplay = { playerUiState ->
+        },
+        buttons = {
+            UampSettingsButtons(
+                volumeState = volumeState,
+                onVolumeClick = onVolumeClick,
+                enabled = it.connected
+            )
+        },
+        controlButtons = { playerUiController, playerUiState ->
+            if (settingsState.podcastControls) {
+                PlayerScreenPodcastControlButtons(playerUiController, playerUiState)
+            } else {
                 if (settingsState.animated) {
-                    AnimatedPlayerScreenMediaDisplay(playerUiState)
+                    AnimatedMediaControlButtons(
+                        onPlayButtonClick = { playerUiController.play() },
+                        onPauseButtonClick = { playerUiController.pause() },
+                        playPauseButtonEnabled = playerUiState.playPauseEnabled,
+                        playing = playerUiState.playing,
+                        onSeekToPreviousButtonClick = { playerUiController.skipToPreviousMedia() },
+                        seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
+                        onSeekToNextButtonClick = { playerUiController.skipToNextMedia() },
+                        seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
+                        percent = playerUiState.trackPosition?.percent ?: 0f
+                    )
                 } else {
-                    DefaultPlayerScreenMediaDisplay(playerUiState)
+                    DefaultPlayerScreenControlButtons(playerUiController, playerUiState)
                 }
-            },
-            buttons = {
-                UampSettingsButtons(
-                    volumeState = volumeState,
-                    onVolumeClick = onVolumeClick,
-                    enabled = it.connected
-                )
-            },
-            controlButtons = { playerUiController, playerUiState ->
-                if (settingsState.podcastControls) {
-                    PlayerScreenPodcastControlButtons(playerUiController, playerUiState)
-                } else {
-                    if (settingsState.animated) {
-                        AnimatedMediaControlButtons(
-                            onPlayButtonClick = { playerUiController.play() },
-                            onPauseButtonClick = { playerUiController.pause() },
-                            playPauseButtonEnabled = playerUiState.playPauseEnabled,
-                            playing = playerUiState.playing,
-                            onSeekToPreviousButtonClick = { playerUiController.skipToPreviousMedia() },
-                            seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
-                            onSeekToNextButtonClick = { playerUiController.skipToNextMedia() },
-                            seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
-                            percent = playerUiState.trackPosition?.percent ?: 0f
-                        )
-                    } else {
-                        DefaultPlayerScreenControlButtons(playerUiController, playerUiState)
-                    }
-                }
-            },
-            background = {
-                val artworkUri = it.media?.artworkUri
-                ArtworkColorBackground(
-                    artworkUri = artworkUri,
-                    defaultColor = MaterialTheme.colors.primary
-                )
             }
-        )
-    }
+        },
+        background = {
+            val artworkUri = it.media?.artworkUri
+            ArtworkColorBackground(
+                artworkUri = artworkUri,
+                defaultColor = MaterialTheme.colors.primary
+            )
+        }
+    )
 
     val player by rememberStateWithLifecycle(mediaPlayerScreenViewModel.playerState)
     if (player != null) {

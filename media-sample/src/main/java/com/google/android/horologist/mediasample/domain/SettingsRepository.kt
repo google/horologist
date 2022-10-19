@@ -27,7 +27,7 @@ class SettingsRepository(
     private val dataStore: DataStore<Settings>
 ) {
 
-    suspend fun edit(transform: suspend (Settings) -> Settings) {
+    suspend fun edit(transform: (Settings) -> Settings) {
         dataStore.updateData {
             transform(it)
         }

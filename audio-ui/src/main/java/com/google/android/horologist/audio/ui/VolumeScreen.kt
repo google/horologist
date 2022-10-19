@@ -79,12 +79,7 @@ public fun VolumeScreen(
         onAudioOutputClick = { volumeViewModel.launchOutputSelection() },
         showVolumeIndicator = showVolumeIndicator,
         focusRequester = focusRequester,
-        onVolumeChangeByScroll = {
-            when {
-                it > 0 -> volumeViewModel.increaseVolumeWithHaptics()
-                it < 0 -> volumeViewModel.increaseVolumeWithHaptics()
-            }
-        },
+        onVolumeChangeByScroll = volumeViewModel::onVolumeChangeByScroll,
         increaseIcon = increaseIcon,
         decreaseIcon = decreaseIcon
     )

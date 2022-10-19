@@ -23,10 +23,12 @@ import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.SettingsRepository
+import com.google.android.horologist.mediasample.domain.proto.copy
 import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.mediasample.ui.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filter
@@ -48,6 +50,12 @@ class MediaPlayerAppViewModel @Inject constructor(
 ) : ViewModel() {
 
     val deepLinkPrefix: String = appConfig.deeplinkUriPrefix
+    val loadItemsAtStartupFlow: Flow<Boolean> =
+        settingsRepository.settingsFlow.map { it.loadItemsAtStartup }
+    val currentMediaListIdFlow: Flow<String> =
+        settingsRepository.settingsFlow.map { it.currentMediaListId }
+    val currentMediaItemIdFlow: Flow<String> =
+        settingsRepository.settingsFlow.map { it.currentMediaItemId }
 
     @OptIn(FlowPreview::class)
     private suspend fun loadItems() {
@@ -100,7 +108,12 @@ class MediaPlayerAppViewModel @Inject constructor(
 
                 waitForConnection()
 
-                playerRepository.setCurrentMediaListId(collectionId)
+                settingsRepository.edit { it.copy { currentMediaListId = collectionId } }
+                mediaId?.let {
+                        id ->
+                    settingsRepository.edit { it.copy { currentMediaItemId = id } }
+                }
+
                 playerRepository.setMediaListAndPlay(playlist.mediaList, index)
             }
         } catch (e: IOException) {
@@ -112,6 +125,18 @@ class MediaPlayerAppViewModel @Inject constructor(
             )
         }
     }
+
+//    fun getLoadItemsAtStartupFlow(): Boolean {
+//        return settingsRepository.settingsFlow.first().loadItemsAtStartup
+//    }
+//
+//    fun getCurrentMediaListIdFlow(): String {
+//        return settingsRepository.settingsFlow.first().currentMediaListId
+//    }
+//
+//    fun getCurrentMediaItemIdFlow(): String {
+//        return settingsRepository.settingsFlow.first().currentMediaItemId
+//    }
 
     private suspend fun waitForConnection() {
         // setMediaItems is a noop before this point

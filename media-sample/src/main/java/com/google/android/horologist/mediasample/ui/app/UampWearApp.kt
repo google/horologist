@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.mediasample.ui.app
 
-import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -38,7 +37,6 @@ import com.google.android.horologist.media.ui.navigation.MediaNavController.navi
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToSettings
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToVolume
 import com.google.android.horologist.media.ui.navigation.MediaPlayerScaffold
-import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.browse.UampBrowseScreen
 import com.google.android.horologist.mediasample.ui.debug.AudioDebugScreen
 import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeText
@@ -54,22 +52,13 @@ import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScree
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreenViewModel
 import com.google.android.horologist.mediasample.ui.settings.DeveloperOptionsScreen
 import com.google.android.horologist.mediasample.ui.settings.UampSettingsScreen
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 
 @Composable
 fun UampWearApp(
-    context: Context,
     navController: NavHostController,
-    loadItemsAtStartupFlow: Flow<Boolean>,
     intent: Intent
 ) {
-    val preferences by lazy {
-        context.getSharedPreferences(
-            context.getString(R.string.sample_shared_preferences),
-            Context.MODE_PRIVATE
-        )
-    }
     val appViewModel: MediaPlayerAppViewModel = hiltViewModel()
     val volumeViewModel: VolumeViewModel = hiltViewModel()
     val mediaInfoTimeTextViewModel: MediaInfoTimeTextViewModel = hiltViewModel()
@@ -86,15 +75,14 @@ fun UampWearApp(
 
     UampTheme {
         MediaPlayerScaffold(
-            playerScreen = { focusRequester ->
+            playerScreen = {
                 UampMediaPlayerScreen(
                     modifier = Modifier.fillMaxSize(),
                     mediaPlayerScreenViewModel = hiltViewModel(),
                     volumeViewModel = volumeViewModel,
                     onVolumeClick = {
                         navController.navigateToVolume()
-                    },
-                    playerFocusRequester = focusRequester
+                    }
                 )
             },
             libraryScreen = { focusRequester, scalingLazyListState ->
@@ -214,14 +202,14 @@ fun UampWearApp(
         var collectionId = intent.getAndRemoveKey(MediaActivity.CollectionKey)
         var mediaId = intent.getAndRemoveKey(MediaActivity.MediaIdKey)
 
-        if (loadItemsAtStartupFlow.first()) {
-            val lastPlayedCollection: String? = preferences.getString(context.getString(R.string.sample_current_media_list_id), null)
-            val lastPlayedMedia: String? = preferences.getString(context.getString(R.string.sample_current_media_item), null)
+        if (appViewModel.loadItemsAtStartupFlow.first()) {
+            val lastPlayedCollection: String = appViewModel.currentMediaListIdFlow.first()
+            val lastPlayedMedia: String = appViewModel.currentMediaItemIdFlow.first()
 
-            if (collectionId == null && lastPlayedCollection != null) {
+            if (collectionId == null && !lastPlayedCollection.isNullOrEmpty()) {
                 collectionId = lastPlayedCollection
             }
-            if (mediaId == null && lastPlayedMedia != null) {
+            if (mediaId == null && !lastPlayedMedia.isNullOrEmpty()) {
                 mediaId = lastPlayedMedia
             }
         }

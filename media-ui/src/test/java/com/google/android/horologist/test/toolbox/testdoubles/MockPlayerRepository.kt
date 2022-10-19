@@ -35,8 +35,7 @@ class MockPlayerRepository(
     private val mediaPositionValue: MediaPosition? = null,
     private val shuffleModeEnabledValue: Boolean = false,
     private val seekBackIncrementValue: Duration? = null,
-    private val seekForwardIncrementValue: Duration? = null,
-    private val currentMediaListIdValue: String? = null
+    private val seekForwardIncrementValue: Duration? = null
 ) : PlayerRepository {
 
     override val connected: StateFlow<Boolean>
@@ -50,9 +49,6 @@ class MockPlayerRepository(
 
     override val currentMedia: StateFlow<Media?>
         get() = MutableStateFlow(currentMediaValue)
-
-    override val currentMediaListId: StateFlow<String?>
-        get() = MutableStateFlow(currentMediaListIdValue)
 
     override val mediaPosition: StateFlow<MediaPosition?>
         get() = MutableStateFlow(mediaPositionValue)
@@ -103,10 +99,6 @@ class MockPlayerRepository(
     }
 
     override fun setShuffleModeEnabled(shuffleModeEnabled: Boolean) {
-        // do nothing
-    }
-
-    override fun setCurrentMediaListId(mediaListId: String) {
         // do nothing
     }
 

@@ -93,6 +93,13 @@ public open class VolumeViewModel(
         Log.i(TAG, "Effect not supported")
     }
 
+    public fun onVolumeChangeByScroll(pixels: Float) {
+        when {
+            pixels > 0 -> increaseVolumeWithHaptics()
+            pixels < 0 -> decreaseVolumeWithHaptics()
+        }
+    }
+
     @ExperimentalHorologistAudioUiApi
     public companion object {
         private const val TAG = "VolumeViewModel"

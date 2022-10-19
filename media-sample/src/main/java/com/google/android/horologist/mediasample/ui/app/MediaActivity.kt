@@ -22,25 +22,16 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavHostController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
-import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.ui.util.JankPrinter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MediaActivity : ComponentActivity() {
     private lateinit var jankPrinter: JankPrinter
     lateinit var navController: NavHostController
 
-    @Inject lateinit var settingsRepository: SettingsRepository
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val loadItemsAtStartupFlow: Flow<Boolean> =
-            settingsRepository.settingsFlow.map { it.loadItemsAtStartup }
 
         jankPrinter = JankPrinter()
 
@@ -49,9 +40,7 @@ class MediaActivity : ComponentActivity() {
         setContent {
             navController = rememberSwipeDismissableNavController()
             UampWearApp(
-                context = this.applicationContext,
                 navController = navController,
-                loadItemsAtStartupFlow = loadItemsAtStartupFlow,
                 intent = intent
             )
 

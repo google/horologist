@@ -67,7 +67,7 @@ import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
 public fun MediaPlayerScaffold(
     snackbarViewModel: SnackbarViewModel,
     volumeViewModel: VolumeViewModel,
-    playerScreen: @Composable (FocusRequester) -> Unit,
+    playerScreen: @Composable () -> Unit,
     libraryScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
     categoryEntityScreen: @Composable (id: String, name: String, FocusRequester, ScalingLazyListState) -> Unit,
     mediaEntityScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
@@ -113,16 +113,11 @@ public fun MediaPlayerScaffold(
 
             PlayerLibraryPagerScreen(
                 pagerState = pagerState,
-                onVolumeChangeByScroll = {
-                    when {
-                        it > 0 -> volumeViewModel.increaseVolumeWithHaptics()
-                        it < 0 -> volumeViewModel.increaseVolumeWithHaptics()
-                    }
-                },
+                onVolumeChangeByScroll = volumeViewModel::onVolumeChangeByScroll,
                 volumeState = { volumeState },
                 timeText = timeText,
                 playerScreen = {
-                    playerScreen(it)
+                    playerScreen()
                 },
                 libraryScreen = { focusRequester, listState ->
                     libraryScreen(focusRequester, listState)

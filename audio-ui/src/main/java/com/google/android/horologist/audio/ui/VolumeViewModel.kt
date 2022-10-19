@@ -93,7 +93,7 @@ public open class VolumeViewModel(
         Log.i(TAG, "Effect not supported")
     }
 
-    fun onVolumeChangeByScroll(pixels: Float) {
+    public fun onVolumeChangeByScroll(pixels: Float) {
         when {
             pixels > 0 -> increaseVolumeWithHaptics()
             pixels < 0 -> decreaseVolumeWithHaptics()

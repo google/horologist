@@ -81,7 +81,7 @@ fun UampWearApp(
                     volumeViewModel = volumeViewModel,
                     onVolumeClick = {
                         navController.navigateToVolume()
-                    },
+                    }
                 )
             },
             libraryScreen = { focusRequester, scalingLazyListState ->

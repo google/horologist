@@ -74,7 +74,7 @@ fun UampWearApp(
 
     UampTheme {
         MediaPlayerScaffold(
-            playerScreen = { focusRequester ->
+            playerScreen = {
                 UampMediaPlayerScreen(
                     modifier = Modifier.fillMaxSize(),
                     mediaPlayerScreenViewModel = hiltViewModel(),
@@ -82,7 +82,6 @@ fun UampWearApp(
                     onVolumeClick = {
                         navController.navigateToVolume()
                     },
-                    playerFocusRequester = focusRequester
                 )
             },
             libraryScreen = { focusRequester, scalingLazyListState ->

@@ -54,7 +54,7 @@ public fun PlayerLibraryPagerScreen(
     onVolumeChangeByScroll: (scrollPixels: Float) -> Unit,
     volumeState: () -> VolumeState,
     timeText: @Composable (Modifier) -> Unit,
-    playerScreen: @Composable (FocusRequester) -> Unit,
+    playerScreen: @Composable () -> Unit,
     libraryScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
     backStack: NavBackStackEntry,
     modifier: Modifier = Modifier
@@ -94,7 +94,7 @@ public fun PlayerLibraryPagerScreen(
                         VolumePositionIndicator(volumeState = volumeState)
                     }
                 ) {
-                    playerScreen(playerFocusRequester)
+                    playerScreen()
                 }
 
                 FocusOnResume(playerFocusRequester)

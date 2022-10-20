@@ -15,10 +15,12 @@ module:compose-layout
 com.google.android.horologist.compose.layout
 com.google.android.horologist.compose.navscaffold
 com.google.android.horologist.compose.pager
+com.google.android.horologist.compose.rotaryinput
 com.google.android.horologist.compose.snackbar
 module:compose-tools
 com.google.android.horologist.compose.tools
 com.google.android.horologist.compose.tools.a11y
+com.google.android.horologist.compose.tools.coil
 module:datalayer
 com.google.android.horologist.data
 com.google.android.horologist.data.store

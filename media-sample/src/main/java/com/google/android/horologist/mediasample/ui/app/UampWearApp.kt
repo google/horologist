@@ -198,8 +198,8 @@ fun UampWearApp(
     }
 
     LaunchedEffect(Unit) {
-        var collectionId = intent.getAndRemoveKey(MediaActivity.CollectionKey)
-        var mediaId = intent.getAndRemoveKey(MediaActivity.MediaIdKey)
+        val collectionId = intent.getAndRemoveKey(MediaActivity.CollectionKey)
+        val mediaId = intent.getAndRemoveKey(MediaActivity.MediaIdKey)
 
         if (collectionId != null) {
             appViewModel.playItems(mediaId, collectionId)

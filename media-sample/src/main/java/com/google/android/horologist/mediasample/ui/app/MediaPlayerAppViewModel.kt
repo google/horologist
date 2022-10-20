@@ -83,8 +83,8 @@ class MediaPlayerAppViewModel @Inject constructor(
         // If it's currently not playing and user opted in to load items at startup,
         // then we start playing using the last played media item.
         if (currentMediaItem == null &&
-            settingsRepository.settingsFlow.map { it.loadItemsAtStartup }.first()) {
-
+            settingsRepository.settingsFlow.map { it.loadItemsAtStartup }.first()
+        ) {
             playItems(
                 settingsRepository.settingsFlow.map { it.currentMediaItemId }.first(),
                 settingsRepository.settingsFlow.map { it.currentMediaListId }.first()

@@ -149,7 +149,8 @@ public fun TimePicker(
                         readOnly = selectedColumn != 0,
                         state = hourState,
                         focusRequester = focusRequester1,
-                        modifier = Modifier.size(40.dp, 100.dp)
+                        modifier = Modifier.size(40.dp, 100.dp),
+                        contentDescription = ""
                     ) { hour: Int ->
                         TimePiece(
                             selected = selectedColumn == 0,
@@ -427,12 +428,16 @@ internal fun PickerWithRSB(
     readOnly: Boolean,
     modifier: Modifier,
     focusRequester: FocusRequester,
+    contentDescription: String?,
     readOnlyLabel: @Composable (BoxScope.() -> Unit)? = null,
     flingBehavior: FlingBehavior = PickerDefaults.flingBehavior(state = state),
-    option: @Composable PickerScope.(optionIndex: Int) -> Unit
+    option: @Composable PickerScope.(optionIndex: Int) -> Unit,
+    onSelected: () -> Unit = {},
 ) {
     Picker(
         state = state,
+        contentDescription = contentDescription,
+        onSelected = onSelected,
         modifier = modifier.run {
             val coroutineScope = rememberCoroutineScope()
             onRotaryInputAccumulated {

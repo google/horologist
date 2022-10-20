@@ -79,16 +79,12 @@ class MediaPlayerAppViewModel @Inject constructor(
         waitForConnection()
 
         val currentMediaItem = playerRepository.currentMedia.value
+        val settings = settingsRepository.settingsFlow.first()
 
         // If it's currently not playing and user opted in to load items at startup,
         // then we start playing using the last played media item.
-        if (currentMediaItem == null &&
-            settingsRepository.settingsFlow.map { it.loadItemsAtStartup }.first()
-        ) {
-            playItems(
-                settingsRepository.settingsFlow.map { it.currentMediaItemId }.first(),
-                settingsRepository.settingsFlow.map { it.currentMediaListId }.first()
-            )
+        if (currentMediaItem == null && settings.loadItemsAtStartup) {
+            playItems(settings.currentMediaItemId, settings.currentMediaListId)
         } else if (currentMediaItem == null) {
             val loadAtStartup =
                 settingsRepository.settingsFlow.first().loadItemsAtStartup

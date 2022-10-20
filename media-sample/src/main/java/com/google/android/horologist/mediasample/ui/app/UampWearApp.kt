@@ -52,7 +52,6 @@ import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScree
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreenViewModel
 import com.google.android.horologist.mediasample.ui.settings.DeveloperOptionsScreen
 import com.google.android.horologist.mediasample.ui.settings.UampSettingsScreen
-import kotlinx.coroutines.flow.first
 
 @Composable
 fun UampWearApp(
@@ -201,18 +200,6 @@ fun UampWearApp(
     LaunchedEffect(Unit) {
         var collectionId = intent.getAndRemoveKey(MediaActivity.CollectionKey)
         var mediaId = intent.getAndRemoveKey(MediaActivity.MediaIdKey)
-
-        if (appViewModel.loadItemsAtStartupFlow.first()) {
-            val lastPlayedCollection: String = appViewModel.currentMediaListIdFlow.first()
-            val lastPlayedMedia: String = appViewModel.currentMediaItemIdFlow.first()
-
-            if (collectionId == null && !lastPlayedCollection.isNullOrEmpty()) {
-                collectionId = lastPlayedCollection
-            }
-            if (mediaId == null && !lastPlayedMedia.isNullOrEmpty()) {
-                mediaId = lastPlayedMedia
-            }
-        }
 
         if (collectionId != null) {
             appViewModel.playItems(mediaId, collectionId)

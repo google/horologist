@@ -28,7 +28,6 @@ import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.mediasample.ui.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filter
@@ -50,12 +49,6 @@ class MediaPlayerAppViewModel @Inject constructor(
 ) : ViewModel() {
 
     val deepLinkPrefix: String = appConfig.deeplinkUriPrefix
-    val loadItemsAtStartupFlow: Flow<Boolean> =
-        settingsRepository.settingsFlow.map { it.loadItemsAtStartup }
-    val currentMediaListIdFlow: Flow<String> =
-        settingsRepository.settingsFlow.map { it.currentMediaListId }
-    val currentMediaItemIdFlow: Flow<String> =
-        settingsRepository.settingsFlow.map { it.currentMediaItemId }
 
     @OptIn(FlowPreview::class)
     private suspend fun loadItems() {
@@ -87,7 +80,16 @@ class MediaPlayerAppViewModel @Inject constructor(
 
         val currentMediaItem = playerRepository.currentMedia.value
 
-        if (currentMediaItem == null) {
+        // If it's currently not playing and user opted in to load items at startup,
+        // then we start playing using the last played media item.
+        if (currentMediaItem == null &&
+            settingsRepository.settingsFlow.map { it.loadItemsAtStartup }.first()) {
+
+            playItems(
+                settingsRepository.settingsFlow.map { it.currentMediaItemId }.first(),
+                settingsRepository.settingsFlow.map { it.currentMediaListId }.first()
+            )
+        } else if (currentMediaItem == null) {
             val loadAtStartup =
                 settingsRepository.settingsFlow.first().loadItemsAtStartup
 

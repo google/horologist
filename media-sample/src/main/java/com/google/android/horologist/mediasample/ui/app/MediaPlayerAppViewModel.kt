@@ -126,18 +126,6 @@ class MediaPlayerAppViewModel @Inject constructor(
         }
     }
 
-//    fun getLoadItemsAtStartupFlow(): Boolean {
-//        return settingsRepository.settingsFlow.first().loadItemsAtStartup
-//    }
-//
-//    fun getCurrentMediaListIdFlow(): String {
-//        return settingsRepository.settingsFlow.first().currentMediaListId
-//    }
-//
-//    fun getCurrentMediaItemIdFlow(): String {
-//        return settingsRepository.settingsFlow.first().currentMediaItemId
-//    }
-
     private suspend fun waitForConnection() {
         // setMediaItems is a noop before this point
         playerRepository.connected.filter { it }.first()

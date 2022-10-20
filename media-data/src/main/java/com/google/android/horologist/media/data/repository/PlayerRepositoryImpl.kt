@@ -70,6 +70,9 @@ public class PlayerRepositoryImpl(
     private val _currentState = MutableStateFlow(PlayerState.Idle)
     override val currentState: StateFlow<PlayerState> get() = _currentState
 
+    /**
+     * The current media playing, or that would play when user hit play.
+     */
     private var _currentMedia = MutableStateFlow<Media?>(null)
     override val currentMedia: StateFlow<Media?> get() = _currentMedia
 
@@ -333,6 +336,7 @@ public class PlayerRepositoryImpl(
 
         player.value?.let {
             it.setMediaItems(mediaList.map(mediaItemMapper::map))
+
             mediaIndexToSeekTo = index
         }
     }

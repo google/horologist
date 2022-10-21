@@ -31,6 +31,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipColors
@@ -46,7 +49,8 @@ public fun PlaceholderChip(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
     colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = true
+    enabled: Boolean = false,
+    contentDescription: String = stringResource(id = R.string.horologist_placeholderchip_content_description)
 ) {
     val backgroundColor = MaterialTheme.colors.onSurfaceVariant.copy(alpha = 0.38f)
 
@@ -60,13 +64,16 @@ public fun PlaceholderChip(
                     .background(enabled = enabled).value,
                 contentScale = ContentScale.Crop
             )
-            .padding(end = 10.dp),
+            .semantics {
+                this.contentDescription = contentDescription
+            },
         onClick = onClick,
         enabled = enabled,
         label = {
             Column {
                 Box(
                     modifier = Modifier
+                        .padding(end = 10.dp)
                         .clip(RoundedCornerShape(12.dp))
                         .background(backgroundColor)
                         .fillMaxWidth()
@@ -79,7 +86,7 @@ public fun PlaceholderChip(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(end = 20.dp)
+                    .padding(end = 30.dp)
                     .clip(RoundedCornerShape(12.dp))
                     .background(backgroundColor)
                     .height(12.dp)

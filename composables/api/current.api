@@ -13,7 +13,7 @@ package com.google.android.horologist.composables {
   }
 
   public final class PlaceholderChipKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void PlaceholderChip(optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void PlaceholderChip(optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional String contentDescription);
   }
 
   public final class ProgressIndicatorSegment {

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+<!--
+ Copyright 2022 The Android Open Source Project
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+  <string name="horologist_pause_button_content_description">Pause</string>
+  <string name="horologist_play_button_content_description">Lecture</string>
+  <string name="horologist_seek_to_next_button_content_description">Suivant</string>
+  <string name="horologist_seek_to_previous_button_content_description">Précédent</string>
+  <string name="horologist_seek_forward_button_content_description">Avancer</string>
+  <string name="horologist_seek_forward_button_seconds_content_description">Avancer de %s secondes</string>
+  <string name="horologist_seek_back_button_content_description">Reculer</string>
+  <string name="horologist_seek_back_button_seconds_content_description">Reculer de %s secondes</string>
+  <string name="horologist_shuffle_button_off_content_description">Mode lecture aléatoire désactivé</string>
+  <string name="horologist_shuffle_button_on_content_description">Mode lecture aléatoire activé</string>
+  <string name="horologist_nothing_playing">Rien en cours de lecture</string>
+  <string name="horologist_browse_downloads_title">Téléchargements</string>
+  <string name="horologist_browse_downloads_empty">Téléchargez de la musique pour commencer l\'écoute</string>
+  <string name="horologist_browse_library_title">Bibliothèque</string>
+  <string name="horologist_browse_library_playlists">Listes de lecture</string>
+  <string name="horologist_browse_library_playlists_button">Listes de lecture</string>
+  <string name="horologist_browse_library_settings_button">Paramètres</string>
+  <string name="horologist_browse_playlist_title">Listes de lecture</string>
+  <string name="horologist_playlist_download_button_download">Télécharger sur montre</string>
+  <string name="horologist_playlist_download_button_cancel">Annuler</string>
+  <string name="horologist_playlist_download_button_download_content_description">Téléchargement proposé</string>
+  <string name="horologist_playlist_download_button_cancel_content_description">Annuler les téléchargements</string>
+  <string name="horologist_playlist_download_button_download_done_content_description">Téléchargée</string>
+  <string name="horologist_playlist_download_button_shuffle_content_description">Aléatoire</string>
+  <string name="horologist_playlist_download_button_play_content_description">Lecture</string>
+  <string name="horologist_playlist_download_download_progress_known_size">%1$.0f %% de %2$s</string>
+  <string name="horologist_playlist_download_download_progress_waiting">En attente…</string>
+</resources>

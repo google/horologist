@@ -116,10 +116,7 @@ fun SampleChip(
     Chip(
         modifier = modifier.fillMaxWidth(),
         onClick = onClick,
-        colors = ChipDefaults.primaryChipColors(),
-        border = ChipDefaults.chipBorder()
-    ) {
-        Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
+        label = {
             Text(modifier = Modifier.weight(1f), text = label)
             if (content != null) {
                 Box(modifier = Modifier.size(36.dp), contentAlignment = Alignment.Center) {
@@ -127,7 +124,7 @@ fun SampleChip(
                 }
             }
         }
-    }
+    )
 }
 
 @Preview(

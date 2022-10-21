@@ -178,16 +178,14 @@ fun FixedHeightChip(text: String, itemHeight: Int, onClick: () -> Unit) {
             .border(1.dp, Color.DarkGray)
     ) {
         Chip(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             onClick = onClick,
-            colors = ChipDefaults.primaryChipColors(),
-            border = ChipDefaults.chipBorder()
-        ) {
-            Text(
-                text = text,
-                style = MaterialTheme.typography.caption3
-            )
-        }
+            label = {
+                Text(
+                    text = text,
+                    style = MaterialTheme.typography.caption3
+                )
+            }
+        )
     }
 }

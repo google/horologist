@@ -150,11 +150,11 @@ public fun TimePicker(
                         state = hourState,
                         focusRequester = focusRequester1,
                         modifier = Modifier.size(40.dp, 100.dp),
-                        contentDescription = ""
+                        contentDescription = "XXX",
+                        onSelected = { selectedColumn = 0 },
                     ) { hour: Int ->
                         TimePiece(
                             selected = selectedColumn == 0,
-                            onSelected = { selectedColumn = 0 },
                             text = "%02d".format(hour),
                             style = textStyle
                         )
@@ -164,11 +164,12 @@ public fun TimePicker(
                         readOnly = selectedColumn != 1,
                         state = minuteState,
                         focusRequester = focusRequester2,
-                        modifier = Modifier.size(40.dp, 100.dp)
+                        modifier = Modifier.size(40.dp, 100.dp),
+                        contentDescription = "XXX",
+                        onSelected = { selectedColumn = 1 },
                     ) { minute: Int ->
                         TimePiece(
                             selected = selectedColumn == 1,
-                            onSelected = { selectedColumn = 1 },
                             text = "%02d".format(minute),
                             style = textStyle
                         )
@@ -179,11 +180,12 @@ public fun TimePicker(
                             readOnly = selectedColumn != 2,
                             state = secondsState,
                             focusRequester = focusRequester3,
-                            modifier = Modifier.size(40.dp, 100.dp)
+                            modifier = Modifier.size(40.dp, 100.dp),
+                            contentDescription = "XXX",
+                            onSelected = { selectedColumn = 2 },
                         ) { second: Int ->
                             TimePiece(
                                 selected = selectedColumn == 2,
-                                onSelected = { selectedColumn = 2 },
                                 text = "%02d".format(second),
                                 style = textStyle
                             )
@@ -314,11 +316,12 @@ public fun TimePickerWith12HourClock(
                     state = hourState,
                     focusRequester = focusRequester1,
                     modifier = Modifier.size(64.dp, 100.dp),
-                    readOnlyLabel = { LabelText(stringResource(R.string.horologist_time_picker_hour)) }
+                    readOnlyLabel = { LabelText(stringResource(R.string.horologist_time_picker_hour)) },
+                    contentDescription = "XXX",
+                    onSelected = { selectedColumn = 0 },
                 ) { hour: Int ->
                     TimePiece(
                         selected = selectedColumn == 0,
-                        onSelected = { selectedColumn = 0 },
                         text = "%02d".format(hour + 1),
                         style = textStyle
                     )
@@ -330,11 +333,12 @@ public fun TimePickerWith12HourClock(
                     state = minuteState,
                     focusRequester = focusRequester2,
                     modifier = Modifier.size(64.dp, 100.dp),
-                    readOnlyLabel = { LabelText(stringResource(R.string.horologist_time_picker_min)) }
+                    readOnlyLabel = { LabelText(stringResource(R.string.horologist_time_picker_min)) },
+                    contentDescription = "XXX",
+                    onSelected = { selectedColumn = 1 },
                 ) { minute: Int ->
                     TimePiece(
                         selected = selectedColumn == 1,
-                        onSelected = { selectedColumn = 1 },
                         text = "%02d".format(minute),
                         style = textStyle
                     )
@@ -374,7 +378,6 @@ public fun TimePickerWith12HourClock(
 @Composable
 internal fun TimePiece(
     selected: Boolean,
-    onSelected: () -> Unit,
     text: String,
     style: TextStyle
 ) {
@@ -389,12 +392,7 @@ internal fun TimePiece(
             color =
             if (selected) MaterialTheme.colors.secondary
             else MaterialTheme.colors.onBackground,
-            modifier =
-            if (selected) modifier
-            else modifier.pointerInteropFilter {
-                if (it.action == MotionEvent.ACTION_DOWN) onSelected()
-                true
-            }
+            modifier = modifier
         )
     }
 }
@@ -431,8 +429,8 @@ internal fun PickerWithRSB(
     contentDescription: String?,
     readOnlyLabel: @Composable (BoxScope.() -> Unit)? = null,
     flingBehavior: FlingBehavior = PickerDefaults.flingBehavior(state = state),
-    option: @Composable PickerScope.(optionIndex: Int) -> Unit,
     onSelected: () -> Unit = {},
+    option: @Composable PickerScope.(optionIndex: Int) -> Unit,
 ) {
     Picker(
         state = state,

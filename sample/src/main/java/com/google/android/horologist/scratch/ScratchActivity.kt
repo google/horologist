@@ -181,7 +181,8 @@ fun FixedHeightChip(text: String, itemHeight: Int, onClick: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth(),
             onClick = onClick,
-            colors = ChipDefaults.primaryChipColors()
+            colors = ChipDefaults.primaryChipColors(),
+            border = ChipDefaults.chipBorder()
         ) {
             Text(
                 text = text,

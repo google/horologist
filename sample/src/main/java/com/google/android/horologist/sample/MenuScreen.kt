@@ -116,7 +116,8 @@ fun SampleChip(
     Chip(
         modifier = modifier.fillMaxWidth(),
         onClick = onClick,
-        colors = ChipDefaults.primaryChipColors()
+        colors = ChipDefaults.primaryChipColors(),
+        border = ChipDefaults.chipBorder()
     ) {
         Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
             Text(modifier = Modifier.weight(1f), text = label)

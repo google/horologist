@@ -23,4 +23,5 @@
     <string description="Lets the user know that this picker is to change the value of the month date unit. Appears on the DatePicker component, on top of the month picker. [CHAR_LIMIT=8]" name="horologist_picker_month">Month</string>
     <string description="Lets the user know that this picker is to change the value of the year date unit. Appears on the DatePicker component, on top of the year picker. [CHAR_LIMIT=8]" name="horologist_picker_year">Year</string>
     <string description="Content description of the confirm button of DatePicker and TimePicker components. It lets the user confirm the date or time selected. [CHAR_LIMIT=NONE]" name="horologist_picker_confirm_button_content_description">Confirm</string>
+    <string description="Content description of the placeholder chip. It lets the user know that the content of this chip is being loaded. [CHAR_LIMIT=NONE]" name="horologist_placeholderchip_content_description">Loading</string>
 </resources>

@@ -19,7 +19,7 @@ plugins {
     id 'kotlin-android'
     id 'org.jetbrains.dokka'
     id "org.jetbrains.kotlin.kapt"
-    id 'app.cash.paparazzi'
+    id 'dev.chrisbanes.paparazzi'
 }
 
 android {

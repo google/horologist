@@ -105,6 +105,7 @@ dependencies {
     implementation libs.androidx.mediarouter
     implementation libs.androidx.wear
     implementation libs.androidx.lifecycle.runtime
+    implementation libs.kotlinx.coroutines.android
 
     androidTestImplementation libs.androidx.lifecycle.testing
     androidTestImplementation libs.androidx.test.rules

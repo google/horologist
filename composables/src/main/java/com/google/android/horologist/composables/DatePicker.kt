@@ -165,7 +165,7 @@ public fun DatePicker(
                             text = { day: Int -> "%d".format(day + 1) },
                             width = dayWidth,
                             focusRequester = focusRequester1,
-                            contentDescription = "XXX"
+                            contentDescription = "%d".format(dayState.selectedOption + 1)
                         )
                         Spacer(modifier = Modifier.width(spacerWidth))
                     }
@@ -176,7 +176,7 @@ public fun DatePicker(
                         text = { month: Int -> monthNames[month] },
                         width = monthWidth,
                         focusRequester = focusRequester2,
-                        contentDescription = "XXX"
+                        contentDescription = monthNames[monthState.selectedOption]
                     )
                     if (selectedColumn > 0) {
                         Spacer(modifier = Modifier.width(spacerWidth))
@@ -187,7 +187,7 @@ public fun DatePicker(
                             text = { year: Int -> "%4d".format(year + 1) },
                             width = yearWidth,
                             focusRequester = focusRequester3,
-                            contentDescription = "XXX"
+                            contentDescription = "%4d".format(yearState.selectedOption + 1)
                         )
                     }
                 }
@@ -244,6 +244,7 @@ private fun DatePickerImpl(
     ) { option ->
         TimePiece(
             selected = !readOnly,
+            onSelected = onSelected,
             text = text(option),
             style = MaterialTheme.typography.display2
         )

@@ -150,13 +150,15 @@ public fun TimePicker(
                         state = hourState,
                         focusRequester = focusRequester1,
                         modifier = Modifier.size(40.dp, 100.dp),
-                        contentDescription = "XXX",
+                        contentDescription = "%02d".format(hourState.selectedOption),
                         onSelected = { selectedColumn = 0 },
                     ) { hour: Int ->
+                        val hourString = "%02d".format(hour)
                         TimePiece(
                             selected = selectedColumn == 0,
-                            text = "%02d".format(hour),
-                            style = textStyle
+                            text = hourString,
+                            style = textStyle,
+                            onSelected = { selectedColumn = 0 }
                         )
                     }
                     Separator(6.dp, textStyle)
@@ -165,13 +167,14 @@ public fun TimePicker(
                         state = minuteState,
                         focusRequester = focusRequester2,
                         modifier = Modifier.size(40.dp, 100.dp),
-                        contentDescription = "XXX",
+                        contentDescription = "%02d".format(minuteState.selectedOption),
                         onSelected = { selectedColumn = 1 },
                     ) { minute: Int ->
                         TimePiece(
                             selected = selectedColumn == 1,
                             text = "%02d".format(minute),
-                            style = textStyle
+                            style = textStyle,
+                            onSelected = { selectedColumn = 1 }
                         )
                     }
                     if (showSeconds) {
@@ -181,13 +184,14 @@ public fun TimePicker(
                             state = secondsState,
                             focusRequester = focusRequester3,
                             modifier = Modifier.size(40.dp, 100.dp),
-                            contentDescription = "XXX",
+                            contentDescription = "%02d".format(secondsState.selectedOption),
                             onSelected = { selectedColumn = 2 },
                         ) { second: Int ->
                             TimePiece(
                                 selected = selectedColumn == 2,
                                 text = "%02d".format(second),
-                                style = textStyle
+                                style = textStyle,
+                                onSelected = { selectedColumn = 2 }
                             )
                         }
                     }
@@ -323,7 +327,8 @@ public fun TimePickerWith12HourClock(
                     TimePiece(
                         selected = selectedColumn == 0,
                         text = "%02d".format(hour + 1),
-                        style = textStyle
+                        style = textStyle,
+                        onSelected = { selectedColumn = 0 }
                     )
                 }
                 Separator(8.dp, textStyle)
@@ -340,7 +345,8 @@ public fun TimePickerWith12HourClock(
                     TimePiece(
                         selected = selectedColumn == 1,
                         text = "%02d".format(minute),
-                        style = textStyle
+                        style = textStyle,
+                        onSelected = { selectedColumn = 1 }
                     )
                 }
                 Spacer(Modifier.width(8.dp))
@@ -378,6 +384,7 @@ public fun TimePickerWith12HourClock(
 @Composable
 internal fun TimePiece(
     selected: Boolean,
+    onSelected: () -> Unit,
     text: String,
     style: TextStyle
 ) {
@@ -392,7 +399,14 @@ internal fun TimePiece(
             color =
             if (selected) MaterialTheme.colors.secondary
             else MaterialTheme.colors.onBackground,
-            modifier = modifier
+            modifier = if (selected) {
+                modifier
+            } else {
+                modifier.pointerInteropFilter {
+                    if (it.action == MotionEvent.ACTION_DOWN) onSelected()
+                    true
+                }
+            }
         )
     }
 }
@@ -436,18 +450,19 @@ internal fun PickerWithRSB(
         state = state,
         contentDescription = contentDescription,
         onSelected = onSelected,
-        modifier = modifier.run {
-            val coroutineScope = rememberCoroutineScope()
-            onRotaryInputAccumulated {
-                coroutineScope.launch {
-                    if (it > 0) {
-                        state.scrollToOption(state.selectedOption + 1)
-                    } else {
-                        state.scrollToOption(state.selectedOption - 1)
+        modifier = modifier
+            .run {
+                val coroutineScope = rememberCoroutineScope()
+                onRotaryInputAccumulated {
+                    coroutineScope.launch {
+                        if (it > 0) {
+                            state.scrollToOption(state.selectedOption + 1)
+                        } else {
+                            state.scrollToOption(state.selectedOption - 1)
+                        }
                     }
                 }
             }
-        }
             .focusRequester(focusRequester)
             .focusable(),
         flingBehavior = flingBehavior,

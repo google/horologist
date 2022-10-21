@@ -70,7 +70,11 @@ class MediaPlayerDeviceScreenTest(
 
         paparazzi.snapshot {
             Box(modifier = Modifier.background(Color.Black)) {
-                MediaPlayerTestCase(colors = UampColors, playerUiState = playerUiState)
+                MediaPlayerTestCase(
+                    colors = UampColors,
+                    playerUiState = playerUiState,
+                    round = device != DeviceConfig.WEAR_OS_SQUARE
+                )
             }
         }
     }

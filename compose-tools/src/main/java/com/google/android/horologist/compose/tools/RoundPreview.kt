@@ -31,7 +31,8 @@ public fun RoundPreview(round: Boolean = true, content: @Composable () -> Unit) 
         val configuration =
             LocalConfiguration.current.let {
                 Configuration(it).apply {
-                    screenLayout = (screenLayout or Configuration.SCREENLAYOUT_ROUND_YES)
+                    screenLayout =
+                        (screenLayout and Configuration.SCREENLAYOUT_ROUND_MASK.inv()) or Configuration.SCREENLAYOUT_ROUND_YES
                 }
             }
 

@@ -68,10 +68,7 @@ android {
     lint {
         checkReleaseBuilds false
         textReport true
-    }
-    lintOptions{
-        disable 'MissingTranslation'
-        disable 'ExtraTranslation'
+        disable 'MissingTranslation', 'ExtraTranslation'
     }
     namespace 'com.google.android.horologist.composables'
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+<!--
+ Copyright 2022 The Android Open Source Project
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+  <string name="horologist_pause_button_content_description">مکث</string>
+  <string name="horologist_play_button_content_description">پخش</string>
+  <string name="horologist_seek_to_next_button_content_description">بعدی</string>
+  <string name="horologist_seek_to_previous_button_content_description">قبلی</string>
+  <string name="horologist_seek_forward_button_content_description">جلو بردن</string>
+  <string name="horologist_seek_forward_button_seconds_content_description">%s ثانیه به‌جلو بردن</string>
+  <string name="horologist_seek_back_button_content_description">عقب بردن</string>
+  <string name="horologist_seek_back_button_seconds_content_description">%s ثانیه به‌عقب بردن</string>
+  <string name="horologist_shuffle_button_off_content_description">حالت درهم خاموش است</string>
+  <string name="horologist_shuffle_button_on_content_description">حالت درهم روشن است</string>
+  <string name="horologist_nothing_playing">چیزی پخش نمی‌شود</string>
+  <string name="horologist_browse_downloads_title">بارگیری‌ها</string>
+  <string name="horologist_browse_downloads_empty">بارگیری کردن موسیقی و شروع به گوش دادن</string>
+  <string name="horologist_browse_library_title">کتابخانه</string>
+  <string name="horologist_browse_library_playlists">فهرست‌های پخش</string>
+  <string name="horologist_browse_library_playlists_button">فهرست‌های پخش</string>
+  <string name="horologist_browse_library_settings_button">تنظیمات</string>
+  <string name="horologist_browse_playlist_title">فهرست‌های پخش</string>
+  <string name="horologist_playlist_download_button_download">بارگیری در ساعت</string>
+  <string name="horologist_playlist_download_button_cancel">لغو</string>
+  <string name="horologist_playlist_download_button_download_content_description">بارگیری دردسترس است</string>
+  <string name="horologist_playlist_download_button_cancel_content_description">لغو بارگیری‌ها</string>
+  <string name="horologist_playlist_download_button_download_done_content_description">بارگیری شد</string>
+  <string name="horologist_playlist_download_button_shuffle_content_description">درهم</string>
+  <string name="horologist_playlist_download_button_play_content_description">پخش</string>
+  <string name="horologist_playlist_download_download_progress_known_size">%1$.0f%% از %2$s</string>
+  <string name="horologist_playlist_download_download_progress_waiting">در انتظار…</string>
+</resources>

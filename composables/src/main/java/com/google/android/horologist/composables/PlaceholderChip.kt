@@ -64,7 +64,6 @@ public fun PlaceholderChip(
                     .background(enabled = enabled).value,
                 contentScale = ContentScale.Crop
             )
-            .padding(end = 10.dp)
             .semantics {
                 this.contentDescription = contentDescription
             },
@@ -74,6 +73,7 @@ public fun PlaceholderChip(
             Column {
                 Box(
                     modifier = Modifier
+                        .padding(end = 10.dp)
                         .clip(RoundedCornerShape(12.dp))
                         .background(backgroundColor)
                         .fillMaxWidth()
@@ -86,7 +86,7 @@ public fun PlaceholderChip(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(end = 20.dp)
+                    .padding(end = 30.dp)
                     .clip(RoundedCornerShape(12.dp))
                     .background(backgroundColor)
                     .height(12.dp)

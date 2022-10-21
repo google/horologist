@@ -23,6 +23,7 @@ import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.SettingsRepository
+import com.google.android.horologist.mediasample.domain.proto.copy
 import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.mediasample.ui.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -78,8 +79,13 @@ class MediaPlayerAppViewModel @Inject constructor(
         waitForConnection()
 
         val currentMediaItem = playerRepository.currentMedia.value
+        val settings = settingsRepository.settingsFlow.first()
 
-        if (currentMediaItem == null) {
+        // If it's currently not playing and user opted in to load items at startup,
+        // then we start playing using the last played media item.
+        if (currentMediaItem == null && settings.loadItemsAtStartup) {
+            playItems(settings.currentMediaItemId, settings.currentMediaListId)
+        } else if (currentMediaItem == null) {
             val loadAtStartup =
                 settingsRepository.settingsFlow.first().loadItemsAtStartup
 
@@ -100,10 +106,13 @@ class MediaPlayerAppViewModel @Inject constructor(
 
                 waitForConnection()
 
-                playerRepository.setMediaList(playlist.mediaList)
-                playerRepository.seekToDefaultPosition(index)
-                playerRepository.prepare()
-                playerRepository.play()
+                settingsRepository.edit { it.copy { currentMediaListId = collectionId } }
+                mediaId?.let {
+                        id ->
+                    settingsRepository.edit { it.copy { currentMediaItemId = id } }
+                }
+
+                playerRepository.setMediaListAndPlay(playlist.mediaList, index)
             }
         } catch (e: IOException) {
             snackbarManager.showMessage(

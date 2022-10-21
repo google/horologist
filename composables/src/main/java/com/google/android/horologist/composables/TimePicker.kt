@@ -321,7 +321,7 @@ public fun TimePickerWith12HourClock(
                     focusRequester = focusRequester1,
                     modifier = Modifier.size(64.dp, 100.dp),
                     readOnlyLabel = { LabelText(stringResource(R.string.horologist_time_picker_hour)) },
-                    contentDescription = "XXX",
+                    contentDescription = "%02d".format(hourState.selectedOption + 1),
                     onSelected = { selectedColumn = 0 },
                 ) { hour: Int ->
                     TimePiece(
@@ -339,7 +339,7 @@ public fun TimePickerWith12HourClock(
                     focusRequester = focusRequester2,
                     modifier = Modifier.size(64.dp, 100.dp),
                     readOnlyLabel = { LabelText(stringResource(R.string.horologist_time_picker_min)) },
-                    contentDescription = "XXX",
+                    contentDescription = "%02d".format(minuteState.selectedOption),
                     onSelected = { selectedColumn = 1 },
                 ) { minute: Int ->
                     TimePiece(
@@ -396,8 +396,7 @@ internal fun TimePiece(
             text = text,
             maxLines = 1,
             style = style,
-            color =
-            if (selected) MaterialTheme.colors.secondary
+            color = if (selected) MaterialTheme.colors.secondary
             else MaterialTheme.colors.onBackground,
             modifier = if (selected) {
                 modifier
@@ -446,20 +445,18 @@ internal fun PickerWithRSB(
     onSelected: () -> Unit = {},
     option: @Composable PickerScope.(optionIndex: Int) -> Unit,
 ) {
+    val coroutineScope = rememberCoroutineScope()
     Picker(
         state = state,
         contentDescription = contentDescription,
         onSelected = onSelected,
         modifier = modifier
-            .run {
-                val coroutineScope = rememberCoroutineScope()
-                onRotaryInputAccumulated {
-                    coroutineScope.launch {
-                        if (it > 0) {
-                            state.scrollToOption(state.selectedOption + 1)
-                        } else {
-                            state.scrollToOption(state.selectedOption - 1)
-                        }
+            .onRotaryInputAccumulated {
+                coroutineScope.launch {
+                    if (it > 0) {
+                        state.scrollToOption(state.selectedOption + 1)
+                    } else {
+                        state.scrollToOption(state.selectedOption - 1)
                     }
                 }
             }

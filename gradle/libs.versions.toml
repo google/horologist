@@ -86,7 +86,7 @@ androidx-startup = { module = "androidx.startup:startup-runtime", version.ref = 
 androidx-test-espressocore = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 androidx-test-ext = "androidx.test.ext:junit:1.1.4-beta01"
 androidx-test-ext-ktx = "androidx.test.ext:junit-ktx:1.1.4-beta01"
-androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-test" }
+androidx-test-rules = "androidx.test:rules:1.4.1-beta01"
 androidx-test-uiautomator = "androidx.test.uiautomator:uiautomator:2.2.0"
 androidx-tracing-ktx = { module = "androidx.tracing:tracing-ktx", version.ref = "androidxTracing" }
 androidx-wear = { module = "androidx.wear:wear", version.ref = "androidxWear" }

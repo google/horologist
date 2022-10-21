@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+<!--
+ Copyright 2022 The Android Open Source Project
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+  <string name="horologist_pause_button_content_description">หยุดชั่วคราว</string>
+  <string name="horologist_play_button_content_description">เล่น</string>
+  <string name="horologist_seek_to_next_button_content_description">ถัดไป</string>
+  <string name="horologist_seek_to_previous_button_content_description">ก่อนหน้า</string>
+  <string name="horologist_seek_forward_button_content_description">กรอไปข้างหน้า</string>
+  <string name="horologist_seek_forward_button_seconds_content_description">กรอไปข้างหน้า %s วินาที</string>
+  <string name="horologist_seek_back_button_content_description">กรอกลับ</string>
+  <string name="horologist_seek_back_button_seconds_content_description">กรอกลับ %s วินาที</string>
+  <string name="horologist_shuffle_button_off_content_description">โหมดสุ่มเพลงปิดอยู่</string>
+  <string name="horologist_shuffle_button_on_content_description">โหมดสุ่มเพลงเปิดอยู่</string>
+  <string name="horologist_nothing_playing">ไม่ได้เล่นเพลงอยู่</string>
+  <string name="horologist_browse_downloads_title">การดาวน์โหลด</string>
+  <string name="horologist_browse_downloads_empty">ดาวน์โหลดเพลงเพื่อเริ่มฟัง</string>
+  <string name="horologist_browse_library_title">คลังเพลง</string>
+  <string name="horologist_browse_library_playlists">เพลย์ลิสต์</string>
+  <string name="horologist_browse_library_playlists_button">เพลย์ลิสต์</string>
+  <string name="horologist_browse_library_settings_button">การตั้งค่า</string>
+  <string name="horologist_browse_playlist_title">เพลย์ลิสต์</string>
+  <string name="horologist_playlist_download_button_download">ดาวน์โหลดลงในนาฬิกา</string>
+  <string name="horologist_playlist_download_button_cancel">ยกเลิก</string>
+  <string name="horologist_playlist_download_button_download_content_description">พร้อมให้ดาวน์โหลด</string>
+  <string name="horologist_playlist_download_button_cancel_content_description">ยกเลิกการดาวน์โหลด</string>
+  <string name="horologist_playlist_download_button_download_done_content_description">ดาวน์โหลดแล้ว</string>
+  <string name="horologist_playlist_download_button_shuffle_content_description">สุ่มเพลง</string>
+  <string name="horologist_playlist_download_button_play_content_description">เล่น</string>
+  <string name="horologist_playlist_download_download_progress_known_size">%1$.0f%% จาก %2$s</string>
+  <string name="horologist_playlist_download_download_progress_waiting">กำลังรอ…</string>
+</resources>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+<!--
+ Copyright 2022 The Android Open Source Project
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+  <string name="horologist_pause_button_content_description">Pozastaviť</string>
+  <string name="horologist_play_button_content_description">Prehrať</string>
+  <string name="horologist_seek_to_next_button_content_description">Ďalej</string>
+  <string name="horologist_seek_to_previous_button_content_description">Naspäť</string>
+  <string name="horologist_seek_forward_button_content_description">Dopredu</string>
+  <string name="horologist_seek_forward_button_seconds_content_description">O %s sekúnd dopredu</string>
+  <string name="horologist_seek_back_button_content_description">Pretočiť späť</string>
+  <string name="horologist_seek_back_button_seconds_content_description">O %s sekúnd dozadu</string>
+  <string name="horologist_shuffle_button_off_content_description">Shuffle mode off</string>
+  <string name="horologist_shuffle_button_on_content_description">Shuffle mode on</string>
+  <string name="horologist_nothing_playing">Nič sa neprehráva</string>
+  <string name="horologist_browse_downloads_title">Stiahnuté</string>
+  <string name="horologist_browse_downloads_empty">Stiahnite si hudbu a začnite počúvať</string>
+  <string name="horologist_browse_library_title">Knižnica</string>
+  <string name="horologist_browse_library_playlists">Zoznamy skladieb</string>
+  <string name="horologist_browse_library_playlists_button">Zoznamy skladieb</string>
+  <string name="horologist_browse_library_settings_button">Nastavenia</string>
+  <string name="horologist_browse_playlist_title">Zoznamy skladieb</string>
+  <string name="horologist_playlist_download_button_download">Stiahnuť do hodiniek</string>
+  <string name="horologist_playlist_download_button_cancel">Zrušiť</string>
+  <string name="horologist_playlist_download_button_download_content_description">Je možné stiahnuť</string>
+  <string name="horologist_playlist_download_button_cancel_content_description">Zrušiť sťahovanie</string>
+  <string name="horologist_playlist_download_button_download_done_content_description">Stiahnuté</string>
+  <string name="horologist_playlist_download_button_shuffle_content_description">Náhodne prehrávať</string>
+  <string name="horologist_playlist_download_button_play_content_description">Prehrať</string>
+  <string name="horologist_playlist_download_download_progress_known_size">%1$.0f %% z %2$s</string>
+  <string name="horologist_playlist_download_download_progress_waiting">Čaká sa…</string>
+</resources>

@@ -82,6 +82,10 @@ android {
         checkReleaseBuilds false
         textReport true
     }
+    lintOptions{
+        disable 'MissingTranslation'
+        disable 'ExtraTranslation'
+    }
     namespace 'com.google.android.horologist.media.ui'
 }
 

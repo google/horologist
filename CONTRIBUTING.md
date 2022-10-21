@@ -13,7 +13,7 @@ The project should work immediately from a fresh checkout in Android Studio or w
 
 When submitting a PR, please check API compatibility and lint rules first.
 
-A good first step is 
+A good first step is
 
 ```
 $ ./gradlew spotlessApply spotlessCheck compileDebugSources compileReleaseSources metalavaGenerateSignature metalavaGenerateSignatureDebug lintDebug
@@ -40,12 +40,24 @@ use GitHub pull requests for this purpose. Consult
 [GitHub Help](https://help.github.com/articles/about-pull-requests/) for more
 information on using pull requests.
 
+## Translation and localization
+
+This project uses a semi-automatic pipeline to translate strings. When new or
+updated localized strings are ready, a PR is generated (example:
+google/horologist#692). Only the files configured via [localization.bzl](localization.bzl)
+are sent for translation.
+
+If you see a problem with translated text, don't edit localized resource files
+(e.g. `res/values-en/strings.xml`) manually, as they'll be overwritten. Instead,
+file an issue and use the [l10n](https://github.com/google/horologist/labels/l10n)
+label. This will then be forwarded to the relevant teams.
+
 ## Project Direction and Ownership
 
 There are a couple of reasons we may not accept an otherwise valuable
 contribution.
 
-- Where the internal framework feature team, thinks the contribution is against the 
+- Where the internal framework feature team, thinks the contribution is against the
 long term direction of the library.
 - Where long term ownership is unclear, such as a large contribution that likely involves
 ongoing maintenance.

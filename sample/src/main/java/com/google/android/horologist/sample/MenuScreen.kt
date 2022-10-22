@@ -18,7 +18,6 @@ package com.google.android.horologist.sample
 
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
@@ -116,9 +115,7 @@ fun SampleChip(
     Chip(
         modifier = modifier.fillMaxWidth(),
         onClick = onClick,
-        colors = ChipDefaults.primaryChipColors()
-    ) {
-        Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
+        label = {
             Text(modifier = Modifier.weight(1f), text = label)
             if (content != null) {
                 Box(modifier = Modifier.size(36.dp), contentAlignment = Alignment.Center) {
@@ -126,7 +123,7 @@ fun SampleChip(
                 }
             }
         }
-    }
+    )
 }
 
 @Preview(

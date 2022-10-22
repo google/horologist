@@ -37,7 +37,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.Chip
-import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.ScalingLazyColumn
@@ -178,15 +177,14 @@ fun FixedHeightChip(text: String, itemHeight: Int, onClick: () -> Unit) {
             .border(1.dp, Color.DarkGray)
     ) {
         Chip(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             onClick = onClick,
-            colors = ChipDefaults.primaryChipColors()
-        ) {
-            Text(
-                text = text,
-                style = MaterialTheme.typography.caption3
-            )
-        }
+            label = {
+                Text(
+                    text = text,
+                    style = MaterialTheme.typography.caption3
+                )
+            }
+        )
     }
 }

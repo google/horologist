@@ -33,6 +33,9 @@ package com.google.android.horologist.composables {
     property public final float weight;
   }
 
+  public final class RememberPickerStateKt {
+  }
+
   @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public final class Section<T> {
     ctor public Section(com.google.android.horologist.composables.Section.State<T> state, optional kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? headerContent, optional kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? loadingContent, optional int loadingContentCount, kotlin.jvm.functions.Function2<? super com.google.android.horologist.composables.SectionContentScope,? super T,kotlin.Unit> loadedContent, optional kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? failedContent, optional kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? emptyContent, optional kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionContentScope,kotlin.Unit>? footerContent, optional boolean displayFooterOnlyOnLoadedState);
     method public com.google.android.horologist.composables.Section.State<T> component1();

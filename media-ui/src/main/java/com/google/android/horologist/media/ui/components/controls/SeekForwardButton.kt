@@ -16,15 +16,10 @@
 
 package com.google.android.horologist.media.ui.components.controls
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Forward10
-import androidx.compose.material.icons.filled.Forward30
-import androidx.compose.material.icons.filled.Forward5
-import androidx.compose.material.icons.filled.Replay
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
@@ -39,31 +34,25 @@ public fun SeekForwardButton(
     onClick: () -> Unit,
     seekButtonIncrement: SeekButtonIncrement,
     modifier: Modifier = Modifier,
+    icon: ImageVector = MediaButtonDefaults.seekForwardIcon(seekButtonIncrement),
     enabled: Boolean = true,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
     iconSize: Dp = 30.dp,
     tapTargetSize: DpSize = DpSize(48.dp, 60.dp)
 ) {
-    val (icon, buttonModifier) = when (seekButtonIncrement) {
-        SeekButtonIncrement.Five -> Pair(Icons.Default.Forward5, modifier)
-        SeekButtonIncrement.Ten -> Pair(Icons.Default.Forward10, modifier)
-        SeekButtonIncrement.Thirty -> Pair(Icons.Default.Forward30, modifier)
-        else -> Pair(Icons.Default.Replay, modifier.graphicsLayer(scaleX = -1f))
-    }
-
     val contentDescription = when (seekButtonIncrement) {
-        SeekButtonIncrement.Unknown -> stringResource(id = R.string.horologist_seek_forward_button_content_description)
-        else -> stringResource(
+        is SeekButtonIncrement.Known -> stringResource(
             id = R.string.horologist_seek_forward_button_seconds_content_description,
             seekButtonIncrement.seconds
         )
+        SeekButtonIncrement.Unknown -> stringResource(id = R.string.horologist_seek_forward_button_content_description)
     }
 
     MediaButton(
         onClick = onClick,
         icon = icon,
         contentDescription = contentDescription,
-        modifier = buttonModifier,
+        modifier = modifier,
         enabled = enabled,
         colors = colors,
         iconSize = iconSize,

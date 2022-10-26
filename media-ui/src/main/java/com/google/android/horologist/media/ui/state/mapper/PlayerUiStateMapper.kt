@@ -60,8 +60,8 @@ public object PlayerUiStateMapper {
             media = media?.let(MediaUiModelMapper::map),
             trackPosition = mediaPosition?.let(TrackPositionUiModelMapper::map),
             connected = connected,
-            seekBackButtonIncrement = seekBackIncrement?.let { SeekButtonIncrement.ofSeconds(it.inWholeSeconds.toInt()) } ?: SeekButtonIncrement.Unknown,
-            seekForwardButtonIncrement = seekForwardIncrement?.let { SeekButtonIncrement.ofSeconds(it.inWholeSeconds.toInt()) } ?: SeekButtonIncrement.Unknown
+            seekBackButtonIncrement = seekBackIncrement?.let { SeekButtonIncrement.ofDuration(it) } ?: SeekButtonIncrement.Unknown,
+            seekForwardButtonIncrement = seekForwardIncrement?.let { SeekButtonIncrement.ofDuration(it) } ?: SeekButtonIncrement.Unknown
         )
     }
 }

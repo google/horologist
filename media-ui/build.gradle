@@ -105,6 +105,7 @@ dependencies {
     api projects.media
     api projects.tiles
     api projects.composables
+    implementation projects.baseUi
     implementation projects.audio
     implementation projects.audioUi
     implementation projects.composeLayout
@@ -112,7 +113,7 @@ dependencies {
     implementation libs.androidx.wear
     implementation libs.androidx.lifecycle.runtime
     implementation libs.androidx.lifecycle.viewmodelktx
-    implementation libs.wearcompose.material
+    api libs.wearcompose.material
     api libs.wearcompose.foundation
     implementation libs.compose.ui.tooling
     implementation libs.compose.material.iconscore
@@ -130,7 +131,6 @@ dependencies {
     implementation libs.androidx.wear.tiles.material
     implementation libs.compose.ui.tooling
     implementation libs.compose.ui.util
-    api libs.wearcompose.material
 
     debugImplementation projects.composeTools
     debugImplementation libs.compose.ui.toolingpreview

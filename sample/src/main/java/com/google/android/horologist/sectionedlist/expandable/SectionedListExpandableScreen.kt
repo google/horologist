@@ -20,6 +20,9 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
@@ -33,6 +36,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -42,15 +46,16 @@ import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberScalingLazyListState
+import com.google.android.horologist.base.ui.components.StandardChip
+import com.google.android.horologist.base.ui.components.StandardChipType
+import com.google.android.horologist.base.ui.components.Title
+import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionContentScope
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
-import com.google.android.horologist.sectionedlist.component.SingleLineChip
-import com.google.android.horologist.sectionedlist.component.SingleLineNoIconChip
-import com.google.android.horologist.sectionedlist.component.Title
 
 private val todayTasks = listOf(
     Pair("Meet with Sarah", Color.Red),
@@ -89,7 +94,12 @@ fun SectionedListExpandableScreen(
         modifier = modifier
     ) {
         section {
-            loaded { Title(stringResource(R.string.sectionedlist_my_tasks)) }
+            loaded {
+                Title(
+                    text = stringResource(R.string.sectionedlist_my_tasks),
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+            }
         }
 
         taskSection(
@@ -112,9 +122,9 @@ fun SectionedListExpandableScreen(
             expanded = laterSectionExpanded,
             onHeaderClick = { laterSectionExpanded = !laterSectionExpanded },
             footerContent = {
-                SingleLineNoIconChip(
-                    text = stringResource(R.string.sectionedlist_more_tasks),
-                    colors = ChipDefaults.primaryChipColors()
+                StandardChip(
+                    label = stringResource(R.string.sectionedlist_more_tasks),
+                    onClick = { }
                 )
             }
         )
@@ -148,10 +158,20 @@ private fun SectionedListScope.taskSection(
         }
 
         loaded { (text, iconTint) ->
-            SingleLineChip(
-                text = text,
-                imageVector = Icons.Outlined.Circle,
-                iconTint = iconTint
+            StandardChip(
+                label = text,
+                onClick = { },
+                icon = {
+                    Icon(
+                        imageVector = Icons.Outlined.Circle,
+                        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+                        modifier = Modifier
+                            .size(ChipDefaults.LargeIconSize)
+                            .clip(CircleShape),
+                        tint = iconTint
+                    )
+                },
+                chipType = StandardChipType.Secondary
             )
         }
 
@@ -181,7 +201,7 @@ private fun SectionHeader(
             } else {
                 Icons.Default.ExpandMore
             },
-            contentDescription = null
+            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
         )
 
         Text(text = text)

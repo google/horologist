@@ -48,6 +48,10 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberScalingLazyListState
+import com.google.android.horologist.base.ui.components.StandardChip
+import com.google.android.horologist.base.ui.components.StandardChipType
+import com.google.android.horologist.base.ui.components.Title
+import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
@@ -55,10 +59,6 @@ import com.google.android.horologist.composables.SectionedListScope
 import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
-import com.google.android.horologist.sectionedlist.component.SingleLineChip
-import com.google.android.horologist.sectionedlist.component.SingleLineNoIconChip
-import com.google.android.horologist.sectionedlist.component.Title
-import com.google.android.horologist.sectionedlist.component.TwoLinesChip
 import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefulScreenViewModel.Recommendation
 import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefulScreenViewModel.RecommendationSectionState
 import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefulScreenViewModel.Trending
@@ -99,8 +99,13 @@ private fun SectionedListScope.topMenuSection() {
             Pair(R.string.sectionedlist_your_library_button, Icons.Default.LibraryMusic)
         )
     ) {
-        loaded { item ->
-            SingleLineChip(text = stringResource(item.first), imageVector = item.second)
+        loaded { (stringResId, icon) ->
+            StandardChip(
+                label = stringResource(stringResId),
+                onClick = { },
+                icon = icon,
+                chipType = StandardChipType.Secondary
+            )
         }
     }
 }
@@ -121,13 +126,18 @@ private fun SectionedListScope.recommendationsSection(
 
     section(recommendationsState) {
         header {
-            Title(stringResource(id = R.string.sectionedlist_recommendations_title))
+            Title(
+                text = stringResource(id = R.string.sectionedlist_recommendations_title),
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
         }
 
         loaded { recommendation: Recommendation ->
-            SingleLineChip(
-                text = recommendation.playlistName,
-                imageVector = recommendation.icon
+            StandardChip(
+                label = recommendation.playlistName,
+                onClick = { },
+                icon = recommendation.icon,
+                chipType = StandardChipType.Secondary
             )
         }
 
@@ -142,7 +152,11 @@ private fun SectionedListScope.recommendationsSection(
         }
 
         footer {
-            SingleLineNoIconChip(stringResource(id = R.string.sectionedlist_see_more_button))
+            StandardChip(
+                label = stringResource(id = R.string.sectionedlist_see_more_button),
+                onClick = { },
+                chipType = StandardChipType.Secondary
+            )
         }
     }
 }
@@ -163,14 +177,19 @@ private fun SectionedListScope.trendingSection(
 
     section(trendingState) {
         header {
-            Title(stringResource(id = R.string.sectionedlist_trending_title))
+            Title(
+                text = stringResource(id = R.string.sectionedlist_trending_title),
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
         }
 
         loaded { trending: Trending ->
-            TwoLinesChip(
-                primaryLabel = trending.name,
+            StandardChip(
+                label = trending.name,
+                onClick = { },
                 secondaryLabel = trending.artist,
-                imageVector = Icons.Default.MusicNote
+                icon = Icons.Default.MusicNote,
+                chipType = StandardChipType.Secondary
             )
         }
 
@@ -185,7 +204,13 @@ private fun SectionedListScope.trendingSection(
         }
 
         footer {
-            SingleLineNoIconChip(stringResource(id = R.string.sectionedlist_see_more_button))
+            StandardChip(
+                label = stringResource(
+                    id = R.string.sectionedlist_see_more_button
+                ),
+                onClick = { },
+                chipType = StandardChipType.Secondary
+            )
         }
     }
 }
@@ -193,9 +218,11 @@ private fun SectionedListScope.trendingSection(
 private fun SectionedListScope.bottomMenuSection() {
     section {
         loaded {
-            SingleLineChip(
-                text = stringResource(R.string.sectionedlist_settings_button),
-                imageVector = Icons.Default.Settings
+            StandardChip(
+                label = stringResource(R.string.sectionedlist_settings_button),
+                onClick = { },
+                icon = Icons.Default.Settings,
+                chipType = StandardChipType.Secondary
             )
         }
     }
@@ -212,7 +239,7 @@ private fun FailedView(onClick: () -> Unit) {
     ) {
         Icon(
             imageVector = Icons.Default.CloudOff,
-            contentDescription = null, // decorative element
+            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
             modifier = Modifier
                 .size(ChipDefaults.LargeIconSize)
                 .clip(CircleShape),

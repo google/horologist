@@ -23,8 +23,8 @@
   <string name="horologist_seek_forward_button_seconds_content_description">Avança %s segons</string>
   <string name="horologist_seek_back_button_content_description">Rebobina</string>
   <string name="horologist_seek_back_button_seconds_content_description">Rebobina %s segons</string>
-  <string name="horologist_shuffle_button_off_content_description">Shuffle mode off</string>
-  <string name="horologist_shuffle_button_on_content_description">Shuffle mode on</string>
+  <string name="horologist_shuffle_button_off_content_description">Mode aleatori desactivat</string>
+  <string name="horologist_shuffle_button_on_content_description">Mode aleatori activat</string>
   <string name="horologist_nothing_playing">No es reprodueix res</string>
   <string name="horologist_browse_downloads_title">Baixades</string>
   <string name="horologist_browse_downloads_empty">Baixa música per començar a escoltar-ne</string>
@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">Baixa al rellotge</string>
   <string name="horologist_playlist_download_button_cancel">Cancel·la</string>
   <string name="horologist_playlist_download_button_download_content_description">Baixada disponible</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">Cancel·la les baixades</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">Baixada en curs</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">cancel·la</string>
   <string name="horologist_playlist_download_button_download_done_content_description">S\'ha baixat</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">suprimeix la baixada</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Aleatori</string>
   <string name="horologist_playlist_download_button_play_content_description">Reprodueix</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">S\'està baixant %s</string>
   <string name="horologist_playlist_download_download_progress_known_size">%1$.0f%% de %2$s</string>
   <string name="horologist_playlist_download_download_progress_waiting">Esperant…</string>
 </resources>

@@ -23,8 +23,8 @@
   <string name="horologist_seek_forward_button_seconds_content_description">%s초 앞으로 이동</string>
   <string name="horologist_seek_back_button_content_description">뒤로 이동</string>
   <string name="horologist_seek_back_button_seconds_content_description">%s초 뒤로 이동</string>
-  <string name="horologist_shuffle_button_off_content_description">Shuffle mode off</string>
-  <string name="horologist_shuffle_button_on_content_description">Shuffle mode on</string>
+  <string name="horologist_shuffle_button_off_content_description">셔플 모드 끔</string>
+  <string name="horologist_shuffle_button_on_content_description">셔플 모드 켬</string>
   <string name="horologist_nothing_playing">재생 중인 콘텐츠 없음</string>
   <string name="horologist_browse_downloads_title">다운로드</string>
   <string name="horologist_browse_downloads_empty">음악을 다운로드하여 감상하세요</string>
@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">워치로 다운로드</string>
   <string name="horologist_playlist_download_button_cancel">취소</string>
   <string name="horologist_playlist_download_button_download_content_description">다운로드 가능</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">다운로드 취소</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">다운로드 중</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">취소</string>
   <string name="horologist_playlist_download_button_download_done_content_description">다운로드됨</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">다운로드 항목 삭제</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">셔플</string>
   <string name="horologist_playlist_download_button_play_content_description">재생</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s 다운로드 중</string>
   <string name="horologist_playlist_download_download_progress_known_size">%2$s 중 %1$.0f%%</string>
   <string name="horologist_playlist_download_download_progress_waiting">대기 중…</string>
 </resources>

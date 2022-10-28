@@ -23,8 +23,8 @@
   <string name="horologist_seek_forward_button_seconds_content_description">Maju %s detik</string>
   <string name="horologist_seek_back_button_content_description">Mundur</string>
   <string name="horologist_seek_back_button_seconds_content_description">Mundur %s detik</string>
-  <string name="horologist_shuffle_button_off_content_description">Shuffle mode off</string>
-  <string name="horologist_shuffle_button_on_content_description">Shuffle mode on</string>
+  <string name="horologist_shuffle_button_off_content_description">Mode acak nonaktif</string>
+  <string name="horologist_shuffle_button_on_content_description">Mode acak aktif</string>
   <string name="horologist_nothing_playing">Tidak ada yang diputar</string>
   <string name="horologist_browse_downloads_title">Download</string>
   <string name="horologist_browse_downloads_empty">Download musik untuk mulai mendengarkan</string>
@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">Download ke smartwatch</string>
   <string name="horologist_playlist_download_button_cancel">Batal</string>
   <string name="horologist_playlist_download_button_download_content_description">Download tersedia</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">Batalkan download</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">Download sedang berlangsung</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">batal</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Didownload</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">hapus download</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Acak</string>
   <string name="horologist_playlist_download_button_play_content_description">Putar</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s Download sedang berlangsung</string>
   <string name="horologist_playlist_download_download_progress_known_size">%1$.0f%% dari %2$s</string>
-  <string name="horologist_playlist_download_download_progress_waiting">Menunggu…</string>
+  <string name="horologist_playlist_download_download_progress_waiting">Menunggu …</string>
 </resources>

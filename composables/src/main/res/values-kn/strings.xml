@@ -23,4 +23,5 @@
   <string name="horologist_picker_month">ತಿಂಗಳು</string>
   <string name="horologist_picker_year">ವರ್ಷ</string>
   <string name="horologist_picker_confirm_button_content_description">ಖಚಿತಪಡಿಸಿ</string>
+  <string name="horologist_placeholderchip_content_description">ಲೋಡ್ ಆಗುತ್ತಿದೆ</string>
 </resources>

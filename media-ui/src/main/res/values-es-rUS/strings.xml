@@ -23,9 +23,9 @@
   <string name="horologist_seek_forward_button_seconds_content_description">Adelantar %s segundos</string>
   <string name="horologist_seek_back_button_content_description">Retroceder</string>
   <string name="horologist_seek_back_button_seconds_content_description">Retroceder %s segundos</string>
-  <string name="horologist_shuffle_button_off_content_description">Shuffle mode off</string>
-  <string name="horologist_shuffle_button_on_content_description">Shuffle mode on</string>
-  <string name="horologist_nothing_playing">No se reproduce nada</string>
+  <string name="horologist_shuffle_button_off_content_description">Modo aleatorio desactivado</string>
+  <string name="horologist_shuffle_button_on_content_description">Modo aleatorio activado</string>
+  <string name="horologist_nothing_playing">Nada en reproducción</string>
   <string name="horologist_browse_downloads_title">Descargas</string>
   <string name="horologist_browse_downloads_empty">Descarga música y comienza a escucharla</string>
   <string name="horologist_browse_library_title">Biblioteca</string>
@@ -33,13 +33,16 @@
   <string name="horologist_browse_library_playlists_button">Listas de reproduc.</string>
   <string name="horologist_browse_library_settings_button">Configuración</string>
   <string name="horologist_browse_playlist_title">Listas de reproducción</string>
-  <string name="horologist_playlist_download_button_download">Descargar a tu reloj</string>
+  <string name="horologist_playlist_download_button_download">Descargar al reloj</string>
   <string name="horologist_playlist_download_button_cancel">Cancelar</string>
   <string name="horologist_playlist_download_button_download_content_description">Descarga disponible</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">Cancelar descargas</string>
-  <string name="horologist_playlist_download_button_download_done_content_description">Se descargó</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">Descarga en curso</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">cancelar</string>
+  <string name="horologist_playlist_download_button_download_done_content_description">Se descargó la lista</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">quitar descarga</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Reproducir aleatoriamente</string>
   <string name="horologist_playlist_download_button_play_content_description">Reproducir</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">Descarga en curso de %s</string>
   <string name="horologist_playlist_download_download_progress_known_size">%1$.0f%% de %2$s</string>
   <string name="horologist_playlist_download_download_progress_waiting">Esperando…</string>
 </resources>

@@ -23,4 +23,5 @@
   <string name="horologist_picker_month">Mesiac</string>
   <string name="horologist_picker_year">Rok</string>
   <string name="horologist_picker_confirm_button_content_description">Potvrdiť</string>
+  <string name="horologist_placeholderchip_content_description">Načítava sa</string>
 </resources>

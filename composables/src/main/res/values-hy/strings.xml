@@ -23,4 +23,5 @@
   <string name="horologist_picker_month">Ամիս</string>
   <string name="horologist_picker_year">Տարի</string>
   <string name="horologist_picker_confirm_button_content_description">Հաստատել</string>
+  <string name="horologist_placeholderchip_content_description">Բեռնում</string>
 </resources>

@@ -23,8 +23,8 @@
   <string name="horologist_seek_forward_button_seconds_content_description">%s sekundit edasi kerimine</string>
   <string name="horologist_seek_back_button_content_description">Tagasikerimine</string>
   <string name="horologist_seek_back_button_seconds_content_description">%s sekundit tagasi kerimine</string>
-  <string name="horologist_shuffle_button_off_content_description">Shuffle mode off</string>
-  <string name="horologist_shuffle_button_on_content_description">Shuffle mode on</string>
+  <string name="horologist_shuffle_button_off_content_description">Juhuslikus järjekorras esitamise režiim on välja lülitatud</string>
+  <string name="horologist_shuffle_button_on_content_description">Juhuslikus järjekorras esitamise režiim on sisse lülitatud</string>
   <string name="horologist_nothing_playing">Midagi ei esitata</string>
   <string name="horologist_browse_downloads_title">Allalaadimised</string>
   <string name="horologist_browse_downloads_empty">Kuulamiseks laadige alla muusikat</string>
@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">Laadige oma kella alla</string>
   <string name="horologist_playlist_download_button_cancel">Tühista</string>
   <string name="horologist_playlist_download_button_download_content_description">Allalaadimise alustamine</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">Allalaadimiste tühistamine</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">Allalaadimine on pooleli</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">tühistamine</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Alla laaditud</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">allalaadimise eemaldamine</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Juhuslikus järjekorras esitamine</string>
   <string name="horologist_playlist_download_button_play_content_description">Esitamine</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s Allalaadimine on pooleli</string>
   <string name="horologist_playlist_download_download_progress_known_size">%1$.0f%% %2$s-st</string>
   <string name="horologist_playlist_download_download_progress_waiting">Ootel …</string>
 </resources>

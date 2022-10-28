@@ -17,14 +17,14 @@
 
   <string name="horologist_pause_button_content_description">პაუზა</string>
   <string name="horologist_play_button_content_description">დაკვრა</string>
-  <string name="horologist_seek_to_next_button_content_description">შემდეგი</string>
+  <string name="horologist_seek_to_next_button_content_description">შემდეგ</string>
   <string name="horologist_seek_to_previous_button_content_description">წინა</string>
-  <string name="horologist_seek_forward_button_content_description">წინ გადახვევა</string>
+  <string name="horologist_seek_forward_button_content_description">გადამისამართება</string>
   <string name="horologist_seek_forward_button_seconds_content_description">წინ გადახვევა %s წამით</string>
   <string name="horologist_seek_back_button_content_description">უკან გადახვევა</string>
   <string name="horologist_seek_back_button_seconds_content_description">უკან გადახვევა %s წამით</string>
-  <string name="horologist_shuffle_button_off_content_description">Shuffle mode off</string>
-  <string name="horologist_shuffle_button_on_content_description">Shuffle mode on</string>
+  <string name="horologist_shuffle_button_off_content_description">ჩარევის რეჟიმი გამორთულია</string>
+  <string name="horologist_shuffle_button_on_content_description">ჩართვის რეჟიმი ჩართულია</string>
   <string name="horologist_nothing_playing">არაფერი არ უკრავს</string>
   <string name="horologist_browse_downloads_title">ჩამოტვირთვები</string>
   <string name="horologist_browse_downloads_empty">ჩამოტვირთეთ მუსიკა მოსმენის დასაწყებად</string>
@@ -33,13 +33,16 @@
   <string name="horologist_browse_library_playlists_button">დასაკრავი სიები</string>
   <string name="horologist_browse_library_settings_button">პარამეტრები</string>
   <string name="horologist_browse_playlist_title">დასაკრავი სიები</string>
-  <string name="horologist_playlist_download_button_download">საათზე ჩამოტვირთვა</string>
+  <string name="horologist_playlist_download_button_download">ჩამოტვირთეთ საათზე</string>
   <string name="horologist_playlist_download_button_cancel">გაუქმება</string>
-  <string name="horologist_playlist_download_button_download_content_description">ხელმისაწვდომია ჩამოტვირთვა</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">ჩამოტვირთვების გაუქმება</string>
-  <string name="horologist_playlist_download_button_download_done_content_description">ჩამოტვირთულია</string>
+  <string name="horologist_playlist_download_button_download_content_description">ხელმისაწვდომია ჩამოტვირთვა.</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">მიმდინარეობს ჩამოტვირთვა</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">გაუქმება</string>
+  <string name="horologist_playlist_download_button_download_done_content_description">ჩამოტვირთული</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">ჩამოტვირთვის წაშლა</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">არეულად დაკვრა</string>
   <string name="horologist_playlist_download_button_play_content_description">დაკვრა</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s მიმდინარეობს ჩამოტვირთვა</string>
   <string name="horologist_playlist_download_download_progress_known_size">%1$.0f%% / %2$s-დან</string>
   <string name="horologist_playlist_download_download_progress_waiting">ელოდება…</string>
 </resources>

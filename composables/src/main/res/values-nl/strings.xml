@@ -23,4 +23,5 @@
   <string name="horologist_picker_month">Maand</string>
   <string name="horologist_picker_year">Jaar</string>
   <string name="horologist_picker_confirm_button_content_description">Bevestigen</string>
+  <string name="horologist_placeholderchip_content_description">Laden</string>
 </resources>

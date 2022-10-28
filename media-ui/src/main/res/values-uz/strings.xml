@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">Soatga yuklab olish</string>
   <string name="horologist_playlist_download_button_cancel">Bekor qilish</string>
   <string name="horologist_playlist_download_button_download_content_description">Yuklab olish mumkin</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">Yuklanmalarni bekor qilish</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">Yuklab olinmoqda</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">bekor qilish</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Yuklab olindi</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">olib tashlash</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Tasodifiy</string>
   <string name="horologist_playlist_download_button_play_content_description">Ijro</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s Yuklab olinmoqda</string>
   <string name="horologist_playlist_download_download_progress_known_size">%1$.0f%% (jami: %2$s)</string>
   <string name="horologist_playlist_download_download_progress_waiting">Kutilmoqda…</string>
 </resources>

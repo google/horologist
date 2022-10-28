@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">Преузмите на сат</string>
   <string name="horologist_playlist_download_button_cancel">Откажи</string>
   <string name="horologist_playlist_download_button_download_content_description">Преузимање је доступно</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">Откажите преузимања</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">Преузимање је у току</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">откажи</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Преузето</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">уклони преузимање</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Насумично</string>
   <string name="horologist_playlist_download_button_play_content_description">Пустите</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s Преузимање је у току</string>
   <string name="horologist_playlist_download_download_progress_known_size">%1$.0f%% од %2$s</string>
   <string name="horologist_playlist_download_download_progress_waiting">Чека се…</string>
 </resources>

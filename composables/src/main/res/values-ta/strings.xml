@@ -23,4 +23,5 @@
   <string name="horologist_picker_month">மாதம்</string>
   <string name="horologist_picker_year">ஆண்டு</string>
   <string name="horologist_picker_confirm_button_content_description">உறுதிப்படுத்தும்</string>
+  <string name="horologist_placeholderchip_content_description">ஏற்றுகிறது</string>
 </resources>

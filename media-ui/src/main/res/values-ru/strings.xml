@@ -19,15 +19,15 @@
   <string name="horologist_play_button_content_description">Воспроизвести</string>
   <string name="horologist_seek_to_next_button_content_description">Далее</string>
   <string name="horologist_seek_to_previous_button_content_description">Назад</string>
-  <string name="horologist_seek_forward_button_content_description">Вперед</string>
+  <string name="horologist_seek_forward_button_content_description">Перемотать вперед</string>
   <string name="horologist_seek_forward_button_seconds_content_description">Перемотать вперед на %s сек.</string>
   <string name="horologist_seek_back_button_content_description">Перемотать назад</string>
   <string name="horologist_seek_back_button_seconds_content_description">Перемотать назад на %s сек.</string>
-  <string name="horologist_shuffle_button_off_content_description">Shuffle mode off</string>
-  <string name="horologist_shuffle_button_on_content_description">Shuffle mode on</string>
+  <string name="horologist_shuffle_button_off_content_description">Перемешивание отключено</string>
+  <string name="horologist_shuffle_button_on_content_description">Перемешивание включено</string>
   <string name="horologist_nothing_playing">Нет трека</string>
   <string name="horologist_browse_downloads_title">Скачанные файлы</string>
-  <string name="horologist_browse_downloads_empty">Вы ещё ничего не скачали</string>
+  <string name="horologist_browse_downloads_empty">Вы ещё ничего не скачали.</string>
   <string name="horologist_browse_library_title">Библиотека</string>
   <string name="horologist_browse_library_playlists">Плейлисты</string>
   <string name="horologist_browse_library_playlists_button">Плейлисты</string>
@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">Скачать на часы</string>
   <string name="horologist_playlist_download_button_cancel">Отмена</string>
   <string name="horologist_playlist_download_button_download_content_description">Можно скачать</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">Отменить скачивание</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">Скачивание…</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">отмена</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Скачано</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">удалить с устройства</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Перемешать</string>
   <string name="horologist_playlist_download_button_play_content_description">Воспроизвести</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s: скачивание</string>
   <string name="horologist_playlist_download_download_progress_known_size">%1$.0f %% из %2$s</string>
   <string name="horologist_playlist_download_download_progress_waiting">Ожидание…</string>
 </resources>

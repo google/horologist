@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">Prenesi v uro</string>
   <string name="horologist_playlist_download_button_cancel">Prekliči</string>
   <string name="horologist_playlist_download_button_download_content_description">Na voljo je prenos</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">Preklic prenosov</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">Prenos poteka</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">Prekliči</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Preneseno</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">Odstranitev prenosa</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Naključno predvajanje</string>
   <string name="horologist_playlist_download_button_play_content_description">Predvajanje</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s Prenos poteka</string>
   <string name="horologist_playlist_download_download_progress_known_size">%1$.0f %% od %2$s</string>
   <string name="horologist_playlist_download_download_progress_waiting">Čakanje …</string>
 </resources>

@@ -17,10 +17,11 @@
 
   <string name="horologist_time_picker_hour">ঘণ্টা</string>
   <string name="horologist_time_picker_minute">মিনিট</string>
-  <string name="horologist_time_picker_second">দ্বিতীয়</string>
+  <string name="horologist_time_picker_second">সেকেন্ড</string>
   <string name="horologist_time_picker_min">মিনিট</string>
   <string name="horologist_picker_day">দিন</string>
   <string name="horologist_picker_month">মাস</string>
   <string name="horologist_picker_year">বছর</string>
   <string name="horologist_picker_confirm_button_content_description">কনফার্ম করুন</string>
+  <string name="horologist_placeholderchip_content_description">লোড হচ্ছে</string>
 </resources>

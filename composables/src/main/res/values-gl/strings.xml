@@ -23,4 +23,5 @@
   <string name="horologist_picker_month">Mes</string>
   <string name="horologist_picker_year">Ano</string>
   <string name="horologist_picker_confirm_button_content_description">Confirmar</string>
+  <string name="horologist_placeholderchip_content_description">Cargando</string>
 </resources>

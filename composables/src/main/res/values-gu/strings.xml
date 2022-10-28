@@ -23,4 +23,5 @@
   <string name="horologist_picker_month">મહિનો</string>
   <string name="horologist_picker_year">વર્ષ</string>
   <string name="horologist_picker_confirm_button_content_description">કન્ફર્મ કરો</string>
+  <string name="horologist_placeholderchip_content_description">લોડ થઈ રહ્યું છે</string>
 </resources>

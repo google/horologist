@@ -17,10 +17,10 @@
 
   <string name="horologist_volume_screen_volume_up_content_description">Augmenter le volume</string>
   <string name="horologist_volume_screen_volume_down_content_description">Baisser le volume</string>
-  <string name="horologist_volume_screen_connected_state">Connecté, volume : %1$d</string>
+  <string name="horologist_volume_screen_connected_state">Connecté, volume %1$d</string>
   <string name="horologist_volume_screen_not_connected_state">Non connecté</string>
   <string name="horologist_volume_screen_change_audio_output">Modifier la sortie audio</string>
-  <string name="horologist_speaker_name">Enceinte de montre</string>
+  <string name="horologist_speaker_name">Haut-parleur montre</string>
   <string name="horologist_set_volume_content_description">Régler le volume</string>
   <string name="horologist_audio_output_content_description">Sortie audio</string>
 </resources>

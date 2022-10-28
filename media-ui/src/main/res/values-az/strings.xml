@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">Saatınıza endirin</string>
   <string name="horologist_playlist_download_button_cancel">Ləğv edin</string>
   <string name="horologist_playlist_download_button_download_content_description">Endirmə əlçatandır</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">Endirmələri ləğv edin</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">Endirilir</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">ləğv edin</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Endirilib</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">endirməni silin</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Qarışdırın</string>
   <string name="horologist_playlist_download_button_play_content_description">Oxudun</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s Endirilir</string>
   <string name="horologist_playlist_download_download_progress_known_size">%2$s/%1$.0f%%</string>
   <string name="horologist_playlist_download_download_progress_waiting">Gözlənilir…</string>
 </resources>

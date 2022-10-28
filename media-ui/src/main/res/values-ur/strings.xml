@@ -23,8 +23,8 @@
   <string name="horologist_seek_forward_button_seconds_content_description">%s سیکنڈ فارورڈ کریں</string>
   <string name="horologist_seek_back_button_content_description">ریوائنڈ کریں</string>
   <string name="horologist_seek_back_button_seconds_content_description">%s سیکنڈ ریوائنڈ کریں</string>
-  <string name="horologist_shuffle_button_off_content_description">Shuffle mode off</string>
-  <string name="horologist_shuffle_button_on_content_description">Shuffle mode on</string>
+  <string name="horologist_shuffle_button_off_content_description">شفل وضع آف ہے</string>
+  <string name="horologist_shuffle_button_on_content_description">شفل وضع آن ہے</string>
   <string name="horologist_nothing_playing">کچھ نہیں چل رہا ہے</string>
   <string name="horologist_browse_downloads_title">ڈاؤن لوڈز</string>
   <string name="horologist_browse_downloads_empty">سننے کے لیے موسیقی ڈاؤن لوڈ کریں</string>
@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">اپنی گھڑی پر ڈاؤن لوڈ کریں</string>
   <string name="horologist_playlist_download_button_cancel">منسوخ کریں</string>
   <string name="horologist_playlist_download_button_download_content_description">ڈاؤن لوڈ دستیاب ہے</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">ڈاؤن لوڈز منسوخ کریں</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">ڈاؤن لوڈ جاری ہے</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">منسوخ کریں</string>
   <string name="horologist_playlist_download_button_download_done_content_description">ڈاؤن لوڈ کردہ</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">ڈاؤن لوڈ ہٹائیں</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">شفل کریں</string>
   <string name="horologist_playlist_download_button_play_content_description">چلائیں</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s ڈاؤن لوڈ جاری ہے</string>
   <string name="horologist_playlist_download_download_progress_known_size">%2$s%% میں سے %1$.0f</string>
   <string name="horologist_playlist_download_download_progress_waiting">منتظر ہے…</string>
 </resources>

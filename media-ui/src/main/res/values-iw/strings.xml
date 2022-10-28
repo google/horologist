@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">הורדה לשעון</string>
   <string name="horologist_playlist_download_button_cancel">ביטול</string>
   <string name="horologist_playlist_download_button_download_content_description">ההורדה זמינה</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">ביטול ההורדות</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">ההורדה מתבצעת</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">ביטול</string>
   <string name="horologist_playlist_download_button_download_done_content_description">כבר הורדת</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">הסרת ההורדה</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">הפעלה אקראית</string>
   <string name="horologist_playlist_download_button_play_content_description">הפעלה</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">ההורדה של %s מתבצעת</string>
   <string name="horologist_playlist_download_download_progress_known_size">%%%1$.0f מתוך %2$s</string>
   <string name="horologist_playlist_download_download_progress_waiting">בהמתנה…</string>
 </resources>

@@ -23,8 +23,8 @@
   <string name="horologist_seek_forward_button_seconds_content_description">Eteenpäin %s sekuntia</string>
   <string name="horologist_seek_back_button_content_description">Taaksepäin</string>
   <string name="horologist_seek_back_button_seconds_content_description">Taaksepäin %s sekuntia</string>
-  <string name="horologist_shuffle_button_off_content_description">Shuffle mode off</string>
-  <string name="horologist_shuffle_button_on_content_description">Shuffle mode on</string>
+  <string name="horologist_shuffle_button_off_content_description">Satunnaistoisto pois käytöstä</string>
+  <string name="horologist_shuffle_button_on_content_description">Satunnaistoisto käytössä</string>
   <string name="horologist_nothing_playing">Ei toistoa</string>
   <string name="horologist_browse_downloads_title">Lataukset</string>
   <string name="horologist_browse_downloads_empty">Lataa musiikkia ja aloita kuuntelu</string>
@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">Lataa kelloon</string>
   <string name="horologist_playlist_download_button_cancel">Peru</string>
   <string name="horologist_playlist_download_button_download_content_description">Ladattavissa</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">Peru lataukset</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">Lataus käynnissä</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">lopeta</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Ladattu</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">poista lataus</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Satunnaistoisto</string>
   <string name="horologist_playlist_download_button_play_content_description">Toista</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s Lataus käynnissä</string>
   <string name="horologist_playlist_download_download_progress_known_size">%1$.0f %% / %2$s</string>
   <string name="horologist_playlist_download_download_progress_waiting">Odottaa…</string>
 </resources>

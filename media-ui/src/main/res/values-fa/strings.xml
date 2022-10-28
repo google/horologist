@@ -22,7 +22,7 @@
   <string name="horologist_seek_forward_button_content_description">جلو بردن</string>
   <string name="horologist_seek_forward_button_seconds_content_description">%s ثانیه به‌جلو بردن</string>
   <string name="horologist_seek_back_button_content_description">عقب بردن</string>
-  <string name="horologist_seek_back_button_seconds_content_description">%s ثانیه به‌عقب بردن</string>
+  <string name="horologist_seek_back_button_seconds_content_description">‫%s ثانیه به‌عقب بردن</string>
   <string name="horologist_shuffle_button_off_content_description">حالت درهم خاموش است</string>
   <string name="horologist_shuffle_button_on_content_description">حالت درهم روشن است</string>
   <string name="horologist_nothing_playing">چیزی پخش نمی‌شود</string>
@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">بارگیری در ساعت</string>
   <string name="horologist_playlist_download_button_cancel">لغو</string>
   <string name="horologist_playlist_download_button_download_content_description">بارگیری دردسترس است</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">لغو بارگیری‌ها</string>
-  <string name="horologist_playlist_download_button_download_done_content_description">بارگیری شد</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">بارگیری درحال انجام</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">لغو</string>
+  <string name="horologist_playlist_download_button_download_done_content_description">بارگیری‌شده</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">برداشتن بارگیری</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">درهم</string>
   <string name="horologist_playlist_download_button_play_content_description">پخش</string>
-  <string name="horologist_playlist_download_download_progress_known_size">%1$.0f%% از %2$s</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s، بارگیری درحال انجام</string>
+  <string name="horologist_playlist_download_download_progress_known_size">%1$.0f٪ از %2$s</string>
   <string name="horologist_playlist_download_download_progress_waiting">در انتظار…</string>
 </resources>

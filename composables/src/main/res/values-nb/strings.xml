@@ -23,4 +23,5 @@
   <string name="horologist_picker_month">Måned</string>
   <string name="horologist_picker_year">År</string>
   <string name="horologist_picker_confirm_button_content_description">Bekreft</string>
+  <string name="horologist_placeholderchip_content_description">Laster inn</string>
 </resources>

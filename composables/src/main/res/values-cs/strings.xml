@@ -23,4 +23,5 @@
   <string name="horologist_picker_month">Měsíc</string>
   <string name="horologist_picker_year">Rok</string>
   <string name="horologist_picker_confirm_button_content_description">Potvrdit</string>
+  <string name="horologist_placeholderchip_content_description">Načítání</string>
 </resources>

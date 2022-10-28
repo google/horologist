@@ -23,8 +23,8 @@
   <string name="horologist_seek_forward_button_seconds_content_description">%s সেকেন্ড ফরওয়ার্ড করুন</string>
   <string name="horologist_seek_back_button_content_description">রিওয়াইন্ড করুন</string>
   <string name="horologist_seek_back_button_seconds_content_description">%s সেকেন্ড রিওয়াইন্ড করুন</string>
-  <string name="horologist_shuffle_button_off_content_description">Shuffle mode off</string>
-  <string name="horologist_shuffle_button_on_content_description">Shuffle mode on</string>
+  <string name="horologist_shuffle_button_off_content_description">শাফেল মোড বন্ধ করা আছে</string>
+  <string name="horologist_shuffle_button_on_content_description">শাফেল মোড চালু করা আছে</string>
   <string name="horologist_nothing_playing">কোনও কিছু চলছে না</string>
   <string name="horologist_browse_downloads_title">ডাউনলোড</string>
   <string name="horologist_browse_downloads_empty">শোনার জন্য মিউজিক ডাউনলোড করুন</string>
@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">ওয়াচে ডাউনলোড করুন</string>
   <string name="horologist_playlist_download_button_cancel">বাতিল করুন</string>
   <string name="horologist_playlist_download_button_download_content_description">ডাউনলোড উপলভ্য আছে</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">ডাউনলোড বাতিল করুন</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">ডাউনলোড হচ্ছে</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">বাতিল করুন</string>
   <string name="horologist_playlist_download_button_download_done_content_description">ডাউনলোড করা হয়েছে</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">ডাউনলোড করা কন্টেন্ট সরিয়ে দিন</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">শাফেল করুন</string>
   <string name="horologist_playlist_download_button_play_content_description">খেলুন</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s ডাউনলোড হচ্ছে</string>
   <string name="horologist_playlist_download_download_progress_known_size">%2$s-এর মধ্যে %1$.0f%%</string>
   <string name="horologist_playlist_download_download_progress_waiting">অপেক্ষা করা হচ্ছে…</string>
 </resources>

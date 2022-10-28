@@ -23,8 +23,8 @@
   <string name="horologist_seek_forward_button_seconds_content_description">Перемотати вперед на %s с</string>
   <string name="horologist_seek_back_button_content_description">Перемотати назад</string>
   <string name="horologist_seek_back_button_seconds_content_description">Перемотати назад на %s с</string>
-  <string name="horologist_shuffle_button_off_content_description">Shuffle mode off</string>
-  <string name="horologist_shuffle_button_on_content_description">Shuffle mode on</string>
+  <string name="horologist_shuffle_button_off_content_description">Режим перемішування вимкнено</string>
+  <string name="horologist_shuffle_button_on_content_description">Режим перемішування ввімкнено</string>
   <string name="horologist_nothing_playing">Ви не вмикали медіа</string>
   <string name="horologist_browse_downloads_title">Завантаження</string>
   <string name="horologist_browse_downloads_empty">Завантажте музику, яку слухатимете</string>
@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">Завантажити</string>
   <string name="horologist_playlist_download_button_cancel">Скасувати</string>
   <string name="horologist_playlist_download_button_download_content_description">Завантаження доступне</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">Скасувати завантаження</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">Триває завантаження</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">скасувати</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Завантажено</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">видалити завантаження</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Перемішати</string>
   <string name="horologist_playlist_download_button_play_content_description">Відтворити</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s: триває завантаження</string>
   <string name="horologist_playlist_download_download_progress_known_size">%1$.0f%% з %2$s</string>
   <string name="horologist_playlist_download_download_progress_waiting">Очікування…</string>
 </resources>

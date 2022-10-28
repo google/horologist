@@ -23,4 +23,5 @@
   <string name="horologist_picker_month">Mėnuo</string>
   <string name="horologist_picker_year">Metai</string>
   <string name="horologist_picker_confirm_button_content_description">Patvirtinti</string>
+  <string name="horologist_placeholderchip_content_description">Įkeliama</string>
 </resources>

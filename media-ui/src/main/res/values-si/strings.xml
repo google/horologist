@@ -23,8 +23,8 @@
   <string name="horologist_seek_forward_button_seconds_content_description">තත්පර %sක් ඉදිරියට</string>
   <string name="horologist_seek_back_button_content_description">නැවත ඔතන්න</string>
   <string name="horologist_seek_back_button_seconds_content_description">තත්පර %sක් ආපස්සට</string>
-  <string name="horologist_shuffle_button_off_content_description">Shuffle mode off</string>
-  <string name="horologist_shuffle_button_on_content_description">Shuffle mode on</string>
+  <string name="horologist_shuffle_button_off_content_description">කලවම් ප්‍රකාරය ක්‍රියා විරහිතයි</string>
+  <string name="horologist_shuffle_button_on_content_description">කලවම් ප්‍රකාරය ක්‍රියාත්මකයි</string>
   <string name="horologist_nothing_playing">කිසිවක් වාදනය නොවේ</string>
   <string name="horologist_browse_downloads_title">බාගැනීම්</string>
   <string name="horologist_browse_downloads_empty">සවන් දීම ඇරඹීමට සංගීතය බාගන්න</string>
@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">ඔබේ ඔරලෝසුවට බාගන්න</string>
   <string name="horologist_playlist_download_button_cancel">අවලංගු කරන්න</string>
   <string name="horologist_playlist_download_button_download_content_description">බාගැනීම තිබේ</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">බාගැනීම් අවලංගු කරන්න</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">බාගැනීම කෙරෙමින් පවතී</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">අවලංගු කරන්න</string>
   <string name="horologist_playlist_download_button_download_done_content_description">බාගත්</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">බාගැනීම ඉවත් කරන්න</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">කළවම</string>
   <string name="horologist_playlist_download_button_play_content_description">වාදනය කරන්න</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s බාගැනීම කෙරෙමින් පවතී</string>
   <string name="horologist_playlist_download_download_progress_known_size">%2$sකින් %1$.0f%%</string>
   <string name="horologist_playlist_download_download_progress_waiting">රැඳෙමින්…</string>
 </resources>

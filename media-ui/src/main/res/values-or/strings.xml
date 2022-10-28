@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">ୱାଚରେ ଡାଉନଲୋଡ କରନ୍ତୁ</string>
   <string name="horologist_playlist_download_button_cancel">ବାତିଲ କରନ୍ତୁ</string>
   <string name="horologist_playlist_download_button_download_content_description">ଡାଉନଲୋଡ କରିବା ଉପଲବ୍ଧ ଅଛି</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">ଡାଉନଲୋଡଗୁଡ଼ିକୁ ବାତିଲ କରନ୍ତୁ</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">ଡାଉନଲୋଡ ଚାଲିଛି</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">ବାତିଲ କରନ୍ତୁ</string>
   <string name="horologist_playlist_download_button_download_done_content_description">ଡାଉନଲୋଡ କରାଯାଇଛି</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">ଡାଉନଲୋଡକୁ କାଢ଼ି ଦିଅନ୍ତୁ</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">ସଫଲ କରନ୍ତୁ</string>
   <string name="horologist_playlist_download_button_play_content_description">ପ୍ଲେ କରନ୍ତୁ</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s ଡାଉନଲୋଡ ଚାଲିଛି</string>
   <string name="horologist_playlist_download_download_progress_known_size">%2$sରୁ %1$.0f%%</string>
   <string name="horologist_playlist_download_download_progress_waiting">ଅପେକ୍ଷାରେ…</string>
 </resources>

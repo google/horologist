@@ -23,4 +23,5 @@
   <string name="horologist_picker_month">เดือน</string>
   <string name="horologist_picker_year">ปี</string>
   <string name="horologist_picker_confirm_button_content_description">ยืนยัน</string>
+  <string name="horologist_placeholderchip_content_description">กำลังโหลด</string>
 </resources>

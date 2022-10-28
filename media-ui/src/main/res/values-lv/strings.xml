@@ -23,8 +23,8 @@
   <string name="horologist_seek_forward_button_seconds_content_description">Patīt uz priekšu par %s sekundēm</string>
   <string name="horologist_seek_back_button_content_description">Attīt atpakaļ</string>
   <string name="horologist_seek_back_button_seconds_content_description">Attīt atpakaļ par %s sekundēm</string>
-  <string name="horologist_shuffle_button_off_content_description">Shuffle mode off</string>
-  <string name="horologist_shuffle_button_on_content_description">Shuffle mode on</string>
+  <string name="horologist_shuffle_button_off_content_description">Atskaņošana jauktā secībā ir izslēgta</string>
+  <string name="horologist_shuffle_button_on_content_description">Atskaņošana jauktā secībā ir ieslēgta</string>
   <string name="horologist_nothing_playing">Nekas netiek atskaņots</string>
   <string name="horologist_browse_downloads_title">Lejupielādes</string>
   <string name="horologist_browse_downloads_empty">Lejupielādējiet mūziku, lai sāktu klausīties</string>
@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">Lejupielādēt pulkstenī</string>
   <string name="horologist_playlist_download_button_cancel">Atcelt</string>
   <string name="horologist_playlist_download_button_download_content_description">Pieejama lejupielāde</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">Atcelt lejupielādi</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">Notiek lejupielāde…</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">atcelt</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Lejupielādēts</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">noņemt lejupielādi</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Atskaņot jauktā secībā</string>
   <string name="horologist_playlist_download_button_play_content_description">Atskaņot</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s: notiek lejupielāde…</string>
   <string name="horologist_playlist_download_download_progress_known_size">%1$.0f%% no %2$s</string>
   <string name="horologist_playlist_download_download_progress_waiting">Gaida…</string>
 </resources>

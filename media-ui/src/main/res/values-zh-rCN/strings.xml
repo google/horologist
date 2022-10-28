@@ -23,8 +23,8 @@
   <string name="horologist_seek_forward_button_seconds_content_description">快进 %s 秒</string>
   <string name="horologist_seek_back_button_content_description">快退</string>
   <string name="horologist_seek_back_button_seconds_content_description">快退 %s 秒</string>
-  <string name="horologist_shuffle_button_off_content_description">Shuffle mode off</string>
-  <string name="horologist_shuffle_button_on_content_description">Shuffle mode on</string>
+  <string name="horologist_shuffle_button_off_content_description">随机播放模式已关闭</string>
+  <string name="horologist_shuffle_button_on_content_description">随机播放模式已开启</string>
   <string name="horologist_nothing_playing">此刻未播放任何内容</string>
   <string name="horologist_browse_downloads_title">下载内容</string>
   <string name="horologist_browse_downloads_empty">下载音乐，开始聆听</string>
@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">下载到您的手表</string>
   <string name="horologist_playlist_download_button_cancel">取消</string>
   <string name="horologist_playlist_download_button_download_content_description">可下载</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">取消下载</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">正在下载</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">取消</string>
   <string name="horologist_playlist_download_button_download_done_content_description">已下载</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">移除下载内容</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">随机播放</string>
   <string name="horologist_playlist_download_button_play_content_description">播放</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">正在下载《%s》</string>
   <string name="horologist_playlist_download_download_progress_known_size">已下载 %1$.0f%%，共 %2$s</string>
   <string name="horologist_playlist_download_download_progress_waiting">正在等待…</string>
 </resources>

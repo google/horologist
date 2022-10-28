@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">下載到手錶</string>
   <string name="horologist_playlist_download_button_cancel">取消</string>
   <string name="horologist_playlist_download_button_download_content_description">可供下載</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">取消下載</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">下載中</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">取消</string>
   <string name="horologist_playlist_download_button_download_done_content_description">下載完成</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">移除下載內容</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">隨機播放</string>
   <string name="horologist_playlist_download_button_play_content_description">播放</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">正在下載〈%s〉</string>
   <string name="horologist_playlist_download_download_progress_known_size">已下載 %2$s 的 %1$.0f%%</string>
   <string name="horologist_playlist_download_download_progress_waiting">等待中…</string>
 </resources>

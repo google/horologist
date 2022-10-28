@@ -23,4 +23,5 @@
   <string name="horologist_picker_month">Сар</string>
   <string name="horologist_picker_year">Он</string>
   <string name="horologist_picker_confirm_button_content_description">Баталгаажуулах</string>
+  <string name="horologist_placeholderchip_content_description">Ачаалж байна</string>
 </resources>

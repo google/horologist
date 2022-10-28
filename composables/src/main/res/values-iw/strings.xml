@@ -23,4 +23,5 @@
   <string name="horologist_picker_month">חודש</string>
   <string name="horologist_picker_year">שנה</string>
   <string name="horologist_picker_confirm_button_content_description">אישור</string>
+  <string name="horologist_placeholderchip_content_description">בטעינה</string>
 </resources>

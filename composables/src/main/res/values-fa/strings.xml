@@ -23,4 +23,5 @@
   <string name="horologist_picker_month">ماه</string>
   <string name="horologist_picker_year">سال</string>
   <string name="horologist_picker_confirm_button_content_description">تأیید</string>
+  <string name="horologist_placeholderchip_content_description">درحال بار کردن</string>
 </resources>

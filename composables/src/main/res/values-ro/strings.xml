@@ -23,4 +23,5 @@
   <string name="horologist_picker_month">Lună</string>
   <string name="horologist_picker_year">An</string>
   <string name="horologist_picker_confirm_button_content_description">Confirmă</string>
+  <string name="horologist_placeholderchip_content_description">Se încarcă</string>
 </resources>

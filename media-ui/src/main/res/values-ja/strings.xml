@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">ウォッチにダウンロード</string>
   <string name="horologist_playlist_download_button_cancel">キャンセル</string>
   <string name="horologist_playlist_download_button_download_content_description">ダウンロード可能</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">ダウンロードをキャンセル</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">ダウンロードしています</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">キャンセル</string>
   <string name="horologist_playlist_download_button_download_done_content_description">ダウンロード済み</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">ダウンロードを削除</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">シャッフル</string>
   <string name="horologist_playlist_download_button_play_content_description">再生</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s: ダウンロードしています</string>
   <string name="horologist_playlist_download_download_progress_known_size">%1$.0f%%（合計: %2$s）</string>
   <string name="horologist_playlist_download_download_progress_waiting">待機中…</string>
 </resources>

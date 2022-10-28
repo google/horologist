@@ -23,8 +23,8 @@
   <string name="horologist_seek_forward_button_seconds_content_description">Spol %s sekunder frem</string>
   <string name="horologist_seek_back_button_content_description">Spol tilbage</string>
   <string name="horologist_seek_back_button_seconds_content_description">Spol %s sekunder tilbage</string>
-  <string name="horologist_shuffle_button_off_content_description">Shuffle mode off</string>
-  <string name="horologist_shuffle_button_on_content_description">Shuffle mode on</string>
+  <string name="horologist_shuffle_button_off_content_description">Bland er deaktiveret</string>
+  <string name="horologist_shuffle_button_on_content_description">Bland er aktiveret</string>
   <string name="horologist_nothing_playing">Der afspilles ikke noget</string>
   <string name="horologist_browse_downloads_title">Downloads</string>
   <string name="horologist_browse_downloads_empty">Download musik for at begynde at lytte</string>
@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">Download til dit ur</string>
   <string name="horologist_playlist_download_button_cancel">Annuller</string>
   <string name="horologist_playlist_download_button_download_content_description">Kan downloades</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">Annuller downloads</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">Downloaden er i gang</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">annuller</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Downloadet</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">fjern download</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Bland</string>
   <string name="horologist_playlist_download_button_play_content_description">Afspil</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s Downloaden er i gang</string>
   <string name="horologist_playlist_download_download_progress_known_size">%1$.0f %% af %2$s</string>
   <string name="horologist_playlist_download_download_progress_waiting">Venter…</string>
 </resources>

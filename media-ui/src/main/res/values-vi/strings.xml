@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">Tải xuống đồng hồ</string>
   <string name="horologist_playlist_download_button_cancel">Huỷ</string>
   <string name="horologist_playlist_download_button_download_content_description">Có thể tải xuống</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">Huỷ tải xuống</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">Đang tải xuống</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">huỷ</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Đã tải xuống</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">xoá nội dung đã tải xuống</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Trộn bài</string>
   <string name="horologist_playlist_download_button_play_content_description">Phát</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s Đang tải xuống</string>
   <string name="horologist_playlist_download_download_progress_known_size">%1$.0f%%/%2$s</string>
   <string name="horologist_playlist_download_download_progress_waiting">Đang chờ…</string>
 </resources>

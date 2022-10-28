@@ -18,9 +18,9 @@
   <string name="horologist_volume_screen_volume_up_content_description">បង្កើន​កម្រិតសំឡេង</string>
   <string name="horologist_volume_screen_volume_down_content_description">បន្ថយ​កម្រិតសំឡេង</string>
   <string name="horologist_volume_screen_connected_state">បានភ្ជាប់ កម្រិតសំឡេង %1$d</string>
-  <string name="horologist_volume_screen_not_connected_state">មិនបានភ្ជាប់</string>
+  <string name="horologist_volume_screen_not_connected_state">មិន​បាន​តភ្ជាប់</string>
   <string name="horologist_volume_screen_change_audio_output">ប្ដូរឧបករណ៍បញ្ចេញសំឡេង</string>
   <string name="horologist_speaker_name">ឧបករណ៍បំពងសំឡេងនៃនាឡិកា</string>
-  <string name="horologist_set_volume_content_description">កំណត់កម្រិតសំឡេង</string>
+  <string name="horologist_set_volume_content_description">កំណត់​កម្រិត​សំឡេង</string>
   <string name="horologist_audio_output_content_description">ឧបករណ៍បញ្ចេញសំឡេង</string>
 </resources>

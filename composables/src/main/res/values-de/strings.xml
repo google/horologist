@@ -23,4 +23,5 @@
   <string name="horologist_picker_month">Monat</string>
   <string name="horologist_picker_year">Jahr</string>
   <string name="horologist_picker_confirm_button_content_description">Bestätigen</string>
+  <string name="horologist_placeholderchip_content_description">Wird geladen</string>
 </resources>

@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">Download to your watch</string>
   <string name="horologist_playlist_download_button_cancel">Cancel</string>
   <string name="horologist_playlist_download_button_download_content_description">Download available</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">Cancel downloads</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">Download in progress</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">cancel</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Downloaded</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">remove download</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Shuffle</string>
   <string name="horologist_playlist_download_button_play_content_description">Play</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s download in progress</string>
   <string name="horologist_playlist_download_download_progress_known_size">%1$.0f%% of %2$s</string>
   <string name="horologist_playlist_download_download_progress_waiting">Waiting…</string>
 </resources>

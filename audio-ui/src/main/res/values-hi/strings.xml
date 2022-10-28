@@ -16,7 +16,7 @@
 -->
 
   <string name="horologist_volume_screen_volume_up_content_description">आवाज़ बढ़ाएं</string>
-  <string name="horologist_volume_screen_volume_down_content_description">आवाज़ घटाएं</string>
+  <string name="horologist_volume_screen_volume_down_content_description">आवाज़ कम करें</string>
   <string name="horologist_volume_screen_connected_state">कनेक्ट है, आवाज़ %1$d</string>
   <string name="horologist_volume_screen_not_connected_state">कनेक्ट नहीं है</string>
   <string name="horologist_volume_screen_change_audio_output">ऑडियो आउटपुट बदलें</string>

@@ -23,8 +23,8 @@
   <string name="horologist_seek_forward_button_seconds_content_description">Spola framåt %s sekunder</string>
   <string name="horologist_seek_back_button_content_description">Spola tillbaka</string>
   <string name="horologist_seek_back_button_seconds_content_description">Spola tillbaka %s sekunder</string>
-  <string name="horologist_shuffle_button_off_content_description">Shuffle mode off</string>
-  <string name="horologist_shuffle_button_on_content_description">Shuffle mode on</string>
+  <string name="horologist_shuffle_button_off_content_description">Shuffle är av</string>
+  <string name="horologist_shuffle_button_on_content_description">Shuffle är på</string>
   <string name="horologist_nothing_playing">Inget spelas upp</string>
   <string name="horologist_browse_downloads_title">Nedladdningar</string>
   <string name="horologist_browse_downloads_empty">Ladda ned musik för att börja lyssna</string>
@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">Ladda ned till klockan</string>
   <string name="horologist_playlist_download_button_cancel">Avbryt</string>
   <string name="horologist_playlist_download_button_download_content_description">Nedladdning tillgänglig</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">Avbryt nedladdningar</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">Nedladdning pågår</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">avbryt</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Nedladdningar</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">ta bort nedladdning</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Shuffle</string>
   <string name="horologist_playlist_download_button_play_content_description">Spela upp</string>
-  <string name="horologist_playlist_download_download_progress_known_size">%1$.0f %% av %2$s</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s Nedladdning pågår</string>
+  <string name="horologist_playlist_download_download_progress_known_size">%1$.0f%% av %2$s</string>
   <string name="horologist_playlist_download_download_progress_waiting">Väntar …</string>
 </resources>

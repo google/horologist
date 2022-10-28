@@ -23,8 +23,8 @@
   <string name="horologist_seek_forward_button_seconds_content_description">%s സെക്കൻഡ് മുന്നോട്ട് നീക്കുക</string>
   <string name="horologist_seek_back_button_content_description">പിന്നോട്ട് നീക്കുക</string>
   <string name="horologist_seek_back_button_seconds_content_description">%s സെക്കൻഡ് പിന്നോട്ട് നീക്കുക</string>
-  <string name="horologist_shuffle_button_off_content_description">Shuffle mode off</string>
-  <string name="horologist_shuffle_button_on_content_description">Shuffle mode on</string>
+  <string name="horologist_shuffle_button_off_content_description">ഇടകലർത്തൽ മോഡ് ഓഫാണ്</string>
+  <string name="horologist_shuffle_button_on_content_description">ഇടകലർത്തൽ മോഡ് ഓണാണ്</string>
   <string name="horologist_nothing_playing">ഒന്നും പ്ലേചെയ്യുന്നില്ല</string>
   <string name="horologist_browse_downloads_title">ഡൗൺലോഡുകൾ</string>
   <string name="horologist_browse_downloads_empty">കേട്ട് തുടങ്ങാൻ സംഗീതം ഡൗൺലോഡ് ചെയ്യുക</string>
@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">വാച്ചിൽ ഡൗൺലോഡ് ചെയ്യൂ</string>
   <string name="horologist_playlist_download_button_cancel">റദ്ദാക്കുക</string>
   <string name="horologist_playlist_download_button_download_content_description">ഡൗൺലോഡ് ചെയ്യാനാകും</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">ഡൗൺലോഡുകൾ റദ്ദാക്കുക</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">ഡൗൺലോഡ് പുരോഗതിയിലാണ്</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">റദ്ദാക്കുക</string>
   <string name="horologist_playlist_download_button_download_done_content_description">ഡൗൺലോഡ് ചെയ്‌തു</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">ഡൗൺലോഡ് നീക്കം ചെയ്യുക</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">ഇടകലർത്തുക</string>
   <string name="horologist_playlist_download_button_play_content_description">പ്ലേ ചെയ്യുക</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s ഡൗൺലോഡ് പുരോഗതിയിലാണ്</string>
   <string name="horologist_playlist_download_download_progress_known_size">%2$s-ൽ %1$.0f%%</string>
   <string name="horologist_playlist_download_download_progress_waiting">കാക്കുന്നു…</string>
 </resources>

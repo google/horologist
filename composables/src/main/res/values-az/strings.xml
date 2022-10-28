@@ -23,4 +23,5 @@
   <string name="horologist_picker_month">Ay</string>
   <string name="horologist_picker_year">İl</string>
   <string name="horologist_picker_confirm_button_content_description">Təsdiq edin</string>
+  <string name="horologist_placeholderchip_content_description">Yüklənir</string>
 </resources>

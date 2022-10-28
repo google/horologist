@@ -23,8 +23,8 @@
   <string name="horologist_seek_forward_button_seconds_content_description">Avancer de %s secondes</string>
   <string name="horologist_seek_back_button_content_description">Revenir en arrière</string>
   <string name="horologist_seek_back_button_seconds_content_description">Revenir en arrière de %s secondes</string>
-  <string name="horologist_shuffle_button_off_content_description">Shuffle mode off</string>
-  <string name="horologist_shuffle_button_on_content_description">Shuffle mode on</string>
+  <string name="horologist_shuffle_button_off_content_description">Mode aléatoire désactivé</string>
+  <string name="horologist_shuffle_button_on_content_description">Mode aléatoire activé</string>
   <string name="horologist_nothing_playing">Rien en lecture</string>
   <string name="horologist_browse_downloads_title">Téléchargements</string>
   <string name="horologist_browse_downloads_empty">Téléchargez des titres pour les écouter</string>
@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">Télécharger sur montre</string>
   <string name="horologist_playlist_download_button_cancel">Annuler</string>
   <string name="horologist_playlist_download_button_download_content_description">Téléchargement disponible</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">Annuler les téléchargements</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">Téléchargement en cours</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">annuler</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Téléchargée</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">supprimer le téléchargement</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Lire en mode aléatoire</string>
   <string name="horologist_playlist_download_button_play_content_description">Lire</string>
-  <string name="horologist_playlist_download_download_progress_known_size">%1$.0f %% sur %2$s</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s, téléchargement en cours</string>
+  <string name="horologist_playlist_download_download_progress_known_size">%1$.0f %% sur %2$s</string>
   <string name="horologist_playlist_download_download_progress_waiting">En attente…</string>
 </resources>

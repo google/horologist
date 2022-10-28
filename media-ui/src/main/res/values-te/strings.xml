@@ -36,10 +36,13 @@
   <string name="horologist_playlist_download_button_download">మీ వాచ్‌కు డౌన్‌లోడ్</string>
   <string name="horologist_playlist_download_button_cancel">రద్దు చేయండి</string>
   <string name="horologist_playlist_download_button_download_content_description">డౌన్‌లోడ్ అందుబాటులో ఉంది</string>
-  <string name="horologist_playlist_download_button_cancel_content_description">డౌన్‌లోడ్‌లను రద్దు చేయండి</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">డౌన్‌లోడ్ ప్రోగ్రెస్‌లో ఉంది</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">రద్దు చేయండి</string>
   <string name="horologist_playlist_download_button_download_done_content_description">డౌన్‌లోడ్ చేయబడింది</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">డౌన్‌లోడ్‌ను తీసివేయండి</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">షఫుల్ చేయండి</string>
   <string name="horologist_playlist_download_button_play_content_description">ప్లే చేయండి</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s డౌన్‌లోడ్ ప్రోగ్రెస్‌లో ఉంది</string>
   <string name="horologist_playlist_download_download_progress_known_size">%2$sలో %1$.0f%%</string>
   <string name="horologist_playlist_download_download_progress_waiting">వేచి ఉంది…</string>
 </resources>

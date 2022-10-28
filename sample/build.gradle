@@ -114,6 +114,7 @@ protobuf {
 }
 
 dependencies {
+    implementation projects.baseUi
     implementation projects.composeLayout
     implementation projects.audio
     implementation projects.audioUi

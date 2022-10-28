@@ -32,12 +32,12 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.ScalingParams
+import com.google.android.horologist.base.ui.components.StandardChip
+import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.media.ui.components.base.StandardChip
-import com.google.android.horologist.media.ui.components.base.StandardChipType
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 
 /**

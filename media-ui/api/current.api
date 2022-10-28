@@ -149,22 +149,6 @@ package com.google.android.horologist.media.ui.components.background {
 
 }
 
-package com.google.android.horologist.media.ui.components.base {
-
-  public final class StandardButtonKt {
-  }
-
-  public final class StandardChipIconWithProgressKt {
-  }
-
-  public final class StandardChipKt {
-  }
-
-  public final class TitleKt {
-  }
-
-}
-
 package com.google.android.horologist.media.ui.components.controls {
 
   public final class MediaButtonDefaults {
@@ -891,9 +875,6 @@ package com.google.android.horologist.media.ui.tiles {
 }
 
 package com.google.android.horologist.media.ui.util {
-
-  public final class A11yKt {
-  }
 
   public final class IfNanKt {
   }

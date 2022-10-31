@@ -17,21 +17,23 @@
 package com.google.android.horologist.sectionedlist
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberScalingLazyListState
+import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
-import com.google.android.horologist.sectionedlist.component.Title
 
 @Composable
 fun SectionedListMenuScreen(
@@ -62,7 +64,10 @@ fun SectionedListMenuScreen(
             )
         ) {
             header {
-                Title(stringResource(R.string.sectionedlist_samples_title))
+                Title(
+                    text = stringResource(R.string.sectionedlist_samples_title),
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
             }
 
             loaded { item ->

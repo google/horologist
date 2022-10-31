@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+<!--
+ Copyright 2022 The Android Open Source Project
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+  <string name="horologist_pause_button_content_description">Keskeytä</string>
+  <string name="horologist_play_button_content_description">Toista</string>
+  <string name="horologist_seek_to_next_button_content_description">Seuraava</string>
+  <string name="horologist_seek_to_previous_button_content_description">Edellinen</string>
+  <string name="horologist_seek_forward_button_content_description">Eteenpäin</string>
+  <string name="horologist_seek_forward_button_seconds_content_description">Eteenpäin %s sekuntia</string>
+  <string name="horologist_seek_back_button_content_description">Taaksepäin</string>
+  <string name="horologist_seek_back_button_seconds_content_description">Taaksepäin %s sekuntia</string>
+  <string name="horologist_shuffle_button_off_content_description">Satunnaistoisto pois käytöstä</string>
+  <string name="horologist_shuffle_button_on_content_description">Satunnaistoisto käytössä</string>
+  <string name="horologist_nothing_playing">Ei toistoa</string>
+  <string name="horologist_browse_downloads_title">Lataukset</string>
+  <string name="horologist_browse_downloads_empty">Lataa musiikkia ja aloita kuuntelu</string>
+  <string name="horologist_browse_library_title">Kirjasto</string>
+  <string name="horologist_browse_library_playlists">Soittolistat</string>
+  <string name="horologist_browse_library_playlists_button">Soittolistat</string>
+  <string name="horologist_browse_library_settings_button">Asetukset</string>
+  <string name="horologist_browse_playlist_title">Soittolistat</string>
+  <string name="horologist_playlist_download_button_download">Lataa kelloon</string>
+  <string name="horologist_playlist_download_button_cancel">Peru</string>
+  <string name="horologist_playlist_download_button_download_content_description">Ladattavissa</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">Lataus käynnissä</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">lopeta</string>
+  <string name="horologist_playlist_download_button_download_done_content_description">Ladattu</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">poista lataus</string>
+  <string name="horologist_playlist_download_button_shuffle_content_description">Satunnaistoisto</string>
+  <string name="horologist_playlist_download_button_play_content_description">Toista</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s Lataus käynnissä</string>
+  <string name="horologist_playlist_download_download_progress_known_size">%1$.0f %% / %2$s</string>
+  <string name="horologist_playlist_download_download_progress_waiting">Odottaa…</string>
+</resources>

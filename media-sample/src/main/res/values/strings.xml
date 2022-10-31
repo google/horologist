@@ -62,6 +62,8 @@
     <string name="entity_dialog_proceed_button_content_description">Proceed</string>
     <string name="entity_dialog_cancel_downloads">Are you sure you want to cancel download?</string>
     <string name="entity_dialog_remove_downloads">Remove %s from watch?</string>
+    <string description="Description of the action of the Chip of a playlist that is currently being downloaded. Lets the user know that taking this action, it will cancel the download in progress. [CHAR_LIMIT=NONE]" name="entity_download_cancel_action_label">cancel</string>
     <string name="request_network">Request Network</string>
     <string name="force_stop">Force Stop</string>
+    <string description="Description of the action of the Chip of a playlist that is currently being downloaded. Lets the user know that taking this action, it will cancel the download in progress. [CHAR_LIMIT=NONE]" name="browse_download_cancel_action_label">cancel</string>
 </resources>

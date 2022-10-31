@@ -63,7 +63,6 @@ import androidx.wear.compose.material.PickerDefaults
 import androidx.wear.compose.material.PickerScope
 import androidx.wear.compose.material.PickerState
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.rememberPickerState
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import kotlinx.coroutines.launch
 import java.time.LocalTime
@@ -149,13 +148,16 @@ public fun TimePicker(
                         readOnly = selectedColumn != 0,
                         state = hourState,
                         focusRequester = focusRequester1,
-                        modifier = Modifier.size(40.dp, 100.dp)
+                        modifier = Modifier.size(40.dp, 100.dp),
+                        contentDescription = "%02d".format(hourState.selectedOption),
+                        onSelected = { selectedColumn = 0 }
                     ) { hour: Int ->
+                        val hourString = "%02d".format(hour)
                         TimePiece(
                             selected = selectedColumn == 0,
-                            onSelected = { selectedColumn = 0 },
-                            text = "%02d".format(hour),
-                            style = textStyle
+                            text = hourString,
+                            style = textStyle,
+                            onSelected = { selectedColumn = 0 }
                         )
                     }
                     Separator(6.dp, textStyle)
@@ -163,13 +165,15 @@ public fun TimePicker(
                         readOnly = selectedColumn != 1,
                         state = minuteState,
                         focusRequester = focusRequester2,
-                        modifier = Modifier.size(40.dp, 100.dp)
+                        modifier = Modifier.size(40.dp, 100.dp),
+                        contentDescription = "%02d".format(minuteState.selectedOption),
+                        onSelected = { selectedColumn = 1 }
                     ) { minute: Int ->
                         TimePiece(
                             selected = selectedColumn == 1,
-                            onSelected = { selectedColumn = 1 },
                             text = "%02d".format(minute),
-                            style = textStyle
+                            style = textStyle,
+                            onSelected = { selectedColumn = 1 }
                         )
                     }
                     if (showSeconds) {
@@ -178,13 +182,15 @@ public fun TimePicker(
                             readOnly = selectedColumn != 2,
                             state = secondsState,
                             focusRequester = focusRequester3,
-                            modifier = Modifier.size(40.dp, 100.dp)
+                            modifier = Modifier.size(40.dp, 100.dp),
+                            contentDescription = "%02d".format(secondsState.selectedOption),
+                            onSelected = { selectedColumn = 2 }
                         ) { second: Int ->
                             TimePiece(
                                 selected = selectedColumn == 2,
-                                onSelected = { selectedColumn = 2 },
                                 text = "%02d".format(second),
-                                style = textStyle
+                                style = textStyle,
+                                onSelected = { selectedColumn = 2 }
                             )
                         }
                     }
@@ -313,13 +319,15 @@ public fun TimePickerWith12HourClock(
                     state = hourState,
                     focusRequester = focusRequester1,
                     modifier = Modifier.size(64.dp, 100.dp),
-                    readOnlyLabel = { LabelText(stringResource(R.string.horologist_time_picker_hour)) }
+                    readOnlyLabel = { LabelText(stringResource(R.string.horologist_time_picker_hour)) },
+                    contentDescription = "%02d".format(hourState.selectedOption + 1),
+                    onSelected = { selectedColumn = 0 }
                 ) { hour: Int ->
                     TimePiece(
                         selected = selectedColumn == 0,
-                        onSelected = { selectedColumn = 0 },
                         text = "%02d".format(hour + 1),
-                        style = textStyle
+                        style = textStyle,
+                        onSelected = { selectedColumn = 0 }
                     )
                 }
                 Separator(8.dp, textStyle)
@@ -329,13 +337,15 @@ public fun TimePickerWith12HourClock(
                     state = minuteState,
                     focusRequester = focusRequester2,
                     modifier = Modifier.size(64.dp, 100.dp),
-                    readOnlyLabel = { LabelText(stringResource(R.string.horologist_time_picker_min)) }
+                    readOnlyLabel = { LabelText(stringResource(R.string.horologist_time_picker_min)) },
+                    contentDescription = "%02d".format(minuteState.selectedOption),
+                    onSelected = { selectedColumn = 1 }
                 ) { minute: Int ->
                     TimePiece(
                         selected = selectedColumn == 1,
-                        onSelected = { selectedColumn = 1 },
                         text = "%02d".format(minute),
-                        style = textStyle
+                        style = textStyle,
+                        onSelected = { selectedColumn = 1 }
                     )
                 }
                 Spacer(Modifier.width(8.dp))
@@ -385,14 +395,15 @@ internal fun TimePiece(
             text = text,
             maxLines = 1,
             style = style,
-            color =
-            if (selected) MaterialTheme.colors.secondary
+            color = if (selected) MaterialTheme.colors.secondary
             else MaterialTheme.colors.onBackground,
-            modifier =
-            if (selected) modifier
-            else modifier.pointerInteropFilter {
-                if (it.action == MotionEvent.ACTION_DOWN) onSelected()
-                true
+            modifier = if (selected) {
+                modifier
+            } else {
+                modifier.pointerInteropFilter {
+                    if (it.action == MotionEvent.ACTION_DOWN) onSelected()
+                    true
+                }
             }
         )
     }
@@ -427,15 +438,19 @@ internal fun PickerWithRSB(
     readOnly: Boolean,
     modifier: Modifier,
     focusRequester: FocusRequester,
+    contentDescription: String?,
     readOnlyLabel: @Composable (BoxScope.() -> Unit)? = null,
     flingBehavior: FlingBehavior = PickerDefaults.flingBehavior(state = state),
+    onSelected: () -> Unit = {},
     option: @Composable PickerScope.(optionIndex: Int) -> Unit
 ) {
+    val coroutineScope = rememberCoroutineScope()
     Picker(
         state = state,
-        modifier = modifier.run {
-            val coroutineScope = rememberCoroutineScope()
-            onRotaryInputAccumulated {
+        contentDescription = contentDescription,
+        onSelected = onSelected,
+        modifier = modifier
+            .onRotaryInputAccumulated {
                 coroutineScope.launch {
                     if (it > 0) {
                         state.scrollToOption(state.selectedOption + 1)
@@ -444,7 +459,6 @@ internal fun PickerWithRSB(
                     }
                 }
             }
-        }
             .focusRequester(focusRequester)
             .focusable(),
         flingBehavior = flingBehavior,

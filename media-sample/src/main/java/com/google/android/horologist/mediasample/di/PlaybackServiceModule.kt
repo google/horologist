@@ -21,6 +21,7 @@ import android.app.Service
 import android.os.Build
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.Player
@@ -68,8 +69,6 @@ import dagger.hilt.android.components.ServiceComponent
 import dagger.hilt.android.scopes.ServiceScoped
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -205,13 +204,7 @@ object PlaybackServiceModule {
     fun serviceCoroutineScope(
         service: Service
     ): CoroutineScope {
-        return CoroutineScope(SupervisorJob() + Dispatchers.Default).also {
-            (service as LifecycleOwner).lifecycle.addObserver(object : DefaultLifecycleObserver {
-                override fun onStop(owner: LifecycleOwner) {
-                    it.cancel()
-                }
-            })
-        }
+        return (service as LifecycleOwner).lifecycleScope
     }
 
     @ServiceScoped

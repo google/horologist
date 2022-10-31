@@ -25,17 +25,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.semantics
 import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.ScalingParams
+import com.google.android.horologist.base.ui.components.StandardChip
+import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.media.ui.components.base.StandardChip
-import com.google.android.horologist.media.ui.components.base.StandardChipType
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 
 /**
@@ -46,6 +48,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiMode
 public fun PlaylistDownloadBrowseScreen(
     browseScreenState: BrowseScreenState,
     onDownloadItemClick: (PlaylistDownloadUiModel) -> Unit,
+    onDownloadItemInProgressClick: (PlaylistDownloadUiModel) -> Unit,
     onPlaylistsClick: () -> Unit,
     onSettingsClick: () -> Unit,
     focusRequester: FocusRequester,
@@ -53,7 +56,8 @@ public fun PlaylistDownloadBrowseScreen(
     modifier: Modifier = Modifier,
     downloadItemArtworkPlaceholder: Painter? = null,
     scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
-    autoCentering: AutoCenteringParams? = AutoCenteringParams()
+    autoCentering: AutoCenteringParams? = AutoCenteringParams(),
+    onDownloadItemInProgressClickActionLabel: String? = null
 ) {
     BrowseScreen(
         focusRequester = focusRequester,
@@ -71,6 +75,7 @@ public fun PlaylistDownloadBrowseScreen(
                     Section.State.Loaded(browseScreenState.downloadList)
                 }
             }
+
             is BrowseScreenState.Failed ->
                 // display empty state
                 Section.State.Empty()
@@ -93,10 +98,21 @@ public fun PlaylistDownloadBrowseScreen(
                             chipType = StandardChipType.Secondary
                         )
                     }
+
                     is PlaylistDownloadUiModel.InProgress -> {
+                        val customModifier = onDownloadItemInProgressClickActionLabel?.let {
+                            Modifier.semantics {
+                                onClick(
+                                    label = onDownloadItemInProgressClickActionLabel,
+                                    action = null
+                                )
+                            }
+                        } ?: Modifier
+
                         StandardChip(
                             label = download.playlistUiModel.title,
-                            onClick = { onDownloadItemClick(download) },
+                            onClick = { onDownloadItemInProgressClick(download) },
+                            modifier = customModifier,
                             secondaryLabel = stringResource(
                                 id = R.string.horologist_browse_downloads_progress,
                                 download.percentage

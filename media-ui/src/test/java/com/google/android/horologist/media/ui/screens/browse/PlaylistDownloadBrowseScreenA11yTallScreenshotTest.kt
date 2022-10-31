@@ -75,11 +75,13 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest {
                     PlaylistDownloadBrowseScreen(
                         browseScreenState = screenState,
                         onDownloadItemClick = { },
+                        onDownloadItemInProgressClick = { },
                         onPlaylistsClick = { },
                         onSettingsClick = { },
                         focusRequester = FocusRequester(),
                         scalingLazyListState = scrollState,
-                        scalingParams = scalingParams
+                        scalingParams = scalingParams,
+                        onDownloadItemInProgressClickActionLabel = "cancel"
                     )
                 }
             }

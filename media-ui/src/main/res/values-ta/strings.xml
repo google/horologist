@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+<!--
+ Copyright 2022 The Android Open Source Project
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+  <string name="horologist_pause_button_content_description">இடைநிறுத்தும்</string>
+  <string name="horologist_play_button_content_description">பிளே செய்யும்</string>
+  <string name="horologist_seek_to_next_button_content_description">அடுத்ததற்குச் செல்லும்</string>
+  <string name="horologist_seek_to_previous_button_content_description">முந்தையதற்குச் செல்லும்</string>
+  <string name="horologist_seek_forward_button_content_description">முன்செல்லும்</string>
+  <string name="horologist_seek_forward_button_seconds_content_description">%s வினாடிகள் முன்செல்லும்</string>
+  <string name="horologist_seek_back_button_content_description">பின்செல்லும்</string>
+  <string name="horologist_seek_back_button_seconds_content_description">%s வினாடிகள் பின்செல்லும்</string>
+  <string name="horologist_shuffle_button_off_content_description">கலைத்துப் பிளே செய்யும் பயன்முறை முடக்கப்பட்டுள்ளது</string>
+  <string name="horologist_shuffle_button_on_content_description">கலைத்துப் பிளே செய்யும் பயன்முறை இயக்கப்பட்டுள்ளது</string>
+  <string name="horologist_nothing_playing">எதுவும் பிளேயாகவில்லை</string>
+  <string name="horologist_browse_downloads_title">பதிவிறக்கியவை</string>
+  <string name="horologist_browse_downloads_empty">இசை கேட்க அவற்றைப் பதிவிறக்குங்கள்</string>
+  <string name="horologist_browse_library_title">லைப்ரரி</string>
+  <string name="horologist_browse_library_playlists">பிளேலிஸ்ட்கள்</string>
+  <string name="horologist_browse_library_playlists_button">பிளேலிஸ்ட்கள்</string>
+  <string name="horologist_browse_library_settings_button">அமைப்புகள்</string>
+  <string name="horologist_browse_playlist_title">பிளேலிஸ்ட்கள்</string>
+  <string name="horologist_playlist_download_button_download">வாட்ச்சில் பதிவிறக்கு</string>
+  <string name="horologist_playlist_download_button_cancel">ரத்துசெய்</string>
+  <string name="horologist_playlist_download_button_download_content_description">பதிவிறக்கக் கிடைக்கிறது</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">பதிவிறக்கப்படுகிறது</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">ரத்துசெய்யும்</string>
+  <string name="horologist_playlist_download_button_download_done_content_description">பதிவிறக்கப்பட்டது</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">பதிவிறக்கியதை அகற்றும்</string>
+  <string name="horologist_playlist_download_button_shuffle_content_description">கலைத்துப் பிளே செய்யும்</string>
+  <string name="horologist_playlist_download_button_play_content_description">பிளே செய்யும்</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s பதிவிறக்கப்படுகிறது</string>
+  <string name="horologist_playlist_download_download_progress_known_size">%1$.0f%%/%2$s</string>
+  <string name="horologist_playlist_download_download_progress_waiting">காத்திருப்பு…</string>
+</resources>

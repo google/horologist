@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+<!--
+ Copyright 2022 The Android Open Source Project
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+  <string name="horologist_pause_button_content_description">रोकें</string>
+  <string name="horologist_play_button_content_description">चलाएं</string>
+  <string name="horologist_seek_to_next_button_content_description">अगला</string>
+  <string name="horologist_seek_to_previous_button_content_description">पिछला</string>
+  <string name="horologist_seek_forward_button_content_description">आगे बढ़ाएं</string>
+  <string name="horologist_seek_forward_button_seconds_content_description">मीडिया को %s सेकंड आगे बढ़ाएं</string>
+  <string name="horologist_seek_back_button_content_description">पीछे ले जाएं</string>
+  <string name="horologist_seek_back_button_seconds_content_description">मीडिया को %s सेकंड पीछे ले जाएं</string>
+  <string name="horologist_shuffle_button_off_content_description">शफ़ल मोड बंद है</string>
+  <string name="horologist_shuffle_button_on_content_description">शफ़ल मोड चालू है</string>
+  <string name="horologist_nothing_playing">कोई मीडिया नहीं चल रहा</string>
+  <string name="horologist_browse_downloads_title">डाउनलोड किया गया मीडिया</string>
+  <string name="horologist_browse_downloads_empty">सुनने के लिए, संगीत डाउनलोड करें</string>
+  <string name="horologist_browse_library_title">लाइब्रेरी</string>
+  <string name="horologist_browse_library_playlists">प्लेलिस्ट</string>
+  <string name="horologist_browse_library_playlists_button">प्लेलिस्ट</string>
+  <string name="horologist_browse_library_settings_button">सेटिंग</string>
+  <string name="horologist_browse_playlist_title">प्लेलिस्ट</string>
+  <string name="horologist_playlist_download_button_download">वॉच पर डाउनलोड करें</string>
+  <string name="horologist_playlist_download_button_cancel">रद्द करें</string>
+  <string name="horologist_playlist_download_button_download_content_description">डाउनलोड के लिए उपलब्ध है</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">डाउनलोड जारी है</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">रद्द करें</string>
+  <string name="horologist_playlist_download_button_download_done_content_description">डाउनलोड हो गया</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">डाउनलोड की गई प्लेलिस्ट हटाएं</string>
+  <string name="horologist_playlist_download_button_shuffle_content_description">शफ़ल करें</string>
+  <string name="horologist_playlist_download_button_play_content_description">चलाएं</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">%s को डाउनलोड किया जा रहा है</string>
+  <string name="horologist_playlist_download_download_progress_known_size">%2$s में से %1$.0f%%</string>
+  <string name="horologist_playlist_download_download_progress_waiting">इंतज़ार…</string>
+</resources>

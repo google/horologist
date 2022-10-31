@@ -49,7 +49,6 @@ import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PickerState
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.rememberPickerState
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAdjusters
@@ -164,7 +163,8 @@ public fun DatePicker(
                             onSelected = { selectedColumn = 0 },
                             text = { day: Int -> "%d".format(day + 1) },
                             width = dayWidth,
-                            focusRequester = focusRequester1
+                            focusRequester = focusRequester1,
+                            contentDescription = "%d".format(dayState.selectedOption + 1)
                         )
                         Spacer(modifier = Modifier.width(spacerWidth))
                     }
@@ -174,7 +174,8 @@ public fun DatePicker(
                         onSelected = { selectedColumn = 1 },
                         text = { month: Int -> monthNames[month] },
                         width = monthWidth,
-                        focusRequester = focusRequester2
+                        focusRequester = focusRequester2,
+                        contentDescription = monthNames[monthState.selectedOption]
                     )
                     if (selectedColumn > 0) {
                         Spacer(modifier = Modifier.width(spacerWidth))
@@ -184,7 +185,8 @@ public fun DatePicker(
                             onSelected = { selectedColumn = 2 },
                             text = { year: Int -> "%4d".format(year + 1) },
                             width = yearWidth,
-                            focusRequester = focusRequester3
+                            focusRequester = focusRequester3,
+                            contentDescription = "%4d".format(yearState.selectedOption + 1)
                         )
                     }
                 }
@@ -228,13 +230,16 @@ private fun DatePickerImpl(
     onSelected: () -> Unit,
     text: (option: Int) -> String,
     focusRequester: FocusRequester,
+    contentDescription: String?,
     width: Dp
 ) {
     PickerWithRSB(
         readOnly = readOnly,
         state = state,
         focusRequester = focusRequester,
-        modifier = Modifier.size(width, 100.dp)
+        modifier = Modifier.size(width, 100.dp),
+        contentDescription = contentDescription,
+        onSelected = onSelected
     ) { option ->
         TimePiece(
             selected = !readOnly,

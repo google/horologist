@@ -44,7 +44,6 @@ import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
-import com.android.ide.common.rendering.api.SessionParams
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.compose.tools.a11y.forceState
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
@@ -54,9 +53,7 @@ import org.junit.Test
 
 class SectionedListTest {
     @get:Rule
-    val paparazzi = WearPaparazzi(
-        renderingMode = SessionParams.RenderingMode.V_SCROLL
-    )
+    val paparazzi = WearPaparazzi()
 
     @Test
     fun loadingSection() {

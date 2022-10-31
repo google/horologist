@@ -68,7 +68,7 @@ class DeveloperOptionsScreenViewModel @Inject constructor(
     data class UiState(
         val showTimeTextInfo: Boolean = false,
         val podcastControls: Boolean = false,
-        val loadItemsAtStartup: Boolean = true,
+        val loadItemsAtStartup: Boolean = false,
         val animated: Boolean = true,
         val debugOffload: Boolean = false,
         val offloadMode: OffloadMode = OffloadMode.BACKGROUND,

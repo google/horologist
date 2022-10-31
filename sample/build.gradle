@@ -19,7 +19,7 @@ apply plugin: 'kotlin-android'
 apply plugin: "com.google.protobuf"
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.google.android.horologist.sample"
@@ -114,6 +114,7 @@ protobuf {
 }
 
 dependencies {
+    implementation projects.baseUi
     implementation projects.composeLayout
     implementation projects.audio
     implementation projects.audioUi

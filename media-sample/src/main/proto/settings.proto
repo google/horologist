@@ -34,4 +34,6 @@ message Settings {
   bool animated = 4;
   bool debug_offload = 5;
   OffloadMode offload_mode = 6;
+  string currentMediaListId = 7;
+  string currentMediaItemId = 8;
 }

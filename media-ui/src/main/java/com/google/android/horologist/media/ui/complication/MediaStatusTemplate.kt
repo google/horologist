@@ -26,6 +26,9 @@ import androidx.wear.watchface.complications.data.ShortTextComplicationData
 import androidx.wear.watchface.complications.data.SmallImageComplicationData
 import androidx.wear.watchface.complications.data.SmallImageType
 import com.google.android.horologist.media.ui.R
+import com.google.android.horologist.tiles.complication.DataTemplates.longText
+import com.google.android.horologist.tiles.complication.DataTemplates.shortText
+import com.google.android.horologist.tiles.complication.DataTemplates.smallImage
 import com.google.android.horologist.tiles.complication.TypedComplicationTemplate
 
 public class MediaStatusTemplate(

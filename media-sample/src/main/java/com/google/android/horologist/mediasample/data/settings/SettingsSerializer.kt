@@ -32,7 +32,7 @@ object SettingsSerializer : Serializer<Settings> {
     override val defaultValue: Settings = settings {
         this.animated = true
         this.debugOffload = false
-        this.loadItemsAtStartup = true
+        this.loadItemsAtStartup = false
         this.offloadMode = SettingsProto.OffloadMode.BACKGROUND
         this.podcastControls = false
         this.showTimeTextInfo = false

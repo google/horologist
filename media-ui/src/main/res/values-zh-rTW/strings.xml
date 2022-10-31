@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+<!--
+ Copyright 2022 The Android Open Source Project
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+  <string name="horologist_pause_button_content_description">暫停</string>
+  <string name="horologist_play_button_content_description">播放</string>
+  <string name="horologist_seek_to_next_button_content_description">下一首</string>
+  <string name="horologist_seek_to_previous_button_content_description">上一首</string>
+  <string name="horologist_seek_forward_button_content_description">快轉</string>
+  <string name="horologist_seek_forward_button_seconds_content_description">快轉 %s 秒</string>
+  <string name="horologist_seek_back_button_content_description">倒轉</string>
+  <string name="horologist_seek_back_button_seconds_content_description">倒轉 %s 秒</string>
+  <string name="horologist_shuffle_button_off_content_description">隨機播放模式已關閉</string>
+  <string name="horologist_shuffle_button_on_content_description">隨機播放模式已開啟</string>
+  <string name="horologist_nothing_playing">沒有播放中的媒體內容</string>
+  <string name="horologist_browse_downloads_title">下載內容</string>
+  <string name="horologist_browse_downloads_empty">下載音樂即可開始聆聽</string>
+  <string name="horologist_browse_library_title">媒體庫</string>
+  <string name="horologist_browse_library_playlists">播放清單</string>
+  <string name="horologist_browse_library_playlists_button">播放清單</string>
+  <string name="horologist_browse_library_settings_button">設定</string>
+  <string name="horologist_browse_playlist_title">播放清單</string>
+  <string name="horologist_playlist_download_button_download">下載到手錶</string>
+  <string name="horologist_playlist_download_button_cancel">取消</string>
+  <string name="horologist_playlist_download_button_download_content_description">可供下載</string>
+  <string name="horologist_playlist_download_progress_button_cancel_content_description">下載中</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">取消</string>
+  <string name="horologist_playlist_download_button_download_done_content_description">下載完成</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">移除下載內容</string>
+  <string name="horologist_playlist_download_button_shuffle_content_description">隨機播放</string>
+  <string name="horologist_playlist_download_button_play_content_description">播放</string>
+  <string name="horologist_playlist_download_media_chip_download_content_description">正在下載〈%s〉</string>
+  <string name="horologist_playlist_download_download_progress_known_size">已下載 %2$s 的 %1$.0f%%</string>
+  <string name="horologist_playlist_download_download_progress_waiting">等待中…</string>
+</resources>

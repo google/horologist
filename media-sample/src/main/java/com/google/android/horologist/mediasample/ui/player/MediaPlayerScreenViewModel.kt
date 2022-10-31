@@ -21,6 +21,7 @@ import com.google.android.horologist.media.data.repository.PlayerRepositoryImpl
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
+import com.google.android.horologist.mediasample.domain.proto.copy
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
@@ -36,12 +37,21 @@ class MediaPlayerScreenViewModel @Inject constructor(
     playerRepository: PlayerRepositoryImpl,
     settingsRepository: SettingsRepository
 ) : PlayerViewModel(playerRepository) {
+
     init {
         viewModelScope.launch {
             // update the track position while app is in foreground
             while (isActive) {
                 delay(1000)
                 playerRepository.updatePosition()
+
+                // Write to currentMediaItemId in datastore.
+                playerRepository.currentMedia.value?.id?.let {
+                        id ->
+                    settingsRepository.edit {
+                        it.copy { currentMediaItemId = id }
+                    }
+                }
             }
         }
     }

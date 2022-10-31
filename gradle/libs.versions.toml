@@ -1,13 +1,13 @@
 [versions]
 affectedmoduledetector = "0.1.6"
-androidx-benchmark = "1.1.0"
+androidx-benchmark = "1.2.0-alpha05"
 androidx-concurrent = "1.1.0"
 androidx-datastore = "1.0.0"
 androidx-hilt = "1.0.0"
 androidx-media3 = "1.0.0-beta02"
-androidx-test = "1.4.0"
-androidx-test-ext = "1.1.3"
-androidx-wear-watchface = "1.1.1"
+androidx-test = "1.5.0-beta01"
+androidx-test-ext = "1.1.4-beta01"
+androidx-wear-watchface = "1.2.0-alpha03"
 androidxActivity = "1.5.1"
 androidxCore = "1.8.0"
 androidxFragment = "1.5.3"
@@ -15,25 +15,25 @@ androidxLifecycle = "2.5.1"
 androidxNavigation = "2.5.2"
 androidxStartup = "1.1.1"
 androidxTracing = "1.1.0"
-androidxWear = "1.2.0"
+androidxWear = "1.3.0-alpha03"
 androidxWork = "2.7.1"
 androidxtiles = "1.1.0-beta01"
 app-cash-paparazzi = "1.1.0"
 benManes = "0.42.0"
 com-squareup-okhttp3 = "4.10.0"
 com-squareup-retrofit2 = "2.9.0"
-compose = "1.2.1"
-compose-compiler = "1.3.1"
+compose = "1.3.0-rc01"
+compose-compiler = "1.3.2"
 composesnapshot = "-"
 dokka = "1.5.0"
 espresso = "3.4.0"
 googledagger = "2.44"
-gradlePlugin = "7.3.0"
+gradlePlugin = "7.3.1"
 io-coil-kt = "2.2.2"
 junit = "4.13.2"
-kotlin = "1.7.10"
+kotlin = "1.7.20"
 kotlinxCoroutine = "1.6.4"
-ksp = "1.7.10-1.0.6"
+ksp = "1.7.20-1.0.6"
 ktlint = "0.46.1"
 metalava = "0.2.3"
 moshi = "1.14.0"
@@ -41,10 +41,10 @@ room = "2.4.3"
 spotless = "6.11.0"
 truth = "1.1.3"
 versionCatalogUpdate = "0.6.1"
-wearcompose = "1.0.2"
+wearcompose = "1.1.0-alpha07"
 
 [libraries]
-accompanist-pager = "com.google.accompanist:accompanist-pager:0.25.1"
+accompanist-pager = "com.google.accompanist:accompanist-pager:0.26.5-rc"
 affectedmoduledetector = { module = "com.dropbox.affectedmoduledetector:affectedmoduledetector", version.ref = "affectedmoduledetector" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
@@ -54,7 +54,7 @@ androidx-benchmark-junit4 = { module = "androidx.benchmark:benchmark-junit4", ve
 androidx-benchmark-macro-junit4 = { module = "androidx.benchmark:benchmark-macro-junit4", version.ref = "androidx-benchmark" }
 androidx-complications-datasource-ktx = { module = "androidx.wear.watchface:watchface-complications-data-source-ktx", version.ref = "androidx-wear-watchface" }
 androidx-complications-rendering = { module = "androidx.wear.watchface:watchface-complications-rendering", version.ref = "androidx-wear-watchface" }
-androidx-compose-material = "androidx.compose.material:material:1.2.0"
+androidx-compose-material = "androidx.compose.material:material:1.1.0-alpha07"
 androidx-concurrent-future = { module = "androidx.concurrent:concurrent-futures", version.ref = "androidx-concurrent" }
 androidx-concurrent-future-ktx = { module = "androidx.concurrent:concurrent-futures-ktx", version.ref = "androidx-concurrent" }
 androidx-corektx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
@@ -84,9 +84,9 @@ androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx",
 androidx-palette-ktx = "androidx.palette:palette-ktx:1.0.0"
 androidx-startup = { module = "androidx.startup:startup-runtime", version.ref = "androidxStartup" }
 androidx-test-espressocore = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
-androidx-test-ext = "androidx.test.ext:junit:1.1.3"
-androidx-test-ext-ktx = "androidx.test.ext:junit-ktx:1.1.3"
-androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-test" }
+androidx-test-ext = "androidx.test.ext:junit:1.1.4-beta01"
+androidx-test-ext-ktx = "androidx.test.ext:junit-ktx:1.1.4-beta01"
+androidx-test-rules = "androidx.test:rules:1.4.1-beta01"
 androidx-test-uiautomator = "androidx.test.uiautomator:uiautomator:2.2.0"
 androidx-tracing-ktx = { module = "androidx.tracing:tracing-ktx", version.ref = "androidxTracing" }
 androidx-wear = { module = "androidx.wear:wear", version.ref = "androidxWear" }
@@ -132,7 +132,7 @@ moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
 paparazzi = { module = "app.cash.paparazzi:paparazzi", version.ref = "app-cash-paparazzi" }
-paparazziPlugin = { module = "app.cash.paparazzi:paparazzi-gradle-plugin", version.ref = "app-cash-paparazzi" }
+paparazziPlugin = 'dev.chrisbanes.paparazzi:paparazzi-gradle-plugin:1.1.0-sdk33-alpha02'
 playservices-wearable = "com.google.android.gms:play-services-wearable:18.0.0"
 protobuf-kotlin-lite = "com.google.protobuf:protobuf-kotlin-lite:3.21.7"
 retrofit2-convertermoshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "com-squareup-retrofit2" }

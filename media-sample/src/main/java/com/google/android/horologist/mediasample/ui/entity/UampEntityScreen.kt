@@ -77,6 +77,9 @@ fun UampEntityScreen(
             uampEntityScreenViewModel.play(it.id)
             onDownloadItemClick(it)
         },
+        onDownloadItemInProgressClick = {
+            // TODO: https://github.com/google/horologist/issues/682
+        },
         onShuffleButtonClick = {
             uampEntityScreenViewModel.shufflePlay()
             onShuffleClick(it)
@@ -89,7 +92,8 @@ fun UampEntityScreen(
         scalingLazyListState = scalingLazyListState,
         onDownloadCompletedButtonClick = {
             showRemoveDownloadsDialog = true
-        }
+        },
+        onDownloadItemInProgressClickActionLabel = stringResource(id = R.string.entity_download_cancel_action_label)
     )
 
     // b/243381431 - it should stop listening to uiState emissions while dialog is presented

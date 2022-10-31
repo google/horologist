@@ -61,7 +61,7 @@ class MediaChipA11yTest {
     @Test
     fun a11y() {
         paparazzi.snapshot {
-            FakeImageLoader.NotFound.override {
+            FakeImageLoader.Resources.override {
                 Box(
                     modifier = Modifier.background(Color.Black),
                     contentAlignment = Alignment.Center
@@ -70,7 +70,7 @@ class MediaChipA11yTest {
                         media = MediaUiModel(
                             id = "id",
                             title = "Red Hot Chilli Peppers",
-                            artworkUri = "https://example.org/image.png"
+                            artworkUri = FakeImageLoader.TestIconResourceUri
                         ),
                         onClick = {}
                     )

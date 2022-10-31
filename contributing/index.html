@@ -748,6 +748,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#translation-and-localization" class="md-nav__link">
+    Translation and localization
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#project-direction-and-ownership" class="md-nav__link">
     Project Direction and Ownership
   </a>
@@ -858,6 +865,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#translation-and-localization" class="md-nav__link">
+    Translation and localization
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#project-direction-and-ownership" class="md-nav__link">
     Project Direction and Ownership
   </a>
@@ -893,7 +907,7 @@ an issue https://github.com/google/horologist/issues with the label "Feature Req
 <h2 id="development">Development<a class="headerlink" href="#development" title="Permanent link">&para;</a></h2>
 <p>The project should work immediately from a fresh checkout in Android Studio or with Gradle.</p>
 <p>When submitting a PR, please check API compatibility and lint rules first.</p>
-<p>A good first step is </p>
+<p>A good first step is</p>
 <div class="highlight"><pre><span></span><code>$ ./gradlew spotlessApply spotlessCheck compileDebugSources compileReleaseSources metalavaGenerateSignature metalavaGenerateSignatureDebug lintDebug
 </code></pre></div>
 <p>Also make sure you have <a href="[url](https://git-lfs.github.com/)">Git LFS</a> installed.</p>
@@ -911,11 +925,20 @@ again.</p>
 use GitHub pull requests for this purpose. Consult
 <a href="https://help.github.com/articles/about-pull-requests/">GitHub Help</a> for more
 information on using pull requests.</p>
+<h2 id="translation-and-localization">Translation and localization<a class="headerlink" href="#translation-and-localization" title="Permanent link">&para;</a></h2>
+<p>This project uses a semi-automatic pipeline to translate strings. When new or
+updated localized strings are ready, a PR is generated (example:
+google/horologist#692). Only the files configured via <a href="localization.bzl">localization.bzl</a>
+are sent for translation.</p>
+<p>If you see a problem with translated text, don't edit localized resource files
+(e.g. <code>res/values-en/strings.xml</code>) manually, as they'll be overwritten. Instead,
+file an issue and use the <a href="https://github.com/google/horologist/labels/l10n">l10n</a>
+label. This will then be forwarded to the relevant teams.</p>
 <h2 id="project-direction-and-ownership">Project Direction and Ownership<a class="headerlink" href="#project-direction-and-ownership" title="Permanent link">&para;</a></h2>
 <p>There are a couple of reasons we may not accept an otherwise valuable
 contribution.</p>
 <ul>
-<li>Where the internal framework feature team, thinks the contribution is against the 
+<li>Where the internal framework feature team, thinks the contribution is against the
 long term direction of the library.</li>
 <li>Where long term ownership is unclear, such as a large contribution that likely involves
 ongoing maintenance.</li>

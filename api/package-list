@@ -9,6 +9,9 @@ com.google.android.horologist.audio.ui.components
 com.google.android.horologist.audio.ui.components.actions
 com.google.android.horologist.audio.ui.components.animated
 com.google.android.horologist.audio.ui.semantics
+module:base-ui
+com.google.android.horologist.base.ui.components
+com.google.android.horologist.base.ui.util
 module:composables
 com.google.android.horologist.composables
 module:compose-layout
@@ -49,7 +52,6 @@ com.google.android.horologist.media.ui.components
 com.google.android.horologist.media.ui.components.actions
 com.google.android.horologist.media.ui.components.animated
 com.google.android.horologist.media.ui.components.background
-com.google.android.horologist.media.ui.components.base
 com.google.android.horologist.media.ui.components.controls
 com.google.android.horologist.media.ui.navigation
 com.google.android.horologist.media.ui.screens.browse

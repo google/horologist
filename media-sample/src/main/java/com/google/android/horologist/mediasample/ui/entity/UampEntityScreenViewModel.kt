@@ -35,6 +35,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -53,12 +54,14 @@ class UampEntityScreenViewModel @Inject constructor(
         playlistDownloadRepository.get(playlistId)
             .stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = null)
 
+    val streamingMode = settingsRepository.settingsFlow.map { it.streamingMode }
     val uiState: StateFlow<PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>> =
-        playlistDownload.map { playlistDownload ->
+        combine(playlistDownload, streamingMode) { playlistDownload, streamingMode ->
             if (playlistDownload != null) {
                 createPlaylistDownloadScreenStateLoaded(
                     playlistModel = PlaylistUiModelMapper.map(playlistDownload.playlist),
-                    downloadMediaList = playlistDownload.mediaList.map(DownloadMediaUiModelMapper::map)
+                    downloadMediaList = playlistDownload.mediaList.map(DownloadMediaUiModelMapper::map),
+                    streamingMode = streamingMode
                 )
             } else {
                 PlaylistDownloadScreenState.Failed()

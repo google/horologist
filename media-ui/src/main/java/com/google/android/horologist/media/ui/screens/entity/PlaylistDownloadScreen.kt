@@ -96,8 +96,6 @@ public fun PlaylistDownloadScreen(
     onDownloadCompletedButtonClick: ((PlaylistUiModel) -> Unit)? = null,
     defaultMediaTitle: String = "",
     downloadItemArtworkPlaceholder: Painter? = null,
-    streamingOnly: Boolean = false
-    downloadItemArtworkPlaceholder: Painter? = null,
     onDownloadItemInProgressClickActionLabel: String? = null
 ) {
     val entityScreenState: EntityScreenState<DownloadMediaUiModel> =
@@ -130,48 +128,21 @@ public fun PlaylistDownloadScreen(
         scalingParams = scalingParams,
         autoCentering = autoCentering,
         buttonsContent = {
-            if (streamingOnly) {
-                Row(
-                    modifier = Modifier
-                        .padding(bottom = 16.dp)
-                        .height(52.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    StandardButton(
-                        imageVector = Icons.Default.Shuffle,
-                        contentDescription = stringResource(id = R.string.horologist_playlist_download_button_shuffle_content_description),
-                        onClick = { onShuffleButtonClick(null) },
-                        modifier = Modifier
-                            .padding(start = 6.dp)
-                            .weight(weight = 0.3F, fill = false)
-                    )
-
-                    StandardButton(
-                        imageVector = Icons.Filled.PlayArrow,
-                        contentDescription = stringResource(id = R.string.horologist_playlist_download_button_play_content_description),
-                        onClick = { onPlayButtonClick(null) },
-                        modifier = Modifier
-                            .padding(start = 6.dp)
-                            .weight(weight = 0.3F, fill = false)
-                    )
-                }
-            } else {
-                ButtonsContent(
-                    state = playlistDownloadScreenState,
-                    onDownloadButtonClick = onDownloadButtonClick,
-                    onCancelDownloadButtonClick = onCancelDownloadButtonClick,
-                    onDownloadCompletedButtonClick = onDownloadCompletedButtonClick
-                        ?: { /* do nothing */ },
-                    onShuffleButtonClick = onShuffleButtonClick,
-                    onPlayButtonClick = onPlayButtonClick
-                )
-            }
+            ButtonsContent(
+                state = playlistDownloadScreenState,
+                onDownloadButtonClick = onDownloadButtonClick,
+                onCancelDownloadButtonClick = onCancelDownloadButtonClick,
+                onDownloadCompletedButtonClick = onDownloadCompletedButtonClick
+                    ?: { /* do nothing */ },
+                onShuffleButtonClick = onShuffleButtonClick,
+                onPlayButtonClick = onPlayButtonClick
+            )
         }
     )
 }
 
 @Composable
-private fun MediaContent(
+internal fun MediaContent(
     downloadMediaUiModel: DownloadMediaUiModel,
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
     onDownloadItemInProgressClick: (DownloadMediaUiModel) -> Unit,
@@ -451,14 +422,18 @@ private fun <Collection> FirstButton(
  */
 @ExperimentalHorologistMediaUiApi
 public sealed class PlaylistDownloadScreenState<Collection, Media> {
+    public abstract val streamingMode: Boolean
 
-    public class Loading<Collection, Media> : PlaylistDownloadScreenState<Collection, Media>()
+    public class Loading<Collection, Media> : PlaylistDownloadScreenState<Collection, Media>() {
+        override val streamingMode: Boolean = false
+    }
 
     public data class Loaded<Collection, Media>(
         val collectionModel: Collection,
         val mediaList: List<Media>,
         val downloadMediaListState: DownloadMediaListState,
-        val downloadsProgress: DownloadsProgress = DownloadsProgress.Idle
+        val downloadsProgress: DownloadsProgress = DownloadsProgress.Idle,
+        override val streamingMode: Boolean
     ) : PlaylistDownloadScreenState<Collection, Media>() {
 
         /**
@@ -482,7 +457,9 @@ public sealed class PlaylistDownloadScreenState<Collection, Media> {
         }
     }
 
-    public class Failed<Collection, Media> : PlaylistDownloadScreenState<Collection, Media>()
+    public class Failed<Collection, Media> : PlaylistDownloadScreenState<Collection, Media>() {
+        override val streamingMode: Boolean = false
+    }
 }
 
 /**
@@ -492,7 +469,8 @@ public sealed class PlaylistDownloadScreenState<Collection, Media> {
 @ExperimentalHorologistMediaUiApi
 public fun createPlaylistDownloadScreenStateLoaded(
     playlistModel: PlaylistUiModel,
-    downloadMediaList: List<DownloadMediaUiModel>
+    downloadMediaList: List<DownloadMediaUiModel>,
+    streamingMode: Boolean = false
 ): PlaylistDownloadScreenState.Loaded<PlaylistUiModel, DownloadMediaUiModel> {
     var downloadsProgress: DownloadsProgress = DownloadsProgress.Idle
 
@@ -532,6 +510,7 @@ public fun createPlaylistDownloadScreenStateLoaded(
         collectionModel = playlistModel,
         mediaList = downloadMediaList,
         downloadMediaListState = downloadsState,
-        downloadsProgress = downloadsProgress
+        downloadsProgress = downloadsProgress,
+        streamingMode = streamingMode
     )
 }

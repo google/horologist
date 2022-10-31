@@ -67,7 +67,7 @@ fun PlaylistDownloadBrowseScreenPreviewNoDownloads() {
 @Composable
 fun PlaylistDownloadBrowseScreenPreviewLoading() {
     PlaylistDownloadBrowseScreen(
-        browseScreenState = BrowseScreenState.Loading,
+        browseScreenState = BrowseScreenState.Loading(),
         onDownloadItemClick = { },
         onDownloadItemInProgressClick = { },
         onPlaylistsClick = { },

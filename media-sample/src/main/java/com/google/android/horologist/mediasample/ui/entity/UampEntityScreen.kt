@@ -44,6 +44,7 @@ import androidx.wear.compose.material.dialog.Dialog
 import com.google.android.horologist.compose.layout.StateUtils
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreen
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState
+import com.google.android.horologist.media.ui.screens.entity.PlaylistStreamingScreen
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.mediasample.R
@@ -61,105 +62,126 @@ fun UampEntityScreen(
 ) {
     val uiState by StateUtils.rememberStateWithLifecycle(flow = uampEntityScreenViewModel.uiState)
 
-    var showCancelDownloadsDialog by rememberSaveable { mutableStateOf(false) }
-    var showRemoveDownloadsDialog by rememberSaveable { mutableStateOf(false) }
+    if (!uiState.streamingMode) {
+        var showCancelDownloadsDialog by rememberSaveable { mutableStateOf(false) }
+        var showRemoveDownloadsDialog by rememberSaveable { mutableStateOf(false) }
 
-    PlaylistDownloadScreen(
-        playlistName = playlistName,
-        playlistDownloadScreenState = uiState,
-        onDownloadButtonClick = {
-            uampEntityScreenViewModel.download()
-        },
-        onCancelDownloadButtonClick = {
-            showCancelDownloadsDialog = true
-        },
-        onDownloadItemClick = {
-            uampEntityScreenViewModel.play(it.id)
-            onDownloadItemClick(it)
-        },
-        onDownloadItemInProgressClick = {
-            // TODO: https://github.com/google/horologist/issues/682
-        },
-        onShuffleButtonClick = {
-            uampEntityScreenViewModel.shufflePlay()
-            onShuffleClick(it)
-        },
-        onPlayButtonClick = {
-            uampEntityScreenViewModel.play()
-            onPlayClick(it)
-        },
-        focusRequester = focusRequester,
-        scalingLazyListState = scalingLazyListState,
-        onDownloadCompletedButtonClick = {
-            showRemoveDownloadsDialog = true
-        },
-        onDownloadItemInProgressClickActionLabel = stringResource(id = R.string.entity_download_cancel_action_label)
-    )
+        PlaylistDownloadScreen(
+            playlistName = playlistName,
+            playlistDownloadScreenState = uiState,
+            onDownloadButtonClick = {
+                uampEntityScreenViewModel.download()
+            },
+            onCancelDownloadButtonClick = {
+                showCancelDownloadsDialog = true
+            },
+            onDownloadItemClick = {
+                uampEntityScreenViewModel.play(it.id)
+                onDownloadItemClick(it)
+            },
+            onDownloadItemInProgressClick = {
+                // TODO: https://github.com/google/horologist/issues/682
+            },
+            onShuffleButtonClick = {
+                uampEntityScreenViewModel.shufflePlay()
+                onShuffleClick(it)
+            },
+            onPlayButtonClick = {
+                uampEntityScreenViewModel.play()
+                onPlayClick(it)
+            },
+            focusRequester = focusRequester,
+            scalingLazyListState = scalingLazyListState,
+            onDownloadCompletedButtonClick = {
+                showRemoveDownloadsDialog = true
+            },
+            onDownloadItemInProgressClickActionLabel = stringResource(id = R.string.entity_download_cancel_action_label)
+        )
 
-    // b/243381431 - it should stop listening to uiState emissions while dialog is presented
-    if (uiState is PlaylistDownloadScreenState.Failed) {
-        Dialog(
-            showDialog = true,
-            onDismissRequest = onErrorDialogCancelClick,
-            scrollState = scalingLazyListState
-        ) {
-            Alert(
-                title = {
-                    Text(
-                        text = stringResource(R.string.entity_no_playlists),
-                        color = MaterialTheme.colors.onBackground,
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.title3
-                    )
-                }
+        // b/243381431 - it should stop listening to uiState emissions while dialog is presented
+        if (uiState is PlaylistDownloadScreenState.Failed) {
+            Dialog(
+                showDialog = true,
+                onDismissRequest = onErrorDialogCancelClick,
+                scrollState = scalingLazyListState
             ) {
-                item {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Button(
-                            onClick = onErrorDialogCancelClick,
-                            colors = ButtonDefaults.secondaryButtonColors()
+                Alert(
+                    title = {
+                        Text(
+                            text = stringResource(R.string.entity_no_playlists),
+                            color = MaterialTheme.colors.onBackground,
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.title3
+                        )
+                    }
+                ) {
+                    item {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Icon(
-                                imageVector = Icons.Default.Close,
-                                contentDescription = stringResource(id = R.string.entity_failed_dialog_cancel_button_content_description),
-                                modifier = Modifier
-                                    .size(24.dp)
-                                    .wrapContentSize(align = Alignment.Center)
-                            )
+                            Button(
+                                onClick = onErrorDialogCancelClick,
+                                colors = ButtonDefaults.secondaryButtonColors()
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Close,
+                                    contentDescription = stringResource(id = R.string.entity_failed_dialog_cancel_button_content_description),
+                                    modifier = Modifier
+                                        .size(24.dp)
+                                        .wrapContentSize(align = Alignment.Center)
+                                )
+                            }
                         }
                     }
                 }
             }
         }
+
+        EntityDialog(
+            text = stringResource(R.string.entity_dialog_cancel_downloads),
+            onCancelButtonClick = {
+                showCancelDownloadsDialog = false
+            },
+            onProceedButtonClick = {
+                showCancelDownloadsDialog = false
+                uampEntityScreenViewModel.remove()
+            },
+            showDialog = showCancelDownloadsDialog,
+            scalingLazyListState = scalingLazyListState
+        )
+
+        EntityDialog(
+            text = stringResource(R.string.entity_dialog_remove_downloads, playlistName),
+            onCancelButtonClick = {
+                showRemoveDownloadsDialog = false
+            },
+            onProceedButtonClick = {
+                showRemoveDownloadsDialog = false
+                uampEntityScreenViewModel.remove()
+            },
+            showDialog = showRemoveDownloadsDialog,
+            scalingLazyListState = scalingLazyListState
+        )
+    } else {
+        PlaylistStreamingScreen(
+            playlistName = playlistName,
+            playlistDownloadScreenState = uiState,
+            onShuffleButtonClick = {
+                uampEntityScreenViewModel.shufflePlay()
+                onShuffleClick(null)
+            },
+            onPlayButtonClick = {
+                uampEntityScreenViewModel.play()
+                onPlayClick(null)
+            },
+            onPlayItemClick = {
+                uampEntityScreenViewModel.play(it.id)
+                onDownloadItemClick(it)
+            },
+            focusRequester = focusRequester,
+            scalingLazyListState = scalingLazyListState
+        )
     }
-
-    EntityDialog(
-        text = stringResource(R.string.entity_dialog_cancel_downloads),
-        onCancelButtonClick = {
-            showCancelDownloadsDialog = false
-        },
-        onProceedButtonClick = {
-            showCancelDownloadsDialog = false
-            uampEntityScreenViewModel.remove()
-        },
-        showDialog = showCancelDownloadsDialog,
-        scalingLazyListState = scalingLazyListState
-    )
-
-    EntityDialog(
-        text = stringResource(R.string.entity_dialog_remove_downloads, playlistName),
-        onCancelButtonClick = {
-            showRemoveDownloadsDialog = false
-        },
-        onProceedButtonClick = {
-            showRemoveDownloadsDialog = false
-            uampEntityScreenViewModel.remove()
-        },
-        showDialog = showRemoveDownloadsDialog,
-        scalingLazyListState = scalingLazyListState
-    )
 }
 
 @Composable

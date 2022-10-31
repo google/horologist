@@ -36,4 +36,5 @@ message Settings {
   OffloadMode offload_mode = 6;
   string currentMediaListId = 7;
   string currentMediaItemId = 8;
+  bool streaming_mode = 9;
 }

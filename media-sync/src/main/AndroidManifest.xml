@@ -19,6 +19,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.google.android.horologist.media.sync">
 
+    <uses-feature android:name="android.hardware.type.watch" />
+
     <application>
         <provider
             android:name="androidx.startup.InitializationProvider"

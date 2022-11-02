@@ -16,24 +16,16 @@
 
 package com.google.android.horologist.base.ui.components
 
-import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Button
-import androidx.wear.compose.material.ButtonDefaults
-import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
-
 
 @Composable
 public fun ConfirmationDialog(
@@ -50,7 +42,7 @@ public fun ConfirmationDialog(
         onDismissRequest = onCancelButtonClick,
         scrollState = scalingLazyListState
     ) {
-        EntityDialogAlert(
+        ConfirmationDialogAlert(
             prompt = prompt,
             proceedText = proceedText,
             cancelText = cancelText,
@@ -58,7 +50,6 @@ public fun ConfirmationDialog(
             onProceedButtonClick = onProceedButtonClick
         )
     }
-
 }
 
 @Composable
@@ -68,44 +59,31 @@ public fun ConfirmationDialogAlert(
     cancelText: String,
     onCancelButtonClick: () -> Unit,
     onProceedButtonClick: () -> Unit
-)
- {
+) {
     Alert(
         title = {
             Text(
                 text = prompt,
                 color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.title3
+                maxLines = 3,
+                style = MaterialTheme.typography.title3,
             )
         },
         negativeButton = {
-            Button(
+            StandardButton(
+                imageVector = Icons.Default.Close,
+                contentDescription = cancelText,
                 onClick = onCancelButtonClick,
-                colors = ButtonDefaults.secondaryButtonColors()
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Close,
-                    contentDescription = cancelText,
-                    modifier = Modifier
-                        .size(24.dp)
-                        .wrapContentSize(align = Alignment.Center)
-                )
-            }
+                buttonType = StandardButtonType.Secondary,
+            )
         },
         positiveButton = {
-            Button(
-                onClick = onProceedButtonClick
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Check,
-                    contentDescription = proceedText,
-                    modifier = Modifier
-                        .size(24.dp)
-                        .wrapContentSize(align = Alignment.Center)
-                )
-            }
+            StandardButton(
+                imageVector = Icons.Default.Check,
+                contentDescription = proceedText,
+                onClick = onProceedButtonClick,
+            )
         }
     )
 }
-

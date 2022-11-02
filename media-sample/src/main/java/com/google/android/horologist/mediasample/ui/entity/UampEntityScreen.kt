@@ -20,7 +20,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -41,6 +40,7 @@ import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
+import com.google.android.horologist.base.ui.components.ConfirmationDialog
 import com.google.android.horologist.compose.layout.StateUtils
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreen
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState
@@ -63,6 +63,10 @@ fun UampEntityScreen(
 
     var showCancelDownloadsDialog by rememberSaveable { mutableStateOf(false) }
     var showRemoveDownloadsDialog by rememberSaveable { mutableStateOf(false) }
+    var showRemoveSingleMediaDownloadDialog by rememberSaveable { mutableStateOf(false) }
+
+    var mediaIdToDelete: String? by rememberSaveable { mutableStateOf(null) }
+    var mediaTitleToDelete: String by rememberSaveable { mutableStateOf("media title") }
 
     PlaylistDownloadScreen(
         playlistName = playlistName,
@@ -78,7 +82,9 @@ fun UampEntityScreen(
             onDownloadItemClick(it)
         },
         onDownloadItemInProgressClick = {
-            // TODO: https://github.com/google/horologist/issues/682
+            mediaIdToDelete = it.id
+            it.title?.let { title -> mediaTitleToDelete = title }
+            showRemoveSingleMediaDownloadDialog = true
         },
         onShuffleButtonClick = {
             uampEntityScreenViewModel.shufflePlay()
@@ -135,8 +141,10 @@ fun UampEntityScreen(
         }
     }
 
-    EntityDialog(
-        text = stringResource(R.string.entity_dialog_cancel_downloads),
+    ConfirmationDialog(
+        prompt = stringResource(R.string.entity_dialog_cancel_downloads),
+        proceedText = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
+        cancelText = stringResource(id = R.string.entity_dialog_cancel_button_content_description),
         onCancelButtonClick = {
             showCancelDownloadsDialog = false
         },
@@ -148,8 +156,10 @@ fun UampEntityScreen(
         scalingLazyListState = scalingLazyListState
     )
 
-    EntityDialog(
-        text = stringResource(R.string.entity_dialog_remove_downloads, playlistName),
+    ConfirmationDialog(
+        prompt = stringResource(R.string.entity_dialog_remove_downloads, playlistName),
+        proceedText = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
+        cancelText = stringResource(id = R.string.entity_dialog_cancel_button_content_description),
         onCancelButtonClick = {
             showRemoveDownloadsDialog = false
         },
@@ -160,57 +170,19 @@ fun UampEntityScreen(
         showDialog = showRemoveDownloadsDialog,
         scalingLazyListState = scalingLazyListState
     )
-}
 
-@Composable
-private fun EntityDialog(
-    text: String,
-    onCancelButtonClick: () -> Unit,
-    onProceedButtonClick: () -> Unit,
-    showDialog: Boolean,
-    scalingLazyListState: ScalingLazyListState
-) {
-    Dialog(
-        showDialog = showDialog,
-        onDismissRequest = onCancelButtonClick,
-        scrollState = scalingLazyListState
-    ) {
-        Alert(
-            title = {
-                Text(
-                    text = text,
-                    color = MaterialTheme.colors.onBackground,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.title3
-                )
-            },
-            negativeButton = {
-                Button(
-                    onClick = onCancelButtonClick,
-                    colors = ButtonDefaults.secondaryButtonColors()
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Close,
-                        contentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description),
-                        modifier = Modifier
-                            .size(24.dp)
-                            .wrapContentSize(align = Alignment.Center)
-                    )
-                }
-            },
-            positiveButton = {
-                Button(
-                    onClick = onProceedButtonClick
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Check,
-                        contentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
-                        modifier = Modifier
-                            .size(24.dp)
-                            .wrapContentSize(align = Alignment.Center)
-                    )
-                }
-            }
-        )
-    }
+    ConfirmationDialog(
+        prompt = stringResource(R.string.entity_dialog_remove_downloads, mediaTitleToDelete),
+        proceedText = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
+        cancelText = stringResource(id = R.string.entity_dialog_cancel_button_content_description),
+        onCancelButtonClick = {
+            showRemoveSingleMediaDownloadDialog = false
+        },
+        onProceedButtonClick = {
+            showRemoveSingleMediaDownloadDialog = false
+            mediaIdToDelete?.let { uampEntityScreenViewModel.removeMediaItem(it) }
+        },
+        showDialog = showRemoveSingleMediaDownloadDialog,
+        scalingLazyListState = scalingLazyListState
+    )
 }

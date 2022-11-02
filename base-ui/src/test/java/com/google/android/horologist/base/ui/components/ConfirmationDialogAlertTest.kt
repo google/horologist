@@ -23,34 +23,26 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.wear.compose.material.rememberScalingLazyListState
-import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test
 
-class ConfirmationDialogTest {
+class ConfirmationDialogAlertTest {
     @get:Rule
-    val paparazzi = WearPaparazzi(
-        maxPercentDifference = 0.1
-    )
+    val paparazzi = WearPaparazzi()
 
     @Test
     fun default() {
         paparazzi.snapshot {
-            FakeImageLoader.NotFound.override {
-                Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                    EntityDialog(
-                        prompt = "Some prompt",
-                        proceedText = "Ok",
-                        cancelText = "Cancel",
-                        onCancelButtonClick = { },
-                        onProceedButtonClick = { },
-                        showDialog = true,
-                        scalingLazyListState = rememberScalingLazyListState()
-                    )
-                }
+            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
+                ConfirmationDialogAlert(
+                    prompt = "Some prompt",
+                    proceedText = "Ok",
+                    cancelText = "Cancel",
+                    onCancelButtonClick = { },
+                    onProceedButtonClick = { },
+                )
             }
         }
     }

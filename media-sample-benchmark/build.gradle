@@ -21,7 +21,7 @@ plugins {
 
 android {
     namespace 'com.google.android.horologist.mediasample.benchmark'
-    compileSdk 33
+    compileSdk 32
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -34,7 +34,7 @@ android {
 
     defaultConfig {
         minSdk 29
-        targetSdk 33
+        targetSdk 32
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

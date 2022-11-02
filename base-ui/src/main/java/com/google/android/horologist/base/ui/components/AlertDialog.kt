@@ -27,9 +27,13 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
 
+/**
+ * This composable fulfils the redlines of the following components:
+ * - AlertDialog
+ */
 @Composable
-public fun ConfirmationDialog(
-    prompt: String,
+public fun AlertDialog(
+    text: String,
     proceedText: String,
     cancelText: String,
     onCancelButtonClick: () -> Unit,
@@ -42,8 +46,8 @@ public fun ConfirmationDialog(
         onDismissRequest = onCancelButtonClick,
         scrollState = scalingLazyListState
     ) {
-        ConfirmationDialogAlert(
-            prompt = prompt,
+        AlertDialogAlert(
+            text = text,
             proceedText = proceedText,
             cancelText = cancelText,
             onCancelButtonClick = onCancelButtonClick,
@@ -53,8 +57,8 @@ public fun ConfirmationDialog(
 }
 
 @Composable
-public fun ConfirmationDialogAlert(
-    prompt: String,
+public fun AlertDialogAlert(
+    text: String,
     proceedText: String,
     cancelText: String,
     onCancelButtonClick: () -> Unit,
@@ -63,11 +67,11 @@ public fun ConfirmationDialogAlert(
     Alert(
         title = {
             Text(
-                text = prompt,
+                text = text,
                 color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center,
                 maxLines = 3,
-                style = MaterialTheme.typography.title3,
+                style = MaterialTheme.typography.title3
             )
         },
         negativeButton = {
@@ -75,14 +79,14 @@ public fun ConfirmationDialogAlert(
                 imageVector = Icons.Default.Close,
                 contentDescription = cancelText,
                 onClick = onCancelButtonClick,
-                buttonType = StandardButtonType.Secondary,
+                buttonType = StandardButtonType.Secondary
             )
         },
         positiveButton = {
             StandardButton(
                 imageVector = Icons.Default.Check,
                 contentDescription = proceedText,
-                onClick = onProceedButtonClick,
+                onClick = onProceedButtonClick
             )
         }
     )

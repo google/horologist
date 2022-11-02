@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.data.repository
+package com.google.android.horologist.base.ui.components
 
-import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
-import com.google.android.horologist.media.data.datasource.Media3DownloadDataSource
-import com.google.android.horologist.media.repository.MediaDownloadRepository
+import androidx.compose.runtime.Composable
+import com.google.android.horologist.compose.tools.WearPreviewDevices
 
-@ExperimentalHorologistMediaDataApi
-public class MediaDownloadRepositoryImpl(
-    private val media3DownloadDataSource: Media3DownloadDataSource
-) :
-    MediaDownloadRepository {
-
-    override fun remove(mediaId: String) {
-        media3DownloadDataSource.removeDownload(mediaId)
-    }
+@WearPreviewDevices
+@Composable
+fun AlertDialogAlertPreview() {
+    AlertDialogAlert(
+        text = "Some prompt",
+        proceedText = "Ok",
+        cancelText = "Cancel",
+        onCancelButtonClick = { },
+        onProceedButtonClick = { }
+    )
 }

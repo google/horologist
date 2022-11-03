@@ -100,7 +100,7 @@ fun NavWearApp(
             NavScreen.ScalingLazyColumn.route,
             scrollStateBuilder = { ScalingLazyListState() }
         ) {
-            it.viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.FadeAway
+            it.viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.ScrollAway
             it.viewModel.vignettePosition =
                 NavScaffoldViewModel.VignetteMode.On(VignettePosition.TopAndBottom)
             it.viewModel.positionIndicatorMode =

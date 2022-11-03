@@ -83,13 +83,13 @@ fun SampleWearApp() {
                     focusRequester.requestFocus()
                 }
             }
-            composable(Screen.FadeAway.route) {
+            composable(Screen.ScrollAway.route) {
                 ScrollScreenLazyColumn()
             }
-            composable(Screen.FadeAwaySLC.route) {
+            composable(Screen.ScrollAwaySLC.route) {
                 ScrollAwayScreenScalingLazyColumn()
             }
-            composable(Screen.FadeAwayColumn.route) {
+            composable(Screen.ScrollAwayColumn.route) {
                 ScrollAwayScreenColumn()
             }
             composable(Screen.DatePicker.route) {

@@ -45,7 +45,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.curvedText
 import androidx.wear.compose.material.rememberScalingLazyListState
-import com.google.android.horologist.compose.layout.scrollAway
+import androidx.wear.compose.material.scrollAway
 
 class ScratchActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -115,8 +115,8 @@ fun WearApp() {
                     modifier = Modifier
                         .scrollAway(
                             listState,
-                            itemIndex = initialOffset.index,
-                            offset = initialOffset.offset
+                            initialOffset.index,
+                            initialOffset.offset
                                 .dp
                         ),
                     startCurvedContent = {

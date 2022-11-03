@@ -43,12 +43,12 @@ import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.Vignette
+import androidx.wear.compose.material.scrollAway
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.SwipeDismissableNavHostState
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.currentBackStackEntryAsState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
-import com.google.android.horologist.compose.layout.scrollAway
 
 /**
  * A Navigation and Scroll aware [Scaffold].
@@ -85,7 +85,7 @@ public fun WearNavScaffold(
         timeText = {
             key(currentBackStackEntry?.destination?.route) {
                 when (viewModel?.timeTextMode) {
-                    NavScaffoldViewModel.TimeTextMode.FadeAway -> {
+                    NavScaffoldViewModel.TimeTextMode.ScrollAway -> {
                         when (viewModel.scrollType) {
                             NavScaffoldViewModel.ScrollType.ScrollState -> {
                                 timeText(

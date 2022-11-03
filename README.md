@@ -34,9 +34,9 @@ Layout related functionality such as a Navigation Aware Scaffold.
 
 - [horologist-compose-layout](./compose-layout)
 
-fillMaxRectangle()             |  fadeAway()
-:-------------------------:|:-------------------------:
-<img src="https://raw.githubusercontent.com/google/horologist/main/docs/compose-layout/fill_max_rectangle.png" height="120" width="120" >  |  <img src="https://raw.githubusercontent.com/google/horologist/main/docs/compose-layout/fade_away.png" height="120" width="120" >
+|                                                             fillMaxRectangle()                                                             |
+|:------------------------------------------------------------------------------------------------------------------------------------------:|
+| <img src="https://raw.githubusercontent.com/google/horologist/main/docs/compose-layout/fill_max_rectangle.png" height="120" width="120" >  |
 
 ## 🔊 Audio and UI
 
@@ -46,9 +46,9 @@ Subscribing to a Flow of changes in audio or output.
 - [horologist-audio](./audio)
 - [horologist-audio-ui](./audio-ui)
 
-VolumeScreen            |  
-:-------------------------:|
-<img src="https://raw.githubusercontent.com/google/horologist/main/docs/audio-ui/volume_screen.png" height="120" width="120" > |
+|                                                          VolumeScreen                                                          |
+|:------------------------------------------------------------------------------------------------------------------------------:|
+| <img src="https://raw.githubusercontent.com/google/horologist/main/docs/audio-ui/volume_screen.png" height="120" width="120" > |
 
 ## ☰ Tiles
 

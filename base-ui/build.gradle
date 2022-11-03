@@ -129,3 +129,5 @@ dependencies {
     androidTestImplementation libs.androidx.test.ext
     androidTestImplementation libs.androidx.test.ext.ktx
 }
+
+apply plugin: "com.vanniktech.maven.publish"

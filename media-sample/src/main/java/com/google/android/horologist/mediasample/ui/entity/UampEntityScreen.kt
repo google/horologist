@@ -140,7 +140,7 @@ fun UampEntityScreen(
         onCancelButtonClick = {
             showCancelDownloadsDialog = false
         },
-        onProceedButtonClick = {
+        onOKButtonClick = {
             showCancelDownloadsDialog = false
             uampEntityScreenViewModel.remove()
         },
@@ -155,7 +155,7 @@ fun UampEntityScreen(
         onCancelButtonClick = {
             showRemoveDownloadsDialog = false
         },
-        onProceedButtonClick = {
+        onOKButtonClick = {
             showRemoveDownloadsDialog = false
             uampEntityScreenViewModel.remove()
         },

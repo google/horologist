@@ -38,13 +38,13 @@ import com.google.android.horologist.base.ui.R
 public fun AlertDialog(
     body: String,
     onCancelButtonClick: () -> Unit,
-    onProceedButtonClick: () -> Unit,
+    onOKButtonClick: () -> Unit,
     showDialog: Boolean,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     title: String = "",
-    okButtonContentDescription: String = stringResource(R.string.default_ok_button_content_description),
-    cancelButtonContentDescription: String = stringResource(R.string.default_cancel_button_content_description)
+    okButtonContentDescription: String = stringResource(R.string.alert_dialog_ok_button_content_description),
+    cancelButtonContentDescription: String = stringResource(R.string.alert_dialog_cancel_button_content_description)
 ) {
     Dialog(
         showDialog = showDialog,
@@ -56,7 +56,7 @@ public fun AlertDialog(
             title = title,
             body = body,
             onCancelButtonClick = onCancelButtonClick,
-            onProceedButtonClick = onProceedButtonClick,
+            onOKButtonClick = onOKButtonClick,
             okButtonContentDescription = okButtonContentDescription,
             cancelButtonContentDescription = cancelButtonContentDescription
         )
@@ -68,7 +68,7 @@ internal fun AlertDialogAlert(
     title: String,
     body: String,
     onCancelButtonClick: () -> Unit,
-    onProceedButtonClick: () -> Unit,
+    onOKButtonClick: () -> Unit,
     okButtonContentDescription: String,
     cancelButtonContentDescription: String
 ) {
@@ -102,7 +102,7 @@ internal fun AlertDialogAlert(
             StandardButton(
                 imageVector = Icons.Default.Check,
                 contentDescription = okButtonContentDescription,
-                onClick = onProceedButtonClick
+                onClick = onOKButtonClick
             )
         }
     )

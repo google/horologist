@@ -15,6 +15,6 @@
   -->
 
 <resources>
-    <string name="default_ok_button_content_description">OK</string>
-    <string name="default_cancel_button_content_description">Cancel</string>
+    <string description="Default text to be displayed for alert dialog positive button. [CHAR_LIMIT=NONE]" name="alert_dialog_ok_button_content_description">OK</string>
+    <string description="Default text to be displayed for alert dialog negative button. [CHAR_LIMIT=NONE]" name="alert_dialog_cancel_button_content_description">Cancel</string>
 </resources>

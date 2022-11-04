@@ -20,7 +20,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -41,6 +40,7 @@ import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
+import com.google.android.horologist.base.ui.components.AlertDialog
 import com.google.android.horologist.compose.layout.StateUtils
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreen
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState
@@ -135,82 +135,33 @@ fun UampEntityScreen(
         }
     }
 
-    EntityDialog(
-        text = stringResource(R.string.entity_dialog_cancel_downloads),
+    AlertDialog(
+        body = stringResource(R.string.entity_dialog_cancel_downloads),
         onCancelButtonClick = {
             showCancelDownloadsDialog = false
         },
-        onProceedButtonClick = {
+        onOKButtonClick = {
             showCancelDownloadsDialog = false
             uampEntityScreenViewModel.remove()
         },
         showDialog = showCancelDownloadsDialog,
-        scalingLazyListState = scalingLazyListState
+        scalingLazyListState = scalingLazyListState,
+        okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
+        cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description)
     )
 
-    EntityDialog(
-        text = stringResource(R.string.entity_dialog_remove_downloads, playlistName),
+    AlertDialog(
+        body = stringResource(R.string.entity_dialog_remove_downloads, playlistName),
         onCancelButtonClick = {
             showRemoveDownloadsDialog = false
         },
-        onProceedButtonClick = {
+        onOKButtonClick = {
             showRemoveDownloadsDialog = false
             uampEntityScreenViewModel.remove()
         },
         showDialog = showRemoveDownloadsDialog,
-        scalingLazyListState = scalingLazyListState
+        scalingLazyListState = scalingLazyListState,
+        okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
+        cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description)
     )
-}
-
-@Composable
-private fun EntityDialog(
-    text: String,
-    onCancelButtonClick: () -> Unit,
-    onProceedButtonClick: () -> Unit,
-    showDialog: Boolean,
-    scalingLazyListState: ScalingLazyListState
-) {
-    Dialog(
-        showDialog = showDialog,
-        onDismissRequest = onCancelButtonClick,
-        scrollState = scalingLazyListState
-    ) {
-        Alert(
-            title = {
-                Text(
-                    text = text,
-                    color = MaterialTheme.colors.onBackground,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.title3
-                )
-            },
-            negativeButton = {
-                Button(
-                    onClick = onCancelButtonClick,
-                    colors = ButtonDefaults.secondaryButtonColors()
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Close,
-                        contentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description),
-                        modifier = Modifier
-                            .size(24.dp)
-                            .wrapContentSize(align = Alignment.Center)
-                    )
-                }
-            },
-            positiveButton = {
-                Button(
-                    onClick = onProceedButtonClick
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Check,
-                        contentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
-                        modifier = Modifier
-                            .size(24.dp)
-                            .wrapContentSize(align = Alignment.Center)
-                    )
-                }
-            }
-        )
-    }
 }

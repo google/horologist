@@ -136,9 +136,7 @@ fun UampEntityScreen(
     }
 
     AlertDialog(
-        text = stringResource(R.string.entity_dialog_cancel_downloads),
-        proceedText = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
-        cancelText = stringResource(id = R.string.entity_dialog_cancel_button_content_description),
+        body = stringResource(R.string.entity_dialog_cancel_downloads),
         onCancelButtonClick = {
             showCancelDownloadsDialog = false
         },
@@ -147,13 +145,13 @@ fun UampEntityScreen(
             uampEntityScreenViewModel.remove()
         },
         showDialog = showCancelDownloadsDialog,
-        scalingLazyListState = scalingLazyListState
+        scalingLazyListState = scalingLazyListState,
+        okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
+        cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description)
     )
 
     AlertDialog(
-        text = stringResource(R.string.entity_dialog_remove_downloads, playlistName),
-        proceedText = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
-        cancelText = stringResource(id = R.string.entity_dialog_cancel_button_content_description),
+        body = stringResource(R.string.entity_dialog_remove_downloads, playlistName),
         onCancelButtonClick = {
             showRemoveDownloadsDialog = false
         },
@@ -162,6 +160,8 @@ fun UampEntityScreen(
             uampEntityScreenViewModel.remove()
         },
         showDialog = showRemoveDownloadsDialog,
-        scalingLazyListState = scalingLazyListState
+        scalingLazyListState = scalingLazyListState,
+        okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
+        cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description)
     )
 }

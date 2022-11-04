@@ -20,64 +20,80 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
+import com.google.android.horologist.base.ui.R
 
 /**
  * This composable fulfils the redlines of the following components:
- * - AlertDialog
+ * - AlertDialog - Title + body + buttons
  */
 @Composable
 public fun AlertDialog(
-    text: String,
-    proceedText: String,
-    cancelText: String,
+    body: String,
     onCancelButtonClick: () -> Unit,
     onProceedButtonClick: () -> Unit,
     showDialog: Boolean,
-    scalingLazyListState: ScalingLazyListState
+    scalingLazyListState: ScalingLazyListState,
+    modifier: Modifier = Modifier,
+    title: String = "",
+    okButtonContentDescription: String = stringResource(R.string.default_ok_button_content_description),
+    cancelButtonContentDescription: String = stringResource(R.string.default_cancel_button_content_description)
 ) {
     Dialog(
         showDialog = showDialog,
         onDismissRequest = onCancelButtonClick,
-        scrollState = scalingLazyListState
+        scrollState = scalingLazyListState,
+        modifier = modifier
     ) {
         AlertDialogAlert(
-            text = text,
-            proceedText = proceedText,
-            cancelText = cancelText,
+            title = title,
+            body = body,
             onCancelButtonClick = onCancelButtonClick,
-            onProceedButtonClick = onProceedButtonClick
+            onProceedButtonClick = onProceedButtonClick,
+            okButtonContentDescription = okButtonContentDescription,
+            cancelButtonContentDescription = cancelButtonContentDescription
         )
     }
 }
 
 @Composable
-public fun AlertDialogAlert(
-    text: String,
-    proceedText: String,
-    cancelText: String,
+internal fun AlertDialogAlert(
+    title: String,
+    body: String,
     onCancelButtonClick: () -> Unit,
-    onProceedButtonClick: () -> Unit
+    onProceedButtonClick: () -> Unit,
+    okButtonContentDescription: String,
+    cancelButtonContentDescription: String
 ) {
     Alert(
         title = {
             Text(
-                text = text,
+                text = title,
                 color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center,
                 maxLines = 3,
                 style = MaterialTheme.typography.title3
             )
         },
+        content = {
+            Text(
+                text = body,
+                color = MaterialTheme.colors.onBackground,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.body2
+            )
+        },
         negativeButton = {
             StandardButton(
                 imageVector = Icons.Default.Close,
-                contentDescription = cancelText,
+                contentDescription = cancelButtonContentDescription,
                 onClick = onCancelButtonClick,
                 buttonType = StandardButtonType.Secondary
             )
@@ -85,7 +101,7 @@ public fun AlertDialogAlert(
         positiveButton = {
             StandardButton(
                 imageVector = Icons.Default.Check,
-                contentDescription = proceedText,
+                contentDescription = okButtonContentDescription,
                 onClick = onProceedButtonClick
             )
         }

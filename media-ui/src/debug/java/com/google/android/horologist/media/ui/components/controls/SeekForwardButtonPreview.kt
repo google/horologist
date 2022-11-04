@@ -71,7 +71,7 @@ fun SeekForwardButtonPreview30() {
 fun SeekForwardButtonPreviewOther() {
     SeekForwardButton(
         onClick = {},
-        seekButtonIncrement = SeekButtonIncrement.Other(15),
+        seekButtonIncrement = SeekButtonIncrement.Known(15),
         enabled = false
     )
 }

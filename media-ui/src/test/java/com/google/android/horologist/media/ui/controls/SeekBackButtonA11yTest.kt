@@ -113,7 +113,7 @@ class SeekBackButtonA11yTest {
             ) {
                 SeekBackButton(
                     onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Other(15)
+                    seekButtonIncrement = SeekButtonIncrement.Known(15)
                 )
             }
         }

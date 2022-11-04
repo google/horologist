@@ -24,10 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
-import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement.Five
-import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement.Ten
-import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement.Thirty
-import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement.Unknown
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
@@ -92,9 +88,9 @@ class PodcastPlayerScreenTest(
         @JvmStatic
         @Parameterized.Parameters
         fun options(): List<PodcastOptions> = listOf(
-            PodcastOptions(Unknown, Unknown),
-            PodcastOptions(Ten, Ten),
-            PodcastOptions(Five, Thirty)
+            PodcastOptions(SeekButtonIncrement.Unknown, SeekButtonIncrement.Unknown),
+            PodcastOptions(SeekButtonIncrement.Ten, SeekButtonIncrement.Ten),
+            PodcastOptions(SeekButtonIncrement.Five, SeekButtonIncrement.Thirty)
         )
     }
 
@@ -103,7 +99,7 @@ class PodcastPlayerScreenTest(
         val seekForwardButtonIncrement: SeekButtonIncrement
     ) {
         override fun toString(): String {
-            return "" + seekBackButtonIncrement.seconds + "_" + seekForwardButtonIncrement.seconds
+            return "${seekBackButtonIncrement}_$seekForwardButtonIncrement"
         }
     }
 }

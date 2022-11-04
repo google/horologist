@@ -78,7 +78,7 @@ class SeekBackButtonTest {
             Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
                 SeekBackButton(
                     onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Other(15)
+                    seekButtonIncrement = SeekButtonIncrement.Known(15)
                 )
             }
         }

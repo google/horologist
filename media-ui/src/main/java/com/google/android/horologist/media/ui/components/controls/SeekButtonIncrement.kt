@@ -17,30 +17,21 @@
 package com.google.android.horologist.media.ui.components.controls
 
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import kotlin.time.Duration
 
 @ExperimentalHorologistMediaUiApi
-public sealed class SeekButtonIncrement(
-    public open val seconds: Int
-) {
-    public object Unknown : SeekButtonIncrement(-1)
+public sealed class SeekButtonIncrement {
+    public object Unknown : SeekButtonIncrement() {
+        override fun toString(): String = "SeekButtonIncrement(UNKNOWN)"
+    }
 
-    public object Five : SeekButtonIncrement(5)
-
-    public object Ten : SeekButtonIncrement(10)
-
-    public object Thirty : SeekButtonIncrement(30)
-
-    public data class Other(override val seconds: Int) : SeekButtonIncrement(seconds)
+    public data class Known(public val seconds: Int) : SeekButtonIncrement()
 
     public companion object {
-        public fun ofSeconds(seconds: Int?): SeekButtonIncrement {
-            return when (seconds) {
-                Five.seconds -> Five
-                Ten.seconds -> Ten
-                Thirty.seconds -> Thirty
-                null -> Unknown
-                else -> Other(seconds)
-            }
-        }
+        public fun ofDuration(duration: Duration): SeekButtonIncrement = Known(duration.inWholeSeconds.toInt())
+
+        public val Five: SeekButtonIncrement = Known(5)
+        public val Ten: SeekButtonIncrement = Known(10)
+        public val Thirty: SeekButtonIncrement = Known(30)
     }
 }

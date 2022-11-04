@@ -395,8 +395,8 @@ class PlayerUiStateMapperTest {
         )
 
         // then
-        assertThat(result.seekBackButtonIncrement).isEqualTo(SeekButtonIncrement.ofSeconds(23))
-        assertThat(result.seekForwardButtonIncrement).isEqualTo(SeekButtonIncrement.ofSeconds(12))
+        assertThat(result.seekBackButtonIncrement).isEqualTo(SeekButtonIncrement.Known(23))
+        assertThat(result.seekForwardButtonIncrement).isEqualTo(SeekButtonIncrement.Known(12))
     }
 
     @Test

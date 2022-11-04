@@ -145,6 +145,10 @@ fun NavWearApp(
 
             val pagerState = rememberPagerState()
             PagerScreen(
+                // When using Modifier.edgeSwipeToDismiss, it is required that the element on
+                // which the modifier applies exists within a SwipeToDismissBox which shares
+                // the same state. Here, swipeDismissState is shared with
+                // our SwipeDismissableNavHost, which in turns passes it to its SwipeToDismissBox.
                 modifier = Modifier
                     .fillMaxSize()
                     .edgeSwipeToDismiss(swipeDismissState),

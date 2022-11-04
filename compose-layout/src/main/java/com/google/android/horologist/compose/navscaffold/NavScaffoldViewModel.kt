@@ -76,10 +76,10 @@ public open class NavScaffoldViewModel(
     public var vignettePosition: VignetteMode by mutableStateOf(WhenScrollable)
 
     /**
-     * The configuration of [TimeText], defaults to FadeAway which will move the time text above the
-     * screen to avoid overlapping with the content moving up.
+     * The configuration of [TimeText], defaults to [TimeTextMode.ScrollAway] which will move the
+     * time text above the screen to avoid overlapping with the content moving up.
      */
-    public var timeTextMode: TimeTextMode by mutableStateOf(TimeTextMode.FadeAway)
+    public var timeTextMode: TimeTextMode by mutableStateOf(TimeTextMode.ScrollAway)
 
     /**
      * The configuration of [PositionIndicator].  The default is to show a scroll bar while the
@@ -173,11 +173,11 @@ public open class NavScaffoldViewModel(
     }
 
     /**
-     * The configuration of [TimeText], defaults to FadeAway which will move the time text above the
+     * The configuration of [TimeText], defaults to [ScrollAway] which will move the time text above the
      * screen to avoid overlapping with the content moving up.
      */
     public enum class TimeTextMode {
-        On, Off, FadeAway
+        On, Off, ScrollAway
     }
 
     /**

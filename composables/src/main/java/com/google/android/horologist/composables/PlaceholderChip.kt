@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.composables
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -27,6 +26,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
@@ -38,11 +38,17 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.PlaceholderDefaults
+import androidx.wear.compose.material.placeholder
+import androidx.wear.compose.material.placeholderShimmer
+import androidx.wear.compose.material.rememberPlaceholderState
 
 /**
  * A placeholder chip to be displayed while the contents of the [Chip] is being loaded.
  */
+@OptIn(ExperimentalWearMaterialApi::class)
 @ExperimentalHorologistComposablesApi
 @Composable
 public fun PlaceholderChip(
@@ -52,7 +58,7 @@ public fun PlaceholderChip(
     enabled: Boolean = false,
     contentDescription: String = stringResource(id = R.string.horologist_placeholderchip_content_description)
 ) {
-    val backgroundColor = MaterialTheme.colors.onSurfaceVariant.copy(alpha = 0.38f)
+    val chipPlaceholderState = rememberPlaceholderState { false }
 
     Chip(
         modifier = modifier
@@ -60,10 +66,10 @@ public fun PlaceholderChip(
             .fillMaxWidth()
             .clip(shape = MaterialTheme.shapes.small)
             .paint(
-                painter = colors
-                    .background(enabled = enabled).value,
+                painter = colors.background(enabled = enabled).value,
                 contentScale = ContentScale.Crop
             )
+            .placeholderShimmer(chipPlaceholderState)
             .semantics {
                 this.contentDescription = contentDescription
             },
@@ -75,9 +81,9 @@ public fun PlaceholderChip(
                     modifier = Modifier
                         .padding(end = 10.dp)
                         .clip(RoundedCornerShape(12.dp))
-                        .background(backgroundColor)
                         .fillMaxWidth()
                         .height(12.dp)
+                        .placeholder(chipPlaceholderState)
                 )
                 Spacer(Modifier.size(8.dp))
             }
@@ -88,18 +94,27 @@ public fun PlaceholderChip(
                     .fillMaxWidth()
                     .padding(end = 30.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(backgroundColor)
                     .height(12.dp)
+                    .placeholder(chipPlaceholderState)
             )
         },
         icon = {
             Box(
                 modifier = Modifier
                     .clip(CircleShape)
-                    .background(backgroundColor)
                     .size(ChipDefaults.LargeIconSize)
+                    .placeholder(chipPlaceholderState)
             )
         },
-        colors = colors
+        colors = PlaceholderDefaults.placeholderChipColors(
+            originalChipColors = colors,
+            placeholderState = chipPlaceholderState
+        )
     )
+
+    if (!chipPlaceholderState.isShowContent) {
+        LaunchedEffect(chipPlaceholderState) {
+            chipPlaceholderState.startPlaceholderAnimation()
+        }
+    }
 }

@@ -16,53 +16,24 @@
 
 package com.google.android.horologist.composables
 
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.progressSemantics
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ProgressIndicatorDefaults
-import androidx.wear.compose.material.Text
 import java.lang.Float.max
 import java.lang.Float.min
-
-data class TrackSection(
-    val progressColor: Color = Color.Red.copy(alpha = 0.55f).compositeOver(Color.Gray),
-    val weight: Float,
-)
-
-val progressSections = listOf(
-    TrackSection(
-        weight = 2f, progressColor = Color.Blue.copy(alpha = 0.55f).compositeOver(Color.Gray)
-    ),
-    TrackSection(
-        weight = 3f, progressColor = Color.Yellow.copy(alpha = 0.55f).compositeOver(Color.Gray)
-    ),
-    TrackSection(
-        weight = 3f, progressColor = Color.Red.copy(alpha = 0.55f).compositeOver(Color.Gray)
-    ),
-
-)
 
 /**
  * SquareSegmentedProgressIndicator represents a segmented progress indicator with
@@ -71,19 +42,23 @@ val progressSections = listOf(
  * @param modifier
  * @param progress The current progress of the indicator. This must be between 0f and 1f
  * @param strokeWidth The stroke width for the progress indicator.
+ * @param trackSegments A list of [ProgressIndicatorSegment] definitions, specifying the properties
+ * of each segment.
+ * @param trackColor The color of the track that is drawn behind the indicator color of the
+ * track sections.
  */
 @ExperimentalHorologistComposablesApi
 @Composable
-fun SquareSegmentedProgressIndicator(
+public fun SquareSegmentedProgressIndicator(
     modifier: Modifier = Modifier,
     progress: Float,
     strokeWidth: Dp = ProgressIndicatorDefaults.StrokeWidth,
+    trackColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.1f),
+    trackSegments: List<ProgressIndicatorSegment>
 ) {
     require(progress in 0.0..1.0) {
         Error("The progress must be between 0 and 1")
     }
-
-    val trackColor = MaterialTheme.colors.onBackground.copy(alpha = 0.1f)
 
     val localDensity = LocalDensity.current
 
@@ -91,8 +66,8 @@ fun SquareSegmentedProgressIndicator(
         Stroke(width = strokeWidth.toPx(), cap = StrokeCap.Square)
     }
 
-    val totalWeight = remember(progressSections) {
-        progressSections.sumOf { it.weight.toDouble() }.toFloat()
+    val totalWeight = remember(trackSegments) {
+        trackSegments.sumOf { it.weight.toDouble() }.toFloat()
     }
 
     val strokeEndDelta = stroke.width
@@ -100,16 +75,15 @@ fun SquareSegmentedProgressIndicator(
     Canvas(
         modifier = modifier
             .background(color = MaterialTheme.colors.background)
-            .padding(38.dp)
+            .progressSemantics(progress)
     ) {
-
         // Start pos here is the length of the circumference
         // of the object that we are starting on.
         var sectionStartOffset: Float
         val sectionSpace = 8f // space between each section
 
         val possibleTracks = mutableSetOf(0, 1, 2, 3, 4, 5, 6, 7)
-        progressSections.forEach{ trackSection ->
+        trackSegments.forEach { trackSection ->
 
             sectionStartOffset = sectionSpace
 
@@ -132,19 +106,19 @@ fun SquareSegmentedProgressIndicator(
                 strokeEndDelta = strokeEndDelta,
                 totalWeight = totalWeight,
                 startPos = sectionStartOffset,
-                drawSections = drawSections,
+                drawSections = drawSections
             )
 
             // Draw progress
             drawRoundedSquare(
                 canvasSize = this.size,
                 progress = progress,
-                trackColor = trackSection.progressColor,
+                trackColor = trackSection.indicatorColor,
                 stroke = stroke,
                 strokeEndDelta = strokeEndDelta,
                 totalWeight = totalWeight,
                 startPos = sectionStartOffset,
-                drawSections = drawSections,
+                drawSections = drawSections
             )
         }
     }
@@ -158,7 +132,7 @@ private fun DrawScope.drawRoundedSquare(
     strokeEndDelta: Float,
     totalWeight: Float,
     startPos: Float,
-    drawSections: Set<Int>,
+    drawSections: Set<Int>
 ) {
     val cornerRadius = canvasSize.height / 4f // 1/4 of the line height
     val cornerDiameter = cornerRadius * 2
@@ -174,7 +148,9 @@ private fun DrawScope.drawRoundedSquare(
         val hasEndSection = drawSections.indexOf(0) == drawSections.size
         val startOffset = if (hasEndSection) 0f else startPos
         val startAngle = SquareSegmentedProgress().calculateStartAngle(
-            cornerType = CornerType.TopEnd, startOffset = startOffset, cornerRadius = cornerRadius
+            cornerType = CornerType.TopEnd,
+            startOffset = startOffset,
+            cornerRadius = cornerRadius
         )
         drawArc(
             color = trackColor,
@@ -212,7 +188,7 @@ private fun DrawScope.drawRoundedSquare(
             start = lineOffsetEnd.first,
             end = lineOffsetEnd.second,
             strokeWidth = stroke.width,
-            cap = stroke.cap,
+            cap = stroke.cap
         )
     }
 
@@ -222,7 +198,9 @@ private fun DrawScope.drawRoundedSquare(
 
         val startOffset = if (hasEndSection) startPos else 0f
         val startAngle = SquareSegmentedProgress().calculateStartAngle(
-            cornerType = CornerType.BottomEnd, startOffset = startOffset, cornerRadius = cornerRadius
+            cornerType = CornerType.BottomEnd,
+            startOffset = startOffset,
+            cornerRadius = cornerRadius
         )
         drawArc(
             color = trackColor,
@@ -238,7 +216,8 @@ private fun DrawScope.drawRoundedSquare(
             style = stroke,
             size = arcSize,
             topLeft = Offset(
-                canvasSize.width - cornerDiameter, canvasSize.height - cornerDiameter
+                canvasSize.width - cornerDiameter,
+                canvasSize.height - cornerDiameter
             )
         )
     }
@@ -253,7 +232,7 @@ private fun DrawScope.drawRoundedSquare(
             cornerRadius = cornerRadius,
             strokeEndDelta = strokeEndDelta,
             sectionEndProgress = sectionWeight * sectionProgressWeight * 3,
-            startOffset = startOffset,
+            startOffset = startOffset
         )
         // Bottom Line
         drawLine(
@@ -261,7 +240,7 @@ private fun DrawScope.drawRoundedSquare(
             start = lineOffsetBottom.first,
             end = lineOffsetBottom.second,
             strokeWidth = stroke.width,
-            cap = stroke.cap,
+            cap = stroke.cap
         )
     }
 
@@ -269,7 +248,9 @@ private fun DrawScope.drawRoundedSquare(
     if (progress > sectionWeight * sectionProgressWeight * 4 && drawSections.contains(4)) {
         val startOffset = if (drawSections.indexOf(4) == drawSections.size - 1) 0f else startPos
         val startDegree = SquareSegmentedProgress().calculateStartAngle(
-            cornerType = CornerType.BottomStart, startOffset = startOffset, cornerRadius = cornerRadius
+            cornerType = CornerType.BottomStart,
+            startOffset = startOffset,
+            cornerRadius = cornerRadius
         )
         drawArc(
             color = trackColor,
@@ -307,7 +288,7 @@ private fun DrawScope.drawRoundedSquare(
             start = lineOffsetLeft.first,
             end = lineOffsetLeft.second,
             strokeWidth = stroke.width,
-            cap = stroke.cap,
+            cap = stroke.cap
         )
     }
 
@@ -315,7 +296,9 @@ private fun DrawScope.drawRoundedSquare(
     if (progress > sectionWeight * sectionProgressWeight * 6 && drawSections.contains(6)) {
         val startOffset = if (drawSections.indexOf(6) == drawSections.size - 1) 0f else startPos
         val startDegree = SquareSegmentedProgress().calculateStartAngle(
-            cornerType = CornerType.TopStart, startOffset = startOffset, cornerRadius = cornerRadius
+            cornerType = CornerType.TopStart,
+            startOffset = startOffset,
+            cornerRadius = cornerRadius
         )
         drawArc(
             color = trackColor,
@@ -350,12 +333,12 @@ private fun DrawScope.drawRoundedSquare(
             start = lineOffsetTop.first,
             end = lineOffsetTop.second,
             strokeWidth = stroke.width,
-            cap = stroke.cap,
+            cap = stroke.cap
         )
     }
 }
 
-class SquareSegmentedProgress {
+private class SquareSegmentedProgress {
 
     /**
      * Returns Start and End Offset for the line.
@@ -373,7 +356,7 @@ class SquareSegmentedProgress {
         cornerRadius: Float,
         strokeEndDelta: Float,
         sectionEndProgress: Float,
-        startOffset: Float,
+        startOffset: Float
     ): Pair<Offset, Offset> {
         return when (lineType) {
             LineType.Top -> {
@@ -424,15 +407,14 @@ class SquareSegmentedProgress {
         }
     }
 
-
     /**
      * This is the sweep degree offset for the corner arch. So that means that
      * the corner arch will start the drawing angle at this calculated angle.
      */
-    fun calculateStartAngle(
+    internal fun calculateStartAngle(
         cornerType: CornerType,
         startOffset: Float,
-        cornerRadius: Float,
+        cornerRadius: Float
     ): Float {
         return when (cornerType) {
             CornerType.TopStart -> {
@@ -463,12 +445,12 @@ class SquareSegmentedProgress {
      * the angle assigned to the corner. We need this to subtract it from the sweep degrees
      * so that the corner will not draw over the assigned 90 degrees it should.
      */
-    fun calculateSweepDegrees(
+    internal fun calculateSweepDegrees(
         cornerType: CornerType,
         progress: Float,
         sectionProgress: Float,
         segmentProgress: Float,
-        startDegreeOffset: Float,
+        startDegreeOffset: Float
     ): Float {
         return when (cornerType) {
             CornerType.TopStart -> {
@@ -506,67 +488,10 @@ class SquareSegmentedProgress {
     }
 }
 
-enum class LineType {
+internal enum class LineType {
     Top, End, Start, Bottom,
 }
 
-enum class CornerType {
+internal enum class CornerType {
     TopStart, TopEnd, BottomStart, BottomEnd,
-}
-
-@OptIn(ExperimentalHorologistComposablesApi::class)
-@Preview(device = Devices.WEAR_OS_SQUARE)
-@Composable
-fun Preview() {
-    val switch = remember {
-        mutableStateOf(false)
-    }
-    val progressState = remember {
-        mutableStateOf(0f)
-    }
-    val progress by animateFloatAsState(
-        targetValue = progressState.value, animationSpec = infiniteRepeatable(
-        animation = tween(durationMillis = 4000, easing = LinearEasing),
-        repeatMode = RepeatMode.Reverse
-        )
-    )
-
-    val color = animateColorAsState(
-        targetValue = if (progress > 0.7f) Color.Red.copy(alpha = 0.55f)
-            .compositeOver(Color.Gray) else if (progress > 0.35) Color.Yellow.copy(alpha = 0.35f)
-            .compositeOver(Color.Gray) else Color.Green.copy(alpha = 0.35f)
-            .compositeOver(Color.Gray)
-    )
-    Box(modifier = Modifier.size(300.dp)) {
-
-        SquareSegmentedProgressIndicator(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .height(300.dp)
-                .width(300.dp)
-                .clickable {
-                    switch.value = !switch.value
-                    progressState.value = if (switch.value) 1f else 0f
-                },
-            progress = progress,
-        )
-        Text(
-            modifier = Modifier.align(Alignment.Center),
-            text = progress.toString().dropLast(5),
-            color = color.value
-        )
-    }
-}
-
-@OptIn(ExperimentalHorologistComposablesApi::class)
-@Preview(device = Devices.WEAR_OS_SQUARE)
-@Composable
-fun PreviewNoAnim() {
-
-    SquareSegmentedProgressIndicator(
-        modifier = Modifier
-            .height(300.dp)
-            .width(300.dp),
-        progress = 1f,
-    )
 }

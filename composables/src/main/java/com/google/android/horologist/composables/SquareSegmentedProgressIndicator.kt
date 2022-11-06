@@ -338,7 +338,7 @@ private fun DrawScope.drawRoundedSquare(
     }
 }
 
-private class SquareSegmentedProgress {
+internal class SquareSegmentedProgress {
 
     /**
      * Returns Start and End Offset for the line.

@@ -15,32 +15,12 @@
  */
 
 plugins {
-
-    id 'java-library'
-    id 'org.jetbrains.kotlin.jvm'
-    id 'org.jetbrains.dokka'
+  `kotlin-dsl`
 }
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+repositories {
+  gradlePluginPortal()
+  google()
 }
-
-apply plugin: 'me.tylerbwong.gradle.metalava'
-
-metalava {
-    sourcePaths = ["src/main"]
-    filename = "api/current.api"
-    reportLintsAsErrors = true
-}
-
 dependencies {
-
-    implementation libs.kotlinx.coroutines.core
-
-    testImplementation libs.junit
-    testImplementation libs.truth
+  implementation("com.android.tools.build:gradle-api:7.3.1")
 }
-
-apply plugin: "com.vanniktech.maven.publish"
-apply plugin: horologist.VersionPlugin

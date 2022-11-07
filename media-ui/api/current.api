@@ -151,8 +151,10 @@ package com.google.android.horologist.media.ui.components.background {
 
 package com.google.android.horologist.media.ui.components.controls {
 
-  public final class MediaButtonDefaults {
+  @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class MediaButtonDefaults {
     method @androidx.compose.runtime.Composable public androidx.wear.compose.material.ButtonColors getMediaButtonDefaultColors();
+    method public androidx.compose.ui.graphics.vector.ImageVector seekBackIcon(com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekButtonIncrement);
+    method public androidx.compose.ui.graphics.vector.ImageVector seekForwardIcon(com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekButtonIncrement);
     property @androidx.compose.runtime.Composable public final androidx.wear.compose.material.ButtonColors mediaButtonDefaultColors;
     field public static final com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults INSTANCE;
   }
@@ -170,36 +172,29 @@ package com.google.android.horologist.media.ui.components.controls {
   }
 
   public final class SeekBackButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void SeekBackButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekButtonIncrement, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void SeekBackButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekButtonIncrement, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.vector.ImageVector icon, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize);
   }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class SeekButtonIncrement {
-    method public int getSeconds();
-    property public int seconds;
     field public static final com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement.Companion Companion;
   }
 
   public static final class SeekButtonIncrement.Companion {
-    method public com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement ofSeconds(Integer? seconds);
+    method public com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement getFive();
+    method public com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement getTen();
+    method public com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement getThirty();
+    method public com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement ofDuration(long duration);
+    property public final com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement Five;
+    property public final com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement Ten;
+    property public final com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement Thirty;
   }
 
-  public static final class SeekButtonIncrement.Five extends com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement {
-    field public static final com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement.Five INSTANCE;
-  }
-
-  public static final class SeekButtonIncrement.Other extends com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement {
-    ctor public SeekButtonIncrement.Other(int seconds);
+  public static final class SeekButtonIncrement.Known extends com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement {
+    ctor public SeekButtonIncrement.Known(int seconds);
     method public int component1();
-    method public com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement.Other copy(int seconds);
-    property public int seconds;
-  }
-
-  public static final class SeekButtonIncrement.Ten extends com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement {
-    field public static final com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement.Ten INSTANCE;
-  }
-
-  public static final class SeekButtonIncrement.Thirty extends com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement {
-    field public static final com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement.Thirty INSTANCE;
+    method public com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement.Known copy(int seconds);
+    method public int getSeconds();
+    property public final int seconds;
   }
 
   public static final class SeekButtonIncrement.Unknown extends com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement {
@@ -207,7 +202,7 @@ package com.google.android.horologist.media.ui.components.controls {
   }
 
   public final class SeekForwardButtonKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void SeekForwardButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekButtonIncrement, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void SeekForwardButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement seekButtonIncrement, optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.graphics.vector.ImageVector icon, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize);
   }
 
   public final class SeekToNextButtonKt {

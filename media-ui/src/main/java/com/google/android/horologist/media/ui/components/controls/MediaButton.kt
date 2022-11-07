@@ -18,6 +18,16 @@ package com.google.android.horologist.media.ui.components.controls
 
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Forward10
+import androidx.compose.material.icons.filled.Forward30
+import androidx.compose.material.icons.filled.Forward5
+import androidx.compose.material.icons.filled.Replay
+import androidx.compose.material.icons.filled.Replay10
+import androidx.compose.material.icons.filled.Replay30
+import androidx.compose.material.icons.filled.Replay5
+import androidx.compose.material.icons.materialIcon
+import androidx.compose.material.icons.materialPath
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -82,6 +92,7 @@ public fun MediaButton(
     }
 }
 
+@ExperimentalHorologistMediaUiApi
 public object MediaButtonDefaults {
     public val mediaButtonDefaultColors: ButtonColors
         @Composable
@@ -90,4 +101,39 @@ public object MediaButtonDefaults {
             contentColor = MaterialTheme.colors.onSurface,
             disabledBackgroundColor = Color.Transparent
         )
+
+    public fun seekBackIcon(seekButtonIncrement: SeekButtonIncrement): ImageVector =
+        when (seekButtonIncrement) {
+            SeekButtonIncrement.Five -> Icons.Default.Replay5
+            SeekButtonIncrement.Ten -> Icons.Default.Replay10
+            SeekButtonIncrement.Thirty -> Icons.Default.Replay30
+            else -> Icons.Default.Replay
+        }
+
+    public fun seekForwardIcon(seekButtonIncrement: SeekButtonIncrement): ImageVector =
+        when (seekButtonIncrement) {
+            SeekButtonIncrement.Five -> Icons.Default.Forward5
+            SeekButtonIncrement.Ten -> Icons.Default.Forward10
+            SeekButtonIncrement.Thirty -> Icons.Default.Forward30
+            else -> ForwardEmpty
+        }
+
+    // Icons.Default.Forward is not the same group as 5, 10 and 30 variant
+    private val ForwardEmpty = materialIcon(name = "Filled.ForwardEmpty") {
+        materialPath {
+            moveTo(18.0f, 13.0f)
+            curveToRelative(0.0f, 3.31f, -2.69f, 6.0f, -6.0f, 6.0f)
+            reflectiveCurveToRelative(-6.0f, -2.69f, -6.0f, -6.0f)
+            reflectiveCurveToRelative(2.69f, -6.0f, 6.0f, -6.0f)
+            verticalLineToRelative(4.0f)
+            lineToRelative(5.0f, -5.0f)
+            lineToRelative(-5.0f, -5.0f)
+            verticalLineToRelative(4.0f)
+            curveToRelative(-4.42f, 0.0f, -8.0f, 3.58f, -8.0f, 8.0f)
+            curveToRelative(0.0f, 4.42f, 3.58f, 8.0f, 8.0f, 8.0f)
+            reflectiveCurveToRelative(8.0f, -3.58f, 8.0f, -8.0f)
+            horizontalLineTo(18.0f)
+            close()
+        }
+    }
 }

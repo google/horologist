@@ -16,14 +16,10 @@
 
 package com.google.android.horologist.media.ui.components.controls
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Replay
-import androidx.compose.material.icons.filled.Replay10
-import androidx.compose.material.icons.filled.Replay30
-import androidx.compose.material.icons.filled.Replay5
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
@@ -38,24 +34,18 @@ public fun SeekBackButton(
     onClick: () -> Unit,
     seekButtonIncrement: SeekButtonIncrement,
     modifier: Modifier = Modifier,
+    icon: ImageVector = MediaButtonDefaults.seekBackIcon(seekButtonIncrement),
     enabled: Boolean = true,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
     iconSize: Dp = 30.dp,
     tapTargetSize: DpSize = DpSize(48.dp, 60.dp)
 ) {
-    val icon = when (seekButtonIncrement) {
-        SeekButtonIncrement.Five -> Icons.Default.Replay5
-        SeekButtonIncrement.Ten -> Icons.Default.Replay10
-        SeekButtonIncrement.Thirty -> Icons.Default.Replay30
-        else -> Icons.Default.Replay
-    }
-
     val contentDescription = when (seekButtonIncrement) {
-        SeekButtonIncrement.Unknown -> stringResource(id = R.string.horologist_seek_back_button_content_description)
-        else -> stringResource(
+        is SeekButtonIncrement.Known -> stringResource(
             id = R.string.horologist_seek_back_button_seconds_content_description,
             seekButtonIncrement.seconds
         )
+        SeekButtonIncrement.Unknown -> stringResource(id = R.string.horologist_seek_back_button_content_description)
     }
 
     MediaButton(

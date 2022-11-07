@@ -134,6 +134,7 @@ kapt {
 }
 
 dependencies {
+    implementation projects.baseUi
     implementation projects.audio
     implementation projects.audioUi
     implementation projects.composables

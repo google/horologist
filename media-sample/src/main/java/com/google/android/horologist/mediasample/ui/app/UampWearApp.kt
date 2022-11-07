@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -29,6 +30,7 @@ import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.accompanist.pager.rememberPagerState
+import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollection
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollections
@@ -38,12 +40,15 @@ import com.google.android.horologist.media.ui.navigation.MediaNavController.navi
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToVolume
 import com.google.android.horologist.media.ui.navigation.MediaPlayerScaffold
 import com.google.android.horologist.mediasample.ui.browse.UampBrowseScreen
+import com.google.android.horologist.mediasample.ui.browse.UampStreamingBrowseScreen
 import com.google.android.horologist.mediasample.ui.debug.AudioDebugScreen
 import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeText
 import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeTextViewModel
 import com.google.android.horologist.mediasample.ui.debug.SamplesScreen
 import com.google.android.horologist.mediasample.ui.entity.UampEntityScreen
 import com.google.android.horologist.mediasample.ui.entity.UampEntityScreenViewModel
+import com.google.android.horologist.mediasample.ui.entity.UampStreamingPlaylistScreen
+import com.google.android.horologist.mediasample.ui.entity.UampStreamingPlaylistScreenViewModel
 import com.google.android.horologist.mediasample.ui.navigation.AudioDebug
 import com.google.android.horologist.mediasample.ui.navigation.DeveloperOptions
 import com.google.android.horologist.mediasample.ui.navigation.Samples
@@ -65,6 +70,8 @@ fun UampWearApp(
     val pagerState = rememberPagerState(initialPage = 0)
     val navHostState = rememberSwipeDismissableNavHostState()
 
+    val appState by rememberStateWithLifecycle(flow = appViewModel.appState)
+
     val timeText: @Composable (Modifier) -> Unit = { modifier ->
         MediaInfoTimeText(
             modifier = modifier,
@@ -85,35 +92,60 @@ fun UampWearApp(
                 )
             },
             libraryScreen = { focusRequester, scalingLazyListState ->
-                UampBrowseScreen(
-                    uampBrowseScreenViewModel = hiltViewModel(),
-                    onDownloadItemClick = {
-                        navController.navigateToCollection(
-                            it.playlistUiModel.id,
-                            it.playlistUiModel.title
-                        )
-                    },
-                    onPlaylistsClick = { navController.navigateToCollections() },
-                    onSettingsClick = { navController.navigateToSettings() },
-                    focusRequester = focusRequester,
-                    scalingLazyListState = scalingLazyListState
-                )
+                if (appState.streamingMode == true) {
+                    UampStreamingBrowseScreen(
+                        onPlaylistsClick = { navController.navigateToCollections() },
+                        onSettingsClick = { navController.navigateToSettings() },
+                        focusRequester = focusRequester,
+                        scalingLazyListState = scalingLazyListState
+                    )
+                } else {
+                    UampBrowseScreen(
+                        uampBrowseScreenViewModel = hiltViewModel(),
+                        onDownloadItemClick = {
+                            navController.navigateToCollection(
+                                it.playlistUiModel.id,
+                                it.playlistUiModel.title
+                            )
+                        },
+                        onPlaylistsClick = { navController.navigateToCollections() },
+                        onSettingsClick = { navController.navigateToSettings() },
+                        focusRequester = focusRequester,
+                        scalingLazyListState = scalingLazyListState
+                    )
+                }
             },
             categoryEntityScreen = { _, name, focusRequester, scalingLazyListState ->
-                val uampEntityScreenViewModel: UampEntityScreenViewModel = hiltViewModel()
+                if (appState.streamingMode == true) {
+                    val viewModel: UampStreamingPlaylistScreenViewModel = hiltViewModel()
 
-                UampEntityScreen(
-                    playlistName = name,
-                    uampEntityScreenViewModel = uampEntityScreenViewModel,
-                    onDownloadItemClick = {
-                        navController.navigateToPlayer()
-                    },
-                    onShuffleClick = { navController.navigateToPlayer() },
-                    onPlayClick = { navController.navigateToPlayer() },
-                    onErrorDialogCancelClick = { navController.popBackStack() },
-                    focusRequester = focusRequester,
-                    scalingLazyListState = scalingLazyListState
-                )
+                    UampStreamingPlaylistScreen(
+                        playlistName = name,
+                        viewModel = viewModel,
+                        onDownloadItemClick = {
+                            navController.navigateToPlayer()
+                        },
+                        onShuffleClick = { navController.navigateToPlayer() },
+                        onPlayClick = { navController.navigateToPlayer() },
+                        focusRequester = focusRequester,
+                        scalingLazyListState = scalingLazyListState
+                    )
+                } else {
+                    val uampEntityScreenViewModel: UampEntityScreenViewModel = hiltViewModel()
+
+                    UampEntityScreen(
+                        playlistName = name,
+                        uampEntityScreenViewModel = uampEntityScreenViewModel,
+                        onDownloadItemClick = {
+                            navController.navigateToPlayer()
+                        },
+                        onShuffleClick = { navController.navigateToPlayer() },
+                        onPlayClick = { navController.navigateToPlayer() },
+                        onErrorDialogCancelClick = { navController.popBackStack() },
+                        focusRequester = focusRequester,
+                        scalingLazyListState = scalingLazyListState
+                    )
+                }
             },
             mediaEntityScreen = { _, _ ->
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

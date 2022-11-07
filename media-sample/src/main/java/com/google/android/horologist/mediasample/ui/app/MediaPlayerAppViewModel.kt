@@ -17,6 +17,7 @@
 package com.google.android.horologist.mediasample.ui.app
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
@@ -28,6 +29,7 @@ import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.mediasample.ui.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filter
@@ -35,6 +37,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.reduce
+import kotlinx.coroutines.flow.stateIn
 import java.io.IOException
 import javax.inject.Inject
 
@@ -49,6 +52,10 @@ class MediaPlayerAppViewModel @Inject constructor(
 ) : ViewModel() {
 
     val deepLinkPrefix: String = appConfig.deeplinkUriPrefix
+
+    val appState = settingsRepository.settingsFlow.map {
+        UampAppState(streamingMode = it.streamingMode)
+    }.stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000), initialValue = UampAppState())
 
     @OptIn(FlowPreview::class)
     private suspend fun loadItems() {
@@ -129,3 +136,7 @@ class MediaPlayerAppViewModel @Inject constructor(
         playerRepository.connected.filter { it }.first()
     }
 }
+
+data class UampAppState(
+    val streamingMode: Boolean? = null
+)

@@ -437,6 +437,10 @@ package com.google.android.horologist.media.ui.screens.entity {
     ctor public PlaylistDownloadScreenState.Loading();
   }
 
+  public final class PlaylistStreamingScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlaylistStreamingScreen(String playlistName, com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState<com.google.android.horologist.media.ui.state.model.PlaylistUiModel,com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel> playlistDownloadScreenState, kotlin.jvm.functions.Function0<kotlin.Unit> onShuffleButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPlayButtonClick, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel,kotlin.Unit> onPlayItemClick, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ScalingParams scalingParams, optional androidx.wear.compose.material.AutoCenteringParams? autoCentering, optional String defaultMediaTitle);
+  }
+
 }
 
 package com.google.android.horologist.media.ui.screens.player {

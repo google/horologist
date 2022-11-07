@@ -57,7 +57,8 @@ class DeveloperOptionsScreenViewModel @Inject constructor(
                 animated = it.animated,
                 debugOffload = it.debugOffload,
                 writable = true,
-                networkRequest = networkRequest
+                networkRequest = networkRequest,
+                streamingMode = it.streamingMode
             )
         }.stateIn(
             scope = viewModelScope,
@@ -73,7 +74,8 @@ class DeveloperOptionsScreenViewModel @Inject constructor(
         val debugOffload: Boolean = false,
         val offloadMode: OffloadMode = OffloadMode.BACKGROUND,
         val writable: Boolean = false,
-        val networkRequest: HighBandwidthConnectionLease? = null
+        val networkRequest: HighBandwidthConnectionLease? = null,
+        val streamingMode: Boolean = false
     )
 
     fun setShowTimeTextInfo(enabled: Boolean) {
@@ -120,6 +122,14 @@ class DeveloperOptionsScreenViewModel @Inject constructor(
         viewModelScope.launch {
             settingsRepository.edit {
                 it.copy { offloadMode = mode }
+            }
+        }
+    }
+
+    fun setStreamingMode(mode: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.edit {
+                it.copy { streamingMode = mode }
             }
         }
     }

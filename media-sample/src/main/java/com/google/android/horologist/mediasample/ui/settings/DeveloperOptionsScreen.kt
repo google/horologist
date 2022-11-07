@@ -138,6 +138,15 @@ fun DeveloperOptionsScreen(
         }
         item {
             CheckedSetting(
+                uiState.streamingMode,
+                stringResource(id = R.string.streaming_mode),
+                enabled = uiState.writable
+            ) {
+                developerOptionsScreenViewModel.setStreamingMode(it)
+            }
+        }
+        item {
+            CheckedSetting(
                 uiState.animated,
                 stringResource(id = R.string.animated),
                 enabled = uiState.writable

@@ -41,7 +41,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class UampEntityScreenViewModel @Inject constructor(
+class UampStreamingPlaylistScreenViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val playlistDownloadRepository: PlaylistDownloadRepository,
     private val playerRepository: PlayerRepository,
@@ -91,8 +91,4 @@ class UampEntityScreenViewModel @Inject constructor(
             playerRepository.setMediaListAndPlay(playlistDownload.playlist.mediaList, index)
         }
     }
-
-    fun download() = playlistDownload.value?.let { playlistDownloadRepository.download(it.playlist) }
-
-    fun remove() = playlistDownload.value?.let { playlistDownloadRepository.remove(it.playlist) }
 }

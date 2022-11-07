@@ -37,8 +37,7 @@ class UampBrowseScreenViewModel @Inject constructor(
     playlistRepository: PlaylistRepository,
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
-
-    val streamingMode = settingsRepository.settingsFlow.map { it.streamingMode }
+    private val streamingMode = settingsRepository.settingsFlow.map { it.streamingMode }
 
     private val playlists: StateFlow<List<Playlist>?> = playlistRepository.getAllDownloaded()
         .stateIn(
@@ -47,15 +46,20 @@ class UampBrowseScreenViewModel @Inject constructor(
             initialValue = null
         )
 
-    val uiState = combine(playlists, streamingMode) { playlists, streamingMode ->
+    private val browseScreenState = playlists.map { playlists ->
         playlists?.let {
-            BrowseScreenState.Loaded(it.map(PlaylistDownloadUiModelMapper::map), streamingMode)
-        } ?: BrowseScreenState.Loading(streamingMode)
+            BrowseScreenState.Loaded(it.map(PlaylistDownloadUiModelMapper::map))
+        } ?: BrowseScreenState.Loading
     }.catch {
-        BrowseScreenState.Failed(false)
-    }.stateIn(
-        viewModelScope,
-        started = SharingStarted.Eagerly,
-        initialValue = BrowseScreenState.Loading(true)
-    )
+        BrowseScreenState.Failed
+    }
+
+    val uiState = combine(browseScreenState, streamingMode) { browseScreenState, streamingMode ->
+        UampBrowseScreenState(browseScreenState = browseScreenState, streamingMode = streamingMode)
+    }
+        .stateIn(
+            viewModelScope,
+            started = SharingStarted.Eagerly,
+            initialValue = UampBrowseScreenState(browseScreenState = BrowseScreenState.Loading, streamingMode = null)
+        )
 }

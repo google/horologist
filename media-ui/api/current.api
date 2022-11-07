@@ -336,31 +336,22 @@ package com.google.android.horologist.media.ui.screens.browse {
   }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class BrowseScreenState {
-    method public abstract boolean getStreamingMode();
-    property public abstract boolean streamingMode;
   }
 
   public static final class BrowseScreenState.Failed extends com.google.android.horologist.media.ui.screens.browse.BrowseScreenState {
-    ctor public BrowseScreenState.Failed(optional boolean streamingMode);
-    method public boolean getStreamingMode();
-    property public boolean streamingMode;
+    field public static final com.google.android.horologist.media.ui.screens.browse.BrowseScreenState.Failed INSTANCE;
   }
 
   public static final class BrowseScreenState.Loaded extends com.google.android.horologist.media.ui.screens.browse.BrowseScreenState {
-    ctor public BrowseScreenState.Loaded(java.util.List<? extends com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel> downloadList, optional boolean streamingMode);
+    ctor public BrowseScreenState.Loaded(java.util.List<? extends com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel> downloadList);
     method public java.util.List<com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel> component1();
-    method public boolean component2();
-    method public com.google.android.horologist.media.ui.screens.browse.BrowseScreenState.Loaded copy(java.util.List<? extends com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel> downloadList, boolean streamingMode);
+    method public com.google.android.horologist.media.ui.screens.browse.BrowseScreenState.Loaded copy(java.util.List<? extends com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel> downloadList);
     method public java.util.List<com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel> getDownloadList();
-    method public boolean getStreamingMode();
     property public final java.util.List<com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel> downloadList;
-    property public boolean streamingMode;
   }
 
   public static final class BrowseScreenState.Loading extends com.google.android.horologist.media.ui.screens.browse.BrowseScreenState {
-    ctor public BrowseScreenState.Loading(optional boolean streamingMode);
-    method public boolean getStreamingMode();
-    property public boolean streamingMode;
+    field public static final com.google.android.horologist.media.ui.screens.browse.BrowseScreenState.Loading INSTANCE;
   }
 
   public final class PlaylistDownloadBrowseScreenKt {
@@ -399,38 +390,31 @@ package com.google.android.horologist.media.ui.screens.entity {
 
   public final class PlaylistDownloadScreenKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlaylistDownloadScreen(String playlistName, com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState<com.google.android.horologist.media.ui.state.model.PlaylistUiModel,com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel> playlistDownloadScreenState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.PlaylistUiModel,kotlin.Unit> onDownloadButtonClick, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.PlaylistUiModel,kotlin.Unit> onCancelDownloadButtonClick, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel,kotlin.Unit> onDownloadItemClick, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel,kotlin.Unit> onDownloadItemInProgressClick, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.PlaylistUiModel,kotlin.Unit> onShuffleButtonClick, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.PlaylistUiModel,kotlin.Unit> onPlayButtonClick, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material.ScalingParams scalingParams, optional androidx.wear.compose.material.AutoCenteringParams? autoCentering, optional kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.state.model.PlaylistUiModel,kotlin.Unit>? onDownloadCompletedButtonClick, optional String defaultMediaTitle, optional androidx.compose.ui.graphics.painter.Painter? downloadItemArtworkPlaceholder, optional String? onDownloadItemInProgressClickActionLabel);
-    method @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded<com.google.android.horologist.media.ui.state.model.PlaylistUiModel,com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel> createPlaylistDownloadScreenStateLoaded(com.google.android.horologist.media.ui.state.model.PlaylistUiModel playlistModel, java.util.List<? extends com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel> downloadMediaList, optional boolean streamingMode);
+    method @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded<com.google.android.horologist.media.ui.state.model.PlaylistUiModel,com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel> createPlaylistDownloadScreenStateLoaded(com.google.android.horologist.media.ui.state.model.PlaylistUiModel playlistModel, java.util.List<? extends com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel> downloadMediaList);
   }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class PlaylistDownloadScreenState<Collection, Media> {
-    method public abstract boolean getStreamingMode();
-    property public abstract boolean streamingMode;
   }
 
   public static final class PlaylistDownloadScreenState.Failed<Collection, Media> extends com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState<Collection,Media> {
     ctor public PlaylistDownloadScreenState.Failed();
-    method public boolean getStreamingMode();
-    property public boolean streamingMode;
   }
 
   public static final class PlaylistDownloadScreenState.Loaded<Collection, Media> extends com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState<Collection,Media> {
-    ctor public PlaylistDownloadScreenState.Loaded(Collection? collectionModel, java.util.List<? extends Media> mediaList, com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState downloadMediaListState, optional com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress downloadsProgress, boolean streamingMode);
+    ctor public PlaylistDownloadScreenState.Loaded(Collection? collectionModel, java.util.List<? extends Media> mediaList, com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState downloadMediaListState, optional com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress downloadsProgress);
     method public Collection! component1();
     method public java.util.List<Media> component2();
     method public com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState component3();
     method public com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress component4();
-    method public boolean component5();
-    method public com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded<Collection,Media> copy(Collection! collectionModel, java.util.List<? extends Media> mediaList, com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState downloadMediaListState, com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress downloadsProgress, boolean streamingMode);
+    method public com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded<Collection,Media> copy(Collection! collectionModel, java.util.List<? extends Media> mediaList, com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState downloadMediaListState, com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress downloadsProgress);
     method public Collection! getCollectionModel();
     method public com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState getDownloadMediaListState();
     method public com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress getDownloadsProgress();
     method public java.util.List<Media> getMediaList();
-    method public boolean getStreamingMode();
     property public final Collection! collectionModel;
     property public final com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadMediaListState downloadMediaListState;
     property public final com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress downloadsProgress;
     property public final java.util.List<Media> mediaList;
-    property public boolean streamingMode;
   }
 
   public enum PlaylistDownloadScreenState.Loaded.DownloadMediaListState {
@@ -456,8 +440,6 @@ package com.google.android.horologist.media.ui.screens.entity {
 
   public static final class PlaylistDownloadScreenState.Loading<Collection, Media> extends com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState<Collection,Media> {
     ctor public PlaylistDownloadScreenState.Loading();
-    method public boolean getStreamingMode();
-    property public boolean streamingMode;
   }
 
   public final class PlaylistStreamingScreenKt {

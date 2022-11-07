@@ -238,17 +238,15 @@ public class BrowseScreenSectionScope<T> {
  * Represents the state of [BrowseScreen].
  */
 @ExperimentalHorologistMediaUiApi
-public sealed class BrowseScreenState() {
-    public abstract val streamingMode: Boolean
+public sealed class BrowseScreenState {
 
-    public class Loading(override val streamingMode: Boolean = false) : BrowseScreenState()
+    public object Loading : BrowseScreenState()
 
     public data class Loaded(
-        val downloadList: List<PlaylistDownloadUiModel>,
-        override val streamingMode: Boolean = false
+        val downloadList: List<PlaylistDownloadUiModel>
     ) : BrowseScreenState()
 
-    public class Failed(override val streamingMode: Boolean = false) : BrowseScreenState()
+    public object Failed : BrowseScreenState()
 }
 
 @ExperimentalHorologistMediaUiApi

@@ -45,7 +45,7 @@ fun UampBrowseScreen(
 ) {
     val uiState by rememberStateWithLifecycle(uampBrowseScreenViewModel.uiState)
 
-    if (uiState.streamingMode) {
+    if (uiState.streamingMode == true) {
         BrowseScreen(
             focusRequester = focusRequester,
             scalingLazyListState = scalingLazyListState,
@@ -68,7 +68,7 @@ fun UampBrowseScreen(
         }
     } else {
         PlaylistDownloadBrowseScreen(
-            browseScreenState = uiState,
+            browseScreenState = uiState.browseScreenState,
             onDownloadItemClick = onDownloadItemClick,
             onDownloadItemInProgressClick = {
                 // TODO: https://github.com/google/horologist/issues/678

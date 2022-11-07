@@ -422,18 +422,14 @@ private fun <Collection> FirstButton(
  */
 @ExperimentalHorologistMediaUiApi
 public sealed class PlaylistDownloadScreenState<Collection, Media> {
-    public abstract val streamingMode: Boolean
 
-    public class Loading<Collection, Media> : PlaylistDownloadScreenState<Collection, Media>() {
-        override val streamingMode: Boolean = false
-    }
+    public class Loading<Collection, Media> : PlaylistDownloadScreenState<Collection, Media>()
 
     public data class Loaded<Collection, Media>(
         val collectionModel: Collection,
         val mediaList: List<Media>,
         val downloadMediaListState: DownloadMediaListState,
-        val downloadsProgress: DownloadsProgress = DownloadsProgress.Idle,
-        override val streamingMode: Boolean
+        val downloadsProgress: DownloadsProgress = DownloadsProgress.Idle
     ) : PlaylistDownloadScreenState<Collection, Media>() {
 
         /**
@@ -457,9 +453,7 @@ public sealed class PlaylistDownloadScreenState<Collection, Media> {
         }
     }
 
-    public class Failed<Collection, Media> : PlaylistDownloadScreenState<Collection, Media>() {
-        override val streamingMode: Boolean = false
-    }
+    public class Failed<Collection, Media> : PlaylistDownloadScreenState<Collection, Media>()
 }
 
 /**
@@ -469,8 +463,7 @@ public sealed class PlaylistDownloadScreenState<Collection, Media> {
 @ExperimentalHorologistMediaUiApi
 public fun createPlaylistDownloadScreenStateLoaded(
     playlistModel: PlaylistUiModel,
-    downloadMediaList: List<DownloadMediaUiModel>,
-    streamingMode: Boolean = false
+    downloadMediaList: List<DownloadMediaUiModel>
 ): PlaylistDownloadScreenState.Loaded<PlaylistUiModel, DownloadMediaUiModel> {
     var downloadsProgress: DownloadsProgress = DownloadsProgress.Idle
 
@@ -510,7 +503,6 @@ public fun createPlaylistDownloadScreenStateLoaded(
         collectionModel = playlistModel,
         mediaList = downloadMediaList,
         downloadMediaListState = downloadsState,
-        downloadsProgress = downloadsProgress,
-        streamingMode = streamingMode
+        downloadsProgress = downloadsProgress
     )
 }

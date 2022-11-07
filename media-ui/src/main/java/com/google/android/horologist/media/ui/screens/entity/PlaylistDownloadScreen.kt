@@ -142,7 +142,7 @@ public fun PlaylistDownloadScreen(
 }
 
 @Composable
-internal fun MediaContent(
+private fun MediaContent(
     downloadMediaUiModel: DownloadMediaUiModel,
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
     onDownloadItemInProgressClick: (DownloadMediaUiModel) -> Unit,

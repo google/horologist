@@ -16,40 +16,44 @@
 
 package com.google.android.horologist.mediasample.ui.browse
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PlaylistPlay
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ScalingLazyListState
-import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
-import com.google.android.horologist.media.ui.screens.browse.PlaylistDownloadBrowseScreen
-import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
+import com.google.android.horologist.media.ui.screens.browse.BrowseScreen
+import com.google.android.horologist.media.ui.screens.browse.BrowseScreenPlaylistsSectionButton
 import com.google.android.horologist.mediasample.R
 
 @Composable
-fun UampBrowseScreen(
-    uampBrowseScreenViewModel: UampBrowseScreenViewModel,
-    onDownloadItemClick: (PlaylistDownloadUiModel) -> Unit,
+fun UampStreamingBrowseScreen(
     onPlaylistsClick: () -> Unit,
     onSettingsClick: () -> Unit,
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier
 ) {
-    val uiState by rememberStateWithLifecycle(uampBrowseScreenViewModel.uiState)
-
-    PlaylistDownloadBrowseScreen(
-        browseScreenState = uiState,
-        onDownloadItemClick = onDownloadItemClick,
-        onDownloadItemInProgressClick = {
-            // TODO: https://github.com/google/horologist/issues/678
-        },
-        onPlaylistsClick = onPlaylistsClick,
-        onSettingsClick = onSettingsClick,
+    BrowseScreen(
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
-        modifier = modifier,
-        onDownloadItemInProgressClickActionLabel = stringResource(id = R.string.browse_download_cancel_action_label)
-    )
+        modifier = modifier
+    ) {
+        this.playlistsSection(
+            buttons = listOf(
+                BrowseScreenPlaylistsSectionButton(
+                    textId = R.string.horologist_browse_library_playlists_button,
+                    icon = Icons.Default.PlaylistPlay,
+                    onClick = onPlaylistsClick
+                ),
+                BrowseScreenPlaylistsSectionButton(
+                    textId = R.string.horologist_browse_library_settings_button,
+                    icon = Icons.Default.Settings,
+                    onClick = onSettingsClick
+                )
+            )
+        )
+    }
 }

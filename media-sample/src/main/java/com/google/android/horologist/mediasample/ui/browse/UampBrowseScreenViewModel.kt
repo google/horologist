@@ -22,22 +22,18 @@ import com.google.android.horologist.media.model.Playlist
 import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreenState
 import com.google.android.horologist.media.ui.state.mapper.PlaylistDownloadUiModelMapper
-import com.google.android.horologist.mediasample.domain.SettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class UampBrowseScreenViewModel @Inject constructor(
-    playlistRepository: PlaylistRepository,
-    private val settingsRepository: SettingsRepository
+    playlistRepository: PlaylistRepository
 ) : ViewModel() {
-    private val streamingMode = settingsRepository.settingsFlow.map { it.streamingMode }
 
     private val playlists: StateFlow<List<Playlist>?> = playlistRepository.getAllDownloaded()
         .stateIn(
@@ -46,20 +42,15 @@ class UampBrowseScreenViewModel @Inject constructor(
             initialValue = null
         )
 
-    private val browseScreenState = playlists.map { playlists ->
+    val uiState = playlists.map { playlists ->
         playlists?.let {
             BrowseScreenState.Loaded(it.map(PlaylistDownloadUiModelMapper::map))
         } ?: BrowseScreenState.Loading
     }.catch {
         BrowseScreenState.Failed
-    }
-
-    val uiState = combine(browseScreenState, streamingMode) { browseScreenState, streamingMode ->
-        UampBrowseScreenState(browseScreenState = browseScreenState, streamingMode = streamingMode)
-    }
-        .stateIn(
-            viewModelScope,
-            started = SharingStarted.Eagerly,
-            initialValue = UampBrowseScreenState(browseScreenState = BrowseScreenState.Loading, streamingMode = null)
-        )
+    }.stateIn(
+        viewModelScope,
+        started = SharingStarted.Eagerly,
+        initialValue = BrowseScreenState.Loading
+    )
 }

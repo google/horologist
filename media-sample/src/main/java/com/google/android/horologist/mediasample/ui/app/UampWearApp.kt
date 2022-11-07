@@ -40,6 +40,7 @@ import com.google.android.horologist.media.ui.navigation.MediaNavController.navi
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToVolume
 import com.google.android.horologist.media.ui.navigation.MediaPlayerScaffold
 import com.google.android.horologist.mediasample.ui.browse.UampBrowseScreen
+import com.google.android.horologist.mediasample.ui.browse.UampStreamingBrowseScreen
 import com.google.android.horologist.mediasample.ui.debug.AudioDebugScreen
 import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeText
 import com.google.android.horologist.mediasample.ui.debug.MediaInfoTimeTextViewModel
@@ -91,19 +92,28 @@ fun UampWearApp(
                 )
             },
             libraryScreen = { focusRequester, scalingLazyListState ->
-                UampBrowseScreen(
-                    uampBrowseScreenViewModel = hiltViewModel(),
-                    onDownloadItemClick = {
-                        navController.navigateToCollection(
-                            it.playlistUiModel.id,
-                            it.playlistUiModel.title
-                        )
-                    },
-                    onPlaylistsClick = { navController.navigateToCollections() },
-                    onSettingsClick = { navController.navigateToSettings() },
-                    focusRequester = focusRequester,
-                    scalingLazyListState = scalingLazyListState
-                )
+                if (appState.streamingMode == true) {
+                    UampStreamingBrowseScreen(
+                        onPlaylistsClick = { navController.navigateToCollections() },
+                        onSettingsClick = { navController.navigateToSettings() },
+                        focusRequester = focusRequester,
+                        scalingLazyListState = scalingLazyListState
+                    )
+                } else {
+                    UampBrowseScreen(
+                        uampBrowseScreenViewModel = hiltViewModel(),
+                        onDownloadItemClick = {
+                            navController.navigateToCollection(
+                                it.playlistUiModel.id,
+                                it.playlistUiModel.title
+                            )
+                        },
+                        onPlaylistsClick = { navController.navigateToCollections() },
+                        onSettingsClick = { navController.navigateToSettings() },
+                        focusRequester = focusRequester,
+                        scalingLazyListState = scalingLazyListState
+                    )
+                }
             },
             categoryEntityScreen = { _, name, focusRequester, scalingLazyListState ->
                 if (appState.streamingMode == true) {

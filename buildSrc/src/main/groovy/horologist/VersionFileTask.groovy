@@ -20,20 +20,19 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
-import java.io.File
 
-abstract class VersionFileTask: DefaultTask() {
-    @get:OutputDirectory
-    abstract val outputDirectory: DirectoryProperty
+abstract class VersionFileTask extends DefaultTask {
+    @OutputDirectory
+    abstract DirectoryProperty getOutputDir()
 
     @TaskAction
-    fun productVersionFile() {
-        val directory = outputDirectory.get()
-        directory.asFile.mkdirs()
+    void writeVersionFile() {
+        def directory = outputDirectory.getAsFile().get()
+        directory.mkdirs()
 
-        val group = project.group
-        val artifact = project.name
-        val versionName = project.version as String
-        File(directory.asFile, "${group}_$artifact.version").writeText(versionName)
+        def group = project.group
+        def artifact = project.name
+        def versionName = project.version as String
+        new File(directory, "${group}_$artifact.version").write(versionName)
     }
 }

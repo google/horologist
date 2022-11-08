@@ -15,12 +15,14 @@
  */
 
 plugins {
-  `kotlin-dsl`
+//  `kotlin-dsl`
+  groovy
 }
 repositories {
   gradlePluginPortal()
   google()
 }
 dependencies {
+  implementation(gradleApi())
   implementation("com.android.tools.build:gradle:7.3.1")
 }

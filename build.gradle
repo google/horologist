@@ -1,3 +1,5 @@
+import com.android.build.gradle.LibraryExtension
+
 /*
  * Copyright 2022 The Android Open Source Project
  *
@@ -207,6 +209,41 @@ subprojects {
                 lint {
                     // Remove once fixed: https://issuetracker.google.com/196420849
                     disable("ExpiringTargetSdkVersion")
+                }
+            }
+        }
+
+        def generateVersionFile = tasks.register("generateVersionFile") {
+            def outputDirectory = project.file( "${project.buildDir}/generated/sources/generateVersionFile" )
+
+            doLast {
+                def manifestDir = new File(outputDirectory, "META-INF")
+                manifestDir.mkdirs()
+                new File(manifestDir, "${project.group}_${project.name}.version").write("${version}\n")
+            }
+        }
+
+        afterEvaluate {
+            def outputDirectory = project.file( "${project.buildDir}/generated/sources/generateVersionFile" )
+
+            def processResources = tasks.findByName("processResources")
+            if (processResources != null) {
+                processResources.dependsOn(generateVersionFile)
+
+                def sourceSets = extensions.getByType(SourceSetContainer)
+                def resources = sourceSets.findByName("main").resources
+                resources.srcDir(outputDirectory)
+            }
+
+            def isLibrary = plugins.hasPlugin("com.android.library")
+            if (isLibrary) {
+                def library = extensions.getByType(LibraryExtension)
+
+                def resources = library.sourceSets.findByName("main").resources
+                resources.srcDir(outputDirectory)
+
+                library.libraryVariants.all {
+                    processJavaResourcesProvider.get().dependsOn(generateVersionFile)
                 }
             }
         }

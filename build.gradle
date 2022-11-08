@@ -229,8 +229,6 @@ subprojects {
             if (processResources != null) {
                 processResources.dependsOn(generateVersionFile)
 
-                println("${project.name} adding $outputDirectory")
-
                 def sourceSets = extensions.getByType(SourceSetContainer)
                 def resources = sourceSets.findByName("main")?.resources
                 resources.srcDir(outputDirectory)
@@ -239,8 +237,6 @@ subprojects {
             def isLibrary = plugins.hasPlugin("com.android.library")
             if (isLibrary) {
                 def library = extensions.getByType(LibraryExtension)
-
-                println("${project.name} adding $outputDirectory")
 
                 def resources = library.sourceSets.findByName("main")?.resources
                 resources.srcDir(outputDirectory)

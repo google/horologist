@@ -230,7 +230,7 @@ subprojects {
                 processResources.dependsOn(generateVersionFile)
 
                 def sourceSets = extensions.getByType(SourceSetContainer)
-                def resources = sourceSets.findByName("main")?.resources
+                def resources = sourceSets.findByName("main").resources
                 resources.srcDir(outputDirectory)
             }
 
@@ -238,7 +238,7 @@ subprojects {
             if (isLibrary) {
                 def library = extensions.getByType(LibraryExtension)
 
-                def resources = library.sourceSets.findByName("main")?.resources
+                def resources = library.sourceSets.findByName("main").resources
                 resources.srcDir(outputDirectory)
 
                 library.libraryVariants.all {

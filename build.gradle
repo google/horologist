@@ -217,8 +217,9 @@ subprojects {
             def outputDirectory = project.file( "${project.buildDir}/generated/sources/generateVersionFile" )
 
             doLast {
-                outputDirectory.mkdirs()
-                new File(outputDirectory, "META-INF/${project.group}_${project.name}.version").write("${version}\n")
+                def manifestDir = new File(outputDirectory, "META-INF")
+                manifestDir.mkdirs()
+                new File(manifestDir, "${project.group}_${project.name}.version").write("${version}\n")
             }
         }
 

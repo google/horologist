@@ -21,6 +21,19 @@ $ ./gradlew spotlessApply spotlessCheck compileDebugSources compileReleaseSource
 
 Also make sure you have [Git LFS]([url](https://git-lfs.github.com/)) installed.
 
+If you change any code affecting screenshot tests, then run the following and check the failures in the `out` directory.
+
+```
+$ ./gradlew verifyPaparazziDebug
+```
+
+To record the new golden images, run the following and check in the specific files that failed. Paparazzi has some tolerance for minor changes,
+so not all diffs need be committed.
+
+```
+$ ./gradlew recordPaparazziDebug
+```
+
 ## Contributor License Agreement
 
 Contributions to this project must be accompanied by a Contributor License

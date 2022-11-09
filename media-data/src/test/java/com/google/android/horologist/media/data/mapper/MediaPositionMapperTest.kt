@@ -36,10 +36,21 @@ class MediaPositionMapperTest {
     }
 
     @Test
-    fun `check position calculations unknown duration`() {
+    fun `check position calculation unset results in unknown duration`() {
         fakeStatePlayer.overridePosition(
             currentPosition = 10L,
             duration = C.TIME_UNSET
+        )
+        val position =
+            MediaPositionMapper.map(fakeStatePlayer) as MediaPosition.UnknownDuration
+        assertThat(position.current).isEqualTo(10.milliseconds)
+    }
+
+    @Test
+    fun `check position calculation invalid results in unknown duration`() {
+        fakeStatePlayer.overridePosition(
+            currentPosition = 10L,
+            duration = -500L
         )
         val position =
             MediaPositionMapper.map(fakeStatePlayer) as MediaPosition.UnknownDuration

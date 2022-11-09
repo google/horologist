@@ -23,8 +23,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DeviceUnknown
+import androidx.compose.material.icons.filled.Headphones
 import androidx.compose.material.icons.filled.VolumeDown
+import androidx.compose.material.icons.filled.VolumeOff
 import androidx.compose.material.icons.filled.VolumeUp
+import androidx.compose.material.icons.filled.Watch
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -32,6 +36,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -40,8 +45,6 @@ import androidx.wear.compose.material.InlineSlider
 import androidx.wear.compose.material.Stepper
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.audio.ui.VolumeScreenDefaults.DecreaseIcon
-import com.google.android.horologist.audio.ui.VolumeScreenDefaults.IncreaseIcon
 import com.google.android.horologist.audio.ui.components.DeviceChip
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 
@@ -64,8 +67,8 @@ public fun VolumeScreen(
     volumeViewModel: VolumeViewModel = viewModel(factory = VolumeViewModel.Factory),
     showVolumeIndicator: Boolean = true,
     focusRequester: FocusRequester = remember { FocusRequester() },
-    increaseIcon: @Composable () -> Unit = { IncreaseIcon() },
-    decreaseIcon: @Composable () -> Unit = { DecreaseIcon() }
+    increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
+    decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() }
 ) {
     val volumeState by volumeViewModel.volumeState.collectAsState()
     val audioOutput by volumeViewModel.audioOutput.collectAsState()
@@ -93,12 +96,19 @@ public fun VolumeScreen(
     decreaseVolume: () -> Unit,
     onAudioOutputClick: () -> Unit,
     modifier: Modifier = Modifier,
-    increaseIcon: @Composable () -> Unit = { IncreaseIcon() },
-    decreaseIcon: @Composable () -> Unit = { DecreaseIcon() },
+    audioOutputIcon: ImageVector = VolumeScreenDefaults.audioOutputIcon(audioOutput),
+    isAudioOutputConnected: Boolean = audioOutput is AudioOutput.BluetoothHeadset,
+    increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
+    decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
     showVolumeIndicator: Boolean = true,
     focusRequester: FocusRequester = remember { FocusRequester() },
     onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)? = null
 ) {
+    val deviceName = if (audioOutput is AudioOutput.WatchSpeaker) {
+        stringResource(id = R.string.horologist_speaker_name)
+    } else {
+        audioOutput.name
+    }
     Box(
         modifier = modifier.fillMaxSize().run {
             onVolumeChangeByScroll?.let {
@@ -123,8 +133,9 @@ public fun VolumeScreen(
         ) {
             DeviceChip(
                 modifier = Modifier.padding(horizontal = 18.dp),
-                volumeState = volumeState,
-                audioOutput = audioOutput,
+                volumeDescription = volumeDescription(volumeState, isAudioOutputConnected),
+                deviceName = deviceName,
+                icon = audioOutputIcon,
                 onAudioOutputClick = onAudioOutputClick
             )
         }
@@ -156,5 +167,21 @@ public object VolumeScreenDefaults {
             imageVector = Icons.Default.VolumeDown,
             contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_down_content_description)
         )
+    }
+
+    public fun audioOutputIcon(audioOutput: AudioOutput): ImageVector = when (audioOutput) {
+        is AudioOutput.BluetoothHeadset -> Icons.Default.Headphones
+        is AudioOutput.WatchSpeaker -> Icons.Default.Watch
+        is AudioOutput.None -> Icons.Default.VolumeOff
+        else -> Icons.Default.DeviceUnknown
+    }
+}
+
+@Composable
+private fun volumeDescription(volumeState: VolumeState, isAudioOutputConnected: Boolean): String {
+    return if (isAudioOutputConnected) {
+        stringResource(id = R.string.horologist_volume_screen_connected_state, volumeState.current)
+    } else {
+        stringResource(id = R.string.horologist_volume_screen_not_connected_state)
     }
 }

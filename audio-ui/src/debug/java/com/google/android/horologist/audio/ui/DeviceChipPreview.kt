@@ -16,10 +16,10 @@
 
 package com.google.android.horologist.audio.ui
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Headphones
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
-import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.DeviceChip
 import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.compose.tools.WidthConstrainedBox
@@ -27,15 +27,14 @@ import com.google.android.horologist.compose.tools.WidthConstrainedBox
 @WearPreview
 @Composable
 fun DeviceChipPreview() {
-    val volume = VolumeState(10, 10)
-
     WidthConstrainedBox(
         widths = listOf(100.dp, 164.dp, 192.dp, 227.dp),
         comfortableHeight = 100.dp
     ) {
         DeviceChip(
-            volumeState = volume,
-            audioOutput = AudioOutput.BluetoothHeadset(id = "1", name = "Galaxy Watch 4"),
+            volumeDescription = "",
+            deviceName = "Bluetooth Headphones",
+            icon = Icons.Default.Headphones,
             onAudioOutputClick = {
             }
         )

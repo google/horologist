@@ -48,7 +48,7 @@ public sealed class MediaPosition(
                 "Duration has to be greater than zero [current: $current] [duration: $duration]."
             }
             check(current <= duration) {
-                "Current position has to be greater than duration [current: $current] [duration: $duration]."
+                "Duration can't be less than current position [current: $current] [duration: $duration]."
             }
 
             val percent =

@@ -51,7 +51,6 @@ public fun PlaylistDownloadBrowseScreen(
     onDownloadItemInProgressClick: (PlaylistDownloadUiModel) -> Unit,
     onPlaylistsClick: () -> Unit,
     onSettingsClick: () -> Unit,
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     downloadItemArtworkPlaceholder: Painter? = null,
@@ -60,7 +59,6 @@ public fun PlaylistDownloadBrowseScreen(
     onDownloadItemInProgressClickActionLabel: String? = null
 ) {
     BrowseScreen(
-        focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
         modifier = modifier,
         scalingParams = scalingParams,

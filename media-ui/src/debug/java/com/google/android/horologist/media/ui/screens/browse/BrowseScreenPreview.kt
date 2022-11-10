@@ -77,7 +77,6 @@ private fun BrowseScreenPreviewSample(
     downloadsSectionState: Section.State<Pair<String, String>>
 ) {
     BrowseScreen(
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     ) {
         button(

@@ -56,7 +56,6 @@ public fun PlaylistStreamingScreen(
     playlistDownloadScreenState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
     onShuffleButtonClick: () -> Unit,
     onPlayButtonClick: () -> Unit,
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     onPlayItemClick: (DownloadMediaUiModel) -> Unit,
     modifier: Modifier = Modifier,
@@ -88,7 +87,6 @@ public fun PlaylistStreamingScreen(
                 chipType = StandardChipType.Secondary
             )
         },
-        focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
         modifier = modifier,
         scalingParams = scalingParams,

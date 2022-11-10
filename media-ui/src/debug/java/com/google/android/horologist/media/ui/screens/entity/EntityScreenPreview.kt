@@ -75,7 +75,6 @@ fun EntityScreenPreview() {
                 Text("Playlist name")
             }
         },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         buttonsContent = {
             Row(
@@ -118,7 +117,6 @@ fun EntityScreenPreviewLoadedState() {
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { },
         mediaContent = { song -> StandardChip(label = song, onClick = { }) },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         buttonsContent = { ButtonContentForStatePreview() }
     )
@@ -132,7 +130,6 @@ fun EntityScreenPreviewLoadingState() {
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },
         mediaContent = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         buttonsContent = { ButtonContentForStatePreview() }
     )
@@ -146,7 +143,6 @@ fun EntityScreenPreviewFailedState() {
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { },
         mediaContent = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         buttonsContent = { ButtonContentForStatePreview() },
         failedContent = {

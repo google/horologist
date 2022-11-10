@@ -32,7 +32,6 @@ fun UampStreamingPlaylistScreen(
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
     onShuffleClick: (PlaylistUiModel?) -> Unit,
     onPlayClick: (PlaylistUiModel?) -> Unit,
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState
 ) {
     val uiState by StateUtils.rememberStateWithLifecycle(flow = viewModel.uiState)
@@ -52,7 +51,6 @@ fun UampStreamingPlaylistScreen(
             viewModel.play(it.id)
             onDownloadItemClick(it)
         },
-        focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState
     )
 }

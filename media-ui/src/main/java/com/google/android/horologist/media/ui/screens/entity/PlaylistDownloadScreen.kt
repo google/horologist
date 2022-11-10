@@ -88,7 +88,6 @@ public fun PlaylistDownloadScreen(
     onDownloadItemInProgressClick: (DownloadMediaUiModel) -> Unit,
     onShuffleButtonClick: (PlaylistUiModel) -> Unit,
     onPlayButtonClick: (PlaylistUiModel) -> Unit,
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
@@ -122,7 +121,6 @@ public fun PlaylistDownloadScreen(
                 onDownloadItemInProgressClickActionLabel = onDownloadItemInProgressClickActionLabel
             )
         },
-        focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
         modifier = modifier,
         scalingParams = scalingParams,

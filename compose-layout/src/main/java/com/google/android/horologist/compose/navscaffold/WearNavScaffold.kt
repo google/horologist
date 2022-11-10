@@ -211,8 +211,6 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
         val scrollState = viewModel.initializeScalingLazyListState(scrollStateBuilder)
 
         content(ScaffoldContext(it, scrollState, viewModel))
-
-        it.ResumeAsNeeded(viewModel)
     }
 }
 
@@ -234,8 +232,6 @@ public fun NavGraphBuilder.scrollStateComposable(
         val scrollState = viewModel.initializeScrollState(scrollStateBuilder)
 
         content(ScaffoldContext(it, scrollState, viewModel))
-
-        it.ResumeAsNeeded(viewModel)
     }
 }
 
@@ -257,8 +253,6 @@ public fun NavGraphBuilder.lazyListComposable(
         val scrollState = viewModel.initializeLazyList(lazyListStateBuilder)
 
         content(ScaffoldContext(it, scrollState, viewModel))
-
-        it.ResumeAsNeeded(viewModel)
     }
 }
 
@@ -277,22 +271,5 @@ public fun NavGraphBuilder.wearNavComposable(
         val viewModel: NavScaffoldViewModel = viewModel()
 
         content(it, viewModel)
-
-        it.ResumeAsNeeded(viewModel)
-    }
-}
-
-@ExperimentalHorologistComposeLayoutApi
-@Composable
-private fun NavBackStackEntry.ResumeAsNeeded(
-    viewModel: NavScaffoldViewModel
-) {
-    // Wire up to NavBackStackEntry lifecycle
-    // events to make sure this composable handles
-    // events like scrolling.
-    LaunchedEffect(Unit) {
-        this@ResumeAsNeeded.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
-            viewModel.resumed()
-        }
     }
 }

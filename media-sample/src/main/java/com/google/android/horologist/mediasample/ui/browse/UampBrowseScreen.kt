@@ -33,7 +33,6 @@ fun UampBrowseScreen(
     onDownloadItemClick: (PlaylistDownloadUiModel) -> Unit,
     onPlaylistsClick: () -> Unit,
     onSettingsClick: () -> Unit,
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier
 ) {
@@ -47,7 +46,6 @@ fun UampBrowseScreen(
         },
         onPlaylistsClick = onPlaylistsClick,
         onSettingsClick = onSettingsClick,
-        focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
         modifier = modifier,
         onDownloadItemInProgressClickActionLabel = stringResource(id = R.string.browse_download_cancel_action_label)

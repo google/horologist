@@ -42,7 +42,6 @@ fun PlaylistDownloadScreenPreviewLoading() {
         onDownloadItemInProgressClick = { },
         onShuffleButtonClick = { },
         onPlayButtonClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     )
 }
@@ -62,7 +61,6 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloaded() {
         onDownloadItemInProgressClick = { },
         onShuffleButtonClick = { },
         onPlayButtonClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
@@ -86,7 +84,6 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
         onDownloadItemInProgressClick = { },
         onShuffleButtonClick = { },
         onPlayButtonClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
@@ -110,7 +107,6 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloaded() {
         onDownloadItemInProgressClick = { },
         onShuffleButtonClick = { },
         onPlayButtonClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
@@ -134,7 +130,6 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize
         onDownloadItemInProgressClick = { },
         onShuffleButtonClick = { },
         onPlayButtonClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
@@ -158,7 +153,6 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting() {
         onDownloadItemInProgressClick = { },
         onShuffleButtonClick = { },
         onPlayButtonClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
@@ -182,7 +176,6 @@ fun PlaylistDownloadScreenPreviewLoadedFullyDownloaded() {
         onDownloadItemInProgressClick = { },
         onShuffleButtonClick = { },
         onPlayButtonClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
@@ -203,7 +196,6 @@ fun PlaylistDownloadScreenPreviewFailed() {
         onDownloadItemInProgressClick = { },
         onShuffleButtonClick = { },
         onPlayButtonClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     )
 }

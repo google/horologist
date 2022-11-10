@@ -40,6 +40,7 @@ import com.google.android.horologist.composables.ExperimentalHorologistComposabl
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionContentScope
 import com.google.android.horologist.composables.SectionedList
+import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
@@ -58,13 +59,14 @@ import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiMode
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun BrowseScreen(
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
     autoCentering: AutoCenteringParams? = AutoCenteringParams(),
     content: BrowseScreenScope.() -> Unit
 ) {
+    val focusRequester = rememberActiveFocusRequester()
+
     SectionedList(
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,

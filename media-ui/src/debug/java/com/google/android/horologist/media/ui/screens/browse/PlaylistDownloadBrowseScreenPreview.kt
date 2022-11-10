@@ -40,7 +40,6 @@ fun PlaylistDownloadBrowseScreenPreview() {
         onDownloadItemInProgressClick = { },
         onPlaylistsClick = { },
         onSettingsClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.FeaturedPlayList,
@@ -58,7 +57,6 @@ fun PlaylistDownloadBrowseScreenPreviewNoDownloads() {
         onDownloadItemInProgressClick = { },
         onPlaylistsClick = { },
         onSettingsClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     )
 }
@@ -72,7 +70,6 @@ fun PlaylistDownloadBrowseScreenPreviewLoading() {
         onDownloadItemInProgressClick = { },
         onPlaylistsClick = { },
         onSettingsClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     )
 }
@@ -87,7 +84,6 @@ fun PlaylistDownloadBrowseScreenPreviewUampTheme() {
             onDownloadItemInProgressClick = { },
             onPlaylistsClick = { },
             onSettingsClick = { },
-            focusRequester = FocusRequester(),
             scalingLazyListState = rememberScalingLazyListState(),
             downloadItemArtworkPlaceholder = rememberVectorPainter(
                 image = Icons.Default.FeaturedPlayList,

@@ -149,7 +149,7 @@ public fun MediaPlayerScaffold(
         ) { _, viewModel ->
             viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
 
-            volumeScreen(viewModel.focusRequester)
+            volumeScreen()
         }
 
         scalingLazyColumnComposable(
@@ -158,7 +158,7 @@ public fun MediaPlayerScaffold(
             deepLinks = NavigationScreens.MediaItem.deepLinks(deepLinkPrefix),
             scrollStateBuilder = { ScalingLazyListState() }
         ) {
-            mediaEntityScreen(it.viewModel.focusRequester, it.scrollableState)
+            mediaEntityScreen(it.scrollableState)
         }
 
         scalingLazyColumnComposable(
@@ -176,7 +176,6 @@ public fun MediaPlayerScaffold(
             categoryEntityScreen(
                 id,
                 name,
-                scaffoldContext.viewModel.focusRequester,
                 scaffoldContext.scrollableState
             )
         }

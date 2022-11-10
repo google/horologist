@@ -91,12 +91,11 @@ fun UampWearApp(
                     }
                 )
             },
-            libraryScreen = { focusRequester, scalingLazyListState ->
+            libraryScreen = { scalingLazyListState ->
                 if (appState.streamingMode == true) {
                     UampStreamingBrowseScreen(
                         onPlaylistsClick = { navController.navigateToCollections() },
                         onSettingsClick = { navController.navigateToSettings() },
-                        focusRequester = focusRequester,
                         scalingLazyListState = scalingLazyListState
                     )
                 } else {
@@ -110,12 +109,11 @@ fun UampWearApp(
                         },
                         onPlaylistsClick = { navController.navigateToCollections() },
                         onSettingsClick = { navController.navigateToSettings() },
-                        focusRequester = focusRequester,
                         scalingLazyListState = scalingLazyListState
                     )
                 }
             },
-            categoryEntityScreen = { _, name, focusRequester, scalingLazyListState ->
+            categoryEntityScreen = { _, name, scalingLazyListState ->
                 if (appState.streamingMode == true) {
                     val viewModel: UampStreamingPlaylistScreenViewModel = hiltViewModel()
 
@@ -127,7 +125,6 @@ fun UampWearApp(
                         },
                         onShuffleClick = { navController.navigateToPlayer() },
                         onPlayClick = { navController.navigateToPlayer() },
-                        focusRequester = focusRequester,
                         scalingLazyListState = scalingLazyListState
                     )
                 } else {
@@ -142,17 +139,16 @@ fun UampWearApp(
                         onShuffleClick = { navController.navigateToPlayer() },
                         onPlayClick = { navController.navigateToPlayer() },
                         onErrorDialogCancelClick = { navController.popBackStack() },
-                        focusRequester = focusRequester,
                         scalingLazyListState = scalingLazyListState
                     )
                 }
             },
-            mediaEntityScreen = { _, _ ->
+            mediaEntityScreen = { _ ->
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Text("Media XXX")
                 }
             },
-            playlistsScreen = { focusRequester, scalingLazyListState ->
+            playlistsScreen = { scalingLazyListState ->
                 val uampPlaylistsScreenViewModel: UampPlaylistsScreenViewModel =
                     hiltViewModel()
 
@@ -165,13 +161,11 @@ fun UampWearApp(
                         )
                     },
                     onErrorDialogCancelClick = { navController.popBackStack() },
-                    focusRequester = focusRequester,
                     scalingLazyListState = scalingLazyListState
                 )
             },
-            settingsScreen = { focusRequester, state ->
+            settingsScreen = { state ->
                 UampSettingsScreen(
-                    focusRequester = focusRequester,
                     state = state,
                     settingsScreenViewModel = hiltViewModel(),
                     navController = navController
@@ -192,7 +186,6 @@ fun UampWearApp(
                     scrollStateBuilder = { ScalingLazyListState() }
                 ) {
                     AudioDebugScreen(
-                        focusRequester = it.viewModel.focusRequester,
                         state = it.scrollableState,
                         audioDebugScreenViewModel = hiltViewModel()
                     )
@@ -205,7 +198,6 @@ fun UampWearApp(
                     scrollStateBuilder = { ScalingLazyListState() }
                 ) {
                     SamplesScreen(
-                        focusRequester = it.viewModel.focusRequester,
                         state = it.scrollableState,
                         samplesScreenViewModel = hiltViewModel(),
                         navController = navController
@@ -219,7 +211,6 @@ fun UampWearApp(
                     scrollStateBuilder = { ScalingLazyListState() }
                 ) {
                     DeveloperOptionsScreen(
-                        focusRequester = it.viewModel.focusRequester,
                         state = it.scrollableState,
                         developerOptionsScreenViewModel = hiltViewModel(),
                         navController = navController

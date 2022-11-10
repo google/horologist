@@ -54,7 +54,6 @@ fun PlaylistsScreenPreview() {
             }
         ),
         onPlaylistItemClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         playlistItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.FeaturedPlayList,
@@ -69,7 +68,6 @@ fun PlaylistsScreenPreviewLoading() {
     PlaylistsScreen(
         playlistsScreenState = PlaylistsScreenState.Loading(),
         onPlaylistItemClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     )
 }
@@ -80,7 +78,6 @@ fun PlaylistsScreenPreviewFailed() {
     PlaylistsScreen(
         playlistsScreenState = PlaylistsScreenState.Failed(),
         onPlaylistItemClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     )
 }
@@ -101,7 +98,6 @@ fun PlaylistsScreenPreviewCustomLayout() {
                 chipType = StandardChipType.Primary
             )
         },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     )
 }

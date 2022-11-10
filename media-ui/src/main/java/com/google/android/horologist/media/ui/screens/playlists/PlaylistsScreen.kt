@@ -35,6 +35,7 @@ import com.google.android.horologist.composables.ExperimentalHorologistComposabl
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
+import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -44,14 +45,12 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 public fun <T> PlaylistsScreen(
     playlists: List<T>,
     playlistContent: @Composable (playlist: T) -> Unit,
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier
 ) {
     PlaylistsScreen(
         playlistsScreenState = PlaylistsScreenState.Loaded(playlists),
         playlistContent = playlistContent,
-        focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
         modifier = modifier
     )
@@ -62,11 +61,11 @@ public fun <T> PlaylistsScreen(
 public fun <T> PlaylistsScreen(
     playlistsScreenState: PlaylistsScreenState<T>,
     playlistContent: @Composable (playlist: T) -> Unit,
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     autoCentering: AutoCenteringParams? = AutoCenteringParams()
 ) {
+    val focusRequester = rememberActiveFocusRequester()
     SectionedList(
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
@@ -106,7 +105,6 @@ public fun <T> PlaylistsScreen(
 public fun PlaylistsScreen(
     playlistsScreenState: PlaylistsScreenState<PlaylistUiModel>,
     onPlaylistItemClick: (PlaylistUiModel) -> Unit,
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     autoCentering: AutoCenteringParams? = AutoCenteringParams(),
@@ -126,7 +124,6 @@ public fun PlaylistsScreen(
     PlaylistsScreen(
         playlistsScreenState = playlistsScreenState,
         playlistContent = playlistContent,
-        focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
         modifier = modifier,
         autoCentering = autoCentering

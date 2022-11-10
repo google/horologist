@@ -32,12 +32,10 @@ import com.google.android.horologist.mediasample.R
 fun UampStreamingBrowseScreen(
     onPlaylistsClick: () -> Unit,
     onSettingsClick: () -> Unit,
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier
 ) {
     BrowseScreen(
-        focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
         modifier = modifier
     ) {

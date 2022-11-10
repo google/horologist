@@ -1,5 +1,6 @@
 name: Macrobenchmark
 
+# Temporarily run on PR until working, then move to daily.
 on:
   push:
     branches:

@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.sample
 
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -51,7 +50,7 @@ fun MenuScreen(
 ) {
     ScalingLazyColumn(
         modifier = modifier
-            .rotaryWithFling(focusRequester, scalingLazyListState),
+            .rotaryWithFling(focusRequester, scrollState),
         horizontalAlignment = Alignment.CenterHorizontally,
         state = scrollState
     ) {

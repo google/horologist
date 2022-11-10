@@ -14,22 +14,6 @@
  * limitations under the License.
  */
 
-/*
- * Copyright 2022 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.google.android.horologist.compose.rotaryinput
 
 import android.view.ViewConfiguration
@@ -95,7 +79,7 @@ public fun Modifier.rotaryWithFling(
     focusRequester: FocusRequester,
     scrollableState: ScrollableState,
     flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
-    rotaryHaptics: RotaryHapticFeedback = rememberRotaryHapticFeedback(),
+    rotaryHaptics: RotaryHapticFeedback = rememberRotaryHapticFeedback()
 ): Modifier = rotaryHandler(
     rotaryScrollHandler = RotaryDefaults.rememberFlingHandler(scrollableState, flingBehavior),
     rotaryHaptics = rotaryHaptics
@@ -123,7 +107,7 @@ public fun Modifier.rotaryWithFling(
 public fun Modifier.rotaryWithScroll(
     focusRequester: FocusRequester,
     scrollableState: ScrollableState,
-    rotaryHaptics: RotaryHapticFeedback = rememberRotaryHapticFeedback(),
+    rotaryHaptics: RotaryHapticFeedback = rememberRotaryHapticFeedback()
 ): Modifier = rotaryHandler(
     rotaryScrollHandler = RotaryDefaults.rememberFlingHandler(scrollableState, null),
     rotaryHaptics = rotaryHaptics
@@ -139,22 +123,22 @@ public interface RotaryScrollAdapter {
     /**
      * A scrollable state. Used for performing scroll when Rotary events received
      */
-    val scrollableState: ScrollableState
+    public val scrollableState: ScrollableState
 
     /**
      * Average size of an item. Used for estimating the scrollable distance
      */
-    fun averageItemSize(): Float
+    public fun averageItemSize(): Float
 
     /**
      * A current item index. Used for scrolling
      */
-    fun currentItemIndex(): Int
+    public fun currentItemIndex(): Int
 
     /**
      * An offset from the centre or the border of the current item.
      */
-    fun currentItemOffset(): Float
+    public fun currentItemOffset(): Float
 }
 
 /**
@@ -172,7 +156,7 @@ public object RotaryDefaults {
     public fun rememberFlingHandler(
         scrollableState: ScrollableState,
         flingBehavior: FlingBehavior? = null,
-        isLowRes: Boolean = isLowResInput(),
+        isLowRes: Boolean = isLowResInput()
     ): RotaryScrollHandler {
         val viewConfiguration = ViewConfiguration.get(LocalContext.current)
 
@@ -216,10 +200,10 @@ public interface RotaryScrollHandler {
      * @param event A scrollable event from rotary input, containing scrollable delta and timestamp
      * @param rotaryHaptics
      */
-    suspend fun handleScrollEvent(
+    public suspend fun handleScrollEvent(
         coroutineScope: CoroutineScope,
         event: TimestampedDelta,
-        rotaryHaptics: RotaryHapticFeedback,
+        rotaryHaptics: RotaryHapticFeedback
     )
 }
 
@@ -230,9 +214,9 @@ public interface RotaryScrollBehavior {
     /**
      * Handles scroll event with [pixelsToScroll] and [timestamp]
      */
-    suspend fun handleEvent(
+    public suspend fun handleEvent(
         pixelsToScroll: Float,
-        timestamp: Long,
+        timestamp: Long
     )
 }
 
@@ -240,27 +224,27 @@ public interface RotaryScrollBehavior {
  * Default implementation of [RotaryFlingBehavior]
  */
 public class DefaultRotaryFlingBehavior(
-    val scrollableState: ScrollableState,
-    val flingBehavior: FlingBehavior,
-    viewConfiguration: ViewConfiguration,
+    private val scrollableState: ScrollableState,
+    private val flingBehavior: FlingBehavior,
+    viewConfiguration: ViewConfiguration
 ) : RotaryFlingBehavior {
 
-    val rangeToFling = 100L
-    val lastEventFlingDelay = 60L
+    private val rangeToFling = 100L
+    private val lastEventFlingDelay = 60L
 
     //  Constant which was taken from SysUi fling CL https://critique.corp.google.com/cl/462558138
-    val flingScaleFactor = 0.7f
+    private val flingScaleFactor = 0.7f
 
-    var previousVelocity = 0f
+    private var previousVelocity = 0f
 
-    val rotaryVelocityTracker = RotaryVelocityTracker()
+    private val rotaryVelocityTracker = RotaryVelocityTracker()
 
-    val minFlingSpeed = viewConfiguration.scaledMinimumFlingVelocity.toFloat()
-    val maxFlingSpeed = viewConfiguration.scaledMaximumFlingVelocity.toFloat()
-    var latestEventTimestamp: Long = 0
+    private val minFlingSpeed = viewConfiguration.scaledMinimumFlingVelocity.toFloat()
+    private val maxFlingSpeed = viewConfiguration.scaledMaximumFlingVelocity.toFloat()
+    private var latestEventTimestamp: Long = 0
 
-    var flingVelocity: Float = 0f
-    var flingTimestamp: Long = 0
+    private var flingVelocity: Float = 0f
+    private var flingTimestamp: Long = 0
 
     override fun startFlingTracking(timestamp: Long) {
         rotaryVelocityTracker.start(timestamp)
@@ -292,18 +276,18 @@ public class DefaultRotaryFlingBehavior(
         // and the time of last motion event
         // 2) flingVelocity should exceed the minFlingSpeed
         debugLog {
-            "Check fling:  flingVelocity: ${flingVelocity} " +
+            "Check fling:  flingVelocity: $flingVelocity " +
                 "minFlingSpeed: $minFlingSpeed, maxFlingSpeed: $maxFlingSpeed"
         }
         if (latestEventTimestamp - flingTimestamp < rangeToFling &&
             abs(flingVelocity) > minFlingSpeed
         ) {
-            //Stops scrollAnimationCoroutine because a fling will be performed
+            // Stops scrollAnimationCoroutine because a fling will be performed
             beforeFling()
             val velocity = flingVelocity.coerceIn(-maxFlingSpeed, maxFlingSpeed)
             scrollableState.scroll(MutatePriority.UserInput) {
                 with(flingBehavior) {
-                    debugLog { "Flinging with velocity ${velocity}" }
+                    debugLog { "Flinging with velocity $velocity" }
                     performFling(velocity)
                 }
             }
@@ -319,50 +303,50 @@ public interface RotaryFlingBehavior {
     /**
      * Observing new event within a fling tracking session with new timestamp and delta
      */
-    fun observeEvent(timestamp: Long, delta: Float)
+    public fun observeEvent(timestamp: Long, delta: Float)
 
     /**
      * Performing fling if necessary and calling [beforeFling] lambda before it is triggered
      */
-    suspend fun trackFling(beforeFling: () -> Unit)
+    public suspend fun trackFling(beforeFling: () -> Unit)
 
     /**
      * Starts a new fling tracking session
      * with specified timestamp
      */
-    fun startFlingTracking(timestamp: Long)
+    public fun startFlingTracking(timestamp: Long)
 }
 
 /**
  * A rotary event object which contains a [timestamp] of the rotary event and a scrolled [delta].
  */
-data class TimestampedDelta(val timestamp: Long, val delta: Float)
+public data class TimestampedDelta(val timestamp: Long, val delta: Float)
 
 /** Animation implementation of ScrollBehaviour.
  * This class does a smooth animation when the scroll by N pixels is done.
  * This animation works well on Rsb(high-res) and Bezel(low-res) devices.
  */
 public class AnimationScrollBehavior(
-    val scrollableState: ScrollableState,
+    private val scrollableState: ScrollableState
 ) : RotaryScrollBehavior {
-    var rotaryScrollDistance = 0f
+    private var rotaryScrollDistance = 0f
 
-    var sequentialAnimation = false
-    var scrollAnimation = AnimationState(0f)
-    var prevPosition = 0f
-    var previousScrollEventTime = 0L
+    private var sequentialAnimation = false
+    private var scrollAnimation = AnimationState(0f)
+    private var prevPosition = 0f
+    private var previousScrollEventTime = 0L
 
     override suspend fun handleEvent(
         pixelsToScroll: Float,
-        timestamp: Long,
+        timestamp: Long
     ) {
         rotaryScrollDistance += pixelsToScroll
-        debugLog { "Rotary scroll distance ${rotaryScrollDistance}" }
+        debugLog { "Rotary scroll distance $rotaryScrollDistance" }
 
         previousScrollEventTime = timestamp
         scrollableState.scroll(MutatePriority.UserInput) {
             debugLog {
-                "Rotary scroll distance ${rotaryScrollDistance}, " +
+                "Rotary scroll distance $rotaryScrollDistance, " +
                     "ScrollAnimation value before start: ${scrollAnimation.value}"
             }
 
@@ -372,7 +356,7 @@ public class AnimationScrollBehavior(
                 sequentialAnimation = sequentialAnimation
             ) {
                 val delta = value - prevPosition
-                debugLog { "Animated by $delta, value: ${value}" }
+                debugLog { "Animated by $delta, value: $value" }
                 scrollBy(delta)
                 prevPosition = value
                 sequentialAnimation = value != this.targetValue
@@ -390,7 +374,7 @@ public class AnimationScrollBehavior(
 public fun Modifier.rotaryHandler(
     rotaryScrollHandler: RotaryScrollHandler,
     batchTimeframe: Long = 0L,
-    rotaryHaptics: RotaryHapticFeedback,
+    rotaryHaptics: RotaryHapticFeedback
 ): Modifier = composed {
     val channel = rememberTimestampChannel()
     val eventsFlow = remember(channel) { channel.receiveAsFlow() }
@@ -398,7 +382,7 @@ public fun Modifier.rotaryHandler(
     composed {
         LaunchedEffect(eventsFlow) {
             eventsFlow
-                //TODO: batching causes additional delays.
+                // TODO: batching causes additional delays.
                 // Do we really need to do this on this level?
                 .batchRequestsWithinTimeframe(batchTimeframe)
                 .collectLatest {
@@ -426,9 +410,9 @@ public fun Modifier.rotaryHandler(
 public fun Flow<TimestampedDelta>.batchRequestsWithinTimeframe(timeframe: Long): Flow<TimestampedDelta> {
     var delta = 0f
     var lastTimestamp = -timeframe
-    return if (timeframe == 0L)
+    return if (timeframe == 0L) {
         this
-    else
+    } else {
         this.transformLatest {
             delta += it.delta
             debugLog { "Batching requests. delta:$delta" }
@@ -445,6 +429,7 @@ public fun Flow<TimestampedDelta>.batchRequestsWithinTimeframe(timeframe: Long):
             }
             delta = 0f
         }
+    }
 }
 
 /**
@@ -459,7 +444,7 @@ public fun Flow<TimestampedDelta>.batchRequestsWithinTimeframe(timeframe: Long):
  */
 internal class HighResRotaryScrollHandler(
     val rotaryFlingBehaviorFactory: () -> RotaryFlingBehavior?,
-    val scrollBehaviourFactory: () -> RotaryScrollBehavior,
+    val scrollBehaviourFactory: () -> RotaryScrollBehavior
 ) : RotaryScrollHandler {
 
     // This constant is specific for high-res devices. Because that input values
@@ -481,7 +466,7 @@ internal class HighResRotaryScrollHandler(
     override suspend fun handleScrollEvent(
         coroutineScope: CoroutineScope,
         event: TimestampedDelta,
-        rotaryHaptics: RotaryHapticFeedback,
+        rotaryHaptics: RotaryHapticFeedback
     ) {
         val time = event.timestamp
 
@@ -517,7 +502,8 @@ internal class HighResRotaryScrollHandler(
                     debugLog { "Calling before fling section" }
                     scrollJob.cancel()
                     scrollBehaviour = scrollBehaviourFactory()
-                })
+                }
+            )
         }
     }
 
@@ -553,7 +539,7 @@ internal class HighResRotaryScrollHandler(
  */
 internal class LowResRotaryScrollHandler(
     val rotaryFlingBehaviorFactory: () -> RotaryFlingBehavior?,
-    val scrollBehaviourFactory: () -> RotaryScrollBehavior,
+    val scrollBehaviourFactory: () -> RotaryScrollBehavior
 ) : RotaryScrollHandler {
 
     val gestureThresholdTime = 200L
@@ -568,7 +554,7 @@ internal class LowResRotaryScrollHandler(
     override suspend fun handleScrollEvent(
         coroutineScope: CoroutineScope,
         event: TimestampedDelta,
-        rotaryHaptics: RotaryHapticFeedback,
+        rotaryHaptics: RotaryHapticFeedback
     ) {
         scrollJob.cancel()
 

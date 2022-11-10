@@ -14,22 +14,6 @@
  * limitations under the License.
  */
 
-/*
- * Copyright 2022 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.google.android.horologist.compose.rotaryinput
 
 import android.view.HapticFeedbackConstants
@@ -79,19 +63,19 @@ public fun <T> Flow<T>.throttleLatest(timeframe: Long): Flow<T> =
 /**
  * Interface for Rotary haptic feedback
  */
-interface RotaryHapticFeedback {
-    fun performHapticFeedback(type: RotaryHapticsType)
+public interface RotaryHapticFeedback {
+    public fun performHapticFeedback(type: RotaryHapticsType)
 }
 
 /**
  * Rotary haptic types
  */
 @JvmInline
-value class RotaryHapticsType(val type: Int) {
-    companion object {
-        val ScrollTick = RotaryHapticsType(1)
-        val ScrollItemFocus = RotaryHapticsType(2)
-        val ScrollLimit = RotaryHapticsType(3)
+public value class RotaryHapticsType(private val type: Int) {
+    public companion object {
+        public val ScrollTick: RotaryHapticsType = RotaryHapticsType(1)
+        public val ScrollItemFocus: RotaryHapticsType = RotaryHapticsType(2)
+        public val ScrollLimit: RotaryHapticsType = RotaryHapticsType(3)
     }
 }
 
@@ -99,10 +83,10 @@ value class RotaryHapticsType(val type: Int) {
  * Remember rotary haptic feedback.
  */
 @Composable
-fun rememberRotaryHapticFeedback(
+public fun rememberRotaryHapticFeedback(
     throttleThresholdMs: Long = 40,
     hapticsChannel: Channel<RotaryHapticsType> = rememberHapticChannel(),
-    rotaryHaptics: RotaryHapticFeedback = rememberDefaultRotaryHapticFeedback(),
+    rotaryHaptics: RotaryHapticFeedback = rememberDefaultRotaryHapticFeedback()
 ): RotaryHapticFeedback {
     return remember(throttleThresholdMs, hapticsChannel, rotaryHaptics) {
         object : RotaryHapticFeedback {
@@ -141,35 +125,36 @@ private fun rememberHapticChannel() =
     }
 
 @Composable
-fun rememberDefaultRotaryHapticFeedback() =
+public fun rememberDefaultRotaryHapticFeedback(): RotaryHapticFeedback =
     LocalView.current.let { view -> remember { DefaultRotaryHapticFeedback(view) } }
 
 /**
  * Default Rotary implementation for [RotaryHapticFeedback]
  */
-class DefaultRotaryHapticFeedback(private val view: View) : RotaryHapticFeedback {
+public class DefaultRotaryHapticFeedback(private val view: View) : RotaryHapticFeedback {
 
     override fun performHapticFeedback(
-        hapticType: RotaryHapticsType,
+        type: RotaryHapticsType
     ) {
-
-        when (hapticType) {
+        when (type) {
             RotaryHapticsType.ScrollItemFocus -> {
                 view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
             }
+
             RotaryHapticsType.ScrollTick -> {
                 view.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK)
             }
+
             RotaryHapticsType.ScrollLimit -> {
                 view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
             }
         }
     }
 
-    companion object {
+    public companion object {
         // Hidden constants from HapticFeedbackConstants.java
-        const val ROTARY_SCROLL_TICK = 18
-        const val ROTARY_SCROLL_ITEM_FOCUS = 19
-        const val ROTARY_SCROLL_LIMIT = 20
+        public const val ROTARY_SCROLL_TICK: Int = 18
+        public const val ROTARY_SCROLL_ITEM_FOCUS: Int = 19
+        public const val ROTARY_SCROLL_LIMIT: Int = 20
     }
 }

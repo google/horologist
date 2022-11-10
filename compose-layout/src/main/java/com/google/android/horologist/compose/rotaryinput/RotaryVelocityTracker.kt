@@ -22,8 +22,8 @@ import androidx.compose.ui.input.pointer.util.VelocityTracker
 /**
  * Intercepts VelocityTracker to provide support for rotary input.
  */
-class RotaryVelocityTracker {
-    //TODO(b/32830165): Current implementation of VelocityTracker resets the speed after 40ms
+public class RotaryVelocityTracker {
+    // TODO(b/32830165): Current implementation of VelocityTracker resets the speed after 40ms
     // if no motion events received. This threshold can't be changed.
     // The solution will be to use updated impulse-based velocityTracker from Android
     // or write similar in compose.
@@ -33,13 +33,13 @@ class RotaryVelocityTracker {
     /**
      * Retrieve the last computed Y velocity.
      */
-    val velocity: Float
+    public val velocity: Float
         get() = velocityTracker.calculateVelocity().y
 
     /**
      * Start tracking motion.
      */
-    fun start(currentTime: Long) {
+    public fun start(currentTime: Long) {
         velocityTracker.resetTracking()
         position = 0f
         velocityTracker.addPosition(currentTime, Offset(0f, position))
@@ -48,7 +48,7 @@ class RotaryVelocityTracker {
     /**
      * Continue tracking motion as the input rotates.
      */
-    fun move(currentTime: Long, delta: Float) {
+    public fun move(currentTime: Long, delta: Float) {
         position += delta
         velocityTracker.addPosition(currentTime, Offset(0f, position))
     }
@@ -56,7 +56,7 @@ class RotaryVelocityTracker {
     /**
      * Stop tracking motion.
      */
-    fun end() {
+    public fun end() {
         velocityTracker.resetTracking()
     }
 }

@@ -37,8 +37,8 @@ import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberScalingLazyListState
-import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.compose.pager.FocusOnResume
+import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import java.time.LocalDateTime
 
 @Composable
@@ -51,9 +51,7 @@ fun MenuScreen(
 ) {
     ScalingLazyColumn(
         modifier = modifier
-            .scrollableColumn(focusRequester, scrollState)
-            .focusRequester(focusRequester)
-            .focusable(),
+            .rotaryWithFling(focusRequester, scalingLazyListState),
         horizontalAlignment = Alignment.CenterHorizontally,
         state = scrollState
     ) {

@@ -16,12 +16,12 @@
 
 package com.google.android.horologist.audio.ui.components
 
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
@@ -29,8 +29,6 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.Icon
-import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.audio.ui.R
 
@@ -38,7 +36,7 @@ import com.google.android.horologist.audio.ui.R
 public fun DeviceChip(
     volumeDescription: String,
     deviceName: String,
-    icon: ImageVector,
+    icon: @Composable BoxScope.() -> Unit,
     onAudioOutputClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -59,13 +57,7 @@ public fun DeviceChip(
                 overflow = TextOverflow.Ellipsis
             )
         },
-        icon = {
-            Icon(
-                imageVector = icon,
-                contentDescription = deviceName,
-                tint = MaterialTheme.colors.onSurfaceVariant
-            )
-        },
+        icon = icon,
         onClick = onAudioOutputClick,
         // Device chip uses secondary colors (surface/onSurface)
         colors = ChipDefaults.secondaryChipColors()

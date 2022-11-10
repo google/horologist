@@ -20,6 +20,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Headphones
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.ui.components.DeviceChip
 import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.compose.tools.WidthConstrainedBox
@@ -34,7 +36,13 @@ fun DeviceChipPreview() {
         DeviceChip(
             volumeDescription = "",
             deviceName = "Bluetooth Headphones",
-            icon = Icons.Default.Headphones,
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.Headphones,
+                    contentDescription = "",
+                    tint = MaterialTheme.colors.onSurfaceVariant
+                )
+            },
             onAudioOutputClick = {
             }
         )

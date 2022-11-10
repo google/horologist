@@ -4,8 +4,14 @@ package com.google.android.horologist.audio {
   public interface AudioOutput {
     method public String getId();
     method public String getName();
+    method public default String getType();
     property public abstract String id;
     property public abstract String name;
+    property public default String type;
+    field public static final com.google.android.horologist.audio.AudioOutput.Companion Companion;
+    field public static final String TYPE_HEADPHONES = "headphones";
+    field public static final String TYPE_NONE = "none";
+    field public static final String TYPE_WATCH = "watch";
   }
 
   public static final class AudioOutput.BluetoothHeadset implements com.google.android.horologist.audio.AudioOutput {
@@ -17,6 +23,13 @@ package com.google.android.horologist.audio {
     method public String getName();
     property public String id;
     property public String name;
+    property public String type;
+  }
+
+  public static final class AudioOutput.Companion {
+    field public static final String TYPE_HEADPHONES = "headphones";
+    field public static final String TYPE_NONE = "none";
+    field public static final String TYPE_WATCH = "watch";
   }
 
   public static final class AudioOutput.None implements com.google.android.horologist.audio.AudioOutput {
@@ -24,6 +37,7 @@ package com.google.android.horologist.audio {
     method public String getName();
     property public String id;
     property public String name;
+    property public String type;
     field public static final com.google.android.horologist.audio.AudioOutput.None INSTANCE;
   }
 
@@ -47,6 +61,7 @@ package com.google.android.horologist.audio {
     method public String getName();
     property public String id;
     property public String name;
+    property public String type;
   }
 
   public interface AudioOutputRepository extends java.lang.AutoCloseable {

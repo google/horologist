@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Chip
@@ -29,13 +30,12 @@ import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
-import com.google.android.horologist.compose.layout.StateUtils
 
 @Composable
 fun NetworkScreen(
     viewModel: NetworkScreenViewModel = viewModel(factory = NetworkScreenViewModel.Factory)
 ) {
-    val uiState by StateUtils.rememberStateWithLifecycle(viewModel.state)
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
 
     ScalingLazyColumn(
         modifier = Modifier.fillMaxSize(),

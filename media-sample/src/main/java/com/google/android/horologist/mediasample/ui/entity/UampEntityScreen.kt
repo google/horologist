@@ -32,6 +32,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
@@ -41,7 +42,6 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
 import com.google.android.horologist.base.ui.components.AlertDialog
-import com.google.android.horologist.compose.layout.StateUtils
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreen
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
@@ -59,7 +59,7 @@ fun UampEntityScreen(
     focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState
 ) {
-    val uiState by StateUtils.rememberStateWithLifecycle(flow = uampEntityScreenViewModel.uiState)
+    val uiState by uampEntityScreenViewModel.uiState.collectAsStateWithLifecycle()
 
     var showCancelDownloadsDialog by rememberSaveable { mutableStateOf(false) }
     var showRemoveDownloadsDialog by rememberSaveable { mutableStateOf(false) }

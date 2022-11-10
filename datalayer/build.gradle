@@ -25,7 +25,7 @@ android {
 
     defaultConfig {
         minSdk 26
-        targetSdk 30
+        targetSdk 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -62,8 +62,6 @@ android {
     lint {
         checkReleaseBuilds false
         textReport true
-
-        baseline(file("quality/lint/lint-baseline.xml"))
     }
     namespace 'com.google.android.horologist.datalayer'
 }

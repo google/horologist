@@ -22,7 +22,6 @@ import android.content.Context
 import androidx.wear.watchface.complications.data.ComplicationData
 import androidx.wear.watchface.complications.data.ComplicationExperimental
 import androidx.wear.watchface.complications.data.ComplicationType
-import androidx.wear.watchface.complications.data.ListComplicationData
 import androidx.wear.watchface.complications.data.LongTextComplicationData
 import androidx.wear.watchface.complications.data.MonochromaticImageComplicationData
 import androidx.wear.watchface.complications.data.NoDataComplicationData
@@ -47,7 +46,6 @@ public abstract class TypedComplicationTemplate<T>(override val context: Context
             ComplicationType.RANGED_VALUE -> renderRangedValue(data) ?: NoDataComplicationData()
             ComplicationType.SHORT_TEXT -> renderShortText(data) ?: NoDataComplicationData()
             ComplicationType.SMALL_IMAGE -> renderSmallImage(data) ?: NoDataComplicationData()
-            ComplicationType.LIST -> renderList(data) ?: NoDataComplicationData()
             else -> NoDataComplicationData()
         }
     }
@@ -57,8 +55,6 @@ public abstract class TypedComplicationTemplate<T>(override val context: Context
     public abstract fun renderShortText(data: T): ShortTextComplicationData?
 
     public open fun renderSmallImage(data: T): SmallImageComplicationData? = null
-
-    public open fun renderList(data: T): ListComplicationData? = null
 
     public open fun renderLongText(data: T): LongTextComplicationData? = null
 

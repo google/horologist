@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 
 @Composable
 fun VolumeScreenTestCase(
@@ -36,7 +37,7 @@ fun VolumeScreenTestCase(
     ) {
         VolumeScreen(
             volume = { volumeState },
-            audioOutput = audioOutput,
+            audioOutputUi = audioOutput.toAudioOutputUi(),
             increaseVolume = { },
             decreaseVolume = { },
             onAudioOutputClick = { },

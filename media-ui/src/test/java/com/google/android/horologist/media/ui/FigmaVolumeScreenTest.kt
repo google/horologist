@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumeScreen
+import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.media.ui.uamp.UampTheme
@@ -43,7 +44,7 @@ class FigmaVolumeScreenTest {
             UampRoundPreview {
                 VolumeScreen(
                     volume = { VolumeState(5, 10) },
-                    audioOutput = AudioOutput.BluetoothHeadset("1", "Device"),
+                    audioOutputUi = AudioOutput.BluetoothHeadset("1", "Device").toAudioOutputUi(),
                     increaseVolume = { },
                     decreaseVolume = { },
                     onAudioOutputClick = { }

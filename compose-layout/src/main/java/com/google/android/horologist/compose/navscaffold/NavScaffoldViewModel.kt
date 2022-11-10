@@ -88,18 +88,6 @@ public open class NavScaffoldViewModel(
     public var positionIndicatorMode: PositionIndicatorMode
         by mutableStateOf(PositionIndicatorMode.On)
 
-    internal var focusRequested: Boolean = false
-
-    /**
-     * A [FocusRequester] to be passed into Scrollable composables.
-     * If this is accessed within [NavGraphBuilder.wearNavComposable] then
-     * it is considered active and wired up to screen changes.
-     */
-    public val focusRequester: FocusRequester by lazy {
-        focusRequested = true
-        FocusRequester()
-    }
-
     internal fun initializeScrollState(scrollStateBuilder: () -> ScrollState): ScrollState {
         check(scrollType == null || scrollType == ScrollType.ScrollState)
 
@@ -156,16 +144,6 @@ public open class NavScaffoldViewModel(
         }
 
         return _scrollableState as LazyListState
-    }
-
-    public fun resumed() {
-        if (focusRequested) {
-            try {
-                focusRequester.requestFocus()
-            } catch (ise: IllegalStateException) {
-                Log.w("horologist", "Focus Requestor not installed", ise)
-            }
-        }
     }
 
     internal enum class ScrollType {

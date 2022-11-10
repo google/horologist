@@ -36,8 +36,9 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
+import com.google.android.horologist.compose.focus.RequestFocusWhenActive
+import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
-import com.google.android.horologist.compose.pager.FocusOnResume
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import com.google.android.horologist.media.ui.navigation.NavigationScreens
@@ -55,7 +56,7 @@ public fun PlayerLibraryPagerScreen(
     volumeState: () -> VolumeState,
     timeText: @Composable (Modifier) -> Unit,
     playerScreen: @Composable () -> Unit,
-    libraryScreen: @Composable (FocusRequester, ScalingLazyListState) -> Unit,
+    libraryScreen: @Composable (ScalingLazyListState) -> Unit,
     backStack: NavBackStackEntry,
     modifier: Modifier = Modifier
 ) {
@@ -80,12 +81,12 @@ public fun PlayerLibraryPagerScreen(
     ) { page ->
         when (page) {
             0 -> {
-                val playerFocusRequester = remember { FocusRequester() }
+                val focusRequester = rememberActiveFocusRequester()
 
                 Scaffold(
                     modifier = Modifier
                         .onRotaryInputAccumulated(onVolumeChangeByScroll)
-                        .focusRequester(playerFocusRequester)
+                        .focusRequester(focusRequester)
                         .focusable(),
                     timeText = {
                         timeText(Modifier)
@@ -96,12 +97,9 @@ public fun PlayerLibraryPagerScreen(
                 ) {
                     playerScreen()
                 }
-
-                FocusOnResume(playerFocusRequester)
             }
-            1 -> {
-                val libraryFocusRequester = remember { FocusRequester() }
 
+            1 -> {
                 val state = rememberScalingLazyListState()
                 Scaffold(
                     timeText = {
@@ -113,10 +111,8 @@ public fun PlayerLibraryPagerScreen(
                         )
                     }
                 ) {
-                    libraryScreen(libraryFocusRequester, state)
+                    libraryScreen(state)
                 }
-
-                FocusOnResume(libraryFocusRequester)
             }
         }
     }

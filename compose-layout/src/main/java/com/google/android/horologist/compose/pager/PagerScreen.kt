@@ -172,6 +172,13 @@ public class PageScreenIndicatorState(private val state: PagerState) : PageIndic
 /**
  * Utility to Focus the page when it is resumed.
  */
+@Deprecated(
+    message = "Use RequestFocusWhenActive",
+    replaceWith = ReplaceWith(
+        "RequestFocusWhenActive(focusRequester=focusRequester)",
+        "com.google.android.horologist.compose.focus.RequestFocusWhenActive"
+    )
+)
 @ExperimentalHorologistComposeLayoutApi
 @Composable
 public fun FocusOnResume(focusRequester: FocusRequester) {

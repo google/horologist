@@ -104,6 +104,7 @@ dependencies {
     debugImplementation projects.composeTools
 
     testImplementation libs.junit
+    testImplementation libs.truth
     testImplementation projects.composeTools
     testImplementation projects.paparazzi
 

@@ -31,14 +31,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import kotlin.time.Duration.Companion.seconds
 
 @LargeTest
 @OptIn(ExperimentalMetricApi::class)
-@Ignore("Until we disable in CI runs")
 class PlaybackBenchmark {
 
     @get:Rule

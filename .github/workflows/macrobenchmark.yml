@@ -1,0 +1,67 @@
+name: Macrobenchmark
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+  pull_request:
+
+jobs:
+  macrobenchmark:
+    runs-on: macos-latest
+    timeout-minutes: 50
+
+    env:
+      TERM: dumb
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # Fetch expanded history, which is needed for affected module detection
+          fetch-depth: '500'
+          lfs: 'true'
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Generate cache key
+        run: ./checksum.sh checksum.txt
+
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches/modules-*
+            ~/.gradle/caches/jars-*
+            ~/.gradle/caches/build-cache-*
+          key: gradle-${{ hashFiles('checksum.txt') }}
+
+      - name: Run tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          target: android-wear
+          profile: wear_round_454
+          script: ./gradlew connectedCheck -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=Macrobenchmark
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: logs-${{ matrix.api-level }}-${{ matrix.shard }}
+          path: logcat.txt
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results-${{ matrix.api-level }}-${{ matrix.shard }}
+          path: |
+            **/build/reports/*
+            **/build/outputs/*/connected/*

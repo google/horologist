@@ -93,7 +93,7 @@ fi
 
 # If we don't have a task yet, use the defaults
 if [[ -z "$TASK" ]]; then
-  TASK="connectedCheck"
+  TASK="connectedCheck -x :media-sample-benchmark:check"
 fi
 
 SHARD_OPTS=""

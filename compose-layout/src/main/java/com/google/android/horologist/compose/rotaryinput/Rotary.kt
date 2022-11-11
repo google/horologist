@@ -232,7 +232,7 @@ public class DefaultRotaryFlingBehavior(
     private val rangeToFling = 100L
     private val lastEventFlingDelay = 60L
 
-    //  Constant which was taken from SysUi fling CL https://critique.corp.google.com/cl/462558138
+    //  A default fling factor for making fling slower
     private val flingScaleFactor = 0.7f
 
     private var previousVelocity = 0f

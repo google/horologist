@@ -36,7 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.DefaultMediaDisplay
@@ -78,7 +78,7 @@ public fun PlayerScreen(
     buttons: SettingsButtons = {},
     background: PlayerBackground = {}
 ) {
-    val playerUiState by rememberStateWithLifecycle(flow = playerViewModel.playerUiState)
+    val playerUiState by playerViewModel.playerUiState.collectAsStateWithLifecycle()
 
     PlayerScreen(
         mediaDisplay = { mediaDisplay(playerUiState) },

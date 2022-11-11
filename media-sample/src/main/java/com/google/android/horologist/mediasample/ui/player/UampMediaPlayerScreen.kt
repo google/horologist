@@ -19,9 +19,9 @@ package com.google.android.horologist.mediasample.ui.player
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.ui.VolumeViewModel
-import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedPlayerScreenMediaDisplay
@@ -40,8 +40,8 @@ fun UampMediaPlayerScreen(
     onVolumeClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val volumeState by rememberStateWithLifecycle(flow = volumeViewModel.volumeState)
-    val settingsState by rememberStateWithLifecycle(flow = mediaPlayerScreenViewModel.settingsState)
+    val volumeState by volumeViewModel.volumeState.collectAsStateWithLifecycle()
+    val settingsState by mediaPlayerScreenViewModel.settingsState.collectAsStateWithLifecycle()
 
     PlayerScreen(
         modifier = modifier,
@@ -90,7 +90,7 @@ fun UampMediaPlayerScreen(
         }
     )
 
-    val player by rememberStateWithLifecycle(mediaPlayerScreenViewModel.playerState)
+    val player by mediaPlayerScreenViewModel.playerState.collectAsStateWithLifecycle()
     if (player != null) {
         ReportFullyDrawn()
     }

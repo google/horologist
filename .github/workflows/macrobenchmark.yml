@@ -49,7 +49,9 @@ jobs:
           api-level: 30
           target: android-wear
           profile: wear_round_454
-          script: ./gradlew connectedCheck "-Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=Macrobenchmark"
+          script: |
+            adb root
+            ./gradlew connectedCheck "-Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=Macrobenchmark" "-Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.dryRunMode.enable=true"
 
       - name: Upload logs
         if: always()

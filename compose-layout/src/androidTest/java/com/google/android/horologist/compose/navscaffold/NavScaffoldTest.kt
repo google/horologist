@@ -47,6 +47,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.rememberScalingLazyListState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -81,11 +82,12 @@ class NavScaffoldTest {
                 route = route,
                 scrollStateBuilder = { scrollState }
             ) {
+                val focusRequester = rememberActiveFocusRequester()
                 ScalingLazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
                         .scrollableColumn(
-                            it.viewModel.focusRequester,
+                            focusRequester,
                             it.scrollableState
                         ),
                     state = it.scrollableState,
@@ -156,10 +158,11 @@ class NavScaffoldTest {
                     route = "a",
                     scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 0) }
                 ) {
+                    val focusRequester = rememberActiveFocusRequester()
                     ScalingLazyColumn(
                         modifier = Modifier
                             .scrollableColumn(
-                                it.viewModel.focusRequester,
+                                focusRequester,
                                 it.scrollableState
                             )
                             .fillMaxSize()
@@ -178,11 +181,12 @@ class NavScaffoldTest {
                     route = "b",
                     scrollStateBuilder = { ScrollState(0) }
                 ) {
+                    val focusRequester = rememberActiveFocusRequester()
                     Column(
                         modifier = Modifier
                             .testTag("columnb")
                             .fillMaxSize()
-                            .scrollableColumn(it.viewModel.focusRequester, it.scrollableState)
+                            .scrollableColumn(focusRequester, it.scrollableState)
                             .verticalScroll(it.scrollableState)
                     ) {
                         (1..100).forEach { i ->

@@ -25,12 +25,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.accompanist.pager.rememberPagerState
-import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollection
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollections
@@ -70,7 +70,7 @@ fun UampWearApp(
     val pagerState = rememberPagerState(initialPage = 0)
     val navHostState = rememberSwipeDismissableNavHostState()
 
-    val appState by rememberStateWithLifecycle(flow = appViewModel.appState)
+    val appState by appViewModel.appState.collectAsStateWithLifecycle()
 
     val timeText: @Composable (Modifier) -> Unit = { modifier ->
         MediaInfoTimeText(

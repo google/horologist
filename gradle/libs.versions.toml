@@ -11,7 +11,7 @@ androidx-wear-watchface = "1.2.0-alpha04"
 androidxActivity = "1.6.1"
 androidxCore = "1.9.0"
 androidxFragment = "1.5.4"
-androidxLifecycle = "2.5.1"
+androidxLifecycle = "2.6.0-alpha03"
 androidxNavigation = "2.5.3"
 androidxStartup = "1.1.1"
 androidxTracing = "1.1.0"
@@ -62,6 +62,7 @@ androidx-datastore-preferences = { module = "androidx.datastore:datastore-prefer
 androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidxFragment" }
 androidx-lifecycle-process = { module = "androidx.lifecycle:lifecycle-process", version.ref = "androidxLifecycle" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
 androidx-lifecycle-service = { module = "androidx.lifecycle:lifecycle-service", version.ref = "androidxLifecycle" }
 androidx-lifecycle-testing = { module = "androidx.lifecycle:lifecycle-runtime-testing", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }

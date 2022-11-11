@@ -20,12 +20,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.foundation.CurvedScope
 import androidx.wear.compose.foundation.CurvedTextStyle
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.curvedText
-import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.media3.offload.AudioOffloadStatus
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
 import com.google.android.horologist.networks.data.DataUsageReport
@@ -38,7 +38,7 @@ public fun MediaInfoTimeText(
     mediaInfoTimeTextViewModel: MediaInfoTimeTextViewModel,
     modifier: Modifier = Modifier
 ) {
-    val uiState by rememberStateWithLifecycle(mediaInfoTimeTextViewModel.uiState)
+    val uiState by mediaInfoTimeTextViewModel.uiState.collectAsStateWithLifecycle()
 
     if (uiState.enabled) {
         MediaInfoTimeText(

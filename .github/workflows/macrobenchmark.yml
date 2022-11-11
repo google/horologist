@@ -50,7 +50,7 @@ jobs:
           target: android-wear
           profile: wear_round_454
           script: ./gradlew connectedCheck \
-            -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=Macrobenchmark
+            "-Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=Macrobenchmark"
 
       - name: Upload logs
         if: always()

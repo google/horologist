@@ -160,7 +160,7 @@ public class DefaultRotaryHapticFeedback(private val view: View) : RotaryHapticF
             }
 
             RotaryHapticsType.ScrollTick -> {
-                view.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK)
+                view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
             }
 
             RotaryHapticsType.ScrollLimit -> {

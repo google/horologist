@@ -178,11 +178,13 @@ public object RotaryDefaults {
         val viewConfiguration = ViewConfiguration.get(LocalContext.current)
 
         return remember(scrollableState, flingBehavior, isLowRes) {
+            debugLog { "isLowRes : $isLowRes" }
             fun rotaryFlingBehavior() = flingBehavior?.run {
                 DefaultRotaryFlingBehavior(
                     scrollableState,
                     flingBehavior,
-                    viewConfiguration
+                    viewConfiguration,
+                    flingTimeframe = if (isLowRes) lowResFlingTimeframe else highResFlingTimeframe
                 )
             }
 
@@ -205,6 +207,9 @@ public object RotaryDefaults {
     @Composable
     private fun isLowResInput(): Boolean = LocalContext.current.packageManager
         .hasSystemFeature("android.hardware.rotaryencoder.lowres")
+
+    private val lowResFlingTimeframe: Long = 100L
+    private val highResFlingTimeframe: Long = 40L
 }
 
 /**
@@ -243,11 +248,13 @@ public interface RotaryScrollBehavior {
 public class DefaultRotaryFlingBehavior(
     private val scrollableState: ScrollableState,
     private val flingBehavior: FlingBehavior,
-    viewConfiguration: ViewConfiguration
+    viewConfiguration: ViewConfiguration,
+    private val flingTimeframe: Long
 ) : RotaryFlingBehavior {
 
-    private val rangeToFling = 100L
-    private val lastEventFlingDelay = 60L
+    // A time range during which the fling is valid.
+    // For simplicity it's twice as long as [flingTimeframe]
+    private val timeRangeToFling = flingTimeframe * 2
 
     //  A default fling factor for making fling slower
     private val flingScaleFactor = 0.7f
@@ -285,7 +292,7 @@ public class DefaultRotaryFlingBehavior(
         previousVelocity = currentVelocity
 
         // Waiting for a fixed amount of time before checking the fling
-        delay(lastEventFlingDelay)
+        delay(flingTimeframe)
 
         // For making a fling 2 criteria should be met:
         // 1) no more than
@@ -296,7 +303,7 @@ public class DefaultRotaryFlingBehavior(
             "Check fling:  flingVelocity: $flingVelocity " +
                 "minFlingSpeed: $minFlingSpeed, maxFlingSpeed: $maxFlingSpeed"
         }
-        if (latestEventTimestamp - flingTimestamp < rangeToFling &&
+        if (latestEventTimestamp - flingTimestamp < timeRangeToFling &&
             abs(flingVelocity) > minFlingSpeed
         ) {
             // Stops scrollAnimationCoroutine because a fling will be performed
@@ -358,14 +365,10 @@ public class AnimationScrollBehavior(
         timestamp: Long
     ) {
         rotaryScrollDistance += pixelsToScroll
-        debugLog { "Rotary scroll distance $rotaryScrollDistance" }
 
         previousScrollEventTime = timestamp
         scrollableState.scroll(MutatePriority.UserInput) {
-            debugLog {
-                "Rotary scroll distance $rotaryScrollDistance, " +
-                    "ScrollAnimation value before start: ${scrollAnimation.value}"
-            }
+            debugLog { "ScrollAnimation value before start: ${scrollAnimation.value}" }
 
             scrollAnimation.animateTo(
                 rotaryScrollDistance,
@@ -403,6 +406,10 @@ public fun Modifier.rotaryHandler(
                 // Do we really need to do this on this level?
                 .batchRequestsWithinTimeframe(batchTimeframe)
                 .collectLatest {
+                    debugLog {
+                        "Scroll event received: " +
+                            "delta:${it.delta}, timestamp:${it.timestamp}"
+                    }
                     rotaryScrollHandler.handleScrollEvent(this, it, rotaryHaptics)
                 }
         }
@@ -460,25 +467,25 @@ public fun Flow<TimestampedDelta>.batchRequestsWithinTimeframe(timeframe: Long):
  * This scroll handler supports fling. It can be set with [RotaryFlingBehavior].
  */
 internal class HighResRotaryScrollHandler(
-    val rotaryFlingBehaviorFactory: () -> RotaryFlingBehavior?,
-    val scrollBehaviorFactory: () -> RotaryScrollBehavior
+    private val rotaryFlingBehaviorFactory: () -> RotaryFlingBehavior?,
+    private val scrollBehaviorFactory: () -> RotaryScrollBehavior,
+    private val hapticsThreshold: Long = 50
 ) : RotaryScrollHandler {
 
     // This constant is specific for high-res devices. Because that input values
     // can sometimes come with different sign, we have to filter them in this threshold
-    val gestureThresholdTime = 200L
-    var scrollJob: Job = CompletableDeferred<Unit>()
-    var flingJob: Job = CompletableDeferred<Unit>()
+    private val gestureThresholdTime = 200L
+    private var scrollJob: Job = CompletableDeferred<Unit>()
+    private var flingJob: Job = CompletableDeferred<Unit>()
 
-    var previousScrollEventTime = 0L
-    var rotaryScrollDistance = 0f
+    private var previousScrollEventTime = 0L
+    private var rotaryScrollDistance = 0f
 
-    var rotaryFlingBehavior: RotaryFlingBehavior? = rotaryFlingBehaviorFactory()
-    var scrollBehavior: RotaryScrollBehavior = scrollBehaviorFactory()
+    private var rotaryFlingBehavior: RotaryFlingBehavior? = rotaryFlingBehaviorFactory()
+    private var scrollBehavior: RotaryScrollBehavior = scrollBehaviorFactory()
 
     private var prevHapticsPosition = 0f
     private var currScrollPosition = 0f
-    private val hapticsThreshold: Long = 100
 
     override suspend fun handleScrollEvent(
         coroutineScope: CoroutineScope,
@@ -544,7 +551,7 @@ internal class HighResRotaryScrollHandler(
         val diff = abs(currScrollPosition - prevHapticsPosition)
 
         if (diff >= hapticsThreshold) {
-            rotaryHaptics.performHapticFeedback(RotaryHapticsType.ScrollItemFocus)
+            rotaryHaptics.performHapticFeedback(RotaryHapticsType.ScrollTick)
             prevHapticsPosition = currScrollPosition
         }
     }
@@ -555,26 +562,25 @@ internal class HighResRotaryScrollHandler(
  * This scroll handler supports fling. It can be set with RotaryFlingBehavior.
  */
 internal class LowResRotaryScrollHandler(
-    val rotaryFlingBehaviorFactory: () -> RotaryFlingBehavior?,
-    val scrollBehaviorFactory: () -> RotaryScrollBehavior
+    private val rotaryFlingBehaviorFactory: () -> RotaryFlingBehavior?,
+    private val scrollBehaviorFactory: () -> RotaryScrollBehavior
 ) : RotaryScrollHandler {
 
-    val gestureThresholdTime = 200L
-    var previousScrollEventTime = 0L
-    var rotaryScrollDistance = 0f
+    private val gestureThresholdTime = 200L
+    private var previousScrollEventTime = 0L
+    private var rotaryScrollDistance = 0f
 
-    var scrollJob: Job = CompletableDeferred<Unit>()
+    private var scrollJob: Job = CompletableDeferred<Unit>()
+    private var flingJob: Job = CompletableDeferred<Unit>()
 
-    var rotaryFlingBehavior: RotaryFlingBehavior? = rotaryFlingBehaviorFactory()
-    var scrollBehavior: RotaryScrollBehavior = scrollBehaviorFactory()
+    private var rotaryFlingBehavior: RotaryFlingBehavior? = rotaryFlingBehaviorFactory()
+    private var scrollBehavior: RotaryScrollBehavior = scrollBehaviorFactory()
 
     override suspend fun handleScrollEvent(
         coroutineScope: CoroutineScope,
         event: TimestampedDelta,
         rotaryHaptics: RotaryHapticFeedback
     ) {
-        scrollJob.cancel()
-
         val time = event.timestamp
 
         if (isNewScrollEvent(time)) {
@@ -582,6 +588,9 @@ internal class LowResRotaryScrollHandler(
         } else {
             rotaryFlingBehavior?.observeEvent(event.timestamp, event.delta)
         }
+
+        scrollJob.cancel()
+        flingJob.cancel()
 
         rotaryHaptics.performHapticFeedback(RotaryHapticsType.ScrollItemFocus)
         debugLog { "Rotary scroll distance: $rotaryScrollDistance" }
@@ -591,11 +600,15 @@ internal class LowResRotaryScrollHandler(
             scrollBehavior.handleEvent(event.delta, event.timestamp)
         }
 
-        rotaryFlingBehavior?.trackFling(
-            beforeFling = {
-                scrollBehavior = scrollBehaviorFactory()
-            }
-        )
+        flingJob = coroutineScope.async {
+            rotaryFlingBehavior?.trackFling(
+                beforeFling = {
+                    debugLog { "Calling before fling section" }
+                    scrollJob.cancel()
+                    scrollBehavior = scrollBehaviorFactory()
+                }
+            )
+        }
     }
 
     private fun isNewScrollEvent(timestamp: Long): Boolean {

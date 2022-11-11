@@ -41,6 +41,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
@@ -56,7 +57,6 @@ import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
-import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefulScreenViewModel.Recommendation
@@ -71,7 +71,7 @@ fun SectionedListStatefulScreen(
     scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
     focusRequester: FocusRequester = remember { FocusRequester() }
 ) {
-    val state by rememberStateWithLifecycle(viewModel.uiState)
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     SectionedList(
         focusRequester = focusRequester,

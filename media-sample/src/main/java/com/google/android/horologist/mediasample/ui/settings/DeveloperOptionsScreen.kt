@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
@@ -33,7 +34,6 @@ import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleChip
 import androidx.wear.compose.material.ToggleChipDefaults
-import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.OffloadMode
@@ -48,7 +48,7 @@ fun DeveloperOptionsScreen(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    val uiState by rememberStateWithLifecycle(developerOptionsScreenViewModel.uiState)
+    val uiState by developerOptionsScreenViewModel.uiState.collectAsStateWithLifecycle()
 
     ScalingLazyColumn(
         modifier = modifier

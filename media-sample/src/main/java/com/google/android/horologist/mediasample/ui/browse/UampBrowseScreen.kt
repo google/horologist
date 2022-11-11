@@ -20,8 +20,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material.ScalingLazyListState
-import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.media.ui.screens.browse.PlaylistDownloadBrowseScreen
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 import com.google.android.horologist.mediasample.R
@@ -35,7 +35,7 @@ fun UampBrowseScreen(
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier
 ) {
-    val uiState by rememberStateWithLifecycle(uampBrowseScreenViewModel.uiState)
+    val uiState by uampBrowseScreenViewModel.uiState.collectAsStateWithLifecycle()
 
     PlaylistDownloadBrowseScreen(
         browseScreenState = uiState,

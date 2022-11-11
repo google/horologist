@@ -23,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyColumn
@@ -43,7 +44,7 @@ fun SamplesScreen(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    val uiState by rememberStateWithLifecycle(samplesScreenViewModel.uiState)
+    val uiState by samplesScreenViewModel.uiState.collectAsStateWithLifecycle()
 
     val focusRequester = rememberActiveFocusRequester()
 

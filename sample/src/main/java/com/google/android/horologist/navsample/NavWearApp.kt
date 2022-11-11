@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Button
@@ -36,7 +37,6 @@ import androidx.wear.compose.material.rememberSwipeToDismissBoxState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.audio.ui.VolumeScreen
-import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
 import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
@@ -59,7 +59,7 @@ fun NavWearApp(
     val swipeDismissState = rememberSwipeToDismissBoxState()
     val navState = rememberSwipeDismissableNavHostState(swipeDismissState)
 
-    val state by rememberStateWithLifecycle(networkStatusViewModel.state)
+    val state by networkStatusViewModel.state.collectAsStateWithLifecycle()
 
     WearNavScaffold(
         startDestination = NavScreen.Menu.route,

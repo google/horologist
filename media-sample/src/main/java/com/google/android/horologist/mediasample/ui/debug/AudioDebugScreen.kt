@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
@@ -44,7 +45,7 @@ fun AudioDebugScreen(
     audioDebugScreenViewModel: AudioDebugScreenViewModel,
     modifier: Modifier = Modifier
 ) {
-    val uiState by rememberStateWithLifecycle(audioDebugScreenViewModel.uiState)
+    val uiState by audioDebugScreenViewModel.uiState.collectAsStateWithLifecycle()
     val focusRequester = rememberActiveFocusRequester()
 
     ScalingLazyColumn(

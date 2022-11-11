@@ -24,6 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
@@ -47,7 +48,7 @@ fun DeveloperOptionsScreen(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    val uiState by rememberStateWithLifecycle(developerOptionsScreenViewModel.uiState)
+    val uiState by developerOptionsScreenViewModel.uiState.collectAsStateWithLifecycle()
 
     val focusRequester = rememberActiveFocusRequester()
 

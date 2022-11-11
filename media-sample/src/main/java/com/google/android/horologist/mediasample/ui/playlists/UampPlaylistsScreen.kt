@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
@@ -36,7 +37,6 @@ import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
-import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreen
 import com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreenState
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -49,7 +49,7 @@ fun UampPlaylistsScreen(
     onErrorDialogCancelClick: () -> Unit,
     scalingLazyListState: ScalingLazyListState
 ) {
-    val uiState by rememberStateWithLifecycle(uampPlaylistsScreenViewModel.uiState)
+    val uiState by uampPlaylistsScreenViewModel.uiState.collectAsStateWithLifecycle()
 
     val modifiedState = when (uiState) {
         is PlaylistsScreenState.Loaded -> {
@@ -60,6 +60,7 @@ fun UampPlaylistsScreen(
 
             PlaylistsScreenState.Loaded(modifiedPlaylistList)
         }
+
         is PlaylistsScreenState.Failed,
         is PlaylistsScreenState.Loading -> uiState
     }

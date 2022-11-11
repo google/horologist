@@ -14,30 +14,33 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalLifecycleComposeApi::class)
+
 package com.google.android.horologist.compose.layout
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.StateFlow
 
 public object StateUtils {
+    @Deprecated(
+        message = "Replace with collectAsStateWithLifecycle",
+        replaceWith = ReplaceWith(
+            "flow.collectAsStateWithLifecycle()",
+            "androidx.lifecycle.compose.collectAsStateWithLifecycle"
+        )
+    )
     @Composable
     public fun <T> rememberStateWithLifecycle(
         flow: StateFlow<T>,
         lifecycle: Lifecycle = LocalLifecycleOwner.current.lifecycle,
         minActiveState: Lifecycle.State = Lifecycle.State.STARTED
-    ): State<T> {
-        val initialValue = remember(flow) { flow.value }
-        return remember(flow, lifecycle) {
-            flow.flowWithLifecycle(
-                lifecycle = lifecycle,
-                minActiveState = minActiveState
-            )
-        }.collectAsState(initial = initialValue)
-    }
+    ): State<T> = flow.collectAsStateWithLifecycle(
+        lifecycle = lifecycle,
+        minActiveState = minActiveState
+    )
 }

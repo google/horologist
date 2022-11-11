@@ -22,6 +22,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.ScalingLazyListState
@@ -34,7 +36,6 @@ import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.audio.ui.VolumeViewModel
-import com.google.android.horologist.compose.layout.StateUtils.rememberStateWithLifecycle
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
 import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
@@ -106,7 +107,7 @@ public fun MediaPlayerScaffold(
             viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
             viewModel.positionIndicatorMode = NavScaffoldViewModel.PositionIndicatorMode.Off
 
-            val volumeState by rememberStateWithLifecycle(flow = volumeViewModel.volumeState)
+            val volumeState by volumeViewModel.volumeState.collectAsStateWithLifecycle()
 
             PlayerLibraryPagerScreen(
                 pagerState = pagerState,

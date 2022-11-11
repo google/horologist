@@ -149,7 +149,9 @@ jobs:
           api-level: ${{ matrix.api-level }}
           target: android-wear
           profile: wear_round_454
-          script: ./scripts/run-instrumented-tests.sh --log-file=logcat.txt --run-affected --affected-base-ref=$BASE_REF --shard-index=${{ matrix.shard }} --shard-count=2
+          script: ./scripts/run-instrumented-tests.sh --log-file=logcat.txt \
+            --run-affected --affected-base-ref=$BASE_REF --shard-index=${{ matrix.shard }} \
+            --shard-count=2 --macrobenchmark-rules=Microbenchmark
 
       - name: Upload logs
         if: always()

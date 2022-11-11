@@ -23,6 +23,7 @@ SHARD_INDEX=0
 # By default we don't log
 LOG_FILE=""
 TEST_OPTIONS=""
+MACROBENCHMARK_RULES=""
 
 # Parse parameters
 for i in "$@"; do
@@ -55,6 +56,10 @@ for i in "$@"; do
     BASE_REF="${i#*=}"
     shift
     ;;
+  --macrobenchmark-rules=*)
+    MACROBENCHMARK_RULES="${i#*=}"
+    shift
+    ;;
   *)
     echo "Unknown option"
     exit 1
@@ -80,6 +85,11 @@ if [[ -z "$RUN_FLAKY_TESTS" ]]; then
   FILTER_OPTS="$FILTER_OPTS -Pandroid.testInstrumentationRunnerArguments.notAnnotation=androidx.test.filters.FlakyTest"
 fi
 
+if [[ ! -z "$MACROBENCHMARK_RULES" ]]; then
+  FILTER_OPTS="$FILTER_OPTS -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=$MACROBENCHMARK_RULES"
+fi
+
+
 # If we're set to only run affected test, update the Gradle task
 if [[ ! -z "$RUN_AFFECTED" ]]; then
   TASK="runAffectedAndroidTests"
@@ -93,7 +103,7 @@ fi
 
 # If we don't have a task yet, use the defaults
 if [[ -z "$TASK" ]]; then
-  TASK="connectedCheck -x :media-sample-benchmark:check"
+  TASK="connectedCheck"
 fi
 
 SHARD_OPTS=""

@@ -1,13 +1,6 @@
 name: Macrobenchmark
 
-# Temporarily run on PR until working, then move to daily.
-on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '**.md'
-  pull_request:
+on: workflow_dispatch
 
 jobs:
   macrobenchmark:

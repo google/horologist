@@ -33,6 +33,10 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.withContext
 
 private const val DEBUG = false
+
+/**
+ * Debug logging that can be enabled.
+ */
 private inline fun debugLog(generateMsg: () -> String) {
     if (DEBUG) {
         println("RotaryHaptics: ${generateMsg()}")
@@ -52,7 +56,7 @@ private inline fun debugLog(generateMsg: () -> String) {
  * ```
  * With timeframe=1000 only those integers will be received: 1, 10, 20, 30 .
  */
-public fun <T> Flow<T>.throttleLatest(timeframe: Long): Flow<T> =
+internal fun <T> Flow<T>.throttleLatest(timeframe: Long): Flow<T> =
     flow {
         conflate().collect {
             emit(it)
@@ -73,8 +77,22 @@ public interface RotaryHapticFeedback {
 @JvmInline
 public value class RotaryHapticsType(private val type: Int) {
     public companion object {
+        /**
+         * A scroll ticking haptic. Similar to texture haptic - performed each time when
+         * a scrollable content is scrolled by a certain distance
+         */
         public val ScrollTick: RotaryHapticsType = RotaryHapticsType(1)
+
+        /**
+         * An item focus (snap) haptic. Performed when a scrollable content is snapped
+         * to a specific item.
+         */
         public val ScrollItemFocus: RotaryHapticsType = RotaryHapticsType(2)
+
+        /**
+         * A limit(overscroll) haptic. Performed when a list reaches the limit
+         * (start or end) and can't scroll further
+         */
         public val ScrollLimit: RotaryHapticsType = RotaryHapticsType(3)
     }
 }
@@ -88,7 +106,7 @@ public fun rememberRotaryHapticFeedback(
     hapticsChannel: Channel<RotaryHapticsType> = rememberHapticChannel(),
     rotaryHaptics: RotaryHapticFeedback = rememberDefaultRotaryHapticFeedback()
 ): RotaryHapticFeedback {
-    return remember(throttleThresholdMs, hapticsChannel, rotaryHaptics) {
+    return remember(hapticsChannel, rotaryHaptics) {
         object : RotaryHapticFeedback {
             override fun performHapticFeedback(type: RotaryHapticsType) {
                 hapticsChannel.trySend(type)

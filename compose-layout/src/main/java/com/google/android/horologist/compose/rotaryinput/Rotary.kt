@@ -50,6 +50,10 @@ import kotlin.math.abs
 import kotlin.math.sign
 
 private const val DEBUG = false
+
+/**
+ * Debug logging that can be enabled.
+ */
 private inline fun debugLog(generateMsg: () -> String) {
     if (DEBUG) {
         println("RotaryScroll: ${generateMsg()}")
@@ -59,6 +63,19 @@ private inline fun debugLog(generateMsg: () -> String) {
 /**
  * A modifier which connects rotary events with scrollable.
  * This modifier supports fling.
+ *
+ *  Fling algorithm:
+ * - A scroll with RSB/ Bezel happens.
+ * - If this is a first rotary event after the threshold ( by default 200ms), a new scroll
+ * session starts by resetting all necessary parameters
+ * - A delta value is added into VelocityTracker and a new speed is calculated.
+ * - If the current speed is bigger than the previous one,  this value is remembered as
+ * a latest fling speed with a timestamp
+ * - After each scroll event a fling countdown starts ( by default 70ms) which
+ * resets if new scroll event is received
+ * - If fling countdown is finished - it means that the finger was probably raised from RSB, there will be no other events and probably
+ * this is the last event during this session. After it a fling is triggered.
+ * - Fling is stopped when a new scroll event happens
  *
  * The screen containing the scrollable item should request the focus
  * by calling [requestFocus] method
@@ -89,7 +106,7 @@ public fun Modifier.rotaryWithFling(
 
 /**
  * A modifier which connects rotary events with scrollable.
- *
+ * This modifier only supports scroll without fling or snap.
  * The screen containing the scrollable item should request the focus
  * by calling [requestFocus] method
  *
@@ -149,7 +166,7 @@ public object RotaryDefaults {
     /**
      * Handles scroll with fling.
      * @param scrollableState Scrollable state which will be scrolled while receiving rotary events
-     * @param flingBehavior Logic describing Fling behaviour. If null - fling will not happen
+     * @param flingBehavior Logic describing Fling behavior. If null - fling will not happen
      * @param isLowRes Whether the input is Low-res (a bezel) or high-res(a crown/rsb)
      */
     @Composable
@@ -174,12 +191,12 @@ public object RotaryDefaults {
             if (isLowRes) {
                 LowResRotaryScrollHandler(
                     rotaryFlingBehaviorFactory = { rotaryFlingBehavior() },
-                    scrollBehaviourFactory = { scrollBehavior() }
+                    scrollBehaviorFactory = { scrollBehavior() }
                 )
             } else {
                 HighResRotaryScrollHandler(
                     rotaryFlingBehaviorFactory = { rotaryFlingBehavior() },
-                    scrollBehaviourFactory = { scrollBehavior() }
+                    scrollBehaviorFactory = { scrollBehavior() }
                 )
             }
         }
@@ -208,7 +225,7 @@ public interface RotaryScrollHandler {
 }
 
 /**
- * An interface for scrolling behaviour
+ * An interface for scrolling behavior
  */
 public interface RotaryScrollBehavior {
     /**
@@ -322,7 +339,7 @@ public interface RotaryFlingBehavior {
  */
 public data class TimestampedDelta(val timestamp: Long, val delta: Float)
 
-/** Animation implementation of ScrollBehaviour.
+/** Animation implementation of [RotaryScrollBehavior].
  * This class does a smooth animation when the scroll by N pixels is done.
  * This animation works well on Rsb(high-res) and Bezel(low-res) devices.
  */
@@ -440,11 +457,11 @@ public fun Flow<TimestampedDelta>.batchRequestsWithinTimeframe(timeframe: Long):
  * for events which are coming with wrong sign ( this happens to rsb devices,
  * especially at the end of the scroll)
  *
- * This scroll handler supports fling. It can be set with FlingBehaviour.
+ * This scroll handler supports fling. It can be set with [RotaryFlingBehavior].
  */
 internal class HighResRotaryScrollHandler(
     val rotaryFlingBehaviorFactory: () -> RotaryFlingBehavior?,
-    val scrollBehaviourFactory: () -> RotaryScrollBehavior
+    val scrollBehaviorFactory: () -> RotaryScrollBehavior
 ) : RotaryScrollHandler {
 
     // This constant is specific for high-res devices. Because that input values
@@ -457,7 +474,7 @@ internal class HighResRotaryScrollHandler(
     var rotaryScrollDistance = 0f
 
     var rotaryFlingBehavior: RotaryFlingBehavior? = rotaryFlingBehaviorFactory()
-    var scrollBehaviour: RotaryScrollBehavior = scrollBehaviourFactory()
+    var scrollBehavior: RotaryScrollBehavior = scrollBehaviorFactory()
 
     private var prevHapticsPosition = 0f
     private var currScrollPosition = 0f
@@ -493,7 +510,7 @@ internal class HighResRotaryScrollHandler(
 
         previousScrollEventTime = time
         scrollJob = coroutineScope.async {
-            scrollBehaviour.handleEvent(event.delta, event.timestamp)
+            scrollBehavior.handleEvent(event.delta, event.timestamp)
         }
 
         flingJob = coroutineScope.async {
@@ -501,7 +518,7 @@ internal class HighResRotaryScrollHandler(
                 beforeFling = {
                     debugLog { "Calling before fling section" }
                     scrollJob.cancel()
-                    scrollBehaviour = scrollBehaviourFactory()
+                    scrollBehavior = scrollBehaviorFactory()
                 }
             )
         }
@@ -517,7 +534,7 @@ internal class HighResRotaryScrollHandler(
     }
 
     private fun resetTracking(timestamp: Long) {
-        scrollBehaviour = scrollBehaviourFactory()
+        scrollBehavior = scrollBehaviorFactory()
         rotaryFlingBehavior = rotaryFlingBehaviorFactory()
         rotaryFlingBehavior?.startFlingTracking(timestamp)
     }
@@ -539,7 +556,7 @@ internal class HighResRotaryScrollHandler(
  */
 internal class LowResRotaryScrollHandler(
     val rotaryFlingBehaviorFactory: () -> RotaryFlingBehavior?,
-    val scrollBehaviourFactory: () -> RotaryScrollBehavior
+    val scrollBehaviorFactory: () -> RotaryScrollBehavior
 ) : RotaryScrollHandler {
 
     val gestureThresholdTime = 200L
@@ -549,7 +566,7 @@ internal class LowResRotaryScrollHandler(
     var scrollJob: Job = CompletableDeferred<Unit>()
 
     var rotaryFlingBehavior: RotaryFlingBehavior? = rotaryFlingBehaviorFactory()
-    var scrollBehaviour: RotaryScrollBehavior = scrollBehaviourFactory()
+    var scrollBehavior: RotaryScrollBehavior = scrollBehaviorFactory()
 
     override suspend fun handleScrollEvent(
         coroutineScope: CoroutineScope,
@@ -571,12 +588,12 @@ internal class LowResRotaryScrollHandler(
 
         previousScrollEventTime = time
         scrollJob = coroutineScope.async {
-            scrollBehaviour.handleEvent(event.delta, event.timestamp)
+            scrollBehavior.handleEvent(event.delta, event.timestamp)
         }
 
         rotaryFlingBehavior?.trackFling(
             beforeFling = {
-                scrollBehaviour = scrollBehaviourFactory()
+                scrollBehavior = scrollBehaviorFactory()
             }
         )
     }
@@ -587,7 +604,7 @@ internal class LowResRotaryScrollHandler(
     }
 
     private fun resetTracking(timestamp: Long) {
-        scrollBehaviour = scrollBehaviourFactory()
+        scrollBehavior = scrollBehaviorFactory()
         debugLog { "Velocity tracker reset" }
         rotaryFlingBehavior = rotaryFlingBehaviorFactory()
         rotaryFlingBehavior?.startFlingTracking(timestamp)

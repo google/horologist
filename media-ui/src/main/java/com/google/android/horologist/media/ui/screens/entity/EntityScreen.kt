@@ -32,7 +32,7 @@ import androidx.wear.compose.material.ScalingLazyListScope
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.ScalingParams
 import com.google.android.horologist.base.ui.components.Title
-import com.google.android.horologist.compose.navscaffold.scrollableColumn
+import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
 /**
@@ -53,7 +53,7 @@ public fun EntityScreen(
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .scrollableColumn(focusRequester, scalingLazyListState),
+            .rotaryWithFling(focusRequester, scalingLazyListState),
         state = scalingLazyListState,
         scalingParams = scalingParams,
         autoCentering = autoCentering

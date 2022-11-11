@@ -24,7 +24,6 @@ package com.google.android.horologist.media.ui.screens.entity
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MusicNote
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.base.ui.util.rememberVectorPainter

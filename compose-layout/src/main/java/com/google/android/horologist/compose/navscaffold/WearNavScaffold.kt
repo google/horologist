@@ -24,13 +24,17 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
@@ -207,11 +211,7 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
     content: @Composable (ScaffoldContext<ScalingLazyListState>) -> Unit
 ) {
     composable(route, arguments, deepLinks) {
-        val lifecycle = LocalLifecycleOwner.current.lifecycle
-        FocusControl(requiresFocus = { lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED) }) {
-            OnFocusChange {
-                println("focus $route $it")
-            }
+        FocusedDestination(route) {
             val viewModel: NavScaffoldViewModel = viewModel(it)
 
             val scrollState = viewModel.initializeScalingLazyListState(scrollStateBuilder)
@@ -234,11 +234,7 @@ public fun NavGraphBuilder.scrollStateComposable(
     content: @Composable (ScaffoldContext<ScrollState>) -> Unit
 ) {
     composable(route, arguments, deepLinks) {
-        val lifecycle = LocalLifecycleOwner.current.lifecycle
-        FocusControl(requiresFocus = { lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED) }) {
-            OnFocusChange {
-                println("focus $route $it")
-            }
+        FocusedDestination(route) {
             val viewModel: NavScaffoldViewModel = viewModel(it)
 
             val scrollState = viewModel.initializeScrollState(scrollStateBuilder)
@@ -261,11 +257,7 @@ public fun NavGraphBuilder.lazyListComposable(
     content: @Composable (ScaffoldContext<LazyListState>) -> Unit
 ) {
     composable(route, arguments, deepLinks) {
-        val lifecycle = LocalLifecycleOwner.current.lifecycle
-        FocusControl(requiresFocus = { lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED) }) {
-            OnFocusChange {
-                println("focus $route $it")
-            }
+        FocusedDestination(route) {
             val viewModel: NavScaffoldViewModel = viewModel(it)
 
             val scrollState = viewModel.initializeLazyList(lazyListStateBuilder)
@@ -287,14 +279,34 @@ public fun NavGraphBuilder.wearNavComposable(
     content: @Composable (NavBackStackEntry, NavScaffoldViewModel) -> Unit
 ) {
     composable(route, arguments, deepLinks) {
-        val lifecycle = LocalLifecycleOwner.current.lifecycle
-        FocusControl(requiresFocus = { lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED) }) {
-            OnFocusChange {
-                println("focus $route $it")
-            }
+        FocusedDestination(route) {
             val viewModel: NavScaffoldViewModel = viewModel()
 
             content(it, viewModel)
         }
+    }
+}
+
+@Composable
+internal fun FocusedDestination(route: String, content: @Composable () -> Unit) {
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+    val focused =
+        remember { mutableStateOf(lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) }
+
+    DisposableEffect(lifecycle) {
+        val listener = LifecycleEventObserver { _, _ ->
+            focused.value = lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)
+        }
+        lifecycle.addObserver(listener)
+        onDispose {
+            lifecycle.removeObserver(listener)
+        }
+    }
+
+    FocusControl(requiresFocus = { focused.value }) {
+        OnFocusChange {
+            println("focus $route $it")
+        }
+        content()
     }
 }

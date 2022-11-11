@@ -97,13 +97,19 @@ public fun VolumeScreen(
     showVolumeIndicator: Boolean = true,
     onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)? = null
 ) {
-    val focusRequester = remember { FocusRequester() }
+    val focusRequester = remember(onVolumeChangeByScroll) {
+        if (onVolumeChangeByScroll != null) {
+            FocusRequester()
+        } else {
+            null
+        }
+    }
 
     Box(
         modifier = modifier.fillMaxSize().run {
             onVolumeChangeByScroll?.let {
                 onRotaryInputAccumulated(it)
-                    .focusRequester(focusRequester)
+                    .focusRequester(focusRequester!!)
                     .focusable()
             } ?: this
         }
@@ -136,7 +142,9 @@ public fun VolumeScreen(
         }
     }
 
-    RequestFocusWhenActive(focusRequester)
+    if (focusRequester != null) {
+        RequestFocusWhenActive(focusRequester)
+    }
 }
 
 public object VolumeScreenDefaults {

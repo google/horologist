@@ -24,13 +24,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
+import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 
 @Composable
@@ -45,7 +47,7 @@ fun BigScalingLazyColumn(
     scrollState: ScalingLazyListState,
     modifier: Modifier = Modifier
 ) {
-    val focusRequester = rememberActiveFocusRequester()
+    val focusRequester = remember { FocusRequester() }
 
     ScalingLazyColumn(
         modifier = modifier
@@ -58,6 +60,8 @@ fun BigScalingLazyColumn(
             Text("i = $it")
         }
     }
+
+    RequestFocusWhenActive(focusRequester)
 }
 
 @Composable
@@ -65,7 +69,7 @@ fun BigColumn(
     scrollState: ScrollState,
     modifier: Modifier = Modifier
 ) {
-    val focusRequester = rememberActiveFocusRequester()
+    val focusRequester = remember { FocusRequester() }
 
     Column(
         modifier = modifier
@@ -79,4 +83,6 @@ fun BigColumn(
             Text("i = $it")
         }
     }
+
+    RequestFocusWhenActive(focusRequester)
 }

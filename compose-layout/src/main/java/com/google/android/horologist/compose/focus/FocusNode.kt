@@ -96,16 +96,6 @@ public fun RequestFocusWhenActive(focusRequester: FocusRequester) {
 }
 
 /**
- * Creates, remembers and returns a new [FocusRequester], that will be have .requestFocus called
- * when the enclosing [FocusControl] becomes active.
- * Note that the location you call this is important, in particular, what its enclosing
- * [FocusControl]
- */
-@Composable
-public fun rememberActiveFocusRequester(): FocusRequester =
-    remember { FocusRequester() }.also { RequestFocusWhenActive(it) }
-
-/**
  * Implements a node in the Focus control tree (either a [FocusControl] or [OnFocusChange]).
  * Each [FocusComposableImpl] maps to a [FocusNode] in our internal representation, this is used to:
  * 1) Check that our parent is focused (or we have no explicit parent), to see if we can be focused.

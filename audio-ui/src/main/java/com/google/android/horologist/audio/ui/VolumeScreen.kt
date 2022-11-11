@@ -28,7 +28,9 @@ import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -41,7 +43,7 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumeScreenDefaults.DecreaseIcon
 import com.google.android.horologist.audio.ui.VolumeScreenDefaults.IncreaseIcon
 import com.google.android.horologist.audio.ui.components.DeviceChip
-import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
+import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 
 /**
@@ -95,7 +97,7 @@ public fun VolumeScreen(
     showVolumeIndicator: Boolean = true,
     onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)? = null
 ) {
-    val focusRequester = rememberActiveFocusRequester()
+    val focusRequester = remember { FocusRequester() }
 
     Box(
         modifier = modifier.fillMaxSize().run {
@@ -133,6 +135,8 @@ public fun VolumeScreen(
             )
         }
     }
+
+    RequestFocusWhenActive(focusRequester)
 }
 
 public object VolumeScreenDefaults {

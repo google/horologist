@@ -21,7 +21,9 @@ package com.google.android.horologist.media.ui.screens.playlists
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.AutoCenteringParams
@@ -34,7 +36,7 @@ import com.google.android.horologist.composables.ExperimentalHorologistComposabl
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
-import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
+import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -64,7 +66,7 @@ public fun <T> PlaylistsScreen(
     modifier: Modifier = Modifier,
     autoCentering: AutoCenteringParams? = AutoCenteringParams()
 ) {
-    val focusRequester = rememberActiveFocusRequester()
+    val focusRequester = remember { FocusRequester() }
     SectionedList(
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
@@ -97,6 +99,8 @@ public fun <T> PlaylistsScreen(
             }
         }
     }
+
+    RequestFocusWhenActive(focusRequester)
 }
 
 @ExperimentalHorologistMediaUiApi

@@ -80,7 +80,6 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
-                    focusRequester = FocusRequester(),
                     scalingLazyListState = scrollState,
                     onDownloadItemInProgressClickActionLabel = "cancel"
                 )
@@ -107,7 +106,6 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
-                    focusRequester = FocusRequester(),
                     scalingLazyListState = scrollState,
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
@@ -138,7 +136,6 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
-                    focusRequester = FocusRequester(),
                     scalingLazyListState = scrollState,
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
@@ -169,7 +166,6 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
-                    focusRequester = FocusRequester(),
                     scalingLazyListState = scrollState,
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
@@ -200,7 +196,6 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
-                    focusRequester = FocusRequester(),
                     scalingLazyListState = scrollState,
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
@@ -231,7 +226,6 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
-                    focusRequester = FocusRequester(),
                     scalingLazyListState = scrollState,
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
@@ -262,7 +256,6 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
-                    focusRequester = FocusRequester(),
                     scalingLazyListState = scrollState,
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
@@ -290,7 +283,6 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
-                    focusRequester = FocusRequester(),
                     scalingLazyListState = scrollState,
                     onDownloadItemInProgressClickActionLabel = "cancel"
                 )

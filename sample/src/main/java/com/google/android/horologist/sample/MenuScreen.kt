@@ -16,16 +16,13 @@
 
 package com.google.android.horologist.sample
 
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
@@ -37,7 +34,6 @@ import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberScalingLazyListState
-import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import java.time.LocalDateTime
@@ -47,7 +43,7 @@ fun MenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
     time: LocalDateTime,
-    scrollState: ScalingLazyListState = rememberScalingLazyListState(),
+    scrollState: ScalingLazyListState = rememberScalingLazyListState()
 ) {
     val focusRequester = rememberActiveFocusRequester()
 
@@ -110,8 +106,6 @@ fun SampleChip(
     label: String,
     content: (@Composable () -> Unit)? = null
 ) {
-    val focusRequester = rememberActiveFocusRequester()
-
     Chip(
         modifier = modifier.fillMaxWidth(),
         onClick = onClick,

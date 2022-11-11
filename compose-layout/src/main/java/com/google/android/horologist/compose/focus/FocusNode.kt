@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.google.android.horologist.compose.focus
 
 import androidx.compose.runtime.Composable
@@ -55,12 +56,13 @@ import kotlinx.coroutines.CoroutineScope
 @Composable
 public fun FocusControl(requiresFocus: () -> Boolean, content: @Composable () -> Unit) {
     val focusManager = LocalFocusManager.current
-    return FocusComposableImpl(
+    FocusComposableImpl(
         requiresFocus,
         onFocusChanged = { if (it) focusManager.clearFocus() },
         content = content
     )
 }
+
 /**
  * Use as part of a focus-requiring component to register a callback to be notified when the
  * focus state changes.
@@ -69,11 +71,14 @@ public fun FocusControl(requiresFocus: () -> Boolean, content: @Composable () ->
  * new state (if true, we are becoming active and should request focus).
  */
 @Composable
-public fun OnFocusChange(onFocusChanged: CoroutineScope.(Boolean) -> Unit) = FocusComposableImpl(
-    focusEnabled = { true },
-    onFocusChanged = onFocusChanged,
-    content = {}
-)
+public fun OnFocusChange(onFocusChanged: CoroutineScope.(Boolean) -> Unit) {
+    FocusComposableImpl(
+        focusEnabled = { true },
+        onFocusChanged = onFocusChanged,
+        content = {}
+    )
+}
+
 /**
  * Use as part of a focus-requiring component to register a callback to automatically request
  * focus when this component is active.
@@ -83,9 +88,13 @@ public fun OnFocusChange(onFocusChanged: CoroutineScope.(Boolean) -> Unit) = Foc
  * @param focusRequester The associated [FocusRequester] to request focus on.
  */
 @Composable
-public fun RequestFocusWhenActive(focusRequester: FocusRequester) = OnFocusChange {
-    if (it) focusRequester.requestFocus()
+public fun RequestFocusWhenActive(focusRequester: FocusRequester) {
+    OnFocusChange {
+        println("RequestFocusWhenActive $focusRequester $it")
+        if (it) focusRequester.requestFocus()
+    }
 }
+
 /**
  * Creates, remembers and returns a new [FocusRequester], that will be have .requestFocus called
  * when the enclosing [FocusControl] becomes active.
@@ -93,8 +102,9 @@ public fun RequestFocusWhenActive(focusRequester: FocusRequester) = OnFocusChang
  * [FocusControl]
  */
 @Composable
-public fun rememberActiveFocusRequester() =
+public fun rememberActiveFocusRequester(): FocusRequester =
     remember { FocusRequester() }.also { RequestFocusWhenActive(it) }
+
 /**
  * Implements a node in the Focus control tree (either a [FocusControl] or [OnFocusChange]).
  * Each [FocusComposableImpl] maps to a [FocusNode] in our internal representation, this is used to:
@@ -110,9 +120,13 @@ internal fun FocusComposableImpl(
 ) {
     val parent by rememberUpdatedState(LocalFocusNodeParent.current)
     // Node in our internal tree representation of the FocusComposableImpl
-    val node = remember { FocusNode(focused = derivedStateOf {
-        (parent?.focused?.value ?: true) && focusEnabled()
-    }) }
+    val node = remember {
+        FocusNode(
+            focused = derivedStateOf {
+                (parent?.focused?.value ?: true) && focusEnabled()
+            }
+        )
+    }
     // Attach our note avatar to our parent's (and remove if we leave the composition).
     parent?.let {
         DisposableEffect(it) {
@@ -130,11 +144,13 @@ internal fun FocusComposableImpl(
         }
     }
 }
+
 // Internal class used to represent a node in our tree of focus-aware components.
 internal class FocusNode(
     val focused: State<Boolean>,
     var children: SnapshotStateList<FocusNode> = mutableStateListOf()
 )
+
 // Composition Local used to keep a tree of focus-aware node (either controller nodes or
 // focus requesting nodes).
 // Nodes will register into their parent (unless they are the top ones) when they enter the

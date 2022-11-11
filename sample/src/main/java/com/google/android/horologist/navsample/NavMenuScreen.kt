@@ -30,7 +30,7 @@ import com.google.android.horologist.sample.SampleChip
 fun NavMenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
-    scrollState: ScalingLazyListState,
+    scrollState: ScalingLazyListState
 ) {
     val focusRequester = rememberActiveFocusRequester()
 

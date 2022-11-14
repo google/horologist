@@ -47,6 +47,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.rememberScalingLazyListState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -84,7 +85,7 @@ class NavScaffoldTest {
                 ScalingLazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .scrollableColumn(
+                        .rotaryWithFling(
                             it.viewModel.focusRequester,
                             it.scrollableState
                         ),
@@ -158,7 +159,7 @@ class NavScaffoldTest {
                 ) {
                     ScalingLazyColumn(
                         modifier = Modifier
-                            .scrollableColumn(
+                            .rotaryWithFling(
                                 it.viewModel.focusRequester,
                                 it.scrollableState
                             )
@@ -182,7 +183,7 @@ class NavScaffoldTest {
                         modifier = Modifier
                             .testTag("columnb")
                             .fillMaxSize()
-                            .scrollableColumn(it.viewModel.focusRequester, it.scrollableState)
+                            .rotaryWithFling(it.viewModel.focusRequester, it.scrollableState)
                             .verticalScroll(it.scrollableState)
                     ) {
                         (1..100).forEach { i ->

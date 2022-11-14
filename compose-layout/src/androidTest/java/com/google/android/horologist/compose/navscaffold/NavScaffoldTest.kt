@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalCoroutinesApi::class)
+@file:OptIn(ExperimentalCoroutinesApi::class, ExperimentalHorologistComposeLayoutApi::class)
 
 package com.google.android.horologist.compose.navscaffold
 
@@ -50,6 +50,7 @@ import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.rememberScalingLazyListState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.compose.focus.RequestFocusWhenActive
+import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -89,7 +90,7 @@ class NavScaffoldTest {
                 ScalingLazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .scrollableColumn(
+                        .rotaryWithFling(
                             focusRequester,
                             it.scrollableState
                         ),
@@ -167,7 +168,7 @@ class NavScaffoldTest {
                         remember { FocusRequester() }
                     ScalingLazyColumn(
                         modifier = Modifier
-                            .scrollableColumn(
+                            .rotaryWithFling(
                                 focusRequester,
                                 it.scrollableState
                             )
@@ -194,7 +195,7 @@ class NavScaffoldTest {
                         modifier = Modifier
                             .testTag("columnb")
                             .fillMaxSize()
-                            .scrollableColumn(focusRequester, it.scrollableState)
+                            .rotaryWithFling(focusRequester, it.scrollableState)
                             .verticalScroll(it.scrollableState)
                     ) {
                         (1..100).forEach { i ->

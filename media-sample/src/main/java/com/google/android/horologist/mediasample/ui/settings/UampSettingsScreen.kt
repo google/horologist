@@ -43,6 +43,7 @@ import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
+import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.navigation.navigateToDeveloperOptions
 
@@ -58,7 +59,7 @@ fun UampSettingsScreen(
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .scrollableColumn(focusRequester, state),
+            .rotaryWithFling(focusRequester, state),
         state = state
     ) {
         item {

@@ -26,6 +26,7 @@ import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
+import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.sample.SampleChip
 
 @Composable
@@ -37,7 +38,7 @@ fun NavMenuScreen(
     val focusRequester = remember { FocusRequester() }
 
     ScalingLazyColumn(
-        modifier = modifier.scrollableColumn(focusRequester, scrollState),
+        modifier = modifier.rotaryWithFling(focusRequester, scrollState),
         state = scrollState,
         horizontalAlignment = Alignment.CenterHorizontally,
         autoCentering = AutoCenteringParams(itemIndex = 0)

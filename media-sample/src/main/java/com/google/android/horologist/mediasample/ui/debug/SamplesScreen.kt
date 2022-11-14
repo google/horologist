@@ -34,6 +34,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
 import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
+import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToPlayer
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.settings.ActionSetting
@@ -52,7 +53,7 @@ fun SamplesScreen(
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .scrollableColumn(focusRequester, state),
+            .rotaryWithFling(focusRequester, state),
         state = state
     ) {
         item {

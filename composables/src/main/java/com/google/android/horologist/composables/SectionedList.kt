@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistComposablesApi::class)
+@file:OptIn(
+    ExperimentalHorologistComposablesApi::class,
+    ExperimentalHorologistComposeLayoutApi::class
+)
 
 package com.google.android.horologist.composables
 
@@ -29,6 +32,7 @@ import androidx.wear.compose.material.ScalingLazyListScope
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.ScalingParams
 import com.google.android.horologist.composables.Section.Companion.DEFAULT_LOADING_CONTENT_COUNT
+import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 
 /**

@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalView
+import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
@@ -67,13 +68,16 @@ internal fun <T> Flow<T>.throttleLatest(timeframe: Long): Flow<T> =
 /**
  * Interface for Rotary haptic feedback
  */
+@ExperimentalHorologistComposeLayoutApi
 public interface RotaryHapticFeedback {
+    @ExperimentalHorologistComposeLayoutApi
     public fun performHapticFeedback(type: RotaryHapticsType)
 }
 
 /**
  * Rotary haptic types
  */
+@ExperimentalHorologistComposeLayoutApi
 @JvmInline
 public value class RotaryHapticsType(private val type: Int) {
     public companion object {
@@ -81,18 +85,21 @@ public value class RotaryHapticsType(private val type: Int) {
          * A scroll ticking haptic. Similar to texture haptic - performed each time when
          * a scrollable content is scrolled by a certain distance
          */
+        @ExperimentalHorologistComposeLayoutApi
         public val ScrollTick: RotaryHapticsType = RotaryHapticsType(1)
 
         /**
          * An item focus (snap) haptic. Performed when a scrollable content is snapped
          * to a specific item.
          */
+        @ExperimentalHorologistComposeLayoutApi
         public val ScrollItemFocus: RotaryHapticsType = RotaryHapticsType(2)
 
         /**
          * A limit(overscroll) haptic. Performed when a list reaches the limit
          * (start or end) and can't scroll further
          */
+        @ExperimentalHorologistComposeLayoutApi
         public val ScrollLimit: RotaryHapticsType = RotaryHapticsType(3)
     }
 }
@@ -100,6 +107,7 @@ public value class RotaryHapticsType(private val type: Int) {
 /**
  * Remember rotary haptic feedback.
  */
+@ExperimentalHorologistComposeLayoutApi
 @Composable
 public fun rememberRotaryHapticFeedback(
     throttleThresholdMs: Long = 40,
@@ -133,6 +141,7 @@ public fun rememberRotaryHapticFeedback(
     }
 }
 
+@OptIn(ExperimentalHorologistComposeLayoutApi::class)
 @Composable
 private fun rememberHapticChannel() =
     remember {
@@ -142,6 +151,7 @@ private fun rememberHapticChannel() =
         )
     }
 
+@ExperimentalHorologistComposeLayoutApi
 @Composable
 public fun rememberDefaultRotaryHapticFeedback(): RotaryHapticFeedback =
     LocalView.current.let { view -> remember { DefaultRotaryHapticFeedback(view) } }
@@ -149,8 +159,10 @@ public fun rememberDefaultRotaryHapticFeedback(): RotaryHapticFeedback =
 /**
  * Default Rotary implementation for [RotaryHapticFeedback]
  */
+@ExperimentalHorologistComposeLayoutApi
 public class DefaultRotaryHapticFeedback(private val view: View) : RotaryHapticFeedback {
 
+    @ExperimentalHorologistComposeLayoutApi
     override fun performHapticFeedback(
         type: RotaryHapticsType
     ) {

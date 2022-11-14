@@ -35,6 +35,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
 import androidx.compose.ui.platform.LocalContext
+import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -90,6 +91,7 @@ private inline fun debugLog(generateMsg: () -> String) {
  * @param flingBehavior Logic describing fling behavior.
  * @param rotaryHaptics Class which will handle haptic feedback
  */
+@ExperimentalHorologistComposeLayoutApi
 @Suppress("ComposableModifierFactory")
 @Composable
 public fun Modifier.rotaryWithFling(
@@ -119,6 +121,7 @@ public fun Modifier.rotaryWithFling(
  * @param scrollableState Scrollable state which will be scrolled while receiving rotary events
  * @param rotaryHaptics Class which will handle haptic feedback
  */
+@ExperimentalHorologistComposeLayoutApi
 @Suppress("ComposableModifierFactory")
 @Composable
 public fun Modifier.rotaryWithScroll(
@@ -135,32 +138,38 @@ public fun Modifier.rotaryWithScroll(
 /**
  * An adapter which connects scrollableState to Rotary
  */
+@ExperimentalHorologistComposeLayoutApi
 public interface RotaryScrollAdapter {
 
     /**
      * A scrollable state. Used for performing scroll when Rotary events received
      */
+    @ExperimentalHorologistComposeLayoutApi
     public val scrollableState: ScrollableState
 
     /**
      * Average size of an item. Used for estimating the scrollable distance
      */
+    @ExperimentalHorologistComposeLayoutApi
     public fun averageItemSize(): Float
 
     /**
      * A current item index. Used for scrolling
      */
+    @ExperimentalHorologistComposeLayoutApi
     public fun currentItemIndex(): Int
 
     /**
      * An offset from the centre or the border of the current item.
      */
+    @ExperimentalHorologistComposeLayoutApi
     public fun currentItemOffset(): Float
 }
 
 /**
  * Defaults for rotary modifiers
  */
+@ExperimentalHorologistComposeLayoutApi
 public object RotaryDefaults {
 
     /**
@@ -169,6 +178,7 @@ public object RotaryDefaults {
      * @param flingBehavior Logic describing Fling behavior. If null - fling will not happen
      * @param isLowRes Whether the input is Low-res (a bezel) or high-res(a crown/rsb)
      */
+    @ExperimentalHorologistComposeLayoutApi
     @Composable
     public fun rememberFlingHandler(
         scrollableState: ScrollableState,
@@ -204,6 +214,7 @@ public object RotaryDefaults {
         }
     }
 
+    @ExperimentalHorologistComposeLayoutApi
     @Composable
     private fun isLowResInput(): Boolean = LocalContext.current.packageManager
         .hasSystemFeature("android.hardware.rotaryencoder.lowres")
@@ -215,6 +226,7 @@ public object RotaryDefaults {
 /**
  * An interface for handling scroll events
  */
+@ExperimentalHorologistComposeLayoutApi
 public interface RotaryScrollHandler {
     /**
      * Handles scrolling events
@@ -222,6 +234,7 @@ public interface RotaryScrollHandler {
      * @param event A scrollable event from rotary input, containing scrollable delta and timestamp
      * @param rotaryHaptics
      */
+    @ExperimentalHorologistComposeLayoutApi
     public suspend fun handleScrollEvent(
         coroutineScope: CoroutineScope,
         event: TimestampedDelta,
@@ -232,10 +245,12 @@ public interface RotaryScrollHandler {
 /**
  * An interface for scrolling behavior
  */
+@ExperimentalHorologistComposeLayoutApi
 public interface RotaryScrollBehavior {
     /**
      * Handles scroll event with [pixelsToScroll] and [timestamp]
      */
+    @ExperimentalHorologistComposeLayoutApi
     public suspend fun handleEvent(
         pixelsToScroll: Float,
         timestamp: Long
@@ -245,6 +260,7 @@ public interface RotaryScrollBehavior {
 /**
  * Default implementation of [RotaryFlingBehavior]
  */
+@ExperimentalHorologistComposeLayoutApi
 public class DefaultRotaryFlingBehavior(
     private val scrollableState: ScrollableState,
     private val flingBehavior: FlingBehavior,
@@ -270,17 +286,20 @@ public class DefaultRotaryFlingBehavior(
     private var flingVelocity: Float = 0f
     private var flingTimestamp: Long = 0
 
+    @ExperimentalHorologistComposeLayoutApi
     override fun startFlingTracking(timestamp: Long) {
         rotaryVelocityTracker.start(timestamp)
         latestEventTimestamp = timestamp
         previousVelocity = 0f
     }
 
+    @ExperimentalHorologistComposeLayoutApi
     override fun observeEvent(timestamp: Long, delta: Float) {
         rotaryVelocityTracker.move(timestamp, delta)
         latestEventTimestamp = timestamp
     }
 
+    @ExperimentalHorologistComposeLayoutApi
     override suspend fun trackFling(beforeFling: () -> Unit) {
         val currentVelocity = rotaryVelocityTracker.velocity
         debugLog { "currentVelocity: $currentVelocity" }
@@ -322,34 +341,40 @@ public class DefaultRotaryFlingBehavior(
 /**
  * An interface for flinging with rotary
  */
+@ExperimentalHorologistComposeLayoutApi
 public interface RotaryFlingBehavior {
 
     /**
      * Observing new event within a fling tracking session with new timestamp and delta
      */
+    @ExperimentalHorologistComposeLayoutApi
     public fun observeEvent(timestamp: Long, delta: Float)
 
     /**
      * Performing fling if necessary and calling [beforeFling] lambda before it is triggered
      */
+    @ExperimentalHorologistComposeLayoutApi
     public suspend fun trackFling(beforeFling: () -> Unit)
 
     /**
      * Starts a new fling tracking session
      * with specified timestamp
      */
+    @ExperimentalHorologistComposeLayoutApi
     public fun startFlingTracking(timestamp: Long)
 }
 
 /**
  * A rotary event object which contains a [timestamp] of the rotary event and a scrolled [delta].
  */
+@ExperimentalHorologistComposeLayoutApi
 public data class TimestampedDelta(val timestamp: Long, val delta: Float)
 
 /** Animation implementation of [RotaryScrollBehavior].
  * This class does a smooth animation when the scroll by N pixels is done.
  * This animation works well on Rsb(high-res) and Bezel(low-res) devices.
  */
+@ExperimentalHorologistComposeLayoutApi
 public class AnimationScrollBehavior(
     private val scrollableState: ScrollableState
 ) : RotaryScrollBehavior {
@@ -360,6 +385,7 @@ public class AnimationScrollBehavior(
     private var prevPosition = 0f
     private var previousScrollEventTime = 0L
 
+    @ExperimentalHorologistComposeLayoutApi
     override suspend fun handleEvent(
         pixelsToScroll: Float,
         timestamp: Long
@@ -390,6 +416,7 @@ public class AnimationScrollBehavior(
  * It accepts ScrollHandler as the input - a class where main logic about how
  * scroll should be handled is lying
  */
+@ExperimentalHorologistComposeLayoutApi
 @OptIn(ExperimentalComposeUiApi::class)
 public fun Modifier.rotaryHandler(
     rotaryScrollHandler: RotaryScrollHandler,
@@ -430,6 +457,7 @@ public fun Modifier.rotaryHandler(
  * Batching requests for scrolling events. This function combines all events together
  * (except first) within specified timeframe. Should help with performance on high-res devices.
  */
+@ExperimentalHorologistComposeLayoutApi
 @OptIn(ExperimentalCoroutinesApi::class)
 public fun Flow<TimestampedDelta>.batchRequestsWithinTimeframe(timeframe: Long): Flow<TimestampedDelta> {
     var delta = 0f
@@ -466,6 +494,7 @@ public fun Flow<TimestampedDelta>.batchRequestsWithinTimeframe(timeframe: Long):
  *
  * This scroll handler supports fling. It can be set with [RotaryFlingBehavior].
  */
+@OptIn(ExperimentalHorologistComposeLayoutApi::class)
 internal class HighResRotaryScrollHandler(
     private val rotaryFlingBehaviorFactory: () -> RotaryFlingBehavior?,
     private val scrollBehaviorFactory: () -> RotaryScrollBehavior,
@@ -561,6 +590,7 @@ internal class HighResRotaryScrollHandler(
  * A scroll handler for Bezel(low-res) without snapping.
  * This scroll handler supports fling. It can be set with RotaryFlingBehavior.
  */
+@OptIn(ExperimentalHorologistComposeLayoutApi::class)
 internal class LowResRotaryScrollHandler(
     private val rotaryFlingBehaviorFactory: () -> RotaryFlingBehavior?,
     private val scrollBehaviorFactory: () -> RotaryScrollBehavior
@@ -624,6 +654,7 @@ internal class LowResRotaryScrollHandler(
     }
 }
 
+@OptIn(ExperimentalHorologistComposeLayoutApi::class)
 @Composable
 private fun rememberTimestampChannel() =
     remember {

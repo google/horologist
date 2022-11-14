@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalPagerApi::class, ExperimentalCoroutinesApi::class)
+@file:OptIn(ExperimentalPagerApi::class, ExperimentalCoroutinesApi::class,
+    ExperimentalHorologistComposeLayoutApi::class
+)
 
 package com.google.android.horologist.compose.pager
 
@@ -39,7 +41,8 @@ import androidx.wear.compose.material.Text
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 import com.google.android.horologist.compose.focus.RequestFocusWhenActive
-import com.google.android.horologist.compose.navscaffold.scrollableColumn
+import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
+import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -64,7 +67,7 @@ class PagerScreenTest {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .scrollableColumn(focusRequester, scrollState)
+                        .rotaryWithFling(focusRequester, scrollState)
                         .verticalScroll(scrollState),
                     verticalArrangement = Arrangement.Center
                 ) {

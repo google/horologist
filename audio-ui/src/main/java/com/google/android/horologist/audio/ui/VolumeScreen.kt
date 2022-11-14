@@ -43,8 +43,8 @@ import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.components.DeviceChip
-import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
+import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 
 /**

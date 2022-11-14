@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalPagerApi::class, ExperimentalCoroutinesApi::class,
+@file:OptIn(
+    ExperimentalPagerApi::class,
+    ExperimentalCoroutinesApi::class,
     ExperimentalHorologistComposeLayoutApi::class
 )
 

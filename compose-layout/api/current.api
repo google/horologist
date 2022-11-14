@@ -92,7 +92,7 @@ package com.google.android.horologist.compose.navscaffold {
   }
 
   public final class ScrollableColumnKt {
-    method public static androidx.compose.ui.Modifier scrollableColumn(androidx.compose.ui.Modifier, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.compose.foundation.gestures.ScrollableState scrollableState);
+    method @Deprecated public static androidx.compose.ui.Modifier scrollableColumn(androidx.compose.ui.Modifier, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.compose.foundation.gestures.ScrollableState scrollableState);
   }
 
   public final class WearNavScaffoldKt {
@@ -130,9 +130,110 @@ package com.google.android.horologist.compose.rotaryinput {
     method public static androidx.compose.ui.Modifier onRotaryInputAccumulated(androidx.compose.ui.Modifier, kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit> onValueChange);
   }
 
+  @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public final class AnimationScrollBehavior implements com.google.android.horologist.compose.rotaryinput.RotaryScrollBehavior {
+    ctor public AnimationScrollBehavior(androidx.compose.foundation.gestures.ScrollableState scrollableState);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? handleEvent(float pixelsToScroll, long timestamp, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+  }
+
+  @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public final class DefaultRotaryFlingBehavior implements com.google.android.horologist.compose.rotaryinput.RotaryFlingBehavior {
+    ctor public DefaultRotaryFlingBehavior(androidx.compose.foundation.gestures.ScrollableState scrollableState, androidx.compose.foundation.gestures.FlingBehavior flingBehavior, android.view.ViewConfiguration viewConfiguration, long flingTimeframe);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public void observeEvent(long timestamp, float delta);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public void startFlingTracking(long timestamp);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? trackFling(kotlin.jvm.functions.Function0<kotlin.Unit> beforeFling, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+  }
+
+  @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public final class DefaultRotaryHapticFeedback implements com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback {
+    ctor public DefaultRotaryHapticFeedback(android.view.View view);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public void performHapticFeedback(int type);
+    field public static final com.google.android.horologist.compose.rotaryinput.DefaultRotaryHapticFeedback.Companion Companion;
+    field public static final int ROTARY_SCROLL_ITEM_FOCUS = 19; // 0x13
+    field public static final int ROTARY_SCROLL_LIMIT = 20; // 0x14
+    field public static final int ROTARY_SCROLL_TICK = 18; // 0x12
+  }
+
+  public static final class DefaultRotaryHapticFeedback.Companion {
+  }
+
   public final class GenericMotionRotaryInputAccumulator {
     ctor public GenericMotionRotaryInputAccumulator(android.content.Context context, kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit> onValueChange);
     method public boolean onGenericMotionEvent(android.view.MotionEvent event);
+  }
+
+  public final class HapticsKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rememberDefaultRotaryHapticFeedback();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rememberRotaryHapticFeedback(optional long throttleThresholdMs, optional kotlinx.coroutines.channels.Channel<com.google.android.horologist.compose.rotaryinput.RotaryHapticsType> hapticsChannel, optional com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rotaryHaptics);
+  }
+
+  @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public final class RotaryDefaults {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public com.google.android.horologist.compose.rotaryinput.RotaryScrollHandler rememberFlingHandler(androidx.compose.foundation.gestures.ScrollableState scrollableState, optional androidx.compose.foundation.gestures.FlingBehavior? flingBehavior, optional boolean isLowRes);
+    field public static final com.google.android.horologist.compose.rotaryinput.RotaryDefaults INSTANCE;
+  }
+
+  @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public interface RotaryFlingBehavior {
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public void observeEvent(long timestamp, float delta);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public void startFlingTracking(long timestamp);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? trackFling(kotlin.jvm.functions.Function0<kotlin.Unit> beforeFling, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+  }
+
+  @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public interface RotaryHapticFeedback {
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public void performHapticFeedback(int type);
+  }
+
+  @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi @kotlin.jvm.JvmInline public final value class RotaryHapticsType {
+    ctor public RotaryHapticsType(int type);
+    field public static final com.google.android.horologist.compose.rotaryinput.RotaryHapticsType.Companion Companion;
+  }
+
+  public static final class RotaryHapticsType.Companion {
+    method public int getScrollItemFocus();
+    method public int getScrollLimit();
+    method public int getScrollTick();
+    property public final int ScrollItemFocus;
+    property public final int ScrollLimit;
+    property public final int ScrollTick;
+  }
+
+  public final class RotaryKt {
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static kotlinx.coroutines.flow.Flow<com.google.android.horologist.compose.rotaryinput.TimestampedDelta> batchRequestsWithinTimeframe(kotlinx.coroutines.flow.Flow<com.google.android.horologist.compose.rotaryinput.TimestampedDelta>, long timeframe);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static androidx.compose.ui.Modifier rotaryHandler(androidx.compose.ui.Modifier, com.google.android.horologist.compose.rotaryinput.RotaryScrollHandler rotaryScrollHandler, optional long batchTimeframe, com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rotaryHaptics);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static androidx.compose.ui.Modifier rotaryWithFling(androidx.compose.ui.Modifier, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.compose.foundation.gestures.ScrollableState scrollableState, optional androidx.compose.foundation.gestures.FlingBehavior flingBehavior, optional com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rotaryHaptics);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static androidx.compose.ui.Modifier rotaryWithScroll(androidx.compose.ui.Modifier, androidx.compose.ui.focus.FocusRequester focusRequester, androidx.compose.foundation.gestures.ScrollableState scrollableState, optional com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rotaryHaptics);
+  }
+
+  @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public interface RotaryScrollAdapter {
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public float averageItemSize();
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public int currentItemIndex();
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public float currentItemOffset();
+    method public androidx.compose.foundation.gestures.ScrollableState getScrollableState();
+    property public abstract androidx.compose.foundation.gestures.ScrollableState scrollableState;
+  }
+
+  @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public interface RotaryScrollBehavior {
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? handleEvent(float pixelsToScroll, long timestamp, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+  }
+
+  @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public interface RotaryScrollHandler {
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? handleScrollEvent(kotlinx.coroutines.CoroutineScope coroutineScope, com.google.android.horologist.compose.rotaryinput.TimestampedDelta event, com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rotaryHaptics, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+  }
+
+  public final class RotaryVelocityTracker {
+    ctor public RotaryVelocityTracker();
+    method public void end();
+    method public float getVelocity();
+    method public void move(long currentTime, float delta);
+    method public void start(long currentTime);
+    property public final float velocity;
+  }
+
+  @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public final class TimestampedDelta {
+    ctor public TimestampedDelta(long timestamp, float delta);
+    method public long component1();
+    method public float component2();
+    method public com.google.android.horologist.compose.rotaryinput.TimestampedDelta copy(long timestamp, float delta);
+    method public float getDelta();
+    method public long getTimestamp();
+    property public final float delta;
+    property public final long timestamp;
   }
 
 }

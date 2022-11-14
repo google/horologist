@@ -16,9 +16,12 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.google.android.horologist.network.awareness">
 
     <uses-feature android:name="android.hardware.type.watch" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-sdk android:minSdkVersion="26" tools:ignore="GradleOverrides" />
 </manifest>

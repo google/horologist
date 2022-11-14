@@ -37,7 +37,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
@@ -88,7 +87,6 @@ public fun PlaylistDownloadScreen(
     onDownloadItemInProgressClick: (DownloadMediaUiModel) -> Unit,
     onShuffleButtonClick: (PlaylistUiModel) -> Unit,
     onPlayButtonClick: (PlaylistUiModel) -> Unit,
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
@@ -122,7 +120,6 @@ public fun PlaylistDownloadScreen(
                 onDownloadItemInProgressClickActionLabel = onDownloadItemInProgressClickActionLabel
             )
         },
-        focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
         modifier = modifier,
         scalingParams = scalingParams,

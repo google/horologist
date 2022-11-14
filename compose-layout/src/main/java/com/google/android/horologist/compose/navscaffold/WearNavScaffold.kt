@@ -24,14 +24,17 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
@@ -49,6 +52,7 @@ import androidx.wear.compose.navigation.SwipeDismissableNavHostState
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.currentBackStackEntryAsState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
+import com.google.android.horologist.compose.focus.FocusControl
 
 /**
  * A Navigation and Scroll aware [Scaffold].
@@ -206,13 +210,13 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
     content: @Composable (ScaffoldContext<ScalingLazyListState>) -> Unit
 ) {
     composable(route, arguments, deepLinks) {
-        val viewModel: NavScaffoldViewModel = viewModel(it)
+        FocusedDestination {
+            val viewModel: NavScaffoldViewModel = viewModel(it)
 
-        val scrollState = viewModel.initializeScalingLazyListState(scrollStateBuilder)
+            val scrollState = viewModel.initializeScalingLazyListState(scrollStateBuilder)
 
-        content(ScaffoldContext(it, scrollState, viewModel))
-
-        it.ResumeAsNeeded(viewModel)
+            content(ScaffoldContext(it, scrollState, viewModel))
+        }
     }
 }
 
@@ -229,13 +233,13 @@ public fun NavGraphBuilder.scrollStateComposable(
     content: @Composable (ScaffoldContext<ScrollState>) -> Unit
 ) {
     composable(route, arguments, deepLinks) {
-        val viewModel: NavScaffoldViewModel = viewModel(it)
+        FocusedDestination {
+            val viewModel: NavScaffoldViewModel = viewModel(it)
 
-        val scrollState = viewModel.initializeScrollState(scrollStateBuilder)
+            val scrollState = viewModel.initializeScrollState(scrollStateBuilder)
 
-        content(ScaffoldContext(it, scrollState, viewModel))
-
-        it.ResumeAsNeeded(viewModel)
+            content(ScaffoldContext(it, scrollState, viewModel))
+        }
     }
 }
 
@@ -252,13 +256,13 @@ public fun NavGraphBuilder.lazyListComposable(
     content: @Composable (ScaffoldContext<LazyListState>) -> Unit
 ) {
     composable(route, arguments, deepLinks) {
-        val viewModel: NavScaffoldViewModel = viewModel(it)
+        FocusedDestination {
+            val viewModel: NavScaffoldViewModel = viewModel(it)
 
-        val scrollState = viewModel.initializeLazyList(lazyListStateBuilder)
+            val scrollState = viewModel.initializeLazyList(lazyListStateBuilder)
 
-        content(ScaffoldContext(it, scrollState, viewModel))
-
-        it.ResumeAsNeeded(viewModel)
+            content(ScaffoldContext(it, scrollState, viewModel))
+        }
     }
 }
 
@@ -274,25 +278,31 @@ public fun NavGraphBuilder.wearNavComposable(
     content: @Composable (NavBackStackEntry, NavScaffoldViewModel) -> Unit
 ) {
     composable(route, arguments, deepLinks) {
-        val viewModel: NavScaffoldViewModel = viewModel()
+        FocusedDestination {
+            val viewModel: NavScaffoldViewModel = viewModel()
 
-        content(it, viewModel)
-
-        it.ResumeAsNeeded(viewModel)
+            content(it, viewModel)
+        }
     }
 }
 
-@ExperimentalHorologistComposeLayoutApi
 @Composable
-private fun NavBackStackEntry.ResumeAsNeeded(
-    viewModel: NavScaffoldViewModel
-) {
-    // Wire up to NavBackStackEntry lifecycle
-    // events to make sure this composable handles
-    // events like scrolling.
-    LaunchedEffect(Unit) {
-        this@ResumeAsNeeded.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
-            viewModel.resumed()
+internal fun FocusedDestination(content: @Composable () -> Unit) {
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+    val focused =
+        remember { mutableStateOf(lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) }
+
+    DisposableEffect(lifecycle) {
+        val listener = LifecycleEventObserver { _, _ ->
+            focused.value = lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)
         }
+        lifecycle.addObserver(listener)
+        onDispose {
+            lifecycle.removeObserver(listener)
+        }
+    }
+
+    FocusControl(requiresFocus = { focused.value }) {
+        content()
     }
 }

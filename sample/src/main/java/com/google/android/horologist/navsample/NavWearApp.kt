@@ -91,8 +91,7 @@ fun NavWearApp(
         ) {
             NavMenuScreen(
                 navigateToRoute = { route -> navController.navigate(route) },
-                scrollState = it.scrollableState,
-                focusRequester = it.viewModel.focusRequester
+                scrollState = it.scrollableState
             )
         }
 
@@ -107,8 +106,7 @@ fun NavWearApp(
                 NavScaffoldViewModel.PositionIndicatorMode.On
 
             BigScalingLazyColumn(
-                scrollState = it.scrollableState,
-                focusRequester = it.viewModel.focusRequester
+                scrollState = it.scrollableState
             )
         }
 
@@ -117,8 +115,7 @@ fun NavWearApp(
             scrollStateBuilder = { ScrollState(initial = 0) }
         ) {
             BigColumn(
-                scrollState = it.scrollableState,
-                focusRequester = it.viewModel.focusRequester
+                scrollState = it.scrollableState
             )
         }
 
@@ -161,8 +158,8 @@ fun NavWearApp(
             }
         }
 
-        wearNavComposable(NavScreen.Volume.route) { _, viewModel ->
-            VolumeScreen(focusRequester = viewModel.focusRequester)
+        wearNavComposable(NavScreen.Volume.route) { _, _ ->
+            VolumeScreen()
         }
     }
 }

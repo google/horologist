@@ -18,7 +18,6 @@ package com.google.android.horologist.mediasample.ui.entity
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.focus.FocusRequester
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.media.ui.screens.entity.PlaylistStreamingScreen
@@ -32,7 +31,6 @@ fun UampStreamingPlaylistScreen(
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
     onShuffleClick: (PlaylistUiModel?) -> Unit,
     onPlayClick: (PlaylistUiModel?) -> Unit,
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -52,7 +50,6 @@ fun UampStreamingPlaylistScreen(
             viewModel.play(it.id)
             onDownloadItemClick(it)
         },
-        focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState
     )
 }

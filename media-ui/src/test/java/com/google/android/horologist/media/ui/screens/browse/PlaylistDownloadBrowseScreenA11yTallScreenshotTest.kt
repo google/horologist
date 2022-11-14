@@ -22,7 +22,6 @@
 
 package com.google.android.horologist.media.ui.screens.browse
 
-import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.ScalingLazyListState
 import app.cash.paparazzi.DeviceConfig
 import com.android.ide.common.rendering.api.SessionParams
@@ -78,7 +77,6 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest {
                         onDownloadItemInProgressClick = { },
                         onPlaylistsClick = { },
                         onSettingsClick = { },
-                        focusRequester = FocusRequester(),
                         scalingLazyListState = scrollState,
                         scalingParams = scalingParams,
                         onDownloadItemInProgressClickActionLabel = "cancel"

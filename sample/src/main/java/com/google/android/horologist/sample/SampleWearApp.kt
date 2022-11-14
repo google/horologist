@@ -18,13 +18,11 @@ package com.google.android.horologist.sample
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
@@ -76,13 +74,7 @@ fun SampleWearApp() {
                 FillMaxRectangleScreen()
             }
             composable(Screen.Volume.route) {
-                val focusRequester = remember { FocusRequester() }
-
-                VolumeScreen(focusRequester = focusRequester)
-
-                LaunchedEffect(Unit) {
-                    focusRequester.requestFocus()
-                }
+                VolumeScreen()
             }
             composable(Screen.ScrollAway.route) {
                 ScrollScreenLazyColumn()

@@ -21,7 +21,6 @@ package com.google.android.horologist.media.ui.screens.playlists
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.StandardChip
@@ -54,7 +53,6 @@ fun PlaylistsScreenPreview() {
             }
         ),
         onPlaylistItemClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         playlistItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.FeaturedPlayList,
@@ -69,7 +67,6 @@ fun PlaylistsScreenPreviewLoading() {
     PlaylistsScreen(
         playlistsScreenState = PlaylistsScreenState.Loading(),
         onPlaylistItemClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     )
 }
@@ -80,7 +77,6 @@ fun PlaylistsScreenPreviewFailed() {
     PlaylistsScreen(
         playlistsScreenState = PlaylistsScreenState.Failed(),
         onPlaylistItemClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     )
 }
@@ -101,7 +97,6 @@ fun PlaylistsScreenPreviewCustomLayout() {
                 chipType = StandardChipType.Primary
             )
         },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     )
 }

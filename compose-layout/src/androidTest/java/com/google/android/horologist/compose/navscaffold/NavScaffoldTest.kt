@@ -24,8 +24,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -47,6 +49,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.rememberScalingLazyListState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
@@ -82,11 +85,13 @@ class NavScaffoldTest {
                 route = route,
                 scrollStateBuilder = { scrollState }
             ) {
+                val focusRequester =
+                    remember { FocusRequester() }
                 ScalingLazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
                         .rotaryWithFling(
-                            it.viewModel.focusRequester,
+                            focusRequester,
                             it.scrollableState
                         ),
                     state = it.scrollableState,
@@ -96,6 +101,8 @@ class NavScaffoldTest {
                         Text(text = "Item $it")
                     }
                 }
+
+                RequestFocusWhenActive(focusRequester)
             }
         }
 
@@ -157,10 +164,12 @@ class NavScaffoldTest {
                     route = "a",
                     scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 0) }
                 ) {
+                    val focusRequester =
+                        remember { FocusRequester() }
                     ScalingLazyColumn(
                         modifier = Modifier
                             .rotaryWithFling(
-                                it.viewModel.focusRequester,
+                                focusRequester,
                                 it.scrollableState
                             )
                             .fillMaxSize()
@@ -173,23 +182,27 @@ class NavScaffoldTest {
                             Text("Item $it")
                         }
                     }
+                    RequestFocusWhenActive(focusRequester)
                 }
 
                 scrollStateComposable(
                     route = "b",
                     scrollStateBuilder = { ScrollState(0) }
                 ) {
+                    val focusRequester =
+                        remember { FocusRequester() }
                     Column(
                         modifier = Modifier
                             .testTag("columnb")
                             .fillMaxSize()
-                            .rotaryWithFling(it.viewModel.focusRequester, it.scrollableState)
+                            .rotaryWithFling(focusRequester, it.scrollableState)
                             .verticalScroll(it.scrollableState)
                     ) {
                         (1..100).forEach { i ->
                             Text("$i")
                         }
                     }
+                    RequestFocusWhenActive(focusRequester)
                 }
             }
         }

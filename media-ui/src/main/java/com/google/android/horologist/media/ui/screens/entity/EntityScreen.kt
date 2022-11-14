@@ -19,12 +19,10 @@ package com.google.android.horologist.media.ui.screens.entity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.Lifecycle
 import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyColumnDefaults
@@ -32,6 +30,7 @@ import androidx.wear.compose.material.ScalingLazyListScope
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.ScalingParams
 import com.google.android.horologist.base.ui.components.Title
+import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
@@ -42,7 +41,6 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 @Composable
 public fun EntityScreen(
     headerContent: @Composable () -> Unit,
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
@@ -50,6 +48,8 @@ public fun EntityScreen(
     buttonsContent: (@Composable () -> Unit)? = null,
     content: (ScalingLazyListScope.() -> Unit)? = null
 ) {
+    val focusRequester = remember { FocusRequester() }
+
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -72,6 +72,8 @@ public fun EntityScreen(
             content()
         }
     }
+
+    RequestFocusWhenActive(focusRequester)
 }
 
 /**
@@ -83,7 +85,6 @@ public fun <Media> EntityScreen(
     headerContent: @Composable () -> Unit,
     mediaList: List<Media>,
     mediaContent: @Composable (media: Media) -> Unit,
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
@@ -92,7 +93,6 @@ public fun <Media> EntityScreen(
 ) {
     EntityScreen(
         headerContent = headerContent,
-        focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
         modifier = modifier,
         scalingParams = scalingParams,
@@ -117,7 +117,6 @@ public fun <Media> EntityScreen(
     headerContent: @Composable () -> Unit,
     loadingContent: ScalingLazyListScope.() -> Unit,
     mediaContent: @Composable (media: Media) -> Unit,
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
@@ -129,7 +128,6 @@ public fun <Media> EntityScreen(
         is EntityScreenState.Loading -> {
             EntityScreen(
                 headerContent = headerContent,
-                focusRequester = focusRequester,
                 scalingLazyListState = scalingLazyListState,
                 modifier = modifier,
                 scalingParams = scalingParams,
@@ -144,7 +142,6 @@ public fun <Media> EntityScreen(
                 headerContent = headerContent,
                 mediaList = entityScreenState.mediaList,
                 mediaContent = mediaContent,
-                focusRequester = focusRequester,
                 scalingLazyListState = scalingLazyListState,
                 modifier = modifier,
                 scalingParams = scalingParams,
@@ -156,7 +153,6 @@ public fun <Media> EntityScreen(
         is EntityScreenState.Failed -> {
             EntityScreen(
                 headerContent = headerContent,
-                focusRequester = focusRequester,
                 scalingLazyListState = scalingLazyListState,
                 modifier = modifier,
                 autoCentering = autoCentering,
@@ -166,12 +162,6 @@ public fun <Media> EntityScreen(
                     { item { failedContent() } }
                 }
             )
-        }
-    }
-    val lifecycle = LocalLifecycleOwner.current.lifecycle
-    LaunchedEffect(entityScreenState) {
-        if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-            focusRequester.requestFocus()
         }
     }
 }

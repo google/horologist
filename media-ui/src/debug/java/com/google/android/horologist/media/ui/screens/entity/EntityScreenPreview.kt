@@ -38,7 +38,6 @@ import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
@@ -75,7 +74,6 @@ fun EntityScreenPreview() {
                 Text("Playlist name")
             }
         },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         buttonsContent = {
             Row(
@@ -118,7 +116,6 @@ fun EntityScreenPreviewLoadedState() {
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { },
         mediaContent = { song -> StandardChip(label = song, onClick = { }) },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         buttonsContent = { ButtonContentForStatePreview() }
     )
@@ -132,7 +129,6 @@ fun EntityScreenPreviewLoadingState() {
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },
         mediaContent = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         buttonsContent = { ButtonContentForStatePreview() }
     )
@@ -146,7 +142,6 @@ fun EntityScreenPreviewFailedState() {
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { },
         mediaContent = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         buttonsContent = { ButtonContentForStatePreview() },
         failedContent = {

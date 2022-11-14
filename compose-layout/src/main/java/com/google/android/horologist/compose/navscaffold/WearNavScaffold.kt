@@ -53,7 +53,6 @@ import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.currentBackStackEntryAsState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.compose.focus.FocusControl
-import com.google.android.horologist.compose.focus.OnFocusChange
 
 /**
  * A Navigation and Scroll aware [Scaffold].
@@ -211,7 +210,7 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
     content: @Composable (ScaffoldContext<ScalingLazyListState>) -> Unit
 ) {
     composable(route, arguments, deepLinks) {
-        FocusedDestination(route) {
+        FocusedDestination {
             val viewModel: NavScaffoldViewModel = viewModel(it)
 
             val scrollState = viewModel.initializeScalingLazyListState(scrollStateBuilder)
@@ -234,7 +233,7 @@ public fun NavGraphBuilder.scrollStateComposable(
     content: @Composable (ScaffoldContext<ScrollState>) -> Unit
 ) {
     composable(route, arguments, deepLinks) {
-        FocusedDestination(route) {
+        FocusedDestination {
             val viewModel: NavScaffoldViewModel = viewModel(it)
 
             val scrollState = viewModel.initializeScrollState(scrollStateBuilder)
@@ -257,7 +256,7 @@ public fun NavGraphBuilder.lazyListComposable(
     content: @Composable (ScaffoldContext<LazyListState>) -> Unit
 ) {
     composable(route, arguments, deepLinks) {
-        FocusedDestination(route) {
+        FocusedDestination {
             val viewModel: NavScaffoldViewModel = viewModel(it)
 
             val scrollState = viewModel.initializeLazyList(lazyListStateBuilder)
@@ -279,7 +278,7 @@ public fun NavGraphBuilder.wearNavComposable(
     content: @Composable (NavBackStackEntry, NavScaffoldViewModel) -> Unit
 ) {
     composable(route, arguments, deepLinks) {
-        FocusedDestination(route) {
+        FocusedDestination {
             val viewModel: NavScaffoldViewModel = viewModel()
 
             content(it, viewModel)
@@ -288,7 +287,7 @@ public fun NavGraphBuilder.wearNavComposable(
 }
 
 @Composable
-internal fun FocusedDestination(route: String, content: @Composable () -> Unit) {
+internal fun FocusedDestination(content: @Composable () -> Unit) {
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val focused =
         remember { mutableStateOf(lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) }

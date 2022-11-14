@@ -24,6 +24,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
+import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.sample.SampleChip
 
@@ -31,9 +32,10 @@ import com.google.android.horologist.sample.SampleChip
 fun NavMenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
-    scrollState: ScalingLazyListState,
-    focusRequester: FocusRequester = remember { FocusRequester() }
+    scrollState: ScalingLazyListState
 ) {
+    val focusRequester = remember { FocusRequester() }
+
     ScalingLazyColumn(
         modifier = modifier.rotaryWithFling(focusRequester, scrollState),
         state = scrollState,
@@ -77,4 +79,6 @@ fun NavMenuScreen(
             )
         }
     }
+
+    RequestFocusWhenActive(focusRequester)
 }

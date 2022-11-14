@@ -32,6 +32,7 @@ import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
+import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.mediasample.R
 import java.time.Instant
@@ -40,12 +41,12 @@ import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun AudioDebugScreen(
-    focusRequester: FocusRequester,
     state: ScalingLazyListState,
     audioDebugScreenViewModel: AudioDebugScreenViewModel,
     modifier: Modifier = Modifier
 ) {
     val uiState by audioDebugScreenViewModel.uiState.collectAsStateWithLifecycle()
+    val focusRequester = remember { FocusRequester() }
 
     ScalingLazyColumn(
         modifier = modifier
@@ -135,6 +136,8 @@ fun AudioDebugScreen(
             )
         }
     }
+
+    RequestFocusWhenActive(focusRequester)
 }
 
 fun formatDuration(millis: Long): String {

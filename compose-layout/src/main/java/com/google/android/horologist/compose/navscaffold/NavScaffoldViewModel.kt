@@ -18,19 +18,16 @@
 
 package com.google.android.horologist.compose.navscaffold
 
-import android.util.Log
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.focus.FocusRequester
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.SavedStateHandleSaveableApi
 import androidx.lifecycle.viewmodel.compose.saveable
-import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
@@ -88,18 +85,6 @@ public open class NavScaffoldViewModel(
     public var positionIndicatorMode: PositionIndicatorMode
         by mutableStateOf(PositionIndicatorMode.On)
 
-    internal var focusRequested: Boolean = false
-
-    /**
-     * A [FocusRequester] to be passed into Scrollable composables.
-     * If this is accessed within [NavGraphBuilder.wearNavComposable] then
-     * it is considered active and wired up to screen changes.
-     */
-    public val focusRequester: FocusRequester by lazy {
-        focusRequested = true
-        FocusRequester()
-    }
-
     internal fun initializeScrollState(scrollStateBuilder: () -> ScrollState): ScrollState {
         check(scrollType == null || scrollType == ScrollType.ScrollState)
 
@@ -156,16 +141,6 @@ public open class NavScaffoldViewModel(
         }
 
         return _scrollableState as LazyListState
-    }
-
-    public fun resumed() {
-        if (focusRequested) {
-            try {
-                focusRequester.requestFocus()
-            } catch (ise: IllegalStateException) {
-                Log.w("horologist", "Focus Requestor not installed", ise)
-            }
-        }
     }
 
     internal enum class ScrollType {

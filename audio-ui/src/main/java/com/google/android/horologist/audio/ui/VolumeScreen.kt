@@ -44,6 +44,7 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.components.DeviceChip
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
+import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 
 /**
@@ -64,7 +65,6 @@ public fun VolumeScreen(
     modifier: Modifier = Modifier,
     volumeViewModel: VolumeViewModel = viewModel(factory = VolumeViewModel.Factory),
     showVolumeIndicator: Boolean = true,
-    focusRequester: FocusRequester = remember { FocusRequester() },
     increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() }
 ) {
@@ -79,7 +79,6 @@ public fun VolumeScreen(
         decreaseVolume = { volumeViewModel.decreaseVolume() },
         onAudioOutputClick = { volumeViewModel.launchOutputSelection() },
         showVolumeIndicator = showVolumeIndicator,
-        focusRequester = focusRequester,
         onVolumeChangeByScroll = volumeViewModel::onVolumeChangeByScroll,
         increaseIcon = increaseIcon,
         decreaseIcon = decreaseIcon
@@ -97,14 +96,21 @@ public fun VolumeScreen(
     increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
     showVolumeIndicator: Boolean = true,
-    focusRequester: FocusRequester = remember { FocusRequester() },
     onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)? = null
 ) {
+    val focusRequester = remember(onVolumeChangeByScroll) {
+        if (onVolumeChangeByScroll != null) {
+            FocusRequester()
+        } else {
+            null
+        }
+    }
+
     Box(
         modifier = modifier.fillMaxSize().run {
             onVolumeChangeByScroll?.let {
                 onRotaryInputAccumulated(it)
-                    .focusRequester(focusRequester)
+                    .focusRequester(focusRequester!!)
                     .focusable()
             } ?: this
         }
@@ -142,6 +148,10 @@ public fun VolumeScreen(
                 autoHide = false
             )
         }
+    }
+
+    if (focusRequester != null) {
+        RequestFocusWhenActive(focusRequester)
     }
 }
 

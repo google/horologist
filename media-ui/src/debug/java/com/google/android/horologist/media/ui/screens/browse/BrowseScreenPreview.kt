@@ -25,7 +25,6 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PlaylistPlay
 import androidx.compose.material.icons.filled.Podcasts
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.rememberScalingLazyListState
@@ -77,7 +76,6 @@ private fun BrowseScreenPreviewSample(
     downloadsSectionState: Section.State<Pair<String, String>>
 ) {
     BrowseScreen(
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     ) {
         button(

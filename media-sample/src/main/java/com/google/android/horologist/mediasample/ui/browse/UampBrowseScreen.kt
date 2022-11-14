@@ -19,7 +19,6 @@ package com.google.android.horologist.mediasample.ui.browse
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material.ScalingLazyListState
@@ -33,7 +32,6 @@ fun UampBrowseScreen(
     onDownloadItemClick: (PlaylistDownloadUiModel) -> Unit,
     onPlaylistsClick: () -> Unit,
     onSettingsClick: () -> Unit,
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier
 ) {
@@ -47,7 +45,6 @@ fun UampBrowseScreen(
         },
         onPlaylistsClick = onPlaylistsClick,
         onSettingsClick = onSettingsClick,
-        focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
         modifier = modifier,
         onDownloadItemInProgressClickActionLabel = stringResource(id = R.string.browse_download_cancel_action_label)

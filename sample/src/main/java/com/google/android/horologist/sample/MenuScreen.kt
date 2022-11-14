@@ -35,7 +35,7 @@ import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberScalingLazyListState
-import com.google.android.horologist.compose.pager.FocusOnResume
+import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import java.time.LocalDateTime
 
@@ -44,9 +44,10 @@ fun MenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
     time: LocalDateTime,
-    scrollState: ScalingLazyListState = rememberScalingLazyListState(),
-    focusRequester: FocusRequester = remember { FocusRequester() }
+    scrollState: ScalingLazyListState = rememberScalingLazyListState()
 ) {
+    val focusRequester = remember { FocusRequester() }
+
     ScalingLazyColumn(
         modifier = modifier
             .rotaryWithFling(focusRequester, scrollState),
@@ -98,7 +99,7 @@ fun MenuScreen(
         }
     }
 
-    FocusOnResume(focusRequester = focusRequester)
+    RequestFocusWhenActive(focusRequester)
 }
 
 @Composable

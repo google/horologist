@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
@@ -31,6 +32,7 @@ import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
+import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToPlayer
 import com.google.android.horologist.mediasample.R
@@ -38,13 +40,14 @@ import com.google.android.horologist.mediasample.ui.settings.ActionSetting
 
 @Composable
 fun SamplesScreen(
-    focusRequester: FocusRequester,
     state: ScalingLazyListState,
     samplesScreenViewModel: SamplesScreenViewModel,
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
     val uiState by samplesScreenViewModel.uiState.collectAsStateWithLifecycle()
+
+    val focusRequester = remember { FocusRequester() }
 
     ScalingLazyColumn(
         modifier = modifier
@@ -66,4 +69,6 @@ fun SamplesScreen(
             }
         }
     }
+
+    RequestFocusWhenActive(focusRequester)
 }

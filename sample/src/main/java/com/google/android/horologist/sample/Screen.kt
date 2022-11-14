@@ -43,4 +43,8 @@ sealed class Screen(
     object RotaryScrollScreen : Screen("rotaryScrollScreen")
     object RotaryScrollWithFlingScreen : Screen("rotaryScrollWithFlingScreen")
     object RotarySnapListScreen : Screen("rotarySnapListScreen")
+
+    object AuthMenuScreen : Screen("authMenuScreen")
+    object AuthPKCEScreen : Screen("authPKCEScreen")
+    object AuthDeviceGrantScreen : Screen("authDeviceGrantScreen")
 }

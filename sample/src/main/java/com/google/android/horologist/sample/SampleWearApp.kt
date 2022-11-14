@@ -29,6 +29,9 @@ import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.audio.ui.VolumeScreen
+import com.google.android.horologist.auth.AuthMenuScreen
+import com.google.android.horologist.auth.oauth.devicegrant.AuthDeviceGrantScreen
+import com.google.android.horologist.auth.oauth.pkce.AuthPKCEScreen
 import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
@@ -153,6 +156,18 @@ fun SampleWearApp() {
             }
             composable(route = Screen.RotarySnapListScreen.route) {
                 RotaryScrollWithFlingOrSnapScreen(isFling = false, isSnap = true)
+            }
+            composable(route = Screen.AuthMenuScreen.route) {
+                AuthMenuScreen(
+                    modifier = Modifier.fillMaxSize(),
+                    navigateToRoute = { route -> navController.navigate(route) }
+                )
+            }
+            composable(route = Screen.AuthPKCEScreen.route) {
+                AuthPKCEScreen()
+            }
+            composable(route = Screen.AuthDeviceGrantScreen.route) {
+                AuthDeviceGrantScreen()
             }
         }
     }

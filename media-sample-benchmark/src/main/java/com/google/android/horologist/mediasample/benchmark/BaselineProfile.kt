@@ -29,7 +29,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -47,7 +46,6 @@ import kotlin.time.Duration.Companion.seconds
 // rules that are specific to classes and methods in your own app and library code.
 @ExperimentalBaselineProfilesApi
 @RunWith(AndroidJUnit4::class)
-@Ignore("Until we disable in CI runs")
 class BaselineProfile {
 
     @get:Rule

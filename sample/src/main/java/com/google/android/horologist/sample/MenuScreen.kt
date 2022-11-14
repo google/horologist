@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.sample
 
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,7 +25,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,8 +35,8 @@ import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberScalingLazyListState
-import com.google.android.horologist.compose.navscaffold.scrollableColumn
 import com.google.android.horologist.compose.pager.FocusOnResume
+import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import java.time.LocalDateTime
 
 @Composable
@@ -51,9 +49,7 @@ fun MenuScreen(
 ) {
     ScalingLazyColumn(
         modifier = modifier
-            .scrollableColumn(focusRequester, scrollState)
-            .focusRequester(focusRequester)
-            .focusable(),
+            .rotaryWithFling(focusRequester, scrollState),
         horizontalAlignment = Alignment.CenterHorizontally,
         state = scrollState
     ) {

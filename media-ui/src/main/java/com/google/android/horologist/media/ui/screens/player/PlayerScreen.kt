@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalLifecycleComposeApi::class)
+
 package com.google.android.horologist.media.ui.screens.player
 
 import androidx.compose.foundation.layout.Arrangement
@@ -36,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
@@ -47,16 +50,12 @@ import com.google.android.horologist.media.ui.state.PlayerUiController
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 
-@OptIn(ExperimentalHorologistMediaUiApi::class)
 public typealias MediaDisplay = @Composable ColumnScope.(playerUiState: PlayerUiState) -> Unit
 
-@OptIn(ExperimentalHorologistMediaUiApi::class)
 public typealias ControlButtons = @Composable RowScope.(playerUiController: PlayerUiController, playerUiState: PlayerUiState) -> Unit
 
-@OptIn(ExperimentalHorologistMediaUiApi::class)
 public typealias SettingsButtons = @Composable RowScope.(playerUiState: PlayerUiState) -> Unit
 
-@OptIn(ExperimentalHorologistMediaUiApi::class)
 public typealias PlayerBackground = @Composable BoxScope.(playerUiState: PlayerUiState) -> Unit
 
 /**

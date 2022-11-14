@@ -26,6 +26,7 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
@@ -49,7 +50,7 @@ fun VolumeScreenGuideWithLongText() {
         ) {
             VolumeScreen(
                 volume = { volume },
-                audioOutput = AudioOutput.BluetoothHeadset(id = "1", name = "Galaxy Watch 4"),
+                audioOutputUi = AudioOutput.BluetoothHeadset(id = "1", name = "Galaxy Watch 4").toAudioOutputUi(),
                 increaseVolume = { },
                 decreaseVolume = { },
                 onAudioOutputClick = {}
@@ -76,7 +77,7 @@ fun VolumeScreenPreview(
     ) {
         VolumeScreen(
             volume = { volume },
-            audioOutput = audioOutput,
+            audioOutputUi = audioOutput.toAudioOutputUi(),
             increaseVolume = { },
             decreaseVolume = { },
             onAudioOutputClick = {}
@@ -103,7 +104,7 @@ fun VolumeScreenTheme(
             ) {
                 VolumeScreen(
                     volume = { volume },
-                    audioOutput = AudioOutput.BluetoothHeadset(id = "1", name = "PixelBuds"),
+                    audioOutputUi = AudioOutput.BluetoothHeadset(id = "1", name = "PixelBuds").toAudioOutputUi(),
                     increaseVolume = { },
                     decreaseVolume = { },
                     onAudioOutputClick = {}

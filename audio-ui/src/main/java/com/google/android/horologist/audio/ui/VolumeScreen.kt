@@ -37,13 +37,14 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.InlineSlider
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Stepper
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.audio.ui.VolumeScreenDefaults.DecreaseIcon
-import com.google.android.horologist.audio.ui.VolumeScreenDefaults.IncreaseIcon
+import com.google.android.horologist.audio.ui.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.components.DeviceChip
 import com.google.android.horologist.compose.focus.RequestFocusWhenActive
+import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 
 /**
@@ -64,8 +65,8 @@ public fun VolumeScreen(
     modifier: Modifier = Modifier,
     volumeViewModel: VolumeViewModel = viewModel(factory = VolumeViewModel.Factory),
     showVolumeIndicator: Boolean = true,
-    increaseIcon: @Composable () -> Unit = { IncreaseIcon() },
-    decreaseIcon: @Composable () -> Unit = { DecreaseIcon() }
+    increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
+    decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() }
 ) {
     val volumeState by volumeViewModel.volumeState.collectAsState()
     val audioOutput by volumeViewModel.audioOutput.collectAsState()
@@ -73,7 +74,7 @@ public fun VolumeScreen(
     VolumeScreen(
         modifier = modifier,
         volume = { volumeState },
-        audioOutput = audioOutput,
+        audioOutputUi = audioOutput.toAudioOutputUi(),
         increaseVolume = { volumeViewModel.increaseVolume() },
         decreaseVolume = { volumeViewModel.decreaseVolume() },
         onAudioOutputClick = { volumeViewModel.launchOutputSelection() },
@@ -87,13 +88,13 @@ public fun VolumeScreen(
 @Composable
 public fun VolumeScreen(
     volume: () -> VolumeState,
-    audioOutput: AudioOutput,
+    audioOutputUi: AudioOutputUi,
     increaseVolume: () -> Unit,
     decreaseVolume: () -> Unit,
     onAudioOutputClick: () -> Unit,
     modifier: Modifier = Modifier,
-    increaseIcon: @Composable () -> Unit = { IncreaseIcon() },
-    decreaseIcon: @Composable () -> Unit = { DecreaseIcon() },
+    increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
+    decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
     showVolumeIndicator: Boolean = true,
     onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)? = null
 ) {
@@ -129,8 +130,15 @@ public fun VolumeScreen(
         ) {
             DeviceChip(
                 modifier = Modifier.padding(horizontal = 18.dp),
-                volumeState = volumeState,
-                audioOutput = audioOutput,
+                volumeDescription = volumeDescription(volumeState, audioOutputUi.isConnected),
+                deviceName = audioOutputUi.displayName,
+                icon = {
+                    Icon(
+                        imageVector = audioOutputUi.imageVector,
+                        contentDescription = audioOutputUi.displayName,
+                        tint = MaterialTheme.colors.onSurfaceVariant
+                    )
+                },
                 onAudioOutputClick = onAudioOutputClick
             )
         }
@@ -166,5 +174,14 @@ public object VolumeScreenDefaults {
             imageVector = Icons.Default.VolumeDown,
             contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_down_content_description)
         )
+    }
+}
+
+@Composable
+private fun volumeDescription(volumeState: VolumeState, isAudioOutputConnected: Boolean): String {
+    return if (isAudioOutputConnected) {
+        stringResource(id = R.string.horologist_volume_screen_connected_state, volumeState.current)
+    } else {
+        stringResource(id = R.string.horologist_volume_screen_not_connected_state)
     }
 }

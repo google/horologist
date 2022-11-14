@@ -304,9 +304,6 @@ internal fun FocusedDestination(route: String, content: @Composable () -> Unit) 
     }
 
     FocusControl(requiresFocus = { focused.value }) {
-        OnFocusChange {
-            println("focus $route $it")
-        }
         content()
     }
 }

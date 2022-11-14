@@ -90,7 +90,6 @@ public fun OnFocusChange(onFocusChanged: CoroutineScope.(Boolean) -> Unit) {
 @Composable
 public fun RequestFocusWhenActive(focusRequester: FocusRequester) {
     OnFocusChange {
-        println("RequestFocusWhenActive $focusRequester $it")
         if (it) focusRequester.requestFocus()
     }
 }

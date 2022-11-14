@@ -75,9 +75,6 @@ public fun PagerScreen(
                 }
             ) {
                 FocusControl(requiresFocus = { page == state.currentPage }) {
-                    OnFocusChange {
-                        println("focus $page $it")
-                    }
                     content(page)
                 }
             }

@@ -42,7 +42,6 @@ import com.google.accompanist.pager.PagerScope
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.compose.focus.FocusControl
-import com.google.android.horologist.compose.focus.OnFocusChange
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 
 /**

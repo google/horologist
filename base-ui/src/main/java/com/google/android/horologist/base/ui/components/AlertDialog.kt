@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.base.ui.components
 
-import android.R
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
@@ -43,8 +42,8 @@ public fun AlertDialog(
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     title: String = "",
-    okButtonContentDescription: String = stringResource(R.string.ok),
-    cancelButtonContentDescription: String = stringResource(R.string.cancel)
+    okButtonContentDescription: String = stringResource(android.R.string.ok),
+    cancelButtonContentDescription: String = stringResource(android.R.string.cancel)
 ) {
     Dialog(
         showDialog = showDialog,

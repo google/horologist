@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material.Icon
@@ -86,6 +87,9 @@ public fun VolumeScreen(
     )
 }
 
+/**
+ * Volume Screen with a Output Device chip.
+ */
 @Composable
 public fun VolumeScreen(
     volume: () -> VolumeState,
@@ -127,6 +131,9 @@ public fun VolumeScreen(
     )
 }
 
+/**
+ * Volume Screen with a simple "Volume" label.
+ */
 @Composable
 public fun VolumeScreen(
     volume: () -> VolumeState,
@@ -143,7 +150,9 @@ public fun VolumeScreen(
         contentSlot = {
             Text(
                 stringResource(id = R.string.horologist_volume_screen_volume_label),
-                style = MaterialTheme.typography.button
+                style = MaterialTheme.typography.button,
+                maxLines = 1,
+                overflow = TextOverflow.Clip
             )
         },
         increaseVolume = increaseVolume,

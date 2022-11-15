@@ -21,7 +21,6 @@ package com.google.android.horologist.media.ui.screens.browse
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
@@ -40,7 +39,6 @@ fun PlaylistDownloadBrowseScreenPreview() {
         onDownloadItemInProgressClick = { },
         onPlaylistsClick = { },
         onSettingsClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.FeaturedPlayList,
@@ -58,7 +56,6 @@ fun PlaylistDownloadBrowseScreenPreviewNoDownloads() {
         onDownloadItemInProgressClick = { },
         onPlaylistsClick = { },
         onSettingsClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     )
 }
@@ -72,7 +69,6 @@ fun PlaylistDownloadBrowseScreenPreviewLoading() {
         onDownloadItemInProgressClick = { },
         onPlaylistsClick = { },
         onSettingsClick = { },
-        focusRequester = FocusRequester(),
         scalingLazyListState = rememberScalingLazyListState()
     )
 }
@@ -87,7 +83,6 @@ fun PlaylistDownloadBrowseScreenPreviewUampTheme() {
             onDownloadItemInProgressClick = { },
             onPlaylistsClick = { },
             onSettingsClick = { },
-            focusRequester = FocusRequester(),
             scalingLazyListState = rememberScalingLazyListState(),
             downloadItemArtworkPlaceholder = rememberVectorPainter(
                 image = Icons.Default.FeaturedPlayList,

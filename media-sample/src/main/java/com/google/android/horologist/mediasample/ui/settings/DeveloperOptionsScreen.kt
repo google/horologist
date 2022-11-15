@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
@@ -36,6 +37,7 @@ import androidx.wear.compose.material.ToggleChip
 import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
 import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
+import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.OffloadMode
 import com.google.android.horologist.mediasample.ui.navigation.navigateToAudioDebug
@@ -43,13 +45,14 @@ import com.google.android.horologist.mediasample.ui.navigation.navigateToSamples
 
 @Composable
 fun DeveloperOptionsScreen(
-    focusRequester: FocusRequester,
     state: ScalingLazyListState,
     developerOptionsScreenViewModel: DeveloperOptionsScreenViewModel,
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
     val uiState by developerOptionsScreenViewModel.uiState.collectAsStateWithLifecycle()
+
+    val focusRequester = remember { FocusRequester() }
 
     ScalingLazyColumn(
         modifier = modifier
@@ -174,6 +177,8 @@ fun DeveloperOptionsScreen(
             }
         }
     }
+
+    RequestFocusWhenActive(focusRequester)
 }
 
 @Composable

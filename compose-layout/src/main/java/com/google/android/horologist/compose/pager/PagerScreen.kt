@@ -24,11 +24,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
@@ -36,9 +33,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LifecycleRegistry
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.wear.compose.material.HorizontalPageIndicator
 import androidx.wear.compose.material.PageIndicatorState
@@ -47,8 +41,8 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerScope
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
+import com.google.android.horologist.compose.focus.FocusControl
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
-import kotlinx.coroutines.launch
 
 /**
  * A Wear Material Compliant Pager screen.
@@ -64,47 +58,22 @@ public fun PagerScreen(
     state: PagerState = rememberPagerState(),
     content: @Composable (PagerScope.(Int) -> Unit)
 ) {
-    val coroutineScope = LocalLifecycleOwner.current.lifecycleScope
-
-    val scopes = remember(Unit) {
-        mutableMapOf<Int, PagerScreenScopeImpl>()
-    }
-
     val shape = if (LocalConfiguration.current.isScreenRound) CircleShape else null
 
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
         HorizontalPager(modifier = modifier, count = count, state = state) { page ->
-            val scope =
-                remember { scopes.getOrPut(page) { PagerScreenScopeImpl(this@HorizontalPager) } }
-
-            DisposableEffect(Unit) {
-                coroutineScope.launch {
-                    scope.lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)
-                    if (state.currentPage == page) {
-                        scope.lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
+            Box(
+                modifier = Modifier.fillMaxSize().run {
+                    if (shape != null) {
+                        clip(shape)
+                    } else {
+                        this
                     }
                 }
-                scopes[page] = scope
-                onDispose {
-                    coroutineScope.launch {
-                        scope.lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-                    }
-                    scopes.remove(page)
-                }
-            }
-
-            CompositionLocalProvider(LocalLifecycleOwner.provides(scope)) {
-                Box(
-                    modifier = Modifier.fillMaxSize().run {
-                        if (shape != null) {
-                            clip(shape)
-                        } else {
-                            this
-                        }
-                    }
-                ) {
+            ) {
+                FocusControl(requiresFocus = { page == state.currentPage }) {
                     content(page)
                 }
             }
@@ -116,39 +85,6 @@ public fun PagerScreen(
             pageIndicatorState = pagerScreenState
         )
     }
-
-    LaunchedEffect(Unit) {
-        var last: Int? = null
-        // When currentPage changes, send the appropriate lifecycle events to
-        // resume the new target page, and pause the previous.
-        snapshotFlow { state.currentPage }.collect { page ->
-            if (last != null) {
-                scopes[last]?.lifecycleRegistry?.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-            }
-            if (scopes.containsKey(page)) {
-                scopes[page]!!.lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
-            }
-            last = page
-        }
-    }
-}
-
-/**
- * The scopes for each page, combining Accompanist PagerScope and a custom
- * lifecycle.
- */
-internal class PagerScreenScopeImpl(private val scope: PagerScope) : LifecycleOwner, PagerScope {
-    var lifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this)
-
-    override fun getLifecycle(): Lifecycle {
-        return lifecycleRegistry
-    }
-
-    override val currentPage: Int
-        get() = scope.currentPage
-
-    override val currentPageOffset: Float
-        get() = scope.currentPageOffset
 }
 
 /**
@@ -172,6 +108,13 @@ public class PageScreenIndicatorState(private val state: PagerState) : PageIndic
 /**
  * Utility to Focus the page when it is resumed.
  */
+@Deprecated(
+    message = "Use RequestFocusWhenActive",
+    replaceWith = ReplaceWith(
+        "RequestFocusWhenActive(focusRequester=focusRequester)",
+        "com.google.android.horologist.compose.focus.RequestFocusWhenActive"
+    )
+)
 @ExperimentalHorologistComposeLayoutApi
 @Composable
 public fun FocusOnResume(focusRequester: FocusRequester) {

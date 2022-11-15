@@ -27,7 +27,6 @@ import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.AutoCenteringParams
@@ -56,7 +55,6 @@ public fun PlaylistStreamingScreen(
     playlistDownloadScreenState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
     onShuffleButtonClick: () -> Unit,
     onPlayButtonClick: () -> Unit,
-    focusRequester: FocusRequester,
     scalingLazyListState: ScalingLazyListState,
     onPlayItemClick: (DownloadMediaUiModel) -> Unit,
     modifier: Modifier = Modifier,
@@ -88,7 +86,6 @@ public fun PlaylistStreamingScreen(
                 chipType = StandardChipType.Secondary
             )
         },
-        focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
         modifier = modifier,
         scalingParams = scalingParams,

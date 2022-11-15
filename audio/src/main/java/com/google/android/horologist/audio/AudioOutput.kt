@@ -33,11 +33,18 @@ public interface AudioOutput {
     public val name: String
 
     /**
+     * Optional type of output which may be associated with an icon or displayed name.
+     */
+    public val type: String
+        get() = ""
+
+    /**
      * No current device.
      */
     public object None : AudioOutput {
-        override val name: String = "None"
-        override val id: String = "None"
+        override val name: String = ""
+        override val id: String = ""
+        override val type: String = TYPE_NONE
     }
 
     /**
@@ -46,7 +53,9 @@ public interface AudioOutput {
     public data class BluetoothHeadset(
         override val id: String,
         override val name: String
-    ) : AudioOutput
+    ) : AudioOutput {
+        override val type: String = TYPE_HEADPHONES
+    }
 
     /**
      * The one device watch speaker.
@@ -54,7 +63,9 @@ public interface AudioOutput {
     public data class WatchSpeaker(
         override val id: String,
         override val name: String
-    ) : AudioOutput
+    ) : AudioOutput {
+        override val type: String = TYPE_WATCH
+    }
 
     /**
      * An unknown audio output device
@@ -63,4 +74,10 @@ public interface AudioOutput {
         override val id: String,
         override val name: String
     ) : AudioOutput
+
+    public companion object {
+        public const val TYPE_WATCH: String = "watch"
+        public const val TYPE_HEADPHONES: String = "headphones"
+        public const val TYPE_NONE: String = "none"
+    }
 }

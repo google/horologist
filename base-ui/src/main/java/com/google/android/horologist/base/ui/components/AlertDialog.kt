@@ -28,7 +28,6 @@ import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
-import com.google.android.horologist.base.ui.R
 
 /**
  * This composable fulfils the redlines of the following components:
@@ -43,8 +42,8 @@ public fun AlertDialog(
     scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     title: String = "",
-    okButtonContentDescription: String = stringResource(R.string.alert_dialog_ok_button_content_description),
-    cancelButtonContentDescription: String = stringResource(R.string.alert_dialog_cancel_button_content_description)
+    okButtonContentDescription: String = stringResource(android.R.string.ok),
+    cancelButtonContentDescription: String = stringResource(android.R.string.cancel)
 ) {
     Dialog(
         showDialog = showDialog,

@@ -14,33 +14,40 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalPagerApi::class, ExperimentalCoroutinesApi::class)
+@file:OptIn(
+    ExperimentalPagerApi::class,
+    ExperimentalCoroutinesApi::class,
+    ExperimentalHorologistComposeLayoutApi::class
+)
 
 package com.google.android.horologist.compose.pager
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.assertIsNotDisplayed
+import androidx.compose.ui.test.assertIsNotFocused
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import androidx.lifecycle.whenResumed
+import androidx.compose.ui.test.onParent
 import androidx.test.filters.MediumTest
 import androidx.wear.compose.material.Text
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
+import com.google.android.horologist.compose.focus.RequestFocusWhenActive
+import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
+import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import org.junit.Rule
@@ -53,30 +60,27 @@ class PagerScreenTest {
 
     @Test
     fun testNavScaffoldNavigation() = runTest {
-        // Test pager sends the right events to each page
-        // on changes
-
-        var resumedScreen by mutableStateOf(0)
-
         val state = PagerState()
 
         composeTestRule.setContent {
             PagerScreen(modifier = Modifier.fillMaxSize(), count = 5, state = state) { i ->
-                val lifecycleOwner = LocalLifecycleOwner.current
-                LaunchedEffect(Unit) {
-                    lifecycleOwner.whenResumed {
-                        resumedScreen = i
-                    }
-                }
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                val focusRequester = remember { FocusRequester() }
+                val scrollState = rememberScrollState()
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .rotaryWithFling(focusRequester, scrollState)
+                        .verticalScroll(scrollState),
+                    verticalArrangement = Arrangement.Center
+                ) {
                     Text(modifier = Modifier.testTag("text$i"), text = "Text $i")
                 }
+                RequestFocusWhenActive(focusRequester)
             }
         }
 
         assertThat(state.currentPage).isEqualTo(0)
         assertThat(state.pageCount).isEqualTo(5)
-        assertThat(resumedScreen).isEqualTo(0)
 
         val text0 = composeTestRule.onNodeWithTag("text0")
         val text1 = composeTestRule.onNodeWithTag("text1")
@@ -84,24 +88,24 @@ class PagerScreenTest {
         val text3 = composeTestRule.onNodeWithTag("text3")
         val text4 = composeTestRule.onNodeWithTag("text4")
 
+        text0.onParent().assertIsFocused()
         text0.assertIsDisplayed()
+        text1.onParent().assertIsNotFocused()
         text1.assertIsNotDisplayed()
         text2.assertDoesNotExist()
         text3.assertDoesNotExist()
         text4.assertDoesNotExist()
-        assertThat(resumedScreen).isEqualTo(0)
 
         withContext(Dispatchers.Main) {
             state.scrollToPage(page = 1)
         }
-        delay(1000)
         composeTestRule.awaitIdle()
+        assertThat(state.currentPage).isEqualTo(1)
 
         text0.assertIsNotDisplayed()
         text1.assertIsDisplayed()
         text2.assertIsNotDisplayed()
         text3.assertDoesNotExist()
         text4.assertDoesNotExist()
-        assertThat(resumedScreen).isEqualTo(1)
     }
 }

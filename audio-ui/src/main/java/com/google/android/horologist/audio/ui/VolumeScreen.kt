@@ -135,7 +135,7 @@ public fun VolumeScreen(
  * Volume Screen with a simple "Volume" label.
  */
 @Composable
-public fun VolumeScreen(
+public fun VolumeWithLabelScreen(
     volume: () -> VolumeState,
     increaseVolume: () -> Unit,
     decreaseVolume: () -> Unit,

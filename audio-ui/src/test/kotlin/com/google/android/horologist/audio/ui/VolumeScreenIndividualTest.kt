@@ -117,7 +117,7 @@ class VolumeScreenIndividualTest {
                     )
                 }
             ) {
-                VolumeScreen(
+                VolumeWithLabelScreen(
                     volume = { volumeState },
                     increaseVolume = { },
                     decreaseVolume = { },

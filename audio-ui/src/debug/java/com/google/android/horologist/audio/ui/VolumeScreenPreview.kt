@@ -129,7 +129,7 @@ fun VolumeScreenWithLabel() {
                 )
             }
         ) {
-            VolumeScreen(
+            VolumeWithLabelScreen(
                 volume = { volume },
                 increaseVolume = { },
                 decreaseVolume = { }

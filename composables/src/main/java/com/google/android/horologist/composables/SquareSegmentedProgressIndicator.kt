@@ -42,7 +42,7 @@ import androidx.wear.compose.material.ProgressIndicatorDefaults
  * SquareSegmentedProgressIndicator represents a segmented progress indicator with
  * square shape.
  *
- * @param modifier
+ * @param modifier The modifier to be applied to the layout.
  * @param progress The current progress of the indicator. This must be between 0f and 1f
  * @param strokeWidth The stroke width for the progress indicator.
  * @param trackSegments A list of [ProgressIndicatorSegment] definitions, specifying the properties
@@ -68,9 +68,6 @@ public fun SquareSegmentedProgressIndicator(
         "Only progress between 0.0 and 1.0 is allowed."
     }
 
-    check(cornerRadiusDp in 0.dp..90.dp) {
-        "If your corner radius is above 90, you should use SegmentedProgressIndicator."
-    }
     val localDensity = LocalDensity.current
     val stroke = with(localDensity) {
         Stroke(

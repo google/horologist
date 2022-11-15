@@ -33,12 +33,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.InlineSlider
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Stepper
+import androidx.wear.compose.material.Text
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
@@ -85,6 +87,9 @@ public fun VolumeScreen(
     )
 }
 
+/**
+ * Volume Screen with a Output Device chip.
+ */
 @Composable
 public fun VolumeScreen(
     volume: () -> VolumeState,
@@ -92,6 +97,80 @@ public fun VolumeScreen(
     increaseVolume: () -> Unit,
     decreaseVolume: () -> Unit,
     onAudioOutputClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
+    decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
+    showVolumeIndicator: Boolean = true,
+    onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)? = null
+) {
+    VolumeScreen(
+        volume = volume,
+        contentSlot = {
+            val volumeState = volume()
+            DeviceChip(
+                modifier = Modifier.padding(horizontal = 18.dp),
+                volumeDescription = volumeDescription(volumeState, audioOutputUi.isConnected),
+                deviceName = audioOutputUi.displayName,
+                icon = {
+                    Icon(
+                        imageVector = audioOutputUi.imageVector,
+                        contentDescription = audioOutputUi.displayName,
+                        tint = MaterialTheme.colors.onSurfaceVariant
+                    )
+                },
+                onAudioOutputClick = onAudioOutputClick
+            )
+        },
+        increaseVolume = increaseVolume,
+        decreaseVolume = decreaseVolume,
+        modifier = modifier,
+        increaseIcon = increaseIcon,
+        decreaseIcon = decreaseIcon,
+        showVolumeIndicator = showVolumeIndicator,
+        onVolumeChangeByScroll = onVolumeChangeByScroll
+    )
+}
+
+/**
+ * Volume Screen with a simple "Volume" label.
+ */
+@Composable
+public fun VolumeWithLabelScreen(
+    volume: () -> VolumeState,
+    increaseVolume: () -> Unit,
+    decreaseVolume: () -> Unit,
+    modifier: Modifier = Modifier,
+    increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
+    decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
+    showVolumeIndicator: Boolean = true,
+    onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)? = null
+) {
+    VolumeScreen(
+        volume = volume,
+        contentSlot = {
+            Text(
+                stringResource(id = R.string.horologist_volume_screen_volume_label),
+                style = MaterialTheme.typography.button,
+                maxLines = 1,
+                overflow = TextOverflow.Clip
+            )
+        },
+        increaseVolume = increaseVolume,
+        decreaseVolume = decreaseVolume,
+        modifier = modifier,
+        increaseIcon = increaseIcon,
+        decreaseIcon = decreaseIcon,
+        showVolumeIndicator = showVolumeIndicator,
+        onVolumeChangeByScroll = onVolumeChangeByScroll
+    )
+}
+
+@Composable
+internal fun VolumeScreen(
+    volume: () -> VolumeState,
+    contentSlot: @Composable () -> Unit,
+    increaseVolume: () -> Unit,
+    decreaseVolume: () -> Unit,
     modifier: Modifier = Modifier,
     increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
@@ -128,19 +207,7 @@ public fun VolumeScreen(
                 decreaseIcon()
             }
         ) {
-            DeviceChip(
-                modifier = Modifier.padding(horizontal = 18.dp),
-                volumeDescription = volumeDescription(volumeState, audioOutputUi.isConnected),
-                deviceName = audioOutputUi.displayName,
-                icon = {
-                    Icon(
-                        imageVector = audioOutputUi.imageVector,
-                        contentDescription = audioOutputUi.displayName,
-                        tint = MaterialTheme.colors.onSurfaceVariant
-                    )
-                },
-                onAudioOutputClick = onAudioOutputClick
-            )
+            contentSlot()
         }
         if (showVolumeIndicator) {
             VolumePositionIndicator(

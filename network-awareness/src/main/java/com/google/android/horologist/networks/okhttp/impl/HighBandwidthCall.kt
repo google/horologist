@@ -71,7 +71,7 @@ internal class HighBandwidthCall(
 
             token.awaitGranted(callFactory.timeout)
 
-            synchronized(this) {
+            synchronized(this@HighBandwidthCall) {
                 if (cancelled) {
                     request.highBandwidthConnectionLease?.close()
                 } else {

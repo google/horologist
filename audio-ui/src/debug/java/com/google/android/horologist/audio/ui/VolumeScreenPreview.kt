@@ -114,6 +114,30 @@ fun VolumeScreenTheme(
     }
 }
 
+@WearPreviewDevices
+@WearPreviewFontSizes
+@Composable
+fun VolumeScreenWithLabel() {
+    val volume = VolumeState(10, 10)
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        Scaffold(
+            positionIndicator = {
+                VolumePositionIndicator(
+                    volumeState = { volume.copy(current = 5) },
+                    autoHide = false
+                )
+            }
+        ) {
+            VolumeScreen(
+                volume = { volume },
+                increaseVolume = { },
+                decreaseVolume = { }
+            )
+        }
+    }
+}
+
 class AudioOutputProvider : PreviewParameterProvider<AudioOutput> {
     override val values = sequenceOf(
         AudioOutput.BluetoothHeadset(id = "1", name = "PixelBuds"),

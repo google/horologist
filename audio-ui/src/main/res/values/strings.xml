@@ -24,4 +24,5 @@
     <string description="Indicates there's nothing to output audio to, e.g. there's no speaker and no headphones connected at the moment. Appears on the device output button chip. [CHAR LIMIT=20]" name="horologist_output_none">None</string>
     <string description="Content description of the SetVolume button. It lets the user navigate to the screen to control the system volume. [CHAR_LIMIT=NONE]" name="horologist_set_volume_content_description">Set Volume</string>
     <string description="Content description of the AudioOutput button. It lets the user navigate to the system bluetooth settings screen to connect to a headset. [CHAR_LIMIT=NONE]" name="horologist_audio_output_content_description">Audio Output</string>
+    <string description="Center label on the Volume Screen. [CHAR_LIMIT=NONE]" name="horologist_volume_screen_volume_label">Volume</string>
 </resources>

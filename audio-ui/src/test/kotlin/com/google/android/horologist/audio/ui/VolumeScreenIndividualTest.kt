@@ -19,6 +19,7 @@
 package com.google.android.horologist.audio.ui
 
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
@@ -97,6 +98,32 @@ class VolumeScreenIndividualTest {
                 volumeState = volumeState,
                 audioOutput = audioOutput
             )
+        }
+    }
+
+    @Test
+    fun volumeScreenWithLabel() {
+        val volumeState = VolumeState(
+            current = 50,
+            max = 100
+        )
+
+        paparazzi.snapshot {
+            Scaffold(
+                positionIndicator = {
+                    VolumePositionIndicator(
+                        volumeState = { volumeState },
+                        autoHide = false
+                    )
+                }
+            ) {
+                VolumeScreen(
+                    volume = { volumeState },
+                    increaseVolume = { },
+                    decreaseVolume = { },
+                    showVolumeIndicator = false
+                )
+            }
         }
     }
 }

@@ -122,6 +122,10 @@ package com.google.android.horologist.composables {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void SegmentedProgressIndicator(java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> trackSegments, float progress, optional androidx.compose.ui.Modifier modifier, optional float startAngle, optional float endAngle, optional float strokeWidth, optional float paddingAngle, optional long trackColor);
   }
 
+  public final class SquareSegmentedProgressIndicatorKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void SquareSegmentedProgressIndicator(optional androidx.compose.ui.Modifier modifier, float progress, optional float strokeWidth, optional long trackColor, optional float cornerRadiusDp, java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> trackSegments, optional float paddingDp);
+  }
+
   public final class TimePickerKt {
     method @androidx.compose.runtime.Composable public static void TimePicker(kotlin.jvm.functions.Function1<? super java.time.LocalTime,kotlin.Unit> onTimeConfirm, optional androidx.compose.ui.Modifier modifier, optional java.time.LocalTime time, optional boolean showSeconds);
     method @androidx.compose.runtime.Composable public static void TimePickerWith12HourClock(kotlin.jvm.functions.Function1<? super java.time.LocalTime,kotlin.Unit> onTimeConfirm, optional androidx.compose.ui.Modifier modifier, optional java.time.LocalTime time);

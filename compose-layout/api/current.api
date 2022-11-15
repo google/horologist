@@ -156,8 +156,8 @@ package com.google.android.horologist.compose.rotaryinput {
 
   @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public final class DefaultSnapBehavior implements com.google.android.horologist.compose.rotaryinput.RotarySnapBehavior {
     ctor public DefaultSnapBehavior(com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter rotaryScrollAdapter, com.google.android.horologist.compose.rotaryinput.SnapParameters snapParameters);
-    method public suspend Object? handleSnap(int moveForElements, boolean sequentialSnap, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
-    method public float snapThreshold(boolean duringSnap);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? handleSnap(int moveForElements, boolean sequentialSnap, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public float snapThreshold(boolean duringSnap);
   }
 
   public final class GenericMotionRotaryInputAccumulator {
@@ -226,9 +226,9 @@ package com.google.android.horologist.compose.rotaryinput {
     method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? handleScrollEvent(kotlinx.coroutines.CoroutineScope coroutineScope, com.google.android.horologist.compose.rotaryinput.TimestampedDelta event, com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rotaryHaptics, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
   }
 
-  public interface RotarySnapBehavior {
-    method public suspend Object? handleSnap(int moveForElements, boolean sequentialSnap, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
-    method public float snapThreshold(boolean duringSnap);
+  @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public interface RotarySnapBehavior {
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? handleSnap(int moveForElements, boolean sequentialSnap, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public float snapThreshold(boolean duringSnap);
   }
 
   public final class RotaryVelocityTracker {

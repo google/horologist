@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://google.github.io/horologist/contributing/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.9">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.20d9efc8.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.472b142f.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.08040f6c.min.css">
@@ -911,6 +911,13 @@ an issue https://github.com/google/horologist/issues with the label "Feature Req
 <div class="highlight"><pre><span></span><code>$ ./gradlew spotlessApply spotlessCheck compileDebugSources compileReleaseSources metalavaGenerateSignature metalavaGenerateSignatureDebug lintDebug
 </code></pre></div>
 <p>Also make sure you have <a href="[url](https://git-lfs.github.com/)">Git LFS</a> installed.</p>
+<p>If you change any code affecting screenshot tests, then run the following and check the failures in the <code>out</code> directory.</p>
+<div class="highlight"><pre><span></span><code>$ ./gradlew verifyPaparazziDebug
+</code></pre></div>
+<p>To record the new golden images, run the following and check in the specific files that failed. Paparazzi has some tolerance for minor changes,
+so not all diffs need be committed.</p>
+<div class="highlight"><pre><span></span><code>$ ./gradlew recordPaparazziDebug
+</code></pre></div>
 <h2 id="contributor-license-agreement">Contributor License Agreement<a class="headerlink" href="#contributor-license-agreement" title="Permanent link">&para;</a></h2>
 <p>Contributions to this project must be accompanied by a Contributor License
 Agreement. You (or your employer) retain the copyright to your contribution,

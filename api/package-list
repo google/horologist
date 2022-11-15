@@ -15,6 +15,7 @@ com.google.android.horologist.base.ui.util
 module:composables
 com.google.android.horologist.composables
 module:compose-layout
+com.google.android.horologist.compose.focus
 com.google.android.horologist.compose.layout
 com.google.android.horologist.compose.navscaffold
 com.google.android.horologist.compose.pager

@@ -41,7 +41,7 @@ import kotlinx.coroutines.launch
  * }
  * ```
  */
-@Deprecated("Use .rotaryWithFling or .rotaryWithScroll instead")
+@Deprecated("Use .rotaryWithFling, .rotaryWithScroll or .rotaryWithSnap instead")
 public fun Modifier.scrollableColumn(
     focusRequester: FocusRequester,
     scrollableState: ScrollableState

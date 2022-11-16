@@ -101,6 +101,16 @@ fun MenuScreen(
                 colors = ChipDefaults.primaryChipColors()
             )
         }
+        item {
+            Chip(
+                label = {
+                    Text(text = "Rotary scroll")
+                },
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.RotaryMenuScreen.route) },
+                colors = ChipDefaults.primaryChipColors()
+            )
+        }
     }
 
     RequestFocusWhenActive(focusRequester)

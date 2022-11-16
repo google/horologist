@@ -1,0 +1,351 @@
+/*
+ * Copyright 2022 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.google.android.horologist.rotary
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.Card
+import androidx.wear.compose.material.Chip
+import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.CompactChip
+import androidx.wear.compose.material.ScalingLazyColumn
+import androidx.wear.compose.material.ScalingLazyColumnDefaults
+import androidx.wear.compose.material.ScalingLazyListScope
+import androidx.wear.compose.material.ScalingLazyListState
+import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.rememberScalingLazyListState
+import com.google.android.horologist.base.ui.components.Title
+import com.google.android.horologist.composables.SectionedList
+import com.google.android.horologist.compose.rotaryinput.rememberDisabledHaptic
+import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticFeedback
+import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
+import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
+import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
+import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
+import com.google.android.horologist.sample.Screen
+import kotlin.random.Random
+
+@Composable
+fun RotaryMenuScreen(
+    modifier: Modifier = Modifier,
+    navigateToRoute: (String) -> Unit,
+    scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
+    focusRequester: FocusRequester = remember { FocusRequester() }
+) {
+    SectionedList(
+        focusRequester = focusRequester,
+        scalingLazyListState = scalingLazyListState,
+        modifier = modifier
+    ) {
+        section(
+            listOf(
+                Pair(
+                    "Scroll list",
+                    Screen.RotaryScrollScreen.route
+                ),
+                Pair(
+                    "Scroll with Fling",
+                    Screen.RotaryScrollWithFlingScreen.route
+                ),
+            )
+        ) {
+            header {
+                Title(
+                    text = "Scroll",
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+            }
+
+            loaded { item ->
+                Chip(
+                    label = {
+                        Text(text = item.first)
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = { navigateToRoute(item.second) },
+                    colors = ChipDefaults.primaryChipColors()
+                )
+            }
+        }
+
+        section(
+            listOf(
+                Pair(
+                    "Snap list",
+                    Screen.RotarySnapListScreen.route
+                ),
+                Pair(
+                    "Snap pager",
+                    Screen.RotarySnapPagerScreen.route
+                ),
+            )
+        ) {
+            header {
+                Title(
+                    text = "Snap",
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+            }
+
+            loaded { item ->
+                Chip(
+                    label = {
+                        Text(text = item.first)
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = { navigateToRoute(item.second) },
+                    colors = ChipDefaults.primaryChipColors()
+                )
+            }
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+    }
+}
+
+@Composable
+fun RotaryScrollScreen(
+    scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
+    focusRequester: FocusRequester = remember { FocusRequester() }
+) {
+    ItemsListWithModifier(
+        modifier = Modifier
+            .rotaryWithScroll(focusRequester, scalingLazyListState)
+            .focusRequester(focusRequester)
+            .focusable(),
+        scrollableState = scalingLazyListState
+    ) {
+        ChipsList {}
+    }
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+    }
+}
+
+@Composable
+fun RotaryScrollWithFlingOrSnapScreen(
+    isFling: Boolean,
+    isSnap: Boolean
+) {
+    val focusRequester = remember { FocusRequester() }
+    var showList by remember { mutableStateOf(false) }
+
+    var hapticsEnabled by remember { mutableStateOf(true) }
+    var itemIndex by remember { mutableStateOf(0) }
+    val items = arrayListOf(
+        "Small items",
+        "Medium cards",
+        "Very big cards",
+        "Different cards",
+        "10 small 1 big"
+    )
+    val randomHeights: List<Int> = remember { (0..300).map { Random.nextInt(1, 10) } }
+    val tenSmallOneBig: List<Int> = remember { (0..4).map { 1 }.plus(20).plus((0..4).map { 1 }) }
+    if (showList) {
+
+        val scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState()
+        val rotaryHapticFeedback =
+            if (hapticsEnabled) rememberRotaryHapticFeedback() else rememberDisabledHaptic()
+        ItemsListWithModifier(
+            modifier = Modifier
+                .let {
+                    if (isSnap) it.rotaryWithSnap(
+                        focusRequester,
+                        scalingLazyListState.toRotaryScrollAdapter(),
+                        rotaryHapticFeedback
+                    )
+                    else if (isFling) it.rotaryWithFling(
+                        focusRequester = focusRequester,
+                        scrollableState = scalingLazyListState,
+                        rotaryHaptics = rotaryHapticFeedback
+                    )
+                    else it.rotaryWithScroll(
+                        focusRequester = focusRequester,
+                        scrollableState = scalingLazyListState,
+                        rotaryHaptics = rotaryHapticFeedback
+                    )
+                }
+                .focusRequester(focusRequester)
+                .focusable(),
+            scrollableState = scalingLazyListState
+        ) {
+            when (itemIndex) {
+                0 -> ChipsList { showList = false }
+                1 -> CardsList(2) { showList = false }
+                2 -> CardsList(10) { showList = false }
+                3 -> CardsList(10, randomHeights = randomHeights) { showList = false }
+                4 -> CardsList(10, itemCount = 10, randomHeights = tenSmallOneBig) {
+                    showList = false
+                }
+
+                else -> {}
+            }
+        }
+        LaunchedEffect(Unit) {
+            focusRequester.requestFocus()
+        }
+    } else {
+        ScalingLazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            item {
+                Text(
+                    text = "Chips size",
+                    textAlign = TextAlign.Center
+                )
+            }
+            item {
+                Chip(
+                    onClick = {
+                        itemIndex = (itemIndex + 1) % items.size
+                    },
+                    colors = ChipDefaults.primaryChipColors(),
+                    border = ChipDefaults.chipBorder(),
+                    content = {
+                        Text(
+                            text = items[itemIndex],
+                            textAlign = TextAlign.Center,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                )
+            }
+            item {
+                Chip(
+                    onClick = {
+                        hapticsEnabled = !hapticsEnabled
+                    },
+                    colors = ChipDefaults.primaryChipColors(),
+                    border = ChipDefaults.chipBorder(),
+                    content = {
+                        Text(
+                            text = if (hapticsEnabled) "Haptics on" else "Haptics off",
+                            textAlign = TextAlign.Center,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                )
+            }
+            item {
+                CompactChip(onClick = { showList = true },
+                    label = { Text(text = "Show list", textAlign = TextAlign.Center) })
+            }
+        }
+    }
+}
+
+@Composable
+fun ItemsListWithModifier(
+    modifier: Modifier,
+    scrollableState: ScalingLazyListState,
+    items: ScalingLazyListScope.() -> Unit,
+) {
+    val flingBehavior = ScalingLazyColumnDefaults.snapFlingBehavior(state = scrollableState)
+    ScalingLazyColumn(
+        modifier = modifier,
+        state = scrollableState,
+        flingBehavior = flingBehavior,
+        scalingParams = ScalingLazyColumnDefaults.scalingParams(),
+        horizontalAlignment = Alignment.Start,
+        verticalArrangement = Arrangement.spacedBy(
+            space = 4.dp,
+            alignment = Alignment.Top
+        ),
+        content = items
+    )
+}
+
+private fun ScalingLazyListScope.CardsList(
+    maxLines: Int = 10,
+    itemCount: Int = 300,
+    randomHeights: List<Int>? = null,
+    onItemClicked: () -> Unit,
+) {
+    val colors = listOf(Color.Green, Color.Yellow, Color.Cyan, Color.Magenta)
+
+    items(itemCount) {
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = onItemClicked,
+        ) {
+            Column {
+                Row {
+                    Box(
+                        modifier = Modifier
+                            .size(15.dp)
+                            .clip(CircleShape)
+                            .background(color = colors[it % 4])
+                    )
+                    Text(text = "#${it}")
+                }
+                Text(maxLines = randomHeights?.let { height -> height[it] } ?: maxLines,
+                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat")
+            }
+        }
+    }
+}
+
+internal fun ScalingLazyListScope.ChipsList(
+    onItemClicked: () -> Unit,
+) {
+    val colors = listOf(Color.Green, Color.Yellow, Color.Cyan, Color.Magenta)
+    items(300) {
+        Chip(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = onItemClicked,
+            label = { Text("List item $it") },
+            colors = ChipDefaults.secondaryChipColors(),
+            icon = {
+                Box(
+                    modifier = Modifier
+                        .size(15.dp)
+                        .clip(CircleShape)
+                        .background(color = colors[it % 4])
+                )
+            },
+        )
+    }
+}

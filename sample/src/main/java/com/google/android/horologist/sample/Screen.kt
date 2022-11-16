@@ -37,4 +37,10 @@ sealed class Screen(
     object SectionedListStatelessScreen : Screen("sectionedListStatelessScreen")
     object SectionedListStatefulScreen : Screen("sectionedListStatefulScreen")
     object SectionedListExpandableScreen : Screen("sectionedListExpandableScreen")
+
+    object RotaryMenuScreen : Screen("rotaryMenuScreen")
+
+    object RotaryScrollScreen : Screen("rotaryScrollScreen")
+    object RotaryScrollWithFlingScreen : Screen("rotaryScrollWithFlingScreen")
+    object RotarySnapListScreen : Screen("rotarySnapListScreen")
 }

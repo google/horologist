@@ -35,6 +35,9 @@ import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.android.horologist.datalayer.DataLayerNodesScreen
 import com.google.android.horologist.datalayer.DataLayerNodesViewModel
 import com.google.android.horologist.networks.NetworkScreen
+import com.google.android.horologist.rotary.RotaryMenuScreen
+import com.google.android.horologist.rotary.RotaryScrollScreen
+import com.google.android.horologist.rotary.RotaryScrollWithFlingOrSnapScreen
 import com.google.android.horologist.sectionedlist.SectionedListMenuScreen
 import com.google.android.horologist.sectionedlist.expandable.SectionedListExpandableScreen
 import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefulScreen
@@ -135,6 +138,21 @@ fun SampleWearApp() {
             }
             composable(Screen.SectionedListExpandableScreen.route) {
                 SectionedListExpandableScreen()
+            }
+            composable(route = Screen.RotaryMenuScreen.route) {
+                RotaryMenuScreen(
+                    modifier = Modifier.fillMaxSize(),
+                    navigateToRoute = { route -> navController.navigate(route) }
+                )
+            }
+            composable(route = Screen.RotaryScrollScreen.route) {
+                RotaryScrollScreen()
+            }
+            composable(route = Screen.RotaryScrollWithFlingScreen.route) {
+                RotaryScrollWithFlingOrSnapScreen(isFling = true, isSnap = false)
+            }
+            composable(route = Screen.RotarySnapListScreen.route) {
+                RotaryScrollWithFlingOrSnapScreen(isFling = false, isSnap = true)
             }
         }
     }

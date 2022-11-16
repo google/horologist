@@ -26,6 +26,7 @@ sealed class Screen(
     object ScrollAwayColumn : Screen("scrollAwayColumn")
     object Volume : Screen("volume")
     object DatePicker : Screen("datePicker")
+    object FromDatePicker : Screen("fromDatePicker")
     object TimePicker : Screen("timePicker")
     object TimeWithSecondsPicker : Screen("timeWithSecondsPicker")
     object TimeWithoutSecondsPicker : Screen("timeWithoutSecondsPicker")

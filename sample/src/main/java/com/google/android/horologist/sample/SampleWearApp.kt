@@ -31,6 +31,7 @@ import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.audio.ui.VolumeScreen
+import com.google.android.horologist.composables.FromDatePicker
 import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
@@ -95,6 +96,16 @@ fun SampleWearApp() {
             composable(Screen.DatePicker.route) {
                 DatePicker(
                     date = time.toLocalDate(),
+                    onDateConfirm = {
+                        time = time.toLocalTime().atDate(it)
+                        navController.popBackStack()
+                    }
+                )
+            }
+            composable(Screen.FromDatePicker.route) {
+                FromDatePicker(
+                    date = time.toLocalDate(),
+                    fromDate = time.toLocalDate(),
                     onDateConfirm = {
                         time = time.toLocalTime().atDate(it)
                         navController.popBackStack()

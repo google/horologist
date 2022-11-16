@@ -174,6 +174,7 @@ package com.google.android.horologist.compose.rotaryinput {
 
   public final class HapticsKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rememberDefaultRotaryHapticFeedback();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rememberDisabledHaptic();
     method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rememberRotaryHapticFeedback(optional long throttleThresholdMs, optional kotlinx.coroutines.channels.Channel<com.google.android.horologist.compose.rotaryinput.RotaryHapticsType> hapticsChannel, optional com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rotaryHaptics);
   }
 

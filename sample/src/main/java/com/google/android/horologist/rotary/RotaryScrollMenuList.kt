@@ -84,7 +84,7 @@ fun RotaryMenuScreen(
                 Pair(
                     "Scroll with Fling",
                     Screen.RotaryScrollWithFlingScreen.route
-                ),
+                )
             )
         ) {
             header {
@@ -111,11 +111,7 @@ fun RotaryMenuScreen(
                 Pair(
                     "Snap list",
                     Screen.RotarySnapListScreen.route
-                ),
-                Pair(
-                    "Snap pager",
-                    Screen.RotarySnapPagerScreen.route
-                ),
+                )
             )
         ) {
             header {
@@ -182,7 +178,6 @@ fun RotaryScrollWithFlingOrSnapScreen(
     val randomHeights: List<Int> = remember { (0..300).map { Random.nextInt(1, 10) } }
     val tenSmallOneBig: List<Int> = remember { (0..4).map { 1 }.plus(20).plus((0..4).map { 1 }) }
     if (showList) {
-
         val scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState()
         val rotaryHapticFeedback =
             if (hapticsEnabled) rememberRotaryHapticFeedback() else rememberDisabledHaptic()
@@ -270,8 +265,10 @@ fun RotaryScrollWithFlingOrSnapScreen(
                 )
             }
             item {
-                CompactChip(onClick = { showList = true },
-                    label = { Text(text = "Show list", textAlign = TextAlign.Center) })
+                CompactChip(
+                    onClick = { showList = true },
+                    label = { Text(text = "Show list", textAlign = TextAlign.Center) }
+                )
             }
         }
     }
@@ -281,7 +278,7 @@ fun RotaryScrollWithFlingOrSnapScreen(
 fun ItemsListWithModifier(
     modifier: Modifier,
     scrollableState: ScalingLazyListState,
-    items: ScalingLazyListScope.() -> Unit,
+    items: ScalingLazyListScope.() -> Unit
 ) {
     val flingBehavior = ScalingLazyColumnDefaults.snapFlingBehavior(state = scrollableState)
     ScalingLazyColumn(
@@ -302,14 +299,14 @@ private fun ScalingLazyListScope.CardsList(
     maxLines: Int = 10,
     itemCount: Int = 300,
     randomHeights: List<Int>? = null,
-    onItemClicked: () -> Unit,
+    onItemClicked: () -> Unit
 ) {
     val colors = listOf(Color.Green, Color.Yellow, Color.Cyan, Color.Magenta)
 
     items(itemCount) {
         Card(
             modifier = Modifier.fillMaxWidth(),
-            onClick = onItemClicked,
+            onClick = onItemClicked
         ) {
             Column {
                 Row {
@@ -319,17 +316,19 @@ private fun ScalingLazyListScope.CardsList(
                             .clip(CircleShape)
                             .background(color = colors[it % 4])
                     )
-                    Text(text = "#${it}")
+                    Text(text = "#$it")
                 }
-                Text(maxLines = randomHeights?.let { height -> height[it] } ?: maxLines,
-                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat")
+                Text(
+                    maxLines = randomHeights?.let { height -> height[it] } ?: maxLines,
+                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+                )
             }
         }
     }
 }
 
 internal fun ScalingLazyListScope.ChipsList(
-    onItemClicked: () -> Unit,
+    onItemClicked: () -> Unit
 ) {
     val colors = listOf(Color.Green, Color.Yellow, Color.Cyan, Color.Magenta)
     items(300) {
@@ -345,7 +344,7 @@ internal fun ScalingLazyListScope.ChipsList(
                         .clip(CircleShape)
                         .background(color = colors[it % 4])
                 )
-            },
+            }
         )
     }
 }

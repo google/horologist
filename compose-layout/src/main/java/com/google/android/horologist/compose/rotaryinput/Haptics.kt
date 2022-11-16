@@ -109,7 +109,7 @@ public value class RotaryHapticsType(private val type: Int) {
  */
 @ExperimentalHorologistComposeLayoutApi
 @Composable
-public fun rememberDisabledHaptic() : RotaryHapticFeedback = remember {
+public fun rememberDisabledHaptic(): RotaryHapticFeedback = remember {
     object : RotaryHapticFeedback {
         @ExperimentalHorologistComposeLayoutApi
         override fun performHapticFeedback(type: RotaryHapticsType) {

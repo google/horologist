@@ -133,9 +133,6 @@ dependencies {
     implementation libs.compose.ui.tooling
     implementation libs.compose.ui.util
 
-    debugImplementation projects.composeTools
-    debugImplementation libs.compose.ui.toolingpreview
-
     debugImplementation libs.compose.ui.test.manifest
     debugImplementation libs.compose.ui.toolingpreview
     debugImplementation projects.audioUi

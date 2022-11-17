@@ -94,9 +94,9 @@ public fun FromDatePicker(
                 initialNumberOfOptions =
                 if (isSelectedYearEqualToFromYear) 12 - (fromDate?.monthValue?.minus(1) ?: 0) else 12,
                 initiallySelectedOption =
-                if (isSelectedYearEqualToFromYear)
+                if (isSelectedYearEqualToFromYear) {
                     date.monthValue - 1 - (fromDate?.monthValue?.minus(1) ?: 0)
-                else date.monthValue - 1
+                } else date.monthValue - 1
             )
         val isSelectedMonthEqualToFromMonth by
         remember(isSelectedYearEqualToFromYear, monthState) {
@@ -108,9 +108,9 @@ public fun FromDatePicker(
                 val firstDayOfMonth =
                     LocalDate.of(
                         yearState.selectedOption + (fromDate?.year ?: 1),
-                        if (monthState.numberOfOptions < 12)
+                        if (monthState.numberOfOptions < 12) {
                             (monthState.selectedOption + (fromDate?.monthValue ?: 1))
-                        else monthState.selectedOption + 1,
+                        } else monthState.selectedOption + 1,
                         1
                     )
                 firstDayOfMonth.with(TemporalAdjusters.lastDayOfMonth()).dayOfMonth
@@ -122,9 +122,9 @@ public fun FromDatePicker(
                 if (isSelectedMonthEqualToFromMonth) maxDayInMonth - (fromDate?.dayOfMonth?.minus(1) ?: 0)
                 else maxDayInMonth,
                 initiallySelectedOption =
-                if (isSelectedMonthEqualToFromMonth)
+                if (isSelectedMonthEqualToFromMonth) {
                     date.dayOfMonth - 1 - (fromDate?.dayOfMonth?.minus(1) ?: 0)
-                else date.dayOfMonth - 1
+                } else date.dayOfMonth - 1
             )
         val focusRequester1 = remember { FocusRequester() }
         val focusRequester2 = remember { FocusRequester() }
@@ -200,9 +200,9 @@ public fun FromDatePicker(
                             focusRequester = focusRequester1,
                             contentDescription =
                             "%d".format(
-                                if (isSelectedMonthEqualToFromMonth)
+                                if (isSelectedMonthEqualToFromMonth) {
                                     dayState.selectedOption + (fromDate?.dayOfMonth ?: 1)
-                                else dayState.selectedOption + 1
+                                } else dayState.selectedOption + 1
                             )
                         )
                         Spacer(modifier = Modifier.width(spacerWidth))
@@ -212,16 +212,16 @@ public fun FromDatePicker(
                         readOnly = selectedColumn != 1,
                         onSelected = { selectedColumn = 1 },
                         text = { month: Int ->
-                            if (monthState.numberOfOptions < 12)
+                            if (monthState.numberOfOptions < 12) {
                                 monthNames[(month + (fromDate?.monthValue?.minus(1) ?: 0))]
-                            else monthNames[month]
+                            } else monthNames[month]
                         },
                         width = monthWidth,
                         focusRequester = focusRequester2,
                         contentDescription =
-                        if (monthState.numberOfOptions < 12)
+                        if (monthState.numberOfOptions < 12) {
                             monthNames[(monthState.selectedOption + (fromDate?.monthValue?.minus(1) ?: 0))]
-                        else monthNames[monthState.selectedOption]
+                        } else monthNames[monthState.selectedOption]
                     )
                     if (selectedColumn > 0) {
                         Spacer(modifier = Modifier.width(spacerWidth))
@@ -241,13 +241,13 @@ public fun FromDatePicker(
                     onClick = {
                         val confirmedYear: Int = yearState.selectedOption + (fromDate?.year ?: 1)
                         val confirmedMonth: Int =
-                            if (isSelectedYearEqualToFromYear)
+                            if (isSelectedYearEqualToFromYear) {
                                 monthState.selectedOption + (fromDate?.monthValue ?: 1)
-                            else monthState.selectedOption + 1
+                            } else monthState.selectedOption + 1
                         val confirmedDay: Int =
-                            if (isSelectedMonthEqualToFromMonth)
+                            if (isSelectedMonthEqualToFromMonth) {
                                 dayState.selectedOption + (fromDate?.dayOfMonth ?: 1)
-                            else dayState.selectedOption + 1
+                            } else dayState.selectedOption + 1
                         val confirmedDate = LocalDate.of(confirmedYear, confirmedMonth, confirmedDay)
                         onDateConfirm(confirmedDate)
                     }

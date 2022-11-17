@@ -5,6 +5,7 @@ build/
 captures
 
 /local.properties
+/secrets.properties
 
 # IntelliJ .idea folder
 .idea/workspace.xml

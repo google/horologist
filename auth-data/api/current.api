@@ -70,6 +70,18 @@ package com.google.android.horologist.auth.data.pkce.impl {
 
 package com.google.android.horologist.auth.data.pkce.impl.google {
 
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class AuthPKCEConfigRepositoryImpl implements com.google.android.horologist.auth.data.pkce.AuthPKCEConfigRepository<com.google.android.horologist.auth.data.pkce.impl.AuthPKCEDefaultConfig> {
+    ctor public AuthPKCEConfigRepositoryImpl(String clientId, String clientSecret, optional String encodedPath, optional java.util.Map<java.lang.String,java.lang.String> queryParameters);
+    method public suspend Object? fetch(kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.pkce.impl.AuthPKCEDefaultConfig> p);
+    field public static final com.google.android.horologist.auth.data.pkce.impl.google.AuthPKCEConfigRepositoryImpl.Companion Companion;
+    field public static final String ENCODED_PATH = "https://accounts.google.com/o/oauth2/v2/auth";
+    field public static final String QUERY_PARAM_SCOPE_KEY = "scope";
+    field public static final String QUERY_PARAM_SCOPE_VALUE = "https://www.googleapis.com/auth/userinfo.profile";
+  }
+
+  public static final class AuthPKCEConfigRepositoryImpl.Companion {
+  }
+
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class AuthPKCETokenRepositoryGoogleImpl implements com.google.android.horologist.auth.data.pkce.AuthPKCETokenRepository<com.google.android.horologist.auth.data.pkce.impl.AuthPKCEDefaultConfig,com.google.android.horologist.auth.data.pkce.impl.AuthPKCEOAuthCodeDefaultPayload,com.google.android.horologist.auth.data.pkce.impl.google.api.TokenResponse> {
     ctor public AuthPKCETokenRepositoryGoogleImpl(com.google.android.horologist.auth.data.pkce.impl.google.api.GoogleOAuthService googleOAuthService);
     method public suspend Object? fetch(com.google.android.horologist.auth.data.pkce.impl.AuthPKCEDefaultConfig config, String codeVerifier, com.google.android.horologist.auth.data.pkce.impl.AuthPKCEOAuthCodeDefaultPayload oAuthCodePayload, kotlin.coroutines.Continuation<? super kotlin.Result<? extends com.google.android.horologist.auth.data.pkce.impl.google.api.TokenResponse>> p);

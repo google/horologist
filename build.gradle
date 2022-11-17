@@ -38,6 +38,8 @@ buildscript {
         classpath libs.paparazziPlugin
 
         classpath libs.dagger.hiltandroidplugin
+
+        classpath libs.googleSecretsGradlePlugin
     }
 }
 
@@ -53,6 +55,7 @@ plugins {
 
 apply plugin: 'org.jetbrains.dokka'
 apply plugin: 'com.dropbox.affectedmoduledetector'
+apply plugin: "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
 
 tasks.withType(org.jetbrains.dokka.gradle.DokkaMultiModuleTask).configureEach {
     outputDirectory = rootProject.file('docs/api')

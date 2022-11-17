@@ -63,6 +63,7 @@ import androidx.wear.compose.material.PickerDefaults
 import androidx.wear.compose.material.PickerScope
 import androidx.wear.compose.material.PickerState
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.rememberPickerState
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import kotlinx.coroutines.launch
 import java.time.LocalTime

@@ -365,13 +365,10 @@ public interface RotaryScrollHandler {
 @ExperimentalHorologistComposeLayoutApi
 public interface RotaryScrollBehavior {
     /**
-     * Handles scroll event with [pixelsToScroll] and [timestamp]
+     * Handles scroll event to [targetValue]
      */
     @ExperimentalHorologistComposeLayoutApi
-    public suspend fun handleEvent(
-        pixelsToScroll: Float,
-        timestamp: Long
-    )
+    public suspend fun handleEvent(targetValue: Float)
 }
 
 /**
@@ -488,10 +485,26 @@ public interface RotaryFlingBehavior {
 public interface RotarySnapBehavior {
 
     /**
-     * Perform snapping to the current + [moveForElements] items
+     * Preparing snapping. This method should be called before [startSnappingSession] is called.
+     *
+     * Snapping is done for current + [moveForElements] items.
+     *
+     * If [sequentialSnap] is true, items are summed up together.
+     * For example, if [prepareSnapForItems] is called with
+     * [moveForElements] = 2, 3, 5 -> then the snapping will happen to current + 10 items
+     *
+     * If [sequentialSnap] is false, then [moveForElements] are not summed up together.
+     */
+    public fun prepareSnapForItems(moveForElements: Int, sequentialSnap: Boolean)
+
+    /**
+     * Performs snapping to the specified in [prepareSnapForItems] element
+     * If [toClosestItem] is true - then the snapping will happen to the closest item only.
+     * If it's set to false - then it'll snap to the element specified
+     * in [prepareSnapForItems] method.
      */
     @ExperimentalHorologistComposeLayoutApi
-    public suspend fun handleSnap(moveForElements: Int, sequentialSnap: Boolean)
+    public suspend fun startSnappingSession(toClosestItem: Boolean)
 
     /**
      * A threshold after which snapping happens.
@@ -517,26 +530,17 @@ public data class TimestampedDelta(val timestamp: Long, val delta: Float)
 public class AnimationScrollBehavior(
     private val scrollableState: ScrollableState
 ) : RotaryScrollBehavior {
-    private var rotaryScrollDistance = 0f
-
     private var sequentialAnimation = false
     private var scrollAnimation = AnimationState(0f)
     private var prevPosition = 0f
-    private var previousScrollEventTime = 0L
 
     @ExperimentalHorologistComposeLayoutApi
-    override suspend fun handleEvent(
-        pixelsToScroll: Float,
-        timestamp: Long
-    ) {
-        rotaryScrollDistance += pixelsToScroll
-
-        previousScrollEventTime = timestamp
+    override suspend fun handleEvent(targetValue: Float) {
         scrollableState.scroll(MutatePriority.UserInput) {
             debugLog { "ScrollAnimation value before start: ${scrollAnimation.value}" }
 
             scrollAnimation.animateTo(
-                rotaryScrollDistance,
+                targetValue,
                 animationSpec = spring(),
                 sequentialAnimation = sequentialAnimation
             ) {
@@ -559,19 +563,32 @@ public class DefaultSnapBehavior(
     private val rotaryScrollAdapter: RotaryScrollAdapter,
     private val snapParameters: SnapParameters
 ) : RotarySnapBehavior {
-    private var scrollTarget: Int = 0
+    private var snapTarget: Int = 0
+    private var sequentialSnap: Boolean = false
 
     private var anim = AnimationState(0f)
     private var expectedDistance = 0f
 
     private val defaultStiffness = 200f
+    private var snapTargetUpdated = true
 
     @ExperimentalHorologistComposeLayoutApi
-    override suspend fun handleSnap(moveForElements: Int, sequentialSnap: Boolean) {
-        if (moveForElements == 0) {
+    override fun prepareSnapForItems(moveForElements: Int, sequentialSnap: Boolean) {
+        this.sequentialSnap = sequentialSnap
+        if (sequentialSnap) {
+            snapTarget += moveForElements
+        } else {
+            snapTarget = rotaryScrollAdapter.currentItemIndex() + moveForElements
+        }
+        snapTargetUpdated = true
+    }
+
+    @ExperimentalHorologistComposeLayoutApi
+    override suspend fun startSnappingSession(toClosestItem: Boolean) {
+        if (toClosestItem) {
             snapToClosestItem()
         } else {
-            snapToAnotherItem(moveForElements, sequentialSnap)
+            snapToAnotherItem()
         }
     }
 
@@ -596,34 +613,81 @@ public class DefaultSnapBehavior(
                 scrollBy(animDelta)
                 prevPosition = value
             }
-            scrollTarget = rotaryScrollAdapter.currentItemIndex()
+            snapTarget = rotaryScrollAdapter.currentItemIndex()
         }
     }
 
-    private suspend fun snapToAnotherItem(moveForElements: Int, sequentialSnap: Boolean) {
+    private suspend fun snapToAnotherItem() {
         if (sequentialSnap) {
-            scrollTarget += moveForElements
             anim = anim.copy(0f)
         } else {
-            scrollTarget = rotaryScrollAdapter.currentItemIndex() + moveForElements
             anim = AnimationState(0f)
         }
-        debugLog { "animateScrollToItem $scrollTarget" }
+        debugLog { "snapTarget $snapTarget" }
         rotaryScrollAdapter.scrollableState.scroll(MutatePriority.UserInput) {
-            var latestCenterItem: Int
-            var continueFirstScroll = true
-            while (continueFirstScroll) {
-                latestCenterItem = rotaryScrollAdapter.currentItemIndex()
-                anim = anim.copy(0f)
-                expectedDistance = expectedDistanceTo(scrollTarget, snapParameters.snapOffset)
-                debugLog {
-                    "expectedDistance = $expectedDistance, " +
-                        "scrollableState.centerItemScrollOffset " +
-                        "${rotaryScrollAdapter.currentItemOffset()}"
-                }
-                continueFirstScroll = false
-                var prevPosition = 0f
+            // If snapTargetUpdated is true - then the target was updated so we
+            // need to do snap again
+            while (snapTargetUpdated) {
+                snapTargetUpdated = false
+                var latestCenterItem: Int
+                var continueFirstScroll = true
+                while (continueFirstScroll) {
+                    latestCenterItem = rotaryScrollAdapter.currentItemIndex()
+                    anim = anim.copy(0f)
+                    expectedDistance = expectedDistanceTo(snapTarget, snapParameters.snapOffset)
+                    debugLog {
+                        "expectedDistance = $expectedDistance, " +
+                            "scrollableState.centerItemScrollOffset " +
+                            "${rotaryScrollAdapter.currentItemOffset()}"
+                    }
+                    continueFirstScroll = false
+                    var prevPosition = 0f
 
+                    anim.animateTo(
+                        expectedDistance,
+                        animationSpec = SpringSpec(
+                            stiffness = defaultStiffness,
+                            visibilityThreshold = 0.1f
+                        ),
+                        sequentialAnimation = (anim.velocity != 0f)
+                    ) {
+                        val animDelta = value - prevPosition
+                        debugLog {
+                            "First animation, value:$value, velocity:$velocity, " +
+                                "animDelta:$animDelta"
+                        }
+
+                        // Exit animation if snap target was updated
+                        if (snapTargetUpdated) cancelAnimation()
+
+                        scrollBy(animDelta)
+                        prevPosition = value
+
+                        if (latestCenterItem != rotaryScrollAdapter.currentItemIndex()) {
+                            continueFirstScroll = true
+                            cancelAnimation()
+                            return@animateTo
+                        }
+
+                        debugLog { "centerItemIndex =  ${rotaryScrollAdapter.currentItemIndex()}" }
+                        if (rotaryScrollAdapter.currentItemIndex() == snapTarget) {
+                            debugLog { "Target is visible. Cancelling first animation" }
+                            debugLog {
+                                "scrollableState.centerItemScrollOffset " +
+                                    "${rotaryScrollAdapter.currentItemOffset()}"
+                            }
+                            expectedDistance = -rotaryScrollAdapter.currentItemOffset()
+                            continueFirstScroll = false
+                            cancelAnimation()
+                            return@animateTo
+                        }
+                    }
+                }
+                // Exit animation if snap target was updated
+                if (snapTargetUpdated) continue
+
+                anim = anim.copy(0f)
+                var prevPosition = 0f
                 anim.animateTo(
                     expectedDistance,
                     animationSpec = SpringSpec(
@@ -632,48 +696,14 @@ public class DefaultSnapBehavior(
                     ),
                     sequentialAnimation = (anim.velocity != 0f)
                 ) {
+                    // Exit animation if snap target was updated
+                    if (snapTargetUpdated) cancelAnimation()
+
                     val animDelta = value - prevPosition
-                    debugLog {
-                        "First animation, value:$value, velocity:$velocity, " +
-                            "animDelta:$animDelta"
-                    }
+                    debugLog { "Final animation. velocity:$velocity, animDelta:$animDelta" }
                     scrollBy(animDelta)
                     prevPosition = value
-
-                    if (latestCenterItem != rotaryScrollAdapter.currentItemIndex()) {
-                        continueFirstScroll = true
-                        cancelAnimation()
-                        return@animateTo
-                    }
-
-                    debugLog { "centerItemIndex =  ${rotaryScrollAdapter.currentItemIndex()}" }
-                    if (rotaryScrollAdapter.currentItemIndex() == scrollTarget) {
-                        debugLog { "Target is visible. Cancelling first animation" }
-                        debugLog {
-                            "scrollableState.centerItemScrollOffset " +
-                                "${rotaryScrollAdapter.currentItemOffset()}"
-                        }
-                        expectedDistance = -rotaryScrollAdapter.currentItemOffset()
-                        continueFirstScroll = false
-                        cancelAnimation()
-                        return@animateTo
-                    }
                 }
-            }
-            anim = anim.copy(0f)
-            var prevPosition = 0f
-            anim.animateTo(
-                expectedDistance,
-                animationSpec = SpringSpec(
-                    stiffness = defaultStiffness,
-                    visibilityThreshold = 0.1f
-                ),
-                sequentialAnimation = (anim.velocity != 0f)
-            ) {
-                val animDelta = value - prevPosition
-                debugLog { "Final animation. velocity:$velocity, animDelta:$animDelta" }
-                scrollBy(animDelta)
-                prevPosition = value
             }
         }
     }
@@ -822,7 +852,7 @@ internal class HighResRotaryScrollHandler(
 
         previousScrollEventTime = time
         scrollJob = coroutineScope.async {
-            scrollBehavior.handleEvent(event.delta, event.timestamp)
+            scrollBehavior.handleEvent(rotaryScrollDistance)
         }
 
         flingJob = coroutineScope.async {
@@ -891,8 +921,10 @@ internal class LowResRotaryScrollHandler(
 
         if (isNewScrollEvent(time)) {
             resetTracking(time)
+            rotaryScrollDistance = event.delta
         } else {
             rotaryFlingBehavior?.observeEvent(event.timestamp, event.delta)
+            rotaryScrollDistance += event.delta
         }
 
         scrollJob.cancel()
@@ -903,7 +935,7 @@ internal class LowResRotaryScrollHandler(
 
         previousScrollEventTime = time
         scrollJob = coroutineScope.async {
-            scrollBehavior.handleEvent(event.delta, event.timestamp)
+            scrollBehavior.handleEvent(rotaryScrollDistance)
         }
 
         flingJob = coroutineScope.async {
@@ -951,7 +983,6 @@ internal class RotaryScrollSnapHandler(
     var previousScrollEventTime = 0L
     var rotaryScrollDistance = 0f
     var scrollInProgress = false
-    var duringSnap = false
 
     var snapBehaviour = snapBehaviourFactory()
     var scrollBehaviour = scrollBehaviourFactory()
@@ -969,7 +1000,6 @@ internal class RotaryScrollSnapHandler(
             snapJob.cancel()
             snapBehaviour = snapBehaviourFactory()
             scrollBehaviour = scrollBehaviourFactory()
-            duringSnap = false
             rotaryScrollDistance = event.delta
         } else {
             // Filter out opposite axis values from end of scroll, also some values
@@ -983,39 +1013,45 @@ internal class RotaryScrollSnapHandler(
         debugLog { "Rotary scroll distance: $rotaryScrollDistance" }
         previousScrollEventTime = time
 
-        if (abs(rotaryScrollDistance) > snapBehaviour.snapThreshold(duringSnap)) {
+        if (abs(rotaryScrollDistance) > snapBehaviour.snapThreshold(snapJob.isActive)) {
             debugLog { "Snap threshold reached" }
             scrollInProgress = false
             scrollBehaviour = scrollBehaviourFactory()
             scrollJob.cancel()
 
-            val sequentialSnap = duringSnap
-            snapJob.cancel()
             val snapDistance = sign(rotaryScrollDistance).toInt()
             rotaryHaptics.performHapticFeedback(RotaryHapticsType.ScrollItemFocus)
 
-            snapJob = coroutineScope.async {
-                debugLog { "Snap started" }
-                duringSnap = true
-                try {
-                    snapBehaviour.handleSnap(snapDistance, sequentialSnap)
-                } finally {
-                    debugLog { "Snap called finally" }
-                    duringSnap = false
+            val sequentialSnap = snapJob.isActive
+            debugLog {
+                "Prepare snap: snapDistance:$snapDistance, " +
+                    "sequentialSnap: $sequentialSnap"
+            }
+            snapBehaviour.prepareSnapForItems(snapDistance, sequentialSnap)
+            if (!snapJob.isActive) {
+                snapJob.cancel()
+                snapJob = coroutineScope.async {
+                    debugLog { "Snap started" }
+                    try {
+                        snapBehaviour.startSnappingSession(false)
+                    } finally {
+                        debugLog { "Snap called finally" }
+                    }
                 }
             }
             rotaryScrollDistance = 0f
         } else {
-            if (!duringSnap) {
+            if (!snapJob.isActive) {
                 scrollJob.cancel()
                 debugLog { "Scrolling for ${event.delta} px" }
                 scrollJob = coroutineScope.async {
-                    scrollBehaviour.handleEvent(event.delta, event.timestamp)
+                    scrollBehaviour.handleEvent(rotaryScrollDistance)
                 }
                 delay(snapDelay)
                 scrollInProgress = false
                 scrollBehaviour = scrollBehaviourFactory()
-                snapBehaviour.handleSnap(0, false)
+                snapBehaviour.prepareSnapForItems(0, false)
+                snapBehaviour.startSnappingSession(true)
             }
         }
     }

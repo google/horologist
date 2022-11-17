@@ -86,6 +86,9 @@ fun MenuScreen(
             DatePickerChip(time) { navigateToRoute(Screen.DatePicker.route) }
         }
         item {
+            FromDatePickerChip(time) { navigateToRoute(Screen.FromDatePicker.route) }
+        }
+        item {
             TimeWithSecondsPickerChip(time) { navigateToRoute(Screen.TimeWithSecondsPicker.route) }
         }
         item {

@@ -136,6 +136,28 @@ fun DatePickerChip(
 }
 
 @Composable
+fun FromDatePickerChip(
+    time: LocalDateTime,
+    navigateToRoute: (String) -> Unit
+) {
+    SampleChip(
+        onClick = { navigateToRoute(Screen.FromDatePicker.route) },
+        label = "From Date Picker",
+        content = {
+            Text(
+                text = buildAnnotatedString {
+                    withStyle(SpanStyle(color = Color.Yellow, fontWeight = FontWeight.Bold)) {
+                        append(time.dayOfMonth.toString())
+                    }
+                    append(" ${time.format(DateTimeFormatter.ofPattern("MMM"))}")
+                },
+                fontSize = 6f.sp
+            )
+        }
+    )
+}
+
+@Composable
 fun TimeWithSecondsPickerChip(
     time: LocalDateTime,
     navigateToRoute: (String) -> Unit

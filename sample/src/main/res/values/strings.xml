@@ -40,4 +40,23 @@
     <string name="sectionedlist_tomorrow">Tomorrow</string>
     <string name="sectionedlist_later_week">Later this week</string>
     <string name="sectionedlist_more_tasks">More tasks…</string>
+
+    <string name="rotarymenu_scroll">Scroll</string>
+    <string name="rotarymenu_scroll_list">Scroll list</string>
+    <string name="rotarymenu_scroll_with_fling">Scroll with fling</string>
+    <string name="rotarymenu_snap">Snap</string>
+    <string name="rotarymenu_snap_list">Snap list</string>
+
+    <array name="rotarymenu_item_sizes">
+        <item>Small items</item>
+        <item>Medium cards</item>
+        <item>Very big cards</item>
+        <item>Different cards</item>
+        <item>10 small 1 big</item>
+    </array>
+
+    <string name="rotarymenu_chips_size">Chips size</string>
+    <string name="rotarymenu_haptics_on">Haptics on</string>
+    <string name="rotarymenu_haptics_off">Haptics off</string>
+    <string name="rotarymenu_show_list">Show list</string>
 </resources>

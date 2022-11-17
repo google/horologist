@@ -72,7 +72,6 @@ android {
 dependencies {
     implementation libs.kotlin.stdlib
     implementation libs.kotlinx.coroutines.core
-    implementation libs.androidx.wear
 
     api libs.playservices.wearable
     implementation libs.kotlinx.coroutines.playservices

@@ -24,7 +24,8 @@ android {
     compileSdkVersion 33
 
     defaultConfig {
-        minSdk 26
+        minSdk 21
+        //noinspection ExpiredTargetSdkVersion
         targetSdk 30
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

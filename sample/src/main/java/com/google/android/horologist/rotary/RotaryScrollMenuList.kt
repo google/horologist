@@ -39,6 +39,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringArrayResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -60,6 +62,7 @@ import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
 import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
+import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
 import kotlin.random.Random
 
@@ -78,18 +81,18 @@ fun RotaryMenuScreen(
         section(
             listOf(
                 Pair(
-                    "Scroll list",
+                    R.string.rotarymenu_scroll_list,
                     Screen.RotaryScrollScreen.route
                 ),
                 Pair(
-                    "Scroll with Fling",
+                    R.string.rotarymenu_scroll_with_fling,
                     Screen.RotaryScrollWithFlingScreen.route
                 )
             )
         ) {
             header {
                 Title(
-                    text = "Scroll",
+                    text = stringResource(R.string.rotarymenu_scroll),
                     modifier = Modifier.padding(vertical = 8.dp)
                 )
             }
@@ -97,7 +100,7 @@ fun RotaryMenuScreen(
             loaded { item ->
                 Chip(
                     label = {
-                        Text(text = item.first)
+                        Text(text = stringResource(item.first))
                     },
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { navigateToRoute(item.second) },
@@ -109,14 +112,14 @@ fun RotaryMenuScreen(
         section(
             listOf(
                 Pair(
-                    "Snap list",
+                    R.string.rotarymenu_snap_list,
                     Screen.RotarySnapListScreen.route
                 )
             )
         ) {
             header {
                 Title(
-                    text = "Snap",
+                    text = stringResource(R.string.rotarymenu_snap),
                     modifier = Modifier.padding(vertical = 8.dp)
                 )
             }
@@ -124,7 +127,7 @@ fun RotaryMenuScreen(
             loaded { item ->
                 Chip(
                     label = {
-                        Text(text = item.first)
+                        Text(text = stringResource(item.first))
                     },
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { navigateToRoute(item.second) },
@@ -167,14 +170,8 @@ fun RotaryScrollWithFlingOrSnapScreen(
     var showList by remember { mutableStateOf(false) }
 
     var hapticsEnabled by remember { mutableStateOf(true) }
-    var itemIndex by remember { mutableStateOf(0) }
-    val items = arrayListOf(
-        "Small items",
-        "Medium cards",
-        "Very big cards",
-        "Different cards",
-        "10 small 1 big"
-    )
+    var itemTypeIndex by remember { mutableStateOf(0) }
+
     val randomHeights: List<Int> = remember { (0..300).map { Random.nextInt(1, 10) } }
     val tenSmallOneBig: List<Int> = remember { (0..4).map { 1 }.plus(20).plus((0..4).map { 1 }) }
     if (showList) {
@@ -204,7 +201,7 @@ fun RotaryScrollWithFlingOrSnapScreen(
                 .focusable(),
             scrollableState = scalingLazyListState
         ) {
-            when (itemIndex) {
+            when (itemTypeIndex) {
                 0 -> ChipsList { showList = false }
                 1 -> CardsList(2) { showList = false }
                 2 -> CardsList(10) { showList = false }
@@ -220,62 +217,89 @@ fun RotaryScrollWithFlingOrSnapScreen(
             focusRequester.requestFocus()
         }
     } else {
-        ScalingLazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            item {
-                Text(
-                    text = "Chips size",
-                    textAlign = TextAlign.Center
-                )
-            }
-            item {
-                Chip(
-                    onClick = {
-                        itemIndex = (itemIndex + 1) % items.size
-                    },
-                    colors = ChipDefaults.primaryChipColors(),
-                    border = ChipDefaults.chipBorder(),
-                    content = {
-                        Text(
-                            text = items[itemIndex],
-                            textAlign = TextAlign.Center,
-                            maxLines = 2,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
-                )
-            }
-            item {
-                Chip(
-                    onClick = {
-                        hapticsEnabled = !hapticsEnabled
-                    },
-                    colors = ChipDefaults.primaryChipColors(),
-                    border = ChipDefaults.chipBorder(),
-                    content = {
-                        Text(
-                            text = if (hapticsEnabled) "Haptics on" else "Haptics off",
-                            textAlign = TextAlign.Center,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
-                )
-            }
-            item {
-                CompactChip(
-                    onClick = { showList = true },
-                    label = { Text(text = "Show list", textAlign = TextAlign.Center) }
-                )
-            }
+        ScrollPreferences(
+            itemTypeIndex = itemTypeIndex,
+            hapticsEnabled = hapticsEnabled,
+            onShowListClicked = { showList = true },
+            onItemTypeIndexChanged = { itemTypeIndex = it },
+            onHapticsToggled = { hapticsEnabled = !hapticsEnabled }
+        )
+    }
+}
+
+@Composable
+private fun ScrollPreferences(
+    itemTypeIndex: Int,
+    hapticsEnabled: Boolean,
+    onShowListClicked: () -> Unit,
+    onItemTypeIndexChanged: (Int) -> Unit,
+    onHapticsToggled: () -> Unit
+) {
+    val itemTypes = stringArrayResource(R.array.rotarymenu_item_sizes).toList()
+
+    ScalingLazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        item {
+            Text(
+                text = stringResource(R.string.rotarymenu_chips_size),
+                textAlign = TextAlign.Center
+            )
+        }
+        item {
+            Chip(
+                onClick = {
+                    onItemTypeIndexChanged((itemTypeIndex + 1) % itemTypes.size)
+                },
+                colors = ChipDefaults.primaryChipColors(),
+                border = ChipDefaults.chipBorder(),
+                content = {
+                    Text(
+                        text = itemTypes[itemTypeIndex],
+                        textAlign = TextAlign.Center,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+            )
+        }
+        item {
+            Chip(
+                onClick = {
+                    onHapticsToggled()
+                },
+                colors = ChipDefaults.primaryChipColors(),
+                border = ChipDefaults.chipBorder(),
+                content = {
+                    Text(
+                        text = stringResource(
+                            if (hapticsEnabled) R.string.rotarymenu_haptics_on
+                            else R.string.rotarymenu_haptics_off
+                        ),
+                        textAlign = TextAlign.Center,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+            )
+        }
+        item {
+            CompactChip(
+                onClick = { onShowListClicked() },
+                label = {
+                    Text(
+                        text = stringResource(R.string.rotarymenu_show_list),
+                        textAlign = TextAlign.Center
+                    )
+                }
+            )
         }
     }
 }
 
 @Composable
-fun ItemsListWithModifier(
+private fun ItemsListWithModifier(
     modifier: Modifier,
     scrollableState: ScalingLazyListState,
     items: ScalingLazyListScope.() -> Unit
@@ -314,7 +338,7 @@ private fun ScalingLazyListScope.CardsList(
                         modifier = Modifier
                             .size(15.dp)
                             .clip(CircleShape)
-                            .background(color = colors[it % 4])
+                            .background(color = colors[it % colors.size])
                     )
                     Text(text = "#$it")
                 }

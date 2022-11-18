@@ -35,6 +35,8 @@ import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberScalingLazyListState
+import com.google.android.horologist.base.ui.components.StandardChip
+import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
 import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
@@ -92,13 +94,19 @@ fun MenuScreen(
             TimeWithoutSecondsPickerChip(time) { navigateToRoute(Screen.TimeWithoutSecondsPicker.route) }
         }
         item {
-            Chip(
-                label = {
-                    Text(text = stringResource(id = R.string.sectionedlist_samples_menu))
-                },
+            StandardChip(
+                label = stringResource(id = R.string.sectionedlist_samples_menu),
                 modifier = modifier.fillMaxWidth(),
                 onClick = { navigateToRoute(Screen.SectionedListMenuScreen.route) },
-                colors = ChipDefaults.primaryChipColors()
+                chipType = StandardChipType.Primary
+            )
+        }
+        item {
+            StandardChip(
+                label = stringResource(id = R.string.auth_samples_menu),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.AuthMenuScreen.route) },
+                chipType = StandardChipType.Primary
             )
         }
         item {

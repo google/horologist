@@ -21,5 +21,8 @@
 
     <uses-feature android:name="android.hardware.type.watch" />
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <uses-sdk android:minSdkVersion="26" tools:ignore="GradleOverrides" />
 </manifest>

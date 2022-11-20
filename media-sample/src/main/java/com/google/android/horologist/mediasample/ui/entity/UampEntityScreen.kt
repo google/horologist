@@ -179,8 +179,10 @@ fun UampEntityScreen(
             mediaIdToDelete?.let { uampEntityScreenViewModel.removeMediaItem(it) }
         },
         showDialog = showRemoveSingleMediaDownloadDialog,
+
         scalingLazyListState = rememberScalingLazyListState(),
-            okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
-        cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description),
+        okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
+        cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description)
+
     )
 }

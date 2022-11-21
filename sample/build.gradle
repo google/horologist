@@ -17,6 +17,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: "com.google.protobuf"
+apply plugin: "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
 
 android {
     compileSdkVersion 33
@@ -65,6 +66,8 @@ android {
         freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.media.ExperimentalHorologistMediaApi"
         freeCompilerArgs += "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi"
@@ -119,6 +122,8 @@ dependencies {
     implementation projects.composeLayout
     implementation projects.audio
     implementation projects.audioUi
+    implementation projects.authData
+    implementation projects.authUi
     implementation projects.tiles
     implementation projects.composables
     implementation projects.media
@@ -145,15 +150,17 @@ dependencies {
     implementation libs.androidx.activity.compose
     implementation libs.androidx.wear.tiles
     implementation libs.androidx.wear.tiles.material
+
     implementation libs.kotlinx.coroutines.playservices
+    implementation libs.kotlin.stdlib
 
     implementation libs.coil
 
     implementation libs.lottie.compose
 
-    implementation libs.kotlin.stdlib
-
     implementation libs.protobuf.kotlin.lite
+
+    implementation libs.moshi.kotlin
 
     debugImplementation projects.composeTools
 
@@ -162,4 +169,9 @@ dependencies {
     androidTestImplementation libs.junit
     androidTestImplementation libs.androidx.test.ext
     androidTestImplementation libs.androidx.test.ext.ktx
+}
+
+secrets {
+    propertiesFileName "secrets.properties"
+    defaultPropertiesFileName = 'secrets.defaults.properties'
 }

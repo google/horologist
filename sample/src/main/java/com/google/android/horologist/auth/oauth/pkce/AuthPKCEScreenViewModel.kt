@@ -18,7 +18,7 @@ package com.google.android.horologist.auth.oauth.pkce
 
 import android.app.Application
 import com.google.android.horologist.auth.data.pkce.impl.AuthPKCEOAuthCodeRepositoryImpl
-import com.google.android.horologist.auth.data.pkce.impl.google.AuthPKCEConfigRepositoryImpl
+import com.google.android.horologist.auth.data.pkce.impl.google.AuthPKCEConfigRepositoryGoogleImpl
 import com.google.android.horologist.auth.data.pkce.impl.google.AuthPKCETokenRepositoryGoogleImpl
 import com.google.android.horologist.auth.data.pkce.impl.google.api.GoogleOAuthServiceFactory
 import com.google.android.horologist.auth.ui.pkce.AuthPKCEDefaultViewModel
@@ -26,7 +26,7 @@ import com.google.android.horologist.sample.BuildConfig
 import com.squareup.moshi.Moshi
 
 class AuthPKCEScreenViewModel(application: Application) : AuthPKCEDefaultViewModel(
-    authPKCEConfigRepository = AuthPKCEConfigRepositoryImpl(
+    authPKCEConfigRepository = AuthPKCEConfigRepositoryGoogleImpl(
         BuildConfig.AUTH_CLIENT_ID,
         BuildConfig.AUTH_CLIENT_SECRET
     ),

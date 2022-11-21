@@ -22,7 +22,7 @@ import com.google.android.horologist.auth.data.pkce.AuthPKCEConfigRepository
 import com.google.android.horologist.auth.data.pkce.impl.AuthPKCEDefaultConfig
 
 @ExperimentalHorologistAuthDataApi
-public class AuthPKCEConfigRepositoryImpl(
+public class AuthPKCEConfigRepositoryGoogleImpl(
     private val clientId: String,
     private val clientSecret: String,
     private val encodedPath: String = ENCODED_PATH,

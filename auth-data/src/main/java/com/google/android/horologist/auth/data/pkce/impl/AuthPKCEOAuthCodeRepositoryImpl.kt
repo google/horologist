@@ -25,6 +25,7 @@ import androidx.wear.phone.interactions.authentication.OAuthResponse
 import androidx.wear.phone.interactions.authentication.RemoteAuthClient
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 import com.google.android.horologist.auth.data.pkce.AuthPKCEOAuthCodeRepository
+import com.google.android.horologist.auth.data.pkce.impl.google.AuthPKCEOAuthCodeGooglePayload
 import java.io.IOException
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -32,7 +33,7 @@ import kotlin.coroutines.suspendCoroutine
 @ExperimentalHorologistAuthDataApi
 public class AuthPKCEOAuthCodeRepositoryImpl(
     private val application: Application
-) : AuthPKCEOAuthCodeRepository<AuthPKCEDefaultConfig, AuthPKCEOAuthCodeDefaultPayload> {
+) : AuthPKCEOAuthCodeRepository<AuthPKCEDefaultConfig, AuthPKCEOAuthCodeGooglePayload> {
 
     /**
      * Start the authentication flow and do an authenticated request. This method implements
@@ -47,11 +48,12 @@ public class AuthPKCEOAuthCodeRepositoryImpl(
     override suspend fun fetch(
         config: AuthPKCEDefaultConfig,
         codeVerifier: CodeVerifier
-    ): Result<AuthPKCEOAuthCodeDefaultPayload> {
+    ): Result<AuthPKCEOAuthCodeGooglePayload> {
         val oauthRequest = OAuthRequest.Builder(application)
             .setAuthProviderUrl(config.authProviderUrl)
             .setCodeChallenge(CodeChallenge(codeVerifier))
             .setClientId(config.clientId)
+            .also { builder -> config.redirectUrl?.let(builder::setRedirectUrl) }
             .build()
 
         Log.d(TAG, "Authorization requested. Request URL: ${oauthRequest.requestUrl}")
@@ -84,7 +86,7 @@ public class AuthPKCEOAuthCodeRepositoryImpl(
                         } else {
                             c.resume(
                                 Result.success(
-                                    AuthPKCEOAuthCodeDefaultPayload(code, oauthRequest.redirectUrl)
+                                    AuthPKCEOAuthCodeGooglePayload(code, oauthRequest.redirectUrl)
                                 )
                             )
                         }

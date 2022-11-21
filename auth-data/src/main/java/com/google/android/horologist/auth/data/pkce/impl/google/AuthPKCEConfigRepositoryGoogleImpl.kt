@@ -18,6 +18,9 @@ package com.google.android.horologist.auth.data.pkce.impl.google
 
 import android.net.Uri
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService.Companion.SCOPE_KEY
+import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService.Companion.USER_AUTH_ENDPOINT
+import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService.Companion.USER_INFO_PROFILE_SCOPE_VALUE
 import com.google.android.horologist.auth.data.pkce.AuthPKCEConfigRepository
 import com.google.android.horologist.auth.data.pkce.impl.AuthPKCEDefaultConfig
 
@@ -25,8 +28,8 @@ import com.google.android.horologist.auth.data.pkce.impl.AuthPKCEDefaultConfig
 public class AuthPKCEConfigRepositoryGoogleImpl(
     private val clientId: String,
     private val clientSecret: String,
-    private val encodedPath: String = ENCODED_PATH,
-    private val queryParameters: Map<String, String> = mapOf(QUERY_PARAM_SCOPE_KEY to QUERY_PARAM_SCOPE_VALUE)
+    private val encodedPath: String = USER_AUTH_ENDPOINT,
+    private val queryParameters: Map<String, String> = mapOf(SCOPE_KEY to USER_INFO_PROFILE_SCOPE_VALUE)
 ) : AuthPKCEConfigRepository<AuthPKCEDefaultConfig> {
 
     override suspend fun fetch(): AuthPKCEDefaultConfig {
@@ -44,12 +47,5 @@ public class AuthPKCEConfigRepositoryGoogleImpl(
             clientSecret = clientSecret,
             authProviderUrl = uri
         )
-    }
-
-    public companion object {
-        public const val ENCODED_PATH: String = "https://accounts.google.com/o/oauth2/v2/auth"
-        public const val QUERY_PARAM_SCOPE_KEY: String = "scope"
-        public const val QUERY_PARAM_SCOPE_VALUE: String =
-            "https://www.googleapis.com/auth/userinfo.profile"
     }
 }

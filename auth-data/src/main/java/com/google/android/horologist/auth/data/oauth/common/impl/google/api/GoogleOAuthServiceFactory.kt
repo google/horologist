@@ -14,19 +14,24 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.data.pkce
+package com.google.android.horologist.auth.data.oauth.common.impl.google.api
 
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import com.squareup.moshi.Moshi
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 @ExperimentalHorologistAuthDataApi
-public interface AuthPKCETokenPayloadListener<TokenPayload> {
+public class GoogleOAuthServiceFactory(
+    private val okHttpClient: OkHttpClient,
+    private val moshi: Moshi
+) {
 
-    public suspend fun onPayloadReceived(payload: TokenPayload): Unit
-}
-
-@ExperimentalHorologistAuthDataApi
-public class AuthPKCETokenPayloadListenerNoOpImpl<TokenPayload> :
-    AuthPKCETokenPayloadListener<TokenPayload> {
-
-    override suspend fun onPayloadReceived(payload: TokenPayload): Unit = Unit
+    public fun get(): GoogleOAuthService = Retrofit.Builder()
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .client(okHttpClient)
+        .baseUrl(GoogleOAuthService.GOOGLE_OAUTH_SERVER)
+        .build()
+        .create(GoogleOAuthService::class.java)
 }

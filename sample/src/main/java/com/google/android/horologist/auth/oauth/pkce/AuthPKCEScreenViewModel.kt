@@ -20,6 +20,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthServiceFactory
+import com.google.android.horologist.auth.data.oauth.common.impl.google.api.TokenResponse
 import com.google.android.horologist.auth.data.pkce.AuthPKCEConfigRepository
 import com.google.android.horologist.auth.data.pkce.AuthPKCEOAuthCodeRepository
 import com.google.android.horologist.auth.data.pkce.AuthPKCETokenRepository
@@ -28,11 +30,11 @@ import com.google.android.horologist.auth.data.pkce.impl.AuthPKCEOAuthCodeReposi
 import com.google.android.horologist.auth.data.pkce.impl.google.AuthPKCEConfigRepositoryGoogleImpl
 import com.google.android.horologist.auth.data.pkce.impl.google.AuthPKCEOAuthCodeGooglePayload
 import com.google.android.horologist.auth.data.pkce.impl.google.AuthPKCETokenRepositoryGoogleImpl
-import com.google.android.horologist.auth.data.pkce.impl.google.api.GoogleOAuthServiceFactory
-import com.google.android.horologist.auth.data.pkce.impl.google.api.TokenResponse
 import com.google.android.horologist.auth.ui.pkce.AuthPKCEViewModel
 import com.google.android.horologist.sample.BuildConfig
 import com.squareup.moshi.Moshi
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 
 class AuthPKCEScreenViewModel(
     private val authPKCEConfigRepository: AuthPKCEConfigRepository<AuthPKCEDefaultConfig>,
@@ -57,7 +59,17 @@ class AuthPKCEScreenViewModel(
                     ),
                     authPKCEOAuthCodeRepository = AuthPKCEOAuthCodeRepositoryImpl(application),
                     authPKCETokenRepository = AuthPKCETokenRepositoryGoogleImpl(
-                        GoogleOAuthServiceFactory(Moshi.Builder().build()).get()
+                        GoogleOAuthServiceFactory(
+                            okHttpClient = OkHttpClient.Builder()
+                                .also { builder ->
+                                    builder.addInterceptor(
+                                        HttpLoggingInterceptor().also { interceptor ->
+                                            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+                                        }
+                                    )
+                                }.build(),
+                            moshi = Moshi.Builder().build()
+                        ).get()
                     )
                 )
             }

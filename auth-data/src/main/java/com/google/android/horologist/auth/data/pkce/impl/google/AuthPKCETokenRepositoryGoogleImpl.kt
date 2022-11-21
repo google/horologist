@@ -18,11 +18,11 @@ package com.google.android.horologist.auth.data.pkce.impl.google
 
 import android.util.Log
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService
+import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService.Companion.GRANT_TYPE_PARAM_AUTH_CODE_GRANT_VALUE
+import com.google.android.horologist.auth.data.oauth.common.impl.google.api.TokenResponse
 import com.google.android.horologist.auth.data.pkce.AuthPKCETokenRepository
 import com.google.android.horologist.auth.data.pkce.impl.AuthPKCEDefaultConfig
-import com.google.android.horologist.auth.data.pkce.impl.google.api.GoogleOAuthService
-import com.google.android.horologist.auth.data.pkce.impl.google.api.GoogleOAuthService.Companion.REQUEST_GRANT_TYPE_PARAM_VALUE
-import com.google.android.horologist.auth.data.pkce.impl.google.api.TokenResponse
 import kotlinx.coroutines.CancellationException
 
 @ExperimentalHorologistAuthDataApi
@@ -43,7 +43,7 @@ public class AuthPKCETokenRepositoryGoogleImpl(
                 clientSecret = config.clientSecret,
                 code = oAuthCodePayload.code,
                 codeVerifier = codeVerifier,
-                grantType = REQUEST_GRANT_TYPE_PARAM_VALUE,
+                grantType = GRANT_TYPE_PARAM_AUTH_CODE_GRANT_VALUE,
                 redirectUri = oAuthCodePayload.redirectUrl
             )
 

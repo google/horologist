@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.data.pkce
+package com.google.android.horologist.auth.data.oauth.common.impl.google.api
 
-import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-@ExperimentalHorologistAuthDataApi
-public interface AuthPKCETokenPayloadListener<TokenPayload> {
-
-    public suspend fun onPayloadReceived(payload: TokenPayload): Unit
-}
-
-@ExperimentalHorologistAuthDataApi
-public class AuthPKCETokenPayloadListenerNoOpImpl<TokenPayload> :
-    AuthPKCETokenPayloadListener<TokenPayload> {
-
-    override suspend fun onPayloadReceived(payload: TokenPayload): Unit = Unit
-}
+@JsonClass(generateAdapter = true)
+public data class DeviceCodeResponse(
+    @Json(name = "verification_url") val verificationUri: String,
+    @Json(name = "user_code") val userCode: String,
+    @Json(name = "device_code") val deviceCode: String,
+    @Json(name = "interval") val interval: Int
+)

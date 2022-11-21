@@ -77,6 +77,7 @@ public open class AuthDeviceGrantViewModel<AuthDeviceGrantConfig, VerificationIn
     }
 }
 
+@ExperimentalHorologistAuthUiApi
 public sealed class AuthDeviceGrantScreenState {
     public object Idle : AuthDeviceGrantScreenState()
     public object Loading : AuthDeviceGrantScreenState()

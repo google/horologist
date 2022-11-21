@@ -1,1 +1,121 @@
 // Signature format: 4.0
+package com.google.android.horologist.auth.data {
+
+  @kotlin.RequiresOptIn(message="Horologist Auth Data is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistAuthDataApi {
+  }
+
+}
+
+package com.google.android.horologist.auth.data.pkce {
+
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface AuthPKCEConfigRepository<Config> {
+    method public suspend Object? fetch(kotlin.coroutines.Continuation<? super Config> p);
+  }
+
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface AuthPKCEOAuthCodeRepository<AuthPKCEConfig, OAuthCodePayload> {
+    method public suspend Object? fetch(AuthPKCEConfig? config, androidx.wear.phone.interactions.authentication.CodeVerifier codeVerifier, kotlin.coroutines.Continuation<? super kotlin.Result<? extends OAuthCodePayload>> p);
+  }
+
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface AuthPKCETokenPayloadListener<TokenPayload> {
+    method public suspend Object? onPayloadReceived(TokenPayload? payload, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+  }
+
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class AuthPKCETokenPayloadListenerNoOpImpl<TokenPayload> implements com.google.android.horologist.auth.data.pkce.AuthPKCETokenPayloadListener<TokenPayload> {
+    ctor public AuthPKCETokenPayloadListenerNoOpImpl();
+    method public suspend Object? onPayloadReceived(TokenPayload? payload, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+  }
+
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface AuthPKCETokenRepository<AuthPKCEConfig, OAuthCodePayload, TokenPayload> {
+    method public suspend Object? fetch(AuthPKCEConfig? config, String codeVerifier, OAuthCodePayload? oAuthCodePayload, kotlin.coroutines.Continuation<? super kotlin.Result<? extends TokenPayload>> p);
+  }
+
+}
+
+package com.google.android.horologist.auth.data.pkce.impl {
+
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class AuthPKCEDefaultConfig {
+    ctor public AuthPKCEDefaultConfig(String clientId, String clientSecret, android.net.Uri authProviderUrl, optional android.net.Uri? redirectUrl);
+    method public String component1();
+    method public String component2();
+    method public android.net.Uri component3();
+    method public android.net.Uri? component4();
+    method public com.google.android.horologist.auth.data.pkce.impl.AuthPKCEDefaultConfig copy(String clientId, String clientSecret, android.net.Uri authProviderUrl, android.net.Uri? redirectUrl);
+    method public android.net.Uri getAuthProviderUrl();
+    method public String getClientId();
+    method public String getClientSecret();
+    method public android.net.Uri? getRedirectUrl();
+    property public final android.net.Uri authProviderUrl;
+    property public final String clientId;
+    property public final String clientSecret;
+    property public final android.net.Uri? redirectUrl;
+  }
+
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class AuthPKCEOAuthCodeDefaultPayload {
+    ctor public AuthPKCEOAuthCodeDefaultPayload(String code, String redirectUrl);
+    method public String component1();
+    method public String component2();
+    method public com.google.android.horologist.auth.data.pkce.impl.AuthPKCEOAuthCodeDefaultPayload copy(String code, String redirectUrl);
+    method public String getCode();
+    method public String getRedirectUrl();
+    property public final String code;
+    property public final String redirectUrl;
+  }
+
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class AuthPKCEOAuthCodeRepositoryImpl implements com.google.android.horologist.auth.data.pkce.AuthPKCEOAuthCodeRepository<com.google.android.horologist.auth.data.pkce.impl.AuthPKCEDefaultConfig,com.google.android.horologist.auth.data.pkce.impl.AuthPKCEOAuthCodeDefaultPayload> {
+    ctor public AuthPKCEOAuthCodeRepositoryImpl(android.app.Application application);
+    method public suspend Object? fetch(com.google.android.horologist.auth.data.pkce.impl.AuthPKCEDefaultConfig config, androidx.wear.phone.interactions.authentication.CodeVerifier codeVerifier, kotlin.coroutines.Continuation<? super kotlin.Result<? extends com.google.android.horologist.auth.data.pkce.impl.AuthPKCEOAuthCodeDefaultPayload>> p);
+  }
+
+}
+
+package com.google.android.horologist.auth.data.pkce.impl.google {
+
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class AuthPKCETokenRepositoryGoogleImpl implements com.google.android.horologist.auth.data.pkce.AuthPKCETokenRepository<com.google.android.horologist.auth.data.pkce.impl.AuthPKCEDefaultConfig,com.google.android.horologist.auth.data.pkce.impl.AuthPKCEOAuthCodeDefaultPayload,com.google.android.horologist.auth.data.pkce.impl.google.api.TokenResponse> {
+    ctor public AuthPKCETokenRepositoryGoogleImpl(com.google.android.horologist.auth.data.pkce.impl.google.api.GoogleOAuthService googleOAuthService);
+    method public suspend Object? fetch(com.google.android.horologist.auth.data.pkce.impl.AuthPKCEDefaultConfig config, String codeVerifier, com.google.android.horologist.auth.data.pkce.impl.AuthPKCEOAuthCodeDefaultPayload oAuthCodePayload, kotlin.coroutines.Continuation<? super kotlin.Result<? extends com.google.android.horologist.auth.data.pkce.impl.google.api.TokenResponse>> p);
+  }
+
+}
+
+package com.google.android.horologist.auth.data.pkce.impl.google.api {
+
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface GoogleOAuthService {
+    method @retrofit2.http.FormUrlEncoded @retrofit2.http.POST("token") public suspend Object? token(@retrofit2.http.Field("client_id") String clientId, @retrofit2.http.Field("client_secret") String clientSecret, @retrofit2.http.Field("code") String code, @retrofit2.http.Field("code_verifier") String codeVerifier, @retrofit2.http.Field("grant_type") String grantType, @retrofit2.http.Field("redirect_uri") String redirectUri, kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.pkce.impl.google.api.TokenResponse> p);
+    field public static final com.google.android.horologist.auth.data.pkce.impl.google.api.GoogleOAuthService.Companion Companion;
+    field public static final String GOOGLE_OAUTH_SERVER = "https://oauth2.googleapis.com/";
+    field public static final String REQUEST_GRANT_TYPE_PARAM_VALUE = "authorization_code";
+  }
+
+  public static final class GoogleOAuthService.Companion {
+  }
+
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class GoogleOAuthServiceFactory {
+    ctor public GoogleOAuthServiceFactory(com.squareup.moshi.Moshi moshi);
+    method public com.google.android.horologist.auth.data.pkce.impl.google.api.GoogleOAuthService get();
+  }
+
+  @com.squareup.moshi.JsonClass(generateAdapter=true) public final class TokenResponse {
+    ctor public TokenResponse(@com.squareup.moshi.Json(name="access_token") String accessToken, @com.squareup.moshi.Json(name="expires_in") int expiresIn, @com.squareup.moshi.Json(name="id_token") String? idToken, @com.squareup.moshi.Json(name="refresh_token") String? refreshToken, @com.squareup.moshi.Json(name="scope") String? scope, @com.squareup.moshi.Json(name="token_type") String tokenType);
+    method public String component1();
+    method public int component2();
+    method public String? component3();
+    method public String? component4();
+    method public String? component5();
+    method public String component6();
+    method public com.google.android.horologist.auth.data.pkce.impl.google.api.TokenResponse copy(@com.squareup.moshi.Json(name="access_token") String accessToken, @com.squareup.moshi.Json(name="expires_in") int expiresIn, @com.squareup.moshi.Json(name="id_token") String? idToken, @com.squareup.moshi.Json(name="refresh_token") String? refreshToken, @com.squareup.moshi.Json(name="scope") String? scope, @com.squareup.moshi.Json(name="token_type") String tokenType);
+    method public String getAccessToken();
+    method public int getExpiresIn();
+    method public String? getIdToken();
+    method public String? getRefreshToken();
+    method public String? getScope();
+    method public String getTokenType();
+    property public final String accessToken;
+    property public final int expiresIn;
+    property public final String? idToken;
+    property public final String? refreshToken;
+    property public final String? scope;
+    property public final String tokenType;
+  }
+
+}
+

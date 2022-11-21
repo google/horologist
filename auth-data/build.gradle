@@ -18,6 +18,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'org.jetbrains.dokka'
+    id 'com.google.devtools.ksp'
 }
 
 android {
@@ -89,6 +90,12 @@ dependencies {
     implementation libs.kotlinx.coroutines.core
     implementation libs.androidx.corektx
     implementation libs.androidx.wear
+    implementation libs.androidx.wear.phone.interactions
+    implementation libs.retrofit2.retrofit
+    implementation libs.retrofit2.convertermoshi
+    implementation libs.moshi.adapters
+    implementation libs.moshi.kotlin
+    ksp libs.moshi.kotlin.codegen
 
     debugImplementation projects.composeTools
     debugImplementation libs.compose.ui.toolingpreview

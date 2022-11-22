@@ -147,4 +147,3 @@ class AudioOutputProvider : PreviewParameterProvider<AudioOutput> {
         AudioOutput.BluetoothHeadset(id = "3", name = "Sennheiser Momentum Wireless")
     )
 }
-

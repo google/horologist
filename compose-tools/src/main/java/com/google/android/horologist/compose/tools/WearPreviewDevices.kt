@@ -69,7 +69,6 @@ public annotation class WearLargeRoundDevicePreview
 )
 public annotation class WearSquareDevicePreview
 
-
 @Preview(
     device = Devices.WEAR_OS_SMALL_ROUND,
     showSystemUi = true,

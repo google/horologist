@@ -14,31 +14,41 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.benchmark
+package com.google.android.horologist.media.benchmark
 
 import androidx.benchmark.macro.CompilationMode
-import androidx.benchmark.macro.ExperimentalMetricApi
 import androidx.benchmark.macro.Metric
+import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
-import androidx.benchmark.macro.TraceSectionMetric
+import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.filters.LargeTest
-import com.google.android.horologist.media.benchmark.BaseStartupBenchmark
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 
 @LargeTest
 @RunWith(Parameterized::class)
-@OptIn(ExperimentalMetricApi::class)
-class StartupBenchmark(
-    override val compilationMode: CompilationMode
-) : BaseStartupBenchmark() {
-    override val packageName: String = "com.google.android.horologist.mediasample"
+public abstract class BaseStartupBenchmark() {
+    @get:Rule
+    public val benchmarkRule: MacrobenchmarkRule = MacrobenchmarkRule()
 
-    override fun metrics(): List<Metric> = listOf(StartupTimingMetric(), TraceSectionMetric("SyncWorker"))
+    public open val compilationMode: CompilationMode = CompilationMode.Partial()
 
-    companion object {
-        @Parameterized.Parameters(name = "compilation={0}")
-        @JvmStatic
-        fun parameters() = listOf(CompilationMode.None(), CompilationMode.Partial())
+    public abstract val packageName: String
+
+    @Test
+    public fun startup(): Unit = benchmarkRule.measureRepeated(
+        packageName = packageName,
+        metrics = metrics(),
+        compilationMode = compilationMode,
+        iterations = 5,
+        startupMode = StartupMode.COLD
+    ) {
+        startActivityAndWait()
+        // sleep to allow time for report fully drawn
+        Thread.sleep(5000)
     }
+
+    public open fun metrics(): List<Metric> = listOf(StartupTimingMetric())
 }

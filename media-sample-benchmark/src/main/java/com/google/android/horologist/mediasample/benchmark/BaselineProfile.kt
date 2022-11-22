@@ -17,22 +17,11 @@
 package com.google.android.horologist.mediasample.benchmark
 
 import android.content.ComponentName
-import android.content.Intent
 import androidx.benchmark.macro.ExperimentalBaselineProfilesApi
-import androidx.benchmark.macro.junit4.BaselineProfileRule
+import androidx.media3.common.MediaItem
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.uiautomator.UiDevice
-import com.google.android.horologist.mediasample.benchmark.MediaControllerHelper.startPlaying
-import com.google.android.horologist.mediasample.benchmark.MediaControllerHelper.stopPlaying
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import com.google.android.horologist.media.benchmark.BaseMediaBaselineProfile
 import org.junit.runner.RunWith
-import kotlin.time.Duration.Companion.seconds
 
 // This test generates a baseline profile rules file that can be added to the app to configure
 // the classes and methods that are pre-compiled at installation time, rather than JIT'd at runtime.
@@ -46,52 +35,12 @@ import kotlin.time.Duration.Companion.seconds
 // rules that are specific to classes and methods in your own app and library code.
 @ExperimentalBaselineProfilesApi
 @RunWith(AndroidJUnit4::class)
-class BaselineProfile {
+class BaselineProfile : BaseMediaBaselineProfile() {
 
-    @get:Rule
-    val baselineRule = BaselineProfileRule()
+    override val componentName: ComponentName = ComponentName(
+        "com.google.android.horologist.mediasample",
+        "com.google.android.horologist.mediasample.data.service.playback.PlaybackService"
+    )
 
-    private lateinit var device: UiDevice
-
-    @Before
-    fun setUp() {
-        val instrumentation = InstrumentationRegistry.getInstrumentation()
-        device = UiDevice.getInstance(instrumentation)
-    }
-
-    @Test
-    fun profile() {
-        baselineRule.collectBaselineProfile(
-            packageName = PACKAGE_NAME,
-            profileBlock = {
-                val intent = Intent()
-                intent.action = ACTION
-                startActivityAndWait(intent)
-
-                val mediaController = MediaControllerHelper.lookupController(
-                    ComponentName(
-                        PACKAGE_NAME,
-                        PlaybackBenchmark.PlaybackService
-                    )
-                ).get()
-
-                runBlocking(Dispatchers.Main) {
-                    mediaController.startPlaying(TestMedia.Intro)
-
-                    delay(5.seconds)
-
-                    if (!mediaController.isPlaying) {
-                        throw IllegalStateException("Not playing after 10 seconds")
-                    }
-
-                    mediaController.stopPlaying()
-                }
-            }
-        )
-    }
-
-    companion object {
-        private const val PACKAGE_NAME = "com.google.android.horologist.mediasample"
-        private const val ACTION = "com.google.android.horologist.mediasample.MAIN"
-    }
+    override val testMedia: MediaItem = TestMedia.Intro
 }

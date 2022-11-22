@@ -14,23 +14,27 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.benchmark
+@file:OptIn(ExperimentalMacrobenchmarkApi::class)
+
+package com.google.android.horologist.media.benchmark
 
 import android.content.ComponentName
+import androidx.benchmark.macro.ExperimentalMacrobenchmarkApi
 import androidx.media3.common.MediaItem
 import androidx.test.filters.LargeTest
-import com.google.android.horologist.media.benchmark.BasePlaybackBenchmark
 
 @LargeTest
 class PlaybackBenchmark : BasePlaybackBenchmark() {
     override val componentName: ComponentName = ComponentName(
         PACKAGE_NAME,
-        "com.google.android.horologist.mediasample.data.service.playback.PlaybackService"
+        PlaybackService
     )
 
     override val testMedia: MediaItem = TestMedia.Intro
 
     companion object {
+        const val PlaybackService =
+            "com.google.android.horologist.mediasample.data.service.playback.PlaybackService"
         private const val PACKAGE_NAME = "com.google.android.horologist.mediasample"
     }
 }

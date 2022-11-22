@@ -50,7 +50,8 @@ fun VolumeScreenGuideWithLongText() {
         ) {
             VolumeScreen(
                 volume = { volume },
-                audioOutputUi = AudioOutput.BluetoothHeadset(id = "1", name = "Galaxy Watch 4").toAudioOutputUi(),
+                audioOutputUi = AudioOutput.BluetoothHeadset(id = "1", name = "Galaxy Watch 4")
+                    .toAudioOutputUi(),
                 increaseVolume = { },
                 decreaseVolume = { },
                 onAudioOutputClick = {}
@@ -104,7 +105,8 @@ fun VolumeScreenTheme(
             ) {
                 VolumeScreen(
                     volume = { volume },
-                    audioOutputUi = AudioOutput.BluetoothHeadset(id = "1", name = "PixelBuds").toAudioOutputUi(),
+                    audioOutputUi = AudioOutput.BluetoothHeadset(id = "1", name = "PixelBuds")
+                        .toAudioOutputUi(),
                     increaseVolume = { },
                     decreaseVolume = { },
                     onAudioOutputClick = {}
@@ -145,3 +147,4 @@ class AudioOutputProvider : PreviewParameterProvider<AudioOutput> {
         AudioOutput.BluetoothHeadset(id = "3", name = "Sennheiser Momentum Wireless")
     )
 }
+

@@ -35,5 +35,14 @@ public interface AudioOutputRepository : AutoCloseable {
     /**
      * Action to launch output selection by the user.
      */
+    @Deprecated(
+        "closeOnConnect is always true, use #launchOutputSelection() instead",
+        ReplaceWith("launchOutputSelection()")
+    )
     public fun launchOutputSelection(closeOnConnect: Boolean)
+
+    /**
+     * Action to launch output selection by the user.
+     */
+    public fun launchOutputSelection()
 }

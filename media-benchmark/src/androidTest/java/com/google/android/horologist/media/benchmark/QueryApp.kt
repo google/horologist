@@ -43,7 +43,6 @@ class QueryApp {
             if (mediaItem == null) {
                 println("mediaItem: null")
             } else {
-                val message = mediaItem.toString()
                 println("uri: ${mediaItem.localConfiguration?.uri}")
                 println("id: ${mediaItem.mediaId}")
                 println("title: ${mediaItem.mediaMetadata.title}")

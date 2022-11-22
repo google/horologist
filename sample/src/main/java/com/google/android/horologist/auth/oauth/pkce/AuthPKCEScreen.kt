@@ -32,7 +32,7 @@ import com.google.android.horologist.auth.ui.pkce.AuthPKCEScreenState
 @Composable
 fun AuthPKCEScreen(
     modifier: Modifier = Modifier,
-    viewModel: AuthPKCEScreenViewModel = viewModel()
+    viewModel: AuthPKCEScreenViewModel = viewModel(factory = AuthPKCEScreenViewModel.Factory)
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 

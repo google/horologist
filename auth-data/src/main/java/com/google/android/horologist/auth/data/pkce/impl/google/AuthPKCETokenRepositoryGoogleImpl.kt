@@ -20,7 +20,6 @@ import android.util.Log
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 import com.google.android.horologist.auth.data.pkce.AuthPKCETokenRepository
 import com.google.android.horologist.auth.data.pkce.impl.AuthPKCEDefaultConfig
-import com.google.android.horologist.auth.data.pkce.impl.AuthPKCEOAuthCodeDefaultPayload
 import com.google.android.horologist.auth.data.pkce.impl.google.api.GoogleOAuthService
 import com.google.android.horologist.auth.data.pkce.impl.google.api.GoogleOAuthService.Companion.REQUEST_GRANT_TYPE_PARAM_VALUE
 import com.google.android.horologist.auth.data.pkce.impl.google.api.TokenResponse
@@ -29,12 +28,12 @@ import kotlinx.coroutines.CancellationException
 @ExperimentalHorologistAuthDataApi
 public class AuthPKCETokenRepositoryGoogleImpl(
     private val googleOAuthService: GoogleOAuthService
-) : AuthPKCETokenRepository<AuthPKCEDefaultConfig, AuthPKCEOAuthCodeDefaultPayload, TokenResponse> {
+) : AuthPKCETokenRepository<AuthPKCEDefaultConfig, AuthPKCEOAuthCodeGooglePayload, TokenResponse> {
 
     override suspend fun fetch(
         config: AuthPKCEDefaultConfig,
         codeVerifier: String,
-        oAuthCodePayload: AuthPKCEOAuthCodeDefaultPayload
+        oAuthCodePayload: AuthPKCEOAuthCodeGooglePayload
     ): Result<TokenResponse> {
         Log.d(TAG, "Requesting token...")
 

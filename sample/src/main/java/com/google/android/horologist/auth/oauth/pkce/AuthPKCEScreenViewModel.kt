@@ -16,23 +16,51 @@
 
 package com.google.android.horologist.auth.oauth.pkce
 
-import android.app.Application
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.google.android.horologist.auth.data.pkce.AuthPKCEConfigRepository
+import com.google.android.horologist.auth.data.pkce.AuthPKCEOAuthCodeRepository
+import com.google.android.horologist.auth.data.pkce.AuthPKCETokenRepository
+import com.google.android.horologist.auth.data.pkce.impl.AuthPKCEDefaultConfig
 import com.google.android.horologist.auth.data.pkce.impl.AuthPKCEOAuthCodeRepositoryImpl
 import com.google.android.horologist.auth.data.pkce.impl.google.AuthPKCEConfigRepositoryGoogleImpl
+import com.google.android.horologist.auth.data.pkce.impl.google.AuthPKCEOAuthCodeGooglePayload
 import com.google.android.horologist.auth.data.pkce.impl.google.AuthPKCETokenRepositoryGoogleImpl
 import com.google.android.horologist.auth.data.pkce.impl.google.api.GoogleOAuthServiceFactory
-import com.google.android.horologist.auth.ui.pkce.AuthPKCEDefaultViewModel
+import com.google.android.horologist.auth.data.pkce.impl.google.api.TokenResponse
+import com.google.android.horologist.auth.ui.pkce.AuthPKCEViewModel
 import com.google.android.horologist.sample.BuildConfig
 import com.squareup.moshi.Moshi
 
-class AuthPKCEScreenViewModel(application: Application) : AuthPKCEDefaultViewModel(
-    authPKCEConfigRepository = AuthPKCEConfigRepositoryGoogleImpl(
-        BuildConfig.AUTH_CLIENT_ID,
-        BuildConfig.AUTH_CLIENT_SECRET
-    ),
-    authPKCEOAuthCodeRepository = AuthPKCEOAuthCodeRepositoryImpl(application),
-    authPKCETokenRepository = AuthPKCETokenRepositoryGoogleImpl(
-        GoogleOAuthServiceFactory(Moshi.Builder().build()).get()
-    ),
-    application = application
-)
+class AuthPKCEScreenViewModel(
+    private val authPKCEConfigRepository: AuthPKCEConfigRepository<AuthPKCEDefaultConfig>,
+    private val authPKCEOAuthCodeRepository: AuthPKCEOAuthCodeRepository<AuthPKCEDefaultConfig, AuthPKCEOAuthCodeGooglePayload>,
+    private val authPKCETokenRepository: AuthPKCETokenRepository<AuthPKCEDefaultConfig, AuthPKCEOAuthCodeGooglePayload, TokenResponse>
+) :
+    AuthPKCEViewModel<AuthPKCEDefaultConfig, AuthPKCEOAuthCodeGooglePayload, TokenResponse>(
+        authPKCEConfigRepository = authPKCEConfigRepository,
+        authPKCEOAuthCodeRepository = authPKCEOAuthCodeRepository,
+        authPKCETokenRepository = authPKCETokenRepository
+    ) {
+
+    companion object {
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val application = this[APPLICATION_KEY]!!
+
+                AuthPKCEScreenViewModel(
+                    authPKCEConfigRepository = AuthPKCEConfigRepositoryGoogleImpl(
+                        BuildConfig.AUTH_CLIENT_ID,
+                        BuildConfig.AUTH_CLIENT_SECRET
+                    ),
+                    authPKCEOAuthCodeRepository = AuthPKCEOAuthCodeRepositoryImpl(application),
+                    authPKCETokenRepository = AuthPKCETokenRepositoryGoogleImpl(
+                        GoogleOAuthServiceFactory(Moshi.Builder().build()).get()
+                    )
+                )
+            }
+        }
+    }
+}

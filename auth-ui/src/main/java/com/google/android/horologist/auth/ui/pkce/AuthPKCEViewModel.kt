@@ -16,8 +16,7 @@
 
 package com.google.android.horologist.auth.ui.pkce
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.wear.phone.interactions.authentication.CodeVerifier
 import com.google.android.horologist.auth.data.pkce.AuthPKCEConfigRepository
@@ -37,9 +36,8 @@ public open class AuthPKCEViewModel<AuthPKCEConfig, OAuthCodePayload, TokenPaylo
     private val authPKCEConfigRepository: AuthPKCEConfigRepository<AuthPKCEConfig>,
     private val authPKCEOAuthCodeRepository: AuthPKCEOAuthCodeRepository<AuthPKCEConfig, OAuthCodePayload>,
     private val authPKCETokenRepository: AuthPKCETokenRepository<AuthPKCEConfig, OAuthCodePayload, TokenPayload>,
-    private val authPKCETokenPayloadListener: AuthPKCETokenPayloadListener<TokenPayload> = AuthPKCETokenPayloadListenerNoOpImpl(),
-    application: Application
-) : AndroidViewModel(application) {
+    private val authPKCETokenPayloadListener: AuthPKCETokenPayloadListener<TokenPayload> = AuthPKCETokenPayloadListenerNoOpImpl()
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow<AuthPKCEScreenState>(AuthPKCEScreenState.Idle)
     public val uiState: StateFlow<AuthPKCEScreenState> = _uiState.stateIn(
@@ -50,6 +48,8 @@ public open class AuthPKCEViewModel<AuthPKCEConfig, OAuthCodePayload, TokenPaylo
 
     public fun startAuthFlow() {
         viewModelScope.launch {
+            _uiState.value = AuthPKCEScreenState.Loading
+
             val config = authPKCEConfigRepository.fetch()
 
             val codeVerifier = CodeVerifier()

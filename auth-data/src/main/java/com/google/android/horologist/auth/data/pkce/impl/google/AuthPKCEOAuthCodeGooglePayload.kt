@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.data.pkce.impl
+package com.google.android.horologist.auth.data.pkce.impl.google
 
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 
 @ExperimentalHorologistAuthDataApi
-public data class AuthPKCEOAuthCodeDefaultPayload(
+public data class AuthPKCEOAuthCodeGooglePayload(
     val code: String,
     val redirectUrl: String
 )

@@ -8,7 +8,7 @@ package com.google.android.horologist.auth.ui {
 
 package com.google.android.horologist.auth.ui.oauth.devicegrant {
 
-  public abstract sealed class AuthDeviceGrantScreenState {
+  @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public abstract sealed class AuthDeviceGrantScreenState {
   }
 
   public static final class AuthDeviceGrantScreenState.CheckPhone extends com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantScreenState {
@@ -46,7 +46,7 @@ package com.google.android.horologist.auth.ui.oauth.devicegrant {
 
 package com.google.android.horologist.auth.ui.pkce {
 
-  public abstract sealed class AuthPKCEScreenState {
+  @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public abstract sealed class AuthPKCEScreenState {
   }
 
   public static final class AuthPKCEScreenState.CheckPhone extends com.google.android.horologist.auth.ui.pkce.AuthPKCEScreenState {

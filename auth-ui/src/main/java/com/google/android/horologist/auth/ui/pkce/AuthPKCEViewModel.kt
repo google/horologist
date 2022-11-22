@@ -82,6 +82,7 @@ public open class AuthPKCEViewModel<AuthPKCEConfig, OAuthCodePayload, TokenPaylo
     }
 }
 
+@ExperimentalHorologistAuthUiApi
 public sealed class AuthPKCEScreenState {
     public object Idle : AuthPKCEScreenState()
     public object Loading : AuthPKCEScreenState()

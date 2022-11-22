@@ -40,12 +40,11 @@ class AuthPKCEScreenViewModel(
     private val authPKCEConfigRepository: AuthPKCEConfigRepository<AuthPKCEDefaultConfig>,
     private val authPKCEOAuthCodeRepository: AuthPKCEOAuthCodeRepository<AuthPKCEDefaultConfig, AuthPKCEOAuthCodeGooglePayload>,
     private val authPKCETokenRepository: AuthPKCETokenRepository<AuthPKCEDefaultConfig, AuthPKCEOAuthCodeGooglePayload, TokenResponse>
-) :
-    AuthPKCEViewModel<AuthPKCEDefaultConfig, AuthPKCEOAuthCodeGooglePayload, TokenResponse>(
-        authPKCEConfigRepository = authPKCEConfigRepository,
-        authPKCEOAuthCodeRepository = authPKCEOAuthCodeRepository,
-        authPKCETokenRepository = authPKCETokenRepository
-    ) {
+) : AuthPKCEViewModel<AuthPKCEDefaultConfig, AuthPKCEOAuthCodeGooglePayload, TokenResponse>(
+    authPKCEConfigRepository = authPKCEConfigRepository,
+    authPKCEOAuthCodeRepository = authPKCEOAuthCodeRepository,
+    authPKCETokenRepository = authPKCETokenRepository
+) {
 
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
@@ -54,8 +53,8 @@ class AuthPKCEScreenViewModel(
 
                 AuthPKCEScreenViewModel(
                     authPKCEConfigRepository = AuthPKCEConfigRepositoryGoogleImpl(
-                        BuildConfig.AUTH_CLIENT_ID,
-                        BuildConfig.AUTH_CLIENT_SECRET
+                        clientId = BuildConfig.OAUTH_PKCE_CLIENT_ID,
+                        clientSecret = BuildConfig.OAUTH_PKCE_CLIENT_SECRET
                     ),
                     authPKCEOAuthCodeRepository = AuthPKCEOAuthCodeRepositoryImpl(application),
                     authPKCETokenRepository = AuthPKCETokenRepositoryGoogleImpl(

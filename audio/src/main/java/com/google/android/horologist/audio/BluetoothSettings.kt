@@ -17,8 +17,7 @@
 package com.google.android.horologist.audio
 
 import android.content.Context
-import android.content.Intent
-import android.provider.Settings
+import androidx.mediarouter.app.SystemOutputSwitcherDialogController
 
 /**
  * Support for launching the user directly into the bluetooth settings page in order to connect
@@ -26,21 +25,13 @@ import android.provider.Settings
  *
  * https://developer.android.com/training/wearables/overlays/audio?hl=ca
  */
+@Deprecated(message = "Use https://developer.android.com/reference/androidx/mediarouter/app/SystemOutputSwitcherDialogController instead")
 public object BluetoothSettings {
     /**
      * Open the bluetooth settings activity and optionally close after connection established.
      */
+    @Suppress("UNUSED_PARAMETER")
     public fun Context.launchBluetoothSettings(closeOnConnect: Boolean = true) {
-        val intent = with(Intent(Settings.ACTION_BLUETOOTH_SETTINGS)) {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            putExtra("EXTRA_CONNECTION_ONLY", true)
-            if (closeOnConnect) {
-                putExtra("EXTRA_CLOSE_ON_CONNECT", true)
-            }
-            putExtra("android.bluetooth.devicepicker.extra.FILTER_TYPE", FILTER_TYPE_AUDIO)
-        }
-        startActivity(intent)
+        SystemOutputSwitcherDialogController.showDialog(this)
     }
-
-    internal const val FILTER_TYPE_AUDIO = 1
 }

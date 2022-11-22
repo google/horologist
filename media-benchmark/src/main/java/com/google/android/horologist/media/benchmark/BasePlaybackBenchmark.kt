@@ -18,7 +18,6 @@
 
 package com.google.android.horologist.media.benchmark
 
-import android.content.ComponentName
 import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.ExperimentalMacrobenchmarkApi
 import androidx.benchmark.macro.FrameTimingMetric
@@ -26,7 +25,6 @@ import androidx.benchmark.macro.MacrobenchmarkScope
 import androidx.benchmark.macro.Metric
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
-import androidx.media3.common.MediaItem
 import androidx.media3.session.MediaBrowser
 import androidx.test.filters.LargeTest
 import com.google.android.horologist.media.benchmark.MediaControllerHelper.startPlaying
@@ -48,20 +46,18 @@ public abstract class BasePlaybackBenchmark {
 
     public lateinit var mediaControllerFuture: ListenableFuture<MediaBrowser>
 
-    public abstract val componentName: ComponentName
-
-    public abstract val testMedia: MediaItem
+    public abstract val mediaApp: MediaApp
 
     @Test
     public fun startup(): Unit = benchmarkRule.measureRepeated(
-        packageName = componentName.packageName,
+        packageName = mediaApp.packageName,
         metrics = metrics(),
         compilationMode = CompilationMode.Partial(),
         iterations = 3,
         startupMode = StartupMode.WARM,
         setupBlock = {
             mediaControllerFuture = MediaControllerHelper.lookupController(
-                componentName
+                mediaApp.playerComponentName
             )
 
             // Wait for service
@@ -75,7 +71,7 @@ public abstract class BasePlaybackBenchmark {
         runBlocking {
             delay(5.seconds)
 
-            mediaController.startPlaying(testMedia)
+            mediaController.startPlaying(mediaApp.testMedia)
 
             delay(10.seconds)
 

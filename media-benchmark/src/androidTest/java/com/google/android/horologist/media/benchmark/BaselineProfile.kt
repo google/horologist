@@ -16,11 +16,8 @@
 
 package com.google.android.horologist.media.benchmark
 
-import android.content.ComponentName
 import androidx.benchmark.macro.ExperimentalBaselineProfilesApi
-import androidx.media3.common.MediaItem
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.google.android.horologist.media.benchmark.BaseMediaBaselineProfile
 import org.junit.runner.RunWith
 
 // This test generates a baseline profile rules file that can be added to the app to configure
@@ -36,11 +33,5 @@ import org.junit.runner.RunWith
 @ExperimentalBaselineProfilesApi
 @RunWith(AndroidJUnit4::class)
 class BaselineProfile : BaseMediaBaselineProfile() {
-
-    override val componentName: ComponentName = ComponentName(
-        "com.google.android.horologist.mediasample",
-        "com.google.android.horologist.mediasample.data.service.playback.PlaybackService"
-    )
-
-    override val testMedia: MediaItem = TestMedia.Intro
+    override val mediaApp: MediaApp = TestMedia.MediaSampleApp
 }

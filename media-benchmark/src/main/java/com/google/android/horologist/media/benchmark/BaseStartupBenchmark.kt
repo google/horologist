@@ -35,11 +35,11 @@ public abstract class BaseStartupBenchmark() {
 
     public open val compilationMode: CompilationMode = CompilationMode.Partial()
 
-    public abstract val packageName: String
+    public abstract val mediaApp: MediaApp
 
     @Test
     public fun startup(): Unit = benchmarkRule.measureRepeated(
-        packageName = packageName,
+        packageName = mediaApp.packageName,
         metrics = metrics(),
         compilationMode = compilationMode,
         iterations = 5,

@@ -16,20 +16,13 @@
 
 package com.google.android.horologist.media.benchmark
 
-import com.google.android.horologist.media.benchmark.MediaItems.buildMediaItem
+import android.content.ComponentName
+import androidx.media3.common.MediaItem
 
-object TestMedia {
-    val Intro = buildMediaItem(
-        "1",
-        "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/01_-_Intro_-_The_Way_Of_Waking_Up_feat_Alan_Watts.mp3",
-        "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg",
-        "Intro - The Way Of Waking Up (feat. Alan Watts)",
-        "The Kyoto Connection"
-    )
-
-    val MediaSampleApp = MediaApp(
-        "com.google.android.horologist.mediasample",
-        "com.google.android.horologist.mediasample.data.service.playback.PlaybackService",
-        Intro
-    )
+public data class MediaApp(
+    val packageName: String,
+    val service: String,
+    val testMedia: MediaItem
+) {
+    val playerComponentName: ComponentName = ComponentName(packageName, service)
 }

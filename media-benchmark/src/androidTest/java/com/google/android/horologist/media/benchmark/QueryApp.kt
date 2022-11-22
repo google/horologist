@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.media.benchmark
 
-import android.content.ComponentName
 import androidx.media3.session.MediaBrowser
 import androidx.test.filters.LargeTest
 import com.google.common.util.concurrent.ListenableFuture
@@ -32,10 +31,7 @@ class QueryApp {
     @Test
     fun startup() {
         mediaControllerFuture = MediaControllerHelper.lookupController(
-            ComponentName(
-                PACKAGE_NAME,
-                PlaybackService
-            )
+            TestMedia.MediaSampleApp.playerComponentName
         )
 
         // Wait for service
@@ -54,11 +50,5 @@ class QueryApp {
                 println("title: ${mediaItem.mediaMetadata.artist}")
             }
         }
-    }
-
-    companion object {
-        const val PlaybackService =
-            "com.google.android.horologist.mediasample.data.service.playback.PlaybackService"
-        private const val PACKAGE_NAME = "com.google.android.horologist.mediasample"
     }
 }

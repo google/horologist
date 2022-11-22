@@ -16,11 +16,9 @@
 
 package com.google.android.horologist.media.benchmark
 
-import android.content.ComponentName
 import androidx.benchmark.macro.ExperimentalBaselineProfilesApi
 import androidx.benchmark.macro.MacrobenchmarkScope
 import androidx.benchmark.macro.junit4.BaselineProfileRule
-import androidx.media3.common.MediaItem
 import androidx.media3.session.MediaBrowser
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -56,9 +54,7 @@ public abstract class BaseMediaBaselineProfile {
 
     private lateinit var device: UiDevice
 
-    public abstract val componentName: ComponentName
-
-    public abstract val testMedia: MediaItem
+    public abstract val mediaApp: MediaApp
 
     public open fun MacrobenchmarkScope.onStartup() {
         startActivityAndWait()
@@ -81,16 +77,16 @@ public abstract class BaseMediaBaselineProfile {
     @Test
     public fun profile() {
         baselineRule.collectBaselineProfile(
-            packageName = componentName.packageName,
+            packageName = mediaApp.packageName,
             profileBlock = {
                 onStartup()
 
                 val mediaController = MediaControllerHelper.lookupController(
-                    componentName
+                    mediaApp.playerComponentName
                 ).get()
 
                 runBlocking(Dispatchers.Main) {
-                    mediaController.startPlaying(testMedia)
+                    mediaController.startPlaying(mediaApp.testMedia)
 
                     delay(5.seconds)
 

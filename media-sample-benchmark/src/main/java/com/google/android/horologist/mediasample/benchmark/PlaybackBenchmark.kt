@@ -16,21 +16,11 @@
 
 package com.google.android.horologist.mediasample.benchmark
 
-import android.content.ComponentName
-import androidx.media3.common.MediaItem
 import androidx.test.filters.LargeTest
 import com.google.android.horologist.media.benchmark.BasePlaybackBenchmark
+import com.google.android.horologist.media.benchmark.MediaApp
 
 @LargeTest
 class PlaybackBenchmark : BasePlaybackBenchmark() {
-    override val componentName: ComponentName = ComponentName(
-        PACKAGE_NAME,
-        "com.google.android.horologist.mediasample.data.service.playback.PlaybackService"
-    )
-
-    override val testMedia: MediaItem = TestMedia.Intro
-
-    companion object {
-        private const val PACKAGE_NAME = "com.google.android.horologist.mediasample"
-    }
+    override val mediaApp: MediaApp = TestMedia.MediaSampleApp
 }

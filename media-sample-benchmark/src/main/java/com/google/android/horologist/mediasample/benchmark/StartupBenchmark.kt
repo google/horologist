@@ -17,24 +17,18 @@
 package com.google.android.horologist.mediasample.benchmark
 
 import androidx.benchmark.macro.CompilationMode
-import androidx.benchmark.macro.ExperimentalMetricApi
-import androidx.benchmark.macro.Metric
-import androidx.benchmark.macro.StartupTimingMetric
-import androidx.benchmark.macro.TraceSectionMetric
 import androidx.test.filters.LargeTest
 import com.google.android.horologist.media.benchmark.BaseStartupBenchmark
+import com.google.android.horologist.media.benchmark.MediaApp
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 
 @LargeTest
 @RunWith(Parameterized::class)
-@OptIn(ExperimentalMetricApi::class)
 class StartupBenchmark(
     override val compilationMode: CompilationMode
 ) : BaseStartupBenchmark() {
-    override val packageName: String = "com.google.android.horologist.mediasample"
-
-    override fun metrics(): List<Metric> = listOf(StartupTimingMetric(), TraceSectionMetric("SyncWorker"))
+    override val mediaApp: MediaApp = TestMedia.MediaSampleApp
 
     companion object {
         @Parameterized.Parameters(name = "compilation={0}")

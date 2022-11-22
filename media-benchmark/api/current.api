@@ -5,31 +5,27 @@ package com.google.android.horologist.media.benchmark {
     ctor public BaseMediaBaselineProfile();
     method public suspend Object? checkPlayingState(androidx.media3.session.MediaBrowser mediaController, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
     method @org.junit.Rule public final androidx.benchmark.macro.junit4.BaselineProfileRule getBaselineRule();
-    method public abstract android.content.ComponentName getComponentName();
-    method public abstract androidx.media3.common.MediaItem getTestMedia();
+    method public abstract com.google.android.horologist.media.benchmark.MediaApp getMediaApp();
     method public void onStartup(androidx.benchmark.macro.MacrobenchmarkScope);
     method @org.junit.Test public final void profile();
     method @org.junit.Before public final void setUp();
     property @org.junit.Rule public final androidx.benchmark.macro.junit4.BaselineProfileRule baselineRule;
-    property public abstract android.content.ComponentName componentName;
-    property public abstract androidx.media3.common.MediaItem testMedia;
+    property public abstract com.google.android.horologist.media.benchmark.MediaApp mediaApp;
   }
 
   @androidx.test.filters.LargeTest public abstract class BasePlaybackBenchmark {
     ctor public BasePlaybackBenchmark();
     method public suspend Object? checkPlayingState(androidx.media3.session.MediaBrowser mediaController, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
     method @org.junit.Rule public final androidx.benchmark.macro.junit4.MacrobenchmarkRule getBenchmarkRule();
-    method public abstract android.content.ComponentName getComponentName();
+    method public abstract com.google.android.horologist.media.benchmark.MediaApp getMediaApp();
     method public final com.google.common.util.concurrent.ListenableFuture<androidx.media3.session.MediaBrowser> getMediaControllerFuture();
-    method public abstract androidx.media3.common.MediaItem getTestMedia();
     method public java.util.List<androidx.benchmark.macro.Metric> metrics();
     method public void onStartup(androidx.benchmark.macro.MacrobenchmarkScope);
     method public final void setMediaControllerFuture(com.google.common.util.concurrent.ListenableFuture<androidx.media3.session.MediaBrowser> mediaControllerFuture);
     method @org.junit.Test public final void startup();
     property @org.junit.Rule public final androidx.benchmark.macro.junit4.MacrobenchmarkRule benchmarkRule;
-    property public abstract android.content.ComponentName componentName;
+    property public abstract com.google.android.horologist.media.benchmark.MediaApp mediaApp;
     property public final com.google.common.util.concurrent.ListenableFuture<androidx.media3.session.MediaBrowser> mediaControllerFuture;
-    property public abstract androidx.media3.common.MediaItem testMedia;
     field public com.google.common.util.concurrent.ListenableFuture<androidx.media3.session.MediaBrowser> mediaControllerFuture;
   }
 
@@ -37,12 +33,28 @@ package com.google.android.horologist.media.benchmark {
     ctor public BaseStartupBenchmark();
     method @org.junit.Rule public final androidx.benchmark.macro.junit4.MacrobenchmarkRule getBenchmarkRule();
     method public androidx.benchmark.macro.CompilationMode getCompilationMode();
-    method public abstract String getPackageName();
+    method public abstract com.google.android.horologist.media.benchmark.MediaApp getMediaApp();
     method public java.util.List<androidx.benchmark.macro.Metric> metrics();
     method @org.junit.Test public final void startup();
     property @org.junit.Rule public final androidx.benchmark.macro.junit4.MacrobenchmarkRule benchmarkRule;
     property public androidx.benchmark.macro.CompilationMode compilationMode;
-    property public abstract String packageName;
+    property public abstract com.google.android.horologist.media.benchmark.MediaApp mediaApp;
+  }
+
+  public final class MediaApp {
+    ctor public MediaApp(String packageName, String service, androidx.media3.common.MediaItem testMedia);
+    method public String component1();
+    method public String component2();
+    method public androidx.media3.common.MediaItem component3();
+    method public com.google.android.horologist.media.benchmark.MediaApp copy(String packageName, String service, androidx.media3.common.MediaItem testMedia);
+    method public String getPackageName();
+    method public android.content.ComponentName getPlayerComponentName();
+    method public String getService();
+    method public androidx.media3.common.MediaItem getTestMedia();
+    property public final String packageName;
+    property public final android.content.ComponentName playerComponentName;
+    property public final String service;
+    property public final androidx.media3.common.MediaItem testMedia;
   }
 
   public final class MediaControllerHelper {

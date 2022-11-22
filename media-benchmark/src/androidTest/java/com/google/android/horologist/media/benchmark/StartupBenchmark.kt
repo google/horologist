@@ -26,13 +26,11 @@ import org.junit.runners.Parameterized
 class StartupBenchmark(
     override val compilationMode: CompilationMode
 ) : BaseStartupBenchmark() {
-    override val packageName: String = PACKAGE_NAME
+    override val mediaApp: MediaApp = TestMedia.MediaSampleApp
 
     companion object {
         @Parameterized.Parameters(name = "compilation={0}")
         @JvmStatic
         fun parameters() = listOf(CompilationMode.None(), CompilationMode.Partial())
-
-        private const val PACKAGE_NAME = "com.google.android.horologist.mediasample"
     }
 }

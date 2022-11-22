@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.mediasample.benchmark
 
+import com.google.android.horologist.media.benchmark.MediaApp
 import com.google.android.horologist.media.benchmark.MediaItems.buildMediaItem
 
 object TestMedia {
@@ -25,5 +26,11 @@ object TestMedia {
         "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg",
         "Intro - The Way Of Waking Up (feat. Alan Watts)",
         "The Kyoto Connection"
+    )
+
+    val MediaSampleApp = MediaApp(
+        "com.google.android.horologist.mediasample",
+        "com.google.android.horologist.mediasample.data.service.playback.PlaybackService",
+        Intro
     )
 }

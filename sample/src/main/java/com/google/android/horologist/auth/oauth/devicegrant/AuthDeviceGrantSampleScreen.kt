@@ -21,7 +21,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -30,14 +34,20 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantScreenState
 
 @Composable
-fun AuthDeviceGrantScreen(
+fun AuthDeviceGrantSampleScreen(
     modifier: Modifier = Modifier,
-    viewModel: AuthDeviceGrantScreenViewModel = viewModel(factory = AuthDeviceGrantScreenViewModel.Factory)
+    viewModel: AuthDeviceGrantSampleViewModel = viewModel(factory = AuthDeviceGrantSampleViewModel.Factory)
 ) {
+    var executedOnce by rememberSaveable { mutableStateOf(false) }
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     if (state == AuthDeviceGrantScreenState.Idle) {
-        viewModel.startAuthFlow()
+        SideEffect {
+            if (!executedOnce) {
+                executedOnce = true
+                viewModel.startAuthFlow()
+            }
+        }
     }
 
     val stateText = when (state) {
@@ -47,6 +57,7 @@ fun AuthDeviceGrantScreen(
             val code = (state as AuthDeviceGrantScreenState.CheckPhone).code
             "CheckPhone: $code"
         }
+
         AuthDeviceGrantScreenState.Failed -> "Failed"
         AuthDeviceGrantScreenState.Success -> "Success"
     }

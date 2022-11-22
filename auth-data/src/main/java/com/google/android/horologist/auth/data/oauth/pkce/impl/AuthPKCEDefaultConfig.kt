@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.data.pkce.impl
+package com.google.android.horologist.auth.data.oauth.pkce.impl
 
 import android.net.Uri
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi

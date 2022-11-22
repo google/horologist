@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.data.pkce
+package com.google.android.horologist.auth.data.oauth.pkce
 
 import androidx.wear.phone.interactions.authentication.CodeVerifier
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi

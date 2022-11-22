@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.ui.pkce
+package com.google.android.horologist.auth.ui.oauth.pkce
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.wear.phone.interactions.authentication.CodeVerifier
-import com.google.android.horologist.auth.data.pkce.AuthPKCEConfigRepository
-import com.google.android.horologist.auth.data.pkce.AuthPKCEOAuthCodeRepository
-import com.google.android.horologist.auth.data.pkce.AuthPKCETokenPayloadListener
-import com.google.android.horologist.auth.data.pkce.AuthPKCETokenPayloadListenerNoOpImpl
-import com.google.android.horologist.auth.data.pkce.AuthPKCETokenRepository
+import com.google.android.horologist.auth.data.oauth.pkce.AuthPKCEConfigRepository
+import com.google.android.horologist.auth.data.oauth.pkce.AuthPKCEOAuthCodeRepository
+import com.google.android.horologist.auth.data.oauth.pkce.AuthPKCETokenPayloadListener
+import com.google.android.horologist.auth.data.oauth.pkce.AuthPKCETokenPayloadListenerNoOpImpl
+import com.google.android.horologist.auth.data.oauth.pkce.AuthPKCETokenRepository
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

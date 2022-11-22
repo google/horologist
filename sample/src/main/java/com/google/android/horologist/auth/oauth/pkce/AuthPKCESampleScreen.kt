@@ -21,23 +21,33 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.auth.ui.pkce.AuthPKCEScreenState
+import com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreenState
 
 @Composable
-fun AuthPKCEScreen(
+fun AuthPKCESampleScreen(
     modifier: Modifier = Modifier,
-    viewModel: AuthPKCEScreenViewModel = viewModel(factory = AuthPKCEScreenViewModel.Factory)
+    viewModel: AuthPKCESampleViewModel = viewModel(factory = AuthPKCESampleViewModel.Factory)
 ) {
+    var executedOnce by rememberSaveable { mutableStateOf(false) }
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     if (state == AuthPKCEScreenState.Idle) {
-        viewModel.startAuthFlow()
+        SideEffect {
+            if (!executedOnce) {
+                executedOnce = true
+                viewModel.startAuthFlow()
+            }
+        }
     }
 
     val stateText = when (state) {

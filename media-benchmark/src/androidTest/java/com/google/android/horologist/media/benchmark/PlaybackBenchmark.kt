@@ -14,25 +14,14 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.benchmark
+@file:OptIn(ExperimentalMacrobenchmarkApi::class)
 
-import androidx.benchmark.macro.CompilationMode
+package com.google.android.horologist.media.benchmark
+
+import androidx.benchmark.macro.ExperimentalMacrobenchmarkApi
 import androidx.test.filters.LargeTest
-import com.google.android.horologist.media.benchmark.BaseStartupBenchmark
-import com.google.android.horologist.media.benchmark.MediaApp
-import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
 
 @LargeTest
-@RunWith(Parameterized::class)
-class StartupBenchmark(
-    override val compilationMode: CompilationMode
-) : BaseStartupBenchmark() {
+class PlaybackBenchmark : BasePlaybackBenchmark() {
     override val mediaApp: MediaApp = TestMedia.MediaSampleApp
-
-    companion object {
-        @Parameterized.Parameters(name = "compilation={0}")
-        @JvmStatic
-        fun parameters() = listOf(CompilationMode.None(), CompilationMode.Partial())
-    }
 }

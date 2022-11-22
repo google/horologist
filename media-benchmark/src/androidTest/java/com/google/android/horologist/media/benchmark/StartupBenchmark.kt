@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.benchmark
+package com.google.android.horologist.media.benchmark
 
 import androidx.benchmark.macro.CompilationMode
 import androidx.test.filters.LargeTest
-import com.google.android.horologist.media.benchmark.BaseStartupBenchmark
-import com.google.android.horologist.media.benchmark.MediaApp
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 

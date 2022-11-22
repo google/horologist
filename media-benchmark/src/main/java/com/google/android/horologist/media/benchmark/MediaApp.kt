@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.benchmark
+package com.google.android.horologist.media.benchmark
 
-import androidx.test.filters.LargeTest
-import com.google.android.horologist.media.benchmark.BasePlaybackBenchmark
-import com.google.android.horologist.media.benchmark.MediaApp
+import android.content.ComponentName
+import androidx.media3.common.MediaItem
 
-@LargeTest
-class PlaybackBenchmark : BasePlaybackBenchmark() {
-    override val mediaApp: MediaApp = TestMedia.MediaSampleApp
+public data class MediaApp(
+    val packageName: String,
+    val service: String,
+    val testMedia: MediaItem
+) {
+    val playerComponentName: ComponentName = ComponentName(packageName, service)
 }

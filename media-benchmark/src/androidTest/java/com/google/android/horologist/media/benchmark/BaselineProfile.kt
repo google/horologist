@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.benchmark
+package com.google.android.horologist.media.benchmark
 
 import androidx.benchmark.macro.ExperimentalBaselineProfilesApi
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.google.android.horologist.media.benchmark.BaseMediaBaselineProfile
-import com.google.android.horologist.media.benchmark.MediaApp
 import org.junit.runner.RunWith
 
 // This test generates a baseline profile rules file that can be added to the app to configure

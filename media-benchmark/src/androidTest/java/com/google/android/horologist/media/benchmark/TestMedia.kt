@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.benchmark
+package com.google.android.horologist.media.benchmark
 
-import com.google.android.horologist.media.benchmark.MediaApp
 import com.google.android.horologist.media.benchmark.MediaItems.buildMediaItem
 
 object TestMedia {

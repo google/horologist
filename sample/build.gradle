@@ -160,6 +160,8 @@ dependencies {
 
     implementation libs.protobuf.kotlin.lite
 
+    implementation libs.com.squareup.okhttp3.logging.interceptor
+
     implementation libs.moshi.kotlin
 
     debugImplementation projects.composeTools

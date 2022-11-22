@@ -14,21 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.data.pkce.impl.google.api
+package com.google.android.horologist.auth.data.oauth.devicegrant
 
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
-import com.squareup.moshi.Moshi
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 
 @ExperimentalHorologistAuthDataApi
-public class GoogleOAuthServiceFactory(
-    private val moshi: Moshi
-) {
+public interface AuthDeviceGrantTokenRepository<AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload> {
 
-    public fun get(): GoogleOAuthService = Retrofit.Builder()
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
-        .baseUrl(GoogleOAuthService.GOOGLE_OAUTH_SERVER)
-        .build()
-        .create(GoogleOAuthService::class.java)
+    public suspend fun fetch(
+        config: AuthDeviceGrantConfig,
+        verificationInfoPayload: VerificationInfoPayload
+    ): Result<TokenPayload>
 }

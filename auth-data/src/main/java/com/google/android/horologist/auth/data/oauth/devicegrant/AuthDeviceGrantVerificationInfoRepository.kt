@@ -14,17 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.data.pkce.impl.google.api
+package com.google.android.horologist.auth.data.oauth.devicegrant
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 
-@JsonClass(generateAdapter = true)
-public data class TokenResponse(
-    @Json(name = "access_token") val accessToken: String,
-    @Json(name = "expires_in") val expiresIn: Int,
-    @Json(name = "id_token") val idToken: String?,
-    @Json(name = "refresh_token") val refreshToken: String?,
-    @Json(name = "scope") val scope: String?,
-    @Json(name = "token_type") val tokenType: String
-)
+@ExperimentalHorologistAuthDataApi
+public interface AuthDeviceGrantVerificationInfoRepository<AuthDeviceGrantConfig, VerificationInfo> {
+
+    public suspend fun fetch(config: AuthDeviceGrantConfig): Result<VerificationInfo>
+}

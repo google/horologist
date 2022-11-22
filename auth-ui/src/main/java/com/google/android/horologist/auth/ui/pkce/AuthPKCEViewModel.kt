@@ -66,7 +66,7 @@ public open class AuthPKCEViewModel<AuthPKCEConfig, OAuthCodePayload, TokenPaylo
 
             // Step 2: Retrieve the access token
             _uiState.value = AuthPKCEScreenState.Loading
-            val token = authPKCETokenRepository.fetch(
+            val tokenPayload = authPKCETokenRepository.fetch(
                 config = config,
                 codeVerifier = codeVerifier.value,
                 oAuthCodePayload = oAuthCodePayload
@@ -75,7 +75,8 @@ public open class AuthPKCEViewModel<AuthPKCEConfig, OAuthCodePayload, TokenPaylo
                     _uiState.value = AuthPKCEScreenState.Failed
                     return@launch
                 }
-            authPKCETokenPayloadListener.onPayloadReceived(token)
+            authPKCETokenPayloadListener.onPayloadReceived(tokenPayload)
+
             _uiState.value = AuthPKCEScreenState.Success
         }
     }

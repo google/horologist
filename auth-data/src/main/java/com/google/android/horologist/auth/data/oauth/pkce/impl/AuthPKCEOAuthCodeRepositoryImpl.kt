@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.data.pkce.impl
+package com.google.android.horologist.auth.data.oauth.pkce.impl
 
 import android.app.Application
 import android.util.Log
@@ -24,8 +24,8 @@ import androidx.wear.phone.interactions.authentication.OAuthRequest
 import androidx.wear.phone.interactions.authentication.OAuthResponse
 import androidx.wear.phone.interactions.authentication.RemoteAuthClient
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
-import com.google.android.horologist.auth.data.pkce.AuthPKCEOAuthCodeRepository
-import com.google.android.horologist.auth.data.pkce.impl.google.AuthPKCEOAuthCodeGooglePayload
+import com.google.android.horologist.auth.data.oauth.pkce.AuthPKCEOAuthCodeRepository
+import com.google.android.horologist.auth.data.oauth.pkce.impl.google.AuthPKCEOAuthCodeGooglePayload
 import java.io.IOException
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine

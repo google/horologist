@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.data.pkce.impl.google
+package com.google.android.horologist.auth.data.oauth.pkce.impl.google
 
 import android.net.Uri
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService.Companion.SCOPE_KEY
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService.Companion.USER_AUTH_ENDPOINT
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService.Companion.USER_INFO_PROFILE_SCOPE_VALUE
-import com.google.android.horologist.auth.data.pkce.AuthPKCEConfigRepository
-import com.google.android.horologist.auth.data.pkce.impl.AuthPKCEDefaultConfig
+import com.google.android.horologist.auth.data.oauth.pkce.AuthPKCEConfigRepository
+import com.google.android.horologist.auth.data.oauth.pkce.impl.AuthPKCEDefaultConfig
 
 @ExperimentalHorologistAuthDataApi
 public class AuthPKCEConfigRepositoryGoogleImpl(

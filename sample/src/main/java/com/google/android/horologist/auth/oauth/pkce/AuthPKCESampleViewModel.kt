@@ -22,21 +22,21 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthServiceFactory
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.TokenResponse
-import com.google.android.horologist.auth.data.pkce.AuthPKCEConfigRepository
-import com.google.android.horologist.auth.data.pkce.AuthPKCEOAuthCodeRepository
-import com.google.android.horologist.auth.data.pkce.AuthPKCETokenRepository
-import com.google.android.horologist.auth.data.pkce.impl.AuthPKCEDefaultConfig
-import com.google.android.horologist.auth.data.pkce.impl.AuthPKCEOAuthCodeRepositoryImpl
-import com.google.android.horologist.auth.data.pkce.impl.google.AuthPKCEConfigRepositoryGoogleImpl
-import com.google.android.horologist.auth.data.pkce.impl.google.AuthPKCEOAuthCodeGooglePayload
-import com.google.android.horologist.auth.data.pkce.impl.google.AuthPKCETokenRepositoryGoogleImpl
-import com.google.android.horologist.auth.ui.pkce.AuthPKCEViewModel
+import com.google.android.horologist.auth.data.oauth.pkce.AuthPKCEConfigRepository
+import com.google.android.horologist.auth.data.oauth.pkce.AuthPKCEOAuthCodeRepository
+import com.google.android.horologist.auth.data.oauth.pkce.AuthPKCETokenRepository
+import com.google.android.horologist.auth.data.oauth.pkce.impl.AuthPKCEDefaultConfig
+import com.google.android.horologist.auth.data.oauth.pkce.impl.AuthPKCEOAuthCodeRepositoryImpl
+import com.google.android.horologist.auth.data.oauth.pkce.impl.google.AuthPKCEConfigRepositoryGoogleImpl
+import com.google.android.horologist.auth.data.oauth.pkce.impl.google.AuthPKCEOAuthCodeGooglePayload
+import com.google.android.horologist.auth.data.oauth.pkce.impl.google.AuthPKCETokenRepositoryGoogleImpl
+import com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEViewModel
 import com.google.android.horologist.sample.BuildConfig
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 
-class AuthPKCEScreenViewModel(
+class AuthPKCESampleViewModel(
     private val authPKCEConfigRepository: AuthPKCEConfigRepository<AuthPKCEDefaultConfig>,
     private val authPKCEOAuthCodeRepository: AuthPKCEOAuthCodeRepository<AuthPKCEDefaultConfig, AuthPKCEOAuthCodeGooglePayload>,
     private val authPKCETokenRepository: AuthPKCETokenRepository<AuthPKCEDefaultConfig, AuthPKCEOAuthCodeGooglePayload, TokenResponse>
@@ -51,7 +51,7 @@ class AuthPKCEScreenViewModel(
             initializer {
                 val application = this[APPLICATION_KEY]!!
 
-                AuthPKCEScreenViewModel(
+                AuthPKCESampleViewModel(
                     authPKCEConfigRepository = AuthPKCEConfigRepositoryGoogleImpl(
                         clientId = BuildConfig.OAUTH_PKCE_CLIENT_ID,
                         clientSecret = BuildConfig.OAUTH_PKCE_CLIENT_SECRET

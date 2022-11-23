@@ -35,7 +35,7 @@ import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 
-class AuthDeviceGrantScreenViewModel(
+class AuthDeviceGrantSampleViewModel(
     private val authDeviceGrantConfigRepository: AuthDeviceGrantConfigRepository<AuthDeviceGrantDefaultConfig>,
     private val authDeviceGrantVerificationInfoRepository: AuthDeviceGrantVerificationInfoRepository<AuthDeviceGrantDefaultConfig, DeviceCodeResponse>,
     private val authDeviceGrantTokenRepository: AuthDeviceGrantTokenRepository<AuthDeviceGrantDefaultConfig, DeviceCodeResponse, String>,
@@ -64,7 +64,7 @@ class AuthDeviceGrantScreenViewModel(
                     moshi = Moshi.Builder().build()
                 ).get()
 
-                AuthDeviceGrantScreenViewModel(
+                AuthDeviceGrantSampleViewModel(
                     authDeviceGrantConfigRepository = AuthDeviceGrantConfigRepositoryDefaultImpl(
                         clientId = BuildConfig.OAUTH_DEVICE_GRANT_CLIENT_ID,
                         clientSecret = BuildConfig.OAUTH_DEVICE_GRANT_CLIENT_SECRET

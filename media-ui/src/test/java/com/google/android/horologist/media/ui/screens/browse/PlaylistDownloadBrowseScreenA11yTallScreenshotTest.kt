@@ -17,7 +17,8 @@
 @file:OptIn(
     ExperimentalHorologistMediaUiApi::class,
     ExperimentalHorologistPaparazziApi::class,
-    ExperimentalHorologistComposeToolsApi::class
+    ExperimentalHorologistComposeToolsApi::class,
+    ExperimentalHorologistBaseUiApi::class
 )
 
 package com.google.android.horologist.media.ui.screens.browse
@@ -25,6 +26,7 @@ package com.google.android.horologist.media.ui.screens.browse
 import androidx.wear.compose.material.ScalingLazyListState
 import app.cash.paparazzi.DeviceConfig
 import com.android.ide.common.rendering.api.SessionParams
+import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.compose.tools.a11y.TallPreview

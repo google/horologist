@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistComposablesApi::class)
+@file:OptIn(ExperimentalHorologistComposablesApi::class, ExperimentalHorologistBaseUiApi::class)
 
 package com.google.android.horologist.media.ui.screens.playlists
 
@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.ScalingLazyListState
+import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.base.ui.components.Title
@@ -103,6 +104,7 @@ public fun <T> PlaylistsScreen(
     RequestFocusWhenActive(focusRequester)
 }
 
+@ExperimentalHorologistBaseUiApi
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun PlaylistsScreen(

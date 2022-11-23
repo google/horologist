@@ -34,6 +34,7 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.ScalingParams
+import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
 import com.google.android.horologist.base.ui.components.StandardButton
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
@@ -48,6 +49,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
  * An implementation of [EntityScreen] using [PlaylistUiModel] and [DownloadMediaUiModel] as
  * models.
  */
+@ExperimentalHorologistBaseUiApi
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun PlaylistStreamingScreen(

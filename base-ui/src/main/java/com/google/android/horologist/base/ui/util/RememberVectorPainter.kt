@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.RenderVectorGroup
 import androidx.compose.ui.graphics.vector.VectorPainter
+import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
 
 /**
  * Create a [VectorPainter] with the Vector defined by the provided sub-composition and use a
@@ -32,6 +33,7 @@ import androidx.compose.ui.graphics.vector.VectorPainter
  * @param [tintBlendMode] optional BlendMode used in combination with [tintColor], defaults to
  * value defined in [image].
  */
+@ExperimentalHorologistBaseUiApi
 @Composable
 public fun rememberVectorPainter(
     image: ImageVector,

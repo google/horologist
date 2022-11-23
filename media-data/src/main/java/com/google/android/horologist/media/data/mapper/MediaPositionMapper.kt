@@ -30,8 +30,11 @@ public object MediaPositionMapper {
     public fun map(player: Player?): MediaPosition? {
         return if (player == null || player.currentMediaItem == null) {
             null
-        } else if (player.duration == C.TIME_UNSET || player.duration <= 0L) {
-            MediaPosition.UnknownDuration(player.currentPosition.milliseconds)
+        } else if (player.duration == C.TIME_UNSET ||
+            player.duration <= 0L ||
+            player.currentPosition < 0L
+        ) {
+            MediaPosition.Unknown
         } else {
             MediaPosition.create(
                 current = player.currentPosition.milliseconds,

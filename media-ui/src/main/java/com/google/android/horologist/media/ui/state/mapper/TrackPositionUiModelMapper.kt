@@ -30,14 +30,14 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 public object TrackPositionUiModelMapper {
 
     public fun map(mediaPosition: MediaPosition): TrackPositionUiModel {
-        val (duration, percent) = if (mediaPosition is MediaPosition.KnownDuration) {
-            mediaPosition.duration.inWholeMilliseconds to mediaPosition.percent
+        val (current, duration, percent) = if (mediaPosition is MediaPosition.KnownDuration) {
+            Triple(mediaPosition.current.inWholeMilliseconds, mediaPosition.duration.inWholeMilliseconds, mediaPosition.percent)
         } else {
-            0L to 0F
+            Triple(0L, 0L, 0F)
         }
 
         return TrackPositionUiModel(
-            current = mediaPosition.current.inWholeMilliseconds,
+            current = current,
             duration = duration,
             percent = percent
         )

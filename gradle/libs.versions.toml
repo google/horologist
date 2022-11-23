@@ -39,6 +39,7 @@ ksp = "1.7.20-1.0.8"
 ktlint = "0.46.1"
 metalava = "0.2.3"
 moshi = "1.14.0"
+playServicesAuth = "20.3.0"
 room = "2.4.3"
 googleSecretsGradlePlugin = "2.0.1"
 spotless = "6.11.0"
@@ -139,6 +140,7 @@ moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "mosh
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
 paparazzi = { module = "app.cash.paparazzi:paparazzi", version.ref = "app-cash-paparazzi" }
 paparazziPlugin = "dev.chrisbanes.paparazzi:paparazzi-gradle-plugin:1.1.0-sdk33-alpha02"
+playservices-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 playservices-wearable = "com.google.android.gms:play-services-wearable:18.0.0"
 protobuf-kotlin-lite = "com.google.protobuf:protobuf-kotlin-lite:3.21.9"
 retrofit2-convertermoshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "com-squareup-retrofit2" }

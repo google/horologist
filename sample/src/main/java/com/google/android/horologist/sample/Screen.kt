@@ -47,4 +47,5 @@ sealed class Screen(
     object AuthMenuScreen : Screen("authMenuScreen")
     object AuthPKCEScreen : Screen("authPKCEScreen")
     object AuthDeviceGrantScreen : Screen("authDeviceGrantScreen")
+    object AuthGoogleSignInScreen : Screen("authGoogleSignInScreen")
 }

@@ -6,6 +6,19 @@ package com.google.android.horologist.auth.data {
 
 }
 
+package com.google.android.horologist.auth.data.googlesignin {
+
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface AuthGoogleSignInAccountListener {
+    method public suspend Object? onAccountReceived(com.google.android.gms.auth.api.signin.GoogleSignInAccount account, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+  }
+
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class AuthGoogleSignInAccountListenerNoOpImpl implements com.google.android.horologist.auth.data.googlesignin.AuthGoogleSignInAccountListener {
+    ctor public AuthGoogleSignInAccountListenerNoOpImpl();
+    method public suspend Object? onAccountReceived(com.google.android.gms.auth.api.signin.GoogleSignInAccount account, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+  }
+
+}
+
 package com.google.android.horologist.auth.data.oauth.common.impl.google.api {
 
   @com.squareup.moshi.JsonClass(generateAdapter=true) public final class DeviceCodeResponse {

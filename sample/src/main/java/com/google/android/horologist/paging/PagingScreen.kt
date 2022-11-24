@@ -60,7 +60,7 @@ fun PagingScreen(navController: NavController) {
             PagingConfig(
                 pageSize = myBackend.dataBatchSize,
                 enablePlaceholders = true,
-                maxSize = 200,
+                maxSize = 200
             )
         ) { myBackend.getAllData() }
     }
@@ -132,7 +132,7 @@ private fun PagingItemChip(
         )
     }
 
-    if (! chipPlaceholderState.isShowContent) {
+    if (!chipPlaceholderState.isShowContent) {
         LaunchedEffect(chipPlaceholderState) {
             chipPlaceholderState.startPlaceholderAnimation()
         }

@@ -26,12 +26,14 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
+import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
 
 /**
  * This composable fulfils the redlines of the following components:
  * - Primary, Secondary or Icon only button - according to [buttonType] value;
  * - Default, Large, Small and Extra Small button - according to [buttonSize] value;
  */
+@ExperimentalHorologistBaseUiApi
 @Composable
 public fun StandardButton(
     imageVector: ImageVector,
@@ -62,12 +64,14 @@ public fun StandardButton(
     }
 }
 
+@ExperimentalHorologistBaseUiApi
 public enum class StandardButtonType {
     Primary,
     Secondary,
     IconOnly,
 }
 
+@ExperimentalHorologistBaseUiApi
 public enum class StandardButtonSize(
     public val iconSize: Dp,
     public val tapTargetSize: Dp

@@ -32,6 +32,7 @@ import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.auth.AuthMenuScreen
+import com.google.android.horologist.auth.googlesignin.GoogleSignOutScreen
 import com.google.android.horologist.auth.oauth.devicegrant.AuthDeviceGrantSampleScreen
 import com.google.android.horologist.auth.oauth.pkce.AuthPKCESampleScreen
 import com.google.android.horologist.auth.ui.googlesignin.GoogleSignInScreen
@@ -176,6 +177,9 @@ fun SampleWearApp() {
             }
             composable(route = Screen.AuthGoogleSignInScreen.route) {
                 GoogleSignInScreen()
+            }
+            composable(route = Screen.AuthGoogleSignOutScreen.route) {
+                GoogleSignOutScreen(navController = navController)
             }
             composable(route = Screen.Paging.route) {
                 PagingScreen(navController)

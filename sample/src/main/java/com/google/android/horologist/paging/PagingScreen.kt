@@ -19,6 +19,7 @@ package com.google.android.horologist.paging
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,11 +33,15 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.wear.compose.material.AutoCenteringParams
+import androidx.wear.compose.material.CardDefaults
 import androidx.wear.compose.material.CircularProgressIndicator
-import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.PlaceholderDefaults
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TitleCard
+import androidx.wear.compose.material.placeholder
+import androidx.wear.compose.material.placeholderShimmer
+import androidx.wear.compose.material.rememberPlaceholderState
 import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.compose.paging.items
 import com.google.android.horologist.sample.R
@@ -54,7 +59,7 @@ fun PagingScreen(navController: NavController) {
         Pager(
             PagingConfig(
                 pageSize = myBackend.dataBatchSize,
-                enablePlaceholders = false,
+                enablePlaceholders = true,
                 maxSize = 200
             )
         ) { myBackend.getAllData() }
@@ -67,45 +72,68 @@ fun PagingScreen(navController: NavController) {
         autoCentering = AutoCenteringParams(itemIndex = 0)
     ) {
         if (lazyPagingItems.loadState.refresh == LoadState.Loading) {
-            item {
-                Text(
-                    text = stringResource(R.string.paging_items_waiting_message),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentWidth(Alignment.CenterHorizontally)
-                )
+            items(10) {
+                PagingItemChip(item = null, navController = navController)
             }
-        }
+        } else {
+            items(lazyPagingItems) { item ->
+                PagingItemChip(item, navController)
+            }
 
-        items(lazyPagingItems) { item ->
-            if (item != null) {
-                TitleCard(
-                    onClick = { navController.navigate("pagingItem?id=${item.item}") },
-                    title = {
-                        Text(
-                            text = item.toString()
-                        )
-                    },
-                ) {
-                    Text(
-                        text = stringResource(R.string.lorem_ipsum),
-                        style = MaterialTheme.typography.caption2,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
+            if (lazyPagingItems.loadState.append == LoadState.Loading) {
+                item {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentWidth(Alignment.CenterHorizontally)
                     )
                 }
             }
         }
+    }
+}
 
-        if (lazyPagingItems.loadState.append == LoadState.Loading) {
-            item {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentWidth(Alignment.CenterHorizontally)
-                )
-            }
-        }
+@Composable
+private fun PagingItemChip(
+    item: PagingItem?,
+    navController: NavController
+) {
+    val chipPlaceholderState = rememberPlaceholderState { item != null }
+
+    TitleCard(
+        modifier = Modifier
+            .fillMaxWidth()
+            .placeholderShimmer(chipPlaceholderState),
+        onClick = { navController.navigate("pagingItem?id=${item?.item}") },
+        title = {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth(if (chipPlaceholderState.isShowContent) 1f else 0.5f)
+                    .placeholder(chipPlaceholderState),
+                text = item?.toString().orEmpty()
+            )
+        },
+        backgroundPainter = PlaceholderDefaults.painterWithPlaceholderOverlayBackgroundBrush(
+            placeholderState = chipPlaceholderState,
+            painter = CardDefaults.cardBackgroundPainter()
+        )
+    ) {
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .placeholder(chipPlaceholderState),
+            text = if (item != null) {
+                stringResource(R.string.lorem_ipsum)
+            } else {
+                "\n\n"
+            },
+            maxLines = 3,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
+
+    LaunchedEffect(chipPlaceholderState) {
+        chipPlaceholderState.startPlaceholderAnimation()
     }
 }
 

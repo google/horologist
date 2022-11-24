@@ -164,6 +164,8 @@ dependencies {
 
     implementation libs.moshi.kotlin
 
+    implementation libs.playservices.auth
+
     debugImplementation projects.composeTools
 
     androidTestImplementation libs.compose.ui.test.junit4

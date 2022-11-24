@@ -58,7 +58,7 @@ fun PagingScreen(navController: NavController) {
             PagingConfig(
                 pageSize = myBackend.dataBatchSize,
                 enablePlaceholders = true,
-                maxSize = 200,
+                maxSize = 200
             )
         ) { myBackend.getAllData() }
     }
@@ -89,7 +89,8 @@ fun PagingScreen(navController: NavController) {
                 onClick = { navController.navigate("pagingItem?id=${item?.item}") },
                 title = {
                     Text(item?.toString().orEmpty())
-                }) {
+                }
+            ) {
                 Text(
                     if (item != null) {
                         stringResource(R.string.lorem_ipsum)

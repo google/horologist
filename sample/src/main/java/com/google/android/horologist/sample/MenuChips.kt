@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -226,11 +227,11 @@ fun PagingChip(
 ) {
     SampleChip(
         onClick = { navigateToRoute() },
-        label = "Paging",
+        label = stringResource(R.string.paging_chip_label),
         content = {
             Icon(
                 imageVector = Icons.Default.Pages,
-                contentDescription = "Paging"
+                contentDescription = stringResource(R.string.paging_chip_content_description)
             )
         }
     )

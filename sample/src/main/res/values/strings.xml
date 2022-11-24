@@ -65,4 +65,6 @@
     <string name="rotarymenu_show_list">Show list</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
     <string name="paging_items_waiting_message">Waiting for items to load from the backend</string>
+    <string name="paging_chip_content_description">Paging</string>
+    <string name="paging_chip_label">Paging</string>
 </resources>

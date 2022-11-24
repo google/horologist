@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistBaseUiApi::class)
-
 package com.google.android.horologist.mediasample.ui.browse
 
 import androidx.compose.material.icons.Icons
@@ -24,7 +22,6 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.ScalingLazyListState
-import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreen
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreenPlaylistsSectionButton
 import com.google.android.horologist.mediasample.R

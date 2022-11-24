@@ -31,7 +31,6 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.ScalingParams
-import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.composables.PlaceholderChip
@@ -43,7 +42,6 @@ import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiMode
 /**
  * An implementation of [BrowseScreen] using [PlaylistDownloadUiModel] as model.
  */
-@ExperimentalHorologistBaseUiApi
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun PlaylistDownloadBrowseScreen(

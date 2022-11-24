@@ -29,7 +29,6 @@ import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingLazyListScope
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.ScalingParams
-import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
@@ -184,7 +183,6 @@ public sealed class EntityScreenState<Media> {
 /**
  * A default implementation of a header for [EntityScreen].
  */
-@ExperimentalHorologistBaseUiApi
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun DefaultEntityScreenHeader(

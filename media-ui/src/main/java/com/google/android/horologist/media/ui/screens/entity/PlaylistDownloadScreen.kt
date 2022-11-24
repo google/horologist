@@ -57,7 +57,6 @@ import androidx.wear.compose.material.ProgressIndicatorDefaults
 import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.ScalingParams
-import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
 import com.google.android.horologist.base.ui.components.StandardButton
 import com.google.android.horologist.base.ui.components.StandardButtonSize
 import com.google.android.horologist.base.ui.components.StandardButtonType
@@ -77,7 +76,6 @@ import com.google.android.horologist.media.ui.util.ifNan
  * An implementation of [EntityScreen] using [PlaylistUiModel] and [DownloadMediaUiModel] as
  * models.
  */
-@ExperimentalHorologistBaseUiApi
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun PlaylistDownloadScreen(
@@ -140,7 +138,6 @@ public fun PlaylistDownloadScreen(
     )
 }
 
-@ExperimentalHorologistBaseUiApi
 @Composable
 private fun MediaContent(
     downloadMediaUiModel: DownloadMediaUiModel,
@@ -260,7 +257,6 @@ private fun MediaContent(
     }
 }
 
-@ExperimentalHorologistBaseUiApi
 @Composable
 private fun ButtonsContent(
     state: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
@@ -341,7 +337,6 @@ private fun ButtonsContent(
     }
 }
 
-@ExperimentalHorologistBaseUiApi
 @Composable
 private fun <Collection> FirstButton(
     downloadMediaListState: PlaylistDownloadScreenState.Loaded.DownloadMediaListState,

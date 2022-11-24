@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistBaseUiApi::class)
+@file:OptIn(ExperimentalHorologistMediaUiApi::class)
 
 package com.google.android.horologist.media.ui.components.actions
 
@@ -23,7 +23,6 @@ import androidx.compose.material.icons.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
 import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi

@@ -34,7 +34,6 @@ import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.ScalingParams
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.base.ui.components.Title
@@ -58,7 +57,6 @@ import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiMode
  * - a section to display user's list of [playlists][BrowseScreenScope.playlistsSection];
  * - a [button][BrowseScreenScope.button] to be used to navigate to another screen;
  */
-@ExperimentalHorologistBaseUiApi
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun BrowseScreen(
@@ -85,7 +83,6 @@ public fun BrowseScreen(
 /**
  * Receiver scope which is used by content parameter in [BrowseScreen].
  */
-@ExperimentalHorologistBaseUiApi
 @ExperimentalHorologistMediaUiApi
 @BrowseScreenScopeMarker
 public class BrowseScreenScope {

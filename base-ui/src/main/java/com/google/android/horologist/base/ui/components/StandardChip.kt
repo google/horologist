@@ -41,6 +41,7 @@ import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.Text
 import coil.compose.rememberAsyncImagePainter
+import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
 import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 
 /**
@@ -49,6 +50,7 @@ import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DES
  * - Standard chip - when [largeIcon] value is `false`;
  * - Chip with small or large avatar - according to [largeIcon] value;
  */
+@ExperimentalHorologistBaseUiApi
 @Composable
 public fun StandardChip(
     label: String,
@@ -112,6 +114,7 @@ public fun StandardChip(
 /**
  * An implementation of [StandardChip] allowing full customization of the icon displayed.
  */
+@ExperimentalHorologistBaseUiApi
 @Composable
 public fun StandardChip(
     label: String,
@@ -174,6 +177,7 @@ public fun StandardChip(
 /**
  * An alternative function to [StandardChip] that allows a string resource id to be passed as label.
  */
+@ExperimentalHorologistBaseUiApi
 @Composable
 public fun StandardChip(
     @StringRes labelId: Int,

@@ -28,11 +28,13 @@ import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
+import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
 
 /**
  * This composable fulfils the redlines of the following components:
  * - AlertDialog - Title + body + buttons
  */
+@ExperimentalHorologistBaseUiApi
 @Composable
 public fun AlertDialog(
     body: String,
@@ -62,6 +64,7 @@ public fun AlertDialog(
     }
 }
 
+@ExperimentalHorologistBaseUiApi
 @Composable
 internal fun AlertDialogAlert(
     title: String,

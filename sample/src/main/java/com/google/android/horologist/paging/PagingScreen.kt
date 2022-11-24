@@ -60,7 +60,7 @@ fun PagingScreen(navController: NavController) {
             PagingConfig(
                 pageSize = myBackend.dataBatchSize,
                 enablePlaceholders = true,
-                maxSize = 200
+                maxSize = 200,
             )
         ) { myBackend.getAllData() }
     }
@@ -132,14 +132,16 @@ private fun PagingItemChip(
         )
     }
 
-    LaunchedEffect(chipPlaceholderState) {
-        chipPlaceholderState.startPlaceholderAnimation()
+    if (! chipPlaceholderState.isShowContent) {
+        LaunchedEffect(chipPlaceholderState) {
+            chipPlaceholderState.startPlaceholderAnimation()
+        }
     }
 }
 
 private class MyBackend {
     private val backendDataList = (0..65).toList()
-    val dataBatchSize = 10
+    val dataBatchSize = 5
 
     class DesiredLoadResultPageResponse(
         val data: List<PagingItem>,

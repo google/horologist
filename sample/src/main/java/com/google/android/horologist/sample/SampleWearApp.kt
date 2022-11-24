@@ -30,10 +30,10 @@ import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.auth.AuthMenuScreen
+import com.google.android.horologist.auth.googlesignin.GoogleSignInSampleScreen
 import com.google.android.horologist.auth.googlesignin.GoogleSignOutScreen
 import com.google.android.horologist.auth.oauth.devicegrant.AuthDeviceGrantSampleScreen
 import com.google.android.horologist.auth.oauth.pkce.AuthPKCESampleScreen
-import com.google.android.horologist.auth.ui.googlesignin.GoogleSignInScreen
 import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
@@ -166,13 +166,19 @@ fun SampleWearApp() {
                 )
             }
             composable(route = Screen.AuthPKCEScreen.route) {
-                AuthPKCESampleScreen()
+                AuthPKCESampleScreen(
+                    onAuthSuccess = { navController.popBackStack() }
+                )
             }
             composable(route = Screen.AuthDeviceGrantScreen.route) {
-                AuthDeviceGrantSampleScreen()
+                AuthDeviceGrantSampleScreen(
+                    onAuthSuccess = { navController.popBackStack() }
+                )
             }
             composable(route = Screen.AuthGoogleSignInScreen.route) {
-                GoogleSignInScreen()
+                GoogleSignInSampleScreen(
+                    onAuthSuccess = { navController.popBackStack() }
+                )
             }
             composable(route = Screen.AuthGoogleSignOutScreen.route) {
                 GoogleSignOutScreen(navController = navController)

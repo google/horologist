@@ -16,62 +16,50 @@
 
 package com.google.android.horologist.auth.oauth.devicegrant
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.wear.compose.material.Text
+import com.google.android.horologist.auth.composables.dialog.SignedInConfirmationDialog
+import com.google.android.horologist.auth.composables.screens.AuthErrorScreen
+import com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantScreen
 import com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantScreenState
 
 @Composable
 fun AuthDeviceGrantSampleScreen(
+    onAuthSuccess: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: AuthDeviceGrantSampleViewModel = viewModel(factory = AuthDeviceGrantSampleViewModel.Factory)
 ) {
-    var executedOnce by rememberSaveable { mutableStateOf(false) }
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    if (state == AuthDeviceGrantScreenState.Idle) {
-        SideEffect {
-            if (!executedOnce) {
-                executedOnce = true
-                viewModel.startAuthFlow()
-            }
-        }
-    }
-
-    val stateText = when (state) {
-        AuthDeviceGrantScreenState.Idle -> "Idle"
-        AuthDeviceGrantScreenState.Loading -> "Loading"
+    when (state) {
+        AuthDeviceGrantScreenState.Idle,
+        AuthDeviceGrantScreenState.Loading,
         is AuthDeviceGrantScreenState.CheckPhone -> {
-            val code = (state as AuthDeviceGrantScreenState.CheckPhone).code
-            "CheckPhone: $code"
+            AuthDeviceGrantScreen(viewModel = viewModel)
         }
 
-        AuthDeviceGrantScreenState.Failed -> "Failed"
-        AuthDeviceGrantScreenState.Success -> "Success"
-    }
+        AuthDeviceGrantScreenState.Failed -> {
+            AuthErrorScreen(modifier)
+        }
 
-    Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center
+        AuthDeviceGrantScreenState.Success -> {
+            var showDialog by rememberSaveable { mutableStateOf(true) }
 
-    ) {
-        Text(
-            text = stateText,
-            modifier = Modifier
-                .fillMaxWidth(),
-            textAlign = TextAlign.Center
-        )
+            SignedInConfirmationDialog(
+                showDialog = showDialog,
+                onDismissOrTimeout = {
+                    showDialog = false
+
+                    onAuthSuccess()
+                },
+                modifier = modifier
+            )
+        }
     }
 }

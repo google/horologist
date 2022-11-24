@@ -24,11 +24,21 @@ package com.google.android.horologist.auth.ui.googlesignin {
   }
 
   public static final class AuthGoogleSignInScreenState.Success extends com.google.android.horologist.auth.ui.googlesignin.AuthGoogleSignInScreenState {
-    field public static final com.google.android.horologist.auth.ui.googlesignin.AuthGoogleSignInScreenState.Success INSTANCE;
+    ctor public AuthGoogleSignInScreenState.Success(String? displayName, String? email, android.net.Uri? photoUrl);
+    method public String? component1();
+    method public String? component2();
+    method public android.net.Uri? component3();
+    method public com.google.android.horologist.auth.ui.googlesignin.AuthGoogleSignInScreenState.Success copy(String? displayName, String? email, android.net.Uri? photoUrl);
+    method public String? getDisplayName();
+    method public String? getEmail();
+    method public android.net.Uri? getPhotoUrl();
+    property public final String? displayName;
+    property public final String? email;
+    property public final android.net.Uri? photoUrl;
   }
 
   public final class GoogleSignInScreenKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static void GoogleSignInScreen(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.auth.ui.googlesignin.GoogleSignInViewModel viewModel);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static void GoogleSignInScreen(optional com.google.android.horologist.auth.ui.googlesignin.GoogleSignInViewModel viewModel);
   }
 
   @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public class GoogleSignInViewModel extends androidx.lifecycle.ViewModel {
@@ -43,6 +53,10 @@ package com.google.android.horologist.auth.ui.googlesignin {
 }
 
 package com.google.android.horologist.auth.ui.oauth.devicegrant {
+
+  public final class AuthDeviceGrantScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static <AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload> void AuthDeviceGrantScreen(com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantViewModel<AuthDeviceGrantConfig,VerificationInfoPayload,TokenPayload> viewModel);
+  }
 
   @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public abstract sealed class AuthDeviceGrantScreenState {
   }
@@ -81,6 +95,10 @@ package com.google.android.horologist.auth.ui.oauth.devicegrant {
 }
 
 package com.google.android.horologist.auth.ui.oauth.pkce {
+
+  public final class AuthPKCEScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static <AuthPKCEConfig, OAuthCodePayload, TokenPayload> void AuthPKCEScreen(com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEViewModel<AuthPKCEConfig,OAuthCodePayload,TokenPayload> viewModel);
+  }
 
   @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public abstract sealed class AuthPKCEScreenState {
   }

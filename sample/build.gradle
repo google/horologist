@@ -68,6 +68,7 @@ android {
         freeCompilerArgs += "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi"
@@ -123,6 +124,7 @@ dependencies {
     implementation projects.composeLayout
     implementation projects.audio
     implementation projects.audioUi
+    implementation projects.authComposables
     implementation projects.authData
     implementation projects.authUi
     implementation projects.tiles

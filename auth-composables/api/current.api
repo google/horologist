@@ -1,1 +1,30 @@
 // Signature format: 4.0
+package com.google.android.horologist.auth.composables {
+
+  @kotlin.RequiresOptIn(message="Horologist Auth Composables is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistAuthComposablesApi {
+  }
+
+}
+
+package com.google.android.horologist.auth.composables.dialog {
+
+  public final class SignedInConfirmationDialogKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void SignedInConfirmationDialog(String displayName, String email, boolean showDialog, kotlin.jvm.functions.Function0<kotlin.Unit> onDismissOrTimeout, optional androidx.compose.ui.Modifier modifier, optional long durationMillis);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void SignedInConfirmationDialog(boolean showDialog, kotlin.jvm.functions.Function0<kotlin.Unit> onDismissOrTimeout, optional androidx.compose.ui.Modifier modifier, optional long durationMillis);
+  }
+
+}
+
+package com.google.android.horologist.auth.composables.screens {
+
+  public final class AuthErrorScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void AuthErrorScreen(optional androidx.compose.ui.Modifier modifier);
+  }
+
+  public final class CheckYourPhoneScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void CheckYourPhoneScreen(optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void CheckYourPhoneScreen(optional androidx.compose.ui.Modifier modifier, String message);
+  }
+
+}
+

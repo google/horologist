@@ -19,7 +19,6 @@ package com.google.android.horologist.paging
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,8 +37,6 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TitleCard
-import androidx.wear.compose.material.placeholderShimmer
-import androidx.wear.compose.material.rememberPlaceholderState
 import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.compose.paging.items
 import com.google.android.horologist.sample.R
@@ -57,7 +54,7 @@ fun PagingScreen(navController: NavController) {
         Pager(
             PagingConfig(
                 pageSize = myBackend.dataBatchSize,
-                enablePlaceholders = true,
+                enablePlaceholders = false,
                 maxSize = 200
             )
         ) { myBackend.getAllData() }
@@ -81,31 +78,21 @@ fun PagingScreen(navController: NavController) {
         }
 
         items(lazyPagingItems) { item ->
-            val chipPlaceholderState = rememberPlaceholderState { item != null }
-
-            TitleCard(
-                modifier = Modifier
-                    .placeholderShimmer(chipPlaceholderState),
-                onClick = { navController.navigate("pagingItem?id=${item?.item}") },
-                title = {
-                    Text(item?.toString().orEmpty())
-                }
-            ) {
-                Text(
-                    if (item != null) {
-                        stringResource(R.string.lorem_ipsum)
-                    } else {
-                        "\n\n"
+            if (item != null) {
+                TitleCard(
+                    onClick = { navController.navigate("pagingItem?id=${item.item}") },
+                    title = {
+                        Text(
+                            text = item.toString()
+                        )
                     },
-                    style = MaterialTheme.typography.caption2,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
-
-            if (!chipPlaceholderState.isShowContent) {
-                LaunchedEffect(chipPlaceholderState) {
-                    chipPlaceholderState.startPlaceholderAnimation()
+                ) {
+                    Text(
+                        text = stringResource(R.string.lorem_ipsum),
+                        style = MaterialTheme.typography.caption2,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
                 }
             }
         }
@@ -124,7 +111,7 @@ fun PagingScreen(navController: NavController) {
 
 private class MyBackend {
     private val backendDataList = (0..65).toList()
-    val dataBatchSize = 5
+    val dataBatchSize = 10
 
     class DesiredLoadResultPageResponse(
         val data: List<PagingItem>,

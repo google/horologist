@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistBaseUiApi::class)
+
 package com.google.android.horologist.base.ui.components
 
 import androidx.compose.runtime.Composable
 import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 
-@OptIn(ExperimentalHorologistBaseUiApi::class)
 @WearPreviewDevices
 @Composable
 fun AlertDialogAlertPreview() {
@@ -34,7 +35,6 @@ fun AlertDialogAlertPreview() {
     )
 }
 
-@OptIn(ExperimentalHorologistBaseUiApi::class)
 @WearPreviewDevices
 @Composable
 fun AlertDialogAlertWithLongBodyPreview() {

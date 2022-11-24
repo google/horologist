@@ -63,4 +63,6 @@
     <string name="rotarymenu_haptics_on">Haptics on</string>
     <string name="rotarymenu_haptics_off">Haptics off</string>
     <string name="rotarymenu_show_list">Show list</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
+    <string name="paging_items_waiting_message">Waiting for items to load from the backend</string>
 </resources>

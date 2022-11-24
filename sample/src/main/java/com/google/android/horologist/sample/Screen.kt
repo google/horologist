@@ -49,4 +49,5 @@ sealed class Screen(
     object AuthDeviceGrantScreen : Screen("authDeviceGrantScreen")
     object AuthGoogleSignInScreen : Screen("authGoogleSignInScreen")
     object Paging : Screen("paging")
+    object PagingItem : Screen("pagingItem?id={id}")
 }

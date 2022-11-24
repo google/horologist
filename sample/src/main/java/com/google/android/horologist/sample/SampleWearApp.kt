@@ -24,6 +24,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
@@ -39,6 +41,7 @@ import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.android.horologist.datalayer.DataLayerNodesScreen
 import com.google.android.horologist.datalayer.DataLayerNodesViewModel
 import com.google.android.horologist.networks.NetworkScreen
+import com.google.android.horologist.paging.PagingItemScreen
 import com.google.android.horologist.paging.PagingScreen
 import com.google.android.horologist.rotary.RotaryMenuScreen
 import com.google.android.horologist.rotary.RotaryScrollScreen
@@ -175,7 +178,17 @@ fun SampleWearApp() {
                 GoogleSignInScreen()
             }
             composable(route = Screen.Paging.route) {
-                PagingScreen()
+                PagingScreen(navController)
+            }
+            composable(
+                route = Screen.PagingItem.route,
+                arguments = listOf(
+                    navArgument("id") {
+                        type = NavType.IntType
+                    }
+                )
+            ) {
+                PagingItemScreen(it.arguments!!.getInt("id"))
             }
         }
     }

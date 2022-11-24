@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.auth.ui.googlesignin
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -50,7 +51,11 @@ public open class GoogleSignInViewModel(
             authGoogleSignInAccountListener.onAccountReceived(account)
         }
 
-        _uiState.value = AuthGoogleSignInScreenState.Success
+        _uiState.value = AuthGoogleSignInScreenState.Success(
+            displayName = account.displayName,
+            email = account.email,
+            photoUrl = account.photoUrl
+        )
     }
 
     public fun onAccountSelectionFailed() {
@@ -62,6 +67,11 @@ public open class GoogleSignInViewModel(
 public sealed class AuthGoogleSignInScreenState {
     public object Idle : AuthGoogleSignInScreenState()
     public object SelectAccount : AuthGoogleSignInScreenState()
-    public object Success : AuthGoogleSignInScreenState()
+    public data class Success(
+        val displayName: String?,
+        val email: String?,
+        val photoUrl: Uri?
+    ) : AuthGoogleSignInScreenState()
+
     public object Failed : AuthGoogleSignInScreenState()
 }

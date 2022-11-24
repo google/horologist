@@ -14,52 +14,44 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.oauth.pkce
+package com.google.android.horologist.auth.ui.oauth.pkce
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.google.android.horologist.auth.composables.dialog.SignedInConfirmationDialog
-import com.google.android.horologist.auth.composables.screens.AuthErrorScreen
-import com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreen
-import com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreenState
+import com.google.android.horologist.auth.composables.screens.CheckYourPhoneScreen
+import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 
+@ExperimentalHorologistAuthUiApi
 @Composable
-fun AuthPKCESampleScreen(
-    onAuthSuccess: () -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: AuthPKCESampleViewModel = viewModel(factory = AuthPKCESampleViewModel.Factory)
+public fun <AuthPKCEConfig, OAuthCodePayload, TokenPayload> AuthPKCEScreen(
+    viewModel: AuthPKCEViewModel<AuthPKCEConfig, OAuthCodePayload, TokenPayload>
 ) {
+    var executedOnce by rememberSaveable { mutableStateOf(false) }
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (state) {
-        AuthPKCEScreenState.Idle,
+        AuthPKCEScreenState.Idle -> {
+            SideEffect {
+                if (!executedOnce) {
+                    executedOnce = true
+                    viewModel.startAuthFlow()
+                }
+            }
+        }
+
         AuthPKCEScreenState.Loading,
         AuthPKCEScreenState.CheckPhone -> {
-            AuthPKCEScreen(viewModel = viewModel)
+            CheckYourPhoneScreen()
         }
 
+        AuthPKCEScreenState.Success,
         AuthPKCEScreenState.Failed -> {
-            AuthErrorScreen(modifier)
-        }
-
-        AuthPKCEScreenState.Success -> {
-            var showDialog by rememberSaveable { mutableStateOf(true) }
-
-            SignedInConfirmationDialog(
-                showDialog = showDialog,
-                onDismissOrTimeout = {
-                    showDialog = false
-
-                    onAuthSuccess()
-                },
-                modifier = modifier
-            )
+            // do nothing
         }
     }
 }

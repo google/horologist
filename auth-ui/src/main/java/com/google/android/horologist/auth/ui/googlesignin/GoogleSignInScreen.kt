@@ -21,10 +21,8 @@ import android.content.Intent
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContract
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
@@ -32,12 +30,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.CircularProgressIndicator
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -49,7 +47,6 @@ import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 @ExperimentalHorologistAuthUiApi
 @Composable
 public fun GoogleSignInScreen(
-    modifier: Modifier = Modifier,
     viewModel: GoogleSignInViewModel = viewModel()
 ) {
     var executedOnce by rememberSaveable { mutableStateOf(false) }
@@ -99,29 +96,18 @@ public fun GoogleSignInScreen(
             }
         }
 
-        else -> {
+        AuthGoogleSignInScreenState.Failed,
+        is AuthGoogleSignInScreenState.Success -> {
             // do nothing
         }
     }
 
-    val stateText = when (state) {
-        AuthGoogleSignInScreenState.Idle -> "Idle"
-        AuthGoogleSignInScreenState.SelectAccount -> "SelectAccount"
-        AuthGoogleSignInScreenState.Failed -> "Failed"
-        AuthGoogleSignInScreenState.Success -> "Success"
-    }
-
-    Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center
-
+    Box(
+        modifier = Modifier
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
-        Text(
-            text = stateText,
-            modifier = Modifier
-                .fillMaxWidth(),
-            textAlign = TextAlign.Center
-        )
+        CircularProgressIndicator()
     }
 }
 

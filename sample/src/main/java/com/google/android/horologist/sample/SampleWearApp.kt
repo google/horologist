@@ -39,6 +39,7 @@ import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.android.horologist.datalayer.DataLayerNodesScreen
 import com.google.android.horologist.datalayer.DataLayerNodesViewModel
 import com.google.android.horologist.networks.NetworkScreen
+import com.google.android.horologist.paging.PagingScreen
 import com.google.android.horologist.rotary.RotaryMenuScreen
 import com.google.android.horologist.rotary.RotaryScrollScreen
 import com.google.android.horologist.rotary.RotaryScrollWithFlingOrSnapScreen
@@ -172,6 +173,9 @@ fun SampleWearApp() {
             }
             composable(route = Screen.AuthGoogleSignInScreen.route) {
                 GoogleSignInScreen()
+            }
+            composable(route = Screen.Paging.route) {
+                PagingScreen()
             }
         }
     }

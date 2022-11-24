@@ -131,6 +131,14 @@ package com.google.android.horologist.compose.pager {
 
 }
 
+package com.google.android.horologist.compose.paging {
+
+  public final class ItemsKt {
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static <T> void items(androidx.wear.compose.material.ScalingLazyListScope, androidx.paging.compose.LazyPagingItems<T> items, optional kotlin.jvm.functions.Function1<? super T,?>? key, kotlin.jvm.functions.Function2<? super androidx.wear.compose.material.ScalingLazyListItemScope,? super T,kotlin.Unit> itemContent);
+  }
+
+}
+
 package com.google.android.horologist.compose.rotaryinput {
 
   public final class AccumulatedRotaryInputModifierKt {

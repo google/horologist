@@ -38,11 +38,10 @@ public fun PodcastControlButtons(
     playerController: PlayerUiController,
     playerUiState: PlayerUiState,
     modifier: Modifier = Modifier,
-    showProgress: Boolean = true,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
-    val percent = if (showProgress) {
-        playerUiState.trackPosition?.percent ?: 0f
+    val percent = if (playerUiState.trackPosition?.showProgress == true) {
+        playerUiState.trackPosition.percent
     } else {
         null
     }
@@ -58,7 +57,7 @@ public fun PodcastControlButtons(
         onSeekForwardButtonClick = { playerController.skipToNextMedia() },
         seekForwardButtonIncrement = playerUiState.seekForwardButtonIncrement,
         seekForwardButtonEnabled = playerUiState.seekForwardEnabled,
-        showProgress = showProgress,
+        showProgress = playerUiState.trackPosition?.showProgress ?: false,
         modifier = modifier,
         percent = percent,
         colors = colors
@@ -66,7 +65,7 @@ public fun PodcastControlButtons(
 }
 
 /**
- * Standard Podcast control buttons, showing [SeekBackButton], [PlayPauseProgressButton] and
+ * Standard Podcast control buttons with progress indicator, showing [SeekBackButton], [PlayPauseProgressButton] and
  * [SeekForwardButton].
  */
 @ExperimentalHorologistMediaUiApi
@@ -141,9 +140,12 @@ public fun PodcastControlButtons(
     )
 }
 
+/**
+ * Standard Podcast control buttons showing [SeekBackButton], [PlayPauseProgressButton] and [SeekForwardButton].
+ */
 @ExperimentalHorologistMediaUiApi
 @Composable
-private fun PodcastControlButtons(
+public fun PodcastControlButtons(
     onPlayButtonClick: () -> Unit,
     onPauseButtonClick: () -> Unit,
     playPauseButtonEnabled: Boolean,

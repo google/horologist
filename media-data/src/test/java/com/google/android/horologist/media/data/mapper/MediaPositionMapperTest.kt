@@ -27,7 +27,7 @@ import org.junit.Test
 import kotlin.time.Duration.Companion.milliseconds
 
 class MediaPositionMapperTest {
-    val fakeStatePlayer = FakeStatePlayer()
+    private val fakeStatePlayer = FakeStatePlayer()
 
     @Test
     fun `check position calculations null`() {

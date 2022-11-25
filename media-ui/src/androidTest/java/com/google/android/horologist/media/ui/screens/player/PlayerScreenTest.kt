@@ -32,6 +32,7 @@ import androidx.test.filters.LargeTest
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
+import com.google.android.horologist.media.model.MediaPosition
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.PlayerViewModel
@@ -51,7 +52,7 @@ class PlayerScreenTest {
     @Test
     fun givenShowProgressIsTrue_thenProgressBarIsDisplayed() {
         // given
-        val playerRepository = FakePlayerRepository()
+        var playerRepository = FakePlayerRepository()
         val playerViewModel = PlayerViewModel(playerRepository)
 
         composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
@@ -64,9 +65,8 @@ class PlayerScreenTest {
     @Test
     fun givenShowProgressIsFalse_thenProgressBarIsNOTDisplayed() {
         // given
-        val showProgress = false
-
         val playerRepository = FakePlayerRepository()
+        playerRepository.setPosition(MediaPosition.Unknown)
         val playerViewModel = PlayerViewModel(playerRepository)
 
         composeTestRule.setContent {
@@ -75,8 +75,7 @@ class PlayerScreenTest {
                 controlButtons = { playerUiController, playerUiState ->
                     DefaultPlayerScreenControlButtons(
                         playerController = playerUiController,
-                        playerUiState = playerUiState,
-                        showProgress = showProgress
+                        playerUiState = playerUiState
                     )
                 }
             )

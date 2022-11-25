@@ -70,7 +70,8 @@ class MediaPlayerStatesScreenTest(
                 TrackPositionUiModel(
                     current = 30,
                     duration = 225,
-                    percent = 0.133f
+                    percent = 0.133f,
+                    showProgress = true
                 )
             } else {
                 null

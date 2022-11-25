@@ -22,5 +22,6 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 public data class TrackPositionUiModel(
     val current: Long,
     val duration: Long,
-    val percent: Float
+    val percent: Float,
+    val showProgress: Boolean
 )

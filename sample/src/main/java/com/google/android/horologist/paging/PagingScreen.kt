@@ -77,11 +77,11 @@ fun PagingScreen(navController: NavController) {
     ) {
         if (lazyPagingItems.loadState.refresh == LoadState.Loading) {
             items(10) {
-                PagingItemChip(item = null)
+                PagingItemCard(item = null)
             }
         } else {
             items(lazyPagingItems) { item ->
-                PagingItemChip(item) {
+                PagingItemCard(item) {
                     if (item != null) {
                         navController.navigate("pagingItem?id=${item.item}")
                     }
@@ -92,7 +92,7 @@ fun PagingScreen(navController: NavController) {
 }
 
 @Composable
-private fun PagingItemChip(
+private fun PagingItemCard(
     item: PagingItem?,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
@@ -221,22 +221,22 @@ data class PagingItem(
 
 @WearSquareDevicePreview
 @Composable
-fun PagingItemChipPreview() {
+fun PagingItemCardPreview() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         var item by remember { mutableStateOf<PagingItem?>(null) }
         LaunchedEffect(Unit) {
             delay(1000)
             item = PagingItem(10)
         }
-        PagingItemChip(modifier = Modifier.fillMaxWidth(), item = item)
+        PagingItemCard(modifier = Modifier.fillMaxWidth(), item = item)
     }
 }
 
 @WearSquareDevicePreview
 @Composable
-fun PagingItemChipPreview2() {
+fun PagingItemCardPreview2() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         val item = remember { PagingItem(10) }
-        PagingItemChip(modifier = Modifier.fillMaxWidth(), item = item)
+        PagingItemCard(modifier = Modifier.fillMaxWidth(), item = item)
     }
 }

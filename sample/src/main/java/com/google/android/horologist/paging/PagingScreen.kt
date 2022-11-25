@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.paging
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
@@ -97,7 +97,9 @@ private fun PagingItemCard(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
-    val chipPlaceholderState = rememberPlaceholderState { item != null }
+    // Workaround for https://issuetracker.google.com/issues/260343754
+    val chipPlaceholderState =
+        if (item != null) rememberPlaceholderState { true } else rememberPlaceholderState { false }
 
     TitleCard(
         modifier = modifier
@@ -165,7 +167,6 @@ private class MyBackend {
         }
 
         val itemsAfter = backendDataList.size - to - 1
-        println(itemsAfter)
         return DesiredLoadResultPageResponse(data = currentSublist, itemsAfter = itemsAfter)
     }
 
@@ -222,7 +223,7 @@ data class PagingItem(
 @WearSquareDevicePreview
 @Composable
 fun PagingItemCardPreview() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         var item by remember { mutableStateOf<PagingItem?>(null) }
         LaunchedEffect(Unit) {
             delay(1000)
@@ -235,7 +236,7 @@ fun PagingItemCardPreview() {
 @WearSquareDevicePreview
 @Composable
 fun PagingItemCardPreview2() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         val item = remember { PagingItem(10) }
         PagingItemCard(modifier = Modifier.fillMaxWidth(), item = item)
     }

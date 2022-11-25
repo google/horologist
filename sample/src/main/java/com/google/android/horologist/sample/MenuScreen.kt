@@ -119,6 +119,9 @@ fun MenuScreen(
                 colors = ChipDefaults.primaryChipColors()
             )
         }
+        item {
+            PagingChip { navigateToRoute(Screen.Paging.route) }
+        }
     }
 
     RequestFocusWhenActive(focusRequester)

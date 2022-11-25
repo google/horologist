@@ -91,6 +91,8 @@ dependencies {
     implementation libs.androidx.corektx
     implementation libs.androidx.wear
     implementation libs.androidx.wear.phone.interactions
+    implementation libs.androidx.wear.remote.interactions
+    implementation libs.playservices.auth
     implementation libs.retrofit2.retrofit
     implementation libs.retrofit2.convertermoshi
     implementation libs.moshi.adapters

@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistBaseUiApi::class)
+
 package com.google.android.horologist.base.ui.components
 
 import androidx.compose.material.icons.Icons
@@ -24,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
 
 @Preview(

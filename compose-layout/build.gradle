@@ -114,6 +114,8 @@ dependencies {
     implementation libs.androidx.navigation.compose
     implementation libs.androidx.navigation.ui.ktx
 
+    api libs.androidx.paging
+
     testImplementation libs.junit
     testImplementation libs.truth
     androidTestImplementation libs.compose.ui.test.junit4

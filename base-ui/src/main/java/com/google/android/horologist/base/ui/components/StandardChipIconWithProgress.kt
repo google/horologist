@@ -35,6 +35,7 @@ import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.MaterialTheme
 import coil.compose.rememberAsyncImagePainter
+import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
 import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 
 private val indicatorPadding = 8.dp
@@ -52,6 +53,7 @@ private val progressBarStrokeWidth = 2.dp
  * @param progressIndicatorColor The color of the progress indicator that is around the icon.
  * @param progressTrackColor The color of the background for the progress indicator.
  */
+@ExperimentalHorologistBaseUiApi
 @Composable
 public fun StandardChipIconWithProgress(
     modifier: Modifier = Modifier,
@@ -86,6 +88,7 @@ public fun StandardChipIconWithProgress(
  * @param progressIndicatorColor The color of the progress indicator that is around the icon.
  * @param progressTrackColor The color of the background for the progress indicator.
  */
+@ExperimentalHorologistBaseUiApi
 @Composable
 public fun StandardChipIconWithProgress(
     progress: Float,

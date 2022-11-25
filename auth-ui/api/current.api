@@ -6,36 +6,128 @@ package com.google.android.horologist.auth.ui {
 
 }
 
-package com.google.android.horologist.auth.ui.pkce {
+package com.google.android.horologist.auth.ui.googlesignin {
 
-  public abstract sealed class AuthPKCEScreenState {
+  @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public abstract sealed class AuthGoogleSignInScreenState {
   }
 
-  public static final class AuthPKCEScreenState.CheckPhone extends com.google.android.horologist.auth.ui.pkce.AuthPKCEScreenState {
-    field public static final com.google.android.horologist.auth.ui.pkce.AuthPKCEScreenState.CheckPhone INSTANCE;
+  public static final class AuthGoogleSignInScreenState.Failed extends com.google.android.horologist.auth.ui.googlesignin.AuthGoogleSignInScreenState {
+    field public static final com.google.android.horologist.auth.ui.googlesignin.AuthGoogleSignInScreenState.Failed INSTANCE;
   }
 
-  public static final class AuthPKCEScreenState.Failed extends com.google.android.horologist.auth.ui.pkce.AuthPKCEScreenState {
-    field public static final com.google.android.horologist.auth.ui.pkce.AuthPKCEScreenState.Failed INSTANCE;
+  public static final class AuthGoogleSignInScreenState.Idle extends com.google.android.horologist.auth.ui.googlesignin.AuthGoogleSignInScreenState {
+    field public static final com.google.android.horologist.auth.ui.googlesignin.AuthGoogleSignInScreenState.Idle INSTANCE;
   }
 
-  public static final class AuthPKCEScreenState.Idle extends com.google.android.horologist.auth.ui.pkce.AuthPKCEScreenState {
-    field public static final com.google.android.horologist.auth.ui.pkce.AuthPKCEScreenState.Idle INSTANCE;
+  public static final class AuthGoogleSignInScreenState.SelectAccount extends com.google.android.horologist.auth.ui.googlesignin.AuthGoogleSignInScreenState {
+    field public static final com.google.android.horologist.auth.ui.googlesignin.AuthGoogleSignInScreenState.SelectAccount INSTANCE;
   }
 
-  public static final class AuthPKCEScreenState.Loading extends com.google.android.horologist.auth.ui.pkce.AuthPKCEScreenState {
-    field public static final com.google.android.horologist.auth.ui.pkce.AuthPKCEScreenState.Loading INSTANCE;
+  public static final class AuthGoogleSignInScreenState.Success extends com.google.android.horologist.auth.ui.googlesignin.AuthGoogleSignInScreenState {
+    ctor public AuthGoogleSignInScreenState.Success(String? displayName, String? email, android.net.Uri? photoUrl);
+    method public String? component1();
+    method public String? component2();
+    method public android.net.Uri? component3();
+    method public com.google.android.horologist.auth.ui.googlesignin.AuthGoogleSignInScreenState.Success copy(String? displayName, String? email, android.net.Uri? photoUrl);
+    method public String? getDisplayName();
+    method public String? getEmail();
+    method public android.net.Uri? getPhotoUrl();
+    property public final String? displayName;
+    property public final String? email;
+    property public final android.net.Uri? photoUrl;
   }
 
-  public static final class AuthPKCEScreenState.Success extends com.google.android.horologist.auth.ui.pkce.AuthPKCEScreenState {
-    field public static final com.google.android.horologist.auth.ui.pkce.AuthPKCEScreenState.Success INSTANCE;
+  public final class GoogleSignInScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static void GoogleSignInScreen(optional com.google.android.horologist.auth.ui.googlesignin.GoogleSignInViewModel viewModel);
+  }
+
+  @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public class GoogleSignInViewModel extends androidx.lifecycle.ViewModel {
+    ctor public GoogleSignInViewModel(optional com.google.android.horologist.auth.data.googlesignin.AuthGoogleSignInAccountListener authGoogleSignInAccountListener);
+    method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.googlesignin.AuthGoogleSignInScreenState> getUiState();
+    method public final void onAccountSelected(com.google.android.gms.auth.api.signin.GoogleSignInAccount account);
+    method public final void onAccountSelectionFailed();
+    method public final void startAuthFlow();
+    property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.googlesignin.AuthGoogleSignInScreenState> uiState;
+  }
+
+}
+
+package com.google.android.horologist.auth.ui.oauth.devicegrant {
+
+  public final class AuthDeviceGrantScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static <AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload> void AuthDeviceGrantScreen(com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantViewModel<AuthDeviceGrantConfig,VerificationInfoPayload,TokenPayload> viewModel);
+  }
+
+  @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public abstract sealed class AuthDeviceGrantScreenState {
+  }
+
+  public static final class AuthDeviceGrantScreenState.CheckPhone extends com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantScreenState {
+    ctor public AuthDeviceGrantScreenState.CheckPhone(String code);
+    method public String component1();
+    method public com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantScreenState.CheckPhone copy(String code);
+    method public String getCode();
+    property public final String code;
+  }
+
+  public static final class AuthDeviceGrantScreenState.Failed extends com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantScreenState {
+    field public static final com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantScreenState.Failed INSTANCE;
+  }
+
+  public static final class AuthDeviceGrantScreenState.Idle extends com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantScreenState {
+    field public static final com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantScreenState.Idle INSTANCE;
+  }
+
+  public static final class AuthDeviceGrantScreenState.Loading extends com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantScreenState {
+    field public static final com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantScreenState.Loading INSTANCE;
+  }
+
+  public static final class AuthDeviceGrantScreenState.Success extends com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantScreenState {
+    field public static final com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantScreenState.Success INSTANCE;
+  }
+
+  @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public class AuthDeviceGrantViewModel<AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload> extends androidx.lifecycle.ViewModel {
+    ctor public AuthDeviceGrantViewModel(com.google.android.horologist.auth.data.oauth.devicegrant.AuthDeviceGrantConfigRepository<AuthDeviceGrantConfig> authDeviceGrantConfigRepository, com.google.android.horologist.auth.data.oauth.devicegrant.AuthDeviceGrantVerificationInfoRepository<AuthDeviceGrantConfig,VerificationInfoPayload> authDeviceGrantVerificationInfoRepository, com.google.android.horologist.auth.data.oauth.devicegrant.AuthDeviceGrantTokenRepository<AuthDeviceGrantConfig,VerificationInfoPayload,TokenPayload> authDeviceGrantTokenRepository, kotlin.jvm.functions.Function2<? super AuthDeviceGrantConfig,? super VerificationInfoPayload,java.lang.String> checkPhonePayloadMapper, optional com.google.android.horologist.auth.data.oauth.devicegrant.AuthDeviceGrantTokenPayloadListener<TokenPayload> authDeviceGrantTokenPayloadListener);
+    method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantScreenState> getUiState();
+    method public final void startAuthFlow();
+    property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantScreenState> uiState;
+  }
+
+}
+
+package com.google.android.horologist.auth.ui.oauth.pkce {
+
+  public final class AuthPKCEScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static <AuthPKCEConfig, OAuthCodePayload, TokenPayload> void AuthPKCEScreen(com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEViewModel<AuthPKCEConfig,OAuthCodePayload,TokenPayload> viewModel);
+  }
+
+  @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public abstract sealed class AuthPKCEScreenState {
+  }
+
+  public static final class AuthPKCEScreenState.CheckPhone extends com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreenState {
+    field public static final com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreenState.CheckPhone INSTANCE;
+  }
+
+  public static final class AuthPKCEScreenState.Failed extends com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreenState {
+    field public static final com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreenState.Failed INSTANCE;
+  }
+
+  public static final class AuthPKCEScreenState.Idle extends com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreenState {
+    field public static final com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreenState.Idle INSTANCE;
+  }
+
+  public static final class AuthPKCEScreenState.Loading extends com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreenState {
+    field public static final com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreenState.Loading INSTANCE;
+  }
+
+  public static final class AuthPKCEScreenState.Success extends com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreenState {
+    field public static final com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreenState.Success INSTANCE;
   }
 
   @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public class AuthPKCEViewModel<AuthPKCEConfig, OAuthCodePayload, TokenPayload> extends androidx.lifecycle.ViewModel {
-    ctor public AuthPKCEViewModel(com.google.android.horologist.auth.data.pkce.AuthPKCEConfigRepository<AuthPKCEConfig> authPKCEConfigRepository, com.google.android.horologist.auth.data.pkce.AuthPKCEOAuthCodeRepository<AuthPKCEConfig,OAuthCodePayload> authPKCEOAuthCodeRepository, com.google.android.horologist.auth.data.pkce.AuthPKCETokenRepository<AuthPKCEConfig,OAuthCodePayload,TokenPayload> authPKCETokenRepository, optional com.google.android.horologist.auth.data.pkce.AuthPKCETokenPayloadListener<TokenPayload> authPKCETokenPayloadListener);
-    method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.pkce.AuthPKCEScreenState> getUiState();
+    ctor public AuthPKCEViewModel(com.google.android.horologist.auth.data.oauth.pkce.AuthPKCEConfigRepository<AuthPKCEConfig> authPKCEConfigRepository, com.google.android.horologist.auth.data.oauth.pkce.AuthPKCEOAuthCodeRepository<AuthPKCEConfig,OAuthCodePayload> authPKCEOAuthCodeRepository, com.google.android.horologist.auth.data.oauth.pkce.AuthPKCETokenRepository<AuthPKCEConfig,OAuthCodePayload,TokenPayload> authPKCETokenRepository, optional com.google.android.horologist.auth.data.oauth.pkce.AuthPKCETokenPayloadListener<TokenPayload> authPKCETokenPayloadListener);
+    method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreenState> getUiState();
     method public final void startAuthFlow();
-    property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.pkce.AuthPKCEScreenState> uiState;
+    property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreenState> uiState;
   }
 
 }

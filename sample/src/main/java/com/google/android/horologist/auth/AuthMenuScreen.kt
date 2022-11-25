@@ -66,6 +66,22 @@ fun AuthMenuScreen(
                 chipType = StandardChipType.Primary
             )
         }
+        item {
+            StandardChip(
+                label = stringResource(id = R.string.auth_menu_google_sign_in_item),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.AuthGoogleSignInScreen.route) },
+                chipType = StandardChipType.Primary
+            )
+        }
+        item {
+            StandardChip(
+                label = stringResource(id = R.string.auth_menu_google_sign_out_item),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.AuthGoogleSignOutScreen.route) },
+                chipType = StandardChipType.Primary
+            )
+        }
     }
 }
 

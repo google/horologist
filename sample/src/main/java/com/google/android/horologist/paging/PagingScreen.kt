@@ -222,7 +222,7 @@ data class PagingItem(
 
 @WearSquareDevicePreview
 @Composable
-fun PagingItemCardPreview() {
+fun PagingItemCardPreviewWithDelayedContent() {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         var item by remember { mutableStateOf<PagingItem?>(null) }
         LaunchedEffect(Unit) {
@@ -235,7 +235,7 @@ fun PagingItemCardPreview() {
 
 @WearSquareDevicePreview
 @Composable
-fun PagingItemCardPreview2() {
+fun PagingItemCardPreviewWithInitialContent() {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         val item = remember { PagingItem(10) }
         PagingItemCard(modifier = Modifier.fillMaxWidth(), item = item)

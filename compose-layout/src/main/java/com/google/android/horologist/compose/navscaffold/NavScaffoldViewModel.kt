@@ -50,7 +50,7 @@ public open class NavScaffoldViewModel(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     internal var initialIndex: Int? = null
-    internal var initialOffset: Int? = null
+    internal var initialOffsetPx: Int? = null
     internal var scrollType by mutableStateOf<ScrollType?>(null)
 
     private lateinit var _scrollableState: ScrollableState
@@ -116,7 +116,7 @@ public open class NavScaffoldViewModel(
             ) {
                 scrollableStateBuilder().also {
                     initialIndex = it.centerItemIndex
-                    initialOffset = it.centerItemScrollOffset
+                    initialOffsetPx = it.centerItemScrollOffset
                 }
             }
         }

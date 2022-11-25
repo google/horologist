@@ -102,7 +102,7 @@ public fun WearNavScaffold(
                                     viewModel.scrollableState as ScalingLazyListState
 
                                 val offsetDp = with(LocalDensity.current) {
-                                    (viewModel.initialOffset ?: 0).toDp()
+                                    (viewModel.initialOffsetPx ?: 0).toDp()
                                 }
 
                                 timeText(

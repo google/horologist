@@ -16,11 +16,15 @@
 
 package com.google.android.horologist.paging
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -34,7 +38,6 @@ import androidx.paging.PagingState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.CardDefaults
-import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.PlaceholderDefaults
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
@@ -44,6 +47,7 @@ import androidx.wear.compose.material.placeholderShimmer
 import androidx.wear.compose.material.rememberPlaceholderState
 import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.compose.paging.items
+import com.google.android.horologist.compose.tools.WearSquareDevicePreview
 import com.google.android.horologist.sample.R
 import kotlinx.coroutines.delay
 import java.time.LocalTime
@@ -73,20 +77,14 @@ fun PagingScreen(navController: NavController) {
     ) {
         if (lazyPagingItems.loadState.refresh == LoadState.Loading) {
             items(10) {
-                PagingItemChip(item = null, navController = navController)
+                PagingItemCard(item = null)
             }
         } else {
             items(lazyPagingItems) { item ->
-                PagingItemChip(item, navController)
-            }
-
-            if (lazyPagingItems.loadState.append == LoadState.Loading) {
-                item {
-                    CircularProgressIndicator(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentWidth(Alignment.CenterHorizontally)
-                    )
+                PagingItemCard(item) {
+                    if (item != null) {
+                        navController.navigate("pagingItem?id=${item.item}")
+                    }
                 }
             }
         }
@@ -94,17 +92,21 @@ fun PagingScreen(navController: NavController) {
 }
 
 @Composable
-private fun PagingItemChip(
+private fun PagingItemCard(
     item: PagingItem?,
-    navController: NavController
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
 ) {
-    val chipPlaceholderState = rememberPlaceholderState { item != null }
+    // Workaround for https://issuetracker.google.com/issues/260343754
+    val chipPlaceholderState =
+        if (item != null) rememberPlaceholderState { true } else rememberPlaceholderState { false }
 
     TitleCard(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .placeholderShimmer(chipPlaceholderState),
-        onClick = { navController.navigate("pagingItem?id=${item?.item}") },
+        enabled = item != null,
+        onClick = onClick,
         title = {
             Text(
                 modifier = Modifier
@@ -165,7 +167,6 @@ private class MyBackend {
         }
 
         val itemsAfter = backendDataList.size - to - 1
-        println(itemsAfter)
         return DesiredLoadResultPageResponse(data = currentSublist, itemsAfter = itemsAfter)
     }
 
@@ -216,5 +217,27 @@ data class PagingItem(
 
     companion object {
         private val timeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss")
+    }
+}
+
+@WearSquareDevicePreview
+@Composable
+fun PagingItemCardPreviewWithDelayedContent() {
+    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+        var item by remember { mutableStateOf<PagingItem?>(null) }
+        LaunchedEffect(Unit) {
+            delay(1000)
+            item = PagingItem(10)
+        }
+        PagingItemCard(modifier = Modifier.fillMaxWidth(), item = item)
+    }
+}
+
+@WearSquareDevicePreview
+@Composable
+fun PagingItemCardPreviewWithInitialContent() {
+    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+        val item = remember { PagingItem(10) }
+        PagingItemCard(modifier = Modifier.fillMaxWidth(), item = item)
     }
 }

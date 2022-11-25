@@ -146,12 +146,8 @@ class FakePlayerRepository : PlayerRepository {
 
     fun updatePosition() {
         _mediaPosition.value = _mediaPosition.value?.let {
-            val newCurrent = it.current + 1.seconds
-            if (it is MediaPosition.KnownDuration) {
-                MediaPosition.create(newCurrent, it.duration)
-            } else {
-                MediaPosition.UnknownDuration(newCurrent)
-            }
+            val newCurrent = (it as MediaPosition.KnownDuration).current + 1.seconds
+            MediaPosition.create(newCurrent, it.duration)
         } ?: MediaPosition.create(1.seconds, 10.seconds)
     }
 

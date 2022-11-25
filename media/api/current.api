@@ -101,8 +101,6 @@ package com.google.android.horologist.media.model {
   }
 
   @com.google.android.horologist.media.ExperimentalHorologistMediaApi public abstract sealed class MediaPosition {
-    method public long getCurrent();
-    property public long current;
     field public static final com.google.android.horologist.media.model.MediaPosition.Companion Companion;
   }
 
@@ -116,23 +114,18 @@ package com.google.android.horologist.media.model {
     method public float component3();
     method public com.google.android.horologist.media.model.MediaPosition.KnownDuration copy-NqJ4yvY(long current, long duration, float percent);
     method public boolean equals(Object? other);
+    method public long getCurrent();
     method public long getDuration();
     method public float getPercent();
     method public int hashCode();
     method public String toString();
-    property public long current;
+    property public final long current;
     property public final long duration;
     property public final float percent;
   }
 
-  public static final class MediaPosition.UnknownDuration extends com.google.android.horologist.media.model.MediaPosition {
-    ctor public MediaPosition.UnknownDuration(long current);
-    method public long component1-UwyO8pc();
-    method public com.google.android.horologist.media.model.MediaPosition.UnknownDuration copy-LRDsOJo(long current);
-    method public boolean equals(Object? other);
-    method public int hashCode();
-    method public String toString();
-    property public long current;
+  public static final class MediaPosition.Unknown extends com.google.android.horologist.media.model.MediaPosition {
+    field public static final com.google.android.horologist.media.model.MediaPosition.Unknown INSTANCE;
   }
 
   @com.google.android.horologist.media.ExperimentalHorologistMediaApi public enum PlayerState {

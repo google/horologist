@@ -57,6 +57,7 @@ class PlayerRepositoryImplTest {
 
     private lateinit var mediaItemMapper: MediaItemMapper
 
+    @OptIn(ExperimentalHorologistMediaDataApi::class)
     @Before
     fun setUp() {
         // execute all tasks posted to main looper
@@ -152,7 +153,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
         // position is unknown because updatePosition function was not called
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle)
         )
@@ -209,7 +210,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle)
         )
@@ -317,7 +318,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
         // position is unknown because updatePosition function was not called
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(
                 Command.PlayPause,
@@ -352,7 +353,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value!!.current).isEqualTo(510.milliseconds)
+        assertThat((sut.mediaPosition.value as MediaPosition.KnownDuration).current).isEqualTo(510.milliseconds)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle)
         )
@@ -430,7 +431,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -457,7 +458,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -478,7 +479,7 @@ class PlayerRepositoryImplTest {
         // then
         assertThat(sut.getMediaAt(0)).isEqualTo(media1)
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Playing)
-        assertThat(sut.mediaPosition.value!!.current).isEqualTo(500.milliseconds)
+        assertThat((sut.mediaPosition.value as MediaPosition.KnownDuration).current).isEqualTo(500.milliseconds)
 
         // given
         val media2 = getDummyMedia()
@@ -495,7 +496,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -524,7 +525,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle)
         )
@@ -554,7 +555,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle)
         )
@@ -584,7 +585,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SkipToPreviousMedia, Command.SetShuffle)
         )
@@ -610,7 +611,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -639,7 +640,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle)
         )
@@ -665,7 +666,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -694,7 +695,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SkipToPreviousMedia, Command.SetShuffle)
         )
@@ -723,7 +724,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle)
         )
@@ -817,7 +818,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -846,7 +847,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -892,7 +893,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.UnknownDuration(0.seconds))
+        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )

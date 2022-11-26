@@ -30,10 +30,13 @@ import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
+import com.google.android.horologist.compose.layout.TopAlignedDefaults
 
 @Composable
 fun NetworkScreen(
-    viewModel: NetworkScreenViewModel = viewModel(factory = NetworkScreenViewModel.Factory)
+    viewModel: NetworkScreenViewModel = viewModel(factory = NetworkScreenViewModel.Factory),
+    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig()
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
 

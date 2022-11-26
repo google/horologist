@@ -27,25 +27,24 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
+
 
 @Composable
 fun SectionedListMenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
-    scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
-    focusRequester: FocusRequester = remember { FocusRequester() }
+    config: ScalingLazyColumnConfig,
 ) {
     SectionedList(
         focusRequester = focusRequester,
-        scalingLazyListState = scalingLazyListState,
-        modifier = modifier
+        config = config,
+        modifier = modifier,
     ) {
         section(
             listOf(

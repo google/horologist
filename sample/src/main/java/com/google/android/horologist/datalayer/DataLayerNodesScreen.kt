@@ -25,11 +25,14 @@ import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
+import com.google.android.horologist.compose.layout.TopAlignedDefaults
 
 @Composable
 fun DataLayerNodesScreen(
     viewModel: DataLayerNodesViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 

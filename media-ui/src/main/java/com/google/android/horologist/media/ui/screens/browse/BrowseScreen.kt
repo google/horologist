@@ -74,7 +74,7 @@ public fun BrowseScreen(
         modifier = modifier,
         scalingParams = scalingParams,
         autoCentering = autoCentering,
-        sections = BrowseScreenScope().apply(content).sections
+        sections = BrowseScreenScope().apply(content).sections,
     )
 
     RequestFocusWhenActive(focusRequester)

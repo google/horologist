@@ -53,6 +53,8 @@ import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.currentBackStackEntryAsState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.compose.focus.FocusControl
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
+import com.google.android.horologist.compose.layout.TopAlignedDefaults
 
 /**
  * A Navigation and Scroll aware [Scaffold].
@@ -197,6 +199,25 @@ public data class ScaffoldContext<T : ScrollableState>(
     val viewModel: NavScaffoldViewModel
 )
 
+public data class NonScrollableScaffoldContext(
+    val backStackEntry: NavBackStackEntry,
+    val viewModel: NavScaffoldViewModel
+)
+
+/**
+ * The context items provided to a navigation composable.
+ *
+ * The [viewModel] can be used to customise the scaffold behaviour.
+ */
+public data class ConfigScaffoldContext(
+    val backStackEntry: NavBackStackEntry,
+    val columnConfig: ScalingLazyColumnConfig,
+    val viewModel: NavScaffoldViewModel
+) {
+    val scrollableState: ScalingLazyListState
+        get() = columnConfig.state
+}
+
 /**
  * Add a screen to the navigation graph featuring a ScalingLazyColumn.
  *
@@ -221,6 +242,34 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
 }
 
 /**
+ * Add a screen to the navigation graph featuring a ScalingLazyColumn.
+ *
+ * The scalingLazyListState must be taken from the [ScaffoldContext].
+ */
+public fun NavGraphBuilder.scalingLazyColumn(
+    route: String,
+    arguments: List<NamedNavArgument> = emptyList(),
+    deepLinks: List<NavDeepLink> = emptyList(),
+    config: @Composable () -> ScalingLazyColumnConfig = { TopAlignedDefaults.rememberTopAlignedConfig(
+        ScalingLazyColumnConfig.RotaryMode.Fling
+    )
+    },
+    content: @Composable (ConfigScaffoldContext) -> Unit
+) {
+    composable(route, arguments, deepLinks) {
+        FocusedDestination {
+            val columnConfig = config()
+
+            val viewModel: NavScaffoldViewModel = viewModel(it)
+
+            val scrollState = viewModel.initializeScalingLazyListState { columnConfig.state }
+
+            content(ConfigScaffoldContext(it, columnConfig, viewModel))
+        }
+    }
+}
+
+/**
  * Add a screen to the navigation graph featuring a Scrollable item.
  *
  * The scrollState must be taken from the [ScaffoldContext].
@@ -229,7 +278,7 @@ public fun NavGraphBuilder.scrollStateComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
-    scrollStateBuilder: () -> ScrollState,
+    scrollStateBuilder: () -> ScrollState = { ScrollState(0) },
     content: @Composable (ScaffoldContext<ScrollState>) -> Unit
 ) {
     composable(route, arguments, deepLinks) {
@@ -252,7 +301,7 @@ public fun NavGraphBuilder.lazyListComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
-    lazyListStateBuilder: () -> LazyListState,
+    lazyListStateBuilder: () -> LazyListState = { LazyListState() },
     content: @Composable (ScaffoldContext<LazyListState>) -> Unit
 ) {
     composable(route, arguments, deepLinks) {
@@ -282,6 +331,26 @@ public fun NavGraphBuilder.wearNavComposable(
             val viewModel: NavScaffoldViewModel = viewModel()
 
             content(it, viewModel)
+        }
+    }
+}
+
+/**
+ * Add non scrolling screen to the navigation graph. The [NavBackStackEntry] and
+ * [NavScaffoldViewModel] are passed into the [content] block so that
+ * the Scaffold may be customised, such as disabling TimeText.
+ */
+public fun NavGraphBuilder.wearNav(
+    route: String,
+    arguments: List<NamedNavArgument> = emptyList(),
+    deepLinks: List<NavDeepLink> = emptyList(),
+    content: @Composable (NonScrollableScaffoldContext) -> Unit
+) {
+    composable(route, arguments, deepLinks) {
+        FocusedDestination {
+            val viewModel: NavScaffoldViewModel = viewModel()
+
+            content(NonScrollableScaffoldContext(it, viewModel))
         }
     }
 }

@@ -29,6 +29,9 @@ import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
+import com.google.android.horologist.compose.layout.ScalingLazyColumnWithConfig
+import com.google.android.horologist.compose.layout.TopAlignedDefaults
 import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
 import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
 import com.google.android.horologist.sample.R
@@ -38,17 +41,11 @@ import com.google.android.horologist.sample.Screen
 fun AuthMenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
-    scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
-    focusRequester: FocusRequester = remember { FocusRequester() }
+    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig()
 ) {
-    ScalingLazyColumn(
-        modifier = modifier
-            .rotaryWithSnap(
-                focusRequester,
-                scalingLazyListState.toRotaryScrollAdapter()
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        state = scalingLazyListState
+    ScalingLazyColumnWithConfig(
+        modifier = modifier,
+        config = config
     ) {
         item {
             StandardChip(

@@ -56,6 +56,8 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
+import com.google.android.horologist.compose.layout.TopAlignedDefaults
 import com.google.android.horologist.compose.rotaryinput.rememberDisabledHaptic
 import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticFeedback
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
@@ -70,8 +72,7 @@ import kotlin.random.Random
 fun RotaryMenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
-    scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
-    focusRequester: FocusRequester = remember { FocusRequester() }
+    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig()
 ) {
     SectionedList(
         focusRequester = focusRequester,
@@ -145,14 +146,11 @@ fun RotaryMenuScreen(
 @Composable
 fun RotaryScrollScreen(
     scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
-    focusRequester: FocusRequester = remember { FocusRequester() }
+    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig()
 ) {
     ItemsListWithModifier(
-        modifier = Modifier
-            .rotaryWithScroll(focusRequester, scalingLazyListState)
-            .focusRequester(focusRequester)
-            .focusable(),
-        scrollableState = scalingLazyListState
+        modifier = modifier,
+        config = config
     ) {
         ChipsList {}
     }
@@ -301,7 +299,7 @@ private fun ScrollPreferences(
 @Composable
 private fun ItemsListWithModifier(
     modifier: Modifier,
-    scrollableState: ScalingLazyListState,
+    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig(),
     items: ScalingLazyListScope.() -> Unit
 ) {
     val flingBehavior = ScalingLazyColumnDefaults.snapFlingBehavior(state = scrollableState)

@@ -24,7 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.google.android.horologist.auth.composables.dialog.SignedInConfirmationDialog
+import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
 import com.google.android.horologist.auth.composables.screens.AuthErrorScreen
 import com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreen
 import com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreenState

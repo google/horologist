@@ -30,6 +30,7 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
+import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
@@ -42,7 +43,7 @@ fun SectionedListMenuScreen(
     config: ScalingLazyColumnConfig,
 ) {
     SectionedList(
-        focusRequester = focusRequester,
+        focusRequester = rememberActiveFocusRequester(),
         config = config,
         modifier = modifier,
     ) {
@@ -80,9 +81,5 @@ fun SectionedListMenuScreen(
                 )
             }
         }
-    }
-
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
     }
 }

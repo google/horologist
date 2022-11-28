@@ -36,6 +36,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleChip
 import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.compose.focus.RequestFocusWhenActive
+import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
 import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
 import com.google.android.horologist.mediasample.R
@@ -52,7 +53,7 @@ fun DeveloperOptionsScreen(
 ) {
     val uiState by developerOptionsScreenViewModel.uiState.collectAsStateWithLifecycle()
 
-    val focusRequester = remember { FocusRequester() }
+    val focusRequester = rememberActiveFocusRequester()
 
     ScalingLazyColumn(
         modifier = modifier
@@ -177,8 +178,6 @@ fun DeveloperOptionsScreen(
             }
         }
     }
-
-    RequestFocusWhenActive(focusRequester)
 }
 
 @Composable

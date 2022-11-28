@@ -54,6 +54,7 @@ import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionContentScope
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
+import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
 import com.google.android.horologist.compose.layout.TopAlignedDefaults
 import com.google.android.horologist.compose.tools.WearPreviewDevices
@@ -90,8 +91,8 @@ fun SectionedListExpandableScreen(
     val laterSectionState = getState(laterSectionExpanded, laterTasks)
 
     SectionedList(
-        focusRequester = focusRequester,
-        scalingLazyListState = scalingLazyListState,
+        focusRequester = rememberActiveFocusRequester(),
+        config = config,
         modifier = modifier
     ) {
         section {
@@ -129,10 +130,6 @@ fun SectionedListExpandableScreen(
                 )
             }
         )
-    }
-
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
     }
 }
 

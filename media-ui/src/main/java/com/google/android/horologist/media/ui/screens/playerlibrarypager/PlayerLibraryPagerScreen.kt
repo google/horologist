@@ -37,6 +37,7 @@ import com.google.accompanist.pager.PagerState
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.compose.focus.RequestFocusWhenActive
+import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
@@ -81,7 +82,7 @@ public fun PlayerLibraryPagerScreen(
         when (page) {
             0 -> {
                 val focusRequester =
-                    remember { FocusRequester() }
+                    rememberActiveFocusRequester()
 
                 Scaffold(
                     modifier = Modifier
@@ -97,8 +98,6 @@ public fun PlayerLibraryPagerScreen(
                 ) {
                     playerScreen()
                 }
-
-                RequestFocusWhenActive(focusRequester)
             }
 
             1 -> {

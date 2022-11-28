@@ -37,6 +37,7 @@ import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.focus.RequestFocusWhenActive
+import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -66,7 +67,7 @@ public fun <T> PlaylistsScreen(
     modifier: Modifier = Modifier,
     autoCentering: AutoCenteringParams? = AutoCenteringParams()
 ) {
-    val focusRequester = remember { FocusRequester() }
+    val focusRequester = rememberActiveFocusRequester()
     SectionedList(
         focusRequester = focusRequester,
         scalingLazyListState = scalingLazyListState,
@@ -99,8 +100,6 @@ public fun <T> PlaylistsScreen(
             }
         }
     }
-
-    RequestFocusWhenActive(focusRequester)
 }
 
 @ExperimentalHorologistMediaUiApi

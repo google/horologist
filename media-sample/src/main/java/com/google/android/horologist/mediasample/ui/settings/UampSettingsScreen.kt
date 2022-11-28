@@ -42,6 +42,7 @@ import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.focus.RequestFocusWhenActive
+import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.navigation.navigateToDeveloperOptions
@@ -53,7 +54,7 @@ fun UampSettingsScreen(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    val focusRequester = remember { FocusRequester() }
+    val focusRequester = rememberActiveFocusRequester()
 
     ScalingLazyColumn(
         modifier = modifier
@@ -86,8 +87,6 @@ fun UampSettingsScreen(
             )
         }
     }
-
-    RequestFocusWhenActive(focusRequester)
 }
 
 @Composable

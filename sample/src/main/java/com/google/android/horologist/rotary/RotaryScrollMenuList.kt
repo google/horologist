@@ -56,8 +56,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.TopAlignedDefaults
+import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.rotaryinput.rememberDisabledHaptic
 import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticFeedback
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
@@ -72,7 +71,8 @@ import kotlin.random.Random
 fun RotaryMenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
-    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig()
+    scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
+    focusRequester: FocusRequester = rememberActiveFocusRequester()
 ) {
     SectionedList(
         focusRequester = focusRequester,
@@ -137,25 +137,19 @@ fun RotaryMenuScreen(
             }
         }
     }
-
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
-    }
 }
 
 @Composable
 fun RotaryScrollScreen(
     scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
-    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig()
+    focusRequester: FocusRequester = rememberActiveFocusRequester()
 ) {
     ItemsListWithModifier(
-        modifier = modifier,
-        config = config
+        modifier = Modifier
+            .rotaryWithScroll(focusRequester, scalingLazyListState),
+        scrollableState = scalingLazyListState
     ) {
         ChipsList {}
-    }
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
     }
 }
 
@@ -164,7 +158,7 @@ fun RotaryScrollWithFlingOrSnapScreen(
     isFling: Boolean,
     isSnap: Boolean
 ) {
-    val focusRequester = remember { FocusRequester() }
+    val focusRequester = rememberActiveFocusRequester()
     var showList by remember { mutableStateOf(false) }
 
     var hapticsEnabled by remember { mutableStateOf(true) }
@@ -210,9 +204,6 @@ fun RotaryScrollWithFlingOrSnapScreen(
 
                 else -> {}
             }
-        }
-        LaunchedEffect(Unit) {
-            focusRequester.requestFocus()
         }
     } else {
         ScrollPreferences(
@@ -299,7 +290,7 @@ private fun ScrollPreferences(
 @Composable
 private fun ItemsListWithModifier(
     modifier: Modifier,
-    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig(),
+    scrollableState: ScalingLazyListState,
     items: ScalingLazyListScope.() -> Unit
 ) {
     val flingBehavior = ScalingLazyColumnDefaults.snapFlingBehavior(state = scrollableState)

@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
@@ -49,6 +50,11 @@ fun MenuScreen(
         config = config
     ) {
         item {
+            ListHeader {
+                Text(text = "Samples")
+            }
+        }
+        item {
             NetworkChip { navigateToRoute(Screen.Network.route) }
         }
         item {
@@ -61,6 +67,11 @@ fun MenuScreen(
             VolumeScreenChip(navigateToRoute)
         }
         item {
+            ListHeader {
+                Text(text = "Scroll Away")
+            }
+        }
+        item {
             ScrollAwayChip("Scroll Away") { navigateToRoute(Screen.ScrollAway.route) }
         }
         item {
@@ -68,6 +79,11 @@ fun MenuScreen(
         }
         item {
             ScrollAwayChip("Scroll Away Column") { navigateToRoute(Screen.ScrollAwayColumn.route) }
+        }
+        item {
+            ListHeader {
+                Text(text = "Composables")
+            }
         }
         item {
             TimePickerChip(time) { navigateToRoute(Screen.TimePicker.route) }
@@ -96,6 +112,11 @@ fun MenuScreen(
                 onClick = { navigateToRoute(Screen.AuthMenuScreen.route) },
                 chipType = StandardChipType.Primary
             )
+        }
+        item {
+            ListHeader {
+                Text(text = "Rotary Scrolling")
+            }
         }
         item {
             Chip(

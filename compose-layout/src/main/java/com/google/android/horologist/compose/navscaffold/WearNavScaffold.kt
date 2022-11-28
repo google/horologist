@@ -250,9 +250,10 @@ public fun NavGraphBuilder.scalingLazyColumn(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
-    config: @Composable () -> ScalingLazyColumnConfig = { TopAlignedDefaults.rememberTopAlignedConfig(
-        ScalingLazyColumnConfig.RotaryMode.Fling
-    )
+    config: @Composable () -> ScalingLazyColumnConfig = {
+        TopAlignedDefaults.rememberTopAlignedConfig(
+            ScalingLazyColumnConfig.RotaryMode.Fling
+        )
     },
     content: @Composable (ConfigScaffoldContext) -> Unit
 ) {
@@ -262,7 +263,8 @@ public fun NavGraphBuilder.scalingLazyColumn(
 
             val viewModel: NavScaffoldViewModel = viewModel(it)
 
-            val scrollState = viewModel.initializeScalingLazyListState { columnConfig.state }
+            val scrollState = viewModel.initializeScalingLazyListState { columnConfig.initialScrollPosition.toState() }
+            columnConfig.state = scrollState
 
             content(ConfigScaffoldContext(it, columnConfig, viewModel))
         }

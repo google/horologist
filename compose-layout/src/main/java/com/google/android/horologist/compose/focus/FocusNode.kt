@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.compose.focus
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
@@ -90,9 +91,25 @@ public fun OnFocusChange(onFocusChanged: CoroutineScope.(Boolean) -> Unit) {
 @Composable
 public fun RequestFocusWhenActive(focusRequester: FocusRequester) {
     OnFocusChange {
-        if (it) focusRequester.requestFocus()
+        try {
+            if (it) focusRequester.requestFocus()
+        } catch (ise: IllegalStateException) {
+            Log.e("FocusNode", ise.toString())
+        }
     }
 }
+
+/**
+ * Creates, remembers and returns a new [FocusRequester], that will have .requestFocus called
+ * when the enclosing [HierarchicalFocusCoordinator] becomes active.
+ * Note that the location you call this is important, in particular, which
+ * [HierarchicalFocusCoordinator] is enclosing it. Also, this may call requestFocus in the returned
+ * FocusRequester, so that focusRequester should be used in a .focusRequester modifier on a
+ * Composable that is part of the composition.
+ */
+@Composable
+public fun rememberActiveFocusRequester() =
+    remember { FocusRequester() }.also { RequestFocusWhenActive(it) }
 
 /**
  * Implements a node in the Focus control tree (either a [FocusControl] or [OnFocusChange]).

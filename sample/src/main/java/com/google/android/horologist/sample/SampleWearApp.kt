@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.sample
 
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.auth.AuthMenuScreen
@@ -36,7 +36,6 @@ import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
 import com.google.android.horologist.compose.navscaffold.lazyListComposable
 import com.google.android.horologist.compose.navscaffold.scalingLazyColumn
-import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
 import com.google.android.horologist.compose.navscaffold.scrollStateComposable
 import com.google.android.horologist.compose.navscaffold.wearNav
 import com.google.android.horologist.datalayer.DataLayerNodesScreen
@@ -85,7 +84,7 @@ fun SampleWearApp() {
         }
         lazyListComposable(Screen.ScrollAway.route) {
             ScrollScreenLazyColumn(
-                state = it.scrollableState
+                scrollState = it.scrollableState
             )
         }
         scalingLazyColumn(Screen.ScrollAwaySLC.route) {
@@ -158,22 +157,19 @@ fun SampleWearApp() {
                 config = it.columnConfig
             )
         }
-        scalingLazyColumn(route = Screen.RotaryMenuScreen.route) {
+        composable(route = Screen.RotaryMenuScreen.route) {
             RotaryMenuScreen(
                 modifier = Modifier.fillMaxSize(),
-                navigateToRoute = { route -> navController.navigate(route) },
-                config = it.columnConfig
+                navigateToRoute = { route -> navController.navigate(route) }
             )
         }
-        scalingLazyColumn(route = Screen.RotaryScrollScreen.route) {
-            RotaryScrollScreen(
-                config = it.columnConfig
-            )
+        composable(route = Screen.RotaryScrollScreen.route) {
+            RotaryScrollScreen()
         }
-        scalingLazyColumnComposable(route = Screen.RotaryScrollWithFlingScreen.route) {
+        composable(route = Screen.RotaryScrollWithFlingScreen.route) {
             RotaryScrollWithFlingOrSnapScreen(isFling = true, isSnap = false)
         }
-        scalingLazyColumnComposable(route = Screen.RotarySnapListScreen.route) {
+        composable(route = Screen.RotarySnapListScreen.route) {
             RotaryScrollWithFlingOrSnapScreen(isFling = false, isSnap = true)
         }
         scalingLazyColumn(route = Screen.AuthMenuScreen.route) {

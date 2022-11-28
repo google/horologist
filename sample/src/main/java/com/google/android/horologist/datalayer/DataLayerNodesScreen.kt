@@ -26,6 +26,7 @@ import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
+import com.google.android.horologist.compose.layout.ScalingLazyColumnWithConfig
 import com.google.android.horologist.compose.layout.TopAlignedDefaults
 
 @Composable
@@ -36,7 +37,10 @@ fun DataLayerNodesScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    ScalingLazyColumn(modifier = modifier) {
+    ScalingLazyColumnWithConfig(
+        modifier = modifier,
+        config = config
+    ) {
         item {
             Text("Nodes")
         }

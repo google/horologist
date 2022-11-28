@@ -57,6 +57,7 @@ import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
+import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
 import com.google.android.horologist.compose.layout.TopAlignedDefaults
 import com.google.android.horologist.compose.tools.WearPreviewDevices
@@ -75,8 +76,8 @@ fun SectionedListStatefulScreen(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     SectionedList(
-        focusRequester = focusRequester,
-        scalingLazyListState = scalingLazyListState,
+        focusRequester = rememberActiveFocusRequester(),
+        config = config,
         modifier = modifier
     ) {
         topMenuSection()
@@ -86,10 +87,6 @@ fun SectionedListStatefulScreen(
         trendingSection(state = state, viewModel = viewModel)
 
         bottomMenuSection()
-    }
-
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
     }
 }
 

@@ -26,19 +26,15 @@ import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.material.icons.filled.SelfImprovement
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.ScalingLazyListState
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
+import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
 import com.google.android.horologist.compose.layout.TopAlignedDefaults
 import com.google.android.horologist.compose.tools.WearPreviewDevices
@@ -50,8 +46,8 @@ fun SectionedListStatelessScreen(
     config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig()
 ) {
     SectionedList(
-        focusRequester = focusRequester,
-        scalingLazyListState = scalingLazyListState,
+        focusRequester = rememberActiveFocusRequester(),
+        config = config,
         modifier = modifier
     ) {
         topMenuSection()
@@ -61,10 +57,6 @@ fun SectionedListStatelessScreen(
         trendingSection()
 
         bottomMenuSection()
-    }
-
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
     }
 }
 

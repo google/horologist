@@ -39,6 +39,7 @@ import androidx.wear.compose.material.ScalingLazyListScope
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.ScalingParams
 import com.google.android.horologist.compose.focus.RequestFocusWhenActive
+import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig.RotaryMode
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
@@ -50,9 +51,7 @@ object TopAlignedDefaults {
         val density = LocalDensity.current
         val configuration = LocalConfiguration.current
 
-        val focusRequester = FocusRequester()
-
-        RequestFocusWhenActive(focusRequester = focusRequester)
+        val focusRequester = rememberActiveFocusRequester()
 
         val flingBehavior = ScrollableDefaults.flingBehavior()
 
@@ -62,9 +61,9 @@ object TopAlignedDefaults {
             val topScreenOffsetPx = screenHeightPx / 2 - topPaddingPx
 
             ScalingLazyColumnConfig(
-                state = ScalingLazyListState(
-                    initialCenterItemIndex = 0,
-                    initialCenterItemScrollOffset = topScreenOffsetPx
+                initialScrollPosition = ScalingLazyColumnConfig.ScrollPosition(
+                    index = 0,
+                    offsetPx = topScreenOffsetPx
                 ),
                 anchorType = ScalingLazyListAnchorType.ItemStart,
                 focusRequester = focusRequester,
@@ -76,10 +75,13 @@ object TopAlignedDefaults {
 }
 
 @Stable
-class ScalingLazyColumnConfig(
-    val state: ScalingLazyListState = ScalingLazyListState(),
+class ScalingLazyColumnConfig internal constructor(
+    val initialScrollPosition: ScrollPosition = ScrollPosition(1, 0),
     val focusRequester: FocusRequester,
-    val autoCentering: AutoCenteringParams? = AutoCenteringParams(),
+    val autoCentering: AutoCenteringParams? = AutoCenteringParams(
+        initialScrollPosition.index,
+        initialScrollPosition.offsetPx
+    ),
     val anchorType: ScalingLazyListAnchorType = ScalingLazyListAnchorType.ItemCenter,
     val contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
     val rotaryMode: RotaryMode? = RotaryMode.Fling,
@@ -94,6 +96,19 @@ class ScalingLazyColumnConfig(
     val userScrollEnabled: Boolean = true,
     val scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
 ) {
+    private var _state: ScalingLazyListState? = null
+    var state: ScalingLazyListState
+        get() {
+            if (_state == null) {
+                _state = initialScrollPosition.toState()
+            }
+            return _state!!
+        }
+        set(value) {
+            _state = value
+        }
+
+
     val modifier: Modifier
         @Composable
         get() = when (rotaryMode) {
@@ -103,6 +118,18 @@ class ScalingLazyColumnConfig(
     sealed interface RotaryMode {
         object Fling : RotaryMode
         object Snap : RotaryMode
+    }
+
+    data class ScrollPosition(
+        val index: Int,
+        val offsetPx: Int
+    ) {
+        fun toState(): ScalingLazyListState {
+            return ScalingLazyListState(
+                index,
+                offsetPx
+            )
+        }
     }
 }
 

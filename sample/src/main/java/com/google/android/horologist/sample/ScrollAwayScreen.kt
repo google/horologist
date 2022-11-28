@@ -28,31 +28,27 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Card
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
-import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
-import androidx.wear.compose.material.rememberScalingLazyListState
 import androidx.wear.compose.material.scrollAway
+import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
+import com.google.android.horologist.compose.layout.ScalingLazyColumnWithConfig
 import com.google.android.horologist.compose.layout.TopAlignedDefaults
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
 
 @Composable
-fun ScrollScreenLazyColumn(state: LazyListState) {
-    val scrollState = rememberLazyListState()
-    val focusRequester = remember { FocusRequester() }
+fun ScrollScreenLazyColumn(scrollState: LazyListState) {
+    val focusRequester = rememberActiveFocusRequester()
 
     LazyColumn(
         modifier = Modifier.rotaryWithFling(focusRequester, scrollState),
@@ -69,37 +65,19 @@ fun ScrollScreenLazyColumn(state: LazyListState) {
 fun ScrollAwayScreenScalingLazyColumn(
     config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig()
 ) {
-    val scrollState = rememberScalingLazyListState()
-    val focusRequester = remember { FocusRequester() }
-
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        timeText = {
-            TimeText(modifier = Modifier.scrollAway(scrollState, 1, 0.dp))
-        },
-        positionIndicator = {
-            PositionIndicator(scalingLazyListState = scrollState)
-        }
+    ScalingLazyColumnWithConfig(
+        config = config
     ) {
-        ScalingLazyColumn(
-            modifier = Modifier.rotaryWithFling(focusRequester, scrollState),
-            state = scrollState
-        ) {
-            items(3) { i ->
-                ExampleCard(Modifier.fillParentMaxHeight(0.5f), i)
-            }
+        items(3) { i ->
+            ExampleCard(Modifier.fillParentMaxHeight(0.5f), i)
         }
-    }
-
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
     }
 }
 
 @Composable
 fun ScrollAwayScreenColumn(state: ScrollState) {
     val scrollState = rememberScrollState()
-    val focusRequester = remember { FocusRequester() }
+    val focusRequester = rememberActiveFocusRequester()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -120,10 +98,6 @@ fun ScrollAwayScreenColumn(state: ScrollState) {
                 ExampleCard(modifier, i)
             }
         }
-    }
-
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
     }
 }
 
@@ -147,5 +121,5 @@ private fun ExampleCard(modifier: Modifier, i: Int) {
 @WearLargeRoundDevicePreview
 @Composable
 fun ScrollAwayScreenPreview() {
-    ScrollScreenLazyColumn(it.scrollableState)
+    ScrollScreenLazyColumn(rememberLazyListState())
 }

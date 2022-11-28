@@ -33,6 +33,7 @@ import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
 import com.google.android.horologist.compose.focus.RequestFocusWhenActive
+import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToPlayer
 import com.google.android.horologist.mediasample.R
@@ -47,7 +48,7 @@ fun SamplesScreen(
 ) {
     val uiState by samplesScreenViewModel.uiState.collectAsStateWithLifecycle()
 
-    val focusRequester = remember { FocusRequester() }
+    val focusRequester = rememberActiveFocusRequester()
 
     ScalingLazyColumn(
         modifier = modifier
@@ -69,6 +70,4 @@ fun SamplesScreen(
             }
         }
     }
-
-    RequestFocusWhenActive(focusRequester)
 }

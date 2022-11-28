@@ -31,6 +31,7 @@ import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.ScalingParams
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.compose.focus.RequestFocusWhenActive
+import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
@@ -48,7 +49,7 @@ public fun EntityScreen(
     buttonsContent: (@Composable () -> Unit)? = null,
     content: (ScalingLazyListScope.() -> Unit)? = null
 ) {
-    val focusRequester = remember { FocusRequester() }
+    val focusRequester = rememberActiveFocusRequester()
 
     ScalingLazyColumn(
         modifier = modifier
@@ -72,8 +73,6 @@ public fun EntityScreen(
             content()
         }
     }
-
-    RequestFocusWhenActive(focusRequester)
 }
 
 /**

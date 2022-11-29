@@ -32,7 +32,7 @@ public class BluetoothSettingsOutputSelector(
     private val audioOutputRepository: AudioOutputRepository
 ) : AudioOutputSelector {
     override suspend fun selectNewOutput(currentAudioOutput: AudioOutput): AudioOutput? {
-        audioOutputRepository.launchOutputSelection(true)
+        audioOutputRepository.launchOutputSelection()
 
         val newAudioOutput = withTimeoutOrNull(15000) {
             audioOutputRepository.audioOutput.filter {
@@ -44,6 +44,6 @@ public class BluetoothSettingsOutputSelector(
     }
 
     override fun launchSelector() {
-        audioOutputRepository.launchOutputSelection(false)
+        audioOutputRepository.launchOutputSelection()
     }
 }

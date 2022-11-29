@@ -17,44 +17,22 @@
 package com.google.android.horologist.mediasample.benchmark
 
 import androidx.benchmark.macro.CompilationMode
-import androidx.benchmark.macro.ExperimentalMetricApi
-import androidx.benchmark.macro.StartupMode
-import androidx.benchmark.macro.StartupTimingMetric
-import androidx.benchmark.macro.TraceSectionMetric
-import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.filters.LargeTest
-import org.junit.Rule
-import org.junit.Test
+import com.google.android.horologist.media.benchmark.BaseStartupBenchmark
+import com.google.android.horologist.media.benchmark.MediaApp
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 
 @LargeTest
 @RunWith(Parameterized::class)
-@OptIn(ExperimentalMetricApi::class)
 class StartupBenchmark(
-    private val compilationMode: CompilationMode
-) {
-    @get:Rule
-    val benchmarkRule = MacrobenchmarkRule()
-
-    @Test
-    fun startup() = benchmarkRule.measureRepeated(
-        packageName = PACKAGE_NAME,
-        metrics = listOf(StartupTimingMetric(), TraceSectionMetric("SyncWorker")),
-        compilationMode = compilationMode,
-        iterations = 10,
-        startupMode = StartupMode.COLD
-    ) {
-        startActivityAndWait()
-        // sleep to allow time for report fully drawn
-        Thread.sleep(5000)
-    }
+    override val compilationMode: CompilationMode
+) : BaseStartupBenchmark() {
+    override val mediaApp: MediaApp = TestMedia.MediaSampleApp
 
     companion object {
         @Parameterized.Parameters(name = "compilation={0}")
         @JvmStatic
         fun parameters() = listOf(CompilationMode.None(), CompilationMode.Partial())
-
-        private const val PACKAGE_NAME = "com.google.android.horologist.mediasample"
     }
 }

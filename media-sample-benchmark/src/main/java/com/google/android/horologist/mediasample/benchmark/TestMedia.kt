@@ -16,9 +16,8 @@
 
 package com.google.android.horologist.mediasample.benchmark
 
-import android.net.Uri
-import androidx.media3.common.MediaItem
-import androidx.media3.common.MediaMetadata
+import com.google.android.horologist.media.benchmark.MediaApp
+import com.google.android.horologist.media.benchmark.MediaItems.buildMediaItem
 
 object TestMedia {
     val Intro = buildMediaItem(
@@ -29,30 +28,9 @@ object TestMedia {
         "The Kyoto Connection"
     )
 
-    public fun buildMediaItem(id: String, mediaUri: String, artworkUri: String?, title: String, artist: String): MediaItem {
-        val parsedUri = Uri.parse(mediaUri)
-
-        val mediaItemBuilder = MediaItem.Builder()
-        val mediaMetadataBuilder = MediaMetadata.Builder()
-        val requestMetadataBuilder = MediaItem.RequestMetadata.Builder()
-
-        mediaItemBuilder
-            .setMediaId(id)
-            .setUri(parsedUri)
-
-        mediaMetadataBuilder
-            .setTitle(title)
-            .setDisplayTitle(title)
-            .setArtist(artist)
-            .setArtworkUri(artworkUri?.let<String, Uri?>(Uri::parse))
-
-        requestMetadataBuilder
-            .setMediaUri(parsedUri)
-
-        mediaItemBuilder
-            .setMediaMetadata(mediaMetadataBuilder.build())
-            .setRequestMetadata(requestMetadataBuilder.build())
-
-        return mediaItemBuilder.build()
-    }
+    val MediaSampleApp = MediaApp(
+        "com.google.android.horologist.mediasample",
+        "com.google.android.horologist.mediasample.data.service.playback.PlaybackService",
+        Intro
+    )
 }

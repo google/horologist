@@ -24,12 +24,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
+import androidx.wear.compose.material.Scaffold
+import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.auth.AuthMenuScreen
-import com.google.android.horologist.auth.oauth.devicegrant.AuthDeviceGrantScreen
-import com.google.android.horologist.auth.oauth.pkce.AuthPKCEScreen
+import com.google.android.horologist.auth.googlesignin.GoogleSignInSampleScreen
+import com.google.android.horologist.auth.googlesignin.GoogleSignOutScreen
+import com.google.android.horologist.auth.oauth.devicegrant.AuthDeviceGrantSampleScreen
+import com.google.android.horologist.auth.oauth.pkce.AuthPKCESampleScreen
 import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
@@ -41,6 +47,8 @@ import com.google.android.horologist.compose.navscaffold.wearNav
 import com.google.android.horologist.datalayer.DataLayerNodesScreen
 import com.google.android.horologist.datalayer.DataLayerNodesViewModel
 import com.google.android.horologist.networks.NetworkScreen
+import com.google.android.horologist.paging.PagingItemScreen
+import com.google.android.horologist.paging.PagingScreen
 import com.google.android.horologist.rotary.RotaryMenuScreen
 import com.google.android.horologist.rotary.RotaryScrollScreen
 import com.google.android.horologist.rotary.RotaryScrollWithFlingOrSnapScreen
@@ -185,6 +193,37 @@ fun SampleWearApp() {
         }
         wearNav(route = Screen.AuthDeviceGrantScreen.route) {
             AuthDeviceGrantScreen()
+        }
+        wearNav(route = Screen.AuthPKCEScreen.route) {
+            AuthPKCESampleScreen(
+                onAuthSuccess = { navController.popBackStack() }
+            )
+        }
+        wearNav(route = Screen.AuthDeviceGrantScreen.route) {
+            AuthDeviceGrantSampleScreen(
+                onAuthSuccess = { navController.popBackStack() }
+            )
+        }
+        wearNav(route = Screen.AuthGoogleSignInScreen.route) {
+            GoogleSignInSampleScreen(
+                onAuthSuccess = { navController.popBackStack() }
+            )
+        }
+        wearNav(route = Screen.AuthGoogleSignOutScreen.route) {
+            GoogleSignOutScreen(navController = navController)
+        }
+        wearNav(route = Screen.Paging.route) {
+            PagingScreen(navController)
+        }
+        wearNav(
+            route = Screen.PagingItem.route,
+            arguments = listOf(
+                navArgument("id") {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            PagingItemScreen(it.arguments!!.getInt("id"))
         }
     }
 }

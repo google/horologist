@@ -25,7 +25,11 @@ open class FakeAudioOutputRepository : AudioOutputRepository {
     override val audioOutput: MutableStateFlow<AudioOutput> = MutableStateFlow(AudioOutput.None)
     override val available: MutableStateFlow<List<AudioOutput>> = MutableStateFlow(listOf())
 
+    @Suppress("OVERRIDE_DEPRECATION")
     override fun launchOutputSelection(closeOnConnect: Boolean) {
+    }
+
+    override fun launchOutputSelection() {
     }
 
     override fun close() {

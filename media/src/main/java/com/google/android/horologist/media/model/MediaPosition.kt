@@ -24,16 +24,14 @@ import kotlin.time.Duration
  * Current position and duration are measured in milliseconds.
  */
 @ExperimentalHorologistMediaApi
-public sealed class MediaPosition(
-    public open val current: Duration
-) {
+public sealed class MediaPosition() {
     public data class KnownDuration internal constructor(
-        override val current: Duration,
+        public val current: Duration,
         public val duration: Duration,
         public val percent: Float
-    ) : MediaPosition(current)
+    ) : MediaPosition()
 
-    public data class UnknownDuration(override val current: Duration) : MediaPosition(current)
+    public object Unknown : MediaPosition()
 
     public companion object {
 
@@ -50,7 +48,6 @@ public sealed class MediaPosition(
             check(current <= duration) {
                 "Duration can't be less than current position [current: $current] [duration: $duration]."
             }
-
             val percent =
                 current.inWholeMilliseconds.toFloat() / duration.inWholeMilliseconds.toFloat()
 

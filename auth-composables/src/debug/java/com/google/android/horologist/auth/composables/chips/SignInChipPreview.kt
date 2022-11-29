@@ -14,26 +14,19 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.oauth.devicegrant
+@file:OptIn(ExperimentalHorologistAuthComposablesApi::class)
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+package com.google.android.horologist.auth.composables.chips
+
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
-import androidx.wear.compose.material.Text
+import androidx.compose.ui.tooling.preview.Preview
+import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
 
+@Preview(
+    backgroundColor = 0xff000000,
+    showBackground = true
+)
 @Composable
-fun AuthDeviceGrantScreen() {
-    Box(modifier = Modifier.fillMaxSize()) {
-        Text(
-            text = "Not implemented yet!",
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.Center),
-            textAlign = TextAlign.Center
-        )
-    }
+fun SignInChipPreview() {
+    SignInChip(onClick = { })
 }

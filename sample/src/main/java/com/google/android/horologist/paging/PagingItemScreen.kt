@@ -14,26 +14,18 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.oauth.pkce
+package com.google.android.horologist.paging
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.wear.compose.material.Text
 
 @Composable
-fun AuthPKCEScreen() {
-    Box(modifier = Modifier.fillMaxSize()) {
-        Text(
-            text = "Not implemented yet!",
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.Center),
-            textAlign = TextAlign.Center
-        )
+fun PagingItemScreen(item: Int) {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Text("Item $item")
     }
 }

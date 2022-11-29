@@ -27,6 +27,8 @@
     <string name="auth_samples_menu">Auth Samples</string>
     <string name="auth_menu_oauth_pkce_item">OAuth PKCE</string>
     <string name="auth_menu_oauth_device_grant_item">OAuth Device Grant</string>
+    <string name="auth_menu_google_sign_in_item">Google Sign-In</string>
+    <string name="auth_menu_google_sign_out_item">Sign out (Google)</string>
     <string name="sectionedlist_stateless_sections_menu">Stateless sections</string>
     <string name="sectionedlist_stateful_sections_menu">Stateful sections</string>
     <string name="sectionedlist_expandable_sections_menu">Expandable sections</string>
@@ -43,6 +45,7 @@
     <string name="sectionedlist_tomorrow">Tomorrow</string>
     <string name="sectionedlist_later_week">Later this week</string>
     <string name="sectionedlist_more_tasks">More tasks…</string>
+    <string name="google_sign_out_success_message">Signed out successfully!</string>
 
     <string name="rotarymenu_scroll">Scroll</string>
     <string name="rotarymenu_scroll_list">Scroll list</string>
@@ -62,4 +65,8 @@
     <string name="rotarymenu_haptics_on">Haptics on</string>
     <string name="rotarymenu_haptics_off">Haptics off</string>
     <string name="rotarymenu_show_list">Show list</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
+    <string name="paging_items_waiting_message">Waiting for items to load from the backend</string>
+    <string name="paging_chip_content_description">Paging</string>
+    <string name="paging_chip_label">Paging</string>
 </resources>

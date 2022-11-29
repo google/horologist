@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.benchmark
+package com.google.android.horologist.media.benchmark
 
 import android.content.ComponentName
 import android.os.Looper
@@ -28,8 +28,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 
-object MediaControllerHelper {
-    fun lookupController(component: ComponentName): ListenableFuture<MediaBrowser> {
+public object MediaControllerHelper {
+    public fun lookupController(component: ComponentName): ListenableFuture<MediaBrowser> {
         val context = InstrumentationRegistry.getInstrumentation().context
         return MediaBrowser.Builder(
             context,
@@ -39,7 +39,7 @@ object MediaControllerHelper {
             .buildAsync()
     }
 
-    suspend fun MediaController.startPlaying(mediaItem: MediaItem) {
+    public suspend fun MediaController.startPlaying(mediaItem: MediaItem) {
         withContext(Dispatchers.Main) {
             setMediaItem(mediaItem)
 
@@ -50,7 +50,7 @@ object MediaControllerHelper {
         }
     }
 
-    suspend fun MediaController.stopPlaying() {
+    public suspend fun MediaController.stopPlaying() {
         withContext(Dispatchers.Main) {
             stop()
         }

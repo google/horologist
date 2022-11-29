@@ -21,11 +21,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.wear.compose.material.ScalingLazyColumn
+import androidx.wear.compose.material.ScalingLazyListState
+import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
+import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
+import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
+import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
 
@@ -51,14 +57,30 @@ fun AuthMenuScreen(
             StandardChip(
                 label = stringResource(id = R.string.auth_menu_oauth_device_grant_item),
                 modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.AuthPKCEScreen.route) },
+                onClick = { navigateToRoute(Screen.AuthDeviceGrantScreen.route) },
+                chipType = StandardChipType.Primary
+            )
+        }
+        item {
+            StandardChip(
+                label = stringResource(id = R.string.auth_menu_google_sign_in_item),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.AuthGoogleSignInScreen.route) },
+                chipType = StandardChipType.Primary
+            )
+        }
+        item {
+            StandardChip(
+                label = stringResource(id = R.string.auth_menu_google_sign_out_item),
+                modifier = modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(Screen.AuthGoogleSignOutScreen.route) },
                 chipType = StandardChipType.Primary
             )
         }
     }
 }
 
-@Preview
+@WearPreviewDevices
 @Composable
 fun AuthMenuScreenPreview() {
     AuthMenuScreen(navigateToRoute = {})

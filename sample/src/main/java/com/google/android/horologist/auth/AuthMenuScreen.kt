@@ -20,17 +20,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.wear.compose.material.ScalingLazyColumn
-import androidx.wear.compose.material.ScalingLazyListState
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
-import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
-import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen

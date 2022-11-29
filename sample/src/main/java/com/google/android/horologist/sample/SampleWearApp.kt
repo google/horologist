@@ -26,8 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import androidx.wear.compose.material.Scaffold
-import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.audio.ui.VolumeScreen
@@ -189,10 +187,14 @@ fun SampleWearApp() {
             )
         }
         wearNav(route = Screen.AuthPKCEScreen.route) {
-            AuthPKCEScreen()
+            AuthPKCESampleScreen(
+                onAuthSuccess = { navController.popBackStack() }
+            )
         }
         wearNav(route = Screen.AuthDeviceGrantScreen.route) {
-            AuthDeviceGrantScreen()
+            AuthDeviceGrantSampleScreen(
+                onAuthSuccess = { navController.popBackStack() }
+            )
         }
         wearNav(route = Screen.AuthPKCEScreen.route) {
             AuthPKCESampleScreen(
@@ -215,7 +217,7 @@ fun SampleWearApp() {
         wearNav(route = Screen.Paging.route) {
             PagingScreen(navController)
         }
-        wearNav(
+        composable(
             route = Screen.PagingItem.route,
             arguments = listOf(
                 navArgument("id") {

@@ -107,15 +107,12 @@ public fun Modifier.rotaryWithFling(
     scrollableState: ScrollableState,
     flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
     rotaryHaptics: RotaryHapticFeedback = rememberRotaryHapticFeedback()
-): Modifier {
-    println("rotaryWithFling $focusRequester")
-    return rotaryHandler(
-        rotaryScrollHandler = RotaryDefaults.rememberFlingHandler(scrollableState, flingBehavior),
-        rotaryHaptics = rotaryHaptics
-    )
-        .focusRequester(focusRequester)
-        .focusable()
-}
+): Modifier = rotaryHandler(
+    rotaryScrollHandler = RotaryDefaults.rememberFlingHandler(scrollableState, flingBehavior),
+    rotaryHaptics = rotaryHaptics
+)
+    .focusRequester(focusRequester)
+    .focusable()
 
 /**
  * A modifier which connects rotary events with scrollable.
@@ -139,15 +136,12 @@ public fun Modifier.rotaryWithScroll(
     focusRequester: FocusRequester,
     scrollableState: ScrollableState,
     rotaryHaptics: RotaryHapticFeedback = rememberRotaryHapticFeedback()
-): Modifier {
-    println("rotaryWithScroll $focusRequester")
-    return rotaryHandler(
-        rotaryScrollHandler = RotaryDefaults.rememberFlingHandler(scrollableState, null),
-        rotaryHaptics = rotaryHaptics
-    )
-        .focusRequester(focusRequester)
-        .focusable()
-}
+): Modifier = rotaryHandler(
+    rotaryScrollHandler = RotaryDefaults.rememberFlingHandler(scrollableState, null),
+    rotaryHaptics = rotaryHaptics
+)
+    .focusRequester(focusRequester)
+    .focusable()
 
 /**
  * A modifier which connects rotary events with scrollable.
@@ -172,15 +166,12 @@ public fun Modifier.rotaryWithSnap(
     focusRequester: FocusRequester,
     rotaryScrollAdapter: RotaryScrollAdapter,
     rotaryHaptics: RotaryHapticFeedback = rememberRotaryHapticFeedback()
-): Modifier {
-    println("rotaryWithSnap $focusRequester")
-    return rotaryHandler(
-        rotaryScrollHandler = RotaryDefaults.rememberSnapHandler(rotaryScrollAdapter),
-        rotaryHaptics = rotaryHaptics
-    )
-        .focusRequester(focusRequester)
-        .focusable()
-}
+): Modifier = rotaryHandler(
+    rotaryScrollHandler = RotaryDefaults.rememberSnapHandler(rotaryScrollAdapter),
+    rotaryHaptics = rotaryHaptics
+)
+    .focusRequester(focusRequester)
+    .focusable()
 
 /**
  * An extension function for creating [RotaryScrollAdapter] from [ScalingLazyListState]

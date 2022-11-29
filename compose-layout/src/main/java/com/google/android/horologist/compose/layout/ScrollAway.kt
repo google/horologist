@@ -73,7 +73,7 @@ public fun Modifier.scrollAway(
 /**
  * Scroll an item vertically in/out of view based on a [ScalingLazyListState].
  * Typically used to scroll a [TimeText] item out of view as the user starts to scroll
- * a [ScalingLazyColumnWithConfig] of items upwards and bring additional items into view.
+ * a [ScalingLazyColumn] of items upwards and bring additional items into view.
  *
  * @param scrollState The [ScalingLazyListState] to used as the basis for the scroll-away.
  * @param itemIndex The item for which the scroll offset will trigger scrolling away.

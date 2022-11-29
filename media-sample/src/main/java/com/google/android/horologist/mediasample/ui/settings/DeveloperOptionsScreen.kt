@@ -31,8 +31,8 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleChip
 import androidx.wear.compose.material.ToggleChipDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnWithConfig
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.OffloadMode
 import com.google.android.horologist.mediasample.ui.navigation.navigateToAudioDebug
@@ -47,7 +47,7 @@ fun DeveloperOptionsScreen(
 ) {
     val uiState by developerOptionsScreenViewModel.uiState.collectAsStateWithLifecycle()
 
-    ScalingLazyColumnWithConfig(
+    ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize(),
         config = config

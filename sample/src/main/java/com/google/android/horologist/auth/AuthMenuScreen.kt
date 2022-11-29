@@ -23,9 +23,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
+import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnWithConfig
-import com.google.android.horologist.compose.layout.TopAlignedDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
 
@@ -33,9 +33,9 @@ import com.google.android.horologist.sample.Screen
 fun AuthMenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
-    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig()
+    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
 ) {
-    ScalingLazyColumnWithConfig(
+    ScalingLazyColumn(
         modifier = modifier,
         config = config
     ) {

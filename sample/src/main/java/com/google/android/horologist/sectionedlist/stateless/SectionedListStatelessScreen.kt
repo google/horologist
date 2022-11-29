@@ -35,14 +35,14 @@ import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.TopAlignedDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
 
 @Composable
 fun SectionedListStatelessScreen(
     modifier: Modifier = Modifier,
-    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig()
+    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
 ) {
     SectionedList(
         config = config,

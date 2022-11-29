@@ -29,8 +29,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
+import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnWithConfig
 import com.google.android.horologist.mediasample.R
 import java.time.Instant
 import java.time.ZoneId
@@ -44,7 +44,7 @@ fun AudioDebugScreen(
 ) {
     val uiState by audioDebugScreenViewModel.uiState.collectAsStateWithLifecycle()
 
-    ScalingLazyColumnWithConfig(
+    ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize(),
         config = config

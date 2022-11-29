@@ -27,9 +27,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.ScalingLazyListScope
 import com.google.android.horologist.composables.Section.Companion.DEFAULT_LOADING_CONTENT_COUNT
+import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnWithConfig
-import com.google.android.horologist.compose.layout.TopAlignedDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 
 /**
@@ -39,7 +39,7 @@ import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistC
 @ExperimentalHorologistComposablesApi
 @Composable
 public fun SectionedList(
-    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig(),
+    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig(),
     modifier: Modifier = Modifier,
     content: SectionedListScope.() -> Unit
 ) {
@@ -61,7 +61,7 @@ public fun SectionedList(
     modifier: Modifier = Modifier,
     sections: List<Section<*>> = emptyList()
 ) {
-    ScalingLazyColumnWithConfig(
+    ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize(),
         config = config

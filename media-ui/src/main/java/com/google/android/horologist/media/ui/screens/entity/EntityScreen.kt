@@ -23,9 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ScalingLazyListScope
 import com.google.android.horologist.base.ui.components.Title
+import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnWithConfig
-import com.google.android.horologist.compose.layout.TopAlignedDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
 /**
@@ -34,13 +34,13 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun EntityScreen(
-    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig(),
+    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig(),
     headerContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     buttonsContent: (@Composable () -> Unit)? = null,
     content: (ScalingLazyListScope.() -> Unit)? = null
 ) {
-    ScalingLazyColumnWithConfig(
+    ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize(),
         config = config
@@ -67,7 +67,7 @@ public fun EntityScreen(
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun <Media> EntityScreen(
-    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig(),
+    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig(),
     headerContent: @Composable () -> Unit,
     mediaList: List<Media>,
     mediaContent: @Composable (media: Media) -> Unit,
@@ -94,7 +94,7 @@ public fun <Media> EntityScreen(
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun <Media> EntityScreen(
-    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig(),
+    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig(),
     entityScreenState: EntityScreenState<Media>,
     headerContent: @Composable () -> Unit,
     loadingContent: ScalingLazyListScope.() -> Unit,

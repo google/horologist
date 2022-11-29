@@ -34,7 +34,7 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.TopAlignedDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
@@ -99,7 +99,7 @@ public fun PlayerLibraryPagerScreen(
             }
 
             1 -> {
-                val config = TopAlignedDefaults.rememberTopAlignedConfig()
+                val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
                 Scaffold(
                     timeText = {
                         timeText(Modifier.scrollAway(config.state, 1, 0.dp))

@@ -33,7 +33,7 @@ import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.TopAlignedDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -41,7 +41,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun <T> PlaylistsScreen(
-    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig(),
+    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig(),
     playlists: List<T>,
     playlistContent: @Composable (playlist: T) -> Unit,
     modifier: Modifier = Modifier
@@ -57,7 +57,7 @@ public fun <T> PlaylistsScreen(
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun <T> PlaylistsScreen(
-    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig(),
+    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig(),
     playlistsScreenState: PlaylistsScreenState<T>,
     playlistContent: @Composable (playlist: T) -> Unit,
     modifier: Modifier = Modifier
@@ -97,7 +97,7 @@ public fun <T> PlaylistsScreen(
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun PlaylistsScreen(
-    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig(),
+    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig(),
     playlistsScreenState: PlaylistsScreenState<PlaylistUiModel>,
     onPlaylistItemClick: (PlaylistUiModel) -> Unit,
     modifier: Modifier = Modifier,

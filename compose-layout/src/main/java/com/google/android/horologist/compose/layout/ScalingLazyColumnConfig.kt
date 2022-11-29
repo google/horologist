@@ -19,17 +19,13 @@
 package com.google.android.horologist.compose.layout
 
 import androidx.compose.foundation.gestures.FlingBehavior
-import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.ScalingLazyColumn
@@ -45,32 +41,6 @@ import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
 import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
-
-public object TopAlignedDefaults {
-    @Composable
-    public fun rememberTopAlignedConfig(rotaryMode: RotaryMode = RotaryMode.Snap): ScalingLazyColumnConfig {
-        val density = LocalDensity.current
-        val configuration = LocalConfiguration.current
-
-        val flingBehavior = ScrollableDefaults.flingBehavior()
-
-        return remember {
-            val screenHeightPx = with(density) { configuration.screenHeightDp.dp.roundToPx() }
-            val topPaddingPx = with(density) { 32.dp.roundToPx() }
-            val topScreenOffsetPx = screenHeightPx / 2 - topPaddingPx
-
-            ScalingLazyColumnConfig(
-                initialScrollPosition = ScalingLazyColumnConfig.ScrollPosition(
-                    index = 0,
-                    offsetPx = topScreenOffsetPx
-                ),
-                anchorType = ScalingLazyListAnchorType.ItemStart,
-                flingBehavior = flingBehavior,
-                rotaryMode = rotaryMode
-            )
-        }
-    }
-}
 
 @Stable
 public class ScalingLazyColumnConfig internal constructor(
@@ -132,9 +102,9 @@ public class ScalingLazyColumnConfig internal constructor(
 }
 
 @Composable
-public fun ScalingLazyColumnWithConfig(
+public fun ScalingLazyColumn(
     modifier: Modifier = Modifier,
-    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig(
+    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig(
         RotaryMode.Fling
     ),
     content: ScalingLazyListScope.() -> Unit

@@ -53,7 +53,7 @@ import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.TopAlignedDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefulScreenViewModel.Recommendation
@@ -65,7 +65,7 @@ import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefu
 fun SectionedListStatefulScreen(
     modifier: Modifier = Modifier,
     viewModel: SectionedListStatefulScreenViewModel = viewModel(),
-    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig()
+    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 

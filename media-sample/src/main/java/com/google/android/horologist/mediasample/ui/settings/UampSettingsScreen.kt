@@ -37,8 +37,8 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnWithConfig
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.navigation.navigateToDeveloperOptions
 
@@ -49,7 +49,7 @@ fun UampSettingsScreen(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    ScalingLazyColumnWithConfig(
+    ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize(),
         config = config

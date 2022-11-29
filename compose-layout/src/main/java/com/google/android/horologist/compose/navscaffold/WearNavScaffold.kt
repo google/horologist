@@ -54,7 +54,7 @@ import androidx.wear.compose.navigation.currentBackStackEntryAsState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.compose.focus.FocusControl
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.TopAlignedDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
 
 /**
  * A Navigation and Scroll aware [Scaffold].
@@ -251,7 +251,7 @@ public fun NavGraphBuilder.scalingLazyColumn(
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
     config: @Composable () -> ScalingLazyColumnConfig = {
-        TopAlignedDefaults.rememberTopAlignedConfig(
+        ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig(
             ScalingLazyColumnConfig.RotaryMode.Fling
         )
     },

@@ -6,7 +6,6 @@ package com.google.android.horologist.compose.focus {
     method @androidx.compose.runtime.Composable public static void OnFocusChange(kotlin.jvm.functions.Function2<? super kotlinx.coroutines.CoroutineScope,? super java.lang.Boolean,kotlin.Unit> onFocusChanged);
     method @androidx.compose.runtime.Composable public static void RequestFocusWhenActive(androidx.compose.ui.focus.FocusRequester focusRequester);
     method @androidx.compose.runtime.Composable public static androidx.compose.ui.focus.FocusRequester rememberActiveFocusRequester();
-    method @androidx.compose.runtime.Composable public static androidx.compose.ui.focus.FocusRequester rememberFocusRequester();
   }
 
 }
@@ -79,6 +78,15 @@ package com.google.android.horologist.compose.layout {
     property public final int offsetPx;
   }
 
+  public final class ScalingLazyColumnConfigDefaults {
+    method @androidx.compose.runtime.Composable public com.google.android.horologist.compose.layout.ScalingLazyColumnConfig rememberTopAlignedConfig(optional com.google.android.horologist.compose.layout.ScalingLazyColumnConfig.RotaryMode rotaryMode);
+    field public static final com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults INSTANCE;
+  }
+
+  public final class ScalingLazyColumnConfigKt {
+    method @androidx.compose.runtime.Composable public static void ScalingLazyColumn(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.compose.layout.ScalingLazyColumnConfig config, kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListScope,kotlin.Unit> content);
+  }
+
   public final class ScrollAwayKt {
     method @Deprecated public static androidx.compose.ui.Modifier scrollAway(androidx.compose.ui.Modifier, androidx.compose.foundation.ScrollState scrollState, optional float offset);
     method @Deprecated public static androidx.compose.ui.Modifier scrollAway(androidx.compose.ui.Modifier, androidx.compose.foundation.lazy.LazyListState scrollState, optional int itemIndex, optional float offset);
@@ -88,15 +96,6 @@ package com.google.android.horologist.compose.layout {
   public final class StateUtils {
     method @Deprecated @androidx.compose.runtime.Composable public <T> androidx.compose.runtime.State<T> rememberStateWithLifecycle(kotlinx.coroutines.flow.StateFlow<? extends T> flow, optional androidx.lifecycle.Lifecycle lifecycle, optional androidx.lifecycle.Lifecycle.State minActiveState);
     field public static final com.google.android.horologist.compose.layout.StateUtils INSTANCE;
-  }
-
-  public final class TopAlignedDefaults {
-    method @androidx.compose.runtime.Composable public com.google.android.horologist.compose.layout.ScalingLazyColumnConfig rememberTopAlignedConfig(optional com.google.android.horologist.compose.layout.ScalingLazyColumnConfig.RotaryMode rotaryMode);
-    field public static final com.google.android.horologist.compose.layout.TopAlignedDefaults INSTANCE;
-  }
-
-  public final class TopAlignedDefaultsKt {
-    method @androidx.compose.runtime.Composable public static void ScalingLazyColumnWithConfig(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.compose.layout.ScalingLazyColumnConfig config, kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListScope,kotlin.Unit> content);
   }
 
 }

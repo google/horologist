@@ -57,7 +57,7 @@ import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.TopAlignedDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
 import com.google.android.horologist.compose.rotaryinput.rememberDisabledHaptic
 import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticFeedback
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
@@ -72,7 +72,7 @@ import kotlin.random.Random
 fun RotaryMenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
-    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig()
+    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
 ) {
     SectionedList(
         config = config,

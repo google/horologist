@@ -32,10 +32,13 @@ import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.auth.AuthMenuScreen
+import com.google.android.horologist.auth.googlesignin.GoogleSignInPromptSampleScreen
 import com.google.android.horologist.auth.googlesignin.GoogleSignInSampleScreen
 import com.google.android.horologist.auth.googlesignin.GoogleSignOutScreen
 import com.google.android.horologist.auth.oauth.devicegrant.AuthDeviceGrantSampleScreen
+import com.google.android.horologist.auth.oauth.devicegrant.AuthDeviceGrantSignInPromptScreen
 import com.google.android.horologist.auth.oauth.pkce.AuthPKCESampleScreen
+import com.google.android.horologist.auth.oauth.pkce.AuthPKCESignInPromptScreen
 import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
@@ -165,19 +168,28 @@ fun SampleWearApp() {
             }
             composable(route = Screen.AuthMenuScreen.route) {
                 AuthMenuScreen(
-                    modifier = Modifier.fillMaxSize(),
-                    navigateToRoute = { route -> navController.navigate(route) }
+                    navigateToRoute = { route -> navController.navigate(route) },
+                    modifier = Modifier.fillMaxSize()
                 )
+            }
+            composable(route = Screen.AuthPKCESignInPromptScreen.route) {
+                AuthPKCESignInPromptScreen(navController = navController)
             }
             composable(route = Screen.AuthPKCEScreen.route) {
                 AuthPKCESampleScreen(
                     onAuthSuccess = { navController.popBackStack() }
                 )
             }
+            composable(route = Screen.AuthDeviceGrantSignInPromptScreen.route) {
+                AuthDeviceGrantSignInPromptScreen(navController = navController)
+            }
             composable(route = Screen.AuthDeviceGrantScreen.route) {
                 AuthDeviceGrantSampleScreen(
                     onAuthSuccess = { navController.popBackStack() }
                 )
+            }
+            composable(route = Screen.GoogleSignInPromptSampleScreen.route) {
+                GoogleSignInPromptSampleScreen(navController = navController)
             }
             composable(route = Screen.AuthGoogleSignInScreen.route) {
                 GoogleSignInSampleScreen(
@@ -188,7 +200,7 @@ fun SampleWearApp() {
                 GoogleSignOutScreen(navController = navController)
             }
             composable(route = Screen.Paging.route) {
-                PagingScreen(navController)
+                PagingScreen(navController = navController)
             }
             composable(
                 route = Screen.PagingItem.route,

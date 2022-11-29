@@ -19,15 +19,17 @@ package com.google.android.horologist.auth
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
-import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
+import com.google.android.horologist.base.ui.components.Title
+import com.google.android.horologist.composables.SectionedList
+import com.google.android.horologist.composables.SectionedListScope
+import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
 import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
 import com.google.android.horologist.compose.tools.WearPreviewDevices
@@ -36,49 +38,91 @@ import com.google.android.horologist.sample.Screen
 
 @Composable
 fun AuthMenuScreen(
-    modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
+    modifier: Modifier = Modifier,
     scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
     focusRequester: FocusRequester = remember { FocusRequester() }
 ) {
-    ScalingLazyColumn(
+    SectionedList(
+        focusRequester = focusRequester,
+        scalingLazyListState = scalingLazyListState,
         modifier = modifier
             .rotaryWithSnap(
                 focusRequester,
                 scalingLazyListState.toRotaryScrollAdapter()
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        state = scalingLazyListState
+            )
     ) {
-        item {
+        authPKCESection(navigateToRoute)
+
+        authDeviceGrantSection(navigateToRoute)
+
+        googleSignInSection(navigateToRoute)
+    }
+
+    RequestFocusWhenActive(focusRequester)
+}
+
+private fun SectionedListScope.authPKCESection(navigateToRoute: (String) -> Unit) {
+    section(
+        listOf(
+            Pair(R.string.auth_menu_oauth_pkce_item, Screen.AuthPKCESignInPromptScreen.route)
+        )
+    ) {
+        header {
+            Title(stringResource(id = R.string.auth_menu_oauth_pkce_header))
+        }
+        loaded { (textId, route) ->
             StandardChip(
-                label = stringResource(id = R.string.auth_menu_oauth_pkce_item),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.AuthPKCEScreen.route) },
+                label = stringResource(id = textId),
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(route) },
                 chipType = StandardChipType.Primary
             )
         }
-        item {
+    }
+}
+
+private fun SectionedListScope.authDeviceGrantSection(navigateToRoute: (String) -> Unit) {
+    section(
+        listOf(
+            Pair(
+                R.string.auth_menu_oauth_device_grant_item,
+                Screen.AuthDeviceGrantSignInPromptScreen.route
+            )
+        )
+    ) {
+        header {
+            Title(stringResource(id = R.string.auth_menu_oauth_device_grant_header))
+        }
+        loaded { (textId, route) ->
             StandardChip(
-                label = stringResource(id = R.string.auth_menu_oauth_device_grant_item),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.AuthDeviceGrantScreen.route) },
+                label = stringResource(id = textId),
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(route) },
                 chipType = StandardChipType.Primary
             )
         }
-        item {
-            StandardChip(
-                label = stringResource(id = R.string.auth_menu_google_sign_in_item),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.AuthGoogleSignInScreen.route) },
-                chipType = StandardChipType.Primary
-            )
+    }
+}
+
+private fun SectionedListScope.googleSignInSection(navigateToRoute: (String) -> Unit) {
+    section(
+        listOf(
+            Pair(
+                R.string.auth_menu_google_sign_in_item,
+                Screen.GoogleSignInPromptSampleScreen.route
+            ),
+            Pair(R.string.auth_menu_google_sign_out_item, Screen.AuthGoogleSignOutScreen.route)
+        )
+    ) {
+        header {
+            Title(stringResource(id = R.string.auth_menu_google_sign_in_header))
         }
-        item {
+        loaded { (textId, route) ->
             StandardChip(
-                label = stringResource(id = R.string.auth_menu_google_sign_out_item),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.AuthGoogleSignOutScreen.route) },
+                label = stringResource(id = textId),
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(route) },
                 chipType = StandardChipType.Primary
             )
         }

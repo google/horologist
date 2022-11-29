@@ -37,9 +37,9 @@
   <string name="horologist_playlist_download_button_cancel">Atšaukti</string>
   <string name="horologist_playlist_download_button_download_content_description">Galima atsisiųsti</string>
   <string name="horologist_playlist_download_progress_button_cancel_content_description">Atsisiunčiama</string>
-  <string name="horologist_playlist_download_progress_button_cancel_action_label">atšaukti</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">Atšaukti</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Atsisiųsta</string>
-  <string name="horologist_playlist_download_button_remove_download_action_label">pašalinti atsisiuntimą</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">Pašalinti atsisiuntimą</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Maišyti</string>
   <string name="horologist_playlist_download_button_play_content_description">Leisti</string>
   <string name="horologist_playlist_download_media_chip_download_content_description">%s Atsisiunčiama</string>

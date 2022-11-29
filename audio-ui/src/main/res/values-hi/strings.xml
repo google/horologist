@@ -21,6 +21,8 @@
   <string name="horologist_volume_screen_not_connected_state">कनेक्ट नहीं है</string>
   <string name="horologist_volume_screen_change_audio_output">ऑडियो आउटपुट बदलें</string>
   <string name="horologist_speaker_name">स्मार्टवॉच का स्पीकर</string>
+  <string name="horologist_output_none">कुछ नहीं</string>
   <string name="horologist_set_volume_content_description">आवाज़ सेट करें</string>
   <string name="horologist_audio_output_content_description">ऑडियो आउटपुट</string>
+  <string name="horologist_volume_screen_volume_label">आवाज़</string>
 </resources>

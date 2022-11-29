@@ -37,9 +37,9 @@
   <string name="horologist_playlist_download_button_cancel">Avbryt</string>
   <string name="horologist_playlist_download_button_download_content_description">Nedlasting tilgjengelig</string>
   <string name="horologist_playlist_download_progress_button_cancel_content_description">Laster ned</string>
-  <string name="horologist_playlist_download_progress_button_cancel_action_label">avbryt</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">Avbryt</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Lastet ned</string>
-  <string name="horologist_playlist_download_button_remove_download_action_label">fjern nedlastingen</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">Fjern nedlastingen</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Spill i tilfeldig rekkefølge</string>
   <string name="horologist_playlist_download_button_play_content_description">Spill av</string>
   <string name="horologist_playlist_download_media_chip_download_content_description">%s lastes ned</string>

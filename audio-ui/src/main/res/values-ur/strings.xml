@@ -21,6 +21,8 @@
   <string name="horologist_volume_screen_not_connected_state">منسلک نہیں ہے</string>
   <string name="horologist_volume_screen_change_audio_output">آڈیو آؤٹ پٹ تبدیل کریں</string>
   <string name="horologist_speaker_name">اسپیکر دیکھیں</string>
+  <string name="horologist_output_none">کوئی نہیں</string>
   <string name="horologist_set_volume_content_description">والیوم سیٹ کریں</string>
   <string name="horologist_audio_output_content_description">آڈیو آؤٹ پٹ</string>
+  <string name="horologist_volume_screen_volume_label">والیوم</string>
 </resources>

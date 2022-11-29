@@ -21,6 +21,8 @@
   <string name="horologist_volume_screen_not_connected_state">ਕਨੈਕਟ ਨਹੀਂ ਹੈ</string>
   <string name="horologist_volume_screen_change_audio_output">ਆਡੀਓ ਆਊਟਪੁੱਟ ਬਦਲੋ</string>
   <string name="horologist_speaker_name">ਘੜੀ ਦਾ ਸਪੀਕਰ</string>
+  <string name="horologist_output_none">ਕੋਈ ਨਹੀਂ</string>
   <string name="horologist_set_volume_content_description">ਅਵਾਜ਼ ਸੈੱਟ ਕਰੋ</string>
   <string name="horologist_audio_output_content_description">ਆਡੀਓ ਆਊਟਪੁੱਟ</string>
+  <string name="horologist_volume_screen_volume_label">ਅਵਾਜ਼</string>
 </resources>

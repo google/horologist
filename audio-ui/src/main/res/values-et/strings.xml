@@ -21,6 +21,8 @@
   <string name="horologist_volume_screen_not_connected_state">Ei ole ühendatud</string>
   <string name="horologist_volume_screen_change_audio_output">Heliväljundi muutmine</string>
   <string name="horologist_speaker_name">Kella kõlar</string>
+  <string name="horologist_output_none">Pole</string>
   <string name="horologist_set_volume_content_description">Helitugevuse määramine</string>
   <string name="horologist_audio_output_content_description">Heliväljund</string>
+  <string name="horologist_volume_screen_volume_label">Helitugevus</string>
 </resources>

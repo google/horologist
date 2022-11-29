@@ -37,9 +37,9 @@
   <string name="horologist_playlist_download_button_cancel">Atcelt</string>
   <string name="horologist_playlist_download_button_download_content_description">Pieejama lejupielāde</string>
   <string name="horologist_playlist_download_progress_button_cancel_content_description">Notiek lejupielāde…</string>
-  <string name="horologist_playlist_download_progress_button_cancel_action_label">atcelt</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">Atcelt</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Lejupielādēts</string>
-  <string name="horologist_playlist_download_button_remove_download_action_label">noņemt lejupielādi</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">Noņemt lejupielādi</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Atskaņot jauktā secībā</string>
   <string name="horologist_playlist_download_button_play_content_description">Atskaņot</string>
   <string name="horologist_playlist_download_media_chip_download_content_description">%s: notiek lejupielāde…</string>

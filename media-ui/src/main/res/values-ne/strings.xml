@@ -39,10 +39,10 @@
   <string name="horologist_playlist_download_progress_button_cancel_content_description">डाउनलोड गरिँदै छ</string>
   <string name="horologist_playlist_download_progress_button_cancel_action_label">रद्द गर्नुहोस्</string>
   <string name="horologist_playlist_download_button_download_done_content_description">डाउनलोड गरिएको छ</string>
-  <string name="horologist_playlist_download_button_remove_download_action_label">डाउनलोड हटाउनुहोस्</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">डाउनलोड गरिएको प्लेलिस्ट हटाउनुहोस्</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">सफल मोड</string>
   <string name="horologist_playlist_download_button_play_content_description">प्ले गर्नुहोस्</string>
   <string name="horologist_playlist_download_media_chip_download_content_description">%s डाउनलोड गरिँदै छ</string>
-  <string name="horologist_playlist_download_download_progress_known_size">%2$s मध्ये %1$.0f%%</string>
+  <string name="horologist_playlist_download_download_progress_known_size">%2$s को %1$.0f%%</string>
   <string name="horologist_playlist_download_download_progress_waiting">प्रतीक्षा गरिँदै छ…</string>
 </resources>

@@ -81,7 +81,6 @@ fun UampWearApp(
     UampTheme {
         MediaPlayerScaffold(
             playerScreen = {
-                println("Player")
                 UampMediaPlayerScreen(
                     modifier = Modifier.fillMaxSize(),
                     mediaPlayerScreenViewModel = hiltViewModel(),
@@ -93,14 +92,12 @@ fun UampWearApp(
             },
             libraryScreen = { columnConfig ->
                 if (appState.streamingMode == true) {
-                    println("Streaming")
                     UampStreamingBrowseScreen(
                         onPlaylistsClick = { navController.navigateToCollections() },
                         onSettingsClick = { navController.navigateToSettings() },
                         config = columnConfig
                     )
                 } else {
-                    println("Browse")
                     UampBrowseScreen(
                         uampBrowseScreenViewModel = hiltViewModel(),
                         onDownloadItemClick = {

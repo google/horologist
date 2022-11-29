@@ -78,7 +78,6 @@ public fun PlayerLibraryPagerScreen(
     ) { page ->
         when (page) {
             0 -> {
-                println("Player Screen")
                 val focusRequester =
                     rememberActiveFocusRequester()
 

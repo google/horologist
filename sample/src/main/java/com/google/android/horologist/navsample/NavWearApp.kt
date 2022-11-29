@@ -28,7 +28,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Chip
-import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.VignettePosition
 import androidx.wear.compose.material.dialog.Alert
@@ -39,7 +38,7 @@ import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
-import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
+import com.google.android.horologist.compose.navscaffold.scalingLazyColumn
 import com.google.android.horologist.compose.navscaffold.scrollStateComposable
 import com.google.android.horologist.compose.navscaffold.wearNavComposable
 import com.google.android.horologist.compose.pager.PagerScreen
@@ -80,14 +79,8 @@ fun NavWearApp(
         },
         state = navState
     ) {
-        scalingLazyColumnComposable(
-            NavScreen.Menu.route,
-            scrollStateBuilder = {
-                ScalingLazyListState(
-                    initialCenterItemIndex = 0,
-                    initialCenterItemScrollOffset = 50
-                )
-            }
+        scalingLazyColumn(
+            NavScreen.Menu.route
         ) {
             NavMenuScreen(
                 navigateToRoute = { route -> navController.navigate(route) },
@@ -95,9 +88,8 @@ fun NavWearApp(
             )
         }
 
-        scalingLazyColumnComposable(
-            NavScreen.ScalingLazyColumn.route,
-            scrollStateBuilder = { ScalingLazyListState() }
+        scalingLazyColumn(
+            NavScreen.ScalingLazyColumn.route
         ) {
             it.viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.ScrollAway
             it.viewModel.vignettePosition =

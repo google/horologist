@@ -21,23 +21,20 @@ package com.google.android.horologist.media.ui.screens.playerlibrarypager
 import androidx.compose.foundation.focusable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
-import androidx.wear.compose.material.ScalingLazyListState
-import androidx.wear.compose.material.rememberScalingLazyListState
 import androidx.wear.compose.material.scrollAway
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
-import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
+import com.google.android.horologist.compose.layout.TopAlignedDefaults
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
@@ -56,7 +53,7 @@ public fun PlayerLibraryPagerScreen(
     volumeState: () -> VolumeState,
     timeText: @Composable (Modifier) -> Unit,
     playerScreen: @Composable () -> Unit,
-    libraryScreen: @Composable (ScalingLazyListState) -> Unit,
+    libraryScreen: @Composable (ScalingLazyColumnConfig) -> Unit,
     backStack: NavBackStackEntry,
     modifier: Modifier = Modifier
 ) {
@@ -81,6 +78,7 @@ public fun PlayerLibraryPagerScreen(
     ) { page ->
         when (page) {
             0 -> {
+                println("Player Screen")
                 val focusRequester =
                     rememberActiveFocusRequester()
 
@@ -101,18 +99,18 @@ public fun PlayerLibraryPagerScreen(
             }
 
             1 -> {
-                val state = rememberScalingLazyListState()
+                val config = TopAlignedDefaults.rememberTopAlignedConfig()
                 Scaffold(
                     timeText = {
-                        timeText(Modifier.scrollAway(state, 1, 0.dp))
+                        timeText(Modifier.scrollAway(config.state, 1, 0.dp))
                     },
                     positionIndicator = {
                         PositionIndicator(
-                            scalingLazyListState = state
+                            scalingLazyListState = config.state
                         )
                     }
                 ) {
-                    libraryScreen(state)
+                    libraryScreen(config)
                 }
             }
         }

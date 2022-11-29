@@ -21,18 +21,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.wear.compose.material.ScalingLazyListState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
 import com.google.android.horologist.media.ui.screens.browse.PlaylistDownloadBrowseScreen
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 import com.google.android.horologist.mediasample.R
 
 @Composable
 fun UampBrowseScreen(
+    config: ScalingLazyColumnConfig,
     uampBrowseScreenViewModel: UampBrowseScreenViewModel,
     onDownloadItemClick: (PlaylistDownloadUiModel) -> Unit,
     onPlaylistsClick: () -> Unit,
     onSettingsClick: () -> Unit,
-    scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier
 ) {
     val uiState by uampBrowseScreenViewModel.uiState.collectAsStateWithLifecycle()
@@ -45,7 +45,7 @@ fun UampBrowseScreen(
         },
         onPlaylistsClick = onPlaylistsClick,
         onSettingsClick = onSettingsClick,
-        scalingLazyListState = scalingLazyListState,
+        config = config,
         modifier = modifier,
         onDownloadItemInProgressClickActionLabel = stringResource(id = R.string.browse_download_cancel_action_label)
     )

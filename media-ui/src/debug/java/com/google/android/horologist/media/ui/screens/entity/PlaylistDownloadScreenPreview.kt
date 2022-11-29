@@ -22,7 +22,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
@@ -40,8 +39,7 @@ fun PlaylistDownloadScreenPreviewLoading() {
         onDownloadItemClick = { },
         onDownloadItemInProgressClick = { },
         onShuffleButtonClick = { },
-        onPlayButtonClick = { },
-        scalingLazyListState = rememberScalingLazyListState()
+        onPlayButtonClick = { }
     )
 }
 
@@ -60,7 +58,6 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloaded() {
         onDownloadItemInProgressClick = { },
         onShuffleButtonClick = { },
         onPlayButtonClick = { },
-        scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
             tintColor = Color.Blue
@@ -83,7 +80,6 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
         onDownloadItemInProgressClick = { },
         onShuffleButtonClick = { },
         onPlayButtonClick = { },
-        scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
             tintColor = Color.Blue
@@ -106,7 +102,6 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloaded() {
         onDownloadItemInProgressClick = { },
         onShuffleButtonClick = { },
         onPlayButtonClick = { },
-        scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
             tintColor = Color.Blue
@@ -129,7 +124,6 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize
         onDownloadItemInProgressClick = { },
         onShuffleButtonClick = { },
         onPlayButtonClick = { },
-        scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
             tintColor = Color.Blue
@@ -152,7 +146,6 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting() {
         onDownloadItemInProgressClick = { },
         onShuffleButtonClick = { },
         onPlayButtonClick = { },
-        scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
             tintColor = Color.Blue
@@ -175,7 +168,6 @@ fun PlaylistDownloadScreenPreviewLoadedFullyDownloaded() {
         onDownloadItemInProgressClick = { },
         onShuffleButtonClick = { },
         onPlayButtonClick = { },
-        scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.MusicNote,
             tintColor = Color.Blue
@@ -194,8 +186,7 @@ fun PlaylistDownloadScreenPreviewFailed() {
         onDownloadItemClick = { },
         onDownloadItemInProgressClick = { },
         onShuffleButtonClick = { },
-        onPlayButtonClick = { },
-        scalingLazyListState = rememberScalingLazyListState()
+        onPlayButtonClick = { }
     )
 }
 

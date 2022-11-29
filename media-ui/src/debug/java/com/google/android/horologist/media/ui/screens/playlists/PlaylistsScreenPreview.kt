@@ -22,7 +22,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
@@ -53,7 +52,6 @@ fun PlaylistsScreenPreview() {
             }
         ),
         onPlaylistItemClick = { },
-        scalingLazyListState = rememberScalingLazyListState(),
         playlistItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.FeaturedPlayList,
             tintColor = Color.Green
@@ -66,8 +64,7 @@ fun PlaylistsScreenPreview() {
 fun PlaylistsScreenPreviewLoading() {
     PlaylistsScreen(
         playlistsScreenState = PlaylistsScreenState.Loading(),
-        onPlaylistItemClick = { },
-        scalingLazyListState = rememberScalingLazyListState()
+        onPlaylistItemClick = { }
     )
 }
 
@@ -76,8 +73,7 @@ fun PlaylistsScreenPreviewLoading() {
 fun PlaylistsScreenPreviewFailed() {
     PlaylistsScreen(
         playlistsScreenState = PlaylistsScreenState.Failed(),
-        onPlaylistItemClick = { },
-        scalingLazyListState = rememberScalingLazyListState()
+        onPlaylistItemClick = { }
     )
 }
 
@@ -96,7 +92,6 @@ fun PlaylistsScreenPreviewCustomLayout() {
                 secondaryLabel = status,
                 chipType = StandardChipType.Primary
             )
-        },
-        scalingLazyListState = rememberScalingLazyListState()
+        }
     )
 }

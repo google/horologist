@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.compose.focus
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
@@ -91,11 +90,7 @@ public fun OnFocusChange(onFocusChanged: CoroutineScope.(Boolean) -> Unit) {
 @Composable
 public fun RequestFocusWhenActive(focusRequester: FocusRequester) {
     OnFocusChange {
-        try {
-            if (it) focusRequester.requestFocus()
-        } catch (ise: IllegalStateException) {
-            Log.e("FocusNode", ise.toString())
-        }
+        if (it) focusRequester.requestFocus()
     }
 }
 
@@ -108,7 +103,7 @@ public fun RequestFocusWhenActive(focusRequester: FocusRequester) {
  * Composable that is part of the composition.
  */
 @Composable
-public fun rememberActiveFocusRequester() =
+public fun rememberActiveFocusRequester(): FocusRequester =
     remember { FocusRequester() }.also { RequestFocusWhenActive(it) }
 
 /**

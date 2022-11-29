@@ -19,19 +19,19 @@ package com.google.android.horologist.mediasample.ui.entity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.wear.compose.material.ScalingLazyListState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
 import com.google.android.horologist.media.ui.screens.entity.PlaylistStreamingScreen
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
 @Composable
 fun UampStreamingPlaylistScreen(
+    config: ScalingLazyColumnConfig,
     playlistName: String,
     viewModel: UampStreamingPlaylistScreenViewModel,
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
     onShuffleClick: (PlaylistUiModel?) -> Unit,
-    onPlayClick: (PlaylistUiModel?) -> Unit,
-    scalingLazyListState: ScalingLazyListState
+    onPlayClick: (PlaylistUiModel?) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -50,6 +50,6 @@ fun UampStreamingPlaylistScreen(
             viewModel.play(it.id)
             onDownloadItemClick(it)
         },
-        scalingLazyListState = scalingLazyListState
+        config = config
     )
 }

@@ -19,20 +19,13 @@ package com.google.android.horologist.media.ui.screens.entity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.AutoCenteringParams
-import androidx.wear.compose.material.ScalingLazyColumn
-import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingLazyListScope
-import androidx.wear.compose.material.ScalingLazyListState
-import androidx.wear.compose.material.ScalingParams
 import com.google.android.horologist.base.ui.components.Title
-import com.google.android.horologist.compose.focus.RequestFocusWhenActive
-import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
-import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
+import com.google.android.horologist.compose.layout.ScalingLazyColumnWithConfig
+import com.google.android.horologist.compose.layout.TopAlignedDefaults
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
 /**
@@ -41,23 +34,16 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun EntityScreen(
+    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig(),
     headerContent: @Composable () -> Unit,
-    scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
-    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
-    autoCentering: AutoCenteringParams? = AutoCenteringParams(),
     buttonsContent: (@Composable () -> Unit)? = null,
     content: (ScalingLazyListScope.() -> Unit)? = null
 ) {
-    val focusRequester = rememberActiveFocusRequester()
-
-    ScalingLazyColumn(
+    ScalingLazyColumnWithConfig(
         modifier = modifier
-            .fillMaxSize()
-            .rotaryWithFling(focusRequester, scalingLazyListState),
-        state = scalingLazyListState,
-        scalingParams = scalingParams,
-        autoCentering = autoCentering
+            .fillMaxSize(),
+        config = config
     ) {
         item {
             headerContent()
@@ -81,21 +67,17 @@ public fun EntityScreen(
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun <Media> EntityScreen(
+    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig(),
     headerContent: @Composable () -> Unit,
     mediaList: List<Media>,
     mediaContent: @Composable (media: Media) -> Unit,
-    scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
-    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
-    autoCentering: AutoCenteringParams? = AutoCenteringParams(),
     buttonsContent: (@Composable () -> Unit)? = null
 ) {
     EntityScreen(
         headerContent = headerContent,
-        scalingLazyListState = scalingLazyListState,
+        config = config,
         modifier = modifier,
-        scalingParams = scalingParams,
-        autoCentering = autoCentering,
         buttonsContent = buttonsContent,
         content = {
             items(count = mediaList.size) { index ->
@@ -112,14 +94,12 @@ public fun <Media> EntityScreen(
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun <Media> EntityScreen(
+    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig(),
     entityScreenState: EntityScreenState<Media>,
     headerContent: @Composable () -> Unit,
     loadingContent: ScalingLazyListScope.() -> Unit,
     mediaContent: @Composable (media: Media) -> Unit,
-    scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
-    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
-    autoCentering: AutoCenteringParams? = AutoCenteringParams(),
     buttonsContent: (@Composable () -> Unit)? = null,
     failedContent: (@Composable () -> Unit)? = null
 ) {
@@ -127,10 +107,8 @@ public fun <Media> EntityScreen(
         is EntityScreenState.Loading -> {
             EntityScreen(
                 headerContent = headerContent,
-                scalingLazyListState = scalingLazyListState,
+                config = config,
                 modifier = modifier,
-                scalingParams = scalingParams,
-                autoCentering = autoCentering,
                 buttonsContent = buttonsContent,
                 content = loadingContent
             )
@@ -138,24 +116,20 @@ public fun <Media> EntityScreen(
 
         is EntityScreenState.Loaded -> {
             EntityScreen(
+                config = config,
                 headerContent = headerContent,
                 mediaList = entityScreenState.mediaList,
                 mediaContent = mediaContent,
-                scalingLazyListState = scalingLazyListState,
                 modifier = modifier,
-                scalingParams = scalingParams,
-                autoCentering = autoCentering,
                 buttonsContent = buttonsContent
             )
         }
 
         is EntityScreenState.Failed -> {
             EntityScreen(
+                config = config,
                 headerContent = headerContent,
-                scalingLazyListState = scalingLazyListState,
                 modifier = modifier,
-                autoCentering = autoCentering,
-                scalingParams = scalingParams,
                 buttonsContent = buttonsContent,
                 content = failedContent?.let {
                     { item { failedContent() } }

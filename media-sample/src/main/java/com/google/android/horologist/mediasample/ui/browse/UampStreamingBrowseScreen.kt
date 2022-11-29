@@ -20,22 +20,21 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlaylistPlay
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.wear.compose.material.ScalingLazyListState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreen
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreenPlaylistsSectionButton
 import com.google.android.horologist.mediasample.R
 
 @Composable
 fun UampStreamingBrowseScreen(
+    config: ScalingLazyColumnConfig,
     onPlaylistsClick: () -> Unit,
     onSettingsClick: () -> Unit,
-    scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier
 ) {
     BrowseScreen(
-        scalingLazyListState = scalingLazyListState,
+        config = config,
         modifier = modifier
     ) {
         this.playlistsSection(

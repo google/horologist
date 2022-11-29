@@ -34,7 +34,6 @@ import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
-import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
 import com.google.android.horologist.compose.layout.TopAlignedDefaults
 import com.google.android.horologist.compose.tools.WearPreviewDevices
@@ -46,7 +45,6 @@ fun SectionedListStatelessScreen(
     config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig()
 ) {
     SectionedList(
-        focusRequester = rememberActiveFocusRequester(),
         config = config,
         modifier = modifier
     ) {

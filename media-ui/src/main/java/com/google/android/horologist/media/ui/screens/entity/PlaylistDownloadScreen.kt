@@ -46,7 +46,6 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.ChipDefaults
@@ -54,9 +53,6 @@ import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ProgressIndicatorDefaults
-import androidx.wear.compose.material.ScalingLazyColumnDefaults
-import androidx.wear.compose.material.ScalingLazyListState
-import androidx.wear.compose.material.ScalingParams
 import com.google.android.horologist.base.ui.components.StandardButton
 import com.google.android.horologist.base.ui.components.StandardButtonSize
 import com.google.android.horologist.base.ui.components.StandardButtonType
@@ -65,6 +61,8 @@ import com.google.android.horologist.base.ui.components.StandardChipIconWithProg
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
 import com.google.android.horologist.composables.PlaceholderChip
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
+import com.google.android.horologist.compose.layout.TopAlignedDefaults
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress
@@ -79,6 +77,7 @@ import com.google.android.horologist.media.ui.util.ifNan
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun PlaylistDownloadScreen(
+    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig(),
     playlistName: String,
     playlistDownloadScreenState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
     onDownloadButtonClick: (PlaylistUiModel) -> Unit,
@@ -87,10 +86,7 @@ public fun PlaylistDownloadScreen(
     onDownloadItemInProgressClick: (DownloadMediaUiModel) -> Unit,
     onShuffleButtonClick: (PlaylistUiModel) -> Unit,
     onPlayButtonClick: (PlaylistUiModel) -> Unit,
-    scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
-    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
-    autoCentering: AutoCenteringParams? = AutoCenteringParams(),
     onDownloadCompletedButtonClick: ((PlaylistUiModel) -> Unit)? = null,
     defaultMediaTitle: String = "",
     downloadItemArtworkPlaceholder: Painter? = null,
@@ -107,6 +103,7 @@ public fun PlaylistDownloadScreen(
         }
 
     EntityScreen(
+        config = config,
         entityScreenState = entityScreenState,
         headerContent = { DefaultEntityScreenHeader(title = playlistName) },
         loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },
@@ -120,10 +117,7 @@ public fun PlaylistDownloadScreen(
                 onDownloadItemInProgressClickActionLabel = onDownloadItemInProgressClickActionLabel
             )
         },
-        scalingLazyListState = scalingLazyListState,
         modifier = modifier,
-        scalingParams = scalingParams,
-        autoCentering = autoCentering,
         buttonsContent = {
             ButtonsContent(
                 state = playlistDownloadScreenState,

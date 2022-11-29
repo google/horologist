@@ -16,30 +16,21 @@
 
 @file:OptIn(
     ExperimentalHorologistComposablesApi::class,
-    ExperimentalHorologistComposeLayoutApi::class
+    ExperimentalHorologistComposeLayoutApi::class,
+    ExperimentalHorologistComposablesApi::class
 )
 
 package com.google.android.horologist.composables
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.AutoCenteringParams
-import androidx.wear.compose.material.ScalingLazyColumn
-import androidx.wear.compose.material.ScalingLazyColumnDefaults
-import androidx.wear.compose.material.ScalingLazyListAnchorType
 import androidx.wear.compose.material.ScalingLazyListScope
-import androidx.wear.compose.material.ScalingLazyListState
-import androidx.wear.compose.material.ScalingParams
-import androidx.wear.compose.material.Text
 import com.google.android.horologist.composables.Section.Companion.DEFAULT_LOADING_CONTENT_COUNT
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
+import com.google.android.horologist.compose.layout.ScalingLazyColumnWithConfig
+import com.google.android.horologist.compose.layout.TopAlignedDefaults
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
-import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
-
 
 /**
  * A list component that is split into [sections][Section].
@@ -48,77 +39,33 @@ import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 @ExperimentalHorologistComposablesApi
 @Composable
 public fun SectionedList(
-    focusRequester: FocusRequester,
+    config: ScalingLazyColumnConfig = TopAlignedDefaults.rememberTopAlignedConfig(),
+    modifier: Modifier = Modifier,
+    content: SectionedListScope.() -> Unit
+) {
+    SectionedList(
+        config = config,
+        modifier = modifier,
+        sections = SectionedListScope().apply(content).sections
+    )
+}
+
+/**
+ * A list component that is split into [sections][Section].
+ * Each [Section] has its own [state][Section.State] controlled individually.
+ */
+@ExperimentalHorologistComposablesApi
+@Composable
+public fun SectionedList(
     config: ScalingLazyColumnConfig,
     modifier: Modifier = Modifier,
-    content: SectionedListScope.() -> Unit
+    sections: List<Section<*>> = emptyList()
 ) {
-    SectionedList(
-        focusRequester = focusRequester,
-        scalingLazyListState = config.state,
-        modifier = modifier.then(config.modifier),
-        autoCentering = config.autoCentering,
-        sections = SectionedListScope().apply(content).sections,
-        anchorType = config.anchorType,
-        contentPadding = config.contentPadding
-    )
-}
-
-/**
- * A list component that is split into [sections][Section].
- * Each [Section] has its own [state][Section.State] controlled individually.
- */
-@ExperimentalHorologistComposablesApi
-@Composable
-public fun SectionedList(
-    focusRequester: FocusRequester,
-    scalingLazyListState: ScalingLazyListState,
-    modifier: Modifier = Modifier,
-    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
-    autoCentering: AutoCenteringParams? = AutoCenteringParams(),
-    anchorType: ScalingLazyListAnchorType = ScalingLazyListAnchorType.ItemCenter,
-    content: SectionedListScope.() -> Unit
-) {
-    SectionedList(
-        focusRequester = focusRequester,
-        scalingLazyListState = scalingLazyListState,
-        modifier = modifier,
-        scalingParams = scalingParams,
-        autoCentering = autoCentering,
-        sections = SectionedListScope().apply(content).sections,
-        anchorType = anchorType
-    )
-}
-
-/**
- * A list component that is split into [sections][Section].
- * Each [Section] has its own [state][Section.State] controlled individually.
- */
-@ExperimentalHorologistComposablesApi
-@Composable
-public fun SectionedList(
-    focusRequester: FocusRequester,
-    scalingLazyListState: ScalingLazyListState,
-    modifier: Modifier = Modifier,
-    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
-    autoCentering: AutoCenteringParams? = AutoCenteringParams(),
-    anchorType: ScalingLazyListAnchorType = ScalingLazyListAnchorType.ItemCenter,
-    contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
-    sections: List<Section<*>> = emptyList(),
-) {
-    ScalingLazyColumn(
+    ScalingLazyColumnWithConfig(
         modifier = modifier
-            .fillMaxSize()
-            .rotaryWithFling(focusRequester, scalingLazyListState),
-        state = scalingLazyListState,
-        scalingParams = scalingParams,
-        autoCentering = autoCentering,
-        anchorType = anchorType,
-        contentPadding = contentPadding
+            .fillMaxSize(),
+        config = config
     ) {
-        item {
-            Text(text = "${scalingLazyListState.centerItemIndex}/${scalingLazyListState.centerItemScrollOffset}")
-        }
         sections.forEach { section ->
             section.display(this)
         }

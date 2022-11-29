@@ -43,7 +43,7 @@ fun MenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
     time: LocalDateTime,
-    config: ScalingLazyColumnConfig,
+    config: ScalingLazyColumnConfig
 ) {
     ScalingLazyColumnWithConfig(
         modifier = modifier,

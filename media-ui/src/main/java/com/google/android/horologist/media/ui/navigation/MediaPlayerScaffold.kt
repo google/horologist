@@ -26,7 +26,6 @@ import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.navigation.SwipeDismissableNavHostState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
@@ -36,9 +35,10 @@ import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.audio.ui.VolumeViewModel
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
-import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
+import com.google.android.horologist.compose.navscaffold.scalingLazyColumn
 import com.google.android.horologist.compose.navscaffold.wearNavComposable
 import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
 import com.google.android.horologist.media.ui.screens.playerlibrarypager.PlayerLibraryPagerScreen
@@ -68,11 +68,11 @@ public fun MediaPlayerScaffold(
     snackbarViewModel: SnackbarViewModel,
     volumeViewModel: VolumeViewModel,
     playerScreen: @Composable () -> Unit,
-    libraryScreen: @Composable (ScalingLazyListState) -> Unit,
-    categoryEntityScreen: @Composable (id: String, name: String, ScalingLazyListState) -> Unit,
-    mediaEntityScreen: @Composable (ScalingLazyListState) -> Unit,
-    playlistsScreen: @Composable (ScalingLazyListState) -> Unit,
-    settingsScreen: @Composable (ScalingLazyListState) -> Unit,
+    libraryScreen: @Composable (ScalingLazyColumnConfig) -> Unit,
+    categoryEntityScreen: @Composable (id: String, name: String, ScalingLazyColumnConfig) -> Unit,
+    mediaEntityScreen: @Composable (ScalingLazyColumnConfig) -> Unit,
+    playlistsScreen: @Composable (ScalingLazyColumnConfig) -> Unit,
+    settingsScreen: @Composable (ScalingLazyColumnConfig) -> Unit,
     deepLinkPrefix: String,
     navController: NavHostController,
     modifier: Modifier = Modifier,
@@ -124,22 +124,20 @@ public fun MediaPlayerScaffold(
             )
         }
 
-        scalingLazyColumnComposable(
+        scalingLazyColumn(
             route = NavigationScreens.Collections.navRoute,
             arguments = NavigationScreens.Collections.arguments,
-            deepLinks = NavigationScreens.Collections.deepLinks(deepLinkPrefix),
-            scrollStateBuilder = { ScalingLazyListState() }
+            deepLinks = NavigationScreens.Collections.deepLinks(deepLinkPrefix)
         ) {
-            playlistsScreen(it.scrollableState)
+            playlistsScreen(it.columnConfig)
         }
 
-        scalingLazyColumnComposable(
+        scalingLazyColumn(
             route = NavigationScreens.Settings.navRoute,
             arguments = NavigationScreens.Settings.arguments,
-            deepLinks = NavigationScreens.Settings.deepLinks(deepLinkPrefix),
-            scrollStateBuilder = { ScalingLazyListState() }
+            deepLinks = NavigationScreens.Settings.deepLinks(deepLinkPrefix)
         ) {
-            settingsScreen(it.scrollableState)
+            settingsScreen(it.columnConfig)
         }
 
         wearNavComposable(
@@ -152,20 +150,18 @@ public fun MediaPlayerScaffold(
             volumeScreen()
         }
 
-        scalingLazyColumnComposable(
+        scalingLazyColumn(
             route = NavigationScreens.MediaItem.navRoute,
             arguments = NavigationScreens.MediaItem.arguments,
-            deepLinks = NavigationScreens.MediaItem.deepLinks(deepLinkPrefix),
-            scrollStateBuilder = { ScalingLazyListState() }
+            deepLinks = NavigationScreens.MediaItem.deepLinks(deepLinkPrefix)
         ) {
-            mediaEntityScreen(it.scrollableState)
+            mediaEntityScreen(it.columnConfig)
         }
 
-        scalingLazyColumnComposable(
+        scalingLazyColumn(
             route = NavigationScreens.Collection.navRoute,
             arguments = NavigationScreens.Collection.arguments,
-            deepLinks = NavigationScreens.Collection.deepLinks(deepLinkPrefix),
-            scrollStateBuilder = { ScalingLazyListState() }
+            deepLinks = NavigationScreens.Collection.deepLinks(deepLinkPrefix)
         ) { scaffoldContext ->
             val arguments = scaffoldContext.backStackEntry.arguments
             val id = arguments?.getString(NavigationScreens.Collection.id)
@@ -176,7 +172,7 @@ public fun MediaPlayerScaffold(
             categoryEntityScreen(
                 id,
                 name,
-                scaffoldContext.scrollableState
+                scaffoldContext.columnConfig
             )
         }
 

@@ -27,7 +27,6 @@ import androidx.compose.material.icons.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -37,16 +36,12 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 
 @WearPreviewDevices
 @Composable
 fun SectionedListPreviewLoadingSection() {
-    SectionedList(
-        focusRequester = FocusRequester(),
-        scalingLazyListState = rememberScalingLazyListState()
-    ) {
+    SectionedList() {
         downloadsSection(state = Section.State.Loading())
 
         favouritesSection(state = Section.State.Empty())
@@ -56,10 +51,7 @@ fun SectionedListPreviewLoadingSection() {
 @WearPreviewDevices
 @Composable
 fun SectionedListPreviewLoadedSection() {
-    SectionedList(
-        focusRequester = FocusRequester(),
-        scalingLazyListState = rememberScalingLazyListState()
-    ) {
+    SectionedList() {
         downloadsSection(state = Section.State.Loaded(downloads))
 
         favouritesSection(state = Section.State.Failed())
@@ -69,10 +61,7 @@ fun SectionedListPreviewLoadedSection() {
 @WearPreviewDevices
 @Composable
 fun SectionedListPreviewFailedSection() {
-    SectionedList(
-        focusRequester = FocusRequester(),
-        scalingLazyListState = rememberScalingLazyListState()
-    ) {
+    SectionedList() {
         downloadsSection(state = Section.State.Failed())
 
         favouritesSection(state = Section.State.Loaded(favourites))
@@ -82,10 +71,7 @@ fun SectionedListPreviewFailedSection() {
 @WearPreviewDevices
 @Composable
 fun SectionedListPreviewEmptySection() {
-    SectionedList(
-        focusRequester = FocusRequester(),
-        scalingLazyListState = rememberScalingLazyListState()
-    ) {
+    SectionedList() {
         downloadsSection(state = Section.State.Empty())
 
         favouritesSection(state = Section.State.Loading())

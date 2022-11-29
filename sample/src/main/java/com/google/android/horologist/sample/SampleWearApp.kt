@@ -93,9 +93,10 @@ fun SampleWearApp() {
             )
         }
         scrollStateComposable(
-            Screen.ScrollAwayColumn.route) {
+            Screen.ScrollAwayColumn.route
+        ) {
             ScrollAwayScreenColumn(
-                state = it.scrollableState
+                scrollState = it.scrollableState
             )
         }
         wearNav(Screen.DatePicker.route) {
@@ -104,7 +105,7 @@ fun SampleWearApp() {
                 onDateConfirm = {
                     time = time.toLocalTime().atDate(it)
                     navController.popBackStack()
-                },
+                }
             )
         }
         wearNav(Screen.TimePicker.route) {

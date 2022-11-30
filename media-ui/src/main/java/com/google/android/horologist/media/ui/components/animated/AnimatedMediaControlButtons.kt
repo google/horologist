@@ -71,38 +71,6 @@ public fun AnimatedMediaControlButtons(
     onPauseButtonClick: () -> Unit,
     playPauseButtonEnabled: Boolean,
     playing: Boolean,
-    percent: Float,
-    onSeekToPreviousButtonClick: () -> Unit,
-    seekToPreviousButtonEnabled: Boolean,
-    onSeekToNextButtonClick: () -> Unit,
-    seekToNextButtonEnabled: Boolean,
-    modifier: Modifier = Modifier,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
-    showProgress: Boolean
-) {
-    AnimatedMediaControlButtons(
-        onPlayButtonClick = onPlayButtonClick,
-        onPauseButtonClick = onPauseButtonClick,
-        playPauseButtonEnabled = playPauseButtonEnabled,
-        playing = playing,
-        onSeekToPreviousButtonClick = onSeekToPreviousButtonClick,
-        seekToPreviousButtonEnabled = seekToPreviousButtonEnabled,
-        onSeekToNextButtonClick = onSeekToNextButtonClick,
-        seekToNextButtonEnabled = seekToNextButtonEnabled,
-        showProgress = showProgress,
-        modifier = modifier,
-        percent = percent,
-        colors = colors
-    )
-}
-
-@ExperimentalHorologistMediaUiApi
-@Composable
-internal fun AnimatedMediaControlButtons(
-    onPlayButtonClick: () -> Unit,
-    onPauseButtonClick: () -> Unit,
-    playPauseButtonEnabled: Boolean,
-    playing: Boolean,
     onSeekToPreviousButtonClick: () -> Unit,
     seekToPreviousButtonEnabled: Boolean,
     onSeekToNextButtonClick: () -> Unit,

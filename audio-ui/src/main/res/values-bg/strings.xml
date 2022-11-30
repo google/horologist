@@ -21,6 +21,8 @@
   <string name="horologist_volume_screen_not_connected_state">Няма връзка</string>
   <string name="horologist_volume_screen_change_audio_output">Промяна на аудиоизхода</string>
   <string name="horologist_speaker_name">Високог. на часовн.</string>
+  <string name="horologist_output_none">Няма</string>
   <string name="horologist_set_volume_content_description">Задаване на силата на звука</string>
   <string name="horologist_audio_output_content_description">Аудиоизход</string>
+  <string name="horologist_volume_screen_volume_label">Сила на звука</string>
 </resources>

@@ -37,9 +37,9 @@
   <string name="horologist_playlist_download_button_cancel">Peru</string>
   <string name="horologist_playlist_download_button_download_content_description">Ladattavissa</string>
   <string name="horologist_playlist_download_progress_button_cancel_content_description">Lataus käynnissä</string>
-  <string name="horologist_playlist_download_progress_button_cancel_action_label">lopeta</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">Peru</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Ladattu</string>
-  <string name="horologist_playlist_download_button_remove_download_action_label">poista lataus</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">Poista lataus</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Satunnaistoisto</string>
   <string name="horologist_playlist_download_button_play_content_description">Toista</string>
   <string name="horologist_playlist_download_media_chip_download_content_description">%s Lataus käynnissä</string>

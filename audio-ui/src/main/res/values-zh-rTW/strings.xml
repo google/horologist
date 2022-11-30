@@ -21,6 +21,8 @@
   <string name="horologist_volume_screen_not_connected_state">未連線</string>
   <string name="horologist_volume_screen_change_audio_output">變更音訊輸出裝置</string>
   <string name="horologist_speaker_name">手錶喇叭</string>
+  <string name="horologist_output_none">無</string>
   <string name="horologist_set_volume_content_description">設定音量</string>
   <string name="horologist_audio_output_content_description">音訊輸出裝置</string>
+  <string name="horologist_volume_screen_volume_label">音量</string>
 </resources>

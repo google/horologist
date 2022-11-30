@@ -31,8 +31,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -101,11 +101,15 @@ public fun WearNavScaffold(
                                 val scalingLazyListState =
                                     viewModel.scrollableState as ScalingLazyListState
 
+                                val offsetDp = with(LocalDensity.current) {
+                                    (viewModel.initialOffsetPx ?: 0).toDp()
+                                }
+
                                 timeText(
                                     Modifier.scrollAway(
                                         scalingLazyListState,
                                         viewModel.initialIndex ?: 1,
-                                        (viewModel.initialOffset ?: 0).dp
+                                        offsetDp
                                     )
                                 )
                             }

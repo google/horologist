@@ -21,6 +21,8 @@
   <string name="horologist_volume_screen_not_connected_state">غير متصل</string>
   <string name="horologist_volume_screen_change_audio_output">تغيير إخراج الصوت</string>
   <string name="horologist_speaker_name">سمّاعة الساعة</string>
+  <string name="horologist_output_none">ما من جهاز إخراج صوت</string>
   <string name="horologist_set_volume_content_description">ضبط مستوى الصوت</string>
   <string name="horologist_audio_output_content_description">إخراج الصوت</string>
+  <string name="horologist_volume_screen_volume_label">مجلد</string>
 </resources>

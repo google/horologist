@@ -37,7 +37,7 @@
   <string name="horologist_playlist_download_button_cancel">ರದ್ದುಮಾಡಿ</string>
   <string name="horologist_playlist_download_button_download_content_description">ಡೌನ್‌ಲೋಡ್ ಲಭ್ಯವಿದೆ</string>
   <string name="horologist_playlist_download_progress_button_cancel_content_description">ಡೌನ್‌ಲೋಡ್ ಪ್ರಗತಿಯಲ್ಲಿದೆ</string>
-  <string name="horologist_playlist_download_progress_button_cancel_action_label">ರದ್ದುಮಾಡಿ</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">ರದ್ದುಗೊಳಿಸಿ</string>
   <string name="horologist_playlist_download_button_download_done_content_description">ಡೌನ್‌ಲೋಡ್ ಮಾಡಲಾಗಿದೆ</string>
   <string name="horologist_playlist_download_button_remove_download_action_label">ಡೌನ್‌ಲೋಡ್ ತೆಗೆದುಹಾಕಿ</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">ಶಫಲ್ ಮಾಡಿ</string>

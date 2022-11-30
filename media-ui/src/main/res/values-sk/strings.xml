@@ -37,9 +37,9 @@
   <string name="horologist_playlist_download_button_cancel">Zrušiť</string>
   <string name="horologist_playlist_download_button_download_content_description">Je možné stiahnuť</string>
   <string name="horologist_playlist_download_progress_button_cancel_content_description">Prebieha sťahovanie</string>
-  <string name="horologist_playlist_download_progress_button_cancel_action_label">zrušiť</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">Zrušiť</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Stiahnuté</string>
-  <string name="horologist_playlist_download_button_remove_download_action_label">odstrániť stiahnutý obsah</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">Odstrániť stiahnuté</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Náhodne prehrávať</string>
   <string name="horologist_playlist_download_button_play_content_description">Prehrať</string>
   <string name="horologist_playlist_download_media_chip_download_content_description">%s Prebieha sťahovanie</string>

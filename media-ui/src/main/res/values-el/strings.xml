@@ -37,9 +37,9 @@
   <string name="horologist_playlist_download_button_cancel">Ακύρωση</string>
   <string name="horologist_playlist_download_button_download_content_description">Διαθέσιμη λήψη</string>
   <string name="horologist_playlist_download_progress_button_cancel_content_description">Λήψη σε εξέλιξη</string>
-  <string name="horologist_playlist_download_progress_button_cancel_action_label">ακύρωση</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">Ακύρωση</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Λήφθηκε</string>
-  <string name="horologist_playlist_download_button_remove_download_action_label">κατάργηση λήψης</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">Κατάργηση λήψης</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Τυχαία αναπαραγωγή</string>
   <string name="horologist_playlist_download_button_play_content_description">Αναπαραγωγή</string>
   <string name="horologist_playlist_download_media_chip_download_content_description">%s Λήψη σε εξέλιξη</string>

@@ -37,9 +37,9 @@
   <string name="horologist_playlist_download_button_cancel">Anulo</string>
   <string name="horologist_playlist_download_button_download_content_description">Ofrohet shkarkimi</string>
   <string name="horologist_playlist_download_progress_button_cancel_content_description">Shkarkimi në vazhdim</string>
-  <string name="horologist_playlist_download_progress_button_cancel_action_label">anulo</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">Anulo</string>
   <string name="horologist_playlist_download_button_download_done_content_description">U shkarkua</string>
-  <string name="horologist_playlist_download_button_remove_download_action_label">hiq shkarkimin</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">Hiq shkarkimin</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Përziej</string>
   <string name="horologist_playlist_download_button_play_content_description">Luaj</string>
   <string name="horologist_playlist_download_media_chip_download_content_description">%s; Shkarkimi në vazhdim</string>

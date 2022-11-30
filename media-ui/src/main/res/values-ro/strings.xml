@@ -37,9 +37,9 @@
   <string name="horologist_playlist_download_button_cancel">Anulează</string>
   <string name="horologist_playlist_download_button_download_content_description">Descărcare disponibilă</string>
   <string name="horologist_playlist_download_progress_button_cancel_content_description">Se descarcă</string>
-  <string name="horologist_playlist_download_progress_button_cancel_action_label">anulează</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">Anulează</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Descărcat</string>
-  <string name="horologist_playlist_download_button_remove_download_action_label">elimină descărcarea</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">Elimină descărcarea</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Redă în mod aleatoriu</string>
   <string name="horologist_playlist_download_button_play_content_description">Redă</string>
   <string name="horologist_playlist_download_media_chip_download_content_description">%s Se descarcă</string>

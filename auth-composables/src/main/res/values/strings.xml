@@ -18,4 +18,8 @@
     <string name="horologist_check_your_phone_title">Check your phone</string>
     <string name="horologist_auth_error_message">Error authenticating.</string>
     <string name="horologist_signedin_confirmation_greeting">Hi, %s</string>
+    <string name="horologist_sign_in_chip_label">Sign in</string>
+    <string name="horologist_guest_mode_chip_label">Use without account</string>
+    <string name="horologist_other_options_chip_label">Other options</string>
+    <string name="horologist_create_account_chip_label">Create account</string>
 </resources>

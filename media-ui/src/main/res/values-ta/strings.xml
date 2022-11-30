@@ -39,7 +39,7 @@
   <string name="horologist_playlist_download_progress_button_cancel_content_description">பதிவிறக்கப்படுகிறது</string>
   <string name="horologist_playlist_download_progress_button_cancel_action_label">ரத்துசெய்யும்</string>
   <string name="horologist_playlist_download_button_download_done_content_description">பதிவிறக்கப்பட்டது</string>
-  <string name="horologist_playlist_download_button_remove_download_action_label">பதிவிறக்கியதை அகற்றும்</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">பதிவிறக்கத்தை அகற்றும்</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">கலைத்துப் பிளே செய்யும்</string>
   <string name="horologist_playlist_download_button_play_content_description">பிளே செய்யும்</string>
   <string name="horologist_playlist_download_media_chip_download_content_description">%s பதிவிறக்கப்படுகிறது</string>

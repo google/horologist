@@ -39,7 +39,7 @@
   <string name="horologist_playlist_download_progress_button_cancel_content_description">正在下載</string>
   <string name="horologist_playlist_download_progress_button_cancel_action_label">取消</string>
   <string name="horologist_playlist_download_button_download_done_content_description">已下載</string>
-  <string name="horologist_playlist_download_button_remove_download_action_label">移除已下載的內容</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">移除下載</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">隨機播放</string>
   <string name="horologist_playlist_download_button_play_content_description">播放</string>
   <string name="horologist_playlist_download_media_chip_download_content_description">%s，正在下載</string>

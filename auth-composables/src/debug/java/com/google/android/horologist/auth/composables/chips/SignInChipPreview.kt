@@ -16,17 +16,17 @@
 
 @file:OptIn(ExperimentalHorologistAuthComposablesApi::class)
 
-package com.google.android.horologist.auth.composables.dialog
+package com.google.android.horologist.auth.composables.chips
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
-import com.google.android.horologist.compose.tools.WearPreviewDevices
 
-@WearPreviewDevices
+@Preview(
+    backgroundColor = 0xff000000,
+    showBackground = true
+)
 @Composable
-fun SignedInConfirmationDialogPreview() {
-    SignedInConfirmationDialogContent(
-        displayName = "Maggie",
-        email = "maggie@gmail.com"
-    )
+fun SignInChipPreview() {
+    SignInChip(onClick = { })
 }

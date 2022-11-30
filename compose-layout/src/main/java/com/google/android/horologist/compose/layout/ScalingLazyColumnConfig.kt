@@ -41,7 +41,7 @@ import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
 import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
 
-public data class ScalingLazyColumnConfig internal constructor(
+public class ScalingLazyColumnConfig internal constructor(
     public val initialScrollPosition: ScrollPosition = ScrollPosition(1, 0),
     public val autoCentering: AutoCenteringParams? = AutoCenteringParams(
         initialScrollPosition.index,

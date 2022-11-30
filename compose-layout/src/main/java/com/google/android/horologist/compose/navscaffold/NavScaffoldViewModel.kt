@@ -137,6 +137,9 @@ public open class NavScaffoldViewModel(
         if (scrollType == null) {
             scrollType = ScrollType.ScalingLazyColumn
 
+            initialIndex = columnConfig.initialScrollPosition.index
+            initialOffsetPx = columnConfig.initialScrollPosition.offsetPx
+
             _scrollableState = savedStateHandle.saveable(
                 key = "navScaffold.ScalingLazyListState",
                 saver = ScalingLazyListState.Saver

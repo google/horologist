@@ -100,11 +100,12 @@ public class PlayerRepositoryImpl(
     private val listener = object : Player.Listener {
         private val eventHandlers = mapOf(
             Player.EVENT_AVAILABLE_COMMANDS_CHANGED to ::updateAvailableCommands,
-            Player.EVENT_MEDIA_ITEM_TRANSITION to ::updateCurrentMediaItem,
+            Player.EVENT_MEDIA_ITEM_TRANSITION to ::updateCurrentMedia,
             Player.EVENT_SHUFFLE_MODE_ENABLED_CHANGED to ::updateShuffleMode,
             Player.EVENT_PLAYBACK_PARAMETERS_CHANGED to ::updatePlaybackSpeed,
             Player.EVENT_SEEK_BACK_INCREMENT_CHANGED to ::updateSeekBackIncrement,
             Player.EVENT_SEEK_FORWARD_INCREMENT_CHANGED to ::updateSeekForwardIncrement,
+            Player.EVENT_MEDIA_METADATA_CHANGED to ::updateCurrentMedia,
             // Moved below until https://github.com/google/horologist/issues/496 solved
 //            Player.EVENT_TIMELINE_CHANGED to ::updateTimeline,
 
@@ -143,8 +144,8 @@ public class PlayerRepositoryImpl(
         _shuffleModeEnabled.value = player.shuffleModeEnabled
     }
 
-    private fun updateCurrentMediaItem(player: Player) {
-        _currentMedia.value = player.currentMediaItem?.let(mediaMapper::map)
+    private fun updateCurrentMedia(player: Player) {
+        _currentMedia.value = player.currentMediaItem?.let { mediaMapper.map(it, player.mediaMetadata) }
         updatePosition()
     }
 
@@ -198,7 +199,7 @@ public class PlayerRepositoryImpl(
         _connected.value = true
         player.addListener(listener)
 
-        updateCurrentMediaItem(player)
+        updateCurrentMedia(player)
         updateAvailableCommands(player)
         updateShuffleMode(player)
         updateState(player)
@@ -374,7 +375,7 @@ public class PlayerRepositoryImpl(
     override fun getMediaAt(index: Int): Media? {
         checkNotClosed()
 
-        return player.value?.getMediaItemAt(index)?.let(mediaMapper::map)
+        return player.value?.getMediaItemAt(index)?.let { mediaMapper.map(it, null) }
     }
 
     override fun getCurrentMediaIndex(): Int {

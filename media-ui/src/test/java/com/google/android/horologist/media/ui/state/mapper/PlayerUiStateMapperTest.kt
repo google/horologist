@@ -346,7 +346,7 @@ class PlayerUiStateMapperTest {
         val expectedMediaItem = result.media!!
         assertThat(expectedMediaItem.id).isEqualTo(id)
         assertThat(expectedMediaItem.title).isEqualTo(title)
-        assertThat(expectedMediaItem.artist).isEqualTo(artist)
+        assertThat(expectedMediaItem.subtitle).isEqualTo(artist)
     }
 
     @Test

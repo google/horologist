@@ -67,7 +67,7 @@ class MediaMapperTest {
             .build()
 
         // when
-        val result = sut.map(mediaItem)
+        val result = sut.map(mediaItem, null)
 
         // then
         assertThat(result.id).isEqualTo(id)
@@ -95,7 +95,7 @@ class MediaMapperTest {
             .build()
 
         // when
-        val result = sut.map(mediaItem)
+        val result = sut.map(mediaItem, null)
 
         // then
         assertThat(result.id).isEqualTo(id)
@@ -125,7 +125,7 @@ class MediaMapperTest {
             .build()
 
         // when
-        val result = sut.map(mediaItem)
+        val result = sut.map(mediaItem, null)
 
         // then
         assertThat(result.id).isEqualTo(id)
@@ -142,10 +142,41 @@ class MediaMapperTest {
         val mediaItem = MediaItem.Builder().build()
 
         // when
-        val result = sut.map(mediaItem, defaultArtist)
+        val result = sut.map(mediaItem, null, defaultArtist)
 
         // then
         assertThat(result.artist).isEqualTo(defaultArtist)
+    }
+
+    @Test
+    fun `given MediaItem and MediaMetadata metadata takes precedence`() {
+        // given
+        val id = "id"
+        val title = "title"
+        val artist = "artist"
+
+        val mediaItem = MediaItem.Builder()
+            .setMediaId(id)
+            .setMediaMetadata(
+                MediaMetadata.Builder()
+                    .setTitle("ignore")
+                    .setArtist("ignore")
+                    .build()
+            )
+            .build()
+
+        val mediaMetadata = MediaMetadata.Builder()
+            .setTitle(title)
+            .setArtist(artist)
+            .build()
+
+        // when
+        val result = sut.map(mediaItem, mediaMetadata)
+
+        // then
+        assertThat(result.id).isEqualTo(id)
+        assertThat(result.title).isEqualTo(title)
+        assertThat(result.artist).isEqualTo(artist)
     }
 
     @Test
@@ -166,7 +197,10 @@ class MediaMapperTest {
             .build()
 
         val sut = MediaMapper(object : MediaExtrasMapper {
-            override fun map(mediaItem: MediaItem): Map<String, Any> = buildMap {
+            override fun map(
+                mediaItem: MediaItem,
+                mediaMetadata: MediaMetadata?
+            ): Map<String, Any> = buildMap {
                 put(id, mediaItem.mediaId)
                 put(uri, mediaItem.localConfiguration!!.uri)
                 put(artist, mediaItem.mediaMetadata.artist!!)
@@ -174,7 +208,7 @@ class MediaMapperTest {
         })
 
         // when
-        val result = sut.map(mediaItem)
+        val result = sut.map(mediaItem, null)
 
         // then
         assertThat(result.extras[id]).isEqualTo(id)

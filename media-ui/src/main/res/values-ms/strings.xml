@@ -37,9 +37,9 @@
   <string name="horologist_playlist_download_button_cancel">Batal</string>
   <string name="horologist_playlist_download_button_download_content_description">Muat turun tersedia</string>
   <string name="horologist_playlist_download_progress_button_cancel_content_description">Muat turun sedang berjalan</string>
-  <string name="horologist_playlist_download_progress_button_cancel_action_label">batal</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">Batal</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Dimuat turun</string>
-  <string name="horologist_playlist_download_button_remove_download_action_label">alih keluar muat turun</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">Alih keluar muat turun</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Rombak</string>
   <string name="horologist_playlist_download_button_play_content_description">Main</string>
   <string name="horologist_playlist_download_media_chip_download_content_description">%s Muat turun sedang berjalan</string>

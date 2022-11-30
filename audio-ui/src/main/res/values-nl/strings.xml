@@ -21,6 +21,8 @@
   <string name="horologist_volume_screen_not_connected_state">Niet verbonden</string>
   <string name="horologist_volume_screen_change_audio_output">Audio-uitvoer wijzigen</string>
   <string name="horologist_speaker_name">Smartwatchspeaker</string>
+  <string name="horologist_output_none">Geen</string>
   <string name="horologist_set_volume_content_description">Volume instellen</string>
   <string name="horologist_audio_output_content_description">Audio-uitvoer</string>
+  <string name="horologist_volume_screen_volume_label">Volume</string>
 </resources>

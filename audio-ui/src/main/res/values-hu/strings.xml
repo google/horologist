@@ -21,6 +21,8 @@
   <string name="horologist_volume_screen_not_connected_state">Nincs kapcsolat</string>
   <string name="horologist_volume_screen_change_audio_output">Hangkimenet módosítása</string>
   <string name="horologist_speaker_name">Óra hangszórója</string>
+  <string name="horologist_output_none">Nincs</string>
   <string name="horologist_set_volume_content_description">Hangerő beállítása</string>
   <string name="horologist_audio_output_content_description">Hangkimenet</string>
+  <string name="horologist_volume_screen_volume_label">Hangerő</string>
 </resources>

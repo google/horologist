@@ -21,6 +21,8 @@
   <string name="horologist_volume_screen_not_connected_state">Туташкан жок</string>
   <string name="horologist_volume_screen_change_audio_output">Аудио түзмөктү өзгөртүү</string>
   <string name="horologist_speaker_name">Сааттын динамиги</string>
+  <string name="horologist_output_none">Жок</string>
   <string name="horologist_set_volume_content_description">Үнүн тууралоо</string>
   <string name="horologist_audio_output_content_description">Аудио түзмөк</string>
+  <string name="horologist_volume_screen_volume_label">Көлөмү</string>
 </resources>

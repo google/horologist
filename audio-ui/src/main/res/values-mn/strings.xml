@@ -21,6 +21,8 @@
   <string name="horologist_volume_screen_not_connected_state">Холбогдоогүй</string>
   <string name="horologist_volume_screen_change_audio_output">Аудио гаралтыг өөрчлөх</string>
   <string name="horologist_speaker_name">Цагны чанга яригч</string>
+  <string name="horologist_output_none">Байхгүй</string>
   <string name="horologist_set_volume_content_description">Дууны түвшин тохируулах</string>
   <string name="horologist_audio_output_content_description">Аудио гаралт</string>
+  <string name="horologist_volume_screen_volume_label">Дууны түвшин</string>
 </resources>

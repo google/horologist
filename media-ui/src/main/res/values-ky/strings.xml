@@ -37,9 +37,9 @@
   <string name="horologist_playlist_download_button_cancel">Токтотуу</string>
   <string name="horologist_playlist_download_button_download_content_description">Жүктөп алсаңыз болот</string>
   <string name="horologist_playlist_download_progress_button_cancel_content_description">Жүктөлүп алынууда</string>
-  <string name="horologist_playlist_download_progress_button_cancel_action_label">токтотуу</string>
+  <string name="horologist_playlist_download_progress_button_cancel_action_label">Жокко чыгаруу</string>
   <string name="horologist_playlist_download_button_download_done_content_description">Жүктөлүп алынды</string>
-  <string name="horologist_playlist_download_button_remove_download_action_label">жүктөлүп алынганды өчүрүү</string>
+  <string name="horologist_playlist_download_button_remove_download_action_label">Жүктөлүп алынганды өчүрүү</string>
   <string name="horologist_playlist_download_button_shuffle_content_description">Аралаштыруу</string>
   <string name="horologist_playlist_download_button_play_content_description">Ойнотуу</string>
   <string name="horologist_playlist_download_media_chip_download_content_description">%s жүктөлүп алынууда</string>

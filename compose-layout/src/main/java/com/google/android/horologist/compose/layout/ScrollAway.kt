@@ -103,9 +103,9 @@ public fun Modifier.scrollAway(
  * @param scalingLazyColumnConfig The list config.
  */
 public fun Modifier.scrollAway(
-    scalingLazyColumnConfig: ScalingLazyColumnConfig,
+    scalingLazyColumnConfig: ScalingLazyColumnConfig
 ): Modifier = composed {
-    val offset = with (LocalDensity.current) {
+    val offset = with(LocalDensity.current) {
         scalingLazyColumnConfig.initialScrollPosition.offsetPx.toDp()
     }
     scrollAwayCompose(

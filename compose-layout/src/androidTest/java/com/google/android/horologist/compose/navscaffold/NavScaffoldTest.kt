@@ -161,7 +161,7 @@ class NavScaffoldTest {
                 navController = navController
             ) {
                 composableScalingLazyColumn(
-                    route = "a",
+                    route = "a"
                 ) {
                     val focusRequester =
                         remember { FocusRequester() }

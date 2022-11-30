@@ -15,7 +15,7 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistComposablesApi::class,
+    ExperimentalHorologistComposablesApi::class
 )
 
 package com.google.android.horologist.composables
@@ -28,7 +28,6 @@ import com.google.android.horologist.composables.Section.Companion.DEFAULT_LOADI
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
-import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 
 /**
  * A list component that is split into [sections][Section].

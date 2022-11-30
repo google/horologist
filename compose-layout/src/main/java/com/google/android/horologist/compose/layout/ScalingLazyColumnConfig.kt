@@ -22,7 +22,6 @@ import androidx.compose.foundation.gestures.FlingBehavior
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -42,8 +41,7 @@ import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
 import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
 
-@Stable
-public class ScalingLazyColumnConfig internal constructor(
+public data class ScalingLazyColumnConfig internal constructor(
     public val initialScrollPosition: ScrollPosition = ScrollPosition(1, 0),
     public val autoCentering: AutoCenteringParams? = AutoCenteringParams(
         initialScrollPosition.index,

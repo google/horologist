@@ -40,8 +40,8 @@ import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
 import com.google.android.horologist.compose.navscaffold.composableLazyList
 import com.google.android.horologist.compose.navscaffold.composableScalingLazyColumn
+import com.google.android.horologist.compose.navscaffold.composableScrollState
 import com.google.android.horologist.compose.navscaffold.composableWearNav
-import com.google.android.horologist.compose.navscaffold.scrollStateComposable
 import com.google.android.horologist.datalayer.DataLayerNodesScreen
 import com.google.android.horologist.datalayer.DataLayerNodesViewModel
 import com.google.android.horologist.networks.NetworkScreen
@@ -98,7 +98,7 @@ fun SampleWearApp() {
                 config = it.columnConfig
             )
         }
-        scrollStateComposable(
+        composableScrollState(
             Screen.ScrollAwayColumn.route
         ) {
             ScrollAwayScreenColumn(
@@ -196,25 +196,25 @@ fun SampleWearApp() {
                 onAuthSuccess = { navController.popBackStack() }
             )
         }
-        wearNav(route = Screen.AuthPKCEScreen.route) {
+        composableWearNav(route = Screen.AuthPKCEScreen.route) {
             AuthPKCESampleScreen(
                 onAuthSuccess = { navController.popBackStack() }
             )
         }
-        wearNav(route = Screen.AuthDeviceGrantScreen.route) {
+        composableWearNav(route = Screen.AuthDeviceGrantScreen.route) {
             AuthDeviceGrantSampleScreen(
                 onAuthSuccess = { navController.popBackStack() }
             )
         }
-        wearNav(route = Screen.AuthGoogleSignInScreen.route) {
+        composableWearNav(route = Screen.AuthGoogleSignInScreen.route) {
             GoogleSignInSampleScreen(
                 onAuthSuccess = { navController.popBackStack() }
             )
         }
-        wearNav(route = Screen.AuthGoogleSignOutScreen.route) {
+        composableWearNav(route = Screen.AuthGoogleSignOutScreen.route) {
             GoogleSignOutScreen(navController = navController)
         }
-        wearNav(route = Screen.Paging.route) {
+        composableWearNav(route = Screen.Paging.route) {
             PagingScreen(navController)
         }
         composable(

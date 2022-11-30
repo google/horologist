@@ -37,7 +37,8 @@ import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.*
+import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode
+import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode.ScrollAway
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode.Off
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode.On
@@ -63,7 +64,7 @@ public open class NavScaffoldViewModel(
      * Returns the scrollable state for this composable or null if the scaffold should
      * not consider this element to be scrollable.
      */
-    val scrollableState: ScrollableState?
+    public val scrollableState: ScrollableState?
         get() = if (scrollType == null || scrollType == ScrollType.None) {
             null
         } else {
@@ -80,13 +81,13 @@ public open class NavScaffoldViewModel(
      * The configuration of [TimeText], defaults to [TimeTextMode.ScrollAway] which will move the
      * time text above the screen to avoid overlapping with the content moving up.
      */
-    var timeTextMode: TimeTextMode by mutableStateOf(TimeTextMode.ScrollAway)
+    public var timeTextMode: TimeTextMode by mutableStateOf(TimeTextMode.ScrollAway)
 
     /**
      * The configuration of [PositionIndicator].  The default is to show a scroll bar while the
      * scroll is in progress.
      */
-    var positionIndicatorMode: PositionIndicatorMode
+    public var positionIndicatorMode: PositionIndicatorMode
         by mutableStateOf(PositionIndicatorMode.On)
 
     internal fun initializeScrollState(scrollStateBuilder: () -> ScrollState): ScrollState {

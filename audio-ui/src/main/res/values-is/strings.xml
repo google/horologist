@@ -21,6 +21,8 @@
   <string name="horologist_volume_screen_not_connected_state">Ekki tengt</string>
   <string name="horologist_volume_screen_change_audio_output">Breyta hljóðúttaki</string>
   <string name="horologist_speaker_name">Hátalari úrs</string>
+  <string name="horologist_output_none">Ekkert</string>
   <string name="horologist_set_volume_content_description">Stilling hljóðstyrks</string>
   <string name="horologist_audio_output_content_description">Hljóðúttak</string>
+  <string name="horologist_volume_screen_volume_label">Hljóðstyrkur</string>
 </resources>

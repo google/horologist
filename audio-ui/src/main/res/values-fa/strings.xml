@@ -21,6 +21,8 @@
   <string name="horologist_volume_screen_not_connected_state">متصل نیست</string>
   <string name="horologist_volume_screen_change_audio_output">تغییر خروجی صدا</string>
   <string name="horologist_speaker_name">بلندگوی ساعت</string>
+  <string name="horologist_output_none">هیچ‌کدام</string>
   <string name="horologist_set_volume_content_description">تنظیم میزان صدا</string>
   <string name="horologist_audio_output_content_description">خروجی صدا</string>
+  <string name="horologist_volume_screen_volume_label">میزان صدا</string>
 </resources>

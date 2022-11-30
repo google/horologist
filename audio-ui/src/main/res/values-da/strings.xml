@@ -21,6 +21,8 @@
   <string name="horologist_volume_screen_not_connected_state">Ikke forbundet</string>
   <string name="horologist_volume_screen_change_audio_output">Skift lydoutput</string>
   <string name="horologist_speaker_name">Urets højttaler</string>
+  <string name="horologist_output_none">Ingen</string>
   <string name="horologist_set_volume_content_description">Juster lydstyrke</string>
   <string name="horologist_audio_output_content_description">Lydoutput</string>
+  <string name="horologist_volume_screen_volume_label">Lydstyrke</string>
 </resources>

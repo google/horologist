@@ -74,7 +74,8 @@ fun UampMediaPlayerScreen(
                         seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
                         onSeekToNextButtonClick = { playerUiController.skipToNextMedia() },
                         seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
-                        percent = playerUiState.trackPosition?.percent ?: 0f
+                        percent = playerUiState.trackPosition?.percent ?: 0f,
+                        showProgress = playerUiState.trackPosition?.showProgress ?: false
                     )
                 } else {
                     DefaultPlayerScreenControlButtons(playerUiController, playerUiState)
@@ -107,6 +108,7 @@ public fun PlayerScreenPodcastControlButtons(
         playPauseButtonEnabled = playerUiState.playPauseEnabled,
         playing = playerUiState.playing,
         percent = playerUiState.trackPosition?.percent ?: 0f,
+        showProgress = playerUiState.trackPosition?.showProgress ?: false,
         onSeekBackButtonClick = { playerUiController.seekBack() },
         seekBackButtonEnabled = playerUiState.seekBackEnabled,
         onSeekForwardButtonClick = { playerUiController.seekForward() },

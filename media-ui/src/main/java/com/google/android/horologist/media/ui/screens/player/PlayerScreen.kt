@@ -122,8 +122,7 @@ public fun DefaultPlayerScreenMediaDisplay(
 @Composable
 public fun DefaultPlayerScreenControlButtons(
     playerController: PlayerUiController,
-    playerUiState: PlayerUiState,
-    showProgress: Boolean = true
+    playerUiState: PlayerUiState
 ) {
     MediaControlButtons(
         onPlayButtonClick = { playerController.play() },
@@ -134,7 +133,7 @@ public fun DefaultPlayerScreenControlButtons(
         seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
         onSeekToNextButtonClick = { playerController.skipToNextMedia() },
         seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
-        showProgress = showProgress,
+        showProgress = playerUiState.trackPosition?.showProgress ?: true,
         percent = playerUiState.trackPosition?.percent ?: 0f
     )
 }

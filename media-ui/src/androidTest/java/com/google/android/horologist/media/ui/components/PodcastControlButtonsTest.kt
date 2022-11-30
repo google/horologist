@@ -212,6 +212,7 @@ class PodcastControlButtonsTest {
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
                 seekForwardButtonEnabled = true
+
             )
         }
 

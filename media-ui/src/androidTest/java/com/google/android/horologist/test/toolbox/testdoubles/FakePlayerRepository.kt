@@ -29,7 +29,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-class FakePlayerRepository : PlayerRepository {
+class FakePlayerRepository() : PlayerRepository {
 
     private val _connected = MutableStateFlow(true)
     override val connected: StateFlow<Boolean> = _connected
@@ -149,6 +149,10 @@ class FakePlayerRepository : PlayerRepository {
             val newCurrent = (it as MediaPosition.KnownDuration).current + 1.seconds
             MediaPosition.create(newCurrent, it.duration)
         } ?: MediaPosition.create(1.seconds, 10.seconds)
+    }
+
+    fun setPosition(mediaPosition: MediaPosition) {
+        _mediaPosition.value = mediaPosition
     }
 
     fun addCommand(command: Command) {

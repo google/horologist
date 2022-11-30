@@ -70,7 +70,7 @@ class FigmaPlayerScreenTest(
                 title = "Bat Out of Hell",
                 artist = "Meat Loaf"
             ),
-            trackPosition = TrackPositionUiModel(current = 75, duration = 100, percent = 0.75f),
+            trackPosition = TrackPositionUiModel(current = 75, duration = 100, percent = 0.75f, showProgress = true),
             connected = true
         )
 

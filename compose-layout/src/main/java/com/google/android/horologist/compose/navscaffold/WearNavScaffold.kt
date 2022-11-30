@@ -198,7 +198,7 @@ private fun NavPositionIndicator(viewModel: NavScaffoldViewModel) {
  * The scalingLazyListState must be taken from the [ScaffoldContext].
  */
 @Deprecated(
-    "Use composableScalingLazyColumn"
+    "Use listComposable"
 )
 public fun NavGraphBuilder.scalingLazyColumnComposable(
     route: String,
@@ -224,7 +224,7 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
  * The [ScalingLazyColumnConfig] must be taken from the [ConfigScaffoldContext].
  */
 @ExperimentalHorologistComposeLayoutApi
-public fun NavGraphBuilder.composableScalingLazyColumn(
+public fun NavGraphBuilder.listComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
@@ -253,27 +253,7 @@ public fun NavGraphBuilder.composableScalingLazyColumn(
  *
  * The scrollState must be taken from the [ScaffoldContext].
  */
-@Deprecated(
-    "Use composableScrollState",
-    ReplaceWith("composableScrollState(route, arguments, deepLinks, scrollStateBuilder, content)")
-)
 public fun NavGraphBuilder.scrollStateComposable(
-    route: String,
-    arguments: List<NamedNavArgument> = emptyList(),
-    deepLinks: List<NavDeepLink> = emptyList(),
-    scrollStateBuilder: () -> ScrollState = { ScrollState(0) },
-    content: @Composable (ScaffoldContext<ScrollState>) -> Unit
-) {
-    composableScrollState(route, arguments, deepLinks, scrollStateBuilder, content)
-}
-
-/**
- * Add a screen to the navigation graph featuring a Scrollable item.
- *
- * The scrollState must be taken from the [ScaffoldContext].
- */
-@ExperimentalHorologistComposeLayoutApi
-public fun NavGraphBuilder.composableScrollState(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
@@ -296,27 +276,7 @@ public fun NavGraphBuilder.composableScrollState(
  *
  * The scrollState must be taken from the [ScaffoldContext].
  */
-@Deprecated(
-    "Use composableLazyList",
-    ReplaceWith("composableLazyList(route, arguments, deepLinks, lazyListStateBuilder, content)")
-)
 public fun NavGraphBuilder.lazyListComposable(
-    route: String,
-    arguments: List<NamedNavArgument> = emptyList(),
-    deepLinks: List<NavDeepLink> = emptyList(),
-    lazyListStateBuilder: () -> LazyListState = { LazyListState() },
-    content: @Composable (ScaffoldContext<LazyListState>) -> Unit
-) {
-    composableLazyList(route, arguments, deepLinks, lazyListStateBuilder, content)
-}
-
-/**
- * Add a screen to the navigation graph featuring a Lazy list such as LazyColumn.
- *
- * The scrollState must be taken from the [ScaffoldContext].
- */
-@ExperimentalHorologistComposeLayoutApi
-public fun NavGraphBuilder.composableLazyList(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
@@ -339,6 +299,10 @@ public fun NavGraphBuilder.composableLazyList(
  * [NavScaffoldViewModel] are passed into the [content] block so that
  * the Scaffold may be customised, such as disabling TimeText.
  */
+@Deprecated(
+    "Use screenComposable",
+    ReplaceWith("composableLazyList(route, arguments, deepLinks, lazyListStateBuilder, content)")
+)
 public fun NavGraphBuilder.wearNavComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
@@ -359,7 +323,8 @@ public fun NavGraphBuilder.wearNavComposable(
  * [NavScaffoldViewModel] are passed into the [content] block so that
  * the Scaffold may be customised, such as disabling TimeText.
  */
-public fun NavGraphBuilder.composableWearNav(
+@ExperimentalHorologistComposeLayoutApi
+public fun NavGraphBuilder.screenComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),

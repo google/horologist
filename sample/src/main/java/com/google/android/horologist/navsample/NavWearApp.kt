@@ -38,9 +38,9 @@ import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
-import com.google.android.horologist.compose.navscaffold.composableScalingLazyColumn
-import com.google.android.horologist.compose.navscaffold.composableScrollState
-import com.google.android.horologist.compose.navscaffold.wearNavComposable
+import com.google.android.horologist.compose.navscaffold.listComposable
+import com.google.android.horologist.compose.navscaffold.screenComposable
+import com.google.android.horologist.compose.navscaffold.scrollStateComposable
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
 import com.google.android.horologist.navsample.snackbar.SnackbarViewModel
@@ -79,7 +79,7 @@ fun NavWearApp(
         },
         state = navState
     ) {
-        composableScalingLazyColumn(
+        listComposable(
             NavScreen.Menu.route
         ) {
             NavMenuScreen(
@@ -88,7 +88,7 @@ fun NavWearApp(
             )
         }
 
-        composableScalingLazyColumn(
+        listComposable(
             NavScreen.ScalingLazyColumn.route
         ) {
             it.timeTextMode = NavScaffoldViewModel.TimeTextMode.ScrollAway
@@ -102,7 +102,7 @@ fun NavWearApp(
             )
         }
 
-        composableScrollState(
+        scrollStateComposable(
             NavScreen.Column.route,
             scrollStateBuilder = { ScrollState(initial = 0) }
         ) {
@@ -111,8 +111,8 @@ fun NavWearApp(
             )
         }
 
-        wearNavComposable(NavScreen.Dialog.route) { _, viewModel ->
-            viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+        screenComposable(NavScreen.Dialog.route) {
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
 
             Alert(title = { Text("Error") }) {
                 item {
@@ -121,7 +121,7 @@ fun NavWearApp(
             }
         }
 
-        wearNavComposable(NavScreen.Snackbar.route) { _, _ ->
+        screenComposable(NavScreen.Snackbar.route) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Button(onClick = { snackbarViewModel.showMessage("Test") }) {
                     Text(text = "Test")
@@ -129,8 +129,8 @@ fun NavWearApp(
             }
         }
 
-        wearNavComposable(NavScreen.Pager.route) { _, viewModel ->
-            viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+        screenComposable(NavScreen.Pager.route) {
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
 
             val pagerState = rememberPagerState()
             PagerScreen(
@@ -150,7 +150,7 @@ fun NavWearApp(
             }
         }
 
-        wearNavComposable(NavScreen.Volume.route) { _, _ ->
+        screenComposable(NavScreen.Volume.route) {
             VolumeScreen()
         }
     }

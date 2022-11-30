@@ -160,7 +160,7 @@ class NavScaffoldTest {
                 startDestination = "a",
                 navController = navController
             ) {
-                composableScalingLazyColumn(
+                listComposable(
                     route = "a"
                 ) {
                     val focusRequester =
@@ -270,7 +270,7 @@ class NavScaffoldTest {
                     )
                 }
             ) {
-                composableWearNav(
+                screenComposable(
                     route = "a"
                 ) {
                     Box(

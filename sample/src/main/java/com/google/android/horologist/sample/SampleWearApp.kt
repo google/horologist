@@ -38,10 +38,10 @@ import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
-import com.google.android.horologist.compose.navscaffold.composableLazyList
-import com.google.android.horologist.compose.navscaffold.composableScalingLazyColumn
-import com.google.android.horologist.compose.navscaffold.composableScrollState
-import com.google.android.horologist.compose.navscaffold.composableWearNav
+import com.google.android.horologist.compose.navscaffold.lazyListComposable
+import com.google.android.horologist.compose.navscaffold.listComposable
+import com.google.android.horologist.compose.navscaffold.screenComposable
+import com.google.android.horologist.compose.navscaffold.scrollStateComposable
 import com.google.android.horologist.datalayer.DataLayerNodesScreen
 import com.google.android.horologist.datalayer.DataLayerNodesViewModel
 import com.google.android.horologist.networks.NetworkScreen
@@ -63,7 +63,7 @@ fun SampleWearApp() {
     var time by remember { mutableStateOf(LocalDateTime.now()) }
 
     WearNavScaffold(startDestination = Screen.Menu.route, navController = navController) {
-        composableScalingLazyColumn(route = Screen.Menu.route) {
+        listComposable(route = Screen.Menu.route) {
             MenuScreen(
                 modifier = Modifier.fillMaxSize(),
                 navigateToRoute = { route -> navController.navigate(route) },
@@ -71,41 +71,41 @@ fun SampleWearApp() {
                 config = it.columnConfig
             )
         }
-        composableScalingLazyColumn(Screen.DataLayerNodes.route) {
+        listComposable(Screen.DataLayerNodes.route) {
             DataLayerNodesScreen(
                 viewModel = viewModel(factory = DataLayerNodesViewModel.Factory),
                 config = it.columnConfig
             )
         }
-        composableScalingLazyColumn(Screen.Network.route) {
+        listComposable(Screen.Network.route) {
             NetworkScreen(
                 config = it.columnConfig
             )
         }
-        composableWearNav(Screen.FillMaxRectangle.route) {
+        screenComposable(Screen.FillMaxRectangle.route) {
             FillMaxRectangleScreen()
         }
-        composableWearNav(Screen.Volume.route) {
+        screenComposable(Screen.Volume.route) {
             VolumeScreen()
         }
-        composableLazyList(Screen.ScrollAway.route) {
+        lazyListComposable(Screen.ScrollAway.route) {
             ScrollScreenLazyColumn(
                 scrollState = it.scrollableState
             )
         }
-        composableScalingLazyColumn(Screen.ScrollAwaySLC.route) {
+        listComposable(Screen.ScrollAwaySLC.route) {
             ScrollAwayScreenScalingLazyColumn(
                 config = it.columnConfig
             )
         }
-        composableScrollState(
+        scrollStateComposable(
             Screen.ScrollAwayColumn.route
         ) {
             ScrollAwayScreenColumn(
                 scrollState = it.scrollableState
             )
         }
-        composableWearNav(Screen.DatePicker.route) {
+        screenComposable(Screen.DatePicker.route) {
             DatePicker(
                 date = time.toLocalDate(),
                 onDateConfirm = {
@@ -114,7 +114,7 @@ fun SampleWearApp() {
                 }
             )
         }
-        composableWearNav(Screen.TimePicker.route) {
+        screenComposable(Screen.TimePicker.route) {
             TimePickerWith12HourClock(
                 time = time.toLocalTime(),
                 onTimeConfirm = {
@@ -123,7 +123,7 @@ fun SampleWearApp() {
                 }
             )
         }
-        composableWearNav(Screen.TimeWithSecondsPicker.route) {
+        screenComposable(Screen.TimeWithSecondsPicker.route) {
             TimePicker(
                 time = time.toLocalTime(),
                 onTimeConfirm = {
@@ -132,7 +132,7 @@ fun SampleWearApp() {
                 }
             )
         }
-        composableWearNav(Screen.TimeWithoutSecondsPicker.route) {
+        screenComposable(Screen.TimeWithoutSecondsPicker.route) {
             TimePicker(
                 time = time.toLocalTime(),
                 onTimeConfirm = {
@@ -142,24 +142,24 @@ fun SampleWearApp() {
                 showSeconds = false
             )
         }
-        composableScalingLazyColumn(route = Screen.SectionedListMenuScreen.route) {
+        listComposable(route = Screen.SectionedListMenuScreen.route) {
             SectionedListMenuScreen(
                 modifier = Modifier.fillMaxSize(),
                 navigateToRoute = { route -> navController.navigate(route) },
                 config = it.columnConfig
             )
         }
-        composableScalingLazyColumn(Screen.SectionedListStatelessScreen.route) {
+        listComposable(Screen.SectionedListStatelessScreen.route) {
             SectionedListStatelessScreen(
                 config = it.columnConfig
             )
         }
-        composableScalingLazyColumn(Screen.SectionedListStatefulScreen.route) {
+        listComposable(Screen.SectionedListStatefulScreen.route) {
             SectionedListStatefulScreen(
                 config = it.columnConfig
             )
         }
-        composableScalingLazyColumn(Screen.SectionedListExpandableScreen.route) {
+        listComposable(Screen.SectionedListExpandableScreen.route) {
             SectionedListExpandableScreen(
                 config = it.columnConfig
             )
@@ -179,42 +179,42 @@ fun SampleWearApp() {
         composable(route = Screen.RotarySnapListScreen.route) {
             RotaryScrollWithFlingOrSnapScreen(isFling = false, isSnap = true)
         }
-        composableScalingLazyColumn(route = Screen.AuthMenuScreen.route) {
+        listComposable(route = Screen.AuthMenuScreen.route) {
             AuthMenuScreen(
                 modifier = Modifier.fillMaxSize(),
                 navigateToRoute = { route -> navController.navigate(route) },
                 config = it.columnConfig
             )
         }
-        composableWearNav(route = Screen.AuthPKCEScreen.route) {
+        screenComposable(route = Screen.AuthPKCEScreen.route) {
             AuthPKCESampleScreen(
                 onAuthSuccess = { navController.popBackStack() }
             )
         }
-        composableWearNav(route = Screen.AuthDeviceGrantScreen.route) {
+        screenComposable(route = Screen.AuthDeviceGrantScreen.route) {
             AuthDeviceGrantSampleScreen(
                 onAuthSuccess = { navController.popBackStack() }
             )
         }
-        composableWearNav(route = Screen.AuthPKCEScreen.route) {
+        screenComposable(route = Screen.AuthPKCEScreen.route) {
             AuthPKCESampleScreen(
                 onAuthSuccess = { navController.popBackStack() }
             )
         }
-        composableWearNav(route = Screen.AuthDeviceGrantScreen.route) {
+        screenComposable(route = Screen.AuthDeviceGrantScreen.route) {
             AuthDeviceGrantSampleScreen(
                 onAuthSuccess = { navController.popBackStack() }
             )
         }
-        composableWearNav(route = Screen.AuthGoogleSignInScreen.route) {
+        screenComposable(route = Screen.AuthGoogleSignInScreen.route) {
             GoogleSignInSampleScreen(
                 onAuthSuccess = { navController.popBackStack() }
             )
         }
-        composableWearNav(route = Screen.AuthGoogleSignOutScreen.route) {
+        screenComposable(route = Screen.AuthGoogleSignOutScreen.route) {
             GoogleSignOutScreen(navController = navController)
         }
-        composableWearNav(route = Screen.Paging.route) {
+        screenComposable(route = Screen.Paging.route) {
             PagingScreen(navController)
         }
         composable(

@@ -1,0 +1,78 @@
+/*
+ * Copyright 2022 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.google.android.horologist.auth.composables.screens
+
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.AutoCenteringParams
+import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.ScalingLazyColumn
+import androidx.wear.compose.material.ScalingLazyColumnDefaults
+import androidx.wear.compose.material.ScalingLazyListScope
+import androidx.wear.compose.material.ScalingLazyListState
+import androidx.wear.compose.material.ScalingParams
+import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.rememberScalingLazyListState
+import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
+import com.google.android.horologist.auth.composables.R
+import com.google.android.horologist.base.ui.components.Title
+import com.google.android.horologist.compose.focus.RequestFocusWhenActive
+import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
+
+@ExperimentalHorologistAuthComposablesApi
+@Composable
+public fun SignInPromptScreen(
+    message: String,
+    modifier: Modifier = Modifier,
+    title: String = stringResource(id = R.string.horologist_signin_prompt_title),
+    scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
+    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
+    autoCentering: AutoCenteringParams? = AutoCenteringParams(),
+    content: ScalingLazyListScope.() -> Unit
+) {
+    val focusRequester = remember { FocusRequester() }
+
+    ScalingLazyColumn(
+        modifier = modifier
+            .fillMaxSize()
+            .rotaryWithFling(focusRequester, scalingLazyListState),
+        state = scalingLazyListState,
+        scalingParams = scalingParams,
+        autoCentering = autoCentering
+    ) {
+        item { Title(text = title) }
+        item {
+            Text(
+                text = message,
+                modifier = Modifier.padding(top = 8.dp, bottom = 12.dp, start = 10.dp, end = 10.dp),
+                color = MaterialTheme.colors.onBackground,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.body2
+            )
+        }
+        apply(content)
+    }
+
+    RequestFocusWhenActive(focusRequester)
+}

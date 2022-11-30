@@ -25,8 +25,6 @@ package com.google.android.horologist.media.ui.screens.entity
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.ui.graphics.Color
-import androidx.wear.compose.material.ScalingLazyColumnDefaults
-import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi

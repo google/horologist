@@ -28,6 +28,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.SavedStateHandleSaveableApi
 import androidx.lifecycle.viewmodel.compose.saveable
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
@@ -35,6 +36,9 @@ import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
+import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.*
+import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode.ScrollAway
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode.Off
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode.On
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode.WhenScrollable
@@ -59,7 +63,7 @@ public open class NavScaffoldViewModel(
      * Returns the scrollable state for this composable or null if the scaffold should
      * not consider this element to be scrollable.
      */
-    public val scrollableState: ScrollableState?
+    val scrollableState: ScrollableState?
         get() = if (scrollType == null || scrollType == ScrollType.None) {
             null
         } else {
@@ -76,13 +80,13 @@ public open class NavScaffoldViewModel(
      * The configuration of [TimeText], defaults to [TimeTextMode.ScrollAway] which will move the
      * time text above the screen to avoid overlapping with the content moving up.
      */
-    public var timeTextMode: TimeTextMode by mutableStateOf(TimeTextMode.ScrollAway)
+    var timeTextMode: TimeTextMode by mutableStateOf(TimeTextMode.ScrollAway)
 
     /**
      * The configuration of [PositionIndicator].  The default is to show a scroll bar while the
      * scroll is in progress.
      */
-    public var positionIndicatorMode: PositionIndicatorMode
+    var positionIndicatorMode: PositionIndicatorMode
         by mutableStateOf(PositionIndicatorMode.On)
 
     internal fun initializeScrollState(scrollStateBuilder: () -> ScrollState): ScrollState {
@@ -122,6 +126,25 @@ public open class NavScaffoldViewModel(
         }
 
         return _scrollableState as ScalingLazyListState
+    }
+
+    internal fun initializeScalingLazyListState(
+        columnConfig: ScalingLazyColumnConfig
+    ) {
+        check(scrollType == null || scrollType == ScrollType.ScalingLazyColumn)
+
+        if (scrollType == null) {
+            scrollType = ScrollType.ScalingLazyColumn
+
+            _scrollableState = savedStateHandle.saveable(
+                key = "navScaffold.ScalingLazyListState",
+                saver = ScalingLazyListState.Saver
+            ) {
+                columnConfig.state
+            }
+        }
+
+        columnConfig.state = _scrollableState as ScalingLazyListState
     }
 
     internal fun initializeLazyList(
@@ -172,4 +195,46 @@ public open class NavScaffoldViewModel(
         public object Off : VignetteMode
         public data class On(val position: VignettePosition) : VignetteMode
     }
+}
+
+/**
+ * The context items provided to a navigation composable.
+ *
+ * The [viewModel] can be used to customise the scaffold behaviour.
+ */
+public data class ScaffoldContext<T : ScrollableState>(
+    val backStackEntry: NavBackStackEntry,
+    val scrollableState: T,
+    val viewModel: NavScaffoldViewModel
+) {
+    var timeTextMode: TimeTextMode by viewModel::timeTextMode
+
+    var positionIndicatorMode: PositionIndicatorMode by viewModel::positionIndicatorMode
+}
+
+public data class NonScrollableScaffoldContext(
+    val backStackEntry: NavBackStackEntry,
+    val viewModel: NavScaffoldViewModel
+) {
+    var timeTextMode: TimeTextMode by viewModel::timeTextMode
+
+    var positionIndicatorMode: PositionIndicatorMode by viewModel::positionIndicatorMode
+}
+
+/**
+ * The context items provided to a navigation composable.
+ *
+ * The [viewModel] can be used to customise the scaffold behaviour.
+ */
+public data class ConfigScaffoldContext(
+    val backStackEntry: NavBackStackEntry,
+    val columnConfig: ScalingLazyColumnConfig,
+    val viewModel: NavScaffoldViewModel
+) {
+    val scrollableState: ScalingLazyListState
+        get() = columnConfig.state
+
+    var timeTextMode: TimeTextMode by viewModel::timeTextMode
+
+    var positionIndicatorMode: PositionIndicatorMode by viewModel::positionIndicatorMode
 }

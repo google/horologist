@@ -38,8 +38,8 @@ import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
-import com.google.android.horologist.compose.navscaffold.scalingLazyColumn
-import com.google.android.horologist.compose.navscaffold.wearNavComposable
+import com.google.android.horologist.compose.navscaffold.composableScalingLazyColumn
+import com.google.android.horologist.compose.navscaffold.composableWearNav
 import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
 import com.google.android.horologist.media.ui.screens.playerlibrarypager.PlayerLibraryPagerScreen
 import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
@@ -99,13 +99,13 @@ public fun MediaPlayerScaffold(
         timeText = timeText,
         state = navHostState
     ) {
-        wearNavComposable(
+        composableWearNav(
             route = NavigationScreens.Player.navRoute,
             arguments = NavigationScreens.Player.arguments,
             deepLinks = NavigationScreens.Player.deepLinks(deepLinkPrefix)
-        ) { backStack, viewModel ->
-            viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
-            viewModel.positionIndicatorMode = NavScaffoldViewModel.PositionIndicatorMode.Off
+        ) {
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+            it.positionIndicatorMode = NavScaffoldViewModel.PositionIndicatorMode.Off
 
             val volumeState by volumeViewModel.volumeState.collectAsStateWithLifecycle()
 
@@ -120,11 +120,11 @@ public fun MediaPlayerScaffold(
                 libraryScreen = { listState ->
                     libraryScreen(listState)
                 },
-                backStack = backStack
+                backStack = it.backStackEntry
             )
         }
 
-        scalingLazyColumn(
+        composableScalingLazyColumn(
             route = NavigationScreens.Collections.navRoute,
             arguments = NavigationScreens.Collections.arguments,
             deepLinks = NavigationScreens.Collections.deepLinks(deepLinkPrefix)
@@ -132,7 +132,7 @@ public fun MediaPlayerScaffold(
             playlistsScreen(it.columnConfig)
         }
 
-        scalingLazyColumn(
+        composableScalingLazyColumn(
             route = NavigationScreens.Settings.navRoute,
             arguments = NavigationScreens.Settings.arguments,
             deepLinks = NavigationScreens.Settings.deepLinks(deepLinkPrefix)
@@ -140,17 +140,17 @@ public fun MediaPlayerScaffold(
             settingsScreen(it.columnConfig)
         }
 
-        wearNavComposable(
+        composableWearNav(
             route = NavigationScreens.Volume.navRoute,
             arguments = NavigationScreens.Volume.arguments,
             deepLinks = NavigationScreens.Volume.deepLinks(deepLinkPrefix)
-        ) { _, viewModel ->
-            viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+        ) {
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
 
             volumeScreen()
         }
 
-        scalingLazyColumn(
+        composableScalingLazyColumn(
             route = NavigationScreens.MediaItem.navRoute,
             arguments = NavigationScreens.MediaItem.arguments,
             deepLinks = NavigationScreens.MediaItem.deepLinks(deepLinkPrefix)
@@ -158,7 +158,7 @@ public fun MediaPlayerScaffold(
             mediaEntityScreen(it.columnConfig)
         }
 
-        scalingLazyColumn(
+        composableScalingLazyColumn(
             route = NavigationScreens.Collection.navRoute,
             arguments = NavigationScreens.Collection.arguments,
             deepLinks = NavigationScreens.Collection.deepLinks(deepLinkPrefix)

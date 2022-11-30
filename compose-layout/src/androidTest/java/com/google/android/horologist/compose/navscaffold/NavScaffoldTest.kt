@@ -160,9 +160,8 @@ class NavScaffoldTest {
                 startDestination = "a",
                 navController = navController
             ) {
-                scalingLazyColumnComposable(
+                composableScalingLazyColumn(
                     route = "a",
-                    scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 0) }
                 ) {
                     val focusRequester =
                         remember { FocusRequester() }
@@ -185,7 +184,7 @@ class NavScaffoldTest {
                     RequestFocusWhenActive(focusRequester)
                 }
 
-                scrollStateComposable(
+                composableScrollState(
                     route = "b",
                     scrollStateBuilder = { ScrollState(0) }
                 ) {
@@ -271,9 +270,9 @@ class NavScaffoldTest {
                     )
                 }
             ) {
-                wearNavComposable(
+                composableWearNav(
                     route = "a"
-                ) { _, _ ->
+                ) {
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center

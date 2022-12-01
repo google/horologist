@@ -24,8 +24,10 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ScalingLazyListAnchorType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig.RotaryMode
+import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 
 public object ScalingLazyColumnConfigDefaults {
+    @ExperimentalHorologistComposeLayoutApi
     @Composable
     public fun rememberTopAlignedConfig(rotaryMode: RotaryMode = RotaryMode.Snap): ScalingLazyColumnConfig {
         val density = LocalDensity.current
@@ -44,6 +46,23 @@ public object ScalingLazyColumnConfigDefaults {
                     offsetPx = topScreenOffsetPx
                 ),
                 anchorType = ScalingLazyListAnchorType.ItemStart,
+                flingBehavior = flingBehavior,
+                rotaryMode = rotaryMode
+            )
+        }
+    }
+
+    @ExperimentalHorologistComposeLayoutApi
+    @Composable
+    public fun rememberDefaultConfig(rotaryMode: RotaryMode = RotaryMode.Snap): ScalingLazyColumnConfig {
+        val flingBehavior = ScrollableDefaults.flingBehavior()
+
+        return remember {
+            ScalingLazyColumnConfig(
+                initialScrollPosition = ScalingLazyColumnConfig.ScrollPosition(
+                    index = 1,
+                    offsetPx = 0
+                ),
                 flingBehavior = flingBehavior,
                 rotaryMode = rotaryMode
             )

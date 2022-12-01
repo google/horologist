@@ -80,7 +80,8 @@ package com.google.android.horologist.compose.layout {
   }
 
   public final class ScalingLazyColumnConfigDefaults {
-    method @androidx.compose.runtime.Composable public com.google.android.horologist.compose.layout.ScalingLazyColumnConfig rememberTopAlignedConfig(optional com.google.android.horologist.compose.layout.ScalingLazyColumnConfig.RotaryMode rotaryMode);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public com.google.android.horologist.compose.layout.ScalingLazyColumnConfig rememberDefaultConfig(optional com.google.android.horologist.compose.layout.ScalingLazyColumnConfig.RotaryMode rotaryMode);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public com.google.android.horologist.compose.layout.ScalingLazyColumnConfig rememberTopAlignedConfig(optional com.google.android.horologist.compose.layout.ScalingLazyColumnConfig.RotaryMode rotaryMode);
     field public static final com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults INSTANCE;
   }
 

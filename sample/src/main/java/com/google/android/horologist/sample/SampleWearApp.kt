@@ -182,6 +182,39 @@ fun SampleWearApp() {
         composable(route = Screen.RotarySnapListScreen.route) {
             RotaryScrollWithFlingOrSnapScreen(isFling = false, isSnap = true)
         }
+        composable(route = Screen.AuthMenuScreen.route) {
+            AuthMenuScreen(
+                navigateToRoute = { route -> navController.navigate(route) },
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+        composable(route = Screen.AuthPKCESignInPromptScreen.route) {
+            AuthPKCESignInPromptScreen(navController = navController)
+        }
+        composable(route = Screen.AuthPKCEScreen.route) {
+            AuthPKCESampleScreen(
+                onAuthSuccess = { navController.popBackStack() }
+            )
+        }
+        composable(route = Screen.AuthDeviceGrantSignInPromptScreen.route) {
+            AuthDeviceGrantSignInPromptScreen(navController = navController)
+        }
+        composable(route = Screen.AuthDeviceGrantScreen.route) {
+            AuthDeviceGrantSampleScreen(
+                onAuthSuccess = { navController.popBackStack() }
+            )
+        }
+        composable(route = Screen.GoogleSignInPromptSampleScreen.route) {
+            GoogleSignInPromptSampleScreen(navController = navController)
+        }
+        composable(route = Screen.AuthGoogleSignInScreen.route) {
+            GoogleSignInSampleScreen(
+                onAuthSuccess = { navController.popBackStack() }
+            )
+        }
+        composable(route = Screen.AuthGoogleSignOutScreen.route) {
+            GoogleSignOutScreen(navController = navController)
+        }
         listComposable(route = Screen.AuthMenuScreen.route) {
             AuthMenuScreen(
                 modifier = Modifier.fillMaxSize(),
@@ -189,15 +222,8 @@ fun SampleWearApp() {
                 config = it.columnConfig
             )
         }
-        screenComposable(route = Screen.AuthPKCEScreen.route) {
-            AuthPKCESampleScreen(
-                onAuthSuccess = { navController.popBackStack() }
-            )
-        }
-        screenComposable(route = Screen.AuthDeviceGrantScreen.route) {
-            AuthDeviceGrantSampleScreen(
-                onAuthSuccess = { navController.popBackStack() }
-            )
+        screenComposable(route = Screen.AuthPKCESignInPromptScreen.route) {
+            AuthPKCESignInPromptScreen(navController = navController)
         }
         screenComposable(route = Screen.AuthPKCEScreen.route) {
             AuthPKCESampleScreen(
@@ -208,6 +234,22 @@ fun SampleWearApp() {
             AuthDeviceGrantSampleScreen(
                 onAuthSuccess = { navController.popBackStack() }
             )
+        }
+        screenComposable(route = Screen.AuthPKCEScreen.route) {
+            AuthPKCESampleScreen(
+                onAuthSuccess = { navController.popBackStack() }
+            )
+        }
+        screenComposable(route = Screen.AuthDeviceGrantSignInPromptScreen.route) {
+            AuthDeviceGrantSignInPromptScreen(navController = navController)
+        }
+        screenComposable(route = Screen.AuthDeviceGrantScreen.route) {
+            AuthDeviceGrantSampleScreen(
+                onAuthSuccess = { navController.popBackStack() }
+            )
+        }
+        screenComposable(route = Screen.GoogleSignInPromptSampleScreen.route) {
+            GoogleSignInPromptSampleScreen(navController = navController)
         }
         screenComposable(route = Screen.AuthGoogleSignInScreen.route) {
             GoogleSignInSampleScreen(
@@ -218,7 +260,7 @@ fun SampleWearApp() {
             GoogleSignOutScreen(navController = navController)
         }
         screenComposable(route = Screen.Paging.route) {
-            PagingScreen(navController)
+            PagingScreen(navController = navController)
         }
         composable(
             route = Screen.PagingItem.route,

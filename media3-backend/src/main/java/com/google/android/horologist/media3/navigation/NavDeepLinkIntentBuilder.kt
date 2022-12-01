@@ -31,9 +31,7 @@ public class NavDeepLinkIntentBuilder(
         val taskDetailIntent = Intent(
             Intent.ACTION_VIEW,
             downloadUri.toUri()
-        ).apply {
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        }
+        )
 
         return TaskStackBuilder.create(application).run {
             addNextIntentWithParentStack(taskDetailIntent)
@@ -45,10 +43,11 @@ public class NavDeepLinkIntentBuilder(
         val taskDetailIntent = Intent(
             Intent.ACTION_VIEW,
             playerUri.toUri()
-        ).apply {
-            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-        }
+        )
 
-        return PendingIntent.getActivity(application, 0, taskDetailIntent, PendingIntent.FLAG_IMMUTABLE)
+        return TaskStackBuilder.create(application).run {
+            addNextIntentWithParentStack(taskDetailIntent)
+            getPendingIntent(0, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+        }
     }
 }

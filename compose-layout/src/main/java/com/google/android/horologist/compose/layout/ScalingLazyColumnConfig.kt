@@ -80,7 +80,7 @@ public class ScalingLazyColumnConfig internal constructor(
         RotaryMode.Scroll -> Modifier.rotaryWithScroll(focusRequester, state)
     }
 
-    fun copy(scalingParams: ScalingParams): ScalingLazyColumnConfig = ScalingLazyColumnConfig(
+    public fun copy(scalingParams: ScalingParams): ScalingLazyColumnConfig = ScalingLazyColumnConfig(
         initialScrollPosition,
         autoCentering,
         anchorType,

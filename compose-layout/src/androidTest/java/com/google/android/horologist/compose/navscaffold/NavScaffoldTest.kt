@@ -67,6 +67,7 @@ class NavScaffoldTest {
 
     lateinit var navController: NavHostController
 
+    @Suppress("DEPRECATION")
     @Test
     fun testNavScaffoldScroll() = runTest {
         // Test that when we move between two scrollable destinations

@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistComposablesApi::class)
+@file:OptIn(
+    ExperimentalHorologistComposablesApi::class,
+    ExperimentalHorologistComposeLayoutApi::class
+)
 
 package com.google.android.horologist.composables
 
@@ -36,6 +39,7 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 
 @WearPreviewDevices

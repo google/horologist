@@ -15,7 +15,9 @@
  */
 
 @file:Suppress("TestFunctionName" /* incorrectly flagging composable functions */)
-@file:OptIn(ExperimentalHorologistPaparazziApi::class, ExperimentalHorologistComposablesApi::class,
+@file:OptIn(
+    ExperimentalHorologistPaparazziApi::class,
+    ExperimentalHorologistComposablesApi::class,
     ExperimentalHorologistComposeLayoutApi::class
 )
 

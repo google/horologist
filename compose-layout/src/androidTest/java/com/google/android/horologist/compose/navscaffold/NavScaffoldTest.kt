@@ -184,7 +184,7 @@ class NavScaffoldTest {
                     RequestFocusWhenActive(focusRequester)
                 }
 
-                composableScrollState(
+                scrollStateComposable(
                     route = "b",
                     scrollStateBuilder = { ScrollState(0) }
                 ) {

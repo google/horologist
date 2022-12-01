@@ -80,6 +80,20 @@ public class ScalingLazyColumnConfig internal constructor(
         RotaryMode.Scroll -> Modifier.rotaryWithScroll(focusRequester, state)
     }
 
+    fun copy(scalingParams: ScalingParams): ScalingLazyColumnConfig = ScalingLazyColumnConfig(
+        initialScrollPosition,
+        autoCentering,
+        anchorType,
+        contentPadding,
+        rotaryMode,
+        reverseLayout,
+        verticalArrangement,
+        horizontalAlignment,
+        flingBehavior,
+        userScrollEnabled,
+        scalingParams
+    )
+
     public sealed interface RotaryMode {
         public object Fling : RotaryMode
         public object Snap : RotaryMode

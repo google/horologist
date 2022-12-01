@@ -22,9 +22,9 @@
 
 package com.google.android.horologist.media.ui.screens.browse
 
-import androidx.wear.compose.material.ScalingLazyListState
 import app.cash.paparazzi.DeviceConfig
 import com.android.ide.common.rendering.api.SessionParams
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.compose.tools.a11y.TallPreview
@@ -60,9 +60,6 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest {
 
     @Test
     fun browseScreen() {
-        val scrollState = ScalingLazyListState()
-        scrollState.forceState(0, 0)
-
         val screenState = BrowseScreenState.Loaded(downloadList)
 
         paparazzi.snapshot {
@@ -70,15 +67,18 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest {
                 width = DeviceConfig.GALAXY_WATCH4_CLASSIC_LARGE.screenWidth,
                 height = 650
             ) { scalingParams ->
-                PlayerLibraryPreview(state = scrollState, round = false) {
+                val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+                    .copy(scalingParams = scalingParams)
+                config.state.forceState(0, 0)
+
+                PlayerLibraryPreview(state = config.state, round = false) {
                     PlaylistDownloadBrowseScreen(
                         browseScreenState = screenState,
                         onDownloadItemClick = { },
                         onDownloadItemInProgressClick = { },
                         onPlaylistsClick = { },
                         onSettingsClick = { },
-                        scalingLazyListState = scrollState,
-                        scalingParams = scalingParams,
+                        config = config,
                         onDownloadItemInProgressClickActionLabel = "cancel"
                     )
                 }

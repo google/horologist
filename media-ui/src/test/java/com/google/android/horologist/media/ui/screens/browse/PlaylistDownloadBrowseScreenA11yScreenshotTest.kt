@@ -22,7 +22,7 @@
 
 package com.google.android.horologist.media.ui.screens.browse
 
-import androidx.wear.compose.material.ScalingLazyListState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.compose.tools.a11y.forceState
@@ -62,20 +62,20 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest {
 
     @Test
     fun browseScreen() {
-        val scrollState = ScalingLazyListState()
-        scrollState.forceState(0, -40)
-
         val screenState = BrowseScreenState.Loaded(downloadList)
 
         paparazzi.snapshot {
-            PlayerLibraryPreview(state = scrollState) {
+            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            config.state.forceState(0, -40)
+
+            PlayerLibraryPreview(state = config.state) {
                 PlaylistDownloadBrowseScreen(
                     browseScreenState = screenState,
                     onDownloadItemClick = { },
                     onDownloadItemInProgressClick = { },
                     onPlaylistsClick = { },
                     onSettingsClick = { },
-                    scalingLazyListState = scrollState,
+                    config = config,
                     onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }
@@ -84,24 +84,21 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest {
 
     @Test
     fun secondPage() {
-        val scrollState = ScalingLazyListState()
-        scrollState.forceState(4, 0)
-
-        val screenState = BrowseScreenState.Loaded(downloadList)
-
         FakeImageLoader.NotFound.override {
+            val screenState = BrowseScreenState.Loaded(downloadList)
+
             paparazzi.snapshot {
-                PlayerLibraryPreview(state = scrollState) {
-                    PlaylistDownloadBrowseScreen(
-                        browseScreenState = screenState,
-                        onDownloadItemClick = { },
-                        onDownloadItemInProgressClick = { },
-                        onPlaylistsClick = { },
-                        onSettingsClick = { },
-                        scalingLazyListState = scrollState,
-                        onDownloadItemInProgressClickActionLabel = "cancel"
-                    )
-                }
+                val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+                config.state.forceState(0, -40)
+                PlaylistDownloadBrowseScreen(
+                    browseScreenState = screenState,
+                    onDownloadItemClick = { },
+                    onDownloadItemInProgressClick = { },
+                    onPlaylistsClick = { },
+                    onSettingsClick = { },
+                    config = config,
+                    onDownloadItemInProgressClickActionLabel = "cancel"
+                )
             }
         }
     }

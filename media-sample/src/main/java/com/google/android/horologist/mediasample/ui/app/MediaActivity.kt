@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.mediasample.ui.app
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -37,6 +38,8 @@ class MediaActivity : ComponentActivity() {
 
         setTheme(android.R.style.Theme_DeviceDefault)
 
+        println("onCreate $this")
+
         setContent {
             navController = rememberSwipeDismissableNavController()
             UampWearApp(
@@ -52,6 +55,29 @@ class MediaActivity : ComponentActivity() {
         }
 
         jankPrinter.installJankStats(activity = this)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        navController.handleDeepLink(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        println("onResume $this")
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        println("onStop $this")
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        println("onPause $this")
     }
 
     companion object {

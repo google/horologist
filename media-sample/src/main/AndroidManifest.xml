@@ -48,7 +48,9 @@
         <activity
             android:name=".ui.app.MediaActivity"
             android:exported="true"
-            android:label="@string/sample_media_activity">
+            android:label="@string/sample_media_activity"
+            android:launchMode="singleTask"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

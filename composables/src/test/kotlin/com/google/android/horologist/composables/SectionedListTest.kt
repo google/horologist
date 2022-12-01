@@ -31,7 +31,6 @@ import androidx.compose.material.icons.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -44,6 +43,7 @@ import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.compose.tools.a11y.forceState
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
@@ -58,14 +58,11 @@ class SectionedListTest {
     @Test
     fun loadingSection() {
         paparazzi.snapshot {
-            val scrollState = ScalingLazyListState()
-            scrollState.forceState(0, 0)
+            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            config.state.forceState(0, 0)
 
-            SectionedListPreview(scrollState) {
-                SectionedList(
-                    focusRequester = FocusRequester(),
-                    scalingLazyListState = scrollState
-                ) {
+            SectionedListPreview(config.state) {
+                SectionedList(config = config) {
                     downloadsSection(state = Section.State.Loading())
 
                     favouritesSection(state = Section.State.Empty())
@@ -77,14 +74,11 @@ class SectionedListTest {
     @Test
     fun loadedSection() {
         paparazzi.snapshot {
-            val scrollState = ScalingLazyListState()
-            scrollState.forceState(0, 0)
+            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            config.state.forceState(0, 0)
 
-            SectionedListPreview(scrollState) {
-                SectionedList(
-                    focusRequester = FocusRequester(),
-                    scalingLazyListState = scrollState
-                ) {
+            SectionedListPreview(config.state) {
+                SectionedList(config = config) {
                     downloadsSection(state = Section.State.Loaded(downloads))
 
                     favouritesSection(state = Section.State.Failed())
@@ -96,14 +90,11 @@ class SectionedListTest {
     @Test
     fun loadedSection_secondPage() {
         paparazzi.snapshot {
-            val scrollState = ScalingLazyListState()
-            scrollState.forceState(4, 0)
+            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            config.state.forceState(4, 0)
 
-            SectionedListPreview(scrollState) {
-                SectionedList(
-                    focusRequester = FocusRequester(),
-                    scalingLazyListState = scrollState
-                ) {
+            SectionedListPreview(config.state) {
+                SectionedList(config = config) {
                     downloadsSection(state = Section.State.Loaded(downloads))
 
                     favouritesSection(state = Section.State.Failed())
@@ -115,14 +106,11 @@ class SectionedListTest {
     @Test
     fun failedSection() {
         paparazzi.snapshot {
-            val scrollState = ScalingLazyListState()
-            scrollState.forceState(0, 0)
+            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            config.state.forceState(0, 0)
 
-            SectionedListPreview(scrollState) {
-                SectionedList(
-                    focusRequester = FocusRequester(),
-                    scalingLazyListState = scrollState
-                ) {
+            SectionedListPreview(config.state) {
+                SectionedList(config = config) {
                     downloadsSection(state = Section.State.Failed())
 
                     favouritesSection(state = Section.State.Loaded(favourites))
@@ -134,14 +122,11 @@ class SectionedListTest {
     @Test
     fun failedSection_secondPage() {
         paparazzi.snapshot {
-            val scrollState = ScalingLazyListState()
-            scrollState.forceState(4, 0)
+            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            config.state.forceState(4, 0)
 
-            SectionedListPreview(scrollState) {
-                SectionedList(
-                    focusRequester = FocusRequester(),
-                    scalingLazyListState = scrollState
-                ) {
+            SectionedListPreview(config.state) {
+                SectionedList(config = config) {
                     downloadsSection(state = Section.State.Failed())
 
                     favouritesSection(state = Section.State.Loaded(favourites))
@@ -153,14 +138,11 @@ class SectionedListTest {
     @Test
     fun emptySection() {
         paparazzi.snapshot {
-            val scrollState = ScalingLazyListState()
-            scrollState.forceState(0, 0)
+            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            config.state.forceState(0, 0)
 
-            SectionedListPreview(scrollState) {
-                SectionedList(
-                    focusRequester = FocusRequester(),
-                    scalingLazyListState = scrollState
-                ) {
+            SectionedListPreview(config.state) {
+                SectionedList(config = config) {
                     downloadsSection(state = Section.State.Empty())
 
                     favouritesSection(state = Section.State.Loading())

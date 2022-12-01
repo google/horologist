@@ -30,10 +30,13 @@ import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.auth.AuthMenuScreen
+import com.google.android.horologist.auth.googlesignin.GoogleSignInPromptSampleScreen
 import com.google.android.horologist.auth.googlesignin.GoogleSignInSampleScreen
 import com.google.android.horologist.auth.googlesignin.GoogleSignOutScreen
 import com.google.android.horologist.auth.oauth.devicegrant.AuthDeviceGrantSampleScreen
+import com.google.android.horologist.auth.oauth.devicegrant.AuthDeviceGrantSignInPromptScreen
 import com.google.android.horologist.auth.oauth.pkce.AuthPKCESampleScreen
+import com.google.android.horologist.auth.oauth.pkce.AuthPKCESignInPromptScreen
 import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock

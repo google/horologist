@@ -45,6 +45,7 @@ android {
         jvmTarget = '1.8'
         freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi"
     }
 
     composeOptions {
@@ -94,6 +95,7 @@ metalava {
 dependencies {
 
     implementation projects.baseUi
+    implementation projects.composeLayout
 
     implementation libs.androidx.wear
     implementation libs.compose.material.iconscore

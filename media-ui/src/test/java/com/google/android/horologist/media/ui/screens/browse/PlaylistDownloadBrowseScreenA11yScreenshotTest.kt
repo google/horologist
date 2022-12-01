@@ -89,7 +89,7 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest {
 
             paparazzi.snapshot {
                 val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
-                config.state.forceState(0, -40)
+                config.state.forceState(4, 0)
                 PlaylistDownloadBrowseScreen(
                     browseScreenState = screenState,
                     onDownloadItemClick = { },

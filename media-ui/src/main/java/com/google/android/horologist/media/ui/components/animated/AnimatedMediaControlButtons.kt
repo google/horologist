@@ -78,6 +78,7 @@ public fun AnimatedMediaControlButtons(
     showProgress: Boolean,
     modifier: Modifier = Modifier,
     percent: Float? = null,
+    animateProgress: Boolean = false,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     ControlButtonLayout(
@@ -100,7 +101,8 @@ public fun AnimatedMediaControlButtons(
                     playing = playing,
                     percent = percent,
                     modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
-                    colors = colors
+                    colors = colors,
+                    animateProgress = animateProgress
                 )
             } else {
                 PlayPauseButton(

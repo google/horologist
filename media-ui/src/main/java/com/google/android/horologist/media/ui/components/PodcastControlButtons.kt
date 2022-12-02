@@ -159,6 +159,7 @@ public fun PodcastControlButtons(
     showProgress: Boolean,
     modifier: Modifier = Modifier,
     percent: Float? = null,
+    animateProgress: Boolean = false,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     ControlButtonLayout(
@@ -181,7 +182,8 @@ public fun PodcastControlButtons(
                     enabled = playPauseButtonEnabled,
                     playing = playing,
                     percent = percent,
-                    colors = colors
+                    colors = colors,
+                    animateProgress = animateProgress
                 )
             } else {
                 PlayPauseButton(

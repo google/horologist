@@ -27,6 +27,37 @@ import com.google.android.horologist.compose.tools.WearPreviewDevices
 fun SignedInConfirmationDialogPreview() {
     SignedInConfirmationDialogContent(
         displayName = "Maggie",
-        email = "maggie@gmail.com"
+        email = "maggie@example.com"
+    )
+}
+
+@WearPreviewDevices
+@Composable
+fun SignedInConfirmationDialogPreviewNoName() {
+    SignedInConfirmationDialogContent(
+        email = "maggie@example.com"
+    )
+}
+
+@WearPreviewDevices
+@Composable
+fun SignedInConfirmationDialogPreviewNoEmail() {
+    SignedInConfirmationDialogContent(
+        displayName = "Maggie"
+    )
+}
+
+@WearPreviewDevices
+@Composable
+fun SignedInConfirmationDialogPreviewNoInformation() {
+    SignedInConfirmationDialogContent()
+}
+
+@WearPreviewDevices
+@Composable
+fun SignedInConfirmationDialogPreviewTruncation() {
+    SignedInConfirmationDialogContent(
+        displayName = "Wolfeschlegelsteinhausenbergerdorff",
+        email = "wolfeschlegelsteinhausenbergerdorff@example.com"
     )
 }

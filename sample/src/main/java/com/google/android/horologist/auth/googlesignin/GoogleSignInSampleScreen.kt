@@ -39,8 +39,7 @@ fun GoogleSignInSampleScreen(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (state) {
-        AuthGoogleSignInScreenState.Idle,
-        AuthGoogleSignInScreenState.SelectAccount -> {
+        AuthGoogleSignInScreenState.Idle, AuthGoogleSignInScreenState.SelectAccount -> {
             GoogleSignInScreen(viewModel)
         }
 
@@ -52,29 +51,18 @@ fun GoogleSignInSampleScreen(
             var showDialog by rememberSaveable { mutableStateOf(true) }
             val successState = state as AuthGoogleSignInScreenState.Success
 
-            if (successState.displayName != null && successState.email != null) {
-                SignedInConfirmationDialog(
-                    displayName = successState.displayName!!,
-                    email = successState.email!!,
-                    showDialog = showDialog,
-                    onDismissOrTimeout = {
-                        showDialog = false
+            SignedInConfirmationDialog(
+                displayName = successState.displayName,
+                email = successState.email,
+                avatarUri = successState.photoUrl,
+                showDialog = showDialog,
+                onDismissOrTimeout = {
+                    showDialog = false
 
-                        onAuthSuccess()
-                    },
-                    modifier = modifier
-                )
-            } else {
-                SignedInConfirmationDialog(
-                    showDialog = showDialog,
-                    onDismissOrTimeout = {
-                        showDialog = false
-
-                        onAuthSuccess()
-                    },
-                    modifier = modifier
-                )
-            }
+                    onAuthSuccess()
+                },
+                modifier = modifier
+            )
         }
     }
 }

@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.auth.composables.dialogs
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,29 +32,48 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalAccessibilityManager
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.ChipDefaults
+import androidx.compose.ui.unit.sp
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Dialog
 import androidx.wear.compose.material.dialog.DialogDefaults
+import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
 import com.google.android.horologist.auth.composables.R
+import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import kotlinx.coroutines.delay
+import java.time.Duration
 
 @ExperimentalHorologistAuthComposablesApi
 @Composable
 public fun SignedInConfirmationDialog(
-    displayName: String,
-    email: String,
     showDialog: Boolean,
     onDismissOrTimeout: () -> Unit,
     modifier: Modifier = Modifier,
-    durationMillis: Long = DialogDefaults.ShortDurationMillis
+    displayName: String? = null,
+    email: String? = null,
+    avatarUri: Any? = null,
+    duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis)
 ) {
     val currentOnDismissOrTimeout by rememberUpdatedState(onDismissOrTimeout)
+
+    val durationMillis = LocalAccessibilityManager.current?.calculateRecommendedTimeoutMillis(
+        originalTimeoutMillis = duration.toMillis(),
+        containsIcons = false,
+        containsText = true,
+        containsControls = false
+    ) ?: run {
+        duration.toMillis()
+    }
 
     LaunchedEffect(durationMillis) {
         delay(durationMillis)
@@ -66,9 +86,10 @@ public fun SignedInConfirmationDialog(
         modifier = modifier
     ) {
         SignedInConfirmationDialogContent(
+            modifier = modifier,
             displayName = displayName,
             email = email,
-            modifier = modifier
+            avatarUri = avatarUri
         )
     }
 }
@@ -76,80 +97,82 @@ public fun SignedInConfirmationDialog(
 @ExperimentalHorologistAuthComposablesApi
 @Composable
 internal fun SignedInConfirmationDialogContent(
-    displayName: String,
-    email: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    displayName: String? = null,
+    email: String? = null,
+    avatarUri: Any? = null
 ) {
+    val configuration = LocalConfiguration.current
+    val horizontalPadding = (configuration.screenWidthDp * 0.094).dp
+    val bottomPadding = (configuration.screenHeightDp * 0.094).dp
+
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(horizontal = horizontalPadding)
+            .padding(bottom = bottomPadding),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val hasName = displayName != null
+        val hasEmail = email != null
+        val hasAvatar = avatarUri != null
+
         Box(
-            modifier = modifier
-                .size(ChipDefaults.LargeIconSize)
-                .background(color = Color.Blue, shape = CircleShape)
+            modifier = Modifier
+                .size(60.dp)
+                .background(color = Color(0xFF4ECDE6), shape = CircleShape),
+            contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = displayName.first().uppercase(),
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Center
-            )
+            if (hasAvatar) {
+                Image(
+                    modifier = Modifier.clip(CircleShape),
+                    painter = rememberAsyncImagePainter(model = avatarUri),
+                    contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+                    contentScale = ContentScale.Fit
+                )
+            } else if (hasName) {
+                Text(
+                    text = displayName!!.first().uppercase(),
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .fillMaxWidth(),
+                    color = Color(0xFF202124),
+                    fontSize = 24.sp,
+                    textAlign = TextAlign.Center
+                )
+            }
         }
 
         Text(
-            text = stringResource(
-                id = R.string.horologist_signedin_confirmation_greeting,
-                displayName
-            ),
+            text = if (hasName) {
+                stringResource(
+                    id = R.string.horologist_signedin_confirmation_greeting,
+                    displayName!!
+                )
+            } else {
+                stringResource(id = R.string.horologist_signedin_confirmation_greeting_no_name)
+            },
             modifier = Modifier
-                .padding(top = 20.dp)
+                .padding(top = 8.dp)
                 .fillMaxWidth(),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1,
+            style = MaterialTheme.typography.title3
         )
 
-        Text(
-            text = email,
-            modifier = Modifier
-                .padding(top = 5.dp)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Center
-        )
-    }
-}
-
-@ExperimentalHorologistAuthComposablesApi
-@Composable
-public fun SignedInConfirmationDialog(
-    showDialog: Boolean,
-    onDismissOrTimeout: () -> Unit,
-    modifier: Modifier = Modifier,
-    durationMillis: Long = DialogDefaults.ShortDurationMillis
-) {
-    val currentOnDismissOrTimeout by rememberUpdatedState(onDismissOrTimeout)
-
-    LaunchedEffect(durationMillis) {
-        delay(durationMillis)
-        currentOnDismissOrTimeout()
-    }
-
-    Dialog(
-        showDialog = showDialog,
-        onDismissRequest = currentOnDismissOrTimeout,
-        modifier = modifier
-    ) {
-        Column(
-            modifier = modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center
-
-        ) {
+        if (hasEmail) {
             Text(
-                text = "Success!",
+                text = email!!,
                 modifier = Modifier
+                    .padding(top = 4.dp)
                     .fillMaxWidth(),
-                textAlign = TextAlign.Center
+                color = MaterialTheme.colors.onSurfaceVariant,
+                textAlign = TextAlign.Center,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1,
+                style = MaterialTheme.typography.body2
             )
         }
     }

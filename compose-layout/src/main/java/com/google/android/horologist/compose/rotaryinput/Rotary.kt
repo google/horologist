@@ -855,7 +855,7 @@ internal class HighResRotaryScrollHandler(
             scrollBehavior.handleEvent(rotaryScrollDistance)
         }
 
-        if(rotaryFlingBehavior != null) {
+        if (rotaryFlingBehavior != null) {
             flingJob.cancel()
             flingJob = coroutineScope.async {
                 rotaryFlingBehavior?.trackFling(

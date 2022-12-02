@@ -835,8 +835,9 @@ internal class HighResRotaryScrollHandler(
             resetTracking(time)
             rotaryScrollDistance = event.delta
         } else {
-            // Filter out opposite axis values from end of scroll, also some values
-            // at the start of motion which sometimes appear with a different sign
+            // Due to the physics of Rotary side button, some events might come
+            // with an opposite axis value - either at the start or at the end of the motion.
+            // We don't want to use these values for fling calculations.
             if (!isOppositeScrollValue) {
                 rotaryFlingBehavior?.observeEvent(event.timestamp, event.delta)
             } else {

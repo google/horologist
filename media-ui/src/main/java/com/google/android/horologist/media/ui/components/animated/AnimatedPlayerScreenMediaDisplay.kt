@@ -41,7 +41,7 @@ public fun AnimatedPlayerScreenMediaDisplay(
         MarqueeTextMediaDisplay(
             modifier = modifier,
             title = media.title,
-            artist = media.artist
+            artist = media.subtitle
         )
     } else {
         InfoMediaDisplay(

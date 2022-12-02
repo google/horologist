@@ -38,16 +38,22 @@ public class MediaMapper(
      */
     public fun map(
         mediaItem: MediaItem,
+        mediaMetadata: MediaMetadata?,
         defaultArtist: String = ""
     ): Media = Media(
         id = mediaItem.mediaId,
         uri = mediaItem.localConfiguration?.uri?.toString() ?: "",
-        title = mediaItem.mediaMetadata.displayTitle?.toString()
-            ?: mediaItem.mediaMetadata.title?.toString() ?: "",
-        artist = mediaItem.mediaMetadata.artist?.toString()
-            ?: mediaItem.mediaMetadata.albumArtist?.toString() ?: defaultArtist,
-        artworkUri = mediaItem.mediaMetadata.artworkUri?.toString(),
-        extras = mediaExtrasMapper.map(mediaItem)
+        title = mediaMetadata?.title?.toString()
+            ?: mediaItem.mediaMetadata.displayTitle?.toString()
+            ?: mediaItem.mediaMetadata.title?.toString()
+            ?: "",
+        artist = mediaMetadata?.artist?.toString()
+            ?: mediaItem.mediaMetadata.artist?.toString()
+            ?: mediaItem.mediaMetadata.albumArtist?.toString()
+            ?: defaultArtist,
+        artworkUri = mediaMetadata?.artworkUri?.toString()
+            ?: mediaItem.mediaMetadata.artworkUri?.toString(),
+        extras = mediaExtrasMapper.map(mediaItem, mediaMetadata)
     )
 
     /**

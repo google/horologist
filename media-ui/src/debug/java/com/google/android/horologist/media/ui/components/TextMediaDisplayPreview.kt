@@ -28,7 +28,7 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 fun TextMediaDisplayPreview() {
     TextMediaDisplay(
         title = "Song title",
-        artist = "Artist name"
+        subtitle = "Artist name"
     )
 }
 
@@ -41,6 +41,6 @@ fun TextMediaDisplayPreview() {
 fun TextMediaDisplayPreviewLongText() {
     TextMediaDisplay(
         title = "I Predict That You Look Good In A Riot",
-        artist = "Arctic Monkeys feat Kaiser Chiefs"
+        subtitle = "Arctic Monkeys feat Kaiser Chiefs"
     )
 }

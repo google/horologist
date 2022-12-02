@@ -22,6 +22,6 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 public data class MediaUiModel(
     val id: String,
     val title: String? = null,
-    val artist: String? = null,
+    val subtitle: String? = null,
     val artworkUri: String? = null
 )

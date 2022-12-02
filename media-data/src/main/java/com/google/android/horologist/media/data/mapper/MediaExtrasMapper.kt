@@ -17,6 +17,7 @@
 package com.google.android.horologist.media.data.mapper
 
 import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
 import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.model.Media
 
@@ -26,11 +27,11 @@ import com.google.android.horologist.media.model.Media
 @ExperimentalHorologistMediaDataApi
 public interface MediaExtrasMapper {
 
-    public fun map(mediaItem: MediaItem): Map<String, Any>
+    public fun map(mediaItem: MediaItem, mediaMetadata: MediaMetadata?): Map<String, Any>
 }
 
 @ExperimentalHorologistMediaDataApi
 public object MediaExtrasMapperNoopImpl : MediaExtrasMapper {
 
-    override fun map(mediaItem: MediaItem): Map<String, Any> = emptyMap()
+    override fun map(mediaItem: MediaItem, mediaMetadata: MediaMetadata?): Map<String, Any> = emptyMap()
 }

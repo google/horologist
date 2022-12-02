@@ -33,6 +33,6 @@ public fun DefaultMediaDisplay(
     TextMediaDisplay(
         modifier = modifier,
         title = media?.title,
-        artist = media?.artist
+        subtitle = media?.subtitle
     )
 }

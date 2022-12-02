@@ -828,6 +828,7 @@ internal class HighResRotaryScrollHandler(
         rotaryHaptics: RotaryHapticFeedback
     ) {
         val time = event.timestamp
+        val isOppositeScrollValue = isOppositeValueAfterScroll(event.delta)
 
         if (isNewScrollEvent(time)) {
             debugLog { "New scroll event" }
@@ -836,16 +837,15 @@ internal class HighResRotaryScrollHandler(
         } else {
             // Filter out opposite axis values from end of scroll, also some values
             // at the start of motion which sometimes appear with a different sign
-            if (isOppositeValueAfterScroll(event.delta)) {
-                debugLog { "Opposite value after scroll. Filtering:${event.delta}" }
-                return
+            if (!isOppositeScrollValue) {
+                rotaryFlingBehavior?.observeEvent(event.timestamp, event.delta)
+            } else {
+                debugLog { "Opposite value after scroll :${event.delta}" }
             }
             rotaryScrollDistance += event.delta
-            rotaryFlingBehavior?.observeEvent(event.timestamp, event.delta)
         }
 
         scrollJob.cancel()
-        flingJob.cancel()
 
         handleHaptic(rotaryHaptics, event.delta)
         debugLog { "Rotary scroll distance: $rotaryScrollDistance" }
@@ -855,14 +855,17 @@ internal class HighResRotaryScrollHandler(
             scrollBehavior.handleEvent(rotaryScrollDistance)
         }
 
-        flingJob = coroutineScope.async {
-            rotaryFlingBehavior?.trackFling(
-                beforeFling = {
-                    debugLog { "Calling before fling section" }
-                    scrollJob.cancel()
-                    scrollBehavior = scrollBehaviorFactory()
-                }
-            )
+        if(rotaryFlingBehavior != null) {
+            flingJob.cancel()
+            flingJob = coroutineScope.async {
+                rotaryFlingBehavior?.trackFling(
+                    beforeFling = {
+                        debugLog { "Calling before fling section" }
+                        scrollJob.cancel()
+                        scrollBehavior = scrollBehaviorFactory()
+                    }
+                )
+            }
         }
     }
 

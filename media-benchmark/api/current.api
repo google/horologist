@@ -1,7 +1,7 @@
 // Signature format: 4.0
 package com.google.android.horologist.media.benchmark {
 
-  @androidx.benchmark.macro.ExperimentalBaselineProfilesApi @org.junit.runner.RunWith(AndroidJUnit4::class) public abstract class BaseMediaBaselineProfile {
+  @org.junit.runner.RunWith(AndroidJUnit4::class) public abstract class BaseMediaBaselineProfile {
     ctor public BaseMediaBaselineProfile();
     method public suspend Object? checkPlayingState(androidx.media3.session.MediaBrowser mediaController, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
     method @org.junit.Rule public final androidx.benchmark.macro.junit4.BaselineProfileRule getBaselineRule();

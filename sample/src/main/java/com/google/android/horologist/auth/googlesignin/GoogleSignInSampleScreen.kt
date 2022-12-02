@@ -52,7 +52,7 @@ fun GoogleSignInSampleScreen(
             val successState = state as AuthGoogleSignInScreenState.Success
 
             SignedInConfirmationDialog(
-                displayName = successState.displayName,
+                name = successState.displayName,
                 email = successState.email,
                 avatarUri = successState.photoUrl,
                 showDialog = showDialog,

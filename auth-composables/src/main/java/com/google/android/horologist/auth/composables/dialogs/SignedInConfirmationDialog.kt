@@ -53,13 +53,21 @@ import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DES
 import kotlinx.coroutines.delay
 import java.time.Duration
 
+private const val AVATAR_BACKGROUND_COLOR = 0xFF4ECDE6
+private const val AVATAR_TEXT_COLOR = 0xFF202124
+private const val BOTTOM_PADDING_SCREEN_PERCENTAGE = 0.094
+private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.094
+
+/**
+ * A signed in confirmation dialog that can display the name, email and avatar image of the user.
+ */
 @ExperimentalHorologistAuthComposablesApi
 @Composable
 public fun SignedInConfirmationDialog(
     showDialog: Boolean,
     onDismissOrTimeout: () -> Unit,
     modifier: Modifier = Modifier,
-    displayName: String? = null,
+    name: String? = null,
     email: String? = null,
     avatarUri: Any? = null,
     duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis)
@@ -71,9 +79,7 @@ public fun SignedInConfirmationDialog(
         containsIcons = false,
         containsText = true,
         containsControls = false
-    ) ?: run {
-        duration.toMillis()
-    }
+    ) ?: duration.toMillis()
 
     LaunchedEffect(durationMillis) {
         delay(durationMillis)
@@ -87,7 +93,7 @@ public fun SignedInConfirmationDialog(
     ) {
         SignedInConfirmationDialogContent(
             modifier = modifier,
-            displayName = displayName,
+            displayName = name,
             email = email,
             avatarUri = avatarUri
         )
@@ -103,8 +109,8 @@ internal fun SignedInConfirmationDialogContent(
     avatarUri: Any? = null
 ) {
     val configuration = LocalConfiguration.current
-    val horizontalPadding = (configuration.screenWidthDp * 0.094).dp
-    val bottomPadding = (configuration.screenHeightDp * 0.094).dp
+    val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
+    val bottomPadding = (configuration.screenHeightDp * BOTTOM_PADDING_SCREEN_PERCENTAGE).dp
 
     Column(
         modifier = modifier
@@ -115,13 +121,12 @@ internal fun SignedInConfirmationDialogContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val hasName = displayName != null
-        val hasEmail = email != null
         val hasAvatar = avatarUri != null
 
         Box(
             modifier = Modifier
                 .size(60.dp)
-                .background(color = Color(0xFF4ECDE6), shape = CircleShape),
+                .background(color = Color(AVATAR_BACKGROUND_COLOR), shape = CircleShape),
             contentAlignment = Alignment.Center
         ) {
             if (hasAvatar) {
@@ -137,7 +142,7 @@ internal fun SignedInConfirmationDialogContent(
                     modifier = Modifier
                         .align(Alignment.Center)
                         .fillMaxWidth(),
-                    color = Color(0xFF202124),
+                    color = Color(AVATAR_TEXT_COLOR),
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center
                 )
@@ -162,9 +167,9 @@ internal fun SignedInConfirmationDialogContent(
             style = MaterialTheme.typography.title3
         )
 
-        if (hasEmail) {
+        email?.let {
             Text(
-                text = email!!,
+                text = email,
                 modifier = Modifier
                     .padding(top = 4.dp)
                     .fillMaxWidth(),

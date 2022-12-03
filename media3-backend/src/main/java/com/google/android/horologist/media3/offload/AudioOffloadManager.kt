@@ -54,7 +54,7 @@ public class AudioOffloadManager(
         AudioOffloadStatus(
             offloadSchedulingEnabled = false,
             sleepingForOffload = false,
-            trackOffload = null,
+            trackOffload = false,
             format = null,
             isPlaying = false,
             errors = listOf(),
@@ -100,14 +100,11 @@ public class AudioOffloadManager(
                 errorReporter.logMessage("sleeping for offload $sleepingForOffload")
             }
 
-            // Expose when https://github.com/androidx/media/commit/7893531888608555fb09e77f12897752650131d5
-            // is in 1.0-RC1
-            // For now requires `media3.checkout=false` in local.properties
-//            override fun onExperimentalOffloadedPlayback(offloadedPlayback: Boolean) {
-//                _offloadStatus.update {
-//                    it.copy(trackOffload = offloadedPlayback)
-//                }
-//            }
+            override fun onExperimentalOffloadedPlayback(offloadedPlayback: Boolean) {
+                _offloadStatus.update {
+                    it.copy(trackOffload = offloadedPlayback)
+                }
+            }
         }
 
     @RequiresApi(Build.VERSION_CODES.Q)
@@ -171,7 +168,7 @@ public class AudioOffloadManager(
         _offloadStatus.value = AudioOffloadStatus(
             offloadSchedulingEnabled = false,
             sleepingForOffload = exoPlayer.experimentalIsSleepingForOffload(),
-            trackOffload = null,
+            trackOffload = false,
             format = exoPlayer.audioFormat,
             isPlaying = exoPlayer.isPlaying,
             errors = listOf(),
@@ -219,7 +216,7 @@ public class AudioOffloadManager(
         val times = status.updateToNow()
         val offloadedPlayback = status.trackOffloadDescription()
         val strategy = status.strategy
-        if (strategy != null && status.trackOffload != null && strategy.offloadEnabled != status.trackOffload) {
+        if (strategy != null && strategy.offloadEnabled != status.trackOffload) {
             errorReporter.logMessage(
                 "Offload not matching: $strategy track=$offloadedPlayback",
                 category = ErrorReporter.Category.Playback,

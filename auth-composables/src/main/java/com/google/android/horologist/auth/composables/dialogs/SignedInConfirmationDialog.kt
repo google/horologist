@@ -27,16 +27,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalAccessibilityManager
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -45,13 +40,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.dialog.Dialog
 import androidx.wear.compose.material.dialog.DialogDefaults
 import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
 import com.google.android.horologist.auth.composables.R
+import com.google.android.horologist.base.ui.components.ConfirmationDialog
 import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
-import kotlinx.coroutines.delay
 import java.time.Duration
 
 private const val AVATAR_BACKGROUND_COLOR = 0xFF4ECDE6
@@ -65,7 +59,6 @@ private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.094
 @ExperimentalHorologistAuthComposablesApi
 @Composable
 public fun SignedInConfirmationDialog(
-    showDialog: Boolean,
     onDismissOrTimeout: () -> Unit,
     modifier: Modifier = Modifier,
     name: String? = null,
@@ -73,27 +66,10 @@ public fun SignedInConfirmationDialog(
     avatarUri: Any? = null,
     duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis)
 ) {
-    val currentOnDismissOrTimeout by rememberUpdatedState(onDismissOrTimeout)
-
-    val accessibilityManager = LocalAccessibilityManager.current
-    val durationMillis = remember(duration) {
-        accessibilityManager?.calculateRecommendedTimeoutMillis(
-            originalTimeoutMillis = duration.toMillis(),
-            containsIcons = false,
-            containsText = true,
-            containsControls = false
-        ) ?: duration.toMillis()
-    }
-
-    LaunchedEffect(durationMillis) {
-        delay(durationMillis)
-        currentOnDismissOrTimeout()
-    }
-
-    Dialog(
-        showDialog = showDialog,
-        onDismissRequest = currentOnDismissOrTimeout,
-        modifier = modifier
+    ConfirmationDialog(
+        onTimeout = onDismissOrTimeout,
+        modifier = modifier,
+        durationMillis = duration.toMillis()
     ) {
         SignedInConfirmationDialogContent(
             modifier = modifier,

@@ -18,8 +18,6 @@ package com.google.android.horologist.auth.googlesignin
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -48,17 +46,13 @@ fun GoogleSignInSampleScreen(
         }
 
         is AuthGoogleSignInScreenState.Success -> {
-            var showDialog by rememberSaveable { mutableStateOf(true) }
             val successState = state as AuthGoogleSignInScreenState.Success
 
             SignedInConfirmationDialog(
                 name = successState.displayName,
                 email = successState.email,
                 avatarUri = successState.photoUrl,
-                showDialog = showDialog,
                 onDismissOrTimeout = {
-                    showDialog = false
-
                     onAuthSuccess()
                 },
                 modifier = modifier

@@ -12,6 +12,10 @@ package com.google.android.horologist.base.ui.components {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi public static void AlertDialog(String body, kotlin.jvm.functions.Function0<kotlin.Unit> onCancelButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onOKButtonClick, boolean showDialog, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional String title, optional String okButtonContentDescription, optional String cancelButtonContentDescription);
   }
 
+  public final class ConfirmationDialogKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi public static void ConfirmationDialog(kotlin.jvm.functions.Function0<kotlin.Unit> onTimeout, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit>? icon, optional androidx.wear.compose.material.ScalingLazyListState scrollState, optional long durationMillis, optional long backgroundColor, optional long contentColor, optional long iconColor, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional androidx.compose.foundation.layout.PaddingValues contentPadding, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit> content);
+  }
+
   public final class StandardButtonKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi public static void StandardButton(androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.base.ui.components.StandardButtonType buttonType, optional com.google.android.horologist.base.ui.components.StandardButtonSize buttonSize, optional boolean enabled);
   }

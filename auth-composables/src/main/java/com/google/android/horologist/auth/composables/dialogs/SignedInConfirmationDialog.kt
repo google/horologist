@@ -29,6 +29,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -74,12 +75,15 @@ public fun SignedInConfirmationDialog(
 ) {
     val currentOnDismissOrTimeout by rememberUpdatedState(onDismissOrTimeout)
 
-    val durationMillis = LocalAccessibilityManager.current?.calculateRecommendedTimeoutMillis(
-        originalTimeoutMillis = duration.toMillis(),
-        containsIcons = false,
-        containsText = true,
-        containsControls = false
-    ) ?: duration.toMillis()
+    val accessibilityManager = LocalAccessibilityManager.current
+    val durationMillis = remember(duration) {
+        accessibilityManager?.calculateRecommendedTimeoutMillis(
+            originalTimeoutMillis = duration.toMillis(),
+            containsIcons = false,
+            containsText = true,
+            containsControls = false
+        ) ?: duration.toMillis()
+    }
 
     LaunchedEffect(durationMillis) {
         delay(durationMillis)

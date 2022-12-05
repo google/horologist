@@ -16,8 +16,10 @@
 
 package com.google.android.horologist.media.ui.components
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.TweenSpec
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.snap
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -36,7 +38,6 @@ import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.ProgressIndicatorDefaults
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.PauseButton
 import com.google.android.horologist.media.ui.components.controls.PlayButton
@@ -94,8 +95,7 @@ public fun PlayPauseProgressButton(
     tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
     progressColour: Color = MaterialTheme.colors.primary,
     trackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
-    backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
-    animateProgress: Boolean = false
+    backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f)
 ) {
     PlayPauseButton(
         onPlayClick = onPlayClick,
@@ -113,9 +113,15 @@ public fun PlayPauseProgressButton(
                 .clip(CircleShape)
                 .background(backgroundColor)
         ) {
+            val targetValue = percent.ifNan(0f)
             val progress by animateFloatAsState(
-                targetValue = percent.ifNan(0f),
-                animationSpec = if (animateProgress) ProgressIndicatorDefaults.ProgressAnimationSpec else snap()
+                targetValue = targetValue,
+                animationSpec =
+                if (targetValue < 1 / 1000f) {
+                    TweenSpec(easing = LinearOutSlowInEasing)
+                } else {
+                    TweenSpec(durationMillis = 1000, easing = LinearEasing)
+                }
             )
             CircularProgressIndicator(
                 modifier = Modifier

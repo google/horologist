@@ -134,8 +134,7 @@ public fun DefaultPlayerScreenControlButtons(
         onSeekToNextButtonClick = { playerController.skipToNextMedia() },
         seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
         showProgress = playerUiState.trackPosition?.showProgress ?: true,
-        percent = playerUiState.trackPosition?.percent ?: 0f,
-        animateProgress = true
+        percent = playerUiState.trackPosition?.percent ?: 0f
     )
 }
 

@@ -41,8 +41,7 @@ public fun MediaControlButtons(
     onSeekToNextButtonClick: () -> Unit,
     seekToNextButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
-    animateProgress: Boolean = false
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     MediaControlButtons(
         onPlayButtonClick = onPlayButtonClick,
@@ -56,8 +55,7 @@ public fun MediaControlButtons(
         showProgress = true,
         modifier = modifier,
         percent = percent,
-        colors = colors,
-        animateProgress = animateProgress
+        colors = colors
     )
 }
 
@@ -108,8 +106,7 @@ internal fun MediaControlButtons(
     showProgress: Boolean,
     modifier: Modifier = Modifier,
     percent: Float? = null,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
-    animateProgress: Boolean = false
+    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     ControlButtonLayout(
         modifier = modifier,
@@ -130,8 +127,7 @@ internal fun MediaControlButtons(
                     enabled = playPauseButtonEnabled,
                     playing = playing,
                     percent = percent,
-                    colors = colors,
-                    animateProgress = animateProgress
+                    colors = colors
                 )
             } else {
                 PlayPauseButton(

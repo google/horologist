@@ -75,8 +75,7 @@ fun UampMediaPlayerScreen(
                         onSeekToNextButtonClick = { playerUiController.skipToNextMedia() },
                         seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
                         percent = playerUiState.trackPosition?.percent ?: 0f,
-                        showProgress = playerUiState.trackPosition?.showProgress ?: false,
-                        animateProgress = true
+                        showProgress = playerUiState.trackPosition?.showProgress ?: false
                     )
                 } else {
                     DefaultPlayerScreenControlButtons(playerUiController, playerUiState)

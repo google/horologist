@@ -57,7 +57,7 @@ class PodcastPlayerScreenTest(
             media = MediaUiModel(
                 id = "",
                 title = "The power of types",
-                artist = "Kotlinconf"
+                subtitle = "Kotlinconf"
             ),
             trackPosition = TrackPositionUiModel(current = 30, duration = 225, percent = 0.133f, showProgress = true),
             connected = true

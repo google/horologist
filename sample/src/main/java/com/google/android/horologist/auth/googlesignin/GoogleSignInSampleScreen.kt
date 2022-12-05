@@ -18,8 +18,6 @@ package com.google.android.horologist.auth.googlesignin
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -39,8 +37,7 @@ fun GoogleSignInSampleScreen(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (state) {
-        AuthGoogleSignInScreenState.Idle,
-        AuthGoogleSignInScreenState.SelectAccount -> {
+        AuthGoogleSignInScreenState.Idle, AuthGoogleSignInScreenState.SelectAccount -> {
             GoogleSignInScreen(viewModel)
         }
 
@@ -49,32 +46,17 @@ fun GoogleSignInSampleScreen(
         }
 
         is AuthGoogleSignInScreenState.Success -> {
-            var showDialog by rememberSaveable { mutableStateOf(true) }
             val successState = state as AuthGoogleSignInScreenState.Success
 
-            if (successState.displayName != null && successState.email != null) {
-                SignedInConfirmationDialog(
-                    displayName = successState.displayName!!,
-                    email = successState.email!!,
-                    showDialog = showDialog,
-                    onDismissOrTimeout = {
-                        showDialog = false
-
-                        onAuthSuccess()
-                    },
-                    modifier = modifier
-                )
-            } else {
-                SignedInConfirmationDialog(
-                    showDialog = showDialog,
-                    onDismissOrTimeout = {
-                        showDialog = false
-
-                        onAuthSuccess()
-                    },
-                    modifier = modifier
-                )
-            }
+            SignedInConfirmationDialog(
+                name = successState.displayName,
+                email = successState.email,
+                avatarUri = successState.photoUrl,
+                onDismissOrTimeout = {
+                    onAuthSuccess()
+                },
+                modifier = modifier
+            )
         }
     }
 }

@@ -61,7 +61,7 @@ class MediaPlayerStatesScreenTest(
                 MediaUiModel(
                     id = "",
                     title = "Weather with You",
-                    artist = "Crowded House"
+                    subtitle = "Crowded House"
                 )
             } else {
                 null

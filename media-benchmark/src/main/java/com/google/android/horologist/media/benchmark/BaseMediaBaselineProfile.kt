@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.media.benchmark
 
-import androidx.benchmark.macro.ExperimentalBaselineProfilesApi
 import androidx.benchmark.macro.MacrobenchmarkScope
 import androidx.benchmark.macro.junit4.BaselineProfileRule
 import androidx.media3.session.MediaBrowser
@@ -45,7 +44,6 @@ import kotlin.time.Duration.Companion.seconds
 // 3) Add the rules as androidMain/baseline-prof.txt
 // Note that Compose libraries have profile rules already so the main benefit is to add any
 // rules that are specific to classes and methods in your own app and library code.
-@ExperimentalBaselineProfilesApi
 @RunWith(AndroidJUnit4::class)
 public abstract class BaseMediaBaselineProfile {
 

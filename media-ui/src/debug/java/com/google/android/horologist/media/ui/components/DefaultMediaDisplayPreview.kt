@@ -31,7 +31,7 @@ fun DefaultMediaDisplayPreview() {
         media = MediaUiModel(
             id = "id",
             title = "Song title",
-            artist = "Artist name"
+            subtitle = "Artist name"
         )
     )
 }
@@ -47,7 +47,7 @@ fun DefaultMediaDisplayPreviewLongText() {
         media = MediaUiModel(
             id = "id",
             title = "I Predict That You Look Good In A Riot",
-            artist = "Arctic Monkeys feat Kaiser Chiefs"
+            subtitle = "Arctic Monkeys feat Kaiser Chiefs"
         )
     )
 }

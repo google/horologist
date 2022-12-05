@@ -83,7 +83,7 @@ fun PlayerScreenPreview() {
             PlayerScreen(
                 mediaDisplay = {
                     TextMediaDisplay(
-                        artist = "Journey",
+                        subtitle = "Journey",
                         title = "Don't Stop Believin'"
                     )
                 },
@@ -222,7 +222,7 @@ fun PlayerScreenPreviewCustomBackground() {
             PlayerScreen(
                 mediaDisplay = {
                     TextMediaDisplay(
-                        artist = "Casaca",
+                        subtitle = "Casaca",
                         title = "Da Da Da"
                     )
                 },
@@ -310,7 +310,7 @@ fun DefaultMediaPreview() {
             PlayerScreen(
                 mediaDisplay = {
                     TextMediaDisplay(
-                        artist = "Journey",
+                        subtitle = "Journey",
                         title = "Don't Stop Believin'"
                     )
                 },

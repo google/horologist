@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.mediasample.benchmark
 
-import androidx.benchmark.macro.ExperimentalBaselineProfilesApi
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.horologist.media.benchmark.BaseMediaBaselineProfile
 import com.google.android.horologist.media.benchmark.MediaApp
@@ -32,7 +31,6 @@ import org.junit.runner.RunWith
 // 3) Add the rules as androidMain/baseline-prof.txt
 // Note that Compose libraries have profile rules already so the main benefit is to add any
 // rules that are specific to classes and methods in your own app and library code.
-@ExperimentalBaselineProfilesApi
 @RunWith(AndroidJUnit4::class)
 class BaselineProfile : BaseMediaBaselineProfile() {
     override val mediaApp: MediaApp = TestMedia.MediaSampleApp

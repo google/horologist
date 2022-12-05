@@ -35,7 +35,7 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 public fun TextMediaDisplay(
     modifier: Modifier = Modifier,
     title: String? = null,
-    artist: String? = null
+    subtitle: String? = null
 ) {
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
@@ -47,7 +47,7 @@ public fun TextMediaDisplay(
             style = MaterialTheme.typography.button
         )
         Text(
-            text = artist.orEmpty(),
+            text = subtitle.orEmpty(),
             modifier = Modifier.fillMaxWidth(0.8f),
             color = MaterialTheme.colors.onBackground,
             textAlign = TextAlign.Center,

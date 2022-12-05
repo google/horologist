@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.auth.composables.dialogs
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,49 +27,55 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.ChipDefaults
+import androidx.compose.ui.unit.sp
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.dialog.Dialog
 import androidx.wear.compose.material.dialog.DialogDefaults
+import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
 import com.google.android.horologist.auth.composables.R
-import kotlinx.coroutines.delay
+import com.google.android.horologist.base.ui.components.ConfirmationDialog
+import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
+import java.time.Duration
 
+private const val AVATAR_BACKGROUND_COLOR = 0xFF4ECDE6
+private const val AVATAR_TEXT_COLOR = 0xFF202124
+private const val BOTTOM_PADDING_SCREEN_PERCENTAGE = 0.094
+private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.094
+
+/**
+ * A signed in confirmation dialog that can display the name, email and avatar image of the user.
+ */
 @ExperimentalHorologistAuthComposablesApi
 @Composable
 public fun SignedInConfirmationDialog(
-    displayName: String,
-    email: String,
-    showDialog: Boolean,
     onDismissOrTimeout: () -> Unit,
     modifier: Modifier = Modifier,
-    durationMillis: Long = DialogDefaults.ShortDurationMillis
+    name: String? = null,
+    email: String? = null,
+    avatarUri: Any? = null,
+    duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis)
 ) {
-    val currentOnDismissOrTimeout by rememberUpdatedState(onDismissOrTimeout)
-
-    LaunchedEffect(durationMillis) {
-        delay(durationMillis)
-        currentOnDismissOrTimeout()
-    }
-
-    Dialog(
-        showDialog = showDialog,
-        onDismissRequest = currentOnDismissOrTimeout,
-        modifier = modifier
+    ConfirmationDialog(
+        onTimeout = onDismissOrTimeout,
+        modifier = modifier,
+        durationMillis = duration.toMillis()
     ) {
         SignedInConfirmationDialogContent(
-            displayName = displayName,
+            modifier = modifier,
+            displayName = name,
             email = email,
-            modifier = modifier
+            avatarUri = avatarUri
         )
     }
 }
@@ -76,80 +83,81 @@ public fun SignedInConfirmationDialog(
 @ExperimentalHorologistAuthComposablesApi
 @Composable
 internal fun SignedInConfirmationDialogContent(
-    displayName: String,
-    email: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    displayName: String? = null,
+    email: String? = null,
+    avatarUri: Any? = null
 ) {
+    val configuration = LocalConfiguration.current
+    val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
+    val bottomPadding = (configuration.screenHeightDp * BOTTOM_PADDING_SCREEN_PERCENTAGE).dp
+
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(horizontal = horizontalPadding)
+            .padding(bottom = bottomPadding),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val hasName = displayName != null
+        val hasAvatar = avatarUri != null
+
         Box(
-            modifier = modifier
-                .size(ChipDefaults.LargeIconSize)
-                .background(color = Color.Blue, shape = CircleShape)
+            modifier = Modifier
+                .size(60.dp)
+                .background(color = Color(AVATAR_BACKGROUND_COLOR), shape = CircleShape),
+            contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = displayName.first().uppercase(),
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Center
-            )
+            if (hasAvatar) {
+                Image(
+                    modifier = Modifier.clip(CircleShape),
+                    painter = rememberAsyncImagePainter(model = avatarUri),
+                    contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+                    contentScale = ContentScale.Fit
+                )
+            } else if (hasName) {
+                Text(
+                    text = displayName!!.first().uppercase(),
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .fillMaxWidth(),
+                    color = Color(AVATAR_TEXT_COLOR),
+                    fontSize = 24.sp,
+                    textAlign = TextAlign.Center
+                )
+            }
         }
 
         Text(
-            text = stringResource(
-                id = R.string.horologist_signedin_confirmation_greeting,
-                displayName
-            ),
+            text = if (hasName) {
+                stringResource(
+                    id = R.string.horologist_signedin_confirmation_greeting,
+                    displayName!!
+                )
+            } else {
+                stringResource(id = R.string.horologist_signedin_confirmation_greeting_no_name)
+            },
             modifier = Modifier
-                .padding(top = 20.dp)
+                .padding(top = 8.dp)
                 .fillMaxWidth(),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1,
+            style = MaterialTheme.typography.title3
         )
 
-        Text(
-            text = email,
-            modifier = Modifier
-                .padding(top = 5.dp)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Center
-        )
-    }
-}
-
-@ExperimentalHorologistAuthComposablesApi
-@Composable
-public fun SignedInConfirmationDialog(
-    showDialog: Boolean,
-    onDismissOrTimeout: () -> Unit,
-    modifier: Modifier = Modifier,
-    durationMillis: Long = DialogDefaults.ShortDurationMillis
-) {
-    val currentOnDismissOrTimeout by rememberUpdatedState(onDismissOrTimeout)
-
-    LaunchedEffect(durationMillis) {
-        delay(durationMillis)
-        currentOnDismissOrTimeout()
-    }
-
-    Dialog(
-        showDialog = showDialog,
-        onDismissRequest = currentOnDismissOrTimeout,
-        modifier = modifier
-    ) {
-        Column(
-            modifier = modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center
-
-        ) {
+        email?.let {
             Text(
-                text = "Success!",
+                text = email,
                 modifier = Modifier
+                    .padding(top = 4.dp)
                     .fillMaxWidth(),
-                textAlign = TextAlign.Center
+                color = MaterialTheme.colors.onSurfaceVariant,
+                textAlign = TextAlign.Center,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1,
+                style = MaterialTheme.typography.body2
             )
         }
     }

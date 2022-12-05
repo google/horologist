@@ -62,7 +62,7 @@ class MediaPlayerDeviceScreenTest(
             media = MediaUiModel(
                 id = "",
                 title = "Weather with You",
-                artist = "Crowded House"
+                subtitle = "Crowded House"
             ),
             trackPosition = TrackPositionUiModel(current = 30, duration = 225, percent = 0.133f, showProgress = true),
             connected = true

@@ -32,7 +32,7 @@ public object MediaUiModelMapper {
     public fun map(media: Media): MediaUiModel = MediaUiModel(
         id = media.id,
         title = media.title,
-        artist = media.artist,
+        subtitle = media.artist,
         artworkUri = media.artworkUri
     )
 }

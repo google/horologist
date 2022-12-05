@@ -18,6 +18,7 @@
     <string name="horologist_check_your_phone_title">Check your phone</string>
     <string name="horologist_auth_error_message">Error authenticating.</string>
     <string name="horologist_signedin_confirmation_greeting">Hi, %s</string>
+    <string name="horologist_signedin_confirmation_greeting_no_name">Hi!</string>
     <string name="horologist_signin_prompt_title">Sign In</string>
     <string name="horologist_sign_in_chip_label">Sign in</string>
     <string name="horologist_guest_mode_chip_label">Use without account</string>

@@ -20,10 +20,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
-import com.google.android.horologist.auth.composables.screens.SignInPromptScreen
+import com.google.android.horologist.auth.ui.common.screens.SignInPromptScreen
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
@@ -32,11 +33,14 @@ import com.google.android.horologist.sample.Screen
 @Composable
 fun AuthDeviceGrantSignInPromptScreen(
     navController: NavHostController,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: AuthDeviceGrantSignInPromptViewModel = viewModel(factory = AuthDeviceGrantSignInPromptViewModel.Factory)
 ) {
     SignInPromptScreen(
         message = stringResource(id = R.string.auth_device_grant_sign_in_prompt_message),
-        modifier = modifier
+        onAlreadySignedIn = { navController.popBackStack() },
+        modifier = modifier,
+        viewModel = viewModel
     ) {
         item {
             SignInChip(

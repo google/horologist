@@ -554,6 +554,7 @@ package com.google.android.horologist.media.ui.state {
     method public void play();
     method public void seekBack();
     method public void seekForward();
+    method public void setPlaybackSpeed(float speed);
     method public void skipToNextMedia();
     method public void skipToPreviousMedia();
   }

@@ -50,4 +50,8 @@ public class PlayerUiController(private val playerRepository: PlayerRepository) 
     public fun seekForward() {
         playerRepository.seekForward()
     }
+
+    public fun setPlaybackSpeed(speed: Float) {
+        playerRepository.setPlaybackSpeed(speed)
+    }
 }

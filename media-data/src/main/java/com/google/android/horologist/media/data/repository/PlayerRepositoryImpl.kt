@@ -398,7 +398,7 @@ public class PlayerRepositoryImpl(
         _mediaPosition.value = MediaPositionMapper.map(player.value)
     }
 
-    public fun setPlaybackSpeed(speed: Float) {
+    override fun setPlaybackSpeed(speed: Float) {
         player.value?.setPlaybackSpeed(speed)
     }
 

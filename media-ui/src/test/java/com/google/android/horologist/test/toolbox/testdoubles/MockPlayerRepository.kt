@@ -139,4 +139,8 @@ class MockPlayerRepository(
     override fun release() {
         // do nothing
     }
+
+    override fun setPlaybackSpeed(speed: Float) {
+        // do nothing
+    }
 }

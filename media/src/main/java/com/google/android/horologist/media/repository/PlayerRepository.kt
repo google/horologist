@@ -191,4 +191,9 @@ public interface PlayerRepository {
      * player must not be used after calling this method.
      */
     public fun release()
+
+    /**
+     * Set the playback speed.
+     */
+    public fun setPlaybackSpeed(speed: Float)
 }

@@ -29,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.ScalingLazyColumn
-import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingLazyListAnchorType
 import androidx.wear.compose.material.ScalingLazyListScope
 import androidx.wear.compose.material.ScalingLazyListState
@@ -41,7 +40,12 @@ import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
 import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
+import androidx.wear.compose.material.ScalingLazyColumnDefaults as WearScalingLazyColumnDefaults
 
+/**
+ * A Config and State object wrapping up all configuration for a [ScalingLazyColumn].
+ * This allows defaults such as [ScalingLazyColumnDefaults.belowTimeText].
+ */
 public class ScalingLazyColumnState(
     public val initialScrollPosition: ScrollPosition = ScrollPosition(1, 0),
     public val autoCentering: AutoCenteringParams? = AutoCenteringParams(
@@ -60,7 +64,7 @@ public class ScalingLazyColumnState(
     public val horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
     public val flingBehavior: FlingBehavior? = null,
     public val userScrollEnabled: Boolean = true,
-    public val scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams()
+    public val scalingParams: ScalingParams = WearScalingLazyColumnDefaults.scalingParams()
 ) {
     private var _state: ScalingLazyListState? = null
     public var state: ScalingLazyListState

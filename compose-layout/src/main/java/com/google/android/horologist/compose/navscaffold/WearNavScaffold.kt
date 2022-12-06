@@ -221,7 +221,7 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
 /**
  * Add a screen to the navigation graph featuring a ScalingLazyColumn.
  *
- * The [ScalingLazyColumnState] must be taken from the [ConfigScaffoldContext].
+ * The [ScalingLazyColumnState] must be taken from the [ScrollableScaffoldContext].
  */
 @ExperimentalHorologistComposeLayoutApi
 public fun NavGraphBuilder.scrollable(
@@ -229,7 +229,7 @@ public fun NavGraphBuilder.scrollable(
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
     columnStateFactory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.belowTimeText(),
-    content: @Composable (ConfigScaffoldContext) -> Unit
+    content: @Composable (ScrollableScaffoldContext) -> Unit
 ) {
     this@scrollable.composable(route, arguments, deepLinks) {
         FocusedDestination {
@@ -239,7 +239,7 @@ public fun NavGraphBuilder.scrollable(
 
             viewModel.initializeScalingLazyListState(columnState)
 
-            content(ConfigScaffoldContext(it, columnState, viewModel))
+            content(ScrollableScaffoldContext(it, columnState, viewModel))
         }
     }
 }

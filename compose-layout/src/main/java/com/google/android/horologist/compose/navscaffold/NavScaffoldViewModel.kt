@@ -237,7 +237,7 @@ public data class NonScrollableScaffoldContext(
  *
  * The [viewModel] can be used to customise the scaffold behaviour.
  */
-public data class ConfigScaffoldContext(
+public data class ScrollableScaffoldContext(
     val backStackEntry: NavBackStackEntry,
     val columnState: ScalingLazyColumnState,
     val viewModel: NavScaffoldViewModel

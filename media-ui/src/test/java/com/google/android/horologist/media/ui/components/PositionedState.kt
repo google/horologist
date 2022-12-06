@@ -21,6 +21,9 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.tools.a11y.forceState
 
+/**
+ * A preview ScalingLazyColumnState forced into a set position from the top of screen.
+ */
 @Composable
 public fun positionedState(
     topIndex: Int,

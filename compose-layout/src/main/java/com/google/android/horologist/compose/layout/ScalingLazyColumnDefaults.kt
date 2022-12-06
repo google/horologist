@@ -27,7 +27,15 @@ import androidx.wear.compose.material.ScalingLazyListAnchorType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 
+/**
+ * Default layouts for ScalingLazyColumnState, based on UX guidance.
+ */
 public object ScalingLazyColumnDefaults {
+    /**
+     * Layout the first item, directly under the time text.
+     * This is positioned from the top of the screen instead of the
+     * center.
+     */
     @ExperimentalHorologistComposeLayoutApi
     public fun belowTimeText(
         rotaryMode: RotaryMode = RotaryMode.Snap,
@@ -59,6 +67,10 @@ public object ScalingLazyColumnDefaults {
         }
     }
 
+    /**
+     * Layout the item [initialCenterIndex] at [initialCenterOffset] from the
+     * center of the screen.
+     */
     @ExperimentalHorologistComposeLayoutApi
     public fun scalingLazyColumnDefaults(
         rotaryMode: RotaryMode = RotaryMode.Snap,

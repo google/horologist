@@ -20,8 +20,8 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.horologist.auth.data.googlesignin.AuthGoogleSignInAccountListener
-import com.google.android.horologist.auth.data.googlesignin.AuthGoogleSignInAccountListenerNoOpImpl
+import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAccountListener
+import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAccountListenerNoOpImpl
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -31,7 +31,7 @@ import kotlinx.coroutines.launch
 
 @ExperimentalHorologistAuthUiApi
 public open class GoogleSignInViewModel(
-    private val authGoogleSignInAccountListener: AuthGoogleSignInAccountListener = AuthGoogleSignInAccountListenerNoOpImpl()
+    private val googleSignInAccountListener: GoogleSignInAccountListener = GoogleSignInAccountListenerNoOpImpl()
 ) : ViewModel() {
 
     private val _uiState =
@@ -48,7 +48,7 @@ public open class GoogleSignInViewModel(
 
     public fun onAccountSelected(account: GoogleSignInAccount) {
         viewModelScope.launch {
-            authGoogleSignInAccountListener.onAccountReceived(account)
+            googleSignInAccountListener.onAccountReceived(account)
         }
 
         _uiState.value = AuthGoogleSignInScreenState.Success(

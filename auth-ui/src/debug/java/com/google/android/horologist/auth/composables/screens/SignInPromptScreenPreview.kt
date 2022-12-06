@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistAuthComposablesApi::class)
+@file:OptIn(ExperimentalHorologistAuthUiApi::class)
 
 package com.google.android.horologist.auth.composables.screens
 
 import androidx.compose.runtime.Composable
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
+import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
+import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
+import com.google.android.horologist.auth.ui.common.screens.SignInPromptScreen
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
@@ -31,6 +34,7 @@ import com.google.android.horologist.compose.tools.WearPreviewDevices
 fun SignInPromptScreenPreview() {
     SignInPromptScreen(
         message = "Send messages and create chat groups with your friends",
+        onAlreadySignedIn = { },
         columnState = belowTimeTextPreview()
     ) {
         item {

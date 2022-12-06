@@ -42,7 +42,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.test.filters.MediumTest
 import androidx.wear.compose.foundation.curvedComposable
-import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
@@ -50,6 +49,7 @@ import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.rememberScalingLazyListState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.compose.focus.RequestFocusWhenActive
+import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
@@ -161,28 +161,17 @@ class NavScaffoldTest {
                 startDestination = "a",
                 navController = navController
             ) {
-                composable(
+                scrollable(
                     route = "a"
                 ) {
-                    val focusRequester =
-                        remember { FocusRequester() }
                     ScalingLazyColumn(
-                        modifier = Modifier
-                            .rotaryWithFling(
-                                focusRequester,
-                                it.scrollableState
-                            )
-                            .fillMaxSize()
-                            .testTag("columna"),
-                        state = it.scrollableState,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        autoCentering = AutoCenteringParams(itemIndex = 0)
+                        modifier = Modifier.testTag("columna"),
+                        columnState = it.columnState
                     ) {
                         items(100) {
                             Text("Item $it")
                         }
                     }
-                    RequestFocusWhenActive(focusRequester)
                 }
 
                 scrollStateComposable(

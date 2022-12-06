@@ -19,8 +19,6 @@
 package com.google.android.horologist.auth.composables.screens
 
 import androidx.compose.runtime.Composable
-import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
-import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi

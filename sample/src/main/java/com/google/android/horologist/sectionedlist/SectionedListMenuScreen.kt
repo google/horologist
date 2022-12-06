@@ -19,19 +19,15 @@ package com.google.android.horologist.sectionedlist
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
 
@@ -39,12 +35,10 @@ import com.google.android.horologist.sample.Screen
 fun SectionedListMenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
-    scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
-    focusRequester: FocusRequester = remember { FocusRequester() }
+    columnState: ScalingLazyColumnState
 ) {
     SectionedList(
-        focusRequester = focusRequester,
-        scalingLazyListState = scalingLazyListState,
+        columnState = columnState,
         modifier = modifier
     ) {
         section(
@@ -81,9 +75,5 @@ fun SectionedListMenuScreen(
                 )
             }
         }
-    }
-
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
     }
 }

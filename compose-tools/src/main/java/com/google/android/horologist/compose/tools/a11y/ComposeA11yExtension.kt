@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.compose.tools.a11y
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.graphics.toAndroidRect
@@ -41,6 +42,7 @@ import com.google.android.horologist.paparazzi.a11y.AccessibilityState
  * Heading, Custom Actions, Text, and Progress.  These are saved as AccessibilityState.Element in
  * the [accessibilityState] list.
  */
+@SuppressLint("VisibleForTests")
 @ExperimentalHorologistComposeToolsApi
 public class ComposeA11yExtension : RenderExtension {
     public lateinit var accessibilityState: AccessibilityState

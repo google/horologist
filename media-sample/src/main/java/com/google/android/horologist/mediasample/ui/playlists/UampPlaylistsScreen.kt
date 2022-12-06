@@ -33,10 +33,11 @@ import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
+import androidx.wear.compose.material.rememberScalingLazyListState
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreen
 import com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreenState
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -44,10 +45,10 @@ import com.google.android.horologist.mediasample.R
 
 @Composable
 fun UampPlaylistsScreen(
+    columnState: ScalingLazyColumnState,
     uampPlaylistsScreenViewModel: UampPlaylistsScreenViewModel,
     onPlaylistItemClick: (PlaylistUiModel) -> Unit,
-    onErrorDialogCancelClick: () -> Unit,
-    scalingLazyListState: ScalingLazyListState
+    onErrorDialogCancelClick: () -> Unit
 ) {
     val uiState by uampPlaylistsScreenViewModel.uiState.collectAsStateWithLifecycle()
 
@@ -70,7 +71,7 @@ fun UampPlaylistsScreen(
         onPlaylistItemClick = {
             onPlaylistItemClick(it)
         },
-        scalingLazyListState = scalingLazyListState
+        columnState = columnState
     )
 
     // b/242302037 - it should stop listening to uiState emissions while dialog is presented
@@ -78,7 +79,7 @@ fun UampPlaylistsScreen(
         Dialog(
             showDialog = true,
             onDismissRequest = onErrorDialogCancelClick,
-            scrollState = scalingLazyListState
+            scrollState = rememberScalingLazyListState()
         ) {
             Alert(
                 title = {

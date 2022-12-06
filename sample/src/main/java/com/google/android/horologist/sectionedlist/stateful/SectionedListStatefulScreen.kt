@@ -30,13 +30,10 @@ import androidx.compose.material.icons.filled.LibraryMusic
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -46,9 +43,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.base.ui.components.Title
@@ -57,6 +52,8 @@ import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefulScreenViewModel.Recommendation
@@ -68,14 +65,12 @@ import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefu
 fun SectionedListStatefulScreen(
     modifier: Modifier = Modifier,
     viewModel: SectionedListStatefulScreenViewModel = viewModel(),
-    scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
-    focusRequester: FocusRequester = remember { FocusRequester() }
+    columnState: ScalingLazyColumnState
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     SectionedList(
-        focusRequester = focusRequester,
-        scalingLazyListState = scalingLazyListState,
+        columnState = columnState,
         modifier = modifier
     ) {
         topMenuSection()
@@ -85,10 +80,6 @@ fun SectionedListStatefulScreen(
         trendingSection(state = state, viewModel = viewModel)
 
         bottomMenuSection()
-    }
-
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
     }
 }
 
@@ -258,5 +249,5 @@ private fun FailedView(onClick: () -> Unit) {
 @WearPreviewDevices
 @Composable
 fun SectionedListStatefulScreenPreview() {
-    SectionedListStatefulScreen()
+    SectionedListStatefulScreen(columnState = belowTimeTextPreview())
 }

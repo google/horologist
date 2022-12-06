@@ -27,11 +27,10 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.accompanist.pager.rememberPagerState
-import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
+import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollection
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollections
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToLibrary
@@ -91,12 +90,12 @@ fun UampWearApp(
                     }
                 )
             },
-            libraryScreen = { scalingLazyListState ->
+            libraryScreen = { columnState ->
                 if (appState.streamingMode == true) {
                     UampStreamingBrowseScreen(
                         onPlaylistsClick = { navController.navigateToCollections() },
                         onSettingsClick = { navController.navigateToSettings() },
-                        scalingLazyListState = scalingLazyListState
+                        columnState = columnState
                     )
                 } else {
                     UampBrowseScreen(
@@ -109,11 +108,11 @@ fun UampWearApp(
                         },
                         onPlaylistsClick = { navController.navigateToCollections() },
                         onSettingsClick = { navController.navigateToSettings() },
-                        scalingLazyListState = scalingLazyListState
+                        columnState = columnState
                     )
                 }
             },
-            categoryEntityScreen = { _, name, scalingLazyListState ->
+            categoryEntityScreen = { _, name, columnState ->
                 if (appState.streamingMode == true) {
                     val viewModel: UampStreamingPlaylistScreenViewModel = hiltViewModel()
 
@@ -125,7 +124,7 @@ fun UampWearApp(
                         },
                         onShuffleClick = { navController.navigateToPlayer() },
                         onPlayClick = { navController.navigateToPlayer() },
-                        scalingLazyListState = scalingLazyListState
+                        columnState = columnState
                     )
                 } else {
                     val uampEntityScreenViewModel: UampEntityScreenViewModel = hiltViewModel()
@@ -139,7 +138,7 @@ fun UampWearApp(
                         onShuffleClick = { navController.navigateToPlayer() },
                         onPlayClick = { navController.navigateToPlayer() },
                         onErrorDialogCancelClick = { navController.popBackStack() },
-                        scalingLazyListState = scalingLazyListState
+                        columnState = columnState
                     )
                 }
             },
@@ -148,7 +147,7 @@ fun UampWearApp(
                     Text("Media XXX")
                 }
             },
-            playlistsScreen = { scalingLazyListState ->
+            playlistsScreen = { columnState ->
                 val uampPlaylistsScreenViewModel: UampPlaylistsScreenViewModel =
                     hiltViewModel()
 
@@ -161,12 +160,12 @@ fun UampWearApp(
                         )
                     },
                     onErrorDialogCancelClick = { navController.popBackStack() },
-                    scalingLazyListState = scalingLazyListState
+                    columnState = columnState
                 )
             },
-            settingsScreen = { state ->
+            settingsScreen = { columnState ->
                 UampSettingsScreen(
-                    state = state,
+                    columnState = columnState,
                     settingsScreenViewModel = hiltViewModel(),
                     navController = navController
                 )
@@ -179,39 +178,39 @@ fun UampWearApp(
             deepLinkPrefix = appViewModel.deepLinkPrefix,
             navController = navController,
             additionalNavRoutes = {
-                scalingLazyColumnComposable(
+                scrollable(
                     route = AudioDebug.navRoute,
+
                     arguments = AudioDebug.arguments,
-                    deepLinks = AudioDebug.deepLinks(appViewModel.deepLinkPrefix),
-                    scrollStateBuilder = { ScalingLazyListState() }
+                    deepLinks = AudioDebug.deepLinks(appViewModel.deepLinkPrefix)
                 ) {
                     AudioDebugScreen(
-                        state = it.scrollableState,
+                        columnState = it.columnState,
                         audioDebugScreenViewModel = hiltViewModel()
                     )
                 }
 
-                scalingLazyColumnComposable(
+                scrollable(
                     route = Samples.navRoute,
+
                     arguments = Samples.arguments,
-                    deepLinks = Samples.deepLinks(appViewModel.deepLinkPrefix),
-                    scrollStateBuilder = { ScalingLazyListState() }
+                    deepLinks = Samples.deepLinks(appViewModel.deepLinkPrefix)
                 ) {
                     SamplesScreen(
-                        state = it.scrollableState,
+                        columnState = it.columnState,
                         samplesScreenViewModel = hiltViewModel(),
                         navController = navController
                     )
                 }
 
-                scalingLazyColumnComposable(
+                scrollable(
                     route = DeveloperOptions.navRoute,
+
                     arguments = DeveloperOptions.arguments,
-                    deepLinks = DeveloperOptions.deepLinks(appViewModel.deepLinkPrefix),
-                    scrollStateBuilder = { ScalingLazyListState() }
+                    deepLinks = DeveloperOptions.deepLinks(appViewModel.deepLinkPrefix)
                 ) {
                     DeveloperOptionsScreen(
-                        state = it.scrollableState,
+                        columnState = it.columnState,
                         developerOptionsScreenViewModel = hiltViewModel(),
                         navController = navController
                     )

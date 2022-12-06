@@ -27,11 +27,11 @@ import androidx.compose.material.icons.filled.Podcasts
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
+import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
@@ -75,9 +75,7 @@ private fun BrowseScreenPreviewSample(
     trendingSectionState: Section.State<String>,
     downloadsSectionState: Section.State<Pair<String, String>>
 ) {
-    BrowseScreen(
-        scalingLazyListState = rememberScalingLazyListState()
-    ) {
+    BrowseScreen(columnState = belowTimeTextPreview()) {
         button(
             BrowseScreenPlaylistsSectionButton(
                 textId = R.string.horologist_browse_screen_preview_sign_in,

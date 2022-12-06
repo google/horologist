@@ -18,14 +18,16 @@ package com.google.android.horologist.auth.oauth.devicegrant
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.ui.common.screens.SignInPromptScreen
 import com.google.android.horologist.base.ui.components.StandardChipType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
@@ -33,6 +35,7 @@ import com.google.android.horologist.sample.Screen
 @Composable
 fun AuthDeviceGrantSignInPromptScreen(
     navController: NavHostController,
+    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     viewModel: AuthDeviceGrantSignInPromptViewModel = viewModel(factory = AuthDeviceGrantSignInPromptViewModel.Factory)
 ) {
@@ -40,7 +43,8 @@ fun AuthDeviceGrantSignInPromptScreen(
         message = stringResource(id = R.string.auth_device_grant_sign_in_prompt_message),
         onAlreadySignedIn = { navController.popBackStack() },
         modifier = modifier,
-        viewModel = viewModel
+        viewModel = viewModel,
+        columnState = columnState
     ) {
         item {
             SignInChip(
@@ -64,5 +68,8 @@ fun AuthDeviceGrantSignInPromptScreen(
 @WearPreviewDevices
 @Composable
 fun AuthDeviceGrantSignInPromptScreenPreview() {
-    AuthDeviceGrantSignInPromptScreen(navController = NavHostController(LocalContext.current))
+    AuthDeviceGrantSignInPromptScreen(
+        navController = rememberSwipeDismissableNavController(),
+        columnState = belowTimeTextPreview()
+    )
 }

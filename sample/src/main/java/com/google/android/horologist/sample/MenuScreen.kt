@@ -21,25 +21,21 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.ScalingLazyColumn
-import androidx.wear.compose.material.ScalingLazyListState
+import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
-import com.google.android.horologist.compose.focus.RequestFocusWhenActive
-import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
-import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
+import com.google.android.horologist.compose.layout.ScalingLazyColumn
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import java.time.LocalDateTime
 
 @Composable
@@ -47,19 +43,17 @@ fun MenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
     time: LocalDateTime,
-    scrollState: ScalingLazyListState = rememberScalingLazyListState()
+    columnState: ScalingLazyColumnState
 ) {
-    val focusRequester = remember { FocusRequester() }
-
     ScalingLazyColumn(
-        modifier = modifier
-            .rotaryWithSnap(
-                focusRequester,
-                scrollState.toRotaryScrollAdapter()
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        state = scrollState
+        modifier = modifier,
+        columnState = columnState
     ) {
+        item {
+            ListHeader {
+                Text(text = "Samples")
+            }
+        }
         item {
             NetworkChip { navigateToRoute(Screen.Network.route) }
         }
@@ -73,6 +67,11 @@ fun MenuScreen(
             VolumeScreenChip(navigateToRoute)
         }
         item {
+            ListHeader {
+                Text(text = "Scroll Away")
+            }
+        }
+        item {
             ScrollAwayChip("Scroll Away") { navigateToRoute(Screen.ScrollAway.route) }
         }
         item {
@@ -80,6 +79,11 @@ fun MenuScreen(
         }
         item {
             ScrollAwayChip("Scroll Away Column") { navigateToRoute(Screen.ScrollAwayColumn.route) }
+        }
+        item {
+            ListHeader {
+                Text(text = "Composables")
+            }
         }
         item {
             TimePickerChip(time) { navigateToRoute(Screen.TimePicker.route) }
@@ -110,6 +114,11 @@ fun MenuScreen(
             )
         }
         item {
+            ListHeader {
+                Text(text = "Rotary Scrolling")
+            }
+        }
+        item {
             Chip(
                 label = {
                     Text(text = "Rotary scroll")
@@ -123,8 +132,6 @@ fun MenuScreen(
             PagingChip { navigateToRoute(Screen.Paging.route) }
         }
     }
-
-    RequestFocusWhenActive(focusRequester)
 }
 
 @Composable
@@ -162,5 +169,10 @@ fun SampleChip(
 )
 @Composable
 fun MenuScreenPreview() {
-    MenuScreen(modifier = Modifier.fillMaxSize(), navigateToRoute = {}, time = LocalDateTime.now())
+    MenuScreen(
+        modifier = Modifier.fillMaxSize(),
+        navigateToRoute = {},
+        time = LocalDateTime.now(),
+        columnState = belowTimeTextPreview()
+    )
 }

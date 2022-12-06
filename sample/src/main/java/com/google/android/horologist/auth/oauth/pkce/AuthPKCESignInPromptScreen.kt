@@ -26,6 +26,8 @@ import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.ui.common.screens.SignInPromptScreen
 import com.google.android.horologist.base.ui.components.StandardChipType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
@@ -33,6 +35,7 @@ import com.google.android.horologist.sample.Screen
 @Composable
 fun AuthPKCESignInPromptScreen(
     navController: NavHostController,
+    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     viewModel: AuthPKCESignInPromptViewModel = viewModel(factory = AuthPKCESignInPromptViewModel.Factory)
 ) {
@@ -40,7 +43,8 @@ fun AuthPKCESignInPromptScreen(
         message = stringResource(id = R.string.auth_pkce_sign_in_prompt_message),
         onAlreadySignedIn = { navController.popBackStack() },
         modifier = modifier,
-        viewModel = viewModel
+        viewModel = viewModel,
+        columnState = columnState
     ) {
         item {
             SignInChip(
@@ -64,5 +68,5 @@ fun AuthPKCESignInPromptScreen(
 @WearPreviewDevices
 @Composable
 fun AuthPKCESignInPromptScreenPreview() {
-    AuthPKCESignInPromptScreen(navController = NavHostController(LocalContext.current))
+    AuthPKCESignInPromptScreen(navController = NavHostController(LocalContext.current), columnState = belowTimeTextPreview())
 }

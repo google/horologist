@@ -22,10 +22,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
+import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -34,6 +34,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 @Composable
 fun PlaylistsScreenPreview() {
     PlaylistsScreen(
+        columnState = belowTimeTextPreview(),
         playlistsScreenState = PlaylistsScreenState.Loaded(
             buildList {
                 add(
@@ -53,7 +54,6 @@ fun PlaylistsScreenPreview() {
             }
         ),
         onPlaylistItemClick = { },
-        scalingLazyListState = rememberScalingLazyListState(),
         playlistItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.FeaturedPlayList,
             tintColor = Color.Green
@@ -65,9 +65,9 @@ fun PlaylistsScreenPreview() {
 @Composable
 fun PlaylistsScreenPreviewLoading() {
     PlaylistsScreen(
+        columnState = belowTimeTextPreview(),
         playlistsScreenState = PlaylistsScreenState.Loading(),
-        onPlaylistItemClick = { },
-        scalingLazyListState = rememberScalingLazyListState()
+        onPlaylistItemClick = { }
     )
 }
 
@@ -75,9 +75,9 @@ fun PlaylistsScreenPreviewLoading() {
 @Composable
 fun PlaylistsScreenPreviewFailed() {
     PlaylistsScreen(
+        columnState = belowTimeTextPreview(),
         playlistsScreenState = PlaylistsScreenState.Failed(),
-        onPlaylistItemClick = { },
-        scalingLazyListState = rememberScalingLazyListState()
+        onPlaylistItemClick = { }
     )
 }
 
@@ -85,6 +85,7 @@ fun PlaylistsScreenPreviewFailed() {
 @Composable
 fun PlaylistsScreenPreviewCustomLayout() {
     PlaylistsScreen(
+        columnState = belowTimeTextPreview(),
         playlists = listOf(
             Pair("Rock Classics", "Downloading 73%.."),
             Pair("Pop Punk", "Completed")
@@ -96,7 +97,6 @@ fun PlaylistsScreenPreviewCustomLayout() {
                 secondaryLabel = status,
                 chipType = StandardChipType.Primary
             )
-        },
-        scalingLazyListState = rememberScalingLazyListState()
+        }
     )
 }

@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.compose.navscaffold
 
+import android.os.Bundle
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.lazy.LazyListState
@@ -28,6 +29,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.SavedStateHandleSaveableApi
 import androidx.lifecycle.viewmodel.compose.saveable
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
@@ -35,6 +37,10 @@ import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode
+import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode
+import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode.ScrollAway
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode.Off
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode.On
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode.WhenScrollable
@@ -124,6 +130,28 @@ public open class NavScaffoldViewModel(
         return _scrollableState as ScalingLazyListState
     }
 
+    internal fun initializeScalingLazyListState(
+        columnState: ScalingLazyColumnState
+    ) {
+        check(scrollType == null || scrollType == ScrollType.ScalingLazyColumn)
+
+        if (scrollType == null) {
+            scrollType = ScrollType.ScalingLazyColumn
+
+            initialIndex = columnState.initialScrollPosition.index
+            initialOffsetPx = columnState.initialScrollPosition.offsetPx
+
+            _scrollableState = savedStateHandle.saveable(
+                key = "navScaffold.ScalingLazyListState",
+                saver = ScalingLazyListState.Saver
+            ) {
+                columnState.state
+            }
+        }
+
+        columnState.state = _scrollableState as ScalingLazyListState
+    }
+
     internal fun initializeLazyList(
         scrollableStateBuilder: () -> LazyListState
     ): LazyListState {
@@ -172,4 +200,55 @@ public open class NavScaffoldViewModel(
         public object Off : VignetteMode
         public data class On(val position: VignettePosition) : VignetteMode
     }
+}
+
+/**
+ * The context items provided to a navigation composable.
+ *
+ * The [viewModel] can be used to customise the scaffold behaviour.
+ */
+public data class ScaffoldContext<T : ScrollableState>(
+    val backStackEntry: NavBackStackEntry,
+    val scrollableState: T,
+    val viewModel: NavScaffoldViewModel
+) {
+    var timeTextMode: TimeTextMode by viewModel::timeTextMode
+
+    var positionIndicatorMode: PositionIndicatorMode by viewModel::positionIndicatorMode
+
+    val arguments: Bundle?
+        get() = backStackEntry.arguments
+}
+
+public data class NonScrollableScaffoldContext(
+    val backStackEntry: NavBackStackEntry,
+    val viewModel: NavScaffoldViewModel
+) {
+    var timeTextMode: TimeTextMode by viewModel::timeTextMode
+
+    var positionIndicatorMode: PositionIndicatorMode by viewModel::positionIndicatorMode
+
+    val arguments: Bundle?
+        get() = backStackEntry.arguments
+}
+
+/**
+ * The context items provided to a navigation composable.
+ *
+ * The [viewModel] can be used to customise the scaffold behaviour.
+ */
+public data class ScrollableScaffoldContext(
+    val backStackEntry: NavBackStackEntry,
+    val columnState: ScalingLazyColumnState,
+    val viewModel: NavScaffoldViewModel
+) {
+    val scrollableState: ScalingLazyListState
+        get() = columnState.state
+
+    var timeTextMode: TimeTextMode by viewModel::timeTextMode
+
+    var positionIndicatorMode: PositionIndicatorMode by viewModel::positionIndicatorMode
+
+    val arguments: Bundle?
+        get() = backStackEntry.arguments
 }

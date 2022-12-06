@@ -26,9 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import androidx.wear.compose.material.Scaffold
-import androidx.wear.compose.navigation.SwipeDismissableNavHost
-import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.auth.AuthMenuScreen
@@ -42,6 +39,13 @@ import com.google.android.horologist.auth.oauth.pkce.AuthPKCESignInPromptScreen
 import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
+import com.google.android.horologist.compose.navscaffold.WearNavScaffold
+import com.google.android.horologist.compose.navscaffold.composable
+import com.google.android.horologist.compose.navscaffold.lazyListComposable
+import com.google.android.horologist.compose.navscaffold.scrollStateComposable
+import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.datalayer.DataLayerNodesScreen
 import com.google.android.horologist.datalayer.DataLayerNodesViewModel
 import com.google.android.horologist.networks.NetworkScreen
@@ -62,156 +66,278 @@ fun SampleWearApp() {
 
     var time by remember { mutableStateOf(LocalDateTime.now()) }
 
-    Scaffold(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        SwipeDismissableNavHost(
-            navController = navController,
-            startDestination = Screen.Menu.route
+    WearNavScaffold(startDestination = Screen.Menu.route, navController = navController) {
+        scrollable(
+            route = Screen.Menu.route
         ) {
-            composable(route = Screen.Menu.route) {
-                MenuScreen(
-                    modifier = Modifier.fillMaxSize(),
-                    navigateToRoute = { route -> navController.navigate(route) },
-                    time = time
-                )
-            }
-            composable(Screen.DataLayerNodes.route) {
-                DataLayerNodesScreen(
-                    viewModel = viewModel(factory = DataLayerNodesViewModel.Factory)
-                )
-            }
-            composable(Screen.Network.route) {
-                NetworkScreen()
-            }
-            composable(Screen.FillMaxRectangle.route) {
-                FillMaxRectangleScreen()
-            }
-            composable(Screen.Volume.route) {
-                VolumeScreen()
-            }
-            composable(Screen.ScrollAway.route) {
-                ScrollScreenLazyColumn()
-            }
-            composable(Screen.ScrollAwaySLC.route) {
-                ScrollAwayScreenScalingLazyColumn()
-            }
-            composable(Screen.ScrollAwayColumn.route) {
-                ScrollAwayScreenColumn()
-            }
-            composable(Screen.DatePicker.route) {
-                DatePicker(
-                    date = time.toLocalDate(),
-                    onDateConfirm = {
-                        time = time.toLocalTime().atDate(it)
-                        navController.popBackStack()
-                    }
-                )
-            }
-            composable(Screen.TimePicker.route) {
-                TimePickerWith12HourClock(
-                    time = time.toLocalTime(),
-                    onTimeConfirm = {
-                        time = time.toLocalDate().atTime(it)
-                        navController.popBackStack()
-                    }
-                )
-            }
-            composable(Screen.TimeWithSecondsPicker.route) {
-                TimePicker(
-                    time = time.toLocalTime(),
-                    onTimeConfirm = {
-                        time = time.toLocalDate().atTime(it)
-                        navController.popBackStack()
-                    }
-                )
-            }
-            composable(Screen.TimeWithoutSecondsPicker.route) {
-                TimePicker(
-                    time = time.toLocalTime(),
-                    onTimeConfirm = {
-                        time = time.toLocalDate().atTime(it)
-                        navController.popBackStack()
-                    },
-                    showSeconds = false
-                )
-            }
-            composable(route = Screen.SectionedListMenuScreen.route) {
-                SectionedListMenuScreen(
-                    modifier = Modifier.fillMaxSize(),
-                    navigateToRoute = { route -> navController.navigate(route) }
-                )
-            }
-            composable(Screen.SectionedListStatelessScreen.route) {
-                SectionedListStatelessScreen()
-            }
-            composable(Screen.SectionedListStatefulScreen.route) {
-                SectionedListStatefulScreen()
-            }
-            composable(Screen.SectionedListExpandableScreen.route) {
-                SectionedListExpandableScreen()
-            }
-            composable(route = Screen.RotaryMenuScreen.route) {
-                RotaryMenuScreen(
-                    modifier = Modifier.fillMaxSize(),
-                    navigateToRoute = { route -> navController.navigate(route) }
-                )
-            }
-            composable(route = Screen.RotaryScrollScreen.route) {
-                RotaryScrollScreen()
-            }
-            composable(route = Screen.RotaryScrollWithFlingScreen.route) {
-                RotaryScrollWithFlingOrSnapScreen(isFling = true, isSnap = false)
-            }
-            composable(route = Screen.RotarySnapListScreen.route) {
-                RotaryScrollWithFlingOrSnapScreen(isFling = false, isSnap = true)
-            }
-            composable(route = Screen.AuthMenuScreen.route) {
-                AuthMenuScreen(
-                    navigateToRoute = { route -> navController.navigate(route) },
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
-            composable(route = Screen.AuthPKCESignInPromptScreen.route) {
-                AuthPKCESignInPromptScreen(navController = navController)
-            }
-            composable(route = Screen.AuthPKCEScreen.route) {
-                AuthPKCESampleScreen(
-                    onAuthSuccess = { navController.popBackStack() }
-                )
-            }
-            composable(route = Screen.AuthDeviceGrantSignInPromptScreen.route) {
-                AuthDeviceGrantSignInPromptScreen(navController = navController)
-            }
-            composable(route = Screen.AuthDeviceGrantScreen.route) {
-                AuthDeviceGrantSampleScreen(
-                    onAuthSuccess = { navController.popBackStack() }
-                )
-            }
-            composable(route = Screen.GoogleSignInPromptSampleScreen.route) {
-                GoogleSignInPromptSampleScreen(navController = navController)
-            }
-            composable(route = Screen.AuthGoogleSignInScreen.route) {
-                GoogleSignInSampleScreen(
-                    onAuthSuccess = { navController.popBackStack() }
-                )
-            }
-            composable(route = Screen.AuthGoogleSignOutScreen.route) {
-                GoogleSignOutScreen(navController = navController)
-            }
-            composable(route = Screen.Paging.route) {
-                PagingScreen(navController = navController)
-            }
-            composable(
-                route = Screen.PagingItem.route,
-                arguments = listOf(
-                    navArgument("id") {
-                        type = NavType.IntType
-                    }
-                )
-            ) {
-                PagingItemScreen(it.arguments!!.getInt("id"))
-            }
+            MenuScreen(
+                modifier = Modifier.fillMaxSize(),
+                navigateToRoute = { route -> navController.navigate(route) },
+                time = time,
+                columnState = it.columnState
+            )
+        }
+        scrollable(
+            Screen.DataLayerNodes.route
+        ) {
+            DataLayerNodesScreen(
+                viewModel = viewModel(factory = DataLayerNodesViewModel.Factory),
+                columnState = it.columnState
+            )
+        }
+        scrollable(
+            Screen.Network.route,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(firstItemIsFullWidth = true)
+        ) {
+            NetworkScreen(
+                columnState = it.columnState
+            )
+        }
+        composable(Screen.FillMaxRectangle.route) {
+            FillMaxRectangleScreen()
+        }
+        composable(Screen.Volume.route) {
+            VolumeScreen()
+        }
+        lazyListComposable(Screen.ScrollAway.route) {
+            ScrollScreenLazyColumn(
+                scrollState = it.scrollableState
+            )
+        }
+        scrollable(
+            Screen.ScrollAwaySLC.route
+        ) {
+            ScrollAwayScreenScalingLazyColumn(
+                columnState = it.columnState
+            )
+        }
+        scrollStateComposable(
+            Screen.ScrollAwayColumn.route
+        ) {
+            ScrollAwayScreenColumn(
+                scrollState = it.scrollableState
+            )
+        }
+        composable(Screen.DatePicker.route) {
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+
+            DatePicker(
+                date = time.toLocalDate(),
+                onDateConfirm = {
+                    time = time.toLocalTime().atDate(it)
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable(Screen.TimePicker.route) {
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+
+            TimePickerWith12HourClock(
+                time = time.toLocalTime(),
+                onTimeConfirm = {
+                    time = time.toLocalDate().atTime(it)
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable(Screen.TimeWithSecondsPicker.route) {
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+
+            TimePicker(
+                time = time.toLocalTime(),
+                onTimeConfirm = {
+                    time = time.toLocalDate().atTime(it)
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable(Screen.TimeWithoutSecondsPicker.route) {
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+
+            TimePicker(
+                time = time.toLocalTime(),
+                onTimeConfirm = {
+                    time = time.toLocalDate().atTime(it)
+                    navController.popBackStack()
+                },
+                showSeconds = false
+            )
+        }
+        scrollable(
+            route = Screen.SectionedListMenuScreen.route
+        ) {
+            SectionedListMenuScreen(
+                modifier = Modifier.fillMaxSize(),
+                navigateToRoute = { route -> navController.navigate(route) },
+                columnState = it.columnState
+            )
+        }
+        scrollable(
+            Screen.SectionedListStatelessScreen.route
+        ) {
+            SectionedListStatelessScreen(
+                columnState = it.columnState
+            )
+        }
+        scrollable(
+            Screen.SectionedListStatefulScreen.route
+        ) {
+            SectionedListStatefulScreen(
+                columnState = it.columnState
+            )
+        }
+        scrollable(
+            Screen.SectionedListExpandableScreen.route
+        ) {
+            SectionedListExpandableScreen(
+                columnState = it.columnState
+            )
+        }
+        scrollable(
+            route = Screen.RotaryMenuScreen.route
+        ) {
+            RotaryMenuScreen(
+                modifier = Modifier.fillMaxSize(),
+                navigateToRoute = { route -> navController.navigate(route) },
+                columnState = it.columnState
+            )
+        }
+        composable(route = Screen.RotaryScrollScreen.route) {
+            RotaryScrollScreen()
+        }
+        composable(route = Screen.RotaryScrollWithFlingScreen.route) {
+            RotaryScrollWithFlingOrSnapScreen(isFling = true, isSnap = false)
+        }
+        composable(route = Screen.RotarySnapListScreen.route) {
+            RotaryScrollWithFlingOrSnapScreen(isFling = false, isSnap = true)
+        }
+        scrollable(
+            route = Screen.AuthMenuScreen.route
+        ) {
+            AuthMenuScreen(
+                navigateToRoute = { route -> navController.navigate(route) },
+                modifier = Modifier.fillMaxSize(),
+                columnState = it.columnState
+            )
+        }
+        scrollable(
+            route = Screen.AuthPKCESignInPromptScreen.route
+        ) {
+            AuthPKCESignInPromptScreen(
+                navController = navController,
+                columnState = it.columnState
+            )
+        }
+        composable(route = Screen.AuthPKCEScreen.route) {
+            AuthPKCESampleScreen(
+                onAuthSuccess = { navController.popBackStack() }
+            )
+        }
+        scrollable(
+            route = Screen.AuthDeviceGrantSignInPromptScreen.route
+        ) {
+            AuthDeviceGrantSignInPromptScreen(
+                navController = navController,
+                columnState = it.columnState
+            )
+        }
+        composable(route = Screen.AuthDeviceGrantScreen.route) {
+            AuthDeviceGrantSampleScreen(
+                onAuthSuccess = { navController.popBackStack() }
+            )
+        }
+        scrollable(
+            route = Screen.GoogleSignInPromptSampleScreen.route
+        ) {
+            GoogleSignInPromptSampleScreen(
+                navController = navController,
+                columnState = it.columnState
+            )
+        }
+        composable(route = Screen.AuthGoogleSignInScreen.route) {
+            GoogleSignInSampleScreen(
+                onAuthSuccess = { navController.popBackStack() }
+            )
+        }
+        composable(route = Screen.AuthGoogleSignOutScreen.route) {
+            GoogleSignOutScreen(navController = navController)
+        }
+        scrollable(
+            route = Screen.AuthMenuScreen.route
+        ) {
+            AuthMenuScreen(
+                modifier = Modifier.fillMaxSize(),
+                navigateToRoute = { route -> navController.navigate(route) },
+                columnState = it.columnState
+            )
+        }
+        scrollable(
+            route = Screen.AuthPKCESignInPromptScreen.route
+        ) {
+            AuthPKCESignInPromptScreen(
+                navController = navController,
+                columnState = it.columnState
+            )
+        }
+        composable(route = Screen.AuthPKCEScreen.route) {
+            AuthPKCESampleScreen(
+                onAuthSuccess = { navController.popBackStack() }
+            )
+        }
+        composable(route = Screen.AuthDeviceGrantScreen.route) {
+            AuthDeviceGrantSampleScreen(
+                onAuthSuccess = { navController.popBackStack() }
+            )
+        }
+        composable(route = Screen.AuthPKCEScreen.route) {
+            AuthPKCESampleScreen(
+                onAuthSuccess = { navController.popBackStack() }
+            )
+        }
+        scrollable(
+            route = Screen.AuthDeviceGrantSignInPromptScreen.route
+        ) {
+            AuthDeviceGrantSignInPromptScreen(
+                navController = navController,
+                columnState = it.columnState
+            )
+        }
+        composable(route = Screen.AuthDeviceGrantScreen.route) {
+            AuthDeviceGrantSampleScreen(
+                onAuthSuccess = { navController.popBackStack() }
+            )
+        }
+        scrollable(
+            route = Screen.GoogleSignInPromptSampleScreen.route
+        ) {
+            GoogleSignInPromptSampleScreen(
+                navController = navController,
+                columnState = it.columnState
+            )
+        }
+        composable(route = Screen.AuthGoogleSignInScreen.route) {
+            GoogleSignInSampleScreen(
+                onAuthSuccess = { navController.popBackStack() }
+            )
+        }
+        composable(route = Screen.AuthGoogleSignOutScreen.route) {
+            GoogleSignOutScreen(navController = navController)
+        }
+        scrollable(
+            route = Screen.Paging.route,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(firstItemIsFullWidth = true)
+        ) {
+            PagingScreen(navController = navController, columnState = it.columnState)
+        }
+        composable(
+            route = Screen.PagingItem.route,
+            arguments = listOf(
+                navArgument("id") {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            PagingItemScreen(it.arguments!!.getInt("id"))
         }
     }
 }

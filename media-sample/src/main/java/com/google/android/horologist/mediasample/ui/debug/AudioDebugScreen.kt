@@ -22,18 +22,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.ScalingLazyColumn
-import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
-import com.google.android.horologist.compose.focus.RequestFocusWhenActive
-import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
+import com.google.android.horologist.compose.layout.ScalingLazyColumn
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.mediasample.R
 import java.time.Instant
 import java.time.ZoneId
@@ -41,18 +38,16 @@ import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun AudioDebugScreen(
-    state: ScalingLazyListState,
+    columnState: ScalingLazyColumnState,
     audioDebugScreenViewModel: AudioDebugScreenViewModel,
     modifier: Modifier = Modifier
 ) {
     val uiState by audioDebugScreenViewModel.uiState.collectAsStateWithLifecycle()
-    val focusRequester = remember { FocusRequester() }
 
     ScalingLazyColumn(
         modifier = modifier
-            .fillMaxSize()
-            .rotaryWithFling(focusRequester, state),
-        state = state
+            .fillMaxSize(),
+        columnState = columnState
     ) {
         item {
             Text(
@@ -136,8 +131,6 @@ fun AudioDebugScreen(
             )
         }
     }
-
-    RequestFocusWhenActive(focusRequester)
 }
 
 fun formatDuration(millis: Long): String {

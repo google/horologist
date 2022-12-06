@@ -45,10 +45,10 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.StandardButton
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.composables.PlaceholderChip
+import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
@@ -56,6 +56,7 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 @Composable
 fun EntityScreenPreview() {
     EntityScreen(
+        columnState = belowTimeTextPreview(),
         headerContent = {
             Box(
                 modifier = Modifier
@@ -74,7 +75,6 @@ fun EntityScreenPreview() {
                 Text("Playlist name")
             }
         },
-        scalingLazyListState = rememberScalingLazyListState(),
         buttonsContent = {
             Row(
                 modifier = Modifier
@@ -112,11 +112,11 @@ fun EntityScreenPreview() {
 @Composable
 fun EntityScreenPreviewLoadedState() {
     EntityScreen(
+        columnState = belowTimeTextPreview(),
         entityScreenState = EntityScreenState.Loaded(listOf("Song 1", "Song 2")),
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { },
         mediaContent = { song -> StandardChip(label = song, onClick = { }) },
-        scalingLazyListState = rememberScalingLazyListState(),
         buttonsContent = { ButtonContentForStatePreview() }
     )
 }
@@ -125,11 +125,11 @@ fun EntityScreenPreviewLoadedState() {
 @Composable
 fun EntityScreenPreviewLoadingState() {
     EntityScreen(
+        columnState = belowTimeTextPreview(),
         entityScreenState = EntityScreenState.Loading<String>(),
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },
         mediaContent = { },
-        scalingLazyListState = rememberScalingLazyListState(),
         buttonsContent = { ButtonContentForStatePreview() }
     )
 }
@@ -138,11 +138,11 @@ fun EntityScreenPreviewLoadingState() {
 @Composable
 fun EntityScreenPreviewFailedState() {
     EntityScreen(
+        columnState = belowTimeTextPreview(),
         entityScreenState = EntityScreenState.Failed<String>(),
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { },
         mediaContent = { },
-        scalingLazyListState = rememberScalingLazyListState(),
         buttonsContent = { ButtonContentForStatePreview() },
         failedContent = {
             Column(

@@ -28,7 +28,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,13 +48,16 @@ import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.CompactChip
 import androidx.wear.compose.material.ScalingLazyColumn
-import androidx.wear.compose.material.ScalingLazyColumnDefaults
+import androidx.wear.compose.material.ScalingLazyColumnDefaults.scalingParams
+import androidx.wear.compose.material.ScalingLazyColumnDefaults.snapFlingBehavior
 import androidx.wear.compose.material.ScalingLazyListScope
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
+import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.rotaryinput.rememberDisabledHaptic
 import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticFeedback
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
@@ -70,12 +72,10 @@ import kotlin.random.Random
 fun RotaryMenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
-    scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
-    focusRequester: FocusRequester = remember { FocusRequester() }
+    columnState: ScalingLazyColumnState
 ) {
     SectionedList(
-        focusRequester = focusRequester,
-        scalingLazyListState = scalingLazyListState,
+        columnState = columnState,
         modifier = modifier
     ) {
         section(
@@ -136,28 +136,19 @@ fun RotaryMenuScreen(
             }
         }
     }
-
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
-    }
 }
 
 @Composable
 fun RotaryScrollScreen(
     scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
-    focusRequester: FocusRequester = remember { FocusRequester() }
+    focusRequester: FocusRequester = rememberActiveFocusRequester()
 ) {
     ItemsListWithModifier(
         modifier = Modifier
-            .rotaryWithScroll(focusRequester, scalingLazyListState)
-            .focusRequester(focusRequester)
-            .focusable(),
+            .rotaryWithScroll(focusRequester, scalingLazyListState),
         scrollableState = scalingLazyListState
     ) {
         ChipsList {}
-    }
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
     }
 }
 
@@ -166,7 +157,7 @@ fun RotaryScrollWithFlingOrSnapScreen(
     isFling: Boolean,
     isSnap: Boolean
 ) {
-    val focusRequester = remember { FocusRequester() }
+    val focusRequester = rememberActiveFocusRequester()
     var showList by remember { mutableStateOf(false) }
 
     var hapticsEnabled by remember { mutableStateOf(true) }
@@ -212,9 +203,6 @@ fun RotaryScrollWithFlingOrSnapScreen(
 
                 else -> {}
             }
-        }
-        LaunchedEffect(Unit) {
-            focusRequester.requestFocus()
         }
     } else {
         ScrollPreferences(
@@ -304,12 +292,12 @@ private fun ItemsListWithModifier(
     scrollableState: ScalingLazyListState,
     items: ScalingLazyListScope.() -> Unit
 ) {
-    val flingBehavior = ScalingLazyColumnDefaults.snapFlingBehavior(state = scrollableState)
+    val flingBehavior = snapFlingBehavior(state = scrollableState)
     ScalingLazyColumn(
         modifier = modifier,
         state = scrollableState,
         flingBehavior = flingBehavior,
-        scalingParams = ScalingLazyColumnDefaults.scalingParams(),
+        scalingParams = scalingParams(),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.spacedBy(
             space = 4.dp,

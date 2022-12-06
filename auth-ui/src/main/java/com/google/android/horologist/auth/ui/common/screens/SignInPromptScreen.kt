@@ -34,22 +34,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.ScalingLazyColumn
-import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingLazyListScope
-import androidx.wear.compose.material.ScalingLazyListState
-import androidx.wear.compose.material.ScalingParams
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.compose.focus.RequestFocusWhenActive
-import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
+import com.google.android.horologist.compose.layout.ScalingLazyColumn
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
 @ExperimentalHorologistAuthUiApi
 @Composable
@@ -59,9 +54,7 @@ public fun SignInPromptScreen(
     modifier: Modifier = Modifier,
     title: String = stringResource(id = R.string.horologist_signin_prompt_title),
     viewModel: SignInPromptViewModel = viewModel(),
-    scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
-    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
-    autoCentering: AutoCenteringParams? = AutoCenteringParams(),
+    columnState: ScalingLazyColumnState,
     content: ScalingLazyListScope.() -> Unit
 ) {
     var executedOnce by rememberSaveable { mutableStateOf(false) }
@@ -101,12 +94,8 @@ public fun SignInPromptScreen(
             val focusRequester = remember { FocusRequester() }
 
             ScalingLazyColumn(
-                modifier = modifier
-                    .fillMaxSize()
-                    .rotaryWithFling(focusRequester, scalingLazyListState),
-                state = scalingLazyListState,
-                scalingParams = scalingParams,
-                autoCentering = autoCentering
+                modifier = modifier,
+                columnState = columnState
             ) {
                 item { Title(text = title) }
                 item {

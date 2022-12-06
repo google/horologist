@@ -28,7 +28,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Chip
-import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.VignettePosition
 import androidx.wear.compose.material.dialog.Alert
@@ -39,9 +38,9 @@ import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
-import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
+import com.google.android.horologist.compose.navscaffold.composable
 import com.google.android.horologist.compose.navscaffold.scrollStateComposable
-import com.google.android.horologist.compose.navscaffold.wearNavComposable
+import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
 import com.google.android.horologist.navsample.snackbar.SnackbarViewModel
@@ -80,14 +79,8 @@ fun NavWearApp(
         },
         state = navState
     ) {
-        scalingLazyColumnComposable(
-            NavScreen.Menu.route,
-            scrollStateBuilder = {
-                ScalingLazyListState(
-                    initialCenterItemIndex = 0,
-                    initialCenterItemScrollOffset = 50
-                )
-            }
+        scrollable(
+            NavScreen.Menu.route
         ) {
             NavMenuScreen(
                 navigateToRoute = { route -> navController.navigate(route) },
@@ -95,14 +88,13 @@ fun NavWearApp(
             )
         }
 
-        scalingLazyColumnComposable(
-            NavScreen.ScalingLazyColumn.route,
-            scrollStateBuilder = { ScalingLazyListState() }
+        scrollable(
+            NavScreen.ScalingLazyColumn.route
         ) {
-            it.viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.ScrollAway
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.ScrollAway
             it.viewModel.vignettePosition =
                 NavScaffoldViewModel.VignetteMode.On(VignettePosition.TopAndBottom)
-            it.viewModel.positionIndicatorMode =
+            it.positionIndicatorMode =
                 NavScaffoldViewModel.PositionIndicatorMode.On
 
             BigScalingLazyColumn(
@@ -119,8 +111,8 @@ fun NavWearApp(
             )
         }
 
-        wearNavComposable(NavScreen.Dialog.route) { _, viewModel ->
-            viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+        composable(NavScreen.Dialog.route) {
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
 
             Alert(title = { Text("Error") }) {
                 item {
@@ -129,7 +121,7 @@ fun NavWearApp(
             }
         }
 
-        wearNavComposable(NavScreen.Snackbar.route) { _, _ ->
+        composable(NavScreen.Snackbar.route) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Button(onClick = { snackbarViewModel.showMessage("Test") }) {
                     Text(text = "Test")
@@ -137,8 +129,8 @@ fun NavWearApp(
             }
         }
 
-        wearNavComposable(NavScreen.Pager.route) { _, viewModel ->
-            viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+        composable(NavScreen.Pager.route) {
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
 
             val pagerState = rememberPagerState()
             PagerScreen(
@@ -158,7 +150,7 @@ fun NavWearApp(
             }
         }
 
-        wearNavComposable(NavScreen.Volume.route) { _, _ ->
+        composable(NavScreen.Volume.route) {
             VolumeScreen()
         }
     }

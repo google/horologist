@@ -39,7 +39,7 @@ import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
 import com.google.android.horologist.compose.navscaffold.composable
-import com.google.android.horologist.compose.navscaffold.composableScalingLazyColumn
+import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.compose.navscaffold.scrollStateComposable
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
@@ -79,7 +79,7 @@ fun NavWearApp(
         },
         state = navState
     ) {
-        composableScalingLazyColumn(
+        scrollable(
             NavScreen.Menu.route
         ) {
             NavMenuScreen(
@@ -88,7 +88,7 @@ fun NavWearApp(
             )
         }
 
-        composableScalingLazyColumn(
+        scrollable(
             NavScreen.ScalingLazyColumn.route
         ) {
             it.timeTextMode = NavScaffoldViewModel.TimeTextMode.ScrollAway

@@ -30,7 +30,7 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.accompanist.pager.rememberPagerState
-import com.google.android.horologist.compose.navscaffold.composableScalingLazyColumn
+import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollection
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollections
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToLibrary
@@ -178,7 +178,7 @@ fun UampWearApp(
             deepLinkPrefix = appViewModel.deepLinkPrefix,
             navController = navController,
             additionalNavRoutes = {
-                composableScalingLazyColumn(
+                scrollable(
                     route = AudioDebug.navRoute,
 
                     arguments = AudioDebug.arguments,
@@ -190,7 +190,7 @@ fun UampWearApp(
                     )
                 }
 
-                composableScalingLazyColumn(
+                scrollable(
                     route = Samples.navRoute,
 
                     arguments = Samples.arguments,
@@ -203,7 +203,7 @@ fun UampWearApp(
                     )
                 }
 
-                composableScalingLazyColumn(
+                scrollable(
                     route = DeveloperOptions.navRoute,
 
                     arguments = DeveloperOptions.arguments,

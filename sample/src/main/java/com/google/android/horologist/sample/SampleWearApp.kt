@@ -43,7 +43,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
 import com.google.android.horologist.compose.navscaffold.composable
-import com.google.android.horologist.compose.navscaffold.composableScalingLazyColumn
+import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.compose.navscaffold.lazyListComposable
 import com.google.android.horologist.compose.navscaffold.scrollStateComposable
 import com.google.android.horologist.datalayer.DataLayerNodesScreen
@@ -67,7 +67,7 @@ fun SampleWearApp() {
     var time by remember { mutableStateOf(LocalDateTime.now()) }
 
     WearNavScaffold(startDestination = Screen.Menu.route, navController = navController) {
-        composableScalingLazyColumn(
+        scrollable(
             route = Screen.Menu.route
         ) {
             MenuScreen(
@@ -77,7 +77,7 @@ fun SampleWearApp() {
                 columnConfig = it.columnConfig
             )
         }
-        composableScalingLazyColumn(
+        scrollable(
             Screen.DataLayerNodes.route
         ) {
             DataLayerNodesScreen(
@@ -85,7 +85,7 @@ fun SampleWearApp() {
                 columnConfig = it.columnConfig
             )
         }
-        composableScalingLazyColumn(
+        scrollable(
             Screen.Network.route,
             columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(firstItemIsFullWidth = true)
         ) {
@@ -104,7 +104,7 @@ fun SampleWearApp() {
                 scrollState = it.scrollableState
             )
         }
-        composableScalingLazyColumn(
+        scrollable(
             Screen.ScrollAwaySLC.route
         ) {
             ScrollAwayScreenScalingLazyColumn(
@@ -163,7 +163,7 @@ fun SampleWearApp() {
                 showSeconds = false
             )
         }
-        composableScalingLazyColumn(
+        scrollable(
             route = Screen.SectionedListMenuScreen.route
         ) {
             SectionedListMenuScreen(
@@ -172,28 +172,28 @@ fun SampleWearApp() {
                 columnConfig = it.columnConfig
             )
         }
-        composableScalingLazyColumn(
+        scrollable(
             Screen.SectionedListStatelessScreen.route
         ) {
             SectionedListStatelessScreen(
                 columnConfig = it.columnConfig
             )
         }
-        composableScalingLazyColumn(
+        scrollable(
             Screen.SectionedListStatefulScreen.route
         ) {
             SectionedListStatefulScreen(
                 columnConfig = it.columnConfig
             )
         }
-        composableScalingLazyColumn(
+        scrollable(
             Screen.SectionedListExpandableScreen.route
         ) {
             SectionedListExpandableScreen(
                 columnConfig = it.columnConfig
             )
         }
-        composableScalingLazyColumn(
+        scrollable(
             route = Screen.RotaryMenuScreen.route
         ) {
             RotaryMenuScreen(
@@ -211,7 +211,7 @@ fun SampleWearApp() {
         composable(route = Screen.RotarySnapListScreen.route) {
             RotaryScrollWithFlingOrSnapScreen(isFling = false, isSnap = true)
         }
-        composableScalingLazyColumn(
+        scrollable(
             route = Screen.AuthMenuScreen.route
         ) {
             AuthMenuScreen(
@@ -220,7 +220,7 @@ fun SampleWearApp() {
                 columnConfig = it.columnConfig
             )
         }
-        composableScalingLazyColumn(
+        scrollable(
             route = Screen.AuthPKCESignInPromptScreen.route
         ) {
             AuthPKCESignInPromptScreen(
@@ -233,7 +233,7 @@ fun SampleWearApp() {
                 onAuthSuccess = { navController.popBackStack() }
             )
         }
-        composableScalingLazyColumn(
+        scrollable(
             route = Screen.AuthDeviceGrantSignInPromptScreen.route
         ) {
             AuthDeviceGrantSignInPromptScreen(
@@ -246,7 +246,7 @@ fun SampleWearApp() {
                 onAuthSuccess = { navController.popBackStack() }
             )
         }
-        composableScalingLazyColumn(
+        scrollable(
             route = Screen.GoogleSignInPromptSampleScreen.route
         ) {
             GoogleSignInPromptSampleScreen(
@@ -262,7 +262,7 @@ fun SampleWearApp() {
         composable(route = Screen.AuthGoogleSignOutScreen.route) {
             GoogleSignOutScreen(navController = navController)
         }
-        composableScalingLazyColumn(
+        scrollable(
             route = Screen.AuthMenuScreen.route
         ) {
             AuthMenuScreen(
@@ -271,7 +271,7 @@ fun SampleWearApp() {
                 columnConfig = it.columnConfig
             )
         }
-        composableScalingLazyColumn(
+        scrollable(
             route = Screen.AuthPKCESignInPromptScreen.route
         ) {
             AuthPKCESignInPromptScreen(
@@ -294,7 +294,7 @@ fun SampleWearApp() {
                 onAuthSuccess = { navController.popBackStack() }
             )
         }
-        composableScalingLazyColumn(
+        scrollable(
             route = Screen.AuthDeviceGrantSignInPromptScreen.route
         ) {
             AuthDeviceGrantSignInPromptScreen(
@@ -307,7 +307,7 @@ fun SampleWearApp() {
                 onAuthSuccess = { navController.popBackStack() }
             )
         }
-        composableScalingLazyColumn(
+        scrollable(
             route = Screen.GoogleSignInPromptSampleScreen.route
         ) {
             GoogleSignInPromptSampleScreen(
@@ -323,7 +323,7 @@ fun SampleWearApp() {
         composable(route = Screen.AuthGoogleSignOutScreen.route) {
             GoogleSignOutScreen(navController = navController)
         }
-        composableScalingLazyColumn(
+        scrollable(
             route = Screen.Paging.route,
             columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(firstItemIsFullWidth = true)
         ) {

@@ -59,7 +59,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 /**
  * A Navigation and Scroll aware [Scaffold].
  *
- * In addition to [NavGraphBuilder.composableScalingLazyColumn], 3 additional extensions are supported
+ * In addition to [NavGraphBuilder.scrollable], 3 additional extensions are supported
  * [scalingLazyColumnComposable], [scrollStateComposable] and
  * [lazyListComposable].
  *
@@ -224,14 +224,14 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
  * The [ScalingLazyColumnState] must be taken from the [ConfigScaffoldContext].
  */
 @ExperimentalHorologistComposeLayoutApi
-public fun NavGraphBuilder.composableScalingLazyColumn(
+public fun NavGraphBuilder.scrollable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
     columnStateFactory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.belowTimeText(),
     content: @Composable (ConfigScaffoldContext) -> Unit
 ) {
-    this@composableScalingLazyColumn.composable(route, arguments, deepLinks) {
+    this@scrollable.composable(route, arguments, deepLinks) {
         FocusedDestination {
             val columnConfig = columnStateFactory.create()
 

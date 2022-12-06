@@ -19,6 +19,7 @@
 package com.google.android.horologist.compose.layout
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
@@ -42,7 +43,7 @@ public object ScalingLazyColumnDefaults {
                 return remember {
                     val screenHeightPx =
                         with(density) { configuration.screenHeightDp.dp.roundToPx() }
-                    val topPaddingDp = 32.dp + (if (firstItemIsFullWidth) 10.dp else 0.dp)
+                    val topPaddingDp = 32.dp + (if (firstItemIsFullWidth) 20.dp else 0.dp)
                     val topPaddingPx = with(density) { topPaddingDp.roundToPx() }
                     val topScreenOffsetPx = screenHeightPx / 2 - topPaddingPx
 

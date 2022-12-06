@@ -29,6 +29,7 @@ import com.google.android.horologist.compose.tools.a11y.forceState
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.PlayerLibraryPreview
+import com.google.android.horologist.media.ui.components.positionedState
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
@@ -65,17 +66,16 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest {
         val screenState = BrowseScreenState.Loaded(downloadList)
 
         paparazzi.snapshot {
-            val config = ScalingLazyColumnDefaults.rememberTopAlignedConfig()
-            config.state.forceState(0, -40)
+            val columnConfig = positionedState(0, -40)
 
-            PlayerLibraryPreview(state = config.state) {
+            PlayerLibraryPreview(state = columnConfig.state) {
                 PlaylistDownloadBrowseScreen(
                     browseScreenState = screenState,
                     onDownloadItemClick = { },
                     onDownloadItemInProgressClick = { },
                     onPlaylistsClick = { },
                     onSettingsClick = { },
-                    config = config,
+                    columnConfig = columnConfig,
                     onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }
@@ -88,17 +88,18 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest {
             val screenState = BrowseScreenState.Loaded(downloadList)
 
             paparazzi.snapshot {
-                val config = ScalingLazyColumnDefaults.rememberTopAlignedConfig()
-                config.state.forceState(4, 0)
-                PlaylistDownloadBrowseScreen(
-                    browseScreenState = screenState,
-                    onDownloadItemClick = { },
-                    onDownloadItemInProgressClick = { },
-                    onPlaylistsClick = { },
-                    onSettingsClick = { },
-                    config = config,
-                    onDownloadItemInProgressClickActionLabel = "cancel"
-                )
+                val columnConfig = positionedState(4, 0)
+                PlayerLibraryPreview(state = columnConfig.state) {
+                    PlaylistDownloadBrowseScreen(
+                        browseScreenState = screenState,
+                        onDownloadItemClick = { },
+                        onDownloadItemInProgressClick = { },
+                        onPlaylistsClick = { },
+                        onSettingsClick = { },
+                        columnConfig = columnConfig,
+                        onDownloadItemInProgressClickActionLabel = "cancel"
+                    )
+                }
             }
         }
     }

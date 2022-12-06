@@ -39,7 +39,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
 import com.google.android.horologist.compose.navscaffold.composable
-import com.google.android.horologist.compose.navscaffold.composableScalingLazyColumn
+import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
 import com.google.android.horologist.media.ui.screens.playerlibrarypager.PlayerLibraryPagerScreen
 import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
@@ -124,7 +124,7 @@ public fun MediaPlayerScaffold(
             )
         }
 
-        composableScalingLazyColumn(
+        scrollable(
             route = NavigationScreens.Collections.navRoute,
 
             arguments = NavigationScreens.Collections.arguments,
@@ -133,7 +133,7 @@ public fun MediaPlayerScaffold(
             playlistsScreen(it.columnConfig)
         }
 
-        composableScalingLazyColumn(
+        scrollable(
             route = NavigationScreens.Settings.navRoute,
 
             arguments = NavigationScreens.Settings.arguments,
@@ -152,7 +152,7 @@ public fun MediaPlayerScaffold(
             volumeScreen()
         }
 
-        composableScalingLazyColumn(
+        scrollable(
             route = NavigationScreens.MediaItem.navRoute,
 
             arguments = NavigationScreens.MediaItem.arguments,
@@ -161,7 +161,7 @@ public fun MediaPlayerScaffold(
             mediaEntityScreen(it.columnConfig)
         }
 
-        composableScalingLazyColumn(
+        scrollable(
             route = NavigationScreens.Collection.navRoute,
 
             arguments = NavigationScreens.Collection.arguments,

@@ -45,9 +45,5 @@ package com.google.android.horologist.auth.composables.screens {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void CheckYourPhoneScreen(optional androidx.compose.ui.Modifier modifier, String message);
   }
 
-  public final class SignInPromptScreenKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void SignInPromptScreen(String message, optional androidx.compose.ui.Modifier modifier, optional String title, optional androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.wear.compose.material.ScalingParams scalingParams, optional androidx.wear.compose.material.AutoCenteringParams? autoCentering, kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListScope,kotlin.Unit> content);
-  }
-
 }
 

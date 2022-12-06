@@ -61,10 +61,10 @@ fun ScrollScreenLazyColumn(scrollState: LazyListState) {
 
 @Composable
 fun ScrollAwayScreenScalingLazyColumn(
-    columnConfig: ScalingLazyColumnState
+    columnState: ScalingLazyColumnState
 ) {
     ScalingLazyColumn(
-        columnConfig = columnConfig
+        columnState = columnState
     ) {
         items(3) { i ->
             ExampleCard(Modifier.fillParentMaxHeight(0.5f), i)

@@ -34,7 +34,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 @Composable
 fun PlaylistsScreenPreview() {
     PlaylistsScreen(
-        columnConfig = belowTimeTextPreview(),
+        columnState = belowTimeTextPreview(),
         playlistsScreenState = PlaylistsScreenState.Loaded(
             buildList {
                 add(
@@ -65,7 +65,7 @@ fun PlaylistsScreenPreview() {
 @Composable
 fun PlaylistsScreenPreviewLoading() {
     PlaylistsScreen(
-        columnConfig = belowTimeTextPreview(),
+        columnState = belowTimeTextPreview(),
         playlistsScreenState = PlaylistsScreenState.Loading(),
         onPlaylistItemClick = { }
     )
@@ -75,7 +75,7 @@ fun PlaylistsScreenPreviewLoading() {
 @Composable
 fun PlaylistsScreenPreviewFailed() {
     PlaylistsScreen(
-        columnConfig = belowTimeTextPreview(),
+        columnState = belowTimeTextPreview(),
         playlistsScreenState = PlaylistsScreenState.Failed(),
         onPlaylistItemClick = { }
     )
@@ -85,7 +85,7 @@ fun PlaylistsScreenPreviewFailed() {
 @Composable
 fun PlaylistsScreenPreviewCustomLayout() {
     PlaylistsScreen(
-        columnConfig = belowTimeTextPreview(),
+        columnState = belowTimeTextPreview(),
         playlists = listOf(
             Pair("Rock Classics", "Downloading 73%.."),
             Pair("Pop Punk", "Completed")

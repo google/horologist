@@ -75,7 +75,7 @@ private fun BrowseScreenPreviewSample(
     trendingSectionState: Section.State<String>,
     downloadsSectionState: Section.State<Pair<String, String>>
 ) {
-    BrowseScreen(columnConfig = belowTimeTextPreview()) {
+    BrowseScreen(columnState = belowTimeTextPreview()) {
         button(
             BrowseScreenPlaylistsSectionButton(
                 textId = R.string.horologist_browse_screen_preview_sign_in,

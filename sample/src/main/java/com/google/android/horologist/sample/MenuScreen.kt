@@ -43,11 +43,11 @@ fun MenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
     time: LocalDateTime,
-    columnConfig: ScalingLazyColumnState
+    columnState: ScalingLazyColumnState
 ) {
     ScalingLazyColumn(
         modifier = modifier,
-        columnConfig = columnConfig
+        columnState = columnState
     ) {
         item {
             ListHeader {
@@ -173,6 +173,6 @@ fun MenuScreenPreview() {
         modifier = Modifier.fillMaxSize(),
         navigateToRoute = {},
         time = LocalDateTime.now(),
-        columnConfig = belowTimeTextPreview()
+        columnState = belowTimeTextPreview()
     )
 }

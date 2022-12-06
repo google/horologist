@@ -26,7 +26,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
 @Composable
 fun UampStreamingPlaylistScreen(
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     playlistName: String,
     viewModel: UampStreamingPlaylistScreenViewModel,
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
@@ -50,6 +50,6 @@ fun UampStreamingPlaylistScreen(
             viewModel.play(it.id)
             onDownloadItemClick(it)
         },
-        columnConfig = columnConfig
+        columnState = columnState
     )
 }

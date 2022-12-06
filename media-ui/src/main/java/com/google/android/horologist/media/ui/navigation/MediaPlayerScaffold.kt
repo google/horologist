@@ -130,7 +130,7 @@ public fun MediaPlayerScaffold(
             arguments = NavigationScreens.Collections.arguments,
             deepLinks = NavigationScreens.Collections.deepLinks(deepLinkPrefix)
         ) {
-            playlistsScreen(it.columnConfig)
+            playlistsScreen(it.columnState)
         }
 
         scrollable(
@@ -139,7 +139,7 @@ public fun MediaPlayerScaffold(
             arguments = NavigationScreens.Settings.arguments,
             deepLinks = NavigationScreens.Settings.deepLinks(deepLinkPrefix)
         ) {
-            settingsScreen(it.columnConfig)
+            settingsScreen(it.columnState)
         }
 
         composable(
@@ -158,7 +158,7 @@ public fun MediaPlayerScaffold(
             arguments = NavigationScreens.MediaItem.arguments,
             deepLinks = NavigationScreens.MediaItem.deepLinks(deepLinkPrefix)
         ) {
-            mediaEntityScreen(it.columnConfig)
+            mediaEntityScreen(it.columnState)
         }
 
         scrollable(
@@ -176,7 +176,7 @@ public fun MediaPlayerScaffold(
             categoryEntityScreen(
                 id,
                 name,
-                scaffoldContext.columnConfig
+                scaffoldContext.columnState
             )
         }
 

@@ -26,10 +26,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
-import com.google.android.horologist.compose.tools.a11y.forceState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.PlayerLibraryPreview
 import com.google.android.horologist.media.ui.components.positionedState
@@ -67,9 +65,9 @@ class PlaylistDownloadScreenA11yScreenshotTest {
     @Test
     fun playlistDownloadScreenPreviewLoading() {
         paparazzi.snapshot {
-            val columnConfig = positionedState(0, -40)
+            val columnState = positionedState(0, -40)
 
-            PlayerLibraryPreview(state = columnConfig.state) {
+            PlayerLibraryPreview(state = columnState.state) {
                 PlaylistDownloadScreen(
                     playlistName = "Playlist name",
                     playlistDownloadScreenState = PlaylistDownloadScreenState.Loading(),
@@ -79,7 +77,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
-                    columnConfig = columnConfig,
+                    columnState = columnState,
                     onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }
@@ -89,9 +87,9 @@ class PlaylistDownloadScreenA11yScreenshotTest {
     @Test
     fun playlistDownloadScreenPreviewLoadedNoneDownloaded() {
         paparazzi.snapshot {
-            val columnConfig = positionedState(0, -40)
+            val columnState = positionedState(0, -40)
 
-            PlayerLibraryPreview(state = columnConfig.state) {
+            PlayerLibraryPreview(state = columnState.state) {
                 PlaylistDownloadScreen(
                     playlistName = "Playlist name",
                     playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
@@ -104,7 +102,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
-                    columnConfig = columnConfig,
+                    columnState = columnState,
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
                         tintColor = Color.Blue
@@ -118,9 +116,9 @@ class PlaylistDownloadScreenA11yScreenshotTest {
     @Test
     fun playlistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
         paparazzi.snapshot {
-            val columnConfig = positionedState(0, -40)
+            val columnState = positionedState(0, -40)
 
-            PlayerLibraryPreview(state = columnConfig.state) {
+            PlayerLibraryPreview(state = columnState.state) {
                 PlaylistDownloadScreen(
                     playlistName = "Playlist name",
                     playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
@@ -133,7 +131,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
-                    columnConfig = columnConfig,
+                    columnState = columnState,
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
                         tintColor = Color.Blue
@@ -147,9 +145,9 @@ class PlaylistDownloadScreenA11yScreenshotTest {
     @Test
     fun playlistDownloadScreenPreviewLoadedPartiallyDownloaded() {
         paparazzi.snapshot {
-            val columnConfig = positionedState(0, -40)
+            val columnState = positionedState(0, -40)
 
-            PlayerLibraryPreview(state = columnConfig.state) {
+            PlayerLibraryPreview(state = columnState.state) {
                 PlaylistDownloadScreen(
                     playlistName = "Playlist name",
                     playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
@@ -162,7 +160,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
-                    columnConfig = columnConfig,
+                    columnState = columnState,
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
                         tintColor = Color.Blue
@@ -176,9 +174,9 @@ class PlaylistDownloadScreenA11yScreenshotTest {
     @Test
     fun playlistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize() {
         paparazzi.snapshot {
-            val columnConfig = positionedState(0, -40)
+            val columnState = positionedState(0, -40)
 
-            PlayerLibraryPreview(state = columnConfig.state) {
+            PlayerLibraryPreview(state = columnState.state) {
                 PlaylistDownloadScreen(
                     playlistName = "Playlist name",
                     playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
@@ -191,7 +189,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
-                    columnConfig = columnConfig,
+                    columnState = columnState,
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
                         tintColor = Color.Blue
@@ -205,9 +203,9 @@ class PlaylistDownloadScreenA11yScreenshotTest {
     @Test
     fun playlistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting() {
         paparazzi.snapshot {
-            val columnConfig = positionedState(0, -40)
+            val columnState = positionedState(0, -40)
 
-            PlayerLibraryPreview(state = columnConfig.state) {
+            PlayerLibraryPreview(state = columnState.state) {
                 PlaylistDownloadScreen(
                     playlistName = "Playlist name",
                     playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
@@ -220,7 +218,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
-                    columnConfig = columnConfig,
+                    columnState = columnState,
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
                         tintColor = Color.Blue
@@ -234,9 +232,9 @@ class PlaylistDownloadScreenA11yScreenshotTest {
     @Test
     fun playlistDownloadScreenPreviewLoadedFullyDownloaded() {
         paparazzi.snapshot {
-            val columnConfig = positionedState(0, -40)
+            val columnState = positionedState(0, -40)
 
-            PlayerLibraryPreview(state = columnConfig.state) {
+            PlayerLibraryPreview(state = columnState.state) {
                 PlaylistDownloadScreen(
                     playlistName = "Playlist name",
                     playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
@@ -249,7 +247,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
-                    columnConfig = columnConfig,
+                    columnState = columnState,
                     downloadItemArtworkPlaceholder = rememberVectorPainter(
                         image = Icons.Default.MusicNote,
                         tintColor = Color.Blue
@@ -263,9 +261,9 @@ class PlaylistDownloadScreenA11yScreenshotTest {
     @Test
     fun playlistDownloadScreenPreviewFailed() {
         paparazzi.snapshot {
-            val columnConfig = positionedState(0, -40)
+            val columnState = positionedState(0, -40)
 
-            PlayerLibraryPreview(state = columnConfig.state) {
+            PlayerLibraryPreview(state = columnState.state) {
                 PlaylistDownloadScreen(
                     playlistName = "Playlist name",
                     playlistDownloadScreenState = PlaylistDownloadScreenState.Failed(),
@@ -275,7 +273,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
                     onDownloadItemInProgressClick = { },
                     onShuffleButtonClick = { },
                     onPlayButtonClick = { },
-                    columnConfig = columnConfig,
+                    columnState = columnState,
                     onDownloadItemInProgressClickActionLabel = "cancel"
                 )
             }

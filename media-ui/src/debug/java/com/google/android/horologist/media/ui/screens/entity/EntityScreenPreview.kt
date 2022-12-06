@@ -56,7 +56,7 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 @Composable
 fun EntityScreenPreview() {
     EntityScreen(
-        columnConfig = belowTimeTextPreview(),
+        columnState = belowTimeTextPreview(),
         headerContent = {
             Box(
                 modifier = Modifier
@@ -112,7 +112,7 @@ fun EntityScreenPreview() {
 @Composable
 fun EntityScreenPreviewLoadedState() {
     EntityScreen(
-        columnConfig = belowTimeTextPreview(),
+        columnState = belowTimeTextPreview(),
         entityScreenState = EntityScreenState.Loaded(listOf("Song 1", "Song 2")),
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { },
@@ -125,7 +125,7 @@ fun EntityScreenPreviewLoadedState() {
 @Composable
 fun EntityScreenPreviewLoadingState() {
     EntityScreen(
-        columnConfig = belowTimeTextPreview(),
+        columnState = belowTimeTextPreview(),
         entityScreenState = EntityScreenState.Loading<String>(),
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },
@@ -138,7 +138,7 @@ fun EntityScreenPreviewLoadingState() {
 @Composable
 fun EntityScreenPreviewFailedState() {
     EntityScreen(
-        columnConfig = belowTimeTextPreview(),
+        columnState = belowTimeTextPreview(),
         entityScreenState = EntityScreenState.Failed<String>(),
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { },

@@ -57,7 +57,7 @@ import kotlin.time.Duration.Companion.seconds
 @Composable
 fun PagingScreen(
     navController: NavController,
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier
 ) {
     val myBackend = remember { MyBackend() }
@@ -76,7 +76,7 @@ fun PagingScreen(
 
     ScalingLazyColumn(
         modifier = modifier,
-        columnConfig = columnConfig
+        columnState = columnState
     ) {
         if (lazyPagingItems.loadState.refresh == LoadState.Loading) {
             items(10) {

@@ -38,7 +38,7 @@ import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun AudioDebugScreen(
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     audioDebugScreenViewModel: AudioDebugScreenViewModel,
     modifier: Modifier = Modifier
 ) {
@@ -47,7 +47,7 @@ fun AudioDebugScreen(
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize(),
-        columnConfig = columnConfig
+        columnState = columnState
     ) {
         item {
             Text(

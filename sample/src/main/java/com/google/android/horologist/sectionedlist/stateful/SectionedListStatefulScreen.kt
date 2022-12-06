@@ -65,12 +65,12 @@ import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefu
 fun SectionedListStatefulScreen(
     modifier: Modifier = Modifier,
     viewModel: SectionedListStatefulScreenViewModel = viewModel(),
-    columnConfig: ScalingLazyColumnState
+    columnState: ScalingLazyColumnState
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     SectionedList(
-        columnConfig = columnConfig,
+        columnState = columnState,
         modifier = modifier
     ) {
         topMenuSection()
@@ -249,5 +249,5 @@ private fun FailedView(onClick: () -> Unit) {
 @WearPreviewDevices
 @Composable
 fun SectionedListStatefulScreenPreview() {
-    SectionedListStatefulScreen(columnConfig = belowTimeTextPreview())
+    SectionedListStatefulScreen(columnState = belowTimeTextPreview())
 }

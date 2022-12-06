@@ -28,13 +28,13 @@ import com.google.android.horologist.mediasample.R
 
 @Composable
 fun UampStreamingBrowseScreen(
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     onPlaylistsClick: () -> Unit,
     onSettingsClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     BrowseScreen(
-        columnConfig = columnConfig,
+        columnState = columnState,
         modifier = modifier
     ) {
         this.playlistsSection(

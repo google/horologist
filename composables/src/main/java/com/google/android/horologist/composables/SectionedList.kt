@@ -38,12 +38,12 @@ import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistC
 @ExperimentalHorologistComposablesApi
 @Composable
 public fun SectionedList(
-    columnConfig: ScalingLazyColumnState = ScalingLazyColumnDefaults.belowTimeText().create(),
+    columnState: ScalingLazyColumnState = ScalingLazyColumnDefaults.belowTimeText().create(),
     modifier: Modifier = Modifier,
     content: SectionedListScope.() -> Unit
 ) {
     SectionedList(
-        columnConfig = columnConfig,
+        columnState = columnState,
         modifier = modifier,
         sections = SectionedListScope().apply(content).sections
     )
@@ -57,14 +57,14 @@ public fun SectionedList(
 @ExperimentalHorologistComposablesApi
 @Composable
 public fun SectionedList(
-    columnConfig: ScalingLazyColumnState = ScalingLazyColumnDefaults.belowTimeText().create(),
+    columnState: ScalingLazyColumnState = ScalingLazyColumnDefaults.belowTimeText().create(),
     modifier: Modifier = Modifier,
     sections: List<Section<*>> = emptyList()
 ) {
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize(),
-        columnConfig = columnConfig
+        columnState = columnState
     ) {
         sections.forEach { section ->
             section.display(this)

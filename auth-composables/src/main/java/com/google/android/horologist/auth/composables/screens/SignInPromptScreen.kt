@@ -35,14 +35,14 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 @Composable
 public fun SignInPromptScreen(
     message: String,
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     title: String = stringResource(id = R.string.horologist_signin_prompt_title),
     content: ScalingLazyListScope.() -> Unit
 ) {
     ScalingLazyColumn(
         modifier = modifier,
-        columnConfig = columnConfig
+        columnState = columnState
     ) {
         item { Title(text = title) }
         item {

@@ -42,7 +42,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiMode
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun PlaylistDownloadBrowseScreen(
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     browseScreenState: BrowseScreenState,
     onDownloadItemClick: (PlaylistDownloadUiModel) -> Unit,
     onDownloadItemInProgressClick: (PlaylistDownloadUiModel) -> Unit,
@@ -53,7 +53,7 @@ public fun PlaylistDownloadBrowseScreen(
     onDownloadItemInProgressClickActionLabel: String? = null
 ) {
     BrowseScreen(
-        columnConfig = columnConfig,
+        columnState = columnState,
         modifier = modifier
     ) {
         val downloadsSectionState = when (browseScreenState) {

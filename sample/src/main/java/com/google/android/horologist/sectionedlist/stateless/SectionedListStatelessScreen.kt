@@ -42,10 +42,10 @@ import com.google.android.horologist.sample.R
 @Composable
 fun SectionedListStatelessScreen(
     modifier: Modifier = Modifier,
-    columnConfig: ScalingLazyColumnState
+    columnState: ScalingLazyColumnState
 ) {
     SectionedList(
-        columnConfig = columnConfig,
+        columnState = columnState,
         modifier = modifier
     ) {
         topMenuSection()
@@ -165,5 +165,5 @@ private fun SectionedListScope.bottomMenuSection() {
 @WearPreviewDevices
 @Composable
 fun SectionedListStatelessScreenPreview() {
-    SectionedListStatelessScreen(columnConfig = belowTimeTextPreview())
+    SectionedListStatelessScreen(columnState = belowTimeTextPreview())
 }

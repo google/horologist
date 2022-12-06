@@ -92,7 +92,7 @@ package com.google.android.horologist.compose.layout {
   }
 
   public final class ScalingLazyColumnStateKt {
-    method @androidx.compose.runtime.Composable public static void ScalingLazyColumn(optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnConfig, kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListScope,kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable public static void ScalingLazyColumn(optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListScope,kotlin.Unit> content);
   }
 
   public final class ScrollAwayKt {
@@ -112,14 +112,14 @@ package com.google.android.horologist.compose.layout {
 package com.google.android.horologist.compose.navscaffold {
 
   public final class ConfigScaffoldContext {
-    ctor public ConfigScaffoldContext(androidx.navigation.NavBackStackEntry backStackEntry, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnConfig, com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel viewModel);
+    ctor public ConfigScaffoldContext(androidx.navigation.NavBackStackEntry backStackEntry, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel viewModel);
     method public androidx.navigation.NavBackStackEntry component1();
     method public com.google.android.horologist.compose.layout.ScalingLazyColumnState component2();
     method public com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel component3();
-    method public com.google.android.horologist.compose.navscaffold.ConfigScaffoldContext copy(androidx.navigation.NavBackStackEntry backStackEntry, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnConfig, com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel viewModel);
+    method public com.google.android.horologist.compose.navscaffold.ConfigScaffoldContext copy(androidx.navigation.NavBackStackEntry backStackEntry, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel viewModel);
     method public android.os.Bundle? getArguments();
     method public androidx.navigation.NavBackStackEntry getBackStackEntry();
-    method public com.google.android.horologist.compose.layout.ScalingLazyColumnState getColumnConfig();
+    method public com.google.android.horologist.compose.layout.ScalingLazyColumnState getColumnState();
     method public com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode getPositionIndicatorMode();
     method public androidx.wear.compose.material.ScalingLazyListState getScrollableState();
     method public com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode getTimeTextMode();
@@ -128,7 +128,7 @@ package com.google.android.horologist.compose.navscaffold {
     method public void setTimeTextMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode timeTextMode);
     property public final android.os.Bundle? arguments;
     property public final androidx.navigation.NavBackStackEntry backStackEntry;
-    property public final com.google.android.horologist.compose.layout.ScalingLazyColumnState columnConfig;
+    property public final com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState;
     property public final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode positionIndicatorMode;
     property public final androidx.wear.compose.material.ScalingLazyListState scrollableState;
     property public final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode timeTextMode;
@@ -231,10 +231,10 @@ package com.google.android.horologist.compose.navscaffold {
   public final class WearNavScaffoldKt {
     method @androidx.compose.runtime.Composable public static void WearNavScaffold(String startDestination, androidx.navigation.NavHostController navController, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> snackbar, optional kotlin.jvm.functions.Function1<? super androidx.compose.ui.Modifier,kotlin.Unit> timeText, optional androidx.wear.compose.navigation.SwipeDismissableNavHostState state, kotlin.jvm.functions.Function1<? super androidx.navigation.NavGraphBuilder,kotlin.Unit> builder);
     method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static void composable(androidx.navigation.NavGraphBuilder, String route, optional java.util.List<androidx.navigation.NamedNavArgument> arguments, optional java.util.List<androidx.navigation.NavDeepLink> deepLinks, kotlin.jvm.functions.Function1<? super com.google.android.horologist.compose.navscaffold.NonScrollableScaffoldContext,kotlin.Unit> content);
-    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static void composableScalingLazyColumn(androidx.navigation.NavGraphBuilder, String route, optional java.util.List<androidx.navigation.NamedNavArgument> arguments, optional java.util.List<androidx.navigation.NavDeepLink> deepLinks, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.Factory columnStateFactory, kotlin.jvm.functions.Function1<? super com.google.android.horologist.compose.navscaffold.ConfigScaffoldContext,kotlin.Unit> content);
     method public static void lazyListComposable(androidx.navigation.NavGraphBuilder, String route, optional java.util.List<androidx.navigation.NamedNavArgument> arguments, optional java.util.List<androidx.navigation.NavDeepLink> deepLinks, optional kotlin.jvm.functions.Function0<androidx.compose.foundation.lazy.LazyListState> lazyListStateBuilder, kotlin.jvm.functions.Function1<? super com.google.android.horologist.compose.navscaffold.ScaffoldContext<androidx.compose.foundation.lazy.LazyListState>,kotlin.Unit> content);
     method @Deprecated public static void scalingLazyColumnComposable(androidx.navigation.NavGraphBuilder, String route, optional java.util.List<androidx.navigation.NamedNavArgument> arguments, optional java.util.List<androidx.navigation.NavDeepLink> deepLinks, kotlin.jvm.functions.Function0<androidx.wear.compose.material.ScalingLazyListState> scrollStateBuilder, kotlin.jvm.functions.Function1<? super com.google.android.horologist.compose.navscaffold.ScaffoldContext<androidx.wear.compose.material.ScalingLazyListState>,kotlin.Unit> content);
     method public static void scrollStateComposable(androidx.navigation.NavGraphBuilder, String route, optional java.util.List<androidx.navigation.NamedNavArgument> arguments, optional java.util.List<androidx.navigation.NavDeepLink> deepLinks, optional kotlin.jvm.functions.Function0<androidx.compose.foundation.ScrollState> scrollStateBuilder, kotlin.jvm.functions.Function1<? super com.google.android.horologist.compose.navscaffold.ScaffoldContext<androidx.compose.foundation.ScrollState>,kotlin.Unit> content);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static void scrollable(androidx.navigation.NavGraphBuilder, String route, optional java.util.List<androidx.navigation.NamedNavArgument> arguments, optional java.util.List<androidx.navigation.NavDeepLink> deepLinks, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.Factory columnStateFactory, kotlin.jvm.functions.Function1<? super com.google.android.horologist.compose.navscaffold.ConfigScaffoldContext,kotlin.Unit> content);
     method @Deprecated public static void wearNavComposable(androidx.navigation.NavGraphBuilder, String route, optional java.util.List<androidx.navigation.NamedNavArgument> arguments, optional java.util.List<androidx.navigation.NavDeepLink> deepLinks, kotlin.jvm.functions.Function2<? super androidx.navigation.NavBackStackEntry,? super com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel,kotlin.Unit> content);
   }
 

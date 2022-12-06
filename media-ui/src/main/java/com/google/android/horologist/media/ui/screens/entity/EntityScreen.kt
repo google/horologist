@@ -33,7 +33,7 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun EntityScreen(
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     headerContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     buttonsContent: (@Composable () -> Unit)? = null,
@@ -42,7 +42,7 @@ public fun EntityScreen(
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize(),
-        columnConfig = columnConfig
+        columnState = columnState
     ) {
         item {
             headerContent()
@@ -66,7 +66,7 @@ public fun EntityScreen(
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun <Media> EntityScreen(
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     headerContent: @Composable () -> Unit,
     mediaList: List<Media>,
     mediaContent: @Composable (media: Media) -> Unit,
@@ -75,7 +75,7 @@ public fun <Media> EntityScreen(
 ) {
     EntityScreen(
         headerContent = headerContent,
-        columnConfig = columnConfig,
+        columnState = columnState,
         modifier = modifier,
         buttonsContent = buttonsContent,
         content = {
@@ -93,7 +93,7 @@ public fun <Media> EntityScreen(
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun <Media> EntityScreen(
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     entityScreenState: EntityScreenState<Media>,
     headerContent: @Composable () -> Unit,
     loadingContent: ScalingLazyListScope.() -> Unit,
@@ -106,7 +106,7 @@ public fun <Media> EntityScreen(
         is EntityScreenState.Loading -> {
             EntityScreen(
                 headerContent = headerContent,
-                columnConfig = columnConfig,
+                columnState = columnState,
                 modifier = modifier,
                 buttonsContent = buttonsContent,
                 content = loadingContent
@@ -115,7 +115,7 @@ public fun <Media> EntityScreen(
 
         is EntityScreenState.Loaded -> {
             EntityScreen(
-                columnConfig = columnConfig,
+                columnState = columnState,
                 headerContent = headerContent,
                 mediaList = entityScreenState.mediaList,
                 mediaContent = mediaContent,
@@ -126,7 +126,7 @@ public fun <Media> EntityScreen(
 
         is EntityScreenState.Failed -> {
             EntityScreen(
-                columnConfig = columnConfig,
+                columnState = columnState,
                 headerContent = headerContent,
                 modifier = modifier,
                 buttonsContent = buttonsContent,

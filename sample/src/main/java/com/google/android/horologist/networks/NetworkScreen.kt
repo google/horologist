@@ -33,13 +33,13 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 @Composable
 fun NetworkScreen(
     viewModel: NetworkScreenViewModel = viewModel(factory = NetworkScreenViewModel.Factory),
-    columnConfig: ScalingLazyColumnState
+    columnState: ScalingLazyColumnState
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
 
     ScalingLazyColumn(
         modifier = Modifier.fillMaxSize(),
-        columnConfig = columnConfig
+        columnState = columnState
     ) {
         item {
             Chip(

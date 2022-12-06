@@ -32,13 +32,13 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 fun DataLayerNodesScreen(
     viewModel: DataLayerNodesViewModel,
     modifier: Modifier = Modifier,
-    columnConfig: ScalingLazyColumnState
+    columnState: ScalingLazyColumnState
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     ScalingLazyColumn(
         modifier = modifier,
-        columnConfig = columnConfig
+        columnState = columnState
     ) {
         item {
             ListHeader {

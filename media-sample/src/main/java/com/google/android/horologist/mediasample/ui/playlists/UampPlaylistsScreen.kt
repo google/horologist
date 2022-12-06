@@ -45,7 +45,7 @@ import com.google.android.horologist.mediasample.R
 
 @Composable
 fun UampPlaylistsScreen(
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     uampPlaylistsScreenViewModel: UampPlaylistsScreenViewModel,
     onPlaylistItemClick: (PlaylistUiModel) -> Unit,
     onErrorDialogCancelClick: () -> Unit
@@ -71,7 +71,7 @@ fun UampPlaylistsScreen(
         onPlaylistItemClick = {
             onPlaylistItemClick(it)
         },
-        columnConfig = columnConfig
+        columnState = columnState
     )
 
     // b/242302037 - it should stop listening to uiState emissions while dialog is presented

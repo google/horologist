@@ -90,12 +90,12 @@ fun UampWearApp(
                     }
                 )
             },
-            libraryScreen = { columnConfig ->
+            libraryScreen = { columnState ->
                 if (appState.streamingMode == true) {
                     UampStreamingBrowseScreen(
                         onPlaylistsClick = { navController.navigateToCollections() },
                         onSettingsClick = { navController.navigateToSettings() },
-                        columnConfig = columnConfig
+                        columnState = columnState
                     )
                 } else {
                     UampBrowseScreen(
@@ -108,11 +108,11 @@ fun UampWearApp(
                         },
                         onPlaylistsClick = { navController.navigateToCollections() },
                         onSettingsClick = { navController.navigateToSettings() },
-                        columnConfig = columnConfig
+                        columnState = columnState
                     )
                 }
             },
-            categoryEntityScreen = { _, name, columnConfig ->
+            categoryEntityScreen = { _, name, columnState ->
                 if (appState.streamingMode == true) {
                     val viewModel: UampStreamingPlaylistScreenViewModel = hiltViewModel()
 
@@ -124,7 +124,7 @@ fun UampWearApp(
                         },
                         onShuffleClick = { navController.navigateToPlayer() },
                         onPlayClick = { navController.navigateToPlayer() },
-                        columnConfig = columnConfig
+                        columnState = columnState
                     )
                 } else {
                     val uampEntityScreenViewModel: UampEntityScreenViewModel = hiltViewModel()
@@ -138,7 +138,7 @@ fun UampWearApp(
                         onShuffleClick = { navController.navigateToPlayer() },
                         onPlayClick = { navController.navigateToPlayer() },
                         onErrorDialogCancelClick = { navController.popBackStack() },
-                        columnConfig = columnConfig
+                        columnState = columnState
                     )
                 }
             },
@@ -147,7 +147,7 @@ fun UampWearApp(
                     Text("Media XXX")
                 }
             },
-            playlistsScreen = { columnConfig ->
+            playlistsScreen = { columnState ->
                 val uampPlaylistsScreenViewModel: UampPlaylistsScreenViewModel =
                     hiltViewModel()
 
@@ -160,12 +160,12 @@ fun UampWearApp(
                         )
                     },
                     onErrorDialogCancelClick = { navController.popBackStack() },
-                    columnConfig = columnConfig
+                    columnState = columnState
                 )
             },
-            settingsScreen = { columnConfig ->
+            settingsScreen = { columnState ->
                 UampSettingsScreen(
-                    columnConfig = columnConfig,
+                    columnState = columnState,
                     settingsScreenViewModel = hiltViewModel(),
                     navController = navController
                 )
@@ -185,7 +185,7 @@ fun UampWearApp(
                     deepLinks = AudioDebug.deepLinks(appViewModel.deepLinkPrefix)
                 ) {
                     AudioDebugScreen(
-                        columnConfig = it.columnConfig,
+                        columnState = it.columnState,
                         audioDebugScreenViewModel = hiltViewModel()
                     )
                 }
@@ -197,7 +197,7 @@ fun UampWearApp(
                     deepLinks = Samples.deepLinks(appViewModel.deepLinkPrefix)
                 ) {
                     SamplesScreen(
-                        columnConfig = it.columnConfig,
+                        columnState = it.columnState,
                         samplesScreenViewModel = hiltViewModel(),
                         navController = navController
                     )
@@ -210,7 +210,7 @@ fun UampWearApp(
                     deepLinks = DeveloperOptions.deepLinks(appViewModel.deepLinkPrefix)
                 ) {
                     DeveloperOptionsScreen(
-                        columnConfig = it.columnConfig,
+                        columnState = it.columnState,
                         developerOptionsScreenViewModel = hiltViewModel(),
                         navController = navController
                     )

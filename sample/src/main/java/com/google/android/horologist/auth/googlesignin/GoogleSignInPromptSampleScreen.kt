@@ -34,13 +34,13 @@ import com.google.android.horologist.sample.Screen
 @Composable
 fun GoogleSignInPromptSampleScreen(
     navController: NavHostController,
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier
 ) {
     SignInPromptScreen(
         message = stringResource(id = R.string.google_sign_in_prompt_message),
         modifier = modifier,
-        columnConfig = columnConfig
+        columnState = columnState
     ) {
         item {
             SignInChip(
@@ -66,6 +66,6 @@ fun GoogleSignInPromptSampleScreen(
 fun GoogleSignInPromptSampleScreenPreview() {
     GoogleSignInPromptSampleScreen(
         navController = rememberSwipeDismissableNavController(),
-        columnConfig = belowTimeTextPreview()
+        columnState = belowTimeTextPreview()
     )
 }

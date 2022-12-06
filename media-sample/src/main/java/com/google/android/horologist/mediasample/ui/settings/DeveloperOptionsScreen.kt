@@ -40,7 +40,7 @@ import com.google.android.horologist.mediasample.ui.navigation.navigateToSamples
 
 @Composable
 fun DeveloperOptionsScreen(
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     developerOptionsScreenViewModel: DeveloperOptionsScreenViewModel,
     navController: NavHostController,
     modifier: Modifier = Modifier
@@ -50,7 +50,7 @@ fun DeveloperOptionsScreen(
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize(),
-        columnConfig = columnConfig
+        columnState = columnState
     ) {
         item {
             Text(

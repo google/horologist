@@ -48,7 +48,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun PlaylistStreamingScreen(
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     playlistName: String,
     playlistDownloadScreenState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
     onShuffleButtonClick: () -> Unit,
@@ -68,7 +68,7 @@ public fun PlaylistStreamingScreen(
         }
 
     EntityScreen(
-        columnConfig = columnConfig,
+        columnState = columnState,
         entityScreenState = entityScreenState,
         headerContent = { DefaultEntityScreenHeader(title = playlistName) },
         loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },

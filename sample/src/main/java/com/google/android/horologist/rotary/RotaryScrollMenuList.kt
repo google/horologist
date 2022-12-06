@@ -72,10 +72,10 @@ import kotlin.random.Random
 fun RotaryMenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
-    columnConfig: ScalingLazyColumnState
+    columnState: ScalingLazyColumnState
 ) {
     SectionedList(
-        columnConfig = columnConfig,
+        columnState = columnState,
         modifier = modifier
     ) {
         section(

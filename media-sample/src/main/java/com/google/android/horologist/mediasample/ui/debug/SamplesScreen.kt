@@ -36,7 +36,7 @@ import com.google.android.horologist.mediasample.ui.settings.ActionSetting
 
 @Composable
 fun SamplesScreen(
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     samplesScreenViewModel: SamplesScreenViewModel,
     navController: NavHostController,
     modifier: Modifier = Modifier
@@ -46,7 +46,7 @@ fun SamplesScreen(
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize(),
-        columnConfig = columnConfig
+        columnState = columnState
     ) {
         item {
             Text(

@@ -35,10 +35,10 @@ import com.google.android.horologist.sample.Screen
 fun AuthMenuScreen(
     navigateToRoute: (String) -> Unit,
     modifier: Modifier = Modifier,
-    columnConfig: ScalingLazyColumnState
+    columnState: ScalingLazyColumnState
 ) {
     SectionedList(
-        columnConfig = columnConfig,
+        columnState = columnState,
         modifier = modifier
     ) {
         authPKCESection(navigateToRoute)
@@ -121,6 +121,6 @@ private fun SectionedListScope.googleSignInSection(navigateToRoute: (String) -> 
 fun AuthMenuScreenPreview() {
     AuthMenuScreen(
         navigateToRoute = {},
-        columnConfig = belowTimeTextPreview()
+        columnState = belowTimeTextPreview()
     )
 }

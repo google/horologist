@@ -54,12 +54,12 @@ import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiMode
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun BrowseScreen(
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     content: BrowseScreenScope.() -> Unit
 ) {
     SectionedList(
-        columnConfig = columnConfig,
+        columnState = columnState,
         modifier = modifier,
         sections = BrowseScreenScope().apply(content).sections
     )

@@ -44,7 +44,7 @@ import com.google.android.horologist.mediasample.ui.navigation.navigateToDevelop
 
 @Composable
 fun UampSettingsScreen(
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     settingsScreenViewModel: SettingsScreenViewModel,
     navController: NavHostController,
     modifier: Modifier = Modifier
@@ -52,7 +52,7 @@ fun UampSettingsScreen(
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize(),
-        columnConfig = columnConfig
+        columnState = columnState
     ) {
         item {
             Text(

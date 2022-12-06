@@ -31,7 +31,7 @@ import com.google.android.horologist.compose.tools.WearPreviewDevices
 fun SignInPromptScreenPreview() {
     SignInPromptScreen(
         message = "Send messages and create chat groups with your friends",
-        columnConfig = belowTimeTextPreview()
+        columnState = belowTimeTextPreview()
     ) {
         item {
             SignInChip(

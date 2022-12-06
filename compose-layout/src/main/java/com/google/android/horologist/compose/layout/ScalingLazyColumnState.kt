@@ -97,33 +97,33 @@ public class ScalingLazyColumnState(
 @Composable
 public fun ScalingLazyColumn(
     modifier: Modifier = Modifier,
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     content: ScalingLazyListScope.() -> Unit
 ) {
     val focusRequester = rememberActiveFocusRequester()
 
-    val modifierWithRotary = when (columnConfig.rotaryMode) {
+    val modifierWithRotary = when (columnState.rotaryMode) {
         RotaryMode.Snap -> modifier.rotaryWithSnap(
             focusRequester,
-            columnConfig.state.toRotaryScrollAdapter()
+            columnState.state.toRotaryScrollAdapter()
         )
 
-        RotaryMode.Fling -> modifier.rotaryWithFling(focusRequester, columnConfig.state)
-        RotaryMode.Scroll -> modifier.rotaryWithScroll(focusRequester, columnConfig.state)
+        RotaryMode.Fling -> modifier.rotaryWithFling(focusRequester, columnState.state)
+        RotaryMode.Scroll -> modifier.rotaryWithScroll(focusRequester, columnState.state)
     }
 
     ScalingLazyColumn(
         modifier = modifierWithRotary,
-        state = columnConfig.state,
-        contentPadding = columnConfig.contentPadding,
-        reverseLayout = columnConfig.reverseLayout,
-        verticalArrangement = columnConfig.verticalArrangement,
-        horizontalAlignment = columnConfig.horizontalAlignment,
-        flingBehavior = columnConfig.flingBehavior ?: ScrollableDefaults.flingBehavior(),
-        userScrollEnabled = columnConfig.userScrollEnabled,
-        scalingParams = columnConfig.scalingParams,
-        anchorType = columnConfig.anchorType,
-        autoCentering = columnConfig.autoCentering,
+        state = columnState.state,
+        contentPadding = columnState.contentPadding,
+        reverseLayout = columnState.reverseLayout,
+        verticalArrangement = columnState.verticalArrangement,
+        horizontalAlignment = columnState.horizontalAlignment,
+        flingBehavior = columnState.flingBehavior ?: ScrollableDefaults.flingBehavior(),
+        userScrollEnabled = columnState.userScrollEnabled,
+        scalingParams = columnState.scalingParams,
+        anchorType = columnState.anchorType,
+        autoCentering = columnState.autoCentering,
         content = content
     )
 }

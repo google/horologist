@@ -34,13 +34,13 @@ import com.google.android.horologist.sample.Screen
 @Composable
 fun AuthDeviceGrantSignInPromptScreen(
     navController: NavHostController,
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier
 ) {
     SignInPromptScreen(
         message = stringResource(id = R.string.auth_device_grant_sign_in_prompt_message),
         modifier = modifier,
-        columnConfig = columnConfig
+        columnState = columnState
     ) {
         item {
             SignInChip(
@@ -66,6 +66,6 @@ fun AuthDeviceGrantSignInPromptScreen(
 fun AuthDeviceGrantSignInPromptScreenPreview() {
     AuthDeviceGrantSignInPromptScreen(
         navController = rememberSwipeDismissableNavController(),
-        columnConfig = belowTimeTextPreview()
+        columnState = belowTimeTextPreview()
     )
 }

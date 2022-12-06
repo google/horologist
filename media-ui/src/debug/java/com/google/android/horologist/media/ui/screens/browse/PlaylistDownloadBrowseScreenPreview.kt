@@ -34,7 +34,7 @@ import com.google.android.horologist.media.ui.uamp.UampTheme
 @Composable
 fun PlaylistDownloadBrowseScreenPreview() {
     PlaylistDownloadBrowseScreen(
-        columnConfig = belowTimeTextPreview(),
+        columnState = belowTimeTextPreview(),
         browseScreenState = BrowseScreenState.Loaded(downloadList),
         onDownloadItemClick = { },
         onDownloadItemInProgressClick = { },
@@ -51,7 +51,7 @@ fun PlaylistDownloadBrowseScreenPreview() {
 @Composable
 fun PlaylistDownloadBrowseScreenPreviewNoDownloads() {
     PlaylistDownloadBrowseScreen(
-        columnConfig = belowTimeTextPreview(),
+        columnState = belowTimeTextPreview(),
         browseScreenState = BrowseScreenState.Loaded(emptyList()),
         onDownloadItemClick = { },
         onDownloadItemInProgressClick = { },
@@ -64,7 +64,7 @@ fun PlaylistDownloadBrowseScreenPreviewNoDownloads() {
 @Composable
 fun PlaylistDownloadBrowseScreenPreviewLoading() {
     PlaylistDownloadBrowseScreen(
-        columnConfig = belowTimeTextPreview(),
+        columnState = belowTimeTextPreview(),
         browseScreenState = BrowseScreenState.Loading,
         onDownloadItemClick = { },
         onDownloadItemInProgressClick = { },
@@ -78,7 +78,7 @@ fun PlaylistDownloadBrowseScreenPreviewLoading() {
 fun PlaylistDownloadBrowseScreenPreviewUampTheme() {
     UampTheme {
         PlaylistDownloadBrowseScreen(
-            columnConfig = belowTimeTextPreview(),
+            columnState = belowTimeTextPreview(),
             browseScreenState = BrowseScreenState.Loaded(downloadList),
             onDownloadItemClick = { },
             onDownloadItemInProgressClick = { },

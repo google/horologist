@@ -233,13 +233,13 @@ public fun NavGraphBuilder.scrollable(
 ) {
     this@scrollable.composable(route, arguments, deepLinks) {
         FocusedDestination {
-            val columnConfig = columnStateFactory.create()
+            val columnState = columnStateFactory.create()
 
             val viewModel: NavScaffoldViewModel = viewModel(it)
 
-            viewModel.initializeScalingLazyListState(columnConfig)
+            viewModel.initializeScalingLazyListState(columnState)
 
-            content(ConfigScaffoldContext(it, columnConfig, viewModel))
+            content(ConfigScaffoldContext(it, columnState, viewModel))
         }
     }
 }

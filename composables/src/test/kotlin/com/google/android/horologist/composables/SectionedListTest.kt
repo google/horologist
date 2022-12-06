@@ -64,10 +64,10 @@ class SectionedListTest {
     @Test
     fun loadingSection() {
         paparazzi.snapshot {
-            val columnConfig = positionedState(0, 0)
+            val columnState = positionedState(0, 0)
 
-            SectionedListPreview(columnConfig.state) {
-                SectionedList(columnConfig = columnConfig) {
+            SectionedListPreview(columnState.state) {
+                SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Loading())
 
                     favouritesSection(state = Section.State.Empty())
@@ -79,10 +79,10 @@ class SectionedListTest {
     @Test
     fun loadedSection() {
         paparazzi.snapshot {
-            val columnConfig = positionedState(0, 0)
+            val columnState = positionedState(0, 0)
 
-            SectionedListPreview(columnConfig.state) {
-                SectionedList(columnConfig = columnConfig) {
+            SectionedListPreview(columnState.state) {
+                SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Loaded(downloads))
 
                     favouritesSection(state = Section.State.Failed())
@@ -94,10 +94,10 @@ class SectionedListTest {
     @Test
     fun loadedSection_secondPage() {
         paparazzi.snapshot {
-            val columnConfig = positionedState(4, 0)
+            val columnState = positionedState(4, 0)
 
-            SectionedListPreview(columnConfig.state) {
-                SectionedList(columnConfig = columnConfig) {
+            SectionedListPreview(columnState.state) {
+                SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Loaded(downloads))
 
                     favouritesSection(state = Section.State.Failed())
@@ -109,10 +109,10 @@ class SectionedListTest {
     @Test
     fun failedSection() {
         paparazzi.snapshot {
-            val columnConfig = positionedState(0, 0)
+            val columnState = positionedState(0, 0)
 
-            SectionedListPreview(columnConfig.state) {
-                SectionedList(columnConfig = columnConfig) {
+            SectionedListPreview(columnState.state) {
+                SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Failed())
 
                     favouritesSection(state = Section.State.Loaded(favourites))
@@ -124,10 +124,10 @@ class SectionedListTest {
     @Test
     fun failedSection_secondPage() {
         paparazzi.snapshot {
-            val columnConfig = positionedState(4, 0)
+            val columnState = positionedState(4, 0)
 
-            SectionedListPreview(columnConfig.state) {
-                SectionedList(columnConfig = columnConfig) {
+            SectionedListPreview(columnState.state) {
+                SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Failed())
 
                     favouritesSection(state = Section.State.Loaded(favourites))
@@ -139,10 +139,10 @@ class SectionedListTest {
     @Test
     fun emptySection() {
         paparazzi.snapshot {
-            val columnConfig = positionedState(0, 0)
+            val columnState = positionedState(0, 0)
 
-            SectionedListPreview(columnConfig.state) {
-                SectionedList(columnConfig = columnConfig) {
+            SectionedListPreview(columnState.state) {
+                SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Empty())
 
                     favouritesSection(state = Section.State.Loading())
@@ -373,7 +373,8 @@ class SectionedListTest {
 
 @Composable
 public fun positionedState(
-    topIndex: Int, topScrollOffset: Int
+    topIndex: Int,
+    topScrollOffset: Int
 ): ScalingLazyColumnState {
     return ScalingLazyColumnDefaults.belowTimeText().create().apply {
         state.forceState(topIndex, topScrollOffset)

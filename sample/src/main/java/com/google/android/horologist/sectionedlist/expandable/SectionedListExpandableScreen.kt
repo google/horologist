@@ -74,7 +74,7 @@ private val laterTasks = listOf(
 @Composable
 fun SectionedListExpandableScreen(
     modifier: Modifier = Modifier,
-    columnConfig: ScalingLazyColumnState
+    columnState: ScalingLazyColumnState
 ) {
     var todaySectionExpanded by rememberSaveable { mutableStateOf(true) }
     var tomorrowSectionExpanded by rememberSaveable { mutableStateOf(true) }
@@ -85,7 +85,7 @@ fun SectionedListExpandableScreen(
     val laterSectionState = getState(laterSectionExpanded, laterTasks)
 
     SectionedList(
-        columnConfig = columnConfig,
+        columnState = columnState,
         modifier = modifier
     ) {
         section {
@@ -202,5 +202,5 @@ private fun SectionHeader(
 @WearPreviewDevices
 @Composable
 fun SectionedListExpandableScreenPreview() {
-    SectionedListExpandableScreen(columnConfig = belowTimeTextPreview())
+    SectionedListExpandableScreen(columnState = belowTimeTextPreview())
 }

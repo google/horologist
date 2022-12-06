@@ -71,18 +71,18 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest {
                 width = DeviceConfig.GALAXY_WATCH4_CLASSIC_LARGE.screenWidth,
                 height = 650
             ) { scalingParams ->
-                val columnConfig = ScalingLazyColumnDefaults.belowTimeText()
+                val columnState = ScalingLazyColumnDefaults.belowTimeText()
                     .copy(scalingParams = scalingParams).create()
-                columnConfig.state.forceState(0, 0)
+                columnState.state.forceState(0, 0)
 
-                PlayerLibraryPreview(state = columnConfig.state, round = false) {
+                PlayerLibraryPreview(state = columnState.state, round = false) {
                     PlaylistDownloadBrowseScreen(
                         browseScreenState = screenState,
                         onDownloadItemClick = { },
                         onDownloadItemInProgressClick = { },
                         onPlaylistsClick = { },
                         onSettingsClick = { },
-                        columnConfig = columnConfig,
+                        columnState = columnState,
                         onDownloadItemInProgressClickActionLabel = "cancel"
                     )
                 }

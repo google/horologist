@@ -50,7 +50,7 @@ import com.google.android.horologist.mediasample.R
 
 @Composable
 fun UampEntityScreen(
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     playlistName: String,
     uampEntityScreenViewModel: UampEntityScreenViewModel,
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
@@ -87,7 +87,7 @@ fun UampEntityScreen(
             uampEntityScreenViewModel.play()
             onPlayClick(it)
         },
-        columnConfig = columnConfig,
+        columnState = columnState,
         onDownloadCompletedButtonClick = {
             showRemoveDownloadsDialog = true
         },

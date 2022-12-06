@@ -28,7 +28,7 @@ import com.google.android.horologist.mediasample.R
 
 @Composable
 fun UampBrowseScreen(
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     uampBrowseScreenViewModel: UampBrowseScreenViewModel,
     onDownloadItemClick: (PlaylistDownloadUiModel) -> Unit,
     onPlaylistsClick: () -> Unit,
@@ -45,7 +45,7 @@ fun UampBrowseScreen(
         },
         onPlaylistsClick = onPlaylistsClick,
         onSettingsClick = onSettingsClick,
-        columnConfig = columnConfig,
+        columnState = columnState,
         modifier = modifier,
         onDownloadItemInProgressClickActionLabel = stringResource(id = R.string.browse_download_cancel_action_label)
     )

@@ -23,7 +23,8 @@ import com.google.android.horologist.compose.tools.a11y.forceState
 
 @Composable
 public fun positionedState(
-    topIndex: Int, topScrollOffset: Int
+    topIndex: Int,
+    topScrollOffset: Int
 ): ScalingLazyColumnState {
     return ScalingLazyColumnDefaults.belowTimeText().create().apply {
         state.forceState(topIndex, topScrollOffset)

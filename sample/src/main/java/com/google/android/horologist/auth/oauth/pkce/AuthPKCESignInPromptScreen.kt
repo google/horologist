@@ -34,13 +34,13 @@ import com.google.android.horologist.sample.Screen
 @Composable
 fun AuthPKCESignInPromptScreen(
     navController: NavHostController,
-    columnConfig: ScalingLazyColumnState,
+    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier
 ) {
     SignInPromptScreen(
         message = stringResource(id = R.string.auth_pkce_sign_in_prompt_message),
         modifier = modifier,
-        columnConfig = columnConfig
+        columnState = columnState
     ) {
         item {
             SignInChip(
@@ -64,5 +64,5 @@ fun AuthPKCESignInPromptScreen(
 @WearPreviewDevices
 @Composable
 fun AuthPKCESignInPromptScreenPreview() {
-    AuthPKCESignInPromptScreen(navController = NavHostController(LocalContext.current), columnConfig = belowTimeTextPreview())
+    AuthPKCESignInPromptScreen(navController = NavHostController(LocalContext.current), columnState = belowTimeTextPreview())
 }

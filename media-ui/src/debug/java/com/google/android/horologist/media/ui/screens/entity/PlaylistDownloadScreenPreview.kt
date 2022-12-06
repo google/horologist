@@ -33,7 +33,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 @Composable
 fun PlaylistDownloadScreenPreviewLoading() {
     PlaylistDownloadScreen(
-        columnConfig = belowTimeTextPreview(),
+        columnState = belowTimeTextPreview(),
         playlistName = "Playlist name",
         playlistDownloadScreenState = PlaylistDownloadScreenState.Loading(),
         onDownloadButtonClick = { },
@@ -49,7 +49,7 @@ fun PlaylistDownloadScreenPreviewLoading() {
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedNoneDownloaded() {
     PlaylistDownloadScreen(
-        columnConfig = belowTimeTextPreview(),
+        columnState = belowTimeTextPreview(),
         playlistName = "Playlist name",
         playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
             playlistModel = playlistUiModel,
@@ -72,7 +72,7 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloaded() {
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
     PlaylistDownloadScreen(
-        columnConfig = belowTimeTextPreview(),
+        columnState = belowTimeTextPreview(),
         playlistName = "Playlist name",
         playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
             playlistModel = playlistUiModel,
@@ -95,7 +95,7 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloaded() {
     PlaylistDownloadScreen(
-        columnConfig = belowTimeTextPreview(),
+        columnState = belowTimeTextPreview(),
         playlistName = "Playlist name",
         playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
             playlistModel = playlistUiModel,
@@ -118,7 +118,7 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloaded() {
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize() {
     PlaylistDownloadScreen(
-        columnConfig = belowTimeTextPreview(),
+        columnState = belowTimeTextPreview(),
         playlistName = "Playlist name",
         playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
             playlistModel = playlistUiModel,
@@ -141,7 +141,7 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting() {
     PlaylistDownloadScreen(
-        columnConfig = belowTimeTextPreview(),
+        columnState = belowTimeTextPreview(),
         playlistName = "Playlist name",
         playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
             playlistModel = playlistUiModel,
@@ -164,7 +164,7 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting() {
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedFullyDownloaded() {
     PlaylistDownloadScreen(
-        columnConfig = belowTimeTextPreview(),
+        columnState = belowTimeTextPreview(),
         playlistName = "Playlist name",
         playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
             playlistModel = playlistUiModel,
@@ -187,7 +187,7 @@ fun PlaylistDownloadScreenPreviewLoadedFullyDownloaded() {
 @Composable
 fun PlaylistDownloadScreenPreviewFailed() {
     PlaylistDownloadScreen(
-        columnConfig = belowTimeTextPreview(),
+        columnState = belowTimeTextPreview(),
         playlistName = "Playlist name",
         playlistDownloadScreenState = PlaylistDownloadScreenState.Failed(),
         onDownloadButtonClick = { },

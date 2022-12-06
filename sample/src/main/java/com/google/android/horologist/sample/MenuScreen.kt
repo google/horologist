@@ -34,8 +34,8 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import java.time.LocalDateTime
 
 @Composable
@@ -173,6 +173,6 @@ fun MenuScreenPreview() {
         modifier = Modifier.fillMaxSize(),
         navigateToRoute = {},
         time = LocalDateTime.now(),
-        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create()
+        columnConfig = belowTimeTextPreview()
     )
 }

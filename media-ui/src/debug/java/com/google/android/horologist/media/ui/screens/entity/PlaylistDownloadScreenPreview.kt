@@ -23,7 +23,7 @@ import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
@@ -33,7 +33,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 @Composable
 fun PlaylistDownloadScreenPreviewLoading() {
     PlaylistDownloadScreen(
-        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create(),
+        columnConfig = belowTimeTextPreview(),
         playlistName = "Playlist name",
         playlistDownloadScreenState = PlaylistDownloadScreenState.Loading(),
         onDownloadButtonClick = { },
@@ -49,7 +49,7 @@ fun PlaylistDownloadScreenPreviewLoading() {
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedNoneDownloaded() {
     PlaylistDownloadScreen(
-        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create(),
+        columnConfig = belowTimeTextPreview(),
         playlistName = "Playlist name",
         playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
             playlistModel = playlistUiModel,
@@ -72,7 +72,7 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloaded() {
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
     PlaylistDownloadScreen(
-        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create(),
+        columnConfig = belowTimeTextPreview(),
         playlistName = "Playlist name",
         playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
             playlistModel = playlistUiModel,
@@ -95,7 +95,7 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloaded() {
     PlaylistDownloadScreen(
-        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create(),
+        columnConfig = belowTimeTextPreview(),
         playlistName = "Playlist name",
         playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
             playlistModel = playlistUiModel,
@@ -118,7 +118,7 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloaded() {
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize() {
     PlaylistDownloadScreen(
-        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create(),
+        columnConfig = belowTimeTextPreview(),
         playlistName = "Playlist name",
         playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
             playlistModel = playlistUiModel,
@@ -141,7 +141,7 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting() {
     PlaylistDownloadScreen(
-        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create(),
+        columnConfig = belowTimeTextPreview(),
         playlistName = "Playlist name",
         playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
             playlistModel = playlistUiModel,
@@ -164,7 +164,7 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting() {
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedFullyDownloaded() {
     PlaylistDownloadScreen(
-        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create(),
+        columnConfig = belowTimeTextPreview(),
         playlistName = "Playlist name",
         playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
             playlistModel = playlistUiModel,
@@ -187,7 +187,7 @@ fun PlaylistDownloadScreenPreviewLoadedFullyDownloaded() {
 @Composable
 fun PlaylistDownloadScreenPreviewFailed() {
     PlaylistDownloadScreen(
-        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create(),
+        columnConfig = belowTimeTextPreview(),
         playlistName = "Playlist name",
         playlistDownloadScreenState = PlaylistDownloadScreenState.Failed(),
         onDownloadButtonClick = { },

@@ -25,8 +25,8 @@ import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
@@ -121,6 +121,6 @@ private fun SectionedListScope.googleSignInSection(navigateToRoute: (String) -> 
 fun AuthMenuScreenPreview() {
     AuthMenuScreen(
         navigateToRoute = {},
-        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create()
+        columnConfig = belowTimeTextPreview()
     )
 }

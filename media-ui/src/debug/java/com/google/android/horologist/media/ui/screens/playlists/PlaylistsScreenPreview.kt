@@ -25,7 +25,7 @@ import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -34,7 +34,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 @Composable
 fun PlaylistsScreenPreview() {
     PlaylistsScreen(
-        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create(),
+        columnConfig = belowTimeTextPreview(),
         playlistsScreenState = PlaylistsScreenState.Loaded(
             buildList {
                 add(
@@ -65,7 +65,7 @@ fun PlaylistsScreenPreview() {
 @Composable
 fun PlaylistsScreenPreviewLoading() {
     PlaylistsScreen(
-        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create(),
+        columnConfig = belowTimeTextPreview(),
         playlistsScreenState = PlaylistsScreenState.Loading(),
         onPlaylistItemClick = { }
     )
@@ -75,7 +75,7 @@ fun PlaylistsScreenPreviewLoading() {
 @Composable
 fun PlaylistsScreenPreviewFailed() {
     PlaylistsScreen(
-        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create(),
+        columnConfig = belowTimeTextPreview(),
         playlistsScreenState = PlaylistsScreenState.Failed(),
         onPlaylistItemClick = { }
     )
@@ -85,7 +85,7 @@ fun PlaylistsScreenPreviewFailed() {
 @Composable
 fun PlaylistsScreenPreviewCustomLayout() {
     PlaylistsScreen(
-        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create(),
+        columnConfig = belowTimeTextPreview(),
         playlists = listOf(
             Pair("Rock Classics", "Downloading 73%.."),
             Pair("Pop Punk", "Completed")

@@ -12,6 +12,10 @@ package com.google.android.horologist.compose.focus {
 
 package com.google.android.horologist.compose.layout {
 
+  public final class BelowTimeTextPreviewKt {
+    method @androidx.compose.runtime.Composable public static com.google.android.horologist.compose.layout.ScalingLazyColumnState belowTimeTextPreview();
+  }
+
   public final class FadeAwayKt {
     method @Deprecated public static androidx.compose.ui.Modifier fadeAway(androidx.compose.ui.Modifier, kotlin.jvm.functions.Function0<androidx.compose.foundation.ScrollState> scrollStateFn);
     method @Deprecated public static androidx.compose.ui.Modifier fadeAwayLazyList(androidx.compose.ui.Modifier, kotlin.jvm.functions.Function0<androidx.compose.foundation.lazy.LazyListState> scrollStateFn);

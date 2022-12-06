@@ -23,7 +23,7 @@ import androidx.compose.material.icons.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
@@ -34,7 +34,7 @@ import com.google.android.horologist.media.ui.uamp.UampTheme
 @Composable
 fun PlaylistDownloadBrowseScreenPreview() {
     PlaylistDownloadBrowseScreen(
-        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create(),
+        columnConfig = belowTimeTextPreview(),
         browseScreenState = BrowseScreenState.Loaded(downloadList),
         onDownloadItemClick = { },
         onDownloadItemInProgressClick = { },
@@ -51,7 +51,7 @@ fun PlaylistDownloadBrowseScreenPreview() {
 @Composable
 fun PlaylistDownloadBrowseScreenPreviewNoDownloads() {
     PlaylistDownloadBrowseScreen(
-        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create(),
+        columnConfig = belowTimeTextPreview(),
         browseScreenState = BrowseScreenState.Loaded(emptyList()),
         onDownloadItemClick = { },
         onDownloadItemInProgressClick = { },
@@ -64,7 +64,7 @@ fun PlaylistDownloadBrowseScreenPreviewNoDownloads() {
 @Composable
 fun PlaylistDownloadBrowseScreenPreviewLoading() {
     PlaylistDownloadBrowseScreen(
-        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create(),
+        columnConfig = belowTimeTextPreview(),
         browseScreenState = BrowseScreenState.Loading,
         onDownloadItemClick = { },
         onDownloadItemInProgressClick = { },
@@ -78,7 +78,7 @@ fun PlaylistDownloadBrowseScreenPreviewLoading() {
 fun PlaylistDownloadBrowseScreenPreviewUampTheme() {
     UampTheme {
         PlaylistDownloadBrowseScreen(
-            columnConfig = ScalingLazyColumnDefaults.belowTimeText().create(),
+            columnConfig = belowTimeTextPreview(),
             browseScreenState = BrowseScreenState.Loaded(downloadList),
             onDownloadItemClick = { },
             onDownloadItemInProgressClick = { },

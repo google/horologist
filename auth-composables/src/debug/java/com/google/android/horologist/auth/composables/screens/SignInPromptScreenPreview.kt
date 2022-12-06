@@ -23,7 +23,7 @@ import com.google.android.horologist.auth.composables.ExperimentalHorologistAuth
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.base.ui.components.StandardChipType
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 
 @WearPreviewDevices
@@ -31,7 +31,7 @@ import com.google.android.horologist.compose.tools.WearPreviewDevices
 fun SignInPromptScreenPreview() {
     SignInPromptScreen(
         message = "Send messages and create chat groups with your friends",
-        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create()
+        columnConfig = belowTimeTextPreview()
     ) {
         item {
             SignInChip(

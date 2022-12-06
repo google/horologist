@@ -29,14 +29,14 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToPlayer
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.settings.ActionSetting
 
 @Composable
 fun SamplesScreen(
-    config: ScalingLazyColumnConfig,
+    columnConfig: ScalingLazyColumnState,
     samplesScreenViewModel: SamplesScreenViewModel,
     navController: NavHostController,
     modifier: Modifier = Modifier
@@ -46,7 +46,7 @@ fun SamplesScreen(
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize(),
-        config = config
+        columnConfig = columnConfig
     ) {
         item {
             Text(

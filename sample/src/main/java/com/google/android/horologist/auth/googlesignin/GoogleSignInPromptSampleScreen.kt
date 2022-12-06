@@ -18,13 +18,15 @@ package com.google.android.horologist.auth.googlesignin
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
+import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.composables.screens.SignInPromptScreen
 import com.google.android.horologist.base.ui.components.StandardChipType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
@@ -32,11 +34,13 @@ import com.google.android.horologist.sample.Screen
 @Composable
 fun GoogleSignInPromptSampleScreen(
     navController: NavHostController,
+    columnConfig: ScalingLazyColumnState,
     modifier: Modifier = Modifier
 ) {
     SignInPromptScreen(
         message = stringResource(id = R.string.google_sign_in_prompt_message),
-        modifier = modifier
+        modifier = modifier,
+        columnConfig = columnConfig
     ) {
         item {
             SignInChip(
@@ -60,5 +64,8 @@ fun GoogleSignInPromptSampleScreen(
 @WearPreviewDevices
 @Composable
 fun GoogleSignInPromptSampleScreenPreview() {
-    GoogleSignInPromptSampleScreen(navController = NavHostController(LocalContext.current))
+    GoogleSignInPromptSampleScreen(
+        navController = rememberSwipeDismissableNavController(),
+        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create()
+    )
 }

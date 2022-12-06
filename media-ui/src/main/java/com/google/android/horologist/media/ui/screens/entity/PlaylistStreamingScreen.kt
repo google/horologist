@@ -35,7 +35,7 @@ import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
 import com.google.android.horologist.composables.PlaceholderChip
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
@@ -48,7 +48,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun PlaylistStreamingScreen(
-    config: ScalingLazyColumnConfig,
+    columnConfig: ScalingLazyColumnState,
     playlistName: String,
     playlistDownloadScreenState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
     onShuffleButtonClick: () -> Unit,
@@ -68,6 +68,7 @@ public fun PlaylistStreamingScreen(
         }
 
     EntityScreen(
+        columnConfig = columnConfig,
         entityScreenState = entityScreenState,
         headerContent = { DefaultEntityScreenHeader(title = playlistName) },
         loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },
@@ -81,7 +82,6 @@ public fun PlaylistStreamingScreen(
                 chipType = StandardChipType.Secondary
             )
         },
-        config = config,
         modifier = modifier,
         buttonsContent = {
             Row(

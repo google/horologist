@@ -61,8 +61,7 @@ import com.google.android.horologist.base.ui.components.StandardChipIconWithProg
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
 import com.google.android.horologist.composables.PlaceholderChip
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState.Loaded.DownloadsProgress
@@ -77,7 +76,7 @@ import com.google.android.horologist.media.ui.util.ifNan
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun PlaylistDownloadScreen(
-    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig(),
+    columnConfig: ScalingLazyColumnState,
     playlistName: String,
     playlistDownloadScreenState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
     onDownloadButtonClick: (PlaylistUiModel) -> Unit,
@@ -103,7 +102,7 @@ public fun PlaylistDownloadScreen(
         }
 
     EntityScreen(
-        config = config,
+        columnConfig = columnConfig,
         entityScreenState = entityScreenState,
         headerContent = { DefaultEntityScreenHeader(title = playlistName) },
         loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },

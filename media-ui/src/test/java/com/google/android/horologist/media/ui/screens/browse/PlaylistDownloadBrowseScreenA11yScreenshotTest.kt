@@ -22,7 +22,7 @@
 
 package com.google.android.horologist.media.ui.screens.browse
 
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.compose.tools.a11y.forceState
@@ -65,7 +65,7 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest {
         val screenState = BrowseScreenState.Loaded(downloadList)
 
         paparazzi.snapshot {
-            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            val config = ScalingLazyColumnDefaults.rememberTopAlignedConfig()
             config.state.forceState(0, -40)
 
             PlayerLibraryPreview(state = config.state) {
@@ -88,7 +88,7 @@ class PlaylistDownloadBrowseScreenA11yScreenshotTest {
             val screenState = BrowseScreenState.Loaded(downloadList)
 
             paparazzi.snapshot {
-                val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+                val config = ScalingLazyColumnDefaults.rememberTopAlignedConfig()
                 config.state.forceState(4, 0)
                 PlaylistDownloadBrowseScreen(
                     browseScreenState = screenState,

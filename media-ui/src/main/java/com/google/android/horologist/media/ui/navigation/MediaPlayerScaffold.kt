@@ -35,11 +35,11 @@ import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.audio.ui.VolumeViewModel
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
-import com.google.android.horologist.compose.navscaffold.listComposable
-import com.google.android.horologist.compose.navscaffold.screenComposable
+import com.google.android.horologist.compose.navscaffold.composable
 import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
 import com.google.android.horologist.media.ui.screens.playerlibrarypager.PlayerLibraryPagerScreen
 import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
@@ -68,11 +68,11 @@ public fun MediaPlayerScaffold(
     snackbarViewModel: SnackbarViewModel,
     volumeViewModel: VolumeViewModel,
     playerScreen: @Composable () -> Unit,
-    libraryScreen: @Composable (ScalingLazyColumnConfig) -> Unit,
-    categoryEntityScreen: @Composable (id: String, name: String, ScalingLazyColumnConfig) -> Unit,
-    mediaEntityScreen: @Composable (ScalingLazyColumnConfig) -> Unit,
-    playlistsScreen: @Composable (ScalingLazyColumnConfig) -> Unit,
-    settingsScreen: @Composable (ScalingLazyColumnConfig) -> Unit,
+    libraryScreen: @Composable (ScalingLazyColumnState) -> Unit,
+    categoryEntityScreen: @Composable (id: String, name: String, ScalingLazyColumnState) -> Unit,
+    mediaEntityScreen: @Composable (ScalingLazyColumnState) -> Unit,
+    playlistsScreen: @Composable (ScalingLazyColumnState) -> Unit,
+    settingsScreen: @Composable (ScalingLazyColumnState) -> Unit,
     deepLinkPrefix: String,
     navController: NavHostController,
     modifier: Modifier = Modifier,
@@ -99,7 +99,7 @@ public fun MediaPlayerScaffold(
         timeText = timeText,
         state = navHostState
     ) {
-        screenComposable(
+        composable(
             route = NavigationScreens.Player.navRoute,
             arguments = NavigationScreens.Player.arguments,
             deepLinks = NavigationScreens.Player.deepLinks(deepLinkPrefix)
@@ -124,23 +124,25 @@ public fun MediaPlayerScaffold(
             )
         }
 
-        listComposable(
+        composable(
             route = NavigationScreens.Collections.navRoute,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(),
             arguments = NavigationScreens.Collections.arguments,
             deepLinks = NavigationScreens.Collections.deepLinks(deepLinkPrefix)
         ) {
             playlistsScreen(it.columnConfig)
         }
 
-        listComposable(
+        composable(
             route = NavigationScreens.Settings.navRoute,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(),
             arguments = NavigationScreens.Settings.arguments,
             deepLinks = NavigationScreens.Settings.deepLinks(deepLinkPrefix)
         ) {
             settingsScreen(it.columnConfig)
         }
 
-        screenComposable(
+        composable(
             route = NavigationScreens.Volume.navRoute,
             arguments = NavigationScreens.Volume.arguments,
             deepLinks = NavigationScreens.Volume.deepLinks(deepLinkPrefix)
@@ -150,16 +152,18 @@ public fun MediaPlayerScaffold(
             volumeScreen()
         }
 
-        listComposable(
+        composable(
             route = NavigationScreens.MediaItem.navRoute,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(),
             arguments = NavigationScreens.MediaItem.arguments,
             deepLinks = NavigationScreens.MediaItem.deepLinks(deepLinkPrefix)
         ) {
             mediaEntityScreen(it.columnConfig)
         }
 
-        listComposable(
+        composable(
             route = NavigationScreens.Collection.navRoute,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(),
             arguments = NavigationScreens.Collection.arguments,
             deepLinks = NavigationScreens.Collection.deepLinks(deepLinkPrefix)
         ) { scaffoldContext ->

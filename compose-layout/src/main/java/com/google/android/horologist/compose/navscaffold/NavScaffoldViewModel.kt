@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.compose.navscaffold
 
+import android.os.Bundle
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.lazy.LazyListState
@@ -36,7 +37,7 @@ import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode.ScrollAway
@@ -130,7 +131,7 @@ public open class NavScaffoldViewModel(
     }
 
     internal fun initializeScalingLazyListState(
-        columnConfig: ScalingLazyColumnConfig
+        columnConfig: ScalingLazyColumnState
     ) {
         check(scrollType == null || scrollType == ScrollType.ScalingLazyColumn)
 
@@ -214,6 +215,9 @@ public data class ScaffoldContext<T : ScrollableState>(
     var timeTextMode: TimeTextMode by viewModel::timeTextMode
 
     var positionIndicatorMode: PositionIndicatorMode by viewModel::positionIndicatorMode
+
+    val arguments: Bundle?
+        get() = backStackEntry.arguments
 }
 
 public data class NonScrollableScaffoldContext(
@@ -223,6 +227,9 @@ public data class NonScrollableScaffoldContext(
     var timeTextMode: TimeTextMode by viewModel::timeTextMode
 
     var positionIndicatorMode: PositionIndicatorMode by viewModel::positionIndicatorMode
+
+    val arguments: Bundle?
+        get() = backStackEntry.arguments
 }
 
 /**
@@ -232,7 +239,7 @@ public data class NonScrollableScaffoldContext(
  */
 public data class ConfigScaffoldContext(
     val backStackEntry: NavBackStackEntry,
-    val columnConfig: ScalingLazyColumnConfig,
+    val columnConfig: ScalingLazyColumnState,
     val viewModel: NavScaffoldViewModel
 ) {
     val scrollableState: ScalingLazyListState
@@ -241,4 +248,7 @@ public data class ConfigScaffoldContext(
     var timeTextMode: TimeTextMode by viewModel::timeTextMode
 
     var positionIndicatorMode: PositionIndicatorMode by viewModel::positionIndicatorMode
+
+    val arguments: Bundle?
+        get() = backStackEntry.arguments
 }

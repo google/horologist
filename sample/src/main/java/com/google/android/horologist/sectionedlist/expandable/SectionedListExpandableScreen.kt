@@ -49,8 +49,8 @@ import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionContentScope
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
 
@@ -74,7 +74,7 @@ private val laterTasks = listOf(
 @Composable
 fun SectionedListExpandableScreen(
     modifier: Modifier = Modifier,
-    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+    columnConfig: ScalingLazyColumnState
 ) {
     var todaySectionExpanded by rememberSaveable { mutableStateOf(true) }
     var tomorrowSectionExpanded by rememberSaveable { mutableStateOf(true) }
@@ -85,7 +85,7 @@ fun SectionedListExpandableScreen(
     val laterSectionState = getState(laterSectionExpanded, laterTasks)
 
     SectionedList(
-        config = config,
+        columnConfig = columnConfig,
         modifier = modifier
     ) {
         section {
@@ -202,5 +202,5 @@ private fun SectionHeader(
 @WearPreviewDevices
 @Composable
 fun SectionedListExpandableScreenPreview() {
-    SectionedListExpandableScreen()
+    SectionedListExpandableScreen(columnConfig = ScalingLazyColumnDefaults.belowTimeText().create())
 }

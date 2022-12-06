@@ -30,7 +30,7 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.mediasample.R
 import java.time.Instant
 import java.time.ZoneId
@@ -38,7 +38,7 @@ import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun AudioDebugScreen(
-    config: ScalingLazyColumnConfig,
+    columnConfig: ScalingLazyColumnState,
     audioDebugScreenViewModel: AudioDebugScreenViewModel,
     modifier: Modifier = Modifier
 ) {
@@ -47,7 +47,7 @@ fun AudioDebugScreen(
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize(),
-        config = config
+        columnConfig = columnConfig
     ) {
         item {
             Text(

@@ -32,7 +32,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleChip
 import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.OffloadMode
 import com.google.android.horologist.mediasample.ui.navigation.navigateToAudioDebug
@@ -40,7 +40,7 @@ import com.google.android.horologist.mediasample.ui.navigation.navigateToSamples
 
 @Composable
 fun DeveloperOptionsScreen(
-    config: ScalingLazyColumnConfig,
+    columnConfig: ScalingLazyColumnState,
     developerOptionsScreenViewModel: DeveloperOptionsScreenViewModel,
     navController: NavHostController,
     modifier: Modifier = Modifier
@@ -50,7 +50,7 @@ fun DeveloperOptionsScreen(
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize(),
-        config = config
+        columnConfig = columnConfig
     ) {
         item {
             Text(

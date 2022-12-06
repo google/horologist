@@ -16,50 +16,33 @@
 
 package com.google.android.horologist.auth.composables.screens
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.ScalingLazyColumn
-import androidx.wear.compose.material.ScalingLazyColumnDefaults
 import androidx.wear.compose.material.ScalingLazyListScope
-import androidx.wear.compose.material.ScalingLazyListState
-import androidx.wear.compose.material.ScalingParams
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.base.ui.components.Title
-import com.google.android.horologist.compose.focus.RequestFocusWhenActive
-import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
+import com.google.android.horologist.compose.layout.ScalingLazyColumn
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
 @ExperimentalHorologistAuthComposablesApi
 @Composable
 public fun SignInPromptScreen(
     message: String,
+    columnConfig: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     title: String = stringResource(id = R.string.horologist_signin_prompt_title),
-    scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
-    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
-    autoCentering: AutoCenteringParams? = AutoCenteringParams(),
     content: ScalingLazyListScope.() -> Unit
 ) {
-    val focusRequester = remember { FocusRequester() }
-
     ScalingLazyColumn(
-        modifier = modifier
-            .fillMaxSize()
-            .rotaryWithFling(focusRequester, scalingLazyListState),
-        state = scalingLazyListState,
-        scalingParams = scalingParams,
-        autoCentering = autoCentering
+        modifier = modifier,
+        columnConfig = columnConfig
     ) {
         item { Title(text = title) }
         item {
@@ -73,6 +56,4 @@ public fun SignInPromptScreen(
         }
         apply(content)
     }
-
-    RequestFocusWhenActive(focusRequester)
 }

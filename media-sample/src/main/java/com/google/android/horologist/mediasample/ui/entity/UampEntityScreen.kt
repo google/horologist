@@ -41,7 +41,7 @@ import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
 import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.AlertDialog
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreen
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
@@ -50,7 +50,7 @@ import com.google.android.horologist.mediasample.R
 
 @Composable
 fun UampEntityScreen(
-    config: ScalingLazyColumnConfig,
+    columnConfig: ScalingLazyColumnState,
     playlistName: String,
     uampEntityScreenViewModel: UampEntityScreenViewModel,
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
@@ -87,7 +87,7 @@ fun UampEntityScreen(
             uampEntityScreenViewModel.play()
             onPlayClick(it)
         },
-        config = config,
+        columnConfig = columnConfig,
         onDownloadCompletedButtonClick = {
             showRemoveDownloadsDialog = true
         },

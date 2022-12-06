@@ -53,8 +53,7 @@ import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.currentBackStackEntryAsState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.compose.focus.FocusControl
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
 /**
  * A Navigation and Scroll aware [Scaffold].
@@ -221,23 +220,19 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
 /**
  * Add a screen to the navigation graph featuring a ScalingLazyColumn.
  *
- * The [ScalingLazyColumnConfig] must be taken from the [ConfigScaffoldContext].
+ * The [ScalingLazyColumnState] must be taken from the [ConfigScaffoldContext].
  */
 @ExperimentalHorologistComposeLayoutApi
-public fun NavGraphBuilder.listComposable(
+public fun NavGraphBuilder.composable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
-    config: @Composable () -> ScalingLazyColumnConfig = {
-        ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig(
-            ScalingLazyColumnConfig.RotaryMode.Fling
-        )
-    },
+    columnStateFactory: ScalingLazyColumnState.Factory,
     content: @Composable (ConfigScaffoldContext) -> Unit
 ) {
-    composable(route, arguments, deepLinks) {
+    this@composable.composable(route, arguments, deepLinks) {
         FocusedDestination {
-            val columnConfig = config()
+            val columnConfig = columnStateFactory.create()
 
             val viewModel: NavScaffoldViewModel = viewModel(it)
 
@@ -300,8 +295,8 @@ public fun NavGraphBuilder.lazyListComposable(
  * the Scaffold may be customised, such as disabling TimeText.
  */
 @Deprecated(
-    "Use screenComposable",
-    ReplaceWith("composableLazyList(route, arguments, deepLinks, lazyListStateBuilder, content)")
+    "Use composable",
+    ReplaceWith("composable(route, arguments, deepLinks, lazyListStateBuilder, content)")
 )
 public fun NavGraphBuilder.wearNavComposable(
     route: String,
@@ -324,13 +319,13 @@ public fun NavGraphBuilder.wearNavComposable(
  * the Scaffold may be customised, such as disabling TimeText.
  */
 @ExperimentalHorologistComposeLayoutApi
-public fun NavGraphBuilder.screenComposable(
+public fun NavGraphBuilder.composable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
     content: @Composable (NonScrollableScaffoldContext) -> Unit
 ) {
-    composable(route, arguments, deepLinks) {
+    this@composable.composable(route, arguments, deepLinks) {
         FocusedDestination {
             val viewModel: NavScaffoldViewModel = viewModel()
 

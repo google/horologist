@@ -48,6 +48,7 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.base.ui.components.StandardButton
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.composables.PlaceholderChip
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
@@ -55,6 +56,7 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 @Composable
 fun EntityScreenPreview() {
     EntityScreen(
+        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create(),
         headerContent = {
             Box(
                 modifier = Modifier
@@ -110,6 +112,7 @@ fun EntityScreenPreview() {
 @Composable
 fun EntityScreenPreviewLoadedState() {
     EntityScreen(
+        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create(),
         entityScreenState = EntityScreenState.Loaded(listOf("Song 1", "Song 2")),
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { },
@@ -122,6 +125,7 @@ fun EntityScreenPreviewLoadedState() {
 @Composable
 fun EntityScreenPreviewLoadingState() {
     EntityScreen(
+        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create(),
         entityScreenState = EntityScreenState.Loading<String>(),
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },
@@ -134,6 +138,7 @@ fun EntityScreenPreviewLoadingState() {
 @Composable
 fun EntityScreenPreviewFailedState() {
     EntityScreen(
+        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create(),
         entityScreenState = EntityScreenState.Failed<String>(),
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { },

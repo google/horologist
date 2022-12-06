@@ -22,26 +22,28 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Chip
+import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
 @Composable
 fun DataLayerNodesScreen(
     viewModel: DataLayerNodesViewModel,
     modifier: Modifier = Modifier,
-    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+    columnConfig: ScalingLazyColumnState
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     ScalingLazyColumn(
         modifier = modifier,
-        config = config
+        columnConfig = columnConfig
     ) {
         item {
-            Text("Nodes")
+            ListHeader {
+                Text("Nodes")
+            }
         }
         items(state.nodes) {
             Chip(
@@ -52,7 +54,9 @@ fun DataLayerNodesScreen(
             )
         }
         item {
-            Text("Data")
+            ListHeader {
+                Text("Data")
+            }
         }
         item {
             val thisData = state.thisData

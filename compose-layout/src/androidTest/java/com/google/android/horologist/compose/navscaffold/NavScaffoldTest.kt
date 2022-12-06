@@ -161,7 +161,7 @@ class NavScaffoldTest {
                 startDestination = "a",
                 navController = navController
             ) {
-                listComposable(
+                composable(
                     route = "a"
                 ) {
                     val focusRequester =
@@ -271,7 +271,7 @@ class NavScaffoldTest {
                     )
                 }
             ) {
-                screenComposable(
+                composable(
                     route = "a"
                 ) {
                     Box(

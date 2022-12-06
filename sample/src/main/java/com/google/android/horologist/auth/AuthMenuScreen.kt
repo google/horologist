@@ -25,8 +25,8 @@ import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
@@ -35,10 +35,10 @@ import com.google.android.horologist.sample.Screen
 fun AuthMenuScreen(
     navigateToRoute: (String) -> Unit,
     modifier: Modifier = Modifier,
-    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+    columnConfig: ScalingLazyColumnState
 ) {
     SectionedList(
-        config = config,
+        columnConfig = columnConfig,
         modifier = modifier
     ) {
         authPKCESection(navigateToRoute)
@@ -119,5 +119,8 @@ private fun SectionedListScope.googleSignInSection(navigateToRoute: (String) -> 
 @WearPreviewDevices
 @Composable
 fun AuthMenuScreenPreview() {
-    AuthMenuScreen(navigateToRoute = {})
+    AuthMenuScreen(
+        navigateToRoute = {},
+        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create()
+    )
 }

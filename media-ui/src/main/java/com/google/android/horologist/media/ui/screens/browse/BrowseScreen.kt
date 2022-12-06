@@ -35,8 +35,7 @@ import com.google.android.horologist.composables.ExperimentalHorologistComposabl
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionContentScope
 import com.google.android.horologist.composables.SectionedList
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
@@ -55,12 +54,12 @@ import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiMode
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun BrowseScreen(
-    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig(),
+    columnConfig: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     content: BrowseScreenScope.() -> Unit
 ) {
     SectionedList(
-        config = config,
+        columnConfig = columnConfig,
         modifier = modifier,
         sections = BrowseScreenScope().apply(content).sections
     )

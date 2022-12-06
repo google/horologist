@@ -32,8 +32,7 @@ import com.google.android.horologist.composables.ExperimentalHorologistComposabl
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -41,7 +40,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun <T> PlaylistsScreen(
-    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig(),
+    columnConfig: ScalingLazyColumnState,
     playlists: List<T>,
     playlistContent: @Composable (playlist: T) -> Unit,
     modifier: Modifier = Modifier
@@ -49,7 +48,7 @@ public fun <T> PlaylistsScreen(
     PlaylistsScreen(
         playlistsScreenState = PlaylistsScreenState.Loaded(playlists),
         playlistContent = playlistContent,
-        config = config,
+        columnConfig = columnConfig,
         modifier = modifier
     )
 }
@@ -57,14 +56,14 @@ public fun <T> PlaylistsScreen(
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun <T> PlaylistsScreen(
-    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig(),
+    columnConfig: ScalingLazyColumnState,
     playlistsScreenState: PlaylistsScreenState<T>,
     playlistContent: @Composable (playlist: T) -> Unit,
     modifier: Modifier = Modifier
 ) {
     SectionedList(
         modifier = modifier,
-        config = config
+        columnConfig = columnConfig
     ) {
         val sectionState = when (playlistsScreenState) {
             is PlaylistsScreenState.Loaded<T> -> {
@@ -97,7 +96,7 @@ public fun <T> PlaylistsScreen(
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun PlaylistsScreen(
-    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig(),
+    columnConfig: ScalingLazyColumnState,
     playlistsScreenState: PlaylistsScreenState<PlaylistUiModel>,
     onPlaylistItemClick: (PlaylistUiModel) -> Unit,
     modifier: Modifier = Modifier,
@@ -115,7 +114,7 @@ public fun PlaylistsScreen(
     }
 
     PlaylistsScreen(
-        config = config,
+        columnConfig = columnConfig,
         playlistsScreenState = playlistsScreenState,
         playlistContent = playlistContent,
         modifier = modifier

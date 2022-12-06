@@ -47,7 +47,7 @@ import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.compose.tools.a11y.forceState
@@ -63,7 +63,7 @@ class SectionedListTest {
     @Test
     fun loadingSection() {
         paparazzi.snapshot {
-            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            val config = ScalingLazyColumnDefaults.rememberTopAlignedConfig()
             config.state.forceState(0, 0)
 
             SectionedListPreview(config.state) {
@@ -79,7 +79,7 @@ class SectionedListTest {
     @Test
     fun loadedSection() {
         paparazzi.snapshot {
-            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            val config = ScalingLazyColumnDefaults.rememberTopAlignedConfig()
             config.state.forceState(0, 0)
 
             SectionedListPreview(config.state) {
@@ -95,7 +95,7 @@ class SectionedListTest {
     @Test
     fun loadedSection_secondPage() {
         paparazzi.snapshot {
-            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            val config = ScalingLazyColumnDefaults.rememberTopAlignedConfig()
             config.state.forceState(4, 0)
 
             SectionedListPreview(config.state) {
@@ -111,7 +111,7 @@ class SectionedListTest {
     @Test
     fun failedSection() {
         paparazzi.snapshot {
-            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            val config = ScalingLazyColumnDefaults.rememberTopAlignedConfig()
             config.state.forceState(0, 0)
 
             SectionedListPreview(config.state) {
@@ -127,7 +127,7 @@ class SectionedListTest {
     @Test
     fun failedSection_secondPage() {
         paparazzi.snapshot {
-            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            val config = ScalingLazyColumnDefaults.rememberTopAlignedConfig()
             config.state.forceState(4, 0)
 
             SectionedListPreview(config.state) {
@@ -143,7 +143,7 @@ class SectionedListTest {
     @Test
     fun emptySection() {
         paparazzi.snapshot {
-            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            val config = ScalingLazyColumnDefaults.rememberTopAlignedConfig()
             config.state.forceState(0, 0)
 
             SectionedListPreview(config.state) {

@@ -26,8 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.ScalingLazyListScope
 import com.google.android.horologist.composables.Section.Companion.DEFAULT_LOADING_CONTENT_COUNT
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 
 /**
@@ -38,12 +38,12 @@ import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistC
 @ExperimentalHorologistComposablesApi
 @Composable
 public fun SectionedList(
-    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig(),
+    columnConfig: ScalingLazyColumnState = ScalingLazyColumnDefaults.belowTimeText().create(),
     modifier: Modifier = Modifier,
     content: SectionedListScope.() -> Unit
 ) {
     SectionedList(
-        config = config,
+        columnConfig = columnConfig,
         modifier = modifier,
         sections = SectionedListScope().apply(content).sections
     )
@@ -53,17 +53,18 @@ public fun SectionedList(
  * A list component that is split into [sections][Section].
  * Each [Section] has its own [state][Section.State] controlled individually.
  */
+@ExperimentalHorologistComposeLayoutApi
 @ExperimentalHorologistComposablesApi
 @Composable
 public fun SectionedList(
-    config: ScalingLazyColumnConfig,
+    columnConfig: ScalingLazyColumnState = ScalingLazyColumnDefaults.belowTimeText().create(),
     modifier: Modifier = Modifier,
     sections: List<Section<*>> = emptyList()
 ) {
     ScalingLazyColumn(
         modifier = modifier
             .fillMaxSize(),
-        config = config
+        columnConfig = columnConfig
     ) {
         sections.forEach { section ->
             section.display(this)

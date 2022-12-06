@@ -19,11 +19,11 @@
 package com.google.android.horologist.auth.composables.screens
 
 import androidx.compose.runtime.Composable
-import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.base.ui.components.StandardChipType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 
 @WearPreviewDevices
@@ -31,7 +31,7 @@ import com.google.android.horologist.compose.tools.WearPreviewDevices
 fun SignInPromptScreenPreview() {
     SignInPromptScreen(
         message = "Send messages and create chat groups with your friends",
-        scalingLazyListState = ScalingLazyListState()
+        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create()
     ) {
         item {
             SignInChip(

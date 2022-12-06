@@ -27,7 +27,7 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
 
@@ -35,10 +35,10 @@ import com.google.android.horologist.sample.Screen
 fun SectionedListMenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
-    config: ScalingLazyColumnConfig
+    columnConfig: ScalingLazyColumnState
 ) {
     SectionedList(
-        config = config,
+        columnConfig = columnConfig,
         modifier = modifier
     ) {
         section(

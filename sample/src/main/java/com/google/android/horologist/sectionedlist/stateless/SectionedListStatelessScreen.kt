@@ -34,18 +34,18 @@ import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
 
 @Composable
 fun SectionedListStatelessScreen(
     modifier: Modifier = Modifier,
-    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+    columnConfig: ScalingLazyColumnState
 ) {
     SectionedList(
-        config = config,
+        columnConfig = columnConfig,
         modifier = modifier
     ) {
         topMenuSection()
@@ -165,5 +165,5 @@ private fun SectionedListScope.bottomMenuSection() {
 @WearPreviewDevices
 @Composable
 fun SectionedListStatelessScreenPreview() {
-    SectionedListStatelessScreen()
+    SectionedListStatelessScreen(columnConfig = ScalingLazyColumnDefaults.belowTimeText().create())
 }

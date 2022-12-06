@@ -25,6 +25,8 @@ import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.composables.screens.SignInPromptScreen
 import com.google.android.horologist.base.ui.components.StandardChipType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
@@ -32,11 +34,13 @@ import com.google.android.horologist.sample.Screen
 @Composable
 fun AuthPKCESignInPromptScreen(
     navController: NavHostController,
+    columnConfig: ScalingLazyColumnState,
     modifier: Modifier = Modifier
 ) {
     SignInPromptScreen(
         message = stringResource(id = R.string.auth_pkce_sign_in_prompt_message),
-        modifier = modifier
+        modifier = modifier,
+        columnConfig = columnConfig
     ) {
         item {
             SignInChip(
@@ -60,5 +64,5 @@ fun AuthPKCESignInPromptScreen(
 @WearPreviewDevices
 @Composable
 fun AuthPKCESignInPromptScreenPreview() {
-    AuthPKCESignInPromptScreen(navController = NavHostController(LocalContext.current))
+    AuthPKCESignInPromptScreen(navController = NavHostController(LocalContext.current), columnConfig = ScalingLazyColumnDefaults.belowTimeText().create())
 }

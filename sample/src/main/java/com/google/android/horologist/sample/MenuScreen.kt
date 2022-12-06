@@ -34,8 +34,8 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import java.time.LocalDateTime
 
 @Composable
@@ -43,11 +43,11 @@ fun MenuScreen(
     modifier: Modifier = Modifier,
     navigateToRoute: (String) -> Unit,
     time: LocalDateTime,
-    config: ScalingLazyColumnConfig
+    columnConfig: ScalingLazyColumnState
 ) {
     ScalingLazyColumn(
         modifier = modifier,
-        config = config
+        columnConfig = columnConfig
     ) {
         item {
             ListHeader {
@@ -173,6 +173,6 @@ fun MenuScreenPreview() {
         modifier = Modifier.fillMaxSize(),
         navigateToRoute = {},
         time = LocalDateTime.now(),
-        config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig(ScalingLazyColumnConfig.RotaryMode.Fling)
+        columnConfig = ScalingLazyColumnDefaults.belowTimeText().create()
     )
 }

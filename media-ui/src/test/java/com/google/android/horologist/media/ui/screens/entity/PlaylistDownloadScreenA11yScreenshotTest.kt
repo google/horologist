@@ -26,7 +26,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.compose.tools.a11y.forceState
@@ -66,7 +66,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
     @Test
     fun playlistDownloadScreenPreviewLoading() {
         paparazzi.snapshot {
-            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            val config = ScalingLazyColumnDefaults.rememberTopAlignedConfig()
             config.state.forceState(0, -40)
 
             PlayerLibraryPreview(state = config.state) {
@@ -89,7 +89,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
     @Test
     fun playlistDownloadScreenPreviewLoadedNoneDownloaded() {
         paparazzi.snapshot {
-            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            val config = ScalingLazyColumnDefaults.rememberTopAlignedConfig()
             config.state.forceState(0, -40)
 
             PlayerLibraryPreview(state = config.state) {
@@ -119,7 +119,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
     @Test
     fun playlistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
         paparazzi.snapshot {
-            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            val config = ScalingLazyColumnDefaults.rememberTopAlignedConfig()
             config.state.forceState(0, -40)
 
             PlayerLibraryPreview(state = config.state) {
@@ -149,7 +149,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
     @Test
     fun playlistDownloadScreenPreviewLoadedPartiallyDownloaded() {
         paparazzi.snapshot {
-            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            val config = ScalingLazyColumnDefaults.rememberTopAlignedConfig()
             config.state.forceState(0, -40)
 
             PlayerLibraryPreview(state = config.state) {
@@ -179,7 +179,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
     @Test
     fun playlistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize() {
         paparazzi.snapshot {
-            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            val config = ScalingLazyColumnDefaults.rememberTopAlignedConfig()
             config.state.forceState(0, -40)
 
             PlayerLibraryPreview(state = config.state) {
@@ -209,7 +209,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
     @Test
     fun playlistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting() {
         paparazzi.snapshot {
-            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            val config = ScalingLazyColumnDefaults.rememberTopAlignedConfig()
             config.state.forceState(0, -40)
 
             PlayerLibraryPreview(state = config.state) {
@@ -239,7 +239,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
     @Test
     fun playlistDownloadScreenPreviewLoadedFullyDownloaded() {
         paparazzi.snapshot {
-            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            val config = ScalingLazyColumnDefaults.rememberTopAlignedConfig()
             config.state.forceState(0, -40)
 
             PlayerLibraryPreview(state = config.state) {
@@ -269,7 +269,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
     @Test
     fun playlistDownloadScreenPreviewFailed() {
         paparazzi.snapshot {
-            val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+            val config = ScalingLazyColumnDefaults.rememberTopAlignedConfig()
             config.state.forceState(0, -40)
 
             PlayerLibraryPreview(state = config.state) {

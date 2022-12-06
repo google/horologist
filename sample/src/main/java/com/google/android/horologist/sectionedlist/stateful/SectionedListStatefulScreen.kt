@@ -52,8 +52,8 @@ import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefulScreenViewModel.Recommendation
@@ -65,12 +65,12 @@ import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefu
 fun SectionedListStatefulScreen(
     modifier: Modifier = Modifier,
     viewModel: SectionedListStatefulScreenViewModel = viewModel(),
-    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+    columnConfig: ScalingLazyColumnState
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     SectionedList(
-        config = config,
+        columnConfig = columnConfig,
         modifier = modifier
     ) {
         topMenuSection()
@@ -249,5 +249,5 @@ private fun FailedView(onClick: () -> Unit) {
 @WearPreviewDevices
 @Composable
 fun SectionedListStatefulScreenPreview() {
-    SectionedListStatefulScreen()
+    SectionedListStatefulScreen(columnConfig = ScalingLazyColumnDefaults.belowTimeText().create())
 }

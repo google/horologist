@@ -23,30 +23,32 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
 @Composable
 fun NetworkScreen(
     viewModel: NetworkScreenViewModel = viewModel(factory = NetworkScreenViewModel.Factory),
-    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+    columnConfig: ScalingLazyColumnState
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
 
     ScalingLazyColumn(
         modifier = Modifier.fillMaxSize(),
-        config = config
+        columnConfig = columnConfig
     ) {
         item {
-            Button(onClick = { viewModel.makeRequests() }) {
-                Text("Requests")
-            }
+            Chip(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { viewModel.makeRequests() },
+                label = {
+                    Text("Requests")
+                }
+            )
         }
         items(uiState.responses.entries.toList()) { (name, response) ->
             Text(text = "$name: $response")

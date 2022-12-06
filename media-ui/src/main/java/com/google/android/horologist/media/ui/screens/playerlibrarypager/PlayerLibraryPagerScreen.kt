@@ -32,8 +32,8 @@ import com.google.accompanist.pager.PagerState
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.scrollAway
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.pager.PagerScreen
@@ -53,7 +53,7 @@ public fun PlayerLibraryPagerScreen(
     volumeState: () -> VolumeState,
     timeText: @Composable (Modifier) -> Unit,
     playerScreen: @Composable () -> Unit,
-    libraryScreen: @Composable (ScalingLazyColumnConfig) -> Unit,
+    libraryScreen: @Composable (ScalingLazyColumnState) -> Unit,
     backStack: NavBackStackEntry,
     modifier: Modifier = Modifier
 ) {
@@ -98,7 +98,7 @@ public fun PlayerLibraryPagerScreen(
             }
 
             1 -> {
-                val config = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+                val config = ScalingLazyColumnDefaults.belowTimeText().create()
                 Scaffold(
                     timeText = {
                         timeText(Modifier.scrollAway(config))

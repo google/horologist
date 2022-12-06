@@ -31,8 +31,7 @@ import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
@@ -43,7 +42,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiMode
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun PlaylistDownloadBrowseScreen(
-    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig(),
+    columnConfig: ScalingLazyColumnState,
     browseScreenState: BrowseScreenState,
     onDownloadItemClick: (PlaylistDownloadUiModel) -> Unit,
     onDownloadItemInProgressClick: (PlaylistDownloadUiModel) -> Unit,
@@ -54,7 +53,7 @@ public fun PlaylistDownloadBrowseScreen(
     onDownloadItemInProgressClickActionLabel: String? = null
 ) {
     BrowseScreen(
-        config = config,
+        columnConfig = columnConfig,
         modifier = modifier
     ) {
         val downloadsSectionState = when (browseScreenState) {

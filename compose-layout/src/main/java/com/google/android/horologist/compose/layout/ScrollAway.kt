@@ -100,17 +100,17 @@ public fun Modifier.scrollAway(
  * Typically used to scroll a [TimeText] item out of view as the user starts to scroll
  * a [ScalingLazyColumn] of items upwards and bring additional items into view.
  *
- * @param scalingLazyColumnConfig The list config.
+ * @param scalingLazyColumnState The list config.
  */
 public fun Modifier.scrollAway(
-    scalingLazyColumnConfig: ScalingLazyColumnConfig
+    scalingLazyColumnState: ScalingLazyColumnState
 ): Modifier = composed {
     val offset = with(LocalDensity.current) {
-        scalingLazyColumnConfig.initialScrollPosition.offsetPx.toDp()
+        scalingLazyColumnState.initialScrollPosition.offsetPx.toDp()
     }
     scrollAwayCompose(
-        scrollState = scalingLazyColumnConfig.state,
-        itemIndex = scalingLazyColumnConfig.initialScrollPosition.index,
+        scrollState = scalingLazyColumnState.state,
+        itemIndex = scalingLazyColumnState.initialScrollPosition.index,
         offset = offset
     )
 }

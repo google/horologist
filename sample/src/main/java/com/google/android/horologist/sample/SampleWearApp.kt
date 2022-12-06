@@ -26,7 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.auth.AuthMenuScreen
@@ -40,10 +39,11 @@ import com.google.android.horologist.auth.oauth.pkce.AuthPKCESignInPromptScreen
 import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
+import com.google.android.horologist.compose.navscaffold.composable
 import com.google.android.horologist.compose.navscaffold.lazyListComposable
-import com.google.android.horologist.compose.navscaffold.listComposable
-import com.google.android.horologist.compose.navscaffold.screenComposable
 import com.google.android.horologist.compose.navscaffold.scrollStateComposable
 import com.google.android.horologist.datalayer.DataLayerNodesScreen
 import com.google.android.horologist.datalayer.DataLayerNodesViewModel
@@ -66,29 +66,38 @@ fun SampleWearApp() {
     var time by remember { mutableStateOf(LocalDateTime.now()) }
 
     WearNavScaffold(startDestination = Screen.Menu.route, navController = navController) {
-        listComposable(route = Screen.Menu.route) {
+        composable(
+            route = Screen.Menu.route,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText()
+        ) {
             MenuScreen(
                 modifier = Modifier.fillMaxSize(),
                 navigateToRoute = { route -> navController.navigate(route) },
                 time = time,
-                config = it.columnConfig
+                columnConfig = it.columnConfig
             )
         }
-        listComposable(Screen.DataLayerNodes.route) {
+        composable(
+            Screen.DataLayerNodes.route,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText()
+        ) {
             DataLayerNodesScreen(
                 viewModel = viewModel(factory = DataLayerNodesViewModel.Factory),
-                config = it.columnConfig
+                columnConfig = it.columnConfig
             )
         }
-        listComposable(Screen.Network.route) {
+        composable(
+            Screen.Network.route,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(firstItemIsFullWidth = true)
+        ) {
             NetworkScreen(
-                config = it.columnConfig
+                columnConfig = it.columnConfig
             )
         }
-        screenComposable(Screen.FillMaxRectangle.route) {
+        composable(Screen.FillMaxRectangle.route) {
             FillMaxRectangleScreen()
         }
-        screenComposable(Screen.Volume.route) {
+        composable(Screen.Volume.route) {
             VolumeScreen()
         }
         lazyListComposable(Screen.ScrollAway.route) {
@@ -96,9 +105,12 @@ fun SampleWearApp() {
                 scrollState = it.scrollableState
             )
         }
-        listComposable(Screen.ScrollAwaySLC.route) {
+        composable(
+            Screen.ScrollAwaySLC.route,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText()
+        ) {
             ScrollAwayScreenScalingLazyColumn(
-                config = it.columnConfig
+                columnConfig = it.columnConfig
             )
         }
         scrollStateComposable(
@@ -108,7 +120,9 @@ fun SampleWearApp() {
                 scrollState = it.scrollableState
             )
         }
-        screenComposable(Screen.DatePicker.route) {
+        composable(Screen.DatePicker.route) {
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+
             DatePicker(
                 date = time.toLocalDate(),
                 onDateConfirm = {
@@ -117,7 +131,9 @@ fun SampleWearApp() {
                 }
             )
         }
-        screenComposable(Screen.TimePicker.route) {
+        composable(Screen.TimePicker.route) {
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+
             TimePickerWith12HourClock(
                 time = time.toLocalTime(),
                 onTimeConfirm = {
@@ -126,7 +142,9 @@ fun SampleWearApp() {
                 }
             )
         }
-        screenComposable(Screen.TimeWithSecondsPicker.route) {
+        composable(Screen.TimeWithSecondsPicker.route) {
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+
             TimePicker(
                 time = time.toLocalTime(),
                 onTimeConfirm = {
@@ -135,7 +153,9 @@ fun SampleWearApp() {
                 }
             )
         }
-        screenComposable(Screen.TimeWithoutSecondsPicker.route) {
+        composable(Screen.TimeWithoutSecondsPicker.route) {
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+
             TimePicker(
                 time = time.toLocalTime(),
                 onTimeConfirm = {
@@ -145,32 +165,48 @@ fun SampleWearApp() {
                 showSeconds = false
             )
         }
-        listComposable(route = Screen.SectionedListMenuScreen.route) {
+        composable(
+            route = Screen.SectionedListMenuScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText()
+        ) {
             SectionedListMenuScreen(
                 modifier = Modifier.fillMaxSize(),
                 navigateToRoute = { route -> navController.navigate(route) },
-                config = it.columnConfig
+                columnConfig = it.columnConfig
             )
         }
-        listComposable(Screen.SectionedListStatelessScreen.route) {
+        composable(
+            Screen.SectionedListStatelessScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText()
+        ) {
             SectionedListStatelessScreen(
-                config = it.columnConfig
+                columnConfig = it.columnConfig
             )
         }
-        listComposable(Screen.SectionedListStatefulScreen.route) {
+        composable(
+            Screen.SectionedListStatefulScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText()
+        ) {
             SectionedListStatefulScreen(
-                config = it.columnConfig
+                columnConfig = it.columnConfig
             )
         }
-        listComposable(Screen.SectionedListExpandableScreen.route) {
+        composable(
+            Screen.SectionedListExpandableScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText()
+        ) {
             SectionedListExpandableScreen(
-                config = it.columnConfig
+                columnConfig = it.columnConfig
             )
         }
-        composable(route = Screen.RotaryMenuScreen.route) {
+        composable(
+            route = Screen.RotaryMenuScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText()
+        ) {
             RotaryMenuScreen(
                 modifier = Modifier.fillMaxSize(),
-                navigateToRoute = { route -> navController.navigate(route) }
+                navigateToRoute = { route -> navController.navigate(route) },
+                columnConfig = it.columnConfig
             )
         }
         composable(route = Screen.RotaryScrollScreen.route) {
@@ -182,30 +218,52 @@ fun SampleWearApp() {
         composable(route = Screen.RotarySnapListScreen.route) {
             RotaryScrollWithFlingOrSnapScreen(isFling = false, isSnap = true)
         }
-        composable(route = Screen.AuthMenuScreen.route) {
+        composable(
+            route = Screen.AuthMenuScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText()
+        ) {
             AuthMenuScreen(
                 navigateToRoute = { route -> navController.navigate(route) },
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
+                columnConfig = it.columnConfig
             )
         }
-        composable(route = Screen.AuthPKCESignInPromptScreen.route) {
-            AuthPKCESignInPromptScreen(navController = navController)
+        composable(
+            route = Screen.AuthPKCESignInPromptScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText()
+        ) {
+            AuthPKCESignInPromptScreen(
+                navController = navController,
+                columnConfig = it.columnConfig
+            )
         }
         composable(route = Screen.AuthPKCEScreen.route) {
             AuthPKCESampleScreen(
                 onAuthSuccess = { navController.popBackStack() }
             )
         }
-        composable(route = Screen.AuthDeviceGrantSignInPromptScreen.route) {
-            AuthDeviceGrantSignInPromptScreen(navController = navController)
+        composable(
+            route = Screen.AuthDeviceGrantSignInPromptScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText()
+        ) {
+            AuthDeviceGrantSignInPromptScreen(
+                navController = navController,
+                columnConfig = it.columnConfig
+            )
         }
         composable(route = Screen.AuthDeviceGrantScreen.route) {
             AuthDeviceGrantSampleScreen(
                 onAuthSuccess = { navController.popBackStack() }
             )
         }
-        composable(route = Screen.GoogleSignInPromptSampleScreen.route) {
-            GoogleSignInPromptSampleScreen(navController = navController)
+        composable(
+            route = Screen.GoogleSignInPromptSampleScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText()
+        ) {
+            GoogleSignInPromptSampleScreen(
+                navController = navController,
+                columnConfig = it.columnConfig
+            )
         }
         composable(route = Screen.AuthGoogleSignInScreen.route) {
             GoogleSignInSampleScreen(
@@ -215,52 +273,76 @@ fun SampleWearApp() {
         composable(route = Screen.AuthGoogleSignOutScreen.route) {
             GoogleSignOutScreen(navController = navController)
         }
-        listComposable(route = Screen.AuthMenuScreen.route) {
+        composable(
+            route = Screen.AuthMenuScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText()
+        ) {
             AuthMenuScreen(
                 modifier = Modifier.fillMaxSize(),
                 navigateToRoute = { route -> navController.navigate(route) },
-                config = it.columnConfig
+                columnConfig = it.columnConfig
             )
         }
-        screenComposable(route = Screen.AuthPKCESignInPromptScreen.route) {
-            AuthPKCESignInPromptScreen(navController = navController)
+        composable(
+            route = Screen.AuthPKCESignInPromptScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText()
+        ) {
+            AuthPKCESignInPromptScreen(
+                navController = navController,
+                columnConfig = it.columnConfig
+            )
         }
-        screenComposable(route = Screen.AuthPKCEScreen.route) {
+        composable(route = Screen.AuthPKCEScreen.route) {
             AuthPKCESampleScreen(
                 onAuthSuccess = { navController.popBackStack() }
             )
         }
-        screenComposable(route = Screen.AuthDeviceGrantScreen.route) {
+        composable(route = Screen.AuthDeviceGrantScreen.route) {
             AuthDeviceGrantSampleScreen(
                 onAuthSuccess = { navController.popBackStack() }
             )
         }
-        screenComposable(route = Screen.AuthPKCEScreen.route) {
+        composable(route = Screen.AuthPKCEScreen.route) {
             AuthPKCESampleScreen(
                 onAuthSuccess = { navController.popBackStack() }
             )
         }
-        screenComposable(route = Screen.AuthDeviceGrantSignInPromptScreen.route) {
-            AuthDeviceGrantSignInPromptScreen(navController = navController)
+        composable(
+            route = Screen.AuthDeviceGrantSignInPromptScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText()
+        ) {
+            AuthDeviceGrantSignInPromptScreen(
+                navController = navController,
+                columnConfig = it.columnConfig
+            )
         }
-        screenComposable(route = Screen.AuthDeviceGrantScreen.route) {
+        composable(route = Screen.AuthDeviceGrantScreen.route) {
             AuthDeviceGrantSampleScreen(
                 onAuthSuccess = { navController.popBackStack() }
             )
         }
-        screenComposable(route = Screen.GoogleSignInPromptSampleScreen.route) {
-            GoogleSignInPromptSampleScreen(navController = navController)
+        composable(
+            route = Screen.GoogleSignInPromptSampleScreen.route,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText()
+        ) {
+            GoogleSignInPromptSampleScreen(
+                navController = navController,
+                columnConfig = it.columnConfig
+            )
         }
-        screenComposable(route = Screen.AuthGoogleSignInScreen.route) {
+        composable(route = Screen.AuthGoogleSignInScreen.route) {
             GoogleSignInSampleScreen(
                 onAuthSuccess = { navController.popBackStack() }
             )
         }
-        screenComposable(route = Screen.AuthGoogleSignOutScreen.route) {
+        composable(route = Screen.AuthGoogleSignOutScreen.route) {
             GoogleSignOutScreen(navController = navController)
         }
-        screenComposable(route = Screen.Paging.route) {
-            PagingScreen(navController = navController)
+        composable(
+            route = Screen.Paging.route,
+            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(firstItemIsFullWidth = true)
+        ) {
+            PagingScreen(navController = navController, columnConfig = it.columnConfig)
         }
         composable(
             route = Screen.PagingItem.route,

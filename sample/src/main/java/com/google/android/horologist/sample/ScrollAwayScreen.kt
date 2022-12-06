@@ -40,8 +40,7 @@ import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.scrollAway
 import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfig
-import com.google.android.horologist.compose.layout.ScalingLazyColumnConfigDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
 
@@ -62,10 +61,10 @@ fun ScrollScreenLazyColumn(scrollState: LazyListState) {
 
 @Composable
 fun ScrollAwayScreenScalingLazyColumn(
-    config: ScalingLazyColumnConfig = ScalingLazyColumnConfigDefaults.rememberTopAlignedConfig()
+    columnConfig: ScalingLazyColumnState
 ) {
     ScalingLazyColumn(
-        config = config
+        columnConfig = columnConfig
     ) {
         items(3) { i ->
             ExampleCard(Modifier.fillParentMaxHeight(0.5f), i)

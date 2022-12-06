@@ -36,10 +36,10 @@ import androidx.wear.compose.material.rememberSwipeToDismissBoxState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.audio.ui.VolumeScreen
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
 import com.google.android.horologist.compose.navscaffold.composable
+import com.google.android.horologist.compose.navscaffold.composableScalingLazyColumn
 import com.google.android.horologist.compose.navscaffold.scrollStateComposable
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
@@ -79,9 +79,8 @@ fun NavWearApp(
         },
         state = navState
     ) {
-        composable(
-            NavScreen.Menu.route,
-            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText()
+        composableScalingLazyColumn(
+            NavScreen.Menu.route
         ) {
             NavMenuScreen(
                 navigateToRoute = { route -> navController.navigate(route) },
@@ -89,9 +88,8 @@ fun NavWearApp(
             )
         }
 
-        composable(
-            NavScreen.ScalingLazyColumn.route,
-            columnStateFactory = ScalingLazyColumnDefaults.belowTimeText()
+        composableScalingLazyColumn(
+            NavScreen.ScalingLazyColumn.route
         ) {
             it.timeTextMode = NavScaffoldViewModel.TimeTextMode.ScrollAway
             it.viewModel.vignettePosition =

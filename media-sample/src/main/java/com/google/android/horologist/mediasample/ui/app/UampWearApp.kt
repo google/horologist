@@ -30,8 +30,7 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.accompanist.pager.rememberPagerState
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
-import com.google.android.horologist.compose.navscaffold.composable
+import com.google.android.horologist.compose.navscaffold.composableScalingLazyColumn
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollection
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollections
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToLibrary
@@ -179,9 +178,9 @@ fun UampWearApp(
             deepLinkPrefix = appViewModel.deepLinkPrefix,
             navController = navController,
             additionalNavRoutes = {
-                composable(
+                composableScalingLazyColumn(
                     route = AudioDebug.navRoute,
-                    columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(),
+
                     arguments = AudioDebug.arguments,
                     deepLinks = AudioDebug.deepLinks(appViewModel.deepLinkPrefix)
                 ) {
@@ -191,9 +190,9 @@ fun UampWearApp(
                     )
                 }
 
-                composable(
+                composableScalingLazyColumn(
                     route = Samples.navRoute,
-                    columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(),
+
                     arguments = Samples.arguments,
                     deepLinks = Samples.deepLinks(appViewModel.deepLinkPrefix)
                 ) {
@@ -204,9 +203,9 @@ fun UampWearApp(
                     )
                 }
 
-                composable(
+                composableScalingLazyColumn(
                     route = DeveloperOptions.navRoute,
-                    columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(),
+
                     arguments = DeveloperOptions.arguments,
                     deepLinks = DeveloperOptions.deepLinks(appViewModel.deepLinkPrefix)
                 ) {

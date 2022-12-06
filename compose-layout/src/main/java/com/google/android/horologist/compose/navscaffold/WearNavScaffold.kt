@@ -53,12 +53,13 @@ import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.currentBackStackEntryAsState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.compose.focus.FocusControl
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
 /**
  * A Navigation and Scroll aware [Scaffold].
  *
- * In addition to [NavGraphBuilder.composable], 3 additional extensions are supported
+ * In addition to [NavGraphBuilder.composableScalingLazyColumn], 3 additional extensions are supported
  * [scalingLazyColumnComposable], [scrollStateComposable] and
  * [lazyListComposable].
  *
@@ -223,14 +224,14 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
  * The [ScalingLazyColumnState] must be taken from the [ConfigScaffoldContext].
  */
 @ExperimentalHorologistComposeLayoutApi
-public fun NavGraphBuilder.composable(
+public fun NavGraphBuilder.composableScalingLazyColumn(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
-    columnStateFactory: ScalingLazyColumnState.Factory,
+    columnStateFactory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.belowTimeText(),
     content: @Composable (ConfigScaffoldContext) -> Unit
 ) {
-    this@composable.composable(route, arguments, deepLinks) {
+    this@composableScalingLazyColumn.composable(route, arguments, deepLinks) {
         FocusedDestination {
             val columnConfig = columnStateFactory.create()
 

@@ -65,7 +65,6 @@ public fun SignInPromptScreen(
     content: ScalingLazyListScope.() -> Unit
 ) {
     var executedOnce by rememberSaveable { mutableStateOf(false) }
-    val focusRequester = remember { FocusRequester() }
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (state) {
@@ -77,16 +76,12 @@ public fun SignInPromptScreen(
                     viewModel.startFlow()
                 }
             }
+
+            LoadingView()
         }
 
         SignInPromptScreenState.Loading -> {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
+            LoadingView()
         }
 
         is SignInPromptScreenState.SignedIn -> {
@@ -103,6 +98,8 @@ public fun SignInPromptScreen(
         }
 
         SignInPromptScreenState.SignedOut -> {
+            val focusRequester = remember { FocusRequester() }
+
             ScalingLazyColumn(
                 modifier = modifier
                     .fillMaxSize()
@@ -131,5 +128,16 @@ public fun SignInPromptScreen(
 
             RequestFocusWhenActive(focusRequester)
         }
+    }
+}
+
+@Composable
+internal fun LoadingView() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator()
     }
 }

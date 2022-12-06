@@ -30,7 +30,5 @@ public object AuthUserMapper {
                 email = it.email,
                 avatarUri = it.photoUrl.toString()
             )
-        } ?: run {
-            null
         }
 }

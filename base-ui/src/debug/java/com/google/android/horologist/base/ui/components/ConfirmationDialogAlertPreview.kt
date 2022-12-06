@@ -16,23 +16,17 @@
 
 package com.google.android.horologist.base.ui.components
 
-import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 
 @WearPreviewDevices
 @Composable
-fun EntityDialogPreview() {
-    EntityDialog(
+fun ConfirmationDialogAlertPreview() {
+    ConfirmationDialogAlert(
         prompt = "Some prompt",
         proceedText = "Ok",
         cancelText = "Cancel",
         onCancelButtonClick = { },
-        onProceedButtonClick = { },
-        showDialog = true,
-        scalingLazyListState = rememberScalingLazyListState()
+        onProceedButtonClick = { }
     )
-//        }
-//    }
 }

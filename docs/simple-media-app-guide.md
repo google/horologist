@@ -144,11 +144,9 @@ We are creating an instance of `ExoPlayer`, passing it to the `ViewModel`.
 Then for the `PlayerScreen` slots we are using:
 
 - the `DefaultMediaDisplay` component, which accepts a `MediaUiModel` instance as parameter;
-- the
-  [stateful](https://docs.google.com/document/d/1UZBMLPbkuHbGDf_BiGU673uCJPjLy8laDeHAyfbIPCY/edit#heading=h.6a12zpdsph5c)
-  version of `PodcastControlButtons`, which accepts instances of `PlayerViewModel`
-  and `PlayerUiState`
-  as parameters to hook the controls with the `ViewModel`;
+- the [stateful](media-ui#stateful-components) version of `PodcastControlButtons`, which accepts
+  instances of `PlayerViewModel` and `PlayerUiState`as parameters to hook the controls with
+  the `ViewModel`;
 
 ### Result
 

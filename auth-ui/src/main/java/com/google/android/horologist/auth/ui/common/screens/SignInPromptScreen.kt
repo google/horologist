@@ -91,8 +91,6 @@ public fun SignInPromptScreen(
         }
 
         SignInPromptScreenState.SignedOut -> {
-            val focusRequester = remember { FocusRequester() }
-
             ScalingLazyColumn(
                 modifier = modifier,
                 columnState = columnState
@@ -114,8 +112,6 @@ public fun SignInPromptScreen(
                 }
                 apply(content)
             }
-
-            RequestFocusWhenActive(focusRequester)
         }
     }
 }

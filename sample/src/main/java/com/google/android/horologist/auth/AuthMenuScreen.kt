@@ -99,7 +99,7 @@ private fun SectionedListScope.googleSignInSection(navigateToRoute: (String) -> 
                 R.string.auth_menu_google_sign_in_item,
                 Screen.GoogleSignInPromptSampleScreen.route
             ),
-            Pair(R.string.auth_menu_google_sign_out_item, Screen.AuthGoogleSignOutScreen.route)
+            Pair(R.string.auth_menu_google_sign_out_item, Screen.GoogleSignOutScreen.route)
         )
     ) {
         header {

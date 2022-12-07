@@ -49,7 +49,7 @@ fun GoogleSignInPromptSampleScreen(
         item {
             SignInChip(
                 onClick = {
-                    navController.navigate(Screen.AuthGoogleSignInScreen.route) {
+                    navController.navigate(Screen.GoogleSignInScreen.route) {
                         popUpTo(Screen.AuthMenuScreen.route)
                     }
                 },

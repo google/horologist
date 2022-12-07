@@ -25,6 +25,7 @@ import com.google.android.horologist.auth.data.oauth.pkce.AuthPKCETokenPayloadLi
 import com.google.android.horologist.auth.data.oauth.pkce.AuthPKCETokenPayloadListenerNoOpImpl
 import com.google.android.horologist.auth.data.oauth.pkce.AuthPKCETokenRepository
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
+import com.google.android.horologist.auth.ui.ext.compareSetAndExecute
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -47,37 +48,40 @@ public open class AuthPKCEViewModel<AuthPKCEConfig, OAuthCodePayload, TokenPaylo
     )
 
     public fun startAuthFlow() {
-        viewModelScope.launch {
-            _uiState.value = AuthPKCEScreenState.Loading
+        _uiState.compareSetAndExecute(
+            expect = AuthPKCEScreenState.Idle,
+            update = AuthPKCEScreenState.Loading
+        ) {
+            viewModelScope.launch {
+                val config = authPKCEConfigRepository.fetch()
 
-            val config = authPKCEConfigRepository.fetch()
+                val codeVerifier = CodeVerifier()
 
-            val codeVerifier = CodeVerifier()
-
-            // Step 1: Retrieve the OAuth code
-            _uiState.value = AuthPKCEScreenState.CheckPhone
-            val oAuthCodePayload = authPKCEOAuthCodeRepository.fetch(
-                config = config,
-                codeVerifier = codeVerifier
-            ).getOrElse {
-                _uiState.value = AuthPKCEScreenState.Failed
-                return@launch
-            }
-
-            // Step 2: Retrieve the access token
-            _uiState.value = AuthPKCEScreenState.Loading
-            val tokenPayload = authPKCETokenRepository.fetch(
-                config = config,
-                codeVerifier = codeVerifier.value,
-                oAuthCodePayload = oAuthCodePayload
-            )
-                .getOrElse {
+                // Step 1: Retrieve the OAuth code
+                _uiState.value = AuthPKCEScreenState.CheckPhone
+                val oAuthCodePayload = authPKCEOAuthCodeRepository.fetch(
+                    config = config,
+                    codeVerifier = codeVerifier
+                ).getOrElse {
                     _uiState.value = AuthPKCEScreenState.Failed
                     return@launch
                 }
-            authPKCETokenPayloadListener.onPayloadReceived(tokenPayload)
 
-            _uiState.value = AuthPKCEScreenState.Success
+                // Step 2: Retrieve the access token
+                _uiState.value = AuthPKCEScreenState.Loading
+                val tokenPayload = authPKCETokenRepository.fetch(
+                    config = config,
+                    codeVerifier = codeVerifier.value,
+                    oAuthCodePayload = oAuthCodePayload
+                )
+                    .getOrElse {
+                        _uiState.value = AuthPKCEScreenState.Failed
+                        return@launch
+                    }
+                authPKCETokenPayloadListener.onPayloadReceived(tokenPayload)
+
+                _uiState.value = AuthPKCEScreenState.Success
+            }
         }
     }
 }

@@ -44,19 +44,27 @@ class GoogleSignOutViewModel(
         initialValue = GoogleSignOutScreenState.Idle
     )
 
-    init {
-        viewModelScope.launch {
-            try {
-                googleSignInClient.signOut().await()
-                _uiState.value = GoogleSignOutScreenState.Success
-            } catch (apiException: ApiException) {
-                Log.w("GoogleSignOut", "Sign out failed: $apiException")
-                _uiState.value = GoogleSignOutScreenState.Failed
+    fun startFlow() {
+        if (_uiState.compareAndSet(
+                expect = GoogleSignOutScreenState.Idle,
+                update = GoogleSignOutScreenState.Loading
+            )
+        ) {
+            viewModelScope.launch {
+                try {
+                    googleSignInClient.signOut().await()
+                    _uiState.value = GoogleSignOutScreenState.Success
+                } catch (apiException: ApiException) {
+                    Log.w(TAG, "Sign out failed: $apiException")
+                    _uiState.value = GoogleSignOutScreenState.Failed
+                }
             }
         }
     }
 
     companion object {
+
+        private val TAG = GoogleSignOutViewModel::class.java.simpleName
 
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
@@ -77,6 +85,7 @@ class GoogleSignOutViewModel(
 
 enum class GoogleSignOutScreenState {
     Idle,
+    Loading,
     Success,
     Failed
 }

@@ -19,39 +19,62 @@ package com.google.android.horologist.auth.ui.oauth.pkce
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
+import com.google.android.horologist.auth.composables.screens.AuthErrorScreen
 import com.google.android.horologist.auth.composables.screens.CheckYourPhoneScreen
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 
 @ExperimentalHorologistAuthUiApi
 @Composable
 public fun <AuthPKCEConfig, OAuthCodePayload, TokenPayload> AuthPKCEScreen(
-    viewModel: AuthPKCEViewModel<AuthPKCEConfig, OAuthCodePayload, TokenPayload>
+    modifier: Modifier = Modifier,
+    viewModel: AuthPKCEViewModel<AuthPKCEConfig, OAuthCodePayload, TokenPayload>,
+    successContent: @Composable (successState: AuthPKCEScreenState.Success) -> Unit,
+    failedContent: @Composable () -> Unit
 ) {
-    var executedOnce by rememberSaveable { mutableStateOf(false) }
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (state) {
         AuthPKCEScreenState.Idle -> {
             SideEffect {
-                if (!executedOnce) {
-                    executedOnce = true
-                    viewModel.startAuthFlow()
-                }
+                viewModel.startAuthFlow()
             }
         }
 
         AuthPKCEScreenState.Loading,
         AuthPKCEScreenState.CheckPhone -> {
-            CheckYourPhoneScreen()
+            CheckYourPhoneScreen(modifier = modifier)
         }
 
-        AuthPKCEScreenState.Success,
         AuthPKCEScreenState.Failed -> {
-            // do nothing
+            failedContent()
+        }
+
+        AuthPKCEScreenState.Success -> {
+            successContent(state as AuthPKCEScreenState.Success)
         }
     }
+}
+
+@ExperimentalHorologistAuthUiApi
+@Composable
+public fun <AuthPKCEConfig, OAuthCodePayload, TokenPayload> AuthPKCEScreen(
+    modifier: Modifier = Modifier,
+    viewModel: AuthPKCEViewModel<AuthPKCEConfig, OAuthCodePayload, TokenPayload>,
+    onAuthSucceed: () -> Unit
+) {
+    AuthPKCEScreen(
+        modifier = modifier,
+        viewModel = viewModel,
+        successContent = {
+            SignedInConfirmationDialog(modifier = modifier) {
+                onAuthSucceed()
+            }
+        },
+        failedContent = {
+            AuthErrorScreen(modifier = modifier)
+        }
+    )
 }

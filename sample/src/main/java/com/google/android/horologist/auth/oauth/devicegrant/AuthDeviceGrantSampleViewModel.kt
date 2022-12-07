@@ -20,13 +20,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.google.android.horologist.auth.data.oauth.common.impl.google.api.DeviceCodeResponse
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthServiceFactory
-import com.google.android.horologist.auth.data.oauth.devicegrant.AuthDeviceGrantConfigRepository
-import com.google.android.horologist.auth.data.oauth.devicegrant.AuthDeviceGrantTokenRepository
-import com.google.android.horologist.auth.data.oauth.devicegrant.AuthDeviceGrantVerificationInfoRepository
 import com.google.android.horologist.auth.data.oauth.devicegrant.impl.AuthDeviceGrantConfigRepositoryDefaultImpl
-import com.google.android.horologist.auth.data.oauth.devicegrant.impl.AuthDeviceGrantDefaultConfig
 import com.google.android.horologist.auth.data.oauth.devicegrant.impl.google.AuthDeviceGrantTokenRepositoryGoogleImpl
 import com.google.android.horologist.auth.data.oauth.devicegrant.impl.google.AuthDeviceGrantVerificationInfoRepositoryGoogleImpl
 import com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantViewModel
@@ -35,50 +30,39 @@ import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 
-class AuthDeviceGrantSampleViewModel(
-    private val authDeviceGrantConfigRepository: AuthDeviceGrantConfigRepository<AuthDeviceGrantDefaultConfig>,
-    private val authDeviceGrantVerificationInfoRepository: AuthDeviceGrantVerificationInfoRepository<AuthDeviceGrantDefaultConfig, DeviceCodeResponse>,
-    private val authDeviceGrantTokenRepository: AuthDeviceGrantTokenRepository<AuthDeviceGrantDefaultConfig, DeviceCodeResponse, String>,
-    private val checkPhonePayloadMapper: (AuthDeviceGrantDefaultConfig, DeviceCodeResponse) -> String
-) : AuthDeviceGrantViewModel<AuthDeviceGrantDefaultConfig, DeviceCodeResponse, String>(
-    authDeviceGrantConfigRepository = authDeviceGrantConfigRepository,
-    authDeviceGrantVerificationInfoRepository = authDeviceGrantVerificationInfoRepository,
-    authDeviceGrantTokenRepository = authDeviceGrantTokenRepository,
-    checkPhonePayloadMapper = checkPhonePayloadMapper
-) {
+object AuthDeviceGrantSampleViewModel {
 
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val application = this[APPLICATION_KEY]!!
+    val Factory: ViewModelProvider.Factory = viewModelFactory {
 
-                val googleOAuthService = GoogleOAuthServiceFactory(
-                    okHttpClient = OkHttpClient.Builder()
-                        .also { builder ->
-                            builder.addInterceptor(
-                                HttpLoggingInterceptor().also { interceptor ->
-                                    interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-                                }
-                            )
-                        }.build(),
-                    moshi = Moshi.Builder().build()
-                ).get()
+        initializer {
+            val application = this[APPLICATION_KEY]!!
 
-                AuthDeviceGrantSampleViewModel(
-                    authDeviceGrantConfigRepository = AuthDeviceGrantConfigRepositoryDefaultImpl(
-                        clientId = BuildConfig.OAUTH_DEVICE_GRANT_CLIENT_ID,
-                        clientSecret = BuildConfig.OAUTH_DEVICE_GRANT_CLIENT_SECRET
-                    ),
-                    authDeviceGrantVerificationInfoRepository = AuthDeviceGrantVerificationInfoRepositoryGoogleImpl(
-                        googleOAuthService = googleOAuthService
-                    ),
-                    authDeviceGrantTokenRepository = AuthDeviceGrantTokenRepositoryGoogleImpl(
-                        application = application,
-                        googleOAuthService = googleOAuthService
-                    ),
-                    checkPhonePayloadMapper = { _, deviceResponse -> deviceResponse.userCode }
-                )
-            }
+            val googleOAuthService = GoogleOAuthServiceFactory(
+                okHttpClient = OkHttpClient.Builder()
+                    .also { builder ->
+                        builder.addInterceptor(
+                            HttpLoggingInterceptor().also { interceptor ->
+                                interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+                            }
+                        )
+                    }.build(),
+                moshi = Moshi.Builder().build()
+            ).get()
+
+            AuthDeviceGrantViewModel(
+                authDeviceGrantConfigRepository = AuthDeviceGrantConfigRepositoryDefaultImpl(
+                    clientId = BuildConfig.OAUTH_DEVICE_GRANT_CLIENT_ID,
+                    clientSecret = BuildConfig.OAUTH_DEVICE_GRANT_CLIENT_SECRET
+                ),
+                authDeviceGrantVerificationInfoRepository = AuthDeviceGrantVerificationInfoRepositoryGoogleImpl(
+                    googleOAuthService = googleOAuthService
+                ),
+                authDeviceGrantTokenRepository = AuthDeviceGrantTokenRepositoryGoogleImpl(
+                    application = application,
+                    googleOAuthService = googleOAuthService
+                ),
+                checkPhonePayloadMapper = { _, deviceResponse -> deviceResponse.userCode }
+            )
         }
     }
 }

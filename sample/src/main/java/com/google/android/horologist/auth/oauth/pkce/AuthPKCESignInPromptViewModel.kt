@@ -23,17 +23,12 @@ import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.auth.data.common.repository.AuthRepository
 import com.google.android.horologist.auth.ui.common.screens.SignInPromptViewModel
 
-class AuthPKCESignInPromptViewModel(
-    authRepository: AuthRepository
-) : SignInPromptViewModel(authRepository) {
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                AuthPKCESignInPromptViewModel(object : AuthRepository {
-                    override suspend fun getAuthUser(): AuthUser? = null
-                })
-            }
+object AuthPKCESignInPromptViewModel {
+    val Factory: ViewModelProvider.Factory = viewModelFactory {
+        initializer {
+            SignInPromptViewModel(object : AuthRepository {
+                override suspend fun getAuthUser(): AuthUser? = null
+            })
         }
     }
 }

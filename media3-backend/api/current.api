@@ -139,17 +139,17 @@ package com.google.android.horologist.media3.offload {
   }
 
   @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public final class AudioOffloadStatus {
-    ctor public AudioOffloadStatus(boolean offloadSchedulingEnabled, boolean sleepingForOffload, Boolean? trackOffload, androidx.media3.common.Format? format, boolean isPlaying, java.util.List<com.google.android.horologist.media3.offload.AudioError> errors, com.google.android.horologist.media3.offload.OffloadTimes offloadTimes, String? strategyStatus, com.google.android.horologist.media3.offload.AudioOffloadStrategy? strategy);
+    ctor public AudioOffloadStatus(boolean offloadSchedulingEnabled, boolean sleepingForOffload, optional boolean trackOffload, androidx.media3.common.Format? format, boolean isPlaying, java.util.List<com.google.android.horologist.media3.offload.AudioError> errors, com.google.android.horologist.media3.offload.OffloadTimes offloadTimes, String? strategyStatus, com.google.android.horologist.media3.offload.AudioOffloadStrategy? strategy);
     method public boolean component1();
     method public boolean component2();
-    method public Boolean? component3();
+    method public boolean component3();
     method public androidx.media3.common.Format? component4();
     method public boolean component5();
     method public java.util.List<com.google.android.horologist.media3.offload.AudioError> component6();
     method public com.google.android.horologist.media3.offload.OffloadTimes component7();
     method public String? component8();
     method public com.google.android.horologist.media3.offload.AudioOffloadStrategy? component9();
-    method public com.google.android.horologist.media3.offload.AudioOffloadStatus copy(boolean offloadSchedulingEnabled, boolean sleepingForOffload, Boolean? trackOffload, androidx.media3.common.Format? format, boolean isPlaying, java.util.List<com.google.android.horologist.media3.offload.AudioError> errors, com.google.android.horologist.media3.offload.OffloadTimes offloadTimes, String? strategyStatus, com.google.android.horologist.media3.offload.AudioOffloadStrategy? strategy);
+    method public com.google.android.horologist.media3.offload.AudioOffloadStatus copy(boolean offloadSchedulingEnabled, boolean sleepingForOffload, boolean trackOffload, androidx.media3.common.Format? format, boolean isPlaying, java.util.List<com.google.android.horologist.media3.offload.AudioError> errors, com.google.android.horologist.media3.offload.OffloadTimes offloadTimes, String? strategyStatus, com.google.android.horologist.media3.offload.AudioOffloadStrategy? strategy);
     method public String describe();
     method public java.util.List<com.google.android.horologist.media3.offload.AudioError> getErrors();
     method public androidx.media3.common.Format? getFormat();
@@ -158,7 +158,7 @@ package com.google.android.horologist.media3.offload {
     method public boolean getSleepingForOffload();
     method public com.google.android.horologist.media3.offload.AudioOffloadStrategy? getStrategy();
     method public String? getStrategyStatus();
-    method public Boolean? getTrackOffload();
+    method public boolean getTrackOffload();
     method public boolean isPlaying();
     method public String trackOffloadDescription();
     method public com.google.android.horologist.media3.offload.OffloadTimes updateToNow();
@@ -170,7 +170,7 @@ package com.google.android.horologist.media3.offload {
     property public final boolean sleepingForOffload;
     property public final com.google.android.horologist.media3.offload.AudioOffloadStrategy? strategy;
     property public final String? strategyStatus;
-    property public final Boolean? trackOffload;
+    property public final boolean trackOffload;
     field public static final com.google.android.horologist.media3.offload.AudioOffloadStatus.Companion Companion;
   }
 

@@ -24,7 +24,7 @@ import com.google.android.horologist.media3.util.shortDescription
 public data class AudioOffloadStatus(
     public val offloadSchedulingEnabled: Boolean,
     public val sleepingForOffload: Boolean,
-    public val trackOffload: Boolean?,
+    public val trackOffload: Boolean = false,
     public val format: Format?,
     public val isPlaying: Boolean,
     public val errors: List<AudioError>,
@@ -44,13 +44,7 @@ public data class AudioOffloadStatus(
             "strategyStatus: $strategyStatus "
     }
 
-    public fun trackOffloadDescription(): String {
-        return when (trackOffload) {
-            true -> "HW"
-            false -> "SW"
-            null -> "N/A"
-        }
-    }
+    public fun trackOffloadDescription(): String = if (trackOffload) "HW" else "SW"
 
     public companion object {
         public val Disabled: AudioOffloadStatus = AudioOffloadStatus(

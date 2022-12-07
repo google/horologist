@@ -144,6 +144,10 @@ class FakePlayerRepository() : PlayerRepository {
         _connected.value = false
     }
 
+    override fun setPlaybackSpeed(speed: Float) {
+        // do nothing
+    }
+
     fun updatePosition() {
         _mediaPosition.value = _mediaPosition.value?.let {
             val newCurrent = (it as MediaPosition.KnownDuration).current + 1.seconds

@@ -222,9 +222,14 @@ fun UampWearApp(
     LaunchedEffect(Unit) {
         val collectionId = intent.getAndRemoveKey(MediaActivity.CollectionKey)
         val mediaId = intent.getAndRemoveKey(MediaActivity.MediaIdKey)
+        val position = intent.getAndRemoveKey(MediaActivity.PositionKey)
 
         if (collectionId != null) {
-            appViewModel.playItems(mediaId, collectionId)
+            if (position != null) {
+                appViewModel.playItems(mediaId, collectionId, position.toLong())
+            } else {
+                appViewModel.playItems(mediaId, collectionId, 0)
+            }
         } else {
             appViewModel.startupSetup(navigateToLibrary = {
                 navController.navigateToLibrary()

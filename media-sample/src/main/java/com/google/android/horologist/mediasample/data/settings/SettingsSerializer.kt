@@ -36,6 +36,7 @@ object SettingsSerializer : Serializer<Settings> {
         this.offloadMode = SettingsProto.OffloadMode.BACKGROUND
         this.podcastControls = false
         this.showTimeTextInfo = false
+        this.currentPosition = 0
     }
 
     override suspend fun readFrom(input: InputStream): Settings {

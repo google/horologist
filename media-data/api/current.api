@@ -329,6 +329,7 @@ package com.google.android.horologist.media.data.repository {
     method public void seekToDefaultPosition(int mediaIndex);
     method public void setMedia(com.google.android.horologist.media.model.Media media);
     method public void setMediaList(java.util.List<com.google.android.horologist.media.model.Media> mediaList);
+    method public void setMediaList(java.util.List<com.google.android.horologist.media.model.Media> mediaList, int index, kotlin.time.Duration? position);
     method public void setMediaListAndPlay(java.util.List<com.google.android.horologist.media.model.Media> mediaList, int index);
     method public void setPlaybackSpeed(float speed);
     method public void setShuffleModeEnabled(boolean shuffleModeEnabled);

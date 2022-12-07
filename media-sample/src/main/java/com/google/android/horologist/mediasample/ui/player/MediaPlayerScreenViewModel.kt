@@ -18,6 +18,7 @@ package com.google.android.horologist.mediasample.ui.player
 
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.data.repository.PlayerRepositoryImpl
+import com.google.android.horologist.media.model.MediaPosition
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
@@ -46,10 +47,17 @@ class MediaPlayerScreenViewModel @Inject constructor(
                 playerRepository.updatePosition()
 
                 // Write to currentMediaItemId in datastore.
-                playerRepository.currentMedia.value?.id?.let {
-                        id ->
+                playerRepository.currentMedia.value?.id?.let { id ->
                     settingsRepository.edit {
                         it.copy { currentMediaItemId = id }
+                    }
+                    val position = playerRepository.mediaPosition.value
+                    if (position is MediaPosition.KnownDuration) {
+                        settingsRepository.edit {
+                            it.copy {
+                                currentPosition = position.current.inWholeMilliseconds
+                            }
+                        }
                     }
                 }
             }

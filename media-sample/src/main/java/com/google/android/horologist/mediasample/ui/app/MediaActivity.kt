@@ -57,5 +57,6 @@ class MediaActivity : ComponentActivity() {
     companion object {
         const val CollectionKey = "collection"
         const val MediaIdKey = "mediaId"
+        const val PositionKey = "position"
     }
 }

@@ -26,15 +26,12 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
-import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.ScalingLazyColumnDefaults
-import androidx.wear.compose.material.ScalingLazyListState
-import androidx.wear.compose.material.ScalingParams
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
@@ -45,23 +42,19 @@ import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiMode
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun PlaylistDownloadBrowseScreen(
+    columnState: ScalingLazyColumnState,
     browseScreenState: BrowseScreenState,
     onDownloadItemClick: (PlaylistDownloadUiModel) -> Unit,
     onDownloadItemInProgressClick: (PlaylistDownloadUiModel) -> Unit,
     onPlaylistsClick: () -> Unit,
     onSettingsClick: () -> Unit,
-    scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
     downloadItemArtworkPlaceholder: Painter? = null,
-    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
-    autoCentering: AutoCenteringParams? = AutoCenteringParams(),
     onDownloadItemInProgressClickActionLabel: String? = null
 ) {
     BrowseScreen(
-        scalingLazyListState = scalingLazyListState,
-        modifier = modifier,
-        scalingParams = scalingParams,
-        autoCentering = autoCentering
+        columnState = columnState,
+        modifier = modifier
     ) {
         val downloadsSectionState = when (browseScreenState) {
             is BrowseScreenState.Loading -> Section.State.Loading()

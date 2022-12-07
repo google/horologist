@@ -26,7 +26,6 @@ import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.navigation.SwipeDismissableNavHostState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
@@ -36,10 +35,11 @@ import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.audio.ui.VolumeViewModel
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
-import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
-import com.google.android.horologist.compose.navscaffold.wearNavComposable
+import com.google.android.horologist.compose.navscaffold.composable
+import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
 import com.google.android.horologist.media.ui.screens.playerlibrarypager.PlayerLibraryPagerScreen
 import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel
@@ -68,11 +68,11 @@ public fun MediaPlayerScaffold(
     snackbarViewModel: SnackbarViewModel,
     volumeViewModel: VolumeViewModel,
     playerScreen: @Composable () -> Unit,
-    libraryScreen: @Composable (ScalingLazyListState) -> Unit,
-    categoryEntityScreen: @Composable (id: String, name: String, ScalingLazyListState) -> Unit,
-    mediaEntityScreen: @Composable (ScalingLazyListState) -> Unit,
-    playlistsScreen: @Composable (ScalingLazyListState) -> Unit,
-    settingsScreen: @Composable (ScalingLazyListState) -> Unit,
+    libraryScreen: @Composable (ScalingLazyColumnState) -> Unit,
+    categoryEntityScreen: @Composable (id: String, name: String, ScalingLazyColumnState) -> Unit,
+    mediaEntityScreen: @Composable (ScalingLazyColumnState) -> Unit,
+    playlistsScreen: @Composable (ScalingLazyColumnState) -> Unit,
+    settingsScreen: @Composable (ScalingLazyColumnState) -> Unit,
     deepLinkPrefix: String,
     navController: NavHostController,
     modifier: Modifier = Modifier,
@@ -99,13 +99,13 @@ public fun MediaPlayerScaffold(
         timeText = timeText,
         state = navHostState
     ) {
-        wearNavComposable(
+        composable(
             route = NavigationScreens.Player.navRoute,
             arguments = NavigationScreens.Player.arguments,
             deepLinks = NavigationScreens.Player.deepLinks(deepLinkPrefix)
-        ) { backStack, viewModel ->
-            viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
-            viewModel.positionIndicatorMode = NavScaffoldViewModel.PositionIndicatorMode.Off
+        ) {
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+            it.positionIndicatorMode = NavScaffoldViewModel.PositionIndicatorMode.Off
 
             val volumeState by volumeViewModel.volumeState.collectAsStateWithLifecycle()
 
@@ -120,52 +120,52 @@ public fun MediaPlayerScaffold(
                 libraryScreen = { listState ->
                     libraryScreen(listState)
                 },
-                backStack = backStack
+                backStack = it.backStackEntry
             )
         }
 
-        scalingLazyColumnComposable(
+        scrollable(
             route = NavigationScreens.Collections.navRoute,
+
             arguments = NavigationScreens.Collections.arguments,
-            deepLinks = NavigationScreens.Collections.deepLinks(deepLinkPrefix),
-            scrollStateBuilder = { ScalingLazyListState() }
+            deepLinks = NavigationScreens.Collections.deepLinks(deepLinkPrefix)
         ) {
-            playlistsScreen(it.scrollableState)
+            playlistsScreen(it.columnState)
         }
 
-        scalingLazyColumnComposable(
+        scrollable(
             route = NavigationScreens.Settings.navRoute,
+
             arguments = NavigationScreens.Settings.arguments,
-            deepLinks = NavigationScreens.Settings.deepLinks(deepLinkPrefix),
-            scrollStateBuilder = { ScalingLazyListState() }
+            deepLinks = NavigationScreens.Settings.deepLinks(deepLinkPrefix)
         ) {
-            settingsScreen(it.scrollableState)
+            settingsScreen(it.columnState)
         }
 
-        wearNavComposable(
+        composable(
             route = NavigationScreens.Volume.navRoute,
             arguments = NavigationScreens.Volume.arguments,
             deepLinks = NavigationScreens.Volume.deepLinks(deepLinkPrefix)
-        ) { _, viewModel ->
-            viewModel.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
+        ) {
+            it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
 
             volumeScreen()
         }
 
-        scalingLazyColumnComposable(
+        scrollable(
             route = NavigationScreens.MediaItem.navRoute,
+
             arguments = NavigationScreens.MediaItem.arguments,
-            deepLinks = NavigationScreens.MediaItem.deepLinks(deepLinkPrefix),
-            scrollStateBuilder = { ScalingLazyListState() }
+            deepLinks = NavigationScreens.MediaItem.deepLinks(deepLinkPrefix)
         ) {
-            mediaEntityScreen(it.scrollableState)
+            mediaEntityScreen(it.columnState)
         }
 
-        scalingLazyColumnComposable(
+        scrollable(
             route = NavigationScreens.Collection.navRoute,
+
             arguments = NavigationScreens.Collection.arguments,
-            deepLinks = NavigationScreens.Collection.deepLinks(deepLinkPrefix),
-            scrollStateBuilder = { ScalingLazyListState() }
+            deepLinks = NavigationScreens.Collection.deepLinks(deepLinkPrefix)
         ) { scaffoldContext ->
             val arguments = scaffoldContext.backStackEntry.arguments
             val id = arguments?.getString(NavigationScreens.Collection.id)
@@ -176,7 +176,7 @@ public fun MediaPlayerScaffold(
             categoryEntityScreen(
                 id,
                 name,
-                scaffoldContext.scrollableState
+                scaffoldContext.columnState
             )
         }
 

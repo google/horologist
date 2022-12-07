@@ -27,7 +27,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.dialog.Confirmation
+import com.google.android.horologist.base.ui.components.ConfirmationDialog
 import com.google.android.horologist.sample.R
 
 @Composable
@@ -43,7 +43,7 @@ fun GoogleSignOutScreen(
         }
 
         GoogleSignOutScreenState.Success -> {
-            Confirmation(
+            ConfirmationDialog(
                 onTimeout = { navController.popBackStack() }
             ) {
                 Text(

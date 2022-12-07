@@ -53,11 +53,13 @@ import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.currentBackStackEntryAsState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.compose.focus.FocusControl
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
 /**
  * A Navigation and Scroll aware [Scaffold].
  *
- * In addition to [NavGraphBuilder.composable], 3 additional extensions are supported
+ * In addition to [NavGraphBuilder.scrollable], 3 additional extensions are supported
  * [scalingLazyColumnComposable], [scrollStateComposable] and
  * [lazyListComposable].
  *
@@ -191,21 +193,13 @@ private fun NavPositionIndicator(viewModel: NavScaffoldViewModel) {
 }
 
 /**
- * The context items provided to a navigation composable.
- *
- * The [viewModel] can be used to customise the scaffold behaviour.
- */
-public data class ScaffoldContext<T : ScrollableState>(
-    val backStackEntry: NavBackStackEntry,
-    val scrollableState: T,
-    val viewModel: NavScaffoldViewModel
-)
-
-/**
  * Add a screen to the navigation graph featuring a ScalingLazyColumn.
  *
  * The scalingLazyListState must be taken from the [ScaffoldContext].
  */
+@Deprecated(
+    "Use listComposable"
+)
 public fun NavGraphBuilder.scalingLazyColumnComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
@@ -225,6 +219,32 @@ public fun NavGraphBuilder.scalingLazyColumnComposable(
 }
 
 /**
+ * Add a screen to the navigation graph featuring a ScalingLazyColumn.
+ *
+ * The [ScalingLazyColumnState] must be taken from the [ScrollableScaffoldContext].
+ */
+@ExperimentalHorologistComposeLayoutApi
+public fun NavGraphBuilder.scrollable(
+    route: String,
+    arguments: List<NamedNavArgument> = emptyList(),
+    deepLinks: List<NavDeepLink> = emptyList(),
+    columnStateFactory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.belowTimeText(),
+    content: @Composable (ScrollableScaffoldContext) -> Unit
+) {
+    this@scrollable.composable(route, arguments, deepLinks) {
+        FocusedDestination {
+            val columnState = columnStateFactory.create()
+
+            val viewModel: NavScaffoldViewModel = viewModel(it)
+
+            viewModel.initializeScalingLazyListState(columnState)
+
+            content(ScrollableScaffoldContext(it, columnState, viewModel))
+        }
+    }
+}
+
+/**
  * Add a screen to the navigation graph featuring a Scrollable item.
  *
  * The scrollState must be taken from the [ScaffoldContext].
@@ -233,7 +253,7 @@ public fun NavGraphBuilder.scrollStateComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
-    scrollStateBuilder: () -> ScrollState,
+    scrollStateBuilder: () -> ScrollState = { ScrollState(0) },
     content: @Composable (ScaffoldContext<ScrollState>) -> Unit
 ) {
     composable(route, arguments, deepLinks) {
@@ -256,7 +276,7 @@ public fun NavGraphBuilder.lazyListComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
-    lazyListStateBuilder: () -> LazyListState,
+    lazyListStateBuilder: () -> LazyListState = { LazyListState() },
     content: @Composable (ScaffoldContext<LazyListState>) -> Unit
 ) {
     composable(route, arguments, deepLinks) {
@@ -275,6 +295,10 @@ public fun NavGraphBuilder.lazyListComposable(
  * [NavScaffoldViewModel] are passed into the [content] block so that
  * the Scaffold may be customised, such as disabling TimeText.
  */
+@Deprecated(
+    "Use composable",
+    ReplaceWith("composable(route, arguments, deepLinks, lazyListStateBuilder, content)")
+)
 public fun NavGraphBuilder.wearNavComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
@@ -286,6 +310,27 @@ public fun NavGraphBuilder.wearNavComposable(
             val viewModel: NavScaffoldViewModel = viewModel()
 
             content(it, viewModel)
+        }
+    }
+}
+
+/**
+ * Add non scrolling screen to the navigation graph. The [NavBackStackEntry] and
+ * [NavScaffoldViewModel] are passed into the [content] block so that
+ * the Scaffold may be customised, such as disabling TimeText.
+ */
+@ExperimentalHorologistComposeLayoutApi
+public fun NavGraphBuilder.composable(
+    route: String,
+    arguments: List<NamedNavArgument> = emptyList(),
+    deepLinks: List<NavDeepLink> = emptyList(),
+    content: @Composable (NonScrollableScaffoldContext) -> Unit
+) {
+    this@composable.composable(route, arguments, deepLinks) {
+        FocusedDestination {
+            val viewModel: NavScaffoldViewModel = viewModel()
+
+            content(NonScrollableScaffoldContext(it, viewModel))
         }
     }
 }

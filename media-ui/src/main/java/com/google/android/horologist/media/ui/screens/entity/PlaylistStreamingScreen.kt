@@ -29,16 +29,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.ScalingLazyColumnDefaults
-import androidx.wear.compose.material.ScalingLazyListState
-import androidx.wear.compose.material.ScalingParams
 import com.google.android.horologist.base.ui.components.StandardButton
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
 import com.google.android.horologist.composables.PlaceholderChip
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
@@ -51,15 +48,13 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun PlaylistStreamingScreen(
+    columnState: ScalingLazyColumnState,
     playlistName: String,
     playlistDownloadScreenState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
     onShuffleButtonClick: () -> Unit,
     onPlayButtonClick: () -> Unit,
-    scalingLazyListState: ScalingLazyListState,
     onPlayItemClick: (DownloadMediaUiModel) -> Unit,
     modifier: Modifier = Modifier,
-    scalingParams: ScalingParams = ScalingLazyColumnDefaults.scalingParams(),
-    autoCentering: AutoCenteringParams? = AutoCenteringParams(),
     defaultMediaTitle: String = ""
 ) {
     val entityScreenState: EntityScreenState<DownloadMediaUiModel> =
@@ -73,6 +68,7 @@ public fun PlaylistStreamingScreen(
         }
 
     EntityScreen(
+        columnState = columnState,
         entityScreenState = entityScreenState,
         headerContent = { DefaultEntityScreenHeader(title = playlistName) },
         loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },
@@ -86,10 +82,7 @@ public fun PlaylistStreamingScreen(
                 chipType = StandardChipType.Secondary
             )
         },
-        scalingLazyListState = scalingLazyListState,
         modifier = modifier,
-        scalingParams = scalingParams,
-        autoCentering = autoCentering,
         buttonsContent = {
             Row(
                 modifier = Modifier

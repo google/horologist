@@ -22,8 +22,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
+import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
@@ -34,12 +34,12 @@ import com.google.android.horologist.media.ui.uamp.UampTheme
 @Composable
 fun PlaylistDownloadBrowseScreenPreview() {
     PlaylistDownloadBrowseScreen(
+        columnState = belowTimeTextPreview(),
         browseScreenState = BrowseScreenState.Loaded(downloadList),
         onDownloadItemClick = { },
         onDownloadItemInProgressClick = { },
         onPlaylistsClick = { },
         onSettingsClick = { },
-        scalingLazyListState = rememberScalingLazyListState(),
         downloadItemArtworkPlaceholder = rememberVectorPainter(
             image = Icons.Default.FeaturedPlayList,
             tintColor = Color.Green
@@ -51,12 +51,12 @@ fun PlaylistDownloadBrowseScreenPreview() {
 @Composable
 fun PlaylistDownloadBrowseScreenPreviewNoDownloads() {
     PlaylistDownloadBrowseScreen(
+        columnState = belowTimeTextPreview(),
         browseScreenState = BrowseScreenState.Loaded(emptyList()),
         onDownloadItemClick = { },
         onDownloadItemInProgressClick = { },
         onPlaylistsClick = { },
-        onSettingsClick = { },
-        scalingLazyListState = rememberScalingLazyListState()
+        onSettingsClick = { }
     )
 }
 
@@ -64,12 +64,12 @@ fun PlaylistDownloadBrowseScreenPreviewNoDownloads() {
 @Composable
 fun PlaylistDownloadBrowseScreenPreviewLoading() {
     PlaylistDownloadBrowseScreen(
+        columnState = belowTimeTextPreview(),
         browseScreenState = BrowseScreenState.Loading,
         onDownloadItemClick = { },
         onDownloadItemInProgressClick = { },
         onPlaylistsClick = { },
-        onSettingsClick = { },
-        scalingLazyListState = rememberScalingLazyListState()
+        onSettingsClick = { }
     )
 }
 
@@ -78,12 +78,12 @@ fun PlaylistDownloadBrowseScreenPreviewLoading() {
 fun PlaylistDownloadBrowseScreenPreviewUampTheme() {
     UampTheme {
         PlaylistDownloadBrowseScreen(
+            columnState = belowTimeTextPreview(),
             browseScreenState = BrowseScreenState.Loaded(downloadList),
             onDownloadItemClick = { },
             onDownloadItemInProgressClick = { },
             onPlaylistsClick = { },
             onSettingsClick = { },
-            scalingLazyListState = rememberScalingLazyListState(),
             downloadItemArtworkPlaceholder = rememberVectorPainter(
                 image = Icons.Default.FeaturedPlayList,
                 tintColor = Color.Green

@@ -21,14 +21,10 @@ package com.google.android.horologist.media.ui.screens.playlists
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.ScalingLazyListState
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.base.ui.components.Title
@@ -36,7 +32,7 @@ import com.google.android.horologist.composables.ExperimentalHorologistComposabl
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionedList
-import com.google.android.horologist.compose.focus.RequestFocusWhenActive
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
@@ -44,15 +40,15 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun <T> PlaylistsScreen(
+    columnState: ScalingLazyColumnState,
     playlists: List<T>,
     playlistContent: @Composable (playlist: T) -> Unit,
-    scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier
 ) {
     PlaylistsScreen(
         playlistsScreenState = PlaylistsScreenState.Loaded(playlists),
         playlistContent = playlistContent,
-        scalingLazyListState = scalingLazyListState,
+        columnState = columnState,
         modifier = modifier
     )
 }
@@ -60,18 +56,14 @@ public fun <T> PlaylistsScreen(
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun <T> PlaylistsScreen(
+    columnState: ScalingLazyColumnState,
     playlistsScreenState: PlaylistsScreenState<T>,
     playlistContent: @Composable (playlist: T) -> Unit,
-    scalingLazyListState: ScalingLazyListState,
-    modifier: Modifier = Modifier,
-    autoCentering: AutoCenteringParams? = AutoCenteringParams()
+    modifier: Modifier = Modifier
 ) {
-    val focusRequester = remember { FocusRequester() }
     SectionedList(
-        focusRequester = focusRequester,
-        scalingLazyListState = scalingLazyListState,
         modifier = modifier,
-        autoCentering = autoCentering
+        columnState = columnState
     ) {
         val sectionState = when (playlistsScreenState) {
             is PlaylistsScreenState.Loaded<T> -> {
@@ -99,18 +91,15 @@ public fun <T> PlaylistsScreen(
             }
         }
     }
-
-    RequestFocusWhenActive(focusRequester)
 }
 
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun PlaylistsScreen(
+    columnState: ScalingLazyColumnState,
     playlistsScreenState: PlaylistsScreenState<PlaylistUiModel>,
     onPlaylistItemClick: (PlaylistUiModel) -> Unit,
-    scalingLazyListState: ScalingLazyListState,
     modifier: Modifier = Modifier,
-    autoCentering: AutoCenteringParams? = AutoCenteringParams(),
     playlistItemArtworkPlaceholder: Painter? = null
 ) {
     val playlistContent: @Composable (playlist: PlaylistUiModel) -> Unit = { playlist ->
@@ -125,11 +114,10 @@ public fun PlaylistsScreen(
     }
 
     PlaylistsScreen(
+        columnState = columnState,
         playlistsScreenState = playlistsScreenState,
         playlistContent = playlistContent,
-        scalingLazyListState = scalingLazyListState,
-        modifier = modifier,
-        autoCentering = autoCentering
+        modifier = modifier
     )
 }
 

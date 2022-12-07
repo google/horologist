@@ -19,12 +19,16 @@
     ExperimentalHorologistPaparazziApi::class,
     ExperimentalHorologistComposeToolsApi::class
 )
+@file:Suppress("ObjectLiteralToLambda")
 
 package com.google.android.horologist.media.ui.screens.browse
 
-import androidx.wear.compose.material.ScalingLazyListState
+import androidx.compose.runtime.Composable
+import androidx.wear.compose.material.ScalingParams
 import app.cash.paparazzi.DeviceConfig
 import com.android.ide.common.rendering.api.SessionParams
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.compose.tools.a11y.TallPreview
@@ -60,9 +64,6 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest {
 
     @Test
     fun browseScreen() {
-        val scrollState = ScalingLazyListState()
-        scrollState.forceState(0, 0)
-
         val screenState = BrowseScreenState.Loaded(downloadList)
 
         paparazzi.snapshot {
@@ -70,19 +71,44 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest {
                 width = DeviceConfig.GALAXY_WATCH4_CLASSIC_LARGE.screenWidth,
                 height = 650
             ) { scalingParams ->
-                PlayerLibraryPreview(state = scrollState, round = false) {
+                val columnState = ScalingLazyColumnDefaults.belowTimeText()
+                    .copy(scalingParams = scalingParams).create()
+                columnState.state.forceState(0, 0)
+
+                PlayerLibraryPreview(state = columnState.state, round = false) {
                     PlaylistDownloadBrowseScreen(
                         browseScreenState = screenState,
                         onDownloadItemClick = { },
                         onDownloadItemInProgressClick = { },
                         onPlaylistsClick = { },
                         onSettingsClick = { },
-                        scalingLazyListState = scrollState,
-                        scalingParams = scalingParams,
+                        columnState = columnState,
                         onDownloadItemInProgressClickActionLabel = "cancel"
                     )
                 }
             }
         }
+    }
+}
+
+public fun ScalingLazyColumnState.copy(scalingParams: ScalingParams): ScalingLazyColumnState = ScalingLazyColumnState(
+    initialScrollPosition,
+    autoCentering,
+    anchorType,
+    contentPadding,
+    rotaryMode,
+    reverseLayout,
+    verticalArrangement,
+    horizontalAlignment,
+    flingBehavior,
+    userScrollEnabled,
+    scalingParams
+)
+
+public fun ScalingLazyColumnState.Factory.copy(scalingParams: ScalingParams): ScalingLazyColumnState.Factory {
+    return object : ScalingLazyColumnState.Factory {
+        @Composable
+        override fun create(): ScalingLazyColumnState =
+            this@copy.create().copy(scalingParams = scalingParams)
     }
 }

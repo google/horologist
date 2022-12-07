@@ -21,6 +21,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ScalingLazyListState
@@ -92,3 +94,23 @@ public fun Modifier.scrollAway(
     itemIndex: Int = 1,
     offset: Dp = 0.dp
 ): Modifier = scrollAwayCompose(scrollState, itemIndex, offset)
+
+/**
+ * Scroll an item vertically in/out of view based on a [ScalingLazyListState].
+ * Typically used to scroll a [TimeText] item out of view as the user starts to scroll
+ * a [ScalingLazyColumn] of items upwards and bring additional items into view.
+ *
+ * @param scalingLazyColumnState The list config.
+ */
+public fun Modifier.scrollAway(
+    scalingLazyColumnState: ScalingLazyColumnState
+): Modifier = composed {
+    val offset = with(LocalDensity.current) {
+        scalingLazyColumnState.initialScrollPosition.offsetPx.toDp()
+    }
+    scrollAwayCompose(
+        scrollState = scalingLazyColumnState.state,
+        itemIndex = scalingLazyColumnState.initialScrollPosition.index,
+        offset = offset
+    )
+}

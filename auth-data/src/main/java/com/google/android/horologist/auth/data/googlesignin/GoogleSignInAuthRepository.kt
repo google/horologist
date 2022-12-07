@@ -16,17 +16,17 @@
 
 package com.google.android.horologist.auth.data.googlesignin
 
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import android.content.Context
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import com.google.android.horologist.auth.data.common.model.AuthUser
+import com.google.android.horologist.auth.data.common.repository.AuthRepository
 
 @ExperimentalHorologistAuthDataApi
-public interface AuthGoogleSignInAccountListener {
+public class GoogleSignInAuthRepository(
+    private val applicationContext: Context
+) : AuthRepository {
 
-    public suspend fun onAccountReceived(account: GoogleSignInAccount): Unit
-}
-
-@ExperimentalHorologistAuthDataApi
-public class AuthGoogleSignInAccountListenerNoOpImpl : AuthGoogleSignInAccountListener {
-
-    override suspend fun onAccountReceived(account: GoogleSignInAccount): Unit = Unit
+    override suspend fun getAuthUser(): AuthUser? =
+        AuthUserMapper.map(GoogleSignIn.getLastSignedInAccount(applicationContext))
 }

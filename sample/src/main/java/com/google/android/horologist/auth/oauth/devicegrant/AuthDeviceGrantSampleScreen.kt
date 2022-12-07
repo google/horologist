@@ -18,9 +18,6 @@ package com.google.android.horologist.auth.oauth.devicegrant
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -49,13 +46,8 @@ fun AuthDeviceGrantSampleScreen(
         }
 
         AuthDeviceGrantScreenState.Success -> {
-            var showDialog by rememberSaveable { mutableStateOf(true) }
-
             SignedInConfirmationDialog(
-                showDialog = showDialog,
                 onDismissOrTimeout = {
-                    showDialog = false
-
                     onAuthSuccess()
                 },
                 modifier = modifier

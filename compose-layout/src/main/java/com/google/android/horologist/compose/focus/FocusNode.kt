@@ -95,6 +95,18 @@ public fun RequestFocusWhenActive(focusRequester: FocusRequester) {
 }
 
 /**
+ * Creates, remembers and returns a new [FocusRequester], that will have .requestFocus called
+ * when the enclosing [HierarchicalFocusCoordinator] becomes active.
+ * Note that the location you call this is important, in particular, which
+ * [HierarchicalFocusCoordinator] is enclosing it. Also, this may call requestFocus in the returned
+ * FocusRequester, so that focusRequester should be used in a .focusRequester modifier on a
+ * Composable that is part of the composition.
+ */
+@Composable
+public fun rememberActiveFocusRequester(): FocusRequester =
+    remember { FocusRequester() }.also { RequestFocusWhenActive(it) }
+
+/**
  * Implements a node in the Focus control tree (either a [FocusControl] or [OnFocusChange]).
  * Each [FocusComposableImpl] maps to a [FocusNode] in our internal representation, this is used to:
  * 1) Check that our parent is focused (or we have no explicit parent), to see if we can be focused.

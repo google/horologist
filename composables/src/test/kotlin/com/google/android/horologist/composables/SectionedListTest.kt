@@ -15,7 +15,11 @@
  */
 
 @file:Suppress("TestFunctionName" /* incorrectly flagging composable functions */)
-@file:OptIn(ExperimentalHorologistPaparazziApi::class, ExperimentalHorologistComposablesApi::class)
+@file:OptIn(
+    ExperimentalHorologistPaparazziApi::class,
+    ExperimentalHorologistComposablesApi::class,
+    ExperimentalHorologistComposeLayoutApi::class
+)
 
 package com.google.android.horologist.composables
 
@@ -31,7 +35,6 @@ import androidx.compose.material.icons.filled.FeaturedPlayList
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -44,6 +47,9 @@ import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.compose.tools.a11y.forceState
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
@@ -58,14 +64,10 @@ class SectionedListTest {
     @Test
     fun loadingSection() {
         paparazzi.snapshot {
-            val scrollState = ScalingLazyListState()
-            scrollState.forceState(0, 0)
+            val columnState = positionedState(0, 0)
 
-            SectionedListPreview(scrollState) {
-                SectionedList(
-                    focusRequester = FocusRequester(),
-                    scalingLazyListState = scrollState
-                ) {
+            SectionedListPreview(columnState.state) {
+                SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Loading())
 
                     favouritesSection(state = Section.State.Empty())
@@ -77,14 +79,10 @@ class SectionedListTest {
     @Test
     fun loadedSection() {
         paparazzi.snapshot {
-            val scrollState = ScalingLazyListState()
-            scrollState.forceState(0, 0)
+            val columnState = positionedState(0, 0)
 
-            SectionedListPreview(scrollState) {
-                SectionedList(
-                    focusRequester = FocusRequester(),
-                    scalingLazyListState = scrollState
-                ) {
+            SectionedListPreview(columnState.state) {
+                SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Loaded(downloads))
 
                     favouritesSection(state = Section.State.Failed())
@@ -96,14 +94,10 @@ class SectionedListTest {
     @Test
     fun loadedSection_secondPage() {
         paparazzi.snapshot {
-            val scrollState = ScalingLazyListState()
-            scrollState.forceState(4, 0)
+            val columnState = positionedState(4, 0)
 
-            SectionedListPreview(scrollState) {
-                SectionedList(
-                    focusRequester = FocusRequester(),
-                    scalingLazyListState = scrollState
-                ) {
+            SectionedListPreview(columnState.state) {
+                SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Loaded(downloads))
 
                     favouritesSection(state = Section.State.Failed())
@@ -115,14 +109,10 @@ class SectionedListTest {
     @Test
     fun failedSection() {
         paparazzi.snapshot {
-            val scrollState = ScalingLazyListState()
-            scrollState.forceState(0, 0)
+            val columnState = positionedState(0, 0)
 
-            SectionedListPreview(scrollState) {
-                SectionedList(
-                    focusRequester = FocusRequester(),
-                    scalingLazyListState = scrollState
-                ) {
+            SectionedListPreview(columnState.state) {
+                SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Failed())
 
                     favouritesSection(state = Section.State.Loaded(favourites))
@@ -134,14 +124,10 @@ class SectionedListTest {
     @Test
     fun failedSection_secondPage() {
         paparazzi.snapshot {
-            val scrollState = ScalingLazyListState()
-            scrollState.forceState(4, 0)
+            val columnState = positionedState(4, 0)
 
-            SectionedListPreview(scrollState) {
-                SectionedList(
-                    focusRequester = FocusRequester(),
-                    scalingLazyListState = scrollState
-                ) {
+            SectionedListPreview(columnState.state) {
+                SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Failed())
 
                     favouritesSection(state = Section.State.Loaded(favourites))
@@ -153,14 +139,10 @@ class SectionedListTest {
     @Test
     fun emptySection() {
         paparazzi.snapshot {
-            val scrollState = ScalingLazyListState()
-            scrollState.forceState(0, 0)
+            val columnState = positionedState(0, 0)
 
-            SectionedListPreview(scrollState) {
-                SectionedList(
-                    focusRequester = FocusRequester(),
-                    scalingLazyListState = scrollState
-                ) {
+            SectionedListPreview(columnState.state) {
+                SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Empty())
 
                     favouritesSection(state = Section.State.Loading())
@@ -386,5 +368,15 @@ class SectionedListTest {
             modifier = Modifier.fillMaxWidth(),
             colors = ChipDefaults.secondaryChipColors()
         )
+    }
+}
+
+@Composable
+public fun positionedState(
+    topIndex: Int,
+    topScrollOffset: Int
+): ScalingLazyColumnState {
+    return ScalingLazyColumnDefaults.belowTimeText().create().apply {
+        state.forceState(topIndex, topScrollOffset)
     }
 }

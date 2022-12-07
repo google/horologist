@@ -36,16 +36,15 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.CardDefaults
 import androidx.wear.compose.material.PlaceholderDefaults
-import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TitleCard
 import androidx.wear.compose.material.placeholder
 import androidx.wear.compose.material.placeholderShimmer
 import androidx.wear.compose.material.rememberPlaceholderState
-import androidx.wear.compose.material.rememberScalingLazyListState
+import com.google.android.horologist.compose.layout.ScalingLazyColumn
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.paging.items
 import com.google.android.horologist.compose.tools.WearSquareDevicePreview
 import com.google.android.horologist.sample.R
@@ -56,7 +55,11 @@ import kotlin.math.ceil
 import kotlin.time.Duration.Companion.seconds
 
 @Composable
-fun PagingScreen(navController: NavController) {
+fun PagingScreen(
+    navController: NavController,
+    columnState: ScalingLazyColumnState,
+    modifier: Modifier = Modifier
+) {
     val myBackend = remember { MyBackend() }
 
     val pager: Pager<Int, PagingItem> = remember {
@@ -72,8 +75,8 @@ fun PagingScreen(navController: NavController) {
     val lazyPagingItems = pager.flow.collectAsLazyPagingItems()
 
     ScalingLazyColumn(
-        state = rememberScalingLazyListState(initialCenterItemIndex = 0),
-        autoCentering = AutoCenteringParams(itemIndex = 0)
+        modifier = modifier,
+        columnState = columnState
     ) {
         if (lazyPagingItems.loadState.refresh == LoadState.Loading) {
             items(10) {

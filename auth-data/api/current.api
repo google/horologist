@@ -6,15 +6,51 @@ package com.google.android.horologist.auth.data {
 
 }
 
+package com.google.android.horologist.auth.data.common.model {
+
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class AuthUser {
+    ctor public AuthUser(optional String? displayName, optional String? email, optional String? avatarUri);
+    method public String? component1();
+    method public String? component2();
+    method public String? component3();
+    method public com.google.android.horologist.auth.data.common.model.AuthUser copy(String? displayName, String? email, String? avatarUri);
+    method public String? getAvatarUri();
+    method public String? getDisplayName();
+    method public String? getEmail();
+    property public final String? avatarUri;
+    property public final String? displayName;
+    property public final String? email;
+  }
+
+}
+
+package com.google.android.horologist.auth.data.common.repository {
+
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface AuthRepository {
+    method public suspend Object? getAuthUser(kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.common.model.AuthUser> p);
+  }
+
+}
+
 package com.google.android.horologist.auth.data.googlesignin {
 
-  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface AuthGoogleSignInAccountListener {
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class AuthUserMapper {
+    method public com.google.android.horologist.auth.data.common.model.AuthUser? map(com.google.android.gms.auth.api.signin.GoogleSignInAccount? googleSignInAccount);
+    field public static final com.google.android.horologist.auth.data.googlesignin.AuthUserMapper INSTANCE;
+  }
+
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface GoogleSignInAccountListener {
     method public suspend Object? onAccountReceived(com.google.android.gms.auth.api.signin.GoogleSignInAccount account, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
   }
 
-  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class AuthGoogleSignInAccountListenerNoOpImpl implements com.google.android.horologist.auth.data.googlesignin.AuthGoogleSignInAccountListener {
-    ctor public AuthGoogleSignInAccountListenerNoOpImpl();
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class GoogleSignInAccountListenerNoOpImpl implements com.google.android.horologist.auth.data.googlesignin.GoogleSignInAccountListener {
+    ctor public GoogleSignInAccountListenerNoOpImpl();
     method public suspend Object? onAccountReceived(com.google.android.gms.auth.api.signin.GoogleSignInAccount account, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+  }
+
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class GoogleSignInAuthRepository implements com.google.android.horologist.auth.data.common.repository.AuthRepository {
+    ctor public GoogleSignInAuthRepository(android.content.Context applicationContext);
+    method public suspend Object? getAuthUser(kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.common.model.AuthUser> p);
   }
 
 }

@@ -36,11 +36,12 @@ import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
+import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.AlertDialog
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreen
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
@@ -49,13 +50,13 @@ import com.google.android.horologist.mediasample.R
 
 @Composable
 fun UampEntityScreen(
+    columnState: ScalingLazyColumnState,
     playlistName: String,
     uampEntityScreenViewModel: UampEntityScreenViewModel,
     onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
     onShuffleClick: (PlaylistUiModel) -> Unit,
     onPlayClick: (PlaylistUiModel) -> Unit,
-    onErrorDialogCancelClick: () -> Unit,
-    scalingLazyListState: ScalingLazyListState
+    onErrorDialogCancelClick: () -> Unit
 ) {
     val uiState by uampEntityScreenViewModel.uiState.collectAsStateWithLifecycle()
 
@@ -86,7 +87,7 @@ fun UampEntityScreen(
             uampEntityScreenViewModel.play()
             onPlayClick(it)
         },
-        scalingLazyListState = scalingLazyListState,
+        columnState = columnState,
         onDownloadCompletedButtonClick = {
             showRemoveDownloadsDialog = true
         },
@@ -98,7 +99,7 @@ fun UampEntityScreen(
         Dialog(
             showDialog = true,
             onDismissRequest = onErrorDialogCancelClick,
-            scrollState = scalingLazyListState
+            scrollState = rememberScalingLazyListState()
         ) {
             Alert(
                 title = {
@@ -142,7 +143,7 @@ fun UampEntityScreen(
             uampEntityScreenViewModel.remove()
         },
         showDialog = showCancelDownloadsDialog,
-        scalingLazyListState = scalingLazyListState,
+        scalingLazyListState = rememberScalingLazyListState(),
         okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
         cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description)
     )
@@ -157,7 +158,7 @@ fun UampEntityScreen(
             uampEntityScreenViewModel.remove()
         },
         showDialog = showRemoveDownloadsDialog,
-        scalingLazyListState = scalingLazyListState,
+        scalingLazyListState = rememberScalingLazyListState(),
         okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
         cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description)
     )

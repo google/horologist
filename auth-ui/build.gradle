@@ -43,10 +43,12 @@ android {
 
     kotlinOptions {
         jvmTarget = '1.8'
-        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+        freeCompilerArgs += "-opt-in=androidx.lifecycle.compose.ExperimentalLifecycleComposeApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi"
-        freeCompilerArgs += "-opt-in=androidx.lifecycle.compose.ExperimentalLifecycleComposeApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi"
+        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
     }
 
     composeOptions {
@@ -97,6 +99,8 @@ dependencies {
 
     implementation projects.authComposables
     implementation projects.authData
+    implementation projects.baseUi
+    implementation projects.composeLayout
 
     implementation libs.androidx.activity.compose
     implementation libs.androidx.lifecycle.viewmodel.compose

@@ -18,20 +18,15 @@ package com.google.android.horologist.auth
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
-import androidx.wear.compose.material.ScalingLazyListState
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
-import com.google.android.horologist.compose.focus.RequestFocusWhenActive
-import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
-import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
@@ -40,17 +35,11 @@ import com.google.android.horologist.sample.Screen
 fun AuthMenuScreen(
     navigateToRoute: (String) -> Unit,
     modifier: Modifier = Modifier,
-    scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
-    focusRequester: FocusRequester = remember { FocusRequester() }
+    columnState: ScalingLazyColumnState
 ) {
     SectionedList(
-        focusRequester = focusRequester,
-        scalingLazyListState = scalingLazyListState,
+        columnState = columnState,
         modifier = modifier
-            .rotaryWithSnap(
-                focusRequester,
-                scalingLazyListState.toRotaryScrollAdapter()
-            )
     ) {
         authPKCESection(navigateToRoute)
 
@@ -58,8 +47,6 @@ fun AuthMenuScreen(
 
         googleSignInSection(navigateToRoute)
     }
-
-    RequestFocusWhenActive(focusRequester)
 }
 
 private fun SectionedListScope.authPKCESection(navigateToRoute: (String) -> Unit) {
@@ -132,5 +119,8 @@ private fun SectionedListScope.googleSignInSection(navigateToRoute: (String) -> 
 @WearPreviewDevices
 @Composable
 fun AuthMenuScreenPreview() {
-    AuthMenuScreen(navigateToRoute = {})
+    AuthMenuScreen(
+        navigateToRoute = {},
+        columnState = belowTimeTextPreview()
+    )
 }

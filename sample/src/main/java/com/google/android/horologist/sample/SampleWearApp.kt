@@ -263,67 +263,6 @@ fun SampleWearApp() {
             GoogleSignOutScreen(navController = navController)
         }
         scrollable(
-            route = Screen.AuthMenuScreen.route
-        ) {
-            AuthMenuScreen(
-                modifier = Modifier.fillMaxSize(),
-                navigateToRoute = { route -> navController.navigate(route) },
-                columnState = it.columnState
-            )
-        }
-        scrollable(
-            route = Screen.AuthPKCESignInPromptScreen.route
-        ) {
-            AuthPKCESignInPromptScreen(
-                navController = navController,
-                columnState = it.columnState
-            )
-        }
-        composable(route = Screen.AuthPKCEScreen.route) {
-            AuthPKCESampleScreen(
-                onAuthSuccess = { navController.popBackStack() }
-            )
-        }
-        composable(route = Screen.AuthDeviceGrantScreen.route) {
-            AuthDeviceGrantSampleScreen(
-                onAuthSuccess = { navController.popBackStack() }
-            )
-        }
-        composable(route = Screen.AuthPKCEScreen.route) {
-            AuthPKCESampleScreen(
-                onAuthSuccess = { navController.popBackStack() }
-            )
-        }
-        scrollable(
-            route = Screen.AuthDeviceGrantSignInPromptScreen.route
-        ) {
-            AuthDeviceGrantSignInPromptScreen(
-                navController = navController,
-                columnState = it.columnState
-            )
-        }
-        composable(route = Screen.AuthDeviceGrantScreen.route) {
-            AuthDeviceGrantSampleScreen(
-                onAuthSuccess = { navController.popBackStack() }
-            )
-        }
-        scrollable(
-            route = Screen.GoogleSignInPromptSampleScreen.route
-        ) {
-            GoogleSignInPromptSampleScreen(
-                navController = navController,
-                columnState = it.columnState
-            )
-        }
-        composable(route = Screen.AuthGoogleSignInScreen.route) {
-            GoogleSignInSampleScreen(
-                onAuthSuccess = { navController.popBackStack() }
-            )
-        }
-        composable(route = Screen.AuthGoogleSignOutScreen.route) {
-            GoogleSignOutScreen(navController = navController)
-        }
-        scrollable(
             route = Screen.Paging.route,
             columnStateFactory = ScalingLazyColumnDefaults.belowTimeText(firstItemIsFullWidth = true)
         ) {

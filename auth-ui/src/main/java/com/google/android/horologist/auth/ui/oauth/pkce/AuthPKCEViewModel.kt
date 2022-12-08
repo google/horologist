@@ -25,7 +25,7 @@ import com.google.android.horologist.auth.data.oauth.pkce.AuthPKCETokenPayloadLi
 import com.google.android.horologist.auth.data.oauth.pkce.AuthPKCETokenPayloadListenerNoOpImpl
 import com.google.android.horologist.auth.data.oauth.pkce.AuthPKCETokenRepository
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
-import com.google.android.horologist.auth.ui.ext.compareSetAndExecute
+import com.google.android.horologist.auth.ui.ext.compareAndSet
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -48,7 +48,7 @@ public open class AuthPKCEViewModel<AuthPKCEConfig, OAuthCodePayload, TokenPaylo
     )
 
     public fun startAuthFlow() {
-        _uiState.compareSetAndExecute(
+        _uiState.compareAndSet(
             expect = AuthPKCEScreenState.Idle,
             update = AuthPKCEScreenState.Loading
         ) {

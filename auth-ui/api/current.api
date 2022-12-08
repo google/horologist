@@ -55,7 +55,7 @@ package com.google.android.horologist.auth.ui.common.screens {
 
 package com.google.android.horologist.auth.ui.ext {
 
-  public final class CompareSetAndExecuteKt {
+  public final class CompareAndSetKt {
   }
 
 }

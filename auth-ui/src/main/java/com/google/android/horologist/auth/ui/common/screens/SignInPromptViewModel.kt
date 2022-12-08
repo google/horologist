@@ -20,7 +20,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.auth.data.common.repository.AuthRepository
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
-import com.google.android.horologist.auth.ui.ext.compareSetAndExecute
+import com.google.android.horologist.auth.ui.ext.compareAndSet
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -41,7 +41,7 @@ public open class SignInPromptViewModel(
     )
 
     public fun startFlow() {
-        _uiState.compareSetAndExecute(
+        _uiState.compareAndSet(
             expect = SignInPromptScreenState.Idle,
             update = SignInPromptScreenState.Loading
         ) {

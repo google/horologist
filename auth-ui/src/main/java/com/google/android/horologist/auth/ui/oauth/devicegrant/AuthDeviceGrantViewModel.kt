@@ -24,7 +24,7 @@ import com.google.android.horologist.auth.data.oauth.devicegrant.AuthDeviceGrant
 import com.google.android.horologist.auth.data.oauth.devicegrant.AuthDeviceGrantTokenRepository
 import com.google.android.horologist.auth.data.oauth.devicegrant.AuthDeviceGrantVerificationInfoRepository
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
-import com.google.android.horologist.auth.ui.ext.compareSetAndExecute
+import com.google.android.horologist.auth.ui.ext.compareAndSet
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -49,7 +49,7 @@ public open class AuthDeviceGrantViewModel<AuthDeviceGrantConfig, VerificationIn
     )
 
     public fun startAuthFlow() {
-        _uiState.compareSetAndExecute(
+        _uiState.compareAndSet(
             expect = AuthDeviceGrantScreenState.Idle,
             update = AuthDeviceGrantScreenState.Loading
         ) {

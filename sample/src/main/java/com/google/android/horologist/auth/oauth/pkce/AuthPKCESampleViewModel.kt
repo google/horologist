@@ -25,17 +25,15 @@ import com.google.android.horologist.auth.data.oauth.pkce.impl.AuthPKCEOAuthCode
 import com.google.android.horologist.auth.data.oauth.pkce.impl.google.AuthPKCEConfigRepositoryGoogleImpl
 import com.google.android.horologist.auth.data.oauth.pkce.impl.google.AuthPKCETokenRepositoryGoogleImpl
 import com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEViewModel
+import com.google.android.horologist.components.SampleApplication
 import com.google.android.horologist.sample.BuildConfig
-import com.squareup.moshi.Moshi
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 
 object AuthPKCESampleViewModel {
 
     val Factory: ViewModelProvider.Factory = viewModelFactory {
 
         initializer {
-            val application = this[APPLICATION_KEY]!!
+            val application = this[APPLICATION_KEY]!! as SampleApplication
 
             AuthPKCEViewModel(
                 authPKCEConfigRepository = AuthPKCEConfigRepositoryGoogleImpl(
@@ -45,15 +43,8 @@ object AuthPKCESampleViewModel {
                 authPKCEOAuthCodeRepository = AuthPKCEOAuthCodeRepositoryImpl(application),
                 authPKCETokenRepository = AuthPKCETokenRepositoryGoogleImpl(
                     GoogleOAuthServiceFactory(
-                        okHttpClient = OkHttpClient.Builder()
-                            .also { builder ->
-                                builder.addInterceptor(
-                                    HttpLoggingInterceptor().also { interceptor ->
-                                        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-                                    }
-                                )
-                            }.build(),
-                        moshi = Moshi.Builder().build()
+                        okHttpClient = application.okHttpClient,
+                        moshi = application.moshi
                     ).get()
                 )
             )

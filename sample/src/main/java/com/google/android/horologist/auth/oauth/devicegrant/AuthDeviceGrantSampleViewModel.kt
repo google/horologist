@@ -25,28 +25,19 @@ import com.google.android.horologist.auth.data.oauth.devicegrant.impl.AuthDevice
 import com.google.android.horologist.auth.data.oauth.devicegrant.impl.google.AuthDeviceGrantTokenRepositoryGoogleImpl
 import com.google.android.horologist.auth.data.oauth.devicegrant.impl.google.AuthDeviceGrantVerificationInfoRepositoryGoogleImpl
 import com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantViewModel
+import com.google.android.horologist.components.SampleApplication
 import com.google.android.horologist.sample.BuildConfig
-import com.squareup.moshi.Moshi
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 
 object AuthDeviceGrantSampleViewModel {
 
     val Factory: ViewModelProvider.Factory = viewModelFactory {
 
         initializer {
-            val application = this[APPLICATION_KEY]!!
+            val application = this[APPLICATION_KEY]!! as SampleApplication
 
             val googleOAuthService = GoogleOAuthServiceFactory(
-                okHttpClient = OkHttpClient.Builder()
-                    .also { builder ->
-                        builder.addInterceptor(
-                            HttpLoggingInterceptor().also { interceptor ->
-                                interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-                            }
-                        )
-                    }.build(),
-                moshi = Moshi.Builder().build()
+                okHttpClient = application.okHttpClient,
+                moshi = application.moshi
             ).get()
 
             AuthDeviceGrantViewModel(

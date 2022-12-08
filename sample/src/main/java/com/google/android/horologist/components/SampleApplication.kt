@@ -26,6 +26,7 @@ import com.google.android.horologist.networks.InMemoryStatusLogger
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.status.NetworkRepository
 import com.google.android.horologist.sample.di.SampleAppDI
+import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineScope
 import okhttp3.Call
 import okhttp3.OkHttpClient
@@ -37,6 +38,7 @@ class SampleApplication : Application() {
     lateinit var networkRepository: NetworkRepository
     lateinit var dataRequestRepository: DataRequestRepository
     lateinit var networkAwareCallFactory: Call.Factory
+    lateinit var moshi: Moshi
 
     lateinit var registry: WearDataLayerRegistry
 

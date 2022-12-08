@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.googlesignin
+package com.google.android.horologist.auth.googlesignin.prompt
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

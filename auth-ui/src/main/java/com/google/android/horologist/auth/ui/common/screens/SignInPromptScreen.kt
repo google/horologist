@@ -23,12 +23,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -42,7 +40,6 @@ import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.base.ui.components.Title
-import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
@@ -91,8 +88,6 @@ public fun SignInPromptScreen(
         }
 
         SignInPromptScreenState.SignedOut -> {
-            val focusRequester = remember { FocusRequester() }
-
             ScalingLazyColumn(
                 modifier = modifier,
                 columnState = columnState
@@ -114,8 +109,6 @@ public fun SignInPromptScreen(
                 }
                 apply(content)
             }
-
-            RequestFocusWhenActive(focusRequester)
         }
     }
 }

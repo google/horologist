@@ -62,6 +62,12 @@ package com.google.android.horologist.auth.ui.ext {
 
 package com.google.android.horologist.auth.ui.googlesignin {
 
+  @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public final class GoogleSignInPromptViewModel {
+    method public androidx.lifecycle.ViewModelProvider.Factory getFactory();
+    property public final androidx.lifecycle.ViewModelProvider.Factory Factory;
+    field public static final com.google.android.horologist.auth.ui.googlesignin.GoogleSignInPromptViewModel INSTANCE;
+  }
+
   public final class GoogleSignInScreenKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static void GoogleSignInScreen(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.auth.ui.googlesignin.GoogleSignInViewModel viewModel, kotlin.jvm.functions.Function1<? super com.google.android.horologist.auth.ui.googlesignin.GoogleSignInScreenState.Success,kotlin.Unit> successContent, kotlin.jvm.functions.Function0<kotlin.Unit> failedContent);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static void GoogleSignInScreen(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.auth.ui.googlesignin.GoogleSignInViewModel viewModel, kotlin.jvm.functions.Function0<kotlin.Unit> onAuthSucceed);

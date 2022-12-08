@@ -14,26 +14,23 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.googlesignin
+package com.google.android.horologist.auth.ui.googlesignin
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAuthRepository
+import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.auth.ui.common.screens.SignInPromptViewModel
 
-class GoogleSignInPromptViewModel(
-    googleSignInAuthRepository: GoogleSignInAuthRepository
-) : SignInPromptViewModel(googleSignInAuthRepository) {
+@ExperimentalHorologistAuthUiApi
+public object GoogleSignInPromptViewModel {
+    public val Factory: ViewModelProvider.Factory = viewModelFactory {
+        initializer {
+            val application = this[APPLICATION_KEY]!!
 
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val application = this[APPLICATION_KEY]!!
-
-                GoogleSignInPromptViewModel(GoogleSignInAuthRepository(application))
-            }
+            SignInPromptViewModel(GoogleSignInAuthRepository(application))
         }
     }
 }

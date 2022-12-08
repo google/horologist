@@ -16,6 +16,8 @@ com.google.android.horologist.auth.composables.dialogs
 com.google.android.horologist.auth.composables.screens
 module:auth-data
 com.google.android.horologist.auth.data
+com.google.android.horologist.auth.data.common.model
+com.google.android.horologist.auth.data.common.repository
 com.google.android.horologist.auth.data.googlesignin
 com.google.android.horologist.auth.data.oauth.common.impl.google.api
 com.google.android.horologist.auth.data.oauth.devicegrant
@@ -25,7 +27,9 @@ com.google.android.horologist.auth.data.oauth.pkce
 com.google.android.horologist.auth.data.oauth.pkce.impl
 com.google.android.horologist.auth.data.oauth.pkce.impl.google
 module:auth-ui
+com.google.android.horologist.auth.composables.screens
 com.google.android.horologist.auth.ui
+com.google.android.horologist.auth.ui.common.screens
 com.google.android.horologist.auth.ui.googlesignin
 com.google.android.horologist.auth.ui.oauth.devicegrant
 com.google.android.horologist.auth.ui.oauth.pkce

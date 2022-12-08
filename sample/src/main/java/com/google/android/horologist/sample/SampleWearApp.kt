@@ -34,8 +34,9 @@ import com.google.android.horologist.auth.data.oauth.common.impl.google.api.Toke
 import com.google.android.horologist.auth.data.oauth.devicegrant.impl.AuthDeviceGrantDefaultConfig
 import com.google.android.horologist.auth.data.oauth.pkce.impl.AuthPKCEDefaultConfig
 import com.google.android.horologist.auth.data.oauth.pkce.impl.google.AuthPKCEOAuthCodeGooglePayload
-import com.google.android.horologist.auth.googlesignin.GoogleSignInPromptSampleScreen
-import com.google.android.horologist.auth.googlesignin.GoogleSignOutScreen
+import com.google.android.horologist.auth.googlesignin.prompt.GoogleSignInPromptSampleScreen
+import com.google.android.horologist.auth.googlesignin.signin.GoogleSignInSampleViewModel
+import com.google.android.horologist.auth.googlesignin.signout.GoogleSignOutScreen
 import com.google.android.horologist.auth.oauth.devicegrant.AuthDeviceGrantSampleViewModel
 import com.google.android.horologist.auth.oauth.devicegrant.AuthDeviceGrantSignInPromptScreen
 import com.google.android.horologist.auth.oauth.pkce.AuthPKCESampleViewModel
@@ -266,7 +267,9 @@ fun SampleWearApp() {
             )
         }
         composable(route = Screen.GoogleSignInScreen.route) {
-            GoogleSignInScreen { navController.popBackStack() }
+            GoogleSignInScreen(viewModel = viewModel(factory = GoogleSignInSampleViewModel.Factory)) {
+                navController.popBackStack()
+            }
         }
         composable(route = Screen.GoogleSignOutScreen.route) {
             GoogleSignOutScreen(navController = navController)

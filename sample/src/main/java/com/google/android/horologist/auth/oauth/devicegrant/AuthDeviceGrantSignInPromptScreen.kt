@@ -25,6 +25,7 @@ import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.ui.common.screens.SignInPromptScreen
+import com.google.android.horologist.auth.ui.common.screens.SignInPromptViewModel
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
@@ -37,7 +38,7 @@ fun AuthDeviceGrantSignInPromptScreen(
     navController: NavHostController,
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
-    viewModel: AuthDeviceGrantSignInPromptViewModel = viewModel(factory = AuthDeviceGrantSignInPromptViewModel.Factory)
+    viewModel: SignInPromptViewModel = viewModel(factory = AuthDeviceGrantSignInPromptViewModel.Factory)
 ) {
     SignInPromptScreen(
         message = stringResource(id = R.string.auth_device_grant_sign_in_prompt_message),

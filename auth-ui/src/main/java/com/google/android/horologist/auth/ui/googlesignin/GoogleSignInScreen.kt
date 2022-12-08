@@ -21,48 +21,49 @@ import android.content.Intent
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContract
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.wear.compose.material.CircularProgressIndicator
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
 import com.google.android.gms.common.api.ApiException
+import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
+import com.google.android.horologist.auth.composables.screens.AuthErrorScreen
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
+import com.google.android.horologist.auth.ui.common.screens.LoadingView
 
 @ExperimentalHorologistAuthUiApi
 @Composable
 public fun GoogleSignInScreen(
-    viewModel: GoogleSignInViewModel = viewModel()
+    modifier: Modifier = Modifier,
+    viewModel: GoogleSignInViewModel = viewModel(),
+    successContent: @Composable (successState: GoogleSignInScreenState.Success) -> Unit,
+    failedContent: @Composable () -> Unit
 ) {
-    var executedOnce by rememberSaveable { mutableStateOf(false) }
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (state) {
-        AuthGoogleSignInScreenState.Idle -> {
+        GoogleSignInScreenState.Idle -> {
             SideEffect {
-                if (!executedOnce) {
-                    executedOnce = true
-                    viewModel.startAuthFlow()
-                }
+                viewModel.startAuthFlow()
             }
+
+            LoadingView(modifier = modifier)
         }
 
-        AuthGoogleSignInScreenState.SelectAccount -> {
+        GoogleSignInScreenState.SelectAccount -> {
+            LoadingView(modifier = modifier)
+
             val context = LocalContext.current
 
             var googleSignInAccount by remember {
@@ -82,7 +83,9 @@ public fun GoogleSignInScreen(
                 )
 
                 val signInRequestLauncher = rememberLauncherForActivityResult(
-                    contract = GoogleSignInContract(googleSignInClient) { viewModel.onAccountSelectionFailed() }
+                    contract = GoogleSignInContract(
+                        googleSignInClient
+                    ) { viewModel.onAccountSelectionFailed() }
                 ) { account ->
                     googleSignInAccount = account
                     googleSignInAccount?.let {
@@ -96,19 +99,39 @@ public fun GoogleSignInScreen(
             }
         }
 
-        AuthGoogleSignInScreenState.Failed,
-        is AuthGoogleSignInScreenState.Success -> {
-            // do nothing
+        GoogleSignInScreenState.Failed -> {
+            failedContent()
+        }
+
+        is GoogleSignInScreenState.Success -> {
+            successContent(state as GoogleSignInScreenState.Success)
         }
     }
+}
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator()
-    }
+@ExperimentalHorologistAuthUiApi
+@Composable
+public fun GoogleSignInScreen(
+    modifier: Modifier = Modifier,
+    viewModel: GoogleSignInViewModel = viewModel(),
+    onAuthSucceed: () -> Unit
+) {
+    GoogleSignInScreen(
+        viewModel = viewModel,
+        successContent = { successState ->
+            SignedInConfirmationDialog(
+                modifier = modifier,
+                name = successState.displayName,
+                email = successState.email,
+                avatarUri = successState.photoUrl
+            ) {
+                onAuthSucceed()
+            }
+        },
+        failedContent = {
+            AuthErrorScreen(modifier)
+        }
+    )
 }
 
 /**
@@ -119,8 +142,10 @@ private class GoogleSignInContract(
     private val onTaskFailed: () -> Unit
 ) : ActivityResultContract<Unit, GoogleSignInAccount?>() {
 
-    override fun createIntent(context: Context, input: Unit): Intent =
-        googleSignInClient.signInIntent
+    override fun createIntent(
+        context: Context,
+        input: Unit
+    ): Intent = googleSignInClient.signInIntent
 
     override fun parseResult(resultCode: Int, intent: Intent?): GoogleSignInAccount? {
         val task = GoogleSignIn.getSignedInAccountFromIntent(intent)

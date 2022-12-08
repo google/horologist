@@ -24,6 +24,7 @@ import com.google.android.horologist.auth.data.oauth.devicegrant.AuthDeviceGrant
 import com.google.android.horologist.auth.data.oauth.devicegrant.AuthDeviceGrantTokenRepository
 import com.google.android.horologist.auth.data.oauth.devicegrant.AuthDeviceGrantVerificationInfoRepository
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
+import com.google.android.horologist.auth.ui.ext.compareAndSet
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -48,31 +49,35 @@ public open class AuthDeviceGrantViewModel<AuthDeviceGrantConfig, VerificationIn
     )
 
     public fun startAuthFlow() {
-        viewModelScope.launch {
-            _uiState.value = AuthDeviceGrantScreenState.Loading
+        _uiState.compareAndSet(
+            expect = AuthDeviceGrantScreenState.Idle,
+            update = AuthDeviceGrantScreenState.Loading
+        ) {
+            viewModelScope.launch {
+                val config = authDeviceGrantConfigRepository.fetch()
 
-            val config = authDeviceGrantConfigRepository.fetch()
+                // Step 1: Retrieve the verification URI
+                val verificationInfoPayload =
+                    authDeviceGrantVerificationInfoRepository.fetch(config).getOrElse {
+                        _uiState.value = AuthDeviceGrantScreenState.Failed
+                        return@launch
+                    }
 
-            // Step 1: Retrieve the verification URI
-            val verificationInfoPayload =
-                authDeviceGrantVerificationInfoRepository.fetch(config).getOrElse {
-                    _uiState.value = AuthDeviceGrantScreenState.Failed
-                    return@launch
-                }
+                // Step 2: Show the pairing code & open the verification URI on the paired device
+                // Step 3: Poll the Auth server for the token
+                _uiState.value = AuthDeviceGrantScreenState.CheckPhone(
+                    checkPhonePayloadMapper(config, verificationInfoPayload)
+                )
+                val tokenPayload =
+                    authDeviceGrantTokenRepository.fetch(config, verificationInfoPayload)
+                        .getOrElse {
+                            _uiState.value = AuthDeviceGrantScreenState.Failed
+                            return@launch
+                        }
+                authDeviceGrantTokenPayloadListener.onPayloadReceived(tokenPayload)
 
-            // Step 2: Show the pairing code & open the verification URI on the paired device
-            // Step 3: Poll the Auth server for the token
-            _uiState.value = AuthDeviceGrantScreenState.CheckPhone(
-                checkPhonePayloadMapper(config, verificationInfoPayload)
-            )
-            val tokenPayload = authDeviceGrantTokenRepository.fetch(config, verificationInfoPayload)
-                .getOrElse {
-                    _uiState.value = AuthDeviceGrantScreenState.Failed
-                    return@launch
-                }
-            authDeviceGrantTokenPayloadListener.onPayloadReceived(tokenPayload)
-
-            _uiState.value = AuthDeviceGrantScreenState.Success
+                _uiState.value = AuthDeviceGrantScreenState.Success
+            }
         }
     }
 }

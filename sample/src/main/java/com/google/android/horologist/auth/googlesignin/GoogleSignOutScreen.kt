@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.auth.googlesignin
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
@@ -26,6 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.base.ui.components.ConfirmationDialog
 import com.google.android.horologist.sample.R
@@ -39,7 +42,15 @@ fun GoogleSignOutScreen(
 
     when (state) {
         GoogleSignOutScreenState.Idle -> {
-            // do nothing
+            SideEffect {
+                viewModel.startFlow()
+            }
+
+            LoadingView()
+        }
+
+        GoogleSignOutScreenState.Loading -> {
+            LoadingView()
         }
 
         GoogleSignOutScreenState.Success -> {
@@ -59,5 +70,15 @@ fun GoogleSignOutScreen(
                 navController.popBackStack()
             }
         }
+    }
+}
+
+@Composable
+private fun LoadingView() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator()
     }
 }

@@ -35,15 +35,18 @@ public open class GoogleSignInViewModel(
 ) : ViewModel() {
 
     private val _uiState =
-        MutableStateFlow<AuthGoogleSignInScreenState>(AuthGoogleSignInScreenState.Idle)
-    public val uiState: StateFlow<AuthGoogleSignInScreenState> = _uiState.stateIn(
+        MutableStateFlow<GoogleSignInScreenState>(GoogleSignInScreenState.Idle)
+    public val uiState: StateFlow<GoogleSignInScreenState> = _uiState.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
-        initialValue = AuthGoogleSignInScreenState.Idle
+        initialValue = GoogleSignInScreenState.Idle
     )
 
     public fun startAuthFlow() {
-        _uiState.value = AuthGoogleSignInScreenState.SelectAccount
+        _uiState.compareAndSet(
+            expect = GoogleSignInScreenState.Idle,
+            update = GoogleSignInScreenState.SelectAccount
+        )
     }
 
     public fun onAccountSelected(account: GoogleSignInAccount) {
@@ -51,7 +54,7 @@ public open class GoogleSignInViewModel(
             googleSignInAccountListener.onAccountReceived(account)
         }
 
-        _uiState.value = AuthGoogleSignInScreenState.Success(
+        _uiState.value = GoogleSignInScreenState.Success(
             displayName = account.displayName,
             email = account.email,
             photoUrl = account.photoUrl
@@ -59,19 +62,21 @@ public open class GoogleSignInViewModel(
     }
 
     public fun onAccountSelectionFailed() {
-        _uiState.value = AuthGoogleSignInScreenState.Failed
+        _uiState.value = GoogleSignInScreenState.Failed
     }
 }
 
 @ExperimentalHorologistAuthUiApi
-public sealed class AuthGoogleSignInScreenState {
-    public object Idle : AuthGoogleSignInScreenState()
-    public object SelectAccount : AuthGoogleSignInScreenState()
+public sealed class GoogleSignInScreenState {
+
+    public object Idle : GoogleSignInScreenState()
+
+    public object SelectAccount : GoogleSignInScreenState()
     public data class Success(
         val displayName: String?,
         val email: String?,
         val photoUrl: Uri?
-    ) : AuthGoogleSignInScreenState()
+    ) : GoogleSignInScreenState()
 
-    public object Failed : AuthGoogleSignInScreenState()
+    public object Failed : GoogleSignInScreenState()
 }

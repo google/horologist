@@ -19,43 +19,67 @@ package com.google.android.horologist.auth.ui.oauth.devicegrant
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
+import com.google.android.horologist.auth.composables.screens.AuthErrorScreen
 import com.google.android.horologist.auth.composables.screens.CheckYourPhoneScreen
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
+import com.google.android.horologist.auth.ui.common.screens.LoadingView
 
 @ExperimentalHorologistAuthUiApi
 @Composable
 public fun <AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload> AuthDeviceGrantScreen(
-    viewModel: AuthDeviceGrantViewModel<AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload>
+    modifier: Modifier = Modifier,
+    viewModel: AuthDeviceGrantViewModel<AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload>,
+    successContent: @Composable (successState: AuthDeviceGrantScreenState.Success) -> Unit,
+    failedContent: @Composable () -> Unit
 ) {
-    var executedOnce by rememberSaveable { mutableStateOf(false) }
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (state) {
         AuthDeviceGrantScreenState.Idle -> {
             SideEffect {
-                if (!executedOnce) {
-                    executedOnce = true
-                    viewModel.startAuthFlow()
-                }
+                viewModel.startAuthFlow()
             }
         }
 
         AuthDeviceGrantScreenState.Loading -> {
-            CheckYourPhoneScreen()
+            LoadingView(modifier = modifier)
         }
 
         is AuthDeviceGrantScreenState.CheckPhone -> {
             val code = (state as AuthDeviceGrantScreenState.CheckPhone).code
-            CheckYourPhoneScreen(message = code)
+            CheckYourPhoneScreen(modifier = modifier, message = code)
         }
 
-        AuthDeviceGrantScreenState.Success,
         AuthDeviceGrantScreenState.Failed -> {
-            // do nothing
+            failedContent()
+        }
+
+        AuthDeviceGrantScreenState.Success -> {
+            successContent(state as AuthDeviceGrantScreenState.Success)
         }
     }
+}
+
+@ExperimentalHorologistAuthUiApi
+@Composable
+public fun <AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload> AuthDeviceGrantScreen(
+    modifier: Modifier = Modifier,
+    viewModel: AuthDeviceGrantViewModel<AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload>,
+    onAuthSucceed: () -> Unit
+) {
+    AuthDeviceGrantScreen(
+        modifier = modifier,
+        viewModel = viewModel,
+        successContent = {
+            SignedInConfirmationDialog(modifier = modifier) {
+                onAuthSucceed()
+            }
+        },
+        failedContent = {
+            AuthErrorScreen(modifier = modifier)
+        }
+    )
 }

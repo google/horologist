@@ -16,23 +16,16 @@
 
 package com.google.android.horologist.auth.ui.common.screens
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyListScope
 import androidx.wear.compose.material.Text
@@ -54,24 +47,19 @@ public fun SignInPromptScreen(
     columnState: ScalingLazyColumnState,
     content: ScalingLazyListScope.() -> Unit
 ) {
-    var executedOnce by rememberSaveable { mutableStateOf(false) }
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (state) {
         SignInPromptScreenState.Idle -> {
             SideEffect {
-                if (!executedOnce) {
-                    executedOnce = true
-
-                    viewModel.startFlow()
-                }
+                viewModel.startFlow()
             }
 
-            LoadingView()
+            LoadingView(modifier = modifier)
         }
 
         SignInPromptScreenState.Loading -> {
-            LoadingView()
+            LoadingView(modifier = modifier)
         }
 
         is SignInPromptScreenState.SignedIn -> {
@@ -80,11 +68,10 @@ public fun SignInPromptScreen(
             SignedInConfirmationDialog(
                 name = signedInState.displayName,
                 email = signedInState.email,
-                avatarUri = signedInState.avatarUri,
-                onDismissOrTimeout = {
-                    onAlreadySignedIn()
-                }
-            )
+                avatarUri = signedInState.avatarUri
+            ) {
+                onAlreadySignedIn()
+            }
         }
 
         SignInPromptScreenState.SignedOut -> {
@@ -110,16 +97,5 @@ public fun SignInPromptScreen(
                 apply(content)
             }
         }
-    }
-}
-
-@Composable
-internal fun LoadingView() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator()
     }
 }

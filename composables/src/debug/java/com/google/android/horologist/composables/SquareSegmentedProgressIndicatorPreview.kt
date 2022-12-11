@@ -39,6 +39,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
@@ -180,6 +181,36 @@ fun PreviewSquare() {
     )
 }
 
+@OptIn(ExperimentalHorologistComposablesApi::class)
+@WearSquareDevicePreview
+@Composable
+fun PreviewSquareWithBrushColors() {
+    SquareSegmentedProgressIndicator(
+        modifier = Modifier
+            .height(300.dp)
+            .width(300.dp),
+        progress = 1f,
+        trackSegments = previewProgressSectionsBrush,
+        cornerRadiusDp = 0.dp,
+        paddingDp = 10.dp
+    )
+}
+
+@OptIn(ExperimentalHorologistComposablesApi::class)
+@WearSquareDevicePreview
+@Composable
+fun PreviewSquareWithBrushAndColorsCombined() {
+    SquareSegmentedProgressIndicator(
+        modifier = Modifier
+            .height(300.dp)
+            .width(300.dp),
+        progress = 1f,
+        trackSegments = previewProgressSectionsBrushAndColorCombined,
+        cornerRadiusDp = 0.dp,
+        paddingDp = 10.dp
+    )
+}
+
 val previewProgressSections = listOf(
     ProgressIndicatorSegment(
         weight = 3f,
@@ -192,5 +223,41 @@ val previewProgressSections = listOf(
     ProgressIndicatorSegment(
         weight = 3f,
         indicatorColor = Color.Yellow
+    )
+)
+
+val previewProgressSectionsBrush = listOf(
+    ProgressIndicatorSegment(
+        1f,
+        Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan))
+    ),
+    ProgressIndicatorSegment(
+        weight = 1f,
+        indicatorBrush = Brush.horizontalGradient(
+            listOf(Color.Cyan, Color.Magenta, Color.Yellow)
+        )
+    ),
+    ProgressIndicatorSegment(
+        weight = 1f,
+        indicatorBrush = Brush.horizontalGradient(
+            listOf(Color.Yellow, Color.Magenta, Color.Cyan)
+        )
+    )
+)
+
+val previewProgressSectionsBrushAndColorCombined = listOf(
+    ProgressIndicatorSegment(
+        1f,
+        Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan))
+    ),
+    ProgressIndicatorSegment(
+        weight = 1f,
+        indicatorColor = Color.Cyan
+    ),
+    ProgressIndicatorSegment(
+        weight = 1f,
+        indicatorBrush = Brush.horizontalGradient(
+            listOf(Color.Yellow, Color.Magenta, Color.Cyan)
+        )
     )
 )

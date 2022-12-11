@@ -19,10 +19,12 @@ package com.google.android.horologist.composables
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.android.horologist.compose.tools.WearSmallRoundDevicePreview
 
 @OptIn(ExperimentalHorologistComposablesApi::class)
 @Preview(device = Devices.WEAR_OS_LARGE_ROUND, showSystemUi = true)
@@ -54,6 +56,70 @@ private fun SegmentedProgressIndicatorSquarePreview() {
         ProgressIndicatorSegment(1f, Color.Cyan),
         ProgressIndicatorSegment(1f, Color.Magenta),
         ProgressIndicatorSegment(1f, Color.Yellow)
+    )
+
+    SegmentedProgressIndicator(
+        trackSegments = segments,
+        progress = 0.75f,
+        modifier = Modifier.fillMaxSize(),
+        strokeWidth = 15.dp,
+        paddingAngle = 2f,
+        trackColor = Color.Gray
+    )
+}
+
+@OptIn(ExperimentalHorologistComposablesApi::class)
+@WearSmallRoundDevicePreview
+@Composable
+private fun SegmentedProgressIndicatorBrushPreview() {
+    val segments = listOf(
+        ProgressIndicatorSegment(
+            1f,
+            Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan))
+        ),
+        ProgressIndicatorSegment(
+            weight = 1f,
+            indicatorBrush = Brush.horizontalGradient(
+                listOf(Color.Cyan, Color.Magenta, Color.Yellow)
+            )
+        ),
+        ProgressIndicatorSegment(
+            weight = 1f,
+            indicatorBrush = Brush.horizontalGradient(
+                listOf(Color.Yellow, Color.Magenta, Color.Cyan)
+            )
+        )
+    )
+
+    SegmentedProgressIndicator(
+        trackSegments = segments,
+        progress = 0.75f,
+        modifier = Modifier.fillMaxSize(),
+        strokeWidth = 15.dp,
+        paddingAngle = 2f,
+        trackColor = Color.Gray
+    )
+}
+
+@OptIn(ExperimentalHorologistComposablesApi::class)
+@WearSmallRoundDevicePreview
+@Composable
+private fun SegmentedProgressIndicatorBrushColorCombinedPreview() {
+    val segments = listOf(
+        ProgressIndicatorSegment(
+            1f,
+            Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan))
+        ),
+        ProgressIndicatorSegment(
+            weight = 1f,
+            indicatorColor = Color.Cyan
+        ),
+        ProgressIndicatorSegment(
+            weight = 1f,
+            indicatorBrush = Brush.horizontalGradient(
+                listOf(Color.Yellow, Color.Magenta, Color.Cyan)
+            )
+        )
     )
 
     SegmentedProgressIndicator(

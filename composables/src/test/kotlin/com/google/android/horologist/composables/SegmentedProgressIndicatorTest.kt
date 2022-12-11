@@ -20,6 +20,7 @@ package com.google.android.horologist.composables
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.unit.dp
@@ -47,6 +48,72 @@ class SegmentedProgressIndicatorTest {
                         .compositeOver(Color.Gray)
                 ),
                 ProgressIndicatorSegment(2f, Color.Red)
+            )
+
+            SegmentedProgressIndicator(
+                trackSegments = segments,
+                progress = 0.5833f,
+                modifier = Modifier.fillMaxSize(),
+                strokeWidth = 10.dp,
+                paddingAngle = 2f,
+                trackColor = Color.Gray
+            )
+        }
+    }
+
+    @OptIn(ExperimentalHorologistComposablesApi::class)
+    @Test
+    fun segmentedPickerWithBrushColors() {
+        paparazzi.snapshot {
+            val segments = listOf(
+                ProgressIndicatorSegment(
+                    1f,
+                    Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan))
+                ),
+                ProgressIndicatorSegment(
+                    weight = 1f,
+                    indicatorBrush = Brush.horizontalGradient(
+                        listOf(Color.Cyan, Color.Magenta, Color.Yellow)
+                    )
+                ),
+                ProgressIndicatorSegment(
+                    weight = 1f,
+                    indicatorBrush = Brush.horizontalGradient(
+                        listOf(Color.Yellow, Color.Magenta, Color.Cyan)
+                    )
+                )
+            )
+
+            SegmentedProgressIndicator(
+                trackSegments = segments,
+                progress = 0.5833f,
+                modifier = Modifier.fillMaxSize(),
+                strokeWidth = 10.dp,
+                paddingAngle = 2f,
+                trackColor = Color.Gray
+            )
+        }
+    }
+
+    @OptIn(ExperimentalHorologistComposablesApi::class)
+    @Test
+    fun segmentedPickerWithBrushColorsAndColorsCombined() {
+        paparazzi.snapshot {
+            val segments = listOf(
+                ProgressIndicatorSegment(
+                    1f,
+                    Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan))
+                ),
+                ProgressIndicatorSegment(
+                    weight = 1f,
+                    indicatorColor = Color.Cyan
+                ),
+                ProgressIndicatorSegment(
+                    weight = 1f,
+                    indicatorBrush = Brush.horizontalGradient(
+                        listOf(Color.Yellow, Color.Magenta, Color.Cyan)
+                    )
+                )
             )
 
             SegmentedProgressIndicator(

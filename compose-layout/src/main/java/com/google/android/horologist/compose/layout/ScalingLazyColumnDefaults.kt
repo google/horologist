@@ -38,7 +38,7 @@ public object ScalingLazyColumnDefaults {
      */
     @ExperimentalHorologistComposeLayoutApi
     public fun belowTimeText(
-        rotaryMode: RotaryMode = RotaryMode.Snap,
+        rotaryMode: RotaryMode = RotaryMode.Fling,
         firstItemIsFullWidth: Boolean = false
     ): ScalingLazyColumnState.Factory {
         return object : ScalingLazyColumnState.Factory {
@@ -73,7 +73,7 @@ public object ScalingLazyColumnDefaults {
      */
     @ExperimentalHorologistComposeLayoutApi
     public fun scalingLazyColumnDefaults(
-        rotaryMode: RotaryMode = RotaryMode.Snap,
+        rotaryMode: RotaryMode = RotaryMode.Fling,
         initialCenterIndex: Int = 1,
         initialCenterOffset: Int = 0
     ): ScalingLazyColumnState.Factory {

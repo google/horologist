@@ -16,15 +16,8 @@
 
 package com.google.android.horologist.test.toolbox.matchers
 
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.semantics.CustomSemanticsProperties.IconImageVectorKey
-
-@ExperimentalHorologistMediaUiApi
-fun hasIconImageVector(imageVector: ImageVector): SemanticsMatcher =
-    SemanticsMatcher.expectValue(IconImageVectorKey, imageVector)
 
 fun hasProgressBar(): SemanticsMatcher =
     SemanticsMatcher.keyIsDefined(SemanticsProperties.ProgressBarRangeInfo)

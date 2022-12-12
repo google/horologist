@@ -1,4 +1,4 @@
-name: Build & test
+name: Build & test (nightly release)
 
 on:
   schedule:

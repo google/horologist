@@ -1,0 +1,65 @@
+name: Build & test
+
+on:
+  schedule:
+    - cron: '0 2 * * *' # 2am UTC
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # Fetch expanded history, which is needed for affected module detection
+          fetch-depth: '500'
+          lfs: 'true'
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Generate cache key
+        run: ./checksum.sh checksum.txt
+
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches/modules-*
+            ~/.gradle/caches/jars-*
+            ~/.gradle/caches/build-cache-*
+          key: gradle-${{ hashFiles('checksum.txt') }}
+
+      - name: Build (Release)
+        run: |
+          ./gradlew --scan --stacktrace \
+              assembleRelease
+
+      - name: Code analysis
+        run: |
+          ./gradlew --scan --stacktrace \
+              lintRelease
+
+      - name: Upload test results and reports
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-results
+          path: |
+            **/build/test-results/*
+            **/build/reports/*
+            **/build/reports/affectedModuleDetector/*
+
+      - name: Upload apks
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: apks
+          path: |
+            **/build/outputs/apk/release/*.apk

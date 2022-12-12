@@ -55,3 +55,11 @@ jobs:
             **/build/test-results/*
             **/build/reports/*
             **/build/reports/affectedModuleDetector/*
+
+      - name: Upload apks
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: apks
+          path: |
+            **/build/outputs/apk/release/*.apk

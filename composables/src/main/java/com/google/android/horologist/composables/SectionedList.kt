@@ -62,9 +62,9 @@ public fun SectionedList(
     sections: List<Section<*>> = emptyList()
 ) {
     ScalingLazyColumn(
+        columnState = columnState,
         modifier = modifier
-            .fillMaxSize(),
-        columnState = columnState
+            .fillMaxSize()
     ) {
         sections.forEach { section ->
             section.display(this)

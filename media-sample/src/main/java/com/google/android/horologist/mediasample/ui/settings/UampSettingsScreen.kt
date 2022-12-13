@@ -50,9 +50,9 @@ fun UampSettingsScreen(
     modifier: Modifier = Modifier
 ) {
     ScalingLazyColumn(
+        columnState = columnState,
         modifier = modifier
-            .fillMaxSize(),
-        columnState = columnState
+            .fillMaxSize()
     ) {
         item {
             Text(

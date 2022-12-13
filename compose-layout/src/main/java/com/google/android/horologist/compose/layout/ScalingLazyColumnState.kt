@@ -100,8 +100,8 @@ public class ScalingLazyColumnState(
 
 @Composable
 public fun ScalingLazyColumn(
-    modifier: Modifier = Modifier,
     columnState: ScalingLazyColumnState,
+    modifier: Modifier = Modifier,
     content: ScalingLazyListScope.() -> Unit
 ) {
     val focusRequester = rememberActiveFocusRequester()

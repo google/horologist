@@ -40,6 +40,8 @@ import kotlinx.coroutines.flow.reduce
 import kotlinx.coroutines.flow.stateIn
 import java.io.IOException
 import javax.inject.Inject
+import kotlin.time.DurationUnit
+import kotlin.time.toDuration
 
 @HiltViewModel
 class MediaPlayerAppViewModel @Inject constructor(
@@ -91,7 +93,7 @@ class MediaPlayerAppViewModel @Inject constructor(
         // If it's currently not playing and user opted in to load items at startup,
         // then we start playing using the last played media item.
         if (currentMediaItem == null && settings.loadItemsAtStartup) {
-            playItems(settings.currentMediaItemId, settings.currentMediaListId)
+            playItems(settings.currentMediaItemId, settings.currentMediaListId, settings.currentPosition)
         } else if (currentMediaItem == null) {
             val loadAtStartup =
                 settingsRepository.settingsFlow.first().loadItemsAtStartup
@@ -104,7 +106,7 @@ class MediaPlayerAppViewModel @Inject constructor(
         }
     }
 
-    suspend fun playItems(mediaId: String?, collectionId: String) {
+    suspend fun playItems(mediaId: String?, collectionId: String, position: Long) {
         try {
             playlistRepository.get(collectionId)?.let { playlist ->
                 val index = playlist.mediaList
@@ -118,8 +120,15 @@ class MediaPlayerAppViewModel @Inject constructor(
                         id ->
                     settingsRepository.edit { it.copy { currentMediaItemId = id } }
                 }
+                settingsRepository.edit { it.copy { currentPosition = position } }
 
-                playerRepository.setMediaListAndPlay(playlist.mediaList, index)
+                playerRepository.setMediaList(
+                    playlist.mediaList,
+                    index,
+                    position.toDuration(
+                        DurationUnit.MILLISECONDS
+                    )
+                )
             }
         } catch (e: IOException) {
             snackbarManager.showMessage(

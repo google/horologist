@@ -110,6 +110,10 @@ class MockPlayerRepository(
         // do nothing
     }
 
+    override fun setMediaList(mediaList: List<Media>, index: Int, position: Duration?) {
+        // do nothing
+    }
+
     override fun setMediaListAndPlay(mediaList: List<Media>, index: Int) {
         // do nothing
     }

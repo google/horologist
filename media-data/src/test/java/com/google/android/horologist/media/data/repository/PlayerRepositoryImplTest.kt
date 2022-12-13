@@ -46,6 +46,8 @@ import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowLooper
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.DurationUnit
+import kotlin.time.toDuration
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
@@ -559,6 +561,25 @@ class PlayerRepositoryImplTest {
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle)
         )
+    }
+
+    @Test
+    fun `given previous MediaList is set when setMediaList with position then position is correct`() {
+        // given
+        val player = TestExoPlayerBuilder(context).build()
+        sut.connect(player) {}
+        sut.setMediaList(listOf(getStubMedia("id1"), getStubMedia("id2")))
+
+        val media1 = getStubMedia("id3")
+        val media2 = getStubMedia("id4")
+        val mediaList = listOf(media1, media2)
+
+        // when
+        sut.setMediaList(mediaList, 0, 6000.toDuration(DurationUnit.MILLISECONDS))
+        runUntilPendingCommandsAreFullyHandled(player)
+
+        // then
+        assertThat(sut.player.value?.currentPosition).isEqualTo(6000)
     }
 
     @Ignore("Fix test once this issue is fixed: https://github.com/androidx/media/issues/85")

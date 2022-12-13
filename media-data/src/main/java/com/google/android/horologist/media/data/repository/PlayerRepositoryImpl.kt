@@ -17,6 +17,7 @@
 package com.google.android.horologist.media.data.repository
 
 import android.util.Log
+import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.Timeline
@@ -328,6 +329,19 @@ public class PlayerRepositoryImpl(
 
         player.value?.let {
             it.setMediaItems(mediaList.map(mediaItemMapper::map))
+            updatePosition()
+        }
+    }
+
+    /**
+     * This operation will stop the current [MediaItem] that is playing, if there is one, as per
+     * [Player.setMediaItems] and set the starting position to the position passed as parameter.
+     */
+    override fun setMediaList(mediaList: List<Media>, index: Int, position: Duration?) {
+        checkNotClosed()
+
+        player.value?.let {
+            it.setMediaItems(mediaList.map(mediaItemMapper::map), index, position?.inWholeMilliseconds ?: C.TIME_UNSET)
             updatePosition()
         }
     }

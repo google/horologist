@@ -16,20 +16,12 @@
 
 package com.google.android.horologist.test.toolbox.matchers
 
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.SemanticsMatcher
-import androidx.compose.ui.test.SemanticsMatcher.Companion.expectValue
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.hasStateDescription
-import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
-import com.google.android.horologist.audio.ui.semantics.CustomSemanticsProperties.IconImageVectorKey
-
-@ExperimentalHorologistAudioUiApi
-fun hasIconImageVector(imageVector: ImageVector): SemanticsMatcher =
-    expectValue(IconImageVectorKey, imageVector)
 
 fun SemanticsNodeInteraction.assertHasStateDescription(value: String): SemanticsNodeInteraction =
     assert(hasStateDescription(value))

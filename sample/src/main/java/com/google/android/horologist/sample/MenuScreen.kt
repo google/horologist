@@ -46,8 +46,8 @@ fun MenuScreen(
     columnState: ScalingLazyColumnState
 ) {
     ScalingLazyColumn(
-        modifier = modifier,
-        columnState = columnState
+        columnState = columnState,
+        modifier = modifier
     ) {
         item {
             ListHeader {

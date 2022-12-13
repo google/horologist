@@ -75,8 +75,8 @@ fun PagingScreen(
     val lazyPagingItems = pager.flow.collectAsLazyPagingItems()
 
     ScalingLazyColumn(
-        modifier = modifier,
-        columnState = columnState
+        columnState = columnState,
+        modifier = modifier
     ) {
         if (lazyPagingItems.loadState.refresh == LoadState.Loading) {
             items(10) {

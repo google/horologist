@@ -44,9 +44,9 @@ fun GoogleSignInPromptSampleScreen(
     SignInPromptScreen(
         message = stringResource(id = R.string.google_sign_in_prompt_message),
         onAlreadySignedIn = { navController.popBackStack() },
+        columnState = columnState,
         modifier = modifier,
-        viewModel = viewModel,
-        columnState = columnState
+        viewModel = viewModel
     ) {
         item {
             SignInChip(

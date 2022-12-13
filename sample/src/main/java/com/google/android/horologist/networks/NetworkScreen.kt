@@ -38,8 +38,8 @@ fun NetworkScreen(
     val uiState by viewModel.state.collectAsStateWithLifecycle()
 
     ScalingLazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        columnState = columnState
+        columnState = columnState,
+        modifier = Modifier.fillMaxSize()
     ) {
         item {
             Chip(

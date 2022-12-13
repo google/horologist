@@ -49,6 +49,7 @@ fun DataLayerNodesScreen(
             Chip(
                 onClick = { },
                 label = {
+                    // REMOVEME: comment to check issues in CI
                     Text("${it.displayName}(${it.id}) ${if (it.isNearby) "NEAR" else ""}")
                 }
             )

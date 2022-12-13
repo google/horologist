@@ -18,8 +18,10 @@
 
 package com.google.android.horologist.compose.layout
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
@@ -39,7 +41,13 @@ public object ScalingLazyColumnDefaults {
     @ExperimentalHorologistComposeLayoutApi
     public fun belowTimeText(
         rotaryMode: RotaryMode = RotaryMode.Fling,
-        firstItemIsFullWidth: Boolean = false
+        firstItemIsFullWidth: Boolean = false,
+        verticalArrangement: Arrangement.Vertical =
+            Arrangement.spacedBy(
+                space = 4.dp,
+                alignment = Alignment.Top
+            ),
+        horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
     ): ScalingLazyColumnState.Factory {
         return object : ScalingLazyColumnState.Factory {
             @Composable
@@ -60,7 +68,9 @@ public object ScalingLazyColumnDefaults {
                             offsetPx = topScreenOffsetPx
                         ),
                         anchorType = ScalingLazyListAnchorType.ItemStart,
-                        rotaryMode = rotaryMode
+                        rotaryMode = rotaryMode,
+                        verticalArrangement = verticalArrangement,
+                        horizontalAlignment = horizontalAlignment,
                     )
                 }
             }

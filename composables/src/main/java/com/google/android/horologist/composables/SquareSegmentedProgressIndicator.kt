@@ -26,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
@@ -126,7 +127,7 @@ public fun SquareSegmentedProgressIndicator(
                             it.drawCompleted(this, progress)
                         }
                     },
-                    color = segmentGroups.indicatorColor,
+                    brush = segmentGroups.indicatorBrush,
                     style = stroke
                 )
             }
@@ -137,7 +138,7 @@ public fun SquareSegmentedProgressIndicator(
 private typealias SegmentDrawable = Path.(ClosedRange<Float>) -> Unit
 
 internal data class CalculatedSegment(
-    val progressColor: Color,
+    val progressIndicator: Brush,
     val trackColor: Color,
     val drawFn: SegmentDrawable,
     val range: ClosedRange<Float>
@@ -161,7 +162,7 @@ internal data class CalculatedSegment(
 
 internal data class SegmentGroups(
     val groupNumber: Int,
-    val indicatorColor: Color,
+    val indicatorBrush: Brush,
     val trackColor: Color,
     val calculatedSegments: List<CalculatedSegment>
 )
@@ -334,54 +335,54 @@ internal data class Measures(
     }
 
     internal fun splitSegments(
-        indicatorColor: Color,
+        indicatorBrush: Brush,
         trackColor: Color,
         range: ClosedFloatingPointRange<Float>
     ): List<CalculatedSegment> {
         return buildList {
             range.intersect(topRightRange)?.let {
                 if (!it.isZeroWidth()) {
-                    add(CalculatedSegment(indicatorColor, trackColor, topRight, it))
+                    add(CalculatedSegment(indicatorBrush, trackColor, topRight, it))
                 }
             }
             range.intersect(rightTopCornerRange)?.let {
                 if (!it.isZeroWidth()) {
-                    add(CalculatedSegment(indicatorColor, trackColor, rightTopCorner, it))
+                    add(CalculatedSegment(indicatorBrush, trackColor, rightTopCorner, it))
                 }
             }
             range.intersect(rightRange)?.let {
                 if (!it.isZeroWidth()) {
-                    add(CalculatedSegment(indicatorColor, trackColor, right, it))
+                    add(CalculatedSegment(indicatorBrush, trackColor, right, it))
                 }
             }
             range.intersect(rightBottomCornerRange)?.let {
                 if (!it.isZeroWidth()) {
-                    add(CalculatedSegment(indicatorColor, trackColor, rightBottomCorner, it))
+                    add(CalculatedSegment(indicatorBrush, trackColor, rightBottomCorner, it))
                 }
             }
             range.intersect(bottomRange)?.let {
                 if (!it.isZeroWidth()) {
-                    add(CalculatedSegment(indicatorColor, trackColor, bottom, it))
+                    add(CalculatedSegment(indicatorBrush, trackColor, bottom, it))
                 }
             }
             range.intersect(leftBottomCornerRange)?.let {
                 if (!it.isZeroWidth()) {
-                    add(CalculatedSegment(indicatorColor, trackColor, leftBottomCorner, it))
+                    add(CalculatedSegment(indicatorBrush, trackColor, leftBottomCorner, it))
                 }
             }
             range.intersect(leftRange)?.let {
                 if (!it.isZeroWidth()) {
-                    add(CalculatedSegment(indicatorColor, trackColor, left, it))
+                    add(CalculatedSegment(indicatorBrush, trackColor, left, it))
                 }
             }
             range.intersect(leftTopCornerRange)?.let {
                 if (!it.isZeroWidth()) {
-                    add(CalculatedSegment(indicatorColor, trackColor, leftTopCorner, it))
+                    add(CalculatedSegment(indicatorBrush, trackColor, leftTopCorner, it))
                 }
             }
             range.intersect(topLeftRange)?.let {
                 if (!it.isZeroWidth()) {
-                    add(CalculatedSegment(indicatorColor, trackColor, topLeft, it))
+                    add(CalculatedSegment(indicatorBrush, trackColor, topLeft, it))
                 }
             }
         }
@@ -428,13 +429,13 @@ private fun calculateSegments(
     return buildList {
         trackSegments.forEachIndexed { segmentIndex, trackSegment ->
             val localTrackColor = trackSegment.trackColor ?: trackColor
-            val indicatorColor = trackSegment.indicatorColor
+            val indicatorBrush = trackSegment.indicatorBrush
 
             val paddedRange =
                 ((startWeight + startPaddingWeight) / paddedWeight)..((startWeight + startPaddingWeight + trackSegment.weight) / paddedWeight)
 
             val splitSegments = measures.splitSegments(
-                indicatorColor = indicatorColor,
+                indicatorBrush = indicatorBrush,
                 trackColor = localTrackColor,
                 range = paddedRange
             )
@@ -442,7 +443,7 @@ private fun calculateSegments(
             add(
                 SegmentGroups(
                     groupNumber = segmentIndex,
-                    indicatorColor = indicatorColor,
+                    indicatorBrush = indicatorBrush,
                     trackColor = localTrackColor,
                     calculatedSegments = splitSegments
                 )

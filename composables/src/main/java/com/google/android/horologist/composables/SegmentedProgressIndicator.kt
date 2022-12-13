@@ -24,7 +24,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -39,7 +41,7 @@ import kotlin.math.asin
  *
  * @param weight The proportion of the overall progress indicator that this segment should take up,
  * as a proportion of the sum of the weights of all the other segments.
- * @param indicatorColor The color of the indicator bar.
+ * @param indicatorBrush The color brush of the indicator bar.
  * @param trackColor The color of the background progress track. This is optional and if not
  * specified will default to the [trackColor] of the overall [SegmentedProgressIndicator].
  * @param inProgressTrackColor The color of the background progress track when this segment is in
@@ -48,10 +50,34 @@ import kotlin.math.asin
  */
 public data class ProgressIndicatorSegment(
     val weight: Float,
-    val indicatorColor: Color,
+    val indicatorBrush: Brush,
     val trackColor: Color? = null,
     val inProgressTrackColor: Color? = null
-)
+) {
+    /**
+     * Represents a segment of the track in a [SegmentedProgressIndicator].
+     *
+     * @param weight The proportion of the overall progress indicator that this segment should take up,
+     * as a proportion of the sum of the weights of all the other segments.
+     * @param indicatorColor The color of the indicator bar.
+     * @param trackColor The color of the background progress track. This is optional and if not
+     * specified will default to the [trackColor] of the overall [SegmentedProgressIndicator].
+     * @param inProgressTrackColor The color of the background progress track when this segment is in
+     * progress. This is optional, and if specified will take precedence to the [trackColor] of the
+     * segment or the overall [SegmentedProgressIndicator], when the segment is in progress.
+     */
+    public constructor(
+        weight: Float,
+        indicatorColor: Color,
+        trackColor: Color? = null,
+        inProgressTrackColor: Color? = null
+    ) : this(
+        weight = weight,
+        trackColor = trackColor,
+        inProgressTrackColor = inProgressTrackColor,
+        indicatorBrush = SolidColor(indicatorColor)
+    )
+}
 
 /**
  * Represents a segmented progress indicator.
@@ -170,6 +196,7 @@ private fun DrawScope.drawCircularProgressIndicator(
     val localTrackColor = when {
         segment.inProgressTrackColor != null && progressSweep > 0 && progressSweep < backgroundSweep ->
             segment.inProgressTrackColor
+
         segment.trackColor != null -> segment.trackColor
         else -> trackColor
     }
@@ -187,7 +214,7 @@ private fun DrawScope.drawCircularProgressIndicator(
 
     // Draw Progress
     drawArc(
-        color = segment.indicatorColor,
+        brush = segment.indicatorBrush,
         startAngle = currentStartAngle + endDelta,
         sweepAngle = progressSweep,
         useCenter = false,

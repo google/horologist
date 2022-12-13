@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
@@ -163,6 +164,84 @@ class SquareSegmentedProgressIndicatorTest {
                 ProgressIndicatorSegment(
                     weight = 1f,
                     indicatorColor = Color.Yellow
+                )
+            )
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black)
+            ) {
+                SquareSegmentedProgressIndicator(
+                    modifier = Modifier
+                        .height(300.dp)
+                        .width(300.dp),
+                    progress = 0.7833f,
+                    trackSegments = segments,
+                    cornerRadiusDp = 50.dp,
+                    paddingDp = 10.dp
+                )
+            }
+        }
+    }
+
+    @OptIn(ExperimentalHorologistComposablesApi::class)
+    @Test
+    fun squareSegmentedIndicatorFewSegmentsAndBrushColor() {
+        paparazzi.snapshot {
+            val segments = listOf(
+                ProgressIndicatorSegment(
+                    1f,
+                    Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan))
+                ),
+                ProgressIndicatorSegment(
+                    weight = 1f,
+                    indicatorBrush = Brush.horizontalGradient(
+                        listOf(Color.Cyan, Color.Magenta, Color.Yellow)
+                    )
+                ),
+                ProgressIndicatorSegment(
+                    weight = 1f,
+                    indicatorBrush = Brush.horizontalGradient(
+                        listOf(Color.Yellow, Color.Magenta, Color.Cyan)
+                    )
+                )
+            )
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black)
+            ) {
+                SquareSegmentedProgressIndicator(
+                    modifier = Modifier
+                        .height(300.dp)
+                        .width(300.dp),
+                    progress = 0.7833f,
+                    trackSegments = segments,
+                    cornerRadiusDp = 50.dp,
+                    paddingDp = 10.dp
+                )
+            }
+        }
+    }
+
+    @OptIn(ExperimentalHorologistComposablesApi::class)
+    @Test
+    fun squareSegmentedIndicatorFewSegmentsAndBrushColorAndColorsCombined() {
+        paparazzi.snapshot {
+            val segments = listOf(
+                ProgressIndicatorSegment(
+                    1f,
+                    Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan))
+                ),
+                ProgressIndicatorSegment(
+                    weight = 1f,
+                    indicatorColor = Color.Cyan
+                ),
+                ProgressIndicatorSegment(
+                    weight = 1f,
+                    indicatorBrush = Brush.horizontalGradient(
+                        listOf(Color.Yellow, Color.Magenta, Color.Cyan)
+                    )
                 )
             )
             Box(

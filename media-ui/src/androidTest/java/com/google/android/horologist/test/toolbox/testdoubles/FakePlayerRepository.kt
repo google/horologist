@@ -121,10 +121,6 @@ class FakePlayerRepository() : PlayerRepository {
         _mediaPosition.value = position?.let { MediaPosition.create(it, 10.seconds) }
     }
 
-    override fun setMediaListAndPlay(mediaList: List<Media>, index: Int) {
-        // do nothing
-    }
-
     override fun addMedia(media: Media) {
         // do nothing
     }

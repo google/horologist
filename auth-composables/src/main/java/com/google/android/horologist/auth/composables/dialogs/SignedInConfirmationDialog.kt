@@ -62,7 +62,7 @@ public fun SignedInConfirmationDialog(
     modifier: Modifier = Modifier,
     name: String? = null,
     email: String? = null,
-    avatarUri: Any? = null,
+    avatar: Any? = null,
     duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis),
     onDismissOrTimeout: () -> Unit
 ) {
@@ -75,7 +75,7 @@ public fun SignedInConfirmationDialog(
             modifier = modifier,
             displayName = name,
             email = email,
-            avatarUri = avatarUri
+            avatar = avatar
         )
     }
 }
@@ -86,7 +86,7 @@ internal fun SignedInConfirmationDialogContent(
     modifier: Modifier = Modifier,
     displayName: String? = null,
     email: String? = null,
-    avatarUri: Any? = null
+    avatar: Any? = null
 ) {
     val configuration = LocalConfiguration.current
     val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
@@ -101,7 +101,7 @@ internal fun SignedInConfirmationDialogContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val hasName = displayName != null
-        val hasAvatar = avatarUri != null
+        val hasAvatar = avatar != null
 
         Box(
             modifier = Modifier
@@ -112,7 +112,7 @@ internal fun SignedInConfirmationDialogContent(
             if (hasAvatar) {
                 Image(
                     modifier = Modifier.clip(CircleShape),
-                    painter = rememberAsyncImagePainter(model = avatarUri),
+                    painter = rememberAsyncImagePainter(model = avatar),
                     contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
                     contentScale = ContentScale.Fit
                 )

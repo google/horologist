@@ -50,7 +50,7 @@ public open class SignInPromptViewModel(
                     _uiState.value = SignInPromptScreenState.SignedIn(
                         displayName = authUser.displayName,
                         email = authUser.email,
-                        avatarUri = authUser.avatarUri
+                        avatar = authUser.avatarUri
                     )
                 } ?: run {
                     _uiState.value = SignInPromptScreenState.SignedOut
@@ -70,7 +70,7 @@ public sealed class SignInPromptScreenState {
     public data class SignedIn(
         val displayName: String? = null,
         val email: String? = null,
-        val avatarUri: Any? = null
+        val avatar: Any? = null
     ) : SignInPromptScreenState()
 
     public object SignedOut : SignInPromptScreenState()

@@ -49,7 +49,7 @@ class SignedInConfirmationDialogTest {
                     SignedInConfirmationDialogContent(
                         displayName = "Maggie",
                         email = "maggie@example.com",
-                        avatarUri = android.R.drawable.sym_def_app_icon
+                        avatar = android.R.drawable.sym_def_app_icon
                     )
                 }
             }
@@ -66,7 +66,7 @@ class SignedInConfirmationDialogTest {
                 ) {
                     SignedInConfirmationDialogContent(
                         email = "maggie@example.com",
-                        avatarUri = android.R.drawable.sym_def_app_icon
+                        avatar = android.R.drawable.sym_def_app_icon
                     )
                 }
             }
@@ -97,7 +97,7 @@ class SignedInConfirmationDialogTest {
                 ) {
                     SignedInConfirmationDialogContent(
                         displayName = "Maggie",
-                        avatarUri = android.R.drawable.sym_def_app_icon
+                        avatar = android.R.drawable.sym_def_app_icon
                     )
                 }
             }
@@ -127,7 +127,7 @@ class SignedInConfirmationDialogTest {
                     SignedInConfirmationDialogContent(
                         displayName = "Wolfeschlegelsteinhausenbergerdorff",
                         email = "wolfeschlegelsteinhausenbergerdorff@example.com",
-                        avatarUri = android.R.drawable.sym_def_app_icon
+                        avatar = android.R.drawable.sym_def_app_icon
                     )
                 }
             }

@@ -68,7 +68,7 @@ public fun SignInPromptScreen(
             SignedInConfirmationDialog(
                 name = signedInState.displayName,
                 email = signedInState.email,
-                avatarUri = signedInState.avatarUri
+                avatar = signedInState.avatar
             ) {
                 onAlreadySignedIn()
             }

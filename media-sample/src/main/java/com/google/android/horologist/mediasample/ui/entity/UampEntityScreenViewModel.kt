@@ -88,7 +88,9 @@ class UampEntityScreenViewModel @Inject constructor(
                 settingsRepository.edit { it.copy { currentMediaListId = playlistId } }
             }
             playerRepository.setShuffleModeEnabled(shuffled)
-            playerRepository.setMediaListAndPlay(playlistDownload.playlist.mediaList, index)
+            playerRepository.setMediaList(playlistDownload.playlist.mediaList, index)
+            playerRepository.prepare()
+            playerRepository.play()
         }
     }
 

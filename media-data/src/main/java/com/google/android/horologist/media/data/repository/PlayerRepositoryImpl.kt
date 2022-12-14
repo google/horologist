@@ -20,7 +20,6 @@ import android.util.Log
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
-import androidx.media3.common.Timeline
 import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.data.mapper.MediaExtrasMapperNoopImpl
 import com.google.android.horologist.media.data.mapper.MediaItemExtrasMapperNoopImpl
@@ -95,9 +94,6 @@ public class PlayerRepositoryImpl(
     private var _seekForwardIncrement = MutableStateFlow<Duration?>(null)
     override val seekForwardIncrement: StateFlow<Duration?> get() = _seekForwardIncrement
 
-    // https://github.com/google/horologist/issues/496
-    private var mediaIndexToSeekTo: Int? = null
-
     private val listener = object : Player.Listener {
         private val eventHandlers = mapOf(
             Player.EVENT_AVAILABLE_COMMANDS_CHANGED to ::updateAvailableCommands,
@@ -107,8 +103,6 @@ public class PlayerRepositoryImpl(
             Player.EVENT_SEEK_BACK_INCREMENT_CHANGED to ::updateSeekBackIncrement,
             Player.EVENT_SEEK_FORWARD_INCREMENT_CHANGED to ::updateSeekForwardIncrement,
             Player.EVENT_MEDIA_METADATA_CHANGED to ::updateCurrentMedia,
-            // Moved below until https://github.com/google/horologist/issues/496 solved
-//            Player.EVENT_TIMELINE_CHANGED to ::updateTimeline,
 
             // Reason for handling these events here, instead of using individual callbacks
             // (onIsLoadingChanged, onIsPlayingChanged, onPlaybackStateChanged, etc):
@@ -130,10 +124,6 @@ public class PlayerRepositoryImpl(
                     called.add(handler)
                 }
             }
-        }
-
-        override fun onTimelineChanged(timeline: Timeline, reason: Int) {
-            updateTimeline(player.value!!)
         }
     }
 
@@ -172,16 +162,6 @@ public class PlayerRepositoryImpl(
 
     private fun updateSeekForwardIncrement(player: Player) {
         _seekForwardIncrement.value = player.seekForwardIncrement.toDuration(DurationUnit.MILLISECONDS)
-    }
-
-    // TODO https://github.com/google/horologist/issues/496
-    private fun updateTimeline(player: Player) {
-        mediaIndexToSeekTo?.let { index ->
-            player.seekTo(index, 0)
-            player.prepare()
-            player.play()
-            mediaIndexToSeekTo = null
-        }
     }
 
     /**
@@ -343,16 +323,6 @@ public class PlayerRepositoryImpl(
         player.value?.let {
             it.setMediaItems(mediaList.map(mediaItemMapper::map), index, position?.inWholeMilliseconds ?: C.TIME_UNSET)
             updatePosition()
-        }
-    }
-
-    override fun setMediaListAndPlay(mediaList: List<Media>, index: Int) {
-        checkNotClosed()
-
-        player.value?.let {
-            it.setMediaItems(mediaList.map(mediaItemMapper::map))
-
-            mediaIndexToSeekTo = index
         }
     }
 

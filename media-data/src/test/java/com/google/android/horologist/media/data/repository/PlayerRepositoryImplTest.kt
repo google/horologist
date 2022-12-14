@@ -37,7 +37,6 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -580,36 +579,6 @@ class PlayerRepositoryImplTest {
 
         // then
         assertThat(sut.player.value?.currentPosition).isEqualTo(6000)
-    }
-
-    @Ignore("Fix test once this issue is fixed: https://github.com/androidx/media/issues/85")
-    @Test
-    fun `given NO previous MediaList is set when setMediaListAndPlay then state is correct`() {
-        // given
-        val player = TestExoPlayerBuilder(context).build()
-        sut.connect(player) {}
-
-        val media1 = getStubMedia("id1")
-        val media2 = getStubMedia("id2")
-        val mediaList = listOf(media1, media2)
-
-        // when
-        sut.setMediaListAndPlay(mediaList, 1)
-        runUntilPendingCommandsAreFullyHandled(player)
-
-        // then
-        assertThat(sut.getMediaCount()).isEqualTo(2)
-        assertThat(sut.getMediaAt(0)).isEqualTo(media1)
-        assertThat(sut.getMediaAt(1)).isEqualTo(media2)
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Playing)
-        assertThat(sut.currentMedia.value).isEqualTo(media2)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
-        assertThat(sut.shuffleModeEnabled.value).isFalse()
-        assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
-        assertThat(sut.availableCommands.value).containsExactlyElementsIn(
-            listOf(Command.PlayPause, Command.SkipToPreviousMedia, Command.SetShuffle)
-        )
     }
 
     @Test

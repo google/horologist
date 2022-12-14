@@ -15,8 +15,7 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistComposablesApi::class,
-    ExperimentalHorologistComposeLayoutApi::class
+    ExperimentalHorologistComposablesApi::class
 )
 
 package com.google.android.horologist.composables
@@ -39,13 +38,12 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 
 @WearPreviewDevices
 @Composable
 fun SectionedListPreviewLoadingSection() {
-    SectionedList() {
+    SectionedList {
         downloadsSection(state = Section.State.Loading())
 
         favouritesSection(state = Section.State.Empty())
@@ -55,7 +53,7 @@ fun SectionedListPreviewLoadingSection() {
 @WearPreviewDevices
 @Composable
 fun SectionedListPreviewLoadedSection() {
-    SectionedList() {
+    SectionedList {
         downloadsSection(state = Section.State.Loaded(downloads))
 
         favouritesSection(state = Section.State.Failed())
@@ -65,7 +63,7 @@ fun SectionedListPreviewLoadedSection() {
 @WearPreviewDevices
 @Composable
 fun SectionedListPreviewFailedSection() {
-    SectionedList() {
+    SectionedList {
         downloadsSection(state = Section.State.Failed())
 
         favouritesSection(state = Section.State.Loaded(favourites))
@@ -75,7 +73,7 @@ fun SectionedListPreviewFailedSection() {
 @WearPreviewDevices
 @Composable
 fun SectionedListPreviewEmptySection() {
-    SectionedList() {
+    SectionedList {
         downloadsSection(state = Section.State.Empty())
 
         favouritesSection(state = Section.State.Loading())

@@ -32,7 +32,7 @@ package com.google.android.horologist.compose.layout {
     field public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults INSTANCE;
   }
 
-  public final class ScalingLazyColumnState {
+  @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public final class ScalingLazyColumnState {
     ctor public ScalingLazyColumnState(optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.ScrollPosition initialScrollPosition, optional androidx.wear.compose.material.AutoCenteringParams? autoCentering, optional int anchorType, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode rotaryMode, optional boolean reverseLayout, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional androidx.compose.ui.Alignment.Horizontal horizontalAlignment, optional androidx.compose.foundation.gestures.FlingBehavior? flingBehavior, optional boolean userScrollEnabled, optional androidx.wear.compose.material.ScalingParams scalingParams);
     method public int getAnchorType();
     method public androidx.wear.compose.material.AutoCenteringParams? getAutoCentering();
@@ -92,7 +92,7 @@ package com.google.android.horologist.compose.layout {
   }
 
   public final class ScalingLazyColumnStateKt {
-    method @androidx.compose.runtime.Composable public static void ScalingLazyColumn(com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, optional androidx.compose.ui.Modifier modifier, kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListScope,kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static void ScalingLazyColumn(com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, optional androidx.compose.ui.Modifier modifier, kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListScope,kotlin.Unit> content);
   }
 
   public final class ScrollAwayKt {

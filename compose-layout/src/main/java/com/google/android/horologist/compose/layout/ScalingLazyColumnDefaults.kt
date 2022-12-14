@@ -47,7 +47,7 @@ public object ScalingLazyColumnDefaults {
                 space = 4.dp,
                 alignment = Alignment.Top
             ),
-        horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
+        horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally
     ): ScalingLazyColumnState.Factory {
         return object : ScalingLazyColumnState.Factory {
             @Composable
@@ -70,7 +70,7 @@ public object ScalingLazyColumnDefaults {
                         anchorType = ScalingLazyListAnchorType.ItemStart,
                         rotaryMode = rotaryMode,
                         verticalArrangement = verticalArrangement,
-                        horizontalAlignment = horizontalAlignment,
+                        horizontalAlignment = horizontalAlignment
                     )
                 }
             }

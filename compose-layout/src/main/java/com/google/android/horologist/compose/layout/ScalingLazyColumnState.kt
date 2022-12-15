@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistComposeLayoutApi::class)
 @file:Suppress("ObjectLiteralToLambda")
 
 package com.google.android.horologist.compose.layout
@@ -46,6 +45,7 @@ import androidx.wear.compose.material.ScalingLazyColumnDefaults as WearScalingLa
  * A Config and State object wrapping up all configuration for a [ScalingLazyColumn].
  * This allows defaults such as [ScalingLazyColumnDefaults.belowTimeText].
  */
+@ExperimentalHorologistComposeLayoutApi
 public class ScalingLazyColumnState(
     public val initialScrollPosition: ScrollPosition = ScrollPosition(1, 0),
     public val autoCentering: AutoCenteringParams? = AutoCenteringParams(
@@ -98,6 +98,7 @@ public class ScalingLazyColumnState(
     }
 }
 
+@ExperimentalHorologistComposeLayoutApi
 @Composable
 public fun ScalingLazyColumn(
     columnState: ScalingLazyColumnState,

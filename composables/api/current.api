@@ -105,8 +105,8 @@ package com.google.android.horologist.composables {
   }
 
   public final class SectionedListKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static void SectionedList(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionedListScope,kotlin.Unit> content);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static void SectionedList(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, optional java.util.List<? extends com.google.android.horologist.composables.Section<?>> sections);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void SectionedList(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionedListScope,kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void SectionedList(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, optional java.util.List<? extends com.google.android.horologist.composables.Section<?>> sections);
   }
 
   @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public final class SectionedListScope {

@@ -17,8 +17,7 @@
 @file:Suppress("TestFunctionName" /* incorrectly flagging composable functions */)
 @file:OptIn(
     ExperimentalHorologistPaparazziApi::class,
-    ExperimentalHorologistComposablesApi::class,
-    ExperimentalHorologistComposeLayoutApi::class
+    ExperimentalHorologistComposablesApi::class
 )
 
 package com.google.android.horologist.composables
@@ -49,7 +48,6 @@ import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.compose.tools.a11y.forceState
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi

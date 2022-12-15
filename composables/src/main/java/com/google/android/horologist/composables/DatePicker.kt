@@ -261,9 +261,10 @@ internal class DatePickerState constructor(
     private val toDate: LocalDate?
 ) {
     private val yearOffset = fromDate?.year ?: 1
+    val numOfYears = (toDate?.year ?: 3000) - (yearOffset - 1)
     val yearState =
         PickerState(
-            initialNumberOfOptions = (toDate?.year ?: 3000) - (yearOffset - 1),
+            initialNumberOfOptions = numOfYears,
             initiallySelectedOption = date.year - yearOffset
         )
     val selectedYearEqualsFromYear: Boolean

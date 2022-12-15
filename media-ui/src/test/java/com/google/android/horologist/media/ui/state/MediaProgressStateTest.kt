@@ -14,14 +14,8 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.ui.state.model
+package com.google.android.horologist.media.ui.state
 
-import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-
-@ExperimentalHorologistMediaUiApi
-public data class TrackPositionUiModel(
-    val current: Long,
-    val duration: Long,
-    val percent: Float,
-    val showProgress: Boolean
-)
+class MediaProgressStateTest {
+// TODO
+}

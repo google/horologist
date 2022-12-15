@@ -20,12 +20,12 @@ package com.google.android.horologist.media.ui.state
 
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
-import com.google.android.horologist.media.model.MediaPosition
+import com.google.android.horologist.media.model.PlaybackState
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
+import com.google.android.horologist.media.ui.state.model.MediaProgress
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
-import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.test.toolbox.testdoubles.MockPlayerRepository
 import com.google.common.truth.Truth
 import kotlinx.coroutines.flow.first
@@ -49,9 +49,13 @@ class PlayerUiStateProducerTest {
                     title = "title",
                     artist = "artist"
                 ),
-                mediaPositionValue = MediaPosition.create(
-                    current = 2.toDuration(DurationUnit.SECONDS),
-                    duration = 20.toDuration(DurationUnit.SECONDS)
+                playbackStateValue = PlaybackState(
+                    isPlaying = true,
+                    isLive = false,
+                    currentPosition = 2.toDuration(DurationUnit.SECONDS),
+                    duration = 20.toDuration(DurationUnit.SECONDS),
+                    playbackSpeed = 1f,
+                    elapsedRealtimeWhenCreated = 0.toDuration(DurationUnit.SECONDS)
                 )
             )
         )
@@ -70,7 +74,7 @@ class PlayerUiStateProducerTest {
                 playPauseEnabled = true,
                 playing = true,
                 media = MediaUiModel(id = "id", title = "title", subtitle = "artist"),
-                trackPosition = TrackPositionUiModel(current = 2000, duration = 20000, percent = 0.1f, showProgress = true),
+                mediaProgress = MediaProgress.Predictive(currentPositionMs = 2000, durationMs = 20000, playbackSpeed = 1f, elapsedRealtimeMs = 0, isLive = false),
                 seekBackButtonIncrement = SeekButtonIncrement.Unknown,
                 seekForwardButtonIncrement = SeekButtonIncrement.Unknown,
                 connected = true

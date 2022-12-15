@@ -25,7 +25,7 @@ import org.junit.Test
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-class MediaPositionTest {
+class PlaybackStateTest {
 
     @Test
     fun givenValidValues_whenCreateKnownPosition_thenCreateCorrectly() {
@@ -34,7 +34,7 @@ class MediaPositionTest {
         val duration = 2.seconds
 
         // when
-        val result = MediaPosition.create(current = current, duration = duration)
+        val result = PlaybackState.create(current = current, duration = duration)
 
         // then
         assertThat(result.current).isEqualTo(current)
@@ -48,7 +48,7 @@ class MediaPositionTest {
         val current = (-1).seconds
 
         // when
-        val whenBlock = { MediaPosition.create(current = current, duration = 10.seconds) }
+        val whenBlock = { PlaybackState.create(current = current, duration = 10.seconds) }
 
         // then
         assertThrows(IllegalStateException::class.java) { whenBlock() }
@@ -60,7 +60,7 @@ class MediaPositionTest {
         val duration = Duration.ZERO
 
         // when
-        val whenBlock = { MediaPosition.create(current = Duration.ZERO, duration = duration) }
+        val whenBlock = { PlaybackState.create(current = Duration.ZERO, duration = duration) }
 
         // then
         assertThrows(IllegalStateException::class.java) { whenBlock() }
@@ -73,7 +73,7 @@ class MediaPositionTest {
         val duration = 1.seconds
 
         // when
-        val whenBlock = { MediaPosition.create(current = current, duration = duration) }
+        val whenBlock = { PlaybackState.create(current = current, duration = duration) }
 
         // then
         assertThrows(IllegalStateException::class.java) { whenBlock() }

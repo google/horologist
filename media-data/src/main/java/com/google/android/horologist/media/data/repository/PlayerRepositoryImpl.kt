@@ -25,12 +25,12 @@ import com.google.android.horologist.media.data.mapper.MediaExtrasMapperNoopImpl
 import com.google.android.horologist.media.data.mapper.MediaItemExtrasMapperNoopImpl
 import com.google.android.horologist.media.data.mapper.MediaItemMapper
 import com.google.android.horologist.media.data.mapper.MediaMapper
-import com.google.android.horologist.media.data.mapper.MediaPositionMapper
+import com.google.android.horologist.media.data.mapper.PlaybackStateMapper
 import com.google.android.horologist.media.data.mapper.PlayerStateMapper
 import com.google.android.horologist.media.data.mapper.SetCommandMapper
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
-import com.google.android.horologist.media.model.MediaPosition
+import com.google.android.horologist.media.model.PlaybackState
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.repository.PlayerRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -49,7 +49,8 @@ import kotlin.time.toDuration
 @ExperimentalHorologistMediaDataApi
 public class PlayerRepositoryImpl(
     private val mediaMapper: MediaMapper = MediaMapper(MediaExtrasMapperNoopImpl),
-    private val mediaItemMapper: MediaItemMapper = MediaItemMapper(MediaItemExtrasMapperNoopImpl)
+    private val mediaItemMapper: MediaItemMapper = MediaItemMapper(MediaItemExtrasMapperNoopImpl),
+    private val playbackStateMapper: PlaybackStateMapper = PlaybackStateMapper()
 ) : PlayerRepository, Closeable {
 
     private var onClose: (() -> Unit)? = null
@@ -76,17 +77,11 @@ public class PlayerRepositoryImpl(
     private var _currentMedia = MutableStateFlow<Media?>(null)
     override val currentMedia: StateFlow<Media?> get() = _currentMedia
 
-    private var _mediaPosition = MutableStateFlow<MediaPosition?>(null)
-    override val mediaPosition: StateFlow<MediaPosition?> get() = _mediaPosition
+    private var _playbackState = MutableStateFlow(PlaybackState.IDLE)
+    override val playbackState: StateFlow<PlaybackState> get() = _playbackState
 
     private var _shuffleModeEnabled = MutableStateFlow(false)
     override val shuffleModeEnabled: StateFlow<Boolean> get() = _shuffleModeEnabled
-
-    /**
-     * The current playback speed relative to 1.0.
-     */
-    private var _playbackSpeed = MutableStateFlow(1f)
-    override val playbackSpeed: StateFlow<Float> get() = _playbackSpeed
 
     private var _seekBackIncrement = MutableStateFlow<Duration?>(null)
     override val seekBackIncrement: StateFlow<Duration?> get() = _seekBackIncrement
@@ -99,7 +94,7 @@ public class PlayerRepositoryImpl(
             Player.EVENT_AVAILABLE_COMMANDS_CHANGED to ::updateAvailableCommands,
             Player.EVENT_MEDIA_ITEM_TRANSITION to ::updateCurrentMedia,
             Player.EVENT_SHUFFLE_MODE_ENABLED_CHANGED to ::updateShuffleMode,
-            Player.EVENT_PLAYBACK_PARAMETERS_CHANGED to ::updatePlaybackSpeed,
+            Player.EVENT_PLAYBACK_PARAMETERS_CHANGED to ::updatePlaybackState,
             Player.EVENT_SEEK_BACK_INCREMENT_CHANGED to ::updateSeekBackIncrement,
             Player.EVENT_SEEK_FORWARD_INCREMENT_CHANGED to ::updateSeekForwardIncrement,
             Player.EVENT_MEDIA_METADATA_CHANGED to ::updateCurrentMedia,
@@ -127,27 +122,13 @@ public class PlayerRepositoryImpl(
         }
     }
 
-    private fun updatePlaybackSpeed(player: Player) {
-        _playbackSpeed.value = player.playbackParameters.speed
-    }
-
     private fun updateShuffleMode(player: Player) {
         _shuffleModeEnabled.value = player.shuffleModeEnabled
     }
 
     private fun updateCurrentMedia(player: Player) {
         _currentMedia.value = player.currentMediaItem?.let { mediaMapper.map(it, player.mediaMetadata) }
-        updatePosition()
-    }
-
-    /**
-     * Update the state based on [Player.isPlaying], [Player.isLoading],
-     * [Player.getPlaybackState] and [Player.getPlayWhenReady] properties.
-     */
-    private fun updateState(player: Player) {
-        _currentState.value = PlayerStateMapper.map(player)
-
-        Log.d(TAG, "Player state changed to ${_currentState.value}")
+        updatePlaybackState(player)
     }
 
     private fun updateAvailableCommands(player: Player) {
@@ -162,6 +143,26 @@ public class PlayerRepositoryImpl(
 
     private fun updateSeekForwardIncrement(player: Player) {
         _seekForwardIncrement.value = player.seekForwardIncrement.toDuration(DurationUnit.MILLISECONDS)
+    }
+
+    // TODO https://github.com/google/horologist/issues/496
+    private fun updateTimeline(player: Player) {
+        mediaIndexToSeekTo?.let { index ->
+            player.seekTo(index, 0)
+            player.prepare()
+            player.play()
+            mediaIndexToSeekTo = null
+        }
+        updatePlaybackState(player)
+    }
+
+    private fun updateState(player: Player) {
+        _currentState.value = PlayerStateMapper.map(player)
+        updatePlaybackState(player)
+    }
+
+    private fun updatePlaybackState(player: Player) {
+        _playbackState.value = playbackStateMapper.map(player)
     }
 
     /**
@@ -184,9 +185,9 @@ public class PlayerRepositoryImpl(
         updateAvailableCommands(player)
         updateShuffleMode(player)
         updateState(player)
-        updatePlaybackSpeed(player)
         updateSeekBackIncrement(player)
         updateSeekForwardIncrement(player)
+        updatePlaybackState(player)
 
         this.onClose = onClose
     }
@@ -218,18 +219,15 @@ public class PlayerRepositoryImpl(
     override fun play() {
         checkNotClosed()
 
-        _player.value?.let {
-            it.play()
-            updatePosition()
-        }
+        _player.value?.play()
     }
 
     override fun pause() {
         checkNotClosed()
 
         player.value?.let {
+            it.currentPosition // hack to make sure position is not stale
             it.pause()
-            updatePosition()
         }
     }
 
@@ -242,10 +240,7 @@ public class PlayerRepositoryImpl(
     override fun skipToPreviousMedia() {
         checkNotClosed()
 
-        player.value?.let {
-            it.seekToPreviousMediaItem()
-            updatePosition()
-        }
+        player.value?.seekToPreviousMediaItem()
     }
 
     override fun hasNextMedia(): Boolean {
@@ -257,10 +252,7 @@ public class PlayerRepositoryImpl(
     override fun skipToNextMedia() {
         checkNotClosed()
 
-        player.value?.let {
-            it.seekToNextMediaItem()
-            updatePosition()
-        }
+        player.value?.seekToNextMediaItem()
     }
 
     override fun seekBack() {
@@ -268,7 +260,7 @@ public class PlayerRepositoryImpl(
 
         player.value?.let {
             it.seekBack()
-            updatePosition()
+            updatePlaybackState(it)
         }
     }
 
@@ -277,7 +269,7 @@ public class PlayerRepositoryImpl(
 
         player.value?.let {
             it.seekForward()
-            updatePosition()
+            updatePlaybackState(it)
         }
     }
 
@@ -294,10 +286,7 @@ public class PlayerRepositoryImpl(
     override fun setMedia(media: Media) {
         checkNotClosed()
 
-        player.value?.let {
-            it.setMediaItem(mediaItemMapper.map(media))
-            updatePosition()
-        }
+        player.value?.setMediaItem(mediaItemMapper.map(media))
     }
 
     /**
@@ -307,10 +296,7 @@ public class PlayerRepositoryImpl(
     override fun setMediaList(mediaList: List<Media>) {
         checkNotClosed()
 
-        player.value?.let {
-            it.setMediaItems(mediaList.map(mediaItemMapper::map))
-            updatePosition()
-        }
+        player.value?.setMediaItems(mediaList.map(mediaItemMapper::map))
     }
 
     /**
@@ -372,14 +358,6 @@ public class PlayerRepositoryImpl(
         checkNotClosed()
 
         player.value?.release()
-    }
-
-    /**
-     * Update the position to show track progress correctly on screen.
-     * Updating roughly once a second while activity is foregrounded is appropriate.
-     */
-    public fun updatePosition() {
-        _mediaPosition.value = MediaPositionMapper.map(player.value)
     }
 
     override fun setPlaybackSpeed(speed: Float) {

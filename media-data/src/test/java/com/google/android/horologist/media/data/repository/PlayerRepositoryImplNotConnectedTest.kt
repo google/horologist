@@ -23,6 +23,7 @@ import android.os.Looper.getMainLooper
 import androidx.test.core.app.ApplicationProvider
 import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.model.Media
+import com.google.android.horologist.media.model.PlaybackState
 import com.google.android.horologist.media.model.PlayerState
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
@@ -61,10 +62,9 @@ class PlayerRepositoryImplNotConnectedTest(
         // then
         assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
         assertThat(sut.currentMedia.value).isNull()
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isNull()
-        assertThat(sut.mediaPosition.value).isNull()
+        assertThat(sut.playbackState.value).isEqualTo(PlaybackState.IDLE)
         assertThat(sut.availableCommands.value).isEmpty()
     }
 
@@ -133,9 +133,6 @@ class PlayerRepositoryImplNotConnectedTest(
             },
             param("getCurrentMediaIndex") { sut: PlayerRepositoryImpl ->
                 sut.getCurrentMediaIndex()
-            },
-            param("updatePosition") { sut: PlayerRepositoryImpl ->
-                sut.updatePosition()
             },
             param("setPlaybackSpeed") { sut: PlayerRepositoryImpl ->
                 sut.setPlaybackSpeed(2f)

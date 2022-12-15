@@ -30,8 +30,8 @@ import com.google.android.horologist.compose.tools.ExperimentalHorologistCompose
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.themeValues
 import com.google.android.horologist.media.ui.state.PlayerUiState
+import com.google.android.horologist.media.ui.state.model.MediaProgress
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
-import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
@@ -64,7 +64,7 @@ class MediaPlayerScreenTest(
                 title = "Weather with You",
                 subtitle = "Crowded House"
             ),
-            trackPosition = TrackPositionUiModel(current = 30, duration = 225, percent = 0.133f, showProgress = true),
+            mediaProgress = MediaProgress.Actual(currentPositionMs = 30, durationMs = 225),
             connected = true
         )
 

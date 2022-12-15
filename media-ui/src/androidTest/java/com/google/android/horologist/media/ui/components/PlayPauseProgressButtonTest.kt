@@ -27,6 +27,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.performClick
 import androidx.test.filters.FlakyTest
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.state.model.MediaProgress
 import com.google.android.horologist.test.toolbox.matchers.hasProgressBar
 import org.junit.Rule
 import org.junit.Test
@@ -47,7 +48,7 @@ class PlayPauseProgressButtonTest {
                 onPauseClick = { clicked = true },
                 enabled = true,
                 playing = true,
-                percent = 0f
+                mediaProgress = MediaProgress.Hidden
             )
         }
 
@@ -76,7 +77,7 @@ class PlayPauseProgressButtonTest {
                 onPauseClick = {},
                 enabled = true,
                 playing = false,
-                percent = 0f
+                mediaProgress = MediaProgress.Hidden
             )
         }
 
@@ -96,7 +97,7 @@ class PlayPauseProgressButtonTest {
     }
 
     @Test
-    fun givenPercentIsNan_thenProgressIsZero() {
+    fun givenMediaProgress_thenProgressIsCorrect() {
         // given
         composeTestRule.setContent {
             PlayPauseProgressButton(
@@ -104,12 +105,12 @@ class PlayPauseProgressButtonTest {
                 onPauseClick = {},
                 enabled = true,
                 playing = false,
-                percent = Float.NaN
+                mediaProgress = MediaProgress.Actual(50, 100)
             )
         }
 
         // then
-        composeTestRule.onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo(0f, 0.0f..1.0f)))
+        composeTestRule.onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo(0.5f, 0.0f..1.0f)))
             .assertIsDisplayed()
     }
 }

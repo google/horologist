@@ -25,8 +25,8 @@ import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.media.ui.state.PlayerUiState
+import com.google.android.horologist.media.ui.state.model.MediaProgress
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
-import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
@@ -59,7 +59,7 @@ class PodcastPlayerScreenTest(
                 title = "The power of types",
                 subtitle = "Kotlinconf"
             ),
-            trackPosition = TrackPositionUiModel(current = 30, duration = 225, percent = 0.133f, showProgress = true),
+            mediaProgress = MediaProgress.Actual(currentPositionMs = 30, durationMs = 225),
             connected = true
         )
 
@@ -71,8 +71,7 @@ class PodcastPlayerScreenTest(
                         onPauseButtonClick = { },
                         playPauseButtonEnabled = playerUiState.playPauseEnabled,
                         playing = playerUiState.playing,
-                        percent = playerUiState.trackPosition?.percent ?: 0f,
-                        showProgress = playerUiState.trackPosition?.showProgress ?: false,
+                        mediaProgress = playerUiState.mediaProgress,
                         onSeekBackButtonClick = { },
                         seekBackButtonEnabled = playerUiState.seekBackEnabled,
                         onSeekForwardButtonClick = { },

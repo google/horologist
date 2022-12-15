@@ -24,11 +24,9 @@ import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
 import com.google.android.horologist.mediasample.domain.proto.copy
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
@@ -41,15 +39,10 @@ class MediaPlayerScreenViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            // update the track position while app is in foreground
-            while (isActive) {
-                delay(1000)
-                playerRepository.updatePosition()
-
-                // Write to currentMediaItemId in datastore.
-                playerRepository.currentMedia.value?.id?.let { id ->
+            playerRepository.currentMedia.collect { media ->
+                if (media != null) {
                     settingsRepository.edit {
-                        it.copy { currentMediaItemId = id }
+                        it.copy { currentMediaItemId = media.id }
                     }
                     val position = playerRepository.mediaPosition.value
                     if (position is MediaPosition.KnownDuration) {

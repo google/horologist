@@ -19,7 +19,7 @@ package com.google.android.horologist.test.toolbox.testdoubles
 import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
-import com.google.android.horologist.media.model.MediaPosition
+import com.google.android.horologist.media.model.PlaybackState
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.repository.PlayerRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,7 +32,7 @@ class MockPlayerRepository(
     private val availableCommandsValue: Set<Command> = emptySet(),
     private val currentStateValue: PlayerState = PlayerState.Idle,
     private val currentMediaValue: Media? = null,
-    private val mediaPositionValue: MediaPosition? = null,
+    private val playbackStateValue: PlaybackState? = null,
     private val shuffleModeEnabledValue: Boolean = false,
     private val seekBackIncrementValue: Duration? = null,
     private val seekForwardIncrementValue: Duration? = null,
@@ -51,8 +51,8 @@ class MockPlayerRepository(
     override val currentMedia: StateFlow<Media?>
         get() = MutableStateFlow(currentMediaValue)
 
-    override val mediaPosition: StateFlow<MediaPosition?>
-        get() = MutableStateFlow(mediaPositionValue)
+    override val playbackState: StateFlow<PlaybackState?>
+        get() = MutableStateFlow(playbackStateValue)
 
     override val shuffleModeEnabled: StateFlow<Boolean>
         get() = MutableStateFlow(shuffleModeEnabledValue)

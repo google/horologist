@@ -61,14 +61,14 @@ public class PlayerUiStateProducer(
         playerRepository.currentState,
         playerRepository.availableCommands,
         playerRepository.currentMedia,
-        playerRepository.mediaPosition,
+        playerRepository.playbackState,
         staticFlow
-    ) { currentState, availableCommands, media, mediaPosition, staticData ->
+    ) { currentState, availableCommands, media, playbackState, staticData ->
         PlayerUiStateMapper.map(
             currentState = currentState,
             availableCommands = availableCommands,
             media = media,
-            mediaPosition = mediaPosition,
+            playbackState = playbackState,
             shuffleModeEnabled = staticData.shuffleModeEnabled,
             connected = staticData.connected,
             seekBackIncrement = staticData.seekBackButtonIncrement,

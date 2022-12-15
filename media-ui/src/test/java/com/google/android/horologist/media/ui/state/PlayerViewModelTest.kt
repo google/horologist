@@ -19,6 +19,7 @@
 package com.google.android.horologist.media.ui.state
 
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.state.model.MediaProgress
 import com.google.android.horologist.test.toolbox.testdoubles.MockPlayerRepository
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
@@ -54,7 +55,7 @@ class PlayerViewModelTest {
                 playPauseEnabled = false,
                 playing = false,
                 media = null,
-                trackPosition = null,
+                mediaProgress = MediaProgress.Hidden,
                 connected = false
             )
         )

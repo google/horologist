@@ -21,7 +21,7 @@ package com.google.android.horologist.test.toolbox.testdoubles
 import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
-import com.google.android.horologist.media.model.MediaPosition
+import com.google.android.horologist.media.model.PlaybackState
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.repository.PlayerRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -43,8 +43,8 @@ class FakePlayerRepository() : PlayerRepository {
     private var _currentMedia: MutableStateFlow<Media?> = MutableStateFlow(null)
     override val currentMedia: StateFlow<Media?> = _currentMedia
 
-    private var _mediaPosition: MutableStateFlow<MediaPosition?> = MutableStateFlow(null)
-    override val mediaPosition: StateFlow<MediaPosition?> = _mediaPosition
+    private var _playbackState: MutableStateFlow<PlaybackState?> = MutableStateFlow(null)
+    override val playbackState: StateFlow<PlaybackState?> = _playbackState
 
     private var _shuffleModeEnabled = MutableStateFlow(false)
     override val shuffleModeEnabled: StateFlow<Boolean> = _shuffleModeEnabled
@@ -155,14 +155,14 @@ class FakePlayerRepository() : PlayerRepository {
     }
 
     fun updatePosition() {
-        _mediaPosition.value = _mediaPosition.value?.let {
-            val newCurrent = (it as MediaPosition.KnownDuration).current + 1.seconds
-            MediaPosition.create(newCurrent, it.duration)
-        } ?: MediaPosition.create(1.seconds, 10.seconds)
+        _playbackState.value = _playbackState.value?.let {
+            val newCurrent = (it as PlaybackState.Snapshot).current + 1.seconds
+            PlaybackState.create(newCurrent, it.duration)
+        } ?: PlaybackState.create(1.seconds, 10.seconds)
     }
 
-    fun setPosition(mediaPosition: MediaPosition) {
-        _mediaPosition.value = mediaPosition
+    fun setPosition(playbackState: PlaybackState) {
+        _playbackState.value = playbackState
     }
 
     fun addCommand(command: Command) {

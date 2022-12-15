@@ -32,7 +32,7 @@ import androidx.test.filters.LargeTest
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
-import com.google.android.horologist.media.model.MediaPosition
+import com.google.android.horologist.media.model.PlaybackState
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.PlayerViewModel
@@ -66,7 +66,7 @@ class PlayerScreenTest {
     fun givenShowProgressIsFalse_thenProgressBarIsNOTDisplayed() {
         // given
         val playerRepository = FakePlayerRepository()
-        playerRepository.setPosition(MediaPosition.Unknown)
+        playerRepository.setPosition(PlaybackState.Unknown)
         val playerViewModel = PlayerViewModel(playerRepository)
 
         composeTestRule.setContent {

@@ -20,41 +20,43 @@ package com.google.android.horologist.media.data.mapper
 
 import androidx.media3.common.C
 import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
-import com.google.android.horologist.media.model.MediaPosition
+import com.google.android.horologist.media.model.PlaybackState
 import com.google.android.horologist.test.toolbox.testdoubles.FakeStatePlayer
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import kotlin.time.Duration.Companion.milliseconds
 
-class MediaPositionMapperTest {
+class PlaybackStateMapperTest {
     private val fakeStatePlayer = FakeStatePlayer()
+    private var elapsedRealtime = 123L
+    private val playbackStateMapper = PlaybackStateMapper { elapsedRealtime }
 
     @Test
     fun `check position calculations null`() {
-        val position = MediaPositionMapper.map(null)
+        val position = playbackStateMapper.map(null)
         assertThat(position).isNull()
     }
 
     @Test
-    fun `check position calculation unset results in unknown MediaPosition`() {
+    fun `check position calculation unset results in null position and duration`() {
         fakeStatePlayer.overridePosition(
             currentPosition = 10L,
             duration = C.TIME_UNSET
         )
-        val position =
-            MediaPositionMapper.map(fakeStatePlayer) as MediaPosition.Unknown
-        assertThat(position).isInstanceOf(MediaPosition.Unknown::class.java)
+        val position = playbackStateMapper.map(fakeStatePlayer)
+        assertThat(position.currentPosition).isNull()
+        assertThat(position.duration).isNull()
     }
 
     @Test
-    fun `check position calculation invalid results in unknown MediaPosition`() {
+    fun `check position calculation invalid results in null position and duration`() {
         fakeStatePlayer.overridePosition(
             currentPosition = 10L,
             duration = -500L
         )
-        val position =
-            MediaPositionMapper.map(fakeStatePlayer) as MediaPosition.Unknown
-        assertThat(position).isInstanceOf(MediaPosition.Unknown::class.java)
+        val position = playbackStateMapper.map(fakeStatePlayer)
+        assertThat(position.currentPosition).isNull()
+        assertThat(position.duration).isNull()
     }
 
     @Test
@@ -63,9 +65,8 @@ class MediaPositionMapperTest {
             currentPosition = 100L,
             duration = 99L
         )
-        val position =
-            MediaPositionMapper.map(fakeStatePlayer) as MediaPosition.KnownDuration
-        assertThat(position.current).isEqualTo(100.milliseconds)
+        val position = playbackStateMapper.map(fakeStatePlayer)
+        assertThat(position.currentPosition).isEqualTo(100.milliseconds)
         assertThat(position.duration).isEqualTo(100.milliseconds)
     }
 
@@ -75,9 +76,18 @@ class MediaPositionMapperTest {
             currentPosition = 100L,
             duration = 1000L
         )
-        val position =
-            MediaPositionMapper.map(fakeStatePlayer) as MediaPosition.KnownDuration
-        assertThat(position.current).isEqualTo(100.milliseconds)
+        fakeStatePlayer.overridePlaybackSpeed(2f)
+        val position = playbackStateMapper.map(fakeStatePlayer)
+        assertThat(position.currentPosition).isEqualTo(100.milliseconds)
         assertThat(position.duration).isEqualTo(1000.milliseconds)
+        assertThat(position.elapsedRealtimeWhenCreated).isEqualTo(elapsedRealtime.milliseconds)
+        assertThat(position.playbackSpeed).isEqualTo(2f)
+        assertThat(position.isLive).isEqualTo(false)
+    }
+
+    @Test
+    fun `check null Player results in idle state`() {
+        val position = playbackStateMapper.map(null)
+        assertThat(position).isEqualTo(PlaybackState.IDLE)
     }
 }

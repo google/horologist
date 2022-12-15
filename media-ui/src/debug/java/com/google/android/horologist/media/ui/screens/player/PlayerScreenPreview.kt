@@ -50,6 +50,7 @@ import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.TextMediaDisplay
 import com.google.android.horologist.media.ui.components.background.RadialBackground
+import com.google.android.horologist.media.ui.state.model.MediaProgress
 import com.google.android.horologist.media.ui.uamp.UampTheme
 
 @Preview(
@@ -93,7 +94,7 @@ fun PlayerScreenPreview() {
                         onPauseButtonClick = {},
                         playPauseButtonEnabled = true,
                         playing = true,
-                        percent = 0.25F,
+                        mediaProgress = MediaProgress.Hidden,
                         onSeekToNextButtonClick = {},
                         seekToNextButtonEnabled = true,
                         onSeekToPreviousButtonClick = {},
@@ -163,7 +164,7 @@ fun PlayerScreenPreviewCustomMediaDisplay() {
                         onPauseButtonClick = {},
                         playPauseButtonEnabled = true,
                         playing = true,
-                        percent = 0.75F,
+                        mediaProgress = MediaProgress.Hidden,
                         onSeekToNextButtonClick = {},
                         seekToNextButtonEnabled = true,
                         onSeekToPreviousButtonClick = {},
@@ -320,7 +321,7 @@ fun DefaultMediaPreview() {
                         onPauseButtonClick = {},
                         playPauseButtonEnabled = true,
                         playing = true,
-                        percent = 0.25F,
+                        mediaProgress = MediaProgress.Hidden,
                         onSeekToNextButtonClick = {},
                         seekToNextButtonEnabled = true,
                         onSeekToPreviousButtonClick = {},

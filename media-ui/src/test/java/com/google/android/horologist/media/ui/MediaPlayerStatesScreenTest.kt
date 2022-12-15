@@ -28,8 +28,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.media.ui.state.PlayerUiState
+import com.google.android.horologist.media.ui.state.model.MediaProgress
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
-import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
@@ -66,15 +66,13 @@ class MediaPlayerStatesScreenTest(
             } else {
                 null
             },
-            trackPosition = if (state.media) {
-                TrackPositionUiModel(
-                    current = 30,
-                    duration = 225,
-                    percent = 0.133f,
-                    showProgress = true
+            mediaProgress = if (state.media) {
+                MediaProgress.Actual(
+                    currentPositionMs = 30,
+                    durationMs = 225
                 )
             } else {
-                null
+                MediaProgress.Hidden
             },
             connected = state.connected
         )

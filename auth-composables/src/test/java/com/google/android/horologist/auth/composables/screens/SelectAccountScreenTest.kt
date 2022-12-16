@@ -29,7 +29,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
-import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import com.google.android.horologist.test.toolbox.positionedState
@@ -44,23 +43,21 @@ class SelectAccountScreenTest {
     @Test
     fun selectAccountScreen() {
         paparazzi.snapshot {
-            FakeImageLoader.Resources.override {
-                Box(
-                    modifier = Modifier.background(Color.Black),
-                    contentAlignment = Alignment.Center
-                ) {
-                    SelectAccountScreen(
-                        accounts = listOf(
-                            AccountUiModel(
-                                email = "maggie@example.com",
-                                avatar = Icons.Default.Face
-                            ),
-                            AccountUiModel(email = "thisisaverylongemail@example.com")
+            Box(
+                modifier = Modifier.background(Color.Black),
+                contentAlignment = Alignment.Center
+            ) {
+                SelectAccountScreen(
+                    accounts = listOf(
+                        AccountUiModel(
+                            email = "maggie@example.com",
+                            avatar = Icons.Default.Face
                         ),
-                        onAccountClicked = { _, _ -> },
-                        columnState = positionedState(0, 0)
-                    )
-                }
+                        AccountUiModel(email = "thisisaverylongemail@example.com")
+                    ),
+                    onAccountClicked = { _, _ -> },
+                    columnState = positionedState(0, 0)
+                )
             }
         }
     }
@@ -68,21 +65,19 @@ class SelectAccountScreenTest {
     @Test
     fun selectAccountScreenNoAvatar() {
         paparazzi.snapshot {
-            FakeImageLoader.Resources.override {
-                Box(
-                    modifier = Modifier.background(Color.Black),
-                    contentAlignment = Alignment.Center
-                ) {
-                    SelectAccountScreen(
-                        accounts = listOf(
-                            AccountUiModel(email = "maggie@example.com"),
-                            AccountUiModel(email = "thisisaverylongemailaccountsample@example.com")
-                        ),
-                        onAccountClicked = { _, _ -> },
-                        columnState = positionedState(0, 0),
-                        defaultAvatar = null
-                    )
-                }
+            Box(
+                modifier = Modifier.background(Color.Black),
+                contentAlignment = Alignment.Center
+            ) {
+                SelectAccountScreen(
+                    accounts = listOf(
+                        AccountUiModel(email = "maggie@example.com"),
+                        AccountUiModel(email = "thisisaverylongemailaccountsample@example.com")
+                    ),
+                    onAccountClicked = { _, _ -> },
+                    columnState = positionedState(0, 0),
+                    defaultAvatar = null
+                )
             }
         }
     }

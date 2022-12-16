@@ -26,6 +26,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ScalingLazyListState
+import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import androidx.wear.compose.material.scrollAway as scrollAwayCompose
 
 /**
@@ -102,6 +103,7 @@ public fun Modifier.scrollAway(
  *
  * @param scalingLazyColumnState The list config.
  */
+@OptIn(ExperimentalHorologistComposeLayoutApi::class)
 public fun Modifier.scrollAway(
     scalingLazyColumnState: ScalingLazyColumnState
 ): Modifier = composed {

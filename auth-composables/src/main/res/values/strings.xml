@@ -15,14 +15,14 @@
   -->
 
 <resources>
-    <string name="horologist_check_your_phone_title">Check your phone</string>
-    <string name="horologist_auth_error_message">Error authenticating.</string>
-    <string name="horologist_signedin_confirmation_greeting">Hi, %s</string>
-    <string name="horologist_signedin_confirmation_greeting_no_name">Hi!</string>
-    <string name="horologist_signin_prompt_title">Sign In</string>
-    <string name="horologist_sign_in_chip_label">Sign in</string>
-    <string name="horologist_guest_mode_chip_label">Use without account</string>
-    <string name="horologist_other_options_chip_label">Other options</string>
-    <string name="horologist_create_account_chip_label">Create account</string>
-    <string name="horologist_select_account_title">Select account</string>
+    <string description="To be translated soon." translatable="false" name="horologist_check_your_phone_title">Check your phone</string>
+    <string description="To be translated soon." translatable="false" name="horologist_auth_error_message">Error authenticating.</string>
+    <string description="To be translated soon." translatable="false" name="horologist_signedin_confirmation_greeting">Hi, %s</string>
+    <string description="To be translated soon." translatable="false" name="horologist_signedin_confirmation_greeting_no_name">Hi!</string>
+    <string description="To be translated soon." translatable="false" name="horologist_signin_prompt_title">Sign In</string>
+    <string description="To be translated soon." translatable="false" name="horologist_sign_in_chip_label">Sign in</string>
+    <string description="To be translated soon." translatable="false" name="horologist_guest_mode_chip_label">Use without account</string>
+    <string description="To be translated soon." translatable="false" name="horologist_other_options_chip_label">Other options</string>
+    <string description="To be translated soon." translatable="false" name="horologist_create_account_chip_label">Create account</string>
+    <string description="To be translated soon." translatable="false" name="horologist_select_account_title">Select account</string>
 </resources>

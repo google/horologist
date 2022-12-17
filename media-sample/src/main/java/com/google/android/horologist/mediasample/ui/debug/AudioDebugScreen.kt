@@ -45,9 +45,9 @@ fun AudioDebugScreen(
     val uiState by audioDebugScreenViewModel.uiState.collectAsStateWithLifecycle()
 
     ScalingLazyColumn(
+        columnState = columnState,
         modifier = modifier
-            .fillMaxSize(),
-        columnState = columnState
+            .fillMaxSize()
     ) {
         item {
             Text(

@@ -123,7 +123,7 @@ public fun GoogleSignInScreen(
                 modifier = modifier,
                 name = successState.displayName,
                 email = successState.email,
-                avatarUri = successState.photoUrl
+                avatar = successState.photoUrl
             ) {
                 onAuthSucceed()
             }

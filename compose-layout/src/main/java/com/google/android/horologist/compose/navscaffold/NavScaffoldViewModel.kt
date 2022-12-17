@@ -130,6 +130,7 @@ public open class NavScaffoldViewModel(
         return _scrollableState as ScalingLazyListState
     }
 
+    @OptIn(ExperimentalHorologistComposeLayoutApi::class)
     internal fun initializeScalingLazyListState(
         columnState: ScalingLazyColumnState
     ) {
@@ -237,6 +238,7 @@ public data class NonScrollableScaffoldContext(
  *
  * The [viewModel] can be used to customise the scaffold behaviour.
  */
+@OptIn(ExperimentalHorologistComposeLayoutApi::class)
 public data class ScrollableScaffoldContext(
     val backStackEntry: NavBackStackEntry,
     val columnState: ScalingLazyColumnState,

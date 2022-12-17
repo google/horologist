@@ -24,4 +24,5 @@
     <string name="horologist_guest_mode_chip_label">Use without account</string>
     <string name="horologist_other_options_chip_label">Other options</string>
     <string name="horologist_create_account_chip_label">Create account</string>
+    <string name="horologist_select_account_title">Select account</string>
 </resources>

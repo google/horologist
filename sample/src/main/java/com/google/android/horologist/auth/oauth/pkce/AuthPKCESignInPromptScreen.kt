@@ -43,9 +43,9 @@ fun AuthPKCESignInPromptScreen(
     SignInPromptScreen(
         message = stringResource(id = R.string.auth_pkce_sign_in_prompt_message),
         onAlreadySignedIn = { navController.popBackStack() },
+        columnState = columnState,
         modifier = modifier,
-        viewModel = viewModel,
-        columnState = columnState
+        viewModel = viewModel
     ) {
         item {
             SignInChip(

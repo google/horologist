@@ -165,8 +165,8 @@ class NavScaffoldTest {
                     route = "a"
                 ) {
                     ScalingLazyColumn(
-                        modifier = Modifier.testTag("columna"),
-                        columnState = it.columnState
+                        columnState = it.columnState,
+                        modifier = Modifier.testTag("columna")
                     ) {
                         items(100) {
                             Text("Item $it")

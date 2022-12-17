@@ -41,10 +41,10 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 public fun SignInPromptScreen(
     message: String,
     onAlreadySignedIn: () -> Unit,
+    columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     title: String = stringResource(id = R.string.horologist_signin_prompt_title),
     viewModel: SignInPromptViewModel = viewModel(),
-    columnState: ScalingLazyColumnState,
     content: ScalingLazyListScope.() -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -68,7 +68,7 @@ public fun SignInPromptScreen(
             SignedInConfirmationDialog(
                 name = signedInState.displayName,
                 email = signedInState.email,
-                avatarUri = signedInState.avatarUri
+                avatar = signedInState.avatar
             ) {
                 onAlreadySignedIn()
             }
@@ -76,8 +76,8 @@ public fun SignInPromptScreen(
 
         SignInPromptScreenState.SignedOut -> {
             ScalingLazyColumn(
-                modifier = modifier,
-                columnState = columnState
+                columnState = columnState,
+                modifier = modifier
             ) {
                 item { Title(text = title) }
                 item {

@@ -12,7 +12,7 @@ package com.google.android.horologist.auth.ui.common.screens {
   }
 
   public final class SignInPromptScreenKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static void SignInPromptScreen(String message, kotlin.jvm.functions.Function0<kotlin.Unit> onAlreadySignedIn, optional androidx.compose.ui.Modifier modifier, optional String title, optional com.google.android.horologist.auth.ui.common.screens.SignInPromptViewModel viewModel, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListScope,kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static void SignInPromptScreen(String message, kotlin.jvm.functions.Function0<kotlin.Unit> onAlreadySignedIn, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, optional androidx.compose.ui.Modifier modifier, optional String title, optional com.google.android.horologist.auth.ui.common.screens.SignInPromptViewModel viewModel, kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListScope,kotlin.Unit> content);
   }
 
   @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public abstract sealed class SignInPromptScreenState {
@@ -27,15 +27,15 @@ package com.google.android.horologist.auth.ui.common.screens {
   }
 
   public static final class SignInPromptScreenState.SignedIn extends com.google.android.horologist.auth.ui.common.screens.SignInPromptScreenState {
-    ctor public SignInPromptScreenState.SignedIn(optional String? displayName, optional String? email, optional Object? avatarUri);
+    ctor public SignInPromptScreenState.SignedIn(optional String? displayName, optional String? email, optional Object? avatar);
     method public String? component1();
     method public String? component2();
     method public Object? component3();
-    method public com.google.android.horologist.auth.ui.common.screens.SignInPromptScreenState.SignedIn copy(String? displayName, String? email, Object? avatarUri);
-    method public Object? getAvatarUri();
+    method public com.google.android.horologist.auth.ui.common.screens.SignInPromptScreenState.SignedIn copy(String? displayName, String? email, Object? avatar);
+    method public Object? getAvatar();
     method public String? getDisplayName();
     method public String? getEmail();
-    property public final Object? avatarUri;
+    property public final Object? avatar;
     property public final String? displayName;
     property public final String? email;
   }

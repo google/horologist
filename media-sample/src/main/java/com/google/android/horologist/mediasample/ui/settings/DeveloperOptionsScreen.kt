@@ -48,9 +48,9 @@ fun DeveloperOptionsScreen(
     val uiState by developerOptionsScreenViewModel.uiState.collectAsStateWithLifecycle()
 
     ScalingLazyColumn(
+        columnState = columnState,
         modifier = modifier
-            .fillMaxSize(),
-        columnState = columnState
+            .fillMaxSize()
     ) {
         item {
             Text(

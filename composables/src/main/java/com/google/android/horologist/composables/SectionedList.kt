@@ -28,13 +28,11 @@ import com.google.android.horologist.composables.Section.Companion.DEFAULT_LOADI
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 
 /**
  * A list component that is split into [sections][Section].
  * Each [Section] has its own [state][Section.State] controlled individually.
  */
-@ExperimentalHorologistComposeLayoutApi
 @ExperimentalHorologistComposablesApi
 @Composable
 public fun SectionedList(
@@ -53,7 +51,6 @@ public fun SectionedList(
  * A list component that is split into [sections][Section].
  * Each [Section] has its own [state][Section.State] controlled individually.
  */
-@ExperimentalHorologistComposeLayoutApi
 @ExperimentalHorologistComposablesApi
 @Composable
 public fun SectionedList(
@@ -62,9 +59,9 @@ public fun SectionedList(
     sections: List<Section<*>> = emptyList()
 ) {
     ScalingLazyColumn(
+        columnState = columnState,
         modifier = modifier
-            .fillMaxSize(),
-        columnState = columnState
+            .fillMaxSize()
     ) {
         sections.forEach { section ->
             section.display(this)

@@ -40,9 +40,9 @@ public fun EntityScreen(
     content: (ScalingLazyListScope.() -> Unit)? = null
 ) {
     ScalingLazyColumn(
+        columnState = columnState,
         modifier = modifier
-            .fillMaxSize(),
-        columnState = columnState
+            .fillMaxSize()
     ) {
         item {
             headerContent()

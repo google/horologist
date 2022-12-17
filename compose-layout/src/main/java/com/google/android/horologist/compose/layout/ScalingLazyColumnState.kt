@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistComposeLayoutApi::class)
 @file:Suppress("ObjectLiteralToLambda")
 
 package com.google.android.horologist.compose.layout
@@ -102,8 +101,8 @@ public class ScalingLazyColumnState(
 @ExperimentalHorologistComposeLayoutApi
 @Composable
 public fun ScalingLazyColumn(
-    modifier: Modifier = Modifier,
     columnState: ScalingLazyColumnState,
+    modifier: Modifier = Modifier,
     content: ScalingLazyListScope.() -> Unit
 ) {
     val focusRequester = rememberActiveFocusRequester()

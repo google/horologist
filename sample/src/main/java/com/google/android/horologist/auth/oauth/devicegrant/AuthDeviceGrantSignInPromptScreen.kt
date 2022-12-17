@@ -43,9 +43,9 @@ fun AuthDeviceGrantSignInPromptScreen(
     SignInPromptScreen(
         message = stringResource(id = R.string.auth_device_grant_sign_in_prompt_message),
         onAlreadySignedIn = { navController.popBackStack() },
+        columnState = columnState,
         modifier = modifier,
-        viewModel = viewModel,
-        columnState = columnState
+        viewModel = viewModel
     ) {
         item {
             SignInChip(

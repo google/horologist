@@ -30,7 +30,11 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.composables.DatePicker
+import com.google.android.horologist.composables.DatePickerState
 import com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
+import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.runBlocking
+import org.junit.Assert
 import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
@@ -42,7 +46,7 @@ class DatePickerTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun testDate() {
+    fun onDateConfirm_called_when_confirm_clicked() {
         var date by mutableStateOf<LocalDate?>(null)
         composeTestRule.setContent {
             if (date == null) {
@@ -60,5 +64,180 @@ class DatePickerTest {
         composeTestRule.onNodeWithContentDescription("Confirm").performClick()
 
         composeTestRule.onNodeWithTag("date").assertTextEquals("2022-04-25")
+    }
+
+    @Test
+    fun should_throw_if_fromDate_after_toDate() {
+        Assert.assertThrows(IllegalArgumentException::class.java) {
+            composeTestRule.setContent {
+                DatePicker(
+                    onDateConfirm = {},
+                    date = LocalDate.of(2022, 3, 25),
+                    fromDate = LocalDate.of(2022, 3, 25),
+                    toDate = LocalDate.of(2022, 2, 25)
+                )
+            }
+        }
+    }
+
+    @Test
+    fun should_throw_if_date_outside_from_to_range() {
+        Assert.assertThrows(IllegalArgumentException::class.java) {
+            composeTestRule.setContent {
+                DatePicker(
+                    onDateConfirm = {},
+                    date = LocalDate.of(2022, 4, 25),
+                    fromDate = LocalDate.of(2022, 2, 25),
+                    toDate = LocalDate.of(2022, 3, 25)
+                )
+            }
+        }
+    }
+
+    @Test
+    fun current_values_checked_in_date_picker_state() {
+        val date = LocalDate.of(2022, 4, 25)
+
+        val datePickerState = DatePickerState(date, date, date)
+
+        assertThat(datePickerState.currentYear()).isEqualTo(2022)
+        assertThat(datePickerState.currentMonth()).isEqualTo(4)
+        assertThat(datePickerState.currentDay()).isEqualTo(25)
+    }
+
+    @Test
+    fun year_state_initialised_to_fromYear() {
+        val date = LocalDate.of(2022, 4, 25)
+
+        val datePickerState = DatePickerState(date = date, fromDate = date, toDate = date.plusYears(1))
+
+        assertThat(datePickerState.selectedYearEqualsFromYear).isTrue()
+        assertThat(datePickerState.selectedYearEqualsToYear).isFalse()
+    }
+
+    @Test
+    fun month_state_initialised_to_fromMonth() {
+        val date = LocalDate.of(2022, 4, 25)
+
+        val datePickerState = DatePickerState(date = date, fromDate = date, toDate = date.plusYears(1))
+
+        assertThat(datePickerState.selectedMonthEqualsFromMonth).isTrue()
+        assertThat(datePickerState.selectedMonthEqualsToMonth).isFalse()
+    }
+
+    @Test
+    fun year_state_initialised_to_toYear() {
+        val date = LocalDate.of(2022, 4, 25)
+
+        val datePickerState = DatePickerState(date = date, fromDate = date.minusYears(1), toDate = date)
+
+        assertThat(datePickerState.selectedYearEqualsFromYear).isFalse()
+        assertThat(datePickerState.selectedYearEqualsToYear).isTrue()
+    }
+
+    @Test
+    fun month_state_initialised_to_toMonth() {
+        val date = LocalDate.of(2022, 4, 25)
+
+        val datePickerState = DatePickerState(date = date, fromDate = date.minusYears(1), toDate = date)
+
+        assertThat(datePickerState.selectedMonthEqualsFromMonth).isFalse()
+        assertThat(datePickerState.selectedMonthEqualsToMonth).isTrue()
+    }
+
+    @Test
+    fun year_options_restricted_correctly_when_fromDate_and_toDate_provided() {
+        val date = LocalDate.of(2022, 4, 25)
+
+        val datePickerState = DatePickerState(date = date, fromDate = date, toDate = date.plusYears(1))
+
+        assertThat(datePickerState.numOfYears).isEqualTo(2)
+    }
+
+    @Test
+    fun month_options_restricted_correctly_for_fromDate() {
+        val date = LocalDate.of(2022, 4, 25)
+
+        val datePickerState = DatePickerState(date = date, fromDate = date, toDate = date.plusYears(1))
+
+        assertThat(datePickerState.numOfMonths).isEqualTo(9)
+    }
+
+    @Test
+    fun month_options_restricted_correctly_for_toDate() {
+        val date = LocalDate.of(2022, 4, 25)
+
+        val datePickerState = DatePickerState(date = date, fromDate = date.minusYears(1), toDate = date)
+
+        assertThat(datePickerState.numOfMonths).isEqualTo(4)
+    }
+
+    @Test
+    fun day_options_restricted_correctly_for_fromDate() {
+        val date = LocalDate.of(2022, 4, 25)
+
+        val datePickerState = DatePickerState(date = date, fromDate = date, toDate = date.plusYears(1))
+
+        assertThat(datePickerState.numOfDays).isEqualTo(6)
+    }
+
+    @Test
+    fun day_options_restricted_correctly_for_toDate() {
+        val date = LocalDate.of(2022, 4, 25)
+
+        val datePickerState = DatePickerState(date = date, fromDate = date.minusYears(1), toDate = date)
+
+        assertThat(datePickerState.numOfDays).isEqualTo(25)
+    }
+
+    @Test
+    fun picker_options_restricted_correctly_when_fromDate_equals_toDate() {
+        val date = LocalDate.of(2022, 4, 25)
+
+        val datePickerState = DatePickerState(date = date, fromDate = date, toDate = date)
+
+        assertThat(datePickerState.numOfYears).isEqualTo(1)
+        assertThat(datePickerState.numOfMonths).isEqualTo(1)
+        assertThat(datePickerState.numOfDays).isEqualTo(1)
+    }
+
+    @Test
+    fun picker_first_options_set_correctly_for_fromDate() {
+        val date = LocalDate.of(2022, 4, 25)
+        val datePickerState = DatePickerState(
+            date = date,
+            fromDate = date.minusYears(1),
+            toDate = date.plusYears(1)
+        )
+
+        runBlocking { // to run suspend methods sequentially
+            datePickerState.yearState.scrollToOption(0)
+            datePickerState.monthState.scrollToOption(0)
+            datePickerState.dayState.scrollToOption(0)
+        }
+
+        assertThat(datePickerState.currentYear()).isEqualTo(2021)
+        assertThat(datePickerState.currentMonth()).isEqualTo(4)
+        assertThat(datePickerState.currentDay()).isEqualTo(25)
+    }
+
+    @Test
+    fun picker_last_options_set_correctly_for_toDate() {
+        val date = LocalDate.of(2022, 4, 25)
+        val datePickerState = DatePickerState(
+            date = date,
+            fromDate = date.minusYears(1),
+            toDate = date.plusYears(1)
+        )
+
+        runBlocking { // to run suspend methods sequentially
+            datePickerState.yearState.scrollToOption(datePickerState.numOfYears - 1)
+            datePickerState.monthState.scrollToOption(datePickerState.numOfMonths - 1)
+            datePickerState.dayState.scrollToOption(datePickerState.numOfDays - 1)
+        }
+
+        assertThat(datePickerState.currentYear()).isEqualTo(2023)
+        assertThat(datePickerState.currentMonth()).isEqualTo(4)
+        assertThat(datePickerState.currentDay()).isEqualTo(25)
     }
 }

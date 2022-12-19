@@ -25,4 +25,5 @@
     <string description="To be translated soon." translatable="false" name="horologist_other_options_chip_label">Other options</string>
     <string description="To be translated soon." translatable="false" name="horologist_create_account_chip_label">Create account</string>
     <string description="To be translated soon." translatable="false" name="horologist_select_account_title">Select account</string>
+    <string description="To be translated soon." translatable="false" name="horologist_signin_placeholder_message">Signing in…</string>
 </resources>

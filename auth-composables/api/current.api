@@ -60,5 +60,9 @@ package com.google.android.horologist.auth.composables.screens {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void SelectAccountScreen(java.util.List<com.google.android.horologist.auth.composables.screens.AccountUiModel> accounts, kotlin.jvm.functions.Function2<? super java.lang.Integer,? super com.google.android.horologist.auth.composables.screens.AccountUiModel,kotlin.Unit> onAccountClicked, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, optional androidx.compose.ui.Modifier modifier, optional String title, optional Object? defaultAvatar);
   }
 
+  public final class SignInPlaceholderScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void SignInPlaceholderScreen(optional androidx.compose.ui.Modifier modifier, optional String message);
+  }
+
 }
 

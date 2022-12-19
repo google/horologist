@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.auth.ui.googlesignin
 
+import android.app.Activity.RESULT_CANCELED
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -50,8 +51,9 @@ import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 public fun GoogleSignInScreen(
     modifier: Modifier = Modifier,
     viewModel: GoogleSignInViewModel = viewModel(),
-    successContent: @Composable (successState: GoogleSignInScreenState.Success) -> Unit,
-    failedContent: @Composable () -> Unit
+    onAuthCancelled: () -> Unit,
+    failedContent: @Composable () -> Unit,
+    successContent: @Composable (successState: GoogleSignInScreenState.Success) -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -88,11 +90,24 @@ public fun GoogleSignInScreen(
                 val signInRequestLauncher = rememberLauncherForActivityResult(
                     contract = GoogleSignInContract(
                         googleSignInClient
-                    ) { viewModel.onAccountSelectionFailed() }
-                ) { account ->
-                    googleSignInAccount = account
-                    googleSignInAccount?.let {
-                        viewModel.onAccountSelected(it)
+                    )
+                ) { result ->
+
+                    when (result) {
+                        GoogleSignInContract.Result.Cancelled -> {
+                            viewModel.onAuthCancelled()
+                        }
+
+                        GoogleSignInContract.Result.Failed -> {
+                            viewModel.onAccountSelectionFailed()
+                        }
+
+                        is GoogleSignInContract.Result.Success -> {
+                            googleSignInAccount = result.googleSignInAccount
+                            googleSignInAccount?.let {
+                                viewModel.onAccountSelected(it)
+                            }
+                        }
                     }
                 }
 
@@ -109,6 +124,10 @@ public fun GoogleSignInScreen(
         is GoogleSignInScreenState.Success -> {
             successContent(state as GoogleSignInScreenState.Success)
         }
+
+        GoogleSignInScreenState.Cancelled -> {
+            onAuthCancelled()
+        }
     }
 }
 
@@ -117,10 +136,17 @@ public fun GoogleSignInScreen(
 public fun GoogleSignInScreen(
     modifier: Modifier = Modifier,
     viewModel: GoogleSignInViewModel = viewModel(),
+    onAuthCancelled: () -> Unit,
     onAuthSucceed: () -> Unit
 ) {
     GoogleSignInScreen(
         viewModel = viewModel,
+        onAuthCancelled = {
+            onAuthCancelled()
+        },
+        failedContent = {
+            AuthErrorScreen(modifier)
+        },
         successContent = { successState ->
             SignedInConfirmationDialog(
                 modifier = modifier,
@@ -130,9 +156,6 @@ public fun GoogleSignInScreen(
             ) {
                 onAuthSucceed()
             }
-        },
-        failedContent = {
-            AuthErrorScreen(modifier)
         }
     )
 }
@@ -141,32 +164,41 @@ public fun GoogleSignInScreen(
  * An [ActivityResultContract] for signing in with the given [GoogleSignInClient].
  */
 private class GoogleSignInContract(
-    private val googleSignInClient: GoogleSignInClient,
-    private val onTaskFailed: () -> Unit
-) : ActivityResultContract<Unit, GoogleSignInAccount?>() {
+    private val googleSignInClient: GoogleSignInClient
+) : ActivityResultContract<Unit, GoogleSignInContract.Result>() {
 
     override fun createIntent(
         context: Context,
         input: Unit
     ): Intent = googleSignInClient.signInIntent
 
-    override fun parseResult(resultCode: Int, intent: Intent?): GoogleSignInAccount? {
+    override fun parseResult(resultCode: Int, intent: Intent?): Result {
+        if (resultCode == RESULT_CANCELED) {
+            return Result.Cancelled
+        }
+
         val task = GoogleSignIn.getSignedInAccountFromIntent(intent)
         // As documented, this task must be complete
         check(task.isComplete)
 
         return if (task.isSuccessful) {
-            task.result
+            Result.Success(task.result)
         } else {
             val exception = task.exception
             check(exception is ApiException)
             val message = GoogleSignInStatusCodes.getStatusCodeString(exception.statusCode)
             Log.w(TAG, "Sign in failed: code=${exception.statusCode}, message=$message")
 
-            onTaskFailed()
-
-            null
+            Result.Failed
         }
+    }
+
+    internal sealed class Result {
+        object Cancelled : Result()
+
+        object Failed : Result()
+
+        data class Success(val googleSignInAccount: GoogleSignInAccount?) : Result()
     }
 
     private companion object {

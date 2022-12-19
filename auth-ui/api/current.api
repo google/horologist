@@ -69,11 +69,15 @@ package com.google.android.horologist.auth.ui.googlesignin {
   }
 
   public final class GoogleSignInScreenKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static void GoogleSignInScreen(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.auth.ui.googlesignin.GoogleSignInViewModel viewModel, kotlin.jvm.functions.Function1<? super com.google.android.horologist.auth.ui.googlesignin.GoogleSignInScreenState.Success,kotlin.Unit> successContent, kotlin.jvm.functions.Function0<kotlin.Unit> failedContent);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static void GoogleSignInScreen(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.auth.ui.googlesignin.GoogleSignInViewModel viewModel, kotlin.jvm.functions.Function0<kotlin.Unit> onAuthSucceed);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static void GoogleSignInScreen(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.auth.ui.googlesignin.GoogleSignInViewModel viewModel, kotlin.jvm.functions.Function0<kotlin.Unit> onAuthCancelled, kotlin.jvm.functions.Function0<kotlin.Unit> failedContent, kotlin.jvm.functions.Function1<? super com.google.android.horologist.auth.ui.googlesignin.GoogleSignInScreenState.Success,kotlin.Unit> successContent);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static void GoogleSignInScreen(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.auth.ui.googlesignin.GoogleSignInViewModel viewModel, kotlin.jvm.functions.Function0<kotlin.Unit> onAuthCancelled, kotlin.jvm.functions.Function0<kotlin.Unit> onAuthSucceed);
   }
 
   @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public abstract sealed class GoogleSignInScreenState {
+  }
+
+  public static final class GoogleSignInScreenState.Cancelled extends com.google.android.horologist.auth.ui.googlesignin.GoogleSignInScreenState {
+    field public static final com.google.android.horologist.auth.ui.googlesignin.GoogleSignInScreenState.Cancelled INSTANCE;
   }
 
   public static final class GoogleSignInScreenState.Failed extends com.google.android.horologist.auth.ui.googlesignin.GoogleSignInScreenState {
@@ -107,6 +111,7 @@ package com.google.android.horologist.auth.ui.googlesignin {
     method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.googlesignin.GoogleSignInScreenState> getUiState();
     method public final void onAccountSelected(com.google.android.gms.auth.api.signin.GoogleSignInAccount account);
     method public final void onAccountSelectionFailed();
+    method public final void onAuthCancelled();
     method public final void startAuthFlow();
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.googlesignin.GoogleSignInScreenState> uiState;
   }

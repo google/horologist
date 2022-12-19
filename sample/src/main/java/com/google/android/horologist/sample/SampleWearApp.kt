@@ -267,7 +267,10 @@ fun SampleWearApp() {
             )
         }
         composable(route = Screen.GoogleSignInScreen.route) {
-            GoogleSignInScreen(viewModel = viewModel(factory = GoogleSignInSampleViewModel.Factory)) {
+            GoogleSignInScreen(
+                viewModel = viewModel(factory = GoogleSignInSampleViewModel.Factory),
+                onAuthCancelled = { navController.popBackStack() }
+            ) {
                 navController.popBackStack()
             }
         }

@@ -15,10 +15,10 @@
  */
 
 plugins {
-    id "org.jetbrains.kotlin.jvm"
+    id("org.jetbrains.kotlin.jvm")
 }
 
 dependencies {
-    implementation libs.kotlin.stdlib
-    api libs.paparazzi
+    implementation(libs.kotlin.stdlib)
+    api(libs.paparazzi)
 }

@@ -26,6 +26,7 @@ import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -36,7 +37,8 @@ public open class GoogleSignInViewModel(
 
     private val _uiState =
         MutableStateFlow<GoogleSignInScreenState>(GoogleSignInScreenState.Idle)
-    public val uiState: StateFlow<GoogleSignInScreenState> = _uiState.stateIn(
+    public val uiState: StateFlow<GoogleSignInScreenState> = _uiState.onEach {
+    }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
         initialValue = GoogleSignInScreenState.Idle
@@ -64,6 +66,10 @@ public open class GoogleSignInViewModel(
     public fun onAccountSelectionFailed() {
         _uiState.value = GoogleSignInScreenState.Failed
     }
+
+    public fun onAuthCancelled() {
+        _uiState.value = GoogleSignInScreenState.Cancelled
+    }
 }
 
 @ExperimentalHorologistAuthUiApi
@@ -79,4 +85,6 @@ public sealed class GoogleSignInScreenState {
     ) : GoogleSignInScreenState()
 
     public object Failed : GoogleSignInScreenState()
+
+    public object Cancelled : GoogleSignInScreenState()
 }

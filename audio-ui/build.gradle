@@ -15,30 +15,30 @@
  */
 
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'org.jetbrains.dokka'
-    id "org.jetbrains.kotlin.kapt"
-    id 'dev.chrisbanes.paparazzi'
+    id("com.android.library")
+    id("kotlin-android")
+    id("org.jetbrains.dokka")
+    id("org.jetbrains.kotlin.kapt")
+    id("dev.chrisbanes.paparazzi")
 }
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion = 33
 
     defaultConfig {
-        minSdk 25
-        targetSdk 30
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdk = 25
+        targetSdk = 30
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     buildFeatures {
-        buildConfig false
-        compose true
+        buildConfig = false
+        compose = true
     }
 
     kotlinOptions {
@@ -46,48 +46,47 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.compose.compiler.get()
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
     packagingOptions {
         resources {
             excludes += [
-                '/META-INF/AL2.0',
-                '/META-INF/LGPL2.1'
+                "/META-INF/AL2.0",
+                "/META-INF/LGPL2.1"
             ]
         }
     }
-
 
     testOptions {
         unitTests {
             includeAndroidResources = true
         }
-        animationsDisabled true
+        animationsDisabled = true
     }
 
     sourceSets {
         main {
-            assets.srcDirs = ['src/main/assets']
+            assets.srcDirs = ["src/main/assets"]
         }
         test {
-            java.srcDirs += 'src/sharedTest/kotlin'
-            res.srcDirs += 'src/sharedTest/res'
+            java.srcDirs += "src/sharedTest/kotlin"
+            res.srcDirs += "src/sharedTest/res"
         }
         androidTest {
-            java.srcDirs += 'src/sharedTest/kotlin'
-            res.srcDirs += 'src/sharedTest/res'
+            java.srcDirs += "src/sharedTest/kotlin"
+            res.srcDirs += "src/sharedTest/res"
         }
     }
     lint {
-        checkReleaseBuilds false
-        textReport true
-        disable 'MissingTranslation', 'ExtraTranslation'
+        checkReleaseBuilds = false
+        textReport = true
+        disable "MissingTranslation", "ExtraTranslation"
     }
-    namespace 'com.google.android.horologist.audio.ui'
+    namespace = "com.google.android.horologist.audio.ui"
 }
 
 kapt {
-    correctErrorTypes true
+    correctErrorTypes = true
 }
 
 project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).configureEach { task ->
@@ -97,7 +96,7 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
     }
 }
 
-apply plugin: 'me.tylerbwong.gradle.metalava'
+apply plugin: "me.tylerbwong.gradle.metalava"
 
 metalava {
     sourcePaths = ["src/main"]
@@ -106,35 +105,35 @@ metalava {
 }
 
 dependencies {
-    api projects.audio
-    api libs.kotlin.stdlib
-    implementation projects.composeLayout
+    api(projects.audio)
+    api(libs.kotlin.stdlib)
+    implementation(projects.composeLayout)
 
-    api libs.wearcompose.material
-    api libs.wearcompose.foundation
-    implementation libs.androidx.corektx
+    api(libs.wearcompose.material)
+    api(libs.wearcompose.foundation)
+    implementation(libs.androidx.corektx)
 
-    implementation libs.compose.material.iconscore
-    implementation libs.compose.material.iconsext
+    implementation(libs.compose.material.iconscore)
+    implementation(libs.compose.material.iconsext)
 
-    implementation libs.compose.ui.tooling
-    implementation libs.androidx.wear
-    implementation libs.androidx.lifecycle.viewmodel.compose
+    implementation(libs.compose.ui.tooling)
+    implementation(libs.androidx.wear)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-    implementation libs.lottie.compose
+    implementation(libs.lottie.compose)
 
-    debugImplementation libs.compose.ui.toolingpreview
-    debugImplementation projects.composeTools
+    debugImplementation(libs.compose.ui.toolingpreview)
+    debugImplementation(projects.composeTools)
 
-    testImplementation libs.junit
-    testImplementation projects.paparazzi
-    testImplementation libs.paparazzi
+    testImplementation(libs.junit)
+    testImplementation(projects.paparazzi)
+    testImplementation(libs.paparazzi)
 
-    androidTestImplementation libs.compose.ui.test.junit4
-    debugImplementation libs.compose.ui.test.manifest
-    androidTestImplementation libs.espresso.core
-    androidTestImplementation libs.junit
-    androidTestImplementation libs.truth
+    androidTestImplementation(libs.compose.ui.test.junit4)
+    debugImplementation(libs.compose.ui.test.manifest)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.truth)
 }
 
 apply plugin: "com.vanniktech.maven.publish"

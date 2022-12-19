@@ -15,29 +15,29 @@
  */
 
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'org.jetbrains.dokka'
-    id "org.jetbrains.kotlin.kapt"
+    id("com.android.library")
+    id("kotlin-android")
+    id("org.jetbrains.dokka")
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion = 33
 
     defaultConfig {
-        minSdk 25
-        targetSdk 30
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdk = 25
+        targetSdk = 30
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     buildFeatures {
-        buildConfig false
-        compose true
+        buildConfig = false
+        compose = true
     }
 
     kotlinOptions {
@@ -45,44 +45,44 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.compose.compiler.get()
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
+
     packagingOptions {
         resources {
             excludes += [
-                '/META-INF/AL2.0',
-                '/META-INF/LGPL2.1'
+                "/META-INF/AL2.0",
+                "/META-INF/LGPL2.1"
             ]
         }
     }
-
 
     testOptions {
         unitTests {
             includeAndroidResources = true
         }
-        animationsDisabled true
+        animationsDisabled = true
     }
 
     sourceSets {
         test {
-            java.srcDirs += 'src/sharedTest/kotlin'
-            res.srcDirs += 'src/sharedTest/res'
+            java.srcDirs += "src/sharedTest/kotlin"
+            res.srcDirs += "src/sharedTest/res"
         }
         androidTest {
-            java.srcDirs += 'src/sharedTest/kotlin'
-            res.srcDirs += 'src/sharedTest/res'
+            java.srcDirs += "src/sharedTest/kotlin"
+            res.srcDirs += "src/sharedTest/res"
         }
     }
     lint {
-        checkReleaseBuilds false
-        textReport true
+        checkReleaseBuilds = false
+        textReport = true
     }
-    namespace 'com.google.android.horologist.compose.tools'
+    namespace = "com.google.android.horologist.compose.tools"
 }
 
 kapt {
-    correctErrorTypes true
+    correctErrorTypes = true
 }
 
 project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).configureEach { task ->
@@ -92,7 +92,7 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
     }
 }
 
-apply plugin: 'me.tylerbwong.gradle.metalava'
+apply plugin: "me.tylerbwong.gradle.metalava"
 
 metalava {
     sourcePaths = ["src/main"]
@@ -101,24 +101,24 @@ metalava {
 }
 
 dependencies {
-    implementation libs.kotlin.stdlib
+    implementation(libs.kotlin.stdlib)
 
-    implementation projects.tiles
+    implementation(projects.tiles)
 
-    implementation libs.compose.ui.tooling
+    implementation(libs.compose.ui.tooling)
 
-    implementation libs.wearcompose.material
-    implementation libs.wearcompose.foundation
-    implementation libs.wearcompose.navigation
+    implementation(libs.wearcompose.material)
+    implementation(libs.wearcompose.foundation)
+    implementation(libs.wearcompose.navigation)
 
-    implementation libs.androidx.wear.tiles
-    implementation libs.androidx.wear.tiles.renderer
-    implementation libs.coil
+    implementation(libs.androidx.wear.tiles)
+    implementation(libs.androidx.wear.tiles.renderer)
+    implementation(libs.coil)
 
-    compileOnly projects.paparazzi
+    compileOnly(projects.paparazzi)
 
-    debugImplementation libs.compose.ui.test.manifest
-    debugImplementation libs.compose.ui.toolingpreview
+    debugImplementation(libs.compose.ui.test.manifest)
+    debugImplementation(libs.compose.ui.toolingpreview)
 }
 
 apply plugin: "com.vanniktech.maven.publish"

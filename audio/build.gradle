@@ -15,28 +15,28 @@
  */
 
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'org.jetbrains.dokka'
-    id "org.jetbrains.kotlin.kapt"
+    id("com.android.library")
+    id("kotlin-android")
+    id("org.jetbrains.dokka")
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion = 33
 
     defaultConfig {
-        minSdk 25
-        targetSdk 30
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdk = 25
+        targetSdk = 30
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     buildFeatures {
-        buildConfig false
+        buildConfig = false
     }
 
     kotlinOptions {
@@ -44,13 +44,13 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.compose.compiler.get()
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
     packagingOptions {
         resources {
             excludes += [
-                '/META-INF/AL2.0',
-                '/META-INF/LGPL2.1'
+                "/META-INF/AL2.0",
+                "/META-INF/LGPL2.1"
             ]
         }
     }
@@ -60,28 +60,28 @@ android {
         unitTests {
             includeAndroidResources = true
         }
-        animationsDisabled true
+        animationsDisabled = true
     }
 
     sourceSets {
         test {
-            java.srcDirs += 'src/sharedTest/kotlin'
-            res.srcDirs += 'src/sharedTest/res'
+            java.srcDirs += "src/sharedTest/kotlin"
+            res.srcDirs += "src/sharedTest/res"
         }
         androidTest {
-            java.srcDirs += 'src/sharedTest/kotlin'
-            res.srcDirs += 'src/sharedTest/res'
+            java.srcDirs += "src/sharedTest/kotlin"
+            res.srcDirs += "src/sharedTest/res"
         }
     }
     lint {
-        checkReleaseBuilds false
-        textReport true
+        checkReleaseBuilds = false
+        textReport = true
     }
-    namespace 'com.google.android.horologist.audio'
+    namespace = "com.google.android.horologist.audio"
 }
 
 kapt {
-    correctErrorTypes true
+    correctErrorTypes = true
 }
 
 project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).configureEach { task ->
@@ -91,7 +91,7 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
     }
 }
 
-apply plugin: 'me.tylerbwong.gradle.metalava'
+apply plugin: "me.tylerbwong.gradle.metalava"
 
 metalava {
     sourcePaths = ["src/main"]
@@ -100,20 +100,20 @@ metalava {
 }
 
 dependencies {
-    implementation libs.kotlin.stdlib
+    implementation(libs.kotlin.stdlib)
 
-    implementation libs.androidx.mediarouter
-    implementation libs.androidx.wear
-    implementation libs.androidx.lifecycle.runtime
-    implementation libs.kotlinx.coroutines.android
+    implementation(libs.androidx.mediarouter)
+    implementation(libs.androidx.wear)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.kotlinx.coroutines.android)
 
-    androidTestImplementation libs.androidx.lifecycle.testing
-    androidTestImplementation libs.androidx.test.rules
-    androidTestImplementation libs.truth
-    androidTestImplementation libs.compose.ui.test.junit4
-    debugImplementation libs.compose.ui.test.manifest
-    androidTestImplementation libs.espresso.core
-    androidTestImplementation libs.junit
+    androidTestImplementation(libs.androidx.lifecycle.testing)
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.truth)
+    androidTestImplementation(libs.compose.ui.test.junit4)
+    debugImplementation(libs.compose.ui.test.manifest)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.junit)
 }
 
 apply plugin: "com.vanniktech.maven.publish"

@@ -42,8 +42,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
 import com.google.android.gms.common.api.ApiException
 import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
 import com.google.android.horologist.auth.composables.screens.AuthErrorScreen
+import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
-import com.google.android.horologist.auth.ui.common.screens.LoadingView
 
 @ExperimentalHorologistAuthUiApi
 @Composable
@@ -61,11 +61,11 @@ public fun GoogleSignInScreen(
                 viewModel.startAuthFlow()
             }
 
-            LoadingView(modifier = modifier)
+            SignInPlaceholderScreen(modifier = modifier)
         }
 
         GoogleSignInScreenState.SelectAccount -> {
-            LoadingView(modifier = modifier)
+            SignInPlaceholderScreen(modifier = modifier)
 
             val context = LocalContext.current
 

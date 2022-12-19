@@ -15,13 +15,13 @@
  */
 
 plugins {
-    id 'com.android.test'
-    id 'org.jetbrains.kotlin.android'
+    id("com.android.test")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
-    namespace 'com.google.android.horologist.mediasample.benchmark'
-    compileSdk 33
+    namespace = "com.google.android.horologist.mediasample.benchmark"
+    compileSdk = 33
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -33,10 +33,10 @@ android {
     }
 
     defaultConfig {
-        minSdk 29
-        targetSdk 33
+        minSdk = 29
+        targetSdk = 33
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -47,7 +47,7 @@ android {
             debuggable = true
             signingConfig = debug.signingConfig
 
-            matchingFallbacks = ['release']
+            matchingFallbacks = ["release"]
         }
     }
 
@@ -56,14 +56,14 @@ android {
 }
 
 dependencies {
-    implementation projects.mediaBenchmark
-    implementation libs.androidx.benchmark.macro.junit4
-    implementation libs.androidx.benchmark.junit4
-    implementation libs.androidx.test.ext.ktx
-    implementation libs.espresso.core
-    implementation libs.androidx.test.uiautomator
-    implementation libs.kotlinx.coroutines.android
-    implementation projectOrDependency(":media-lib-session", libs.androidx.media3.session)
+    implementation(projects.mediaBenchmark)
+    implementation(libs.androidx.benchmark.macro.junit4)
+    implementation(libs.androidx.benchmark.junit4)
+    implementation(libs.androidx.test.ext.ktx)
+    implementation(libs.espresso.core)
+    implementation(libs.androidx.test.uiautomator)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(projectOrDependency(":media-lib-session", libs.androidx.media3.session))
 }
 
 androidComponents {

@@ -15,44 +15,44 @@
  */
 
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'org.jetbrains.dokka'
-    id 'dev.chrisbanes.paparazzi'
+    id("com.android.library")
+    id("kotlin-android")
+    id("org.jetbrains.dokka")
+    id("dev.chrisbanes.paparazzi")
 }
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion = 33
 
     defaultConfig {
-        minSdk 26
-        targetSdk 30
+        minSdk = 26
+        targetSdk = 30
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     buildFeatures {
-        buildConfig false
-        compose true
+        buildConfig = false
+        compose = true
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = "1.8"
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.compose.compiler.get()
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
     packagingOptions {
         resources {
             excludes += [
-                '/META-INF/AL2.0',
-                '/META-INF/LGPL2.1'
+                "/META-INF/AL2.0",
+                "/META-INF/LGPL2.1"
             ]
         }
     }
@@ -60,7 +60,7 @@ android {
 
     sourceSets {
         main {
-            assets.srcDirs = ['src/main/assets']
+            assets.srcDirs = ["src/main/assets"]
         }
     }
 
@@ -68,13 +68,13 @@ android {
         unitTests {
             includeAndroidResources = true
         }
-        animationsDisabled true
+        animationsDisabled = true
     }
     lint {
-        checkReleaseBuilds false
-        textReport true
+        checkReleaseBuilds = false
+        textReport = true
     }
-    namespace 'com.google.android.horologist.base.ui'
+    namespace = "com.google.android.horologist.base.ui"
 }
 
 project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).configureEach { task ->
@@ -84,7 +84,7 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
     }
 }
 
-apply plugin: 'me.tylerbwong.gradle.metalava'
+apply plugin: "me.tylerbwong.gradle.metalava"
 
 metalava {
     sourcePaths = ["src/main"]
@@ -93,41 +93,41 @@ metalava {
 }
 
 dependencies {
-    implementation projects.composeLayout
-    implementation libs.kotlin.stdlib
-    implementation libs.androidx.wear
-    implementation libs.androidx.lifecycle.runtime
-    implementation libs.wearcompose.material
-    implementation libs.wearcompose.foundation
-    implementation libs.compose.ui.tooling
-    implementation libs.compose.material.iconscore
-    implementation libs.compose.material.iconsext
-    implementation libs.androidx.lifecycle.viewmodel.compose
+    implementation(projects.composeLayout)
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.androidx.wear)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.wearcompose.material)
+    implementation(libs.wearcompose.foundation)
+    implementation(libs.compose.ui.tooling)
+    implementation(libs.compose.material.iconscore)
+    implementation(libs.compose.material.iconsext)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-    implementation libs.coil
-    implementation libs.androidx.palette.ktx
+    implementation(libs.coil)
+    implementation(libs.androidx.palette.ktx)
 
 
-    debugImplementation projects.composeTools
-    debugImplementation libs.compose.ui.toolingpreview
+    debugImplementation(projects.composeTools)
+    debugImplementation(libs.compose.ui.toolingpreview)
 
-    debugImplementation libs.compose.ui.test.manifest
-    debugImplementation libs.compose.ui.toolingpreview
-    debugImplementation projects.composeTools
+    debugImplementation(libs.compose.ui.test.manifest)
+    debugImplementation(libs.compose.ui.toolingpreview)
+    debugImplementation(projects.composeTools)
 
-    testImplementation libs.junit
-    testImplementation libs.androidx.test.ext.ktx
-    testImplementation libs.kotlinx.coroutines.test
-    testImplementation libs.truth
-    testImplementation projects.paparazzi
-    testImplementation libs.paparazzi
+    testImplementation(libs.junit)
+    testImplementation(libs.androidx.test.ext.ktx)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.truth)
+    testImplementation(projects.paparazzi)
+    testImplementation(libs.paparazzi)
 
-    androidTestImplementation libs.compose.ui.test.junit4
-    androidTestImplementation libs.truth
-    androidTestImplementation libs.espresso.core
-    androidTestImplementation libs.junit
-    androidTestImplementation libs.androidx.test.ext
-    androidTestImplementation libs.androidx.test.ext.ktx
+    androidTestImplementation(libs.compose.ui.test.junit4)
+    androidTestImplementation(libs.truth)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.ext)
+    androidTestImplementation(libs.androidx.test.ext.ktx)
 }
 
 apply plugin: "com.vanniktech.maven.publish"

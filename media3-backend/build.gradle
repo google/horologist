@@ -15,28 +15,28 @@
  */
 
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'org.jetbrains.dokka'
-    id "org.jetbrains.kotlin.kapt"
+    id("com.android.library")
+    id("kotlin-android")
+    id("org.jetbrains.dokka")
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion = 33
 
     defaultConfig {
-        minSdk 26
-        targetSdk 30
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdk = 26
+        targetSdk = 30
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     buildFeatures {
-        buildConfig false
+        buildConfig = false
     }
 
     kotlinOptions {
@@ -48,8 +48,8 @@ android {
     packagingOptions {
         resources {
             excludes += [
-                '/META-INF/AL2.0',
-                '/META-INF/LGPL2.1'
+                "/META-INF/AL2.0",
+                "/META-INF/LGPL2.1"
             ]
         }
     }
@@ -59,28 +59,28 @@ android {
         unitTests {
             includeAndroidResources = true
         }
-        animationsDisabled true
+        animationsDisabled = true
     }
 
     sourceSets {
         test {
-            java.srcDirs += 'src/sharedTest/kotlin'
-            res.srcDirs += 'src/sharedTest/res'
+            java.srcDirs += "src/sharedTest/kotlin"
+            res.srcDirs += "src/sharedTest/res"
         }
         androidTest {
-            java.srcDirs += 'src/sharedTest/kotlin'
-            res.srcDirs += 'src/sharedTest/res'
+            java.srcDirs += "src/sharedTest/kotlin"
+            res.srcDirs += "src/sharedTest/res"
         }
     }
     lint {
-        checkReleaseBuilds false
-        textReport true
+        checkReleaseBuilds = false
+        textReport = true
     }
-    namespace 'com.google.android.horologist.media3'
+    namespace = "com.google.android.horologist.media3"
 }
 
 kapt {
-    correctErrorTypes true
+    correctErrorTypes = true
 }
 
 project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).configureEach { task ->
@@ -90,7 +90,7 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
     }
 }
 
-apply plugin: 'me.tylerbwong.gradle.metalava'
+apply plugin: "me.tylerbwong.gradle.metalava"
 
 metalava {
     sourcePaths = ["src/main"]
@@ -99,30 +99,30 @@ metalava {
 }
 
 dependencies {
-    implementation projects.audio
-    implementation projects.media
-    implementation projects.networkAwareness
-    implementation libs.kotlinx.coroutines.core
-    api projectOrDependency(":media-lib-common", libs.androidx.media3.common)
-    api libs.androidx.annotation
-    api projectOrDependency(":media-lib-exoplayer", libs.androidx.media3.exoplayer)
-    api projectOrDependency(":media-lib-exoplayer-dash", libs.androidx.media3.exoplayerdash)
-    api projectOrDependency(":media-lib-exoplayer-hls", libs.androidx.media3.exoplayerhls)
-    api projectOrDependency(":media-lib-exoplayer-rtsp", libs.androidx.media3.exoplayerrtsp)
-    api projectOrDependency(":media-lib-session", libs.androidx.media3.session)
-    implementation libs.androidx.lifecycle.process
-    implementation libs.kotlinx.coroutines.guava
-    implementation libs.androidx.corektx
-    implementation libs.androidx.lifecycle.service
-    implementation libs.androidx.tracing.ktx
+    implementation(projects.audio)
+    implementation(projects.media)
+    implementation(projects.networkAwareness)
+    implementation(libs.kotlinx.coroutines.core)
+    api(projectOrDependency(":media-lib-common", libs.androidx.media3.common))
+    api(libs.androidx.annotation)
+    api(projectOrDependency(":media-lib-exoplayer", libs.androidx.media3.exoplayer))
+    api(projectOrDependency(":media-lib-exoplayer-dash", libs.androidx.media3.exoplayerdash))
+    api(projectOrDependency(":media-lib-exoplayer-hls", libs.androidx.media3.exoplayerhls))
+    api(projectOrDependency(":media-lib-exoplayer-rtsp", libs.androidx.media3.exoplayerrtsp))
+    api(projectOrDependency(":media-lib-session", libs.androidx.media3.session))
+    implementation(libs.androidx.lifecycle.process)
+    implementation(libs.kotlinx.coroutines.guava)
+    implementation(libs.androidx.corektx)
+    implementation(libs.androidx.lifecycle.service)
+    implementation(libs.androidx.tracing.ktx)
 
-    testImplementation libs.junit
-    testImplementation libs.truth
-    testImplementation libs.androidx.test.ext.ktx
-    testImplementation libs.kotlinx.coroutines.test
-    testImplementation libs.robolectric
-    testImplementation projectOrDependency(":media-test-utils", libs.androidx.media3.testutils)
-    testImplementation projectOrDependency(":media-test-utils-robolectric", libs.androidx.media3.testutils.robolectric)
+    testImplementation(libs.junit)
+    testImplementation(libs.truth)
+    testImplementation(libs.androidx.test.ext.ktx)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.robolectric)
+    testImplementation(projectOrDependency(":media-test-utils", libs.androidx.media3.testutils))
+    testImplementation(projectOrDependency(":media-test-utils-robolectric", libs.androidx.media3.testutils.robolectric))
 }
 
 apply plugin: "com.vanniktech.maven.publish"

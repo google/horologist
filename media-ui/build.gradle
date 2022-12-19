@@ -15,34 +15,34 @@
  */
 
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'org.jetbrains.dokka'
-    id 'dev.chrisbanes.paparazzi'
+    id("com.android.library")
+    id("kotlin-android")
+    id("org.jetbrains.dokka")
+    id("dev.chrisbanes.paparazzi")
 }
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion = 33
 
     defaultConfig {
-        minSdk 26
-        targetSdk 30
+        minSdk = 26
+        targetSdk = 30
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     buildFeatures {
-        buildConfig false
-        compose true
+        buildConfig = false
+        compose = true
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = "1.8"
         freeCompilerArgs += "-opt-in=androidx.lifecycle.compose.ExperimentalLifecycleComposeApi"
         freeCompilerArgs += "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi"
@@ -56,13 +56,13 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.compose.compiler.get()
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
     packagingOptions {
         resources {
             excludes += [
-                '/META-INF/AL2.0',
-                '/META-INF/LGPL2.1'
+                "/META-INF/AL2.0",
+                "/META-INF/LGPL2.1"
             ]
         }
     }
@@ -70,7 +70,7 @@ android {
 
     sourceSets {
         main {
-            assets.srcDirs = ['src/main/assets']
+            assets.srcDirs = ["src/main/assets"]
         }
     }
 
@@ -78,14 +78,14 @@ android {
         unitTests {
             includeAndroidResources = true
         }
-        animationsDisabled true
+        animationsDisabled = true
     }
     lint {
-        checkReleaseBuilds false
-        textReport true
-        disable 'MissingTranslation', 'ExtraTranslation'
+        checkReleaseBuilds = false
+        textReport = true
+        disable("MissingTranslation", "ExtraTranslation")
     }
-    namespace 'com.google.android.horologist.media.ui'
+    namespace = "com.google.android.horologist.media.ui"
 }
 
 project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).configureEach { task ->
@@ -95,7 +95,7 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
     }
 }
 
-apply plugin: 'me.tylerbwong.gradle.metalava'
+apply plugin: "me.tylerbwong.gradle.metalava"
 
 metalava {
     sourcePaths = ["src/main"]
@@ -104,35 +104,35 @@ metalava {
 }
 
 dependencies {
-    api projects.media
-    api projects.tiles
-    api projects.composables
-    implementation projects.baseUi
-    implementation projects.audio
-    implementation projects.audioUi
-    implementation projects.composeLayout
-    implementation libs.kotlin.stdlib
-    implementation libs.androidx.wear
-    implementation libs.androidx.lifecycle.runtime
-    implementation libs.androidx.lifecycle.viewmodelktx
-    api libs.wearcompose.material
-    api libs.wearcompose.foundation
-    implementation libs.compose.ui.tooling
-    implementation libs.compose.material.iconscore
-    implementation libs.compose.material.iconsext
-    implementation libs.androidx.lifecycle.viewmodel.compose
+    api(projects.media)
+    api(projects.tiles)
+    api(projects.composables)
+    implementation(projects.baseUi)
+    implementation(projects.audio)
+    implementation(projects.audioUi)
+    implementation(projects.composeLayout)
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.androidx.wear)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.lifecycle.viewmodelktx)
+    api(libs.wearcompose.material)
+    api(libs.wearcompose.foundation)
+    implementation(libs.compose.ui.tooling)
+    implementation(libs.compose.material.iconscore)
+    implementation(libs.compose.material.iconsext)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-    implementation libs.coil
-    implementation libs.lottie.compose
-    implementation libs.androidx.palette.ktx
+    implementation(libs.coil)
+    implementation(libs.lottie.compose)
+    implementation(libs.androidx.palette.ktx)
 
-    implementation projects.tiles
-    implementation projects.composeTools
-    implementation libs.androidx.complications.datasource.ktx
-    implementation libs.androidx.wear.tiles
-    implementation libs.androidx.wear.tiles.material
-    implementation libs.compose.ui.tooling
-    implementation libs.compose.ui.util
+    implementation(projects.tiles)
+    implementation(projects.composeTools)
+    implementation(libs.androidx.complications.datasource.ktx)
+    implementation(libs.androidx.wear.tiles)
+    implementation(libs.androidx.wear.tiles.material)
+    implementation(libs.compose.ui.tooling)
+    implementation(libs.compose.ui.util)
 
     debugImplementation libs.compose.ui.test.manifest
     debugImplementation libs.compose.ui.toolingpreview

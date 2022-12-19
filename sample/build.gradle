@@ -14,49 +14,51 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: "com.google.protobuf"
-apply plugin: "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
+plugins {
+    id("com.android.application")
+    id("kotlin-android")
+    id("com.google.protobuf")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+}
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion = 33
 
     defaultConfig {
-        applicationId "com.google.android.horologist.sample"
+        applicationId = "com.google.android.horologist.sample"
         // Min because of Tiles
-        minSdk 26
-        targetSdk 30
+        minSdk = 26
+        targetSdk = 30
 
-        versionCode 1
-        versionName "1.0"
+        versionCode = 1
+        versionName = "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         debug {
-            applicationIdSuffix ".debug"
+            applicationIdSuffix = ".debug"
             manifestPlaceholders.schemeSuffix = "-debug"
         }
         release {
             manifestPlaceholders.schemeSuffix = ""
 
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled = true
+            shrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
             signingConfig = signingConfigs.getByName("debug")
         }
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     buildFeatures {
-        compose true
+        compose = true
     }
 
     kotlinOptions {
@@ -84,9 +86,9 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.compose.compiler.get()
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
-    namespace 'com.google.android.horologist.sample'
+    namespace = "com.google.android.horologist.sample"
 }
 
 sourceSets {
@@ -98,21 +100,21 @@ sourceSets {
 
 protobuf {
     protoc {
-        artifact = 'com.google.protobuf:protoc:3.21.4'
+        artifact = "com.google.protobuf:protoc:3.21.4"
     }
     plugins {
         javalite {
-            artifact = 'com.google.protobuf:protoc-gen-javalite:3.0.0'
+            artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
         }
     }
     generateProtoTasks {
         all().each { task ->
             task.builtins {
                 java {
-                    option "lite"
+                    option("lite")
                 }
                 kotlin {
-                    option "lite"
+                    option("lite")
                 }
             }
         }
@@ -120,65 +122,65 @@ protobuf {
 }
 
 dependencies {
-    implementation projects.baseUi
-    implementation projects.composeLayout
-    implementation projects.audio
-    implementation projects.audioUi
-    implementation projects.authComposables
-    implementation projects.authData
-    implementation projects.authUi
-    implementation projects.tiles
-    implementation projects.composables
-    implementation projects.media
-    implementation projects.mediaUi
-    implementation projects.networkAwareness
-    implementation projects.tiles
-    implementation projects.composeTools
-    implementation projects.datalayer
+    implementation(projects.baseUi)
+    implementation(projects.composeLayout)
+    implementation(projects.audio)
+    implementation(projects.audioUi)
+    implementation(projects.authComposables)
+    implementation(projects.authData)
+    implementation(projects.authUi)
+    implementation(projects.tiles)
+    implementation(projects.composables)
+    implementation(projects.media)
+    implementation(projects.mediaUi)
+    implementation(projects.networkAwareness)
+    implementation(projects.tiles)
+    implementation(projects.composeTools)
+    implementation(projects.datalayer)
 
-    implementation libs.compose.ui.tooling
-    implementation libs.compose.ui.util
+    implementation(libs.compose.ui.tooling)
+    implementation(libs.compose.ui.util)
 
-    implementation libs.compose.foundation.foundation
-    implementation libs.compose.material.iconsext
+    implementation(libs.compose.foundation.foundation)
+    implementation(libs.compose.material.iconsext)
 
-    implementation libs.wearcompose.material
-    implementation libs.wearcompose.foundation
-    implementation libs.wearcompose.navigation
+    implementation(libs.wearcompose.material)
+    implementation(libs.wearcompose.foundation)
+    implementation(libs.wearcompose.navigation)
 
-    implementation libs.androidx.corektx
-    implementation libs.androidx.fragment
-    implementation libs.androidx.lifecycle.runtime
-    implementation libs.androidx.lifecycle.viewmodel.compose
-    implementation libs.androidx.activity.compose
-    implementation libs.androidx.wear.tiles
-    implementation libs.androidx.wear.tiles.material
+    implementation(libs.androidx.corektx)
+    implementation(libs.androidx.fragment)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.wear.tiles)
+    implementation(libs.androidx.wear.tiles.material)
 
-    implementation libs.kotlinx.coroutines.playservices
-    implementation libs.kotlin.stdlib
+    implementation(libs.kotlinx.coroutines.playservices)
+    implementation(libs.kotlin.stdlib)
 
-    implementation libs.coil
+    implementation(libs.coil)
 
-    implementation libs.lottie.compose
+    implementation(libs.lottie.compose)
 
-    implementation libs.protobuf.kotlin.lite
+    implementation(libs.protobuf.kotlin.lite)
 
-    implementation libs.com.squareup.okhttp3.logging.interceptor
+    implementation(libs.com.squareup.okhttp3.logging.interceptor)
 
-    implementation libs.moshi.kotlin
+    implementation(libs.moshi.kotlin)
 
-    implementation libs.playservices.auth
+    implementation(libs.playservices.auth)
 
-    debugImplementation projects.composeTools
+    debugImplementation(projects.composeTools)
 
-    androidTestImplementation libs.compose.ui.test.junit4
-    androidTestImplementation libs.espresso.core
-    androidTestImplementation libs.junit
-    androidTestImplementation libs.androidx.test.ext
-    androidTestImplementation libs.androidx.test.ext.ktx
+    androidTestImplementation(libs.compose.ui.test.junit4)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.ext)
+    androidTestImplementation(libs.androidx.test.ext.ktx)
 }
 
 secrets {
-    propertiesFileName "secrets.properties"
-    defaultPropertiesFileName = 'secrets.defaults.properties'
+    propertiesFileName = "secrets.properties"
+    defaultPropertiesFileName = "secrets.defaults.properties"
 }

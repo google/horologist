@@ -15,40 +15,40 @@
  */
 
 plugins {
-    id 'com.gradle.enterprise' version '3.5'
+    id("com.gradle.enterprise") version "3.5"
 }
 
 gradleEnterprise {
     buildScan {
-        termsOfServiceUrl = 'https://gradle.com/terms-of-service'
-        termsOfServiceAgree = 'yes'
+        termsOfServiceUrl = "https://gradle.com/terms-of-service"
+        termsOfServiceAgree = "yes"
     }
 }
 
-rootProject.name = 'horologist'
+rootProject.name = "horologist"
 
-include ':sample'
-include ':compose-layout'
-include ':composables'
-include ':audio'
-include ':audio-ui'
-include ':auth-composables'
-include ':auth-data'
-include ':auth-ui'
-include ':base-ui'
-include ':tiles'
-include ':media'
-include ':media3-backend'
-include ':media-ui'
-include ':media-benchmark'
-include ':media-data'
-include ':media-sample'
-include ':media-sample-benchmark'
-include ':media-sync'
-include ':compose-tools'
-include ':paparazzi'
-include ':network-awareness'
-include ':datalayer'
+include ":sample"
+include ":compose-layout"
+include ":composables"
+include ":audio"
+include ":audio-ui"
+include ":auth-composables"
+include ":auth-data"
+include ":auth-ui"
+include ":base-ui"
+include ":tiles"
+include ":media"
+include ":media3-backend"
+include ":media-ui"
+include ":media-benchmark"
+include ":media-data"
+include ":media-sample"
+include ":media-sample-benchmark"
+include ":media-sync"
+include ":compose-tools"
+include ":paparazzi"
+include ":network-awareness"
+include ":datalayer"
 
 // Enable Gradle's version catalog support
 // https://docs.gradle.org/current/userguide/platforms.html
@@ -57,11 +57,11 @@ enableFeaturePreview("VERSION_CATALOGS")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 Properties localProperties = new Properties()
-def localFile = file('local.properties')
+def localFile = file("local.properties")
 if (localFile.exists()) {
     localProperties.load(localFile.newDataInputStream())
 }
 if (localProperties.getProperty("media3.checkout", "false").toBoolean()) {
-    gradle.ext.androidxMediaModulePrefix = 'media-'
+    gradle.ext.androidxMediaModulePrefix = "media-"
     apply from: file("../media/core_settings.gradle")
 }

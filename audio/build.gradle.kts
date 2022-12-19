@@ -19,10 +19,11 @@ plugins {
     id("kotlin-android")
     id("org.jetbrains.dokka")
     id("org.jetbrains.kotlin.kapt")
+    id("me.tylerbwong.gradle.metalava")
 }
 
 android {
-    compileSdkVersion = 33
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 25
@@ -48,30 +49,25 @@ android {
     }
     packagingOptions {
         resources {
-            excludes += [
-                "/META-INF/AL2.0",
-                "/META-INF/LGPL2.1"
-            ]
+            excludes.addAll(listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1"))
         }
     }
 
 
     testOptions {
         unitTests {
-            includeAndroidResources = true
+            isIncludeAndroidResources = true
         }
         animationsDisabled = true
     }
 
-    sourceSets {
-        test {
-            java.srcDirs += "src/sharedTest/kotlin"
-            res.srcDirs += "src/sharedTest/res"
-        }
-        androidTest {
-            java.srcDirs += "src/sharedTest/kotlin"
-            res.srcDirs += "src/sharedTest/res"
-        }
+    sourceSets.getByName("test") {
+        java.srcDir("src/sharedTest/kotlin")
+        res.srcDir("src/sharedTest/res")
+    }
+    sourceSets.getByName("androidTest") {
+        java.srcDir("src/sharedTest/kotlin")
+        res.srcDir("src/sharedTest/res")
     }
     lint {
         checkReleaseBuilds = false
@@ -84,17 +80,19 @@ kapt {
     correctErrorTypes = true
 }
 
-project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).configureEach { task ->
+project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!task.name.endsWith("TestKotlin") && !task.name.startsWith("compileDebug")) {
-        task.kotlinOptions.freeCompilerArgs.add("-Xexplicit-api=strict")
+    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+        this.kotlinOptions {
+            freeCompilerArgs = freeCompilerArgs + "-Xexplicit-api=strict"
+        }
     }
 }
 
-apply plugin: "me.tylerbwong.gradle.metalava"
+apply(plugin = "me.tylerbwong.gradle.metalava")
 
 metalava {
-    sourcePaths = ["src/main"]
+    sourcePaths = mutableSetOf("src/main")
     filename = "api/current.api"
     reportLintsAsErrors = true
 }
@@ -116,4 +114,4 @@ dependencies {
     androidTestImplementation(libs.junit)
 }
 
-apply plugin: "com.vanniktech.maven.publish"
+apply(plugin = "com.vanniktech.maven.publish")

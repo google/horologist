@@ -54,6 +54,7 @@
     <string name="auth_device_grant_sign_in_prompt_message">Sign in to download and stream music</string>
     <string name="google_sign_in_prompt_message">Send messages and create chat groups with your friends</string>
     <string name="google_sign_out_success_message">Signed out successfully!</string>
+    <string name="google_sign_in_prompt_already_signed_in_message">Already signed-in!</string>
 
     <string name="rotarymenu_scroll">Scroll</string>
     <string name="rotarymenu_scroll_list">Scroll list</string>

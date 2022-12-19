@@ -15,31 +15,31 @@
  */
 
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'org.jetbrains.dokka'
-    id "org.jetbrains.kotlin.kapt"
+    id("com.android.library")
+    id("kotlin-android")
+    id("org.jetbrains.dokka")
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion = 33
 
     defaultConfig {
         //        Tiles is API 26, but if we don't stop this here, then we can't run the sample app
         //        on older devices (25).  We also don't want this to bleed into other modules via
         //        compose-tools which is used just for testing.
-        minSdk 25
-        targetSdk 30
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdk = 25
+        targetSdk = 30
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     buildFeatures {
-        buildConfig false
+        buildConfig = false
     }
 
     kotlinOptions {
@@ -47,40 +47,40 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.compose.compiler.get()
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
+
     packagingOptions {
         resources {
             excludes += [
-                '/META-INF/AL2.0',
-                '/META-INF/LGPL2.1'
+                "/META-INF/AL2.0",
+                "/META-INF/LGPL2.1"
             ]
         }
     }
-
 
     testOptions {
         unitTests {
             includeAndroidResources = true
         }
-        animationsDisabled true
+        animationsDisabled = true
     }
 
     sourceSets {
         test {
-            java.srcDirs += 'src/sharedTest/kotlin'
-            res.srcDirs += 'src/sharedTest/res'
+            java.srcDirs += "src/sharedTest/kotlin"
+            res.srcDirs += "src/sharedTest/res"
         }
         androidTest {
-            java.srcDirs += 'src/sharedTest/kotlin'
-            res.srcDirs += 'src/sharedTest/res'
+            java.srcDirs += "src/sharedTest/kotlin"
+            res.srcDirs += "src/sharedTest/res"
         }
     }
     lint {
-        checkReleaseBuilds false
-        textReport true
+        checkReleaseBuilds = false
+        textReport = true
     }
-    namespace 'com.google.android.horologist.tiles'
+    namespace = "com.google.android.horologist.tiles"
 }
 
 kapt {
@@ -95,36 +95,36 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
 }
 
 dependencies {
-    implementation libs.kotlin.stdlib
+    implementation(libs.kotlin.stdlib)
 
-    implementation libs.androidx.wear
-    implementation libs.androidx.lifecycle.runtime
-    implementation libs.androidx.concurrent.future
+    implementation(libs.androidx.wear)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.concurrent.future)
 
-    api libs.androidx.wear.tiles
-    api libs.androidx.wear.tiles.material
-    api libs.androidx.lifecycle.service
+    api(libs.androidx.wear.tiles)
+    api(libs.androidx.wear.tiles.material)
+    api(libs.androidx.lifecycle.service)
 
-    implementation libs.coil
-    implementation libs.wearcompose.foundation
+    implementation(libs.coil)
+    implementation(libs.wearcompose.foundation)
 
-    implementation libs.androidx.complications.datasource.ktx
-    api libs.wearcompose.material
+    implementation(libs.androidx.complications.datasource.ktx)
+    api(libs.wearcompose.material)
 
-    testImplementation libs.androidx.wear.tiles.testing
-    testImplementation libs.espresso.core
-    testImplementation libs.junit
-    testImplementation libs.truth
-    testImplementation libs.robolectric
-    testImplementation libs.kotlinx.coroutines.test
-    testImplementation libs.androidx.concurrent.future.ktx
+    testImplementation(libs.androidx.wear.tiles.testing)
+    testImplementation(libs.espresso.core)
+    testImplementation(libs.junit)
+    testImplementation(libs.truth)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.androidx.concurrent.future.ktx)
 
-    androidTestImplementation libs.androidx.lifecycle.testing
-    androidTestImplementation libs.kotlinx.coroutines.test
-    androidTestImplementation libs.truth
-    debugImplementation libs.compose.ui.test.manifest
-    androidTestImplementation libs.espresso.core
-    androidTestImplementation libs.junit
+    androidTestImplementation(libs.androidx.lifecycle.testing)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.truth)
+    debugImplementation(libs.compose.ui.test.manifest)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.junit)
 }
 
 apply plugin: "com.vanniktech.maven.publish"

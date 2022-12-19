@@ -15,68 +15,68 @@
  */
 
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id "org.jetbrains.kotlin.kapt"
-    id 'dagger.hilt.android.plugin'
-    id 'com.google.devtools.ksp'
-    id "com.google.protobuf"
+    id("com.android.application")
+    id("kotlin-android")
+    id("org.jetbrains.kotlin.kapt")
+    id("dagger.hilt.android.plugin")
+    id("com.google.devtools.ksp")
+    id("com.google.protobuf")
 }
 
 Properties localProperties = new Properties()
-def localFile = project.rootProject.file('local.properties')
+def localFile = project.rootProject.file("local.properties")
 if (localFile.exists()) {
     localProperties.load(localFile.newDataInputStream())
 }
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion = 33
 
     defaultConfig {
-        applicationId "com.google.android.horologist.mediasample"
+        applicationId = "com.google.android.horologist.mediasample"
         // Min because of Tiles
-        minSdk 26
-        targetSdk 30
+        minSdk = 26
+        targetSdk = 30
 
-        versionCode 1
-        versionName "1.0"
+        versionCode = 1
+        versionName = "1.0"
 
-        testInstrumentationRunner "com.google.android.horologist.mediasample.runner.MediaAppRunner"
+        testInstrumentationRunner = "com.google.android.horologist.mediasample.runner.MediaAppRunner"
     }
 
     buildTypes {
         debug {
-            applicationIdSuffix ".debug"
+            applicationIdSuffix = ".debug"
             manifestPlaceholders.schemeSuffix = "-debug"
         }
         release {
             manifestPlaceholders.schemeSuffix = ""
 
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled = true
+            shrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
-            signingConfig signingConfigs.debug
+            signingConfig = signingConfigs.debug
         }
         benchmark {
-            initWith buildTypes.release
+            initWith(buildTypes.release)
 
-            signingConfig signingConfigs.debug
-            debuggable false
+            signingConfig = signingConfigs.debug
+            debuggable = false
 
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', 'proguard-benchmark.pro'
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro", "proguard-benchmark.pro")
 
-            matchingFallbacks = ['release']
+            matchingFallbacks = ["release"]
         }
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     buildFeatures {
-        compose true
+        compose = true
     }
 
     kotlinOptions {
@@ -103,28 +103,28 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.compose.compiler.get()
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
-    namespace 'com.google.android.horologist.mediasample'
+    namespace = "com.google.android.horologist.mediasample"
 }
 
 protobuf {
     protoc {
-        artifact = 'com.google.protobuf:protoc:3.21.4'
+        artifact = "com.google.protobuf:protoc:3.21.4"
     }
     plugins {
         javalite {
-            artifact = 'com.google.protobuf:protoc-gen-javalite:3.0.0'
+            artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
         }
     }
     generateProtoTasks {
         all().each { task ->
             task.builtins {
                 java {
-                    option "lite"
+                    option("lite")
                 }
                 kotlin {
-                    option "lite"
+                    option("lite")
                 }
             }
         }
@@ -132,103 +132,103 @@ protobuf {
 }
 
 kapt {
-    correctErrorTypes true
+    correctErrorTypes = true
 }
 
 dependencies {
-    implementation projects.baseUi
-    implementation projects.audio
-    implementation projects.audioUi
-    implementation projects.composables
-    implementation projects.composeLayout
-    implementation projects.composeLayout
-    implementation projects.composeTools
-    implementation projects.media
-    implementation projects.media3Backend
-    implementation projects.mediaData
-    implementation projects.mediaSync
-    implementation projects.mediaUi
-    implementation projects.networkAwareness
-    implementation projects.tiles
+    implementation(projects.baseUi)
+    implementation(projects.audio)
+    implementation(projects.audioUi)
+    implementation(projects.composables)
+    implementation(projects.composeLayout)
+    implementation(projects.composeLayout)
+    implementation(projects.composeTools)
+    implementation(projects.media)
+    implementation(projects.media3Backend)
+    implementation(projects.mediaData)
+    implementation(projects.mediaSync)
+    implementation(projects.mediaUi)
+    implementation(projects.networkAwareness)
+    implementation(projects.tiles)
 
-    implementation projectOrDependency(":media-lib-datasource-okhttp", libs.androidx.media3.datasourceokhttp)
+    implementation(projectOrDependency(":media-lib-datasource-okhttp", libs.androidx.media3.datasourceokhttp))
 
-    implementation libs.compose.ui.tooling
-    implementation libs.compose.ui.util
+    implementation(libs.compose.ui.tooling)
+    implementation(libs.compose.ui.util)
 
-    implementation libs.compose.foundation.foundation
-    implementation libs.compose.material.iconsext
+    implementation(libs.compose.foundation.foundation)
+    implementation(libs.compose.material.iconsext)
 
-    implementation libs.wearcompose.material
-    implementation libs.wearcompose.foundation
-    implementation libs.wearcompose.navigation
+    implementation(libs.wearcompose.material)
+    implementation(libs.wearcompose.foundation)
+    implementation(libs.wearcompose.navigation)
 
-    implementation libs.androidx.corektx
-    implementation libs.androidx.lifecycle.runtime
-    implementation libs.androidx.lifecycle.viewmodel.compose
-    implementation libs.androidx.activity.compose
-    implementation libs.androidx.wear.tiles
-    implementation libs.androidx.wear.tiles.material
+    implementation(libs.androidx.corektx)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.wear.tiles)
+    implementation(libs.androidx.wear.tiles.material)
 
-    implementation libs.androidx.datastore.preferences
-    implementation libs.androidx.datastore
-    implementation libs.protobuf.kotlin.lite
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.datastore)
+    implementation(libs.protobuf.kotlin.lite)
 
-    implementation libs.androidx.complications.datasource.ktx
+    implementation(libs.androidx.complications.datasource.ktx)
 
-    implementation libs.coil
-    implementation libs.coil.svg
-    implementation libs.retrofit2.convertermoshi
-    implementation libs.retrofit2.retrofit
-    implementation libs.com.squareup.okhttp3.okhttp
-    implementation libs.com.squareup.okhttp3.logging.interceptor
+    implementation(libs.coil)
+    implementation(libs.coil.svg)
+    implementation(libs.retrofit2.convertermoshi)
+    implementation(libs.retrofit2.retrofit)
+    implementation(libs.com.squareup.okhttp3.okhttp)
+    implementation(libs.com.squareup.okhttp3.logging.interceptor)
 
-    implementation libs.moshi.adapters
-    implementation libs.moshi.kotlin
-    ksp libs.moshi.kotlin.codegen
+    implementation(libs.moshi.adapters)
+    implementation(libs.moshi.kotlin)
+    ksp(libs.moshi.kotlin.codegen)
 
-    implementation libs.androidx.palette.ktx
+    implementation(libs.androidx.palette.ktx)
 
-    implementation libs.lottie.compose
+    implementation(libs.lottie.compose)
 
-    implementation libs.kotlin.stdlib
-    implementation libs.kotlinx.coroutines.guava
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.kotlinx.coroutines.guava)
 
-    debugImplementation projects.composeTools
+    debugImplementation(projects.composeTools)
 
-    implementation libs.androidx.datastore.preferences
-    implementation libs.androidx.complications.rendering
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.complications.rendering)
 
-    implementation libs.dagger.hiltandroid
-    kapt libs.dagger.hiltandroidcompiler
-    implementation libs.hilt.navigationcompose
+    implementation(libs.dagger.hiltandroid)
+    kapt(libs.dagger.hiltandroidcompiler)
+    implementation(libs.hilt.navigationcompose)
 
-    implementation libs.androidx.metrics.performance
+    implementation(libs.androidx.metrics.performance)
 
-    implementation projectOrDependency(":media-lib-exoplayer-workmanager", libs.androidx.media3.exoplayerworkmanager)
+    implementation(projectOrDependency(":media-lib-exoplayer-workmanager", libs.androidx.media3.exoplayerworkmanager))
 
-    implementation libs.room.common
-    implementation libs.room.ktx
-    ksp libs.room.compiler
+    implementation(libs.room.common)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
-    implementation libs.androidx.tracing.ktx
+    implementation(libs.androidx.tracing.ktx)
 
-    testImplementation libs.junit
-    testImplementation libs.truth
-    testImplementation libs.androidx.test.ext.ktx
-    testImplementation libs.kotlinx.coroutines.test
+    testImplementation(libs.junit)
+    testImplementation(libs.truth)
+    testImplementation(libs.androidx.test.ext.ktx)
+    testImplementation(libs.kotlinx.coroutines.test)
 
-    androidTestImplementation libs.compose.ui.test.junit4
-    androidTestImplementation libs.espresso.core
-    androidTestImplementation libs.junit
-    androidTestImplementation libs.androidx.test.ext
-    androidTestImplementation libs.androidx.test.ext.ktx
-    androidTestImplementation libs.androidx.test.rules
-    androidTestImplementation libs.truth
-    androidTestImplementation libs.androidx.test.uiautomator
-    androidTestImplementation libs.androidx.complications.rendering
-    androidTestImplementation libs.dagger.hiltandroidtesting
-    kaptAndroidTest libs.dagger.hiltandroidcompiler
+    androidTestImplementation(libs.compose.ui.test.junit4)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.ext)
+    androidTestImplementation(libs.androidx.test.ext.ktx)
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.truth)
+    androidTestImplementation(libs.androidx.test.uiautomator)
+    androidTestImplementation(libs.androidx.complications.rendering)
+    androidTestImplementation(libs.dagger.hiltandroidtesting)
+    kaptAndroidTest(libs.dagger.hiltandroidcompiler)
 }
 
 def device = localProperties.getProperty("DEVICE")

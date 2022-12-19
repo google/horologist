@@ -15,39 +15,39 @@
  */
 
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'org.jetbrains.dokka'
-    id "org.jetbrains.kotlin.kapt"
+    id("com.android.library")
+    id("kotlin-android")
+    id("org.jetbrains.dokka")
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion = 33
 
     defaultConfig {
-        minSdk 26
-        targetSdk 30
+        minSdk = 26
+        targetSdk = 30
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     buildFeatures {
-        buildConfig false
+        buildConfig = false
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = "1.8"
     }
     packagingOptions {
         resources {
             excludes += [
-                '/META-INF/AL2.0',
-                '/META-INF/LGPL2.1'
+                "/META-INF/AL2.0",
+                "/META-INF/LGPL2.1"
             ]
         }
     }
@@ -55,7 +55,7 @@ android {
 
     sourceSets {
         main {
-            assets.srcDirs = ['src/main/assets']
+            assets.srcDirs = ["src/main/assets"]
         }
     }
 
@@ -63,13 +63,13 @@ android {
         unitTests {
             includeAndroidResources = true
         }
-        animationsDisabled true
+        animationsDisabled = true
     }
     lint {
-        checkReleaseBuilds false
-        textReport true
+        checkReleaseBuilds = false
+        textReport = true
     }
-    namespace 'com.google.android.horologist.media.sync'
+    namespace = "com.google.android.horologist.media.sync"
 }
 
 project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).configureEach { task ->
@@ -79,7 +79,7 @@ project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).co
     }
 }
 
-apply plugin: 'me.tylerbwong.gradle.metalava'
+apply plugin: "me.tylerbwong.gradle.metalava"
 
 metalava {
     sourcePaths = ["src/main"]
@@ -88,16 +88,16 @@ metalava {
 }
 
 dependencies {
-    implementation libs.androidx.corektx
-    implementation libs.androidx.startup
-    implementation libs.androidx.tracing.ktx
-    implementation libs.androidx.work.ktx
+    implementation(libs.androidx.corektx)
+    implementation(libs.androidx.startup)
+    implementation(libs.androidx.tracing.ktx)
+    implementation(libs.androidx.work.ktx)
 
-    implementation libs.hilt.ext.work
-    implementation libs.dagger.hiltandroid
-    kapt libs.dagger.hiltandroidcompiler
-    kapt libs.hilt.ext.compiler
+    implementation(libs.hilt.ext.work)
+    implementation(libs.dagger.hiltandroid)
+    kapt(libs.dagger.hiltandroidcompiler)
+    kapt(libs.hilt.ext.compiler)
 
-    kaptAndroidTest libs.dagger.hiltandroidcompiler
-    kaptAndroidTest libs.hilt.ext.compiler
+    kaptAndroidTest(libs.dagger.hiltandroidcompiler)
+    kaptAndroidTest(libs.hilt.ext.compiler)
 }

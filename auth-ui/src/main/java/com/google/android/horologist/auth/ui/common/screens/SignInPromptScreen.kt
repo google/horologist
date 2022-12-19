@@ -33,7 +33,7 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyListScope
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.composables.R
-import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
+import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
@@ -58,23 +58,17 @@ public fun SignInPromptScreen(
                 viewModel.startFlow()
             }
 
-            LoadingView(modifier = modifier)
+            SignInPlaceholderScreen(modifier = modifier)
         }
 
         SignInPromptScreenState.Loading -> {
-            LoadingView(modifier = modifier)
+            SignInPlaceholderScreen(modifier = modifier)
         }
 
         is SignInPromptScreenState.SignedIn -> {
-            val signedInState = state as SignInPromptScreenState.SignedIn
+            SignInPlaceholderScreen(modifier = modifier)
 
-            SignedInConfirmationDialog(
-                name = signedInState.displayName,
-                email = signedInState.email,
-                avatar = signedInState.avatar
-            ) {
-                onAlreadySignedIn()
-            }
+            onAlreadySignedIn()
         }
 
         SignInPromptScreenState.SignedOut -> {

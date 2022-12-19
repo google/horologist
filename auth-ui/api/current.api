@@ -27,17 +27,7 @@ package com.google.android.horologist.auth.ui.common.screens {
   }
 
   public static final class SignInPromptScreenState.SignedIn extends com.google.android.horologist.auth.ui.common.screens.SignInPromptScreenState {
-    ctor public SignInPromptScreenState.SignedIn(optional String? displayName, optional String? email, optional Object? avatar);
-    method public String? component1();
-    method public String? component2();
-    method public Object? component3();
-    method public com.google.android.horologist.auth.ui.common.screens.SignInPromptScreenState.SignedIn copy(String? displayName, String? email, Object? avatar);
-    method public Object? getAvatar();
-    method public String? getDisplayName();
-    method public String? getEmail();
-    property public final Object? avatar;
-    property public final String? displayName;
-    property public final String? email;
+    field public static final com.google.android.horologist.auth.ui.common.screens.SignInPromptScreenState.SignedIn INSTANCE;
   }
 
   public static final class SignInPromptScreenState.SignedOut extends com.google.android.horologist.auth.ui.common.screens.SignInPromptScreenState {

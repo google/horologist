@@ -46,13 +46,9 @@ public open class SignInPromptViewModel(
             update = SignInPromptScreenState.Loading
         ) {
             viewModelScope.launch {
-                authRepository.getAuthUser()?.let { authUser ->
-                    _uiState.value = SignInPromptScreenState.SignedIn(
-                        displayName = authUser.displayName,
-                        email = authUser.email,
-                        avatar = authUser.avatarUri
-                    )
-                } ?: run {
+                if (authRepository.getAuthUser() != null) {
+                    _uiState.value = SignInPromptScreenState.SignedIn
+                } else {
                     _uiState.value = SignInPromptScreenState.SignedOut
                 }
             }
@@ -67,11 +63,7 @@ public sealed class SignInPromptScreenState {
 
     public object Loading : SignInPromptScreenState()
 
-    public data class SignedIn(
-        val displayName: String? = null,
-        val email: String? = null,
-        val avatar: Any? = null
-    ) : SignInPromptScreenState()
+    public object SignedIn : SignInPromptScreenState()
 
     public object SignedOut : SignInPromptScreenState()
 }

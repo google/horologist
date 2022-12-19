@@ -23,23 +23,23 @@ buildscript {
     }
 
     dependencies {
-        classpath libs.android.tools.build.gradle
-        classpath libs.android.gradlePlugin
-        classpath libs.kotlin.gradlePlugin
+        classpath(libs.android.tools.build.gradle)
+        classpath(libs.android.gradlePlugin)
+        classpath(libs.kotlin.gradlePlugin)
 
-        classpath libs.gradleMavenPublishPlugin
+        classpath(libs.gradleMavenPublishPlugin)
 
-        classpath libs.dokka
+        classpath(libs.dokka)
 
-        classpath libs.metalavaGradle
+        classpath(libs.metalavaGradle)
 
-        classpath libs.affectedmoduledetector
+        classpath(libs.affectedmoduledetector)
 
-        classpath libs.paparazziPlugin
+        classpath(libs.paparazziPlugin)
 
-        classpath libs.dagger.hiltandroidplugin
+        classpath(libs.dagger.hiltandroidplugin)
 
-        classpath libs.googleSecretsGradlePlugin
+        classpath(libs.googleSecretsGradlePlugin)
     }
 }
 
@@ -53,12 +53,12 @@ plugins {
     alias(libs.plugins.protobuf) apply false
 }
 
-apply plugin: 'org.jetbrains.dokka'
-apply plugin: 'com.dropbox.affectedmoduledetector'
-apply plugin: "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
+apply(plugin: "org.jetbrains.dokka")
+apply(plugin: "com.dropbox.affectedmoduledetector")
+apply(plugin: "com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 
 tasks.withType(org.jetbrains.dokka.gradle.DokkaMultiModuleTask).configureEach {
-    outputDirectory = rootProject.file('docs/api')
+    outputDirectory = rootProject.file("docs/api")
     failOnWarning = true
 }
 
@@ -80,7 +80,7 @@ affectedModuleDetector {
     if (baseRef != null && !baseRef.isEmpty()) {
         // Remove the prefix from the head.
         // TODO: need to support other types of git refs
-        specifiedBranch = baseRef.replace('refs/heads/', '')
+        specifiedBranch = baseRef.replace("refs/heads/", "")
         compareFrom = "SpecifiedBranchCommit"
     } else {
         // Otherwise we use the previous commit. This is mostly used for commits to main.
@@ -108,20 +108,20 @@ allprojects {
 }
 
 subprojects {
-    apply plugin: 'com.diffplug.spotless'
+    apply plugin: "com.diffplug.spotless"
 
     spotless {
         kotlin {
-            target "**/*.kt"
+            target("**/*.kt")
             ktlint(libs.versions.ktlint.get())
-            licenseHeaderFile rootProject.file('spotless/copyright.txt')
+            licenseHeaderFile(rootProject.file("spotless/copyright.txt"))
         }
 
         groovyGradle {
-            target '**/*.gradle'
-            greclipse().configFile(rootProject.file('spotless/greclipse.properties'))
-            licenseHeaderFile rootProject.file('spotless/copyright.txt'),
-                    '(buildscript|apply|import|plugins)'
+            target("**/*.gradle")
+            greclipse().configFile(rootProject.file("spotless/greclipse.properties"))
+            licenseHeaderFile(rootProject.file("spotless/copyright.txt"),
+                    "(buildscript|apply|import|plugins)")
         }
     }
 
@@ -129,10 +129,10 @@ subprojects {
         resolutionStrategy.eachDependency { DependencyResolveDetails details ->
             // Make sure that we're using the Android version of Guava
             if (configuration.name.containsIgnoreCase("android")
-                    && details.requested.group == 'com.google.guava'
-                    && details.requested.module.name == 'guava'
-                    && details.requested.version.contains('jre')) {
-                details.useVersion details.requested.version.replace('jre', 'android')
+                    && details.requested.group == "com.google.guava"
+                    && details.requested.module.name == "guava"
+                    && details.requested.version.contains("jre")) {
+                details.useVersion details.requested.version.replace("jre", "android")
             }
         }
     }
@@ -159,7 +159,7 @@ subprojects {
     }
 
     // Read in the signing.properties file if it is exists
-    def signingPropsFile = rootProject.file('release/signing.properties')
+    def signingPropsFile = rootProject.file("release/signing.properties")
     if (signingPropsFile.exists()) {
         def localProperties = new Properties()
         signingPropsFile.withInputStream { is -> localProperties.load(is) }
@@ -169,12 +169,12 @@ subprojects {
     // Must be afterEvaluate or else com.vanniktech.maven.publish will overwrite our
     // dokka and version configuration.
     afterEvaluate {
-        if (tasks.findByName('dokkaHtmlPartial') == null) {
+        if (tasks.findByName("dokkaHtmlPartial") == null) {
             // If dokka isn't enabled on this module, skip
             return
         }
 
-        tasks.named('dokkaHtmlPartial') {
+        tasks.named("dokkaHtmlPartial") {
             dokkaSourceSets.configureEach {
                 reportUndocumented.set(true)
                 skipEmptyPackages.set(true)
@@ -207,7 +207,7 @@ subprojects {
             }
         }
 
-        plugins.withId('com.android.library') {
+        plugins.withId("com.android.library") {
             android {
                 lint {
                     // Remove once fixed: https://issuetracker.google.com/196420849
@@ -257,13 +257,13 @@ subprojects {
         if (composeSnapshot.length() > 1) {
             // We're depending on a Jetpack Compose snapshot, update the library version name
             // to indicate it's from a Compose snapshot
-            def versionName = project.properties.get('VERSION_NAME')
+            def versionName = project.properties.get("VERSION_NAME")
             if (versionName.contains("SNAPSHOT")) {
-                version = versionName.replace('-SNAPSHOT', ".compose-${composeSnapshot}-SNAPSHOT")
+                version = versionName.replace("-SNAPSHOT", ".compose-${composeSnapshot}-SNAPSHOT")
             }
         }
 
-        if (!version.endsWith('SNAPSHOT')) {
+        if (!version.endsWith("SNAPSHOT")) {
             // If we're not a SNAPSHOT library version, we fail the build if we're relying on
             // any snapshot dependencies
             configurations.configureEach { configuration ->
@@ -275,7 +275,7 @@ subprojects {
 
                     def depVersion = dependency.version
                     // TODO reenable https://github.com/google/horologist/issues/34
-//                    if (depVersion != null && depVersion.endsWith('SNAPSHOT')) {
+//                    if (depVersion != null && depVersion.endsWith("SNAPSHOT")) {
 //                        throw new IllegalArgumentException(
 //                                "Using SNAPSHOT dependency with non-SNAPSHOT library version: $dependency"
 //                        )
@@ -298,7 +298,7 @@ tasks.named("dependencyUpdates").configure {
 }
 
 if (!getPluginManager().hasPlugin("nl.littlerobots.version-catalog-update")) {
-    apply plugin: "nl.littlerobots.version-catalog-update"
+    apply(plugin: "nl.littlerobots.version-catalog-update")
 }
 
 versionCatalogUpdate {

@@ -15,10 +15,9 @@
  */
 
 plugins {
-
-    id 'java-library'
-    id 'org.jetbrains.kotlin.jvm'
-    id 'org.jetbrains.dokka'
+    id("java-library")
+    id("org.jetbrains.kotlin.jvm")
+    id("org.jetbrains.dokka")
 }
 
 java {
@@ -26,7 +25,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-apply plugin: 'me.tylerbwong.gradle.metalava'
+apply plugin: "me.tylerbwong.gradle.metalava"
 
 metalava {
     sourcePaths = ["src/main"]
@@ -35,10 +34,10 @@ metalava {
 }
 
 dependencies {
-    implementation libs.kotlinx.coroutines.core
+    implementation(libs.kotlinx.coroutines.core)
 
-    testImplementation libs.junit
-    testImplementation libs.truth
+    testImplementation(libs.junit)
+    testImplementation(libs.truth)
 }
 
 apply plugin: "com.vanniktech.maven.publish"

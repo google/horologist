@@ -15,41 +15,41 @@
  */
 
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'org.jetbrains.dokka'
+    id("com.android.library")
+    id("kotlin-android")
+    id("org.jetbrains.dokka")
 }
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion = 33
 
     defaultConfig {
-        minSdk 21
+        minSdk = 21
         //noinspection ExpiredTargetSdkVersion
-        targetSdk 30
+        targetSdk = 30
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     buildFeatures {
-        buildConfig false
+        buildConfig = false
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = "1.8"
         freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.data.ExperimentalHorologistDataLayerApi"
     }
     packagingOptions {
         resources {
             excludes += [
-                '/META-INF/AL2.0',
-                '/META-INF/LGPL2.1'
+                "/META-INF/AL2.0",
+                "/META-INF/LGPL2.1"
             ]
         }
     }
@@ -61,34 +61,34 @@ android {
         }
     }
     lint {
-        checkReleaseBuilds false
-        textReport true
+        checkReleaseBuilds = false
+        textReport = true
 
         baseline(file("quality/lint/lint-baseline.xml"))
     }
-    namespace 'com.google.android.horologist.datalayer'
+    namespace = "com.google.android.horologist.datalayer"
 }
 
 dependencies {
-    implementation libs.kotlin.stdlib
-    implementation libs.kotlinx.coroutines.core
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.kotlinx.coroutines.core)
 
-    api libs.playservices.wearable
-    implementation libs.kotlinx.coroutines.playservices
-    api libs.androidx.datastore.preferences
-    api libs.androidx.datastore
-    api libs.protobuf.kotlin.lite
+    api(libs.playservices.wearable)
+    implementation(libs.kotlinx.coroutines.playservices)
+    api(libs.androidx.datastore.preferences)
+    api(libs.androidx.datastore)
+    api(libs.protobuf.kotlin.lite)
 
-    testImplementation libs.junit
-    testImplementation libs.truth
-    testImplementation libs.androidx.test.ext.ktx
-    testImplementation libs.kotlinx.coroutines.test
-    testImplementation libs.robolectric
+    testImplementation(libs.junit)
+    testImplementation(libs.truth)
+    testImplementation(libs.androidx.test.ext.ktx)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.robolectric)
 
-    androidTestImplementation libs.compose.ui.test.junit4
-    androidTestImplementation libs.espresso.core
-    androidTestImplementation libs.junit
-    androidTestImplementation libs.truth
+    androidTestImplementation(libs.compose.ui.test.junit4)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.truth)
 }
 
 apply plugin: "com.vanniktech.maven.publish"

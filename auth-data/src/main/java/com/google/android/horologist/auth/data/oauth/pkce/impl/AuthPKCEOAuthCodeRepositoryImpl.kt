@@ -76,7 +76,7 @@ public class AuthPKCEOAuthCodeRepositoryImpl(
     ) : RemoteAuthClient.Callback() {
         override fun onAuthorizationError(request: OAuthRequest, errorCode: Int) {
             Log.w(TAG, "Authorization failed with errorCode $errorCode")
-            continuation.resume(Result.failure(IOException("Authorization failed")))
+            continuation.resume(Result.failure(IOException("Authorization failed [$errorCode]")))
         }
 
         override fun onAuthorizationResponse(

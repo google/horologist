@@ -52,14 +52,15 @@ public class AuthDeviceGrantTokenRepositoryGoogleImpl(
 
         try {
             future.await()
-        } catch (e: CancellationException) {
-            throw e
-        } catch (e: Exception) {
+        } catch (e: RemoteActivityHelper.RemoteIntentException) {
             Log.e(TAG, "Error starting remote activity", e)
             // It should return `Result.failure(e)` here, however, as described in b/263238683,
             // the emulator seems to be receiving a `RemoteIntentException` even though the browser
-            // opened the webpage successfully on the phone. It's allowing the code to proceed for
-            // now until figured out how to reliably handle errors from `startRemoteActivity`
+            // opened the url successfully on the phone. It's allowing the code to proceed for now
+            // until figured out how to reliably handle errors from `startRemoteActivity`.
+        } catch (e: Exception) {
+            Log.e(TAG, "Error starting remote activity", e)
+            return Result.failure(e)
         }
 
         return Result.success(

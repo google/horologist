@@ -6,6 +6,13 @@ package com.google.android.horologist.auth.ui {
 
 }
 
+package com.google.android.horologist.auth.ui.common.logging {
+
+  public final class LoggingKt {
+  }
+
+}
+
 package com.google.android.horologist.auth.ui.common.screens {
 
   public final class LoadingViewKt {

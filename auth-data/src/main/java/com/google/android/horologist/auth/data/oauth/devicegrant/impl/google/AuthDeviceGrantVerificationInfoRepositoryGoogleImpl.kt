@@ -18,6 +18,7 @@ package com.google.android.horologist.auth.data.oauth.devicegrant.impl.google
 
 import android.util.Log
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import com.google.android.horologist.auth.data.common.logging.TAG
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.DeviceCodeResponse
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService.Companion.USER_INFO_PROFILE_SCOPE_VALUE
@@ -43,9 +44,5 @@ public class AuthDeviceGrantVerificationInfoRepositoryGoogleImpl(
             e.printStackTrace()
             Result.failure(e)
         }
-    }
-
-    public companion object {
-        private val TAG = AuthDeviceGrantVerificationInfoRepositoryGoogleImpl::class.java.simpleName
     }
 }

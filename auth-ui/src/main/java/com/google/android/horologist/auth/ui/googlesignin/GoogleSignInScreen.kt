@@ -45,6 +45,7 @@ import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmati
 import com.google.android.horologist.auth.composables.screens.AuthErrorScreen
 import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
+import com.google.android.horologist.auth.ui.common.logging.TAG
 
 @ExperimentalHorologistAuthUiApi
 @Composable
@@ -199,9 +200,5 @@ private class GoogleSignInContract(
         object Failed : Result()
 
         data class Success(val googleSignInAccount: GoogleSignInAccount?) : Result()
-    }
-
-    private companion object {
-        private val TAG = GoogleSignInContract::class.java.simpleName
     }
 }

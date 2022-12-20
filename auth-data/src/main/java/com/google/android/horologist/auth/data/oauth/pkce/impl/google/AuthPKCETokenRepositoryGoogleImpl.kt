@@ -18,6 +18,7 @@ package com.google.android.horologist.auth.data.oauth.pkce.impl.google
 
 import android.util.Log
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import com.google.android.horologist.auth.data.common.logging.TAG
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService.Companion.GRANT_TYPE_PARAM_AUTH_CODE_GRANT_VALUE
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.TokenResponse
@@ -54,9 +55,5 @@ public class AuthPKCETokenRepositoryGoogleImpl(
             e.printStackTrace()
             Result.failure(e)
         }
-    }
-
-    private companion object {
-        private val TAG = AuthPKCETokenRepositoryGoogleImpl::class.java.simpleName
     }
 }

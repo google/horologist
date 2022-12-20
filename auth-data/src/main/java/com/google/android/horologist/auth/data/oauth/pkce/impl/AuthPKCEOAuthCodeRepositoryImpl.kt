@@ -24,11 +24,13 @@ import androidx.wear.phone.interactions.authentication.OAuthRequest
 import androidx.wear.phone.interactions.authentication.OAuthResponse
 import androidx.wear.phone.interactions.authentication.RemoteAuthClient
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import com.google.android.horologist.auth.data.common.logging.TAG
 import com.google.android.horologist.auth.data.oauth.pkce.AuthPKCEOAuthCodeRepository
 import com.google.android.horologist.auth.data.oauth.pkce.impl.google.AuthPKCEOAuthCodeGooglePayload
+import kotlinx.coroutines.suspendCancellableCoroutine
 import java.io.IOException
+import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 @ExperimentalHorologistAuthDataApi
 public class AuthPKCEOAuthCodeRepositoryImpl(
@@ -59,44 +61,44 @@ public class AuthPKCEOAuthCodeRepositoryImpl(
         Log.d(TAG, "Authorization requested. Request URL: ${oauthRequest.requestUrl}")
 
         // Wrap the callback-based request inside a coroutine wrapper
-        return suspendCoroutine { c ->
+        return suspendCancellableCoroutine { continuation ->
             RemoteAuthClient.create(application).sendAuthorizationRequest(
                 request = oauthRequest,
                 executor = { command -> command?.run() },
-                clientCallback = object : RemoteAuthClient.Callback() {
-                    override fun onAuthorizationError(request: OAuthRequest, errorCode: Int) {
-                        Log.w(TAG, "Authorization failed with errorCode $errorCode")
-                        c.resume(Result.failure(IOException("Authorization failed")))
-                    }
-
-                    override fun onAuthorizationResponse(
-                        request: OAuthRequest,
-                        response: OAuthResponse
-                    ) {
-                        val responseUrl = response.responseUrl
-                        Log.d(TAG, "Authorization success. ResponseUrl: $responseUrl")
-                        val code = responseUrl?.getQueryParameter("code")
-                        if (code.isNullOrBlank()) {
-                            Log.w(
-                                TAG,
-                                "Google OAuth 2.0 API token exchange failed. " +
-                                    "No code query parameter in response URL."
-                            )
-                            c.resume(Result.failure(IOException("Authorization failed")))
-                        } else {
-                            c.resume(
-                                Result.success(
-                                    AuthPKCEOAuthCodeGooglePayload(code, oauthRequest.redirectUrl)
-                                )
-                            )
-                        }
-                    }
-                }
+                clientCallback = RemoteAuthClientCallback(oauthRequest, continuation)
             )
         }
     }
 
-    private companion object {
-        private val TAG = AuthPKCEOAuthCodeRepositoryImpl::class.java.simpleName
+    private class RemoteAuthClientCallback(
+        private val oauthRequest: OAuthRequest,
+        private val continuation: Continuation<Result<AuthPKCEOAuthCodeGooglePayload>>
+    ) : RemoteAuthClient.Callback() {
+        override fun onAuthorizationError(request: OAuthRequest, errorCode: Int) {
+            Log.w(TAG, "Authorization failed with errorCode $errorCode")
+            continuation.resume(Result.failure(IOException("Authorization failed")))
+        }
+
+        override fun onAuthorizationResponse(
+            request: OAuthRequest,
+            response: OAuthResponse
+        ) {
+            val responseUrl = response.responseUrl
+            Log.d(TAG, "Authorization success. ResponseUrl: $responseUrl")
+            val code = responseUrl?.getQueryParameter("code")
+            if (code.isNullOrBlank()) {
+                Log.w(
+                    TAG,
+                    "Google OAuth 2.0 API token exchange failed. No code query parameter in response URL."
+                )
+                continuation.resume(Result.failure(IOException("Authorization failed")))
+            } else {
+                continuation.resume(
+                    Result.success(
+                        AuthPKCEOAuthCodeGooglePayload(code, oauthRequest.redirectUrl)
+                    )
+                )
+            }
+        }
     }
 }

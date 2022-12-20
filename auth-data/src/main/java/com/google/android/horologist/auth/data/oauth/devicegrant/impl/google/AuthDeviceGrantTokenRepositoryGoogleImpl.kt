@@ -22,6 +22,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.wear.remote.interactions.RemoteActivityHelper
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import com.google.android.horologist.auth.data.common.logging.TAG
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.DeviceCodeResponse
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService.Companion.GRANT_TYPE_PARAM_AUTH_DEVICE_GRANT_VALUE
@@ -29,6 +30,7 @@ import com.google.android.horologist.auth.data.oauth.devicegrant.AuthDeviceGrant
 import com.google.android.horologist.auth.data.oauth.devicegrant.impl.AuthDeviceGrantDefaultConfig
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.guava.await
 
 @ExperimentalHorologistAuthDataApi
 public class AuthDeviceGrantTokenRepositoryGoogleImpl(
@@ -40,13 +42,25 @@ public class AuthDeviceGrantTokenRepositoryGoogleImpl(
         config: AuthDeviceGrantDefaultConfig,
         verificationInfoPayload: DeviceCodeResponse
     ): Result<String> {
-        RemoteActivityHelper(application).startRemoteActivity(
-            Intent(Intent.ACTION_VIEW).apply {
+        val future = RemoteActivityHelper(application).startRemoteActivity(
+            targetIntent = Intent(Intent.ACTION_VIEW).apply {
                 addCategory(Intent.CATEGORY_BROWSABLE)
                 data = Uri.parse(verificationInfoPayload.verificationUri)
             },
-            null
+            targetNodeId = null
         )
+
+        try {
+            future.await()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Log.e(TAG, "Error starting remote activity", e)
+            // It should return `Result.failure(e)` here, however, as described in b/263238683,
+            // the emulator seems to be receiving a `RemoteIntentException` even though the browser
+            // opened the webpage successfully on the phone. It's allowing the code to proceed for
+            // now until figured out how to reliably handle errors from `startRemoteActivity`
+        }
 
         return Result.success(
             retrieveToken(
@@ -92,12 +106,8 @@ public class AuthDeviceGrantTokenRepositoryGoogleImpl(
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            e.printStackTrace()
+            Log.e(TAG, "Error fetching token", e)
             Result.failure(e)
         }
-    }
-
-    private companion object {
-        private val TAG = AuthDeviceGrantTokenRepositoryGoogleImpl::class.java.simpleName
     }
 }

@@ -6,6 +6,13 @@ package com.google.android.horologist.auth.data {
 
 }
 
+package com.google.android.horologist.auth.data.common.logging {
+
+  public final class LoggingKt {
+  }
+
+}
+
 package com.google.android.horologist.auth.data.common.model {
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class AuthUser {
@@ -180,10 +187,6 @@ package com.google.android.horologist.auth.data.oauth.devicegrant.impl.google {
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class AuthDeviceGrantVerificationInfoRepositoryGoogleImpl implements com.google.android.horologist.auth.data.oauth.devicegrant.AuthDeviceGrantVerificationInfoRepository<com.google.android.horologist.auth.data.oauth.devicegrant.impl.AuthDeviceGrantDefaultConfig,com.google.android.horologist.auth.data.oauth.common.impl.google.api.DeviceCodeResponse> {
     ctor public AuthDeviceGrantVerificationInfoRepositoryGoogleImpl(com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService googleOAuthService);
     method public suspend Object? fetch(com.google.android.horologist.auth.data.oauth.devicegrant.impl.AuthDeviceGrantDefaultConfig config, kotlin.coroutines.Continuation<? super kotlin.Result<? extends com.google.android.horologist.auth.data.oauth.common.impl.google.api.DeviceCodeResponse>> p);
-    field public static final com.google.android.horologist.auth.data.oauth.devicegrant.impl.google.AuthDeviceGrantVerificationInfoRepositoryGoogleImpl.Companion Companion;
-  }
-
-  public static final class AuthDeviceGrantVerificationInfoRepositoryGoogleImpl.Companion {
   }
 
 }

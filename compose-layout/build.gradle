@@ -100,8 +100,6 @@ dependencies {
     api(libs.wearcompose.foundation)
     api(libs.wearcompose.navigation)
 
-    api(libs.accompanist.pager)
-
     implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.util)
     implementation(libs.androidx.wear)

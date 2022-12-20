@@ -25,7 +25,7 @@ app-cash-paparazzi = "1.1.0"
 benManes = "0.44.0"
 com-squareup-okhttp3 = "4.10.0"
 com-squareup-retrofit2 = "2.9.0"
-compose = "1.3.2"
+compose = "1.4.0-alpha03"
 compose-compiler = "1.3.2"
 composesnapshot = "-"
 dokka = "1.5.0"
@@ -46,10 +46,9 @@ room = "2.4.3"
 spotless = "6.12.0"
 truth = "1.1.3"
 versionCatalogUpdate = "0.7.0"
-wearcompose = "1.1.0"
+wearcompose = "1.2.0-alpha01"
 
 [libraries]
-accompanist-pager = "com.google.accompanist:accompanist-pager:0.28.0"
 affectedmoduledetector = { module = "com.dropbox.affectedmoduledetector:affectedmoduledetector", version.ref = "affectedmoduledetector" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }

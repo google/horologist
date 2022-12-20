@@ -14,14 +14,18 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalPagerApi::class)
+@file:OptIn(ExperimentalFoundationApi::class)
 
 package com.google.android.horologist.compose.pager
 
 import android.util.Log
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -36,11 +40,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.wear.compose.material.HorizontalPageIndicator
 import androidx.wear.compose.material.PageIndicatorState
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.PagerScope
-import com.google.accompanist.pager.PagerState
-import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.compose.focus.FocusControl
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 
@@ -56,14 +55,14 @@ public fun PagerScreen(
     count: Int,
     modifier: Modifier = Modifier,
     state: PagerState = rememberPagerState(),
-    content: @Composable (PagerScope.(Int) -> Unit)
+    content: @Composable ((Int) -> Unit)
 ) {
     val shape = if (LocalConfiguration.current.isScreenRound) CircleShape else null
 
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        HorizontalPager(modifier = modifier, count = count, state = state) { page ->
+        HorizontalPager(modifier = modifier, pageCount = count, state = state) { page ->
             Box(
                 modifier = Modifier.fillMaxSize().run {
                     if (shape != null) {
@@ -79,7 +78,7 @@ public fun PagerScreen(
             }
         }
 
-        val pagerScreenState = remember { PageScreenIndicatorState(state) }
+        val pagerScreenState = remember { PageScreenIndicatorState(state, count) }
         HorizontalPageIndicator(
             modifier = Modifier.padding(6.dp),
             pageIndicatorState = pagerScreenState
@@ -94,12 +93,12 @@ public fun PagerScreen(
  * n.b. Currently fails for 0 pageCount, so enclose the HorizontalPageIndicator
  * in an if statement.
  */
-public class PageScreenIndicatorState(private val state: PagerState) : PageIndicatorState {
+public class PageScreenIndicatorState(
+    private val state: PagerState,
     override val pageCount: Int
-        get() = state.pageCount
-
+) : PageIndicatorState {
     override val pageOffset: Float
-        get() = state.currentPageOffset
+        get() = state.currentPageOffsetFraction.takeIf { it.isFinite() } ?: 0f
 
     override val selectedPage: Int
         get() = state.currentPage

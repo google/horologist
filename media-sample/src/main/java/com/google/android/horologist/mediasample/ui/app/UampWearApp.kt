@@ -14,11 +14,15 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.google.android.horologist.mediasample.ui.app
 
 import android.content.Intent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -29,7 +33,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
-import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollection
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollections

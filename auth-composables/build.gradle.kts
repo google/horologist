@@ -19,10 +19,11 @@ plugins {
     id("kotlin-android")
     id("org.jetbrains.dokka")
     id("dev.chrisbanes.paparazzi")
+    id("me.tylerbwong.gradle.metalava")
 }
 
 android {
-    compileSdkVersion = 33
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 26
@@ -43,9 +44,9 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
-        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi"
+        freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
+        freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi"
+        freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi"
     }
 
     composeOptions {
@@ -54,40 +55,42 @@ android {
 
     packagingOptions {
         resources {
-            excludes += [
+            excludes += listOf(
                 "/META-INF/AL2.0",
                 "/META-INF/LGPL2.1"
-            ]
+            )
         }
     }
 
     testOptions {
         unitTests {
-            includeAndroidResources = true
+            isIncludeAndroidResources = true
         }
         animationsDisabled = true
     }
 
     lint {
         checkReleaseBuilds = false
+        disable.addAll(listOf("MissingTranslation", "ExtraTranslation"))
         textReport = true
-        disable "MissingTranslation", "ExtraTranslation"
     }
 
     namespace = "com.google.android.horologist.auth.composables"
 }
 
-project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).configureEach { task ->
+project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!task.name.endsWith("TestKotlin") && !task.name.startsWith("compileDebug")) {
-        task.kotlinOptions.freeCompilerArgs.add("-Xexplicit-api=strict")
+    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+        this.kotlinOptions {
+            freeCompilerArgs = freeCompilerArgs + "-Xexplicit-api=strict"
+        }
     }
 }
 
-apply plugin: "me.tylerbwong.gradle.metalava"
+apply(plugin = "me.tylerbwong.gradle.metalava")
 
 metalava {
-    sourcePaths = ["src/main"]
+    sourcePaths = mutableSetOf("src/main")
     filename = "api/current.api"
     reportLintsAsErrors = true
 }
@@ -125,4 +128,4 @@ dependencies {
 }
 
 // Not publishing it until it's ready
-//apply plugin: "com.vanniktech.maven.publish"
+//apply(plugin = "com.vanniktech.maven.publish")

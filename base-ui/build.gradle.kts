@@ -19,10 +19,11 @@ plugins {
     id("kotlin-android")
     id("org.jetbrains.dokka")
     id("dev.chrisbanes.paparazzi")
+    id("me.tylerbwong.gradle.metalava")
 }
 
 android {
-    compileSdkVersion = 33
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 26
@@ -50,23 +51,20 @@ android {
     }
     packagingOptions {
         resources {
-            excludes += [
+            excludes += listOf(
                 "/META-INF/AL2.0",
                 "/META-INF/LGPL2.1"
-            ]
+            )
         }
     }
 
-
-    sourceSets {
-        main {
-            assets.srcDirs = ["src/main/assets"]
-        }
+    sourceSets.getByName("main") {
+        assets.srcDir("src/main/assets")
     }
 
     testOptions {
         unitTests {
-            includeAndroidResources = true
+            isIncludeAndroidResources = true
         }
         animationsDisabled = true
     }
@@ -77,17 +75,19 @@ android {
     namespace = "com.google.android.horologist.base.ui"
 }
 
-project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).configureEach { task ->
+project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!task.name.endsWith("TestKotlin") && !task.name.startsWith("compileDebug")) {
-        task.kotlinOptions.freeCompilerArgs.add("-Xexplicit-api=strict")
+    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+        this.kotlinOptions {
+            freeCompilerArgs = freeCompilerArgs + "-Xexplicit-api=strict"
+        }
     }
 }
 
-apply plugin: "me.tylerbwong.gradle.metalava"
+apply(plugin = "me.tylerbwong.gradle.metalava")
 
 metalava {
-    sourcePaths = ["src/main"]
+    sourcePaths = mutableSetOf("src/main")
     filename = "api/current.api"
     reportLintsAsErrors = true
 }
@@ -130,4 +130,4 @@ dependencies {
     androidTestImplementation(libs.androidx.test.ext.ktx)
 }
 
-apply plugin: "com.vanniktech.maven.publish"
+apply(plugin = "com.vanniktech.maven.publish")

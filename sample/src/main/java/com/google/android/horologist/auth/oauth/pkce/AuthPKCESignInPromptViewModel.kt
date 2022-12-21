@@ -20,14 +20,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.auth.data.common.model.AuthUser
-import com.google.android.horologist.auth.data.common.repository.AuthRepository
-import com.google.android.horologist.auth.ui.common.screens.SignInPromptViewModel
+import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
+import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
 
 object AuthPKCESignInPromptViewModel {
     val Factory: ViewModelProvider.Factory = viewModelFactory {
         initializer {
-            SignInPromptViewModel(object : AuthRepository {
-                override suspend fun getAuthUser(): AuthUser? = null
+            SignInPromptViewModel(object : AuthUserRepository {
+                override suspend fun getAuthenticated(): AuthUser? = null
             })
         }
     }

@@ -31,9 +31,9 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
-import com.google.android.horologist.auth.ui.common.screens.SignInPromptScreen
-import com.google.android.horologist.auth.ui.common.screens.SignInPromptViewModel
-import com.google.android.horologist.auth.ui.googlesignin.GoogleSignInPromptViewModel
+import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
+import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
+import com.google.android.horologist.auth.ui.googlesignin.GoogleSignInPromptViewModelFactory
 import com.google.android.horologist.base.ui.components.ConfirmationDialog
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
@@ -47,7 +47,7 @@ fun GoogleSignInPromptSampleScreen(
     navController: NavHostController,
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
-    viewModel: SignInPromptViewModel = viewModel(factory = GoogleSignInPromptViewModel.Factory)
+    viewModel: SignInPromptViewModel = viewModel(factory = GoogleSignInPromptViewModelFactory)
 ) {
     var showAlreadySignedInDialog by rememberSaveable { mutableStateOf(false) }
 

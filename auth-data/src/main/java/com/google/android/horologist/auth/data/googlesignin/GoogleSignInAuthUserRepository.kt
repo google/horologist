@@ -20,13 +20,16 @@ import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 import com.google.android.horologist.auth.data.common.model.AuthUser
-import com.google.android.horologist.auth.data.common.repository.AuthRepository
+import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 
+/**
+ * An implementation of [AuthUserRepository] for the Google Sign-In authentication method.
+ */
 @ExperimentalHorologistAuthDataApi
-public class GoogleSignInAuthRepository(
+public class GoogleSignInAuthUserRepository(
     private val applicationContext: Context
-) : AuthRepository {
+) : AuthUserRepository {
 
-    override suspend fun getAuthUser(): AuthUser? =
+    override suspend fun getAuthenticated(): AuthUser? =
         AuthUserMapper.map(GoogleSignIn.getLastSignedInAccount(applicationContext))
 }

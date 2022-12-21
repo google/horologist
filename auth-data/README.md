@@ -1,3 +1,3 @@
 # Auth Data library
 
-:construction: In progress :construction:
+Implementation for the recommended authentication methods.

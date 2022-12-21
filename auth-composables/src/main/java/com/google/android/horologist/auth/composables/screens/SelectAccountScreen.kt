@@ -27,6 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
 import com.google.android.horologist.auth.composables.R
+import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.base.ui.components.Title
@@ -35,6 +36,9 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
 private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.052
 
+/**
+ * A screen to display a list of available accounts and to allow the user select one of them.
+ */
 @ExperimentalHorologistAuthComposablesApi
 @Composable
 public fun SelectAccountScreen(
@@ -69,9 +73,3 @@ public fun SelectAccountScreen(
         }
     }
 }
-
-@ExperimentalHorologistAuthComposablesApi
-public data class AccountUiModel(
-    val email: String,
-    val avatar: Any? = null
-)

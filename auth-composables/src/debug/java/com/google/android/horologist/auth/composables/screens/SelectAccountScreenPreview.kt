@@ -20,6 +20,7 @@ package com.google.android.horologist.auth.composables.screens
 
 import androidx.compose.runtime.Composable
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
+import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 

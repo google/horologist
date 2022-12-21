@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.ui.common.screens
+package com.google.android.horologist.auth.ui.common.screens.prompt
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.auth.data.common.repository.AuthRepository
+import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.auth.ui.ext.compareAndSet
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,9 +27,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
+/**
+ * A view model for a sign-in prompt screen.
+ *
+ * It checks if there is a user already signed in, and emits the appropriate
+ * [states][SignInPromptScreenState] through the [uiState] property.
+ */
 @ExperimentalHorologistAuthUiApi
 public open class SignInPromptViewModel(
-    private val authRepository: AuthRepository
+    private val authUserRepository: AuthUserRepository
 ) : ViewModel() {
 
     private val _uiState =
@@ -40,13 +46,17 @@ public open class SignInPromptViewModel(
         initialValue = SignInPromptScreenState.Idle
     )
 
-    public fun startFlow() {
+    /**
+     * Indicate that the screen has observed the [idle][SignInPromptScreenState.Idle] state and that
+     * the view model can start its work.
+     */
+    public fun onIdleStateObserved() {
         _uiState.compareAndSet(
             expect = SignInPromptScreenState.Idle,
             update = SignInPromptScreenState.Loading
         ) {
             viewModelScope.launch {
-                if (authRepository.getAuthUser() != null) {
+                if (authUserRepository.getAuthenticated() != null) {
                     _uiState.value = SignInPromptScreenState.SignedIn
                 } else {
                     _uiState.value = SignInPromptScreenState.SignedOut
@@ -56,6 +66,9 @@ public open class SignInPromptViewModel(
     }
 }
 
+/**
+ * The states for a sign-in prompt screen.
+ */
 @ExperimentalHorologistAuthUiApi
 public sealed class SignInPromptScreenState {
 

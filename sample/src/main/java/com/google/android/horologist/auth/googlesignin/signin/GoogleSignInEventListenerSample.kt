@@ -18,12 +18,12 @@ package com.google.android.horologist.auth.googlesignin.signin
 
 import android.util.Log
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAccountListener
+import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener
 
-object GoogleSignInAccountListenerSample : GoogleSignInAccountListener {
+object GoogleSignInEventListenerSample : GoogleSignInEventListener {
     private val TAG = this::class.java.simpleName
 
-    override suspend fun onAccountReceived(account: GoogleSignInAccount) {
+    override suspend fun onSignedIn(account: GoogleSignInAccount) {
         // This class does not do anything and is only here for sample purposes.
         Log.d(TAG, "Account received: ${account.displayName}")
     }

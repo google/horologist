@@ -19,10 +19,11 @@ plugins {
     id("kotlin-android")
     id("com.google.devtools.ksp")
     id("org.jetbrains.dokka")
+    id("me.tylerbwong.gradle.metalava")
 }
 
 android {
-    compileSdkVersion = 33
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 26
@@ -48,17 +49,17 @@ android {
 
     packagingOptions {
         resources {
-            excludes += [
+            excludes += listOf(
                 "/META-INF/AL2.0",
                 "/META-INF/LGPL2.1"
-            ]
+            )
         }
     }
 
 
     testOptions {
         unitTests {
-            includeAndroidResources = true
+            isIncludeAndroidResources = true
         }
         animationsDisabled = true
     }
@@ -71,10 +72,8 @@ android {
     namespace = "com.google.android.horologist.media.data"
 }
 
-apply plugin: "me.tylerbwong.gradle.metalava"
-
 metalava {
-    sourcePaths = ["src/main"]
+    sourcePaths = mutableSetOf("src/main")
     filename = "api/current.api"
     reportLintsAsErrors = true
 }
@@ -86,9 +85,9 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.wear)
-    implementation(projectOrDependency(":media-lib-common", libs.androidx.media3.common))
-    implementation(projectOrDependency(":media-lib-exoplayer", libs.androidx.media3.exoplayer))
-    implementation(projectOrDependency(":media-lib-exoplayer-workmanager", libs.androidx.media3.exoplayerworkmanager))
+    implementation(project.findProject(":media-lib-common") ?: libs.androidx.media3.common)
+    implementation(project.findProject(":media-lib-exoplayer") ?: libs.androidx.media3.exoplayer)
+    implementation(project.findProject(":media-lib-exoplayer-workmanager") ?: libs.androidx.media3.exoplayerworkmanager)
     implementation(libs.room.common)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
@@ -99,9 +98,9 @@ dependencies {
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
-    testImplementation(projectOrDependency(":media-lib-exoplayer", libs.androidx.media3.exoplayer))
-    testImplementation(projectOrDependency(":media-test-utils", libs.androidx.media3.testutils))
-    testImplementation(projectOrDependency(":media-test-utils-robolectric", libs.androidx.media3.testutils.robolectric))
+    testImplementation(project.findProject(":media-lib-exoplayer") ?: libs.androidx.media3.exoplayer)
+    testImplementation(project.findProject(":media-test-utils") ?: libs.androidx.media3.testutils)
+    testImplementation(project.findProject(":media-test-utils-robolectric") ?: libs.androidx.media3.testutils.robolectric)
 }
 
-apply plugin: "com.vanniktech.maven.publish"
+apply(plugin = "com.vanniktech.maven.publish")

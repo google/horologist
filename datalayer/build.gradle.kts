@@ -21,7 +21,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion = 33
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 21
@@ -47,25 +47,25 @@ android {
     }
     packagingOptions {
         resources {
-            excludes += [
+            excludes += listOf(
                 "/META-INF/AL2.0",
                 "/META-INF/LGPL2.1"
-            ]
+            )
         }
     }
-
 
     testOptions {
         unitTests {
-            includeAndroidResources = true
+            isIncludeAndroidResources = true
         }
     }
+
     lint {
         checkReleaseBuilds = false
         textReport = true
-
-        baseline(file("quality/lint/lint-baseline.xml"))
+        baseline = file("quality/lint/lint-baseline.xml")
     }
+
     namespace = "com.google.android.horologist.datalayer"
 }
 
@@ -91,4 +91,4 @@ dependencies {
     androidTestImplementation(libs.truth)
 }
 
-apply plugin: "com.vanniktech.maven.publish"
+apply(plugin = "com.vanniktech.maven.publish")

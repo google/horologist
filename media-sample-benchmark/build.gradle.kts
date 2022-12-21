@@ -43,11 +43,11 @@ android {
         // This benchmark buildType is used for benchmarking, and should function like your
         // release build (for example, with minification on). It's signed with a debug key
         // for easy local/CI testing.
-        benchmark {
-            debuggable = true
-            signingConfig = debug.signingConfig
+        create("benchmark") {
+            isDebuggable = true
+            signingConfig = getByName("debug").signingConfig
 
-            matchingFallbacks = ["release"]
+            matchingFallbacks.add("release")
         }
     }
 
@@ -63,11 +63,11 @@ dependencies {
     implementation(libs.espresso.core)
     implementation(libs.androidx.test.uiautomator)
     implementation(libs.kotlinx.coroutines.android)
-    implementation(projectOrDependency(":media-lib-session", libs.androidx.media3.session))
+    implementation(project.findProject(":media-lib-session") ?: libs.androidx.media3.session)
 }
 
 androidComponents {
     beforeVariants(selector().all()) {
-        enabled = buildType == "benchmark"
+        it.enabled = it.buildType == "benchmark"
     }
 }

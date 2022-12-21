@@ -18,6 +18,7 @@ plugins {
     id("java-library")
     id("org.jetbrains.kotlin.jvm")
     id("org.jetbrains.dokka")
+    id("me.tylerbwong.gradle.metalava")
 }
 
 java {
@@ -25,10 +26,8 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-apply plugin: "me.tylerbwong.gradle.metalava"
-
 metalava {
-    sourcePaths = ["src/main"]
+    sourcePaths = mutableSetOf("src/main")
     filename = "api/current.api"
     reportLintsAsErrors = true
 }
@@ -40,4 +39,4 @@ dependencies {
     testImplementation(libs.truth)
 }
 
-apply plugin: "com.vanniktech.maven.publish"
+apply(plugin = "com.vanniktech.maven.publish")

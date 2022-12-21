@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+import java.util.Properties
+import com.google.protobuf.gradle.*
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -23,14 +26,14 @@ plugins {
     id("com.google.protobuf")
 }
 
-Properties localProperties = new Properties()
-def localFile = project.rootProject.file("local.properties")
+val localProperties = Properties()
+val localFile = project.rootProject.file("local.properties")
 if (localFile.exists()) {
-    localProperties.load(localFile.newDataInputStream())
+    localProperties.load(localFile.reader())
 }
 
 android {
-    compileSdkVersion = 33
+    compileSdk = 33
 
     defaultConfig {
         applicationId = "com.google.android.horologist.mediasample"
@@ -47,26 +50,26 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix = ".debug"
-            manifestPlaceholders.schemeSuffix = "-debug"
+            manifestPlaceholders["schemeSuffix"] = "-debug"
         }
         release {
-            manifestPlaceholders.schemeSuffix = ""
+            manifestPlaceholders["schemeSuffix"] = ""
 
-            minifyEnabled = true
-            shrinkResources = true
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
-            signingConfig = signingConfigs.debug
+            signingConfig = signingConfigs.getByName("debug")
         }
-        benchmark {
-            initWith(buildTypes.release)
+        create("benchmark") {
+            initWith(buildTypes.getByName("release"))
 
-            signingConfig = signingConfigs.debug
-            debuggable = false
+            signingConfig = signingConfigs.getByName("debug")
+            isDebuggable = false
 
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro", "proguard-benchmark.pro")
 
-            matchingFallbacks = ["release"]
+            matchingFallbacks.add("release")
         }
     }
 
@@ -113,17 +116,17 @@ protobuf {
         artifact = "com.google.protobuf:protoc:3.21.4"
     }
     plugins {
-        javalite {
+        id("javalite") {
             artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
         }
     }
     generateProtoTasks {
-        all().each { task ->
+        all().forEach { task ->
             task.builtins {
-                java {
+                create("java") {
                     option("lite")
                 }
-                kotlin {
+                create("kotlin") {
                     option("lite")
                 }
             }
@@ -151,7 +154,7 @@ dependencies {
     implementation(projects.networkAwareness)
     implementation(projects.tiles)
 
-    implementation(projectOrDependency(":media-lib-datasource-okhttp", libs.androidx.media3.datasourceokhttp))
+    implementation(project.findProject(":media-lib-datasource-okhttp") ?: libs.androidx.media3.datasourceokhttp)
 
     implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.util)
@@ -205,7 +208,7 @@ dependencies {
 
     implementation(libs.androidx.metrics.performance)
 
-    implementation(projectOrDependency(":media-lib-exoplayer-workmanager", libs.androidx.media3.exoplayerworkmanager))
+    implementation(project.findProject(":media-lib-exoplayer-workmanager") ?: libs.androidx.media3.exoplayerworkmanager)
 
     implementation(libs.room.common)
     implementation(libs.room.ktx)
@@ -231,19 +234,19 @@ dependencies {
     kaptAndroidTest(libs.dagger.hiltandroidcompiler)
 }
 
-def device = localProperties.getProperty("DEVICE")
+val device: String? = localProperties.getProperty("DEVICE")
 if (device != null) {
-    task appLaunch(type: Exec) {
+    task<Exec>("appLaunch") {
         group = "Media"
-        description = "Run on device " + device
+        description = "Run on device $device"
         dependsOn(":media-sample:installRelease")
         description = "Launch App"
         commandLine = "adb -s $device shell am start -n com.google.android.horologist.mediasample/com.google.android.horologist.mediasample.ui.app.MediaActivity".split(" ")
     }
 
-    task offloadStatus(type: Exec) {
+    task<Exec>("offloadStatus") {
         group = "Media"
-        description = "Offload Status for " + device
+        description = "Offload Status for $device"
         description = "Offload Status"
         commandLine = "adb -s $device shell dumpsys media.audio_flinger".split(" ")
     }

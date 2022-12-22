@@ -15,15 +15,15 @@
   -->
 
 <resources>
-    <string description="To be translated soon." translatable="false" name="horologist_check_your_phone_title">Check your phone</string>
-    <string description="To be translated soon." translatable="false" name="horologist_auth_error_message">Error authenticating.</string>
-    <string description="To be translated soon." translatable="false" name="horologist_signedin_confirmation_greeting">Hi, %s</string>
-    <string description="To be translated soon." translatable="false" name="horologist_signedin_confirmation_greeting_no_name">Hi!</string>
-    <string description="To be translated soon." translatable="false" name="horologist_signin_prompt_title">Sign In</string>
-    <string description="To be translated soon." translatable="false" name="horologist_sign_in_chip_label">Sign in</string>
-    <string description="To be translated soon." translatable="false" name="horologist_guest_mode_chip_label">Use without account</string>
-    <string description="To be translated soon." translatable="false" name="horologist_other_options_chip_label">Other options</string>
-    <string description="To be translated soon." translatable="false" name="horologist_create_account_chip_label">Create account</string>
-    <string description="To be translated soon." translatable="false" name="horologist_select_account_title">Select account</string>
-    <string description="To be translated soon." translatable="false" name="horologist_signin_placeholder_message">Signing in…</string>
+    <string description="Text displayed on the screen that tells the user to check their mobile phone to proceed with the action that they are taking. [CHAR_LIMIT=NONE]" name="horologist_check_your_phone_title">Check your phone</string>
+    <string description="Text displayed on the screen that tells the user that an error occurred during the authentication process. [CHAR_LIMIT=NONE]" name="horologist_auth_error_message">Error authenticating.</string>
+    <string description="A text to be displayed when the user signs in and their name is known. Example: Hi, John. [CHAR_LIMIT=13]" name="horologist_signedin_confirmation_greeting">Hi, %s</string>
+    <string description="A text to be displayed when the user signs in and their name is not known. [CHAR_LIMIT=13]" name="horologist_signedin_confirmation_greeting_no_name">Hi!</string>
+    <string description="Title of the screen that prompts the user to sign in. [CHAR_LIMIT=40]" name="horologist_signin_prompt_title">Sign In</string>
+    <string description="Label displayed on the Chip that allows the user to sign in. [CHAR_LIMIT=20]" name="horologist_sign_in_chip_label">Sign in</string>
+    <string description="Label displayed on the Chip that allows the user to use the app without being signed in. [CHAR_LIMIT=20]" name="horologist_guest_mode_chip_label">Use without account</string>
+    <string description="Label displayed on the Chip that allows the user to see the other options to sign in or to use the app without signing in. [CHAR_LIMIT=20]" name="horologist_other_options_chip_label">Other options</string>
+    <string description="Label displayed on the Chip that allows the user to start the process of creating an account. [CHAR_LIMIT=20]" name="horologist_create_account_chip_label">Create account</string>
+    <string description="Title of the screen that displays a list of accounts and allows the user to choose one. [CHAR_LIMIT=40]" name="horologist_select_account_title">Select account</string>
+    <string description="Text displayed on the screen that tells the user that the authentication process is in progress. [CHAR_LIMIT=NONE]" name="horologist_signin_placeholder_message">Signing in…</string>
 </resources>

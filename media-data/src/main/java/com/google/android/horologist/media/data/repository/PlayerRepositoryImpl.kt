@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.media.data.repository
 
-import android.util.Log
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
@@ -26,12 +25,12 @@ import com.google.android.horologist.media.data.mapper.MediaItemExtrasMapperNoop
 import com.google.android.horologist.media.data.mapper.MediaItemMapper
 import com.google.android.horologist.media.data.mapper.MediaMapper
 import com.google.android.horologist.media.data.mapper.PlaybackStateMapper
-import com.google.android.horologist.media.data.mapper.PlayerStateMapper
 import com.google.android.horologist.media.data.mapper.SetCommandMapper
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.PlaybackState
-import com.google.android.horologist.media.model.PlayerState
+import com.google.android.horologist.media.model.PlaybackStateEvent
+import com.google.android.horologist.media.model.PlaybackStateEvent.Cause
 import com.google.android.horologist.media.repository.PlayerRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -68,17 +67,14 @@ public class PlayerRepositoryImpl(
     private val _availableCommands = MutableStateFlow(emptySet<Command>())
     override val availableCommands: StateFlow<Set<Command>> get() = _availableCommands
 
-    private val _currentState = MutableStateFlow(PlayerState.Idle)
-    override val currentState: StateFlow<PlayerState> get() = _currentState
-
     /**
      * The current media playing, or that would play when user hit play.
      */
     private var _currentMedia = MutableStateFlow<Media?>(null)
     override val currentMedia: StateFlow<Media?> get() = _currentMedia
 
-    private var _playbackState = MutableStateFlow(PlaybackState.IDLE)
-    override val playbackState: StateFlow<PlaybackState> get() = _playbackState
+    private var _playbackStateEvents = MutableStateFlow(PlaybackStateEvent(PlaybackState.IDLE, Cause.Initial))
+    override val playbackStateEvents: StateFlow<PlaybackStateEvent> get() = _playbackStateEvents
 
     private var _shuffleModeEnabled = MutableStateFlow(false)
     override val shuffleModeEnabled: StateFlow<Boolean> get() = _shuffleModeEnabled
@@ -94,7 +90,8 @@ public class PlayerRepositoryImpl(
             Player.EVENT_AVAILABLE_COMMANDS_CHANGED to ::updateAvailableCommands,
             Player.EVENT_MEDIA_ITEM_TRANSITION to ::updateCurrentMedia,
             Player.EVENT_SHUFFLE_MODE_ENABLED_CHANGED to ::updateShuffleMode,
-            Player.EVENT_PLAYBACK_PARAMETERS_CHANGED to ::updatePlaybackState,
+            Player.EVENT_PLAYBACK_PARAMETERS_CHANGED to { updatePlaybackState(it, Cause.ParametersChanged) },
+            Player.EVENT_POSITION_DISCONTINUITY to { updatePlaybackState(it, Cause.PositionDiscontinuity) },
             Player.EVENT_SEEK_BACK_INCREMENT_CHANGED to ::updateSeekBackIncrement,
             Player.EVENT_SEEK_FORWARD_INCREMENT_CHANGED to ::updateSeekForwardIncrement,
             Player.EVENT_MEDIA_METADATA_CHANGED to ::updateCurrentMedia,
@@ -128,7 +125,6 @@ public class PlayerRepositoryImpl(
 
     private fun updateCurrentMedia(player: Player) {
         _currentMedia.value = player.currentMediaItem?.let { mediaMapper.map(it, player.mediaMetadata) }
-        updatePlaybackState(player)
     }
 
     private fun updateAvailableCommands(player: Player) {
@@ -145,24 +141,12 @@ public class PlayerRepositoryImpl(
         _seekForwardIncrement.value = player.seekForwardIncrement.toDuration(DurationUnit.MILLISECONDS)
     }
 
-    // TODO https://github.com/google/horologist/issues/496
-    private fun updateTimeline(player: Player) {
-        mediaIndexToSeekTo?.let { index ->
-            player.seekTo(index, 0)
-            player.prepare()
-            player.play()
-            mediaIndexToSeekTo = null
-        }
-        updatePlaybackState(player)
-    }
-
     private fun updateState(player: Player) {
-        _currentState.value = PlayerStateMapper.map(player)
-        updatePlaybackState(player)
+        updatePlaybackState(player, Cause.PlayerStateChanged)
     }
 
-    private fun updatePlaybackState(player: Player) {
-        _playbackState.value = playbackStateMapper.map(player)
+    private fun updatePlaybackState(player: Player, cause: Cause = Cause.Other) {
+        _playbackStateEvents.value = playbackStateMapper.createEvent(player, cause)
     }
 
     /**
@@ -187,7 +171,7 @@ public class PlayerRepositoryImpl(
         updateState(player)
         updateSeekBackIncrement(player)
         updateSeekForwardIncrement(player)
-        updatePlaybackState(player)
+        updatePlaybackState(player, Cause.Initial)
 
         this.onClose = onClose
     }
@@ -258,19 +242,13 @@ public class PlayerRepositoryImpl(
     override fun seekBack() {
         checkNotClosed()
 
-        player.value?.let {
-            it.seekBack()
-            updatePlaybackState(it)
-        }
+        player.value?.seekBack()
     }
 
     override fun seekForward() {
         checkNotClosed()
 
-        player.value?.let {
-            it.seekForward()
-            updatePlaybackState(it)
-        }
+        player.value?.seekForward()
     }
 
     override fun setShuffleModeEnabled(shuffleModeEnabled: Boolean) {
@@ -306,10 +284,7 @@ public class PlayerRepositoryImpl(
     override fun setMediaList(mediaList: List<Media>, index: Int, position: Duration?) {
         checkNotClosed()
 
-        player.value?.let {
-            it.setMediaItems(mediaList.map(mediaItemMapper::map), index, position?.inWholeMilliseconds ?: C.TIME_UNSET)
-            updatePosition()
-        }
+        player.value?.setMediaItems(mediaList.map(mediaItemMapper::map), index, position?.inWholeMilliseconds ?: C.TIME_UNSET)
     }
 
     override fun addMedia(media: Media) {

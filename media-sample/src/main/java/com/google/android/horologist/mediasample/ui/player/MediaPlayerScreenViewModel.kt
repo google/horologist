@@ -18,7 +18,6 @@ package com.google.android.horologist.mediasample.ui.player
 
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.data.repository.PlayerRepositoryImpl
-import com.google.android.horologist.media.model.MediaPosition
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
@@ -38,19 +37,13 @@ class MediaPlayerScreenViewModel @Inject constructor(
 ) : PlayerViewModel(playerRepository) {
 
     init {
+        // TODO: consider if this should be done elsewhere
+        // https://github.com/google/horologist/issues/900
         viewModelScope.launch {
             playerRepository.currentMedia.collect { media ->
                 if (media != null) {
                     settingsRepository.edit {
                         it.copy { currentMediaItemId = media.id }
-                    }
-                    val position = playerRepository.mediaPosition.value
-                    if (position is MediaPosition.KnownDuration) {
-                        settingsRepository.edit {
-                            it.copy {
-                                currentPosition = position.current.inWholeMilliseconds
-                            }
-                        }
                     }
                 }
             }

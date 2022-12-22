@@ -50,8 +50,9 @@ import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.TextMediaDisplay
 import com.google.android.horologist.media.ui.components.background.RadialBackground
-import com.google.android.horologist.media.ui.state.model.MediaProgress
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.media.ui.uamp.UampTheme
+import kotlin.time.Duration.Companion.seconds
 
 @Preview(
     group = "Large Round",
@@ -94,7 +95,7 @@ fun PlayerScreenPreview() {
                         onPauseButtonClick = {},
                         playPauseButtonEnabled = true,
                         playing = true,
-                        mediaProgress = MediaProgress.Hidden,
+                        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 25.seconds, 100.seconds),
                         onSeekToNextButtonClick = {},
                         seekToNextButtonEnabled = true,
                         onSeekToPreviousButtonClick = {},
@@ -164,7 +165,7 @@ fun PlayerScreenPreviewCustomMediaDisplay() {
                         onPauseButtonClick = {},
                         playPauseButtonEnabled = true,
                         playing = true,
-                        mediaProgress = MediaProgress.Hidden,
+                        trackPositionUiModel = TrackPositionUiModel.Actual(0.75f, 75.seconds, 100.seconds),
                         onSeekToNextButtonClick = {},
                         seekToNextButtonEnabled = true,
                         onSeekToPreviousButtonClick = {},
@@ -321,7 +322,7 @@ fun DefaultMediaPreview() {
                         onPauseButtonClick = {},
                         playPauseButtonEnabled = true,
                         playing = true,
-                        mediaProgress = MediaProgress.Hidden,
+                        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 25.seconds, 100.seconds),
                         onSeekToNextButtonClick = {},
                         seekToNextButtonEnabled = true,
                         onSeekToPreviousButtonClick = {},

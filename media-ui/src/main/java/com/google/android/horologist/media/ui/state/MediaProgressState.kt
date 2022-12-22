@@ -17,68 +17,55 @@
 package com.google.android.horologist.media.ui.state
 
 import android.os.SystemClock
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.AnimationResult
-import androidx.compose.animation.core.AnimationSpec
-import androidx.compose.animation.core.AnimationVector1D
-import androidx.compose.animation.core.SnapSpec
+import androidx.compose.animation.core.withInfiniteAnimationFrameMillis
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.withFrameMillis
-import androidx.wear.compose.material.ProgressIndicatorDefaults
+import androidx.compose.runtime.setValue
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.MediaProgress
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.isActive
 
 @ExperimentalHorologistMediaUiApi
-internal class MediaProgressState : State<Float> {
-    private val animatable = Animatable(0f)
-    private val state = mutableStateOf(0f)
+internal class MediaProgressState(initial: Float? = null) : State<Float> {
+    private val predictedProgress = mutableStateOf(0f)
+    private var actualProgress by mutableStateOf<Float?>(initial)
 
-    override val value: Float
-        get() = if (animatable.isRunning) {
-            animatable.value
-        } else {
-            state.value
+    override val value: Float get() = actualProgress ?: predictedProgress.value
+
+    suspend fun predictProgress(predictor: (Long) -> Float): Unit = coroutineScope {
+        val elapsedRealtime = SystemClock.elapsedRealtime()
+        predictedProgress.value = predictor(elapsedRealtime)
+        actualProgress = null
+        val initialFrameTime = withInfiniteAnimationFrameMillis { it }
+        while (isActive) {
+            val frameTimeOffset = withInfiniteAnimationFrameMillis { it - initialFrameTime }
+            predictedProgress.value = predictor(elapsedRealtime + frameTimeOffset)
         }
-
-    suspend fun animateValue(targetValue: Float, animationSpec: AnimationSpec<Float>): AnimationResult<Float, AnimationVector1D> {
-        animatable.snapTo(state.value)
-        val result = animatable.animateTo(targetValue, animationSpec)
-        state.value = targetValue
-        return result
     }
 
-    suspend fun animatePredicted(predictor: (Long) -> Float): Unit = coroutineScope {
-        val elapsedRealtime = SystemClock.elapsedRealtime()
-        val initialFrameTime = withFrameMillis { it }
-        while (isActive) {
-            val frameTimeOffset = withFrameMillis { it - initialFrameTime }
-            state.value = predictor(elapsedRealtime + frameTimeOffset)
-        }
+    fun setProgress(progress: Float) {
+        actualProgress = progress
     }
 
     companion object {
         @Composable
-        fun fromMediaProgress(mediaProgress: MediaProgress): State<Float> {
-            val state = remember { MediaProgressState() }
-            LaunchedEffect(mediaProgress) {
-                if (mediaProgress is MediaProgress.Actual) {
-                    val spec = if (mediaProgress.animated) {
-                        ProgressIndicatorDefaults.ProgressAnimationSpec
-                    } else {
-                        SnapSpec()
-                    }
-                    state.animateValue(mediaProgress.percent, spec)
-                } else if (mediaProgress is MediaProgress.Predictive) {
-                    state.animatePredicted(mediaProgress::predictPercent)
+        fun fromMediaProgress(trackPositionUiModel: TrackPositionUiModel): State<Float> {
+            val state = remember { MediaProgressState(trackPositionUiModel.initial) }
+            LaunchedEffect(trackPositionUiModel) {
+                if (trackPositionUiModel is TrackPositionUiModel.Actual) {
+                    state.setProgress(trackPositionUiModel.percent)
+                } else if (trackPositionUiModel is TrackPositionUiModel.Predictive) {
+                    state.predictProgress(trackPositionUiModel.predictor::predictPercent)
                 }
             }
             return state
         }
+
+        private val TrackPositionUiModel.initial get() = (this as? TrackPositionUiModel.Actual)?.percent
     }
 }

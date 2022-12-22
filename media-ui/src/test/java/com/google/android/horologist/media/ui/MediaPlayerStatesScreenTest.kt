@@ -28,14 +28,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.media.ui.state.PlayerUiState
-import com.google.android.horologist.media.ui.state.model.MediaProgress
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import kotlin.time.Duration.Companion.seconds
 
 @RunWith(Parameterized::class)
 class MediaPlayerStatesScreenTest(
@@ -66,13 +67,10 @@ class MediaPlayerStatesScreenTest(
             } else {
                 null
             },
-            mediaProgress = if (state.media) {
-                MediaProgress.Actual(
-                    currentPositionMs = 30,
-                    durationMs = 225
-                )
+            trackPositionUiModel = if (state.media) {
+                TrackPositionUiModel.Actual(percent = 0.1f, position = 30.seconds, duration = 300.seconds)
             } else {
-                MediaProgress.Hidden
+                TrackPositionUiModel.Hidden
             },
             connected = state.connected
         )

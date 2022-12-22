@@ -61,7 +61,7 @@ fun MediaPlayerTestCase(
             seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
             onSeekToNextButtonClick = { },
             seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
-            mediaProgress = playerUiState.mediaProgress
+            trackPositionUiModel = playerUiState.trackPositionUiModel
         )
     },
     buttons: @Composable RowScope.() -> Unit = {

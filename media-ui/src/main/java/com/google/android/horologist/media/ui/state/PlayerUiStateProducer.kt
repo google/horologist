@@ -58,17 +58,16 @@ public class PlayerUiStateProducer(
     }
 
     public val playerUiStateFlow: Flow<PlayerUiState> = combine(
-        playerRepository.currentState,
         playerRepository.availableCommands,
         playerRepository.currentMedia,
-        playerRepository.playbackState,
+        playerRepository.playbackStateEvents,
         staticFlow
-    ) { currentState, availableCommands, media, playbackState, staticData ->
+    ) { availableCommands, media, lastPlaybackStateEvent, staticData ->
         PlayerUiStateMapper.map(
-            currentState = currentState,
+            currentState = lastPlaybackStateEvent.playbackState.playerState,
             availableCommands = availableCommands,
             media = media,
-            playbackState = playbackState,
+            playbackStateEvent = lastPlaybackStateEvent,
             shuffleModeEnabled = staticData.shuffleModeEnabled,
             connected = staticData.connected,
             seekBackIncrement = staticData.seekBackButtonIncrement,

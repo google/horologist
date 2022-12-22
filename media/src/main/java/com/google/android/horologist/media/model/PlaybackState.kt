@@ -21,24 +21,25 @@ import kotlin.time.Duration
 
 /**
  * Represents a [Media] position, duration and playback speed captured at a given time. It can be
+ * used to determine whether media is playing and to infer current or future position.
  */
 @ExperimentalHorologistMediaApi
 public data class PlaybackState(
-    public val isPlaying: Boolean,
+    public val playerState: PlayerState,
     public val isLive: Boolean,
     public val currentPosition: Duration?,
     public val duration: Duration?,
-    public val playbackSpeed: Float,
-    public val elapsedRealtimeWhenCreated: Duration? = null
+    public val playbackSpeed: Float
 ) {
+    public val isPlaying: Boolean get() = playerState == PlayerState.Playing
+
     public companion object {
         public val IDLE: PlaybackState = PlaybackState(
-            isPlaying = false,
-            currentPosition = Duration.ZERO,
-            duration = Duration.ZERO,
-            playbackSpeed = 1f,
+            playerState = PlayerState.Idle,
             isLive = false,
-            elapsedRealtimeWhenCreated = null
+            currentPosition = null,
+            duration = null,
+            playbackSpeed = 1f
         )
     }
 }

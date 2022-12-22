@@ -19,8 +19,10 @@
 package com.google.android.horologist.media.data.mapper
 
 import androidx.media3.common.C
+import androidx.media3.common.Player
 import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.model.PlaybackState
+import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.test.toolbox.testdoubles.FakeStatePlayer
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -32,9 +34,9 @@ class PlaybackStateMapperTest {
     private val playbackStateMapper = PlaybackStateMapper { elapsedRealtime }
 
     @Test
-    fun `check position calculations null`() {
+    fun `check position calculations idle`() {
         val position = playbackStateMapper.map(null)
-        assertThat(position).isNull()
+        assertThat(position).isEqualTo(PlaybackState.IDLE)
     }
 
     @Test
@@ -61,6 +63,9 @@ class PlaybackStateMapperTest {
 
     @Test
     fun `check position calculations past end`() {
+        fakeStatePlayer.overrideState(
+            Player.STATE_READY
+        )
         fakeStatePlayer.overridePosition(
             currentPosition = 100L,
             duration = 99L
@@ -72,6 +77,9 @@ class PlaybackStateMapperTest {
 
     @Test
     fun `check position calculations during`() {
+        fakeStatePlayer.overrideState(
+            Player.STATE_READY
+        )
         fakeStatePlayer.overridePosition(
             currentPosition = 100L,
             duration = 1000L
@@ -80,9 +88,16 @@ class PlaybackStateMapperTest {
         val position = playbackStateMapper.map(fakeStatePlayer)
         assertThat(position.currentPosition).isEqualTo(100.milliseconds)
         assertThat(position.duration).isEqualTo(1000.milliseconds)
-        assertThat(position.elapsedRealtimeWhenCreated).isEqualTo(elapsedRealtime.milliseconds)
         assertThat(position.playbackSpeed).isEqualTo(2f)
         assertThat(position.isLive).isEqualTo(false)
+    }
+
+    @Test
+    fun `check event timestamp`() {
+        val event = playbackStateMapper.createEvent(fakeStatePlayer, PlaybackStateEvent.Cause.Other)
+        assertThat(event.timestamp).isEqualTo(elapsedRealtime.milliseconds)
+        assertThat(event.cause).isEqualTo(PlaybackStateEvent.Cause.Other)
+        assertThat(event.playbackState).isEqualTo(playbackStateMapper.map(fakeStatePlayer))
     }
 
     @Test

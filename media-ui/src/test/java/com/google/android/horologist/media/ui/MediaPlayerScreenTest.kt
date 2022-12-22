@@ -30,14 +30,15 @@ import com.google.android.horologist.compose.tools.ExperimentalHorologistCompose
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.themeValues
 import com.google.android.horologist.media.ui.state.PlayerUiState
-import com.google.android.horologist.media.ui.state.model.MediaProgress
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import kotlin.time.Duration.Companion.seconds
 
 @RunWith(Parameterized::class)
 class MediaPlayerScreenTest(
@@ -64,7 +65,7 @@ class MediaPlayerScreenTest(
                 title = "Weather with You",
                 subtitle = "Crowded House"
             ),
-            mediaProgress = MediaProgress.Actual(currentPositionMs = 30, durationMs = 225),
+            trackPositionUiModel = TrackPositionUiModel.Actual(percent = 0.1f, position = 30.seconds, duration = 300.seconds),
             connected = true
         )
 

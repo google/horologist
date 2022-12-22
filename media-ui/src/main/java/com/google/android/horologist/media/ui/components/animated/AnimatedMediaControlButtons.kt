@@ -28,7 +28,7 @@ import com.google.android.horologist.media.ui.components.PlayPauseProgressButton
 import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults
 import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
 import com.google.android.horologist.media.ui.components.controls.SeekToPreviousButton
-import com.google.android.horologist.media.ui.state.model.MediaProgress
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
 /**
  * Standard media control buttons, showing [SeekToPreviousButton], [PlayPauseProgressButton] and
@@ -46,7 +46,7 @@ public fun AnimatedMediaControlButtons(
     onSeekToNextButtonClick: () -> Unit,
     seekToNextButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
-    mediaProgress: MediaProgress,
+    trackPositionUiModel: TrackPositionUiModel,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     ControlButtonLayout(
@@ -59,13 +59,13 @@ public fun AnimatedMediaControlButtons(
             )
         },
         middleButton = {
-            if (mediaProgress.showProgress) {
+            if (trackPositionUiModel.showProgress) {
                 PlayPauseProgressButton(
                     onPlayClick = onPlayButtonClick,
                     onPauseClick = onPauseButtonClick,
                     enabled = playPauseButtonEnabled,
                     playing = playing,
-                    mediaProgress = mediaProgress,
+                    trackPositionUiModel = trackPositionUiModel,
                     modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
                     colors = colors
                 )

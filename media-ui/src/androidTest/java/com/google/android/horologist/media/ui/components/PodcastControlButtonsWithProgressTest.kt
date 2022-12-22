@@ -29,8 +29,10 @@ import androidx.compose.ui.test.performClick
 import androidx.test.filters.FlakyTest
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import org.junit.Rule
 import org.junit.Test
+import kotlin.time.Duration.Companion.seconds
 
 @FlakyTest(detail = "https://github.com/google/horologist/issues/407")
 class PodcastControlButtonsWithProgressTest {
@@ -49,7 +51,7 @@ class PodcastControlButtonsWithProgressTest {
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = true,
                 playing = playing,
-                percent = 0.25f,
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
@@ -77,7 +79,7 @@ class PodcastControlButtonsWithProgressTest {
                 onPauseButtonClick = { clicked = true },
                 playPauseButtonEnabled = true,
                 playing = playing,
-                percent = 0.25f,
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
@@ -105,7 +107,7 @@ class PodcastControlButtonsWithProgressTest {
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = true,
                 playing = playing,
-                percent = 0.25f,
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
@@ -133,7 +135,7 @@ class PodcastControlButtonsWithProgressTest {
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = true,
                 playing = playing,
-                percent = 0.25f,
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
@@ -161,7 +163,7 @@ class PodcastControlButtonsWithProgressTest {
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = true,
                 playing = false,
-                percent = 0.25f,
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
                 onSeekBackButtonClick = { clicked = true },
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
@@ -189,7 +191,7 @@ class PodcastControlButtonsWithProgressTest {
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = true,
                 playing = false,
-                percent = 0.25f,
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = { clicked = true },
@@ -209,7 +211,7 @@ class PodcastControlButtonsWithProgressTest {
     @Test
     fun givenPercentParam_thenProgressBarIsDisplayed() {
         // given
-        val percent = 0.25f
+        val trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds)
 
         composeTestRule.setContent {
             PodcastControlButtons(
@@ -217,7 +219,7 @@ class PodcastControlButtonsWithProgressTest {
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = true,
                 playing = false,
-                percent = percent,
+                trackPositionUiModel = trackPositionUiModel,
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = true,
                 onSeekForwardButtonClick = {},
@@ -226,7 +228,7 @@ class PodcastControlButtonsWithProgressTest {
         }
 
         // then
-        composeTestRule.onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo(percent, 0.0f..1.0f)))
+        composeTestRule.onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo(0.25f, 0.0f..1.0f)))
             .assertIsDisplayed()
     }
 
@@ -242,7 +244,7 @@ class PodcastControlButtonsWithProgressTest {
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = playPauseButtonEnabled,
                 playing = playing,
-                percent = 0.25f,
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
@@ -272,7 +274,7 @@ class PodcastControlButtonsWithProgressTest {
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = playPauseButtonEnabled,
                 playing = playing,
-                percent = 0.25f,
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
@@ -301,7 +303,7 @@ class PodcastControlButtonsWithProgressTest {
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = false,
                 playing = false,
-                percent = 0.25f,
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = seekBackButtonEnabled,
                 onSeekForwardButtonClick = {},
@@ -331,7 +333,7 @@ class PodcastControlButtonsWithProgressTest {
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = false,
                 playing = false,
-                percent = 0.25f,
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
@@ -360,7 +362,7 @@ class PodcastControlButtonsWithProgressTest {
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = false,
                 playing = false,
-                percent = 0.25f,
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},
@@ -388,7 +390,7 @@ class PodcastControlButtonsWithProgressTest {
                 onPauseButtonClick = {},
                 playPauseButtonEnabled = false,
                 playing = false,
-                percent = 0.25f,
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
                 onSeekBackButtonClick = {},
                 seekBackButtonEnabled = false,
                 onSeekForwardButtonClick = {},

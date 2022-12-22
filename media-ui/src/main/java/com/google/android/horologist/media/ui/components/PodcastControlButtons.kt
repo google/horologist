@@ -26,7 +26,7 @@ import com.google.android.horologist.media.ui.components.controls.SeekButtonIncr
 import com.google.android.horologist.media.ui.components.controls.SeekForwardButton
 import com.google.android.horologist.media.ui.state.PlayerUiController
 import com.google.android.horologist.media.ui.state.PlayerUiState
-import com.google.android.horologist.media.ui.state.model.MediaProgress
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
 /**
  * Convenience wrapper of [PodcastControlButtons].
@@ -52,7 +52,7 @@ public fun PodcastControlButtons(
         onSeekForwardButtonClick = playerController::seekForward,
         seekForwardButtonIncrement = playerUiState.seekForwardButtonIncrement,
         seekForwardButtonEnabled = playerUiState.seekForwardEnabled,
-        mediaProgress = playerUiState.mediaProgress,
+        trackPositionUiModel = playerUiState.trackPositionUiModel,
         modifier = modifier,
         colors = colors
     )
@@ -89,7 +89,7 @@ public fun PodcastControlButtons(
         onSeekForwardButtonClick = onSeekForwardButtonClick,
         seekForwardButtonIncrement = seekForwardButtonIncrement,
         seekForwardButtonEnabled = seekForwardButtonEnabled,
-        mediaProgress = MediaProgress.Hidden,
+        trackPositionUiModel = TrackPositionUiModel.Hidden,
         modifier = modifier,
         colors = colors
     )
@@ -106,13 +106,13 @@ public fun PodcastControlButtons(
     playPauseButtonEnabled: Boolean,
     playing: Boolean,
     onSeekBackButtonClick: () -> Unit,
-    seekBackButtonIncrement: SeekButtonIncrement,
     seekBackButtonEnabled: Boolean,
     onSeekForwardButtonClick: () -> Unit,
-    seekForwardButtonIncrement: SeekButtonIncrement,
     seekForwardButtonEnabled: Boolean,
-    mediaProgress: MediaProgress,
+    trackPositionUiModel: TrackPositionUiModel,
     modifier: Modifier = Modifier,
+    seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
+    seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     ControlButtonLayout(
@@ -131,7 +131,7 @@ public fun PodcastControlButtons(
                 onPauseClick = onPauseButtonClick,
                 enabled = playPauseButtonEnabled,
                 playing = playing,
-                mediaProgress = mediaProgress,
+                trackPositionUiModel = trackPositionUiModel,
                 colors = colors
             )
         },

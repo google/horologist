@@ -20,62 +20,83 @@ package com.google.android.horologist.media.model
 
 import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import com.google.common.truth.Truth.assertThat
-import org.junit.Assert.assertThrows
 import org.junit.Test
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
 class PlaybackStateTest {
+    private val elapsedMilliseconds = 123L
 
     @Test
-    fun givenValidValues_whenCreateKnownPosition_thenCreateCorrectly() {
+    fun givenValidValues_returnsPositionPredictor_thatPredictsPosition() {
         // given
         val current = 1.seconds
         val duration = 2.seconds
 
         // when
-        val result = PlaybackState.create(current = current, duration = duration)
-
+        val result = eventWith(position = current, duration = duration)
+        val predictor = result.createPositionPredictor()
         // then
-        assertThat(result.current).isEqualTo(current)
-        assertThat(result.duration).isEqualTo(duration)
-        assertThat(result.percent).isEqualTo(0.5f)
+        assertThat(predictor).isNotNull()
+        assertThat(predictor!!.predictDuration(elapsedMilliseconds)).isEqualTo(duration)
+        assertThat(predictor.predictPosition(elapsedMilliseconds)).isEqualTo(current)
+        assertThat(predictor.predictPercent(elapsedMilliseconds)).isEqualTo(0.5f)
+        assertThat(predictor.predictDuration(elapsedMilliseconds + 100)).isEqualTo(duration)
+        assertThat(predictor.predictPosition(elapsedMilliseconds + 100)).isEqualTo(1100.milliseconds)
     }
 
     @Test
-    fun givenCurrentPositionIsNegative_whenCreateKnownPosition_thenExceptionIsThrown() {
+    fun givenLive_returnsPositionPredictor_thatPredictsPositionAndDuration() {
         // given
-        val current = (-1).seconds
+        val current = 1.seconds
+        val duration = 2.seconds
 
         // when
-        val whenBlock = { PlaybackState.create(current = current, duration = 10.seconds) }
-
+        val result = eventWith(position = current, duration = duration, live = true)
+        val predictor = result.createPositionPredictor()
         // then
-        assertThrows(IllegalStateException::class.java) { whenBlock() }
+        assertThat(predictor).isNotNull()
+        assertThat(predictor!!.predictDuration(elapsedMilliseconds)).isEqualTo(duration)
+        assertThat(predictor.predictPosition(elapsedMilliseconds)).isEqualTo(current)
+        assertThat(predictor.predictPercent(elapsedMilliseconds)).isEqualTo(0.5f)
+        assertThat(predictor.predictDuration(elapsedMilliseconds + 100)).isEqualTo(2100.milliseconds)
+        assertThat(predictor.predictPosition(elapsedMilliseconds + 100)).isEqualTo(1100.milliseconds)
     }
 
     @Test
-    fun givenDurationIsZero_whenCreateKnownPosition_thenExceptionIsThrown() {
+    fun given2x_returnsPositionPredictor_thatPredictsPosition() {
         // given
-        val duration = Duration.ZERO
+        val current = 1.seconds
+        val duration = 2.seconds
 
         // when
-        val whenBlock = { PlaybackState.create(current = Duration.ZERO, duration = duration) }
-
+        val result = eventWith(position = current, duration = duration, speed = 2f)
+        val predictor = result.createPositionPredictor()
         // then
-        assertThrows(IllegalStateException::class.java) { whenBlock() }
+        assertThat(predictor).isNotNull()
+        assertThat(predictor!!.predictDuration(elapsedMilliseconds + 100)).isEqualTo(duration)
+        assertThat(predictor.predictPosition(elapsedMilliseconds + 100)).isEqualTo(1200.milliseconds)
     }
 
     @Test
-    fun givenCurrentPositionIsGreaterThanDuration_whenCreateKnownPosition_thenExceptionIsThrown() {
-        // given
-        val current = 2.seconds
-        val duration = 1.seconds
-
+    fun givenNoDuration_createPositionPredictor_returnsNull() {
         // when
-        val whenBlock = { PlaybackState.create(current = current, duration = duration) }
-
+        val result = eventWith(position = 1.milliseconds, duration = null)
+        val predictor = result.createPositionPredictor()
         // then
-        assertThrows(IllegalStateException::class.java) { whenBlock() }
+        assertThat(predictor).isNull()
     }
+
+    @Test
+    fun givenNoPosition_createPositionPredictor_returnsNull() {
+        // when
+        val result = eventWith(position = null, duration = 1.milliseconds)
+        val predictor = result.createPositionPredictor()
+        // then
+        assertThat(predictor).isNull()
+    }
+
+    private fun eventWith(position: Duration?, duration: Duration?, speed: Float = 1f, live: Boolean = false) =
+        PlaybackStateEvent(playbackState = PlaybackState(playerState = PlayerState.Playing, isLive = live, currentPosition = position, duration = duration, playbackSpeed = speed), cause = PlaybackStateEvent.Cause.Other, timestamp = elapsedMilliseconds.milliseconds)
 }

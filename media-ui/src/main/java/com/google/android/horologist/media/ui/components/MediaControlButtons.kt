@@ -23,7 +23,7 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults
 import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
 import com.google.android.horologist.media.ui.components.controls.SeekToPreviousButton
-import com.google.android.horologist.media.ui.state.model.MediaProgress
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
 /**
  * Standard media control buttons with no progress indicator, showing [SeekToPreviousButton],
@@ -52,15 +52,19 @@ public fun MediaControlButtons(
         seekToPreviousButtonEnabled = seekToPreviousButtonEnabled,
         onSeekToNextButtonClick = onSeekToNextButtonClick,
         seekToNextButtonEnabled = seekToNextButtonEnabled,
-        mediaProgress = MediaProgress.Hidden,
+        trackPositionUiModel = TrackPositionUiModel.Hidden,
         modifier = modifier,
         colors = colors
     )
 }
 
+/**
+ * Standard media control buttons, showing [SeekToPreviousButton], [PlayPauseProgressButton] and
+ * [SeekToNextButton].
+ */
 @ExperimentalHorologistMediaUiApi
 @Composable
-internal fun MediaControlButtons(
+public fun MediaControlButtons(
     onPlayButtonClick: () -> Unit,
     onPauseButtonClick: () -> Unit,
     playPauseButtonEnabled: Boolean,
@@ -70,7 +74,7 @@ internal fun MediaControlButtons(
     onSeekToNextButtonClick: () -> Unit,
     seekToNextButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
-    mediaProgress: MediaProgress,
+    trackPositionUiModel: TrackPositionUiModel,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     ControlButtonLayout(
@@ -88,7 +92,7 @@ internal fun MediaControlButtons(
                 onPauseClick = onPauseButtonClick,
                 enabled = playPauseButtonEnabled,
                 playing = playing,
-                mediaProgress = mediaProgress,
+                trackPositionUiModel = trackPositionUiModel,
                 colors = colors
             )
         },

@@ -21,27 +21,40 @@ import androidx.media3.common.C
 import androidx.media3.common.Player
 import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.model.PlaybackState
+import com.google.android.horologist.media.model.PlaybackStateEvent
+import com.google.android.horologist.media.model.PlayerState
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * Maps a [Media3 player][Player] position into a [PlaybackState].
  */
 @ExperimentalHorologistMediaDataApi
-public class PlaybackStateMapper(private val elapsedRealtimeProvider: () -> Long = { SystemClock.elapsedRealtime() }) {
-    public fun map(player: Player?): PlaybackState {
+public class PlaybackStateMapper(private val timestampProvider: () -> Long = { SystemClock.elapsedRealtime() }) {
+    public fun createEvent(player: Player?, cause: PlaybackStateEvent.Cause): PlaybackStateEvent =
+        PlaybackStateEvent(
+            playbackState = map(player),
+            cause = cause,
+            timestamp = timestampProvider().milliseconds
+        )
+
+    // should only be mapped as an event
+    internal fun map(player: Player?): PlaybackState {
         if (player == null) {
             return PlaybackState.IDLE
         }
         val playbackSpeed = player.playbackParameters.speed
         val isLive = player.isCurrentMediaItemLive && player.isCurrentMediaItemDynamic
+        val playerState = PlayerStateMapper.map(player)
         return if (
             player.currentMediaItem == null ||
             player.duration == C.TIME_UNSET ||
             player.duration <= 0L ||
-            player.currentPosition < 0L
+            player.currentPosition < 0L ||
+            playerState == PlayerState.Idle ||
+            playerState == PlayerState.Ended
         ) {
             PlaybackState(
-                isPlaying = player.isPlaying,
+                playerState = playerState,
                 currentPosition = null,
                 duration = null,
                 playbackSpeed = playbackSpeed,
@@ -49,12 +62,11 @@ public class PlaybackStateMapper(private val elapsedRealtimeProvider: () -> Long
             )
         } else {
             PlaybackState(
-                isPlaying = player.isPlaying,
+                playerState = playerState,
                 currentPosition = player.currentPosition.milliseconds,
                 duration = (player.duration.coerceAtLeast(player.currentPosition)).milliseconds,
                 playbackSpeed = playbackSpeed,
-                isLive = isLive,
-                elapsedRealtimeWhenCreated = elapsedRealtimeProvider().milliseconds
+                isLive = isLive
             )
         }
     }

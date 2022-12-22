@@ -20,7 +20,7 @@ import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.PlaybackState
-import com.google.android.horologist.media.model.PlayerState
+import com.google.android.horologist.media.model.PlaybackStateEvent
 import kotlinx.coroutines.flow.StateFlow
 import kotlin.time.Duration
 
@@ -38,19 +38,14 @@ public interface PlayerRepository {
     public val availableCommands: StateFlow<Set<Command>>
 
     /**
-     * Returns the player's current [state][PlayerState].
-     */
-    public val currentState: StateFlow<PlayerState>
-
-    /**
      * Returns the current [Media] playing, or that would play when player starts playing.
      */
     public val currentMedia: StateFlow<Media?>
 
     /**
-     * Returns the current [PlaybackState] of the player.
+     * Emits events when [PlaybackState] of the player changes.
      */
-    public val playbackState: StateFlow<PlaybackState>
+    public val playbackStateEvents: StateFlow<PlaybackStateEvent>
 
     /**
      * Returns the current value for shuffling of [Media] mode.

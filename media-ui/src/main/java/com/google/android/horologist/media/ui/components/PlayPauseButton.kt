@@ -16,19 +16,13 @@
 
 package com.google.android.horologist.media.ui.components
 
-import android.os.SystemClock
-import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.withFrameMillis
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,13 +34,11 @@ import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.ProgressIndicatorDefaults
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.PauseButton
 import com.google.android.horologist.media.ui.components.controls.PlayButton
 import com.google.android.horologist.media.ui.state.MediaProgressState
-import com.google.android.horologist.media.ui.state.model.MediaProgress
-import kotlinx.coroutines.isActive
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
 @ExperimentalHorologistMediaUiApi
 @Composable
@@ -92,7 +84,7 @@ public fun PlayPauseProgressButton(
     onPlayClick: () -> Unit,
     onPauseClick: () -> Unit,
     playing: Boolean,
-    mediaProgress: MediaProgress,
+    trackPositionUiModel: TrackPositionUiModel,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
@@ -112,14 +104,14 @@ public fun PlayPauseProgressButton(
         iconSize = iconSize,
         tapTargetSize = tapTargetSize
     ) {
-        if (mediaProgress.showProgress) {
+        val progress by MediaProgressState.fromMediaProgress(trackPositionUiModel)
+        if (trackPositionUiModel.showProgress) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .clip(CircleShape)
                     .background(backgroundColor)
             ) {
-                val progress by MediaProgressState.fromMediaProgress(mediaProgress)
                 CircularProgressIndicator(
                     modifier = Modifier.fillMaxSize(),
                     progress = progress,
@@ -129,36 +121,4 @@ public fun PlayPauseProgressButton(
             }
         }
     }
-}
-
-@ExperimentalHorologistMediaUiApi
-@Composable
-public fun progressAsState(mediaProgress: MediaProgress): State<Float> {
-    val animation = remember {
-        Animatable(
-            if (mediaProgress is MediaProgress.Actual) {
-                mediaProgress.percent
-            } else {
-                0f
-            }
-        )
-    }
-    LaunchedEffect(mediaProgress) {
-        if (mediaProgress is MediaProgress.Actual) {
-            animation.animateTo(
-                mediaProgress.percent,
-                ProgressIndicatorDefaults.ProgressAnimationSpec
-            )
-        } else if (mediaProgress is MediaProgress.Predictive) {
-            val elapsedRealtime = SystemClock.elapsedRealtime()
-            val initialFrameTime = withFrameMillis { it }
-            while (isActive) {
-                val frameTimeOffset = withFrameMillis { it - initialFrameTime }
-                if (!animation.isRunning) {
-                    animation.snapTo(mediaProgress.predictPercent(elapsedRealtime + frameTimeOffset))
-                }
-            }
-        }
-    }
-    return animation.asState()
 }

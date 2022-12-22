@@ -57,6 +57,8 @@ class FakeStatePlayer(
 
     override fun getPlayWhenReady(): Boolean = _playWhenReady
 
+    override fun isLoading(): Boolean = false
+
     override fun getCurrentTimeline(): Timeline {
         val currentMediaItem = _currentMediaItem
         if (currentMediaItem == null) {
@@ -64,15 +66,15 @@ class FakeStatePlayer(
         } else {
             return FakeTimeline(
                 FakeTimeline.TimelineWindowDefinition(
-                    /* periodCount= */ 1,
-                    /* id= */ 1,
-                    /* isSeekable= */ true,
-                    /* isDynamic= */ false,
-                    /* isLive= */ false,
-                    /* isPlaceholder= */ false,
-                    /* durationUs= */ 1000 * C.MICROS_PER_SECOND,
-                    /* defaultPositionUs= */ 2 * C.MICROS_PER_SECOND,
-                    /* windowOffsetInFirstPeriodUs= */ 123456789,
+                    /* periodCount = */ 1,
+                    /* id = */ 1,
+                    /* isSeekable = */ true,
+                    /* isDynamic = */ false,
+                    /* isLive = */ false,
+                    /* isPlaceholder = */ false,
+                    /* durationUs = */ 1000 * C.MICROS_PER_SECOND,
+                    /* defaultPositionUs = */ 2 * C.MICROS_PER_SECOND,
+                    /* windowOffsetInFirstPeriodUs = */ 123456789,
                     ImmutableList.of(AdPlaybackState.NONE),
                     currentMediaItem
                 )
@@ -115,9 +117,7 @@ class FakeStatePlayer(
         listeners.forEach {
             it.onEvents(
                 this,
-                Player.Events(
-                    FlagSet.Builder().add(EVENT_PLAYBACK_PARAMETERS_CHANGED).build()
-                )
+                Player.Events(FlagSet.Builder().add(EVENT_PLAYBACK_PARAMETERS_CHANGED).build())
             )
         }
     }

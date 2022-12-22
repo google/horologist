@@ -133,7 +133,7 @@ public fun DefaultPlayerScreenControlButtons(
         seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
         onSeekToNextButtonClick = playerController::skipToNextMedia,
         seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
-        mediaProgress = playerUiState.mediaProgress
+        trackPositionUiModel = playerUiState.trackPositionUiModel
     )
 }
 

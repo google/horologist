@@ -25,14 +25,15 @@ import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.media.ui.state.PlayerUiState
-import com.google.android.horologist.media.ui.state.model.MediaProgress
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import kotlin.time.Duration.Companion.seconds
 
 @RunWith(Parameterized::class)
 class PodcastPlayerScreenTest(
@@ -59,7 +60,7 @@ class PodcastPlayerScreenTest(
                 title = "The power of types",
                 subtitle = "Kotlinconf"
             ),
-            mediaProgress = MediaProgress.Actual(currentPositionMs = 30, durationMs = 225),
+            trackPositionUiModel = TrackPositionUiModel.Actual(percent = 0.1f, position = 30.seconds, duration = 300.seconds),
             connected = true
         )
 
@@ -71,7 +72,7 @@ class PodcastPlayerScreenTest(
                         onPauseButtonClick = { },
                         playPauseButtonEnabled = playerUiState.playPauseEnabled,
                         playing = playerUiState.playing,
-                        mediaProgress = playerUiState.mediaProgress,
+                        trackPositionUiModel = playerUiState.trackPositionUiModel,
                         onSeekBackButtonClick = { },
                         seekBackButtonEnabled = playerUiState.seekBackEnabled,
                         onSeekForwardButtonClick = { },

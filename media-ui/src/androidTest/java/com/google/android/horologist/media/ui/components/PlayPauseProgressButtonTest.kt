@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.media.ui.components
 
+import android.os.SystemClock
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasAnyChild
@@ -26,11 +27,13 @@ import androidx.compose.ui.test.hasProgressBarRangeInfo
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.performClick
 import androidx.test.filters.FlakyTest
+import com.google.android.horologist.media.model.MediaPositionPredictor
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.MediaProgress
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.test.toolbox.matchers.hasProgressBar
 import org.junit.Rule
 import org.junit.Test
+import kotlin.time.Duration.Companion.seconds
 
 @FlakyTest(detail = "https://github.com/google/horologist/issues/407")
 class PlayPauseProgressButtonTest {
@@ -48,7 +51,7 @@ class PlayPauseProgressButtonTest {
                 onPauseClick = { clicked = true },
                 enabled = true,
                 playing = true,
-                mediaProgress = MediaProgress.Hidden
+                trackPositionUiModel = TrackPositionUiModel.Actual(0f, 100.seconds, 0.seconds)
             )
         }
 
@@ -77,7 +80,7 @@ class PlayPauseProgressButtonTest {
                 onPauseClick = {},
                 enabled = true,
                 playing = false,
-                mediaProgress = MediaProgress.Hidden
+                trackPositionUiModel = TrackPositionUiModel.Actual(0f, 100.seconds, 0.seconds)
             )
         }
 
@@ -105,12 +108,40 @@ class PlayPauseProgressButtonTest {
                 onPauseClick = {},
                 enabled = true,
                 playing = false,
-                mediaProgress = MediaProgress.Actual(50, 100)
+                trackPositionUiModel = TrackPositionUiModel.Actual(0.5f, 50.seconds, 100.seconds)
             )
         }
 
         // then
         composeTestRule.onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo(0.5f, 0.0f..1.0f)))
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun givenPredictiveMediaProgress_thenProgressIsChanging() {
+        // given
+        composeTestRule.mainClock.autoAdvance = false
+        val predictor = MediaPositionPredictor(
+            eventTimestamp = SystemClock.elapsedRealtime(),
+            currentPositionMs = 1_000,
+            durationMs = 5_000,
+            positionSpeed = 1f
+        )
+        composeTestRule.setContent {
+            PlayPauseProgressButton(
+                onPlayClick = {},
+                onPauseClick = {},
+                enabled = true,
+                playing = false,
+                trackPositionUiModel = TrackPositionUiModel.Predictive(predictor)
+            )
+        }
+
+        // then
+        composeTestRule.onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo(0f, 0.0f..1.0f)))
+            .assertIsDisplayed()
+        composeTestRule.mainClock.advanceTimeBy(10_000)
+        composeTestRule.onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo(1f, 0.0f..1.0f)))
             .assertIsDisplayed()
     }
 }

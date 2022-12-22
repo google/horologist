@@ -22,10 +22,11 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.PlaybackState
+import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
-import com.google.android.horologist.media.ui.state.model.MediaProgress
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.assertNotNull
 import org.junit.Test
@@ -49,7 +50,10 @@ class PlayerUiStateMapperTest {
             currentState = PlayerState.Ready,
             availableCommands = commands,
             media = null,
-            playbackState = PlaybackState.IDLE,
+            playbackStateEvent = PlaybackStateEvent(
+                PlaybackState.IDLE,
+                PlaybackStateEvent.Cause.Initial
+            ),
             shuffleModeEnabled = false,
             connected = false,
             seekBackIncrement = null,
@@ -77,7 +81,10 @@ class PlayerUiStateMapperTest {
             currentState = PlayerState.Ready,
             availableCommands = commands,
             media = null,
-            playbackState = PlaybackState.IDLE,
+            playbackStateEvent = PlaybackStateEvent(
+                PlaybackState.IDLE,
+                PlaybackStateEvent.Cause.Initial
+            ),
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -98,7 +105,10 @@ class PlayerUiStateMapperTest {
             currentState = PlayerState.Ready,
             availableCommands = commands,
             media = null,
-            playbackState = PlaybackState.IDLE,
+            playbackStateEvent = PlaybackStateEvent(
+                PlaybackState.IDLE,
+                PlaybackStateEvent.Cause.Initial
+            ),
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -119,7 +129,10 @@ class PlayerUiStateMapperTest {
             currentState = PlayerState.Ready,
             availableCommands = commands,
             media = null,
-            playbackState = PlaybackState.IDLE,
+            playbackStateEvent = PlaybackStateEvent(
+                PlaybackState.IDLE,
+                PlaybackStateEvent.Cause.Initial
+            ),
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -140,7 +153,10 @@ class PlayerUiStateMapperTest {
             currentState = PlayerState.Ready,
             availableCommands = commands,
             media = null,
-            playbackState = PlaybackState.IDLE,
+            playbackStateEvent = PlaybackStateEvent(
+                PlaybackState.IDLE,
+                PlaybackStateEvent.Cause.Initial
+            ),
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -161,7 +177,10 @@ class PlayerUiStateMapperTest {
             currentState = PlayerState.Ready,
             availableCommands = commands,
             media = null,
-            playbackState = PlaybackState.IDLE,
+            playbackStateEvent = PlaybackStateEvent(
+                PlaybackState.IDLE,
+                PlaybackStateEvent.Cause.Initial
+            ),
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -182,7 +201,10 @@ class PlayerUiStateMapperTest {
             currentState = PlayerState.Ready,
             availableCommands = commands,
             media = null,
-            playbackState = PlaybackState.IDLE,
+            playbackStateEvent = PlaybackStateEvent(
+                PlaybackState.IDLE,
+                PlaybackStateEvent.Cause.Initial
+            ),
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -203,7 +225,10 @@ class PlayerUiStateMapperTest {
             currentState = PlayerState.Ready,
             availableCommands = commands,
             media = null,
-            playbackState = PlaybackState.IDLE,
+            playbackStateEvent = PlaybackStateEvent(
+                PlaybackState.IDLE,
+                PlaybackStateEvent.Cause.Initial
+            ),
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -224,7 +249,10 @@ class PlayerUiStateMapperTest {
             currentState = PlayerState.Ready,
             availableCommands = emptySet(),
             media = null,
-            playbackState = PlaybackState.IDLE,
+            playbackStateEvent = PlaybackStateEvent(
+                PlaybackState.IDLE,
+                PlaybackStateEvent.Cause.Initial
+            ),
             shuffleModeEnabled = shuffleEnabled,
             connected = true,
             seekBackIncrement = null,
@@ -245,7 +273,10 @@ class PlayerUiStateMapperTest {
             currentState = PlayerState.Ready,
             availableCommands = emptySet(),
             media = null,
-            playbackState = PlaybackState.IDLE,
+            playbackStateEvent = PlaybackStateEvent(
+                PlaybackState.IDLE,
+                PlaybackStateEvent.Cause.Initial
+            ),
             shuffleModeEnabled = shuffleEnabled,
             connected = true,
             seekBackIncrement = null,
@@ -266,7 +297,10 @@ class PlayerUiStateMapperTest {
             currentState = PlayerState.Ready,
             availableCommands = commands,
             media = null,
-            playbackState = PlaybackState.IDLE,
+            playbackStateEvent = PlaybackStateEvent(
+                PlaybackState.IDLE,
+                PlaybackStateEvent.Cause.Initial
+            ),
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -287,7 +321,10 @@ class PlayerUiStateMapperTest {
             currentState = state,
             availableCommands = emptySet(),
             media = null,
-            playbackState = PlaybackState.IDLE,
+            playbackStateEvent = PlaybackStateEvent(
+                PlaybackState.IDLE,
+                PlaybackStateEvent.Cause.Initial
+            ),
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -308,7 +345,10 @@ class PlayerUiStateMapperTest {
             currentState = state,
             availableCommands = emptySet(),
             media = null,
-            playbackState = PlaybackState.IDLE,
+            playbackStateEvent = PlaybackStateEvent(
+                PlaybackState.IDLE,
+                PlaybackStateEvent.Cause.Initial
+            ),
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -337,7 +377,10 @@ class PlayerUiStateMapperTest {
             currentState = PlayerState.Ready,
             availableCommands = emptySet(),
             media = media,
-            playbackState = PlaybackState.IDLE,
+            playbackStateEvent = PlaybackStateEvent(
+                PlaybackState.IDLE,
+                PlaybackStateEvent.Cause.Initial
+            ),
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -358,12 +401,11 @@ class PlayerUiStateMapperTest {
         val current = 1.seconds
         val duration = 2.seconds
         val playbackState = PlaybackState(
-            isPlaying = true,
+            playerState = PlayerState.Playing,
             isLive = false,
             currentPosition = current,
             duration = duration,
-            playbackSpeed = 1f,
-            elapsedRealtimeWhenCreated = 0.toDuration(DurationUnit.SECONDS)
+            playbackSpeed = 1f
         )
 
         // when
@@ -371,7 +413,11 @@ class PlayerUiStateMapperTest {
             currentState = PlayerState.Ready,
             availableCommands = emptySet(),
             media = null,
-            playbackState = playbackState,
+            playbackStateEvent = PlaybackStateEvent(
+                playbackState,
+                PlaybackStateEvent.Cause.PositionDiscontinuity,
+                0.toDuration(DurationUnit.SECONDS)
+            ),
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -379,12 +425,12 @@ class PlayerUiStateMapperTest {
         )
 
         // then
-        assertNotNull(result.mediaProgress)
-        val expectedTrackPosition = result.mediaProgress
-        assertThat(expectedTrackPosition).isInstanceOf(MediaProgress.Predictive::class.java)
-        expectedTrackPosition as MediaProgress.Predictive
-        assertThat(expectedTrackPosition.predictPercent(0)).isEqualTo(0.5f)
-        assertThat(expectedTrackPosition.predictPercent(duration.inWholeMilliseconds)).isEqualTo(1f)
+        assertNotNull(result.trackPositionUiModel)
+        val expectedTrackPosition = result.trackPositionUiModel
+        assertThat(expectedTrackPosition).isInstanceOf(TrackPositionUiModel.Predictive::class.java)
+        expectedTrackPosition as TrackPositionUiModel.Predictive
+        assertThat(expectedTrackPosition.predictor.predictPercent(0)).isEqualTo(0.5f)
+        assertThat(expectedTrackPosition.predictor.predictPercent(duration.inWholeMilliseconds)).isEqualTo(1f)
     }
 
     @Test
@@ -398,7 +444,10 @@ class PlayerUiStateMapperTest {
             currentState = PlayerState.Ready,
             availableCommands = emptySet(),
             media = null,
-            playbackState = PlaybackState.IDLE,
+            playbackStateEvent = PlaybackStateEvent(
+                PlaybackState.IDLE,
+                PlaybackStateEvent.Cause.Initial
+            ),
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = back,
@@ -417,7 +466,10 @@ class PlayerUiStateMapperTest {
             currentState = PlayerState.Ready,
             availableCommands = emptySet(),
             media = null,
-            playbackState = PlaybackState.IDLE,
+            playbackStateEvent = PlaybackStateEvent(
+                PlaybackState.IDLE,
+                PlaybackStateEvent.Cause.Initial
+            ),
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,

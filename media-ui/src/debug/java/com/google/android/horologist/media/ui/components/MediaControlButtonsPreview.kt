@@ -21,7 +21,7 @@ package com.google.android.horologist.media.ui.components
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.MediaProgress
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
 @Preview(
     "Enabled - Playing - With progress",
@@ -35,7 +35,7 @@ fun MediaControlButtonsPreview() {
         onPauseButtonClick = {},
         playPauseButtonEnabled = true,
         playing = true,
-        mediaProgress = MediaProgress.Hidden,
+        trackPositionUiModel = TrackPositionUiModel.Hidden,
         onSeekToNextButtonClick = {},
         seekToNextButtonEnabled = true,
         onSeekToPreviousButtonClick = {},

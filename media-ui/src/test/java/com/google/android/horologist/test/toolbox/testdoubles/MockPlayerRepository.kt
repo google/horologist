@@ -20,7 +20,7 @@ import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.PlaybackState
-import com.google.android.horologist.media.model.PlayerState
+import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.media.repository.PlayerRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,9 +30,8 @@ import kotlin.time.Duration
 class MockPlayerRepository(
     private val connectedValue: Boolean = false,
     private val availableCommandsValue: Set<Command> = emptySet(),
-    private val currentStateValue: PlayerState = PlayerState.Idle,
+    private val playbackStateEvent: PlaybackStateEvent = PlaybackStateEvent(PlaybackState.IDLE, PlaybackStateEvent.Cause.Initial),
     private val currentMediaValue: Media? = null,
-    private val playbackStateValue: PlaybackState? = null,
     private val shuffleModeEnabledValue: Boolean = false,
     private val seekBackIncrementValue: Duration? = null,
     private val seekForwardIncrementValue: Duration? = null,
@@ -45,14 +44,11 @@ class MockPlayerRepository(
     override val availableCommands: StateFlow<Set<Command>>
         get() = MutableStateFlow(availableCommandsValue)
 
-    override val currentState: StateFlow<PlayerState>
-        get() = MutableStateFlow(currentStateValue)
-
     override val currentMedia: StateFlow<Media?>
         get() = MutableStateFlow(currentMediaValue)
 
-    override val playbackState: StateFlow<PlaybackState?>
-        get() = MutableStateFlow(playbackStateValue)
+    override val playbackStateEvents: StateFlow<PlaybackStateEvent>
+        get() = MutableStateFlow(playbackStateEvent)
 
     override val shuffleModeEnabled: StateFlow<Boolean>
         get() = MutableStateFlow(shuffleModeEnabledValue)

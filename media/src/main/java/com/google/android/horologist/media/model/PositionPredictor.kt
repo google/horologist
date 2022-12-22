@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.ui.state
+package com.google.android.horologist.media.model
 
-class MediaProgressStateTest {
-// TODO
+import kotlin.time.Duration
+
+public interface PositionPredictor {
+    public fun predictPercent(timestamp: Long): Float
+    public fun predictDuration(timestamp: Long): Duration
+    public fun predictPosition(timestamp: Long): Duration
 }

@@ -26,8 +26,8 @@ import com.google.android.horologist.media.ui.components.controls.SeekForwardBut
 import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
 import com.google.android.horologist.media.ui.components.controls.SeekToPreviousButton
 import com.google.android.horologist.media.ui.components.controls.ShuffleToggleButton
-import com.google.android.horologist.media.ui.state.model.MediaProgress
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
 /**
  * Represent the state of the Media UI components.
@@ -60,7 +60,7 @@ public data class PlayerUiState(
     val playPauseEnabled: Boolean,
     val playing: Boolean,
     val media: MediaUiModel?,
-    val mediaProgress: MediaProgress,
+    val trackPositionUiModel: TrackPositionUiModel,
     val seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     val seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     val connected: Boolean
@@ -81,7 +81,7 @@ public data class PlayerUiState(
             playPauseEnabled = false,
             playing = false,
             media = null,
-            mediaProgress = MediaProgress.Hidden,
+            trackPositionUiModel = TrackPositionUiModel.Hidden,
             connected = false
         )
     }

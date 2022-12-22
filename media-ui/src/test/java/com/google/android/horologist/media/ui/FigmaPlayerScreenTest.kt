@@ -31,8 +31,8 @@ import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
 import com.google.android.horologist.audio.ui.components.actions.SettingsButton
 import com.google.android.horologist.media.ui.state.PlayerUiState
-import com.google.android.horologist.media.ui.state.model.MediaProgress
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.media.ui.uamp.UampColors
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
@@ -41,6 +41,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import kotlin.time.Duration.Companion.seconds
 
 @Ignore("For interactive use only")
 @RunWith(Parameterized::class)
@@ -70,7 +71,7 @@ class FigmaPlayerScreenTest(
                 title = "Bat Out of Hell",
                 subtitle = "Meat Loaf"
             ),
-            mediaProgress = MediaProgress.Actual(currentPositionMs = 75, durationMs = 100),
+            trackPositionUiModel = TrackPositionUiModel.Actual(percent = 0.75f, position = 75.seconds, duration = 100.seconds),
             connected = true
         )
 

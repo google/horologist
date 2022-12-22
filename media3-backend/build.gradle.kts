@@ -19,10 +19,11 @@ plugins {
     id("kotlin-android")
     id("org.jetbrains.dokka")
     id("org.jetbrains.kotlin.kapt")
+    id("me.tylerbwong.gradle.metalava")
 }
 
 android {
-    compileSdkVersion = 33
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 26
@@ -47,31 +48,20 @@ android {
     }
     packagingOptions {
         resources {
-            excludes += [
+            excludes += listOf(
                 "/META-INF/AL2.0",
                 "/META-INF/LGPL2.1"
-            ]
+            )
         }
     }
 
-
     testOptions {
         unitTests {
-            includeAndroidResources = true
+            isIncludeAndroidResources = true
         }
         animationsDisabled = true
     }
 
-    sourceSets {
-        test {
-            java.srcDirs += "src/sharedTest/kotlin"
-            res.srcDirs += "src/sharedTest/res"
-        }
-        androidTest {
-            java.srcDirs += "src/sharedTest/kotlin"
-            res.srcDirs += "src/sharedTest/res"
-        }
-    }
     lint {
         checkReleaseBuilds = false
         textReport = true
@@ -83,17 +73,17 @@ kapt {
     correctErrorTypes = true
 }
 
-project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).configureEach { task ->
+project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!task.name.endsWith("TestKotlin") && !task.name.startsWith("compileDebug")) {
-        task.kotlinOptions.freeCompilerArgs.add("-Xexplicit-api=strict")
+    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+        this.kotlinOptions {
+            freeCompilerArgs = freeCompilerArgs + "-Xexplicit-api=strict"
+        }
     }
 }
 
-apply plugin: "me.tylerbwong.gradle.metalava"
-
 metalava {
-    sourcePaths = ["src/main"]
+    sourcePaths = mutableSetOf("src/main")
     filename = "api/current.api"
     reportLintsAsErrors = true
 }
@@ -103,13 +93,13 @@ dependencies {
     implementation(projects.media)
     implementation(projects.networkAwareness)
     implementation(libs.kotlinx.coroutines.core)
-    api(projectOrDependency(":media-lib-common", libs.androidx.media3.common))
+    api(project.findProject(":media-lib-common") ?: libs.androidx.media3.common)
     api(libs.androidx.annotation)
-    api(projectOrDependency(":media-lib-exoplayer", libs.androidx.media3.exoplayer))
-    api(projectOrDependency(":media-lib-exoplayer-dash", libs.androidx.media3.exoplayerdash))
-    api(projectOrDependency(":media-lib-exoplayer-hls", libs.androidx.media3.exoplayerhls))
-    api(projectOrDependency(":media-lib-exoplayer-rtsp", libs.androidx.media3.exoplayerrtsp))
-    api(projectOrDependency(":media-lib-session", libs.androidx.media3.session))
+    api(project.findProject(":media-lib-exoplayer") ?: libs.androidx.media3.exoplayer)
+    api(project.findProject(":media-lib-exoplayer-dash") ?: libs.androidx.media3.exoplayerdash)
+    api(project.findProject(":media-lib-exoplayer-hls") ?: libs.androidx.media3.exoplayerhls)
+    api(project.findProject(":media-lib-exoplayer-rtsp") ?: libs.androidx.media3.exoplayerrtsp)
+    api(project.findProject(":media-lib-session") ?: libs.androidx.media3.session)
     implementation(libs.androidx.lifecycle.process)
     implementation(libs.kotlinx.coroutines.guava)
     implementation(libs.androidx.corektx)
@@ -121,8 +111,8 @@ dependencies {
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
-    testImplementation(projectOrDependency(":media-test-utils", libs.androidx.media3.testutils))
-    testImplementation(projectOrDependency(":media-test-utils-robolectric", libs.androidx.media3.testutils.robolectric))
+    testImplementation(project.findProject(":media-test-utils") ?: libs.androidx.media3.testutils)
+    testImplementation(project.findProject(":media-test-utils-robolectric") ?: libs.androidx.media3.testutils.robolectric)
 }
 
-apply plugin: "com.vanniktech.maven.publish"
+apply(plugin = "com.vanniktech.maven.publish")

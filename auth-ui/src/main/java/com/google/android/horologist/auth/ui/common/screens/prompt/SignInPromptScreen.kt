@@ -16,7 +16,7 @@
 
 @file:OptIn(ExperimentalLifecycleComposeApi::class)
 
-package com.google.android.horologist.auth.ui.common.screens
+package com.google.android.horologist.auth.ui.common.screens.prompt
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -39,6 +39,22 @@ import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
+/**
+ * A screen to prompt to users to sign in.
+ *
+ * Through the [message] the
+ * [sign-in benefits](https://developer.android.com/training/wearables/design/sign-in#benefits) are
+ * explained to the user.
+ *
+ * The [viewModel] will take care of
+ * [streamlining](https://developer.android.com/training/wearables/design/sign-in#streamline) the
+ * process when the user is already signed in. [onAlreadySignedIn] should be used to navigate away
+ * from this screen in that scenario.
+ *
+ * The [content] should provide
+ * [sign-in alternatives](https://developer.android.com/training/wearables/design/sign-in#alternatives).
+ *
+ */
 @ExperimentalHorologistAuthUiApi
 @Composable
 public fun SignInPromptScreen(
@@ -55,7 +71,7 @@ public fun SignInPromptScreen(
     when (state) {
         SignInPromptScreenState.Idle -> {
             SideEffect {
-                viewModel.startFlow()
+                viewModel.onIdleStateObserved()
             }
 
             SignInPlaceholderScreen(modifier = modifier)

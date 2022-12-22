@@ -47,6 +47,11 @@ import com.google.android.horologist.auth.composables.screens.SignInPlaceholderS
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.auth.ui.common.logging.TAG
 
+/**
+ * A screen for the Google Sign-In authentication method.
+ *
+ * [onAuthCancelled] should be used to navigate away from this screen.
+ */
 @ExperimentalHorologistAuthUiApi
 @Composable
 public fun GoogleSignInScreen(
@@ -61,7 +66,7 @@ public fun GoogleSignInScreen(
     when (state) {
         GoogleSignInScreenState.Idle -> {
             SideEffect {
-                viewModel.startAuthFlow()
+                viewModel.onIdleStateObserved()
             }
 
             SignInPlaceholderScreen(modifier = modifier)
@@ -132,6 +137,15 @@ public fun GoogleSignInScreen(
     }
 }
 
+/**
+ * A [GoogleSignInScreen] with:
+ *
+ * - [SignedInConfirmationDialog] as content for [success][GoogleSignInScreenState.Success] state;
+ * - [AuthErrorScreen] as content for [failed][GoogleSignInScreenState.Failed] state;
+ *
+ * Parameters [onAuthCancelled] and [onAuthSucceed] should be used to navigate away from this screen
+ * when these events happen.
+ */
 @ExperimentalHorologistAuthUiApi
 @Composable
 public fun GoogleSignInScreen(

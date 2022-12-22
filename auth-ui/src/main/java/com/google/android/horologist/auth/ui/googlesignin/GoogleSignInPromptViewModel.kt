@@ -20,17 +20,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAuthRepository
+import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAuthUserRepository
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
-import com.google.android.horologist.auth.ui.common.screens.SignInPromptViewModel
+import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
 
+/**
+ * A [factory][ViewModelProvider.Factory] to create a [SignInPromptViewModel] with dependencies with
+ * implementation for the Google Sign-In authentication method.
+ */
 @ExperimentalHorologistAuthUiApi
-public object GoogleSignInPromptViewModel {
-    public val Factory: ViewModelProvider.Factory = viewModelFactory {
-        initializer {
-            val application = this[APPLICATION_KEY]!!
+public val GoogleSignInPromptViewModelFactory: ViewModelProvider.Factory = viewModelFactory {
+    initializer {
+        val application = this[APPLICATION_KEY]!!
 
-            SignInPromptViewModel(GoogleSignInAuthRepository(application))
-        }
+        SignInPromptViewModel(GoogleSignInAuthUserRepository(application))
     }
 }

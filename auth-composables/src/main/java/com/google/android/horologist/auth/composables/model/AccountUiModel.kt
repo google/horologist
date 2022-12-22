@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.data.googlesignin
+package com.google.android.horologist.auth.composables.model
 
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
 
-@ExperimentalHorologistAuthDataApi
-public interface GoogleSignInAccountListener {
-
-    public suspend fun onAccountReceived(account: GoogleSignInAccount): Unit
-}
-
-@ExperimentalHorologistAuthDataApi
-public class GoogleSignInAccountListenerNoOpImpl : GoogleSignInAccountListener {
-
-    override suspend fun onAccountReceived(account: GoogleSignInAccount): Unit = Unit
-}
+/**
+ * A UI model to represent an account.
+ */
+@ExperimentalHorologistAuthComposablesApi
+public data class AccountUiModel(
+    val email: String,
+    val avatar: Any? = null
+)

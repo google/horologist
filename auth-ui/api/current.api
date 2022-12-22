@@ -18,34 +18,38 @@ package com.google.android.horologist.auth.ui.common.screens {
   public final class LoadingViewKt {
   }
 
+}
+
+package com.google.android.horologist.auth.ui.common.screens.prompt {
+
   public final class SignInPromptScreenKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static void SignInPromptScreen(String message, kotlin.jvm.functions.Function0<kotlin.Unit> onAlreadySignedIn, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, optional androidx.compose.ui.Modifier modifier, optional String title, optional com.google.android.horologist.auth.ui.common.screens.SignInPromptViewModel viewModel, kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListScope,kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static void SignInPromptScreen(String message, kotlin.jvm.functions.Function0<kotlin.Unit> onAlreadySignedIn, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, optional androidx.compose.ui.Modifier modifier, optional String title, optional com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel viewModel, kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListScope,kotlin.Unit> content);
   }
 
   @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public abstract sealed class SignInPromptScreenState {
   }
 
-  public static final class SignInPromptScreenState.Idle extends com.google.android.horologist.auth.ui.common.screens.SignInPromptScreenState {
-    field public static final com.google.android.horologist.auth.ui.common.screens.SignInPromptScreenState.Idle INSTANCE;
+  public static final class SignInPromptScreenState.Idle extends com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState {
+    field public static final com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState.Idle INSTANCE;
   }
 
-  public static final class SignInPromptScreenState.Loading extends com.google.android.horologist.auth.ui.common.screens.SignInPromptScreenState {
-    field public static final com.google.android.horologist.auth.ui.common.screens.SignInPromptScreenState.Loading INSTANCE;
+  public static final class SignInPromptScreenState.Loading extends com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState {
+    field public static final com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState.Loading INSTANCE;
   }
 
-  public static final class SignInPromptScreenState.SignedIn extends com.google.android.horologist.auth.ui.common.screens.SignInPromptScreenState {
-    field public static final com.google.android.horologist.auth.ui.common.screens.SignInPromptScreenState.SignedIn INSTANCE;
+  public static final class SignInPromptScreenState.SignedIn extends com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState {
+    field public static final com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState.SignedIn INSTANCE;
   }
 
-  public static final class SignInPromptScreenState.SignedOut extends com.google.android.horologist.auth.ui.common.screens.SignInPromptScreenState {
-    field public static final com.google.android.horologist.auth.ui.common.screens.SignInPromptScreenState.SignedOut INSTANCE;
+  public static final class SignInPromptScreenState.SignedOut extends com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState {
+    field public static final com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState.SignedOut INSTANCE;
   }
 
   @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public class SignInPromptViewModel extends androidx.lifecycle.ViewModel {
-    ctor public SignInPromptViewModel(com.google.android.horologist.auth.data.common.repository.AuthRepository authRepository);
-    method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.common.screens.SignInPromptScreenState> getUiState();
-    method public final void startFlow();
-    property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.common.screens.SignInPromptScreenState> uiState;
+    ctor public SignInPromptViewModel(com.google.android.horologist.auth.data.common.repository.AuthUserRepository authUserRepository);
+    method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState> getUiState();
+    method public final void onIdleStateObserved();
+    property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState> uiState;
   }
 
 }
@@ -59,10 +63,9 @@ package com.google.android.horologist.auth.ui.ext {
 
 package com.google.android.horologist.auth.ui.googlesignin {
 
-  @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public final class GoogleSignInPromptViewModel {
-    method public androidx.lifecycle.ViewModelProvider.Factory getFactory();
-    property public final androidx.lifecycle.ViewModelProvider.Factory Factory;
-    field public static final com.google.android.horologist.auth.ui.googlesignin.GoogleSignInPromptViewModel INSTANCE;
+  public final class GoogleSignInPromptViewModelKt {
+    method public static androidx.lifecycle.ViewModelProvider.Factory getGoogleSignInPromptViewModelFactory();
+    property public static final androidx.lifecycle.ViewModelProvider.Factory GoogleSignInPromptViewModelFactory;
   }
 
   public final class GoogleSignInScreenKt {
@@ -104,12 +107,12 @@ package com.google.android.horologist.auth.ui.googlesignin {
   }
 
   @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public class GoogleSignInViewModel extends androidx.lifecycle.ViewModel {
-    ctor public GoogleSignInViewModel(optional com.google.android.horologist.auth.data.googlesignin.GoogleSignInAccountListener googleSignInAccountListener);
+    ctor public GoogleSignInViewModel(optional com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener googleSignInEventListener);
     method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.googlesignin.GoogleSignInScreenState> getUiState();
     method public final void onAccountSelected(com.google.android.gms.auth.api.signin.GoogleSignInAccount account);
     method public final void onAccountSelectionFailed();
     method public final void onAuthCancelled();
-    method public final void startAuthFlow();
+    method public final void onIdleStateObserved();
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.googlesignin.GoogleSignInScreenState> uiState;
   }
 

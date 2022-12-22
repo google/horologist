@@ -25,7 +25,7 @@ object GoogleSignInSampleViewModel {
 
     val Factory: ViewModelProvider.Factory = viewModelFactory {
         initializer {
-            GoogleSignInViewModel(GoogleSignInAccountListenerSample)
+            GoogleSignInViewModel(GoogleSignInEventListenerSample)
         }
     }
 }

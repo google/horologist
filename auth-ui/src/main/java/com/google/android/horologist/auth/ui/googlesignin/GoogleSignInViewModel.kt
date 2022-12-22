@@ -20,8 +20,8 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAccountListener
-import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAccountListenerNoOpImpl
+import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener
+import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListenerNoOpImpl
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -30,9 +30,12 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
+/**
+ * A view model for a Google Sign-In screen.
+ */
 @ExperimentalHorologistAuthUiApi
 public open class GoogleSignInViewModel(
-    private val googleSignInAccountListener: GoogleSignInAccountListener = GoogleSignInAccountListenerNoOpImpl()
+    private val googleSignInEventListener: GoogleSignInEventListener = GoogleSignInEventListenerNoOpImpl
 ) : ViewModel() {
 
     private val _uiState =
@@ -44,16 +47,23 @@ public open class GoogleSignInViewModel(
         initialValue = GoogleSignInScreenState.Idle
     )
 
-    public fun startAuthFlow() {
+    /**
+     * Indicate that the screen has observed the [idle][GoogleSignInScreenState.Idle] state and that
+     * the view model can start its work.
+     */
+    public fun onIdleStateObserved() {
         _uiState.compareAndSet(
             expect = GoogleSignInScreenState.Idle,
             update = GoogleSignInScreenState.SelectAccount
         )
     }
 
+    /**
+     * Indicate that [account] was selected.
+     */
     public fun onAccountSelected(account: GoogleSignInAccount) {
         viewModelScope.launch {
-            googleSignInAccountListener.onAccountReceived(account)
+            googleSignInEventListener.onSignedIn(account)
         }
 
         _uiState.value = GoogleSignInScreenState.Success(
@@ -63,21 +73,33 @@ public open class GoogleSignInViewModel(
         )
     }
 
+    /**
+     * Indicate that the process to select an account failed.
+     *
+     * Note that [onAuthCancelled] should be used when the user cancel the account selection.
+     */
     public fun onAccountSelectionFailed() {
         _uiState.value = GoogleSignInScreenState.Failed
     }
 
+    /**
+     * Indicate that the authentication was cancelled.
+     */
     public fun onAuthCancelled() {
         _uiState.value = GoogleSignInScreenState.Cancelled
     }
 }
 
+/**
+ * The states for a Google Sign-In screen.
+ */
 @ExperimentalHorologistAuthUiApi
 public sealed class GoogleSignInScreenState {
 
     public object Idle : GoogleSignInScreenState()
 
     public object SelectAccount : GoogleSignInScreenState()
+
     public data class Success(
         val displayName: String?,
         val email: String?,

@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import java.util.Properties
+
 plugins {
     id("com.gradle.enterprise") version "3.5"
 }
@@ -27,28 +29,28 @@ gradleEnterprise {
 
 rootProject.name = "horologist"
 
-include ":sample"
-include ":compose-layout"
-include ":composables"
-include ":audio"
-include ":audio-ui"
-include ":auth-composables"
-include ":auth-data"
-include ":auth-ui"
-include ":base-ui"
-include ":tiles"
-include ":media"
-include ":media3-backend"
-include ":media-ui"
-include ":media-benchmark"
-include ":media-data"
-include ":media-sample"
-include ":media-sample-benchmark"
-include ":media-sync"
-include ":compose-tools"
-include ":paparazzi"
-include ":network-awareness"
-include ":datalayer"
+include(":sample")
+include(":compose-layout")
+include(":composables")
+include(":audio")
+include(":audio-ui")
+include(":auth-composables")
+include(":auth-data")
+include(":auth-ui")
+include(":base-ui")
+include(":tiles")
+include(":media")
+include(":media3-backend")
+include(":media-ui")
+include(":media-benchmark")
+include(":media-data")
+include(":media-sample")
+include(":media-sample-benchmark")
+include(":media-sync")
+include(":compose-tools")
+include(":paparazzi")
+include(":network-awareness")
+include(":datalayer")
 
 // Enable Gradle's version catalog support
 // https://docs.gradle.org/current/userguide/platforms.html
@@ -56,12 +58,13 @@ enableFeaturePreview("VERSION_CATALOGS")
 // https://docs.gradle.org/7.4/userguide/declaring_dependencies.html#sec:type-safe-project-accessors
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-Properties localProperties = new Properties()
-def localFile = file("local.properties")
+val localProperties = Properties()
+val localFile = file("local.properties")
 if (localFile.exists()) {
-    localProperties.load(localFile.newDataInputStream())
+    localProperties.load(localFile.reader())
 }
 if (localProperties.getProperty("media3.checkout", "false").toBoolean()) {
-    gradle.ext.androidxMediaModulePrefix = "media-"
-    apply from: file("../media/core_settings.gradle")
+    val extension = gradle as ExtensionAware
+    extension.extra["androidxMediaModulePrefix"] = "media-"
+    apply(from = file("../media/core_settings.gradle"))
 }

@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import com.google.protobuf.gradle.id
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -22,7 +24,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion = 33
+    compileSdk = 33
 
     defaultConfig {
         applicationId = "com.google.android.horologist.sample"
@@ -39,14 +41,17 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix = ".debug"
-            manifestPlaceholders.schemeSuffix = "-debug"
+            manifestPlaceholders["schemeSuffix"] = "-debug"
         }
         release {
-            manifestPlaceholders.schemeSuffix = ""
+            manifestPlaceholders["schemeSuffix"] = ""
 
-            minifyEnabled = true
-            shrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
 
             signingConfig = signingConfigs.getByName("debug")
         }
@@ -88,14 +93,19 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
+
     namespace = "com.google.android.horologist.sample"
 }
 
 sourceSets {
-    main.java.srcDirs("build/generated/source/proto/debug/java")
-    main.java.srcDirs("build/generated/source/proto/debug/grpc")
-    main.java.srcDirs("build/generated/source/proto/debug/kotlin")
-    main.java.srcDirs("build/generated/source/proto/debug/grpckt")
+    create("main") {
+        java {
+            srcDirs("build/generated/source/proto/debug/java")
+            srcDirs("build/generated/source/proto/debug/grpc")
+            srcDirs("build/generated/source/proto/debug/kotlin")
+            srcDirs("build/generated/source/proto/debug/grpckt")
+        }
+    }
 }
 
 protobuf {
@@ -103,17 +113,17 @@ protobuf {
         artifact = "com.google.protobuf:protoc:3.21.4"
     }
     plugins {
-        javalite {
+        id("javalite") {
             artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
         }
     }
     generateProtoTasks {
-        all().each { task ->
+        all().forEach { task ->
             task.builtins {
-                java {
+                create("java") {
                     option("lite")
                 }
-                kotlin {
+                create("kotlin") {
                     option("lite")
                 }
             }

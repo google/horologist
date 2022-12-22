@@ -7,7 +7,7 @@
         errorLine1="        targetSdk 30"
         errorLine2="        ~~~~~~~~~~~~">
         <location
-            file="build.gradle"
+            file="build.gradle.kts"
             line="28"
             column="9"/>
     </issue>

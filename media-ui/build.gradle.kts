@@ -19,10 +19,11 @@ plugins {
     id("kotlin-android")
     id("org.jetbrains.dokka")
     id("dev.chrisbanes.paparazzi")
+    id("me.tylerbwong.gradle.metalava")
 }
 
 android {
-    compileSdkVersion = 33
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 26
@@ -60,45 +61,43 @@ android {
     }
     packagingOptions {
         resources {
-            excludes += [
+            excludes += listOf(
                 "/META-INF/AL2.0",
                 "/META-INF/LGPL2.1"
-            ]
+            )
         }
     }
 
 
-    sourceSets {
-        main {
-            assets.srcDirs = ["src/main/assets"]
+        sourceSets.getByName("main") {
+            assets.srcDir("src/main/assets")
         }
-    }
 
     testOptions {
         unitTests {
-            includeAndroidResources = true
+            isIncludeAndroidResources = true
         }
         animationsDisabled = true
     }
     lint {
         checkReleaseBuilds = false
         textReport = true
-        disable("MissingTranslation", "ExtraTranslation")
+        disable.addAll(listOf("MissingTranslation", "ExtraTranslation"))
     }
     namespace = "com.google.android.horologist.media.ui"
 }
 
-project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).configureEach { task ->
+project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!task.name.endsWith("TestKotlin") && !task.name.startsWith("compileDebug")) {
-        task.kotlinOptions.freeCompilerArgs.add("-Xexplicit-api=strict")
+    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+        this.kotlinOptions {
+            freeCompilerArgs = freeCompilerArgs + "-Xexplicit-api=strict"
+        }
     }
 }
 
-apply plugin: "me.tylerbwong.gradle.metalava"
-
 metalava {
-    sourcePaths = ["src/main"]
+    sourcePaths = mutableSetOf("src/main")
     filename = "api/current.api"
     reportLintsAsErrors = true
 }
@@ -134,27 +133,27 @@ dependencies {
     implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.util)
 
-    debugImplementation libs.compose.ui.test.manifest
-    debugImplementation libs.compose.ui.toolingpreview
-    debugImplementation projects.audioUi
-    debugImplementation projects.composeTools
+    debugImplementation(libs.compose.ui.test.manifest)
+    debugImplementation(libs.compose.ui.toolingpreview)
+    debugImplementation(projects.audioUi)
+    debugImplementation(projects.composeTools)
 
-    testImplementation libs.junit
-    testImplementation libs.androidx.test.ext.ktx
-    testImplementation libs.kotlinx.coroutines.test
-    testImplementation libs.truth
-    testImplementation libs.robolectric
-    testImplementation projects.audio
-    testImplementation projects.audioUi
-    testImplementation projects.paparazzi
-    testImplementation libs.paparazzi
+    testImplementation(libs.junit)
+    testImplementation(libs.androidx.test.ext.ktx)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.truth)
+    testImplementation(libs.robolectric)
+    testImplementation(projects.audio)
+    testImplementation(projects.audioUi)
+    testImplementation(projects.paparazzi)
+    testImplementation(libs.paparazzi)
 
-    androidTestImplementation libs.compose.ui.test.junit4
-    androidTestImplementation libs.truth
-    androidTestImplementation libs.espresso.core
-    androidTestImplementation libs.junit
-    androidTestImplementation libs.androidx.test.ext
-    androidTestImplementation libs.androidx.test.ext.ktx
+    androidTestImplementation(libs.compose.ui.test.junit4)
+    androidTestImplementation(libs.truth)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.ext)
+    androidTestImplementation(libs.androidx.test.ext.ktx)
 }
 
-apply plugin: "com.vanniktech.maven.publish"
+apply(plugin = "com.vanniktech.maven.publish")

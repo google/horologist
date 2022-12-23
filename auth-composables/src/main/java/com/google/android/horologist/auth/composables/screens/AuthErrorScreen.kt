@@ -20,14 +20,20 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
 import com.google.android.horologist.auth.composables.R
 
+/**
+ * A catch all error screen to be displayed to users when an error occurred during authentication
+ * and no additional context can be given.
+ */
 @ExperimentalHorologistAuthComposablesApi
 @Composable
 public fun AuthErrorScreen(
@@ -41,7 +47,8 @@ public fun AuthErrorScreen(
         Text(
             text = stringResource(id = R.string.horologist_auth_error_message),
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(horizontal = 30.dp),
             textAlign = TextAlign.Center
         )
     }

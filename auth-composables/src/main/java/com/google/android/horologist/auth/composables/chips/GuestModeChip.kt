@@ -21,11 +21,15 @@ import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.wear.compose.material.Chip
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 
+/**
+ * An opinionated [Chip] to represent the "Guest mode" action.
+ */
 @ExperimentalHorologistAuthComposablesApi
 @Composable
 public fun GuestModeChip(

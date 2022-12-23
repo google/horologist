@@ -16,7 +16,7 @@
 
 <resources>
     <string description="Text displayed on the screen that tells the user to check their mobile phone to proceed with the action that they are taking. [CHAR_LIMIT=NONE]" name="horologist_check_your_phone_title">Check your phone</string>
-    <string description="Text displayed on the screen that tells the user that an error occurred during the authentication process. [CHAR_LIMIT=NONE]" name="horologist_auth_error_message">Error authenticating.</string>
+    <string description="Text displayed on the screen that tells the user that an error occurred during the authentication process. [CHAR_LIMIT=NONE]" name="horologist_auth_error_message">Something\'s gone wrong. Try again.</string>
     <string description="A text to be displayed when the user signs in and their name is known. Example: Hi, John. [CHAR_LIMIT=13]" name="horologist_signedin_confirmation_greeting">Hi, %s</string>
     <string description="A text to be displayed when the user signs in and their name is not known. [CHAR_LIMIT=13]" name="horologist_signedin_confirmation_greeting_no_name">Hi!</string>
     <string description="Title of the screen that prompts the user to sign in. [CHAR_LIMIT=40]" name="horologist_signin_prompt_title">Sign In</string>

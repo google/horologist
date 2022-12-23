@@ -63,7 +63,7 @@ package com.google.android.horologist.auth.ui.ext {
 
 package com.google.android.horologist.auth.ui.googlesignin {
 
-  public final class GoogleSignInPromptViewModelKt {
+  public final class GoogleSignInPromptViewModelFactoryKt {
     method public static androidx.lifecycle.ViewModelProvider.Factory getGoogleSignInPromptViewModelFactory();
     property public static final androidx.lifecycle.ViewModelProvider.Factory GoogleSignInPromptViewModelFactory;
   }

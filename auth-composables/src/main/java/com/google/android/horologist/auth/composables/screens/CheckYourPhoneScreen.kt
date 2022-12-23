@@ -29,6 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -39,6 +40,7 @@ import com.google.android.horologist.auth.composables.ExperimentalHorologistAuth
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 
+private const val TOP_PADDING_SCREEN_PERCENTAGE = 0.2
 private val indicatorPadding = 8.dp
 private val iconSize = 48.dp
 private val progressBarStrokeWidth = 4.dp
@@ -89,13 +91,17 @@ public fun CheckYourPhoneScreen(
     modifier: Modifier = Modifier,
     message: String
 ) {
+    val configuration = LocalConfiguration.current
+    val topPadding = (configuration.screenHeightDp * TOP_PADDING_SCREEN_PERCENTAGE).dp
+
     Column(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
+            .fillMaxSize()
+            .padding(top = topPadding)
     ) {
         Text(
             text = stringResource(id = R.string.horologist_check_your_phone_title),
             modifier = Modifier
-                .padding(top = 60.dp)
                 .fillMaxWidth()
                 .align(Alignment.CenterHorizontally),
             textAlign = TextAlign.Center

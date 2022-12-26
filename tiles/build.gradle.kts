@@ -22,7 +22,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion = 33
+    compileSdk = 33
 
     defaultConfig {
         //        Tiles is API 26, but if we don't stop this here, then we can't run the sample app
@@ -52,30 +52,20 @@ android {
 
     packagingOptions {
         resources {
-            excludes += [
+            excludes += listOf(
                 "/META-INF/AL2.0",
                 "/META-INF/LGPL2.1"
-            ]
+            )
         }
     }
 
     testOptions {
         unitTests {
-            includeAndroidResources = true
+            isIncludeAndroidResources = true
         }
         animationsDisabled = true
     }
 
-    sourceSets {
-        test {
-            java.srcDirs += "src/sharedTest/kotlin"
-            res.srcDirs += "src/sharedTest/res"
-        }
-        androidTest {
-            java.srcDirs += "src/sharedTest/kotlin"
-            res.srcDirs += "src/sharedTest/res"
-        }
-    }
     lint {
         checkReleaseBuilds = false
         textReport = true
@@ -84,13 +74,15 @@ android {
 }
 
 kapt {
-    correctErrorTypes true
+    correctErrorTypes = true
 }
 
-project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class).configureEach { task ->
+project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!task.name.endsWith("TestKotlin") && !task.name.startsWith("compileDebug")) {
-        task.kotlinOptions.freeCompilerArgs.add("-Xexplicit-api=strict")
+    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+        this.kotlinOptions {
+            freeCompilerArgs = freeCompilerArgs + "-Xexplicit-api=strict"
+        }
     }
 }
 
@@ -127,4 +119,4 @@ dependencies {
     androidTestImplementation(libs.junit)
 }
 
-apply plugin: "com.vanniktech.maven.publish"
+apply(plugin = "com.vanniktech.maven.publish")

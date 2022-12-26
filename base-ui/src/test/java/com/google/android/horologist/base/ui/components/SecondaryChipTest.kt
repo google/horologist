@@ -25,7 +25,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.materialPath
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -34,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
 import com.google.android.horologist.base.ui.util.rememberVectorPainter
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
+import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
@@ -46,272 +46,235 @@ class SecondaryChipTest {
 
     @Test
     fun default() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChip(
-                    label = "Primary label",
-                    onClick = { },
-                    chipType = StandardChipType.Secondary
-                )
-            }
+        paparazzi.snapshotInABox {
+            StandardChip(
+                label = "Primary label",
+                onClick = { },
+                chipType = StandardChipType.Secondary
+            )
         }
     }
 
     @Test
     fun withSecondaryLabel() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChip(
-                    label = "Primary label",
-                    onClick = { },
-                    secondaryLabel = "Secondary label",
-                    chipType = StandardChipType.Secondary
-                )
-            }
+        paparazzi.snapshotInABox {
+            StandardChip(
+                label = "Primary label",
+                onClick = { },
+                secondaryLabel = "Secondary label",
+                chipType = StandardChipType.Secondary
+            )
         }
     }
 
     @Test
     fun withIcon() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChip(
-                    label = "Primary label",
-                    onClick = { },
-                    icon = Icons.Default.Image,
-                    chipType = StandardChipType.Secondary
-                )
-            }
+        paparazzi.snapshotInABox {
+            StandardChip(
+                label = "Primary label",
+                onClick = { },
+                icon = Icons.Default.Image,
+                chipType = StandardChipType.Secondary
+            )
         }
     }
 
     @Test
     fun withLargeIcon() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChip(
-                    label = "Primary label",
-                    onClick = { },
-                    icon = Icon32dp,
-                    largeIcon = true,
-                    chipType = StandardChipType.Secondary
-                )
-            }
+        paparazzi.snapshotInABox {
+            StandardChip(
+                label = "Primary label",
+                onClick = { },
+                icon = Icon32dp,
+                largeIcon = true,
+                chipType = StandardChipType.Secondary
+            )
         }
     }
 
     @Test
     fun withSecondaryLabelAndIcon() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChip(
-                    label = "Primary label",
-                    onClick = { },
-                    secondaryLabel = "Secondary label",
-                    icon = Icons.Default.Image,
-                    chipType = StandardChipType.Secondary
-                )
-            }
+        paparazzi.snapshotInABox {
+            StandardChip(
+                label = "Primary label",
+                onClick = { },
+                secondaryLabel = "Secondary label",
+                icon = Icons.Default.Image,
+                chipType = StandardChipType.Secondary
+            )
         }
     }
 
     @Test
     fun withSecondaryLabelAndLargeIcon() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChip(
-                    label = "Primary label",
-                    onClick = { },
-                    secondaryLabel = "Secondary label",
-                    icon = Icon32dp,
-                    largeIcon = true,
-                    chipType = StandardChipType.Secondary
-                )
-            }
+        paparazzi.snapshotInABox {
+            StandardChip(
+                label = "Primary label",
+                onClick = { },
+                secondaryLabel = "Secondary label",
+                icon = Icon32dp,
+                largeIcon = true,
+                chipType = StandardChipType.Secondary
+            )
         }
     }
 
     @Test
     fun disabled() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChip(
-                    label = "Primary label",
-                    onClick = { },
-                    secondaryLabel = "Secondary label",
-                    icon = Icons.Default.Image,
-                    chipType = StandardChipType.Secondary,
-                    enabled = false
-                )
-            }
+        paparazzi.snapshotInABox {
+            StandardChip(
+                label = "Primary label",
+                onClick = { },
+                secondaryLabel = "Secondary label",
+                icon = Icons.Default.Image,
+                chipType = StandardChipType.Secondary,
+                enabled = false
+            )
         }
     }
 
     @Test
     fun withLongText() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChip(
-                    label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                    onClick = { },
-                    chipType = StandardChipType.Secondary
-                )
-            }
+        paparazzi.snapshotInABox {
+            StandardChip(
+                label = "Primary label very very very very very very very very very very very very very very very very very long text",
+                onClick = { },
+                chipType = StandardChipType.Secondary
+            )
         }
     }
 
     @Test
     fun withSecondaryLabelAndLongText() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChip(
-                    label = "Primary label very very very very very very very very long text",
-                    onClick = { },
-                    secondaryLabel = "Secondary label very very very very very very very very very long text",
-                    icon = Icons.Default.Image,
-                    chipType = StandardChipType.Secondary
-                )
-            }
+        paparazzi.snapshotInABox {
+            StandardChip(
+                label = "Primary label very very very very very very very very long text",
+                onClick = { },
+                secondaryLabel = "Secondary label very very very very very very very very very long text",
+                icon = Icons.Default.Image,
+                chipType = StandardChipType.Secondary
+            )
         }
     }
 
     @Test
     fun usingSmallIcon() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChip(
-                    label = "Primary label",
-                    onClick = { },
-                    icon = Icon12dp,
-                    chipType = StandardChipType.Secondary
-                )
-            }
+        paparazzi.snapshotInABox {
+            StandardChip(
+                label = "Primary label",
+                onClick = { },
+                icon = Icon12dp,
+                chipType = StandardChipType.Secondary
+            )
         }
     }
 
     @Test
     fun withLargeIconUsingSmallIcon() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChip(
-                    label = "Primary label",
-                    onClick = { },
-                    icon = Icon12dp,
-                    largeIcon = true,
-                    chipType = StandardChipType.Secondary
-                )
-            }
+        paparazzi.snapshotInABox {
+            StandardChip(
+                label = "Primary label",
+                onClick = { },
+                icon = Icon12dp,
+                largeIcon = true,
+                chipType = StandardChipType.Secondary
+            )
         }
     }
 
     @Test
     fun usingExtraLargeIcon() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChip(
-                    label = "Primary label",
-                    onClick = { },
-                    icon = Icon48dp,
-                    chipType = StandardChipType.Secondary
-                )
-            }
+        paparazzi.snapshotInABox {
+            StandardChip(
+                label = "Primary label",
+                onClick = { },
+                icon = Icon48dp,
+                chipType = StandardChipType.Secondary
+            )
         }
     }
 
     @Test
     fun withLargeIconUsingExtraLargeIcon() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChip(
-                    label = "Primary label",
-                    onClick = { },
-                    icon = Icon48dp,
-                    largeIcon = true,
-                    chipType = StandardChipType.Secondary
-                )
-            }
+        paparazzi.snapshotInABox {
+            StandardChip(
+                label = "Primary label",
+                onClick = { },
+                icon = Icon48dp,
+                largeIcon = true,
+                chipType = StandardChipType.Secondary
+            )
         }
     }
 
     @Test
     fun withPlaceholderIcon() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChip(
-                    label = "Primary label",
-                    onClick = { },
-                    icon = Icons.Default.Image,
-                    chipType = StandardChipType.Secondary
-                )
-            }
+        paparazzi.snapshotInABox {
+            StandardChip(
+                label = "Primary label",
+                onClick = { },
+                icon = Icons.Default.Image,
+                chipType = StandardChipType.Secondary
+            )
         }
     }
 
     @Test
     fun withProgressIcon() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChip(
-                    label = "Primary label",
-                    onClick = { },
-                    icon = {
-                        StandardChipIconWithProgress(
-                            progress = 75f,
-                            icon = Icon48dp,
-                            largeIcon = true
-                        )
-                    },
-                    chipType = StandardChipType.Secondary
-                )
-            }
+        paparazzi.snapshotInABox {
+            StandardChip(
+                label = "Primary label",
+                onClick = { },
+                icon = {
+                    StandardChipIconWithProgress(
+                        progress = 75f,
+                        icon = Icon48dp,
+                        largeIcon = true
+                    )
+                },
+                chipType = StandardChipType.Secondary
+            )
         }
     }
 
     @Test
     fun withSquareIcon() {
-        paparazzi.snapshot {
+        paparazzi.snapshotInABox {
             // This was made to showcase that the icon can be any composable in this version of
             // StandardChip.
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChip(
-                    label = "Primary label",
-                    onClick = { },
-                    icon = {
-                        Box(
-                            Modifier
-                                .size(32.dp)
-                                .background(Color.White)
-                        )
-                    },
-                    chipType = StandardChipType.Secondary
-                )
-            }
+            StandardChip(
+                label = "Primary label",
+                onClick = { },
+                icon = {
+                    Box(
+                        Modifier
+                            .size(32.dp)
+                            .background(Color.White)
+                    )
+                },
+                chipType = StandardChipType.Secondary
+            )
         }
     }
 
     @Test
     fun disabledWithIconPlaceholder() {
-        paparazzi.snapshot {
+        paparazzi.snapshotInABox {
             FakeImageLoader.Never.override {
                 // In inspection mode will jump to placeholder
                 CompositionLocalProvider(LocalInspectionMode.provides(true)) {
-                    Box(
-                        modifier = Modifier.background(Color.Black),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        StandardChip(
-                            label = "Primary label",
-                            onClick = { },
-                            secondaryLabel = "Secondary label",
-                            icon = "iconUri",
-                            placeholder = rememberVectorPainter(
-                                image = Icons.Default.Image,
-                                tintColor = Color.Black
-                            ),
-                            chipType = StandardChipType.Secondary,
-                            enabled = false
-                        )
-                    }
+                    StandardChip(
+                        label = "Primary label",
+                        onClick = { },
+                        secondaryLabel = "Secondary label",
+                        icon = "iconUri",
+                        placeholder = rememberVectorPainter(
+                            image = Icons.Default.Image,
+                            tintColor = Color.Black
+                        ),
+                        chipType = StandardChipType.Secondary,
+                        enabled = false
+                    )
                 }
             }
         }

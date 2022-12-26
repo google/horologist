@@ -22,13 +22,9 @@
 
 package com.google.android.horologist.media.ui.controls
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
+import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.media.ui.components.controls.SeekForwardButton
@@ -61,76 +57,51 @@ class SeekForwardButtonA11yTest {
 
     @Test
     fun incrementIsFive() {
-        paparazzi.snapshot {
-            Box(
-                modifier = Modifier.background(Color.Black),
-                contentAlignment = Alignment.Center
-            ) {
-                SeekForwardButton(
-                    onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Five
-                )
-            }
+        paparazzi.snapshotInABox {
+            SeekForwardButton(
+                onClick = {},
+                seekButtonIncrement = SeekButtonIncrement.Five
+            )
         }
     }
 
     @Test
     fun incrementIsTen() {
-        paparazzi.snapshot {
-            Box(
-                modifier = Modifier.background(Color.Black),
-                contentAlignment = Alignment.Center
-            ) {
-                SeekForwardButton(
-                    onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Ten
-                )
-            }
+        paparazzi.snapshotInABox {
+            SeekForwardButton(
+                onClick = {},
+                seekButtonIncrement = SeekButtonIncrement.Ten
+            )
         }
     }
 
     @Test
     fun incrementIsThirty() {
-        paparazzi.snapshot {
-            Box(
-                modifier = Modifier.background(Color.Black),
-                contentAlignment = Alignment.Center
-            ) {
-                SeekForwardButton(
-                    onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Thirty
-                )
-            }
+        paparazzi.snapshotInABox {
+            SeekForwardButton(
+                onClick = {},
+                seekButtonIncrement = SeekButtonIncrement.Thirty
+            )
         }
     }
 
     @Test
     fun incrementIsOther() {
-        paparazzi.snapshot {
-            Box(
-                modifier = Modifier.background(Color.Black),
-                contentAlignment = Alignment.Center
-            ) {
-                SeekForwardButton(
-                    onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Known(15)
-                )
-            }
+        paparazzi.snapshotInABox {
+            SeekForwardButton(
+                onClick = {},
+                seekButtonIncrement = SeekButtonIncrement.Known(15)
+            )
         }
     }
 
     @Test
     fun incrementIsUnknown() {
-        paparazzi.snapshot {
-            Box(
-                modifier = Modifier.background(Color.Black),
-                contentAlignment = Alignment.Center
-            ) {
-                SeekForwardButton(
-                    onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Unknown
-                )
-            }
+        paparazzi.snapshotInABox {
+            SeekForwardButton(
+                onClick = {},
+                seekButtonIncrement = SeekButtonIncrement.Unknown
+            )
         }
     }
 }

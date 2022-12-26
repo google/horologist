@@ -16,6 +16,10 @@ package com.google.android.horologist.compose.tools {
     method @androidx.compose.runtime.Composable public static void RoundPreview(optional boolean round, kotlin.jvm.functions.Function0<kotlin.Unit> content);
   }
 
+  public final class SnapshotInABoxKt {
+    method public static void snapshotInABox(app.cash.paparazzi.Paparazzi, optional androidx.compose.ui.Modifier boxModifier, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> content);
+  }
+
   public final class ThemeValues {
     ctor public ThemeValues(String name, int index, androidx.wear.compose.material.Colors colors);
     method public String component1();

@@ -18,12 +18,8 @@
 
 package com.google.android.horologist.composables
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.ChipDefaults
+import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
@@ -35,19 +31,15 @@ class PlaceholderChipTest {
 
     @Test
     fun default() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                PlaceholderChip()
-            }
+        paparazzi.snapshotInABox {
+            PlaceholderChip()
         }
     }
 
     @Test
     fun secondaryColors() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
-            }
+        paparazzi.snapshotInABox {
+            PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
         }
     }
 }

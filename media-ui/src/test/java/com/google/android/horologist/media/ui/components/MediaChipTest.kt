@@ -18,14 +18,11 @@
 
 package com.google.android.horologist.media.ui.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
+import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
@@ -40,95 +37,73 @@ class MediaChipTest {
 
     @Test
     fun givenMediaWithArtwork_thenDisplaysArtwork() {
-        paparazzi.snapshot {
+        paparazzi.snapshotInABox {
             FakeImageLoader.Resources.override {
-                Box(
-                    modifier = Modifier.background(Color.Black),
-                    contentAlignment = Alignment.Center
-                ) {
-                    MediaChip(
-                        title = "Red Hot Chilli Peppers",
-                        artworkUri = R.drawable.ic_uamp,
-                        onClick = {}
-                    )
-                }
+                MediaChip(
+                    title = "Red Hot Chilli Peppers",
+                    artworkUri = R.drawable.ic_uamp,
+                    onClick = {}
+                )
             }
         }
     }
 
     @Test
     fun givenMediaWithNOArtwork_thenDoesNOTDisplayArtwork() {
-        paparazzi.snapshot {
+        paparazzi.snapshotInABox {
             FakeImageLoader.Resources.override {
-                Box(
-                    modifier = Modifier.background(Color.Black),
-                    contentAlignment = Alignment.Center
-                ) {
-                    MediaChip(
-                        title = "Red Hot Chilli Peppers",
-                        artworkUri = null,
-                        onClick = {}
-                    )
-                }
+                MediaChip(
+                    title = "Red Hot Chilli Peppers",
+                    artworkUri = null,
+                    onClick = {}
+                )
             }
         }
     }
 
     @Test
     fun givenVeryLongTitle_thenEllipsizeAt2ndLine() {
-        paparazzi.snapshot {
+        paparazzi.snapshotInABox {
             FakeImageLoader.Resources.override {
-                Box(
-                    modifier = Modifier.background(Color.Black),
-                    contentAlignment = Alignment.Center
-                ) {
-                    MediaChip(
-                        title = "Very very very very very very very very very very very long title",
-                        artworkUri = R.drawable.ic_uamp,
-                        onClick = {}
-                    )
-                }
+                MediaChip(
+                    title = "Very very very very very very very very very very very long title",
+                    artworkUri = R.drawable.ic_uamp,
+                    onClick = {}
+                )
             }
         }
     }
 
     @Test
     fun givenNOTitle_thenDisplaysDefaultTitle() {
-        paparazzi.snapshot {
+        paparazzi.snapshotInABox {
             FakeImageLoader.Resources.override {
-                Box(
-                    modifier = Modifier.background(Color.Black),
-                    contentAlignment = Alignment.Center
-                ) {
-                    MediaChip(
-                        media = MediaUiModel(id = "id", artworkUri = FakeImageLoader.TestIconResourceUri),
-                        onClick = {},
-                        defaultTitle = "No title"
-                    )
-                }
+                MediaChip(
+                    media = MediaUiModel(
+                        id = "id",
+                        artworkUri = FakeImageLoader.TestIconResourceUri
+                    ),
+                    onClick = {},
+                    defaultTitle = "No title"
+                )
             }
         }
     }
 
     @Test
     fun givenModifier_thenAppliesModifierCorrectly() {
-        paparazzi.snapshot {
+        paparazzi.snapshotInABox {
             FakeImageLoader.Resources.override {
-                Box(
-                    modifier = Modifier.background(Color.Black),
-                    contentAlignment = Alignment.Center
-                ) {
-                    MediaChip(
-                        media = MediaUiModel(
-                            id = "id",
-                            title = "Red Hot Chilli Peppers",
-                            artworkUri = FakeImageLoader.TestIconResourceUri
-                        ),
-                        onClick = {},
-                        modifier = Modifier
-                            .height(120.dp)
-                    )
-                }
+                MediaChip(
+                    media = MediaUiModel(
+                        id = "id",
+                        title = "Red Hot Chilli Peppers",
+                        artworkUri = FakeImageLoader.TestIconResourceUri
+                    ),
+                    onClick = {},
+                    modifier = Modifier
+                        .height(120.dp)
+                )
             }
         }
     }

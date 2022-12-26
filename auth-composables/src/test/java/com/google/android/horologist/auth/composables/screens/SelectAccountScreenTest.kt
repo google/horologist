@@ -21,15 +21,11 @@
 
 package com.google.android.horologist.auth.composables.screens
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
 import com.google.android.horologist.auth.composables.model.AccountUiModel
+import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import com.google.android.horologist.test.toolbox.positionedState
@@ -43,43 +39,33 @@ class SelectAccountScreenTest {
 
     @Test
     fun selectAccountScreen() {
-        paparazzi.snapshot {
-            Box(
-                modifier = Modifier.background(Color.Black),
-                contentAlignment = Alignment.Center
-            ) {
-                SelectAccountScreen(
-                    accounts = listOf(
-                        AccountUiModel(
-                            email = "maggie@example.com",
-                            avatar = Icons.Default.Face
-                        ),
-                        AccountUiModel(email = "thisisaverylongemail@example.com")
+        paparazzi.snapshotInABox {
+            SelectAccountScreen(
+                accounts = listOf(
+                    AccountUiModel(
+                        email = "maggie@example.com",
+                        avatar = Icons.Default.Face
                     ),
-                    onAccountClicked = { _, _ -> },
-                    columnState = positionedState(0, 0)
-                )
-            }
+                    AccountUiModel(email = "thisisaverylongemail@example.com")
+                ),
+                onAccountClicked = { _, _ -> },
+                columnState = positionedState(0, 0)
+            )
         }
     }
 
     @Test
     fun selectAccountScreenNoAvatar() {
-        paparazzi.snapshot {
-            Box(
-                modifier = Modifier.background(Color.Black),
-                contentAlignment = Alignment.Center
-            ) {
-                SelectAccountScreen(
-                    accounts = listOf(
-                        AccountUiModel(email = "maggie@example.com"),
-                        AccountUiModel(email = "thisisaverylongemailaccountsample@example.com")
-                    ),
-                    onAccountClicked = { _, _ -> },
-                    columnState = positionedState(0, 0),
-                    defaultAvatar = null
-                )
-            }
+        paparazzi.snapshotInABox {
+            SelectAccountScreen(
+                accounts = listOf(
+                    AccountUiModel(email = "maggie@example.com"),
+                    AccountUiModel(email = "thisisaverylongemailaccountsample@example.com")
+                ),
+                onAccountClicked = { _, _ -> },
+                columnState = positionedState(0, 0),
+                defaultAvatar = null
+            )
         }
     }
 }

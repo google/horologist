@@ -18,16 +18,12 @@
 
 package com.google.android.horologist.base.ui.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.materialPath
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
+import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
@@ -42,43 +38,35 @@ class StandardChipIconWithProgressTest {
 
     @Test
     fun default() {
-        paparazzi.snapshot {
+        paparazzi.snapshotInABox {
             FakeImageLoader.NotFound.override {
-                Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                    StandardChipIconWithProgress(progress = 75f)
-                }
+                StandardChipIconWithProgress(progress = 75f)
             }
         }
     }
 
     @Test
     fun withProgressSmallIcon() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChipIconWithProgress(progress = 75f, icon = Icon12dp)
-            }
+        paparazzi.snapshotInABox {
+            StandardChipIconWithProgress(progress = 75f, icon = Icon12dp)
         }
     }
 
     @Test
     fun withProgressMediumIcon() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChipIconWithProgress(progress = 75f, icon = Icon32dp)
-            }
+        paparazzi.snapshotInABox {
+            StandardChipIconWithProgress(progress = 75f, icon = Icon32dp)
         }
     }
 
     @Test
     fun withProgressLargeIcon() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardChipIconWithProgress(
-                    progress = 75f,
-                    icon = Icon48dp,
-                    largeIcon = true
-                )
-            }
+        paparazzi.snapshotInABox {
+            StandardChipIconWithProgress(
+                progress = 75f,
+                icon = Icon48dp,
+                largeIcon = true
+            )
         }
     }
 

@@ -18,12 +18,8 @@
 
 package com.google.android.horologist.media.ui.components.actions
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
+import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
@@ -40,72 +36,52 @@ class ShowPlaylistChipTest {
 
     @Test
     fun givenArtwork_thenDisplaysArtwork() {
-        paparazzi.snapshot {
+        paparazzi.snapshotInABox {
             FakeImageLoader.Resources.override {
-                Box(
-                    modifier = Modifier.background(Color.Black),
-                    contentAlignment = Alignment.Center
-                ) {
-                    ShowPlaylistChip(
-                        artworkUri = R.drawable.ic_uamp,
-                        name = "Playlists",
-                        onClick = {}
-                    )
-                }
+                ShowPlaylistChip(
+                    artworkUri = R.drawable.ic_uamp,
+                    name = "Playlists",
+                    onClick = {}
+                )
             }
         }
     }
 
     @Test
     fun givenNOArtwork_thenDoesNOTDisplayArtwork() {
-        paparazzi.snapshot {
+        paparazzi.snapshotInABox {
             FakeImageLoader.Resources.override {
-                Box(
-                    modifier = Modifier.background(Color.Black),
-                    contentAlignment = Alignment.Center
-                ) {
-                    ShowPlaylistChip(
-                        artworkUri = null,
-                        name = "Playlists",
-                        onClick = {}
-                    )
-                }
+                ShowPlaylistChip(
+                    artworkUri = null,
+                    name = "Playlists",
+                    onClick = {}
+                )
             }
         }
     }
 
     @Test
     fun givenNOName_thenDoesDisplayArtwork() {
-        paparazzi.snapshot {
+        paparazzi.snapshotInABox {
             FakeImageLoader.Resources.override {
-                Box(
-                    modifier = Modifier.background(Color.Black),
-                    contentAlignment = Alignment.Center
-                ) {
-                    ShowPlaylistChip(
-                        artworkUri = R.drawable.ic_uamp,
-                        name = null,
-                        onClick = {}
-                    )
-                }
+                ShowPlaylistChip(
+                    artworkUri = R.drawable.ic_uamp,
+                    name = null,
+                    onClick = {}
+                )
             }
         }
     }
 
     @Test
     fun givenVeryLongTitle_thenEllipsizeAt2ndLine() {
-        paparazzi.snapshot {
+        paparazzi.snapshotInABox {
             FakeImageLoader.Resources.override {
-                Box(
-                    modifier = Modifier.background(Color.Black),
-                    contentAlignment = Alignment.Center
-                ) {
-                    ShowPlaylistChip(
-                        artworkUri = R.drawable.ic_uamp,
-                        name = "Very very very very very very very very very very very very very very very very very very very long title",
-                        onClick = {}
-                    )
-                }
+                ShowPlaylistChip(
+                    artworkUri = R.drawable.ic_uamp,
+                    name = "Very very very very very very very very very very very very very very very very very very very long title",
+                    onClick = {}
+                )
             }
         }
     }

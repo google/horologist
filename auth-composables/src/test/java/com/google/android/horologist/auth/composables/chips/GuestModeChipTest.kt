@@ -21,13 +21,9 @@
 
 package com.google.android.horologist.auth.composables.chips
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
 import com.google.android.horologist.base.ui.components.StandardChipType
+import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
@@ -40,59 +36,39 @@ class GuestModeChipTest {
 
     @Test
     fun default() {
-        paparazzi.snapshot {
-            Box(
-                modifier = Modifier.background(Color.Black),
-                contentAlignment = Alignment.Center
-            ) {
-                GuestModeChip(onClick = {})
-            }
+        paparazzi.snapshotInABox {
+            GuestModeChip(onClick = {})
         }
     }
 
     @Test
     fun disabled() {
-        paparazzi.snapshot {
-            Box(
-                modifier = Modifier.background(Color.Black),
-                contentAlignment = Alignment.Center
-            ) {
-                GuestModeChip(
-                    onClick = {},
-                    enabled = false
-                )
-            }
+        paparazzi.snapshotInABox {
+            GuestModeChip(
+                onClick = {},
+                enabled = false
+            )
         }
     }
 
     @Test
     fun withSecondaryChipType() {
-        paparazzi.snapshot {
-            Box(
-                modifier = Modifier.background(Color.Black),
-                contentAlignment = Alignment.Center
-            ) {
-                GuestModeChip(
-                    onClick = {},
-                    chipType = StandardChipType.Secondary
-                )
-            }
+        paparazzi.snapshotInABox {
+            GuestModeChip(
+                onClick = {},
+                chipType = StandardChipType.Secondary
+            )
         }
     }
 
     @Test
     fun withSecondaryChipTypeDisabled() {
-        paparazzi.snapshot {
-            Box(
-                modifier = Modifier.background(Color.Black),
-                contentAlignment = Alignment.Center
-            ) {
-                GuestModeChip(
-                    onClick = {},
-                    chipType = StandardChipType.Secondary,
-                    enabled = false
-                )
-            }
+        paparazzi.snapshotInABox {
+            GuestModeChip(
+                onClick = {},
+                chipType = StandardChipType.Secondary,
+                enabled = false
+            )
         }
     }
 }

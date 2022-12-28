@@ -198,7 +198,7 @@ private fun NavPositionIndicator(viewModel: NavScaffoldViewModel) {
  * The scalingLazyListState must be taken from the [ScaffoldContext].
  */
 @Deprecated(
-    "Use listComposable"
+    "Use scrollable"
 )
 public fun NavGraphBuilder.scalingLazyColumnComposable(
     route: String,

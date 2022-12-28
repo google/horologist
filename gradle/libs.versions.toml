@@ -33,6 +33,7 @@ espresso = "3.5.0"
 googleSecretsGradlePlugin = "2.0.1"
 googledagger = "2.44.2"
 gradlePlugin = "7.3.1"
+gradlePublishPlugin = "0.20.0"
 io-coil-kt = "2.2.2"
 junit = "4.13.2"
 kotlin = "1.7.20"
@@ -122,7 +123,7 @@ dagger-hiltandroidtesting = { module = "com.google.dagger:hilt-android-testing",
 dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 googleSecretsGradlePlugin = { module = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin", version.ref = "googleSecretsGradlePlugin" }
-gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.20.0"
+gradleMavenPublishPlugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "gradlePublishPlugin" }
 hilt-ext-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
 hilt-ext-work = { module = "androidx.hilt:hilt-work", version.ref = "androidx-hilt" }
 hilt-navigationcompose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidx-hilt" }
@@ -156,7 +157,9 @@ wearcompose-material = { module = "androidx.wear.compose:compose-material", vers
 wearcompose-navigation = { module = "androidx.wear.compose:compose-navigation", version.ref = "wearcompose" }
 
 [plugins]
+affectedModulesDetector = { id = "com.dropbox.affectedmoduledetector", version.ref = "affectedmoduledetector" }
 benManes = { id = "com.github.ben-manes.versions", version.ref = "benManes" }
+gradleMavenPublishPlugin = { id = "com.vanniktech.maven.publish", version.ref = "gradlePublishPlugin" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlinGradle = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

@@ -99,7 +99,10 @@ fun WearApp() {
         }
         // The deprecated Horologist method
         scalingLazyColumnComposable("scalingLazyColumnComposable", scrollStateBuilder = {
-            ScalingLazyListState()
+            ScalingLazyListState(
+                initialCenterItemIndex = 1,
+                initialCenterItemScrollOffset = 30
+            )
         }) {
             val focusRequester = rememberActiveFocusRequester()
 
@@ -107,7 +110,7 @@ fun WearApp() {
 
             ScalingLazyColumn(
                 modifier = Modifier.fillMaxSize().rotaryWithFling(focusRequester, listState),
-                state = listState
+                state = listState,
             ) {
                 item {
                     ListHeader {

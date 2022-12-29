@@ -67,6 +67,8 @@ android {
         textReport = true
     }
 
+    resourcePrefix = "horologist_"
+
     namespace = "com.google.android.horologist.auth.data"
 }
 
@@ -109,5 +111,4 @@ dependencies {
     testImplementation(libs.robolectric)
 }
 
-// Not publishing it until it's ready
-//apply(plugin = "com.vanniktech.maven.publish")
+apply(plugin = "com.vanniktech.maven.publish")

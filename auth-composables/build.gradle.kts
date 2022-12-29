@@ -75,6 +75,8 @@ android {
         textReport = true
     }
 
+    resourcePrefix = "horologist_"
+
     namespace = "com.google.android.horologist.auth.composables"
 }
 
@@ -127,5 +129,4 @@ dependencies {
     androidTestImplementation(libs.truth)
 }
 
-// Not publishing it until it's ready
-//apply(plugin = "com.vanniktech.maven.publish")
+apply(plugin = "com.vanniktech.maven.publish")

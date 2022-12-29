@@ -41,7 +41,7 @@ import com.google.android.horologist.auth.oauth.devicegrant.AuthDeviceGrantSampl
 import com.google.android.horologist.auth.oauth.devicegrant.AuthDeviceGrantSignInPromptScreen
 import com.google.android.horologist.auth.oauth.pkce.AuthPKCESampleViewModel
 import com.google.android.horologist.auth.oauth.pkce.AuthPKCESignInPromptScreen
-import com.google.android.horologist.auth.ui.googlesignin.GoogleSignInScreen
+import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
 import com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantScreen
 import com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreen
 import com.google.android.horologist.composables.DatePicker

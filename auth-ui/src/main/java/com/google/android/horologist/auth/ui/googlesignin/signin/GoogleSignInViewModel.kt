@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.ui.googlesignin
+package com.google.android.horologist.auth.ui.googlesignin.signin
 
 import android.net.Uri
 import androidx.lifecycle.ViewModel

@@ -68,10 +68,34 @@ public fun SignInPromptScreen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
+    SignInPromptScreen(
+        state = state,
+        title = title,
+        message = message,
+        onIdleStateObserved = { viewModel.onIdleStateObserved() },
+        onAlreadySignedIn = onAlreadySignedIn,
+        columnState = columnState,
+        modifier = modifier,
+        content = content
+    )
+}
+
+@OptIn(ExperimentalHorologistAuthUiApi::class)
+@Composable
+internal fun SignInPromptScreen(
+    state: SignInPromptScreenState,
+    title: String,
+    message: String,
+    onIdleStateObserved: () -> Unit,
+    onAlreadySignedIn: () -> Unit,
+    columnState: ScalingLazyColumnState,
+    modifier: Modifier = Modifier,
+    content: ScalingLazyListScope.() -> Unit
+) {
     when (state) {
         SignInPromptScreenState.Idle -> {
             SideEffect {
-                viewModel.onIdleStateObserved()
+                onIdleStateObserved()
             }
 
             SignInPlaceholderScreen(modifier = modifier)

@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistPaparazziApi::class)
+@file:OptIn(
+    ExperimentalHorologistMediaUiApi::class,
+    ExperimentalHorologistPaparazziApi::class,
+    ExperimentalHorologistComposeToolsApi::class
+)
 
 package com.google.android.horologist.media.ui.components
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi

@@ -14,10 +14,15 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistPaparazziApi::class, ExperimentalHorologistMediaUiApi::class)
+@file:OptIn(
+    ExperimentalHorologistPaparazziApi::class,
+    ExperimentalHorologistMediaUiApi::class,
+    ExperimentalHorologistComposeToolsApi::class
+)
 
 package com.google.android.horologist.media.ui.controls
 
+import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.ShuffleToggleButton
@@ -31,7 +36,6 @@ class ShuffleToggleButtonTest {
     @get:Rule
     val paparazzi = WearPaparazzi()
 
-    @OptIn(ExperimentalHorologistMediaUiApi::class)
     @Test
     fun givenShuffleIsOn_thenIconIsShuffleOn() {
         paparazzi.snapshotInABox {
@@ -42,6 +46,7 @@ class ShuffleToggleButtonTest {
         }
     }
 
+    @OptIn(ExperimentalHorologistComposeToolsApi::class)
     @Test
     fun givenShuffleIsOff_thenIconIsShuffle() {
         paparazzi.snapshotInABox {

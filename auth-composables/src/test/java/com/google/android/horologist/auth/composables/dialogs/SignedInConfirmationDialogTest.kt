@@ -16,7 +16,8 @@
 
 @file:OptIn(
     ExperimentalHorologistPaparazziApi::class,
-    ExperimentalHorologistAuthComposablesApi::class
+    ExperimentalHorologistAuthComposablesApi::class,
+    ExperimentalHorologistComposeToolsApi::class
 )
 
 package com.google.android.horologist.auth.composables.dialogs
@@ -27,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
+import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi

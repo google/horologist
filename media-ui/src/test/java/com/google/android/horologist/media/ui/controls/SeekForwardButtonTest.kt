@@ -16,11 +16,13 @@
 
 @file:OptIn(
     ExperimentalHorologistPaparazziApi::class,
-    ExperimentalHorologistMediaUiApi::class
+    ExperimentalHorologistMediaUiApi::class,
+    ExperimentalHorologistComposeToolsApi::class
 )
 
 package com.google.android.horologist.media.ui.controls
 
+import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement

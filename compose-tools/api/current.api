@@ -17,7 +17,7 @@ package com.google.android.horologist.compose.tools {
   }
 
   public final class SnapshotInABoxKt {
-    method public static void snapshotInABox(app.cash.paparazzi.Paparazzi, optional androidx.compose.ui.Modifier boxModifier, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> content);
+    method @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public static void snapshotInABox(app.cash.paparazzi.Paparazzi, optional androidx.compose.ui.Modifier boxModifier, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> content);
   }
 
   public final class ThemeValues {

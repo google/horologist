@@ -16,13 +16,15 @@
 
 @file:OptIn(
     ExperimentalHorologistPaparazziApi::class,
-    ExperimentalHorologistAuthComposablesApi::class
+    ExperimentalHorologistAuthComposablesApi::class,
+    ExperimentalHorologistComposeToolsApi::class
 )
 
 package com.google.android.horologist.auth.composables.chips
 
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
 import com.google.android.horologist.base.ui.components.StandardChipType
+import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi

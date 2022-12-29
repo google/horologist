@@ -119,6 +119,7 @@ dependencies {
     debugImplementation(projects.composeTools)
     debugImplementation(libs.compose.ui.toolingpreview)
 
+    testImplementation(projects.composeTools)
     testImplementation(projects.paparazzi)
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.junit)

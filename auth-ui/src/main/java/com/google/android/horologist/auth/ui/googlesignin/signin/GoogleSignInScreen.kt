@@ -16,7 +16,7 @@
 
 @file:OptIn(ExperimentalLifecycleComposeApi::class)
 
-package com.google.android.horologist.auth.ui.googlesignin
+package com.google.android.horologist.auth.ui.googlesignin.signin
 
 import android.app.Activity.RESULT_CANCELED
 import android.content.Context

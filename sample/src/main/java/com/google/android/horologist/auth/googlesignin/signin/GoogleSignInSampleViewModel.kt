@@ -19,7 +19,7 @@ package com.google.android.horologist.auth.googlesignin.signin
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.google.android.horologist.auth.ui.googlesignin.GoogleSignInViewModel
+import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInViewModel
 
 object GoogleSignInSampleViewModel {
 

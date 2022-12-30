@@ -129,6 +129,7 @@ dependencies {
     testImplementation(libs.paparazzi)
     testImplementation(libs.robolectric)
     testImplementation(libs.truth)
+    testImplementation(libs.turbine)
 
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.ext.ktx)

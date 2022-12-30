@@ -42,8 +42,10 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
-        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.data.ExperimentalHorologistDataLayerApi"
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-opt-in=kotlin.RequiresOptIn",
+            "-opt-in=com.google.android.horologist.data.ExperimentalHorologistDataLayerApi"
+        )
     }
     packagingOptions {
         resources {

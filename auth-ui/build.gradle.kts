@@ -44,12 +44,14 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
-        freeCompilerArgs += "-opt-in=androidx.lifecycle.compose.ExperimentalLifecycleComposeApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi"
-        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+        freeCompilerArgs = listOf(
+            "-opt-in=androidx.lifecycle.compose.ExperimentalLifecycleComposeApi",
+            "-opt-in=com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi",
+            "-opt-in=com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi",
+            "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi",
+            "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi",
+            "-opt-in=kotlin.RequiresOptIn"
+        )
     }
 
     composeOptions {
@@ -75,7 +77,7 @@ android {
     lint {
         checkReleaseBuilds = false
         textReport = true
-        disable.addAll(listOf("MissingTranslation", "ExtraTranslation"))
+        disable += listOf("MissingTranslation", "ExtraTranslation")
     }
 
     resourcePrefix = "horologist_"

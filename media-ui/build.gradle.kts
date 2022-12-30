@@ -44,16 +44,18 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
-        freeCompilerArgs += "-opt-in=androidx.lifecycle.compose.ExperimentalLifecycleComposeApi"
-        freeCompilerArgs += "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.composables.ExperimentalHorologistComposablesApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.media.ExperimentalHorologistMediaApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.tiles.ExperimentalHorologistTilesApi"
-        freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-opt-in=androidx.lifecycle.compose.ExperimentalLifecycleComposeApi",
+            "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
+            "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi",
+            "-opt-in=com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi",
+            "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi",
+            "-opt-in=com.google.android.horologist.composables.ExperimentalHorologistComposablesApi",
+            "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi",
+            "-opt-in=com.google.android.horologist.media.ExperimentalHorologistMediaApi",
+            "-opt-in=com.google.android.horologist.tiles.ExperimentalHorologistTilesApi",
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+        )
     }
 
     composeOptions {
@@ -69,9 +71,9 @@ android {
     }
 
 
-        sourceSets.getByName("main") {
-            assets.srcDir("src/main/assets")
-        }
+    sourceSets.getByName("main") {
+        assets.srcDir("src/main/assets")
+    }
 
     testOptions {
         unitTests {
@@ -82,7 +84,7 @@ android {
     lint {
         checkReleaseBuilds = false
         textReport = true
-        disable.addAll(listOf("MissingTranslation", "ExtraTranslation"))
+        disable += listOf("MissingTranslation", "ExtraTranslation")
     }
     namespace = "com.google.android.horologist.media.ui"
 }

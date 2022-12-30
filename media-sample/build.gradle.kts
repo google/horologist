@@ -44,7 +44,8 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "com.google.android.horologist.mediasample.runner.MediaAppRunner"
+        testInstrumentationRunner =
+            "com.google.android.horologist.mediasample.runner.MediaAppRunner"
     }
 
     buildTypes {
@@ -57,7 +58,10 @@ android {
 
             isMinifyEnabled = true
             isShrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
 
             signingConfig = signingConfigs.getByName("debug")
         }
@@ -67,7 +71,11 @@ android {
             signingConfig = signingConfigs.getByName("debug")
             isDebuggable = false
 
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro", "proguard-benchmark.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro",
+                "proguard-benchmark.pro"
+            )
 
             matchingFallbacks.add("release")
         }
@@ -85,24 +93,26 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
         // Allow for widescale experimental APIs in Alpha libraries we build upon
-        freeCompilerArgs += "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi"
-        freeCompilerArgs += "-opt-in=androidx.wear.compose.material.ExperimentalWearMaterialApi"
-        freeCompilerArgs += "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.composables.ExperimentalHorologistComposablesApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.media.ExperimentalHorologistMediaApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.networks.ExperimentalHorologistNetworksApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.tiles.ExperimentalHorologistTilesApi"
-        freeCompilerArgs += "-opt-in=androidx.lifecycle.compose.ExperimentalLifecycleComposeApi"
-        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi",
+            "-opt-in=androidx.wear.compose.material.ExperimentalWearMaterialApi",
+            "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
+            "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi",
+            "-opt-in=com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi",
+            "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi",
+            "-opt-in=com.google.android.horologist.composables.ExperimentalHorologistComposablesApi",
+            "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi",
+            "-opt-in=com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi",
+            "-opt-in=com.google.android.horologist.media.ExperimentalHorologistMediaApi",
+            "-opt-in=com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi",
+            "-opt-in=com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi",
+            "-opt-in=com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi",
+            "-opt-in=com.google.android.horologist.networks.ExperimentalHorologistNetworksApi",
+            "-opt-in=com.google.android.horologist.tiles.ExperimentalHorologistTilesApi",
+            "-opt-in=androidx.lifecycle.compose.ExperimentalLifecycleComposeApi",
+            "-opt-in=kotlin.RequiresOptIn",
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+        )
     }
 
     composeOptions {
@@ -154,7 +164,9 @@ dependencies {
     implementation(projects.networkAwareness)
     implementation(projects.tiles)
 
-    implementation(project.findProject(":media-lib-datasource-okhttp") ?: libs.androidx.media3.datasourceokhttp)
+    implementation(
+        project.findProject(":media-lib-datasource-okhttp") ?: libs.androidx.media3.datasourceokhttp
+    )
 
     implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.util)
@@ -208,7 +220,10 @@ dependencies {
 
     implementation(libs.androidx.metrics.performance)
 
-    implementation(project.findProject(":media-lib-exoplayer-workmanager") ?: libs.androidx.media3.exoplayerworkmanager)
+    implementation(
+        project.findProject(":media-lib-exoplayer-workmanager")
+            ?: libs.androidx.media3.exoplayerworkmanager
+    )
 
     implementation(libs.room.common)
     implementation(libs.room.ktx)
@@ -241,7 +256,9 @@ if (device != null) {
         description = "Run on device $device"
         dependsOn(":media-sample:installRelease")
         description = "Launch App"
-        commandLine = "adb -s $device shell am start -n com.google.android.horologist.mediasample/com.google.android.horologist.mediasample.ui.app.MediaActivity".split(" ")
+        commandLine =
+            "adb -s $device shell am start -n com.google.android.horologist.mediasample/com.google.android.horologist.mediasample.ui.app.MediaActivity"
+                .split(" ")
     }
 
     task<Exec>("offloadStatus") {

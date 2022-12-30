@@ -154,10 +154,12 @@ subprojects {
             }
             // Set JVM target to 1.8
             jvmTarget = "1.8"
-            // Allow use of @OptIn
-            freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-            // Enable default methods in interfaces
-            freeCompilerArgs += "-Xjvm-default=all"
+            freeCompilerArgs = freeCompilerArgs + listOf(
+                // Allow use of @OptIn
+                "-opt-in=kotlin.RequiresOptIn",
+                // Enable default methods in interfaces
+                "-Xjvm-default=all"
+            )
 
             // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
             if (!this@configureEach.name.endsWith("TestKotlin") && !this@configureEach.name.startsWith(

@@ -42,9 +42,11 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
-        freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.media.ExperimentalHorologistMediaApi"
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi",
+            "-opt-in=com.google.android.horologist.media.ExperimentalHorologistMediaApi"
+        )
     }
     packagingOptions {
         resources {
@@ -112,7 +114,10 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
     testImplementation(project.findProject(":media-test-utils") ?: libs.androidx.media3.testutils)
-    testImplementation(project.findProject(":media-test-utils-robolectric") ?: libs.androidx.media3.testutils.robolectric)
+    testImplementation(
+        project.findProject(":media-test-utils-robolectric")
+            ?: libs.androidx.media3.testutils.robolectric
+    )
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

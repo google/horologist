@@ -44,8 +44,10 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
-        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi"
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-opt-in=kotlin.RequiresOptIn",
+            "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi"
+        )
     }
 
     composeOptions {
@@ -70,7 +72,7 @@ android {
     lint {
         checkReleaseBuilds = false
         textReport = true
-        disable.addAll(listOf("MissingTranslation", "ExtraTranslation"))
+        disable += listOf("MissingTranslation", "ExtraTranslation")
     }
     namespace = "com.google.android.horologist.composables"
 }

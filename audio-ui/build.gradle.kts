@@ -70,7 +70,7 @@ android {
     }
 
     lint {
-        disable.addAll(listOf("MissingTranslation", "ExtraTranslation"))
+        disable += listOf("MissingTranslation", "ExtraTranslation")
         checkReleaseBuilds = false
         textReport = true
     }

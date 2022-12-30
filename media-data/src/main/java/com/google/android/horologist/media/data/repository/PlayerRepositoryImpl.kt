@@ -28,7 +28,6 @@ import com.google.android.horologist.media.data.mapper.PlaybackStateMapper
 import com.google.android.horologist.media.data.mapper.SetCommandMapper
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
-import com.google.android.horologist.media.model.PlaybackState
 import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.media.model.PlaybackStateEvent.Cause
 import com.google.android.horologist.media.repository.PlayerRepository
@@ -73,7 +72,7 @@ public class PlayerRepositoryImpl(
     private var _currentMedia = MutableStateFlow<Media?>(null)
     override val currentMedia: StateFlow<Media?> get() = _currentMedia
 
-    private var _playbackStateEvents = MutableStateFlow(PlaybackStateEvent(PlaybackState.IDLE, Cause.Initial))
+    private var _playbackStateEvents = MutableStateFlow(PlaybackStateEvent.INITIAL)
     override val playbackStateEvents: StateFlow<PlaybackStateEvent> get() = _playbackStateEvents
 
     private var _shuffleModeEnabled = MutableStateFlow(false)

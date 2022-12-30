@@ -820,6 +820,12 @@ package com.google.android.horologist.media.ui.state.model {
     property public final long duration;
     property public final float percent;
     property public final long position;
+    field public static final com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.Actual.Companion Companion;
+  }
+
+  public static final class TrackPositionUiModel.Actual.Companion {
+    method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.Actual getZERO();
+    property public final com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.Actual ZERO;
   }
 
   public static final class TrackPositionUiModel.Hidden extends com.google.android.horologist.media.ui.state.model.TrackPositionUiModel {

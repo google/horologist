@@ -21,7 +21,6 @@ package com.google.android.horologist.test.toolbox.testdoubles
 import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
-import com.google.android.horologist.media.model.PlaybackState
 import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.repository.PlayerRepository
@@ -38,7 +37,7 @@ class FakePlayerRepository() : PlayerRepository {
     private var _availableCommandsList = MutableStateFlow(emptySet<Command>())
     override val availableCommands: StateFlow<Set<Command>> = _availableCommandsList
 
-    private var _playbackStateEvents = MutableStateFlow(PlaybackStateEvent(PlaybackState.IDLE, PlaybackStateEvent.Cause.Initial))
+    private var _playbackStateEvents = MutableStateFlow(PlaybackStateEvent.INITIAL)
     override val playbackStateEvents: StateFlow<PlaybackStateEvent> = _playbackStateEvents
 
     private var _currentMedia: MutableStateFlow<Media?> = MutableStateFlow(null)

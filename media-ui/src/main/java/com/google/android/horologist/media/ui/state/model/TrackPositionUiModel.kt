@@ -27,6 +27,10 @@ public sealed class TrackPositionUiModel(public val showProgress: Boolean) {
         public val percent: Float,
         public val duration: Duration,
         public val position: Duration
-    ) : TrackPositionUiModel(true)
+    ) : TrackPositionUiModel(true) {
+        public companion object {
+            public val ZERO: Actual = Actual(0f, Duration.ZERO, Duration.ZERO)
+        }
+    }
     public object Hidden : TrackPositionUiModel(false)
 }

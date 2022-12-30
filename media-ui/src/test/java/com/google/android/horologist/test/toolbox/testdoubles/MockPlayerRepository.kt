@@ -19,7 +19,6 @@ package com.google.android.horologist.test.toolbox.testdoubles
 import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
-import com.google.android.horologist.media.model.PlaybackState
 import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.media.repository.PlayerRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,7 +29,7 @@ import kotlin.time.Duration
 class MockPlayerRepository(
     private val connectedValue: Boolean = false,
     private val availableCommandsValue: Set<Command> = emptySet(),
-    private val playbackStateEvent: PlaybackStateEvent = PlaybackStateEvent(PlaybackState.IDLE, PlaybackStateEvent.Cause.Initial),
+    private val playbackStateEvent: PlaybackStateEvent = PlaybackStateEvent.INITIAL,
     private val currentMediaValue: Media? = null,
     private val shuffleModeEnabledValue: Boolean = false,
     private val seekBackIncrementValue: Duration? = null,

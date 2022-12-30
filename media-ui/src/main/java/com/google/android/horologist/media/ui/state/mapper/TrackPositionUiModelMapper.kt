@@ -19,13 +19,12 @@
 package com.google.android.horologist.media.ui.state.mapper
 
 import com.google.android.horologist.media.ExperimentalHorologistMediaApi
-import com.google.android.horologist.media.model.PlaybackState
 import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
 /**
- * Map a [PlaybackState] into a [TrackPositionUiModel]
+ * Functions to map a [TrackPositionUiModel] based on data from other layers.
  */
 @ExperimentalHorologistMediaUiApi
 public object TrackPositionUiModelMapper {

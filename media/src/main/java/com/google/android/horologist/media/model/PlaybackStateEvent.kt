@@ -53,4 +53,12 @@ public data class PlaybackStateEvent(
             )
         }
     }
+
+    public companion object {
+        public val INITIAL: PlaybackStateEvent = PlaybackStateEvent(
+            playbackState = PlaybackState.IDLE,
+            cause = Cause.Initial,
+            timestamp = null
+        )
+    }
 }

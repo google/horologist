@@ -35,8 +35,8 @@ class PlaybackStateMapperTest {
 
     @Test
     fun `check position calculations idle`() {
-        val position = playbackStateMapper.map(null)
-        assertThat(position).isEqualTo(PlaybackState.IDLE)
+        val playbackState = playbackStateMapper.map(null)
+        assertThat(playbackState).isEqualTo(PlaybackState.IDLE)
     }
 
     @Test
@@ -45,9 +45,9 @@ class PlaybackStateMapperTest {
             currentPosition = 10L,
             duration = C.TIME_UNSET
         )
-        val position = playbackStateMapper.map(fakeStatePlayer)
-        assertThat(position.currentPosition).isNull()
-        assertThat(position.duration).isNull()
+        val playbackState = playbackStateMapper.map(fakeStatePlayer)
+        assertThat(playbackState.currentPosition).isNull()
+        assertThat(playbackState.duration).isNull()
     }
 
     @Test
@@ -56,9 +56,9 @@ class PlaybackStateMapperTest {
             currentPosition = 10L,
             duration = -500L
         )
-        val position = playbackStateMapper.map(fakeStatePlayer)
-        assertThat(position.currentPosition).isNull()
-        assertThat(position.duration).isNull()
+        val playbackState = playbackStateMapper.map(fakeStatePlayer)
+        assertThat(playbackState.currentPosition).isNull()
+        assertThat(playbackState.duration).isNull()
     }
 
     @Test
@@ -70,9 +70,9 @@ class PlaybackStateMapperTest {
             currentPosition = 100L,
             duration = 99L
         )
-        val position = playbackStateMapper.map(fakeStatePlayer)
-        assertThat(position.currentPosition).isEqualTo(100.milliseconds)
-        assertThat(position.duration).isEqualTo(100.milliseconds)
+        val playbackState = playbackStateMapper.map(fakeStatePlayer)
+        assertThat(playbackState.currentPosition).isEqualTo(100.milliseconds)
+        assertThat(playbackState.duration).isEqualTo(100.milliseconds)
     }
 
     @Test
@@ -85,11 +85,11 @@ class PlaybackStateMapperTest {
             duration = 1000L
         )
         fakeStatePlayer.overridePlaybackSpeed(2f)
-        val position = playbackStateMapper.map(fakeStatePlayer)
-        assertThat(position.currentPosition).isEqualTo(100.milliseconds)
-        assertThat(position.duration).isEqualTo(1000.milliseconds)
-        assertThat(position.playbackSpeed).isEqualTo(2f)
-        assertThat(position.isLive).isEqualTo(false)
+        val playbackState = playbackStateMapper.map(fakeStatePlayer)
+        assertThat(playbackState.currentPosition).isEqualTo(100.milliseconds)
+        assertThat(playbackState.duration).isEqualTo(1000.milliseconds)
+        assertThat(playbackState.playbackSpeed).isEqualTo(2f)
+        assertThat(playbackState.isLive).isEqualTo(false)
     }
 
     @Test
@@ -102,7 +102,7 @@ class PlaybackStateMapperTest {
 
     @Test
     fun `check null Player results in idle state`() {
-        val position = playbackStateMapper.map(null)
-        assertThat(position).isEqualTo(PlaybackState.IDLE)
+        val playbackState = playbackStateMapper.map(null)
+        assertThat(playbackState).isEqualTo(PlaybackState.IDLE)
     }
 }

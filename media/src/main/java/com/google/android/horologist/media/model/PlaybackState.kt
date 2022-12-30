@@ -20,8 +20,8 @@ import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import kotlin.time.Duration
 
 /**
- * Represents a [Media] position, duration and playback speed captured at a given time. It can be
- * used to determine whether media is playing and to infer current or future position.
+ * Represents a state of playback, duration and playback speed. It can be used to determine whether
+ * media is playing and to infer current and future position and duration.
  */
 @ExperimentalHorologistMediaApi
 public data class PlaybackState(

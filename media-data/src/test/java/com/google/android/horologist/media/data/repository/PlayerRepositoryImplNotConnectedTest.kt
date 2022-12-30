@@ -23,7 +23,6 @@ import android.os.Looper.getMainLooper
 import androidx.test.core.app.ApplicationProvider
 import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.model.Media
-import com.google.android.horologist.media.model.PlaybackState
 import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
@@ -63,7 +62,7 @@ class PlayerRepositoryImplNotConnectedTest(
         assertThat(sut.currentMedia.value).isNull()
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isNull()
-        assertThat(sut.playbackStateEvents.value).isEqualTo(PlaybackStateEvent(PlaybackState.IDLE, PlaybackStateEvent.Cause.Initial))
+        assertThat(sut.playbackStateEvents.value).isEqualTo(PlaybackStateEvent.INITIAL)
         assertThat(sut.availableCommands.value).isEmpty()
     }
 

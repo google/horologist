@@ -14,8 +14,10 @@
       
         <link rel="canonical" href="https://google.github.io/horologist/updating-old/">
       
+      
+      
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.1">
     
     
       
@@ -23,15 +25,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.975780f9.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.3bd4f189.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
-        
-          
-          
-          <meta name="theme-color" content="#000000">
-        
       
       
 
@@ -870,10 +867,9 @@
                 
                   
 
-  <a href="https://github.com/google/horologist/tree/main/docs/updating-old.md" title="Edit this page" class="md-content__button md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
-  </a>
+  
+  
+
 
 
 <h1 id="updating-releasing-horologist">Updating &amp; releasing Horologist<a class="headerlink" href="#updating-releasing-horologist" title="Permanent link">&para;</a></h1>
@@ -886,9 +882,9 @@
 <p>We publish snapshot versions of Horologist, which depend on a <code>SNAPSHOT</code> versions of Jetpack Compose. These are built from the <code>snapshot</code> branch.</p>
 <h3 id="updating-to-a-newer-compose-snapshot">Updating to a newer Compose snapshot<a class="headerlink" href="#updating-to-a-newer-compose-snapshot" title="Permanent link">&para;</a></h3>
 <p>As mentioned above, updating to a new Compose snapshot is done by submitting a new PR against the <code>snapshot</code> branch:</p>
-<div class="highlight"><pre><span></span><code>git checkout snapshot <span class="o">&amp;&amp;</span> git pull
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>snapshot<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>pull
 <span class="c1"># Create branch for PR</span>
-git checkout -b update_snapshot
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>update_snapshot
 </code></pre></div>
 <p>Now edit the project to depend on the new Compose SNAPSHOT version:</p>
 <p>Edit <a href="https://github.com/google/horologist/blob/main/gradle/libs.versions.toml"><code>/gradle/libs.versions.toml</code></a>:</p>
@@ -906,14 +902,14 @@ git checkout -b update_snapshot
 <p>Once the next Jetpack Compose version is out, we're ready to push a new release:</p>
 <h3 id="1-merge-snapshot-into-main">#1: Merge <code>snapshot</code> into <code>main</code><a class="headerlink" href="#1-merge-snapshot-into-main" title="Permanent link">&para;</a></h3>
 <p>First we merge the <code>snapshot</code> branch into <code>main</code>:</p>
-<div class="highlight"><pre><span></span><code>git checkout snapshot <span class="o">&amp;&amp;</span> git pull
-git checkout main <span class="o">&amp;&amp;</span> git pull
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>snapshot<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>pull
+git<span class="w"> </span>checkout<span class="w"> </span>main<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>pull
 
 <span class="c1"># Create branch for PR</span>
-git checkout -b main_snapshot_merge
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>main_snapshot_merge
 
 <span class="c1"># Merge in the snapshot branch</span>
-git merge snapshot
+git<span class="w"> </span>merge<span class="w"> </span>snapshot
 </code></pre></div>
 <h3 id="2-update-dependencies">#2: Update dependencies<a class="headerlink" href="#2-update-dependencies" title="Permanent link">&para;</a></h3>
 <p>Edit <a href="https://github.com/google/horologist/blob/main/gradle/libs.versions.toml"><code>/gradle/libs.versions.toml</code></a>:</p>
@@ -993,12 +989,11 @@ git push
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.12658920.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      <script src="../assets/javascripts/bundle.5cf534bf.min.js"></script>
       
-    
     
   </body>
 </html>

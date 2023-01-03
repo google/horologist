@@ -47,14 +47,14 @@ public fun PodcastControlButtons(
     }
 
     PodcastControlButtons(
-        onPlayButtonClick = { playerController.play() },
-        onPauseButtonClick = { playerController.pause() },
+        onPlayButtonClick = playerController::play,
+        onPauseButtonClick = playerController::pause,
         playPauseButtonEnabled = playerUiState.playPauseEnabled,
         playing = playerUiState.playing,
-        onSeekBackButtonClick = { playerController.skipToPreviousMedia() },
+        onSeekBackButtonClick = playerController::seekBack,
         seekBackButtonIncrement = playerUiState.seekBackButtonIncrement,
         seekBackButtonEnabled = playerUiState.seekBackEnabled,
-        onSeekForwardButtonClick = { playerController.skipToNextMedia() },
+        onSeekForwardButtonClick = playerController::seekForward,
         seekForwardButtonIncrement = playerUiState.seekForwardButtonIncrement,
         seekForwardButtonEnabled = playerUiState.seekForwardEnabled,
         showProgress = playerUiState.trackPosition?.showProgress ?: false,

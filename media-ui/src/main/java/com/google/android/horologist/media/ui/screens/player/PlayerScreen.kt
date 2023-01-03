@@ -125,13 +125,13 @@ public fun DefaultPlayerScreenControlButtons(
     playerUiState: PlayerUiState
 ) {
     MediaControlButtons(
-        onPlayButtonClick = { playerController.play() },
-        onPauseButtonClick = { playerController.pause() },
+        onPlayButtonClick = playerController::play,
+        onPauseButtonClick = playerController::pause,
         playPauseButtonEnabled = playerUiState.playPauseEnabled,
         playing = playerUiState.playing,
-        onSeekToPreviousButtonClick = { playerController.skipToPreviousMedia() },
+        onSeekToPreviousButtonClick = playerController::skipToPreviousMedia,
         seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
-        onSeekToNextButtonClick = { playerController.skipToNextMedia() },
+        onSeekToNextButtonClick = playerController::skipToNextMedia,
         seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
         showProgress = playerUiState.trackPosition?.showProgress ?: true,
         percent = playerUiState.trackPosition?.percent ?: 0f

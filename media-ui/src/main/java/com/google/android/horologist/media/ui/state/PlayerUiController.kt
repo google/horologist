@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.ui.state
 
+import androidx.compose.runtime.Stable
 import com.google.android.horologist.media.repository.PlayerRepository
 
 /**
@@ -24,7 +25,8 @@ import com.google.android.horologist.media.repository.PlayerRepository
  * This class should generally always be hosted inside a ViewModel to ensure it's tied to a
  * lifecycle that survives configuration changes.
  */
-public class PlayerUiController(private val playerRepository: PlayerRepository) {
+@Stable
+public data class PlayerUiController(private val playerRepository: PlayerRepository) {
     public fun play() {
         // Prepare is needed to ensure playback
         playerRepository.prepare()

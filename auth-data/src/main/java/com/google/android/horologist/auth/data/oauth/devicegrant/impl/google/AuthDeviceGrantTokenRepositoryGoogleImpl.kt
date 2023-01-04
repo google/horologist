@@ -42,16 +42,14 @@ public class AuthDeviceGrantTokenRepositoryGoogleImpl(
         config: AuthDeviceGrantDefaultConfig,
         verificationInfoPayload: DeviceCodeResponse
     ): Result<String> {
-        val future = RemoteActivityHelper(application).startRemoteActivity(
-            targetIntent = Intent(Intent.ACTION_VIEW).apply {
-                addCategory(Intent.CATEGORY_BROWSABLE)
-                data = Uri.parse(verificationInfoPayload.verificationUri)
-            },
-            targetNodeId = null
-        )
-
         try {
-            future.await()
+            RemoteActivityHelper(application).startRemoteActivity(
+                targetIntent = Intent(Intent.ACTION_VIEW).apply {
+                    addCategory(Intent.CATEGORY_BROWSABLE)
+                    data = Uri.parse(verificationInfoPayload.verificationUri)
+                },
+                targetNodeId = null
+            ).await()
         } catch (e: RemoteActivityHelper.RemoteIntentException) {
             Log.e(TAG, "Error starting remote activity", e)
             // It should return `Result.failure(e)` here, however, as described in b/263238683,

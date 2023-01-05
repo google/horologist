@@ -27,9 +27,7 @@ import com.google.android.horologist.auth.data.oauth.pkce.AuthPKCETokenRepositor
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.auth.ui.ext.compareAndSet
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 @ExperimentalHorologistAuthUiApi
@@ -41,11 +39,7 @@ public open class AuthPKCEViewModel<AuthPKCEConfig, OAuthCodePayload, TokenPaylo
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<AuthPKCEScreenState>(AuthPKCEScreenState.Idle)
-    public val uiState: StateFlow<AuthPKCEScreenState> = _uiState.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
-        initialValue = AuthPKCEScreenState.Idle
-    )
+    public val uiState: StateFlow<AuthPKCEScreenState> = _uiState
 
     public fun startAuthFlow() {
         _uiState.compareAndSet(

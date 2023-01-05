@@ -26,9 +26,7 @@ import com.google.android.horologist.auth.data.oauth.devicegrant.AuthDeviceGrant
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.auth.ui.ext.compareAndSet
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 @ExperimentalHorologistAuthUiApi
@@ -42,11 +40,7 @@ public open class AuthDeviceGrantViewModel<AuthDeviceGrantConfig, VerificationIn
 
     private val _uiState =
         MutableStateFlow<AuthDeviceGrantScreenState>(AuthDeviceGrantScreenState.Idle)
-    public val uiState: StateFlow<AuthDeviceGrantScreenState> = _uiState.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
-        initialValue = AuthDeviceGrantScreenState.Idle
-    )
+    public val uiState: StateFlow<AuthDeviceGrantScreenState> = _uiState
 
     public fun startAuthFlow() {
         _uiState.compareAndSet(

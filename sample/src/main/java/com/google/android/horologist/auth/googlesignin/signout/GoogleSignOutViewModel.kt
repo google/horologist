@@ -27,9 +27,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
@@ -38,11 +36,7 @@ class GoogleSignOutViewModel(
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(GoogleSignOutScreenState.Idle)
-    public val uiState: StateFlow<GoogleSignOutScreenState> = _uiState.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
-        initialValue = GoogleSignOutScreenState.Idle
-    )
+    public val uiState: StateFlow<GoogleSignOutScreenState> = _uiState
 
     fun startFlow() {
         if (_uiState.compareAndSet(

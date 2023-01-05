@@ -24,10 +24,7 @@ import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventLis
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListenerNoOpImpl
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 /**
@@ -38,14 +35,8 @@ public open class GoogleSignInViewModel(
     private val googleSignInEventListener: GoogleSignInEventListener = GoogleSignInEventListenerNoOpImpl
 ) : ViewModel() {
 
-    private val _uiState =
-        MutableStateFlow<GoogleSignInScreenState>(GoogleSignInScreenState.Idle)
-    public val uiState: StateFlow<GoogleSignInScreenState> = _uiState.onEach {
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
-        initialValue = GoogleSignInScreenState.Idle
-    )
+    private val _uiState = MutableStateFlow<GoogleSignInScreenState>(GoogleSignInScreenState.Idle)
+    public val uiState: StateFlow<GoogleSignInScreenState> = _uiState
 
     /**
      * Indicate that the screen has observed the [idle][GoogleSignInScreenState.Idle] state and that

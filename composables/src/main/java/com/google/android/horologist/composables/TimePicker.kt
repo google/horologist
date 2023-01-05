@@ -151,6 +151,7 @@ public fun TimePicker(
                         focusRequester = focusRequester1,
                         modifier = Modifier.size(40.dp, 100.dp),
                         contentDescription = "%02d".format(hourState.selectedOption),
+                        userScrollEnabled = selectedColumn == 0,
                         onSelected = { selectedColumn = 0 }
                     ) { hour: Int ->
                         val hourString = "%02d".format(hour)
@@ -168,6 +169,7 @@ public fun TimePicker(
                         focusRequester = focusRequester2,
                         modifier = Modifier.size(40.dp, 100.dp),
                         contentDescription = "%02d".format(minuteState.selectedOption),
+                        userScrollEnabled = selectedColumn == 1,
                         onSelected = { selectedColumn = 1 }
                     ) { minute: Int ->
                         TimePiece(
@@ -185,6 +187,7 @@ public fun TimePicker(
                             focusRequester = focusRequester3,
                             modifier = Modifier.size(40.dp, 100.dp),
                             contentDescription = "%02d".format(secondsState.selectedOption),
+                            userScrollEnabled = selectedColumn == 2,
                             onSelected = { selectedColumn = 2 }
                         ) { second: Int ->
                             TimePiece(
@@ -322,6 +325,7 @@ public fun TimePickerWith12HourClock(
                     modifier = Modifier.size(64.dp, 100.dp),
                     readOnlyLabel = { LabelText(stringResource(R.string.horologist_time_picker_hour)) },
                     contentDescription = "%02d".format(hourState.selectedOption + 1),
+                    userScrollEnabled = selectedColumn == 0,
                     onSelected = { selectedColumn = 0 }
                 ) { hour: Int ->
                     TimePiece(
@@ -340,6 +344,7 @@ public fun TimePickerWith12HourClock(
                     modifier = Modifier.size(64.dp, 100.dp),
                     readOnlyLabel = { LabelText(stringResource(R.string.horologist_time_picker_min)) },
                     contentDescription = "%02d".format(minuteState.selectedOption),
+                    userScrollEnabled = selectedColumn == 1,
                     onSelected = { selectedColumn = 1 }
                 ) { minute: Int ->
                     TimePiece(
@@ -441,6 +446,7 @@ internal fun PickerWithRSB(
     focusRequester: FocusRequester,
     contentDescription: String?,
     readOnlyLabel: @Composable (BoxScope.() -> Unit)? = null,
+    userScrollEnabled: Boolean = true,
     flingBehavior: FlingBehavior = PickerDefaults.flingBehavior(state = state),
     onSelected: () -> Unit = {},
     option: @Composable PickerScope.(optionIndex: Int) -> Unit
@@ -450,18 +456,20 @@ internal fun PickerWithRSB(
         state = state,
         contentDescription = contentDescription,
         onSelected = onSelected,
-        modifier = modifier
-            .onRotaryInputAccumulated {
-                coroutineScope.launch {
-                    if (it > 0) {
-                        state.scrollToOption(state.selectedOption + 1)
-                    } else {
-                        state.scrollToOption(state.selectedOption - 1)
+        modifier = if (userScrollEnabled) {
+            modifier
+                .onRotaryInputAccumulated {
+                    coroutineScope.launch {
+                        if (it > 0) {
+                            state.scrollToOption(state.selectedOption + 1)
+                        } else {
+                            state.scrollToOption(state.selectedOption - 1)
+                        }
                     }
                 }
-            }
-            .focusRequester(focusRequester)
-            .focusable(),
+                .focusRequester(focusRequester)
+                .focusable()
+        } else modifier,
         flingBehavior = flingBehavior,
         readOnly = readOnly,
         readOnlyLabel = readOnlyLabel,

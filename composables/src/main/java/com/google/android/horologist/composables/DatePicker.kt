@@ -161,7 +161,8 @@ public fun DatePicker(
                             text = { day: Int -> "%d".format(datePickerState.currentDay(day)) },
                             width = dayWidth,
                             focusRequester = focusRequester1,
-                            contentDescription = "%d".format(datePickerState.currentDay())
+                            contentDescription = "%d".format(datePickerState.currentDay()),
+                            userScrollEnabled = selectedColumn == 0
                         )
                         Spacer(modifier = Modifier.width(spacerWidth))
                     }
@@ -172,7 +173,8 @@ public fun DatePicker(
                         text = { month: Int -> monthNames[(datePickerState.currentMonth(month) - 1) % 12] },
                         width = monthWidth,
                         focusRequester = focusRequester2,
-                        contentDescription = monthNames[(datePickerState.currentMonth() - 1) % 12]
+                        contentDescription = monthNames[(datePickerState.currentMonth() - 1) % 12],
+                        userScrollEnabled = selectedColumn == 1
                     )
                     if (selectedColumn > 0) {
                         Spacer(modifier = Modifier.width(spacerWidth))
@@ -183,7 +185,8 @@ public fun DatePicker(
                             text = { year: Int -> "%4d".format(datePickerState.currentYear(year)) },
                             width = yearWidth,
                             focusRequester = focusRequester3,
-                            contentDescription = "%4d".format(datePickerState.currentYear())
+                            contentDescription = "%4d".format(datePickerState.currentYear()),
+                            userScrollEnabled = selectedColumn == 2
                         )
                     }
                 }
@@ -227,6 +230,7 @@ private fun DatePickerImpl(
     text: (option: Int) -> String,
     focusRequester: FocusRequester,
     contentDescription: String?,
+    userScrollEnabled: Boolean,
     width: Dp
 ) {
     PickerWithRSB(
@@ -235,6 +239,7 @@ private fun DatePickerImpl(
         focusRequester = focusRequester,
         modifier = Modifier.size(width, 100.dp),
         contentDescription = contentDescription,
+        userScrollEnabled = userScrollEnabled,
         onSelected = onSelected
     ) { option ->
         TimePiece(

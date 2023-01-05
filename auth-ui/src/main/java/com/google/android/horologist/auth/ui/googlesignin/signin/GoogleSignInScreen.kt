@@ -18,7 +18,6 @@
 
 package com.google.android.horologist.auth.ui.googlesignin.signin
 
-import android.app.Activity.RESULT_CANCELED
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -40,6 +39,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
+import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes.SIGN_IN_CANCELLED
 import com.google.android.gms.common.api.ApiException
 import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
 import com.google.android.horologist.auth.composables.screens.AuthErrorScreen
@@ -188,23 +188,32 @@ private class GoogleSignInContract(
     ): Intent = googleSignInClient.signInIntent
 
     override fun parseResult(resultCode: Int, intent: Intent?): Result {
-        if (resultCode == RESULT_CANCELED) {
-            return Result.Cancelled
-        }
-
         val task = GoogleSignIn.getSignedInAccountFromIntent(intent)
-        // As documented, this task must be complete
-        check(task.isComplete)
 
-        return if (task.isSuccessful) {
-            Result.Success(task.result)
-        } else {
-            val exception = task.exception
-            check(exception is ApiException)
-            val message = GoogleSignInStatusCodes.getStatusCodeString(exception.statusCode)
-            Log.w(TAG, "Sign in failed: code=${exception.statusCode}, message=$message")
+        return when {
+            !task.isComplete -> {
+                Log.w(TAG, "Sign in failed with incomplete task")
+                Result.Failed
+            }
 
-            Result.Failed
+            task.isSuccessful -> Result.Success(task.result)
+
+            else -> {
+                val exception = task.exception
+                if (exception is ApiException) {
+                    val message = GoogleSignInStatusCodes.getStatusCodeString(exception.statusCode)
+                    Log.w(TAG, "Sign in failed: code=${exception.statusCode}, message=$message")
+
+                    if (exception.statusCode == SIGN_IN_CANCELLED) {
+                        Result.Cancelled
+                    } else {
+                        Result.Failed
+                    }
+                } else {
+                    Log.w(TAG, "Sign in failed with exception: $exception")
+                    Result.Failed
+                }
+            }
         }
     }
 

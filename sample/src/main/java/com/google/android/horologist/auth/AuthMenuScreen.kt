@@ -41,18 +41,22 @@ fun AuthMenuScreen(
         columnState = columnState,
         modifier = modifier
     ) {
-        authPKCESection(navigateToRoute)
+        pkceSection(navigateToRoute)
 
-        authDeviceGrantSection(navigateToRoute)
+        deviceGrantSection(navigateToRoute)
 
         googleSignInSection(navigateToRoute)
     }
 }
 
-private fun SectionedListScope.authPKCESection(navigateToRoute: (String) -> Unit) {
+private fun SectionedListScope.pkceSection(navigateToRoute: (String) -> Unit) {
     section(
         listOf(
-            Pair(R.string.auth_menu_oauth_pkce_item, Screen.AuthPKCESignInPromptScreen.route)
+            Pair(R.string.auth_menu_oauth_pkce_sign_in_item, Screen.PKCESignInPromptScreen.route),
+            Pair(
+                R.string.auth_menu_oauth_pkce_sign_out_item,
+                Screen.PKCESignOutScreen.route
+            )
         )
     ) {
         header {
@@ -69,12 +73,16 @@ private fun SectionedListScope.authPKCESection(navigateToRoute: (String) -> Unit
     }
 }
 
-private fun SectionedListScope.authDeviceGrantSection(navigateToRoute: (String) -> Unit) {
+private fun SectionedListScope.deviceGrantSection(navigateToRoute: (String) -> Unit) {
     section(
         listOf(
             Pair(
-                R.string.auth_menu_oauth_device_grant_item,
-                Screen.AuthDeviceGrantSignInPromptScreen.route
+                R.string.auth_menu_oauth_device_grant_sign_in_item,
+                Screen.DeviceGrantSignInPromptScreen.route
+            ),
+            Pair(
+                R.string.auth_menu_oauth_device_grant_sign_out_item,
+                Screen.DeviceGrantSignOutScreen.route
             )
         )
     ) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,25 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.oauth.pkce
+package com.google.android.horologist.auth.oauth.pkce.data
 
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
-import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
 
-object AuthPKCESignInPromptViewModel {
-    val Factory: ViewModelProvider.Factory = viewModelFactory {
-        initializer {
-            SignInPromptViewModel(object : AuthUserRepository {
-                override suspend fun getAuthenticated(): AuthUser? = null
-            })
-        }
+/**
+ * Sample in-memory implementation of [AuthUserRepository].
+ */
+object PKCEAuthUserRepositorySample : AuthUserRepository {
+
+    private var authUser: AuthUser? = null
+
+    override suspend fun getAuthenticated(): AuthUser? = authUser
+
+    fun setAuthenticated(authUser: AuthUser) {
+        this.authUser = authUser
+    }
+
+    fun clearAuthenticated() {
+        authUser = null
     }
 }

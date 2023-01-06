@@ -38,7 +38,7 @@ class GoogleSignOutViewModel(
     private val _uiState = MutableStateFlow(GoogleSignOutScreenState.Idle)
     public val uiState: StateFlow<GoogleSignOutScreenState> = _uiState
 
-    fun startFlow() {
+    fun onIdleStateObserved() {
         if (_uiState.compareAndSet(
                 expect = GoogleSignOutScreenState.Idle,
                 update = GoogleSignOutScreenState.Loading

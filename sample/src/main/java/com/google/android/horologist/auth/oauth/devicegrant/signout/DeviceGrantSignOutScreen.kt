@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.googlesignin.signout
+package com.google.android.horologist.auth.oauth.devicegrant.signout
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,14 +34,14 @@ import com.google.android.horologist.base.ui.components.ConfirmationDialog
 import com.google.android.horologist.sample.R
 
 @Composable
-fun GoogleSignOutScreen(
+fun DeviceGrantSignOutScreen(
     navController: NavHostController,
-    viewModel: GoogleSignOutViewModel = viewModel(factory = GoogleSignOutViewModel.Factory)
+    viewModel: DeviceGrantSignOutViewModel = viewModel(factory = DeviceGrantSignOutViewModel.Factory)
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (state) {
-        GoogleSignOutScreenState.Idle -> {
+        DeviceGrantSignOutScreenState.Idle -> {
             SideEffect {
                 viewModel.onIdleStateObserved()
             }
@@ -49,23 +49,23 @@ fun GoogleSignOutScreen(
             LoadingView()
         }
 
-        GoogleSignOutScreenState.Loading -> {
+        DeviceGrantSignOutScreenState.Loading -> {
             LoadingView()
         }
 
-        GoogleSignOutScreenState.Success -> {
+        DeviceGrantSignOutScreenState.Success -> {
             ConfirmationDialog(
                 onTimeout = { navController.popBackStack() }
             ) {
                 Text(
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                     textAlign = TextAlign.Center,
-                    text = stringResource(id = R.string.google_sign_out_success_message)
+                    text = stringResource(id = R.string.device_grant_sign_out_success_message)
                 )
             }
         }
 
-        GoogleSignOutScreenState.Failed -> {
+        DeviceGrantSignOutScreenState.Failed -> {
             SideEffect {
                 navController.popBackStack()
             }

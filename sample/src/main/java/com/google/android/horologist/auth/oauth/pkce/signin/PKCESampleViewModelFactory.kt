@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.oauth.pkce
+package com.google.android.horologist.auth.oauth.pkce.signin
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -28,26 +28,23 @@ import com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEViewModel
 import com.google.android.horologist.components.SampleApplication
 import com.google.android.horologist.sample.BuildConfig
 
-object AuthPKCESampleViewModel {
+val AuthPKCESampleViewModelFactory: ViewModelProvider.Factory = viewModelFactory {
+    initializer {
+        val application = this[APPLICATION_KEY]!! as SampleApplication
 
-    val Factory: ViewModelProvider.Factory = viewModelFactory {
-
-        initializer {
-            val application = this[APPLICATION_KEY]!! as SampleApplication
-
-            AuthPKCEViewModel(
-                authPKCEConfigRepository = AuthPKCEConfigRepositoryGoogleImpl(
-                    clientId = BuildConfig.OAUTH_PKCE_CLIENT_ID,
-                    clientSecret = BuildConfig.OAUTH_PKCE_CLIENT_SECRET
-                ),
-                authPKCEOAuthCodeRepository = AuthPKCEOAuthCodeRepositoryImpl(application),
-                authPKCETokenRepository = AuthPKCETokenRepositoryGoogleImpl(
-                    GoogleOAuthServiceFactory(
-                        okHttpClient = application.okHttpClient,
-                        moshi = application.moshi
-                    ).get()
-                )
-            )
-        }
+        AuthPKCEViewModel(
+            authPKCEConfigRepository = AuthPKCEConfigRepositoryGoogleImpl(
+                clientId = BuildConfig.OAUTH_PKCE_CLIENT_ID,
+                clientSecret = BuildConfig.OAUTH_PKCE_CLIENT_SECRET
+            ),
+            authPKCEOAuthCodeRepository = AuthPKCEOAuthCodeRepositoryImpl(application),
+            authPKCETokenRepository = AuthPKCETokenRepositoryGoogleImpl(
+                GoogleOAuthServiceFactory(
+                    okHttpClient = application.okHttpClient,
+                    moshi = application.moshi
+                ).get()
+            ),
+            authPKCETokenPayloadListener = PKCETokenPayloadListenerSample
+        )
     }
 }

@@ -35,12 +35,14 @@ import com.google.android.horologist.auth.data.oauth.devicegrant.impl.AuthDevice
 import com.google.android.horologist.auth.data.oauth.pkce.impl.AuthPKCEDefaultConfig
 import com.google.android.horologist.auth.data.oauth.pkce.impl.google.AuthPKCEOAuthCodeGooglePayload
 import com.google.android.horologist.auth.googlesignin.prompt.GoogleSignInPromptSampleScreen
-import com.google.android.horologist.auth.googlesignin.signin.GoogleSignInSampleViewModel
+import com.google.android.horologist.auth.googlesignin.signin.GoogleSignInSampleViewModelFactory
 import com.google.android.horologist.auth.googlesignin.signout.GoogleSignOutScreen
-import com.google.android.horologist.auth.oauth.devicegrant.AuthDeviceGrantSampleViewModel
-import com.google.android.horologist.auth.oauth.devicegrant.AuthDeviceGrantSignInPromptScreen
-import com.google.android.horologist.auth.oauth.pkce.AuthPKCESampleViewModel
-import com.google.android.horologist.auth.oauth.pkce.AuthPKCESignInPromptScreen
+import com.google.android.horologist.auth.oauth.devicegrant.prompt.DeviceGrantSignInPromptScreen
+import com.google.android.horologist.auth.oauth.devicegrant.signin.DeviceGrantSampleViewModelFactory
+import com.google.android.horologist.auth.oauth.devicegrant.signout.DeviceGrantSignOutScreen
+import com.google.android.horologist.auth.oauth.pkce.prompt.AuthPKCESignInPromptScreen
+import com.google.android.horologist.auth.oauth.pkce.signin.AuthPKCESampleViewModelFactory
+import com.google.android.horologist.auth.oauth.pkce.signout.PKCESignOutScreen
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
 import com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantScreen
 import com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreen
@@ -229,34 +231,40 @@ fun SampleWearApp() {
             )
         }
         scrollable(
-            route = Screen.AuthPKCESignInPromptScreen.route
+            route = Screen.PKCESignInPromptScreen.route
         ) {
             AuthPKCESignInPromptScreen(
                 navController = navController,
                 columnState = it.columnState
             )
         }
-        composable(route = Screen.AuthPKCEScreen.route) {
+        composable(route = Screen.PKCESignInScreen.route) {
             AuthPKCEScreen<AuthPKCEDefaultConfig, AuthPKCEOAuthCodeGooglePayload, TokenResponse>(
-                viewModel = viewModel(factory = AuthPKCESampleViewModel.Factory)
+                viewModel = viewModel(factory = AuthPKCESampleViewModelFactory)
             ) {
                 navController.popBackStack()
             }
         }
+        composable(route = Screen.PKCESignOutScreen.route) {
+            PKCESignOutScreen(navController = navController)
+        }
         scrollable(
-            route = Screen.AuthDeviceGrantSignInPromptScreen.route
+            route = Screen.DeviceGrantSignInPromptScreen.route
         ) {
-            AuthDeviceGrantSignInPromptScreen(
+            DeviceGrantSignInPromptScreen(
                 navController = navController,
                 columnState = it.columnState
             )
         }
-        composable(route = Screen.AuthDeviceGrantScreen.route) {
+        composable(route = Screen.DeviceGrantSignInScreen.route) {
             AuthDeviceGrantScreen<AuthDeviceGrantDefaultConfig, DeviceCodeResponse, String>(
-                viewModel = viewModel(factory = AuthDeviceGrantSampleViewModel.Factory)
+                viewModel = viewModel(factory = DeviceGrantSampleViewModelFactory)
             ) {
                 navController.popBackStack()
             }
+        }
+        composable(route = Screen.DeviceGrantSignOutScreen.route) {
+            DeviceGrantSignOutScreen(navController = navController)
         }
         scrollable(
             route = Screen.GoogleSignInPromptSampleScreen.route
@@ -268,7 +276,7 @@ fun SampleWearApp() {
         }
         composable(route = Screen.GoogleSignInScreen.route) {
             GoogleSignInScreen(
-                viewModel = viewModel(factory = GoogleSignInSampleViewModel.Factory),
+                viewModel = viewModel(factory = GoogleSignInSampleViewModelFactory),
                 onAuthCancelled = { navController.popBackStack() }
             ) {
                 navController.popBackStack()

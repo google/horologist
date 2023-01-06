@@ -49,7 +49,7 @@ android {
     }
     packagingOptions {
         resources {
-            excludes.addAll(listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1"))
+            excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1")
         }
     }
 

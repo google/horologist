@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,26 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.oauth.devicegrant
+package com.google.android.horologist.auth.oauth.devicegrant.prompt
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
+import com.google.android.horologist.base.ui.components.ConfirmationDialog
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
@@ -34,15 +42,19 @@ import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
 
 @Composable
-fun AuthDeviceGrantSignInPromptScreen(
+fun DeviceGrantSignInPromptScreen(
     navController: NavHostController,
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
-    viewModel: SignInPromptViewModel = viewModel(factory = AuthDeviceGrantSignInPromptViewModel.Factory)
+    viewModel: SignInPromptViewModel = viewModel(factory = DeviceGrantSignInPromptViewModelFactory)
 ) {
+    var showAlreadySignedInDialog by rememberSaveable { mutableStateOf(false) }
+
     SignInPromptScreen(
-        message = stringResource(id = R.string.auth_device_grant_sign_in_prompt_message),
-        onAlreadySignedIn = { navController.popBackStack() },
+        message = stringResource(id = R.string.device_grant_sign_in_prompt_message),
+        onAlreadySignedIn = {
+            showAlreadySignedInDialog = true
+        },
         columnState = columnState,
         modifier = modifier,
         viewModel = viewModel
@@ -50,7 +62,7 @@ fun AuthDeviceGrantSignInPromptScreen(
         item {
             SignInChip(
                 onClick = {
-                    navController.navigate(Screen.AuthDeviceGrantScreen.route) {
+                    navController.navigate(Screen.DeviceGrantSignInScreen.route) {
                         popUpTo(Screen.AuthMenuScreen.route)
                     }
                 },
@@ -64,12 +76,27 @@ fun AuthDeviceGrantSignInPromptScreen(
             )
         }
     }
+
+    if (showAlreadySignedInDialog) {
+        ConfirmationDialog(
+            onTimeout = {
+                showAlreadySignedInDialog = false
+                navController.popBackStack()
+            }
+        ) {
+            Text(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                textAlign = TextAlign.Center,
+                text = stringResource(id = R.string.device_grant_sign_in_prompt_already_signed_in_message)
+            )
+        }
+    }
 }
 
 @WearPreviewDevices
 @Composable
-fun AuthDeviceGrantSignInPromptScreenPreview() {
-    AuthDeviceGrantSignInPromptScreen(
+fun DeviceGrantSignInPromptScreenPreview() {
+    DeviceGrantSignInPromptScreen(
         navController = rememberSwipeDismissableNavController(),
         columnState = belowTimeTextPreview()
     )

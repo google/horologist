@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.oauth.devicegrant
+package com.google.android.horologist.auth.oauth.devicegrant.signin
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -28,32 +28,30 @@ import com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantVi
 import com.google.android.horologist.components.SampleApplication
 import com.google.android.horologist.sample.BuildConfig
 
-object AuthDeviceGrantSampleViewModel {
+val DeviceGrantSampleViewModelFactory: ViewModelProvider.Factory = viewModelFactory {
 
-    val Factory: ViewModelProvider.Factory = viewModelFactory {
+    initializer {
+        val application = this[APPLICATION_KEY]!! as SampleApplication
 
-        initializer {
-            val application = this[APPLICATION_KEY]!! as SampleApplication
+        val googleOAuthService = GoogleOAuthServiceFactory(
+            okHttpClient = application.okHttpClient,
+            moshi = application.moshi
+        ).get()
 
-            val googleOAuthService = GoogleOAuthServiceFactory(
-                okHttpClient = application.okHttpClient,
-                moshi = application.moshi
-            ).get()
-
-            AuthDeviceGrantViewModel(
-                authDeviceGrantConfigRepository = AuthDeviceGrantConfigRepositoryDefaultImpl(
-                    clientId = BuildConfig.OAUTH_DEVICE_GRANT_CLIENT_ID,
-                    clientSecret = BuildConfig.OAUTH_DEVICE_GRANT_CLIENT_SECRET
-                ),
-                authDeviceGrantVerificationInfoRepository = AuthDeviceGrantVerificationInfoRepositoryGoogleImpl(
-                    googleOAuthService = googleOAuthService
-                ),
-                authDeviceGrantTokenRepository = AuthDeviceGrantTokenRepositoryGoogleImpl(
-                    application = application,
-                    googleOAuthService = googleOAuthService
-                ),
-                checkPhonePayloadMapper = { _, deviceResponse -> deviceResponse.userCode }
-            )
-        }
+        AuthDeviceGrantViewModel(
+            authDeviceGrantConfigRepository = AuthDeviceGrantConfigRepositoryDefaultImpl(
+                clientId = BuildConfig.OAUTH_DEVICE_GRANT_CLIENT_ID,
+                clientSecret = BuildConfig.OAUTH_DEVICE_GRANT_CLIENT_SECRET
+            ),
+            authDeviceGrantVerificationInfoRepository = AuthDeviceGrantVerificationInfoRepositoryGoogleImpl(
+                googleOAuthService = googleOAuthService
+            ),
+            authDeviceGrantTokenRepository = AuthDeviceGrantTokenRepositoryGoogleImpl(
+                application = application,
+                googleOAuthService = googleOAuthService
+            ),
+            checkPhonePayloadMapper = { _, deviceResponse -> deviceResponse.userCode },
+            authDeviceGrantTokenPayloadListener = DeviceGrantTokenPayloadListenerSample
+        )
     }
 }

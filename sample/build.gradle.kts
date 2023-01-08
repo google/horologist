@@ -102,10 +102,12 @@ android {
 sourceSets {
     create("main") {
         java {
-            srcDirs("build/generated/source/proto/debug/java")
-            srcDirs("build/generated/source/proto/debug/grpc")
-            srcDirs("build/generated/source/proto/debug/kotlin")
-            srcDirs("build/generated/source/proto/debug/grpckt")
+            srcDirs(
+                "build/generated/source/proto/debug/java",
+                "build/generated/source/proto/debug/grpc",
+                "build/generated/source/proto/debug/kotlin",
+                "build/generated/source/proto/debug/grpckt"
+            )
         }
     }
 }

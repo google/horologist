@@ -55,11 +55,11 @@ import com.google.android.horologist.auth.ui.common.logging.TAG
 @ExperimentalHorologistAuthUiApi
 @Composable
 public fun GoogleSignInScreen(
-    modifier: Modifier = Modifier,
-    viewModel: GoogleSignInViewModel = viewModel(),
     onAuthCancelled: () -> Unit,
     failedContent: @Composable () -> Unit,
-    successContent: @Composable (successState: GoogleSignInScreenState.Success) -> Unit
+    modifier: Modifier = Modifier,
+    viewModel: GoogleSignInViewModel = viewModel(),
+    content: @Composable (successState: GoogleSignInScreenState.Success) -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -128,7 +128,7 @@ public fun GoogleSignInScreen(
         }
 
         is GoogleSignInScreenState.Success -> {
-            successContent(state as GoogleSignInScreenState.Success)
+            content(state as GoogleSignInScreenState.Success)
         }
 
         GoogleSignInScreenState.Cancelled -> {
@@ -149,30 +149,28 @@ public fun GoogleSignInScreen(
 @ExperimentalHorologistAuthUiApi
 @Composable
 public fun GoogleSignInScreen(
-    modifier: Modifier = Modifier,
-    viewModel: GoogleSignInViewModel = viewModel(),
     onAuthCancelled: () -> Unit,
-    onAuthSucceed: () -> Unit
+    onAuthSucceed: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: GoogleSignInViewModel = viewModel()
 ) {
     GoogleSignInScreen(
-        viewModel = viewModel,
         onAuthCancelled = {
             onAuthCancelled()
         },
         failedContent = {
             AuthErrorScreen(modifier)
         },
-        successContent = { successState ->
-            SignedInConfirmationDialog(
-                modifier = modifier,
-                name = successState.displayName,
-                email = successState.email,
-                avatar = successState.photoUrl
-            ) {
-                onAuthSucceed()
-            }
-        }
-    )
+        viewModel = viewModel
+    ) { successState ->
+        SignedInConfirmationDialog(
+            onDismissOrTimeout = { onAuthSucceed() },
+            modifier = modifier,
+            name = successState.displayName,
+            email = successState.email,
+            avatar = successState.photoUrl
+        )
+    }
 }
 
 /**

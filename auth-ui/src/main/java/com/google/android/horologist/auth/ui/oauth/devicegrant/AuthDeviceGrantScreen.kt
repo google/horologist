@@ -33,10 +33,10 @@ import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 @ExperimentalHorologistAuthUiApi
 @Composable
 public fun <AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload> AuthDeviceGrantScreen(
+    failedContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: AuthDeviceGrantViewModel<AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload>,
-    successContent: @Composable (successState: AuthDeviceGrantScreenState.Success) -> Unit,
-    failedContent: @Composable () -> Unit
+    content: @Composable (successState: AuthDeviceGrantScreenState.Success) -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -61,7 +61,7 @@ public fun <AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload> AuthDe
         }
 
         AuthDeviceGrantScreenState.Success -> {
-            successContent(state as AuthDeviceGrantScreenState.Success)
+            content(state as AuthDeviceGrantScreenState.Success)
         }
     }
 }
@@ -69,20 +69,20 @@ public fun <AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload> AuthDe
 @ExperimentalHorologistAuthUiApi
 @Composable
 public fun <AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload> AuthDeviceGrantScreen(
+    onAuthSucceed: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: AuthDeviceGrantViewModel<AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload>,
-    onAuthSucceed: () -> Unit
+    viewModel: AuthDeviceGrantViewModel<AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload>
 ) {
     AuthDeviceGrantScreen(
-        modifier = modifier,
-        viewModel = viewModel,
-        successContent = {
-            SignedInConfirmationDialog(modifier = modifier) {
-                onAuthSucceed()
-            }
-        },
         failedContent = {
             AuthErrorScreen(modifier = modifier)
-        }
-    )
+        },
+        modifier = modifier,
+        viewModel = viewModel
+    ) {
+        SignedInConfirmationDialog(
+            onDismissOrTimeout = { onAuthSucceed() },
+            modifier = modifier
+        )
+    }
 }

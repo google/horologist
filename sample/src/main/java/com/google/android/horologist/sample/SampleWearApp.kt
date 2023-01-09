@@ -240,10 +240,9 @@ fun SampleWearApp() {
         }
         composable(route = Screen.PKCESignInScreen.route) {
             AuthPKCEScreen<AuthPKCEDefaultConfig, AuthPKCEOAuthCodeGooglePayload, TokenResponse>(
+                onAuthSucceed = { navController.popBackStack() },
                 viewModel = viewModel(factory = AuthPKCESampleViewModelFactory)
-            ) {
-                navController.popBackStack()
-            }
+            )
         }
         composable(route = Screen.PKCESignOutScreen.route) {
             PKCESignOutScreen(navController = navController)
@@ -258,10 +257,9 @@ fun SampleWearApp() {
         }
         composable(route = Screen.DeviceGrantSignInScreen.route) {
             AuthDeviceGrantScreen<AuthDeviceGrantDefaultConfig, DeviceCodeResponse, String>(
+                onAuthSucceed = { navController.popBackStack() },
                 viewModel = viewModel(factory = DeviceGrantSampleViewModelFactory)
-            ) {
-                navController.popBackStack()
-            }
+            )
         }
         composable(route = Screen.DeviceGrantSignOutScreen.route) {
             DeviceGrantSignOutScreen(navController = navController)
@@ -276,11 +274,10 @@ fun SampleWearApp() {
         }
         composable(route = Screen.GoogleSignInScreen.route) {
             GoogleSignInScreen(
-                viewModel = viewModel(factory = GoogleSignInSampleViewModelFactory),
-                onAuthCancelled = { navController.popBackStack() }
-            ) {
-                navController.popBackStack()
-            }
+                onAuthCancelled = { navController.popBackStack() },
+                onAuthSucceed = { navController.popBackStack() },
+                viewModel = viewModel(factory = GoogleSignInSampleViewModelFactory)
+            )
         }
         composable(route = Screen.GoogleSignOutScreen.route) {
             GoogleSignOutScreen(navController = navController)

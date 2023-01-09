@@ -59,12 +59,12 @@ private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.094
 @ExperimentalHorologistAuthComposablesApi
 @Composable
 public fun SignedInConfirmationDialog(
+    onDismissOrTimeout: () -> Unit,
     modifier: Modifier = Modifier,
     name: String? = null,
     email: String? = null,
     avatar: Any? = null,
-    duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis),
-    onDismissOrTimeout: () -> Unit
+    duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis)
 ) {
     ConfirmationDialog(
         onTimeout = onDismissOrTimeout,

@@ -32,10 +32,10 @@ import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 @ExperimentalHorologistAuthUiApi
 @Composable
 public fun <AuthPKCEConfig, OAuthCodePayload, TokenPayload> AuthPKCEScreen(
+    failedContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: AuthPKCEViewModel<AuthPKCEConfig, OAuthCodePayload, TokenPayload>,
-    successContent: @Composable (successState: AuthPKCEScreenState.Success) -> Unit,
-    failedContent: @Composable () -> Unit
+    content: @Composable (successState: AuthPKCEScreenState.Success) -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -56,7 +56,7 @@ public fun <AuthPKCEConfig, OAuthCodePayload, TokenPayload> AuthPKCEScreen(
         }
 
         AuthPKCEScreenState.Success -> {
-            successContent(state as AuthPKCEScreenState.Success)
+            content(state as AuthPKCEScreenState.Success)
         }
     }
 }
@@ -64,20 +64,20 @@ public fun <AuthPKCEConfig, OAuthCodePayload, TokenPayload> AuthPKCEScreen(
 @ExperimentalHorologistAuthUiApi
 @Composable
 public fun <AuthPKCEConfig, OAuthCodePayload, TokenPayload> AuthPKCEScreen(
+    onAuthSucceed: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: AuthPKCEViewModel<AuthPKCEConfig, OAuthCodePayload, TokenPayload>,
-    onAuthSucceed: () -> Unit
+    viewModel: AuthPKCEViewModel<AuthPKCEConfig, OAuthCodePayload, TokenPayload>
 ) {
     AuthPKCEScreen(
-        modifier = modifier,
-        viewModel = viewModel,
-        successContent = {
-            SignedInConfirmationDialog(modifier = modifier) {
-                onAuthSucceed()
-            }
-        },
         failedContent = {
             AuthErrorScreen(modifier = modifier)
-        }
-    )
+        },
+        modifier = modifier,
+        viewModel = viewModel
+    ) {
+        SignedInConfirmationDialog(
+            onDismissOrTimeout = { onAuthSucceed() },
+            modifier = modifier
+        )
+    }
 }

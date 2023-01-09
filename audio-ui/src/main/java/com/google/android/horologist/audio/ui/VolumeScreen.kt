@@ -188,7 +188,7 @@ internal fun VolumeScreen(
     Box(
         modifier = modifier.fillMaxSize().run {
             onVolumeChangeByScroll?.let {
-                onRotaryInputAccumulated(it)
+                onRotaryInputAccumulated(onValueChange = it)
                     .focusRequester(focusRequester!!)
                     .focusable()
             } ?: this

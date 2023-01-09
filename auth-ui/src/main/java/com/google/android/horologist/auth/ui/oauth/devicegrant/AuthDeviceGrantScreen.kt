@@ -27,8 +27,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
 import com.google.android.horologist.auth.composables.screens.AuthErrorScreen
 import com.google.android.horologist.auth.composables.screens.CheckYourPhoneScreen
+import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
-import com.google.android.horologist.auth.ui.common.screens.LoadingView
 
 @ExperimentalHorologistAuthUiApi
 @Composable
@@ -48,7 +48,7 @@ public fun <AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload> AuthDe
         }
 
         AuthDeviceGrantScreenState.Loading -> {
-            LoadingView(modifier = modifier)
+            SignInPlaceholderScreen(modifier = modifier)
         }
 
         is AuthDeviceGrantScreenState.CheckPhone -> {

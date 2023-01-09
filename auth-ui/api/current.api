@@ -13,13 +13,6 @@ package com.google.android.horologist.auth.ui.common.logging {
 
 }
 
-package com.google.android.horologist.auth.ui.common.screens {
-
-  public final class LoadingViewKt {
-  }
-
-}
-
 package com.google.android.horologist.auth.ui.common.screens.prompt {
 
   public final class SignInPromptScreenKt {

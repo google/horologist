@@ -22,7 +22,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.auth.oauth.pkce.data.PKCEAuthUserRepositorySample
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
 
-val AuthPKCESignInPromptViewModelFactory: ViewModelProvider.Factory = viewModelFactory {
+val PKCESignInPromptViewModelFactory: ViewModelProvider.Factory = viewModelFactory {
     initializer {
         SignInPromptViewModel(PKCEAuthUserRepositorySample)
     }

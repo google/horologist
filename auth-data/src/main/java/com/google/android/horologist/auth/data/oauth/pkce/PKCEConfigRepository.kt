@@ -19,11 +19,7 @@ package com.google.android.horologist.auth.data.oauth.pkce
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 
 @ExperimentalHorologistAuthDataApi
-public interface AuthPKCETokenRepository<AuthPKCEConfig, OAuthCodePayload, TokenPayload> {
+public interface PKCEConfigRepository<Config> {
 
-    public suspend fun fetch(
-        config: AuthPKCEConfig,
-        codeVerifier: String,
-        oAuthCodePayload: OAuthCodePayload
-    ): Result<TokenPayload>
+    public suspend fun fetch(): Config
 }

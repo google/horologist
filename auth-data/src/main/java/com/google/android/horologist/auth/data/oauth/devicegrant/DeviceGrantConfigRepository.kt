@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.data.oauth.pkce
+package com.google.android.horologist.auth.data.oauth.devicegrant
 
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 
 @ExperimentalHorologistAuthDataApi
-public interface AuthPKCEConfigRepository<Config> {
+public interface DeviceGrantConfigRepository<Config> {
 
     public suspend fun fetch(): Config
 }

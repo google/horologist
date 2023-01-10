@@ -42,11 +42,11 @@ import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
 
 @Composable
-fun AuthPKCESignInPromptScreen(
+fun PKCESignInPromptScreen(
     navController: NavHostController,
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
-    viewModel: SignInPromptViewModel = viewModel(factory = AuthPKCESignInPromptViewModelFactory)
+    viewModel: SignInPromptViewModel = viewModel(factory = PKCESignInPromptViewModelFactory)
 ) {
     var showAlreadySignedInDialog by rememberSaveable { mutableStateOf(false) }
 
@@ -95,6 +95,6 @@ fun AuthPKCESignInPromptScreen(
 
 @WearPreviewDevices
 @Composable
-fun AuthPKCESignInPromptScreenPreview() {
-    AuthPKCESignInPromptScreen(navController = NavHostController(LocalContext.current), columnState = belowTimeTextPreview())
+fun PKCESignInPromptScreenPreview() {
+    PKCESignInPromptScreen(navController = NavHostController(LocalContext.current), columnState = belowTimeTextPreview())
 }

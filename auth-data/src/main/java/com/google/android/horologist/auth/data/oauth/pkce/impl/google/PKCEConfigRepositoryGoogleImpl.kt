@@ -21,18 +21,18 @@ import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService.Companion.SCOPE_KEY
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService.Companion.USER_AUTH_ENDPOINT
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService.Companion.USER_INFO_PROFILE_SCOPE_VALUE
-import com.google.android.horologist.auth.data.oauth.pkce.AuthPKCEConfigRepository
-import com.google.android.horologist.auth.data.oauth.pkce.impl.AuthPKCEDefaultConfig
+import com.google.android.horologist.auth.data.oauth.pkce.PKCEConfigRepository
+import com.google.android.horologist.auth.data.oauth.pkce.impl.PKCEDefaultConfig
 
 @ExperimentalHorologistAuthDataApi
-public class AuthPKCEConfigRepositoryGoogleImpl(
+public class PKCEConfigRepositoryGoogleImpl(
     private val clientId: String,
     private val clientSecret: String,
     private val encodedPath: String = USER_AUTH_ENDPOINT,
     private val queryParameters: Map<String, String> = mapOf(SCOPE_KEY to USER_INFO_PROFILE_SCOPE_VALUE)
-) : AuthPKCEConfigRepository<AuthPKCEDefaultConfig> {
+) : PKCEConfigRepository<PKCEDefaultConfig> {
 
-    override suspend fun fetch(): AuthPKCEDefaultConfig {
+    override suspend fun fetch(): PKCEDefaultConfig {
         val uri = Uri.Builder()
             .encodedPath(encodedPath)
             .also { builder ->
@@ -42,7 +42,7 @@ public class AuthPKCEConfigRepositoryGoogleImpl(
             }
             .build()
 
-        return AuthPKCEDefaultConfig(
+        return PKCEDefaultConfig(
             clientId = clientId,
             clientSecret = clientSecret,
             authProviderUrl = uri

@@ -31,21 +31,21 @@ import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.auth.AuthMenuScreen
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.DeviceCodeResponse
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.TokenResponse
-import com.google.android.horologist.auth.data.oauth.devicegrant.impl.AuthDeviceGrantDefaultConfig
-import com.google.android.horologist.auth.data.oauth.pkce.impl.AuthPKCEDefaultConfig
-import com.google.android.horologist.auth.data.oauth.pkce.impl.google.AuthPKCEOAuthCodeGooglePayload
+import com.google.android.horologist.auth.data.oauth.devicegrant.impl.DeviceGrantDefaultConfig
+import com.google.android.horologist.auth.data.oauth.pkce.impl.PKCEDefaultConfig
+import com.google.android.horologist.auth.data.oauth.pkce.impl.google.PKCEOAuthCodeGooglePayload
 import com.google.android.horologist.auth.googlesignin.prompt.GoogleSignInPromptSampleScreen
 import com.google.android.horologist.auth.googlesignin.signin.GoogleSignInSampleViewModelFactory
 import com.google.android.horologist.auth.googlesignin.signout.GoogleSignOutScreen
 import com.google.android.horologist.auth.oauth.devicegrant.prompt.DeviceGrantSignInPromptScreen
 import com.google.android.horologist.auth.oauth.devicegrant.signin.DeviceGrantSampleViewModelFactory
 import com.google.android.horologist.auth.oauth.devicegrant.signout.DeviceGrantSignOutScreen
-import com.google.android.horologist.auth.oauth.pkce.prompt.AuthPKCESignInPromptScreen
-import com.google.android.horologist.auth.oauth.pkce.signin.AuthPKCESampleViewModelFactory
+import com.google.android.horologist.auth.oauth.pkce.prompt.PKCESignInPromptScreen
+import com.google.android.horologist.auth.oauth.pkce.signin.PKCESampleViewModelFactory
 import com.google.android.horologist.auth.oauth.pkce.signout.PKCESignOutScreen
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
-import com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantScreen
-import com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreen
+import com.google.android.horologist.auth.ui.oauth.devicegrant.signin.DeviceGrantSignInScreen
+import com.google.android.horologist.auth.ui.oauth.pkce.signin.PKCESignInScreen
 import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
@@ -233,15 +233,15 @@ fun SampleWearApp() {
         scrollable(
             route = Screen.PKCESignInPromptScreen.route
         ) {
-            AuthPKCESignInPromptScreen(
+            PKCESignInPromptScreen(
                 navController = navController,
                 columnState = it.columnState
             )
         }
         composable(route = Screen.PKCESignInScreen.route) {
-            AuthPKCEScreen<AuthPKCEDefaultConfig, AuthPKCEOAuthCodeGooglePayload, TokenResponse>(
+            PKCESignInScreen<PKCEDefaultConfig, PKCEOAuthCodeGooglePayload, TokenResponse>(
                 onAuthSucceed = { navController.popBackStack() },
-                viewModel = viewModel(factory = AuthPKCESampleViewModelFactory)
+                viewModel = viewModel(factory = PKCESampleViewModelFactory)
             )
         }
         composable(route = Screen.PKCESignOutScreen.route) {
@@ -256,7 +256,7 @@ fun SampleWearApp() {
             )
         }
         composable(route = Screen.DeviceGrantSignInScreen.route) {
-            AuthDeviceGrantScreen<AuthDeviceGrantDefaultConfig, DeviceCodeResponse, String>(
+            DeviceGrantSignInScreen<DeviceGrantDefaultConfig, DeviceCodeResponse, String>(
                 onAuthSucceed = { navController.popBackStack() },
                 viewModel = viewModel(factory = DeviceGrantSampleViewModelFactory)
             )

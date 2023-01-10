@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.data.oauth.pkce
+package com.google.android.horologist.auth.data.oauth.pkce.impl
 
-import androidx.wear.phone.interactions.authentication.CodeVerifier
+import android.net.Uri
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 
 @ExperimentalHorologistAuthDataApi
-public interface AuthPKCEOAuthCodeRepository<AuthPKCEConfig, OAuthCodePayload> {
-
-    public suspend fun fetch(
-        config: AuthPKCEConfig,
-        codeVerifier: CodeVerifier
-    ): Result<OAuthCodePayload>
-}
+public data class PKCEDefaultConfig(
+    val clientId: String,
+    val clientSecret: String,
+    val authProviderUrl: Uri,
+    val redirectUrl: Uri? = null
+)

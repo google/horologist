@@ -22,16 +22,16 @@ import com.google.android.horologist.auth.data.common.logging.TAG
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.DeviceCodeResponse
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService.Companion.USER_INFO_PROFILE_SCOPE_VALUE
-import com.google.android.horologist.auth.data.oauth.devicegrant.AuthDeviceGrantVerificationInfoRepository
-import com.google.android.horologist.auth.data.oauth.devicegrant.impl.AuthDeviceGrantDefaultConfig
+import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantVerificationInfoRepository
+import com.google.android.horologist.auth.data.oauth.devicegrant.impl.DeviceGrantDefaultConfig
 import kotlinx.coroutines.CancellationException
 
 @ExperimentalHorologistAuthDataApi
-public class AuthDeviceGrantVerificationInfoRepositoryGoogleImpl(
+public class DeviceGrantVerificationInfoRepositoryGoogleImpl(
     private val googleOAuthService: GoogleOAuthService
-) : AuthDeviceGrantVerificationInfoRepository<AuthDeviceGrantDefaultConfig, DeviceCodeResponse> {
+) : DeviceGrantVerificationInfoRepository<DeviceGrantDefaultConfig, DeviceCodeResponse> {
 
-    override suspend fun fetch(config: AuthDeviceGrantDefaultConfig): Result<DeviceCodeResponse> {
+    override suspend fun fetch(config: DeviceGrantDefaultConfig): Result<DeviceCodeResponse> {
         return try {
             Log.d(TAG, "Retrieving verification info...")
             val deviceCodeResponse =

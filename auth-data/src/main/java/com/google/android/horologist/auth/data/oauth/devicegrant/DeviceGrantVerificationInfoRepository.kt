@@ -19,7 +19,7 @@ package com.google.android.horologist.auth.data.oauth.devicegrant
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 
 @ExperimentalHorologistAuthDataApi
-public interface AuthDeviceGrantVerificationInfoRepository<AuthDeviceGrantConfig, VerificationInfo> {
+public interface DeviceGrantVerificationInfoRepository<DeviceGrantConfig, VerificationInfo> {
 
-    public suspend fun fetch(config: AuthDeviceGrantConfig): Result<VerificationInfo>
+    public suspend fun fetch(config: DeviceGrantConfig): Result<VerificationInfo>
 }

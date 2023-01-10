@@ -17,9 +17,17 @@
 package com.google.android.horologist.auth.data.oauth.devicegrant.impl
 
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantConfigRepository
 
 @ExperimentalHorologistAuthDataApi
-public data class AuthDeviceGrantDefaultConfig(
-    val clientId: String,
-    val clientSecret: String
-)
+public class DeviceGrantConfigRepositoryDefaultImpl(
+    private val clientId: String,
+    private val clientSecret: String
+) :
+    DeviceGrantConfigRepository<DeviceGrantDefaultConfig> {
+
+    override suspend fun fetch(): DeviceGrantDefaultConfig = DeviceGrantDefaultConfig(
+        clientId = clientId,
+        clientSecret = clientSecret
+    )
+}

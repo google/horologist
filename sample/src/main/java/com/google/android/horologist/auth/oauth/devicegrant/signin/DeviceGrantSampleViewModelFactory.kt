@@ -21,10 +21,10 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthServiceFactory
-import com.google.android.horologist.auth.data.oauth.devicegrant.impl.AuthDeviceGrantConfigRepositoryDefaultImpl
-import com.google.android.horologist.auth.data.oauth.devicegrant.impl.google.AuthDeviceGrantTokenRepositoryGoogleImpl
-import com.google.android.horologist.auth.data.oauth.devicegrant.impl.google.AuthDeviceGrantVerificationInfoRepositoryGoogleImpl
-import com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantViewModel
+import com.google.android.horologist.auth.data.oauth.devicegrant.impl.DeviceGrantConfigRepositoryDefaultImpl
+import com.google.android.horologist.auth.data.oauth.devicegrant.impl.google.DeviceGrantTokenRepositoryGoogleImpl
+import com.google.android.horologist.auth.data.oauth.devicegrant.impl.google.DeviceGrantVerificationInfoRepositoryGoogleImpl
+import com.google.android.horologist.auth.ui.oauth.devicegrant.signin.DeviceGrantViewModel
 import com.google.android.horologist.components.SampleApplication
 import com.google.android.horologist.sample.BuildConfig
 
@@ -38,20 +38,20 @@ val DeviceGrantSampleViewModelFactory: ViewModelProvider.Factory = viewModelFact
             moshi = application.moshi
         ).get()
 
-        AuthDeviceGrantViewModel(
-            authDeviceGrantConfigRepository = AuthDeviceGrantConfigRepositoryDefaultImpl(
+        DeviceGrantViewModel(
+            deviceGrantConfigRepository = DeviceGrantConfigRepositoryDefaultImpl(
                 clientId = BuildConfig.OAUTH_DEVICE_GRANT_CLIENT_ID,
                 clientSecret = BuildConfig.OAUTH_DEVICE_GRANT_CLIENT_SECRET
             ),
-            authDeviceGrantVerificationInfoRepository = AuthDeviceGrantVerificationInfoRepositoryGoogleImpl(
+            deviceGrantVerificationInfoRepository = DeviceGrantVerificationInfoRepositoryGoogleImpl(
                 googleOAuthService = googleOAuthService
             ),
-            authDeviceGrantTokenRepository = AuthDeviceGrantTokenRepositoryGoogleImpl(
+            deviceGrantTokenRepository = DeviceGrantTokenRepositoryGoogleImpl(
                 application = application,
                 googleOAuthService = googleOAuthService
             ),
             checkPhonePayloadMapper = { _, deviceResponse -> deviceResponse.userCode },
-            authDeviceGrantTokenPayloadListener = DeviceGrantTokenPayloadListenerSample
+            deviceGrantTokenPayloadListener = DeviceGrantTokenPayloadListenerSample
         )
     }
 }

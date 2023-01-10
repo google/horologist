@@ -14,15 +14,19 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.data.oauth.devicegrant
+package com.google.android.horologist.auth.data.oauth.pkce
 
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 
 @ExperimentalHorologistAuthDataApi
-public interface AuthDeviceGrantTokenRepository<AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload> {
+public interface PKCETokenPayloadListener<TokenPayload> {
 
-    public suspend fun fetch(
-        config: AuthDeviceGrantConfig,
-        verificationInfoPayload: VerificationInfoPayload
-    ): Result<TokenPayload>
+    public suspend fun onPayloadReceived(payload: TokenPayload): Unit
+}
+
+@ExperimentalHorologistAuthDataApi
+public class PKCETokenPayloadListenerNoOpImpl<TokenPayload> :
+    PKCETokenPayloadListener<TokenPayload> {
+
+    override suspend fun onPayloadReceived(payload: TokenPayload): Unit = Unit
 }

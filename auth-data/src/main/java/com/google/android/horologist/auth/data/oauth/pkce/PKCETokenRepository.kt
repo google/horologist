@@ -14,20 +14,16 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.data.oauth.devicegrant.impl
+package com.google.android.horologist.auth.data.oauth.pkce
 
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
-import com.google.android.horologist.auth.data.oauth.devicegrant.AuthDeviceGrantConfigRepository
 
 @ExperimentalHorologistAuthDataApi
-public class AuthDeviceGrantConfigRepositoryDefaultImpl(
-    private val clientId: String,
-    private val clientSecret: String
-) :
-    AuthDeviceGrantConfigRepository<AuthDeviceGrantDefaultConfig> {
+public interface PKCETokenRepository<PKCEConfig, OAuthCodePayload, TokenPayload> {
 
-    override suspend fun fetch(): AuthDeviceGrantDefaultConfig = AuthDeviceGrantDefaultConfig(
-        clientId = clientId,
-        clientSecret = clientSecret
-    )
+    public suspend fun fetch(
+        config: PKCEConfig,
+        codeVerifier: String,
+        oAuthCodePayload: OAuthCodePayload
+    ): Result<TokenPayload>
 }

@@ -26,20 +26,20 @@ import com.google.android.horologist.auth.data.common.logging.TAG
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.DeviceCodeResponse
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService.Companion.GRANT_TYPE_PARAM_AUTH_DEVICE_GRANT_VALUE
-import com.google.android.horologist.auth.data.oauth.devicegrant.AuthDeviceGrantTokenRepository
-import com.google.android.horologist.auth.data.oauth.devicegrant.impl.AuthDeviceGrantDefaultConfig
+import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantTokenRepository
+import com.google.android.horologist.auth.data.oauth.devicegrant.impl.DeviceGrantDefaultConfig
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.guava.await
 
 @ExperimentalHorologistAuthDataApi
-public class AuthDeviceGrantTokenRepositoryGoogleImpl(
+public class DeviceGrantTokenRepositoryGoogleImpl(
     private val application: Application,
     private val googleOAuthService: GoogleOAuthService
-) : AuthDeviceGrantTokenRepository<AuthDeviceGrantDefaultConfig, DeviceCodeResponse, String> {
+) : DeviceGrantTokenRepository<DeviceGrantDefaultConfig, DeviceCodeResponse, String> {
 
     override suspend fun fetch(
-        config: AuthDeviceGrantDefaultConfig,
+        config: DeviceGrantDefaultConfig,
         verificationInfoPayload: DeviceCodeResponse
     ): Result<String> {
         try {
@@ -77,7 +77,7 @@ public class AuthDeviceGrantTokenRepositoryGoogleImpl(
      * For this sample the various exceptions aren't handled.
      */
     private tailrec suspend fun retrieveToken(
-        config: AuthDeviceGrantDefaultConfig,
+        config: DeviceGrantDefaultConfig,
         deviceCode: String,
         interval: Int
     ): String {
@@ -90,7 +90,7 @@ public class AuthDeviceGrantTokenRepositoryGoogleImpl(
     }
 
     private suspend fun fetchToken(
-        config: AuthDeviceGrantDefaultConfig,
+        config: DeviceGrantDefaultConfig,
         deviceCode: String
     ): Result<String> {
         return try {

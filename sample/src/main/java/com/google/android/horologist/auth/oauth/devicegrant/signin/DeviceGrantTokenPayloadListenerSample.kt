@@ -17,10 +17,10 @@
 package com.google.android.horologist.auth.oauth.devicegrant.signin
 
 import com.google.android.horologist.auth.data.common.model.AuthUser
-import com.google.android.horologist.auth.data.oauth.devicegrant.AuthDeviceGrantTokenPayloadListener
+import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantTokenPayloadListener
 import com.google.android.horologist.auth.oauth.devicegrant.data.DeviceGrantAuthUserRepositorySample
 
-object DeviceGrantTokenPayloadListenerSample : AuthDeviceGrantTokenPayloadListener<String> {
+object DeviceGrantTokenPayloadListenerSample : DeviceGrantTokenPayloadListener<String> {
 
     override suspend fun onPayloadReceived(payload: String) {
         // For this sample, this function sets a user with no information as authenticated, given

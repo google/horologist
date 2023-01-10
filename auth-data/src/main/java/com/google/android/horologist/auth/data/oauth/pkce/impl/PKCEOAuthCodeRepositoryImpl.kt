@@ -25,17 +25,17 @@ import androidx.wear.phone.interactions.authentication.OAuthResponse
 import androidx.wear.phone.interactions.authentication.RemoteAuthClient
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 import com.google.android.horologist.auth.data.common.logging.TAG
-import com.google.android.horologist.auth.data.oauth.pkce.AuthPKCEOAuthCodeRepository
-import com.google.android.horologist.auth.data.oauth.pkce.impl.google.AuthPKCEOAuthCodeGooglePayload
+import com.google.android.horologist.auth.data.oauth.pkce.PKCEOAuthCodeRepository
+import com.google.android.horologist.auth.data.oauth.pkce.impl.google.PKCEOAuthCodeGooglePayload
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.io.IOException
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 
 @ExperimentalHorologistAuthDataApi
-public class AuthPKCEOAuthCodeRepositoryImpl(
+public class PKCEOAuthCodeRepositoryImpl(
     private val application: Application
-) : AuthPKCEOAuthCodeRepository<AuthPKCEDefaultConfig, AuthPKCEOAuthCodeGooglePayload> {
+) : PKCEOAuthCodeRepository<PKCEDefaultConfig, PKCEOAuthCodeGooglePayload> {
 
     /**
      * Start the authentication flow and do an authenticated request. This method implements
@@ -48,9 +48,9 @@ public class AuthPKCEOAuthCodeRepositoryImpl(
      * continue the authorization process.
      */
     override suspend fun fetch(
-        config: AuthPKCEDefaultConfig,
+        config: PKCEDefaultConfig,
         codeVerifier: CodeVerifier
-    ): Result<AuthPKCEOAuthCodeGooglePayload> {
+    ): Result<PKCEOAuthCodeGooglePayload> {
         val oauthRequest = OAuthRequest.Builder(application)
             .setAuthProviderUrl(config.authProviderUrl)
             .setCodeChallenge(CodeChallenge(codeVerifier))
@@ -72,7 +72,7 @@ public class AuthPKCEOAuthCodeRepositoryImpl(
 
     private class RemoteAuthClientCallback(
         private val oauthRequest: OAuthRequest,
-        private val continuation: Continuation<Result<AuthPKCEOAuthCodeGooglePayload>>
+        private val continuation: Continuation<Result<PKCEOAuthCodeGooglePayload>>
     ) : RemoteAuthClient.Callback() {
         override fun onAuthorizationError(request: OAuthRequest, errorCode: Int) {
             Log.w(TAG, "Authorization failed with errorCode $errorCode")
@@ -95,7 +95,7 @@ public class AuthPKCEOAuthCodeRepositoryImpl(
             } else {
                 continuation.resume(
                     Result.success(
-                        AuthPKCEOAuthCodeGooglePayload(code, oauthRequest.redirectUrl)
+                        PKCEOAuthCodeGooglePayload(code, oauthRequest.redirectUrl)
                     )
                 )
             }

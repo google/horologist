@@ -21,30 +21,30 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthServiceFactory
-import com.google.android.horologist.auth.data.oauth.pkce.impl.AuthPKCEOAuthCodeRepositoryImpl
-import com.google.android.horologist.auth.data.oauth.pkce.impl.google.AuthPKCEConfigRepositoryGoogleImpl
-import com.google.android.horologist.auth.data.oauth.pkce.impl.google.AuthPKCETokenRepositoryGoogleImpl
-import com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEViewModel
+import com.google.android.horologist.auth.data.oauth.pkce.impl.PKCEOAuthCodeRepositoryImpl
+import com.google.android.horologist.auth.data.oauth.pkce.impl.google.PKCEConfigRepositoryGoogleImpl
+import com.google.android.horologist.auth.data.oauth.pkce.impl.google.PKCETokenRepositoryGoogleImpl
+import com.google.android.horologist.auth.ui.oauth.pkce.signin.PKCESignInViewModel
 import com.google.android.horologist.components.SampleApplication
 import com.google.android.horologist.sample.BuildConfig
 
-val AuthPKCESampleViewModelFactory: ViewModelProvider.Factory = viewModelFactory {
+val PKCESampleViewModelFactory: ViewModelProvider.Factory = viewModelFactory {
     initializer {
         val application = this[APPLICATION_KEY]!! as SampleApplication
 
-        AuthPKCEViewModel(
-            authPKCEConfigRepository = AuthPKCEConfigRepositoryGoogleImpl(
+        PKCESignInViewModel(
+            pkceConfigRepository = PKCEConfigRepositoryGoogleImpl(
                 clientId = BuildConfig.OAUTH_PKCE_CLIENT_ID,
                 clientSecret = BuildConfig.OAUTH_PKCE_CLIENT_SECRET
             ),
-            authPKCEOAuthCodeRepository = AuthPKCEOAuthCodeRepositoryImpl(application),
-            authPKCETokenRepository = AuthPKCETokenRepositoryGoogleImpl(
+            pkceOAuthCodeRepository = PKCEOAuthCodeRepositoryImpl(application),
+            pkceTokenRepository = PKCETokenRepositoryGoogleImpl(
                 GoogleOAuthServiceFactory(
                     okHttpClient = application.okHttpClient,
                     moshi = application.moshi
                 ).get()
             ),
-            authPKCETokenPayloadListener = PKCETokenPayloadListenerSample
+            pkceTokenPayloadListener = PKCETokenPayloadListenerSample
         )
     }
 }

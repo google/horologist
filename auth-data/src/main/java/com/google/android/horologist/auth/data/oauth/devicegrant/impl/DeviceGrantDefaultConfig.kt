@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.data.oauth.pkce.impl
+package com.google.android.horologist.auth.data.oauth.devicegrant.impl
 
-import android.net.Uri
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 
 @ExperimentalHorologistAuthDataApi
-public data class AuthPKCEDefaultConfig(
+public data class DeviceGrantDefaultConfig(
     val clientId: String,
-    val clientSecret: String,
-    val authProviderUrl: Uri,
-    val redirectUrl: Uri? = null
+    val clientSecret: String
 )

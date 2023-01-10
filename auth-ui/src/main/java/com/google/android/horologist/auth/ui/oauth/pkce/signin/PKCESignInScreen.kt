@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 @file:OptIn(ExperimentalLifecycleComposeApi::class)
 
-package com.google.android.horologist.auth.ui.oauth.devicegrant
+package com.google.android.horologist.auth.ui.oauth.pkce.signin
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -27,53 +27,48 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
 import com.google.android.horologist.auth.composables.screens.AuthErrorScreen
 import com.google.android.horologist.auth.composables.screens.CheckYourPhoneScreen
-import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 
 @ExperimentalHorologistAuthUiApi
 @Composable
-public fun <AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload> AuthDeviceGrantScreen(
+public fun <PKCEConfig, OAuthCodePayload, TokenPayload> PKCESignInScreen(
     failedContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: AuthDeviceGrantViewModel<AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload>,
-    content: @Composable (successState: AuthDeviceGrantScreenState.Success) -> Unit
+    viewModel: PKCESignInViewModel<PKCEConfig, OAuthCodePayload, TokenPayload>,
+    content: @Composable (successState: PKCEScreenState.Success) -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (state) {
-        AuthDeviceGrantScreenState.Idle -> {
+        PKCEScreenState.Idle -> {
             SideEffect {
                 viewModel.startAuthFlow()
             }
         }
 
-        AuthDeviceGrantScreenState.Loading -> {
-            SignInPlaceholderScreen(modifier = modifier)
+        PKCEScreenState.Loading,
+        PKCEScreenState.CheckPhone -> {
+            CheckYourPhoneScreen(modifier = modifier)
         }
 
-        is AuthDeviceGrantScreenState.CheckPhone -> {
-            val code = (state as AuthDeviceGrantScreenState.CheckPhone).code
-            CheckYourPhoneScreen(modifier = modifier, message = code)
-        }
-
-        AuthDeviceGrantScreenState.Failed -> {
+        PKCEScreenState.Failed -> {
             failedContent()
         }
 
-        AuthDeviceGrantScreenState.Success -> {
-            content(state as AuthDeviceGrantScreenState.Success)
+        PKCEScreenState.Success -> {
+            content(state as PKCEScreenState.Success)
         }
     }
 }
 
 @ExperimentalHorologistAuthUiApi
 @Composable
-public fun <AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload> AuthDeviceGrantScreen(
+public fun <PKCEConfig, OAuthCodePayload, TokenPayload> PKCESignInScreen(
     onAuthSucceed: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: AuthDeviceGrantViewModel<AuthDeviceGrantConfig, VerificationInfoPayload, TokenPayload>
+    viewModel: PKCESignInViewModel<PKCEConfig, OAuthCodePayload, TokenPayload>
 ) {
-    AuthDeviceGrantScreen(
+    PKCESignInScreen(
         failedContent = {
             AuthErrorScreen(modifier = modifier)
         },

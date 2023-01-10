@@ -24,12 +24,25 @@ import androidx.compose.ui.input.rotary.onRotaryScrollEvent
 /**
  * Accumulates the scroll distances from [RotaryScrollEvent] and notifies changes with
  * [onValueChange] once accumulated value is over the thresholds.
+ *
+ * @param eventAccumulationThresholdMs time threshold below which events are accumulated.
+ * @param minValueChangeDistancePx minimum distance for value change in pixels.
+ * @param rateLimitCoolDownMs cool down time when rate limiting is enabled, negative value disables.
+ * @param onValueChange callback invoked once accumulated value is over the thresholds.
  */
 @OptIn(ExperimentalComposeUiApi::class)
 public fun Modifier.onRotaryInputAccumulated(
+    eventAccumulationThresholdMs: Long = RotaryInputAccumulator.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
+    minValueChangeDistancePx: Float = RotaryInputAccumulator.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
+    rateLimitCoolDownMs: Long = RotaryInputAccumulator.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
     onValueChange: (change: Float) -> Unit
 ): Modifier {
-    val rotaryInputAccumulator = RotaryInputAccumulator(onValueChange = onValueChange)
+    val rotaryInputAccumulator = RotaryInputAccumulator(
+        eventAccumulationThresholdMs = eventAccumulationThresholdMs,
+        minValueChangeDistancePx = minValueChangeDistancePx,
+        rateLimitCoolDownMs = rateLimitCoolDownMs,
+        onValueChange = onValueChange
+    )
     return onRotaryScrollEvent(rotaryInputAccumulator::onRotaryScrollEvent)
 }
 

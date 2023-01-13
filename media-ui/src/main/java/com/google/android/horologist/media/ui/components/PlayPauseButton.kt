@@ -37,7 +37,7 @@ import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.PauseButton
 import com.google.android.horologist.media.ui.components.controls.PlayButton
-import com.google.android.horologist.media.ui.state.MediaProgressState
+import com.google.android.horologist.media.ui.state.ProgressStateHolder
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
 @ExperimentalHorologistMediaUiApi
@@ -104,7 +104,7 @@ public fun PlayPauseProgressButton(
         iconSize = iconSize,
         tapTargetSize = tapTargetSize
     ) {
-        val progress by MediaProgressState.fromMediaProgress(trackPositionUiModel)
+        val progress by ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
         if (trackPositionUiModel.showProgress) {
             Box(
                 modifier = Modifier

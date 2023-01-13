@@ -17,30 +17,52 @@
 package com.google.android.horologist.media.ui.state
 
 import android.os.SystemClock
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.withInfiniteAnimationFrameMillis
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.wear.compose.material.ProgressIndicatorDefaults
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.channels.trySendBlocking
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.isActive
 
+/**
+ * State holder for the media progress indicator that supports both ongoing predictive progress and
+ * animating progress.
+ */
 @ExperimentalHorologistMediaUiApi
 internal class ProgressStateHolder(initial: Float) {
-    val state = mutableStateOf(initial)
+    private val animatable = Animatable(initial)
+    val state get() = animatable.asState()
 
-    suspend fun predictProgress(predictor: (Long) -> Float): Unit = coroutineScope {
-        val elapsedRealtime = SystemClock.elapsedRealtime()
-        val initialFrameTime = withInfiniteAnimationFrameMillis { it }
-        do {
-            withInfiniteAnimationFrameMillis {
-                val frameTimeOffset = it - initialFrameTime
-                state.value = predictor(elapsedRealtime + frameTimeOffset)
+    suspend fun animateProgress(
+        percent: Float,
+        animationSpec: AnimationSpec<Float> = ProgressIndicatorDefaults.ProgressAnimationSpec
+    ) {
+        animatable.animateTo(percent, animationSpec)
+    }
+
+    suspend fun predictProgress(predictor: (Long) -> Float) {
+        callbackFlow {
+            val elapsedRealtime = SystemClock.elapsedRealtime()
+            val initialFrameTime = withInfiniteAnimationFrameMillis { it }
+            do {
+                withInfiniteAnimationFrameMillis {
+                    val frameTimeOffset = it - initialFrameTime
+                    trySendBlocking(predictor(elapsedRealtime + frameTimeOffset))
+                }
+            } while (isActive)
+        }
+            .conflate()
+            .collect {
+                animatable.snapTo(it)
             }
-        } while (isActive)
     }
 
     companion object {
@@ -49,7 +71,7 @@ internal class ProgressStateHolder(initial: Float) {
             val stateHolder = remember { ProgressStateHolder(trackPositionUiModel.initial) }
             LaunchedEffect(trackPositionUiModel) {
                 if (trackPositionUiModel is TrackPositionUiModel.Actual) {
-                    stateHolder.state.value = trackPositionUiModel.percent
+                    stateHolder.animateProgress(trackPositionUiModel.percent)
                 } else if (trackPositionUiModel is TrackPositionUiModel.Predictive) {
                     stateHolder.predictProgress(trackPositionUiModel.predictor::predictPercent)
                 }
@@ -57,6 +79,7 @@ internal class ProgressStateHolder(initial: Float) {
             return stateHolder.state
         }
 
-        private val TrackPositionUiModel.initial get() = (this as? TrackPositionUiModel.Actual)?.percent ?: 0f
+        private val TrackPositionUiModel.initial
+            get() = (this as? TrackPositionUiModel.Actual)?.percent ?: 0f
     }
 }

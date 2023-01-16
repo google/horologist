@@ -22,7 +22,6 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 public sealed class DownloadMediaUiModel(
     public open val id: String,
     public open val title: String? = null,
-//    public open val artist: String? = null,
     public open val artworkUri: String? = null
 ) {
     public data class Downloaded(

@@ -124,7 +124,7 @@ class UampEntityScreenViewModelTest {
         val expectedUiState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel> =
             createPlaylistDownloadScreenStateLoaded(
                 playlistUiModel,
-                convertMediaListToNotDownloadedDownloadMediaUiModelList(playlistToTest.mediaList)
+                mediaListToFullyNotDownloadedMediaUiModelList(playlistToTest.mediaList)
             )
 
         sut.uiState.test {
@@ -137,12 +137,12 @@ class UampEntityScreenViewModelTest {
         val expectedIdleUiState =
             createPlaylistDownloadScreenStateLoaded(
                 playlistUiModel,
-                convertMediaListToNotDownloadedDownloadMediaUiModelList(playlistToTest.mediaList)
+                mediaListToFullyNotDownloadedMediaUiModelList(playlistToTest.mediaList)
             )
         val expectedDownloadedUiState =
             createPlaylistDownloadScreenStateLoaded(
                 playlistUiModel,
-                convertMediaListToDownloadedDownloadedMediaUiModelList(playlistToTest.mediaList)
+                mediaListToFullyDownloadedMediaUiModelList(playlistToTest.mediaList)
             )
 
         sut.uiState.test {
@@ -157,7 +157,7 @@ class UampEntityScreenViewModelTest {
         val expectedUiState =
             createPlaylistDownloadScreenStateLoaded(
                 playlistUiModel,
-                convertMediaListToNotDownloadedDownloadMediaUiModelList(playlistToTest.mediaList)
+                mediaListToFullyNotDownloadedMediaUiModelList(playlistToTest.mediaList)
             )
 
         sut.uiState.test {
@@ -174,7 +174,7 @@ class UampEntityScreenViewModelTest {
         val expectedPartialDownloadedUiState =
             createPlaylistDownloadScreenStateLoaded(
                 playlistUiModel,
-                convertMediaListToDownloadedDownloadedMediaUiModelListExceptMediaId(playlistToTest.mediaList, "media1")
+                mediaListToFullyDownloadedMediaUiModelListExceptMediaId(playlistToTest.mediaList, "media1")
             )
 
         // Setup initial load to idle then fully downloaded
@@ -191,7 +191,7 @@ class UampEntityScreenViewModelTest {
         }
     }
 
-    private fun convertMediaListToNotDownloadedDownloadMediaUiModelList(mediaList: List<Media>) =
+    private fun mediaListToFullyNotDownloadedMediaUiModelList(mediaList: List<Media>) =
         mediaList.map { media ->
             DownloadMediaUiModel.NotDownloaded(
                 id = media.id,
@@ -201,7 +201,7 @@ class UampEntityScreenViewModelTest {
             )
         }
 
-    private fun convertMediaListToDownloadedDownloadedMediaUiModelList(mediaList: List<Media>) =
+    private fun mediaListToFullyDownloadedMediaUiModelList(mediaList: List<Media>) =
         mediaList.map { media ->
             DownloadMediaUiModel.Downloaded(
                 id = media.id,
@@ -211,7 +211,7 @@ class UampEntityScreenViewModelTest {
             )
         }
 
-    private fun convertMediaListToDownloadedDownloadedMediaUiModelListExceptMediaId(
+    private fun mediaListToFullyDownloadedMediaUiModelListExceptMediaId(
         mediaList: List<Media>,
         mediaId: String
     ) =

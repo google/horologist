@@ -200,9 +200,6 @@ dependencies {
 
     implementation(libs.moshi.adapters)
     implementation(libs.moshi.kotlin)
-    testImplementation(project(mapOf("path" to ":auth-ui")))
-    testImplementation(project(mapOf("path" to ":auth-ui")))
-    testImplementation(project(mapOf("path" to ":media-ui")))
     ksp(libs.moshi.kotlin.codegen)
 
     implementation(libs.androidx.palette.ktx)

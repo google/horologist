@@ -38,7 +38,7 @@ import org.robolectric.Shadows.shadowOf
 import kotlin.time.Duration.Companion.seconds
 
 @RunWith(RobolectricTestRunner::class)
-public class CoroutinesCancelTileTest {
+public class SuspendingCancelTileTest {
     private lateinit var fakeCoroutineScope: TestScope
     private lateinit var tileService: TestTileService
     private lateinit var tileServiceClient: TestTileClient<TestTileService>

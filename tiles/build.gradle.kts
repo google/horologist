@@ -19,6 +19,7 @@ plugins {
     id("kotlin-android")
     id("org.jetbrains.dokka")
     id("org.jetbrains.kotlin.kapt")
+    id("me.tylerbwong.gradle.metalava")
 }
 
 android {
@@ -84,6 +85,12 @@ project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().config
             freeCompilerArgs = freeCompilerArgs + "-Xexplicit-api=strict"
         }
     }
+}
+
+metalava {
+    sourcePaths = mutableSetOf("src/main")
+    filename = "api/current.api"
+    reportLintsAsErrors = true
 }
 
 dependencies {

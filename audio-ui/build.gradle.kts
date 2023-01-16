@@ -91,8 +91,6 @@ project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().config
     }
 }
 
-apply(plugin = "me.tylerbwong.gradle.metalava")
-
 metalava {
     sourcePaths = mutableSetOf("src/main")
     filename = "api/current.api"

@@ -28,7 +28,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows.shadowOf
 
 @RunWith(RobolectricTestRunner::class)
-public class CoroutinesTileTest {
+public class SuspendingTileTest {
     private val fakeTileService = TestTileService()
 
     private lateinit var clientUnderTest: TestTileClient<TestTileService>

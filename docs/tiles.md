@@ -1,11 +1,11 @@
 # Tiles Library
 
-## CoroutinesTileService
+## SuspendingTileService
 
-Provides a CoroutinesTileService, which also acts as a LifecycleService.
+Provides a SuspendingTileService, which also acts as a LifecycleService.
 
 ```kotlin
-class ExampleTileService : CoroutinesTileService() {
+class ExampleTileService : SuspendingTileService() {
     override suspend fun tileRequest(requestParams: RequestBuilders.TileRequest): Tile {
         return Tile.Builder()
             // create your tile here

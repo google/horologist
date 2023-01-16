@@ -81,7 +81,6 @@ fun SampleWearApp() {
             route = Screen.Menu.route
         ) {
             MenuScreen(
-                modifier = Modifier.fillMaxSize(),
                 navigateToRoute = { route -> navController.navigate(route) },
                 time = time,
                 columnState = it.columnState
@@ -177,7 +176,6 @@ fun SampleWearApp() {
             route = Screen.SectionedListMenuScreen.route
         ) {
             SectionedListMenuScreen(
-                modifier = Modifier.fillMaxSize(),
                 navigateToRoute = { route -> navController.navigate(route) },
                 columnState = it.columnState
             )
@@ -207,7 +205,6 @@ fun SampleWearApp() {
             route = Screen.RotaryMenuScreen.route
         ) {
             RotaryMenuScreen(
-                modifier = Modifier.fillMaxSize(),
                 navigateToRoute = { route -> navController.navigate(route) },
                 columnState = it.columnState
             )
@@ -226,7 +223,6 @@ fun SampleWearApp() {
         ) {
             AuthMenuScreen(
                 navigateToRoute = { route -> navController.navigate(route) },
-                modifier = Modifier.fillMaxSize(),
                 columnState = it.columnState
             )
         }

@@ -161,7 +161,7 @@ class UampEntityScreenViewModelTest {
             )
 
         sut.uiState.test {
-            awaitItem() // Full Idle
+            awaitItem() // Fully Not Downloaded
             sut.download()
             awaitItem() // Fully Downloaded
             sut.remove()
@@ -179,7 +179,7 @@ class UampEntityScreenViewModelTest {
 
         // Setup initial load to idle then fully downloaded
         sut.uiState.test {
-            awaitItem() // Full Idle
+            awaitItem() // Fully Not Downloaded
             sut.download()
             awaitItem() // Fully Downloaded
         }

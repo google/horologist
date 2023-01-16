@@ -76,7 +76,7 @@ fun RotaryMenuScreen(
 ) {
     SectionedList(
         columnState = columnState,
-        modifier = modifier
+        modifier = modifier.fillMaxSize()
     ) {
         section(
             listOf(
@@ -294,7 +294,7 @@ private fun ItemsListWithModifier(
 ) {
     val flingBehavior = snapFlingBehavior(state = scrollableState)
     ScalingLazyColumn(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         state = scrollableState,
         flingBehavior = flingBehavior,
         scalingParams = scalingParams(),

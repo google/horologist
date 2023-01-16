@@ -16,13 +16,11 @@
 
 package com.google.android.horologist.sample
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
@@ -81,7 +79,6 @@ fun SampleWearApp() {
             route = Screen.Menu.route
         ) {
             MenuScreen(
-                modifier = Modifier.fillMaxSize(),
                 navigateToRoute = { route -> navController.navigate(route) },
                 time = time,
                 columnState = it.columnState
@@ -177,7 +174,6 @@ fun SampleWearApp() {
             route = Screen.SectionedListMenuScreen.route
         ) {
             SectionedListMenuScreen(
-                modifier = Modifier.fillMaxSize(),
                 navigateToRoute = { route -> navController.navigate(route) },
                 columnState = it.columnState
             )
@@ -207,7 +203,6 @@ fun SampleWearApp() {
             route = Screen.RotaryMenuScreen.route
         ) {
             RotaryMenuScreen(
-                modifier = Modifier.fillMaxSize(),
                 navigateToRoute = { route -> navController.navigate(route) },
                 columnState = it.columnState
             )
@@ -226,7 +221,6 @@ fun SampleWearApp() {
         ) {
             AuthMenuScreen(
                 navigateToRoute = { route -> navController.navigate(route) },
-                modifier = Modifier.fillMaxSize(),
                 columnState = it.columnState
             )
         }

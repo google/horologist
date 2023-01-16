@@ -669,9 +669,11 @@ package com.google.android.horologist.media.ui.state.mapper {
 package com.google.android.horologist.media.ui.state.model {
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class DownloadMediaUiModel {
+    method public String? getArtist();
     method public String? getArtworkUri();
     method public String getId();
     method public String? getTitle();
+    property public String? artist;
     property public String? artworkUri;
     property public String id;
     property public String? title;
@@ -684,8 +686,7 @@ package com.google.android.horologist.media.ui.state.model {
     method public String? component3();
     method public String? component4();
     method public com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel.Downloaded copy(String id, String? title, String? artist, String? artworkUri);
-    method public String? getArtist();
-    property public final String? artist;
+    property public String? artist;
     property public String? artworkUri;
     property public String id;
     property public String? title;
@@ -715,8 +716,7 @@ package com.google.android.horologist.media.ui.state.model {
     method public String? component3();
     method public String? component4();
     method public com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel.NotDownloaded copy(String id, String? title, String? artist, String? artworkUri);
-    method public String? getArtist();
-    property public final String? artist;
+    property public String? artist;
     property public String? artworkUri;
     property public String id;
     property public String? title;

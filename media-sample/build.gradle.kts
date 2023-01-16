@@ -200,6 +200,9 @@ dependencies {
 
     implementation(libs.moshi.adapters)
     implementation(libs.moshi.kotlin)
+    testImplementation(project(mapOf("path" to ":auth-ui")))
+    testImplementation(project(mapOf("path" to ":auth-ui")))
+    testImplementation(project(mapOf("path" to ":media-ui")))
     ksp(libs.moshi.kotlin.codegen)
 
     implementation(libs.androidx.palette.ktx)
@@ -235,6 +238,7 @@ dependencies {
     testImplementation(libs.truth)
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
 
     androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.espresso.core)

@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.auth
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -39,7 +40,7 @@ fun AuthMenuScreen(
 ) {
     SectionedList(
         columnState = columnState,
-        modifier = modifier
+        modifier = modifier.fillMaxSize()
     ) {
         pkceSection(navigateToRoute)
 

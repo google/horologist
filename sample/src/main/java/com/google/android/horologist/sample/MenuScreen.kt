@@ -47,7 +47,7 @@ fun MenuScreen(
 ) {
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier
+        modifier = modifier.fillMaxSize()
     ) {
         item {
             ListHeader {

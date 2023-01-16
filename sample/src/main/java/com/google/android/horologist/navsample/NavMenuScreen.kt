@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.navsample
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,7 +36,7 @@ fun NavMenuScreen(
     val focusRequester = rememberActiveFocusRequester()
 
     ScalingLazyColumn(
-        modifier = modifier.rotaryWithFling(focusRequester, scrollState),
+        modifier = modifier.fillMaxSize().rotaryWithFling(focusRequester, scrollState),
         state = scrollState,
         horizontalAlignment = Alignment.CenterHorizontally,
         autoCentering = AutoCenteringParams(itemIndex = 0)

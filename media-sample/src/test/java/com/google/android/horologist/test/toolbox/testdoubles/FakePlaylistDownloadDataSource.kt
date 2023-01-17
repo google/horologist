@@ -29,7 +29,7 @@ class FakePlaylistDownloadDataSource(private val playlist: Playlist? = null) {
             playlist?.let {
                 PlaylistDownload(
                     playlist = it,
-                    mediaList = playlist?.mediaList?.map { media ->
+                    mediaList = playlist.mediaList?.map { media ->
                         MediaDownload(
                             media = media,
                             status = MediaDownload.Status.Idle,
@@ -48,7 +48,7 @@ class FakePlaylistDownloadDataSource(private val playlist: Playlist? = null) {
 
                 PlaylistDownload(
                     playlist = it,
-                    mediaList = playlist?.mediaList?.map { media ->
+                    mediaList = playlist.mediaList?.map { media ->
                         MediaDownload(
                             media = media,
                             status = MediaDownload.Status.Idle,
@@ -65,7 +65,7 @@ class FakePlaylistDownloadDataSource(private val playlist: Playlist? = null) {
 
                 PlaylistDownload(
                     playlist = it,
-                    mediaList = playlist?.mediaList?.map { media ->
+                    mediaList = playlist.mediaList?.map { media ->
                         MediaDownload(
                             media = media,
                             status = MediaDownload.Status.Completed,

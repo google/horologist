@@ -21,6 +21,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -37,6 +38,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.Chip
+import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.ScalingLazyColumn
@@ -44,6 +46,7 @@ import androidx.wear.compose.material.ScalingLazyListAnchorType
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.curvedText
+import androidx.wear.compose.material.items
 import androidx.wear.compose.material.rememberScalingLazyListState
 import androidx.wear.compose.material.scrollAway
 
@@ -57,134 +60,48 @@ class ScratchActivity : ComponentActivity() {
     }
 }
 
-data class Offsets(
-    val index: Int = 0,
-    val offset: Int = 0
-)
-
 @Composable
 fun WearApp() {
-    var initialOffsetsMode by remember { mutableStateOf(0) }
-    val initialOffsets = remember {
-        listOf(
-            Offsets(0, 0),
-            Offsets(1, 0),
-            Offsets(1, -20),
-            Offsets(1, 20),
-            Offsets(2, 0)
-        )
+    var index by remember { mutableStateOf(0) }
+
+    val item = remember(index) {
+        styles[index]
     }
 
-    var autoCenteringMode by remember { mutableStateOf(1) }
-    val autoCenterings = remember {
-        listOf(
-            Pair("null", null),
-            Pair("0/0", AutoCenteringParams(0, 0)),
-            Pair("1/0", AutoCenteringParams(1, 0)),
-            Pair("2/0", AutoCenteringParams(2, 0)),
-            Pair("3/0", AutoCenteringParams(3, 0))
-        )
-    }
-
-    var itemHeightMode by remember { mutableStateOf(0) }
-    val itemHeights = remember { listOf(40, 80, 120) }
-
-    var anchorTypeMode by remember { mutableStateOf(0) }
-    val anchorTypes = remember {
-        listOf(
-            Pair("Center", ScalingLazyListAnchorType.ItemCenter),
-            Pair("Start", ScalingLazyListAnchorType.ItemStart)
-        )
-    }
-
-    key(initialOffsetsMode) {
-        val initialOffset = initialOffsets[initialOffsetsMode]
-        val itemHeight = itemHeights[itemHeightMode]
-        val autoCentering = autoCenterings[autoCenteringMode]
-        val anchorType = anchorTypes[anchorTypeMode]
-
-        val listState = rememberScalingLazyListState(
-            initialCenterItemIndex = initialOffset.index,
-            initialCenterItemScrollOffset = initialOffset.offset
-        )
-
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-            timeText = {
-                TimeText(
-                    modifier = Modifier
-                        .scrollAway(
-                            listState,
-                            initialOffset.index,
-                            initialOffset.offset
-                                .dp
-                        ),
-                    startCurvedContent = {
-                        curvedText("${listState.centerItemIndex}/${listState.centerItemScrollOffset}")
+    ScalingLazyColumn(
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        item {
+            ListHeader {
+                Text(
+                    text = item.title,
+                    modifier = Modifier.clickable {
+                        index = (index + 1) % styles.size
                     }
                 )
             }
-        ) {
-            ScalingLazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                state = listState,
-                autoCentering = autoCentering.second,
-                anchorType = anchorType.second
-            ) {
-                item {
-                    val text = "Initial Offset: ${initialOffset.index} / ${initialOffset.offset}"
-                    FixedHeightChip(text, itemHeight, onClick = {
-                        initialOffsetsMode = (initialOffsetsMode + 1) % initialOffsets.size
-                    })
-                }
-                item {
-                    val text = "Auto Centering: ${autoCentering.first}"
-                    FixedHeightChip(text, itemHeight, onClick = {
-                        println(autoCenteringMode)
-                        autoCenteringMode = (autoCenteringMode + 1) % autoCenterings.size
-                    })
-                }
-                item {
-                    val text = "Anchor Type: ${anchorType.first}"
-                    FixedHeightChip(text, itemHeight, onClick = {
-                        anchorTypeMode = (anchorTypeMode + 1) % anchorTypes.size
-                    })
-                }
-                item {
-                    val text = "Item Height: $itemHeight"
-                    FixedHeightChip(text, itemHeight, onClick = {
-                        itemHeightMode = (itemHeightMode + 1) % itemHeights.size
-                    })
-                }
-            }
-            Canvas(modifier = Modifier.fillMaxSize()) {
-                drawLine(
-                    Color.Red,
-                    Offset(0f, size.height / 2f),
-                    Offset(size.width, size.height / 2f)
-                )
-            }
+        }
+        items(item.content) {
+            Text(it)
         }
     }
 }
 
-@Composable
-fun FixedHeightChip(text: String, itemHeight: Int, onClick: () -> Unit) {
-    Box(
-        modifier = Modifier
-            .height(itemHeight.dp)
-            .fillMaxWidth()
-            .border(1.dp, Color.DarkGray)
-    ) {
-        Chip(
-            modifier = Modifier.fillMaxWidth(),
-            onClick = onClick,
-            label = {
-                Text(
-                    text = text,
-                    style = MaterialTheme.typography.caption3
-                )
-            }
-        )
-    }
-}
+data class Style(val title: String, val content: List<String>)
+
+val oneBlock = Style(
+    title = "Single",
+    content = listOf(
+        " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pellentesque dui a nunc gravida, a consequat nisl ultrices. Nulla facilisi. Curabitur dui lacus, mattis vel mollis ac, hendrerit sit amet justo. Praesent suscipit aliquet libero, at hendrerit justo pharetra vehicula. Morbi cursus lacus molestie nisi varius ultrices. In sit amet cursus purus. Ut non quam fringilla, feugiat ipsum nec, pretium augue. Integer tincidunt nibh sed arcu pulvinar, eget dictum arcu tristique. Aliquam in orci a sem facilisis venenatis in at elit. Donec vel lobortis magna. Integer et nisl dapibus tellus gravida sodales quis sagittis augue. Morbi commodo, orci at congue aliquam, risus est fermentum sapien, eu sodales orci ex vel nibh. Fusce luctus erat ut nulla luctus euismod. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Morbi rhoncus, risus at tincidunt mattis, ex nibh congue lorem, vitae dictum mi urna non est. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n" +
+            "\n" +
+            "Sed fermentum mollis neque non egestas. Maecenas lacinia nibh quis porttitor suscipit. Nullam bibendum ac turpis ut pharetra. Praesent faucibus posuere felis sit amet blandit. Sed id est malesuada dui cursus laoreet. Integer vel faucibus turpis, a iaculis tellus. Suspendisse condimentum nisi quis urna bibendum semper. Aliquam id semper sem, vel varius velit. Pellentesque risus dui, gravida vel risus ac, dignissim volutpat quam. Morbi convallis mauris et congue dapibus.\n" +
+            "\n" +
+            "Cras viverra finibus dolor. Quisque nisi erat, tincidunt quis rutrum at, laoreet in erat. Aliquam rutrum at leo molestie tristique. Quisque eleifend est ipsum, ac semper nulla aliquet sed. Donec sagittis risus est, quis pretium nibh venenatis at. Integer eu pharetra ante, eget pretium ipsum. Sed quis semper lectus, sit amet malesuada neque. Praesent tempus ullamcorper ligula, ut pellentesque ligula vestibulum a. Aenean non elementum purus. Maecenas vitae elit semper, elementum leo sed, condimentum ligula. Nunc bibendum quis nulla facilisis sodales. Morbi tempor dapibus leo sed fringilla. Duis at dui leo. Sed aliquet ipsum et dolor blandit consequat. Duis sagittis tortor nec nisl cursus finibus. Proin eu hendrerit ligula."
+    )
+)
+
+val paragraphs = Style("Paragraphs", oneBlock.content.first().split("\n"))
+
+val sentences = Style("Sentences", paragraphs.content.flatMap { it.split(". ") })
+
+val styles = listOf(oneBlock, paragraphs, sentences)

@@ -33,11 +33,10 @@ import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
 import com.google.android.horologist.test.toolbox.MainDispatcherRule
 import com.google.android.horologist.test.toolbox.testdoubles.FakeDataStore
-import com.google.android.horologist.test.toolbox.testdoubles.FakeDownloadDataSource
 import com.google.android.horologist.test.toolbox.testdoubles.FakeMediaDownloadRepository
 import com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository
+import com.google.android.horologist.test.toolbox.testdoubles.FakePlaylistDownloadDataSource
 import com.google.android.horologist.test.toolbox.testdoubles.FakePlaylistDownloadRepository
-import com.google.common.collect.ImmutableList
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -58,7 +57,7 @@ class UampEntityScreenViewModelTest {
         id = playlistId,
         name = playlistName,
         artworkUri = null,
-        mediaList = ImmutableList.of(
+        mediaList = listOf(
             Media(
                 id = "media1",
                 uri = "",
@@ -84,10 +83,10 @@ class UampEntityScreenViewModelTest {
     )
 
     private val savedStateHandle = SavedStateHandle()
-    private val fakeDownloadDataSource = FakeDownloadDataSource(playlist = playlistToTest)
+    private val fakePlaylistDownloadDataSource = FakePlaylistDownloadDataSource(playlist = playlistToTest)
     private val fakePlaylistDownloadRepository =
-        FakePlaylistDownloadRepository(fakeDownloadDataSource)
-    private val fakeMediaDownloadRepository = FakeMediaDownloadRepository(fakeDownloadDataSource)
+        FakePlaylistDownloadRepository(fakePlaylistDownloadDataSource)
+    private val fakeMediaDownloadRepository = FakeMediaDownloadRepository(fakePlaylistDownloadDataSource)
     private val fakePlayerRepository = FakePlayerRepository()
     private val fakeSettingsRepository = SettingsRepository(dataStore)
 
@@ -105,11 +104,11 @@ class UampEntityScreenViewModelTest {
 
     @Test
     fun loadWithoutPlaylist_returnsFailedUiState() = runTest {
-        val fakeDownloadDataSource2 = FakeDownloadDataSource(playlist = null)
+        val fakePlaylistDownloadDataSource2 = FakePlaylistDownloadDataSource(playlist = null)
         val sut2 = UampEntityScreenViewModel(
             savedStateHandle,
-            FakePlaylistDownloadRepository(fakeDownloadDataSource2),
-            FakeMediaDownloadRepository(fakeDownloadDataSource2),
+            FakePlaylistDownloadRepository(fakePlaylistDownloadDataSource2),
+            FakeMediaDownloadRepository(fakePlaylistDownloadDataSource2),
             fakePlayerRepository,
             fakeSettingsRepository
         )
@@ -161,9 +160,9 @@ class UampEntityScreenViewModelTest {
             )
 
         sut.uiState.test {
-            awaitItem() // Fully Not Downloaded
             sut.download()
-            awaitItem() // Fully Downloaded
+            skipItems(2) // Fully Not Downloaded -> Fully Downloaded
+
             sut.remove()
             assertThat(awaitItem()).isEqualTo(expectedUiState)
         }
@@ -179,13 +178,8 @@ class UampEntityScreenViewModelTest {
 
         // Setup initial load to idle then fully downloaded
         sut.uiState.test {
-            awaitItem() // Fully Not Downloaded
             sut.download()
-            awaitItem() // Fully Downloaded
-        }
-
-        // Assert / Act - Remove single media item
-        sut.uiState.test {
+            skipItems(2) // Fully Not Downloaded -> Fully Downloaded
             sut.removeMediaItem("media1")
             assertThat(awaitItem()).isEqualTo(expectedPartialDownloadedUiState)
         }
@@ -216,7 +210,7 @@ class UampEntityScreenViewModelTest {
         mediaId: String
     ) =
         mediaList.map { media ->
-            if (media.title == mediaId) {
+            if (media.id == mediaId) {
                 DownloadMediaUiModel.NotDownloaded(
                     id = media.id,
                     title = media.title,

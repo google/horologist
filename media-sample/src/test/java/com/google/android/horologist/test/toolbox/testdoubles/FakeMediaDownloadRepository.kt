@@ -21,10 +21,10 @@ import com.google.android.horologist.media.repository.MediaDownloadRepository
 
 @OptIn(ExperimentalHorologistMediaApi::class)
 class FakeMediaDownloadRepository(
-    private val fakeDownloadDataSource: FakeDownloadDataSource
+    private val fakePlaylistDownloadDataSource: FakePlaylistDownloadDataSource
 ) : MediaDownloadRepository {
 
     override fun remove(mediaId: String) {
-        fakeDownloadDataSource.cancelMediaDownloadDownloadProgress(mediaId)
+        fakePlaylistDownloadDataSource.cancelMediaDownloadDownloadProgress(mediaId)
     }
 }

@@ -21,36 +21,21 @@ import com.google.android.horologist.media.model.Playlist
 import com.google.android.horologist.media.model.PlaylistDownload
 import com.google.android.horologist.media.repository.PlaylistDownloadRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.runBlocking
 
 @OptIn(ExperimentalHorologistMediaApi::class)
 class FakePlaylistDownloadRepository(
-    private val fakeDownloadDataSource: FakeDownloadDataSource
+    private val fakePlaylistDownloadDataSource: FakePlaylistDownloadDataSource
 ) : PlaylistDownloadRepository {
 
-    private val playlistDownloadFlow =
-        MutableStateFlow(fakeDownloadDataSource.getCurrentPlaylistDownload())
-
     override fun get(playlistId: String): Flow<PlaylistDownload?> {
-        return playlistDownloadFlow
+        return fakePlaylistDownloadDataSource.playlistDownloadFlow
     }
 
     override fun download(playlist: Playlist) {
-        fakeDownloadDataSource.setAllMediaDownloadsToCompleted()
-        runBlocking {
-            playlistDownloadFlow.emit(
-                fakeDownloadDataSource.getCurrentPlaylistDownload()
-            )
-        }
+        fakePlaylistDownloadDataSource.setAllMediaDownloadsToCompleted()
     }
 
     override fun remove(playlist: Playlist) {
-        fakeDownloadDataSource.setAllMediaDownloadsToIdle()
-        runBlocking {
-            playlistDownloadFlow.emit(
-                fakeDownloadDataSource.getCurrentPlaylistDownload()
-            )
-        }
+        fakePlaylistDownloadDataSource.setAllMediaDownloadsToIdle()
     }
 }

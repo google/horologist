@@ -86,7 +86,7 @@ public class PlayerRepositoryImpl(
      * The current playback speed relative to 1.0.
      */
     private var _playbackSpeed = MutableStateFlow(1f)
-    public val playbackSpeed: StateFlow<Float> get() = _playbackSpeed
+    override val playbackSpeed: StateFlow<Float> get() = _playbackSpeed
 
     private var _seekBackIncrement = MutableStateFlow<Duration?>(null)
     override val seekBackIncrement: StateFlow<Duration?> get() = _seekBackIncrement

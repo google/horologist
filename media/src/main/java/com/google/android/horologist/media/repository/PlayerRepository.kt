@@ -68,6 +68,11 @@ public interface PlayerRepository {
     public val seekForwardIncrement: StateFlow<Duration?>
 
     /**
+     * Returns the current [playbackSpeed].
+     */
+    public val playbackSpeed: StateFlow<Float>
+
+    /**
      * Prepares the player. E.g. player will start acquiring all the required resources to play.
      */
     public fun prepare()

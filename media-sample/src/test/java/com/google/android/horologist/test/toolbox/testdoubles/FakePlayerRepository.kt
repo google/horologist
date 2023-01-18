@@ -55,6 +55,9 @@ class FakePlayerRepository() : PlayerRepository {
     private var _seekForwardIncrement = MutableStateFlow<Duration?>(null)
     override val seekForwardIncrement: StateFlow<Duration?> = _seekForwardIncrement
 
+    private var _playbackSpeed = MutableStateFlow(1f)
+    override val playbackSpeed: StateFlow<Float> = _playbackSpeed
+
     private var _mediaList: List<Media>? = null
     private var currentItemIndex = -1
 

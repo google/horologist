@@ -20,6 +20,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.model.PlaylistDownload
+import com.google.android.horologist.media.repository.MediaDownloadRepository
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.repository.PlaylistDownloadRepository
 import com.google.android.horologist.media.ui.navigation.NavigationScreens
@@ -44,6 +45,7 @@ import javax.inject.Inject
 class UampEntityScreenViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val playlistDownloadRepository: PlaylistDownloadRepository,
+    private val mediaDownloadRepository: MediaDownloadRepository,
     private val playerRepository: PlayerRepository,
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
@@ -97,4 +99,8 @@ class UampEntityScreenViewModel @Inject constructor(
     fun download() = playlistDownload.value?.let { playlistDownloadRepository.download(it.playlist) }
 
     fun remove() = playlistDownload.value?.let { playlistDownloadRepository.remove(it.playlist) }
+
+    fun removeMediaItem(mediaId: String) {
+        mediaDownloadRepository.remove(mediaId)
+    }
 }

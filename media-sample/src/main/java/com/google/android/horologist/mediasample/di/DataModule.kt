@@ -32,8 +32,10 @@ import com.google.android.horologist.media.data.mapper.MediaExtrasMapperNoopImpl
 import com.google.android.horologist.media.data.mapper.MediaMapper
 import com.google.android.horologist.media.data.mapper.PlaylistDownloadMapper
 import com.google.android.horologist.media.data.mapper.PlaylistMapper
+import com.google.android.horologist.media.data.repository.MediaDownloadRepositoryImpl
 import com.google.android.horologist.media.data.repository.PlaylistDownloadRepositoryImpl
 import com.google.android.horologist.media.data.repository.PlaylistRepositoryImpl
+import com.google.android.horologist.media.repository.MediaDownloadRepository
 import com.google.android.horologist.media.repository.PlaylistDownloadRepository
 import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.mediasample.data.api.NetworkChangeListService
@@ -73,6 +75,15 @@ class DataModule {
             mediaDownloadLocalDataSource = mediaDownloadLocalDataSource,
             media3DownloadDataSource = media3DownloadDataSource,
             playlistDownloadMapper = playlistDownloadMapper
+        )
+
+    @Singleton
+    @Provides
+    fun mediaDownloadRepository(
+        media3DownloadDataSource: Media3DownloadDataSource
+    ): MediaDownloadRepository =
+        MediaDownloadRepositoryImpl(
+            media3DownloadDataSource = media3DownloadDataSource
         )
 
     @Singleton

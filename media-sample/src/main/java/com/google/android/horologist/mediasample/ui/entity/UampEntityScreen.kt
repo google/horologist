@@ -62,6 +62,10 @@ fun UampEntityScreen(
 
     var showCancelDownloadsDialog by rememberSaveable { mutableStateOf(false) }
     var showRemoveDownloadsDialog by rememberSaveable { mutableStateOf(false) }
+    var showRemoveSingleMediaDownloadDialog by rememberSaveable { mutableStateOf(false) }
+
+    var mediaIdToDelete: String? by rememberSaveable { mutableStateOf(null) }
+    var mediaTitleToDelete: String by rememberSaveable { mutableStateOf("media title") }
 
     PlaylistDownloadScreen(
         playlistName = playlistName,
@@ -77,7 +81,9 @@ fun UampEntityScreen(
             onDownloadItemClick(it)
         },
         onDownloadItemInProgressClick = {
-            // TODO: https://github.com/google/horologist/issues/682
+            mediaIdToDelete = it.id
+            it.title?.let { title -> mediaTitleToDelete = title }
+            showRemoveSingleMediaDownloadDialog = true
         },
         onShuffleButtonClick = {
             uampEntityScreenViewModel.shufflePlay()
@@ -161,5 +167,22 @@ fun UampEntityScreen(
         scalingLazyListState = rememberScalingLazyListState(),
         okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
         cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description)
+    )
+
+    AlertDialog(
+        body = stringResource(R.string.entity_dialog_remove_downloads, mediaTitleToDelete),
+        onCancelButtonClick = {
+            showRemoveSingleMediaDownloadDialog = false
+        },
+        onOKButtonClick = {
+            showRemoveSingleMediaDownloadDialog = false
+            mediaIdToDelete?.let { uampEntityScreenViewModel.removeMediaItem(it) }
+        },
+        showDialog = showRemoveSingleMediaDownloadDialog,
+
+        scalingLazyListState = rememberScalingLazyListState(),
+        okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
+        cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description)
+
     )
 }

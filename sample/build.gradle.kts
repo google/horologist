@@ -20,7 +20,6 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("com.google.protobuf")
-    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -181,10 +180,6 @@ dependencies {
 
     implementation(libs.com.squareup.okhttp3.logging.interceptor)
 
-    implementation(libs.moshi.kotlin)
-
-    implementation(libs.playservices.auth)
-
     debugImplementation(projects.composeTools)
 
     androidTestImplementation(libs.compose.ui.test.junit4)
@@ -192,9 +187,4 @@ dependencies {
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.ext.ktx)
-}
-
-secrets {
-    propertiesFileName = "secrets.properties"
-    defaultPropertiesFileName = "secrets.defaults.properties"
 }

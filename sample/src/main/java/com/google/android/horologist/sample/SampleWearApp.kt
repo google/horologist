@@ -26,24 +26,6 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.audio.ui.VolumeScreen
-import com.google.android.horologist.auth.AuthMenuScreen
-import com.google.android.horologist.auth.data.oauth.common.impl.google.api.DeviceCodeResponse
-import com.google.android.horologist.auth.data.oauth.common.impl.google.api.TokenResponse
-import com.google.android.horologist.auth.data.oauth.devicegrant.impl.DeviceGrantDefaultConfig
-import com.google.android.horologist.auth.data.oauth.pkce.impl.PKCEDefaultConfig
-import com.google.android.horologist.auth.data.oauth.pkce.impl.google.PKCEOAuthCodeGooglePayload
-import com.google.android.horologist.auth.googlesignin.prompt.GoogleSignInPromptSampleScreen
-import com.google.android.horologist.auth.googlesignin.signin.GoogleSignInSampleViewModelFactory
-import com.google.android.horologist.auth.googlesignin.signout.GoogleSignOutScreen
-import com.google.android.horologist.auth.oauth.devicegrant.prompt.DeviceGrantSignInPromptScreen
-import com.google.android.horologist.auth.oauth.devicegrant.signin.DeviceGrantSampleViewModelFactory
-import com.google.android.horologist.auth.oauth.devicegrant.signout.DeviceGrantSignOutScreen
-import com.google.android.horologist.auth.oauth.pkce.prompt.PKCESignInPromptScreen
-import com.google.android.horologist.auth.oauth.pkce.signin.PKCESampleViewModelFactory
-import com.google.android.horologist.auth.oauth.pkce.signout.PKCESignOutScreen
-import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
-import com.google.android.horologist.auth.ui.oauth.devicegrant.signin.DeviceGrantSignInScreen
-import com.google.android.horologist.auth.ui.oauth.pkce.signin.PKCESignInScreen
 import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
@@ -215,66 +197,6 @@ fun SampleWearApp() {
         }
         composable(route = Screen.RotarySnapListScreen.route) {
             RotaryScrollWithFlingOrSnapScreen(isFling = false, isSnap = true)
-        }
-        scrollable(
-            route = Screen.AuthMenuScreen.route
-        ) {
-            AuthMenuScreen(
-                navigateToRoute = { route -> navController.navigate(route) },
-                columnState = it.columnState
-            )
-        }
-        scrollable(
-            route = Screen.PKCESignInPromptScreen.route
-        ) {
-            PKCESignInPromptScreen(
-                navController = navController,
-                columnState = it.columnState
-            )
-        }
-        composable(route = Screen.PKCESignInScreen.route) {
-            PKCESignInScreen<PKCEDefaultConfig, PKCEOAuthCodeGooglePayload, TokenResponse>(
-                onAuthSucceed = { navController.popBackStack() },
-                viewModel = viewModel(factory = PKCESampleViewModelFactory)
-            )
-        }
-        composable(route = Screen.PKCESignOutScreen.route) {
-            PKCESignOutScreen(navController = navController)
-        }
-        scrollable(
-            route = Screen.DeviceGrantSignInPromptScreen.route
-        ) {
-            DeviceGrantSignInPromptScreen(
-                navController = navController,
-                columnState = it.columnState
-            )
-        }
-        composable(route = Screen.DeviceGrantSignInScreen.route) {
-            DeviceGrantSignInScreen<DeviceGrantDefaultConfig, DeviceCodeResponse, String>(
-                onAuthSucceed = { navController.popBackStack() },
-                viewModel = viewModel(factory = DeviceGrantSampleViewModelFactory)
-            )
-        }
-        composable(route = Screen.DeviceGrantSignOutScreen.route) {
-            DeviceGrantSignOutScreen(navController = navController)
-        }
-        scrollable(
-            route = Screen.GoogleSignInPromptSampleScreen.route
-        ) {
-            GoogleSignInPromptSampleScreen(
-                navController = navController,
-                columnState = it.columnState
-            )
-        }
-        composable(route = Screen.GoogleSignInScreen.route) {
-            GoogleSignInScreen(
-                onAuthCancelled = { navController.popBackStack() },
-                onAuthSucceed = { navController.popBackStack() },
-                viewModel = viewModel(factory = GoogleSignInSampleViewModelFactory)
-            )
-        }
-        composable(route = Screen.GoogleSignOutScreen.route) {
-            GoogleSignOutScreen(navController = navController)
         }
         scrollable(
             route = Screen.Paging.route,

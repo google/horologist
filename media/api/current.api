@@ -190,6 +190,7 @@ package com.google.android.horologist.media.repository {
     method public com.google.android.horologist.media.model.Media? getMediaAt(int index);
     method public int getMediaCount();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.MediaPosition> getMediaPosition();
+    method public kotlinx.coroutines.flow.StateFlow<java.lang.Float> getPlaybackSpeed();
     method public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> getSeekBackIncrement();
     method public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> getSeekForwardIncrement();
     method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getShuffleModeEnabled();
@@ -215,6 +216,7 @@ package com.google.android.horologist.media.repository {
     property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.Media> currentMedia;
     property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.PlayerState> currentState;
     property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.MediaPosition> mediaPosition;
+    property public abstract kotlinx.coroutines.flow.StateFlow<java.lang.Float> playbackSpeed;
     property public abstract kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> seekBackIncrement;
     property public abstract kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> seekForwardIncrement;
     property public abstract kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> shuffleModeEnabled;

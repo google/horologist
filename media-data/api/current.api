@@ -345,7 +345,7 @@ package com.google.android.horologist.media.data.repository {
     property public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.Media> currentMedia;
     property public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.PlayerState> currentState;
     property public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.MediaPosition> mediaPosition;
-    property public final kotlinx.coroutines.flow.StateFlow<java.lang.Float> playbackSpeed;
+    property public kotlinx.coroutines.flow.StateFlow<java.lang.Float> playbackSpeed;
     property public final kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Player> player;
     property public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> seekBackIncrement;
     property public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> seekForwardIncrement;

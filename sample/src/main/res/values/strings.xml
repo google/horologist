@@ -42,26 +42,6 @@
     <string name="sectionedlist_later_week">Later this week</string>
     <string name="sectionedlist_more_tasks">More tasks…</string>
 
-    <string name="auth_samples_menu">Auth Samples</string>
-    <string name="auth_menu_oauth_pkce_header">OAuth PKCE</string>
-    <string name="auth_menu_oauth_pkce_sign_in_item">Sign in</string>
-    <string name="auth_menu_oauth_pkce_sign_out_item">Sign out</string>
-    <string name="auth_menu_oauth_device_grant_header">OAuth Device Grant</string>
-    <string name="auth_menu_oauth_device_grant_sign_in_item">Sign in</string>
-    <string name="auth_menu_oauth_device_grant_sign_out_item">Sign out</string>
-    <string name="auth_menu_google_sign_in_header">Google Sign-In</string>
-    <string name="auth_menu_google_sign_in_item">Sign in</string>
-    <string name="auth_menu_google_sign_out_item">Sign out</string>
-    <string name="pkce_sign_in_prompt_message">Share workouts and compete with your friends and family</string>
-    <string name="pkce_sign_in_prompt_already_signed_in_message">Already signed-in!</string>
-    <string name="pkce_sign_out_success_message">Signed out successfully!</string>
-    <string name="device_grant_sign_in_prompt_message">Sign in to download and stream music</string>
-    <string name="device_grant_sign_in_prompt_already_signed_in_message">Already signed-in!</string>
-    <string name="device_grant_sign_out_success_message">Signed out successfully!</string>
-    <string name="google_sign_in_prompt_message">Send messages and create chat groups with your friends</string>
-    <string name="google_sign_out_success_message">Signed out successfully!</string>
-    <string name="google_sign_in_prompt_already_signed_in_message">Already signed-in!</string>
-
     <string name="rotarymenu_scroll">Scroll</string>
     <string name="rotarymenu_scroll_list">Scroll list</string>
     <string name="rotarymenu_scroll_with_fling">Scroll with fling</string>

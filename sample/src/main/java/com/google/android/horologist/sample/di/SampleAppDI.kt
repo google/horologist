@@ -32,7 +32,6 @@ import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 import com.google.android.horologist.networks.status.NetworkRepository
 import com.google.android.horologist.networks.status.NetworkRepositoryImpl
 import com.google.android.horologist.sample.MainActivity
-import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -127,6 +126,5 @@ object SampleAppDI {
             coroutineScope = sampleApplication.coroutineScope,
             okHttpClient = sampleApplication.okHttpClient
         )
-        sampleApplication.moshi = Moshi.Builder().build()
     }
 }

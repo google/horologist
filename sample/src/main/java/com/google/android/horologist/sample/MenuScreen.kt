@@ -106,14 +106,6 @@ fun MenuScreen(
             )
         }
         item {
-            StandardChip(
-                label = stringResource(id = R.string.auth_samples_menu),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.AuthMenuScreen.route) },
-                chipType = StandardChipType.Primary
-            )
-        }
-        item {
             ListHeader {
                 Text(text = "Rotary Scrolling")
             }

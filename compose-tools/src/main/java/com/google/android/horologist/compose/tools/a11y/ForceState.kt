@@ -20,7 +20,7 @@ package com.google.android.horologist.compose.tools.a11y
 
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.MutableState
-import androidx.wear.compose.material.ScalingLazyListState
+import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import kotlin.reflect.full.declaredMemberProperties
 
 public fun ScalingLazyListState.forceState(topIndex: Int, topScrollOffset: Int) {

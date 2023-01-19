@@ -25,7 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.ScalingLazyListAnchorType
+import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 

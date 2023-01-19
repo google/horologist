@@ -23,7 +23,7 @@ package com.google.android.horologist.composables
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.wear.compose.material.ScalingLazyListScope
+import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import com.google.android.horologist.composables.Section.Companion.DEFAULT_LOADING_CONTENT_COUNT
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults

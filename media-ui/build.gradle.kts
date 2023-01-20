@@ -127,7 +127,6 @@ dependencies {
     implementation(libs.androidx.palette.ktx)
 
     implementation(projects.tiles)
-    implementation(projects.composeTools)
     implementation(libs.androidx.complications.datasource.ktx)
     implementation(libs.androidx.wear.tiles)
     implementation(libs.androidx.wear.tiles.material)
@@ -138,6 +137,7 @@ dependencies {
     debugImplementation(libs.compose.ui.test.manifest)
     debugImplementation(projects.audioUi)
     debugImplementation(projects.composeTools)
+    releaseCompileOnly(projects.composeTools)
 
     testImplementation(libs.junit)
     testImplementation(libs.androidx.test.ext.ktx)

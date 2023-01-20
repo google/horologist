@@ -148,7 +148,6 @@ dependencies {
     implementation(projects.mediaUi)
     implementation(projects.networkAwareness)
     implementation(projects.tiles)
-    implementation(projects.composeTools)
     implementation(projects.datalayer)
 
     implementation(libs.compose.ui.util)
@@ -183,6 +182,7 @@ dependencies {
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
+    releaseCompileOnly(projects.composeTools)
 
     androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.espresso.core)

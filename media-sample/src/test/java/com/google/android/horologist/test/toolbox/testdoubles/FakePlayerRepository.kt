@@ -68,7 +68,7 @@ class FakePlayerRepository() : PlayerRepository {
     }
 
     override fun pause() {
-        _latestPlaybackState.value = PlaybackStateEvent(_latestPlaybackState.value.playbackState.copy(playerState = PlayerState.Ready), PlaybackStateEvent.Cause.PlayerStateChanged)
+        _latestPlaybackState.value = PlaybackStateEvent(_latestPlaybackState.value.playbackState.copy(playerState = PlayerState.Stopped), PlaybackStateEvent.Cause.PlayerStateChanged)
     }
 
     override fun hasPreviousMedia(): Boolean = currentItemIndex > 0

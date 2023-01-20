@@ -193,16 +193,18 @@ public class PlayerRepositoryImpl(
         _player.value?.seekToDefaultPosition(mediaIndex)
     }
 
-    override fun prepare() {
-        checkNotClosed()
-
-        _player.value?.prepare()
-    }
-
     override fun play() {
         checkNotClosed()
-
-        _player.value?.play()
+        _player.value?.let {
+            if (currentState.value == PlayerState.Stopped) {
+                when (it.playbackState) {
+                    Player.STATE_IDLE -> it.prepare()
+                    Player.STATE_ENDED -> it.seekTo(it.currentMediaItemIndex, C.TIME_UNSET)
+                }
+            }
+            it.play()
+            updatePosition()
+        }
     }
 
     override fun pause() {
@@ -328,10 +330,12 @@ public class PlayerRepositoryImpl(
         return player.value?.currentMediaItemIndex ?: 0
     }
 
-    override fun release() {
-        checkNotClosed()
-
-        player.value?.release()
+    /**
+     * Update the position to show track progress correctly on screen.
+     * Updating roughly once a second while activity is foregrounded is appropriate.
+     */
+    public fun updatePosition() {
+        _mediaPosition.value = MediaPositionMapper.map(player.value)
     }
 
     override fun setPlaybackSpeed(speed: Float) {

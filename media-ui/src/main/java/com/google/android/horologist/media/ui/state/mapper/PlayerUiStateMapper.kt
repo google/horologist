@@ -44,7 +44,7 @@ public object PlayerUiStateMapper {
         seekBackIncrement: Duration?,
         seekForwardIncrement: Duration?
     ): PlayerUiState {
-        val playPauseCommandAvailable = availableCommands.contains(Command.PlayPause)
+        val playPauseCommandAvailable = availableCommands.contains(Command.PlayPause) && currentState != PlayerState.Idle
 
         return PlayerUiState(
             playEnabled = playPauseCommandAvailable,

@@ -250,7 +250,7 @@ class PlayerRepositoryImplTest {
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Ready)
+        assertThat(sut.currentState.value).isEqualTo(PlayerState.Stopped)
 
         // when
         sut.play()
@@ -264,7 +264,7 @@ class PlayerRepositoryImplTest {
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Ready)
+        assertThat(sut.currentState.value).isEqualTo(PlayerState.Stopped)
 
         // when
         sut.play()
@@ -342,7 +342,7 @@ class PlayerRepositoryImplTest {
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Ready)
+        assertThat(sut.currentState.value).isEqualTo(PlayerState.Stopped)
         assertThat(sut.currentMedia.value).isEqualTo(media)
         assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()

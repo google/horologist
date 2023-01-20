@@ -118,7 +118,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodelktx)
     api(libs.wearcompose.material)
     api(libs.wearcompose.foundation)
-    implementation(libs.compose.ui.tooling)
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.material.iconsext)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -132,11 +131,11 @@ dependencies {
     implementation(libs.androidx.complications.datasource.ktx)
     implementation(libs.androidx.wear.tiles)
     implementation(libs.androidx.wear.tiles.material)
-    implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.util)
+    implementation(libs.compose.ui.toolingpreview)
 
+    debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
-    debugImplementation(libs.compose.ui.toolingpreview)
     debugImplementation(projects.audioUi)
     debugImplementation(projects.composeTools)
 

@@ -95,7 +95,6 @@ dependencies {
     implementation(libs.androidx.wear)
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
-    implementation(libs.compose.ui.tooling)
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.material.iconsext)
 
@@ -107,8 +106,10 @@ dependencies {
 
     implementation(libs.androidx.tracing.ktx)
 
+    implementation(libs.compose.ui.toolingpreview)
+
+    debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
-    debugImplementation(libs.compose.ui.toolingpreview)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

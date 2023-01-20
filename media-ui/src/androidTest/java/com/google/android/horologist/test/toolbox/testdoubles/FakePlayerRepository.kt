@@ -37,8 +37,8 @@ class FakePlayerRepository() : PlayerRepository {
     private var _availableCommandsList = MutableStateFlow(emptySet<Command>())
     override val availableCommands: StateFlow<Set<Command>> = _availableCommandsList
 
-    private var _playbackStateEvents = MutableStateFlow(PlaybackStateEvent.INITIAL)
-    override val playbackStateEvents: StateFlow<PlaybackStateEvent> = _playbackStateEvents
+    private var _latestPlaybackState = MutableStateFlow(PlaybackStateEvent.INITIAL)
+    override val latestPlaybackState: StateFlow<PlaybackStateEvent> = _latestPlaybackState
 
     private var _currentMedia: MutableStateFlow<Media?> = MutableStateFlow(null)
     override val currentMedia: StateFlow<Media?> = _currentMedia
@@ -52,9 +52,6 @@ class FakePlayerRepository() : PlayerRepository {
     private var _seekForwardIncrement = MutableStateFlow<Duration?>(null)
     override val seekForwardIncrement: StateFlow<Duration?> = _seekForwardIncrement
 
-    private var _playbackSpeed = MutableStateFlow(1f)
-    override val playbackSpeed: StateFlow<Float> = _playbackSpeed
-
     private var _mediaList: List<Media>? = null
     private var currentItemIndex = -1
 
@@ -63,7 +60,7 @@ class FakePlayerRepository() : PlayerRepository {
     }
 
     override fun play() {
-        _playbackStateEvents.value = PlaybackStateEvent(_playbackStateEvents.value.playbackState.copy(playerState = PlayerState.Playing), PlaybackStateEvent.Cause.PlayerStateChanged)
+        _latestPlaybackState.value = PlaybackStateEvent(_latestPlaybackState.value.playbackState.copy(playerState = PlayerState.Playing), PlaybackStateEvent.Cause.PlayerStateChanged)
     }
 
     override fun seekToDefaultPosition(mediaIndex: Int) {
@@ -71,7 +68,7 @@ class FakePlayerRepository() : PlayerRepository {
     }
 
     override fun pause() {
-        _playbackStateEvents.value = PlaybackStateEvent(_playbackStateEvents.value.playbackState.copy(playerState = PlayerState.Ready), PlaybackStateEvent.Cause.PlayerStateChanged)
+        _latestPlaybackState.value = PlaybackStateEvent(_latestPlaybackState.value.playbackState.copy(playerState = PlayerState.Ready), PlaybackStateEvent.Cause.PlayerStateChanged)
     }
 
     override fun hasPreviousMedia(): Boolean = currentItemIndex > 0
@@ -118,8 +115,8 @@ class FakePlayerRepository() : PlayerRepository {
         _mediaList = mediaList
         currentItemIndex = 0
         _currentMedia.value = mediaList[currentItemIndex]
-        _playbackStateEvents.value = PlaybackStateEvent(
-            _playbackStateEvents.value.playbackState.copy(
+        _latestPlaybackState.value = PlaybackStateEvent(
+            _latestPlaybackState.value.playbackState.copy(
                 duration = 10.seconds.takeIf { position != null },
                 currentPosition = position
             ),
@@ -158,7 +155,7 @@ class FakePlayerRepository() : PlayerRepository {
     }
 
     fun setPosition(position: Duration?, duration: Duration?) {
-        _playbackStateEvents.value = PlaybackStateEvent(_playbackStateEvents.value.playbackState.copy(duration = duration, currentPosition = position), PlaybackStateEvent.Cause.PositionDiscontinuity)
+        _latestPlaybackState.value = PlaybackStateEvent(_latestPlaybackState.value.playbackState.copy(duration = duration, currentPosition = position), PlaybackStateEvent.Cause.PositionDiscontinuity)
     }
 
     fun addCommand(command: Command) {

@@ -46,7 +46,7 @@ class MockPlayerRepository(
     override val currentMedia: StateFlow<Media?>
         get() = MutableStateFlow(currentMediaValue)
 
-    override val playbackStateEvents: StateFlow<PlaybackStateEvent>
+    override val latestPlaybackState: StateFlow<PlaybackStateEvent>
         get() = MutableStateFlow(playbackStateEvent)
 
     override val shuffleModeEnabled: StateFlow<Boolean>

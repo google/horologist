@@ -72,8 +72,8 @@ public class PlayerRepositoryImpl(
     private var _currentMedia = MutableStateFlow<Media?>(null)
     override val currentMedia: StateFlow<Media?> get() = _currentMedia
 
-    private var _playbackStateEvents = MutableStateFlow(PlaybackStateEvent.INITIAL)
-    override val playbackStateEvents: StateFlow<PlaybackStateEvent> get() = _playbackStateEvents
+    private var _latestPlaybackState = MutableStateFlow(PlaybackStateEvent.INITIAL)
+    override val latestPlaybackState: StateFlow<PlaybackStateEvent> get() = _latestPlaybackState
 
     private var _shuffleModeEnabled = MutableStateFlow(false)
     override val shuffleModeEnabled: StateFlow<Boolean> get() = _shuffleModeEnabled
@@ -145,7 +145,7 @@ public class PlayerRepositoryImpl(
     }
 
     private fun updatePlaybackState(player: Player, cause: Cause = Cause.Other) {
-        _playbackStateEvents.value = playbackStateMapper.createEvent(player, cause)
+        _latestPlaybackState.value = playbackStateMapper.createEvent(player, cause)
     }
 
     /**

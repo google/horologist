@@ -60,7 +60,7 @@ public class PlayerUiStateProducer(
     public val playerUiStateFlow: Flow<PlayerUiState> = combine(
         playerRepository.availableCommands,
         playerRepository.currentMedia,
-        playerRepository.playbackStateEvents,
+        playerRepository.latestPlaybackState,
         staticFlow
     ) { availableCommands, media, lastPlaybackStateEvent, staticData ->
         PlayerUiStateMapper.map(

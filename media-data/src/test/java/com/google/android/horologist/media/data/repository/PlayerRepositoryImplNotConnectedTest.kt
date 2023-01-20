@@ -62,7 +62,7 @@ class PlayerRepositoryImplNotConnectedTest(
         assertThat(sut.currentMedia.value).isNull()
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isNull()
-        assertThat(sut.playbackStateEvents.value).isEqualTo(PlaybackStateEvent.INITIAL)
+        assertThat(sut.latestPlaybackState.value).isEqualTo(PlaybackStateEvent.INITIAL)
         assertThat(sut.availableCommands.value).isEmpty()
     }
 

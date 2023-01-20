@@ -95,7 +95,7 @@ class PlayerScreenTest {
 
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        assertThat(playerRepository.playbackStateEvents.value.playbackState.playerState).isNotEqualTo(PlayerState.Playing)
+        assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState).isNotEqualTo(PlayerState.Playing)
 
         composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
@@ -105,7 +105,7 @@ class PlayerScreenTest {
 
         // then
         composeTestRule.waitUntil(timeoutMillis = 1_000) {
-            playerRepository.playbackStateEvents.value.playbackState.playerState == PlayerState.Playing
+            playerRepository.latestPlaybackState.value.playbackState.playerState == PlayerState.Playing
         }
     }
 
@@ -118,7 +118,7 @@ class PlayerScreenTest {
 
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        assertThat(playerRepository.playbackStateEvents.value.playbackState.playerState).isEqualTo(PlayerState.Playing)
+        assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Playing)
 
         composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
@@ -128,7 +128,7 @@ class PlayerScreenTest {
 
         // then
         composeTestRule.waitUntil(timeoutMillis = 1_000) {
-            playerRepository.playbackStateEvents.value.playbackState.playerState != PlayerState.Playing
+            playerRepository.latestPlaybackState.value.playbackState.playerState != PlayerState.Playing
         }
     }
 

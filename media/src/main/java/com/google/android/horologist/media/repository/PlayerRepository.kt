@@ -45,7 +45,7 @@ public interface PlayerRepository {
     /**
      * Emits events when [PlaybackState] of the player changes.
      */
-    public val playbackStateEvents: StateFlow<PlaybackStateEvent>
+    public val latestPlaybackState: StateFlow<PlaybackStateEvent>
 
     /**
      * Returns the current value for shuffling of [Media] mode.
@@ -61,11 +61,6 @@ public interface PlayerRepository {
      * Returns the [seekForward] increment.
      */
     public val seekForwardIncrement: StateFlow<Duration?>
-
-    /**
-     * Returns the current [playbackSpeed].
-     */
-    public val playbackSpeed: StateFlow<Float>
 
     /**
      * Prepares the player. E.g. player will start acquiring all the required resources to play.

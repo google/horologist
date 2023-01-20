@@ -20,7 +20,6 @@ package com.google.android.horologist.compose.tools.a11y
 
 import android.annotation.SuppressLint
 import android.view.View
-import android.view.ViewGroup
 import androidx.compose.ui.graphics.toAndroidRect
 import androidx.compose.ui.node.RootForTest
 import androidx.compose.ui.platform.ComposeView
@@ -107,7 +106,7 @@ public class ComposeA11yExtension : RenderExtension {
     }
 
     override fun renderView(contentView: View): View {
-        val composeView = (contentView as ViewGroup).getChildAt(0) as ComposeView
+        val composeView = contentView as ComposeView
 
         // Capture the accessibility elements during the drawing phase after
         // measurement and layout has occurred

@@ -93,7 +93,7 @@ metalava {
 
 dependencies {
     implementation(libs.kotlin.stdlib)
-
+    implementation(libs.kotlin.reflect)
     implementation(projects.tiles)
 
     implementation(libs.wearcompose.material)

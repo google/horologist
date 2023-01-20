@@ -18,7 +18,7 @@ plugins {
     id("com.android.library")
     id("kotlin-android")
     id("org.jetbrains.dokka")
-    id("dev.chrisbanes.paparazzi")
+    id("app.cash.paparazzi")
     id("me.tylerbwong.gradle.metalava")
 }
 

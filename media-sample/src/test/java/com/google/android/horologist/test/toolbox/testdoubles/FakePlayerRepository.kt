@@ -55,10 +55,6 @@ class FakePlayerRepository() : PlayerRepository {
     private var _mediaList: List<Media>? = null
     private var currentItemIndex = -1
 
-    override fun prepare() {
-        // do nothing
-    }
-
     override fun play() {
         _latestPlaybackState.value = PlaybackStateEvent(_latestPlaybackState.value.playbackState.copy(playerState = PlayerState.Playing), PlaybackStateEvent.Cause.PlayerStateChanged)
     }
@@ -145,10 +141,6 @@ class FakePlayerRepository() : PlayerRepository {
     override fun getMediaAt(index: Int): Media? = null // not implemented
 
     override fun getCurrentMediaIndex(): Int = 0 // not implemented
-
-    override fun release() {
-        _connected.value = false
-    }
 
     override fun setPlaybackSpeed(speed: Float) {
         // do nothing

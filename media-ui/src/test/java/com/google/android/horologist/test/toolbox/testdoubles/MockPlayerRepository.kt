@@ -57,10 +57,6 @@ class MockPlayerRepository(
     override val seekForwardIncrement: StateFlow<Duration?>
         get() = MutableStateFlow(seekForwardIncrementValue)
 
-    override fun prepare() {
-        // do nothing
-    }
-
     override fun play() {
         // do nothing
     }
@@ -130,10 +126,6 @@ class MockPlayerRepository(
     override fun getMediaAt(index: Int): Media? = null
 
     override fun getCurrentMediaIndex(): Int = -1
-
-    override fun release() {
-        // do nothing
-    }
 
     override fun setPlaybackSpeed(speed: Float) {
         // do nothing

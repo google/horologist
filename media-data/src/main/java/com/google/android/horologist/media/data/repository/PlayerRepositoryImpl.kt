@@ -101,10 +101,10 @@ public class PlayerRepositoryImpl(
             //   separate callbacks together, or in combination with Player getter methods
             // Reference:
             // https://exoplayer.dev/listening-to-player-events.html#individual-callbacks-vs-onevents
-            Player.EVENT_IS_LOADING_CHANGED to ::updateState,
             Player.EVENT_IS_PLAYING_CHANGED to ::updateState,
             Player.EVENT_PLAYBACK_STATE_CHANGED to ::updateState,
-            Player.EVENT_PLAY_WHEN_READY_CHANGED to ::updateState
+            Player.EVENT_PLAY_WHEN_READY_CHANGED to ::updateState,
+            Player.EVENT_TIMELINE_CHANGED to ::updateState
         )
 
         override fun onEvents(player: Player, events: Player.Events) {
@@ -196,11 +196,9 @@ public class PlayerRepositoryImpl(
     override fun play() {
         checkNotClosed()
         _player.value?.let {
-            if (currentState.value == PlayerState.Stopped) {
-                when (it.playbackState) {
-                    Player.STATE_IDLE -> it.prepare()
-                    Player.STATE_ENDED -> it.seekTo(it.currentMediaItemIndex, C.TIME_UNSET)
-                }
+            when (it.playbackState) {
+                Player.STATE_IDLE -> it.prepare()
+                Player.STATE_ENDED -> it.seekTo(it.currentMediaItemIndex, C.TIME_UNSET)
             }
             it.play()
             updatePosition()

@@ -126,9 +126,6 @@ class PlayerRepositoryImplCloseTest(
             },
             param("getCurrentMediaIndex") { sut: PlayerRepositoryImpl, _: Context ->
                 sut.getCurrentMediaIndex()
-            },
-            param("release") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.release()
             }
         )
 

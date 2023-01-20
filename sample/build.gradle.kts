@@ -151,7 +151,6 @@ dependencies {
     implementation(projects.composeTools)
     implementation(projects.datalayer)
 
-    implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.util)
 
     implementation(libs.compose.foundation.foundation)
@@ -180,6 +179,9 @@ dependencies {
 
     implementation(libs.com.squareup.okhttp3.logging.interceptor)
 
+    implementation(libs.compose.ui.toolingpreview)
+
+    debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
 
     androidTestImplementation(libs.compose.ui.test.junit4)

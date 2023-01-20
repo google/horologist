@@ -119,7 +119,7 @@ dependencies {
     implementation(libs.wearcompose.foundation)
 
     debugImplementation(projects.composeTools)
-    debugImplementation(libs.compose.ui.toolingpreview)
+    implementation(libs.compose.ui.toolingpreview)
 
     testImplementation(projects.composeTools)
     testImplementation(projects.paparazzi)

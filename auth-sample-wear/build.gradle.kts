@@ -92,12 +92,14 @@ dependencies {
     implementation(projects.baseUi)
     implementation(projects.composables)
     implementation(projects.composeLayout)
+    implementation(projects.composeTools)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.wear)
     implementation(libs.compose.foundation.foundation)
+    implementation(libs.compose.ui.toolingpreview)
     implementation(libs.kotlin.stdlib)
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
@@ -109,8 +111,7 @@ dependencies {
     implementation(libs.moshi.kotlin)
     implementation(libs.playservices.auth)
 
-    debugImplementation(projects.composeTools)
-    debugImplementation(libs.compose.ui.toolingpreview)
+    debugImplementation(libs.compose.ui.tooling)
 }
 
 secrets {

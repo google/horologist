@@ -155,7 +155,6 @@ dependencies {
     implementation(projects.composables)
     implementation(projects.composeLayout)
     implementation(projects.composeLayout)
-    implementation(projects.composeTools)
     implementation(projects.media)
     implementation(projects.media3Backend)
     implementation(projects.mediaData)
@@ -230,6 +229,7 @@ dependencies {
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
+    releaseCompileOnly(projects.composeTools)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

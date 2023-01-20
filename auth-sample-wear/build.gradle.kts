@@ -92,7 +92,6 @@ dependencies {
     implementation(projects.baseUi)
     implementation(projects.composables)
     implementation(projects.composeLayout)
-    implementation(projects.composeTools)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -112,6 +111,8 @@ dependencies {
     implementation(libs.playservices.auth)
 
     debugImplementation(libs.compose.ui.tooling)
+    debugImplementation(projects.composeTools)
+    releaseCompileOnly(projects.composeTools)
 }
 
 secrets {

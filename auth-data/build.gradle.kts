@@ -102,7 +102,7 @@ dependencies {
     ksp(libs.moshi.kotlin.codegen)
 
     debugImplementation(projects.composeTools)
-    debugImplementation(libs.compose.ui.toolingpreview)
+    implementation(libs.compose.ui.toolingpreview)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

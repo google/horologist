@@ -97,7 +97,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
-    implementation(libs.compose.ui.tooling)
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.material.iconsext)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -105,13 +104,11 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.androidx.palette.ktx)
 
-
+    implementation(libs.compose.ui.toolingpreview)
+    debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
-    debugImplementation(libs.compose.ui.toolingpreview)
 
     debugImplementation(libs.compose.ui.test.manifest)
-    debugImplementation(libs.compose.ui.toolingpreview)
-    debugImplementation(projects.composeTools)
 
     testImplementation(libs.junit)
     testImplementation(libs.androidx.test.ext.ktx)

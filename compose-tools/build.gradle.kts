@@ -96,8 +96,6 @@ dependencies {
     implementation(libs.kotlin.reflect)
     implementation(projects.tiles)
 
-    implementation(libs.compose.ui.tooling)
-
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
     implementation(libs.wearcompose.navigation)
@@ -106,10 +104,12 @@ dependencies {
     implementation(libs.androidx.wear.tiles.renderer)
     implementation(libs.coil)
 
-    compileOnly(projects.paparazzi)
+    implementation(libs.compose.ui.toolingpreview)
 
+    debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
-    debugImplementation(libs.compose.ui.toolingpreview)
+
+    compileOnly(projects.paparazzi)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

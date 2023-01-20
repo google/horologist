@@ -168,7 +168,6 @@ dependencies {
         project.findProject(":media-lib-datasource-okhttp") ?: libs.androidx.media3.datasourceokhttp
     )
 
-    implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.util)
 
     implementation(libs.compose.foundation.foundation)
@@ -209,8 +208,6 @@ dependencies {
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.guava)
 
-    debugImplementation(projects.composeTools)
-
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.complications.rendering)
 
@@ -230,6 +227,9 @@ dependencies {
     ksp(libs.room.compiler)
 
     implementation(libs.androidx.tracing.ktx)
+
+    debugImplementation(libs.compose.ui.tooling)
+    debugImplementation(projects.composeTools)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

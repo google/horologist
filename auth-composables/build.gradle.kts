@@ -109,7 +109,7 @@ dependencies {
     implementation(libs.wearcompose.foundation)
 
     debugImplementation(projects.composeTools)
-    debugImplementation(libs.compose.ui.toolingpreview)
+    implementation(libs.compose.ui.toolingpreview)
 
     testImplementation(projects.paparazzi)
     testImplementation(libs.androidx.test.ext.ktx)

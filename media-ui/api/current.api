@@ -753,16 +753,19 @@ package com.google.android.horologist.media.ui.state.model {
   }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class MediaUiModel {
-    ctor public MediaUiModel(String id, optional String? title, optional String? subtitle, optional String? artworkUri);
+    ctor public MediaUiModel(String id, optional String? title, optional String? subtitle, optional String? artworkUri, optional @ColorInt Integer? artworkColor);
     method public String component1();
     method public String? component2();
     method public String? component3();
     method public String? component4();
-    method public com.google.android.horologist.media.ui.state.model.MediaUiModel copy(String id, String? title, String? subtitle, String? artworkUri);
+    method public Integer? component5();
+    method public com.google.android.horologist.media.ui.state.model.MediaUiModel copy(String id, String? title, String? subtitle, String? artworkUri, @ColorInt Integer? artworkColor);
+    method public Integer? getArtworkColor();
     method public String? getArtworkUri();
     method public String getId();
     method public String? getSubtitle();
     method public String? getTitle();
+    property public final Integer? artworkColor;
     property public final String? artworkUri;
     property public final String id;
     property public final String? subtitle;

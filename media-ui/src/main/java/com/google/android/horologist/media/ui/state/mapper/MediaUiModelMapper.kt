@@ -33,6 +33,7 @@ public object MediaUiModelMapper {
         id = media.id,
         title = media.title,
         subtitle = media.artist,
-        artworkUri = media.artworkUri
+        artworkUri = media.artworkUri,
+        artworkColor = media.artworkColor
     )
 }

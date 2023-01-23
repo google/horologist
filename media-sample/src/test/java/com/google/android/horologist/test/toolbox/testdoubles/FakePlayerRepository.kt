@@ -21,7 +21,7 @@ package com.google.android.horologist.test.toolbox.testdoubles
 import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
-import com.google.android.horologist.media.model.MediaPosition
+import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.repository.PlayerRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,14 +37,11 @@ class FakePlayerRepository() : PlayerRepository {
     private var _availableCommandsList = MutableStateFlow(emptySet<Command>())
     override val availableCommands: StateFlow<Set<Command>> = _availableCommandsList
 
-    private var _currentState = MutableStateFlow(PlayerState.Idle)
-    override val currentState: StateFlow<PlayerState> = _currentState
+    private var _latestPlaybackState = MutableStateFlow(PlaybackStateEvent.INITIAL)
+    override val latestPlaybackState: StateFlow<PlaybackStateEvent> = _latestPlaybackState
 
     private var _currentMedia: MutableStateFlow<Media?> = MutableStateFlow(null)
     override val currentMedia: StateFlow<Media?> = _currentMedia
-
-    private var _mediaPosition: MutableStateFlow<MediaPosition?> = MutableStateFlow(null)
-    override val mediaPosition: StateFlow<MediaPosition?> = _mediaPosition
 
     private var _shuffleModeEnabled = MutableStateFlow(false)
     override val shuffleModeEnabled: StateFlow<Boolean> = _shuffleModeEnabled
@@ -55,9 +52,6 @@ class FakePlayerRepository() : PlayerRepository {
     private var _seekForwardIncrement = MutableStateFlow<Duration?>(null)
     override val seekForwardIncrement: StateFlow<Duration?> = _seekForwardIncrement
 
-    private var _playbackSpeed = MutableStateFlow(1f)
-    override val playbackSpeed: StateFlow<Float> = _playbackSpeed
-
     private var _mediaList: List<Media>? = null
     private var currentItemIndex = -1
 
@@ -66,7 +60,7 @@ class FakePlayerRepository() : PlayerRepository {
     }
 
     override fun play() {
-        _currentState.value = PlayerState.Playing
+        _latestPlaybackState.value = PlaybackStateEvent(_latestPlaybackState.value.playbackState.copy(playerState = PlayerState.Playing), PlaybackStateEvent.Cause.PlayerStateChanged)
     }
 
     override fun seekToDefaultPosition(mediaIndex: Int) {
@@ -74,7 +68,7 @@ class FakePlayerRepository() : PlayerRepository {
     }
 
     override fun pause() {
-        _currentState.value = PlayerState.Ready
+        _latestPlaybackState.value = PlaybackStateEvent(_latestPlaybackState.value.playbackState.copy(playerState = PlayerState.Ready), PlaybackStateEvent.Cause.PlayerStateChanged)
     }
 
     override fun hasPreviousMedia(): Boolean = currentItemIndex > 0
@@ -121,7 +115,13 @@ class FakePlayerRepository() : PlayerRepository {
         _mediaList = mediaList
         currentItemIndex = 0
         _currentMedia.value = mediaList[currentItemIndex]
-        _mediaPosition.value = position?.let { MediaPosition.create(it, 10.seconds) }
+        _latestPlaybackState.value = PlaybackStateEvent(
+            _latestPlaybackState.value.playbackState.copy(
+                duration = 10.seconds.takeIf { position != null },
+                currentPosition = position
+            ),
+            PlaybackStateEvent.Cause.PositionDiscontinuity
+        )
     }
 
     override fun addMedia(media: Media) {
@@ -154,15 +154,8 @@ class FakePlayerRepository() : PlayerRepository {
         // do nothing
     }
 
-    fun updatePosition() {
-        _mediaPosition.value = _mediaPosition.value?.let {
-            val newCurrent = (it as MediaPosition.KnownDuration).current + 1.seconds
-            MediaPosition.create(newCurrent, it.duration)
-        } ?: MediaPosition.create(1.seconds, 10.seconds)
-    }
-
-    fun setPosition(mediaPosition: MediaPosition) {
-        _mediaPosition.value = mediaPosition
+    fun setPosition(position: Duration?, duration: Duration?) {
+        _latestPlaybackState.value = PlaybackStateEvent(_latestPlaybackState.value.playbackState.copy(duration = duration, currentPosition = position), PlaybackStateEvent.Cause.PositionDiscontinuity)
     }
 
     fun addCommand(command: Command) {

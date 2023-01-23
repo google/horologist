@@ -60,7 +60,7 @@ public data class PlayerUiState(
     val playPauseEnabled: Boolean,
     val playing: Boolean,
     val media: MediaUiModel?,
-    val trackPosition: TrackPositionUiModel?,
+    val trackPositionUiModel: TrackPositionUiModel,
     val seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     val seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     val connected: Boolean
@@ -81,7 +81,7 @@ public data class PlayerUiState(
             playPauseEnabled = false,
             playing = false,
             media = null,
-            trackPosition = null,
+            trackPositionUiModel = TrackPositionUiModel.Hidden,
             connected = false
         )
     }

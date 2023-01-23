@@ -28,6 +28,7 @@ import com.google.android.horologist.media.ui.components.PlayPauseProgressButton
 import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults
 import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
 import com.google.android.horologist.media.ui.components.controls.SeekToPreviousButton
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
 /**
  * Standard media control buttons, showing [SeekToPreviousButton], [PlayPauseProgressButton] and
@@ -40,44 +41,12 @@ public fun AnimatedMediaControlButtons(
     onPauseButtonClick: () -> Unit,
     playPauseButtonEnabled: Boolean,
     playing: Boolean,
-    percent: Float,
     onSeekToPreviousButtonClick: () -> Unit,
     seekToPreviousButtonEnabled: Boolean,
     onSeekToNextButtonClick: () -> Unit,
     seekToNextButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
-) {
-    AnimatedMediaControlButtons(
-        onPlayButtonClick = onPlayButtonClick,
-        onPauseButtonClick = onPauseButtonClick,
-        playPauseButtonEnabled = playPauseButtonEnabled,
-        playing = playing,
-        onSeekToPreviousButtonClick = onSeekToPreviousButtonClick,
-        seekToPreviousButtonEnabled = seekToPreviousButtonEnabled,
-        onSeekToNextButtonClick = onSeekToNextButtonClick,
-        seekToNextButtonEnabled = seekToNextButtonEnabled,
-        showProgress = true,
-        modifier = modifier,
-        percent = percent,
-        colors = colors
-    )
-}
-
-@ExperimentalHorologistMediaUiApi
-@Composable
-public fun AnimatedMediaControlButtons(
-    onPlayButtonClick: () -> Unit,
-    onPauseButtonClick: () -> Unit,
-    playPauseButtonEnabled: Boolean,
-    playing: Boolean,
-    onSeekToPreviousButtonClick: () -> Unit,
-    seekToPreviousButtonEnabled: Boolean,
-    onSeekToNextButtonClick: () -> Unit,
-    seekToNextButtonEnabled: Boolean,
-    showProgress: Boolean,
-    modifier: Modifier = Modifier,
-    percent: Float? = null,
+    trackPositionUiModel: TrackPositionUiModel,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     ControlButtonLayout(
@@ -90,15 +59,13 @@ public fun AnimatedMediaControlButtons(
             )
         },
         middleButton = {
-            if (showProgress) {
-                checkNotNull(percent)
-
+            if (trackPositionUiModel.showProgress) {
                 PlayPauseProgressButton(
                     onPlayClick = onPlayButtonClick,
                     onPauseClick = onPauseButtonClick,
                     enabled = playPauseButtonEnabled,
                     playing = playing,
-                    percent = percent,
+                    trackPositionUiModel = trackPositionUiModel,
                     modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
                     colors = colors
                 )

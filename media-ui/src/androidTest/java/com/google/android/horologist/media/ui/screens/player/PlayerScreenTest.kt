@@ -32,7 +32,6 @@ import androidx.test.filters.LargeTest
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
-import com.google.android.horologist.media.model.MediaPosition
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.PlayerViewModel
@@ -41,6 +40,7 @@ import com.google.android.horologist.test.toolbox.testdoubles.FakePlayerReposito
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
+import kotlin.time.Duration.Companion.minutes
 
 @FlakyTest(detail = "https://github.com/google/horologist/issues/407")
 @LargeTest
@@ -55,6 +55,7 @@ class PlayerScreenTest {
         var playerRepository = FakePlayerRepository()
         val playerViewModel = PlayerViewModel(playerRepository)
 
+        playerRepository.setPosition(1.minutes, 10.minutes)
         composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
         // then
@@ -66,7 +67,7 @@ class PlayerScreenTest {
     fun givenShowProgressIsFalse_thenProgressBarIsNOTDisplayed() {
         // given
         val playerRepository = FakePlayerRepository()
-        playerRepository.setPosition(MediaPosition.Unknown)
+        playerRepository.setPosition(null, null)
         val playerViewModel = PlayerViewModel(playerRepository)
 
         composeTestRule.setContent {
@@ -94,7 +95,7 @@ class PlayerScreenTest {
 
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        assertThat(playerRepository.currentState.value).isNotEqualTo(PlayerState.Playing)
+        assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState).isNotEqualTo(PlayerState.Playing)
 
         composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
@@ -104,7 +105,7 @@ class PlayerScreenTest {
 
         // then
         composeTestRule.waitUntil(timeoutMillis = 1_000) {
-            playerRepository.currentState.value == PlayerState.Playing
+            playerRepository.latestPlaybackState.value.playbackState.playerState == PlayerState.Playing
         }
     }
 
@@ -117,7 +118,7 @@ class PlayerScreenTest {
 
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        assertThat(playerRepository.currentState.value).isEqualTo(PlayerState.Playing)
+        assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Playing)
 
         composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
@@ -127,7 +128,7 @@ class PlayerScreenTest {
 
         // then
         composeTestRule.waitUntil(timeoutMillis = 1_000) {
-            playerRepository.currentState.value != PlayerState.Playing
+            playerRepository.latestPlaybackState.value.playbackState.playerState != PlayerState.Playing
         }
     }
 
@@ -194,14 +195,14 @@ class PlayerScreenTest {
         composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
 
         // when
-        playerRepository.updatePosition()
+        playerRepository.setPosition(1.minutes, 10.minutes)
 
         // then
         composeTestRule.onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo(0.1f, 0.0f..1.0f)))
             .assertIsDisplayed()
 
         // when
-        playerRepository.updatePosition()
+        playerRepository.setPosition(2.minutes, 10.minutes)
 
         // then
         composeTestRule.onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo(0.2f, 0.0f..1.0f)))

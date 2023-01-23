@@ -36,6 +36,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import kotlin.time.Duration.Companion.seconds
 
 @RunWith(Parameterized::class)
 class MediaPlayerStatesScreenTest(
@@ -66,15 +67,10 @@ class MediaPlayerStatesScreenTest(
             } else {
                 null
             },
-            trackPosition = if (state.media) {
-                TrackPositionUiModel(
-                    current = 30,
-                    duration = 225,
-                    percent = 0.133f,
-                    showProgress = true
-                )
+            trackPositionUiModel = if (state.media) {
+                TrackPositionUiModel.Actual(percent = 0.133f, position = 30.seconds, duration = 225.seconds)
             } else {
-                null
+                TrackPositionUiModel.Actual.ZERO
             },
             connected = state.connected
         )

@@ -123,7 +123,7 @@ class PlayPauseProgressButtonTest {
         composeTestRule.mainClock.autoAdvance = false
         val predictor = MediaPositionPredictor(
             eventTimestamp = SystemClock.elapsedRealtime(),
-            currentPositionMs = 1_000,
+            currentPositionMs = 0,
             durationMs = 5_000,
             positionSpeed = 1f
         )
@@ -138,8 +138,6 @@ class PlayPauseProgressButtonTest {
         }
 
         // then
-        composeTestRule.onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo(0f, 0.0f..1.0f)))
-            .assertIsDisplayed()
         composeTestRule.mainClock.advanceTimeBy(10_000)
         composeTestRule.onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo(1f, 0.0f..1.0f)))
             .assertIsDisplayed()

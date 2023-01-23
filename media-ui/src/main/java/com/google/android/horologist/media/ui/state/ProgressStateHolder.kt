@@ -42,13 +42,7 @@ import kotlin.math.abs
 internal class ProgressStateHolder(initial: Float) {
     private val actual = mutableStateOf(initial)
     private val animatable = Animatable(0f)
-    val state = derivedStateOf {
-        if (animatable.isRunning) {
-            actual.value + animatable.value - animatable.targetValue
-        } else {
-            actual.value
-        }
-    }
+    val state = derivedStateOf { actual.value + animatable.value - animatable.targetValue }
 
     suspend fun setProgress(percent: Float, canAnimate: Boolean) = coroutineScope {
         val offset = percent - actual.value

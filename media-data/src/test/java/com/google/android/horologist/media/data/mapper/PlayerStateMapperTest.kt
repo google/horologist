@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.media.data.mapper
 
+import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 import com.google.android.horologist.media.model.PlayerState
@@ -47,6 +48,17 @@ class PlayerStateMapperTest {
         )
         val state = PlayerStateMapper.map(fakeStatePlayer)
 
-        assertThat(state).isEqualTo(PlayerState.Playing)
+        assertThat(state).isEqualTo(PlayerState.Loading)
+    }
+
+    @Test
+    fun `check playback state while idle`() {
+        fakeStatePlayer.overrideState(
+            playbackState = Player.STATE_IDLE
+        )
+        assertThat(PlayerStateMapper.map(fakeStatePlayer)).isEqualTo(PlayerState.Idle)
+
+        fakeStatePlayer.overridePosition(currentMediaItem = MediaItem.EMPTY)
+        assertThat(PlayerStateMapper.map(fakeStatePlayer)).isEqualTo(PlayerState.Stopped)
     }
 }

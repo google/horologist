@@ -65,7 +65,7 @@ class TrackPositionUiModelMapperTest {
         val duration = 2.seconds
         val playbackStateEvent = PlaybackStateEvent(
             PlaybackState(
-                playerState = PlayerState.Ready,
+                playerState = PlayerState.Stopped,
                 isLive = false,
                 currentPosition = current,
                 duration = duration,

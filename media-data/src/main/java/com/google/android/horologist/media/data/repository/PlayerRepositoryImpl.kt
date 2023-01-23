@@ -101,10 +101,10 @@ public class PlayerRepositoryImpl(
             //   separate callbacks together, or in combination with Player getter methods
             // Reference:
             // https://exoplayer.dev/listening-to-player-events.html#individual-callbacks-vs-onevents
-            Player.EVENT_IS_LOADING_CHANGED to ::updateState,
             Player.EVENT_IS_PLAYING_CHANGED to ::updateState,
             Player.EVENT_PLAYBACK_STATE_CHANGED to ::updateState,
-            Player.EVENT_PLAY_WHEN_READY_CHANGED to ::updateState
+            Player.EVENT_PLAY_WHEN_READY_CHANGED to ::updateState,
+            Player.EVENT_TIMELINE_CHANGED to ::updateState
         )
 
         override fun onEvents(player: Player, events: Player.Events) {
@@ -184,6 +184,7 @@ public class PlayerRepositoryImpl(
         // TODO consider ordering for UI updates purposes
         _player.value?.removeListener(listener)
         onClose?.invoke()
+        _player.value?.release()
         _connected.value = false
     }
 
@@ -193,16 +194,15 @@ public class PlayerRepositoryImpl(
         _player.value?.seekToDefaultPosition(mediaIndex)
     }
 
-    override fun prepare() {
-        checkNotClosed()
-
-        _player.value?.prepare()
-    }
-
     override fun play() {
         checkNotClosed()
-
-        _player.value?.play()
+        _player.value?.let {
+            when (it.playbackState) {
+                Player.STATE_IDLE -> it.prepare()
+                Player.STATE_ENDED -> it.seekTo(it.currentMediaItemIndex, C.TIME_UNSET)
+            }
+            it.play()
+        }
     }
 
     override fun pause() {
@@ -326,12 +326,6 @@ public class PlayerRepositoryImpl(
         checkNotClosed()
 
         return player.value?.currentMediaItemIndex ?: 0
-    }
-
-    override fun release() {
-        checkNotClosed()
-
-        player.value?.release()
     }
 
     override fun setPlaybackSpeed(speed: Float) {

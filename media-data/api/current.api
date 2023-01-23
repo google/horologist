@@ -324,8 +324,6 @@ package com.google.android.horologist.media.data.repository {
     method public boolean hasPreviousMedia();
     method public void pause();
     method public void play();
-    method public void prepare();
-    method public void release();
     method public void removeMedia(int index);
     method public void seekBack();
     method public void seekForward();

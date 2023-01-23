@@ -23,41 +23,7 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults
 import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
 import com.google.android.horologist.media.ui.components.controls.SeekToPreviousButton
-
-/**
- * Standard media control buttons, showing [SeekToPreviousButton], [PlayPauseProgressButton] and
- * [SeekToNextButton].
- */
-@ExperimentalHorologistMediaUiApi
-@Composable
-public fun MediaControlButtons(
-    onPlayButtonClick: () -> Unit,
-    onPauseButtonClick: () -> Unit,
-    playPauseButtonEnabled: Boolean,
-    playing: Boolean,
-    percent: Float,
-    onSeekToPreviousButtonClick: () -> Unit,
-    seekToPreviousButtonEnabled: Boolean,
-    onSeekToNextButtonClick: () -> Unit,
-    seekToNextButtonEnabled: Boolean,
-    modifier: Modifier = Modifier,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
-) {
-    MediaControlButtons(
-        onPlayButtonClick = onPlayButtonClick,
-        onPauseButtonClick = onPauseButtonClick,
-        playPauseButtonEnabled = playPauseButtonEnabled,
-        playing = playing,
-        onSeekToPreviousButtonClick = onSeekToPreviousButtonClick,
-        seekToPreviousButtonEnabled = seekToPreviousButtonEnabled,
-        onSeekToNextButtonClick = onSeekToNextButtonClick,
-        seekToNextButtonEnabled = seekToNextButtonEnabled,
-        showProgress = true,
-        modifier = modifier,
-        percent = percent,
-        colors = colors
-    )
-}
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
 /**
  * Standard media control buttons with no progress indicator, showing [SeekToPreviousButton],
@@ -86,15 +52,19 @@ public fun MediaControlButtons(
         seekToPreviousButtonEnabled = seekToPreviousButtonEnabled,
         onSeekToNextButtonClick = onSeekToNextButtonClick,
         seekToNextButtonEnabled = seekToNextButtonEnabled,
-        showProgress = false,
+        trackPositionUiModel = TrackPositionUiModel.Hidden,
         modifier = modifier,
         colors = colors
     )
 }
 
+/**
+ * Standard media control buttons, showing [SeekToPreviousButton], [PlayPauseProgressButton] and
+ * [SeekToNextButton].
+ */
 @ExperimentalHorologistMediaUiApi
 @Composable
-internal fun MediaControlButtons(
+public fun MediaControlButtons(
     onPlayButtonClick: () -> Unit,
     onPauseButtonClick: () -> Unit,
     playPauseButtonEnabled: Boolean,
@@ -103,9 +73,8 @@ internal fun MediaControlButtons(
     seekToPreviousButtonEnabled: Boolean,
     onSeekToNextButtonClick: () -> Unit,
     seekToNextButtonEnabled: Boolean,
-    showProgress: Boolean,
     modifier: Modifier = Modifier,
-    percent: Float? = null,
+    trackPositionUiModel: TrackPositionUiModel,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     ControlButtonLayout(
@@ -118,26 +87,14 @@ internal fun MediaControlButtons(
             )
         },
         middleButton = {
-            if (showProgress) {
-                checkNotNull(percent)
-
-                PlayPauseProgressButton(
-                    onPlayClick = onPlayButtonClick,
-                    onPauseClick = onPauseButtonClick,
-                    enabled = playPauseButtonEnabled,
-                    playing = playing,
-                    percent = percent,
-                    colors = colors
-                )
-            } else {
-                PlayPauseButton(
-                    onPlayClick = onPlayButtonClick,
-                    onPauseClick = onPauseButtonClick,
-                    enabled = playPauseButtonEnabled,
-                    playing = playing,
-                    colors = colors
-                )
-            }
+            PlayPauseProgressButton(
+                onPlayClick = onPlayButtonClick,
+                onPauseClick = onPauseButtonClick,
+                enabled = playPauseButtonEnabled,
+                playing = playing,
+                trackPositionUiModel = trackPositionUiModel,
+                colors = colors
+            )
         },
         rightButton = {
             SeekToNextButton(

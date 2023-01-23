@@ -33,6 +33,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import kotlin.time.Duration.Companion.seconds
 
 @RunWith(Parameterized::class)
 class PodcastPlayerScreenTest(
@@ -59,7 +60,7 @@ class PodcastPlayerScreenTest(
                 title = "The power of types",
                 subtitle = "Kotlinconf"
             ),
-            trackPosition = TrackPositionUiModel(current = 30, duration = 225, percent = 0.133f, showProgress = true),
+            trackPositionUiModel = TrackPositionUiModel.Actual(percent = 0.1f, position = 30.seconds, duration = 300.seconds),
             connected = true
         )
 
@@ -71,8 +72,7 @@ class PodcastPlayerScreenTest(
                         onPauseButtonClick = { },
                         playPauseButtonEnabled = playerUiState.playPauseEnabled,
                         playing = playerUiState.playing,
-                        percent = playerUiState.trackPosition?.percent ?: 0f,
-                        showProgress = playerUiState.trackPosition?.showProgress ?: false,
+                        trackPositionUiModel = playerUiState.trackPositionUiModel,
                         onSeekBackButtonClick = { },
                         seekBackButtonEnabled = playerUiState.seekBackEnabled,
                         onSeekForwardButtonClick = { },

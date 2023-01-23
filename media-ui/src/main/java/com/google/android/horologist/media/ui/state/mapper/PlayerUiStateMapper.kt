@@ -21,7 +21,7 @@ package com.google.android.horologist.media.ui.state.mapper
 import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
-import com.google.android.horologist.media.model.MediaPosition
+import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
@@ -38,7 +38,7 @@ public object PlayerUiStateMapper {
         currentState: PlayerState,
         availableCommands: Set<Command>,
         media: Media?,
-        mediaPosition: MediaPosition?,
+        playbackStateEvent: PlaybackStateEvent,
         shuffleModeEnabled: Boolean,
         connected: Boolean,
         seekBackIncrement: Duration?,
@@ -58,7 +58,7 @@ public object PlayerUiStateMapper {
             playPauseEnabled = playPauseCommandAvailable,
             playing = currentState == PlayerState.Playing,
             media = media?.let(MediaUiModelMapper::map),
-            trackPosition = mediaPosition?.let(TrackPositionUiModelMapper::map),
+            trackPositionUiModel = TrackPositionUiModelMapper.map(playbackStateEvent),
             connected = connected,
             seekBackButtonIncrement = seekBackIncrement?.let { SeekButtonIncrement.ofDuration(it) } ?: SeekButtonIncrement.Unknown,
             seekForwardButtonIncrement = seekForwardIncrement?.let { SeekButtonIncrement.ofDuration(it) } ?: SeekButtonIncrement.Unknown

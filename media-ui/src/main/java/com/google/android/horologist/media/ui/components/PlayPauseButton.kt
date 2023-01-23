@@ -16,10 +16,6 @@
 
 package com.google.android.horologist.media.ui.components
 
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.TweenSpec
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -41,7 +37,8 @@ import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.PauseButton
 import com.google.android.horologist.media.ui.components.controls.PlayButton
-import com.google.android.horologist.media.ui.util.ifNan
+import com.google.android.horologist.media.ui.state.ProgressStateHolder
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
 @ExperimentalHorologistMediaUiApi
 @Composable
@@ -87,7 +84,7 @@ public fun PlayPauseProgressButton(
     onPlayClick: () -> Unit,
     onPauseClick: () -> Unit,
     playing: Boolean,
-    percent: Float,
+    trackPositionUiModel: TrackPositionUiModel,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
@@ -107,29 +104,21 @@ public fun PlayPauseProgressButton(
         iconSize = iconSize,
         tapTargetSize = tapTargetSize
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .clip(CircleShape)
-                .background(backgroundColor)
-        ) {
-            val targetValue = percent.ifNan(0f)
-            val progress by animateFloatAsState(
-                targetValue = targetValue,
-                animationSpec =
-                if (targetValue < 1 / 1000f) {
-                    TweenSpec(easing = LinearOutSlowInEasing)
-                } else {
-                    TweenSpec(durationMillis = 1000, easing = LinearEasing)
-                }
-            )
-            CircularProgressIndicator(
+        val progress by ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
+        if (trackPositionUiModel.showProgress) {
+            Box(
                 modifier = Modifier
-                    .fillMaxSize(),
-                progress = progress,
-                indicatorColor = progressColour,
-                trackColor = trackColor
-            )
+                    .fillMaxSize()
+                    .clip(CircleShape)
+                    .background(backgroundColor)
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier.fillMaxSize(),
+                    progress = progress,
+                    indicatorColor = progressColour,
+                    trackColor = trackColor
+                )
+            }
         }
     }
 }

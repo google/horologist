@@ -22,6 +22,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
+import kotlin.time.Duration.Companion.seconds
 
 @Preview(
     "Enabled - Playing - With progress",
@@ -35,7 +37,7 @@ fun PodcastControlButtonsPreview() {
         onPauseButtonClick = {},
         playPauseButtonEnabled = true,
         playing = true,
-        percent = 0.25f,
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 25.seconds, 100.seconds),
         onSeekBackButtonClick = {},
         seekBackButtonEnabled = true,
         onSeekForwardButtonClick = {},
@@ -57,7 +59,7 @@ fun PodcastControlButtonsPreviewUnknown() {
         onPauseButtonClick = {},
         playPauseButtonEnabled = true,
         playing = true,
-        percent = 0.25f,
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 25.seconds, 100.seconds),
         onSeekBackButtonClick = {},
         seekBackButtonEnabled = true,
         onSeekForwardButtonClick = {},

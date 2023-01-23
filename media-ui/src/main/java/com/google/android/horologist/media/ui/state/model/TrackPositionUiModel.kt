@@ -16,12 +16,37 @@
 
 package com.google.android.horologist.media.ui.state.model
 
+import com.google.android.horologist.media.model.PositionPredictor
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import kotlin.time.Duration
 
 @ExperimentalHorologistMediaUiApi
-public data class TrackPositionUiModel(
-    val current: Long,
-    val duration: Long,
-    val percent: Float,
-    val showProgress: Boolean
-)
+public sealed class TrackPositionUiModel {
+    public abstract val showProgress: Boolean
+    public abstract val shouldAnimate: Boolean
+
+    public data class Predictive(
+        public val predictor: PositionPredictor,
+        public override val shouldAnimate: Boolean = false
+    ) : TrackPositionUiModel() {
+        override val showProgress: Boolean get() = true
+    }
+
+    public data class Actual(
+        public val percent: Float,
+        public val duration: Duration,
+        public val position: Duration,
+        public override val shouldAnimate: Boolean = false
+    ) : TrackPositionUiModel() {
+        override val showProgress: Boolean get() = true
+
+        public companion object {
+            public val ZERO: Actual = Actual(0f, Duration.ZERO, Duration.ZERO)
+        }
+    }
+
+    public object Hidden : TrackPositionUiModel() {
+        override val showProgress: Boolean get() = false
+        override val shouldAnimate: Boolean get() = false
+    }
+}

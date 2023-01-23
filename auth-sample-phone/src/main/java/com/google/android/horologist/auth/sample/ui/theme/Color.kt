@@ -14,22 +14,14 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.sample
+package com.google.android.horologist.auth.sample.ui.theme
 
-import android.app.Application
-import com.google.android.horologist.auth.sample.di.SampleAppDI
-import com.squareup.moshi.Moshi
-import kotlinx.coroutines.CoroutineScope
-import okhttp3.OkHttpClient
+import androidx.compose.ui.graphics.Color
 
-class SampleApplication : Application() {
-    lateinit var servicesCoroutineScope: CoroutineScope
-    lateinit var okHttpClient: OkHttpClient
-    lateinit var moshi: Moshi
+val Purple80 = Color(0xFFD0BCFF)
+val PurpleGrey80 = Color(0xFFCCC2DC)
+val Pink80 = Color(0xFFEFB8C8)
 
-    override fun onCreate() {
-        super.onCreate()
-
-        SampleAppDI.inject(this)
-    }
-}
+val Purple40 = Color(0xFF6650a4)
+val PurpleGrey40 = Color(0xFF625b71)
+val Pink40 = Color(0xFF7D5260)

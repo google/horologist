@@ -16,8 +16,7 @@
 
 plugins {
     id("com.android.application")
-    id("kotlin-android")
-    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    kotlin("android")
 }
 
 android {
@@ -25,14 +24,18 @@ android {
 
     defaultConfig {
         applicationId = "com.google.android.horologist.auth.sample"
-        // Min because of Tiles
-        minSdk = 26
-        targetSdk = 30
+
+        minSdk = 30
+        targetSdk = 33
 
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildTypes {
@@ -40,6 +43,7 @@ android {
             applicationIdSuffix = ".debug"
             manifestPlaceholders["schemeSuffix"] = "-debug"
         }
+
         release {
             manifestPlaceholders["schemeSuffix"] = ""
 
@@ -68,13 +72,7 @@ android {
 
         // Allow for widescale experimental APIs in Alpha libraries we build upon
         freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=androidx.lifecycle.compose.ExperimentalLifecycleComposeApi",
-            "-opt-in=com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi",
-            "-opt-in=com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi",
-            "-opt-in=com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi",
-            "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi",
-            "-opt-in=com.google.android.horologist.composables.ExperimentalHorologistComposablesApi",
-            "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi",
+            "-opt-in=com.google.android.horologist.auth.data.phone.ExperimentalHorologistAuthDataPhoneApi",
         )
     }
 
@@ -82,41 +80,37 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 
+    packagingOptions {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+
     namespace = "com.google.android.horologist.auth.sample"
 }
 
 dependencies {
-    implementation(projects.authComposables)
-    implementation(projects.authData)
-    implementation(projects.authUi)
-    implementation(projects.baseUi)
-    implementation(projects.composables)
-    implementation(projects.composeLayout)
 
+    implementation(projects.authDataPhone)
+
+    implementation(libs.androidx.corektx)
+    implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.wear)
-    implementation(libs.compose.foundation.foundation)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.graphics)
     implementation(libs.compose.ui.toolingpreview)
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.wearcompose.material)
-    implementation(libs.wearcompose.foundation)
-    implementation(libs.wearcompose.navigation)
-
-    implementation(libs.com.squareup.okhttp3.logging.interceptor)
-    implementation(libs.com.squareup.okhttp3.okhttp)
-    implementation(libs.kotlinx.coroutines.playservices)
-    implementation(libs.moshi.kotlin)
-    implementation(libs.playservices.auth)
+    implementation(libs.compose.material3)
     implementation(libs.playservices.wearable)
 
-    debugImplementation(libs.compose.ui.tooling)
-    debugImplementation(projects.composeTools)
-    releaseCompileOnly(projects.composeTools)
-}
+    testImplementation(libs.junit)
 
-secrets {
-    propertiesFileName = "$projectDir/secrets.properties"
-    defaultPropertiesFileName = "$projectDir/secrets.defaults.properties"
+    androidTestImplementation(libs.androidx.test.ext)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(platform(libs.compose.bom))
+    androidTestImplementation(libs.compose.ui.test.junit4)
+
+    debugImplementation(libs.compose.ui.tooling)
+    debugImplementation(libs.compose.ui.test.manifest)
 }

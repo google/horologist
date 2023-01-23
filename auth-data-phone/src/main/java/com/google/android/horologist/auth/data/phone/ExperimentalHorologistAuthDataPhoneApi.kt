@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.sample
+package com.google.android.horologist.auth.data.phone
 
-import android.app.Application
-import com.google.android.horologist.auth.sample.di.SampleAppDI
-import com.squareup.moshi.Moshi
-import kotlinx.coroutines.CoroutineScope
-import okhttp3.OkHttpClient
-
-class SampleApplication : Application() {
-    lateinit var servicesCoroutineScope: CoroutineScope
-    lateinit var okHttpClient: OkHttpClient
-    lateinit var moshi: Moshi
-
-    override fun onCreate() {
-        super.onCreate()
-
-        SampleAppDI.inject(this)
-    }
-}
+@RequiresOptIn(
+    message = "Horologist Auth Data Phone is experimental. The API may be changed in the future."
+)
+@Retention(AnnotationRetention.BINARY)
+public annotation class ExperimentalHorologistAuthDataPhoneApi

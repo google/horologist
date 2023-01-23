@@ -18,7 +18,6 @@ plugins {
     id("com.android.library")
     id("kotlin-android")
     id("org.jetbrains.dokka")
-    id("com.google.devtools.ksp")
     id("me.tylerbwong.gradle.metalava")
 }
 
@@ -69,7 +68,7 @@ android {
 
     resourcePrefix = "horologist_"
 
-    namespace = "com.google.android.horologist.auth.data"
+    namespace = "com.google.android.horologist.auth.data.phone"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -91,16 +90,10 @@ dependencies {
 
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.playservices)
     implementation(libs.androidx.corektx)
-    implementation(libs.androidx.wear)
-    implementation(libs.androidx.wear.phone.interactions)
-    implementation(libs.androidx.wear.remote.interactions)
     implementation(libs.playservices.auth)
     implementation(libs.playservices.wearable)
-    implementation(libs.retrofit2.retrofit)
-    implementation(libs.retrofit2.convertermoshi)
-    implementation(libs.moshi.kotlin)
-    ksp(libs.moshi.kotlin.codegen)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

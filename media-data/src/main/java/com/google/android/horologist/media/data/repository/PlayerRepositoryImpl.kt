@@ -184,6 +184,7 @@ public class PlayerRepositoryImpl(
         // TODO consider ordering for UI updates purposes
         _player.value?.removeListener(listener)
         onClose?.invoke()
+        _player.value?.release()
         _connected.value = false
     }
 
@@ -201,7 +202,6 @@ public class PlayerRepositoryImpl(
                 Player.STATE_ENDED -> it.seekTo(it.currentMediaItemIndex, C.TIME_UNSET)
             }
             it.play()
-            updatePosition()
         }
     }
 
@@ -326,14 +326,6 @@ public class PlayerRepositoryImpl(
         checkNotClosed()
 
         return player.value?.currentMediaItemIndex ?: 0
-    }
-
-    /**
-     * Update the position to show track progress correctly on screen.
-     * Updating roughly once a second while activity is foregrounded is appropriate.
-     */
-    public fun updatePosition() {
-        _mediaPosition.value = MediaPositionMapper.map(player.value)
     }
 
     override fun setPlaybackSpeed(speed: Float) {

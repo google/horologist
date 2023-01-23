@@ -204,7 +204,6 @@ class PlayerRepositoryImplTest {
         assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle)
         )
@@ -249,7 +248,7 @@ class PlayerRepositoryImplTest {
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Stopped)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
 
         // when
         sut.play()
@@ -325,7 +324,7 @@ class PlayerRepositoryImplTest {
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Stopped)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
         assertThat(sut.currentMedia.value).isEqualTo(media)
         assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
@@ -554,7 +553,7 @@ class PlayerRepositoryImplTest {
         assertThat(sut.getMediaCount()).isEqualTo(2)
         assertThat(sut.getMediaAt(0)).isEqualTo(media1)
         assertThat(sut.getMediaAt(1)).isEqualTo(media2)
-        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
         assertThat(sut.currentMedia.value).isEqualTo(media2)
         assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()

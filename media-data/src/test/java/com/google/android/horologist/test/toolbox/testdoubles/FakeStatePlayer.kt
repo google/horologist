@@ -86,10 +86,12 @@ class FakeStatePlayer(
 
     override fun getPlaybackSuppressionReason(): Int = PLAYBACK_SUPPRESSION_REASON_NONE
 
+    override fun getPlaybackParameters(): PlaybackParameters = PlaybackParameters(_playbackSpeed)
+
     fun overridePosition(
         currentPosition: Long = 0L,
         duration: Long = C.TIME_UNSET,
-        currentMediaItem: MediaItem? = null
+        currentMediaItem: MediaItem? = MediaItem.EMPTY
     ) {
         _currentPosition = currentPosition
         _duration = duration

@@ -56,7 +56,7 @@ public object PlayerUiStateMapper {
             shuffleEnabled = availableCommands.contains(Command.SetShuffle),
             shuffleOn = shuffleModeEnabled,
             playPauseEnabled = playPauseCommandAvailable,
-            playing = currentState == PlayerState.Playing,
+            playing = currentState == PlayerState.Playing || currentState == PlayerState.Loading,
             media = media?.let(MediaUiModelMapper::map),
             trackPositionUiModel = TrackPositionUiModelMapper.map(playbackStateEvent),
             connected = connected,

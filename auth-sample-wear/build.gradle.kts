@@ -68,7 +68,6 @@ android {
 
         // Allow for widescale experimental APIs in Alpha libraries we build upon
         freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=androidx.lifecycle.compose.ExperimentalLifecycleComposeApi",
             "-opt-in=com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi",
             "-opt-in=com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi",
             "-opt-in=com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi",

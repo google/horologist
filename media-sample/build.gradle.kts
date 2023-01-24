@@ -109,7 +109,6 @@ android {
             "-opt-in=com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi",
             "-opt-in=com.google.android.horologist.networks.ExperimentalHorologistNetworksApi",
             "-opt-in=com.google.android.horologist.tiles.ExperimentalHorologistTilesApi",
-            "-opt-in=androidx.lifecycle.compose.ExperimentalLifecycleComposeApi",
             "-opt-in=kotlin.RequiresOptIn",
             "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
         )

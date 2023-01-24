@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.media.ui.state.mapper
 
+import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
@@ -34,6 +35,6 @@ public object MediaUiModelMapper {
         title = media.title,
         subtitle = media.artist,
         artworkUri = media.artworkUri,
-        artworkColor = media.artworkColor
+        artworkColor = if (media.artworkColor != null) Color(media.artworkColor!!) else null
     )
 }

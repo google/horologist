@@ -153,7 +153,7 @@ subprojects {
                 allWarningsAsErrors = true
             }
             // Set JVM target to 1.8
-            jvmTarget = "1.8"
+            jvmTarget = "11"
             freeCompilerArgs = freeCompilerArgs + listOf(
                 // Allow use of @OptIn
                 "-opt-in=kotlin.RequiresOptIn",

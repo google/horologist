@@ -109,6 +109,9 @@ android {
             "-opt-in=com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi",
             "-opt-in=com.google.android.horologist.networks.ExperimentalHorologistNetworksApi",
             "-opt-in=com.google.android.horologist.tiles.ExperimentalHorologistTilesApi",
+            "-opt-in=com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi",
+            "-opt-in=com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi",
+            "-opt-in=com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi",
             "-opt-in=kotlin.RequiresOptIn",
             "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
         )
@@ -225,6 +228,12 @@ dependencies {
     ksp(libs.room.compiler)
 
     implementation(libs.androidx.tracing.ktx)
+
+    implementation(projects.authComposables)
+    implementation(projects.authData)
+    implementation(projects.authUi)
+    implementation(libs.playservices.auth)
+    implementation(libs.kotlinx.coroutines.playservices)
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)

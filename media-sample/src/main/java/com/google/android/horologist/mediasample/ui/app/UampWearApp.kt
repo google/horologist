@@ -30,6 +30,8 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.accompanist.pager.rememberPagerState
+import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
+import com.google.android.horologist.compose.navscaffold.composable
 import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollection
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToCollections
@@ -38,6 +40,8 @@ import com.google.android.horologist.media.ui.navigation.MediaNavController.navi
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToSettings
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToVolume
 import com.google.android.horologist.media.ui.navigation.MediaPlayerScaffold
+import com.google.android.horologist.mediasample.ui.auth.prompt.GoogleSignInPromptScreen
+import com.google.android.horologist.mediasample.ui.auth.signout.GoogleSignOutScreen
 import com.google.android.horologist.mediasample.ui.browse.UampBrowseScreen
 import com.google.android.horologist.mediasample.ui.browse.UampStreamingBrowseScreen
 import com.google.android.horologist.mediasample.ui.debug.AudioDebugScreen
@@ -50,6 +54,9 @@ import com.google.android.horologist.mediasample.ui.entity.UampStreamingPlaylist
 import com.google.android.horologist.mediasample.ui.entity.UampStreamingPlaylistScreenViewModel
 import com.google.android.horologist.mediasample.ui.navigation.AudioDebug
 import com.google.android.horologist.mediasample.ui.navigation.DeveloperOptions
+import com.google.android.horologist.mediasample.ui.navigation.GoogleSignInPromptScreen
+import com.google.android.horologist.mediasample.ui.navigation.GoogleSignInScreen
+import com.google.android.horologist.mediasample.ui.navigation.GoogleSignOutScreen
 import com.google.android.horologist.mediasample.ui.navigation.Samples
 import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreen
@@ -214,6 +221,27 @@ fun UampWearApp(
                         developerOptionsScreenViewModel = hiltViewModel(),
                         navController = navController
                     )
+                }
+
+                scrollable(
+                    route = GoogleSignInPromptScreen.navRoute
+                ) {
+                    GoogleSignInPromptScreen(
+                        navController = navController,
+                        columnState = it.columnState
+                    )
+                }
+
+                composable(route = GoogleSignInScreen.navRoute) {
+                    GoogleSignInScreen(
+                        onAuthCancelled = { navController.popBackStack() },
+                        onAuthSucceed = { navController.popBackStack() },
+                        viewModel = hiltViewModel()
+                    )
+                }
+
+                composable(route = GoogleSignOutScreen.navRoute) {
+                    GoogleSignOutScreen(navController = navController)
                 }
             }
         )

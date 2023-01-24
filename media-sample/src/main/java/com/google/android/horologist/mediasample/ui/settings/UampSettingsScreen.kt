@@ -35,12 +35,17 @@ import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.base.ui.components.StandardChip
+import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.navigation.navigateToDeveloperOptions
+import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleSignIn
+import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleSignOutScreen
 
 @Composable
 fun UampSettingsScreen(
@@ -55,10 +60,24 @@ fun UampSettingsScreen(
             .fillMaxSize()
     ) {
         item {
-            Text(
-                text = stringResource(id = R.string.sample_settings),
-                modifier = Modifier.padding(bottom = 12.dp),
-                style = MaterialTheme.typography.title3
+            ListHeader {
+                Text(text = stringResource(id = R.string.sample_settings))
+            }
+        }
+        item {
+            StandardChip(
+                label = stringResource(id = R.string.login),
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { navController.navigateToGoogleSignIn() },
+                chipType = StandardChipType.Primary
+            )
+        }
+        item {
+            StandardChip(
+                label = stringResource(id = R.string.logout),
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { navController.navigateToGoogleSignOutScreen() },
+                chipType = StandardChipType.Primary
             )
         }
         item {
@@ -67,15 +86,6 @@ fun UampSettingsScreen(
                 icon = Icons.Default.DataObject,
                 colors = ChipDefaults.secondaryChipColors(),
                 onClick = { navController.navigateToDeveloperOptions() }
-            )
-        }
-        item {
-            ActionSetting(
-                text = stringResource(id = R.string.logout),
-                icon = Icons.Default.Logout,
-                colors = ChipDefaults.secondaryChipColors(),
-                enabled = false,
-                onClick = { settingsScreenViewModel.logout() }
             )
         }
     }

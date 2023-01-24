@@ -35,6 +35,6 @@ public object MediaUiModelMapper {
         title = media.title,
         subtitle = media.artist,
         artworkUri = media.artworkUri,
-        artworkColor = if (media.artworkColor != null) Color(media.artworkColor!!) else null
+        artworkColor = media.artworkColor?.let { Color(it) }
     )
 }

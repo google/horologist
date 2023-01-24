@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.model
 
+import androidx.annotation.ColorInt
 import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 
 /**
@@ -28,6 +29,6 @@ public data class Media(
     val title: String,
     val artist: String,
     val artworkUri: String? = null,
-    val artworkColor: Int? = null,
+    @ColorInt val artworkColor: Int? = null,
     val extras: Map<String, Any> = emptyMap()
 )

@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.ui.state.model
 
+import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 
 @ExperimentalHorologistMediaUiApi
@@ -23,5 +24,6 @@ public data class MediaUiModel(
     val id: String,
     val title: String? = null,
     val subtitle: String? = null,
-    val artworkUri: String? = null
+    val artworkUri: String? = null,
+    val artworkColor: Color? = null
 )

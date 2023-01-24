@@ -29,16 +29,18 @@ package com.google.android.horologist.media.model {
   }
 
   @com.google.android.horologist.media.ExperimentalHorologistMediaApi public final class Media {
-    ctor public Media(String id, String uri, String title, String artist, optional String? artworkUri, optional java.util.Map<java.lang.String,?> extras);
+    ctor public Media(String id, String uri, String title, String artist, optional String? artworkUri, optional @ColorInt Integer? artworkColor, optional java.util.Map<java.lang.String,?> extras);
     method public String component1();
     method public String component2();
     method public String component3();
     method public String component4();
     method public String? component5();
-    method public java.util.Map<java.lang.String,java.lang.Object> component6();
-    method public com.google.android.horologist.media.model.Media copy(String id, String uri, String title, String artist, String? artworkUri, java.util.Map<java.lang.String,?> extras);
+    method public Integer? component6();
+    method public java.util.Map<java.lang.String,java.lang.Object> component7();
+    method public com.google.android.horologist.media.model.Media copy(String id, String uri, String title, String artist, String? artworkUri, @ColorInt Integer? artworkColor, java.util.Map<java.lang.String,?> extras);
     method public boolean equals(Object? other);
     method public String getArtist();
+    method public Integer? getArtworkColor();
     method public String? getArtworkUri();
     method public java.util.Map<java.lang.String,java.lang.Object> getExtras();
     method public String getId();
@@ -47,6 +49,7 @@ package com.google.android.horologist.media.model {
     method public int hashCode();
     method public String toString();
     property public final String artist;
+    property public final Integer? artworkColor;
     property public final String? artworkUri;
     property public final java.util.Map<java.lang.String,java.lang.Object> extras;
     property public final String id;

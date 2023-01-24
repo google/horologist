@@ -70,9 +70,6 @@ class PlayerRepositoryImplCloseTest(
             param("connect") { sut: PlayerRepositoryImpl, context: Context ->
                 sut.connect(TestExoPlayerBuilder(context).build()) {}
             },
-            param("prepare") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.prepare()
-            },
             param("play") { sut: PlayerRepositoryImpl, _: Context ->
                 sut.play()
             },
@@ -129,9 +126,6 @@ class PlayerRepositoryImplCloseTest(
             },
             param("getCurrentMediaIndex") { sut: PlayerRepositoryImpl, _: Context ->
                 sut.getCurrentMediaIndex()
-            },
-            param("release") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.release()
             }
         )
 

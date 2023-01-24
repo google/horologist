@@ -62,7 +62,7 @@ class FakeStatePlayer(
     override fun getCurrentTimeline(): Timeline {
         val currentMediaItem = _currentMediaItem
         if (currentMediaItem == null) {
-            return FakeTimeline()
+            return FakeTimeline(0)
         } else {
             return FakeTimeline(
                 FakeTimeline.TimelineWindowDefinition(
@@ -84,13 +84,14 @@ class FakeStatePlayer(
 
     override fun getCurrentMediaItemIndex(): Int = 0
 
-    override fun getPlaybackParameters(): PlaybackParameters =
-        PlaybackParameters(_playbackSpeed)
+    override fun getPlaybackSuppressionReason(): Int = PLAYBACK_SUPPRESSION_REASON_NONE
+
+    override fun getPlaybackParameters(): PlaybackParameters = PlaybackParameters(_playbackSpeed)
 
     fun overridePosition(
         currentPosition: Long = 0L,
         duration: Long = C.TIME_UNSET,
-        currentMediaItem: MediaItem? = null
+        currentMediaItem: MediaItem? = MediaItem.EMPTY
     ) {
         _currentPosition = currentPosition
         _duration = duration
@@ -102,7 +103,7 @@ class FakeStatePlayer(
                 Player.Events(
                     FlagSet.Builder().addAll(
                         EVENT_MEDIA_ITEM_TRANSITION,
-                        EVENT_MEDIA_ITEM_TRANSITION,
+                        EVENT_TIMELINE_CHANGED,
                         EVENT_MEDIA_METADATA_CHANGED
                     ).build()
                 )
@@ -137,12 +138,14 @@ class FakeStatePlayer(
                     FlagSet.Builder().addAll(
                         EVENT_PLAYBACK_STATE_CHANGED,
                         EVENT_PLAY_WHEN_READY_CHANGED,
+                        EVENT_IS_PLAYING_CHANGED,
                         EVENT_MEDIA_ITEM_TRANSITION
                     ).build()
                 )
             )
             it.onPlayWhenReadyChanged(_playWhenReady, reason)
             it.onPlaybackStateChanged(_playbackState)
+            it.onIsPlayingChanged(isPlaying)
         }
     }
 }

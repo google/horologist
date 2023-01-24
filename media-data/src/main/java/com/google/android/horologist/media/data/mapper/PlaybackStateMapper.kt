@@ -50,8 +50,7 @@ public class PlaybackStateMapper(private val timestampProvider: () -> Long = { S
             player.duration == C.TIME_UNSET ||
             player.duration <= 0L ||
             player.currentPosition < 0L ||
-            playerState == PlayerState.Idle ||
-            playerState == PlayerState.Ended
+            playerState == PlayerState.Idle
         ) {
             PlaybackState(
                 playerState = playerState,

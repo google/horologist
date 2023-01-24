@@ -20,6 +20,7 @@ package com.google.android.horologist.media.ui.state.mapper
 
 import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import com.google.android.horologist.media.model.PlaybackStateEvent
+import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
@@ -33,6 +34,9 @@ public object TrackPositionUiModelMapper {
         val duration = event.playbackState.duration
         val durationMs = duration?.inWholeMilliseconds
         val currentPositionMs = currentPosition?.inWholeMilliseconds
+        if (event.playbackState.playerState == PlayerState.Loading) {
+            return TrackPositionUiModel.Actual.ZERO
+        }
         if (currentPositionMs == null || durationMs == null || durationMs <= 0) {
             return TrackPositionUiModel.Hidden
         }

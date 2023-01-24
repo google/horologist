@@ -63,11 +63,6 @@ public interface PlayerRepository {
     public val seekForwardIncrement: StateFlow<Duration?>
 
     /**
-     * Prepares the player. E.g. player will start acquiring all the required resources to play.
-     */
-    public fun prepare()
-
-    /**
      * Resumes playback as soon as player is ready.
      */
     public fun play()
@@ -182,12 +177,6 @@ public interface PlayerRepository {
      * Returns the index of the current [Media].
      */
     public fun getCurrentMediaIndex(): Int
-
-    /**
-     * Releases the player. This method must be called when the player is no longer required. The
-     * player must not be used after calling this method.
-     */
-    public fun release()
 
     /**
      * Set the playback speed.

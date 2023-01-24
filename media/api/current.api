@@ -189,11 +189,10 @@ package com.google.android.horologist.media.model {
   }
 
   @com.google.android.horologist.media.ExperimentalHorologistMediaApi public enum PlayerState {
-    enum_constant public static final com.google.android.horologist.media.model.PlayerState Ended;
     enum_constant public static final com.google.android.horologist.media.model.PlayerState Idle;
     enum_constant public static final com.google.android.horologist.media.model.PlayerState Loading;
     enum_constant public static final com.google.android.horologist.media.model.PlayerState Playing;
-    enum_constant public static final com.google.android.horologist.media.model.PlayerState Ready;
+    enum_constant public static final com.google.android.horologist.media.model.PlayerState Stopped;
   }
 
   @com.google.android.horologist.media.ExperimentalHorologistMediaApi public final class Playlist {
@@ -262,8 +261,6 @@ package com.google.android.horologist.media.repository {
     method public boolean hasPreviousMedia();
     method public void pause();
     method public void play();
-    method public void prepare();
-    method public void release();
     method public void removeMedia(int index);
     method public void seekBack();
     method public void seekForward();

@@ -47,7 +47,7 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = commands,
             media = null,
             playbackStateEvent = PlaybackStateEvent.INITIAL,
@@ -75,7 +75,7 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = commands,
             media = null,
             playbackStateEvent = PlaybackStateEvent.INITIAL,
@@ -96,7 +96,7 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = commands,
             media = null,
             playbackStateEvent = PlaybackStateEvent.INITIAL,
@@ -117,7 +117,7 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = commands,
             media = null,
             playbackStateEvent = PlaybackStateEvent.INITIAL,
@@ -138,7 +138,7 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = commands,
             media = null,
             playbackStateEvent = PlaybackStateEvent.INITIAL,
@@ -159,7 +159,7 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = commands,
             media = null,
             playbackStateEvent = PlaybackStateEvent.INITIAL,
@@ -180,7 +180,7 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = commands,
             media = null,
             playbackStateEvent = PlaybackStateEvent.INITIAL,
@@ -201,7 +201,7 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = commands,
             media = null,
             playbackStateEvent = PlaybackStateEvent.INITIAL,
@@ -222,7 +222,7 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = emptySet(),
             media = null,
             playbackStateEvent = PlaybackStateEvent.INITIAL,
@@ -243,7 +243,7 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = emptySet(),
             media = null,
             playbackStateEvent = PlaybackStateEvent.INITIAL,
@@ -264,7 +264,7 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = commands,
             media = null,
             playbackStateEvent = PlaybackStateEvent.INITIAL,
@@ -281,7 +281,7 @@ class PlayerUiStateMapperTest {
     @Test
     fun givenIsNOTPlaying_thenPlayingIsFalse() {
         // given
-        val state = PlayerState.Ready
+        val state = PlayerState.Stopped
 
         // when
         val result = PlayerUiStateMapper.map(
@@ -335,7 +335,7 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = emptySet(),
             media = media,
             playbackStateEvent = PlaybackStateEvent.INITIAL,
@@ -368,7 +368,7 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = emptySet(),
             media = null,
             playbackStateEvent = PlaybackStateEvent(
@@ -399,7 +399,7 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = emptySet(),
             media = null,
             playbackStateEvent = PlaybackStateEvent.INITIAL,
@@ -418,7 +418,7 @@ class PlayerUiStateMapperTest {
     fun givenNullIncrements_thenIncrementsAreUnknown() {
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = emptySet(),
             media = null,
             playbackStateEvent = PlaybackStateEvent.INITIAL,

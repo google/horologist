@@ -28,8 +28,6 @@ import com.google.android.horologist.media.repository.PlayerRepository
 @Stable
 public data class PlayerUiController(private val playerRepository: PlayerRepository) {
     public fun play() {
-        // Prepare is needed to ensure playback
-        playerRepository.prepare()
         playerRepository.play()
     }
 

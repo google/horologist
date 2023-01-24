@@ -19,24 +19,20 @@ package com.google.android.horologist.mediasample.ui.settings
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DataObject
-import androidx.compose.material.icons.filled.Logout
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.ListHeader
-import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
@@ -50,7 +46,7 @@ import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleS
 @Composable
 fun UampSettingsScreen(
     columnState: ScalingLazyColumnState,
-    settingsScreenViewModel: SettingsScreenViewModel,
+    @Suppress("UNUSED_PARAMETER") settingsScreenViewModel: SettingsScreenViewModel,
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {

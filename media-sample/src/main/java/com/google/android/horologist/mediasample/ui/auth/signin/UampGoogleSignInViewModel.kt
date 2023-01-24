@@ -16,15 +16,11 @@
 
 package com.google.android.horologist.mediasample.ui.auth.signin
 
-import android.util.Log
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener
+import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-object GoogleSignInEventListenerSample : GoogleSignInEventListener {
-    private val TAG = this::class.java.simpleName
-
-    override suspend fun onSignedIn(account: GoogleSignInAccount) {
-        // This class does not do anything and is only here for sample purposes.
-        Log.d(TAG, "Account received: ${account.displayName}")
-    }
-}
+@HiltViewModel
+class UampGoogleSignInViewModel @Inject constructor(googleSignInEventListener: GoogleSignInEventListener) :
+    GoogleSignInViewModel(googleSignInEventListener)

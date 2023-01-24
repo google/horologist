@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui.auth.signin
+package com.google.android.horologist.mediasample.ui.auth.prompt
 
-import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInViewModel
+import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
+import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class GoogleSignInSampleViewModel @Inject constructor(): GoogleSignInViewModel() {
-}
+class UampSignInPromptViewModel @Inject constructor(authUserRepository: AuthUserRepository) :
+    SignInPromptViewModel(authUserRepository)

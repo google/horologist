@@ -36,7 +36,7 @@ import com.google.android.horologist.mediasample.R
 @Composable
 fun GoogleSignOutScreen(
     navController: NavHostController,
-    viewModel: GoogleSignOutViewModel = viewModel(factory = GoogleSignOutViewModel.Factory)
+    viewModel: UampGoogleSignOutViewModel
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 

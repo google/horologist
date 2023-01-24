@@ -41,6 +41,8 @@ import com.google.android.horologist.media.ui.navigation.MediaNavController.navi
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToVolume
 import com.google.android.horologist.media.ui.navigation.MediaPlayerScaffold
 import com.google.android.horologist.mediasample.ui.auth.prompt.GoogleSignInPromptScreen
+import com.google.android.horologist.mediasample.ui.auth.prompt.UampSignInPromptViewModel
+import com.google.android.horologist.mediasample.ui.auth.signin.UampGoogleSignInViewModel
 import com.google.android.horologist.mediasample.ui.auth.signout.GoogleSignOutScreen
 import com.google.android.horologist.mediasample.ui.browse.UampBrowseScreen
 import com.google.android.horologist.mediasample.ui.browse.UampStreamingBrowseScreen
@@ -228,7 +230,8 @@ fun UampWearApp(
                 ) {
                     GoogleSignInPromptScreen(
                         navController = navController,
-                        columnState = it.columnState
+                        columnState = it.columnState,
+                        viewModel = hiltViewModel<UampSignInPromptViewModel>()
                     )
                 }
 
@@ -236,12 +239,15 @@ fun UampWearApp(
                     GoogleSignInScreen(
                         onAuthCancelled = { navController.popBackStack() },
                         onAuthSucceed = { navController.popBackStack() },
-                        viewModel = hiltViewModel()
+                        viewModel = hiltViewModel<UampGoogleSignInViewModel>()
                     )
                 }
 
                 composable(route = GoogleSignOutScreen.navRoute) {
-                    GoogleSignOutScreen(navController = navController)
+                    GoogleSignOutScreen(
+                        navController = navController,
+                        viewModel = hiltViewModel()
+                    )
                 }
             }
         )

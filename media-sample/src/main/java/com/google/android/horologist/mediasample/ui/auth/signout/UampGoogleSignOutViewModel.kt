@@ -18,13 +18,8 @@ package com.google.android.horologist.mediasample.ui.auth.signout
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,7 +29,7 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
-class GoogleSignOutViewModel @Inject constructor(
+class UampGoogleSignOutViewModel @Inject constructor(
     private val googleSignInClient: GoogleSignInClient
 ) : ViewModel() {
 
@@ -60,23 +55,7 @@ class GoogleSignOutViewModel @Inject constructor(
     }
 
     companion object {
-
-        private val TAG = GoogleSignOutViewModel::class.java.simpleName
-
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val application = this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY]!!
-
-                val googleSignInClient = GoogleSignIn.getClient(
-                    application,
-                    GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestEmail()
-                        .build()
-                )
-
-                GoogleSignOutViewModel(googleSignInClient)
-            }
-        }
+        private val TAG = UampGoogleSignOutViewModel::class.java.simpleName
     }
 }
 

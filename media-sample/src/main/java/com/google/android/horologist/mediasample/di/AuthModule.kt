@@ -17,52 +17,19 @@
 package com.google.android.horologist.mediasample.di
 
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.wifi.WifiManager
-import coil.ImageLoader
-import coil.decode.SvgDecoder
-import coil.disk.DiskCache
-import coil.request.CachePolicy
-import coil.util.DebugLogger
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.horologist.mediasample.BuildConfig
-import com.google.android.horologist.mediasample.data.api.UampService
-import com.google.android.horologist.mediasample.data.api.WearArtworkUampService
-import com.google.android.horologist.mediasample.ui.AppConfig
-import com.google.android.horologist.networks.data.DataRequestRepository
-import com.google.android.horologist.networks.data.InMemoryDataRequestRepository
-import com.google.android.horologist.networks.data.RequestType
-import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
-import com.google.android.horologist.networks.highbandwidth.StandardHighBandwidthNetworkMediator
-import com.google.android.horologist.networks.logging.NetworkStatusLogger
-import com.google.android.horologist.networks.okhttp.NetworkAwareCallFactory
-import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
-import com.google.android.horologist.networks.okhttp.impl.NetworkLoggingEventListenerFactory
-import com.google.android.horologist.networks.request.NetworkRequester
-import com.google.android.horologist.networks.request.NetworkRequesterImpl
-import com.google.android.horologist.networks.rules.NetworkingRulesEngine
-import com.google.android.horologist.networks.status.NetworkRepository
-import com.google.android.horologist.networks.status.NetworkRepositoryImpl
-import com.squareup.moshi.Moshi
+import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
+import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAuthUserRepository
+import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener
+import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListenerNoOpImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineScope
-import okhttp3.Cache
-import okhttp3.Call
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.logging.LoggingEventListener
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
-import java.io.File
-import javax.inject.Provider
 import javax.inject.Singleton
-import kotlin.time.Duration.Companion.seconds
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -71,7 +38,7 @@ object AuthModule {
     @Singleton
     @Provides
     fun googleSignIn(
-        @ApplicationContext application: Context,
+        @ApplicationContext application: Context
     ): GoogleSignInClient = GoogleSignIn.getClient(
         application,
         GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -79,4 +46,14 @@ object AuthModule {
             .requestProfile()
             .build()
     )
+
+    @Singleton
+    @Provides
+    fun authUserRepository(
+        @ApplicationContext application: Context
+    ): AuthUserRepository = GoogleSignInAuthUserRepository(application)
+
+    @Singleton
+    @Provides
+    fun googleSignInEventListener(): GoogleSignInEventListener = GoogleSignInEventListenerNoOpImpl
 }

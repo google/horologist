@@ -58,8 +58,8 @@ internal fun RotaryInputAccumulator.onRotaryScrollEvent(event: RotaryScrollEvent
 }
 
 public object RotaryInputConfigDefaults {
-    const val DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS: Long = 200L
-    const val DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX: Float = 48f
-    const val DEFAULT_RATE_LIMIT_COOL_DOWN_MS: Long = 300L
-    const val RATE_LIMITING_DISABLED: Long = -1L
+    public const val DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS: Long = 200L
+    public const val DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX: Float = 48f
+    public const val DEFAULT_RATE_LIMIT_COOL_DOWN_MS: Long = 300L
+    public const val RATE_LIMITING_DISABLED: Long = -1L
 }

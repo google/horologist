@@ -19,7 +19,7 @@ package com.google.android.horologist.compose.rotaryinput
 import kotlin.math.abs
 
 /** Accumulator to trigger callbacks based on rotary input event. */
-class RotaryInputAccumulator(
+internal class RotaryInputAccumulator(
     private val eventAccumulationThresholdMs: Long,
     private val minValueChangeDistancePx: Float,
     private val rateLimitCoolDownMs: Long,

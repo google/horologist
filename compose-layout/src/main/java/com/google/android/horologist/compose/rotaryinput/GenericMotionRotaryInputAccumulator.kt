@@ -31,9 +31,9 @@ import androidx.core.view.ViewConfigurationCompat
 public class GenericMotionRotaryInputAccumulator(
     context: Context,
     onValueChange: (change: Float) -> Unit,
-    eventAccumulationThresholdMs: Long = RotaryInputAccumulator.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
-    minValueChangeDistancePx: Float = RotaryInputAccumulator.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
-    rateLimitCoolDownMs: Long = RotaryInputAccumulator.DEFAULT_RATE_LIMIT_COOL_DOWN_MS
+    eventAccumulationThresholdMs: Long = RotaryInputConfigDefaults.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
+    minValueChangeDistancePx: Float = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
+    rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS
 ) {
 
     private val rotaryInputEventReader: RotaryInputEventReader = RotaryInputEventReader(context)

@@ -98,12 +98,12 @@ public interface PlayerRepository {
     public fun skipToNextMedia()
 
     /**
-     * Seeks back in the [current media][currentMedia] by [seek back increment][getSeekBackIncrement].
+     * Seeks back in the [current media][currentMedia] by [seek back increment][seekBackIncrement].
      */
     public fun seekBack()
 
     /**
-     * Seek forward in the [current media][currentMedia] by [seek forward increment][getSeekForwardIncrement].
+     * Seek forward in the [current media][currentMedia] by [seek forward increment][seekForwardIncrement].
      */
     public fun seekForward()
 

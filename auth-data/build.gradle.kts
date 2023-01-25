@@ -99,7 +99,6 @@ dependencies {
     implementation(libs.retrofit2.retrofit)
     implementation(libs.retrofit2.convertermoshi)
     implementation(libs.moshi.kotlin)
-    implementation("androidx.core:core-ktx:+")
     ksp(libs.moshi.kotlin.codegen)
 
     debugImplementation(projects.composeTools)

@@ -116,7 +116,6 @@ dependencies {
     implementation(libs.playservices.auth)
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
-    implementation("androidx.core:core-ktx:+")
 
     debugImplementation(projects.composeTools)
     implementation(libs.compose.ui.toolingpreview)

@@ -96,7 +96,6 @@ dependencies {
     api(libs.androidx.benchmark.junit4)
     api(libs.androidx.test.rules)
     api("androidx.test:annotation:1.0.1")
-    implementation("androidx.core:core-ktx:+")
 }
 
 // Not publishing it until it's ready

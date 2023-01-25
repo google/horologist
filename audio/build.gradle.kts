@@ -102,7 +102,6 @@ dependencies {
     implementation(libs.androidx.wear)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.kotlinx.coroutines.android)
-    implementation("androidx.core:core-ktx:+")
 
     androidTestImplementation(libs.androidx.lifecycle.testing)
     androidTestImplementation(libs.androidx.test.rules)

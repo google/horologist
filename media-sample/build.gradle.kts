@@ -200,7 +200,6 @@ dependencies {
 
     implementation(libs.moshi.adapters)
     implementation(libs.moshi.kotlin)
-    implementation("androidx.core:core-ktx:+")
     ksp(libs.moshi.kotlin.codegen)
 
     implementation(libs.androidx.palette.ktx)

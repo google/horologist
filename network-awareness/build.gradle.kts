@@ -102,7 +102,6 @@ dependencies {
 
     implementation(libs.room.common)
     implementation(libs.room.ktx)
-    implementation("androidx.core:core-ktx:+")
     ksp(libs.room.compiler)
 
     implementation(libs.androidx.tracing.ktx)

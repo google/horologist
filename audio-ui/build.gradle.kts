@@ -115,7 +115,6 @@ dependencies {
     implementation(libs.lottie.compose)
 
     implementation(libs.compose.ui.toolingpreview)
-    implementation("androidx.core:core-ktx:+")
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
 

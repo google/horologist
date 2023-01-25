@@ -108,7 +108,6 @@ dependencies {
     implementation(libs.kotlinx.coroutines.playservices)
     implementation(libs.moshi.kotlin)
     implementation(libs.playservices.auth)
-    implementation("androidx.core:core-ktx:+")
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)

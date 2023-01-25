@@ -103,7 +103,6 @@ dependencies {
     implementation(libs.androidx.corektx)
 
     implementation(libs.compose.ui.toolingpreview)
-    implementation("androidx.core:core-ktx:+")
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
     debugImplementation(projects.composeTools)

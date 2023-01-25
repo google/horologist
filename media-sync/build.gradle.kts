@@ -93,7 +93,6 @@ dependencies {
 
     implementation(libs.hilt.ext.work)
     implementation(libs.dagger.hiltandroid)
-    implementation("androidx.core:core-ktx:+")
     kapt(libs.dagger.hiltandroidcompiler)
     kapt(libs.hilt.ext.compiler)
 

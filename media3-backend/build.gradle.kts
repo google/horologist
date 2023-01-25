@@ -107,7 +107,6 @@ dependencies {
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.lifecycle.service)
     implementation(libs.androidx.tracing.ktx)
-    implementation("androidx.core:core-ktx:+")
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

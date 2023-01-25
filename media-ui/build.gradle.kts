@@ -131,7 +131,6 @@ dependencies {
     implementation(libs.androidx.wear.tiles.material)
     implementation(libs.compose.ui.util)
     implementation(libs.compose.ui.toolingpreview)
-    implementation("androidx.core:core-ktx:+")
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)

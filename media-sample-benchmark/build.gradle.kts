@@ -64,7 +64,6 @@ dependencies {
     implementation(libs.androidx.test.uiautomator)
     implementation(libs.kotlinx.coroutines.android)
     implementation(project.findProject(":media-lib-session") ?: libs.androidx.media3.session)
-    implementation("androidx.core:core-ktx:+")
 }
 
 androidComponents {

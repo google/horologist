@@ -80,7 +80,6 @@ dependencies {
     api(libs.androidx.datastore.preferences)
     api(libs.androidx.datastore)
     api(libs.protobuf.kotlin.lite)
-    implementation("androidx.core:core-ktx:+")
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

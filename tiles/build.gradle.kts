@@ -109,7 +109,6 @@ dependencies {
 
     implementation(libs.androidx.complications.datasource.ktx)
     api(libs.wearcompose.material)
-    implementation("androidx.core:core-ktx:+")
 
     testImplementation(libs.androidx.wear.tiles.testing)
     testImplementation(libs.espresso.core)

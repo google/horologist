@@ -18,8 +18,8 @@ import com.google.protobuf.gradle.id
 
 plugins {
     id("com.android.application")
-    id("kotlin-android")
     id("com.google.protobuf")
+    kotlin("android")
 }
 
 android {

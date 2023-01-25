@@ -16,8 +16,8 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
+    kotlin("android")
 }
 
 android {

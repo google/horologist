@@ -16,8 +16,8 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("me.tylerbwong.gradle.metalava")
+    kotlin("android")
 }
 
 android {

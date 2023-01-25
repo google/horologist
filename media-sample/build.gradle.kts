@@ -19,11 +19,11 @@ import com.google.protobuf.gradle.*
 
 plugins {
     id("com.android.application")
-    id("kotlin-android")
     id("org.jetbrains.kotlin.kapt")
     id("dagger.hilt.android.plugin")
     id("com.google.devtools.ksp")
     id("com.google.protobuf")
+    kotlin("android")
 }
 
 val localProperties = Properties()

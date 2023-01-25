@@ -16,10 +16,10 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
     id("app.cash.paparazzi")
     id("me.tylerbwong.gradle.metalava")
+    kotlin("android")
 }
 
 android {

@@ -9,7 +9,7 @@ an issue https://github.com/google/horologist/issues with the label "Feature Req
 
 ## Development
 
-The project should work immediately from a fresh checkout in Android Studio or with Gradle.
+The project should work immediately from a fresh checkout in Android Studio (Electric Eel or newer) or or with Gradle (./gradlew).
 
 When submitting a PR, please check API compatibility and lint rules first.
 

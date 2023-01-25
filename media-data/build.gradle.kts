@@ -19,7 +19,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("org.jetbrains.dokka")
     id("me.tylerbwong.gradle.metalava")
-    id("org.jetbrains.kotlin.android")
+    kotlin("android")
 }
 
 android {

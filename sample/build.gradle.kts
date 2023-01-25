@@ -19,7 +19,7 @@ import com.google.protobuf.gradle.id
 plugins {
     id("com.android.application")
     id("com.google.protobuf")
-    id("org.jetbrains.kotlin.android")
+    kotlin("android")
 }
 
 android {

@@ -23,7 +23,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("com.google.devtools.ksp")
     id("com.google.protobuf")
-    id("org.jetbrains.kotlin.android")
+    kotlin("android")
 }
 
 val localProperties = Properties()

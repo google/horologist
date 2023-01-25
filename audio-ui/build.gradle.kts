@@ -20,7 +20,7 @@ plugins {
     id("org.jetbrains.kotlin.kapt")
     id("app.cash.paparazzi")
     id("me.tylerbwong.gradle.metalava")
-    id("org.jetbrains.kotlin.android")
+    kotlin("android")
 }
 
 android {

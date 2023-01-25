@@ -16,11 +16,11 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
     id("org.jetbrains.kotlin.kapt")
     id("app.cash.paparazzi")
     id("me.tylerbwong.gradle.metalava")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
@@ -115,6 +115,7 @@ dependencies {
     implementation(libs.lottie.compose)
 
     implementation(libs.compose.ui.toolingpreview)
+    implementation("androidx.core:core-ktx:+")
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
 

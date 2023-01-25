@@ -19,11 +19,11 @@ import com.google.protobuf.gradle.*
 
 plugins {
     id("com.android.application")
-    id("kotlin-android")
     id("org.jetbrains.kotlin.kapt")
     id("dagger.hilt.android.plugin")
     id("com.google.devtools.ksp")
     id("com.google.protobuf")
+    id("org.jetbrains.kotlin.android")
 }
 
 val localProperties = Properties()
@@ -200,6 +200,7 @@ dependencies {
 
     implementation(libs.moshi.adapters)
     implementation(libs.moshi.kotlin)
+    implementation("androidx.core:core-ktx:+")
     ksp(libs.moshi.kotlin.codegen)
 
     implementation(libs.androidx.palette.ktx)

@@ -16,11 +16,11 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
     id("org.jetbrains.kotlin.kapt")
     id("com.google.devtools.ksp")
     id("me.tylerbwong.gradle.metalava")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
@@ -102,6 +102,7 @@ dependencies {
 
     implementation(libs.room.common)
     implementation(libs.room.ktx)
+    implementation("androidx.core:core-ktx:+")
     ksp(libs.room.compiler)
 
     implementation(libs.androidx.tracing.ktx)

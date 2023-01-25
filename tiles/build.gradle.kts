@@ -16,10 +16,10 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
     id("org.jetbrains.kotlin.kapt")
     id("me.tylerbwong.gradle.metalava")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
@@ -109,6 +109,7 @@ dependencies {
 
     implementation(libs.androidx.complications.datasource.ktx)
     api(libs.wearcompose.material)
+    implementation("androidx.core:core-ktx:+")
 
     testImplementation(libs.androidx.wear.tiles.testing)
     testImplementation(libs.espresso.core)

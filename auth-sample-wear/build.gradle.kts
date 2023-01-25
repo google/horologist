@@ -16,8 +16,8 @@
 
 plugins {
     id("com.android.application")
-    id("kotlin-android")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
@@ -108,6 +108,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.playservices)
     implementation(libs.moshi.kotlin)
     implementation(libs.playservices.auth)
+    implementation("androidx.core:core-ktx:+")
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)

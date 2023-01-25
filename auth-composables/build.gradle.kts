@@ -16,10 +16,10 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
     id("app.cash.paparazzi")
     id("me.tylerbwong.gradle.metalava")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
@@ -107,6 +107,7 @@ dependencies {
     implementation(libs.kotlin.stdlib)
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
+    implementation("androidx.core:core-ktx:+")
 
     debugImplementation(projects.composeTools)
     implementation(libs.compose.ui.toolingpreview)

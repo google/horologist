@@ -18,8 +18,8 @@ import com.google.protobuf.gradle.id
 
 plugins {
     id("com.android.application")
-    id("kotlin-android")
     id("com.google.protobuf")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
@@ -178,6 +178,7 @@ dependencies {
     implementation(libs.com.squareup.okhttp3.logging.interceptor)
 
     implementation(libs.compose.ui.toolingpreview)
+    implementation("androidx.core:core-ktx:+")
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)

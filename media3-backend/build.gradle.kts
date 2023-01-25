@@ -16,10 +16,10 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
     id("org.jetbrains.kotlin.kapt")
     id("me.tylerbwong.gradle.metalava")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
@@ -107,6 +107,7 @@ dependencies {
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.lifecycle.service)
     implementation(libs.androidx.tracing.ktx)
+    implementation("androidx.core:core-ktx:+")
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

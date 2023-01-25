@@ -16,10 +16,10 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
     id("org.jetbrains.kotlin.kapt")
     id("me.tylerbwong.gradle.metalava")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
@@ -93,6 +93,7 @@ dependencies {
 
     implementation(libs.hilt.ext.work)
     implementation(libs.dagger.hiltandroid)
+    implementation("androidx.core:core-ktx:+")
     kapt(libs.dagger.hiltandroidcompiler)
     kapt(libs.hilt.ext.compiler)
 

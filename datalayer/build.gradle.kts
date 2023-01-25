@@ -16,8 +16,8 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
@@ -80,6 +80,7 @@ dependencies {
     api(libs.androidx.datastore.preferences)
     api(libs.androidx.datastore)
     api(libs.protobuf.kotlin.lite)
+    implementation("androidx.core:core-ktx:+")
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

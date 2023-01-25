@@ -16,10 +16,10 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
     id("org.jetbrains.kotlin.kapt")
     id("me.tylerbwong.gradle.metalava")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
@@ -100,6 +100,7 @@ dependencies {
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation("androidx.core:core-ktx:+")
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)

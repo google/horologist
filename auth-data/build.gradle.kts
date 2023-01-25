@@ -16,10 +16,10 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
     id("com.google.devtools.ksp")
     id("me.tylerbwong.gradle.metalava")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
@@ -99,6 +99,7 @@ dependencies {
     implementation(libs.retrofit2.retrofit)
     implementation(libs.retrofit2.convertermoshi)
     implementation(libs.moshi.kotlin)
+    implementation("androidx.core:core-ktx:+")
     ksp(libs.moshi.kotlin.codegen)
 
     debugImplementation(projects.composeTools)

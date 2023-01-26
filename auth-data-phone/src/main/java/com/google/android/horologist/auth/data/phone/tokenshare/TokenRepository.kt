@@ -14,22 +14,23 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.sample
+package com.google.android.horologist.auth.data.phone.tokenshare
 
-import android.app.Application
-import com.google.android.horologist.auth.sample.di.SampleAppDI
-import com.squareup.moshi.Moshi
-import kotlinx.coroutines.CoroutineScope
-import okhttp3.OkHttpClient
+import com.google.android.horologist.auth.data.phone.ExperimentalHorologistAuthDataPhoneApi
 
-class SampleApplication : Application() {
-    lateinit var servicesCoroutineScope: CoroutineScope
-    lateinit var okHttpClient: OkHttpClient
-    lateinit var moshi: Moshi
+/**
+ * Repository of access token.
+ *
+ * Tokens should be stored in the Android Wear network with [SERVICE_PATH_PREFIX] as path, and
+ * [KEY_TOKEN] as key.
+ */
+@ExperimentalHorologistAuthDataPhoneApi
+public interface TokenRepository {
 
-    override fun onCreate() {
-        super.onCreate()
+    public suspend fun updateToken(token: String)
 
-        SampleAppDI.inject(this)
+    public companion object {
+        public const val SERVICE_PATH_PREFIX: String = "/horologist_auth"
+        public const val KEY_TOKEN: String = "token"
     }
 }

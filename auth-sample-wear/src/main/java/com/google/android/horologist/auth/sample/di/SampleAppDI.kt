@@ -16,8 +16,13 @@
 
 package com.google.android.horologist.auth.sample.di
 
+import android.util.Log
 import com.google.android.horologist.auth.sample.SampleApplication
 import com.squareup.moshi.Moshi
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 
@@ -27,14 +32,28 @@ import okhttp3.logging.HttpLoggingInterceptor
 object SampleAppDI {
 
     fun inject(sampleApplication: SampleApplication) {
-        sampleApplication.okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(
-                HttpLoggingInterceptor().also { interceptor ->
-                    interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-                }
-            )
-            .build()
-
-        sampleApplication.moshi = Moshi.Builder().build()
+        sampleApplication.servicesCoroutineScope = servicesCoroutineScope()
+        sampleApplication.okHttpClient = okHttpClient()
+        sampleApplication.moshi = moshi()
     }
+
+    private fun servicesCoroutineScope(): CoroutineScope {
+        val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            Log.e(
+                "SampleApplication",
+                "Uncaught exception thrown by a service: ${throwable.message}",
+                throwable
+            )
+        }
+        return CoroutineScope(Dispatchers.IO + SupervisorJob() + coroutineExceptionHandler)
+    }
+
+    private fun okHttpClient(): OkHttpClient = OkHttpClient.Builder()
+        .addInterceptor(
+            HttpLoggingInterceptor().also { interceptor ->
+                interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+            }
+        ).build()
+
+    private fun moshi(): Moshi = Moshi.Builder().build()
 }

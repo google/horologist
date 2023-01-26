@@ -38,10 +38,10 @@ public class TokenRepositoryImpl(private val dataClient: DataClient) : TokenRepo
 
     @SuppressLint("VisibleForTests") // https://issuetracker.google.com/issues/239451111
     override suspend fun updateToken(token: String) {
-        val putDataReq: PutDataRequest = PutDataMapRequest.create(SERVICE_PATH_PREFIX).run {
+        val putDataReq: PutDataRequest = PutDataMapRequest.create(SERVICE_PATH_PREFIX).apply {
             dataMap.putString(KEY_TOKEN, token)
-            asPutDataRequest()
-        }
+        }.asPutDataRequest()
+
         val putDataTask: Task<DataItem> = dataClient.putDataItem(putDataReq)
 
         putDataTask.await()

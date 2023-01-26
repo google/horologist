@@ -32,9 +32,9 @@ import androidx.compose.ui.input.rotary.onRotaryScrollEvent
  */
 @OptIn(ExperimentalComposeUiApi::class)
 public fun Modifier.onRotaryInputAccumulated(
-    eventAccumulationThresholdMs: Long = RotaryInputAccumulator.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
-    minValueChangeDistancePx: Float = RotaryInputAccumulator.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
-    rateLimitCoolDownMs: Long = RotaryInputAccumulator.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
+    eventAccumulationThresholdMs: Long = RotaryInputConfigDefaults.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
+    minValueChangeDistancePx: Float = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
+    rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
     onValueChange: (change: Float) -> Unit
 ): Modifier {
     val rotaryInputAccumulator = RotaryInputAccumulator(
@@ -55,4 +55,11 @@ public fun Modifier.onRotaryInputAccumulated(
 internal fun RotaryInputAccumulator.onRotaryScrollEvent(event: RotaryScrollEvent): Boolean {
     onRotaryScroll(event.verticalScrollPixels, event.uptimeMillis)
     return true
+}
+
+public object RotaryInputConfigDefaults {
+    public const val DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS: Long = 200L
+    public const val DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX: Float = 48f
+    public const val DEFAULT_RATE_LIMIT_COOL_DOWN_MS: Long = 300L
+    public const val RATE_LIMITING_DISABLED: Long = -1L
 }

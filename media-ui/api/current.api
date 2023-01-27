@@ -359,9 +359,9 @@ package com.google.android.horologist.media.ui.screens.entity {
 
   public final class EntityScreenKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void DefaultEntityScreenHeader(String title, optional androidx.compose.ui.Modifier modifier);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void EntityScreen(com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, kotlin.jvm.functions.Function0<kotlin.Unit> headerContent, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? buttonsContent, optional kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListScope,kotlin.Unit>? content);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void EntityScreen(com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, kotlin.jvm.functions.Function0<kotlin.Unit> headerContent, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? buttonsContent, optional kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.lazy.ScalingLazyListScope,kotlin.Unit>? content);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static <Media> void EntityScreen(com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, kotlin.jvm.functions.Function0<kotlin.Unit> headerContent, java.util.List<? extends Media> mediaList, kotlin.jvm.functions.Function1<? super Media,kotlin.Unit> mediaContent, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? buttonsContent);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static <Media> void EntityScreen(com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, com.google.android.horologist.media.ui.screens.entity.EntityScreenState<Media> entityScreenState, kotlin.jvm.functions.Function0<kotlin.Unit> headerContent, kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingLazyListScope,kotlin.Unit> loadingContent, kotlin.jvm.functions.Function1<? super Media,kotlin.Unit> mediaContent, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? buttonsContent, optional kotlin.jvm.functions.Function0<kotlin.Unit>? failedContent);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static <Media> void EntityScreen(com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, com.google.android.horologist.media.ui.screens.entity.EntityScreenState<Media> entityScreenState, kotlin.jvm.functions.Function0<kotlin.Unit> headerContent, kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.lazy.ScalingLazyListScope,kotlin.Unit> loadingContent, kotlin.jvm.functions.Function1<? super Media,kotlin.Unit> mediaContent, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? buttonsContent, optional kotlin.jvm.functions.Function0<kotlin.Unit>? failedContent);
   }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class EntityScreenState<Media> {
@@ -545,6 +545,11 @@ package com.google.android.horologist.media.ui.snackbar {
 }
 
 package com.google.android.horologist.media.ui.state {
+
+  public final class LocalTimestampProviderKt {
+    method public static androidx.compose.runtime.ProvidableCompositionLocal<com.google.android.horologist.media.model.TimestampProvider> getLocalTimestampProvider();
+    property public static final androidx.compose.runtime.ProvidableCompositionLocal<com.google.android.horologist.media.model.TimestampProvider> LocalTimestampProvider;
+  }
 
   @androidx.compose.runtime.Stable public final class PlayerUiController {
     ctor public PlayerUiController(com.google.android.horologist.media.repository.PlayerRepository playerRepository);

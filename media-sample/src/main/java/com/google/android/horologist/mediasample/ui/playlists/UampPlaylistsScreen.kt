@@ -29,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
@@ -36,7 +37,6 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreen
 import com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreenState

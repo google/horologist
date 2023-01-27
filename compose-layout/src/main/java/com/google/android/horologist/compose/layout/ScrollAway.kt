@@ -25,7 +25,7 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.ScalingLazyListState
+import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import androidx.wear.compose.material.scrollAway as scrollAwayCompose
 

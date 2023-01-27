@@ -22,8 +22,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
-import androidx.wear.compose.material.ScalingLazyColumnDefaults
-import androidx.wear.compose.material.ScalingParams
+import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults
+import androidx.wear.compose.foundation.lazy.ScalingParams
 
 @Composable
 public fun TallPreview(

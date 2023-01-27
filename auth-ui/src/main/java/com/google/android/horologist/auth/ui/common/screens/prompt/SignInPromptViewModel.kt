@@ -18,6 +18,7 @@ package com.google.android.horologist.auth.ui.common.screens.prompt
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.auth.ui.ext.compareAndSet
@@ -49,9 +50,9 @@ public open class SignInPromptViewModel(
             update = SignInPromptScreenState.Loading
         ) {
             viewModelScope.launch {
-                if (authUserRepository.getAuthenticated() != null) {
-                    _uiState.value = SignInPromptScreenState.SignedIn
-                } else {
+                authUserRepository.getAuthenticated()?.let { authUser ->
+                    _uiState.value = SignInPromptScreenState.SignedIn(authUser)
+                } ?: run {
                     _uiState.value = SignInPromptScreenState.SignedOut
                 }
             }
@@ -69,7 +70,7 @@ public sealed class SignInPromptScreenState {
 
     public object Loading : SignInPromptScreenState()
 
-    public object SignedIn : SignInPromptScreenState()
+    public data class SignedIn(val authUser: AuthUser) : SignInPromptScreenState()
 
     public object SignedOut : SignInPromptScreenState()
 }

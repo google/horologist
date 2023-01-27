@@ -16,7 +16,7 @@ package com.google.android.horologist.auth.ui.common.logging {
 package com.google.android.horologist.auth.ui.common.screens.prompt {
 
   public final class SignInPromptScreenKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static void SignInPromptScreen(String message, kotlin.jvm.functions.Function0<kotlin.Unit> onAlreadySignedIn, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, optional androidx.compose.ui.Modifier modifier, optional String title, optional com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel viewModel, kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.lazy.ScalingLazyListScope,kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static void SignInPromptScreen(String message, kotlin.jvm.functions.Function1<? super com.google.android.horologist.auth.data.common.model.AuthUser,kotlin.Unit> onAlreadySignedIn, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, optional androidx.compose.ui.Modifier modifier, optional String title, optional com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel viewModel, kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.lazy.ScalingLazyListScope,kotlin.Unit> content);
   }
 
   @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public abstract sealed class SignInPromptScreenState {
@@ -31,7 +31,11 @@ package com.google.android.horologist.auth.ui.common.screens.prompt {
   }
 
   public static final class SignInPromptScreenState.SignedIn extends com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState {
-    field public static final com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState.SignedIn INSTANCE;
+    ctor public SignInPromptScreenState.SignedIn(com.google.android.horologist.auth.data.common.model.AuthUser authUser);
+    method public com.google.android.horologist.auth.data.common.model.AuthUser component1();
+    method public com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState.SignedIn copy(com.google.android.horologist.auth.data.common.model.AuthUser authUser);
+    method public com.google.android.horologist.auth.data.common.model.AuthUser getAuthUser();
+    property public final com.google.android.horologist.auth.data.common.model.AuthUser authUser;
   }
 
   public static final class SignInPromptScreenState.SignedOut extends com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState {
@@ -50,7 +54,7 @@ package com.google.android.horologist.auth.ui.common.screens.prompt {
 package com.google.android.horologist.auth.ui.common.screens.streamline {
 
   public final class StreamlineSignInScreenKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static void StreamlineSignInScreen(kotlin.jvm.functions.Function0<kotlin.Unit> onAlreadySignedIn, kotlin.jvm.functions.Function0<kotlin.Unit> onSignedOut, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInViewModel viewModel);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static void StreamlineSignInScreen(kotlin.jvm.functions.Function1<? super com.google.android.horologist.auth.data.common.model.AuthUser,kotlin.Unit> onAlreadySignedIn, kotlin.jvm.functions.Function0<kotlin.Unit> onSignedOut, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInViewModel viewModel);
   }
 
   @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public abstract sealed class StreamlineSignInScreenState {
@@ -65,7 +69,11 @@ package com.google.android.horologist.auth.ui.common.screens.streamline {
   }
 
   public static final class StreamlineSignInScreenState.SignedIn extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState {
-    field public static final com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState.SignedIn INSTANCE;
+    ctor public StreamlineSignInScreenState.SignedIn(com.google.android.horologist.auth.data.common.model.AuthUser authUser);
+    method public com.google.android.horologist.auth.data.common.model.AuthUser component1();
+    method public com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState.SignedIn copy(com.google.android.horologist.auth.data.common.model.AuthUser authUser);
+    method public com.google.android.horologist.auth.data.common.model.AuthUser getAuthUser();
+    property public final com.google.android.horologist.auth.data.common.model.AuthUser authUser;
   }
 
   public static final class StreamlineSignInScreenState.SignedOut extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState {

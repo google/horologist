@@ -25,13 +25,14 @@ package com.google.android.horologist.auth.ui.common.screens.prompt
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
+import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
-import com.google.android.horologist.test.toolbox.positionedState
+import com.google.android.horologist.test.toolbox.composables.positionedState
 import org.junit.Rule
 import org.junit.Test
 
@@ -76,7 +77,7 @@ class SignInPromptScreenTest {
     fun signedIn() {
         paparazzi.snapshotInABox {
             SignInPromptScreen(
-                state = SignInPromptScreenState.SignedIn,
+                state = SignInPromptScreenState.SignedIn(AuthUser()),
                 title = "Sign in",
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },

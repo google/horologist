@@ -16,7 +16,7 @@
 
 @file:OptIn(ExperimentalCoroutinesApi::class)
 
-package com.google.android.horologist.test.toolbox
+package com.google.android.horologist.test.toolbox.rules
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -25,7 +25,7 @@ import app.cash.turbine.test
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
-import com.google.android.horologist.test.toolbox.MainDispatcherRule
+import com.google.android.horologist.test.toolbox.rules.MainDispatcherRule
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

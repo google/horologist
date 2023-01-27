@@ -107,8 +107,12 @@ private fun SectionedListScope.googleSignInSection(navigateToRoute: (String) -> 
     section(
         listOf(
             Pair(
-                R.string.auth_menu_google_sign_in_item,
+                R.string.auth_menu_google_sign_in_prompt_item,
                 Screen.GoogleSignInPromptSampleScreen.route
+            ),
+            Pair(
+                R.string.auth_menu_google_streamline_sign_in_item,
+                Screen.GoogleStreamlineSignInSampleScreen.route
             ),
             Pair(R.string.auth_menu_google_sign_out_item, Screen.GoogleSignOutScreen.route)
         )

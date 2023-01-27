@@ -30,6 +30,7 @@ import com.google.android.horologist.auth.sample.screens.MainScreen
 import com.google.android.horologist.auth.sample.screens.googlesignin.prompt.GoogleSignInPromptSampleScreen
 import com.google.android.horologist.auth.sample.screens.googlesignin.signin.GoogleSignInSampleViewModelFactory
 import com.google.android.horologist.auth.sample.screens.googlesignin.signout.GoogleSignOutScreen
+import com.google.android.horologist.auth.sample.screens.googlesignin.streamline.GoogleStreamlineSignInSampleScreen
 import com.google.android.horologist.auth.sample.screens.oauth.devicegrant.prompt.DeviceGrantSignInPromptScreen
 import com.google.android.horologist.auth.sample.screens.oauth.devicegrant.signin.DeviceGrantSampleViewModelFactory
 import com.google.android.horologist.auth.sample.screens.oauth.devicegrant.signout.DeviceGrantSignOutScreen
@@ -99,6 +100,9 @@ fun WearApp() {
                 navController = navController,
                 columnState = it.columnState
             )
+        }
+        composable(route = Screen.GoogleStreamlineSignInSampleScreen.route) {
+            GoogleStreamlineSignInSampleScreen(navController = navController)
         }
         composable(route = Screen.GoogleSignInScreen.route) {
             GoogleSignInScreen(

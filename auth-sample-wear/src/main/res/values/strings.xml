@@ -24,7 +24,8 @@
     <string name="auth_menu_oauth_device_grant_sign_in_item">Sign in</string>
     <string name="auth_menu_oauth_device_grant_sign_out_item">Sign out</string>
     <string name="auth_menu_google_sign_in_header">Google Sign-In</string>
-    <string name="auth_menu_google_sign_in_item">Sign in</string>
+    <string name="auth_menu_google_sign_in_prompt_item">Sign-in Prompt</string>
+    <string name="auth_menu_google_streamline_sign_in_item">Streamline Sign-in</string>
     <string name="auth_menu_google_sign_out_item">Sign out</string>
     <string name="auth_menu_token_share_header">Token Sharing</string>
     <string name="auth_menu_token_share_listener_item">Via Listener</string>
@@ -38,6 +39,7 @@
     <string name="google_sign_in_prompt_message">Send messages and create chat groups with your friends</string>
     <string name="google_sign_out_success_message">Signed out successfully!</string>
     <string name="google_sign_in_prompt_already_signed_in_message">Already signed-in!</string>
+    <string name="google_streamline_sign_in_already_signed_in_message">Already signed-in!</string>
     <string name="token_share_listener_title">Token Sharing - Listener</string>
     <string name="token_share_listener_message">Tokens emitted by the phone sample app while this is screen is visible will be displayed below:</string>
     <string name="token_share_service_title">Token Sharing - Service</string>

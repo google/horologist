@@ -269,10 +269,18 @@ package com.google.android.horologist.auth.data.oauth.pkce.impl.google {
 
 package com.google.android.horologist.auth.data.tokenshare {
 
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface TokenListener extends com.google.android.gms.wearable.DataClient.OnDataChangedListener {
+    method public default void onDataChanged(com.google.android.gms.wearable.DataEventBuffer dataEventBuffer);
+    method public void onTokenReceived(String token);
+  }
+
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public abstract class TokenListenerService extends com.google.android.gms.wearable.WearableListenerService {
     ctor public TokenListenerService();
     method public abstract kotlinx.coroutines.CoroutineScope getCoroutineScope();
     method public abstract suspend Object? onTokenReceived(String token, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+  }
+
+  public final class TokenShareConstantsKt {
   }
 
 }

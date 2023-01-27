@@ -235,6 +235,10 @@ package com.google.android.horologist.media.model {
     method public long predictPosition(long timestamp);
   }
 
+  public fun interface TimestampProvider {
+    method public long getTimestamp();
+  }
+
 }
 
 package com.google.android.horologist.media.repository {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.test.toolbox
+package com.google.android.horologist.test.toolbox.composables
 
 import androidx.compose.runtime.Composable
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults

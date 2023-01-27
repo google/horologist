@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
+import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 
 /**
@@ -39,7 +40,7 @@ import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 @ExperimentalHorologistAuthUiApi
 @Composable
 public fun StreamlineSignInScreen(
-    onAlreadySignedIn: () -> Unit,
+    onAlreadySignedIn: (authUser: AuthUser) -> Unit,
     onSignedOut: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: StreamlineSignInViewModel = viewModel()
@@ -60,7 +61,7 @@ public fun StreamlineSignInScreen(
 internal fun StreamlineSignInScreen(
     state: StreamlineSignInScreenState,
     onIdleStateObserved: () -> Unit,
-    onAlreadySignedIn: () -> Unit,
+    onAlreadySignedIn: (authUser: AuthUser) -> Unit,
     onSignedOut: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -78,7 +79,7 @@ internal fun StreamlineSignInScreen(
         }
 
         is StreamlineSignInScreenState.SignedIn -> {
-            onAlreadySignedIn()
+            onAlreadySignedIn(state.authUser)
         }
 
         StreamlineSignInScreenState.SignedOut -> {

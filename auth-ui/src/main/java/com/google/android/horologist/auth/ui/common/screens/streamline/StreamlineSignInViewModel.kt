@@ -18,6 +18,7 @@ package com.google.android.horologist.auth.ui.common.screens.streamline
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.auth.ui.ext.compareAndSet
@@ -36,7 +37,8 @@ public open class StreamlineSignInViewModel(
     private val authUserRepository: AuthUserRepository
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<StreamlineSignInScreenState>(StreamlineSignInScreenState.Idle)
+    private val _uiState =
+        MutableStateFlow<StreamlineSignInScreenState>(StreamlineSignInScreenState.Idle)
     public val uiState: StateFlow<StreamlineSignInScreenState> = _uiState
 
     /**
@@ -49,9 +51,9 @@ public open class StreamlineSignInViewModel(
             update = StreamlineSignInScreenState.Loading
         ) {
             viewModelScope.launch {
-                if (authUserRepository.getAuthenticated() != null) {
-                    _uiState.value = StreamlineSignInScreenState.SignedIn
-                } else {
+                authUserRepository.getAuthenticated()?.let { authUser ->
+                    _uiState.value = StreamlineSignInScreenState.SignedIn(authUser)
+                } ?: run {
                     _uiState.value = StreamlineSignInScreenState.SignedOut
                 }
             }
@@ -69,7 +71,7 @@ public sealed class StreamlineSignInScreenState {
 
     public object Loading : StreamlineSignInScreenState()
 
-    public object SignedIn : StreamlineSignInScreenState()
+    public data class SignedIn(val authUser: AuthUser) : StreamlineSignInScreenState()
 
     public object SignedOut : StreamlineSignInScreenState()
 }

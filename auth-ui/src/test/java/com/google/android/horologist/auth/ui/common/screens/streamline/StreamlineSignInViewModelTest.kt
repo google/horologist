@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistAuthUiApi::class,
-    ExperimentalCoroutinesApi::class
-)
+@file:OptIn(ExperimentalHorologistAuthUiApi::class, ExperimentalCoroutinesApi::class)
 
-package com.google.android.horologist.auth.ui.common.screens.prompt
+package com.google.android.horologist.auth.ui.common.screens.streamline
 
 import app.cash.turbine.test
 import com.google.android.horologist.auth.data.common.model.AuthUser
@@ -33,18 +30,18 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class SignInPromptViewModelTest {
+class StreamlineSignInViewModelTest {
 
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
     private val fakeAuthUserRepository = AuthUserRepositoryStub()
 
-    private lateinit var sut: SignInPromptViewModel
+    private lateinit var sut: StreamlineSignInViewModel
 
     @Before
     fun setUp() {
-        sut = SignInPromptViewModel(fakeAuthUserRepository)
+        sut = StreamlineSignInViewModel(fakeAuthUserRepository)
     }
 
     @Test
@@ -53,7 +50,7 @@ class SignInPromptViewModelTest {
         val result = sut.uiState.value
 
         // then
-        assertThat(result).isEqualTo(SignInPromptScreenState.Idle)
+        assertThat(result).isEqualTo(StreamlineSignInScreenState.Idle)
     }
 
     @Test
@@ -67,7 +64,7 @@ class SignInPromptViewModelTest {
 
             whenBlock()
 
-            assertThat(awaitItem()).isEqualTo(SignInPromptScreenState.Loading)
+            assertThat(awaitItem()).isEqualTo(StreamlineSignInScreenState.Loading)
 
             skipItems(1)
         }
@@ -81,7 +78,7 @@ class SignInPromptViewModelTest {
 
         // then
         sut.uiState.test {
-            assertThat(awaitItem()).isNotEqualTo(SignInPromptScreenState.Idle)
+            assertThat(awaitItem()).isNotEqualTo(StreamlineSignInScreenState.Idle)
 
             whenBlock()
 
@@ -96,7 +93,7 @@ class SignInPromptViewModelTest {
 
         // then
         sut.uiState.test {
-            assertThat(awaitItem()).isEqualTo(SignInPromptScreenState.SignedOut)
+            assertThat(awaitItem()).isEqualTo(StreamlineSignInScreenState.SignedOut)
         }
     }
 
@@ -111,7 +108,7 @@ class SignInPromptViewModelTest {
 
         // then
         sut.uiState.test {
-            assertThat(awaitItem()).isEqualTo(SignInPromptScreenState.SignedIn(authUser))
+            assertThat(awaitItem()).isEqualTo(StreamlineSignInScreenState.SignedIn(authUser))
         }
     }
 }

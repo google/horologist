@@ -112,7 +112,6 @@ dependencies {
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
-    debugImplementation(libs.compose.ui.toolingpreview)
     releaseCompileOnly(projects.composeTools)
 
     constraints {

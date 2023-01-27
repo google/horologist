@@ -269,7 +269,7 @@ package com.google.android.horologist.media.data.mapper {
   }
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlaybackStateMapper {
-    ctor public PlaybackStateMapper(optional kotlin.jvm.functions.Function0<java.lang.Long> timestampProvider);
+    ctor public PlaybackStateMapper(optional com.google.android.horologist.media.model.TimestampProvider timestampProvider);
     method public com.google.android.horologist.media.model.PlaybackStateEvent createEvent(androidx.media3.common.Player? player, com.google.android.horologist.media.model.PlaybackStateEvent.Cause cause);
   }
 

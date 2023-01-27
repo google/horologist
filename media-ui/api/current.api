@@ -546,6 +546,11 @@ package com.google.android.horologist.media.ui.snackbar {
 
 package com.google.android.horologist.media.ui.state {
 
+  public final class LocalTimestampProviderKt {
+    method public static androidx.compose.runtime.ProvidableCompositionLocal<com.google.android.horologist.media.model.TimestampProvider> getLocalTimestampProvider();
+    property public static final androidx.compose.runtime.ProvidableCompositionLocal<com.google.android.horologist.media.model.TimestampProvider> LocalTimestampProvider;
+  }
+
   @androidx.compose.runtime.Stable public final class PlayerUiController {
     ctor public PlayerUiController(com.google.android.horologist.media.repository.PlayerRepository playerRepository);
     method public com.google.android.horologist.media.ui.state.PlayerUiController copy(com.google.android.horologist.media.repository.PlayerRepository playerRepository);

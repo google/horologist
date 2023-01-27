@@ -61,6 +61,7 @@ class DatePickerTest {
             }
         }
 
+        composeTestRule.onNodeWithContentDescription("Next").performClick().performClick()
         composeTestRule.onNodeWithContentDescription("Confirm").performClick()
 
         composeTestRule.onNodeWithTag("date").assertTextEquals("2022-04-25")

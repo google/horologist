@@ -51,7 +51,7 @@
         </activity>
 
         <service
-            android:name=".services.SampleTokenListenerService"
+            android:name=".screens.tokenshare.service.SampleTokenListenerService"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />

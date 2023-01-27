@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.sample.services
+package com.google.android.horologist.auth.sample.screens.tokenshare.service
 
 import android.util.Log
 import com.google.android.horologist.auth.data.tokenshare.TokenListenerService
@@ -27,8 +27,8 @@ class SampleTokenListenerService : TokenListenerService() {
         (application as SampleApplication).servicesCoroutineScope
 
     override suspend fun onTokenReceived(token: String) {
-        // This class does not do anything and is only here for sample purposes.
         Log.d(TAG, "Token received: $token")
+        TokenInMemoryDataSource.tokens.value += token
     }
 
     companion object {

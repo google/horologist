@@ -32,10 +32,8 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
-import org.junit.Ignore
 import org.junit.Test
 
-@Ignore("Fix after Alpha updates")
 class WearDataLayerRegistryTest {
 
     @Test

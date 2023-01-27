@@ -36,8 +36,10 @@ module:auth-ui
 com.google.android.horologist.auth.composables.screens
 com.google.android.horologist.auth.ui
 com.google.android.horologist.auth.ui.common.screens.prompt
+com.google.android.horologist.auth.ui.common.screens.streamline
 com.google.android.horologist.auth.ui.googlesignin.prompt
 com.google.android.horologist.auth.ui.googlesignin.signin
+com.google.android.horologist.auth.ui.googlesignin.streamline
 com.google.android.horologist.auth.ui.oauth.devicegrant.signin
 com.google.android.horologist.auth.ui.oauth.pkce.signin
 module:base-ui

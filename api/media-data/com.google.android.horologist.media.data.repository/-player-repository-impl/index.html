@@ -23,21 +23,21 @@
           </div>
           <div class="cover ">
             <h1 class="cover"><span>Player</span><wbr><span>Repository</span><wbr><span>Impl</span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="index.html">PlayerRepositoryImpl</a>(mediaMapper: <a href="../../com.google.android.horologist.media.data.mapper/-media-mapper/index.html">MediaMapper</a>, mediaItemMapper: <a href="../../com.google.android.horologist.media.data.mapper/-media-item-mapper/index.html">MediaItemMapper</a>) : <a href="../../../media/com.google.android.horologist.media.repository/-player-repository/index.html">PlayerRepository</a>, <a href="https://developer.android.com/reference/kotlin/java/io/Closeable.html">Closeable</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Repository for the current Media3 Player for a Player Activity.</p><p class="paragraph">The current implementation is available as soon as the ListenableFuture to connect to the MediaSession completes.</p></div></div>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="index.html">PlayerRepositoryImpl</a>(mediaMapper: <a href="../../com.google.android.horologist.media.data.mapper/-media-mapper/index.html">MediaMapper</a>, mediaItemMapper: <a href="../../com.google.android.horologist.media.data.mapper/-media-item-mapper/index.html">MediaItemMapper</a>, playbackStateMapper: <a href="../../com.google.android.horologist.media.data.mapper/-playback-state-mapper/index.html">PlaybackStateMapper</a>) : <a href="../../../media/com.google.android.horologist.media.repository/-player-repository/index.html">PlayerRepository</a>, <a href="https://developer.android.com/reference/kotlin/java/io/Closeable.html">Closeable</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Repository for the current Media3 Player for a Player Activity.</p><p class="paragraph">The current implementation is available as soon as the ListenableFuture to connect to the MediaSession completes.</p></div></div>
           </div>
           <div class="tabbedcontent">
             <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Sources">Sources</button></div>
             <div class="tabs-section-body">
               <h2 class="tabbedcontent">Constructors</h2>
-              <div class="table" data-togglable="Constructors"><a data-name="-1097957326%2FConstructors%2F1521834560" anchor-label="PlayerRepositoryImpl" id="-1097957326%2FConstructors%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
+              <div class="table" data-togglable="Constructors"><a data-name="-174476274%2FConstructors%2F1521834560" anchor-label="PlayerRepositoryImpl" id="-174476274%2FConstructors%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
                 <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
                   <div class="main-subrow keyValue TabbedContent">
-                    <div class=""><span class="inline-flex"><a href="-player-repository-impl.html">PlayerRepositoryImpl</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1097957326%2FConstructors%2F1521834560"></span>
+                    <div class=""><span class="inline-flex"><a href="-player-repository-impl.html">PlayerRepositoryImpl</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-174476274%2FConstructors%2F1521834560"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="-player-repository-impl.html">PlayerRepositoryImpl</a>(mediaMapper: <a href="../../com.google.android.horologist.media.data.mapper/-media-mapper/index.html">MediaMapper</a> = MediaMapper(MediaExtrasMapperNoopImpl), mediaItemMapper: <a href="../../com.google.android.horologist.media.data.mapper/-media-item-mapper/index.html">MediaItemMapper</a> = MediaItemMapper(MediaItemExtrasMapperNoopImpl))<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="-player-repository-impl.html">PlayerRepositoryImpl</a>(mediaMapper: <a href="../../com.google.android.horologist.media.data.mapper/-media-mapper/index.html">MediaMapper</a> = MediaMapper(MediaExtrasMapperNoopImpl), mediaItemMapper: <a href="../../com.google.android.horologist.media.data.mapper/-media-item-mapper/index.html">MediaItemMapper</a> = MediaItemMapper(MediaItemExtrasMapperNoopImpl), playbackStateMapper: <a href="../../com.google.android.horologist.media.data.mapper/-playback-state-mapper/index.html">PlaybackStateMapper</a> = PlaybackStateMapper())<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
                       </div>
                     </div>
                   </div>
@@ -231,40 +231,6 @@
                     </div>
                   </div>
                 </div>
-<a data-name="-27287086%2FFunctions%2F1521834560" anchor-label="prepare" id="-27287086%2FFunctions%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="prepare.html">prepare</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-27287086%2FFunctions%2F1521834560"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">open override fun <a href="prepare.html">prepare</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1988683474%2FFunctions%2F1521834560" anchor-label="release" id="1988683474%2FFunctions%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="release.html">release</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1988683474%2FFunctions%2F1521834560"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">open override fun <a href="release.html">release</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
 <a data-name="-967995497%2FFunctions%2F1521834560" anchor-label="removeMedia" id="-967995497%2FFunctions%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
                 <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
                   <div class="main-subrow keyValue ">
@@ -441,23 +407,6 @@
                     </div>
                   </div>
                 </div>
-<a data-name="922779183%2FFunctions%2F1521834560" anchor-label="updatePosition" id="922779183%2FFunctions%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="update-position.html">updatePosition</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="922779183%2FFunctions%2F1521834560"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="update-position.html">updatePosition</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="922779183%2FFunctions%2F1521834560" anchor-label="updatePosition" id="922779183%2FFunctions%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="922779183%2FFunctions%2F1521834560" anchor-label="updatePosition" id="922779183%2FFunctions%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>Update the position to show track progress correctly on screen.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
               </div>
               <h2 class="">Properties</h2>
               <div class="table" data-togglable="Properties"><a data-name="-723911000%2FProperties%2F1521834560" anchor-label="availableCommands" id="-723911000%2FProperties%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
@@ -499,41 +448,15 @@
                     </div>
                   </div>
                 </div>
-<a data-name="403399785%2FProperties%2F1521834560" anchor-label="currentState" id="403399785%2FProperties%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
+<a data-name="626441962%2FProperties%2F1521834560" anchor-label="latestPlaybackState" id="626441962%2FProperties%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
                 <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="current-state.html">currentState</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="403399785%2FProperties%2F1521834560"></span>
+                    <div class=""><span class="inline-flex"><a href="latest-playback-state.html">latestPlaybackState</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="626441962%2FProperties%2F1521834560"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><a data-name="403399785%2FProperties%2F1521834560" anchor-label="currentState" id="403399785%2FProperties%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a><div class="symbol monospace">open override val <a href="current-state.html">currentState</a>: <span data-unresolved-link="kotlinx.coroutines.flow/StateFlow///PointingToDeclaration/">StateFlow</span>&lt;<a href="../../../media/com.google.android.horologist.media.model/-player-state/index.html">PlayerState</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="87646060%2FProperties%2F1521834560" anchor-label="mediaPosition" id="87646060%2FProperties%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="media-position.html">mediaPosition</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="87646060%2FProperties%2F1521834560"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><a data-name="87646060%2FProperties%2F1521834560" anchor-label="mediaPosition" id="87646060%2FProperties%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a><div class="symbol monospace">open override val <a href="media-position.html">mediaPosition</a>: <span data-unresolved-link="kotlinx.coroutines.flow/StateFlow///PointingToDeclaration/">StateFlow</span>&lt;<a href="../../../media/com.google.android.horologist.media.model/-media-position/index.html">MediaPosition</a>?&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-1954678131%2FProperties%2F1521834560" anchor-label="playbackSpeed" id="-1954678131%2FProperties%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="playback-speed.html">playbackSpeed</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1954678131%2FProperties%2F1521834560"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><a data-name="-1954678131%2FProperties%2F1521834560" anchor-label="playbackSpeed" id="-1954678131%2FProperties%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a><div class="symbol monospace">val <a href="playback-speed.html">playbackSpeed</a>: <span data-unresolved-link="kotlinx.coroutines.flow/StateFlow///PointingToDeclaration/">StateFlow</span>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><a data-name="626441962%2FProperties%2F1521834560" anchor-label="latestPlaybackState" id="626441962%2FProperties%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a><div class="symbol monospace">open override val <a href="latest-playback-state.html">latestPlaybackState</a>: <span data-unresolved-link="kotlinx.coroutines.flow/StateFlow///PointingToDeclaration/">StateFlow</span>&lt;<a href="../../../media/com.google.android.horologist.media.model/-playback-state-event/index.html">PlaybackStateEvent</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
                       </div>
                     </div>
                   </div>
@@ -592,10 +515,10 @@
                 </div>
               </div>
               <h2 class="">Sources</h2>
-              <div class="table" data-togglable="Sources"><a data-name="-1235790786%2FSource%2F-16892460" anchor-label="https://github.com/google/horologist/blob/main/media-data/src/main/java/com/google/android/horologist/media/data/repository/PlayerRepositoryImpl.kt#L43" id="-1235790786%2FSource%2F-16892460" data-filterable-set=":media-data:dokkaHtmlPartial/main"></a>
+              <div class="table" data-togglable="Sources"><a data-name="-1235790786%2FSource%2F-16892460" anchor-label="https://github.com/google/horologist/blob/main/media-data/src/main/java/com/google/android/horologist/media/data/repository/PlayerRepositoryImpl.kt#L41" id="-1235790786%2FSource%2F-16892460" data-filterable-set=":media-data:dokkaHtmlPartial/main"></a>
                 <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/main" data-filterable-set=":media-data:dokkaHtmlPartial/main">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="https://github.com/google/horologist/blob/main/media-data/src/main/java/com/google/android/horologist/media/data/repository/PlayerRepositoryImpl.kt#L43">androidJvm source</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1235790786%2FSource%2F-16892460"></span>
+                    <div class=""><span class="inline-flex"><a href="https://github.com/google/horologist/blob/main/media-data/src/main/java/com/google/android/horologist/media/data/repository/PlayerRepositoryImpl.kt#L41">androidJvm source</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1235790786%2FSource%2F-16892460"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>

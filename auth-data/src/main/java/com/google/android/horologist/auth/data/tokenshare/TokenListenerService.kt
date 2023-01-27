@@ -16,19 +16,17 @@
 
 package com.google.android.horologist.auth.data.tokenshare
 
-import android.annotation.SuppressLint
-import android.util.Log
-import com.google.android.gms.wearable.DataEvent
 import com.google.android.gms.wearable.DataEventBuffer
-import com.google.android.gms.wearable.DataMapItem
 import com.google.android.gms.wearable.WearableListenerService
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
-import com.google.android.horologist.auth.data.common.logging.TAG
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 /**
  * Base service class for applications wishing to receive auth token via data layer events.
+ *
+ * You should consider using [TokenListener] instead of this service so the app doesn't get started
+ * every time there is a token update.
  *
  * Must include the appropriate registration in the manifest. Such as
  *
@@ -46,34 +44,22 @@ import kotlinx.coroutines.launch
 @ExperimentalHorologistAuthDataApi
 public abstract class TokenListenerService : WearableListenerService() {
 
+    /**
+     * Should return the [CoroutineScope] on which the execution of this service's functions should
+     * run.
+     */
     public abstract fun getCoroutineScope(): CoroutineScope
 
+    /**
+     * Called when a token is received.
+     */
     public abstract suspend fun onTokenReceived(token: String): Unit
 
-    @SuppressLint("VisibleForTests") // https://issuetracker.google.com/issues/239451111
     override fun onDataChanged(dataEventBuffer: DataEventBuffer) {
-        dataEventBuffer.forEach { event ->
-            val uri = event.dataItem.uri
-            if (event.type == DataEvent.TYPE_DELETED) {
-                Log.d(TAG, "DataItem deleted: $uri")
-            } else if (event.type == DataEvent.TYPE_CHANGED) {
-                Log.d(TAG, "DataItem changed: $uri")
-
-                DataMapItem.fromDataItem(event.dataItem)
-                    .dataMap.getString(KEY_TOKEN)
-                    ?.let { token ->
-                        getCoroutineScope().launch {
-                            onTokenReceived(token)
-                        }
-                    }
-                    ?: run {
-                        Log.d(TAG, "Token not found in $uri.")
-                    }
+        OnDataChangedHandler.handle(dataEventBuffer) { token ->
+            getCoroutineScope().launch {
+                onTokenReceived(token)
             }
         }
-    }
-
-    private companion object {
-        private const val KEY_TOKEN = "token"
     }
 }

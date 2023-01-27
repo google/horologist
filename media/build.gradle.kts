@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("UnstableApiUsage")
+
 plugins {
     id("java-library")
     id("org.jetbrains.kotlin.jvm")

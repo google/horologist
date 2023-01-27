@@ -82,7 +82,7 @@ class PagerScreenTest {
         assertThat(state.pageCount).isEqualTo(5)
 
         val text0 = composeTestRule.onNodeWithTag("text0")
-        val text1 = composeTestRule.onNodeWithTag("text1")
+//        val text1 = composeTestRule.onNodeWithTag("text1")
         val text2 = composeTestRule.onNodeWithTag("text2")
         val text3 = composeTestRule.onNodeWithTag("text3")
         val text4 = composeTestRule.onNodeWithTag("text4")

@@ -26,8 +26,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.ScalingLazyListScope
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen

@@ -21,8 +21,8 @@ import android.os.Parcel
 import android.os.Parcelable
 import androidx.compose.runtime.Composable
 import androidx.paging.compose.LazyPagingItems
-import androidx.wear.compose.material.ScalingLazyListItemScope
-import androidx.wear.compose.material.ScalingLazyListScope
+import androidx.wear.compose.foundation.lazy.ScalingLazyListItemScope
+import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 
 /**

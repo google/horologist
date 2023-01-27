@@ -22,7 +22,7 @@
 
 package com.google.android.horologist.auth.ui.common.screens.prompt
 
-import androidx.wear.compose.material.ScalingLazyListScope
+import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi

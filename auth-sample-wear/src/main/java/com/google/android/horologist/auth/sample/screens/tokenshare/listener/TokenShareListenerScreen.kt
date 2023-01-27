@@ -32,8 +32,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.items
 import com.google.android.gms.wearable.Wearable
 import com.google.android.horologist.auth.sample.R
 import com.google.android.horologist.base.ui.components.StandardChip

@@ -80,6 +80,7 @@ dependencies {
     api(libs.androidx.datastore.preferences)
     api(libs.androidx.datastore)
     api(libs.protobuf.kotlin.lite)
+    implementation(libs.androidx.lifecycle.runtime)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

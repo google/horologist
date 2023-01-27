@@ -24,7 +24,7 @@
 package com.google.android.horologist.media.ui.screens.browse
 
 import androidx.compose.runtime.Composable
-import androidx.wear.compose.material.ScalingParams
+import androidx.wear.compose.foundation.lazy.ScalingParams
 import app.cash.paparazzi.DeviceConfig
 import com.android.ide.common.rendering.api.SessionParams
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults

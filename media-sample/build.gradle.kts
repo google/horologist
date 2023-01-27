@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("UnstableApiUsage")
+
 import java.util.Properties
 import com.google.protobuf.gradle.*
 

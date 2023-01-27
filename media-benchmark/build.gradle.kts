@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("UnstableApiUsage")
+
 plugins {
     id("com.android.library")
     id("me.tylerbwong.gradle.metalava")
@@ -25,7 +27,6 @@ android {
 
     defaultConfig {
         minSdk = 28
-        targetSdk = 30
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

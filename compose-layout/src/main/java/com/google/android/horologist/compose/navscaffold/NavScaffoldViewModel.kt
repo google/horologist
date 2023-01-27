@@ -31,9 +31,9 @@ import androidx.lifecycle.viewmodel.compose.SavedStateHandleSaveableApi
 import androidx.lifecycle.viewmodel.compose.saveable
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
+import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
-import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition

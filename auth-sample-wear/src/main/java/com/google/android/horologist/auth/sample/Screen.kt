@@ -29,6 +29,7 @@ sealed class Screen(
     object DeviceGrantSignOutScreen : Screen("deviceGrantSignOutScreen")
 
     object GoogleSignInPromptSampleScreen : Screen("googleSignInPromptSampleScreen")
+    object GoogleStreamlineSignInSampleScreen : Screen("googleStreamlineSignInSampleScreen")
     object GoogleSignInScreen : Screen("googleSignInScreen")
     object GoogleSignOutScreen : Screen("googleSignOutScreen")
 

@@ -18,11 +18,16 @@
 
 package com.google.android.horologist.media.ui.state.mapper
 
-import com.google.android.horologist.media.model.MediaPosition
+import com.google.android.horologist.media.model.PlaybackState
+import com.google.android.horologist.media.model.PlaybackStateEvent
+import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.DurationUnit
+import kotlin.time.toDuration
 
 class TrackPositionUiModelMapperTest {
 
@@ -31,30 +36,64 @@ class TrackPositionUiModelMapperTest {
         // given
         val current = 1.seconds
         val duration = 2.seconds
-        val mediaPosition = MediaPosition.create(current, duration)
+        val playbackStateEvent = PlaybackStateEvent(
+            PlaybackState(
+                playerState = PlayerState.Playing,
+                isLive = false,
+                currentPosition = current,
+                duration = duration,
+                playbackSpeed = 1f
+            ),
+            timestamp = 0.toDuration(DurationUnit.SECONDS),
+            cause = PlaybackStateEvent.Cause.PositionDiscontinuity
+        )
 
         // when
-        val result = TrackPositionUiModelMapper.map(mediaPosition)
+        val result = TrackPositionUiModelMapper.map(playbackStateEvent)
 
         // then
-        assertThat(result.current).isEqualTo(current.inWholeMilliseconds)
-        assertThat(result.duration).isEqualTo(duration.inWholeMilliseconds)
+        assertThat(result).isInstanceOf(TrackPositionUiModel.Predictive::class.java)
+        result as TrackPositionUiModel.Predictive
+        assertThat(result.predictor.predictPercent(0)).isEqualTo(0.5f)
+        assertThat(result.predictor.predictPercent(duration.inWholeMilliseconds)).isEqualTo(1f)
+    }
+
+    @Test
+    fun givenMediaPositionNotPlaying_thenMapsCorrectly() {
+        // given
+        val current = 1.seconds
+        val duration = 2.seconds
+        val playbackStateEvent = PlaybackStateEvent(
+            PlaybackState(
+                playerState = PlayerState.Stopped,
+                isLive = false,
+                currentPosition = current,
+                duration = duration,
+                playbackSpeed = 1f
+            ),
+            timestamp = 0.toDuration(DurationUnit.SECONDS),
+            cause = PlaybackStateEvent.Cause.PositionDiscontinuity
+        )
+
+        // when
+        val result = TrackPositionUiModelMapper.map(playbackStateEvent)
+
+        // then
+        assertThat(result).isInstanceOf(TrackPositionUiModel.Actual::class.java)
+        result as TrackPositionUiModel.Actual
         assertThat(result.percent).isEqualTo(0.5f)
-        assertThat(result.showProgress).isEqualTo(true)
     }
 
     @Test
     fun givenUnknownMediaPosition_thenMapsCorrectly() {
         // given
-        val mediaPosition = MediaPosition.Unknown
+        val playbackState = PlaybackState.IDLE
 
         // when
-        val result = TrackPositionUiModelMapper.map(mediaPosition)
+        val result = TrackPositionUiModelMapper.map(PlaybackStateEvent(playbackState, PlaybackStateEvent.Cause.Initial))
 
         // then
-        assertThat(result.current).isEqualTo(0L)
-        assertThat(result.duration).isEqualTo(0L)
-        assertThat(result.percent).isEqualTo(0F)
+        assertThat(result).isInstanceOf(TrackPositionUiModel.Hidden::class.java)
         assertThat(result.showProgress).isEqualTo(false)
     }
 }

@@ -16,10 +16,10 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
     id("org.jetbrains.kotlin.kapt")
     id("me.tylerbwong.gradle.metalava")
+    kotlin("android")
 }
 
 android {
@@ -42,7 +42,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 
     composeOptions {
@@ -82,7 +82,6 @@ metalava {
 }
 
 dependencies {
-    implementation(libs.kotlin.stdlib)
 
     api(libs.wearcompose.material)
     api(libs.wearcompose.foundation)
@@ -90,24 +89,27 @@ dependencies {
 
     api(libs.accompanist.pager)
 
-    implementation(libs.compose.ui.tooling)
+    api(libs.androidx.lifecycle.runtime.compose)
+    api(libs.androidx.paging)
+
+    implementation(libs.kotlin.stdlib)
     implementation(libs.compose.ui.util)
     implementation(libs.androidx.wear)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-    debugImplementation(projects.composeTools)
-    debugImplementation(libs.compose.ui.toolingpreview)
-    debugImplementation(libs.androidx.activity.compose)
-    api(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.compose.ui.toolingpreview)
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.ui.ktx)
 
-    api(libs.androidx.paging)
+    debugImplementation(libs.compose.ui.tooling)
+    debugImplementation(projects.composeTools)
+    debugImplementation(libs.androidx.activity.compose)
+    debugImplementation(libs.compose.ui.test.manifest)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)
+
     androidTestImplementation(libs.compose.ui.test.junit4)
-    debugImplementation(libs.compose.ui.test.manifest)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.truth)
     androidTestImplementation(libs.junit)

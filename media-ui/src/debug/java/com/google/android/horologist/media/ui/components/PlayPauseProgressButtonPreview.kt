@@ -25,6 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
+import kotlin.time.Duration.Companion.seconds
 
 @Preview(
     "Enabled - Playing - Progress 0%",
@@ -38,7 +40,7 @@ fun PlayPauseProgressButtonPreview0() {
         onPauseClick = {},
         enabled = true,
         playing = true,
-        percent = 0f
+        trackPositionUiModel = TrackPositionUiModel.Actual(0f, 0.seconds, 100.seconds)
     )
 }
 
@@ -54,7 +56,7 @@ fun PlayPauseProgressButtonPreview25() {
         onPauseClick = {},
         enabled = false,
         playing = false,
-        percent = 0.25f
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 25.seconds, 100.seconds)
     )
 }
 
@@ -70,7 +72,7 @@ fun PlayPauseProgressButtonPreview75() {
         onPauseClick = {},
         enabled = false,
         playing = true,
-        percent = 0.75f
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.75f, 75.seconds, 100.seconds)
     )
 }
 
@@ -86,7 +88,7 @@ fun PlayPauseProgressButtonPreview100() {
         onPauseClick = {},
         enabled = true,
         playing = false,
-        percent = 1f
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.5f, 50.seconds, 100.seconds)
     )
 }
 
@@ -103,7 +105,7 @@ fun PlayPauseProgressButtonPreviewOnWhite() {
             onPauseClick = {},
             enabled = true,
             playing = false,
-            percent = 0.5f
+            trackPositionUiModel = TrackPositionUiModel.Actual(0.5f, 50.seconds, 100.seconds)
         )
     }
 }

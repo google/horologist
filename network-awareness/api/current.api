@@ -286,7 +286,7 @@ package com.google.android.horologist.networks.db {
 
   @androidx.room.Dao public interface NetworkUsageDao {
     method @androidx.room.Query("SELECT * FROM DataUsage WHERE day = :day") public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.networks.db.DataUsage>> getRecords(int day);
-    method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.IGNORE) public suspend Object? insert(com.google.android.horologist.networks.db.DataUsage media, kotlin.coroutines.Continuation<? super java.lang.Long> p);
+    method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.IGNORE) public suspend Object? insert(com.google.android.horologist.networks.db.DataUsage media, kotlin.coroutines.Continuation<? super java.lang.Long> p);
     method @androidx.room.Query("UPDATE DataUsage SET bytesTotal = bytesTotal + :bytes WHERE day = :day") public suspend Object? updateBytes(int day, long bytes, kotlin.coroutines.Continuation<? super java.lang.Integer> p);
   }
 

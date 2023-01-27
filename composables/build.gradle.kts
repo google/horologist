@@ -16,10 +16,10 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
-    id("dev.chrisbanes.paparazzi")
+    id("app.cash.paparazzi")
     id("me.tylerbwong.gradle.metalava")
+    kotlin("android")
 }
 
 android {
@@ -43,7 +43,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-opt-in=kotlin.RequiresOptIn",
             "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi"
@@ -98,13 +98,13 @@ dependencies {
     implementation(libs.androidx.wear)
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
-    implementation(libs.compose.ui.tooling)
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.material.iconsext)
     implementation(libs.androidx.corektx)
 
+    implementation(libs.compose.ui.toolingpreview)
+    debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
-    debugImplementation(libs.compose.ui.toolingpreview)
     debugImplementation(projects.composeTools)
 
     testImplementation(libs.junit)

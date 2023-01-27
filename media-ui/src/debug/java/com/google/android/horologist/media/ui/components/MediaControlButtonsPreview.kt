@@ -21,6 +21,8 @@ package com.google.android.horologist.media.ui.components
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
+import kotlin.time.Duration.Companion.minutes
 
 @Preview(
     "Enabled - Playing - With progress",
@@ -34,7 +36,7 @@ fun MediaControlButtonsPreview() {
         onPauseButtonClick = {},
         playPauseButtonEnabled = true,
         playing = true,
-        percent = 0.25F,
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.minutes, 25.minutes),
         onSeekToNextButtonClick = {},
         seekToNextButtonEnabled = true,
         onSeekToPreviousButtonClick = {},

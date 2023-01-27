@@ -35,6 +35,32 @@ public object Samples : NavigationScreens("samples") {
     public fun destination(): String = navRoute
 }
 
+public fun NavController.navigateToGoogleSignInPrompt() {
+    navigate(GoogleSignInPromptScreen.destination())
+}
+
+public object GoogleSignInPromptScreen : NavigationScreens("signInPrompt") {
+    public fun destination(): String = navRoute
+}
+
+public fun NavController.navigateToGoogleSignIn() {
+    navigate(GoogleSignInScreen.destination())
+}
+
+public object GoogleSignInScreen : NavigationScreens("signIn") {
+    public fun destination(): String = navRoute
+}
+
+public fun NavController.navigateToGoogleSignOutScreen() {
+    navigate(GoogleSignOutScreen.destination()) {
+        popUpTo(NavigationScreens.Player.navRoute)
+    }
+}
+
+public object GoogleSignOutScreen : NavigationScreens("signOut") {
+    public fun destination(): String = navRoute
+}
+
 public fun NavController.navigateToDeveloperOptions() {
     navigate(DeveloperOptions.destination())
 }

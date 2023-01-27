@@ -19,9 +19,11 @@ package com.google.android.horologist.auth.sample
 import android.app.Application
 import com.google.android.horologist.auth.sample.di.SampleAppDI
 import com.squareup.moshi.Moshi
+import kotlinx.coroutines.CoroutineScope
 import okhttp3.OkHttpClient
 
 class SampleApplication : Application() {
+    lateinit var servicesCoroutineScope: CoroutineScope
     lateinit var okHttpClient: OkHttpClient
     lateinit var moshi: Moshi
 

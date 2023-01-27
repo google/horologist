@@ -18,8 +18,8 @@ import com.google.protobuf.gradle.id
 
 plugins {
     id("com.android.application")
-    id("kotlin-android")
     id("com.google.protobuf")
+    kotlin("android")
 }
 
 android {
@@ -66,11 +66,10 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
         // Allow for widescale experimental APIs in Alpha libraries we build upon
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi",
-            "-opt-in=androidx.lifecycle.compose.ExperimentalLifecycleComposeApi",
             "-opt-in=androidx.wear.compose.material.ExperimentalWearMaterialApi",
             "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
             "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi",
@@ -148,10 +147,8 @@ dependencies {
     implementation(projects.mediaUi)
     implementation(projects.networkAwareness)
     implementation(projects.tiles)
-    implementation(projects.composeTools)
     implementation(projects.datalayer)
 
-    implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.util)
 
     implementation(libs.compose.foundation.foundation)
@@ -180,7 +177,11 @@ dependencies {
 
     implementation(libs.com.squareup.okhttp3.logging.interceptor)
 
+    implementation(libs.compose.ui.toolingpreview)
+
+    debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
+    releaseCompileOnly(projects.composeTools)
 
     androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.espresso.core)

@@ -16,8 +16,8 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
+    kotlin("android")
 }
 
 android {
@@ -41,7 +41,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-opt-in=kotlin.RequiresOptIn",
             "-opt-in=com.google.android.horologist.data.ExperimentalHorologistDataLayerApi"

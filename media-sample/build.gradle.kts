@@ -19,11 +19,11 @@ import com.google.protobuf.gradle.*
 
 plugins {
     id("com.android.application")
-    id("kotlin-android")
     id("org.jetbrains.kotlin.kapt")
     id("dagger.hilt.android.plugin")
     id("com.google.devtools.ksp")
     id("com.google.protobuf")
+    kotlin("android")
 }
 
 val localProperties = Properties()
@@ -91,7 +91,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
         // Allow for widescale experimental APIs in Alpha libraries we build upon
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi",
@@ -109,7 +109,9 @@ android {
             "-opt-in=com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi",
             "-opt-in=com.google.android.horologist.networks.ExperimentalHorologistNetworksApi",
             "-opt-in=com.google.android.horologist.tiles.ExperimentalHorologistTilesApi",
-            "-opt-in=androidx.lifecycle.compose.ExperimentalLifecycleComposeApi",
+            "-opt-in=com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi",
+            "-opt-in=com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi",
+            "-opt-in=com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi",
             "-opt-in=kotlin.RequiresOptIn",
             "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
         )
@@ -155,7 +157,6 @@ dependencies {
     implementation(projects.composables)
     implementation(projects.composeLayout)
     implementation(projects.composeLayout)
-    implementation(projects.composeTools)
     implementation(projects.media)
     implementation(projects.media3Backend)
     implementation(projects.mediaData)
@@ -168,7 +169,6 @@ dependencies {
         project.findProject(":media-lib-datasource-okhttp") ?: libs.androidx.media3.datasourceokhttp
     )
 
-    implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.util)
 
     implementation(libs.compose.foundation.foundation)
@@ -209,8 +209,6 @@ dependencies {
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.guava)
 
-    debugImplementation(projects.composeTools)
-
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.complications.rendering)
 
@@ -230,6 +228,16 @@ dependencies {
     ksp(libs.room.compiler)
 
     implementation(libs.androidx.tracing.ktx)
+
+    implementation(projects.authComposables)
+    implementation(projects.authData)
+    implementation(projects.authUi)
+    implementation(libs.playservices.auth)
+    implementation(libs.kotlinx.coroutines.playservices)
+
+    debugImplementation(libs.compose.ui.tooling)
+    debugImplementation(projects.composeTools)
+    releaseCompileOnly(projects.composeTools)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

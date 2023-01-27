@@ -16,8 +16,8 @@
 
 plugins {
     id("com.android.application")
-    id("kotlin-android")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    kotlin("android")
 }
 
 android {
@@ -64,11 +64,10 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
 
         // Allow for widescale experimental APIs in Alpha libraries we build upon
         freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=androidx.lifecycle.compose.ExperimentalLifecycleComposeApi",
             "-opt-in=com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi",
             "-opt-in=com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi",
             "-opt-in=com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi",
@@ -98,6 +97,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.wear)
     implementation(libs.compose.foundation.foundation)
+    implementation(libs.compose.ui.toolingpreview)
     implementation(libs.kotlin.stdlib)
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
@@ -108,9 +108,12 @@ dependencies {
     implementation(libs.kotlinx.coroutines.playservices)
     implementation(libs.moshi.kotlin)
     implementation(libs.playservices.auth)
+    implementation(libs.playservices.wearable)
 
+    debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
     debugImplementation(libs.compose.ui.toolingpreview)
+    releaseCompileOnly(projects.composeTools)
 
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {

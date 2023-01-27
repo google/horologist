@@ -20,6 +20,7 @@ import androidx.media3.common.AdPlaybackState
 import androidx.media3.common.C
 import androidx.media3.common.FlagSet
 import androidx.media3.common.MediaItem
+import androidx.media3.common.PlaybackParameters
 import androidx.media3.common.Player
 import androidx.media3.common.Player.Listener
 import androidx.media3.common.Timeline
@@ -32,7 +33,8 @@ class FakeStatePlayer(
     var _duration: Long = C.TIME_UNSET,
     var _playbackState: Int = STATE_IDLE,
     var _playWhenReady: Boolean = false,
-    var _currentMediaItem: MediaItem? = null
+    var _currentMediaItem: MediaItem? = null,
+    var _playbackSpeed: Float = 1f
 ) : StubPlayer() {
     private val listeners = mutableListOf<Listener>()
 
@@ -55,22 +57,24 @@ class FakeStatePlayer(
 
     override fun getPlayWhenReady(): Boolean = _playWhenReady
 
+    override fun isLoading(): Boolean = false
+
     override fun getCurrentTimeline(): Timeline {
         val currentMediaItem = _currentMediaItem
         if (currentMediaItem == null) {
-            return FakeTimeline()
+            return FakeTimeline(0)
         } else {
             return FakeTimeline(
                 FakeTimeline.TimelineWindowDefinition(
-                    /* periodCount= */ 1,
-                    /* id= */ 1,
-                    /* isSeekable= */ true,
-                    /* isDynamic= */ false,
-                    /* isLive= */ false,
-                    /* isPlaceholder= */ false,
-                    /* durationUs= */ 1000 * C.MICROS_PER_SECOND,
-                    /* defaultPositionUs= */ 2 * C.MICROS_PER_SECOND,
-                    /* windowOffsetInFirstPeriodUs= */ 123456789,
+                    /* periodCount = */ 1,
+                    /* id = */ 1,
+                    /* isSeekable = */ true,
+                    /* isDynamic = */ false,
+                    /* isLive = */ false,
+                    /* isPlaceholder = */ false,
+                    /* durationUs = */ 1000 * C.MICROS_PER_SECOND,
+                    /* defaultPositionUs = */ 2 * C.MICROS_PER_SECOND,
+                    /* windowOffsetInFirstPeriodUs = */ 123456789,
                     ImmutableList.of(AdPlaybackState.NONE),
                     currentMediaItem
                 )
@@ -80,10 +84,14 @@ class FakeStatePlayer(
 
     override fun getCurrentMediaItemIndex(): Int = 0
 
+    override fun getPlaybackSuppressionReason(): Int = PLAYBACK_SUPPRESSION_REASON_NONE
+
+    override fun getPlaybackParameters(): PlaybackParameters = PlaybackParameters(_playbackSpeed)
+
     fun overridePosition(
         currentPosition: Long = 0L,
         duration: Long = C.TIME_UNSET,
-        currentMediaItem: MediaItem? = null
+        currentMediaItem: MediaItem? = MediaItem.EMPTY
     ) {
         _currentPosition = currentPosition
         _duration = duration
@@ -95,10 +103,22 @@ class FakeStatePlayer(
                 Player.Events(
                     FlagSet.Builder().addAll(
                         EVENT_MEDIA_ITEM_TRANSITION,
-                        EVENT_MEDIA_ITEM_TRANSITION,
+                        EVENT_TIMELINE_CHANGED,
                         EVENT_MEDIA_METADATA_CHANGED
                     ).build()
                 )
+            )
+        }
+    }
+
+    fun overridePlaybackSpeed(
+        playbackSpeed: Float
+    ) {
+        _playbackSpeed = playbackSpeed
+        listeners.forEach {
+            it.onEvents(
+                this,
+                Player.Events(FlagSet.Builder().add(EVENT_PLAYBACK_PARAMETERS_CHANGED).build())
             )
         }
     }
@@ -118,12 +138,14 @@ class FakeStatePlayer(
                     FlagSet.Builder().addAll(
                         EVENT_PLAYBACK_STATE_CHANGED,
                         EVENT_PLAY_WHEN_READY_CHANGED,
+                        EVENT_IS_PLAYING_CHANGED,
                         EVENT_MEDIA_ITEM_TRANSITION
                     ).build()
                 )
             )
             it.onPlayWhenReadyChanged(_playWhenReady, reason)
             it.onPlaybackStateChanged(_playbackState)
+            it.onIsPlayingChanged(isPlaying)
         }
     }
 }

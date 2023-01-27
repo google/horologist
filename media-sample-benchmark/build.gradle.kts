@@ -16,7 +16,7 @@
 
 plugins {
     id("com.android.test")
-    id("org.jetbrains.kotlin.android")
+    kotlin("android")
 }
 
 android {
@@ -29,7 +29,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 
     defaultConfig {

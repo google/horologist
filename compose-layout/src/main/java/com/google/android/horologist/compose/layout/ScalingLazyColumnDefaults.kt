@@ -19,11 +19,13 @@
 package com.google.android.horologist.compose.layout
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
@@ -47,7 +49,9 @@ public object ScalingLazyColumnDefaults {
                 space = 4.dp,
                 alignment = Alignment.Top
             ),
-        horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally
+        horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
+        contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
+        topPaddingDp: Dp = 32.dp + (if (firstItemIsFullWidth) 20.dp else 0.dp)
     ): ScalingLazyColumnState.Factory {
         return object : ScalingLazyColumnState.Factory {
             @Composable
@@ -58,7 +62,6 @@ public object ScalingLazyColumnDefaults {
                 return remember {
                     val screenHeightPx =
                         with(density) { configuration.screenHeightDp.dp.roundToPx() }
-                    val topPaddingDp = 32.dp + (if (firstItemIsFullWidth) 20.dp else 0.dp)
                     val topPaddingPx = with(density) { topPaddingDp.roundToPx() }
                     val topScreenOffsetPx = screenHeightPx / 2 - topPaddingPx
 
@@ -70,7 +73,8 @@ public object ScalingLazyColumnDefaults {
                         anchorType = ScalingLazyListAnchorType.ItemStart,
                         rotaryMode = rotaryMode,
                         verticalArrangement = verticalArrangement,
-                        horizontalAlignment = horizontalAlignment
+                        horizontalAlignment = horizontalAlignment,
+                        contentPadding = contentPadding
                     )
                 }
             }
@@ -85,7 +89,14 @@ public object ScalingLazyColumnDefaults {
     public fun scalingLazyColumnDefaults(
         rotaryMode: RotaryMode = RotaryMode.Fling,
         initialCenterIndex: Int = 1,
-        initialCenterOffset: Int = 0
+        initialCenterOffset: Int = 0,
+        verticalArrangement: Arrangement.Vertical =
+            Arrangement.spacedBy(
+                space = 4.dp,
+                alignment = Alignment.Top
+            ),
+        horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
+        contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp)
     ): ScalingLazyColumnState.Factory {
         return object : ScalingLazyColumnState.Factory {
             @Composable
@@ -96,7 +107,10 @@ public object ScalingLazyColumnDefaults {
                             index = initialCenterIndex,
                             offsetPx = initialCenterOffset
                         ),
-                        rotaryMode = rotaryMode
+                        rotaryMode = rotaryMode,
+                        verticalArrangement = verticalArrangement,
+                        horizontalAlignment = horizontalAlignment,
+                        contentPadding = contentPadding
                     )
                 }
             }

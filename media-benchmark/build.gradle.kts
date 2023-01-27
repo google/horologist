@@ -16,8 +16,8 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("me.tylerbwong.gradle.metalava")
+    kotlin("android")
 }
 
 android {
@@ -36,7 +36,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
         freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
     }
 

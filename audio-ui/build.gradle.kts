@@ -16,11 +16,11 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
     id("org.jetbrains.kotlin.kapt")
-    id("dev.chrisbanes.paparazzi")
+    id("app.cash.paparazzi")
     id("me.tylerbwong.gradle.metalava")
+    kotlin("android")
 }
 
 android {
@@ -43,7 +43,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 
     composeOptions {
@@ -109,13 +109,13 @@ dependencies {
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.material.iconsext)
 
-    implementation(libs.compose.ui.tooling)
     implementation(libs.androidx.wear)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     implementation(libs.lottie.compose)
 
-    debugImplementation(libs.compose.ui.toolingpreview)
+    implementation(libs.compose.ui.toolingpreview)
+    debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
 
     testImplementation(libs.junit)

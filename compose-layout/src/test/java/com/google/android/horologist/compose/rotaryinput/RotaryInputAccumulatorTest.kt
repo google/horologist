@@ -32,7 +32,7 @@ class RotaryInputAccumulatorTest {
         RotaryInputAccumulator(
             eventAccumulationThresholdMs = accumulationThreshold,
             minValueChangeDistancePx = minChangePx,
-            rateLimitCoolDownMs = RotaryInputAccumulator.RATE_LIMITING_DISABLED
+            rateLimitCoolDownMs = RotaryInputConfigDefaults.RATE_LIMITING_DISABLED
         ) {
             latestValue.set(it)
             valueChangedTimes.incrementAndGet()

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalLifecycleComposeApi::class)
+@file:OptIn(ExperimentalHorologistMediaUiApi::class)
 
 package com.google.android.horologist.media.ui.screens.player
 
@@ -38,7 +38,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
@@ -133,8 +132,7 @@ public fun DefaultPlayerScreenControlButtons(
         seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
         onSeekToNextButtonClick = playerController::skipToNextMedia,
         seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
-        showProgress = playerUiState.trackPosition?.showProgress ?: true,
-        percent = playerUiState.trackPosition?.percent ?: 0f
+        trackPositionUiModel = playerUiState.trackPositionUiModel
     )
 }
 

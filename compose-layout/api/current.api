@@ -27,8 +27,8 @@ package com.google.android.horologist.compose.layout {
   }
 
   public final class ScalingLazyColumnDefaults {
-    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public com.google.android.horologist.compose.layout.ScalingLazyColumnState.Factory belowTimeText(optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode rotaryMode, optional boolean firstItemIsFullWidth, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional androidx.compose.ui.Alignment.Horizontal horizontalAlignment);
-    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public com.google.android.horologist.compose.layout.ScalingLazyColumnState.Factory scalingLazyColumnDefaults(optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode rotaryMode, optional int initialCenterIndex, optional int initialCenterOffset);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public com.google.android.horologist.compose.layout.ScalingLazyColumnState.Factory belowTimeText(optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode rotaryMode, optional boolean firstItemIsFullWidth, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional androidx.compose.ui.Alignment.Horizontal horizontalAlignment, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional float topPaddingDp);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public com.google.android.horologist.compose.layout.ScalingLazyColumnState.Factory scalingLazyColumnDefaults(optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode rotaryMode, optional int initialCenterIndex, optional int initialCenterOffset, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional androidx.compose.ui.Alignment.Horizontal horizontalAlignment, optional androidx.compose.foundation.layout.PaddingValues contentPadding);
     field public static final com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults INSTANCE;
   }
 
@@ -344,6 +344,14 @@ package com.google.android.horologist.compose.rotaryinput {
     property public final int ScrollItemFocus;
     property public final int ScrollLimit;
     property public final int ScrollTick;
+  }
+
+  public final class RotaryInputConfigDefaults {
+    field public static final long DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS = 200L; // 0xc8L
+    field public static final float DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX = 48.0f;
+    field public static final long DEFAULT_RATE_LIMIT_COOL_DOWN_MS = 300L; // 0x12cL
+    field public static final com.google.android.horologist.compose.rotaryinput.RotaryInputConfigDefaults INSTANCE;
+    field public static final long RATE_LIMITING_DISABLED = -1L; // 0xffffffffffffffffL
   }
 
   public final class RotaryKt {

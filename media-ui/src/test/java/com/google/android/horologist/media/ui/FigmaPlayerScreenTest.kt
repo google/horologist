@@ -41,6 +41,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import kotlin.time.Duration.Companion.seconds
 
 @Ignore("For interactive use only")
 @RunWith(Parameterized::class)
@@ -70,7 +71,7 @@ class FigmaPlayerScreenTest(
                 title = "Bat Out of Hell",
                 subtitle = "Meat Loaf"
             ),
-            trackPosition = TrackPositionUiModel(current = 75, duration = 100, percent = 0.75f, showProgress = true),
+            trackPositionUiModel = TrackPositionUiModel.Actual(percent = 0.75f, position = 75.seconds, duration = 100.seconds),
             connected = true
         )
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,10 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
     id("com.google.devtools.ksp")
     id("me.tylerbwong.gradle.metalava")
+    kotlin("android")
 }
 
 android {
@@ -42,7 +42,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
         freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
     }
 
@@ -96,13 +96,11 @@ dependencies {
     implementation(libs.androidx.wear.phone.interactions)
     implementation(libs.androidx.wear.remote.interactions)
     implementation(libs.playservices.auth)
+    implementation(libs.playservices.wearable)
     implementation(libs.retrofit2.retrofit)
     implementation(libs.retrofit2.convertermoshi)
     implementation(libs.moshi.kotlin)
     ksp(libs.moshi.kotlin.codegen)
-
-    debugImplementation(projects.composeTools)
-    debugImplementation(libs.compose.ui.toolingpreview)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

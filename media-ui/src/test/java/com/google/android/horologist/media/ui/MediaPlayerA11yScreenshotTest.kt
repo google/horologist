@@ -39,6 +39,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import kotlin.time.Duration.Companion.seconds
 
 @RunWith(Parameterized::class)
 class MediaPlayerA11yScreenshotTest(
@@ -82,7 +83,7 @@ class MediaPlayerA11yScreenshotTest(
                 title = "Weather with You",
                 subtitle = "Crowded House"
             ),
-            trackPosition = TrackPositionUiModel(current = 30, duration = 225, percent = 0.133f, showProgress = true),
+            trackPositionUiModel = TrackPositionUiModel.Actual(percent = 0.133f, position = 30.seconds, duration = 225.seconds),
             connected = true
         )
 

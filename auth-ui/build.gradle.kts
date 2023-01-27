@@ -16,10 +16,10 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
-    id("dev.chrisbanes.paparazzi")
+    id("app.cash.paparazzi")
     id("me.tylerbwong.gradle.metalava")
+    kotlin("android")
 }
 
 android {
@@ -43,9 +43,8 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
         freeCompilerArgs = listOf(
-            "-opt-in=androidx.lifecycle.compose.ExperimentalLifecycleComposeApi",
             "-opt-in=com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi",
             "-opt-in=com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi",
             "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi",
@@ -119,7 +118,7 @@ dependencies {
     implementation(libs.wearcompose.foundation)
 
     debugImplementation(projects.composeTools)
-    debugImplementation(libs.compose.ui.toolingpreview)
+    implementation(libs.compose.ui.toolingpreview)
 
     testImplementation(projects.composeTools)
     testImplementation(projects.paparazzi)

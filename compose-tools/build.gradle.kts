@@ -16,10 +16,10 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
     id("org.jetbrains.kotlin.kapt")
     id("me.tylerbwong.gradle.metalava")
+    kotlin("android")
 }
 
 android {
@@ -42,7 +42,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 
     composeOptions {
@@ -93,10 +93,8 @@ metalava {
 
 dependencies {
     implementation(libs.kotlin.stdlib)
-
+    implementation(libs.kotlin.reflect)
     implementation(projects.tiles)
-
-    implementation(libs.compose.ui.tooling)
 
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
@@ -106,10 +104,12 @@ dependencies {
     implementation(libs.androidx.wear.tiles.renderer)
     implementation(libs.coil)
 
-    compileOnly(projects.paparazzi)
+    implementation(libs.compose.ui.toolingpreview)
 
+    debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
-    debugImplementation(libs.compose.ui.toolingpreview)
+
+    compileOnly(projects.paparazzi)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

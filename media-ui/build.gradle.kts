@@ -16,10 +16,10 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
-    id("dev.chrisbanes.paparazzi")
+    id("app.cash.paparazzi")
     id("me.tylerbwong.gradle.metalava")
+    kotlin("android")
 }
 
 android {
@@ -43,9 +43,8 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
         freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=androidx.lifecycle.compose.ExperimentalLifecycleComposeApi",
             "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
             "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi",
             "-opt-in=com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi",
@@ -118,7 +117,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodelktx)
     api(libs.wearcompose.material)
     api(libs.wearcompose.foundation)
-    implementation(libs.compose.ui.tooling)
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.material.iconsext)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -128,17 +126,17 @@ dependencies {
     implementation(libs.androidx.palette.ktx)
 
     implementation(projects.tiles)
-    implementation(projects.composeTools)
     implementation(libs.androidx.complications.datasource.ktx)
     implementation(libs.androidx.wear.tiles)
     implementation(libs.androidx.wear.tiles.material)
-    implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.util)
+    implementation(libs.compose.ui.toolingpreview)
 
+    debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
-    debugImplementation(libs.compose.ui.toolingpreview)
     debugImplementation(projects.audioUi)
     debugImplementation(projects.composeTools)
+    releaseCompileOnly(projects.composeTools)
 
     testImplementation(libs.junit)
     testImplementation(libs.androidx.test.ext.ktx)

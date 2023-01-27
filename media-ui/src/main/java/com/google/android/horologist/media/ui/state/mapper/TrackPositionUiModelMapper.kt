@@ -19,30 +19,32 @@
 package com.google.android.horologist.media.ui.state.mapper
 
 import com.google.android.horologist.media.ExperimentalHorologistMediaApi
-import com.google.android.horologist.media.model.MediaPosition
+import com.google.android.horologist.media.model.PlaybackStateEvent
+import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
 /**
- * Map a [MediaPosition] into a [TrackPositionUiModel]
+ * Functions to map a [TrackPositionUiModel] based on data from other layers.
  */
 @ExperimentalHorologistMediaUiApi
 public object TrackPositionUiModelMapper {
-
-    internal data class TrackPositionValues(val current: Long, val duration: Long, val percent: Float, val showProgressBar: Boolean)
-
-    public fun map(mediaPosition: MediaPosition): TrackPositionUiModel {
-        val (current, duration, percent, showProgress) = if (mediaPosition is MediaPosition.KnownDuration) {
-            TrackPositionValues(mediaPosition.current.inWholeMilliseconds, mediaPosition.duration.inWholeMilliseconds, mediaPosition.percent, true)
-        } else {
-            TrackPositionValues(0L, 0L, 0F, false)
+    public fun map(event: PlaybackStateEvent): TrackPositionUiModel {
+        val currentPosition = event.playbackState.currentPosition
+        val duration = event.playbackState.duration
+        val durationMs = duration?.inWholeMilliseconds
+        val currentPositionMs = currentPosition?.inWholeMilliseconds
+        if (event.playbackState.playerState == PlayerState.Loading) {
+            return TrackPositionUiModel.Actual.ZERO
         }
-
-        return TrackPositionUiModel(
-            current = current,
-            duration = duration,
-            percent = percent,
-            showProgress = showProgress
-        )
+        if (currentPositionMs == null || durationMs == null || durationMs <= 0) {
+            return TrackPositionUiModel.Hidden
+        }
+        val predictor = event.createPositionPredictor()
+        if (event.playbackState.isPlaying && predictor != null) {
+            return TrackPositionUiModel.Predictive(predictor)
+        }
+        val percent = currentPositionMs.toFloat() / durationMs.toFloat()
+        return TrackPositionUiModel.Actual(percent, duration, currentPosition)
     }
 }

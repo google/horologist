@@ -41,6 +41,7 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.wear.compose.foundation.HierarchicalFocusCoordinator
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
@@ -52,7 +53,6 @@ import androidx.wear.compose.navigation.SwipeDismissableNavHostState
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.currentBackStackEntryAsState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
-import com.google.android.horologist.compose.focus.FocusControl
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
@@ -351,7 +351,7 @@ internal fun FocusedDestination(content: @Composable () -> Unit) {
         }
     }
 
-    FocusControl(requiresFocus = { focused.value }) {
+    HierarchicalFocusCoordinator(requiresFocus = { focused.value }) {
         content()
     }
 }

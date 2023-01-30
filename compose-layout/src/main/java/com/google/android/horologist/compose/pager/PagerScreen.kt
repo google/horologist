@@ -34,6 +34,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.wear.compose.foundation.HierarchicalFocusCoordinator
 import androidx.wear.compose.material.HorizontalPageIndicator
 import androidx.wear.compose.material.PageIndicatorState
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -41,7 +42,6 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerScope
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
-import com.google.android.horologist.compose.focus.FocusControl
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 
 /**
@@ -73,7 +73,7 @@ public fun PagerScreen(
                     }
                 }
             ) {
-                FocusControl(requiresFocus = { page == state.currentPage }) {
+                HierarchicalFocusCoordinator(requiresFocus = { page == state.currentPage }) {
                     content(page)
                 }
             }

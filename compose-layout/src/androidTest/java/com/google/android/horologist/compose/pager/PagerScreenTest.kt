@@ -41,7 +41,6 @@ import androidx.test.filters.MediumTest
 import androidx.wear.compose.material.Text
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
-import com.google.android.horologist.compose.focus.RequestFocusWhenActive
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.common.truth.Truth.assertThat

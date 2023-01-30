@@ -30,7 +30,6 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
-import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.layout.scrollAway

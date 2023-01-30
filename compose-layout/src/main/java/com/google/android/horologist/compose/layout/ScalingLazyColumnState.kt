@@ -32,7 +32,7 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.foundation.lazy.ScalingParams
-import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
+import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling

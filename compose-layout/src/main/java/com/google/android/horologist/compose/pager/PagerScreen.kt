@@ -98,7 +98,7 @@ public fun PagerScreen(
  */
 public class PageScreenIndicatorState(
     private val state: PagerState,
-    val pageCountState: State<Int>
+    private val pageCountState: State<Int>
 ) : PageIndicatorState {
     override val pageCount: Int
         get() = pageCountState.value

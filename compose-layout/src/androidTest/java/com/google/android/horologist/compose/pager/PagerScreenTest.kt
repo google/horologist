@@ -16,7 +16,8 @@
 
 @file:OptIn(
     ExperimentalCoroutinesApi::class,
-    ExperimentalHorologistComposeLayoutApi::class, ExperimentalFoundationApi::class
+    ExperimentalHorologistComposeLayoutApi::class,
+    ExperimentalFoundationApi::class
 )
 
 package com.google.android.horologist.compose.pager

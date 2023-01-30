@@ -106,7 +106,7 @@ allprojects {
 
     plugins.withId("com.vanniktech.maven.publish") {
         mavenPublishing {
-            publishToMavenCentral(SonatypeHost.DEFAULT)
+            publishToMavenCentral(SonatypeHost("https://google.oss.sonatype.org"))
         }
     }
 }

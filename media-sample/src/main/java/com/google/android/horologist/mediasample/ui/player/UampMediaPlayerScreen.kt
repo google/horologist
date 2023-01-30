@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.mediasample.ui.player
 
+import androidx.activity.compose.ReportDrawnAfter
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -31,7 +32,8 @@ import com.google.android.horologist.media.ui.screens.player.DefaultPlayerScreen
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiController
 import com.google.android.horologist.media.ui.state.PlayerUiState
-import com.google.android.horologist.mediasample.ui.util.ReportFullyDrawn
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
 
 @Composable
 fun UampMediaPlayerScreen(
@@ -90,9 +92,8 @@ fun UampMediaPlayerScreen(
         }
     )
 
-    val player by mediaPlayerScreenViewModel.playerState.collectAsStateWithLifecycle()
-    if (player != null) {
-        ReportFullyDrawn()
+    ReportDrawnAfter {
+        mediaPlayerScreenViewModel.playerState.filterNotNull().first()
     }
 }
 

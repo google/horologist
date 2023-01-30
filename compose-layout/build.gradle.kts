@@ -88,8 +88,6 @@ dependencies {
     api(libs.wearcompose.foundation)
     api(libs.wearcompose.navigation)
 
-    api(libs.accompanist.pager)
-
     api(libs.androidx.lifecycle.runtime.compose)
     api(libs.androidx.paging)
 

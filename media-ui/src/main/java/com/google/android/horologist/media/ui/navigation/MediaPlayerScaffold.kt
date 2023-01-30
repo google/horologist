@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistAudioUiApi::class, ExperimentalLifecycleComposeApi::class,
+@file:OptIn(ExperimentalHorologistAudioUiApi::class,
     ExperimentalFoundationApi::class
 )
 

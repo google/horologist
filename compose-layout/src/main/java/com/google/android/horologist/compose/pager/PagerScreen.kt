@@ -29,7 +29,9 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
@@ -78,7 +80,8 @@ public fun PagerScreen(
             }
         }
 
-        val pagerScreenState = remember { PageScreenIndicatorState(state, count) }
+        val countState = rememberUpdatedState(newValue = count)
+        val pagerScreenState = remember { PageScreenIndicatorState(state, countState) }
         HorizontalPageIndicator(
             modifier = Modifier.padding(6.dp),
             pageIndicatorState = pagerScreenState
@@ -95,8 +98,11 @@ public fun PagerScreen(
  */
 public class PageScreenIndicatorState(
     private val state: PagerState,
-    override val pageCount: Int
+    val pageCountState: State<Int>
 ) : PageIndicatorState {
+    override val pageCount: Int
+        get() = pageCountState.value
+
     override val pageOffset: Float
         get() = state.currentPageOffsetFraction.takeIf { it.isFinite() } ?: 0f
 

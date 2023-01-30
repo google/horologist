@@ -67,4 +67,8 @@
     <string name="force_stop">Force Stop</string>
     <string description="Description of the action of the Chip of a playlist that is currently being downloaded. Lets the user know that taking this action, it will cancel the download in progress. [CHAR_LIMIT=NONE]" name="browse_download_cancel_action_label">cancel</string>
     <string name="streaming_mode">Streaming Mode</string>
+    <string name="google_sign_in_prompt_message">Sign in to save your music faves.</string>
+    <string name="google_sign_out_success_message">Signed out successfully!</string>
+    <string name="google_sign_in_prompt_already_signed_in_message">Already signed-in!</string>
+    <string name="login">Sign-in</string>
 </resources>

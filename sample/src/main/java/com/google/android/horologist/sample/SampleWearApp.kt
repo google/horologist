@@ -16,34 +16,16 @@
 
 package com.google.android.horologist.sample
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.audio.ui.VolumeScreen
-import com.google.android.horologist.auth.AuthMenuScreen
-import com.google.android.horologist.auth.data.oauth.common.impl.google.api.DeviceCodeResponse
-import com.google.android.horologist.auth.data.oauth.common.impl.google.api.TokenResponse
-import com.google.android.horologist.auth.data.oauth.devicegrant.impl.AuthDeviceGrantDefaultConfig
-import com.google.android.horologist.auth.data.oauth.pkce.impl.AuthPKCEDefaultConfig
-import com.google.android.horologist.auth.data.oauth.pkce.impl.google.AuthPKCEOAuthCodeGooglePayload
-import com.google.android.horologist.auth.googlesignin.prompt.GoogleSignInPromptSampleScreen
-import com.google.android.horologist.auth.googlesignin.signin.GoogleSignInSampleViewModel
-import com.google.android.horologist.auth.googlesignin.signout.GoogleSignOutScreen
-import com.google.android.horologist.auth.oauth.devicegrant.AuthDeviceGrantSampleViewModel
-import com.google.android.horologist.auth.oauth.devicegrant.AuthDeviceGrantSignInPromptScreen
-import com.google.android.horologist.auth.oauth.pkce.AuthPKCESampleViewModel
-import com.google.android.horologist.auth.oauth.pkce.AuthPKCESignInPromptScreen
-import com.google.android.horologist.auth.ui.googlesignin.GoogleSignInScreen
-import com.google.android.horologist.auth.ui.oauth.devicegrant.AuthDeviceGrantScreen
-import com.google.android.horologist.auth.ui.oauth.pkce.AuthPKCEScreen
 import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
 import com.google.android.horologist.composables.TimePickerWith12HourClock
@@ -79,7 +61,6 @@ fun SampleWearApp() {
             route = Screen.Menu.route
         ) {
             MenuScreen(
-                modifier = Modifier.fillMaxSize(),
                 navigateToRoute = { route -> navController.navigate(route) },
                 time = time,
                 columnState = it.columnState
@@ -175,7 +156,6 @@ fun SampleWearApp() {
             route = Screen.SectionedListMenuScreen.route
         ) {
             SectionedListMenuScreen(
-                modifier = Modifier.fillMaxSize(),
                 navigateToRoute = { route -> navController.navigate(route) },
                 columnState = it.columnState
             )
@@ -205,7 +185,6 @@ fun SampleWearApp() {
             route = Screen.RotaryMenuScreen.route
         ) {
             RotaryMenuScreen(
-                modifier = Modifier.fillMaxSize(),
                 navigateToRoute = { route -> navController.navigate(route) },
                 columnState = it.columnState
             )
@@ -218,64 +197,6 @@ fun SampleWearApp() {
         }
         composable(route = Screen.RotarySnapListScreen.route) {
             RotaryScrollWithFlingOrSnapScreen(isFling = false, isSnap = true)
-        }
-        scrollable(
-            route = Screen.AuthMenuScreen.route
-        ) {
-            AuthMenuScreen(
-                navigateToRoute = { route -> navController.navigate(route) },
-                modifier = Modifier.fillMaxSize(),
-                columnState = it.columnState
-            )
-        }
-        scrollable(
-            route = Screen.AuthPKCESignInPromptScreen.route
-        ) {
-            AuthPKCESignInPromptScreen(
-                navController = navController,
-                columnState = it.columnState
-            )
-        }
-        composable(route = Screen.AuthPKCEScreen.route) {
-            AuthPKCEScreen<AuthPKCEDefaultConfig, AuthPKCEOAuthCodeGooglePayload, TokenResponse>(
-                viewModel = viewModel(factory = AuthPKCESampleViewModel.Factory)
-            ) {
-                navController.popBackStack()
-            }
-        }
-        scrollable(
-            route = Screen.AuthDeviceGrantSignInPromptScreen.route
-        ) {
-            AuthDeviceGrantSignInPromptScreen(
-                navController = navController,
-                columnState = it.columnState
-            )
-        }
-        composable(route = Screen.AuthDeviceGrantScreen.route) {
-            AuthDeviceGrantScreen<AuthDeviceGrantDefaultConfig, DeviceCodeResponse, String>(
-                viewModel = viewModel(factory = AuthDeviceGrantSampleViewModel.Factory)
-            ) {
-                navController.popBackStack()
-            }
-        }
-        scrollable(
-            route = Screen.GoogleSignInPromptSampleScreen.route
-        ) {
-            GoogleSignInPromptSampleScreen(
-                navController = navController,
-                columnState = it.columnState
-            )
-        }
-        composable(route = Screen.GoogleSignInScreen.route) {
-            GoogleSignInScreen(
-                viewModel = viewModel(factory = GoogleSignInSampleViewModel.Factory),
-                onAuthCancelled = { navController.popBackStack() }
-            ) {
-                navController.popBackStack()
-            }
-        }
-        composable(route = Screen.GoogleSignOutScreen.route) {
-            GoogleSignOutScreen(navController = navController)
         }
         scrollable(
             route = Screen.Paging.route,

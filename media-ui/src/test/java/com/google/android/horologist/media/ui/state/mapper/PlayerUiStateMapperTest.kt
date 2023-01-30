@@ -21,16 +21,20 @@ package com.google.android.horologist.media.ui.state.mapper
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
-import com.google.android.horologist.media.model.MediaPosition
+import com.google.android.horologist.media.model.PlaybackState
+import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.assertNotNull
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.DurationUnit
+import kotlin.time.toDuration
 
 @RunWith(AndroidJUnit4::class)
 @Config(manifest = Config.NONE)
@@ -43,10 +47,10 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = commands,
             media = null,
-            mediaPosition = null,
+            playbackStateEvent = PlaybackStateEvent.INITIAL,
             shuffleModeEnabled = false,
             connected = false,
             seekBackIncrement = null,
@@ -71,10 +75,10 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = commands,
             media = null,
-            mediaPosition = null,
+            playbackStateEvent = PlaybackStateEvent.INITIAL,
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -92,10 +96,10 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = commands,
             media = null,
-            mediaPosition = null,
+            playbackStateEvent = PlaybackStateEvent.INITIAL,
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -113,10 +117,10 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = commands,
             media = null,
-            mediaPosition = null,
+            playbackStateEvent = PlaybackStateEvent.INITIAL,
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -134,10 +138,10 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = commands,
             media = null,
-            mediaPosition = null,
+            playbackStateEvent = PlaybackStateEvent.INITIAL,
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -155,10 +159,10 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = commands,
             media = null,
-            mediaPosition = null,
+            playbackStateEvent = PlaybackStateEvent.INITIAL,
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -176,10 +180,10 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = commands,
             media = null,
-            mediaPosition = null,
+            playbackStateEvent = PlaybackStateEvent.INITIAL,
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -197,10 +201,10 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = commands,
             media = null,
-            mediaPosition = null,
+            playbackStateEvent = PlaybackStateEvent.INITIAL,
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -218,10 +222,10 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = emptySet(),
             media = null,
-            mediaPosition = null,
+            playbackStateEvent = PlaybackStateEvent.INITIAL,
             shuffleModeEnabled = shuffleEnabled,
             connected = true,
             seekBackIncrement = null,
@@ -239,10 +243,10 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = emptySet(),
             media = null,
-            mediaPosition = null,
+            playbackStateEvent = PlaybackStateEvent.INITIAL,
             shuffleModeEnabled = shuffleEnabled,
             connected = true,
             seekBackIncrement = null,
@@ -260,10 +264,10 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = commands,
             media = null,
-            mediaPosition = null,
+            playbackStateEvent = PlaybackStateEvent.INITIAL,
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -277,14 +281,14 @@ class PlayerUiStateMapperTest {
     @Test
     fun givenIsNOTPlaying_thenPlayingIsFalse() {
         // given
-        val state = PlayerState.Ready
+        val state = PlayerState.Stopped
 
         // when
         val result = PlayerUiStateMapper.map(
             currentState = state,
             availableCommands = emptySet(),
             media = null,
-            mediaPosition = null,
+            playbackStateEvent = PlaybackStateEvent.INITIAL,
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -305,7 +309,7 @@ class PlayerUiStateMapperTest {
             currentState = state,
             availableCommands = emptySet(),
             media = null,
-            mediaPosition = null,
+            playbackStateEvent = PlaybackStateEvent.INITIAL,
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -331,10 +335,10 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = emptySet(),
             media = media,
-            mediaPosition = null,
+            playbackStateEvent = PlaybackStateEvent.INITIAL,
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -354,14 +358,24 @@ class PlayerUiStateMapperTest {
         // given
         val current = 1.seconds
         val duration = 2.seconds
-        val mediaPosition = MediaPosition.create(current, duration)
+        val playbackState = PlaybackState(
+            playerState = PlayerState.Playing,
+            isLive = false,
+            currentPosition = current,
+            duration = duration,
+            playbackSpeed = 1f
+        )
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = emptySet(),
             media = null,
-            mediaPosition = mediaPosition,
+            playbackStateEvent = PlaybackStateEvent(
+                playbackState,
+                PlaybackStateEvent.Cause.PositionDiscontinuity,
+                0.toDuration(DurationUnit.SECONDS)
+            ),
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,
@@ -369,11 +383,12 @@ class PlayerUiStateMapperTest {
         )
 
         // then
-        assertNotNull(result.trackPosition)
-        val expectedTrackPosition = result.trackPosition!!
-        assertThat(expectedTrackPosition.current).isEqualTo(current.inWholeMilliseconds)
-        assertThat(expectedTrackPosition.duration).isEqualTo(duration.inWholeMilliseconds)
-        assertThat(expectedTrackPosition.percent).isEqualTo(0.5f)
+        assertNotNull(result.trackPositionUiModel)
+        val expectedTrackPosition = result.trackPositionUiModel
+        assertThat(expectedTrackPosition).isInstanceOf(TrackPositionUiModel.Predictive::class.java)
+        expectedTrackPosition as TrackPositionUiModel.Predictive
+        assertThat(expectedTrackPosition.predictor.predictPercent(0)).isEqualTo(0.5f)
+        assertThat(expectedTrackPosition.predictor.predictPercent(duration.inWholeMilliseconds)).isEqualTo(1f)
     }
 
     @Test
@@ -384,10 +399,10 @@ class PlayerUiStateMapperTest {
 
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = emptySet(),
             media = null,
-            mediaPosition = null,
+            playbackStateEvent = PlaybackStateEvent.INITIAL,
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = back,
@@ -403,10 +418,10 @@ class PlayerUiStateMapperTest {
     fun givenNullIncrements_thenIncrementsAreUnknown() {
         // when
         val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Ready,
+            currentState = PlayerState.Stopped,
             availableCommands = emptySet(),
             media = null,
-            mediaPosition = null,
+            playbackStateEvent = PlaybackStateEvent.INITIAL,
             shuffleModeEnabled = false,
             connected = true,
             seekBackIncrement = null,

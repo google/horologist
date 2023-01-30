@@ -16,15 +16,16 @@
 
 package com.google.android.horologist.datalayer
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.items
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
@@ -38,7 +39,7 @@ fun DataLayerNodesScreen(
 
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier
+        modifier = modifier.fillMaxSize()
     ) {
         item {
             ListHeader {

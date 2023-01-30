@@ -22,16 +22,46 @@ import androidx.compose.runtime.Composable
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
-import com.google.android.horologist.auth.ui.common.screens.SignInPromptScreen
+import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
+import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 
 @WearPreviewDevices
 @Composable
-fun SignInPromptScreenPreview() {
+fun SignInPromptScreenPreviewSignedOut() {
     SignInPromptScreen(
+        state = SignInPromptScreenState.SignedOut,
+        title = "Sign in",
         message = "Send messages and create chat groups with your friends",
+        onIdleStateObserved = { },
+        onAlreadySignedIn = { },
+        columnState = belowTimeTextPreview()
+    ) {
+        item {
+            SignInChip(
+                onClick = { },
+                chipType = StandardChipType.Secondary
+            )
+        }
+        item {
+            GuestModeChip(
+                onClick = { },
+                chipType = StandardChipType.Secondary
+            )
+        }
+    }
+}
+
+@WearPreviewDevices
+@Composable
+fun SignInPromptScreenPreviewLoading() {
+    SignInPromptScreen(
+        state = SignInPromptScreenState.Loading,
+        title = "Sign in",
+        message = "Send messages and create chat groups with your friends",
+        onIdleStateObserved = { },
         onAlreadySignedIn = { },
         columnState = belowTimeTextPreview()
     ) {

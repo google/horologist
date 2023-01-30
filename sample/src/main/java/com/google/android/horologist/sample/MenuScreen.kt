@@ -47,7 +47,7 @@ fun MenuScreen(
 ) {
     ScalingLazyColumn(
         columnState = columnState,
-        modifier = modifier
+        modifier = modifier.fillMaxSize()
     ) {
         item {
             ListHeader {
@@ -102,14 +102,6 @@ fun MenuScreen(
                 label = stringResource(id = R.string.sectionedlist_samples_menu),
                 modifier = modifier.fillMaxWidth(),
                 onClick = { navigateToRoute(Screen.SectionedListMenuScreen.route) },
-                chipType = StandardChipType.Primary
-            )
-        }
-        item {
-            StandardChip(
-                label = stringResource(id = R.string.auth_samples_menu),
-                modifier = modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(Screen.AuthMenuScreen.route) },
                 chipType = StandardChipType.Primary
             )
         }

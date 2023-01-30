@@ -132,17 +132,14 @@ public class A11ySnapshotHandler(
         ): BufferedImage {
             val modifiedImage = BufferedImage(image.width, image.height, image.type)
 
-            val scale = 1000f / max(accessibilityState.height, accessibilityState.width)
-
             return modifiedImage.withGraphics2D {
                 withComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f)) {
                     drawImage(image, 0, 0, image.width, image.height, null)
                 }
 
-                accessibilityState.elements.forEachIndexed { i, it ->
+                accessibilityState.elements.forEachIndexed { i, element ->
                     paint = colorForIndex(i)
                     stroke = BasicStroke(3f)
-                    val element = it.scaleBy(scale)
                     drawRect(
                         element.displayBounds.left,
                         element.displayBounds.top,

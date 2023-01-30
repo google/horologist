@@ -31,7 +31,7 @@ import com.google.android.horologist.media.data.mapper.MediaItemExtrasMapperNoop
 import com.google.android.horologist.media.data.mapper.MediaItemMapper
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
-import com.google.android.horologist.media.model.MediaPosition
+import com.google.android.horologist.media.model.PlaybackState
 import com.google.android.horologist.media.model.PlayerState
 import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.assertThrows
@@ -44,7 +44,6 @@ import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowLooper
 import kotlin.time.Duration.Companion.milliseconds
-import kotlin.time.Duration.Companion.seconds
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
@@ -79,12 +78,10 @@ class PlayerRepositoryImplTest {
         sut.connect(player) {}
 
         // then
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
         assertThat(sut.currentMedia.value).isNull()
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isNull()
+        assertThat(sut.latestPlaybackState.value.playbackState).isEqualTo(PlaybackState.IDLE)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -140,21 +137,18 @@ class PlayerRepositoryImplTest {
         val media = getStubMedia("id")
 
         sut.setMedia(media)
-        sut.prepare()
 
         // when
         sut.play()
         // and
-        playUntilPosition(player, 0, 5.seconds.inWholeMilliseconds)
+        playUntilPosition(player, 0, 5_000)
 
         // then
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Playing)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Playing)
         assertThat(sut.currentMedia.value).isEqualTo(media)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        // position is unknown because updatePosition function was not called
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle)
         )
@@ -175,12 +169,12 @@ class PlayerRepositoryImplTest {
         // and
         player.play()
         // and
-        playUntilPosition(player, 0, 5.seconds.inWholeMilliseconds)
+        playUntilPosition(player, 0, 5_000)
 
         // then
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Playing)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Playing)
         assertThat(sut.currentMedia.value).isEqualTo(media)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
@@ -197,7 +191,6 @@ class PlayerRepositoryImplTest {
         val media = getStubMedia("id")
 
         sut.setMedia(media)
-        sut.prepare()
 
         // when
         sut.play()
@@ -206,12 +199,11 @@ class PlayerRepositoryImplTest {
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Ended)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
         assertThat(sut.currentMedia.value).isEqualTo(media)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle)
         )
@@ -222,7 +214,7 @@ class PlayerRepositoryImplTest {
         // given initial state
 
         // then
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Idle)
 
         // given
         val player = TestExoPlayerBuilder(context).build()
@@ -231,7 +223,7 @@ class PlayerRepositoryImplTest {
         sut.connect(player) {}
 
         // then
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Idle)
 
         // given
         val media = getStubMedia("id")
@@ -241,49 +233,36 @@ class PlayerRepositoryImplTest {
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
 
         // when
-        sut.prepare()
-        runUntilPendingCommandsAreFullyHandled(player)
-
-        // then
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Loading)
-
-        // when
+        sut.play()
         runUntilPlaybackState(player, Player.STATE_READY)
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Ready)
-
-        // when
-        sut.play()
-        runUntilPendingCommandsAreFullyHandled(player)
-
-        // then
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Playing)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Playing)
 
         // when
         sut.pause()
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Ready)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
 
         // when
         sut.play()
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Playing)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Playing)
 
         // when
         runUntilPlaybackState(player, Player.STATE_ENDED)
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Ended)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
     }
 
     @Test
@@ -297,7 +276,6 @@ class PlayerRepositoryImplTest {
 
         sut.setMediaList(listOf(media1, media2))
         sut.seekToDefaultPosition(mediaIndex = 1)
-        sut.prepare()
 
         // when
         sut.play()
@@ -307,19 +285,17 @@ class PlayerRepositoryImplTest {
         assertThat(sut.currentMedia.value).isEqualTo(media2)
 
         // and when
-        playUntilPosition(player, 1, 5.seconds.inWholeMilliseconds)
+        playUntilPosition(player, 1, 5_000)
 
         // then
         assertThat(sut.getMediaCount()).isEqualTo(2)
         assertThat(sut.getMediaAt(1)).isEqualTo(media2)
         assertThat(sut.getCurrentMediaIndex()).isEqualTo(1)
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Playing)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Playing)
         assertThat(sut.currentMedia.value).isEqualTo(media2)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        // position is unknown because updatePosition function was not called
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(
                 Command.PlayPause,
@@ -339,9 +315,8 @@ class PlayerRepositoryImplTest {
 
         val media = getStubMedia("id")
         sut.setMedia(media)
-        sut.prepare()
         sut.play()
-        playUntilPosition(player, 0, 510.milliseconds.inWholeMilliseconds)
+        playUntilPosition(player, 0, 501)
         runUntilPendingCommandsAreFullyHandled(player)
 
         // when
@@ -349,12 +324,12 @@ class PlayerRepositoryImplTest {
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Ready)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
         assertThat(sut.currentMedia.value).isEqualTo(media)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat((sut.mediaPosition.value as MediaPosition.KnownDuration).current).isEqualTo(510.milliseconds)
+        assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isEqualTo(500.milliseconds)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle)
         )
@@ -401,12 +376,12 @@ class PlayerRepositoryImplTest {
         ShadowLooper.idleMainLooper()
 
         // then
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Idle)
         assertThat(sut.currentMedia.value).isNull()
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isTrue()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isNull()
+        assertThat(sut.latestPlaybackState.value.playbackState).isEqualTo(PlaybackState.IDLE)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -427,12 +402,12 @@ class PlayerRepositoryImplTest {
         // then
         assertThat(sut.getMediaCount()).isEqualTo(1)
         assertThat(sut.getMediaAt(0)).isEqualTo(media)
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
         assertThat(sut.currentMedia.value).isEqualTo(media)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
+        assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -454,12 +429,12 @@ class PlayerRepositoryImplTest {
         // then
         assertThat(sut.getMediaCount()).isEqualTo(1)
         assertThat(sut.getMediaAt(0)).isEqualTo(media)
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
         assertThat(sut.currentMedia.value).isEqualTo(media)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
+        assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -472,15 +447,12 @@ class PlayerRepositoryImplTest {
         sut.connect(player) {}
         val media1 = getStubMedia("id1")
         sut.setMedia(media1)
-        sut.prepare()
         sut.play()
-        playUntilPosition(player, 0, 510.milliseconds.inWholeMilliseconds)
-        sut.updatePosition()
+        playUntilPosition(player, 0, 501)
 
         // then
         assertThat(sut.getMediaAt(0)).isEqualTo(media1)
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Playing)
-        assertThat((sut.mediaPosition.value as MediaPosition.KnownDuration).current).isEqualTo(500.milliseconds)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Playing)
 
         // given
         val media2 = getDummyMedia()
@@ -492,12 +464,12 @@ class PlayerRepositoryImplTest {
         // then
         assertThat(sut.getMediaCount()).isEqualTo(1)
         assertThat(sut.getMediaAt(0)).isEqualTo(media2)
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Loading)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
         assertThat(sut.currentMedia.value).isEqualTo(media2)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
+        assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -521,12 +493,12 @@ class PlayerRepositoryImplTest {
         assertThat(sut.getMediaCount()).isEqualTo(2)
         assertThat(sut.getMediaAt(0)).isEqualTo(media1)
         assertThat(sut.getMediaAt(1)).isEqualTo(media2)
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
         assertThat(sut.currentMedia.value).isEqualTo(media1)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
+        assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle)
         )
@@ -551,19 +523,19 @@ class PlayerRepositoryImplTest {
         assertThat(sut.getMediaCount()).isEqualTo(2)
         assertThat(sut.getMediaAt(0)).isEqualTo(media1)
         assertThat(sut.getMediaAt(1)).isEqualTo(media2)
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
         assertThat(sut.currentMedia.value).isEqualTo(media1)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
+        assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle)
         )
     }
 
     @Test
-    fun `given previous MediaList is set when setMediaList with position then position is correct`() {
+    fun `given previous MediaList is set when setMediaList with index then item is correct`() {
         // given
         val player = TestExoPlayerBuilder(context).build()
         sut.connect(player) {}
@@ -574,11 +546,22 @@ class PlayerRepositoryImplTest {
         val mediaList = listOf(media1, media2)
 
         // when
-        sut.setMediaList(mediaList, 0, 6000.toDuration(DurationUnit.MILLISECONDS))
+        sut.setMediaList(mediaList, 1, 6000.toDuration(DurationUnit.MILLISECONDS))
         runUntilPendingCommandsAreFullyHandled(player)
 
         // then
-        assertThat(sut.player.value?.currentPosition).isEqualTo(6000)
+        assertThat(sut.getMediaCount()).isEqualTo(2)
+        assertThat(sut.getMediaAt(0)).isEqualTo(media1)
+        assertThat(sut.getMediaAt(1)).isEqualTo(media2)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
+        assertThat(sut.currentMedia.value).isEqualTo(media2)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
+        assertThat(sut.shuffleModeEnabled.value).isFalse()
+        assertThat(sut.player.value).isSameInstanceAs(player)
+        assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
+        assertThat(sut.availableCommands.value).containsExactlyElementsIn(
+            listOf(Command.PlayPause, Command.SkipToPreviousMedia, Command.SetShuffle)
+        )
     }
 
     @Test
@@ -596,12 +579,12 @@ class PlayerRepositoryImplTest {
         // then
         assertThat(sut.getMediaCount()).isEqualTo(1)
         assertThat(sut.getMediaAt(0)).isEqualTo(media)
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
         assertThat(sut.currentMedia.value).isEqualTo(media)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
+        assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -625,12 +608,12 @@ class PlayerRepositoryImplTest {
         assertThat(sut.getMediaCount()).isEqualTo(2)
         assertThat(sut.getMediaAt(0)).isEqualTo(previousMedia)
         assertThat(sut.getMediaAt(1)).isEqualTo(media)
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
         assertThat(sut.currentMedia.value).isEqualTo(previousMedia)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
+        assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle)
         )
@@ -651,12 +634,12 @@ class PlayerRepositoryImplTest {
         // then
         assertThat(sut.getMediaCount()).isEqualTo(1)
         assertThat(sut.getMediaAt(0)).isEqualTo(media)
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
         assertThat(sut.currentMedia.value).isEqualTo(media)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
+        assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -680,12 +663,12 @@ class PlayerRepositoryImplTest {
         assertThat(sut.getMediaCount()).isEqualTo(2)
         assertThat(sut.getMediaAt(0)).isEqualTo(media)
         assertThat(sut.getMediaAt(1)).isEqualTo(previousMedia)
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
         assertThat(sut.currentMedia.value).isEqualTo(previousMedia)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
+        assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SkipToPreviousMedia, Command.SetShuffle)
         )
@@ -709,12 +692,12 @@ class PlayerRepositoryImplTest {
         assertThat(sut.getMediaCount()).isEqualTo(2)
         assertThat(sut.getMediaAt(0)).isEqualTo(previousMedia)
         assertThat(sut.getMediaAt(1)).isEqualTo(media)
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
         assertThat(sut.currentMedia.value).isEqualTo(previousMedia)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
+        assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SkipToNextMedia, Command.SetShuffle)
         )
@@ -746,12 +729,12 @@ class PlayerRepositoryImplTest {
         // then
         // I'd expect it to throw IllegalArgumentException as per test below, maybe a bug in Media3
         assertThat(sut.getMediaCount()).isEqualTo(0)
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Idle)
         assertThat(sut.currentMedia.value).isNull()
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isNull()
+        assertThat(sut.latestPlaybackState.value.playbackState).isEqualTo(PlaybackState.IDLE)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -803,12 +786,12 @@ class PlayerRepositoryImplTest {
         // then
         assertThat(sut.getMediaCount()).isEqualTo(1)
         assertThat(sut.getMediaAt(0)).isEqualTo(media2)
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
         assertThat(sut.currentMedia.value).isEqualTo(media2)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
+        assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -832,12 +815,12 @@ class PlayerRepositoryImplTest {
         // then
         assertThat(sut.getMediaCount()).isEqualTo(1)
         assertThat(sut.getMediaAt(0)).isEqualTo(media1)
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Stopped)
         assertThat(sut.currentMedia.value).isEqualTo(media1)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
+        assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -854,12 +837,12 @@ class PlayerRepositoryImplTest {
 
         // then
         assertThat(sut.getMediaCount()).isEqualTo(0)
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Idle)
         assertThat(sut.currentMedia.value).isNull()
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isNull()
+        assertThat(sut.latestPlaybackState.value.playbackState).isEqualTo(PlaybackState.IDLE)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -878,12 +861,12 @@ class PlayerRepositoryImplTest {
 
         // then
         assertThat(sut.getMediaCount()).isEqualTo(0)
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Idle)
         assertThat(sut.currentMedia.value).isNull()
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isEqualTo(MediaPosition.Unknown)
+        assertThat(sut.latestPlaybackState.value.playbackState.currentPosition).isNull()
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -893,9 +876,6 @@ class PlayerRepositoryImplTest {
     fun `given is closed when updatePosition then state is correct`() {
         // given
         sut.close()
-
-        // when
-        sut.updatePosition()
 
         // then
         assertInitialState()
@@ -910,31 +890,18 @@ class PlayerRepositoryImplTest {
         val media = getStubMedia("id")
 
         sut.setMedia(media)
-        sut.prepare()
         sut.play()
-        playUntilPosition(player, 0, 5.seconds.inWholeMilliseconds)
-
-        // when
-        sut.updatePosition()
+        playUntilPosition(player, 0, 5_000)
 
         // then
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Playing)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Playing)
         assertThat(sut.currentMedia.value).isEqualTo(media)
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SeekBack, Command.SeekForward, Command.SetShuffle)
         )
-
-        assertThat(sut.mediaPosition.value).isInstanceOf(MediaPosition.KnownDuration::class.java)
-        val expectedMediaPosition =
-            MediaPosition.create(current = 1020.milliseconds, duration = 1022.milliseconds)
-        val actualMediaPosition = sut.mediaPosition.value as MediaPosition.KnownDuration
-        // TODO these checks can be simplified to `assertThat().isEqualTo()` once horologist implements equals for MediaPosition.KnownDuration
-        assertThat(actualMediaPosition.current).isEqualTo(expectedMediaPosition.current)
-        assertThat(actualMediaPosition.duration).isEqualTo(expectedMediaPosition.duration)
-        assertThat(actualMediaPosition.percent).isEqualTo(expectedMediaPosition.percent)
     }
 
     @Test
@@ -949,12 +916,12 @@ class PlayerRepositoryImplTest {
         sut.setPlaybackSpeed(speed)
 
         // then
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Idle)
         assertThat(sut.currentMedia.value).isNull()
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isNull()
+        assertThat(sut.latestPlaybackState.value.playbackState).isEqualTo(PlaybackState.IDLE)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -975,12 +942,12 @@ class PlayerRepositoryImplTest {
         ShadowLooper.idleMainLooper()
 
         // then
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Idle)
         assertThat(sut.currentMedia.value).isNull()
-        assertThat(sut.playbackSpeed.value).isEqualTo(speed)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(speed)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isSameInstanceAs(player)
-        assertThat(sut.mediaPosition.value).isNull()
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(2f)
         assertThat(sut.availableCommands.value).containsExactlyElementsIn(
             listOf(Command.PlayPause, Command.SetShuffle)
         )
@@ -1003,12 +970,12 @@ class PlayerRepositoryImplTest {
     )
 
     private fun assertInitialState() {
-        assertThat(sut.currentState.value).isEqualTo(PlayerState.Idle)
+        assertThat(sut.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Idle)
         assertThat(sut.currentMedia.value).isNull()
-        assertThat(sut.playbackSpeed.value).isEqualTo(1f)
+        assertThat(sut.latestPlaybackState.value.playbackState.playbackSpeed).isEqualTo(1f)
         assertThat(sut.shuffleModeEnabled.value).isFalse()
         assertThat(sut.player.value).isNull()
-        assertThat(sut.mediaPosition.value).isNull()
+        assertThat(sut.latestPlaybackState.value.playbackState).isEqualTo(PlaybackState.IDLE)
         assertThat(sut.availableCommands.value).isEmpty()
     }
 }

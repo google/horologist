@@ -1,0 +1,47 @@
+<!--
+  ~ Copyright 2023 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <string name="app_name">Horologist Auth Sample</string>
+
+    <string name="auth_menu_oauth_pkce_header">OAuth PKCE</string>
+    <string name="auth_menu_oauth_pkce_sign_in_item">Sign in</string>
+    <string name="auth_menu_oauth_pkce_sign_out_item">Sign out</string>
+    <string name="auth_menu_oauth_device_grant_header">OAuth Device Grant</string>
+    <string name="auth_menu_oauth_device_grant_sign_in_item">Sign in</string>
+    <string name="auth_menu_oauth_device_grant_sign_out_item">Sign out</string>
+    <string name="auth_menu_google_sign_in_header">Google Sign-In</string>
+    <string name="auth_menu_google_sign_in_prompt_item">Sign-in Prompt</string>
+    <string name="auth_menu_google_streamline_sign_in_item">Streamline Sign-in</string>
+    <string name="auth_menu_google_sign_out_item">Sign out</string>
+    <string name="auth_menu_token_share_header">Token Sharing</string>
+    <string name="auth_menu_token_share_listener_item">Via Listener</string>
+    <string name="auth_menu_token_share_service_item">Via Service</string>
+    <string name="pkce_sign_in_prompt_message">Share workouts and compete with your friends and family</string>
+    <string name="pkce_sign_in_prompt_already_signed_in_message">Already signed-in!</string>
+    <string name="pkce_sign_out_success_message">Signed out successfully!</string>
+    <string name="device_grant_sign_in_prompt_message">Sign in to download and stream music</string>
+    <string name="device_grant_sign_in_prompt_already_signed_in_message">Already signed-in!</string>
+    <string name="device_grant_sign_out_success_message">Signed out successfully!</string>
+    <string name="google_sign_in_prompt_message">Send messages and create chat groups with your friends</string>
+    <string name="google_sign_out_success_message">Signed out successfully!</string>
+    <string name="google_sign_in_prompt_already_signed_in_message">Already signed-in!</string>
+    <string name="google_streamline_sign_in_already_signed_in_message">Already signed-in!</string>
+    <string name="token_share_listener_title">Token Sharing - Listener</string>
+    <string name="token_share_listener_message">Tokens emitted by the phone sample app while this is screen is visible will be displayed below:</string>
+    <string name="token_share_service_title">Token Sharing - Service</string>
+    <string name="token_share_service_message">Tokens emitted by the phone sample app will be displayed below:</string>
+</resources>

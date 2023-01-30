@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistPaparazziApi::class, ExperimentalHorologistBaseUiApi::class)
+@file:OptIn(
+    ExperimentalHorologistPaparazziApi::class,
+    ExperimentalHorologistBaseUiApi::class,
+    ExperimentalHorologistComposeToolsApi::class
+)
 
 package com.google.android.horologist.base.ui.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
+import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
@@ -49,17 +50,15 @@ internal class StandardButtonTest(
 
     @Test
     fun variants() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                StandardButton(
-                    imageVector = Icons.Default.Check,
-                    contentDescription = "contentDescription",
-                    onClick = { },
-                    buttonType = buttonType,
-                    buttonSize = buttonSize,
-                    enabled = enabled
-                )
-            }
+        paparazzi.snapshotInABox {
+            StandardButton(
+                imageVector = Icons.Default.Check,
+                contentDescription = "contentDescription",
+                onClick = { },
+                buttonType = buttonType,
+                buttonSize = buttonSize,
+                enabled = enabled
+            )
         }
     }
 

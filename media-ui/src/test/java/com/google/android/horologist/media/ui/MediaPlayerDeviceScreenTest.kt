@@ -22,12 +22,9 @@
 
 package com.google.android.horologist.media.ui
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import app.cash.paparazzi.DeviceConfig
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
@@ -38,6 +35,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import kotlin.time.Duration.Companion.seconds
 
 @RunWith(Parameterized::class)
 class MediaPlayerDeviceScreenTest(
@@ -64,18 +62,20 @@ class MediaPlayerDeviceScreenTest(
                 title = "Weather with You",
                 subtitle = "Crowded House"
             ),
-            trackPosition = TrackPositionUiModel(current = 30, duration = 225, percent = 0.133f, showProgress = true),
+            trackPositionUiModel = TrackPositionUiModel.Actual(
+                position = 30.seconds,
+                duration = 225.seconds,
+                percent = 0.133f
+            ),
             connected = true
         )
 
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black)) {
-                MediaPlayerTestCase(
-                    colors = UampColors,
-                    playerUiState = playerUiState,
-                    round = device != DeviceConfig.WEAR_OS_SQUARE
-                )
-            }
+        paparazzi.snapshotInABox {
+            MediaPlayerTestCase(
+                colors = UampColors,
+                playerUiState = playerUiState,
+                round = device != DeviceConfig.WEAR_OS_SQUARE
+            )
         }
     }
 

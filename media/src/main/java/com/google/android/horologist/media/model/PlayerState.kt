@@ -25,30 +25,25 @@ import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 public enum class PlayerState {
 
     /**
-     * The player is idle, meaning it holds only limited resources. The player must be prepared
-     * before it will play the media.
+     * Initial empty state. The player hasn't finished loading or doesn't have any media added.
      */
     Idle,
 
     /**
-     * The player is not able to immediately play the media, but is doing work toward being able to
-     * do so. This state typically occurs when the player needs to buffer more data before playback
-     * can start.
+     * Playback is requested, but the player is not yet ready and is working towards playback.
+     * The player is expected to eventually reach [Playing] from this state without further user
+     * action required.
      */
     Loading,
 
     /**
-     * The player is able to immediately play from its current position.
+     * The player is able to continue or attempt playback. Sending the play command will move from
+     * this state to either [Loading] or [Playing].
      */
-    Ready,
+    Stopped,
 
     /**
-     * The player is playing.
+     * The player is playing and position is advancing.
      */
-    Playing,
-
-    /**
-     * The player has finished playing the media.
-     */
-    Ended
+    Playing
 }

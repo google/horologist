@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.sectionedlist
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -39,7 +40,7 @@ fun SectionedListMenuScreen(
 ) {
     SectionedList(
         columnState = columnState,
-        modifier = modifier
+        modifier = modifier.fillMaxSize()
     ) {
         section(
             listOf(

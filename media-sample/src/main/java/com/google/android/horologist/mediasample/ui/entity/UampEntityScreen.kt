@@ -32,6 +32,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
@@ -39,7 +40,6 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.AlertDialog
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreen
@@ -62,6 +62,10 @@ fun UampEntityScreen(
 
     var showCancelDownloadsDialog by rememberSaveable { mutableStateOf(false) }
     var showRemoveDownloadsDialog by rememberSaveable { mutableStateOf(false) }
+    var showRemoveSingleMediaDownloadDialog by rememberSaveable { mutableStateOf(false) }
+
+    var mediaIdToDelete: String? by rememberSaveable { mutableStateOf(null) }
+    var mediaTitleToDelete: String by rememberSaveable { mutableStateOf("media title") }
 
     PlaylistDownloadScreen(
         playlistName = playlistName,
@@ -77,7 +81,9 @@ fun UampEntityScreen(
             onDownloadItemClick(it)
         },
         onDownloadItemInProgressClick = {
-            // TODO: https://github.com/google/horologist/issues/682
+            mediaIdToDelete = it.id
+            it.title?.let { title -> mediaTitleToDelete = title }
+            showRemoveSingleMediaDownloadDialog = true
         },
         onShuffleButtonClick = {
             uampEntityScreenViewModel.shufflePlay()
@@ -161,5 +167,22 @@ fun UampEntityScreen(
         scalingLazyListState = rememberScalingLazyListState(),
         okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
         cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description)
+    )
+
+    AlertDialog(
+        body = stringResource(R.string.entity_dialog_remove_downloads, mediaTitleToDelete),
+        onCancelButtonClick = {
+            showRemoveSingleMediaDownloadDialog = false
+        },
+        onOKButtonClick = {
+            showRemoveSingleMediaDownloadDialog = false
+            mediaIdToDelete?.let { uampEntityScreenViewModel.removeMediaItem(it) }
+        },
+        showDialog = showRemoveSingleMediaDownloadDialog,
+
+        scalingLazyListState = rememberScalingLazyListState(),
+        okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
+        cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description)
+
     )
 }

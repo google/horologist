@@ -23,12 +23,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalAccessibilityManager
+import androidx.wear.compose.foundation.lazy.ScalingLazyListState
+import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.contentColorFor
 import androidx.wear.compose.material.dialog.Confirmation
 import androidx.wear.compose.material.dialog.DialogDefaults
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
 
 /**

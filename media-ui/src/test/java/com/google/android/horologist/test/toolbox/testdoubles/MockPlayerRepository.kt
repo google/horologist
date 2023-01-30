@@ -19,8 +19,7 @@ package com.google.android.horologist.test.toolbox.testdoubles
 import com.google.android.horologist.media.ExperimentalHorologistMediaApi
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
-import com.google.android.horologist.media.model.MediaPosition
-import com.google.android.horologist.media.model.PlayerState
+import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.media.repository.PlayerRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,9 +29,8 @@ import kotlin.time.Duration
 class MockPlayerRepository(
     private val connectedValue: Boolean = false,
     private val availableCommandsValue: Set<Command> = emptySet(),
-    private val currentStateValue: PlayerState = PlayerState.Idle,
+    private val playbackStateEvent: PlaybackStateEvent = PlaybackStateEvent.INITIAL,
     private val currentMediaValue: Media? = null,
-    private val mediaPositionValue: MediaPosition? = null,
     private val shuffleModeEnabledValue: Boolean = false,
     private val seekBackIncrementValue: Duration? = null,
     private val seekForwardIncrementValue: Duration? = null
@@ -44,14 +42,11 @@ class MockPlayerRepository(
     override val availableCommands: StateFlow<Set<Command>>
         get() = MutableStateFlow(availableCommandsValue)
 
-    override val currentState: StateFlow<PlayerState>
-        get() = MutableStateFlow(currentStateValue)
-
     override val currentMedia: StateFlow<Media?>
         get() = MutableStateFlow(currentMediaValue)
 
-    override val mediaPosition: StateFlow<MediaPosition?>
-        get() = MutableStateFlow(mediaPositionValue)
+    override val latestPlaybackState: StateFlow<PlaybackStateEvent>
+        get() = MutableStateFlow(playbackStateEvent)
 
     override val shuffleModeEnabled: StateFlow<Boolean>
         get() = MutableStateFlow(shuffleModeEnabledValue)
@@ -61,10 +56,6 @@ class MockPlayerRepository(
 
     override val seekForwardIncrement: StateFlow<Duration?>
         get() = MutableStateFlow(seekForwardIncrementValue)
-
-    override fun prepare() {
-        // do nothing
-    }
 
     override fun play() {
         // do nothing
@@ -135,10 +126,6 @@ class MockPlayerRepository(
     override fun getMediaAt(index: Int): Media? = null
 
     override fun getCurrentMediaIndex(): Int = -1
-
-    override fun release() {
-        // do nothing
-    }
 
     override fun setPlaybackSpeed(speed: Float) {
         // do nothing

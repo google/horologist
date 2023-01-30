@@ -21,7 +21,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.ScalingLazyListScope
+import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState

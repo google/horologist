@@ -16,6 +16,10 @@ package com.google.android.horologist.compose.tools {
     method @androidx.compose.runtime.Composable public static void RoundPreview(optional boolean round, kotlin.jvm.functions.Function0<kotlin.Unit> content);
   }
 
+  public final class SnapshotInABoxKt {
+    method @com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi public static void snapshotInABox(app.cash.paparazzi.Paparazzi, optional androidx.compose.ui.Modifier boxModifier, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> content);
+  }
+
   public final class ThemeValues {
     ctor public ThemeValues(String name, int index, androidx.wear.compose.material.Colors colors);
     method public String component1();
@@ -90,11 +94,11 @@ package com.google.android.horologist.compose.tools.a11y {
   }
 
   public final class ForceStateKt {
-    method public static void forceState(androidx.wear.compose.material.ScalingLazyListState, int topIndex, int topScrollOffset);
+    method public static void forceState(androidx.wear.compose.foundation.lazy.ScalingLazyListState, int topIndex, int topScrollOffset);
   }
 
   public final class TallPreviewKt {
-    method @androidx.compose.runtime.Composable public static void TallPreview(int width, int height, kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingParams,kotlin.Unit> function);
+    method @androidx.compose.runtime.Composable public static void TallPreview(int width, int height, kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.lazy.ScalingParams,kotlin.Unit> function);
   }
 
 }

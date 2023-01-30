@@ -80,7 +80,6 @@ class MediaPlayerAppViewModel @Inject constructor(
             .reduce { accumulator, value -> accumulator + value }
             .also { list ->
                 playerRepository.setMediaList(list)
-                playerRepository.prepare()
             }
     }
 

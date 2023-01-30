@@ -74,13 +74,13 @@ https://en.wiktionary.org/wiki/horologist
 
 ## Contributions
 
-Please contribute! We will gladly review any pull requests.
-Make sure to read the [Contributing](CONTRIBUTING.md) page first though.
+Please contribute! We will gladly review any pull requests submitted.
+Make sure to read the [Contributing](CONTRIBUTING.md) page to know what our expectations of contributions are.
 
 ## License
 
 ```
-Copyright 2022 The Android Open Source Project
+Copyright 2023 The Android Open Source Project
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

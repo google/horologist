@@ -20,9 +20,9 @@ import kotlin.math.abs
 
 /** Accumulator to trigger callbacks based on rotary input event. */
 internal class RotaryInputAccumulator(
-    private val eventAccumulationThresholdMs: Long = DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
-    private val minValueChangeDistancePx: Float = DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
-    private val rateLimitCoolDownMs: Long = DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
+    private val eventAccumulationThresholdMs: Long,
+    private val minValueChangeDistancePx: Float,
+    private val rateLimitCoolDownMs: Long,
     private val onValueChange: ((change: Float) -> Unit)
 ) {
     private var accumulatedDistance = 0f
@@ -55,11 +55,5 @@ internal class RotaryInputAccumulator(
         onValueChange(accumulatedDistance)
         lastUpdateTimeMs = eventTimeMs
         accumulatedDistance = 0f
-    }
-
-    companion object {
-        const val DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS = 200L
-        const val DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX = 48f
-        const val DEFAULT_RATE_LIMIT_COOL_DOWN_MS = 300L
     }
 }

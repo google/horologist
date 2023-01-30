@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistPaparazziApi::class, ExperimentalHorologistBaseUiApi::class)
+@file:OptIn(
+    ExperimentalHorologistPaparazziApi::class,
+    ExperimentalHorologistBaseUiApi::class,
+    ExperimentalHorologistComposeToolsApi::class
+)
 
 package com.google.android.horologist.base.ui.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
+import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
@@ -38,19 +39,15 @@ class TitleTest {
 
     @Test
     fun default() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                Title("Title")
-            }
+        paparazzi.snapshotInABox {
+            Title("Title")
         }
     }
 
     @Test
     fun withVeryLongText() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                Title("Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text")
-            }
+        paparazzi.snapshotInABox {
+            Title("Title with a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text")
         }
     }
 }

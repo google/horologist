@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistPaparazziApi::class, ExperimentalHorologistMediaUiApi::class)
+@file:OptIn(
+    ExperimentalHorologistPaparazziApi::class,
+    ExperimentalHorologistMediaUiApi::class,
+    ExperimentalHorologistComposeToolsApi::class
+)
 
 package com.google.android.horologist.media.ui.controls
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.ShuffleToggleButton
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
@@ -35,28 +36,24 @@ class ShuffleToggleButtonTest {
     @get:Rule
     val paparazzi = WearPaparazzi()
 
-    @OptIn(ExperimentalHorologistMediaUiApi::class)
     @Test
     fun givenShuffleIsOn_thenIconIsShuffleOn() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                ShuffleToggleButton(
-                    onToggle = {},
-                    shuffleOn = true
-                )
-            }
+        paparazzi.snapshotInABox {
+            ShuffleToggleButton(
+                onToggle = {},
+                shuffleOn = true
+            )
         }
     }
 
+    @OptIn(ExperimentalHorologistComposeToolsApi::class)
     @Test
     fun givenShuffleIsOff_thenIconIsShuffle() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                ShuffleToggleButton(
-                    onToggle = {},
-                    shuffleOn = false
-                )
-            }
+        paparazzi.snapshotInABox {
+            ShuffleToggleButton(
+                onToggle = {},
+                shuffleOn = false
+            )
         }
     }
 }

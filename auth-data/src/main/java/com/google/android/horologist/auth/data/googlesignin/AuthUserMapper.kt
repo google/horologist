@@ -20,9 +20,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 import com.google.android.horologist.auth.data.common.model.AuthUser
 
+/**
+ * Functions to map models from other layers and / or packages into an [AuthUser].
+ */
 @ExperimentalHorologistAuthDataApi
 public object AuthUserMapper {
 
+    /**
+     * Maps from a [GoogleSignInAccount].
+     */
     public fun map(googleSignInAccount: GoogleSignInAccount?): AuthUser? =
         googleSignInAccount?.let {
             AuthUser(

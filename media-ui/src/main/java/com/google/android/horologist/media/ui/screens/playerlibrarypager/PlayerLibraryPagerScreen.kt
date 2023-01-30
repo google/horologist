@@ -82,7 +82,7 @@ public fun PlayerLibraryPagerScreen(
 
                 Scaffold(
                     modifier = Modifier
-                        .onRotaryInputAccumulated(onVolumeChangeByScroll)
+                        .onRotaryInputAccumulated(onValueChange = onVolumeChangeByScroll)
                         .focusRequester(focusRequester)
                         .focusable(),
                     timeText = {

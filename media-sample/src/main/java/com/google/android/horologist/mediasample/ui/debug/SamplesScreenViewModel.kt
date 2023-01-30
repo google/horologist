@@ -45,7 +45,6 @@ class SamplesScreenViewModel @Inject constructor(
 
         if (mediaItems != null) {
             playerRepository.setMediaList(mediaItems)
-            playerRepository.prepare()
             playerRepository.play()
             return true
         }

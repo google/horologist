@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistPaparazziApi::class)
+@file:OptIn(
+    ExperimentalHorologistPaparazziApi::class,
+    ExperimentalHorologistComposeToolsApi::class
+)
 
 package com.google.android.horologist.audio.ui.components.actions
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
@@ -38,13 +38,11 @@ class SetVolumeButtonTest {
     fun givenCurrentVolumeIsNotMaxAndNotMin_thenIconIsVolumeDown() {
         val currentVolume = 5
 
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SetVolumeButton(
-                    onVolumeClick = {},
-                    volumeState = VolumeState(current = currentVolume, max = 10)
-                )
-            }
+        paparazzi.snapshotInABox {
+            SetVolumeButton(
+                onVolumeClick = {},
+                volumeState = VolumeState(current = currentVolume, max = 10)
+            )
         }
     }
 
@@ -52,26 +50,22 @@ class SetVolumeButtonTest {
     fun givenCurrentVolumeIsMinimum_thenIconIsVolumeMute() {
         val currentVolume = 0
 
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SetVolumeButton(
-                    onVolumeClick = {},
-                    volumeState = VolumeState(current = currentVolume, max = 10)
-                )
-            }
+        paparazzi.snapshotInABox {
+            SetVolumeButton(
+                onVolumeClick = {},
+                volumeState = VolumeState(current = currentVolume, max = 10)
+            )
         }
     }
 
     @Test
     fun givenCurrentVolumeIsMaximum_thenIconIsVolumeUp() {
         val currentVolume = 10
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SetVolumeButton(
-                    onVolumeClick = {},
-                    volumeState = VolumeState(current = currentVolume, max = currentVolume)
-                )
-            }
+        paparazzi.snapshotInABox {
+            SetVolumeButton(
+                onVolumeClick = {},
+                volumeState = VolumeState(current = currentVolume, max = currentVolume)
+            )
         }
     }
 }

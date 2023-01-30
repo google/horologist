@@ -26,6 +26,7 @@ import com.google.android.horologist.media.ui.components.controls.SeekButtonIncr
 import com.google.android.horologist.media.ui.components.controls.SeekForwardButton
 import com.google.android.horologist.media.ui.state.PlayerUiController
 import com.google.android.horologist.media.ui.state.PlayerUiState
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
 /**
  * Convenience wrapper of [PodcastControlButtons].
@@ -40,65 +41,19 @@ public fun PodcastControlButtons(
     modifier: Modifier = Modifier,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
-    val percent = if (playerUiState.trackPosition?.showProgress == true) {
-        playerUiState.trackPosition.percent
-    } else {
-        null
-    }
-
     PodcastControlButtons(
-        onPlayButtonClick = { playerController.play() },
-        onPauseButtonClick = { playerController.pause() },
+        onPlayButtonClick = playerController::play,
+        onPauseButtonClick = playerController::pause,
         playPauseButtonEnabled = playerUiState.playPauseEnabled,
         playing = playerUiState.playing,
-        onSeekBackButtonClick = { playerController.skipToPreviousMedia() },
+        onSeekBackButtonClick = playerController::seekBack,
         seekBackButtonIncrement = playerUiState.seekBackButtonIncrement,
         seekBackButtonEnabled = playerUiState.seekBackEnabled,
-        onSeekForwardButtonClick = { playerController.skipToNextMedia() },
+        onSeekForwardButtonClick = playerController::seekForward,
         seekForwardButtonIncrement = playerUiState.seekForwardButtonIncrement,
         seekForwardButtonEnabled = playerUiState.seekForwardEnabled,
-        showProgress = playerUiState.trackPosition?.showProgress ?: false,
+        trackPositionUiModel = playerUiState.trackPositionUiModel,
         modifier = modifier,
-        percent = percent,
-        colors = colors
-    )
-}
-
-/**
- * Standard Podcast control buttons with progress indicator, showing [SeekBackButton], [PlayPauseProgressButton] and
- * [SeekForwardButton].
- */
-@ExperimentalHorologistMediaUiApi
-@Composable
-public fun PodcastControlButtons(
-    onPlayButtonClick: () -> Unit,
-    onPauseButtonClick: () -> Unit,
-    playPauseButtonEnabled: Boolean,
-    playing: Boolean,
-    percent: Float,
-    onSeekBackButtonClick: () -> Unit,
-    seekBackButtonEnabled: Boolean,
-    onSeekForwardButtonClick: () -> Unit,
-    seekForwardButtonEnabled: Boolean,
-    modifier: Modifier = Modifier,
-    seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
-    seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
-) {
-    PodcastControlButtons(
-        onPlayButtonClick = onPlayButtonClick,
-        onPauseButtonClick = onPauseButtonClick,
-        playPauseButtonEnabled = playPauseButtonEnabled,
-        playing = playing,
-        onSeekBackButtonClick = onSeekBackButtonClick,
-        seekBackButtonIncrement = seekBackButtonIncrement,
-        seekBackButtonEnabled = seekBackButtonEnabled,
-        onSeekForwardButtonClick = onSeekForwardButtonClick,
-        seekForwardButtonIncrement = seekForwardButtonIncrement,
-        seekForwardButtonEnabled = seekForwardButtonEnabled,
-        showProgress = true,
-        modifier = modifier,
-        percent = percent,
         colors = colors
     )
 }
@@ -134,7 +89,7 @@ public fun PodcastControlButtons(
         onSeekForwardButtonClick = onSeekForwardButtonClick,
         seekForwardButtonIncrement = seekForwardButtonIncrement,
         seekForwardButtonEnabled = seekForwardButtonEnabled,
-        showProgress = false,
+        trackPositionUiModel = TrackPositionUiModel.Hidden,
         modifier = modifier,
         colors = colors
     )
@@ -151,14 +106,13 @@ public fun PodcastControlButtons(
     playPauseButtonEnabled: Boolean,
     playing: Boolean,
     onSeekBackButtonClick: () -> Unit,
-    seekBackButtonIncrement: SeekButtonIncrement,
     seekBackButtonEnabled: Boolean,
     onSeekForwardButtonClick: () -> Unit,
-    seekForwardButtonIncrement: SeekButtonIncrement,
     seekForwardButtonEnabled: Boolean,
-    showProgress: Boolean,
+    trackPositionUiModel: TrackPositionUiModel,
     modifier: Modifier = Modifier,
-    percent: Float? = null,
+    seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
+    seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     ControlButtonLayout(
@@ -172,26 +126,14 @@ public fun PodcastControlButtons(
             )
         },
         middleButton = {
-            if (showProgress) {
-                checkNotNull(percent)
-
-                PlayPauseProgressButton(
-                    onPlayClick = onPlayButtonClick,
-                    onPauseClick = onPauseButtonClick,
-                    enabled = playPauseButtonEnabled,
-                    playing = playing,
-                    percent = percent,
-                    colors = colors
-                )
-            } else {
-                PlayPauseButton(
-                    onPlayClick = onPlayButtonClick,
-                    onPauseClick = onPauseButtonClick,
-                    enabled = playPauseButtonEnabled,
-                    playing = playing,
-                    colors = colors
-                )
-            }
+            PlayPauseProgressButton(
+                onPlayClick = onPlayButtonClick,
+                onPauseClick = onPauseButtonClick,
+                enabled = playPauseButtonEnabled,
+                playing = playing,
+                trackPositionUiModel = trackPositionUiModel,
+                colors = colors
+            )
         },
         rightButton = {
             SeekForwardButton(

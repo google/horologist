@@ -44,14 +44,6 @@ sealed class Screen(
     object RotaryScrollWithFlingScreen : Screen("rotaryScrollWithFlingScreen")
     object RotarySnapListScreen : Screen("rotarySnapListScreen")
 
-    object AuthMenuScreen : Screen("authMenuScreen")
-    object AuthPKCESignInPromptScreen : Screen("authPKCESignInPromptScreen")
-    object AuthPKCEScreen : Screen("authPKCEScreen")
-    object AuthDeviceGrantSignInPromptScreen : Screen("authDeviceGrantSignInPromptScreen")
-    object AuthDeviceGrantScreen : Screen("authDeviceGrantScreen")
-    object GoogleSignInPromptSampleScreen : Screen("googleSignInPromptSampleScreen")
-    object GoogleSignInScreen : Screen("googleSignInScreen")
-    object GoogleSignOutScreen : Screen("googleSignOutScreen")
     object Paging : Screen("paging")
     object PagingItem : Screen("pagingItem?id={id}")
 }

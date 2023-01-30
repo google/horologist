@@ -16,7 +16,8 @@
 
 @file:OptIn(
     ExperimentalHorologistPaparazziApi::class,
-    ExperimentalHorologistAuthComposablesApi::class
+    ExperimentalHorologistAuthComposablesApi::class,
+    ExperimentalHorologistComposeToolsApi::class
 )
 
 package com.google.android.horologist.auth.composables.dialogs
@@ -27,7 +28,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
+import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
+import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
@@ -58,78 +61,53 @@ class SignedInConfirmationDialogTest {
 
     @Test
     fun signedInConfirmationDialogNoName() {
-        paparazzi.snapshot {
+        paparazzi.snapshotInABox {
             FakeImageLoader.Resources.override {
-                Box(
-                    modifier = Modifier.background(Color.Black),
-                    contentAlignment = Alignment.Center
-                ) {
-                    SignedInConfirmationDialogContent(
-                        email = "maggie@example.com",
-                        avatar = android.R.drawable.sym_def_app_icon
-                    )
-                }
-            }
-        }
-    }
-
-    @Test
-    fun signedInConfirmationDialogNoNameNoAvatar() {
-        paparazzi.snapshot {
-            Box(
-                modifier = Modifier.background(Color.Black),
-                contentAlignment = Alignment.Center
-            ) {
                 SignedInConfirmationDialogContent(
-                    email = "maggie@example.com"
+                    email = "maggie@example.com",
+                    avatar = android.R.drawable.sym_def_app_icon
                 )
             }
         }
     }
 
     @Test
+    fun signedInConfirmationDialogNoNameNoAvatar() {
+        paparazzi.snapshotInABox {
+            SignedInConfirmationDialogContent(
+                email = "maggie@example.com"
+            )
+        }
+    }
+
+    @Test
     fun signedInConfirmationDialogNoEmail() {
-        paparazzi.snapshot {
+        paparazzi.snapshotInABox {
             FakeImageLoader.Resources.override {
-                Box(
-                    modifier = Modifier.background(Color.Black),
-                    contentAlignment = Alignment.Center
-                ) {
-                    SignedInConfirmationDialogContent(
-                        displayName = "Maggie",
-                        avatar = android.R.drawable.sym_def_app_icon
-                    )
-                }
+                SignedInConfirmationDialogContent(
+                    displayName = "Maggie",
+                    avatar = android.R.drawable.sym_def_app_icon
+                )
             }
         }
     }
 
     @Test
     fun signedInConfirmationDialogNoInformation() {
-        paparazzi.snapshot {
-            Box(
-                modifier = Modifier.background(Color.Black),
-                contentAlignment = Alignment.Center
-            ) {
-                SignedInConfirmationDialogContent()
-            }
+        paparazzi.snapshotInABox {
+            SignedInConfirmationDialogContent()
         }
     }
 
     @Test
     fun signedInConfirmationDialogTruncation() {
-        paparazzi.snapshot {
+        paparazzi.snapshotInABox {
             FakeImageLoader.Resources.override {
-                Box(
-                    modifier = Modifier.background(Color.Black),
-                    contentAlignment = Alignment.Center
-                ) {
-                    SignedInConfirmationDialogContent(
-                        displayName = "Wolfeschlegelsteinhausenbergerdorff",
-                        email = "wolfeschlegelsteinhausenbergerdorff@example.com",
-                        avatar = android.R.drawable.sym_def_app_icon
-                    )
-                }
+                SignedInConfirmationDialogContent(
+                    displayName = "Wolfeschlegelsteinhausenbergerdorff",
+                    email = "wolfeschlegelsteinhausenbergerdorff@example.com",
+                    avatar = android.R.drawable.sym_def_app_icon
+                )
             }
         }
     }

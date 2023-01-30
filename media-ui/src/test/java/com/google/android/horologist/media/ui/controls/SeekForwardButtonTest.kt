@@ -16,16 +16,14 @@
 
 @file:OptIn(
     ExperimentalHorologistPaparazziApi::class,
-    ExperimentalHorologistMediaUiApi::class
+    ExperimentalHorologistMediaUiApi::class,
+    ExperimentalHorologistComposeToolsApi::class
 )
 
 package com.google.android.horologist.media.ui.controls
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
+import com.google.android.horologist.compose.tools.snapshotInABox
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.media.ui.components.controls.SeekForwardButton
@@ -41,61 +39,51 @@ class SeekForwardButtonTest {
 
     @Test
     fun givenIncrementIsFive_thenIconIsFive() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SeekForwardButton(
-                    onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Five
-                )
-            }
+        paparazzi.snapshotInABox {
+            SeekForwardButton(
+                onClick = {},
+                seekButtonIncrement = SeekButtonIncrement.Five
+            )
         }
     }
 
     @Test
     fun givenIncrementIsTen_thenIconIsTen() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SeekForwardButton(
-                    onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Ten
-                )
-            }
+        paparazzi.snapshotInABox {
+            SeekForwardButton(
+                onClick = {},
+                seekButtonIncrement = SeekButtonIncrement.Ten
+            )
         }
     }
 
     @Test
     fun givenIncrementIsThirty_thenIconIsThirty() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SeekForwardButton(
-                    onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Thirty
-                )
-            }
+        paparazzi.snapshotInABox {
+            SeekForwardButton(
+                onClick = {},
+                seekButtonIncrement = SeekButtonIncrement.Thirty
+            )
         }
     }
 
     @Test
     fun givenIncrementIsOtherValue_thenIconIsDefault() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SeekForwardButton(
-                    onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Known(15)
-                )
-            }
+        paparazzi.snapshotInABox {
+            SeekForwardButton(
+                onClick = {},
+                seekButtonIncrement = SeekButtonIncrement.Known(15)
+            )
         }
     }
 
     @Test
     fun givenIncrementIsUnknown_thenIconIsDefault() {
-        paparazzi.snapshot {
-            Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
-                SeekForwardButton(
-                    onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Unknown
-                )
-            }
+        paparazzi.snapshotInABox {
+            SeekForwardButton(
+                onClick = {},
+                seekButtonIncrement = SeekButtonIncrement.Unknown
+            )
         }
     }
 }

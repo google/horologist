@@ -43,6 +43,10 @@ private const val AVATAR_BACKGROUND_COLOR = 0xFF3C4043
 private const val BOTTOM_PADDING_SCREEN_PERCENTAGE = 0.094
 private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.094
 
+/**
+ * A screen to represent a
+ * [signing-in process state](https://developer.android.com/training/wearables/design/sign-in#confirmations).
+ */
 @ExperimentalHorologistAuthComposablesApi
 @Composable
 public fun SignInPlaceholderScreen(

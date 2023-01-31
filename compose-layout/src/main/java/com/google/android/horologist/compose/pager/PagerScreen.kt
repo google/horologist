@@ -117,7 +117,7 @@ public class PageScreenIndicatorState(
     message = "Use RequestFocusWhenActive",
     replaceWith = ReplaceWith(
         "RequestFocusWhenActive(focusRequester=focusRequester)",
-        "com.google.android.horologist.compose.focus.RequestFocusWhenActive"
+        "androidx.wear.compose.foundation.RequestFocusWhenActive"
     )
 )
 @ExperimentalHorologistComposeLayoutApi

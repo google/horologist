@@ -43,11 +43,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.wear.compose.foundation.HierarchicalFocusCoordinator
 import androidx.wear.compose.material.HorizontalPageIndicator
 import androidx.wear.compose.material.PageIndicatorState
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.PagerScope
-import com.google.accompanist.pager.PagerState
-import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 
 /**

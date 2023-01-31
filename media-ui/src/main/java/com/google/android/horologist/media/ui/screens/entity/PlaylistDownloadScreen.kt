@@ -21,6 +21,7 @@ package com.google.android.horologist.media.ui.screens.entity
 import android.text.format.Formatter
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -36,6 +37,8 @@ import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
@@ -293,7 +296,8 @@ private fun ButtonsContent(
                     modifier = Modifier
                         .padding(bottom = 16.dp)
                         .height(52.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp, CenterHorizontally)
                 ) {
                     FirstButton(
                         downloadMediaListState = state.downloadMediaListState,
@@ -303,7 +307,6 @@ private fun ButtonsContent(
                         onCancelDownloadButtonClick = onCancelDownloadButtonClick,
                         onDownloadCompletedButtonClick = onDownloadCompletedButtonClick,
                         modifier = Modifier
-                            .padding(start = 6.dp)
                             .weight(weight = 0.3F, fill = false)
                     )
 
@@ -312,7 +315,6 @@ private fun ButtonsContent(
                         contentDescription = stringResource(id = R.string.horologist_playlist_download_button_shuffle_content_description),
                         onClick = { onShuffleButtonClick(state.collectionModel) },
                         modifier = Modifier
-                            .padding(start = 6.dp)
                             .weight(weight = 0.3F, fill = false)
                     )
 
@@ -321,7 +323,6 @@ private fun ButtonsContent(
                         contentDescription = stringResource(id = R.string.horologist_playlist_download_button_play_content_description),
                         onClick = { onPlayButtonClick(state.collectionModel) },
                         modifier = Modifier
-                            .padding(start = 6.dp)
                             .weight(weight = 0.3F, fill = false)
                     )
                 }

@@ -88,12 +88,11 @@ dependencies {
     api(libs.wearcompose.foundation)
     api(libs.wearcompose.navigation)
 
-    api(libs.accompanist.pager)
-
     api(libs.androidx.lifecycle.runtime.compose)
     api(libs.androidx.paging)
 
     implementation(libs.kotlin.stdlib)
+    implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.util)
     implementation(libs.androidx.wear)
     implementation(libs.androidx.lifecycle.viewmodel.compose)

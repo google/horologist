@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMedia3BackendApi::class)
-
 package com.google.android.horologist.test.toolbox.testdoubles
 
 import com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi

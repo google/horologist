@@ -51,7 +51,6 @@ versionCatalogUpdate = "0.7.0"
 wearcompose = "1.2.0-alpha03"
 
 [libraries]
-accompanist-pager = "com.google.accompanist:accompanist-pager:0.28.0"
 affectedmoduledetector = { module = "com.dropbox.affectedmoduledetector:affectedmoduledetector", version.ref = "affectedmoduledetector" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }

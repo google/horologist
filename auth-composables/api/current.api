@@ -1,0 +1,72 @@
+// Signature format: 4.0
+package com.google.android.horologist.auth.composables {
+
+  @kotlin.RequiresOptIn(message="Horologist Auth Composables is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistAuthComposablesApi {
+  }
+
+}
+
+package com.google.android.horologist.auth.composables.chips {
+
+  public final class CreateAccountChipKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void CreateAccountChip(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String label, optional com.google.android.horologist.base.ui.components.StandardChipType chipType, optional boolean enabled);
+  }
+
+  public final class GuestModeChipKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void GuestModeChip(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String label, optional com.google.android.horologist.base.ui.components.StandardChipType chipType, optional boolean enabled);
+  }
+
+  public final class OtherOptionsChipKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void OtherOptionsChip(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String label, optional com.google.android.horologist.base.ui.components.StandardChipType chipType, optional boolean enabled);
+  }
+
+  public final class SignInChipKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void SignInChip(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String label, optional com.google.android.horologist.base.ui.components.StandardChipType chipType, optional boolean enabled);
+  }
+
+}
+
+package com.google.android.horologist.auth.composables.dialogs {
+
+  public final class SignedInConfirmationDialogKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void SignedInConfirmationDialog(kotlin.jvm.functions.Function0<kotlin.Unit> onDismissOrTimeout, optional androidx.compose.ui.Modifier modifier, optional String? name, optional String? email, optional Object? avatar, optional java.time.Duration duration);
+  }
+
+}
+
+package com.google.android.horologist.auth.composables.model {
+
+  @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public final class AccountUiModel {
+    ctor public AccountUiModel(String email, optional Object? avatar);
+    method public String component1();
+    method public Object? component2();
+    method public com.google.android.horologist.auth.composables.model.AccountUiModel copy(String email, Object? avatar);
+    method public Object? getAvatar();
+    method public String getEmail();
+    property public final Object? avatar;
+    property public final String email;
+  }
+
+}
+
+package com.google.android.horologist.auth.composables.screens {
+
+  public final class AuthErrorScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void AuthErrorScreen(optional androidx.compose.ui.Modifier modifier);
+  }
+
+  public final class CheckYourPhoneScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void CheckYourPhoneScreen(optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void CheckYourPhoneScreen(optional androidx.compose.ui.Modifier modifier, String message);
+  }
+
+  public final class SelectAccountScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void SelectAccountScreen(java.util.List<com.google.android.horologist.auth.composables.model.AccountUiModel> accounts, kotlin.jvm.functions.Function2<? super java.lang.Integer,? super com.google.android.horologist.auth.composables.model.AccountUiModel,kotlin.Unit> onAccountClicked, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, optional androidx.compose.ui.Modifier modifier, optional String title, optional Object? defaultAvatar);
+  }
+
+  public final class SignInPlaceholderScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void SignInPlaceholderScreen(optional androidx.compose.ui.Modifier modifier, optional String message);
+  }
+
+}
+

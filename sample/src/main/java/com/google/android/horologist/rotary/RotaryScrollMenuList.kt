@@ -49,6 +49,7 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults.snapFling
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
+import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.Card
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
@@ -56,7 +57,6 @@ import androidx.wear.compose.material.CompactChip
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
-import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.rotaryinput.rememberDisabledHaptic
 import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticFeedback

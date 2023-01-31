@@ -113,6 +113,7 @@ android {
             "-opt-in=com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi",
             "-opt-in=com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi",
             "-opt-in=com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi",
+            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
             "-opt-in=kotlin.RequiresOptIn",
             "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
         )

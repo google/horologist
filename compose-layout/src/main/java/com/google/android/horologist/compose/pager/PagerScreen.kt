@@ -90,11 +90,7 @@ public fun PagerScreen(
 }
 
 /**
- * Bridge between Accompanist PagerState and the Wear Compose
- * PageIndicatorState.
- *
- * n.b. Currently fails for 0 pageCount, so enclose the HorizontalPageIndicator
- * in an if statement.
+ * Bridge between Foundation PagerState and the Wear Compose PageIndicatorState.
  */
 public class PageScreenIndicatorState(
     private val state: PagerState,

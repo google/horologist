@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistComposeToolsApi::class)
+@file:OptIn(ExperimentalHorologistMediaUiApi::class,
+    ExperimentalFoundationApi::class
+)
 
 package com.google.android.horologist.media.ui
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope

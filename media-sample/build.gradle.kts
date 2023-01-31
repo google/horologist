@@ -99,7 +99,6 @@ android {
             androidx.compose.foundation.ExperimentalFoundationApi
             androidx.compose.ui.ExperimentalComposeUiApi
             androidx.wear.compose.material.ExperimentalWearMaterialApi
-            com.google.accompanist.pager.ExperimentalPagerApi
             com.google.android.horologist.audio.ExperimentalHorologistAudioApi
             com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
             com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi

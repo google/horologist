@@ -59,6 +59,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.focused
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
@@ -143,19 +144,23 @@ public fun TimePicker(
         val focusRequesterSeconds = remember { FocusRequester() }
         val focusRequesterConfirmButton = remember { FocusRequester() }
 
+        val hourString = stringResource(R.string.horologist_time_picker_hour)
+        val minuteString = stringResource(R.string.horologist_time_picker_minute)
+        val secondString = stringResource(R.string.horologist_time_picker_second)
+
         val hourContentDescription by remember {
             derivedStateOf {
-                createDescription(focusedElement, hourState.selectedOption, "hours")
+                createDescription(focusedElement, hourState.selectedOption, hourString)
             }
         }
         val minuteContentDescription by remember {
             derivedStateOf {
-                createDescription(focusedElement, minuteState.selectedOption, "minutes")
+                createDescription(focusedElement, minuteState.selectedOption, minuteString)
             }
         }
         val secondContentDescription by remember {
             derivedStateOf {
-                createDescription(focusedElement, secondState.selectedOption, "seconds")
+                createDescription(focusedElement, secondState.selectedOption, secondString)
             }
         }
 
@@ -182,9 +187,9 @@ public fun TimePicker(
                 Spacer(Modifier.height(12.dp))
                 Text(
                     text = when (focusedElement) {
-                        FocusableElement.HOURS -> stringResource(R.string.horologist_time_picker_hour)
-                        FocusableElement.MINUTES -> stringResource(R.string.horologist_time_picker_minute)
-                        FocusableElement.SECONDS -> stringResource(R.string.horologist_time_picker_second)
+                        FocusableElement.HOURS -> hourString
+                        FocusableElement.MINUTES -> minuteString
+                        FocusableElement.SECONDS -> secondString
                         else -> ""
                     },
                     color = optionColor,
@@ -383,14 +388,18 @@ public fun TimePickerWith12HourClock(
         val focusRequesterPeriod = remember { FocusRequester() }
         val focusRequesterConfirmButton = remember { FocusRequester() }
 
+        val hourString = stringResource(R.string.horologist_time_picker_hour)
+        val minuteString = stringResource(R.string.horologist_time_picker_minute)
+        val periodString = stringResource(R.string.horologist_time_picker_period)
+
         val hoursContentDescription by remember {
             derivedStateOf {
-                createDescription12Hour(focusedElement, hourState.selectedOption + 1, "hours")
+                createDescription12Hour(focusedElement, hourState.selectedOption + 1, hourString)
             }
         }
         val minutesContentDescription by remember {
             derivedStateOf {
-                createDescription12Hour(focusedElement, minuteState.selectedOption, "minutes")
+                createDescription12Hour(focusedElement, minuteState.selectedOption, minuteString)
             }
         }
 
@@ -403,7 +412,7 @@ public fun TimePickerWith12HourClock(
         val periodContentDescription by remember {
             derivedStateOf {
                 if (focusedElement == FocusableElement12Hour.NONE) {
-                    createDescription12Hour(focusedElement, periodState.selectedOption, "period")
+                    createDescription12Hour(focusedElement, periodState.selectedOption, periodString)
                 } else if (periodState.selectedOption == 0) {
                     createDescription12Hour(focusedElement, periodState.selectedOption, amString)
                 } else createDescription12Hour(focusedElement, periodState.selectedOption, pmString)
@@ -433,8 +442,8 @@ public fun TimePickerWith12HourClock(
                 Spacer(Modifier.height(12.dp))
                 Text(
                     text = when (focusedElement) {
-                        FocusableElement12Hour.HOURS -> stringResource(R.string.horologist_time_picker_hour)
-                        FocusableElement12Hour.MINUTES -> stringResource(R.string.horologist_time_picker_minute)
+                        FocusableElement12Hour.HOURS -> hourString
+                        FocusableElement12Hour.MINUTES -> minuteString
                         else -> ""
                     },
                     color = MaterialTheme.colors.secondary,
@@ -641,7 +650,8 @@ private fun Separator(width: Dp, textStyle: TextStyle) {
     Text(
         text = ":",
         style = textStyle,
-        color = MaterialTheme.colors.onBackground
+        color = MaterialTheme.colors.onBackground,
+        modifier = Modifier.clearAndSetSemantics {}
     )
     Spacer(Modifier.width(width))
 }

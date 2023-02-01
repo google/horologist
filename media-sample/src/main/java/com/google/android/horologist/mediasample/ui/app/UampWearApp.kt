@@ -182,7 +182,7 @@ fun UampWearApp(
             navHostState = navHostState,
             pagerState = pagerState,
             snackbarViewModel = hiltViewModel<SnackbarViewModel>(),
-            volumeViewModel = hiltViewModel<VolumeViewModel>(),
+            volumeViewModel = volumeViewModel,
             timeText = timeText,
             deepLinkPrefix = appViewModel.deepLinkPrefix,
             navController = navController,

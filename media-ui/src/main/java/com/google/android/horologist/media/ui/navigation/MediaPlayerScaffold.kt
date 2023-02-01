@@ -79,7 +79,7 @@ public fun MediaPlayerScaffold(
     navController: NavHostController,
     modifier: Modifier = Modifier,
     volumeScreen: @Composable () -> Unit = {
-        VolumeScreen()
+        VolumeScreen(volumeViewModel = volumeViewModel)
     },
     timeText: @Composable (Modifier) -> Unit = {
         TimeText(modifier = it)

@@ -94,6 +94,7 @@ android {
 dependencies {
 
     implementation(projects.authDataPhone)
+    implementation(projects.authSampleShared)
 
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.lifecycle.runtime)

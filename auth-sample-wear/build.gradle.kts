@@ -89,6 +89,7 @@ android {
 dependencies {
     implementation(projects.authComposables)
     implementation(projects.authData)
+    implementation(projects.authSampleShared)
     implementation(projects.authUi)
     implementation(projects.baseUi)
     implementation(projects.composables)

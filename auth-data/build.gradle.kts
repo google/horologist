@@ -44,7 +44,10 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-opt-in=kotlin.RequiresOptIn",
+            "-opt-in=com.google.android.horologist.data.ExperimentalHorologistDataLayerApi",
+        )
     }
 
     packagingOptions {
@@ -89,6 +92,10 @@ metalava {
 }
 
 dependencies {
+
+    implementation(projects.datalayer)
+
+    api(libs.androidx.datastore)
 
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)

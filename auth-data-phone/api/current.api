@@ -15,25 +15,22 @@ package com.google.android.horologist.auth.data.phone.common {
 
 package com.google.android.horologist.auth.data.phone.tokenshare {
 
-  @com.google.android.horologist.auth.data.phone.ExperimentalHorologistAuthDataPhoneApi public interface TokenRepository {
-    method public suspend Object? updateToken(String token, kotlin.coroutines.Continuation<? super kotlin.Unit>);
-    field public static final com.google.android.horologist.auth.data.phone.tokenshare.TokenRepository.Companion Companion;
-    field public static final String KEY_TOKEN = "token";
-    field public static final String SERVICE_PATH_PREFIX = "/horologist_auth";
-  }
-
-  public static final class TokenRepository.Companion {
-    field public static final String KEY_TOKEN = "token";
-    field public static final String SERVICE_PATH_PREFIX = "/horologist_auth";
+  @com.google.android.horologist.auth.data.phone.ExperimentalHorologistAuthDataPhoneApi public interface TokenBundleRepository<TokenBundle> {
+    method public suspend Object? update(TokenBundle? tokenBundle, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
 }
 
 package com.google.android.horologist.auth.data.phone.tokenshare.impl {
 
-  @com.google.android.horologist.auth.data.phone.ExperimentalHorologistAuthDataPhoneApi public final class TokenRepositoryImpl implements com.google.android.horologist.auth.data.phone.tokenshare.TokenRepository {
-    ctor public TokenRepositoryImpl(com.google.android.gms.wearable.DataClient dataClient);
-    method public suspend Object? updateToken(String token, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  @com.google.android.horologist.auth.data.phone.ExperimentalHorologistAuthDataPhoneApi public final class TokenBundleRepositoryImpl<TokenBundle> implements com.google.android.horologist.auth.data.phone.tokenshare.TokenBundleRepository<TokenBundle> {
+    ctor public TokenBundleRepositoryImpl(androidx.datastore.core.DataStore<TokenBundle> dataStore);
+    method public suspend Object? update(TokenBundle? tokenBundle, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    field public static final com.google.android.horologist.auth.data.phone.tokenshare.impl.TokenBundleRepositoryImpl.Companion Companion;
+  }
+
+  public static final class TokenBundleRepositoryImpl.Companion {
+    method public <TokenBundle> com.google.android.horologist.auth.data.phone.tokenshare.impl.TokenBundleRepositoryImpl<TokenBundle> create(optional String key, android.content.Context applicationContext, kotlinx.coroutines.CoroutineScope coroutineScope, androidx.datastore.core.Serializer<TokenBundle> serializer);
   }
 
 }

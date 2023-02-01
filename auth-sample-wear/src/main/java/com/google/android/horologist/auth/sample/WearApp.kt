@@ -37,8 +37,7 @@ import com.google.android.horologist.auth.sample.screens.oauth.devicegrant.signo
 import com.google.android.horologist.auth.sample.screens.oauth.pkce.prompt.PKCESignInPromptScreen
 import com.google.android.horologist.auth.sample.screens.oauth.pkce.signin.PKCESampleViewModelFactory
 import com.google.android.horologist.auth.sample.screens.oauth.pkce.signout.PKCESignOutScreen
-import com.google.android.horologist.auth.sample.screens.tokenshare.listener.TokenShareListenerScreen
-import com.google.android.horologist.auth.sample.screens.tokenshare.service.TokenShareServiceScreen
+import com.google.android.horologist.auth.sample.screens.tokenshare.TokenShareScreen
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
 import com.google.android.horologist.auth.ui.oauth.devicegrant.signin.DeviceGrantSignInScreen
 import com.google.android.horologist.auth.ui.oauth.pkce.signin.PKCESignInScreen
@@ -114,11 +113,8 @@ fun WearApp() {
         composable(route = Screen.GoogleSignOutScreen.route) {
             GoogleSignOutScreen(navController = navController)
         }
-        scrollable(route = Screen.TokenShareListenerScreen.route) {
-            TokenShareListenerScreen(columnState = it.columnState)
-        }
-        scrollable(route = Screen.TokenShareServiceScreen.route) {
-            TokenShareServiceScreen(columnState = it.columnState)
+        scrollable(route = Screen.TokenShareScreen.route) {
+            TokenShareScreen(columnState = it.columnState)
         }
     }
 }

@@ -210,7 +210,7 @@ fun RotaryScrollWithFlingOrSnapScreen(
             hapticsEnabled = hapticsEnabled,
             onShowListClicked = { showList = true },
             onItemTypeIndexChanged = { itemTypeIndex = it },
-            onHapticsToggled = { hapticsEnabled = !hapticsEnabled },
+            onHapticsToggled = { hapticsEnabled = !hapticsEnabled }
         )
     }
 }

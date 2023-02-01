@@ -157,7 +157,6 @@ fun RotaryScrollWithFlingOrSnapScreen(
     isFling: Boolean,
     isSnap: Boolean
 ) {
-    val focusRequester = rememberActiveFocusRequester()
     var showList by remember { mutableStateOf(false) }
 
     var hapticsEnabled by remember { mutableStateOf(true) }
@@ -169,6 +168,7 @@ fun RotaryScrollWithFlingOrSnapScreen(
         val scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState()
         val rotaryHapticFeedback =
             if (hapticsEnabled) rememberRotaryHapticFeedback() else rememberDisabledHaptic()
+        val focusRequester = rememberActiveFocusRequester()
         ItemsListWithModifier(
             modifier = Modifier
                 .let {
@@ -210,7 +210,7 @@ fun RotaryScrollWithFlingOrSnapScreen(
             hapticsEnabled = hapticsEnabled,
             onShowListClicked = { showList = true },
             onItemTypeIndexChanged = { itemTypeIndex = it },
-            onHapticsToggled = { hapticsEnabled = !hapticsEnabled }
+            onHapticsToggled = { hapticsEnabled = !hapticsEnabled },
         )
     }
 }

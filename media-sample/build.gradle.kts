@@ -240,6 +240,7 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
     releaseCompileOnly(projects.composeTools)
+    add("benchmarkCompileOnly", projects.composeTools)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

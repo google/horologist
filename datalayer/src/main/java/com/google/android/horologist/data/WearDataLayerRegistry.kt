@@ -159,7 +159,7 @@ public class WearDataLayerRegistry(
             nodeClient = Wearable.getNodeClient(application),
             messageClient = Wearable.getMessageClient(application),
             capabilityClient = Wearable.getCapabilityClient(application),
-            coroutineScope = coroutineScope,
+            coroutineScope = coroutineScope
         )
 
         public fun buildUri(nodeId: String, path: String): Uri = Uri.Builder()

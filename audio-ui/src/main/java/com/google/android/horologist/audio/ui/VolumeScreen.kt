@@ -28,15 +28,13 @@ import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.wear.compose.foundation.RequestFocusWhenActive
+import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.InlineSlider
 import androidx.wear.compose.material.MaterialTheme
@@ -101,7 +99,7 @@ public fun VolumeScreen(
     increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
     showVolumeIndicator: Boolean = true,
-    onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)? = null
+    onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)
 ) {
     VolumeScreen(
         volume = volume,
@@ -143,7 +141,7 @@ public fun VolumeWithLabelScreen(
     increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
     showVolumeIndicator: Boolean = true,
-    onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)? = null
+    onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)
 ) {
     VolumeScreen(
         volume = volume,
@@ -175,24 +173,16 @@ internal fun VolumeScreen(
     increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
     showVolumeIndicator: Boolean = true,
-    onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)? = null
+    onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)
 ) {
-    val focusRequester = remember(onVolumeChangeByScroll) {
-        if (onVolumeChangeByScroll != null) {
-            FocusRequester()
-        } else {
-            null
-        }
-    }
+    val focusRequester = rememberActiveFocusRequester()
 
     Box(
-        modifier = modifier.fillMaxSize().run {
-            onVolumeChangeByScroll?.let {
-                onRotaryInputAccumulated(onValueChange = it)
-                    .focusRequester(focusRequester!!)
-                    .focusable()
-            } ?: this
-        }
+        modifier = modifier
+            .fillMaxSize()
+            .onRotaryInputAccumulated(onValueChange = onVolumeChangeByScroll)
+            .focusRequester(focusRequester)
+            .focusable()
     ) {
         val volumeState = volume()
         Stepper(
@@ -215,10 +205,6 @@ internal fun VolumeScreen(
                 autoHide = false
             )
         }
-    }
-
-    if (focusRequester != null) {
-        RequestFocusWhenActive(focusRequester)
     }
 }
 

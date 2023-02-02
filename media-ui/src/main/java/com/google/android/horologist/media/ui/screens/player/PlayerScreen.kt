@@ -92,7 +92,7 @@ public fun PlayerScreen(
         },
         modifier = modifier,
         background = { background(playerUiState) },
-        onVolumeChangeByScroll = volumeViewModel::onVolumeChangeByScroll,
+        onVolumeChangeByScroll = volumeViewModel::onVolumeChangeByScroll
     )
 }
 
@@ -154,7 +154,7 @@ public fun PlayerScreen(
     buttons: @Composable RowScope.() -> Unit,
     modifier: Modifier = Modifier,
     background: @Composable BoxScope.() -> Unit = {},
-    onVolumeChangeByScroll: (scrollPixels: Float) -> Unit,
+    onVolumeChangeByScroll: (scrollPixels: Float) -> Unit
 ) {
     val isBig = LocalConfiguration.current.screenHeightDp > 210
     val isRound = LocalConfiguration.current.isScreenRound
@@ -167,7 +167,7 @@ public fun PlayerScreen(
             .onRotaryInputAccumulated(onValueChange = onVolumeChangeByScroll)
             .focusRequester(focusRequester)
             .focusable()
-        ) {
+    ) {
         background()
 
         Column(

@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.data
 
+import com.google.android.gms.wearable.CapabilityClient
 import kotlinx.coroutines.tasks.await
 
 /**
@@ -43,7 +44,12 @@ public interface TargetNodeId {
      */
     public object PairedPhone : TargetNodeId {
         override suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String? {
-            return dataLayerRegistry.nodeClient.connectedNodes.await()?.firstOrNull()?.id
+            val capabilitySearch = dataLayerRegistry.capabilityClient.getCapability(
+                HOROLOGIST_MOBILE,
+                CapabilityClient.FILTER_ALL
+            ).await()
+
+            return capabilitySearch.nodes.singleOrNull()?.id
         }
     }
 
@@ -56,5 +62,10 @@ public interface TargetNodeId {
         override suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String {
             return nodeId
         }
+    }
+
+    companion object {
+        const val HOROLOGIST_MOBILE = "horologist_mobile"
+        const val HOROLOGIST_WATCH = "horologist_watch"
     }
 }

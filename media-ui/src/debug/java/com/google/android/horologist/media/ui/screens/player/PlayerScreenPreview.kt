@@ -119,7 +119,8 @@ fun PlayerScreenPreview() {
                             )
                         }
                     )
-                }
+                },
+                onVolumeChangeByScroll = {}
             )
         }
     }
@@ -189,7 +190,8 @@ fun PlayerScreenPreviewCustomMediaDisplay() {
                             )
                         }
                     )
-                }
+                },
+                onVolumeChangeByScroll = {}
             )
         }
     }
@@ -282,7 +284,8 @@ fun PlayerScreenPreviewCustomBackground() {
                             indicatorColor = Color.Blue
                         )
                     }
-                }
+                },
+                onVolumeChangeByScroll = {}
             )
         }
     }
@@ -349,7 +352,8 @@ fun DefaultMediaPreview() {
                 },
                 background = {
                     RadialBackground(color = Color.Yellow)
-                }
+                },
+                onVolumeChangeByScroll = {}
             )
         }
     }

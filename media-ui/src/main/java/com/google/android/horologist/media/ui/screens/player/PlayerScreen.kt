@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.media.ui.screens.player
 
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -35,10 +36,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import com.google.android.horologist.audio.ui.VolumeViewModel
+import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.DefaultMediaDisplay
@@ -66,6 +71,7 @@ public typealias PlayerBackground = @Composable BoxScope.(playerUiState: PlayerU
 @Composable
 public fun PlayerScreen(
     playerViewModel: PlayerViewModel,
+    volumeViewModel: VolumeViewModel,
     modifier: Modifier = Modifier,
     mediaDisplay: MediaDisplay = { playerUiState ->
         DefaultPlayerScreenMediaDisplay(playerUiState)
@@ -85,7 +91,8 @@ public fun PlayerScreen(
             buttons(playerUiState)
         },
         modifier = modifier,
-        background = { background(playerUiState) }
+        background = { background(playerUiState) },
+        onVolumeChangeByScroll = volumeViewModel::onVolumeChangeByScroll,
     )
 }
 
@@ -146,14 +153,21 @@ public fun PlayerScreen(
     controlButtons: @Composable RowScope.() -> Unit,
     buttons: @Composable RowScope.() -> Unit,
     modifier: Modifier = Modifier,
-    background: @Composable BoxScope.() -> Unit = {}
+    background: @Composable BoxScope.() -> Unit = {},
+    onVolumeChangeByScroll: (scrollPixels: Float) -> Unit,
 ) {
     val isBig = LocalConfiguration.current.screenHeightDp > 210
     val isRound = LocalConfiguration.current.isScreenRound
 
+    val focusRequester = rememberActiveFocusRequester()
+
     Box(
-        modifier = modifier.fillMaxSize()
-    ) {
+        modifier = modifier
+            .fillMaxSize()
+            .onRotaryInputAccumulated(onValueChange = onVolumeChangeByScroll)
+            .focusRequester(focusRequester)
+            .focusable()
+        ) {
         background()
 
         Column(

@@ -17,12 +17,21 @@
 package com.google.android.horologist.mediasample.ui.settings
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.android.horologist.auth.data.common.model.AuthUser
+import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SettingsScreenViewModel @Inject constructor() : ViewModel() {
-    internal fun logout() {
-        // TODO login and logout functionality
+class SettingsScreenViewModel @Inject constructor(
+    authUserRepository: AuthUserRepository
+) : ViewModel() {
+    init {
+
+        viewModelScope
     }
+
 }
+
+data class SettingsScreenState(val authUser: AuthUser?)

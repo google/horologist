@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.media.ui.screens.player
 
+import android.os.Vibrator
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
@@ -29,12 +30,17 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
 import androidx.test.filters.FlakyTest
 import androidx.test.filters.LargeTest
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.PlayerViewModel
+import com.google.android.horologist.media.ui.test.FakeAudioOutputRepository
+import com.google.android.horologist.media.ui.test.FakeVolumeRepository
 import com.google.android.horologist.test.toolbox.matchers.hasProgressBar
 import com.google.android.horologist.test.toolbox.testdoubles.FakePlayerRepository
 import com.google.common.truth.Truth.assertThat
@@ -49,14 +55,24 @@ class PlayerScreenTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
+    val volumeRepository = FakeVolumeRepository(VolumeState(5, 15))
+    val audioOutputRepository = FakeAudioOutputRepository()
+    val vibrator = InstrumentationRegistry.getInstrumentation().context.getSystemService(Vibrator::class.java)
+    val volumeViewModel = VolumeViewModel(volumeRepository, audioOutputRepository, onCleared = {}, vibrator)
+
     @Test
     fun givenShowProgressIsTrue_thenProgressBarIsDisplayed() {
         // given
-        var playerRepository = FakePlayerRepository()
+        val playerRepository = FakePlayerRepository()
         val playerViewModel = PlayerViewModel(playerRepository)
 
         playerRepository.setPosition(1.minutes, 10.minutes)
-        composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
+        composeTestRule.setContent {
+            PlayerScreen(
+                playerViewModel = playerViewModel,
+                volumeViewModel = volumeViewModel
+            )
+        }
 
         // then
         composeTestRule.onNode(hasProgressBar())
@@ -78,7 +94,8 @@ class PlayerScreenTest {
                         playerController = playerUiController,
                         playerUiState = playerUiState
                     )
-                }
+                },
+                volumeViewModel = volumeViewModel
             )
         }
 
@@ -97,7 +114,12 @@ class PlayerScreenTest {
 
         assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState).isNotEqualTo(PlayerState.Playing)
 
-        composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
+        composeTestRule.setContent {
+            PlayerScreen(
+                playerViewModel = playerViewModel,
+                volumeViewModel = volumeViewModel
+            )
+        }
 
         // when
         composeTestRule.onNodeWithContentDescription("Play")
@@ -120,7 +142,12 @@ class PlayerScreenTest {
 
         assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState).isEqualTo(PlayerState.Playing)
 
-        composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
+        composeTestRule.setContent {
+            PlayerScreen(
+                playerViewModel = playerViewModel,
+                volumeViewModel = volumeViewModel
+            )
+        }
 
         // when
         composeTestRule.onNodeWithContentDescription("Pause")
@@ -147,7 +174,12 @@ class PlayerScreenTest {
 
         assertThat(playerRepository.currentMedia.value).isEqualTo(media2)
 
-        composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
+        composeTestRule.setContent {
+            PlayerScreen(
+                playerViewModel = playerViewModel,
+                volumeViewModel = volumeViewModel
+            )
+        }
 
         // when
         composeTestRule.onNodeWithContentDescription("Previous")
@@ -174,7 +206,12 @@ class PlayerScreenTest {
 
         assertThat(playerRepository.currentMedia.value).isEqualTo(media1)
 
-        composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
+        composeTestRule.setContent {
+            PlayerScreen(
+                playerViewModel = playerViewModel,
+                volumeViewModel = volumeViewModel
+            )
+        }
 
         // when
         composeTestRule.onNodeWithContentDescription("Next")
@@ -192,7 +229,12 @@ class PlayerScreenTest {
         val playerRepository = FakePlayerRepository()
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
+        composeTestRule.setContent {
+            PlayerScreen(
+                playerViewModel = playerViewModel,
+                volumeViewModel = volumeViewModel
+            )
+        }
 
         // when
         playerRepository.setPosition(1.minutes, 10.minutes)
@@ -217,7 +259,12 @@ class PlayerScreenTest {
 
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
+        composeTestRule.setContent {
+            PlayerScreen(
+                playerViewModel = playerViewModel,
+                volumeViewModel = volumeViewModel
+            )
+        }
 
         val button = composeTestRule.onNodeWithContentDescription("Pause")
 
@@ -237,7 +284,12 @@ class PlayerScreenTest {
         val playerRepository = FakePlayerRepository()
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
+        composeTestRule.setContent {
+            PlayerScreen(
+                playerViewModel = playerViewModel,
+                volumeViewModel = volumeViewModel
+            )
+        }
 
         val button = composeTestRule.onNodeWithContentDescription("Previous")
 
@@ -257,7 +309,12 @@ class PlayerScreenTest {
         val playerRepository = FakePlayerRepository()
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
+        composeTestRule.setContent {
+            PlayerScreen(
+                playerViewModel = playerViewModel,
+                volumeViewModel = volumeViewModel
+            )
+        }
 
         val button = composeTestRule.onNodeWithContentDescription("Next")
 
@@ -283,7 +340,12 @@ class PlayerScreenTest {
 
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        composeTestRule.setContent { PlayerScreen(playerViewModel = playerViewModel) }
+        composeTestRule.setContent {
+            PlayerScreen(
+                playerViewModel = playerViewModel,
+                volumeViewModel = volumeViewModel
+            )
+        }
 
         // then
         composeTestRule.onNode(hasText(artist)).assertExists()
@@ -305,7 +367,8 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = playerViewModel,
-                mediaDisplay = { Text("Custom") }
+                mediaDisplay = { Text("Custom") },
+                volumeViewModel = volumeViewModel
             )
         }
 
@@ -322,7 +385,8 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = PlayerViewModel(FakePlayerRepository()),
-                controlButtons = { _, _ -> Text("Custom") }
+                controlButtons = { _, _ -> Text("Custom") },
+                volumeViewModel = volumeViewModel
             )
         }
 
@@ -342,7 +406,8 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = PlayerViewModel(FakePlayerRepository()),
-                buttons = { Text("Custom") }
+                buttons = { Text("Custom") },
+                volumeViewModel = volumeViewModel
             )
         }
 
@@ -356,7 +421,8 @@ class PlayerScreenTest {
         composeTestRule.setContent {
             PlayerScreen(
                 playerViewModel = PlayerViewModel(FakePlayerRepository()),
-                background = { Text("Custom") }
+                background = { Text("Custom") },
+                volumeViewModel = volumeViewModel
             )
         }
 

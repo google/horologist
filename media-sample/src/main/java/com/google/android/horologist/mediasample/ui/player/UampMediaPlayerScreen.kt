@@ -48,6 +48,7 @@ fun UampMediaPlayerScreen(
     PlayerScreen(
         modifier = modifier,
         playerViewModel = mediaPlayerScreenViewModel,
+        volumeViewModel = volumeViewModel,
         mediaDisplay = { playerUiState ->
             if (settingsState.animated) {
                 AnimatedPlayerScreenMediaDisplay(playerUiState)

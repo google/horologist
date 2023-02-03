@@ -113,7 +113,6 @@ public fun MediaPlayerScaffold(
 
             PlayerLibraryPagerScreen(
                 pagerState = pagerState,
-                onVolumeChangeByScroll = volumeViewModel::onVolumeChangeByScroll,
                 volumeState = { volumeState },
                 timeText = timeText,
                 playerScreen = {

@@ -1,8 +1,57 @@
 // Signature format: 4.0
+package com.google.android.horologist {
+
+  public final class DatePickerTest {
+    ctor public DatePickerTest();
+    method public void current_values_checked_in_date_picker_state();
+    method public void day_options_restricted_correctly_for_fromDate();
+    method public void day_options_restricted_correctly_for_toDate();
+    method public error.NonExistentClass! getComposeTestRule();
+    method public void month_options_restricted_correctly_for_fromDate();
+    method public void month_options_restricted_correctly_for_toDate();
+    method public void month_state_initialised_to_fromMonth();
+    method public void month_state_initialised_to_toMonth();
+    method public void onDateConfirm_called_when_confirm_clicked();
+    method public void picker_first_options_set_correctly_for_fromDate();
+    method public void picker_last_options_set_correctly_for_toDate();
+    method public void picker_options_restricted_correctly_when_fromDate_equals_toDate();
+    method public void should_throw_if_date_outside_from_to_range();
+    method public void should_throw_if_fromDate_after_toDate();
+    method public void year_options_restricted_correctly_when_fromDate_and_toDate_provided();
+    method public void year_state_initialised_to_fromYear();
+    method public void year_state_initialised_to_toYear();
+    property public final error.NonExistentClass! composeTestRule;
+  }
+
+  public final class TimePickerTest {
+    ctor public TimePickerTest();
+    method public error.NonExistentClass! getComposeTestRule();
+    method public void test12hour();
+    method public void testTime();
+    method public void testTimeWithSeconds();
+    property public final error.NonExistentClass! composeTestRule;
+  }
+
+}
+
 package com.google.android.horologist.composables {
 
   public final class DatePickerKt {
     method @androidx.compose.runtime.Composable public static void DatePicker(kotlin.jvm.functions.Function1<? super java.time.LocalDate,kotlin.Unit> onDateConfirm, optional androidx.compose.ui.Modifier modifier, optional java.time.LocalDate date, optional java.time.LocalDate? fromDate, optional java.time.LocalDate? toDate);
+  }
+
+  public final class DatePickerPreviewKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices @com.google.android.horologist.compose.tools.WearPreviewFontSizes public static void DatePickerPreview();
+  }
+
+  public final class DatePickerTest {
+    ctor public DatePickerTest();
+    method public void datePickerInitial();
+    method public error.NonExistentClass! getPaparazzi();
+    property public final error.NonExistentClass! paparazzi;
+  }
+
+  public final class DetermineHandlerKt {
   }
 
   @kotlin.RequiresOptIn(message="Horologist Composables is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistComposablesApi {
@@ -12,8 +61,36 @@ package com.google.android.horologist.composables {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void MarqueeText(String text, optional androidx.compose.ui.Modifier modifier, optional long color, optional androidx.compose.ui.text.TextStyle style, optional int textAlign, optional float followGap, optional float edgeGradientWidth, optional float marqueeDpPerSecond, optional long pauseTime);
   }
 
+  public final class MarqueeTextPreviewKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void MarqueeTextConstantScrollingPreview();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void MarqueeTextShortTextPreview();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void MarqueeTextTypicalPreview();
+  }
+
   public final class PlaceholderChipKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void PlaceholderChip(optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled, optional String contentDescription);
+  }
+
+  public final class PlaceholderChipPreviewKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void PlaceholderChipPreview();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void PlaceholderChipPreviewWithSecondaryColors();
+  }
+
+  public final class PlaceholderChipTest {
+    ctor public PlaceholderChipTest();
+    method public void default();
+    method public error.NonExistentClass! getPaparazzi();
+    method public void secondaryColors();
+    property public final error.NonExistentClass! paparazzi;
+  }
+
+  public enum PreviewAnimationState {
+    method public final float getTarget();
+    method public static com.google.android.horologist.composables.PreviewAnimationState valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.composables.PreviewAnimationState[] values();
+    property public final float target;
+    enum_constant public static final com.google.android.horologist.composables.PreviewAnimationState End;
+    enum_constant public static final com.google.android.horologist.composables.PreviewAnimationState Start;
   }
 
   public final class ProgressIndicatorSegment {
@@ -109,6 +186,14 @@ package com.google.android.horologist.composables {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void SectionedList(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, optional java.util.List<? extends com.google.android.horologist.composables.Section<?>> sections);
   }
 
+  public final class SectionedListPreviewKt {
+    method @androidx.compose.runtime.Composable public static void FavouritesFooter();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices public static void SectionedListPreviewEmptySection();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices public static void SectionedListPreviewFailedSection();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices public static void SectionedListPreviewLoadedSection();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices public static void SectionedListPreviewLoadingSection();
+  }
+
   @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public final class SectionedListScope {
     ctor public SectionedListScope();
     method public <T> void section(com.google.android.horologist.composables.Section.State<T> state, optional boolean displayFooterOnlyOnLoadedState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionScope<T>,kotlin.Unit> content);
@@ -116,17 +201,94 @@ package com.google.android.horologist.composables {
     method public void section(kotlin.jvm.functions.Function1<? super com.google.android.horologist.composables.SectionScope<kotlin.Unit>,kotlin.Unit> content);
   }
 
+  public final class SectionedListTest {
+    ctor public SectionedListTest();
+    method @androidx.compose.runtime.Composable public void FavouritesFooter();
+    method public void emptySection();
+    method public void failedSection();
+    method public void failedSection_secondPage();
+    method public error.NonExistentClass! getPaparazzi();
+    method public void loadedSection();
+    method public void loadedSection_secondPage();
+    method public void loadingSection();
+    property public final error.NonExistentClass! paparazzi;
+  }
+
+  public final class SectionedListTestKt {
+    method @androidx.compose.runtime.Composable public static com.google.android.horologist.compose.layout.ScalingLazyColumnState positionedState(int topIndex, int topScrollOffset);
+  }
+
   public final class SegmentedProgressIndicatorKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void SegmentedProgressIndicator(java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> trackSegments, float progress, optional androidx.compose.ui.Modifier modifier, optional float startAngle, optional float endAngle, optional float strokeWidth, optional float paddingAngle, optional long trackColor);
+  }
+
+  public final class SegmentedProgressIndicatorPreviewKt {
+  }
+
+  public final class SegmentedProgressIndicatorTest {
+    ctor public SegmentedProgressIndicatorTest();
+    method public error.NonExistentClass! getPaparazzi();
+    method public void segmentedPicker();
+    method public void segmentedPickerWithBrushColors();
+    method public void segmentedPickerWithBrushColorsAndColorsCombined();
+    property public final error.NonExistentClass! paparazzi;
   }
 
   public final class SquareSegmentedProgressIndicatorKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.composables.ExperimentalHorologistComposablesApi public static void SquareSegmentedProgressIndicator(optional androidx.compose.ui.Modifier modifier, float progress, optional float strokeWidth, optional long trackColor, optional float cornerRadiusDp, java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> trackSegments, optional float paddingDp);
   }
 
+  public final class SquareSegmentedProgressIndicatorPreviewKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearSquareDevicePreview public static void PreviewHighCornerRadius();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearSquareDevicePreview public static void PreviewProgressAnimation();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearSquareDevicePreview public static void PreviewSquare();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearSquareDevicePreview public static void PreviewSquareWithBrushAndColorsCombined();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearSquareDevicePreview public static void PreviewSquareWithBrushColors();
+    method public static java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> getPreviewProgressSections();
+    method public static java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> getPreviewProgressSectionsBrush();
+    method public static java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> getPreviewProgressSectionsBrushAndColorCombined();
+    property public static final java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> previewProgressSections;
+    property public static final java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> previewProgressSectionsBrush;
+    property public static final java.util.List<com.google.android.horologist.composables.ProgressIndicatorSegment> previewProgressSectionsBrushAndColorCombined;
+  }
+
+  public final class SquareSegmentedProgressIndicatorTest {
+    ctor public SquareSegmentedProgressIndicatorTest();
+    method public error.NonExistentClass! getPaparazzi();
+    method public void squareSegmentedIndicatorFewSegments();
+    method public void squareSegmentedIndicatorFewSegmentsAndBrushColor();
+    method public void squareSegmentedIndicatorFewSegmentsAndBrushColorAndColorsCombined();
+    method public void squareSegmentedIndicatorHighCornerRadius();
+    method public void squareSegmentedIndicatorLowCornerRadius();
+    method public void squareSegmentedIndicatorManySegments();
+    property public final error.NonExistentClass! paparazzi;
+  }
+
+  public final class TimePicker12hPreviewKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices @com.google.android.horologist.compose.tools.WearPreviewFontSizes public static void TimePicker12hPreview();
+  }
+
+  public final class TimePicker12hTest {
+    ctor public TimePicker12hTest();
+    method public void datePickerInitial();
+    method public error.NonExistentClass! getPaparazzi();
+    property public final error.NonExistentClass! paparazzi;
+  }
+
   public final class TimePickerKt {
     method @androidx.compose.runtime.Composable public static void TimePicker(kotlin.jvm.functions.Function1<? super java.time.LocalTime,kotlin.Unit> onTimeConfirm, optional androidx.compose.ui.Modifier modifier, optional java.time.LocalTime time, optional boolean showSeconds);
     method @androidx.compose.runtime.Composable public static void TimePickerWith12HourClock(kotlin.jvm.functions.Function1<? super java.time.LocalTime,kotlin.Unit> onTimeConfirm, optional androidx.compose.ui.Modifier modifier, optional java.time.LocalTime time);
+  }
+
+  public final class TimePickerPreviewKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices @com.google.android.horologist.compose.tools.WearPreviewFontSizes public static void TimePickerPreview();
+  }
+
+  public final class TimePickerTest {
+    ctor public TimePickerTest();
+    method public void datePickerInitial();
+    method public error.NonExistentClass! getPaparazzi();
+    property public final error.NonExistentClass! paparazzi;
   }
 
 }

@@ -4,6 +4,44 @@ package com.google.android.horologist.tiles {
   @kotlin.RequiresOptIn(message="Horologist Tiles is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistTilesApi {
   }
 
+  public final class FakeImageLoader implements coil.ImageLoader {
+    ctor public FakeImageLoader(kotlin.jvm.functions.Function1<? super coil.request.ImageRequest,? extends coil.request.ImageResult> imageFn);
+    method public coil.request.Disposable enqueue(coil.request.ImageRequest request);
+    method public suspend Object? execute(coil.request.ImageRequest request, kotlin.coroutines.Continuation<? super coil.request.ImageResult>);
+    method public coil.ComponentRegistry getComponents();
+    method public coil.request.DefaultRequestOptions getDefaults();
+    method public coil.disk.DiskCache? getDiskCache();
+    method public kotlin.jvm.functions.Function1<coil.request.ImageRequest,coil.request.ImageResult> getImageFn();
+    method public coil.memory.MemoryCache? getMemoryCache();
+    method public coil.ImageLoader.Builder newBuilder();
+    method public void shutdown();
+    property public coil.ComponentRegistry components;
+    property public coil.request.DefaultRequestOptions defaults;
+    property public coil.disk.DiskCache? diskCache;
+    property public final kotlin.jvm.functions.Function1<coil.request.ImageRequest,coil.request.ImageResult> imageFn;
+    property public coil.memory.MemoryCache? memoryCache;
+    field public static final com.google.android.horologist.tiles.FakeImageLoader.Companion Companion;
+  }
+
+  public static final class FakeImageLoader.Companion {
+    method public coil.request.ImageResult loadErrorBitmap(android.content.Context context, coil.request.ImageRequest request, @DrawableRes int id);
+    method public coil.request.ImageResult loadSuccessBitmap(android.content.Context context, coil.request.ImageRequest request, @DrawableRes int id);
+  }
+
+  public final class ImagesTest {
+    ctor public ImagesTest();
+    method public void handlesFailures();
+    method public void loadImageResource();
+    method public void setup();
+  }
+
+  public final class SuspendingCancelTileTest {
+    ctor public SuspendingCancelTileTest();
+    method public void setUp();
+    method public error.NonExistentClass! tileProviderCanBeCancelled();
+    method public error.NonExistentClass! tileProviderReturnsTile();
+  }
+
   @com.google.android.horologist.tiles.ExperimentalHorologistTilesApi public abstract class SuspendingTileService extends androidx.wear.tiles.TileService implements androidx.lifecycle.LifecycleOwner {
     ctor public SuspendingTileService();
     method public androidx.lifecycle.Lifecycle getLifecycle();
@@ -11,8 +49,39 @@ package com.google.android.horologist.tiles {
     method @Deprecated public final void onStart(android.content.Intent? intent, int startId);
     method public final int onStartCommand(android.content.Intent? intent, int flags, int startId);
     method protected final com.google.common.util.concurrent.ListenableFuture<androidx.wear.tiles.TileBuilders.Tile> onTileRequest(androidx.wear.tiles.RequestBuilders.TileRequest requestParams);
-    method public abstract suspend Object? resourcesRequest(androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.ResourceBuilders.Resources> p);
-    method public abstract suspend Object? tileRequest(androidx.wear.tiles.RequestBuilders.TileRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.TileBuilders.Tile> p);
+    method public abstract suspend Object? resourcesRequest(androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.ResourceBuilders.Resources>);
+    method public abstract suspend Object? tileRequest(androidx.wear.tiles.RequestBuilders.TileRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.TileBuilders.Tile>);
+  }
+
+  public final class SuspendingTileTest {
+    ctor public SuspendingTileTest();
+    method public void canCallOnResourcesRequest();
+    method public void canCallOnTileRequest();
+    method public void setUp();
+  }
+
+  public final class TestTileService extends com.google.android.horologist.tiles.SuspendingTileService {
+    ctor public TestTileService();
+    method public int getCancelled();
+    method public int getCompleted();
+    method public long getDelayDuration();
+    method public int getStarted();
+    method public suspend Object? resourcesRequest(androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.ResourceBuilders.Resources>);
+    method public void setCancelled(int);
+    method public void setCompleted(int);
+    method public void setDelayDuration(long);
+    method public void setStarted(int);
+    method public suspend Object? tileRequest(androidx.wear.tiles.RequestBuilders.TileRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.TileBuilders.Tile>);
+    property public final int cancelled;
+    property public final int completed;
+    property public final long delayDuration;
+    property public final int started;
+    field public static final com.google.android.horologist.tiles.TestTileService.Companion Companion;
+  }
+
+  public static final class TestTileService.Companion {
+    method public String getFAKE_VERSION();
+    property public final String FAKE_VERSION;
   }
 
 }
@@ -38,10 +107,10 @@ package com.google.android.horologist.tiles.complication {
 
   @com.google.android.horologist.tiles.ExperimentalHorologistTilesApi public abstract class DataComplicationService<D, R extends com.google.android.horologist.tiles.complication.ComplicationTemplate<D>> extends androidx.wear.watchface.complications.datasource.SuspendingComplicationDataSourceService {
     ctor public DataComplicationService();
-    method public abstract suspend Object? data(androidx.wear.watchface.complications.datasource.ComplicationRequest request, kotlin.coroutines.Continuation<? super D> p);
+    method public abstract suspend Object? data(androidx.wear.watchface.complications.datasource.ComplicationRequest request, kotlin.coroutines.Continuation<? super D>);
     method public androidx.wear.watchface.complications.data.ComplicationData? getPreviewData(androidx.wear.watchface.complications.data.ComplicationType type);
     method public abstract R getRenderer();
-    method public suspend Object? onComplicationRequest(androidx.wear.watchface.complications.datasource.ComplicationRequest request, kotlin.coroutines.Continuation<? super androidx.wear.watchface.complications.data.ComplicationData> p);
+    method public suspend Object? onComplicationRequest(androidx.wear.watchface.complications.datasource.ComplicationRequest request, kotlin.coroutines.Continuation<? super androidx.wear.watchface.complications.data.ComplicationData>);
     method public abstract D! previewData(androidx.wear.watchface.complications.data.ComplicationType type);
     method public final androidx.wear.watchface.complications.data.ComplicationData render(androidx.wear.watchface.complications.data.ComplicationType type, D? data);
     property public abstract R renderer;
@@ -89,8 +158,8 @@ package com.google.android.horologist.tiles.images {
   }
 
   public final class ImagesKt {
-    method public static suspend Object? loadImage(coil.ImageLoader, android.content.Context context, Object? data, optional kotlin.jvm.functions.Function1<? super coil.request.ImageRequest.Builder,kotlin.Unit> configurer, optional kotlin.coroutines.Continuation<? super android.graphics.Bitmap> p);
-    method public static suspend Object? loadImageResource(coil.ImageLoader, android.content.Context context, Object? data, optional kotlin.jvm.functions.Function1<? super coil.request.ImageRequest.Builder,kotlin.Unit> configurer, optional kotlin.coroutines.Continuation<? super androidx.wear.tiles.ResourceBuilders.ImageResource> p);
+    method public static suspend Object? loadImage(coil.ImageLoader, android.content.Context context, Object? data, optional kotlin.jvm.functions.Function1<? super coil.request.ImageRequest.Builder,kotlin.Unit> configurer, optional kotlin.coroutines.Continuation<? super android.graphics.Bitmap>);
+    method public static suspend Object? loadImageResource(coil.ImageLoader, android.content.Context context, Object? data, optional kotlin.jvm.functions.Function1<? super coil.request.ImageRequest.Builder,kotlin.Unit> configurer, optional kotlin.coroutines.Continuation<? super androidx.wear.tiles.ResourceBuilders.ImageResource>);
     method public static androidx.wear.tiles.ResourceBuilders.ImageResource toImageResource(android.graphics.Bitmap);
   }
 
@@ -110,11 +179,11 @@ package com.google.android.horologist.tiles.render {
 
   public abstract class RendererPreviewTileService<T, R, S extends com.google.android.horologist.tiles.render.TileLayoutRenderer<T, R>> extends com.google.android.horologist.tiles.SuspendingTileService {
     ctor public RendererPreviewTileService();
-    method public abstract suspend Object? createResourcesInput(kotlin.coroutines.Continuation<? super R> p);
+    method public abstract suspend Object? createResourcesInput(kotlin.coroutines.Continuation<? super R>);
     method public abstract S createTileRenderer();
-    method public abstract suspend Object? createTileState(kotlin.coroutines.Continuation<? super T> p);
-    method public suspend Object? resourcesRequest(androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.ResourceBuilders.Resources> p);
-    method public suspend Object? tileRequest(androidx.wear.tiles.RequestBuilders.TileRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.TileBuilders.Tile> p);
+    method public abstract suspend Object? createTileState(kotlin.coroutines.Continuation<? super T>);
+    method public suspend Object? resourcesRequest(androidx.wear.tiles.RequestBuilders.ResourcesRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.ResourceBuilders.Resources>);
+    method public suspend Object? tileRequest(androidx.wear.tiles.RequestBuilders.TileRequest requestParams, kotlin.coroutines.Continuation<? super androidx.wear.tiles.TileBuilders.Tile>);
   }
 
   @com.google.android.horologist.tiles.ExperimentalHorologistTilesApi public abstract class SingleTileLayoutRenderer<T, R> implements com.google.android.horologist.tiles.render.TileLayoutRenderer<T,R> {

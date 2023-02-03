@@ -1,11 +1,69 @@
 // Signature format: 4.0
 package com.google.android.horologist.audio.ui {
 
+  public final class AudioOutputProvider implements androidx.compose.ui.tooling.preview.PreviewParameterProvider<com.google.android.horologist.audio.AudioOutput> {
+    ctor public AudioOutputProvider();
+    method public kotlin.sequences.Sequence<com.google.android.horologist.audio.AudioOutput> getValues();
+    property public kotlin.sequences.Sequence<com.google.android.horologist.audio.AudioOutput> values;
+  }
+
+  public final class DeviceChipPreviewKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void DeviceChipPreview();
+  }
+
   @kotlin.RequiresOptIn(message="Horologist Audio UI is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistAudioUiApi {
+  }
+
+  public final class FakeAudioOutputRepository implements com.google.android.horologist.audio.AudioOutputRepository {
+    ctor public FakeAudioOutputRepository();
+    method public void close();
+    method public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.audio.AudioOutput> getAudioOutput();
+    method public kotlinx.coroutines.flow.MutableStateFlow<java.util.List<com.google.android.horologist.audio.AudioOutput>> getAvailable();
+    method public void launchOutputSelection(boolean closeOnConnect);
+    method public void launchOutputSelection();
+    property public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.audio.AudioOutput> audioOutput;
+    property public kotlinx.coroutines.flow.MutableStateFlow<java.util.List<com.google.android.horologist.audio.AudioOutput>> available;
+  }
+
+  public final class FakeVolumeRepository implements com.google.android.horologist.audio.VolumeRepository {
+    ctor public FakeVolumeRepository(com.google.android.horologist.audio.VolumeState initial);
+    method public void close();
+    method public void decreaseVolume();
+    method public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.audio.VolumeState> getVolumeState();
+    method public void increaseVolume();
+    property public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.audio.VolumeState> volumeState;
   }
 
   public final class VolumePositionIndicatorKt {
     method @androidx.compose.runtime.Composable public static void VolumePositionIndicator(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.VolumeState> volumeState, optional androidx.compose.ui.Modifier modifier, optional boolean autoHide);
+  }
+
+  public final class VolumePositionIndicatorTest {
+    ctor public VolumePositionIndicatorTest();
+    method public error.NonExistentClass! getComposeTestRule();
+    method public void testAutoHide();
+    method public void testNoAutoHide();
+    property public final error.NonExistentClass! composeTestRule;
+  }
+
+  public final class VolumePositionIndicatorTestKt {
+    field public static final String TEST_TAG = "test-item";
+  }
+
+  public final class VolumeScreenA11yScreenshotTest {
+    ctor public VolumeScreenA11yScreenshotTest();
+    method public com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension getComposeA11yExtension();
+    method public error.NonExistentClass! getPaparazzi();
+    method public void volumeScreenAtMinimums();
+    property public final com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension composeA11yExtension;
+    property public final error.NonExistentClass! paparazzi;
+  }
+
+  public final class VolumeScreenA11yTest {
+    ctor public VolumeScreenA11yTest();
+    method public error.NonExistentClass! getComposeTestRule();
+    method public void testLabelOrdering();
+    property public final error.NonExistentClass! composeTestRule;
   }
 
   public final class VolumeScreenDefaults {
@@ -14,17 +72,69 @@ package com.google.android.horologist.audio.ui {
     field public static final com.google.android.horologist.audio.ui.VolumeScreenDefaults INSTANCE;
   }
 
+  public final class VolumeScreenIndividualTest {
+    ctor public VolumeScreenIndividualTest();
+    method public error.NonExistentClass! getPaparazzi();
+    method public void volumeScreenAtMaximum();
+    method public void volumeScreenAtMinimum();
+    method public void volumeScreenWithLabel();
+    method public void volumeScreenWithLongTest();
+    method public void volumeScreenWithWatchSpeaker();
+    property public final error.NonExistentClass! paparazzi;
+  }
+
   public final class VolumeScreenKt {
     method @androidx.compose.runtime.Composable public static void VolumeScreen(optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.audio.ui.VolumeViewModel volumeViewModel, optional boolean showVolumeIndicator, optional kotlin.jvm.functions.Function0<kotlin.Unit> increaseIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> decreaseIcon);
     method @androidx.compose.runtime.Composable public static void VolumeScreen(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.VolumeState> volume, com.google.android.horologist.audio.ui.components.AudioOutputUi audioOutputUi, kotlin.jvm.functions.Function0<kotlin.Unit> increaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> decreaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> onAudioOutputClick, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> increaseIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> decreaseIcon, optional boolean showVolumeIndicator, optional kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit>? onVolumeChangeByScroll);
     method @androidx.compose.runtime.Composable public static void VolumeWithLabelScreen(kotlin.jvm.functions.Function0<com.google.android.horologist.audio.VolumeState> volume, kotlin.jvm.functions.Function0<kotlin.Unit> increaseVolume, kotlin.jvm.functions.Function0<kotlin.Unit> decreaseVolume, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> increaseIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> decreaseIcon, optional boolean showVolumeIndicator, optional kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit>? onVolumeChangeByScroll);
   }
 
+  public final class VolumeScreenLocalePreviewKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearLocalePreview public static void VolumeScreenLocalePreview();
+  }
+
+  public final class VolumeScreenPreviewKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearSmallRoundDevicePreview public static void VolumeScreenGuideWithLongText();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices @com.google.android.horologist.compose.tools.WearPreviewFontSizes public static void VolumeScreenPreview(@androidx.compose.ui.tooling.preview.PreviewParameter(provider=AudioOutputProvider::class) com.google.android.horologist.audio.AudioOutput audioOutput);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview public static void VolumeScreenTheme(@androidx.compose.ui.tooling.preview.PreviewParameter(provider=WearPreviewThemes::class) com.google.android.horologist.compose.tools.ThemeValues themeValues);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices @com.google.android.horologist.compose.tools.WearPreviewFontSizes public static void VolumeScreenWithLabel();
+  }
+
+  public final class VolumeScreenTest {
+    ctor public VolumeScreenTest();
+    method public error.NonExistentClass! getComposeTestRule();
+    method public error.NonExistentClass! testHaptics();
+    property public final error.NonExistentClass! composeTestRule;
+  }
+
+  public final class VolumeScreenTestCaseKt {
+    method @androidx.compose.runtime.Composable public static void VolumeScreenTestCase(com.google.android.horologist.audio.VolumeState volumeState, com.google.android.horologist.audio.AudioOutput.BluetoothHeadset audioOutput);
+    method @androidx.compose.runtime.Composable public static void VolumeScreenTestCase(optional androidx.wear.compose.material.Colors colors, com.google.android.horologist.audio.VolumeState volumeState, com.google.android.horologist.audio.AudioOutput audioOutput);
+  }
+
+  public final class VolumeScreenTestCaseKt {
+    method @androidx.compose.runtime.Composable public static void VolumeScreenTestCase(com.google.android.horologist.audio.VolumeState volumeState, com.google.android.horologist.audio.AudioOutput.BluetoothHeadset audioOutput);
+    method @androidx.compose.runtime.Composable public static void VolumeScreenTestCase(optional androidx.wear.compose.material.Colors colors, com.google.android.horologist.audio.VolumeState volumeState, com.google.android.horologist.audio.AudioOutput audioOutput);
+  }
+
+  public final class VolumeScreenThemeTest {
+    ctor public VolumeScreenThemeTest(com.google.android.horologist.compose.tools.ThemeValues themeValue);
+    method public static java.util.List<com.google.android.horologist.compose.tools.ThemeValues> colours();
+    method public error.NonExistentClass! getPaparazzi();
+    method public void volumeScreenThemes();
+    property public final error.NonExistentClass! paparazzi;
+    field public static final com.google.android.horologist.audio.ui.VolumeScreenThemeTest.Companion Companion;
+  }
+
+  public static final class VolumeScreenThemeTest.Companion {
+    method public java.util.List<com.google.android.horologist.compose.tools.ThemeValues> colours();
+  }
+
   @Deprecated public final class VolumeScrollableState implements androidx.compose.foundation.gestures.ScrollableState {
     ctor @Deprecated public VolumeScrollableState(com.google.android.horologist.audio.VolumeRepository volumeRepository, android.os.Vibrator vibrator);
     method @Deprecated public float dispatchRawDelta(float delta);
     method @Deprecated public boolean isScrollInProgress();
-    method @Deprecated public suspend Object? scroll(androidx.compose.foundation.MutatePriority scrollPriority, kotlin.jvm.functions.Function2<? super androidx.compose.foundation.gestures.ScrollScope,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> block, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method @Deprecated public suspend Object? scroll(androidx.compose.foundation.MutatePriority scrollPriority, kotlin.jvm.functions.Function2<? super androidx.compose.foundation.gestures.ScrollScope,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> block, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     property public boolean isScrollInProgress;
   }
 
@@ -91,12 +201,37 @@ package com.google.android.horologist.audio.ui.components.actions {
     method @androidx.compose.runtime.Composable public static void AudioOutputButton(kotlin.jvm.functions.Function0<kotlin.Unit> onOutputClick, optional androidx.compose.ui.Modifier modifier, optional boolean enabled);
   }
 
+  public final class AudioOutputButtonPreviewKt {
+    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview public static void AudioOutputButtonPreview();
+  }
+
   public final class SetVolumeButtonKt {
     method @androidx.compose.runtime.Composable public static void SetVolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, com.google.android.horologist.audio.VolumeState volumeState, optional androidx.compose.ui.Modifier modifier, optional boolean enabled);
   }
 
+  public final class SetVolumeButtonPreviewKt {
+    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Other volume", backgroundColor=4278190080L, showBackground=true) public static void SetVolumeButtonPreview();
+    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Max volume", backgroundColor=4278190080L, showBackground=true) public static void SetVolumeButtonPreviewMaxVolume();
+    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Min volume", backgroundColor=4278190080L, showBackground=true) public static void SetVolumeButtonPreviewMinVolume();
+  }
+
+  public final class SetVolumeButtonTest {
+    ctor public SetVolumeButtonTest();
+    method public error.NonExistentClass! getPaparazzi();
+    method public void givenCurrentVolumeIsMaximum_thenIconIsVolumeUp();
+    method public void givenCurrentVolumeIsMinimum_thenIconIsVolumeMute();
+    method public void givenCurrentVolumeIsNotMaxAndNotMin_thenIconIsVolumeDown();
+    property public final error.NonExistentClass! paparazzi;
+  }
+
   public final class SettingsButtonKt {
     method @androidx.compose.runtime.Composable public static void SettingsButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, androidx.compose.ui.graphics.vector.ImageVector imageVector, String contentDescription, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional float iconSize, optional float tapTargetSize);
+  }
+
+  public final class SettingsButtonsPreviewKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void SettingsButtonsDisabledPreview();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void SettingsButtonsPreview();
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void SettingsButtonsWithBrandIconPreview();
   }
 
 }
@@ -105,6 +240,10 @@ package com.google.android.horologist.audio.ui.components.animated {
 
   public final class AnimatedSetVolumeButtonKt {
     method @androidx.compose.runtime.Composable public static void AnimatedSetVolumeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onVolumeClick, com.google.android.horologist.audio.VolumeState volumeState, optional androidx.compose.ui.Modifier modifier);
+  }
+
+  public final class AnimatedSetVolumeButtonPreviewKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearSmallRoundDevicePreview public static void AnimatedSetVolumeButtonPreview();
   }
 
   public final class InteractivePreviewAwareKt {
@@ -122,9 +261,18 @@ package com.google.android.horologist.audio.ui.semantics {
   @com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi public final class CustomSemanticsProperties {
     method public androidx.compose.ui.graphics.vector.ImageVector getIconImageVector(androidx.compose.ui.semantics.SemanticsPropertyReceiver);
     method public androidx.compose.ui.semantics.SemanticsPropertyKey<androidx.compose.ui.graphics.vector.ImageVector> getIconImageVectorKey();
-    method public void setIconImageVector(androidx.compose.ui.semantics.SemanticsPropertyReceiver, androidx.compose.ui.graphics.vector.ImageVector iconImageVector);
+    method public void setIconImageVector(androidx.compose.ui.semantics.SemanticsPropertyReceiver, androidx.compose.ui.graphics.vector.ImageVector);
     property public final androidx.compose.ui.semantics.SemanticsPropertyKey<androidx.compose.ui.graphics.vector.ImageVector> IconImageVectorKey;
     field public static final com.google.android.horologist.audio.ui.semantics.CustomSemanticsProperties INSTANCE;
+  }
+
+}
+
+package com.google.android.horologist.test.toolbox.matchers {
+
+  public final class SemanticsMatchersKt {
+    method public static error.NonExistentClass! assertHasClickLabel(error.NonExistentClass, String expectedValue);
+    method public static error.NonExistentClass! assertHasStateDescription(error.NonExistentClass, String value);
   }
 
 }

@@ -104,6 +104,12 @@ package com.google.android.horologist.audio {
   public final class SystemAudioRepositoryKt {
   }
 
+  public final class SystemAudioRepositoryTest {
+    ctor public SystemAudioRepositoryTest();
+    method public void testAudioOutputRepository();
+    method public error.NonExistentClass! testVolumeRepository();
+  }
+
   public interface VolumeRepository extends java.lang.AutoCloseable {
     method public void decreaseVolume();
     method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.VolumeState> getVolumeState();

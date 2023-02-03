@@ -237,12 +237,14 @@ subprojects {
                 project.file("${project.buildDir}/generated/sources/generateVersionFile")
 
             doLast {
+                val versionName = project.properties.get("VERSION_NAME") as String
+
                 val manifestDir = File(outputDirectory, "META-INF")
                 manifestDir.mkdirs()
                 File(
                     manifestDir,
                     "${project.group}_${project.name}.version"
-                ).writeText("${version}\n")
+                ).writeText("${versionName}\n")
             }
         }
 

@@ -1,13 +1,4 @@
 // Signature format: 4.0
-package com.google.android.horologist.auth.composables.screens {
-
-  public final class SignInPromptScreenPreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices public static void SignInPromptScreenPreviewLoading();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices public static void SignInPromptScreenPreviewSignedOut();
-  }
-
-}
-
 package com.google.android.horologist.auth.ui {
 
   @kotlin.RequiresOptIn(message="Horologist Auth UI is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistAuthUiApi {
@@ -51,34 +42,11 @@ package com.google.android.horologist.auth.ui.common.screens.prompt {
     field public static final com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState.SignedOut INSTANCE;
   }
 
-  public final class SignInPromptScreenTest {
-    ctor public SignInPromptScreenTest();
-    method public error.NonExistentClass! getPaparazzi();
-    method public void idle();
-    method public void loading();
-    method public void signedIn();
-    method public void signedOut();
-    method public void signedOutTruncation();
-    property public final error.NonExistentClass! paparazzi;
-  }
-
   @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public class SignInPromptViewModel extends androidx.lifecycle.ViewModel {
     ctor public SignInPromptViewModel(com.google.android.horologist.auth.data.common.repository.AuthUserRepository authUserRepository);
     method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState> getUiState();
     method public final void onIdleStateObserved();
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState> uiState;
-  }
-
-  public final class SignInPromptViewModelTest {
-    ctor public SignInPromptViewModelTest();
-    method public com.google.android.horologist.test.toolbox.rules.MainDispatcherRule getMainDispatcherRule();
-    method public void givenInitialState_thenStateIsIdle();
-    method public error.NonExistentClass! givenInitialState_whenOnIdleStateObserved_thenStateIsLoading();
-    method public error.NonExistentClass! givenNoUserAuthenticated_whenOnIdleStateObserved_thenStateIsSignedOut();
-    method public error.NonExistentClass! givenNonIdleState_whenOnIdleStateObserved_thenStateIsTheSame();
-    method public error.NonExistentClass! givenUserAuthenticated_whenOnIdleStateObserved_thenStateIsSignedIn();
-    method public void setUp();
-    property public final com.google.android.horologist.test.toolbox.rules.MainDispatcherRule mainDispatcherRule;
   }
 
 }
@@ -112,33 +80,11 @@ package com.google.android.horologist.auth.ui.common.screens.streamline {
     field public static final com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState.SignedOut INSTANCE;
   }
 
-  public final class StreamlineSignInScreenTest {
-    ctor public StreamlineSignInScreenTest();
-    method public error.NonExistentClass! getPaparazzi();
-    method public void idle();
-    method public void loading();
-    method public void signedIn();
-    method public void signedOut();
-    property public final error.NonExistentClass! paparazzi;
-  }
-
   @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public class StreamlineSignInViewModel extends androidx.lifecycle.ViewModel {
     ctor public StreamlineSignInViewModel(com.google.android.horologist.auth.data.common.repository.AuthUserRepository authUserRepository);
     method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState> getUiState();
     method public final void onIdleStateObserved();
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState> uiState;
-  }
-
-  public final class StreamlineSignInViewModelTest {
-    ctor public StreamlineSignInViewModelTest();
-    method public com.google.android.horologist.test.toolbox.rules.MainDispatcherRule getMainDispatcherRule();
-    method public void givenInitialState_thenStateIsIdle();
-    method public error.NonExistentClass! givenInitialState_whenOnIdleStateObserved_thenStateIsLoading();
-    method public error.NonExistentClass! givenNoUserAuthenticated_whenOnIdleStateObserved_thenStateIsSignedOut();
-    method public error.NonExistentClass! givenNonIdleState_whenOnIdleStateObserved_thenStateIsTheSame();
-    method public error.NonExistentClass! givenUserAuthenticated_whenOnIdleStateObserved_thenStateIsSignedIn();
-    method public void setUp();
-    property public final com.google.android.horologist.test.toolbox.rules.MainDispatcherRule mainDispatcherRule;
   }
 
 }
@@ -207,19 +153,6 @@ package com.google.android.horologist.auth.ui.googlesignin.signin {
     method public final void onAuthCancelled();
     method public final void onIdleStateObserved();
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreenState> uiState;
-  }
-
-  public final class GoogleSignInViewModelTest {
-    ctor public GoogleSignInViewModelTest();
-    method public com.google.android.horologist.test.toolbox.rules.MainDispatcherRule getMainDispatcherRule();
-    method public error.NonExistentClass! givenInitialState_thenStateIsIdle();
-    method public error.NonExistentClass! givenInitialState_whenOnIdleStateObserved_thenStateIsSelectAccount();
-    method public error.NonExistentClass! givenNonIdleState_whenOnIdleStateObserved_thenStateIsTheSame();
-    method public void setUp();
-    method public error.NonExistentClass! whenOnAccountSelected_thenStateIsSuccess();
-    method public error.NonExistentClass! whenOnAccountSelectionFailed_thenStateIsFailed();
-    method public error.NonExistentClass! whenOnAuthCancelled_thenStateIsCancelled();
-    property public final com.google.android.horologist.test.toolbox.rules.MainDispatcherRule mainDispatcherRule;
   }
 
 }
@@ -311,38 +244,6 @@ package com.google.android.horologist.auth.ui.oauth.pkce.signin {
     method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.oauth.pkce.signin.PKCEScreenState> getUiState();
     method public final void startAuthFlow();
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.oauth.pkce.signin.PKCEScreenState> uiState;
-  }
-
-}
-
-package com.google.android.horologist.test.toolbox.composables {
-
-  public final class PositionedStateKt {
-    method @androidx.compose.runtime.Composable public static com.google.android.horologist.compose.layout.ScalingLazyColumnState positionedState(int topIndex, int topScrollOffset);
-  }
-
-}
-
-package com.google.android.horologist.test.toolbox.rules {
-
-  public final class MainDispatcherRule {
-    ctor public MainDispatcherRule(optional error.NonExistentClass testDispatcher);
-    method public void finished(error.NonExistentClass description);
-    method public error.NonExistentClass! getTestDispatcher();
-    method public void starting(error.NonExistentClass description);
-    property public final error.NonExistentClass! testDispatcher;
-  }
-
-}
-
-package com.google.android.horologist.test.toolbox.testdoubles {
-
-  public final class AuthUserRepositoryStub implements com.google.android.horologist.auth.data.common.repository.AuthUserRepository {
-    ctor public AuthUserRepositoryStub();
-    method public com.google.android.horologist.auth.data.common.model.AuthUser? getAuthUser();
-    method public suspend Object? getAuthenticated(kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.common.model.AuthUser>);
-    method public void setAuthUser(com.google.android.horologist.auth.data.common.model.AuthUser?);
-    property public final com.google.android.horologist.auth.data.common.model.AuthUser? authUser;
   }
 
 }

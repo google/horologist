@@ -41,12 +41,6 @@ package com.google.android.horologist.media.benchmark {
     property public abstract com.google.android.horologist.media.benchmark.MediaApp mediaApp;
   }
 
-  @org.junit.runner.RunWith(AndroidJUnit4::class) public final class BaselineProfile extends com.google.android.horologist.media.benchmark.BaseMediaBaselineProfile {
-    ctor public BaselineProfile();
-    method public com.google.android.horologist.media.benchmark.MediaApp getMediaApp();
-    property public com.google.android.horologist.media.benchmark.MediaApp mediaApp;
-  }
-
   public final class MediaApp {
     ctor public MediaApp(String packageName, String service, androidx.media3.common.MediaItem testMedia);
     method public String component1();
@@ -73,38 +67,6 @@ package com.google.android.horologist.media.benchmark {
   public final class MediaItems {
     method public androidx.media3.common.MediaItem buildMediaItem(String id, String mediaUri, String? artworkUri, String title, String artist);
     field public static final com.google.android.horologist.media.benchmark.MediaItems INSTANCE;
-  }
-
-  @androidx.test.filters.LargeTest public final class PlaybackBenchmark extends com.google.android.horologist.media.benchmark.BasePlaybackBenchmark {
-    ctor public PlaybackBenchmark();
-    method public com.google.android.horologist.media.benchmark.MediaApp getMediaApp();
-    property public com.google.android.horologist.media.benchmark.MediaApp mediaApp;
-  }
-
-  @androidx.test.filters.LargeTest public final class QueryApp {
-    ctor public QueryApp();
-    method @org.junit.Test public void startup();
-  }
-
-  @androidx.test.filters.LargeTest @org.junit.runner.RunWith(Parameterized::class) public final class StartupBenchmark extends com.google.android.horologist.media.benchmark.BaseStartupBenchmark {
-    ctor public StartupBenchmark(androidx.benchmark.macro.CompilationMode compilationMode);
-    method public com.google.android.horologist.media.benchmark.MediaApp getMediaApp();
-    method @org.junit.runners.Parameterized.Parameters(name="compilation={0}") public static java.util.List<androidx.benchmark.macro.CompilationMode> parameters();
-    property public androidx.benchmark.macro.CompilationMode compilationMode;
-    property public com.google.android.horologist.media.benchmark.MediaApp mediaApp;
-    field public static final com.google.android.horologist.media.benchmark.StartupBenchmark.Companion Companion;
-  }
-
-  public static final class StartupBenchmark.Companion {
-    method @org.junit.runners.Parameterized.Parameters(name="compilation={0}") public java.util.List<androidx.benchmark.macro.CompilationMode> parameters();
-  }
-
-  public final class TestMedia {
-    method public androidx.media3.common.MediaItem getIntro();
-    method public com.google.android.horologist.media.benchmark.MediaApp getMediaSampleApp();
-    property public final androidx.media3.common.MediaItem Intro;
-    property public final com.google.android.horologist.media.benchmark.MediaApp MediaSampleApp;
-    field public static final com.google.android.horologist.media.benchmark.TestMedia INSTANCE;
   }
 
 }

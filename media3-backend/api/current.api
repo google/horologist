@@ -4,46 +4,9 @@ package com.google.android.horologist.media3 {
   @kotlin.RequiresOptIn(message="Horologist Media3 Backend is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistMedia3BackendApi {
   }
 
-  public class FakeAudioOutputRepository implements com.google.android.horologist.audio.AudioOutputRepository {
-    ctor public FakeAudioOutputRepository();
-    method public void close();
-    method public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.audio.AudioOutput> getAudioOutput();
-    method public kotlinx.coroutines.flow.MutableStateFlow<java.util.List<com.google.android.horologist.audio.AudioOutput>> getAvailable();
-    method public void launchOutputSelection(boolean closeOnConnect);
-    method public void launchOutputSelection();
-    property public kotlinx.coroutines.flow.MutableStateFlow<com.google.android.horologist.audio.AudioOutput> audioOutput;
-    property public kotlinx.coroutines.flow.MutableStateFlow<java.util.List<com.google.android.horologist.audio.AudioOutput>> available;
-  }
-
-  public class FakeAudioOutputSelector implements com.google.android.horologist.media3.audio.AudioOutputSelector {
-    ctor public FakeAudioOutputSelector(com.google.android.horologist.audio.AudioOutput? newOutput, com.google.android.horologist.media3.FakeAudioOutputRepository audioOutputRepository);
-    method public void launchSelector();
-    method public suspend Object? selectNewOutput(com.google.android.horologist.audio.AudioOutput currentAudioOutput, kotlin.coroutines.Continuation<? super com.google.android.horologist.audio.AudioOutput>);
-  }
-
-  public class FakeErrorReporter implements com.google.android.horologist.media3.logging.ErrorReporter {
-    ctor public FakeErrorReporter();
-    method public final java.util.List<java.lang.String> getLogs();
-    method public final java.util.List<java.lang.Integer> getMessages();
-    method public void logMessage(String message, com.google.android.horologist.media3.logging.ErrorReporter.Category category, com.google.android.horologist.media3.logging.ErrorReporter.Level level);
-    method public void showMessage(int message);
-    property public final java.util.List<java.lang.String> logs;
-    property public final java.util.List<java.lang.Integer> messages;
-  }
-
   @com.google.android.horologist.media3.ExperimentalHorologistMedia3BackendApi public final class WearConfiguredPlayer extends androidx.media3.common.ForwardingPlayer {
     ctor public WearConfiguredPlayer(androidx.media3.common.Player player, com.google.android.horologist.audio.AudioOutputRepository audioOutputRepository, com.google.android.horologist.media3.audio.AudioOutputSelector audioOutputSelector, com.google.android.horologist.media3.rules.PlaybackRules playbackRules, com.google.android.horologist.media3.logging.ErrorReporter errorReporter, kotlinx.coroutines.CoroutineScope coroutineScope);
     method public suspend Object? startNoiseDetection(kotlin.coroutines.Continuation<? super kotlin.Unit>);
-  }
-
-  public final class WearConfiguredPlayerTest {
-    ctor public WearConfiguredPlayerTest();
-    method public error.NonExistentClass! abortsPlaybackIfNotPlayable();
-    method public androidx.media3.common.MediaItem exampleMediaItem(String id);
-    method public androidx.media3.common.MediaItem getMediaItem1();
-    method public error.NonExistentClass! playsNormallyIfAllowed();
-    method public void tearDown();
-    property public final androidx.media3.common.MediaItem mediaItem1;
   }
 
 }

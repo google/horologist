@@ -12,72 +12,16 @@ package com.google.android.horologist.auth.composables.chips {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void CreateAccountChip(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String label, optional com.google.android.horologist.base.ui.components.StandardChipType chipType, optional boolean enabled);
   }
 
-  public final class CreateAccountChipPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void CreateAccountChipPreview();
-  }
-
-  public final class CreateAccountChipTest {
-    ctor public CreateAccountChipTest();
-    method public void default();
-    method public void disabled();
-    method public error.NonExistentClass! getPaparazzi();
-    method public void withSecondaryChipType();
-    method public void withSecondaryChipTypeDisabled();
-    property public final error.NonExistentClass! paparazzi;
-  }
-
   public final class GuestModeChipKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void GuestModeChip(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String label, optional com.google.android.horologist.base.ui.components.StandardChipType chipType, optional boolean enabled);
-  }
-
-  public final class GuestModeChipPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void GuestModeChipPreview();
-  }
-
-  public final class GuestModeChipTest {
-    ctor public GuestModeChipTest();
-    method public void default();
-    method public void disabled();
-    method public error.NonExistentClass! getPaparazzi();
-    method public void withSecondaryChipType();
-    method public void withSecondaryChipTypeDisabled();
-    property public final error.NonExistentClass! paparazzi;
   }
 
   public final class OtherOptionsChipKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void OtherOptionsChip(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String label, optional com.google.android.horologist.base.ui.components.StandardChipType chipType, optional boolean enabled);
   }
 
-  public final class OtherOptionsChipPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void OtherOptionsChipPreview();
-  }
-
-  public final class OtherOptionsChipTest {
-    ctor public OtherOptionsChipTest();
-    method public void default();
-    method public void disabled();
-    method public error.NonExistentClass! getPaparazzi();
-    method public void withSecondaryChipType();
-    method public void withSecondaryChipTypeDisabled();
-    property public final error.NonExistentClass! paparazzi;
-  }
-
   public final class SignInChipKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void SignInChip(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String label, optional com.google.android.horologist.base.ui.components.StandardChipType chipType, optional boolean enabled);
-  }
-
-  public final class SignInChipPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public static void SignInChipPreview();
-  }
-
-  public final class SignInChipTest {
-    ctor public SignInChipTest();
-    method public void default();
-    method public void disabled();
-    method public error.NonExistentClass! getPaparazzi();
-    method public void withSecondaryChipType();
-    method public void withSecondaryChipTypeDisabled();
-    property public final error.NonExistentClass! paparazzi;
   }
 
 }
@@ -86,26 +30,6 @@ package com.google.android.horologist.auth.composables.dialogs {
 
   public final class SignedInConfirmationDialogKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void SignedInConfirmationDialog(kotlin.jvm.functions.Function0<kotlin.Unit> onDismissOrTimeout, optional androidx.compose.ui.Modifier modifier, optional String? name, optional String? email, optional Object? avatar, optional java.time.Duration duration);
-  }
-
-  public final class SignedInConfirmationDialogPreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices public static void SignedInConfirmationDialogPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices public static void SignedInConfirmationDialogPreviewNoEmail();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices public static void SignedInConfirmationDialogPreviewNoInformation();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices public static void SignedInConfirmationDialogPreviewNoName();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices public static void SignedInConfirmationDialogPreviewTruncation();
-  }
-
-  public final class SignedInConfirmationDialogTest {
-    ctor public SignedInConfirmationDialogTest();
-    method public error.NonExistentClass! getPaparazzi();
-    method public void signedInConfirmationDialog();
-    method public void signedInConfirmationDialogNoEmail();
-    method public void signedInConfirmationDialogNoInformation();
-    method public void signedInConfirmationDialogNoName();
-    method public void signedInConfirmationDialogNoNameNoAvatar();
-    method public void signedInConfirmationDialogTruncation();
-    property public final error.NonExistentClass! paparazzi;
   }
 
 }
@@ -131,65 +55,17 @@ package com.google.android.horologist.auth.composables.screens {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void AuthErrorScreen(optional androidx.compose.ui.Modifier modifier);
   }
 
-  public final class AuthErrorScreenPreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices public static void AuthErrorScreenPreview();
-  }
-
-  public final class AuthErrorScreenTest {
-    ctor public AuthErrorScreenTest();
-    method public void authErrorScreen();
-    method public error.NonExistentClass! getPaparazzi();
-    property public final error.NonExistentClass! paparazzi;
-  }
-
   public final class CheckYourPhoneScreenKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void CheckYourPhoneScreen(optional androidx.compose.ui.Modifier modifier);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void CheckYourPhoneScreen(optional androidx.compose.ui.Modifier modifier, String message);
-  }
-
-  public final class CheckYourPhoneScreenPreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices public static void CheckYourPhoneScreenPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices public static void CheckYourPhoneScreenPreviewWithMessage();
   }
 
   public final class SelectAccountScreenKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void SelectAccountScreen(java.util.List<com.google.android.horologist.auth.composables.model.AccountUiModel> accounts, kotlin.jvm.functions.Function2<? super java.lang.Integer,? super com.google.android.horologist.auth.composables.model.AccountUiModel,kotlin.Unit> onAccountClicked, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, optional androidx.compose.ui.Modifier modifier, optional String title, optional Object? defaultAvatar);
   }
 
-  public final class SelectAccountScreenPreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices public static void SelectAccountScreenPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices public static void SelectAccountScreenPreviewNoAvatar();
-  }
-
-  public final class SelectAccountScreenTest {
-    ctor public SelectAccountScreenTest();
-    method public error.NonExistentClass! getPaparazzi();
-    method public void selectAccountScreen();
-    method public void selectAccountScreenNoAvatar();
-    property public final error.NonExistentClass! paparazzi;
-  }
-
   public final class SignInPlaceholderScreenKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void SignInPlaceholderScreen(optional androidx.compose.ui.Modifier modifier, optional String message);
-  }
-
-  public final class SignInPlaceholderScreenPreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices public static void SignInPlaceholderScreenPreview();
-  }
-
-  public final class SignInPlaceholderScreenTest {
-    ctor public SignInPlaceholderScreenTest();
-    method public error.NonExistentClass! getPaparazzi();
-    method public void signInPlaceholderScreen();
-    property public final error.NonExistentClass! paparazzi;
-  }
-
-}
-
-package com.google.android.horologist.test.toolbox {
-
-  public final class PositionedStateKt {
-    method @androidx.compose.runtime.Composable public static com.google.android.horologist.compose.layout.ScalingLazyColumnState positionedState(int topIndex, int topScrollOffset);
   }
 
 }

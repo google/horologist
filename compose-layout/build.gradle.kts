@@ -77,7 +77,7 @@ kapt {
 }
 
 metalava {
-    sourcePaths.from("src/main")
+    sourcePaths.setFrom("src/main")
     filename.set("api/current.api")
     reportLintsAsErrors.set(true)
 }

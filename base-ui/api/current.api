@@ -8,129 +8,12 @@ package com.google.android.horologist.base.ui {
 
 package com.google.android.horologist.base.ui.components {
 
-  public final class AlertDialogAlertPreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices public static void AlertDialogAlertPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreviewDevices public static void AlertDialogAlertWithLongBodyPreview();
-  }
-
   public final class AlertDialogKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi public static void AlertDialog(String body, kotlin.jvm.functions.Function0<kotlin.Unit> onCancelButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onOKButtonClick, boolean showDialog, androidx.wear.compose.foundation.lazy.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional String title, optional String okButtonContentDescription, optional String cancelButtonContentDescription);
   }
 
   public final class ConfirmationDialogKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi public static void ConfirmationDialog(kotlin.jvm.functions.Function0<kotlin.Unit> onTimeout, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit>? icon, optional androidx.wear.compose.foundation.lazy.ScalingLazyListState scrollState, optional long durationMillis, optional long backgroundColor, optional long contentColor, optional long iconColor, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional androidx.compose.foundation.layout.PaddingValues contentPadding, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit> content);
-  }
-
-  public final class IconOnlyButtonPreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void IconOnlyButtonPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void IconOnlyButtonPreviewDisabled();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void IconOnlyButtonPreviewExtraSmall();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void IconOnlyButtonPreviewLarge();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void IconOnlyButtonPreviewSmall();
-  }
-
-  public final class PrimaryButtonPreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void PrimaryButtonPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void PrimaryButtonPreviewDisabled();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void PrimaryButtonPreviewExtraSmall();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void PrimaryButtonPreviewLarge();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void PrimaryButtonPreviewSmall();
-  }
-
-  public final class PrimaryChipPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(group="Variants", backgroundColor=4278190080L, showBackground=true) public static void PrimaryChipPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Disabled", group="Variants", backgroundColor=4278190080L, showBackground=true) public static void PrimaryChipPreviewDisabled();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Disabled with icon placeholder", group="Icon check", backgroundColor=4278190080L, showBackground=true) public static void PrimaryChipPreviewDisabledWithIconPlaceholder();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Using icon larger than 24dp", group="Icon check", backgroundColor=4278190080L, showBackground=true) public static void PrimaryChipPreviewUsingExtraLargeIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Using icon smaller than 24dp", group="Icon check", backgroundColor=4278190080L, showBackground=true) public static void PrimaryChipPreviewUsingSmallIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With icon", group="Variants", backgroundColor=4278190080L, showBackground=true) public static void PrimaryChipPreviewWithIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With icon placeholder", group="Icon check", backgroundColor=4278190080L, showBackground=true) public static void PrimaryChipPreviewWithIconPlaceholder();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With large icon", group="Variants", backgroundColor=4278190080L, showBackground=true) public static void PrimaryChipPreviewWithLargeIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With large icon, using icon larger than 32dp", group="Icon check", backgroundColor=4278190080L, showBackground=true) public static void PrimaryChipPreviewWithLargeIconUsingExtraLargeIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With large icon, using icon smaller than 32dp", group="Icon check", backgroundColor=4278190080L, showBackground=true) public static void PrimaryChipPreviewWithLargeIconUsingSmallIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With long text", group="Long text", backgroundColor=4278190080L, showBackground=true) public static void PrimaryChipPreviewWithLongText();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With secondary label", group="Variants", backgroundColor=4278190080L, showBackground=true) public static void PrimaryChipPreviewWithSecondaryLabel();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With secondary label and icon", group="Variants", backgroundColor=4278190080L, showBackground=true) public static void PrimaryChipPreviewWithSecondaryLabelAndIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With secondary label and large icon", group="Variants", backgroundColor=4278190080L, showBackground=true) public static void PrimaryChipPreviewWithSecondaryLabelAndLargeIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With secondary label and long text", group="Long text", backgroundColor=4278190080L, showBackground=true) public static void PrimaryChipPreviewWithSecondaryLabelAndLongText();
-  }
-
-  public final class PrimaryChipTest {
-    ctor public PrimaryChipTest();
-    method public void default();
-    method public void disabled();
-    method public void disabledWithIconPlaceholder();
-    method public error.NonExistentClass! getPaparazzi();
-    method public void usingExtraLargeIcon();
-    method public void usingSmallIcon();
-    method public void withIcon();
-    method public void withLargeIcon();
-    method public void withLargeIconUsingExtraLargeIcon();
-    method public void withLargeIconUsingSmallIcon();
-    method public void withLongText();
-    method public void withPlaceholderIcon();
-    method public void withSecondaryLabel();
-    method public void withSecondaryLabelAndIcon();
-    method public void withSecondaryLabelAndLargeIcon();
-    method public void withSecondaryLabelAndLongText();
-    property public final error.NonExistentClass! paparazzi;
-    field public static final com.google.android.horologist.base.ui.components.PrimaryChipTest.Companion Companion;
-  }
-
-  public static final class PrimaryChipTest.Companion {
-  }
-
-  public final class SecondaryButtonPreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void SecondaryButtonPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void SecondaryButtonPreviewDisabled();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void SecondaryButtonPreviewExtraSmall();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void SecondaryButtonPreviewLarge();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void SecondaryButtonPreviewSmall();
-  }
-
-  public final class SecondaryChipPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(group="Variants", backgroundColor=4278190080L, showBackground=true) public static void SecondaryChipPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Disabled", group="Variants", backgroundColor=4278190080L, showBackground=true) public static void SecondaryChipPreviewDisabled();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Disabled with icon placeholder", group="Icon check", backgroundColor=4278190080L, showBackground=true) public static void SecondaryChipPreviewDisabledWithIconPlaceholder();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Using icon larger than 24dp", group="Icon check", backgroundColor=4278190080L, showBackground=true) public static void SecondaryChipPreviewUsingExtraLargeIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Using icon smaller than 24dp", group="Icon check", backgroundColor=4278190080L, showBackground=true) public static void SecondaryChipPreviewUsingSmallIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With icon", group="Variants", backgroundColor=4278190080L, showBackground=true) public static void SecondaryChipPreviewWithIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With icon placeholder ", group="Icon check", backgroundColor=4278190080L, showBackground=true) public static void SecondaryChipPreviewWithIconPlaceholder();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With large icon", group="Variants", backgroundColor=4278190080L, showBackground=true) public static void SecondaryChipPreviewWithLargeIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With large icon, using icon larger than 32dp", group="Icon check", backgroundColor=4278190080L, showBackground=true) public static void SecondaryChipPreviewWithLargeIconUsingExtraLargeIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With large icon, using icon smaller than 32dp", group="Icon check", backgroundColor=4278190080L, showBackground=true) public static void SecondaryChipPreviewWithLargeIconUsingSmallIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With long text", group="Long text", backgroundColor=4278190080L, showBackground=true) public static void SecondaryChipPreviewWithLongText();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With secondary label", group="Variants", backgroundColor=4278190080L, showBackground=true) public static void SecondaryChipPreviewWithSecondaryLabel();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With secondary label and icon", group="Variants", backgroundColor=4278190080L, showBackground=true) public static void SecondaryChipPreviewWithSecondaryLabelAndIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With secondary label and large icon", group="Variants", backgroundColor=4278190080L, showBackground=true) public static void SecondaryChipPreviewWithSecondaryLabelAndLargeIcon();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With secondary label and long text", group="Long text", backgroundColor=4278190080L, showBackground=true) public static void SecondaryChipPreviewWithSecondaryLabelAndLongText();
-  }
-
-  public final class SecondaryChipTest {
-    ctor public SecondaryChipTest();
-    method public void default();
-    method public void disabled();
-    method public void disabledWithIconPlaceholder();
-    method public error.NonExistentClass! getPaparazzi();
-    method public void usingExtraLargeIcon();
-    method public void usingSmallIcon();
-    method public void withIcon();
-    method public void withLargeIcon();
-    method public void withLargeIconUsingExtraLargeIcon();
-    method public void withLargeIconUsingSmallIcon();
-    method public void withLongText();
-    method public void withPlaceholderIcon();
-    method public void withProgressIcon();
-    method public void withSecondaryLabel();
-    method public void withSecondaryLabelAndIcon();
-    method public void withSecondaryLabelAndLargeIcon();
-    method public void withSecondaryLabelAndLongText();
-    method public void withSquareIcon();
-    property public final error.NonExistentClass! paparazzi;
-    field public static final com.google.android.horologist.base.ui.components.SecondaryChipTest.Companion Companion;
-  }
-
-  public static final class SecondaryChipTest.Companion {
   }
 
   public final class StandardButtonKt {
@@ -163,28 +46,6 @@ package com.google.android.horologist.base.ui.components {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi public static void StandardChipIconWithProgress(float progress, optional androidx.compose.ui.Modifier modifier, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional long progressIndicatorColor, optional long progressTrackColor);
   }
 
-  public final class StandardChipIconWithProgressPreviewKt {
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With 75 percent download complete with large icon", group="Variants", backgroundColor=4278190080L, showBackground=true) public static void StandardChipIconWithProgressInProgressLargeIconPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With 75 percent download complete with medium icon", group="Variants", backgroundColor=4278190080L, showBackground=true) public static void StandardChipIconWithProgressInProgressMediumIconPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With 75 percent download complete", group="Variants", backgroundColor=4278190080L, showBackground=true) public static void StandardChipIconWithProgressInProgressPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="With 75 percent download complete with small icon", group="Variants", backgroundColor=4278190080L, showBackground=true) public static void StandardChipIconWithProgressInProgressSmallIconPreview();
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(name="Standard", group="Variants", backgroundColor=4278190080L, showBackground=true) public static void StandardChipIconWithProgressPreview();
-  }
-
-  public final class StandardChipIconWithProgressTest {
-    ctor public StandardChipIconWithProgressTest();
-    method public void default();
-    method public error.NonExistentClass! getPaparazzi();
-    method public void withProgressLargeIcon();
-    method public void withProgressMediumIcon();
-    method public void withProgressSmallIcon();
-    property public final error.NonExistentClass! paparazzi;
-    field public static final com.google.android.horologist.base.ui.components.StandardChipIconWithProgressTest.Companion Companion;
-  }
-
-  public static final class StandardChipIconWithProgressTest.Companion {
-  }
-
   public final class StandardChipKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi public static void StandardChip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional Object? icon, optional boolean largeIcon, optional androidx.compose.ui.graphics.painter.Painter? placeholder, optional com.google.android.horologist.base.ui.components.StandardChipType chipType, optional boolean enabled);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi public static void StandardChip(String label, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String? secondaryLabel, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit>? icon, optional boolean largeIcon, optional com.google.android.horologist.base.ui.components.StandardChipType chipType, optional boolean enabled);
@@ -201,27 +62,6 @@ package com.google.android.horologist.base.ui.components {
   public final class TitleKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi public static void Title(@StringRes int textId, optional androidx.compose.ui.Modifier modifier);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi public static void Title(String text, optional androidx.compose.ui.Modifier modifier);
-  }
-
-  public final class TitlePreviewKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void TitlePreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void TitlePreviewWithLongText();
-  }
-
-  public final class TitleTest {
-    ctor public TitleTest();
-    method public error.NonExistentClass! getComposeTestRule();
-    method public void givenHeadingModifierIsNOTOverridden_thenHeadingModifierIsPresent();
-    method public void givenHeadingModifierIsOverridden_thenHeadingModifierIsNOTPresent();
-    property public final error.NonExistentClass! composeTestRule;
-  }
-
-  public final class TitleTest {
-    ctor public TitleTest();
-    method public void default();
-    method public error.NonExistentClass! getPaparazzi();
-    method public void withVeryLongText();
-    property public final error.NonExistentClass! paparazzi;
   }
 
 }

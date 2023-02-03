@@ -192,15 +192,6 @@ package com.google.android.horologist.media.model {
     property public final com.google.android.horologist.media.model.PlaybackStateEvent INITIAL;
   }
 
-  public final class PlaybackStateTest {
-    ctor public PlaybackStateTest();
-    method public void given2x_returnsPositionPredictor_thatPredictsPosition();
-    method public void givenLive_returnsPositionPredictor_thatPredictsPositionAndDuration();
-    method public void givenNoDuration_createPositionPredictor_returnsNull();
-    method public void givenNoPosition_createPositionPredictor_returnsNull();
-    method public void givenValidValues_returnsPositionPredictor_thatPredictsPosition();
-  }
-
   @com.google.android.horologist.media.ExperimentalHorologistMediaApi public enum PlayerState {
     method public static com.google.android.horologist.media.model.PlayerState valueOf(String name);
     method public static com.google.android.horologist.media.model.PlayerState[] values();

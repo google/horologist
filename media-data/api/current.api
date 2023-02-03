@@ -83,26 +83,9 @@ package com.google.android.horologist.media.data.database.mapper {
     field public static final com.google.android.horologist.media.data.database.mapper.MediaDownloadEntityStatusMapper INSTANCE;
   }
 
-  public final class MediaDownloadEntityStatusMapperTest {
-    ctor public MediaDownloadEntityStatusMapperTest(@androidx.media3.exoplayer.offline.Download.State int state, com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus expectedStatus);
-    method public void mapsCorrectly();
-    method public static java.util.List<java.lang.Object[]> params();
-    field public static final com.google.android.horologist.media.data.database.mapper.MediaDownloadEntityStatusMapperTest.Companion Companion;
-  }
-
-  public static final class MediaDownloadEntityStatusMapperTest.Companion {
-    method public java.util.List<java.lang.Object[]> params();
-  }
-
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaEntityMapper {
     method public com.google.android.horologist.media.data.database.model.MediaEntity map(com.google.android.horologist.media.model.Media media);
     field public static final com.google.android.horologist.media.data.database.mapper.MediaEntityMapper INSTANCE;
-  }
-
-  public final class MediaEntityMapperTest {
-    ctor public MediaEntityMapperTest();
-    method public void givenNullValues_thenMapsCorrectly();
-    method public void mapsCorrectly();
   }
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlaylistEntityMapper {
@@ -110,19 +93,9 @@ package com.google.android.horologist.media.data.database.mapper {
     field public static final com.google.android.horologist.media.data.database.mapper.PlaylistEntityMapper INSTANCE;
   }
 
-  public final class PlaylistEntityMapperTest {
-    ctor public PlaylistEntityMapperTest();
-    method public void mapsCorrectly();
-  }
-
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlaylistMediaEntityMapper {
     method public com.google.android.horologist.media.data.database.model.PlaylistMediaEntity map(com.google.android.horologist.media.model.Playlist playlist, com.google.android.horologist.media.model.Media media);
     field public static final com.google.android.horologist.media.data.database.mapper.PlaylistMediaEntityMapper INSTANCE;
-  }
-
-  public final class PlaylistMediaEntityMapperTest {
-    ctor public PlaylistMediaEntityMapperTest();
-    method public void mapsCorrectly();
   }
 
 }
@@ -257,45 +230,15 @@ package com.google.android.horologist.media.data.mapper {
     field public static final com.google.android.horologist.media.data.mapper.CommandMapper INSTANCE;
   }
 
-  public final class CommandMapperTest {
-    ctor public CommandMapperTest();
-    method public void given COMMAND_PLAY_PAUSE then maps correctly();
-    method public void given COMMAND_SEEK_BACK then maps correctly();
-    method public void given COMMAND_SEEK_FORWARD then maps correctly();
-    method public void given COMMAND_SEEK_TO_NEXT_MEDIA_ITEM then maps correctly();
-    method public void given COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM then maps correctly();
-    method public void given COMMAND_SET_SHUFFLE_MODE then maps correctly();
-    method public void given an invalid command then exception is thrown();
-    method public void given an unmapped command then exception is thrown();
-  }
-
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaDownloadMapper {
     method public com.google.android.horologist.media.model.MediaDownload map(com.google.android.horologist.media.model.Media media, com.google.android.horologist.media.data.database.model.MediaDownloadEntity mediaDownloadEntity);
     method public java.util.List<com.google.android.horologist.media.model.MediaDownload> map(com.google.android.horologist.media.model.Playlist playlist, java.util.List<com.google.android.horologist.media.data.database.model.MediaDownloadEntity> mediaDownloadEntityList);
     field public static final com.google.android.horologist.media.data.mapper.MediaDownloadMapper INSTANCE;
   }
 
-  public final class MediaDownloadMapperTest {
-    ctor public MediaDownloadMapperTest();
-    method public void given MediaDownloadEntity size is known then maps correctly();
-    method public void given MediaDownloadEntity size is unknown then maps correctly();
-    method public void given Playlist then maps correctly();
-  }
-
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaDownloadStatusMapper {
     method public com.google.android.horologist.media.model.MediaDownload.Status map(com.google.android.horologist.media.data.database.model.MediaDownloadEntity mediaDownloadEntity);
     field public static final com.google.android.horologist.media.data.mapper.MediaDownloadStatusMapper INSTANCE;
-  }
-
-  public final class MediaDownloadStatusMapperTest {
-    ctor public MediaDownloadStatusMapperTest(com.google.android.horologist.media.data.database.model.MediaDownloadEntity mediaDownloadEntity, com.google.android.horologist.media.model.MediaDownload.Status expectedStatus);
-    method public void mapsCorrectly();
-    method public static java.util.List<java.lang.Object[]> params();
-    field public static final com.google.android.horologist.media.data.mapper.MediaDownloadStatusMapperTest.Companion Companion;
-  }
-
-  public static final class MediaDownloadStatusMapperTest.Companion {
-    method public java.util.List<java.lang.Object[]> params();
   }
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public interface MediaExtrasMapper {
@@ -321,31 +264,10 @@ package com.google.android.horologist.media.data.mapper {
     method public androidx.media3.common.MediaItem map(com.google.android.horologist.media.model.Media mediaItem);
   }
 
-  public final class MediaItemMapperTest {
-    ctor public MediaItemMapperTest();
-    method public void given MediaItem then maps correctly();
-    method public void given MediaItem with null values then maps correctly();
-    method public void given custom extras mapper implementation then implementation is executed();
-    method public void setUp();
-  }
-
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaMapper {
     ctor public MediaMapper(com.google.android.horologist.media.data.mapper.MediaExtrasMapper mediaExtrasMapper);
     method public com.google.android.horologist.media.model.Media map(androidx.media3.common.MediaItem mediaItem, androidx.media3.common.MediaMetadata? mediaMetadata, optional String defaultArtist);
     method public com.google.android.horologist.media.model.Media map(com.google.android.horologist.media.data.database.model.MediaEntity media);
-  }
-
-  public final class MediaMapperTest {
-    ctor public MediaMapperTest();
-    method public void given MediaEntity then maps correctly();
-    method public void given MediaEntity with null values then maps correctly();
-    method public void given MediaItem and MediaMetadata metadata takes precedence();
-    method public void given MediaItem currentArtist is null and defaultArtist is passed then maps correctly();
-    method public void given MediaItem then maps correctly();
-    method public void given MediaItem with null values then maps correctly();
-    method public void given MediaItem without displayTitle and artist falls back to albumArtist and title();
-    method public void given custom extras mapper implementation then implementation is executed();
-    method public void setUp();
   }
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlaybackStateMapper {
@@ -353,29 +275,9 @@ package com.google.android.horologist.media.data.mapper {
     method public com.google.android.horologist.media.model.PlaybackStateEvent createEvent(androidx.media3.common.Player? player, com.google.android.horologist.media.model.PlaybackStateEvent.Cause cause);
   }
 
-  public final class PlaybackStateMapperTest {
-    ctor public PlaybackStateMapperTest();
-    method public void check event timestamp();
-    method public void check null Player results in idle state();
-    method public void check position calculation invalid results in null position and duration();
-    method public void check position calculation unset results in null position and duration();
-    method public void check position calculations during();
-    method public void check position calculations idle();
-    method public void check position calculations past end();
-  }
-
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlayerStateMapper {
     method public com.google.android.horologist.media.model.PlayerState map(androidx.media3.common.Player player);
     field public static final com.google.android.horologist.media.data.mapper.PlayerStateMapper INSTANCE;
-  }
-
-  public final class PlayerStateMapperTest {
-    ctor public PlayerStateMapperTest();
-    method public void check playback state while buffering();
-    method public void check playback state while idle();
-    method public void check playback state while playing();
-    method public com.google.android.horologist.test.toolbox.testdoubles.FakeStatePlayer getFakeStatePlayer();
-    property public final com.google.android.horologist.test.toolbox.testdoubles.FakeStatePlayer fakeStatePlayer;
   }
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlaylistDownloadMapper {
@@ -383,33 +285,14 @@ package com.google.android.horologist.media.data.mapper {
     method public com.google.android.horologist.media.model.PlaylistDownload map(com.google.android.horologist.media.data.database.model.PopulatedPlaylist populatedPlaylist, java.util.List<com.google.android.horologist.media.data.database.model.MediaDownloadEntity> mediaDownloadEntity);
   }
 
-  public final class PlaylistDownloadMapperTest {
-    ctor public PlaylistDownloadMapperTest();
-    method public void mapsCorrectly();
-    method public void setUp();
-  }
-
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlaylistMapper {
     ctor public PlaylistMapper(com.google.android.horologist.media.data.mapper.MediaMapper mediaMapper);
     method public com.google.android.horologist.media.model.Playlist map(com.google.android.horologist.media.data.database.model.PopulatedPlaylist populatedPlaylist);
   }
 
-  public final class PlaylistMapperTest {
-    ctor public PlaylistMapperTest();
-    method public void mapsCorrectly();
-    method public void setUp();
-  }
-
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class SetCommandMapper {
     method public java.util.Set<com.google.android.horologist.media.model.Command> map(androidx.media3.common.Player.Commands commands);
     field public static final com.google.android.horologist.media.data.mapper.SetCommandMapper INSTANCE;
-  }
-
-  public final class SetCommandMapperTest {
-    ctor public SetCommandMapperTest();
-    method public void given all commands including invalid ones then maps correctly();
-    method public void given empty commands then return empty();
-    method public void given valid commands then maps correctly();
   }
 
 }
@@ -464,71 +347,6 @@ package com.google.android.horologist.media.data.repository {
     property public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> shuffleModeEnabled;
   }
 
-  public final class PlayerRepositoryImplCloseTest {
-    ctor public PlayerRepositoryImplCloseTest(String description, kotlin.jvm.functions.Function2<? super com.google.android.horologist.media.data.repository.PlayerRepositoryImpl,? super android.content.Context,kotlin.Unit> whenBlock);
-    method public void given is closed when block is called then exception is thrown();
-    method public static java.util.List<java.lang.Object[]> params();
-    method public void setUp();
-    field public static final com.google.android.horologist.media.data.repository.PlayerRepositoryImplCloseTest.Companion Companion;
-  }
-
-  public static final class PlayerRepositoryImplCloseTest.Companion {
-    method public java.util.List<java.lang.Object[]> params();
-  }
-
-  public final class PlayerRepositoryImplNotConnectedTest {
-    ctor public PlayerRepositoryImplNotConnectedTest(String description, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.data.repository.PlayerRepositoryImpl,kotlin.Unit> whenBlock);
-    method public void given not connected when block is called then state is correct();
-    method public static java.util.List<java.lang.Object[]> params();
-    method public void setUp();
-    field public static final com.google.android.horologist.media.data.repository.PlayerRepositoryImplNotConnectedTest.Companion Companion;
-  }
-
-  public static final class PlayerRepositoryImplNotConnectedTest.Companion {
-    method public java.util.List<java.lang.Object[]> params();
-  }
-
-  public final class PlayerRepositoryImplTest {
-    ctor public PlayerRepositoryImplTest();
-    method public void given NO previous Media is set when addMedia then state is correct();
-    method public void given NO previous Media is set when addMedia with valid index then state is correct();
-    method public void given NO previous Media is set when setMedia then state is correct();
-    method public void given NO previous MediaList is set when setMediaList then state is correct();
-    method public void given close callback when close then callback is called();
-    method public void given connected AND NO previous Media is set when clearMediaList then state is correct();
-    method public void given connected AND NO previous Media is set when removeMedia with index greater than zero then state is correct();
-    method public void given connected AND NO previous Media is set when removeMedia with zero index then state is correct();
-    method public void given connected AND previous Media is set when clearMediaList then state is correct();
-    method public void given connected AND previous Media is set when removeMedia with current Media index then state is correct();
-    method public void given connected AND previous Media is set when removeMedia with queued Media index then state is correct();
-    method public void given connected when addMedia with invalid index then state is correct();
-    method public void given connected when close then player is NOT cleared();
-    method public void given connected when setPlaybackSpeed then state is correct();
-    method public void given connected when setShuffleModeEnabled then state is correct();
-    method public void given is NOT connected and played until position when connect then state is correct();
-    method public void given is closed when setPlaybackSpeed then state is NOT changed();
-    method public void given is closed when updatePosition then state is correct();
-    method public void given is connected and prepared when play until end then state is correct();
-    method public void given is connected and prepared when play until end then state progression is correct();
-    method public void given is connected and prepared when play until position then state is correct();
-    method public void given is connected and prepared when play with index until position then state is correct();
-    method public void given is connected when connect then exception is thrown();
-    method public void given is playing when pause then state is correct();
-    method public void given is playing when setMedia then state is correct();
-    method public void given play until position when updatePosition then state is correct();
-    method public void given previous Media is set when addMedia then state is correct();
-    method public void given previous Media is set when addMedia with index greater than size of playlist then state is correct();
-    method public void given previous Media is set when addMedia with valid index then state is correct();
-    method public void given previous Media is set when removeMedia with invalid index then state is correct();
-    method public void given previous Media is set when setMedia then state is correct();
-    method public void given previous MediaList is set when setMediaList then state is correct();
-    method public void given previous MediaList is set when setMediaList with index then item is correct();
-    method public void given seek increment when getSeekBackIncrement then correct value is returned();
-    method public void given seek increment when getSeekForwardIncrement then correct value is returned();
-    method public void setUp();
-    method public void when connect then state is correct();
-  }
-
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlaylistDownloadRepositoryImpl implements com.google.android.horologist.media.repository.PlaylistDownloadRepository {
     ctor public PlaylistDownloadRepositoryImpl(kotlinx.coroutines.CoroutineScope coroutineScope, com.google.android.horologist.media.data.datasource.PlaylistLocalDataSource playlistLocalDataSource, com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource mediaDownloadLocalDataSource, com.google.android.horologist.media.data.datasource.Media3DownloadDataSource media3DownloadDataSource, com.google.android.horologist.media.data.mapper.PlaylistDownloadMapper playlistDownloadMapper);
     method public void download(com.google.android.horologist.media.model.Playlist playlist);
@@ -569,46 +387,6 @@ package com.google.android.horologist.media.data.service.download {
     property protected abstract com.google.android.horologist.media.data.service.download.DownloadManagerListener downloadManagerListener;
     property protected abstract androidx.media3.exoplayer.offline.DownloadNotificationHelper downloadNotificationHelper;
     property protected abstract androidx.media3.exoplayer.workmanager.WorkManagerScheduler workManagerScheduler;
-  }
-
-}
-
-package com.google.android.horologist.test.toolbox.testdoubles {
-
-  public final class FakeStatePlayer {
-    ctor public FakeStatePlayer(optional long _currentPosition, optional long _duration, optional int _playbackState, optional boolean _playWhenReady, optional androidx.media3.common.MediaItem? _currentMediaItem, optional float _playbackSpeed);
-    method public void addListener(androidx.media3.common.Player.Listener listener);
-    method public int getCurrentMediaItemIndex();
-    method public long getCurrentPosition();
-    method public androidx.media3.common.Timeline getCurrentTimeline();
-    method public long getDuration();
-    method public boolean getPlayWhenReady();
-    method public androidx.media3.common.PlaybackParameters getPlaybackParameters();
-    method public int getPlaybackState();
-    method public int getPlaybackSuppressionReason();
-    method public androidx.media3.common.MediaItem? get_currentMediaItem();
-    method public long get_currentPosition();
-    method public long get_duration();
-    method public boolean get_playWhenReady();
-    method public float get_playbackSpeed();
-    method public int get_playbackState();
-    method public boolean isLoading();
-    method public void overridePlaybackSpeed(float playbackSpeed);
-    method public void overridePosition(optional long currentPosition, optional long duration, optional androidx.media3.common.MediaItem? currentMediaItem);
-    method public void overrideState(optional int playbackState, optional boolean playWhenReady, optional int reason);
-    method public void setPlayWhenReady(boolean playWhenReady);
-    method public void set_currentMediaItem(androidx.media3.common.MediaItem?);
-    method public void set_currentPosition(long);
-    method public void set_duration(long);
-    method public void set_playWhenReady(boolean);
-    method public void set_playbackSpeed(float);
-    method public void set_playbackState(int);
-    property public final androidx.media3.common.MediaItem? _currentMediaItem;
-    property public final long _currentPosition;
-    property public final long _duration;
-    property public final boolean _playWhenReady;
-    property public final float _playbackSpeed;
-    property public final int _playbackState;
   }
 
 }

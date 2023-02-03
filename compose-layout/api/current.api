@@ -46,7 +46,7 @@ package com.google.android.horologist.compose.layout {
     method public androidx.wear.compose.foundation.lazy.ScalingLazyListState getState();
     method public boolean getUserScrollEnabled();
     method public androidx.compose.foundation.layout.Arrangement.Vertical getVerticalArrangement();
-    method public void setState(androidx.wear.compose.foundation.lazy.ScalingLazyListState value);
+    method public void setState(androidx.wear.compose.foundation.lazy.ScalingLazyListState);
     property public final int anchorType;
     property public final androidx.wear.compose.foundation.lazy.AutoCenteringParams? autoCentering;
     property public final androidx.compose.foundation.layout.PaddingValues contentPadding;
@@ -120,9 +120,9 @@ package com.google.android.horologist.compose.navscaffold {
     method public final androidx.compose.foundation.gestures.ScrollableState? getScrollableState();
     method public final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode getTimeTextMode();
     method public final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode getVignettePosition();
-    method public final void setPositionIndicatorMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode positionIndicatorMode);
-    method public final void setTimeTextMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode timeTextMode);
-    method public final void setVignettePosition(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode vignettePosition);
+    method public final void setPositionIndicatorMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode);
+    method public final void setTimeTextMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode);
+    method public final void setVignettePosition(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.VignetteMode);
     property public final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode positionIndicatorMode;
     property public final androidx.compose.foundation.gestures.ScrollableState? scrollableState;
     property public final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode timeTextMode;
@@ -130,11 +130,15 @@ package com.google.android.horologist.compose.navscaffold {
   }
 
   public enum NavScaffoldViewModel.PositionIndicatorMode {
+    method public static com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode[] values();
     enum_constant public static final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode Off;
     enum_constant public static final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode On;
   }
 
   public enum NavScaffoldViewModel.TimeTextMode {
+    method public static com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode[] values();
     enum_constant public static final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode Off;
     enum_constant public static final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode On;
     enum_constant public static final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode ScrollAway;
@@ -169,8 +173,8 @@ package com.google.android.horologist.compose.navscaffold {
     method public com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode getPositionIndicatorMode();
     method public com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode getTimeTextMode();
     method public com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel getViewModel();
-    method public void setPositionIndicatorMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode positionIndicatorMode);
-    method public void setTimeTextMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode timeTextMode);
+    method public void setPositionIndicatorMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode);
+    method public void setTimeTextMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode);
     property public final android.os.Bundle? arguments;
     property public final androidx.navigation.NavBackStackEntry backStackEntry;
     property public final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode positionIndicatorMode;
@@ -190,8 +194,8 @@ package com.google.android.horologist.compose.navscaffold {
     method public T getScrollableState();
     method public com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode getTimeTextMode();
     method public com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel getViewModel();
-    method public void setPositionIndicatorMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode positionIndicatorMode);
-    method public void setTimeTextMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode timeTextMode);
+    method public void setPositionIndicatorMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode);
+    method public void setTimeTextMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode);
     property public final android.os.Bundle? arguments;
     property public final androidx.navigation.NavBackStackEntry backStackEntry;
     property public final com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode positionIndicatorMode;
@@ -217,8 +221,8 @@ package com.google.android.horologist.compose.navscaffold {
     method public androidx.wear.compose.foundation.lazy.ScalingLazyListState getScrollableState();
     method public com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode getTimeTextMode();
     method public com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel getViewModel();
-    method public void setPositionIndicatorMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode positionIndicatorMode);
-    method public void setTimeTextMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode timeTextMode);
+    method public void setPositionIndicatorMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.PositionIndicatorMode);
+    method public void setTimeTextMode(com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel.TimeTextMode);
     property public final android.os.Bundle? arguments;
     property public final androidx.navigation.NavBackStackEntry backStackEntry;
     property public final com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState;
@@ -275,14 +279,14 @@ package com.google.android.horologist.compose.rotaryinput {
 
   @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public final class AnimationScrollBehavior implements com.google.android.horologist.compose.rotaryinput.RotaryScrollBehavior {
     ctor public AnimationScrollBehavior(androidx.compose.foundation.gestures.ScrollableState scrollableState);
-    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? handleEvent(float targetValue, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? handleEvent(float targetValue, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
   @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public final class DefaultRotaryFlingBehavior implements com.google.android.horologist.compose.rotaryinput.RotaryFlingBehavior {
     ctor public DefaultRotaryFlingBehavior(androidx.compose.foundation.gestures.ScrollableState scrollableState, androidx.compose.foundation.gestures.FlingBehavior flingBehavior, android.view.ViewConfiguration viewConfiguration, long flingTimeframe);
     method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public void observeEvent(long timestamp, float delta);
     method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public void startFlingTracking(long timestamp);
-    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? trackFling(kotlin.jvm.functions.Function0<kotlin.Unit> beforeFling, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? trackFling(kotlin.jvm.functions.Function0<kotlin.Unit> beforeFling, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
   @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public final class DefaultRotaryHapticFeedback implements com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback {
@@ -301,7 +305,7 @@ package com.google.android.horologist.compose.rotaryinput {
     ctor public DefaultSnapBehavior(com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter rotaryScrollAdapter, com.google.android.horologist.compose.rotaryinput.SnapParameters snapParameters);
     method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public void prepareSnapForItems(int moveForElements, boolean sequentialSnap);
     method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public float snapThreshold(boolean duringSnap);
-    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? startSnappingSession(boolean toClosestItem, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? startSnappingSession(boolean toClosestItem, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
   public final class GenericMotionRotaryInputAccumulator {
@@ -325,7 +329,7 @@ package com.google.android.horologist.compose.rotaryinput {
   @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public interface RotaryFlingBehavior {
     method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public void observeEvent(long timestamp, float delta);
     method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public void startFlingTracking(long timestamp);
-    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? trackFling(kotlin.jvm.functions.Function0<kotlin.Unit> beforeFling, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? trackFling(kotlin.jvm.functions.Function0<kotlin.Unit> beforeFling, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
   @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public interface RotaryHapticFeedback {
@@ -372,17 +376,17 @@ package com.google.android.horologist.compose.rotaryinput {
   }
 
   @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public interface RotaryScrollBehavior {
-    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? handleEvent(float targetValue, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? handleEvent(float targetValue, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
   @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public interface RotaryScrollHandler {
-    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? handleScrollEvent(kotlinx.coroutines.CoroutineScope coroutineScope, com.google.android.horologist.compose.rotaryinput.TimestampedDelta event, com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rotaryHaptics, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? handleScrollEvent(kotlinx.coroutines.CoroutineScope coroutineScope, com.google.android.horologist.compose.rotaryinput.TimestampedDelta event, com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rotaryHaptics, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
   @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public interface RotarySnapBehavior {
     method public void prepareSnapForItems(int moveForElements, boolean sequentialSnap);
     method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public float snapThreshold(boolean duringSnap);
-    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? startSnappingSession(boolean toClosestItem, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public suspend Object? startSnappingSession(boolean toClosestItem, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
   public final class RotaryVelocityTracker {
@@ -441,6 +445,8 @@ package com.google.android.horologist.compose.snackbar {
   }
 
   public enum SnackbarDuration {
+    method public static com.google.android.horologist.compose.snackbar.SnackbarDuration valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.compose.snackbar.SnackbarDuration[] values();
     enum_constant public static final com.google.android.horologist.compose.snackbar.SnackbarDuration Indefinite;
     enum_constant public static final com.google.android.horologist.compose.snackbar.SnackbarDuration Long;
     enum_constant public static final com.google.android.horologist.compose.snackbar.SnackbarDuration Short;
@@ -449,7 +455,7 @@ package com.google.android.horologist.compose.snackbar {
   @androidx.compose.runtime.Stable public final class SnackbarHostState {
     ctor public SnackbarHostState();
     method public com.google.android.horologist.compose.snackbar.SnackbarData? getCurrentSnackbarData();
-    method public suspend Object? showSnackbar(String message, optional String? actionLabel, optional com.google.android.horologist.compose.snackbar.SnackbarDuration duration, optional kotlin.coroutines.Continuation<? super com.google.android.horologist.compose.snackbar.SnackbarResult> p);
+    method public suspend Object? showSnackbar(String message, optional String? actionLabel, optional com.google.android.horologist.compose.snackbar.SnackbarDuration duration, optional kotlin.coroutines.Continuation<? super com.google.android.horologist.compose.snackbar.SnackbarResult>);
     property public final com.google.android.horologist.compose.snackbar.SnackbarData? currentSnackbarData;
   }
 
@@ -458,6 +464,8 @@ package com.google.android.horologist.compose.snackbar {
   }
 
   public enum SnackbarResult {
+    method public static com.google.android.horologist.compose.snackbar.SnackbarResult valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.compose.snackbar.SnackbarResult[] values();
     enum_constant public static final com.google.android.horologist.compose.snackbar.SnackbarResult ActionPerformed;
     enum_constant public static final com.google.android.horologist.compose.snackbar.SnackbarResult Dismissed;
   }

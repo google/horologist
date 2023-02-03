@@ -34,7 +34,7 @@ package com.google.android.horologist.auth.data.common.model {
 package com.google.android.horologist.auth.data.common.repository {
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface AuthUserRepository {
-    method public suspend Object? getAuthenticated(kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.common.model.AuthUser> p);
+    method public suspend Object? getAuthenticated(kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.common.model.AuthUser>);
   }
 
 }
@@ -48,15 +48,15 @@ package com.google.android.horologist.auth.data.googlesignin {
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class GoogleSignInAuthUserRepository implements com.google.android.horologist.auth.data.common.repository.AuthUserRepository {
     ctor public GoogleSignInAuthUserRepository(android.content.Context applicationContext);
-    method public suspend Object? getAuthenticated(kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.common.model.AuthUser> p);
+    method public suspend Object? getAuthenticated(kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.common.model.AuthUser>);
   }
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface GoogleSignInEventListener {
-    method public suspend Object? onSignedIn(com.google.android.gms.auth.api.signin.GoogleSignInAccount account, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public suspend Object? onSignedIn(com.google.android.gms.auth.api.signin.GoogleSignInAccount account, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class GoogleSignInEventListenerNoOpImpl implements com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener {
-    method public suspend Object? onSignedIn(com.google.android.gms.auth.api.signin.GoogleSignInAccount account, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public suspend Object? onSignedIn(com.google.android.gms.auth.api.signin.GoogleSignInAccount account, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     field public static final com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListenerNoOpImpl INSTANCE;
   }
 
@@ -82,8 +82,8 @@ package com.google.android.horologist.auth.data.oauth.common.impl.google.api {
   }
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface GoogleOAuthService {
-    method @retrofit2.http.FormUrlEncoded @retrofit2.http.POST("device/code") public suspend Object? deviceCode(@retrofit2.http.Field("client_id") String clientId, @retrofit2.http.Field("scope") String scope, kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.oauth.common.impl.google.api.DeviceCodeResponse> p);
-    method @retrofit2.http.FormUrlEncoded @retrofit2.http.POST("token") public suspend Object? token(@retrofit2.http.Field("client_id") String clientId, @retrofit2.http.Field("client_secret") String clientSecret, optional @retrofit2.http.Field("code") String? code, optional @retrofit2.http.Field("code_verifier") String? codeVerifier, optional @retrofit2.http.Field("grant_type") String? grantType, optional @retrofit2.http.Field("redirect_uri") String? redirectUri, optional @retrofit2.http.Field("device_code") String? deviceCode, optional kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.oauth.common.impl.google.api.TokenResponse> p);
+    method @retrofit2.http.FormUrlEncoded @retrofit2.http.POST("device/code") public suspend Object? deviceCode(@retrofit2.http.Field("client_id") String clientId, @retrofit2.http.Field("scope") String scope, kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.oauth.common.impl.google.api.DeviceCodeResponse>);
+    method @retrofit2.http.FormUrlEncoded @retrofit2.http.POST("token") public suspend Object? token(@retrofit2.http.Field("client_id") String clientId, @retrofit2.http.Field("client_secret") String clientSecret, optional @retrofit2.http.Field("code") String? code, optional @retrofit2.http.Field("code_verifier") String? codeVerifier, optional @retrofit2.http.Field("grant_type") String? grantType, optional @retrofit2.http.Field("redirect_uri") String? redirectUri, optional @retrofit2.http.Field("device_code") String? deviceCode, optional kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.oauth.common.impl.google.api.TokenResponse>);
     field public static final com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService.Companion Companion;
     field public static final String GOOGLE_OAUTH_SERVER = "https://oauth2.googleapis.com/";
     field public static final String GRANT_TYPE_PARAM_AUTH_CODE_GRANT_VALUE = "authorization_code";
@@ -135,24 +135,24 @@ package com.google.android.horologist.auth.data.oauth.common.impl.google.api {
 package com.google.android.horologist.auth.data.oauth.devicegrant {
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface DeviceGrantConfigRepository<Config> {
-    method public suspend Object? fetch(kotlin.coroutines.Continuation<? super Config> p);
+    method public suspend Object? fetch(kotlin.coroutines.Continuation<? super Config>);
   }
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface DeviceGrantTokenPayloadListener<TokenPayload> {
-    method public suspend Object? onPayloadReceived(TokenPayload? payload, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public suspend Object? onPayloadReceived(TokenPayload? payload, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class DeviceGrantTokenPayloadListenerNoOpImpl<TokenPayload> implements com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantTokenPayloadListener<TokenPayload> {
     ctor public DeviceGrantTokenPayloadListenerNoOpImpl();
-    method public suspend Object? onPayloadReceived(TokenPayload? payload, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public suspend Object? onPayloadReceived(TokenPayload? payload, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface DeviceGrantTokenRepository<DeviceGrantConfig, VerificationInfoPayload, TokenPayload> {
-    method public suspend Object? fetch(DeviceGrantConfig? config, VerificationInfoPayload? verificationInfoPayload, kotlin.coroutines.Continuation<? super kotlin.Result<? extends TokenPayload>> p);
+    method public suspend Object? fetch(DeviceGrantConfig? config, VerificationInfoPayload? verificationInfoPayload, kotlin.coroutines.Continuation<? super kotlin.Result<? extends TokenPayload>>);
   }
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface DeviceGrantVerificationInfoRepository<DeviceGrantConfig, VerificationInfo> {
-    method public suspend Object? fetch(DeviceGrantConfig? config, kotlin.coroutines.Continuation<? super kotlin.Result<? extends VerificationInfo>> p);
+    method public suspend Object? fetch(DeviceGrantConfig? config, kotlin.coroutines.Continuation<? super kotlin.Result<? extends VerificationInfo>>);
   }
 
 }
@@ -161,7 +161,7 @@ package com.google.android.horologist.auth.data.oauth.devicegrant.impl {
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class DeviceGrantConfigRepositoryDefaultImpl implements com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantConfigRepository<com.google.android.horologist.auth.data.oauth.devicegrant.impl.DeviceGrantDefaultConfig> {
     ctor public DeviceGrantConfigRepositoryDefaultImpl(String clientId, String clientSecret);
-    method public suspend Object? fetch(kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.oauth.devicegrant.impl.DeviceGrantDefaultConfig> p);
+    method public suspend Object? fetch(kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.oauth.devicegrant.impl.DeviceGrantDefaultConfig>);
   }
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class DeviceGrantDefaultConfig {
@@ -181,12 +181,12 @@ package com.google.android.horologist.auth.data.oauth.devicegrant.impl.google {
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class DeviceGrantTokenRepositoryGoogleImpl implements com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantTokenRepository<com.google.android.horologist.auth.data.oauth.devicegrant.impl.DeviceGrantDefaultConfig,com.google.android.horologist.auth.data.oauth.common.impl.google.api.DeviceCodeResponse,java.lang.String> {
     ctor public DeviceGrantTokenRepositoryGoogleImpl(android.app.Application application, com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService googleOAuthService);
-    method public suspend Object? fetch(com.google.android.horologist.auth.data.oauth.devicegrant.impl.DeviceGrantDefaultConfig config, com.google.android.horologist.auth.data.oauth.common.impl.google.api.DeviceCodeResponse verificationInfoPayload, kotlin.coroutines.Continuation<? super kotlin.Result<? extends java.lang.String>> p);
+    method public suspend Object? fetch(com.google.android.horologist.auth.data.oauth.devicegrant.impl.DeviceGrantDefaultConfig config, com.google.android.horologist.auth.data.oauth.common.impl.google.api.DeviceCodeResponse verificationInfoPayload, kotlin.coroutines.Continuation<? super kotlin.Result<? extends java.lang.String>>);
   }
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class DeviceGrantVerificationInfoRepositoryGoogleImpl implements com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantVerificationInfoRepository<com.google.android.horologist.auth.data.oauth.devicegrant.impl.DeviceGrantDefaultConfig,com.google.android.horologist.auth.data.oauth.common.impl.google.api.DeviceCodeResponse> {
     ctor public DeviceGrantVerificationInfoRepositoryGoogleImpl(com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService googleOAuthService);
-    method public suspend Object? fetch(com.google.android.horologist.auth.data.oauth.devicegrant.impl.DeviceGrantDefaultConfig config, kotlin.coroutines.Continuation<? super kotlin.Result<? extends com.google.android.horologist.auth.data.oauth.common.impl.google.api.DeviceCodeResponse>> p);
+    method public suspend Object? fetch(com.google.android.horologist.auth.data.oauth.devicegrant.impl.DeviceGrantDefaultConfig config, kotlin.coroutines.Continuation<? super kotlin.Result<? extends com.google.android.horologist.auth.data.oauth.common.impl.google.api.DeviceCodeResponse>>);
   }
 
 }
@@ -194,24 +194,24 @@ package com.google.android.horologist.auth.data.oauth.devicegrant.impl.google {
 package com.google.android.horologist.auth.data.oauth.pkce {
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface PKCEConfigRepository<Config> {
-    method public suspend Object? fetch(kotlin.coroutines.Continuation<? super Config> p);
+    method public suspend Object? fetch(kotlin.coroutines.Continuation<? super Config>);
   }
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface PKCEOAuthCodeRepository<PKCEConfig, OAuthCodePayload> {
-    method public suspend Object? fetch(PKCEConfig? config, androidx.wear.phone.interactions.authentication.CodeVerifier codeVerifier, kotlin.coroutines.Continuation<? super kotlin.Result<? extends OAuthCodePayload>> p);
+    method public suspend Object? fetch(PKCEConfig? config, androidx.wear.phone.interactions.authentication.CodeVerifier codeVerifier, kotlin.coroutines.Continuation<? super kotlin.Result<? extends OAuthCodePayload>>);
   }
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface PKCETokenPayloadListener<TokenPayload> {
-    method public suspend Object? onPayloadReceived(TokenPayload? payload, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public suspend Object? onPayloadReceived(TokenPayload? payload, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class PKCETokenPayloadListenerNoOpImpl<TokenPayload> implements com.google.android.horologist.auth.data.oauth.pkce.PKCETokenPayloadListener<TokenPayload> {
     ctor public PKCETokenPayloadListenerNoOpImpl();
-    method public suspend Object? onPayloadReceived(TokenPayload? payload, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public suspend Object? onPayloadReceived(TokenPayload? payload, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface PKCETokenRepository<PKCEConfig, OAuthCodePayload, TokenPayload> {
-    method public suspend Object? fetch(PKCEConfig? config, String codeVerifier, OAuthCodePayload? oAuthCodePayload, kotlin.coroutines.Continuation<? super kotlin.Result<? extends TokenPayload>> p);
+    method public suspend Object? fetch(PKCEConfig? config, String codeVerifier, OAuthCodePayload? oAuthCodePayload, kotlin.coroutines.Continuation<? super kotlin.Result<? extends TokenPayload>>);
   }
 
 }
@@ -237,7 +237,7 @@ package com.google.android.horologist.auth.data.oauth.pkce.impl {
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class PKCEOAuthCodeRepositoryImpl implements com.google.android.horologist.auth.data.oauth.pkce.PKCEOAuthCodeRepository<com.google.android.horologist.auth.data.oauth.pkce.impl.PKCEDefaultConfig,com.google.android.horologist.auth.data.oauth.pkce.impl.google.PKCEOAuthCodeGooglePayload> {
     ctor public PKCEOAuthCodeRepositoryImpl(android.app.Application application);
-    method public suspend Object? fetch(com.google.android.horologist.auth.data.oauth.pkce.impl.PKCEDefaultConfig config, androidx.wear.phone.interactions.authentication.CodeVerifier codeVerifier, kotlin.coroutines.Continuation<? super kotlin.Result<? extends com.google.android.horologist.auth.data.oauth.pkce.impl.google.PKCEOAuthCodeGooglePayload>> p);
+    method public suspend Object? fetch(com.google.android.horologist.auth.data.oauth.pkce.impl.PKCEDefaultConfig config, androidx.wear.phone.interactions.authentication.CodeVerifier codeVerifier, kotlin.coroutines.Continuation<? super kotlin.Result<? extends com.google.android.horologist.auth.data.oauth.pkce.impl.google.PKCEOAuthCodeGooglePayload>>);
   }
 
 }
@@ -246,7 +246,7 @@ package com.google.android.horologist.auth.data.oauth.pkce.impl.google {
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class PKCEConfigRepositoryGoogleImpl implements com.google.android.horologist.auth.data.oauth.pkce.PKCEConfigRepository<com.google.android.horologist.auth.data.oauth.pkce.impl.PKCEDefaultConfig> {
     ctor public PKCEConfigRepositoryGoogleImpl(String clientId, String clientSecret, optional String encodedPath, optional java.util.Map<java.lang.String,java.lang.String> queryParameters);
-    method public suspend Object? fetch(kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.oauth.pkce.impl.PKCEDefaultConfig> p);
+    method public suspend Object? fetch(kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.oauth.pkce.impl.PKCEDefaultConfig>);
   }
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class PKCEOAuthCodeGooglePayload {
@@ -262,7 +262,7 @@ package com.google.android.horologist.auth.data.oauth.pkce.impl.google {
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class PKCETokenRepositoryGoogleImpl implements com.google.android.horologist.auth.data.oauth.pkce.PKCETokenRepository<com.google.android.horologist.auth.data.oauth.pkce.impl.PKCEDefaultConfig,com.google.android.horologist.auth.data.oauth.pkce.impl.google.PKCEOAuthCodeGooglePayload,com.google.android.horologist.auth.data.oauth.common.impl.google.api.TokenResponse> {
     ctor public PKCETokenRepositoryGoogleImpl(com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthService googleOAuthService);
-    method public suspend Object? fetch(com.google.android.horologist.auth.data.oauth.pkce.impl.PKCEDefaultConfig config, String codeVerifier, com.google.android.horologist.auth.data.oauth.pkce.impl.google.PKCEOAuthCodeGooglePayload oAuthCodePayload, kotlin.coroutines.Continuation<? super kotlin.Result<? extends com.google.android.horologist.auth.data.oauth.common.impl.google.api.TokenResponse>> p);
+    method public suspend Object? fetch(com.google.android.horologist.auth.data.oauth.pkce.impl.PKCEDefaultConfig config, String codeVerifier, com.google.android.horologist.auth.data.oauth.pkce.impl.google.PKCEOAuthCodeGooglePayload oAuthCodePayload, kotlin.coroutines.Continuation<? super kotlin.Result<? extends com.google.android.horologist.auth.data.oauth.common.impl.google.api.TokenResponse>>);
   }
 
 }
@@ -277,7 +277,7 @@ package com.google.android.horologist.auth.data.tokenshare {
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public abstract class TokenListenerService extends com.google.android.gms.wearable.WearableListenerService {
     ctor public TokenListenerService();
     method public abstract kotlinx.coroutines.CoroutineScope getCoroutineScope();
-    method public abstract suspend Object? onTokenReceived(String token, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public abstract suspend Object? onTokenReceived(String token, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
   public final class TokenShareConstantsKt {

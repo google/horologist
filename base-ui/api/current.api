@@ -23,6 +23,8 @@ package com.google.android.horologist.base.ui.components {
   @com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi public enum StandardButtonSize {
     method public final float getIconSize();
     method public final float getTapTargetSize();
+    method public static com.google.android.horologist.base.ui.components.StandardButtonSize valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.base.ui.components.StandardButtonSize[] values();
     property public final float iconSize;
     property public final float tapTargetSize;
     enum_constant public static final com.google.android.horologist.base.ui.components.StandardButtonSize Default;
@@ -32,6 +34,8 @@ package com.google.android.horologist.base.ui.components {
   }
 
   @com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi public enum StandardButtonType {
+    method public static com.google.android.horologist.base.ui.components.StandardButtonType valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.base.ui.components.StandardButtonType[] values();
     enum_constant public static final com.google.android.horologist.base.ui.components.StandardButtonType IconOnly;
     enum_constant public static final com.google.android.horologist.base.ui.components.StandardButtonType Primary;
     enum_constant public static final com.google.android.horologist.base.ui.components.StandardButtonType Secondary;
@@ -49,6 +53,8 @@ package com.google.android.horologist.base.ui.components {
   }
 
   public enum StandardChipType {
+    method public static com.google.android.horologist.base.ui.components.StandardChipType valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.base.ui.components.StandardChipType[] values();
     enum_constant public static final com.google.android.horologist.base.ui.components.StandardChipType Primary;
     enum_constant public static final com.google.android.horologist.base.ui.components.StandardChipType Secondary;
   }

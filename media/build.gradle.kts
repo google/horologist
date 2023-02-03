@@ -29,9 +29,9 @@ java {
 }
 
 metalava {
-    sourcePaths = mutableSetOf("src/main")
-    filename = "api/current.api"
-    reportLintsAsErrors = true
+    sourcePaths.from("src/main")
+    filename.set("api/current.api")
+    reportLintsAsErrors.set(true)
 }
 
 dependencies {

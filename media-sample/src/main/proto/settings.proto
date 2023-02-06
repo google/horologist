@@ -39,4 +39,5 @@ message Settings {
   int64 currentPosition = 9;
   bool streaming_mode = 10;
   bool opted_out_of_auth = 11;
+  bool seen_login_details = 12;
 }

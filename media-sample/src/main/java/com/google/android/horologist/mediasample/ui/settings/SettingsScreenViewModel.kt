@@ -22,18 +22,26 @@ import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAuthUserRepository
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAuthUserRepository.AuthState.Uninitialized
+import com.google.android.horologist.mediasample.domain.SettingsRepository
+import com.google.android.horologist.mediasample.domain.proto.copy
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsScreenViewModel @Inject constructor(
+    private val settingsRepository: SettingsRepository,
     authUserRepository: GoogleSignInAuthUserRepository
 ) : ViewModel() {
-    val screenState = authUserRepository.authState.map {
-        SettingsScreenState(it.toAuthUser())
+    val screenState = combine(
+        settingsRepository.settingsFlow,
+        authUserRepository.authState
+    ) { settings, authState ->
+        SettingsScreenState(authState.toAuthUser())
     }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),

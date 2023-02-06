@@ -35,7 +35,7 @@ import com.google.android.horologist.base.ui.components.ConfirmationDialog
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleSignOutScreen
+import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleSignIn
 
 @OptIn(ExperimentalHorologistAuthUiApi::class)
 @Composable
@@ -59,7 +59,7 @@ fun GoogleSignInPromptScreen(
         item {
             SignInChip(
                 onClick = {
-                    navController.navigateToGoogleSignOutScreen()
+                    navController.navigateToGoogleSignIn()
                 },
                 chipType = StandardChipType.Secondary
             )

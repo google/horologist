@@ -58,7 +58,11 @@ class MediaPlayerAppViewModel @Inject constructor(
     val deepLinkPrefix: String = appConfig.deeplinkUriPrefix
 
     val appState = settingsRepository.settingsFlow.map {
-        UampAppState(streamingMode = it.streamingMode)
+        UampAppState(
+            streamingMode = it.streamingMode,
+            guestMode = it.guestMode,
+            seenLoginDetails = it.seenLoginDetails
+        )
     }.stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000), initialValue = UampAppState())
 
     @OptIn(FlowPreview::class)
@@ -147,14 +151,28 @@ class MediaPlayerAppViewModel @Inject constructor(
     }
 
     suspend fun requireLogin(): Boolean {
-        return !settingsRepository.settingsFlow.first().guestMode
+        return appState.filter { it.guestMode != null }.first().guestMode == false
     }
 
     suspend fun isLoggedIn(): Boolean {
         return authUserRepository.getAuthenticated() != null
     }
+
+    suspend fun markSeenLoginDetails() {
+        settingsRepository.edit {
+            it.copy {
+                seenLoginDetails = true
+            }
+        }
+    }
+
+    suspend fun shouldShowLoginDetails(): Boolean {
+        return appState.filter { it.seenLoginDetails != null }.first().seenLoginDetails == false
+    }
 }
 
 data class UampAppState(
-    val streamingMode: Boolean? = null
+    val streamingMode: Boolean? = null,
+    val guestMode: Boolean? = null,
+    val seenLoginDetails: Boolean? = null
 )

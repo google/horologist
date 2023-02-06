@@ -23,7 +23,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAuthUserRepository
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener
-import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListenerNoOpImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,19 +40,23 @@ object AuthModule {
         @ApplicationContext application: Context
     ): GoogleSignInClient = GoogleSignIn.getClient(
         application,
-        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .requestProfile()
-            .build()
+        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail()
+            .requestProfile().build()
     )
 
     @Singleton
     @Provides
-    fun authUserRepository(
+    fun googleSignInAuthUserRepository(
         @ApplicationContext application: Context
-    ): AuthUserRepository = GoogleSignInAuthUserRepository(application)
+    ): GoogleSignInAuthUserRepository = GoogleSignInAuthUserRepository(application)
 
     @Singleton
     @Provides
-    fun googleSignInEventListener(): GoogleSignInEventListener = GoogleSignInEventListenerNoOpImpl
+    fun authUserRepository(
+        googleSignInAuthUserRepository: GoogleSignInAuthUserRepository
+    ): AuthUserRepository = googleSignInAuthUserRepository
+
+    @Singleton
+    @Provides
+    fun googleSignInEventListener(statefulAuthUserRepository: GoogleSignInAuthUserRepository): GoogleSignInEventListener = statefulAuthUserRepository
 }

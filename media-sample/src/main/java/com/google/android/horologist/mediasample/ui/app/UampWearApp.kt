@@ -23,7 +23,6 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -61,8 +60,6 @@ import com.google.android.horologist.mediasample.ui.navigation.GoogleSignInPromp
 import com.google.android.horologist.mediasample.ui.navigation.GoogleSignInScreen
 import com.google.android.horologist.mediasample.ui.navigation.GoogleSignOutScreen
 import com.google.android.horologist.mediasample.ui.navigation.Samples
-import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleSignIn
-import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleSignInPrompt
 import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreenViewModel
@@ -271,16 +268,6 @@ fun UampWearApp(
             appViewModel.startupSetup(navigateToLibrary = {
                 navController.navigateToLibrary()
             })
-        }
-
-        if (appViewModel.requireLogin()) {
-            if (appViewModel.isLoggedIn()) {
-                println("A")
-                navController.navigateToGoogleSignIn()
-            } else {
-                println("B")
-                navController.navigateToGoogleSignInPrompt()
-            }
         }
     }
 }

@@ -20,18 +20,25 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
+import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAuthUserRepository
+import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAuthUserRepository.AuthState.Uninitialized
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsScreenViewModel @Inject constructor(
-    authUserRepository: AuthUserRepository
+    authUserRepository: GoogleSignInAuthUserRepository
 ) : ViewModel() {
-    init {
-
-        viewModelScope
-    }
-
+    val screenState = authUserRepository.authState.map {
+        SettingsScreenState(it.toAuthUser())
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        SettingsScreenState(null)
+    )
 }
 
 data class SettingsScreenState(val authUser: AuthUser?)

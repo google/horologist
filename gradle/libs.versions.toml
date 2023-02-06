@@ -4,6 +4,7 @@ androidx-benchmark = "1.2.0-alpha09"
 androidx-compose-material = "1.4.0-alpha05"
 androidx-concurrent = "1.1.0"
 androidx-datastore = "1.0.0"
+androidx-health-services = "1.0.0-beta02"
 androidx-hilt = "1.0.0"
 androidx-media3 = "1.0.0-beta03"
 androidx-test = "1.5.0-beta01"
@@ -66,6 +67,7 @@ androidx-corektx = { module = "androidx.core:core-ktx", version.ref = "androidxC
 androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "androidx-datastore" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "androidx-datastore" }
 androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidxFragment" }
+androidx-health-services = { module = "androidx.health:health-services-client", version.ref = "androidx-health-services" }
 androidx-lifecycle-process = { module = "androidx.lifecycle:lifecycle-process", version.ref = "androidxLifecycle" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidxLifecycle" }

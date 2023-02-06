@@ -25,21 +25,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
-import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
-import com.google.android.horologist.auth.ui.googlesignin.prompt.GoogleSignInPromptViewModelFactory
 import com.google.android.horologist.base.ui.components.ConfirmationDialog
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.belowTimeTextPreview
-import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleSignOutScreen
 
@@ -49,7 +43,7 @@ fun GoogleSignInPromptScreen(
     navController: NavHostController,
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
-    viewModel: SignInPromptViewModel = viewModel(factory = GoogleSignInPromptViewModelFactory)
+    viewModel: UampSignInPromptViewModel
 ) {
     var showAlreadySignedInDialog by rememberSaveable { mutableStateOf(false) }
 
@@ -72,7 +66,10 @@ fun GoogleSignInPromptScreen(
         }
         item {
             GuestModeChip(
-                onClick = { navController.popBackStack() },
+                onClick = {
+                    viewModel.selectGuestMode()
+                    navController.popBackStack()
+                },
                 chipType = StandardChipType.Secondary
             )
         }
@@ -92,13 +89,4 @@ fun GoogleSignInPromptScreen(
             )
         }
     }
-}
-
-@WearPreviewDevices
-@Composable
-fun GoogleSignInPromptSampleScreenPreview() {
-    GoogleSignInPromptScreen(
-        navController = rememberSwipeDismissableNavController(),
-        columnState = belowTimeTextPreview()
-    )
 }

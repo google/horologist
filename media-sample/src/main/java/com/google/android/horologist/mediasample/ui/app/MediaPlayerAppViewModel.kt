@@ -19,7 +19,6 @@ package com.google.android.horologist.mediasample.ui.app
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
-import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAuthUserRepository
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
@@ -148,7 +147,7 @@ class MediaPlayerAppViewModel @Inject constructor(
     }
 
     suspend fun requireLogin(): Boolean {
-        return !settingsRepository.settingsFlow.first().optedOutOfAuth
+        return !settingsRepository.settingsFlow.first().guestMode
     }
 
     suspend fun isLoggedIn(): Boolean {

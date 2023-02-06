@@ -20,6 +20,7 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListenerNoOpImpl
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
@@ -32,6 +33,7 @@ import kotlinx.coroutines.launch
  */
 @ExperimentalHorologistAuthUiApi
 public open class GoogleSignInViewModel(
+    public val googleSignInClient: GoogleSignInClient,
     private val googleSignInEventListener: GoogleSignInEventListener = GoogleSignInEventListenerNoOpImpl
 ) : ViewModel() {
 

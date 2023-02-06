@@ -17,7 +17,6 @@
 package com.google.android.horologist.mediasample.ui.settings
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,11 +25,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.ToggleChip
-import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.mediasample.R
@@ -139,6 +135,15 @@ fun DeveloperOptionsScreen(
                 enabled = uiState.writable
             ) {
                 developerOptionsScreenViewModel.setStreamingMode(it)
+            }
+        }
+        item {
+            CheckedSetting(
+                uiState.seenLogin,
+                stringResource(id = R.string.seen_login_details),
+                enabled = uiState.writable
+            ) {
+                developerOptionsScreenViewModel.setSeenLoginDetails(it)
             }
         }
         item {

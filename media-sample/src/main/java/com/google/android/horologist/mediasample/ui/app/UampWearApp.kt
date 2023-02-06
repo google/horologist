@@ -60,6 +60,8 @@ import com.google.android.horologist.mediasample.ui.navigation.GoogleSignInPromp
 import com.google.android.horologist.mediasample.ui.navigation.GoogleSignInScreen
 import com.google.android.horologist.mediasample.ui.navigation.GoogleSignOutScreen
 import com.google.android.horologist.mediasample.ui.navigation.Samples
+import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleSignIn
+import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleSignInPrompt
 import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreenViewModel
@@ -175,7 +177,7 @@ fun UampWearApp(
             settingsScreen = { columnState ->
                 UampSettingsScreen(
                     columnState = columnState,
-                    settingsScreenViewModel = hiltViewModel(),
+                    viewModel = hiltViewModel(),
                     navController = navController
                 )
             },
@@ -268,6 +270,16 @@ fun UampWearApp(
             appViewModel.startupSetup(navigateToLibrary = {
                 navController.navigateToLibrary()
             })
+        }
+
+        println("A")
+        if (appViewModel.requireLogin()) {
+            println("B")
+            if (appViewModel.isLoggedIn()) {
+                navController.navigateToGoogleSignIn()
+            } else {
+                navController.navigateToGoogleSignInPrompt()
+            }
         }
     }
 }

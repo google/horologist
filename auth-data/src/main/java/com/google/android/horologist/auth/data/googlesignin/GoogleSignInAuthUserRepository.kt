@@ -19,60 +19,42 @@ package com.google.android.horologist.auth.data.googlesignin
 import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.tasks.await
 
 /**
  * An implementation of [AuthUserRepository] for the Google Sign-In authentication method.
  */
 @ExperimentalHorologistAuthDataApi
 public class GoogleSignInAuthUserRepository(
-    private val applicationContext: Context
+    private val applicationContext: Context,
+    private val googleSignInClient: GoogleSignInClient
 ) : AuthUserRepository, GoogleSignInEventListener {
-    private val _authState = MutableStateFlow<AuthState>(AuthState.Uninitialized)
+    // simple way to trigger refreshes to the sync GoogleSignIn.getLastSignedInAccount
+    private val _authTrigger = MutableStateFlow(0)
 
-    val authState: StateFlow<AuthState> = _authState.asStateFlow()
+    public val authState: Flow<AuthUser?> = _authTrigger.map { getAuthenticated() }
 
     override suspend fun getAuthenticated(): AuthUser? {
-        val user = _authState.value.toAuthUser()
-
-        if (user != null) {
-            return user
-        }
-
-        val account = getAuthenticatedGoogleSignInAccount()
-        val newAuthState = AuthState.of(account)
-        _authState.value = newAuthState
-
-        return newAuthState.toAuthUser()
+        return AuthUserMapper.map(GoogleSignIn.getLastSignedInAccount(applicationContext))
     }
 
-    override suspend fun onSignedIn(account: GoogleSignInAccount) {
-        _authState.value = AuthState.LoggedIn(account)
+    override suspend fun onSignedIn(account: GoogleSignInAccount?) {
+        _authTrigger.update { it + 1 }
     }
 
-    fun getAuthenticatedGoogleSignInAccount(): GoogleSignInAccount? =
+    public fun getAuthenticatedGoogleSignInAccount(): GoogleSignInAccount? =
         GoogleSignIn.getLastSignedInAccount(applicationContext)
 
-    sealed interface AuthState {
-        fun toAuthUser(): AuthUser? = null
-
-        object Uninitialized: AuthState
-        object NotLoggedIn: AuthState
-        data class LoggedIn(val authUser: GoogleSignInAccount): AuthState {
-            override fun toAuthUser(): AuthUser = AuthUserMapper.map(authUser)!!
-        }
-
-        companion object {
-            fun of(account: GoogleSignInAccount?): AuthState = if (account != null) {
-                LoggedIn(account)
-            } else {
-                NotLoggedIn
-            }
-        }
+    public suspend fun signOut() {
+        googleSignInClient.signOut().await()
+        onSignedIn(null)
     }
 }

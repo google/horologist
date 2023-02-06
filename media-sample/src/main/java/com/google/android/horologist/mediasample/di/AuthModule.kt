@@ -47,8 +47,12 @@ object AuthModule {
     @Singleton
     @Provides
     fun googleSignInAuthUserRepository(
-        @ApplicationContext application: Context
-    ): GoogleSignInAuthUserRepository = GoogleSignInAuthUserRepository(application)
+        @ApplicationContext application: Context,
+        googleSignInClient: GoogleSignInClient
+    ): GoogleSignInAuthUserRepository = GoogleSignInAuthUserRepository(
+        application,
+        googleSignInClient
+    )
 
     @Singleton
     @Provides

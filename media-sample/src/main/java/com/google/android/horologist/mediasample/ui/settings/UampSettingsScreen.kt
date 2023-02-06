@@ -50,11 +50,11 @@ import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleS
 @Composable
 fun UampSettingsScreen(
     columnState: ScalingLazyColumnState,
-    settingsScreenViewModel: SettingsScreenViewModel,
+    viewModel: SettingsScreenViewModel,
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    val screenState by settingsScreenViewModel.screenState.collectAsStateWithLifecycle()
+    val screenState by viewModel.screenState.collectAsStateWithLifecycle()
 
     ScalingLazyColumn(
         columnState = columnState,
@@ -72,7 +72,8 @@ fun UampSettingsScreen(
                     label = stringResource(id = R.string.login),
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { navController.navigateToGoogleSignIn() },
-                    chipType = StandardChipType.Primary
+                    chipType = StandardChipType.Primary,
+                    enabled = !screenState.guestMode
                 )
             } else {
                 StandardChip(
@@ -81,6 +82,15 @@ fun UampSettingsScreen(
                     onClick = { navController.navigateToGoogleSignOutScreen() },
                     chipType = StandardChipType.Primary
                 )
+            }
+        }
+        item {
+            CheckedSetting(
+                screenState.guestMode,
+                stringResource(id = R.string.sample_guest_mode),
+                enabled = screenState.writable
+            ) {
+                viewModel.setGuestMode(it)
             }
         }
         item {

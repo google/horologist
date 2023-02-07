@@ -60,8 +60,7 @@ class MediaPlayerAppViewModel @Inject constructor(
     val appState = settingsRepository.settingsFlow.map {
         UampAppState(
             streamingMode = it.streamingMode,
-            guestMode = it.guestMode,
-            seenLoginDetails = it.seenLoginDetails
+            guestMode = it.guestMode
         )
     }.stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000), initialValue = UampAppState())
 
@@ -150,6 +149,10 @@ class MediaPlayerAppViewModel @Inject constructor(
         playerRepository.connected.filter { it }.first()
     }
 
+    suspend fun shouldShowLoginPrompt(): Boolean {
+        return !isGuestMode() && !isLoggedIn()
+    }
+
     suspend fun isGuestMode(): Boolean {
         return appState.filter { it.guestMode != null }.first().guestMode == true
     }
@@ -157,22 +160,9 @@ class MediaPlayerAppViewModel @Inject constructor(
     suspend fun isLoggedIn(): Boolean {
         return authUserRepository.getAuthenticated() != null
     }
-
-    suspend fun markSeenLoginDetails() {
-        settingsRepository.edit {
-            it.copy {
-                seenLoginDetails = true
-            }
-        }
-    }
-
-    suspend fun shouldShowLoginDetails(): Boolean {
-        return appState.filter { it.seenLoginDetails != null }.first().seenLoginDetails == false
-    }
 }
 
 data class UampAppState(
     val streamingMode: Boolean? = null,
-    val guestMode: Boolean? = null,
-    val seenLoginDetails: Boolean? = null
+    val guestMode: Boolean? = null
 )

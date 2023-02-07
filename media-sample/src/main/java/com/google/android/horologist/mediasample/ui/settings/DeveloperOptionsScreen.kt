@@ -139,15 +139,6 @@ fun DeveloperOptionsScreen(
         }
         item {
             CheckedSetting(
-                uiState.seenLogin,
-                stringResource(id = R.string.seen_login_details),
-                enabled = uiState.writable
-            ) {
-                developerOptionsScreenViewModel.setSeenLoginDetails(it)
-            }
-        }
-        item {
-            CheckedSetting(
                 uiState.animated,
                 stringResource(id = R.string.animated),
                 enabled = uiState.writable

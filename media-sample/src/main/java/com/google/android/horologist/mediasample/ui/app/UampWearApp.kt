@@ -65,6 +65,7 @@ import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScree
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreenViewModel
 import com.google.android.horologist.mediasample.ui.settings.DeveloperOptionsScreen
 import com.google.android.horologist.mediasample.ui.settings.UampSettingsScreen
+import kotlinx.coroutines.delay
 
 @Composable
 fun UampWearApp(
@@ -270,7 +271,9 @@ fun UampWearApp(
             })
         }
 
-        if (!appViewModel.isGuestMode()) {
+        if (appViewModel.shouldShowLoginPrompt()) {
+            // Allow screen to settle so it feels like a distinct step
+            delay(200)
             navController.navigateToGoogleSignInPrompt()
         }
     }

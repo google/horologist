@@ -20,7 +20,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.common.api.ApiException
-import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAuthUserRepository
+import com.google.android.horologist.mediasample.data.auth.GoogleSignInAuthUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -29,7 +29,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UampGoogleSignOutViewModel @Inject constructor(
-    private val googleSignInAuthUserRepository: GoogleSignInAuthUserRepository,
+    private val googleSignInAuthUserRepository: GoogleSignInAuthUserRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(GoogleSignOutScreenState.Idle)

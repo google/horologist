@@ -21,8 +21,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
-import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAuthUserRepository
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener
+import com.google.android.horologist.mediasample.data.auth.GoogleSignInAuthUserRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

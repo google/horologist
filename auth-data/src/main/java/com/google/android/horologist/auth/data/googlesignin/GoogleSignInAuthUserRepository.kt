@@ -18,47 +18,18 @@ package com.google.android.horologist.auth.data.googlesignin
 
 import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.tasks.await
 
 /**
  * An implementation of [AuthUserRepository] for the Google Sign-In authentication method.
  */
 @ExperimentalHorologistAuthDataApi
 public class GoogleSignInAuthUserRepository(
-    private val applicationContext: Context,
-    private val googleSignInClient: GoogleSignInClient
-) : AuthUserRepository, GoogleSignInEventListener {
-    // simple way to trigger refreshes to the sync GoogleSignIn.getLastSignedInAccount
-    private val _authTrigger = MutableStateFlow(0)
+    private val applicationContext: Context
+) : AuthUserRepository {
 
-    public val authState: Flow<AuthUser?> = _authTrigger.map { getAuthenticated() }
-
-    override suspend fun getAuthenticated(): AuthUser? {
-        return AuthUserMapper.map(GoogleSignIn.getLastSignedInAccount(applicationContext))
-    }
-
-    override suspend fun onSignedIn(account: GoogleSignInAccount) {
-        _authTrigger.update { it + 1 }
-    }
-
-    public fun onSignedOut() {
-        _authTrigger.update { it + 1 }
-    }
-
-    public fun getAuthenticatedGoogleSignInAccount(): GoogleSignInAccount? =
-        GoogleSignIn.getLastSignedInAccount(applicationContext)
-
-    public suspend fun signOut() {
-        googleSignInClient.signOut().await()
-        onSignedOut()
-    }
+    override suspend fun getAuthenticated(): AuthUser? =
+        AuthUserMapper.map(GoogleSignIn.getLastSignedInAccount(applicationContext))
 }

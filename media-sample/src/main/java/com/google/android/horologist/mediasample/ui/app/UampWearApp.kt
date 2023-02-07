@@ -41,7 +41,6 @@ import com.google.android.horologist.media.ui.navigation.MediaNavController.navi
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToVolume
 import com.google.android.horologist.media.ui.navigation.MediaPlayerScaffold
 import com.google.android.horologist.mediasample.ui.auth.prompt.GoogleSignInPromptScreen
-import com.google.android.horologist.mediasample.ui.auth.prompt.UampSignInPromptViewModel
 import com.google.android.horologist.mediasample.ui.auth.signin.UampGoogleSignInViewModel
 import com.google.android.horologist.mediasample.ui.auth.signout.GoogleSignOutScreen
 import com.google.android.horologist.mediasample.ui.browse.UampBrowseScreen
@@ -60,7 +59,6 @@ import com.google.android.horologist.mediasample.ui.navigation.GoogleSignInPromp
 import com.google.android.horologist.mediasample.ui.navigation.GoogleSignInScreen
 import com.google.android.horologist.mediasample.ui.navigation.GoogleSignOutScreen
 import com.google.android.horologist.mediasample.ui.navigation.Samples
-import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleSignIn
 import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleSignInPrompt
 import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreen

@@ -19,7 +19,7 @@ package com.google.android.horologist.mediasample.ui.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.auth.data.common.model.AuthUser
-import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAuthUserRepository
+import com.google.android.horologist.mediasample.data.auth.GoogleSignInAuthUserRepository
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.proto.copy
 import dagger.hilt.android.lifecycle.HiltViewModel

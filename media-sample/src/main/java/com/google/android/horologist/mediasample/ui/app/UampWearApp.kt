@@ -233,14 +233,14 @@ fun UampWearApp(
                     GoogleSignInPromptScreen(
                         navController = navController,
                         columnState = it.columnState,
-                        viewModel = hiltViewModel<UampSignInPromptViewModel>()
+                        viewModel = hiltViewModel()
                     )
                 }
 
                 composable(route = GoogleSignInScreen.navRoute) {
                     GoogleSignInScreen(
                         onAuthCancelled = { navController.popBackStack() },
-                        onAuthSucceed = { navController.popBackStack() },
+                        onAuthSucceed = { navController.navigateToLibrary() },
                         viewModel = hiltViewModel<UampGoogleSignInViewModel>()
                     )
                 }

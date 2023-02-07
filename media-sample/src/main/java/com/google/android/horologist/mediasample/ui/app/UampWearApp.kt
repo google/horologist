@@ -272,13 +272,8 @@ fun UampWearApp(
             })
         }
 
-        if (appViewModel.requireLogin()) {
-            if (!appViewModel.isLoggedIn()) {
-                navController.navigateToGoogleSignInPrompt()
-            } else if (appViewModel.shouldShowLoginDetails()) {
-                appViewModel.markSeenLoginDetails()
-                navController.navigateToGoogleSignIn()
-            }
+        if (!appViewModel.isGuestMode()) {
+            navController.navigateToGoogleSignInPrompt()
         }
     }
 }

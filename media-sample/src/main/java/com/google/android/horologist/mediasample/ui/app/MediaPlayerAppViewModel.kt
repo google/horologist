@@ -150,8 +150,8 @@ class MediaPlayerAppViewModel @Inject constructor(
         playerRepository.connected.filter { it }.first()
     }
 
-    suspend fun requireLogin(): Boolean {
-        return appState.filter { it.guestMode != null }.first().guestMode == false
+    suspend fun isGuestMode(): Boolean {
+        return appState.filter { it.guestMode != null }.first().guestMode == true
     }
 
     suspend fun isLoggedIn(): Boolean {

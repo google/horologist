@@ -30,7 +30,7 @@ public interface GoogleSignInEventListener {
      *
      * @param account account that signed in.
      */
-    public suspend fun onSignedIn(account: GoogleSignInAccount?): Unit
+    public suspend fun onSignedIn(account: GoogleSignInAccount): Unit
 }
 
 /**
@@ -39,5 +39,5 @@ public interface GoogleSignInEventListener {
 @ExperimentalHorologistAuthDataApi
 public object GoogleSignInEventListenerNoOpImpl : GoogleSignInEventListener {
 
-    override suspend fun onSignedIn(account: GoogleSignInAccount?): Unit = Unit
+    override suspend fun onSignedIn(account: GoogleSignInAccount): Unit = Unit
 }

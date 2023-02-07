@@ -49,4 +49,3 @@ checksum.txt
 
 # Paparazzi failures output folder
 out/
-/secrets.properties

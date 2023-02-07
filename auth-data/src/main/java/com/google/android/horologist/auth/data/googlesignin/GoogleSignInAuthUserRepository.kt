@@ -46,7 +46,11 @@ public class GoogleSignInAuthUserRepository(
         return AuthUserMapper.map(GoogleSignIn.getLastSignedInAccount(applicationContext))
     }
 
-    override suspend fun onSignedIn(account: GoogleSignInAccount?) {
+    override suspend fun onSignedIn(account: GoogleSignInAccount) {
+        _authTrigger.update { it + 1 }
+    }
+
+    public fun onSignedOut() {
         _authTrigger.update { it + 1 }
     }
 
@@ -55,6 +59,6 @@ public class GoogleSignInAuthUserRepository(
 
     public suspend fun signOut() {
         googleSignInClient.signOut().await()
-        onSignedIn(null)
+        onSignedOut()
     }
 }

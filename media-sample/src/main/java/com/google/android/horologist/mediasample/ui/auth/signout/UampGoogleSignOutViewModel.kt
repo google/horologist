@@ -21,7 +21,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.common.api.ApiException
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAuthUserRepository
-import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -31,7 +30,6 @@ import javax.inject.Inject
 @HiltViewModel
 class UampGoogleSignOutViewModel @Inject constructor(
     private val googleSignInAuthUserRepository: GoogleSignInAuthUserRepository,
-    private val googleSignInEventListener: GoogleSignInEventListener
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(GoogleSignOutScreenState.Idle)
@@ -46,7 +44,6 @@ class UampGoogleSignOutViewModel @Inject constructor(
             viewModelScope.launch {
                 try {
                     googleSignInAuthUserRepository.signOut()
-                    googleSignInEventListener.onSignedIn(null)
                     _uiState.value = GoogleSignOutScreenState.Success
                 } catch (apiException: ApiException) {
                     Log.w(TAG, "Sign out failed: $apiException")

@@ -21,8 +21,11 @@
 
 package com.google.android.horologist.auth.ui.googlesignin.signin
 
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.test.toolbox.rules.MainDispatcherRule
@@ -32,7 +35,10 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RuntimeEnvironment
 
+@RunWith(AndroidJUnit4::class)
 class GoogleSignInViewModelTest {
 
     @get:Rule
@@ -44,7 +50,11 @@ class GoogleSignInViewModelTest {
 
     @Before
     fun setUp() {
-        sut = GoogleSignInViewModel(spyGoogleSignInEventListener)
+        val googleSignInClient = GoogleSignIn.getClient(
+            RuntimeEnvironment.getApplication(),
+            GoogleSignInOptions.DEFAULT_SIGN_IN
+        )
+        sut = GoogleSignInViewModel(googleSignInClient, spyGoogleSignInEventListener)
     }
 
     @Test

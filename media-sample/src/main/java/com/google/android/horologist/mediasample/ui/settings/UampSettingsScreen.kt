@@ -107,6 +107,7 @@ fun UampSettingsScreen(
 @Composable
 fun ActionSetting(
     text: String,
+    modifier: Modifier = Modifier,
     icon: ImageVector? = null,
     enabled: Boolean = true,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
@@ -128,7 +129,7 @@ fun ActionSetting(
         onClick = onClick,
         label = labelParam,
         enabled = enabled,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         colors = colors,
         icon = {
             if (icon != null) {
@@ -143,6 +144,7 @@ fun ActionSetting(
 fun CheckedSetting(
     value: Boolean,
     text: String,
+    modifier: Modifier = Modifier,
     enabled: Boolean = true,
     onCheckedChange: (Boolean) -> Unit
 ) {
@@ -161,6 +163,6 @@ fun CheckedSetting(
         label = {
             Text(text)
         },
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
     )
 }

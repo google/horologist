@@ -51,17 +51,18 @@ package com.google.android.horologist.auth.data.googlesignin {
     method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.auth.data.common.model.AuthUser> getAuthState();
     method public suspend Object? getAuthenticated(kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.common.model.AuthUser>);
     method public com.google.android.gms.auth.api.signin.GoogleSignInAccount? getAuthenticatedGoogleSignInAccount();
-    method public suspend Object? onSignedIn(com.google.android.gms.auth.api.signin.GoogleSignInAccount? account, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? onSignedIn(com.google.android.gms.auth.api.signin.GoogleSignInAccount account, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public void onSignedOut();
     method public suspend Object? signOut(kotlin.coroutines.Continuation<? super kotlin.Unit>);
     property public final kotlinx.coroutines.flow.Flow<com.google.android.horologist.auth.data.common.model.AuthUser> authState;
   }
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface GoogleSignInEventListener {
-    method public suspend Object? onSignedIn(com.google.android.gms.auth.api.signin.GoogleSignInAccount? account, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? onSignedIn(com.google.android.gms.auth.api.signin.GoogleSignInAccount account, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class GoogleSignInEventListenerNoOpImpl implements com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener {
-    method public suspend Object? onSignedIn(com.google.android.gms.auth.api.signin.GoogleSignInAccount? account, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? onSignedIn(com.google.android.gms.auth.api.signin.GoogleSignInAccount account, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     field public static final com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListenerNoOpImpl INSTANCE;
   }
 

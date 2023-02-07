@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.compose.rotaryinput
 
+import android.util.Log
 import kotlin.math.abs
 
 /** Accumulator to trigger callbacks based on rotary input event. */
@@ -43,10 +44,13 @@ internal class RotaryInputAccumulator(
         } else {
             accumulatedDistance += scrollPixels
         }
+//        Log.d("VolumeTest", "scrollPixels=${scrollPixels}")
+
         onEventAccumulated(eventTimeMillis)
     }
 
     private fun onEventAccumulated(eventTimeMs: Long) {
+        Log.d("VolumeTest", "eventTimeMs=$eventTimeMs lastUpdateTimeMs=$lastUpdateTimeMs accumulatedDistance=$accumulatedDistance")
         if (abs(accumulatedDistance) < minValueChangeDistancePx ||
             eventTimeMs - lastUpdateTimeMs < rateLimitCoolDownMs
         ) {

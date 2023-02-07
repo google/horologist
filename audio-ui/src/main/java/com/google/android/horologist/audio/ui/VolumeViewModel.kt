@@ -94,6 +94,8 @@ public open class VolumeViewModel(
     }
 
     public fun onVolumeChangeByScroll(pixels: Float) {
+//        Log.d("VolumeTest", "pixels=${pixels}")
+        Log.d("VolumeTest", "current=${volumeState.value.current}")
         when {
             pixels > 0 -> increaseVolumeWithHaptics()
             pixels < 0 -> decreaseVolumeWithHaptics()

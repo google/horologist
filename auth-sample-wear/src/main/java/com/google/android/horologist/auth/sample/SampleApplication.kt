@@ -18,11 +18,13 @@ package com.google.android.horologist.auth.sample
 
 import android.app.Application
 import com.google.android.horologist.auth.sample.di.SampleAppDI
+import com.google.android.horologist.data.WearDataLayerRegistry
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineScope
 import okhttp3.OkHttpClient
 
 class SampleApplication : Application() {
+    lateinit var registry: WearDataLayerRegistry
     lateinit var servicesCoroutineScope: CoroutineScope
     lateinit var okHttpClient: OkHttpClient
     lateinit var moshi: Moshi

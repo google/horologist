@@ -39,7 +39,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 fun TokenShareScreen(
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
-    viewModel: TokenShareListenerViewModel = viewModel()
+    viewModel: TokenShareListenerViewModel = viewModel(factory = TokenShareListenerViewModel.Factory)
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 

@@ -30,7 +30,7 @@ package com.google.android.horologist.auth.data.phone.tokenshare.impl {
   }
 
   public static final class TokenBundleRepositoryImpl.Companion {
-    method public <TokenBundle> com.google.android.horologist.auth.data.phone.tokenshare.impl.TokenBundleRepositoryImpl<TokenBundle> create(optional String key, android.content.Context applicationContext, kotlinx.coroutines.CoroutineScope coroutineScope, androidx.datastore.core.Serializer<TokenBundle> serializer);
+    method public <TokenBundle> com.google.android.horologist.auth.data.phone.tokenshare.impl.TokenBundleRepositoryImpl<TokenBundle> create(com.google.android.horologist.data.WearDataLayerRegistry registry, optional String key, kotlinx.coroutines.CoroutineScope coroutineScope, androidx.datastore.core.Serializer<TokenBundle> serializer);
   }
 
 }

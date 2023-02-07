@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.auth.data.phone.tokenshare.impl
 
-import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
 import com.google.android.horologist.auth.data.phone.ExperimentalHorologistAuthDataPhoneApi
@@ -48,15 +47,12 @@ public class TokenBundleRepositoryImpl<TokenBundle>(
          * will be used and only a single token bundle will be persisted.
          */
         public fun <TokenBundle> create(
+            registry: WearDataLayerRegistry,
             key: String = DEFAULT_TOKEN_BUNDLE_KEY,
-            applicationContext: Context,
             coroutineScope: CoroutineScope,
             serializer: Serializer<TokenBundle>
         ): TokenBundleRepositoryImpl<TokenBundle> = TokenBundleRepositoryImpl(
-            WearDataLayerRegistry.fromContext(
-                application = applicationContext,
-                coroutineScope = coroutineScope
-            ).protoDataStore(
+            registry.protoDataStore(
                 path = buildPath(key),
                 coroutineScope = coroutineScope,
                 serializer = serializer

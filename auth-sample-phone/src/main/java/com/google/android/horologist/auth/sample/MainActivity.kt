@@ -33,6 +33,7 @@ import com.google.android.horologist.auth.data.phone.tokenshare.TokenBundleRepos
 import com.google.android.horologist.auth.data.phone.tokenshare.impl.TokenBundleRepositoryImpl
 import com.google.android.horologist.auth.sample.shared.TokenSerializer
 import com.google.android.horologist.auth.sample.ui.theme.HorologistTheme
+import com.google.android.horologist.data.WearDataLayerRegistry
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -42,8 +43,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val registry = WearDataLayerRegistry.fromContext(
+            application = this@MainActivity.applicationContext,
+            coroutineScope = lifecycleScope
+        )
+
         tokenBundleRepository = TokenBundleRepositoryImpl.create(
-            applicationContext = this@MainActivity.applicationContext,
+            registry = registry,
             coroutineScope = lifecycleScope,
             serializer = TokenSerializer
         )

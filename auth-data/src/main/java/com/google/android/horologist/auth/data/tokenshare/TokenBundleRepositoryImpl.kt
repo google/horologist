@@ -16,12 +16,10 @@
 
 package com.google.android.horologist.auth.data.tokenshare
 
-import android.content.Context
 import androidx.datastore.core.Serializer
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 import com.google.android.horologist.data.TargetNodeId
 import com.google.android.horologist.data.WearDataLayerRegistry
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -53,15 +51,11 @@ public class TokenBundleRepositoryImpl<TokenBundle>(
          * [default][DEFAULT_TOKEN_BUNDLE_KEY] key will be used.
          */
         public fun <TokenBundle> create(
-            key: String = DEFAULT_TOKEN_BUNDLE_KEY,
+            registry: WearDataLayerRegistry,
             serializer: Serializer<TokenBundle>,
-            applicationContext: Context,
-            coroutineScope: CoroutineScope
+            key: String = DEFAULT_TOKEN_BUNDLE_KEY
         ): TokenBundleRepositoryImpl<TokenBundle> = TokenBundleRepositoryImpl(
-            registry = WearDataLayerRegistry.fromContext(
-                application = applicationContext,
-                coroutineScope = coroutineScope
-            ),
+            registry = registry,
             serializer = serializer,
             path = buildPath(key)
         )

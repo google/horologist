@@ -49,9 +49,8 @@ class TokenShareListenerViewModel(
 
                 TokenShareListenerViewModel(
                     TokenBundleRepositoryImpl.create(
-                        serializer = TokenSerializer,
-                        applicationContext = application,
-                        coroutineScope = (application as SampleApplication).servicesCoroutineScope
+                        registry = (application as SampleApplication).registry,
+                        serializer = TokenSerializer
                     )
                 )
             }

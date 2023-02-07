@@ -76,6 +76,7 @@ android {
             "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi",
             "-opt-in=com.google.android.horologist.composables.ExperimentalHorologistComposablesApi",
             "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi",
+            "-opt-in=com.google.android.horologist.data.ExperimentalHorologistDataLayerApi",
         )
     }
 
@@ -94,6 +95,7 @@ dependencies {
     implementation(projects.baseUi)
     implementation(projects.composables)
     implementation(projects.composeLayout)
+    implementation(projects.datalayer)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)

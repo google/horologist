@@ -270,7 +270,7 @@ fun UampWearApp(
             })
         }
 
-        if (!appViewModel.isGuestMode()) {
+        if (appViewModel.shouldShowLoginPrompt()) {
             navController.navigateToGoogleSignInPrompt()
         }
     }

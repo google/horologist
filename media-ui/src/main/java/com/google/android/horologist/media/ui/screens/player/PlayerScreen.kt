@@ -53,6 +53,7 @@ import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.state.PlayerUiController
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 public typealias MediaDisplay = @Composable ColumnScope.(playerUiState: PlayerUiState) -> Unit
 
@@ -74,7 +75,7 @@ public fun PlayerScreen(
     volumeViewModel: VolumeViewModel,
     modifier: Modifier = Modifier,
     mediaDisplay: MediaDisplay = { playerUiState ->
-        DefaultPlayerScreenMediaDisplay(playerUiState)
+        DefaultPlayerScreenMediaDisplay(playerUiState.media, loading = !playerUiState.connected)
     },
     controlButtons: ControlButtons = { playerUiController, playerUiState ->
         DefaultPlayerScreenControlButtons(playerUiController, playerUiState)
@@ -102,11 +103,11 @@ public fun PlayerScreen(
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun DefaultPlayerScreenMediaDisplay(
-    playerUiState: PlayerUiState,
+    media: MediaUiModel?,
+    loading: Boolean,
     modifier: Modifier = Modifier
 ) {
-    val media = playerUiState.media
-    if (!playerUiState.connected) {
+    if (loading) {
         LoadingMediaDisplay(modifier)
     } else if (media != null) {
         DefaultMediaDisplay(

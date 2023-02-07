@@ -52,7 +52,7 @@ import com.google.android.horologist.media.ui.state.PlayerUiState
 fun MediaPlayerTestCase(
     playerUiState: PlayerUiState,
     mediaDisplay: @Composable ColumnScope.() -> Unit = {
-        DefaultPlayerScreenMediaDisplay(playerUiState)
+        DefaultPlayerScreenMediaDisplay(playerUiState.media, loading = !playerUiState.connected)
     },
     controlButtons: @Composable RowScope.() -> Unit = {
         MediaControlButtons(

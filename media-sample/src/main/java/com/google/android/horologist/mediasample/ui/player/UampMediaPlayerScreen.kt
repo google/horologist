@@ -51,9 +51,9 @@ fun UampMediaPlayerScreen(
         volumeViewModel = volumeViewModel,
         mediaDisplay = { playerUiState ->
             if (settingsState.animated) {
-                AnimatedPlayerScreenMediaDisplay(playerUiState)
+                AnimatedPlayerScreenMediaDisplay(playerUiState.media, loading = !playerUiState.connected)
             } else {
-                DefaultPlayerScreenMediaDisplay(playerUiState)
+                DefaultPlayerScreenMediaDisplay(playerUiState.media, loading = !playerUiState.connected)
             }
         },
         buttons = {

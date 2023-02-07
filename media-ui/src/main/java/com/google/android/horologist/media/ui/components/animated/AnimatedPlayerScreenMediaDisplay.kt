@@ -23,7 +23,7 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.InfoMediaDisplay
 import com.google.android.horologist.media.ui.components.LoadingMediaDisplay
-import com.google.android.horologist.media.ui.state.PlayerUiState
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 /**
  * Animated [MediaDisplay] implementation for [PlayerScreen] including player status.
@@ -31,11 +31,11 @@ import com.google.android.horologist.media.ui.state.PlayerUiState
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun AnimatedPlayerScreenMediaDisplay(
-    playerUiState: PlayerUiState,
+    media: MediaUiModel?,
+    loading: Boolean,
     modifier: Modifier = Modifier
 ) {
-    val media = playerUiState.media
-    if (!playerUiState.connected) {
+    if (loading) {
         LoadingMediaDisplay(modifier)
     } else if (media != null) {
         MarqueeTextMediaDisplay(

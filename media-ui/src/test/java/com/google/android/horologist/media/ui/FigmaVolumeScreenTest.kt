@@ -47,7 +47,8 @@ class FigmaVolumeScreenTest {
                     audioOutputUi = AudioOutput.BluetoothHeadset("1", "Device").toAudioOutputUi(),
                     increaseVolume = { },
                     decreaseVolume = { },
-                    onAudioOutputClick = { }
+                    onAudioOutputClick = { },
+                    onVolumeChangeByScroll = {}
                 )
             }
         }

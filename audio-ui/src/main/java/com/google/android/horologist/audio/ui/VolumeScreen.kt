@@ -18,7 +18,6 @@ package com.google.android.horologist.audio.ui
 
 import android.media.AudioManager
 import androidx.compose.foundation.focusable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -28,7 +27,6 @@ import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
@@ -39,6 +37,7 @@ import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.InlineSlider
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Stepper
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.audio.AudioOutput
@@ -177,14 +176,15 @@ internal fun VolumeScreen(
     onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)
 ) {
     val focusRequester = rememberActiveFocusRequester()
-    Box(
+    Scaffold(
         modifier = modifier
             .fillMaxSize()
             .onRotaryInputAccumulated(onValueChange = onVolumeChangeByScroll)
             .focusRequester(focusRequester)
-            .focusable()
+            .focusable(),
+        positionIndicator = { if (showVolumeIndicator) VolumePositionIndicator(volumeState = volume, autoHide = false) }
     ) {
-        val volumeState = remember { volume() }
+        val volumeState = volume()
         Stepper(
             value = volumeState.current.toFloat(),
             onValueChange = { if (it > volumeState.current) increaseVolume() else decreaseVolume() },
@@ -198,12 +198,6 @@ internal fun VolumeScreen(
             }
         ) {
             contentSlot()
-        }
-        if (showVolumeIndicator) {
-            VolumePositionIndicator(
-                volumeState = volume,
-                autoHide = false
-            )
         }
     }
 }

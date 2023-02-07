@@ -60,7 +60,7 @@ class MediaPlayerAppViewModel @Inject constructor(
     val appState = settingsRepository.settingsFlow.map {
         UampAppState(
             streamingMode = it.streamingMode,
-            guestMode = it.guestMode,
+            guestMode = it.guestMode
         )
     }.stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000), initialValue = UampAppState())
 
@@ -164,5 +164,5 @@ class MediaPlayerAppViewModel @Inject constructor(
 
 data class UampAppState(
     val streamingMode: Boolean? = null,
-    val guestMode: Boolean? = null,
+    val guestMode: Boolean? = null
 )

@@ -146,12 +146,14 @@ package com.google.android.horologist.auth.ui.googlesignin.signin {
   }
 
   @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public class GoogleSignInViewModel extends androidx.lifecycle.ViewModel {
-    ctor public GoogleSignInViewModel(optional com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener googleSignInEventListener);
+    ctor public GoogleSignInViewModel(com.google.android.gms.auth.api.signin.GoogleSignInClient googleSignInClient, optional com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener googleSignInEventListener);
+    method public final com.google.android.gms.auth.api.signin.GoogleSignInClient getGoogleSignInClient();
     method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreenState> getUiState();
     method public final void onAccountSelected(com.google.android.gms.auth.api.signin.GoogleSignInAccount account);
     method public final void onAccountSelectionFailed();
     method public final void onAuthCancelled();
     method public final void onIdleStateObserved();
+    property public final com.google.android.gms.auth.api.signin.GoogleSignInClient googleSignInClient;
     property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreenState> uiState;
   }
 

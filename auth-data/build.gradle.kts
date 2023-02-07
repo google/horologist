@@ -102,6 +102,7 @@ dependencies {
     implementation(libs.retrofit2.convertermoshi)
     implementation(libs.moshi.kotlin)
     ksp(libs.moshi.kotlin.codegen)
+    implementation(libs.kotlinx.coroutines.playservices)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

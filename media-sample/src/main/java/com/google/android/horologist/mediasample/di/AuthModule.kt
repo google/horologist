@@ -21,9 +21,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
-import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAuthUserRepository
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener
-import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListenerNoOpImpl
+import com.google.android.horologist.mediasample.data.auth.GoogleSignInAuthUserRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,19 +40,27 @@ object AuthModule {
         @ApplicationContext application: Context
     ): GoogleSignInClient = GoogleSignIn.getClient(
         application,
-        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .requestProfile()
-            .build()
+        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail()
+            .requestProfile().build()
+    )
+
+    @Singleton
+    @Provides
+    fun googleSignInAuthUserRepository(
+        @ApplicationContext application: Context,
+        googleSignInClient: GoogleSignInClient
+    ): GoogleSignInAuthUserRepository = GoogleSignInAuthUserRepository(
+        application,
+        googleSignInClient
     )
 
     @Singleton
     @Provides
     fun authUserRepository(
-        @ApplicationContext application: Context
-    ): AuthUserRepository = GoogleSignInAuthUserRepository(application)
+        googleSignInAuthUserRepository: GoogleSignInAuthUserRepository
+    ): AuthUserRepository = googleSignInAuthUserRepository
 
     @Singleton
     @Provides
-    fun googleSignInEventListener(): GoogleSignInEventListener = GoogleSignInEventListenerNoOpImpl
+    fun googleSignInEventListener(statefulAuthUserRepository: GoogleSignInAuthUserRepository): GoogleSignInEventListener = statefulAuthUserRepository
 }

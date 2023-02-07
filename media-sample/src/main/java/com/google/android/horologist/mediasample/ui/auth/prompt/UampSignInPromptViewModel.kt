@@ -16,11 +16,28 @@
 
 package com.google.android.horologist.mediasample.ui.auth.prompt
 
+import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
+import com.google.android.horologist.mediasample.domain.SettingsRepository
+import com.google.android.horologist.mediasample.domain.proto.copy
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class UampSignInPromptViewModel @Inject constructor(authUserRepository: AuthUserRepository) :
-    SignInPromptViewModel(authUserRepository)
+class UampSignInPromptViewModel @Inject constructor(
+    authUserRepository: AuthUserRepository,
+    private val settingsRepository: SettingsRepository
+) :
+    SignInPromptViewModel(authUserRepository) {
+    fun selectGuestMode() {
+        viewModelScope.launch {
+            settingsRepository.edit {
+                it.copy {
+                    guestMode = true
+                }
+            }
+        }
+    }
+}

@@ -16,11 +16,15 @@
 
 package com.google.android.horologist.mediasample.ui.auth.signin
 
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class UampGoogleSignInViewModel @Inject constructor(googleSignInEventListener: GoogleSignInEventListener) :
-    GoogleSignInViewModel(googleSignInEventListener)
+class UampGoogleSignInViewModel @Inject constructor(
+    googleSignInClient: GoogleSignInClient,
+    googleSignInEventListener: GoogleSignInEventListener
+) :
+    GoogleSignInViewModel(googleSignInClient, googleSignInEventListener)

@@ -18,9 +18,9 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     id("org.jetbrains.dokka")
     id("me.tylerbwong.gradle.metalava")
+    kotlin("android")
 }
 
 android {
@@ -43,10 +43,6 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
-        freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=kotlin.RequiresOptIn",
-            "-opt-in=com.google.android.horologist.data.ExperimentalHorologistDataLayerApi",
-        )
     }
 
     packagingOptions {
@@ -72,7 +68,7 @@ android {
 
     resourcePrefix = "horologist_"
 
-    namespace = "com.google.android.horologist.auth.data.phone"
+    namespace = "com.google.android.horologist.auth.sample.shared"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -92,14 +88,10 @@ metalava {
 
 dependencies {
 
-    implementation(projects.datalayer)
-
-    api(libs.androidx.datastore)
-
+    implementation(libs.androidx.corektx)
+    implementation(libs.androidx.datastore)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.coroutines.playservices)
-    implementation(libs.androidx.corektx)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

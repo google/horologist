@@ -50,18 +50,6 @@
 
         </activity>
 
-        <service
-            android:name=".screens.tokenshare.service.SampleTokenListenerService"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
-                <data
-                    android:host="*"
-                    android:pathPrefix="/horologist_auth"
-                    android:scheme="wear" />
-            </intent-filter>
-        </service>
-
     </application>
 
 </manifest>

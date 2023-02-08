@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.sample.screens.tokenshare.service
+package com.google.android.horologist.auth.sample.screens.tokenshare
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -36,10 +36,10 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
 @Composable
-fun TokenShareServiceScreen(
+fun TokenShareScreen(
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
-    viewModel: TokenShareServiceViewModel = viewModel()
+    viewModel: TokenShareListenerViewModel = viewModel(factory = TokenShareListenerViewModel.Factory)
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -48,11 +48,11 @@ fun TokenShareServiceScreen(
         modifier = modifier.fillMaxSize()
     ) {
         item {
-            Title(textId = R.string.token_share_service_title)
+            Title(textId = R.string.token_share_title)
         }
         item {
             Text(
-                text = stringResource(id = R.string.token_share_service_message),
+                text = stringResource(id = R.string.token_share_message),
                 modifier = Modifier.padding(horizontal = 8.dp),
                 textAlign = TextAlign.Center
             )

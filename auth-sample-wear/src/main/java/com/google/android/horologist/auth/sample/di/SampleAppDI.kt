@@ -18,6 +18,7 @@ package com.google.android.horologist.auth.sample.di
 
 import android.util.Log
 import com.google.android.horologist.auth.sample.SampleApplication
+import com.google.android.horologist.data.WearDataLayerRegistry
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
@@ -32,10 +33,19 @@ import okhttp3.logging.HttpLoggingInterceptor
 object SampleAppDI {
 
     fun inject(sampleApplication: SampleApplication) {
+        sampleApplication.registry = registry(sampleApplication, servicesCoroutineScope())
         sampleApplication.servicesCoroutineScope = servicesCoroutineScope()
         sampleApplication.okHttpClient = okHttpClient()
         sampleApplication.moshi = moshi()
     }
+
+    private fun registry(
+        sampleApplication: SampleApplication,
+        coroutineScope: CoroutineScope
+    ): WearDataLayerRegistry = WearDataLayerRegistry.fromContext(
+        application = sampleApplication,
+        coroutineScope = coroutineScope
+    )
 
     private fun servicesCoroutineScope(): CoroutineScope {
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->

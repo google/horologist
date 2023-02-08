@@ -29,15 +29,31 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
-import com.google.android.gms.wearable.Wearable
-import com.google.android.horologist.auth.data.phone.tokenshare.impl.TokenRepositoryImpl
+import com.google.android.horologist.auth.data.phone.tokenshare.TokenBundleRepository
+import com.google.android.horologist.auth.data.phone.tokenshare.impl.TokenBundleRepositoryImpl
+import com.google.android.horologist.auth.sample.shared.TokenSerializer
 import com.google.android.horologist.auth.sample.ui.theme.HorologistTheme
+import com.google.android.horologist.data.WearDataLayerRegistry
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
+    private lateinit var tokenBundleRepository: TokenBundleRepository<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val registry = WearDataLayerRegistry.fromContext(
+            application = this@MainActivity.applicationContext,
+            coroutineScope = lifecycleScope
+        )
+
+        tokenBundleRepository = TokenBundleRepositoryImpl.create(
+            registry = registry,
+            coroutineScope = lifecycleScope,
+            serializer = TokenSerializer
+        )
+
         setContent {
             HorologistTheme {
                 // A surface container using the 'background' color from the theme
@@ -53,8 +69,7 @@ class MainActivity : ComponentActivity() {
 
     private fun onSendData() {
         lifecycleScope.launch {
-            TokenRepositoryImpl(Wearable.getDataClient(this@MainActivity))
-                .updateToken("${System.currentTimeMillis()}")
+            tokenBundleRepository.update("${System.currentTimeMillis()}")
         }
     }
 }

@@ -14,10 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.sample.screens.tokenshare.service
+package com.google.android.horologist.auth.data.phone.tokenshare
 
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.google.android.horologist.auth.data.phone.ExperimentalHorologistAuthDataPhoneApi
 
-object TokenInMemoryDataSource {
-    internal val tokens = MutableStateFlow<List<String>>(emptyList())
+/**
+ * Repository of a bundle of information, related to auth tokens.
+ */
+@ExperimentalHorologistAuthDataPhoneApi
+public interface TokenBundleRepository<TokenBundle> {
+
+    public suspend fun update(tokenBundle: TokenBundle)
 }

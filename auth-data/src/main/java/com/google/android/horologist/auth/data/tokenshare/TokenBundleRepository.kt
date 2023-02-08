@@ -16,4 +16,14 @@
 
 package com.google.android.horologist.auth.data.tokenshare
 
-internal const val KEY_TOKEN = "token"
+import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import kotlinx.coroutines.flow.Flow
+
+/**
+ * Repository of a bundle of information, related to auth tokens.
+ */
+@ExperimentalHorologistAuthDataApi
+public interface TokenBundleRepository<TokenBundle> {
+
+    public val flow: Flow<TokenBundle>
+}

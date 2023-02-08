@@ -75,6 +75,7 @@ android {
         // Allow for widescale experimental APIs in Alpha libraries we build upon
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-opt-in=com.google.android.horologist.auth.data.phone.ExperimentalHorologistAuthDataPhoneApi",
+            "-opt-in=com.google.android.horologist.data.ExperimentalHorologistDataLayerApi",
         )
     }
 
@@ -94,6 +95,8 @@ android {
 dependencies {
 
     implementation(projects.authDataPhone)
+    implementation(projects.authSampleShared)
+    implementation(projects.datalayer)
 
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.lifecycle.runtime)

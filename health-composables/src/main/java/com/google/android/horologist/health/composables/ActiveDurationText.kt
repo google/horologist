@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistHealthComposablesApi::class)
+
 package com.google.android.horologist.health.composables
 
+import androidx.compose.foundation.clickable
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,11 +33,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.health.services.client.data.ExerciseState
 import androidx.health.services.client.data.ExerciseUpdate
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.compose.tools.WearPreview
 import kotlinx.coroutines.delay
+import java.time.Duration
+import java.time.Instant
 
 /**
  * Composable to make it easier to create a chronometer from Health Services exercise data.
@@ -56,29 +59,18 @@ import kotlinx.coroutines.delay
  *     [ExerciseUpdate] messages from [ExerciseClient].
  * @param state The current state of the exercise. This is supplied in the [ExerciseUpdate] messages
  *     from [ExerciseClient].
- * @param modifier Compose modifier.
- * @param formatTemplate A string representing the format for the active duration. A collection of
- *     useful defaults are available in [ActiveDurationDefaults], but a custom value can be
- *     specified to handle specific scenarios or locales. See [ActiveDurationDefaults] for examples.
- * @param color The text color.
- * @param textAlign Horizontal text alignment.
- * @param style The text styling.
- * @param lifecycleOwner lifecycle owner.
+ * @param content The content slot taking a duration.
  */
-
 @ExperimentalHorologistHealthComposablesApi
 @Composable
 public fun ActiveDurationText(
     checkpoint: ExerciseUpdate.ActiveDurationCheckpoint,
     state: ExerciseState,
     modifier: Modifier = Modifier,
-    formatTemplate: String = ActiveDurationDefaults.HH_MM_SS,
-    color: Color = Color.Unspecified,
-    textAlign: TextAlign? = null,
-    style: TextStyle = LocalTextStyle.current,
-    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
+    content: @Composable (Duration) -> Unit = {
+        FormattedDurationText(modifier = modifier, duration = it)
+    }
 ) {
-    var lifecycleEnabled by remember { mutableStateOf(true) }
     var activeSeconds by remember {
         mutableStateOf(
             calculateDurationSeconds(
@@ -87,57 +79,61 @@ public fun ActiveDurationText(
             )
         )
     }
-    val formattedActiveDuration by remember {
-        derivedStateOf {
-            val hours = activeSeconds / 3600
-            val minutes = (activeSeconds % 3600) / 60
-            val seconds = activeSeconds % 60
-            formatTemplate.format(hours, minutes, seconds)
-        }
-    }
-
-    // When the component is not visible, then the ticker should stop, and only resume when the UI
-    // component becomes visible again.
-    DisposableEffect(lifecycleOwner) {
-        val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME) {
-                lifecycleEnabled = true
-            } else if (event == Lifecycle.Event.ON_PAUSE) {
-                lifecycleEnabled = false
-            }
-        }
-        lifecycleOwner.lifecycle.addObserver(observer)
-        onDispose {
-            lifecycleOwner.lifecycle.removeObserver(observer)
-        }
-    }
 
     /**
      * The starting and stopping of the ticker depends on two things: (1) Whether or not the
      * exercise is in the ACTIVE state, and (2) whether the component is visible. The app should
      * handle any ambient behaviour separately.
      */
-    LaunchedEffect(state, lifecycleEnabled) {
-        if (state == ExerciseState.ACTIVE && lifecycleEnabled) {
-            val absoluteOffset = absoluteTimeOffsetMillis(checkpoint)
-            while (true) {
-                val now = System.currentTimeMillis()
-                // Delay until the next active duration second boundary
-                val delayInterval = nextTimeForOffset(now, absoluteOffset) - now
-                // Delay should delay for _at least_ the interval specified.
-                delay(delayInterval)
-                activeSeconds = calculateDurationSeconds(checkpoint, state)
+    val lifecycleOwner = LocalLifecycleOwner.current
+    LaunchedEffect(state) {
+        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            if (state == ExerciseState.ACTIVE) {
+                val absoluteOffset = absoluteTimeOffsetMillis(checkpoint)
+                while (true) {
+                    val now = System.currentTimeMillis()
+                    // Delay until the next active duration second boundary
+                    val delayInterval = nextTimeForOffset(now, absoluteOffset) - now
+                    // Delay should delay for _at least_ the interval specified.
+                    delay(delayInterval)
+                    activeSeconds = calculateDurationSeconds(checkpoint, state)
+                }
             }
         }
     }
 
+    content(activeSeconds)
+}
+
+@Composable
+public fun FormattedDurationText(
+    duration: Duration,
+    modifier: Modifier = Modifier,
+    formatter: (Duration) -> String = patternFormatter(),
+    color: Color = Color.Unspecified,
+    textAlign: TextAlign? = null,
+    style: TextStyle = LocalTextStyle.current
+) {
+    val text = formatter(duration)
     Text(
         modifier = modifier,
-        text = formattedActiveDuration,
+        text = text,
         color = color,
         textAlign = textAlign,
         style = style
     )
+}
+
+public fun patternFormatter(
+    format: String = ActiveDurationDefaults.HH_MM_SS
+): (Duration) -> String {
+    return {
+        val activeSeconds = it.toMillis() / 1000
+        val hours = activeSeconds / 3600
+        val minutes = (activeSeconds % 3600) / 60
+        val seconds = activeSeconds % 60
+        format.format(hours, minutes, seconds)
+    }
 }
 
 /**
@@ -186,11 +182,60 @@ private fun nextTimeForOffset(timeMillis: Long, offsetMillis: Long) =
 private fun calculateDurationSeconds(
     checkpoint: ExerciseUpdate.ActiveDurationCheckpoint,
     state: ExerciseState
-): Long {
+): Duration {
     val delta = if (state == ExerciseState.ACTIVE) {
         System.currentTimeMillis() - checkpoint.time.toEpochMilli()
     } else {
         0L
     }
-    return checkpoint.activeDuration.plusMillis(delta).seconds
+    return checkpoint.activeDuration.plusMillis(delta)
+}
+
+@WearPreview
+@Composable
+internal fun ActiveDurationTextPreview() {
+    var state by remember { mutableStateOf(ExerciseState.ACTIVE) }
+    val checkpoint = remember {
+        ExerciseUpdate.ActiveDurationCheckpoint(
+            time = Instant.now(),
+            activeDuration = Duration.ZERO
+        )
+    }
+    ActiveDurationText(
+        modifier = Modifier.clickable {
+            state = state.flip()
+        },
+        checkpoint = checkpoint,
+        state = state
+    )
+}
+
+private fun ExerciseState.flip(): ExerciseState {
+    return if (this == ExerciseState.ACTIVE) {
+        ExerciseState.USER_PAUSED
+    } else {
+        ExerciseState.ACTIVE
+    }
+}
+
+@WearPreview
+@Composable
+internal fun ActiveDurationTextCustomSeparatorPreview() {
+    var state by remember { mutableStateOf(ExerciseState.ACTIVE) }
+    val checkpoint = remember {
+        ExerciseUpdate.ActiveDurationCheckpoint(
+            time = Instant.now(),
+            activeDuration = Duration.ZERO
+        )
+    }
+    ActiveDurationText(
+        modifier = Modifier.clickable {
+            state = state.flip()
+        },
+        checkpoint = checkpoint,
+        state = state
+    ) {
+        val formatter = remember { patternFormatter("%1\$02dh%2\$02dm%3\$02ds") }
+        FormattedDurationText(duration = it, formatter = formatter)
+    }
 }

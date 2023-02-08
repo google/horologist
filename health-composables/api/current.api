@@ -17,8 +17,6 @@ package com.google.android.horologist.health.composables {
 
   public final class ActiveDurationTextKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.health.composables.ExperimentalHorologistHealthComposablesApi public static void ActiveDurationText(androidx.health.services.client.data.ExerciseUpdate.ActiveDurationCheckpoint checkpoint, androidx.health.services.client.data.ExerciseState state, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function1<? super java.time.Duration,kotlin.Unit> content);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void ActiveDurationTextCustomSeparatorPreview();
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.tools.WearPreview public static void ActiveDurationTextPreview();
     method @androidx.compose.runtime.Composable public static void FormattedDurationText(java.time.Duration duration, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function1<? super java.time.Duration,java.lang.String> formatter, optional long color, optional androidx.compose.ui.text.style.TextAlign? textAlign, optional androidx.compose.ui.text.TextStyle style);
     method public static kotlin.jvm.functions.Function1<java.time.Duration,java.lang.String> patternFormatter(optional String format);
   }

@@ -106,7 +106,7 @@ public fun ActiveDurationText(
 }
 
 @Composable
-fun FormattedDurationText(
+public fun FormattedDurationText(
     duration: Duration,
     modifier: Modifier = Modifier,
     formatter: (Duration) -> String = patternFormatter(),
@@ -193,7 +193,7 @@ private fun calculateDurationSeconds(
 
 @WearPreview
 @Composable
-fun ActiveDurationTextPreview() {
+internal fun ActiveDurationTextPreview() {
     var state by remember { mutableStateOf(ExerciseState.ACTIVE) }
     val checkpoint = remember {
         ExerciseUpdate.ActiveDurationCheckpoint(
@@ -220,7 +220,7 @@ private fun ExerciseState.flip(): ExerciseState {
 
 @WearPreview
 @Composable
-fun ActiveDurationTextCustomSeparatorPreview() {
+internal fun ActiveDurationTextCustomSeparatorPreview() {
     var state by remember { mutableStateOf(ExerciseState.ACTIVE) }
     val checkpoint = remember {
         ExerciseUpdate.ActiveDurationCheckpoint(

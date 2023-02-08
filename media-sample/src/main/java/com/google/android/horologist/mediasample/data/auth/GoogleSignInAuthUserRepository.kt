@@ -46,7 +46,7 @@ public class GoogleSignInAuthUserRepository(
 
     public val authState: Flow<AuthUser?> = _authTrigger.map { getAuthenticated() }
 
-    override suspend fun getAuthenticated(): AuthUser? = withContext(Dispatchers.Default) {
+    override suspend fun getAuthenticated(): AuthUser? = withContext(Dispatchers.IO) {
         AuthUserMapper.map(GoogleSignIn.getLastSignedInAccount(applicationContext))
     }
 

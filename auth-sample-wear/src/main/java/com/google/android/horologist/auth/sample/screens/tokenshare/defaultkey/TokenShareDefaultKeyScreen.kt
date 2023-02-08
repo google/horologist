@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.sample.screens.tokenshare
+package com.google.android.horologist.auth.sample.screens.tokenshare.defaultkey
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -36,10 +36,10 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
 @Composable
-fun TokenShareScreen(
+fun TokenShareDefaultKeyScreen(
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
-    viewModel: TokenShareListenerViewModel = viewModel(factory = TokenShareListenerViewModel.Factory)
+    viewModel: TokenShareDefaultKeyViewModel = viewModel(factory = TokenShareDefaultKeyViewModel.Factory)
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -48,22 +48,24 @@ fun TokenShareScreen(
         modifier = modifier.fillMaxSize()
     ) {
         item {
-            Title(textId = R.string.token_share_title)
+            Title(textId = R.string.token_share_default_key_title)
         }
         item {
             Text(
-                text = stringResource(id = R.string.token_share_message),
+                text = stringResource(id = R.string.token_share_default_key_message),
                 modifier = Modifier.padding(horizontal = 8.dp),
                 textAlign = TextAlign.Center
             )
         }
-        items(state) {
-            StandardChip(
-                label = it,
-                onClick = { /* do nothing */ },
-                chipType = StandardChipType.Secondary,
-                enabled = false
-            )
+        items(state) { tokenBundle ->
+            tokenBundle?.let {
+                StandardChip(
+                    label = tokenBundle.accessToken,
+                    onClick = { /* do nothing */ },
+                    chipType = StandardChipType.Secondary,
+                    enabled = false
+                )
+            }
         }
     }
 }

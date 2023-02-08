@@ -15,8 +15,8 @@ package com.google.android.horologist.auth.data.phone.common {
 
 package com.google.android.horologist.auth.data.phone.tokenshare {
 
-  @com.google.android.horologist.auth.data.phone.ExperimentalHorologistAuthDataPhoneApi public interface TokenBundleRepository<TokenBundle> {
-    method public suspend Object? update(TokenBundle? tokenBundle, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  @com.google.android.horologist.auth.data.phone.ExperimentalHorologistAuthDataPhoneApi public interface TokenBundleRepository<T> {
+    method public suspend Object? update(T? tokenBundle, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
 }

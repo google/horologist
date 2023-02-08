@@ -23,7 +23,7 @@ import kotlinx.coroutines.flow.Flow
  * Repository of a bundle of information, related to auth tokens.
  */
 @ExperimentalHorologistAuthDataApi
-public interface TokenBundleRepository<TokenBundle> {
+public interface TokenBundleRepository<T> {
 
-    public val flow: Flow<TokenBundle>
+    public val flow: Flow<T>
 }

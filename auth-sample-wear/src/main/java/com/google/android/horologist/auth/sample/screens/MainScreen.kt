@@ -135,8 +135,12 @@ private fun SectionedListScope.tokenShareSection(navigateToRoute: (String) -> Un
     section(
         listOf(
             Pair(
-                R.string.auth_menu_token_share_item,
-                Screen.TokenShareScreen.route
+                R.string.auth_menu_token_share_default_key_item,
+                Screen.TokenShareDefaultKeyScreen.route
+            ),
+            Pair(
+                R.string.auth_menu_token_share_custom_key_item,
+                Screen.TokenShareCustomKeyScreen.route
             )
         )
     ) {

@@ -19,6 +19,8 @@ package com.google.android.horologist.auth.sample
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Button
@@ -26,19 +28,24 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
 import com.google.android.horologist.auth.data.phone.tokenshare.TokenBundleRepository
 import com.google.android.horologist.auth.data.phone.tokenshare.impl.TokenBundleRepositoryImpl
-import com.google.android.horologist.auth.sample.shared.TokenSerializer
+import com.google.android.horologist.auth.sample.shared.TOKEN_BUNDLE_CUSTOM_KEY
+import com.google.android.horologist.auth.sample.shared.TokenBundleSerializer
+import com.google.android.horologist.auth.sample.shared.model.TokenBundleProto.TokenBundle
 import com.google.android.horologist.auth.sample.ui.theme.HorologistTheme
 import com.google.android.horologist.data.WearDataLayerRegistry
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
-    private lateinit var tokenBundleRepository: TokenBundleRepository<String>
+    private lateinit var tokenBundleRepositoryDefaultKey: TokenBundleRepository<TokenBundle?>
+    private lateinit var tokenBundleRepositoryCustomKey: TokenBundleRepository<TokenBundle?>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,10 +55,17 @@ class MainActivity : ComponentActivity() {
             coroutineScope = lifecycleScope
         )
 
-        tokenBundleRepository = TokenBundleRepositoryImpl.create(
+        tokenBundleRepositoryDefaultKey = TokenBundleRepositoryImpl.create(
             registry = registry,
             coroutineScope = lifecycleScope,
-            serializer = TokenSerializer
+            serializer = TokenBundleSerializer
+        )
+
+        tokenBundleRepositoryCustomKey = TokenBundleRepositoryImpl.create(
+            registry = registry,
+            coroutineScope = lifecycleScope,
+            serializer = TokenBundleSerializer,
+            key = TOKEN_BUNDLE_CUSTOM_KEY
         )
 
         setContent {
@@ -61,36 +75,70 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainScreen(onSendData = ::onSendData)
+                    MainScreen(
+                        onUpdateTokenDefault = ::onUpdateTokenDefault,
+                        onUpdateTokenCustom = ::onUpdateTokenCustom
+                    )
                 }
             }
         }
     }
 
-    private fun onSendData() {
+    private fun onUpdateTokenDefault() {
         lifecycleScope.launch {
-            tokenBundleRepository.update("${System.currentTimeMillis()}")
+            tokenBundleRepositoryDefaultKey.update(
+                TokenBundle.newBuilder()
+                    .setAccessToken("${System.currentTimeMillis()}")
+                    .build()
+            )
+        }
+    }
+
+    private fun onUpdateTokenCustom() {
+        lifecycleScope.launch {
+            tokenBundleRepositoryCustomKey.update(
+                TokenBundle.newBuilder()
+                    .setAccessToken("${System.currentTimeMillis()}")
+                    .build()
+            )
         }
     }
 }
 
 @Composable
 fun MainScreen(
-    onSendData: () -> Unit,
+    onUpdateTokenDefault: () -> Unit,
+    onUpdateTokenCustom: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Button(
-        onClick = {
-            onSendData()
-        },
-        modifier = modifier.wrapContentHeight()
-    ) { Text("Update token!") }
+    Column(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Button(
+            onClick = {
+                onUpdateTokenDefault()
+            },
+            modifier = Modifier.wrapContentHeight()
+        ) { Text(stringResource(R.string.token_share_button_update_token_default)) }
+
+        Button(
+            onClick = {
+                onUpdateTokenCustom()
+            },
+            modifier = Modifier.wrapContentHeight()
+        ) { Text(stringResource(R.string.token_share_button_update_token_custom)) }
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     HorologistTheme {
-        MainScreen(onSendData = { })
+        MainScreen(
+            onUpdateTokenDefault = { },
+            onUpdateTokenCustom = { }
+        )
     }
 }

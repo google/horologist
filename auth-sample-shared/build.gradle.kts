@@ -16,10 +16,13 @@
 
 @file:Suppress("UnstableApiUsage")
 
+import com.google.protobuf.gradle.*
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
     id("me.tylerbwong.gradle.metalava")
+    id("com.google.protobuf")
     kotlin("android")
 }
 
@@ -86,12 +89,36 @@ metalava {
     reportLintsAsErrors.set(true)
 }
 
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.21.4"
+    }
+    plugins {
+        id("javalite") {
+            artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
+        }
+    }
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                create("java") {
+                    option("lite")
+                }
+                create("kotlin") {
+                    option("lite")
+                }
+            }
+        }
+    }
+}
+
 dependencies {
 
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.datastore)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.protobuf.kotlin.lite)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

@@ -21,6 +21,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * An implementation of [AuthUserRepository] for the Google Sign-In authentication method.
@@ -31,5 +33,7 @@ public class GoogleSignInAuthUserRepository(
 ) : AuthUserRepository {
 
     override suspend fun getAuthenticated(): AuthUser? =
-        AuthUserMapper.map(GoogleSignIn.getLastSignedInAccount(applicationContext))
+        withContext(Dispatchers.IO) {
+            AuthUserMapper.map(GoogleSignIn.getLastSignedInAccount(applicationContext))
+        }
 }

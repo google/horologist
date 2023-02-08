@@ -17,6 +17,7 @@
 package com.google.android.horologist.auth.sample
 
 import android.app.Application
+import android.os.StrictMode
 import com.google.android.horologist.auth.sample.di.SampleAppDI
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.squareup.moshi.Moshi
@@ -32,6 +33,19 @@ class SampleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        setStrictMode()
+
         SampleAppDI.inject(this)
+    }
+
+    private fun setStrictMode() {
+        StrictMode.setThreadPolicy(
+            StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads()
+                .detectDiskWrites()
+                .detectNetwork()
+                .penaltyDeath()
+                .build()
+        )
     }
 }

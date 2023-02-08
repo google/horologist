@@ -108,7 +108,9 @@ dependencies {
     implementation(libs.wearcompose.foundation)
 
     debugImplementation(projects.composeTools)
+    debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.toolingpreview)
+    releaseCompileOnly(projects.composeTools)
 
     testImplementation(projects.paparazzi)
     testImplementation(libs.androidx.test.ext.ktx)

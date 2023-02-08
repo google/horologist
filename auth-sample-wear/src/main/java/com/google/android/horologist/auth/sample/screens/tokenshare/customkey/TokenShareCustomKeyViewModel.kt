@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.sample.screens.tokenshare
+package com.google.android.horologist.auth.sample.screens.tokenshare.customkey
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -25,18 +25,20 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.auth.data.tokenshare.TokenBundleRepository
 import com.google.android.horologist.auth.data.tokenshare.TokenBundleRepositoryImpl
 import com.google.android.horologist.auth.sample.SampleApplication
-import com.google.android.horologist.auth.sample.shared.TokenSerializer
+import com.google.android.horologist.auth.sample.shared.TOKEN_BUNDLE_CUSTOM_KEY
+import com.google.android.horologist.auth.sample.shared.TokenBundleSerializer
+import com.google.android.horologist.auth.sample.shared.model.TokenBundleProto.TokenBundle
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.runningReduce
 import kotlinx.coroutines.flow.stateIn
 
-class TokenShareListenerViewModel(
-    tokenBundleRepository: TokenBundleRepository<String>
+class TokenShareCustomKeyViewModel(
+    tokenBundleRepository: TokenBundleRepository<TokenBundle?>
 ) : ViewModel() {
 
-    public val uiState: StateFlow<List<String>> =
+    public val uiState: StateFlow<List<TokenBundle?>> =
         tokenBundleRepository.flow
             .map { listOf(it) }
             .runningReduce { accumulator, value -> accumulator + value }
@@ -47,10 +49,11 @@ class TokenShareListenerViewModel(
             initializer {
                 val application = this[APPLICATION_KEY]!!
 
-                TokenShareListenerViewModel(
+                TokenShareCustomKeyViewModel(
                     TokenBundleRepositoryImpl.create(
                         registry = (application as SampleApplication).registry,
-                        serializer = TokenSerializer
+                        serializer = TokenBundleSerializer,
+                        key = TOKEN_BUNDLE_CUSTOM_KEY
                     )
                 )
             }

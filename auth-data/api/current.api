@@ -269,9 +269,9 @@ package com.google.android.horologist.auth.data.oauth.pkce.impl.google {
 
 package com.google.android.horologist.auth.data.tokenshare {
 
-  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface TokenBundleRepository<TokenBundle> {
-    method public kotlinx.coroutines.flow.Flow<TokenBundle> getFlow();
-    property public abstract kotlinx.coroutines.flow.Flow<TokenBundle> flow;
+  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface TokenBundleRepository<T> {
+    method public kotlinx.coroutines.flow.Flow<T> getFlow();
+    property public abstract kotlinx.coroutines.flow.Flow<T> flow;
   }
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public final class TokenBundleRepositoryImpl<TokenBundle> implements com.google.android.horologist.auth.data.tokenshare.TokenBundleRepository<TokenBundle> {

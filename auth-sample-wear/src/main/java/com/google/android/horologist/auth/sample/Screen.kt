@@ -33,5 +33,6 @@ sealed class Screen(
     object GoogleSignInScreen : Screen("googleSignInScreen")
     object GoogleSignOutScreen : Screen("googleSignOutScreen")
 
-    object TokenShareScreen : Screen("tokenShareScreen")
+    object TokenShareDefaultKeyScreen : Screen("tokenShareDefaultKeyScreen")
+    object TokenShareCustomKeyScreen : Screen("tokenShareCustomKeyScreen")
 }

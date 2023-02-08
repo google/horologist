@@ -16,10 +16,12 @@
 
 @file:Suppress("UnstableApiUsage")
 
+import com.google.protobuf.gradle.*
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
-    id("me.tylerbwong.gradle.metalava")
+    id("com.google.protobuf")
     kotlin("android")
 }
 
@@ -71,19 +73,27 @@ android {
     namespace = "com.google.android.horologist.auth.sample.shared"
 }
 
-project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        this.kotlinOptions {
-            freeCompilerArgs = freeCompilerArgs + "-Xexplicit-api=strict"
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.21.4"
+    }
+    plugins {
+        id("javalite") {
+            artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
         }
     }
-}
-
-metalava {
-    sourcePaths.setFrom("src/main")
-    filename.set("api/current.api")
-    reportLintsAsErrors.set(true)
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                create("java") {
+                    option("lite")
+                }
+                create("kotlin") {
+                    option("lite")
+                }
+            }
+        }
+    }
 }
 
 dependencies {
@@ -92,6 +102,7 @@ dependencies {
     implementation(libs.androidx.datastore)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.protobuf.kotlin.lite)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)
@@ -99,5 +110,3 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
 }
-
-apply(plugin = "com.vanniktech.maven.publish")

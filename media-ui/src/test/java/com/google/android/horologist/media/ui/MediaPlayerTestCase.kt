@@ -44,7 +44,7 @@ import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.background.RadialBackground
-import com.google.android.horologist.media.ui.screens.player.DefaultPlayerScreenMediaDisplay
+import com.google.android.horologist.media.ui.screens.player.DefaultMediaInfoDisplay
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
 
@@ -52,7 +52,7 @@ import com.google.android.horologist.media.ui.state.PlayerUiState
 fun MediaPlayerTestCase(
     playerUiState: PlayerUiState,
     mediaDisplay: @Composable ColumnScope.() -> Unit = {
-        DefaultPlayerScreenMediaDisplay(playerUiState.media, loading = !playerUiState.connected)
+        DefaultMediaInfoDisplay(playerUiState)
     },
     controlButtons: @Composable RowScope.() -> Unit = {
         MediaControlButtons(

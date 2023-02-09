@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.ui.components.animated
+package com.google.android.horologist.media.ui.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.media.ui.components.InfoMediaDisplay
-import com.google.android.horologist.media.ui.components.LoadingMediaDisplay
+import com.google.android.horologist.media.ui.components.display.LoadingMediaDisplay
+import com.google.android.horologist.media.ui.components.display.NothingPlayingDisplay
+import com.google.android.horologist.media.ui.components.display.TrackMediaDisplay
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 /**
- * Animated [MediaDisplay] implementation for [PlayerScreen] including player status.
+ * A display implementation that shows the track information, loading or nothing playing.
  */
 @ExperimentalHorologistMediaUiApi
 @Composable
-public fun AnimatedPlayerScreenMediaDisplay(
+public fun MediaInfoDisplay(
     media: MediaUiModel?,
     loading: Boolean,
     modifier: Modifier = Modifier
@@ -38,15 +37,11 @@ public fun AnimatedPlayerScreenMediaDisplay(
     if (loading) {
         LoadingMediaDisplay(modifier)
     } else if (media != null) {
-        MarqueeTextMediaDisplay(
-            modifier = modifier,
-            title = media.title,
-            artist = media.subtitle
-        )
-    } else {
-        InfoMediaDisplay(
-            message = stringResource(R.string.horologist_nothing_playing),
+        TrackMediaDisplay(
+            media = media,
             modifier = modifier
         )
+    } else {
+        NothingPlayingDisplay(modifier)
     }
 }

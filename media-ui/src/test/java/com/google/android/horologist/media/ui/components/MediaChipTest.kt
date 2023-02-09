@@ -86,6 +86,7 @@ class MediaChipTest {
                 MediaChip(
                     media = MediaUiModel(
                         id = "id",
+                        title = "",
                         artworkUri = FakeImageLoader.TestIconResourceUri
                     ),
                     onClick = {},

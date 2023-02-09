@@ -47,7 +47,6 @@ class MediaMapperTest {
         val id = "id"
         val uri = "uri"
         val title = "title"
-        val displayTitle = "displayTitle"
         val artist = "artist"
         val albumArtist = "albumArtist"
         val artworkUri = "artworkUri"
@@ -58,7 +57,6 @@ class MediaMapperTest {
             .setMediaMetadata(
                 MediaMetadata.Builder()
                     .setTitle(title)
-                    .setDisplayTitle(displayTitle)
                     .setArtist(artist)
                     .setAlbumArtist(albumArtist)
                     .setArtworkUri(Uri.parse(artworkUri))
@@ -67,12 +65,12 @@ class MediaMapperTest {
             .build()
 
         // when
-        val result = sut.map(mediaItem, null)
+        val result = sut.map(mediaItem, mediaItem.mediaMetadata)
 
         // then
         assertThat(result.id).isEqualTo(id)
         assertThat(result.uri).isEqualTo(uri)
-        assertThat(result.title).isEqualTo(displayTitle)
+        assertThat(result.title).isEqualTo(title)
         assertThat(result.artist).isEqualTo(artist)
         assertThat(result.artworkUri).isEqualTo(artworkUri)
     }
@@ -95,7 +93,7 @@ class MediaMapperTest {
             .build()
 
         // when
-        val result = sut.map(mediaItem, null)
+        val result = sut.map(mediaItem, mediaItem.mediaMetadata)
 
         // then
         assertThat(result.id).isEqualTo(id)
@@ -125,7 +123,7 @@ class MediaMapperTest {
             .build()
 
         // when
-        val result = sut.map(mediaItem, null)
+        val result = sut.map(mediaItem, mediaItem.mediaMetadata)
 
         // then
         assertThat(result.id).isEqualTo(id)
@@ -136,16 +134,16 @@ class MediaMapperTest {
     }
 
     @Test
-    fun `given MediaItem currentArtist is null and defaultArtist is passed then maps correctly`() {
+    fun `given no title and artist, uses empty string`() {
         // given
-        val defaultArtist = "defaultArtist"
         val mediaItem = MediaItem.Builder().build()
 
         // when
-        val result = sut.map(mediaItem, null, defaultArtist)
+        val result = sut.map(mediaItem, mediaItem.mediaMetadata)
 
         // then
-        assertThat(result.artist).isEqualTo(defaultArtist)
+        assertThat(result.title).isEqualTo("")
+        assertThat(result.artist).isEqualTo("")
     }
 
     @Test
@@ -208,7 +206,7 @@ class MediaMapperTest {
         })
 
         // when
-        val result = sut.map(mediaItem, null)
+        val result = sut.map(mediaItem, mediaItem.mediaMetadata)
 
         // then
         assertThat(result.extras[id]).isEqualTo(id)

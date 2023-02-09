@@ -38,22 +38,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.media.ui.components.DefaultMediaDisplay
-import com.google.android.horologist.media.ui.components.InfoMediaDisplay
-import com.google.android.horologist.media.ui.components.LoadingMediaDisplay
 import com.google.android.horologist.media.ui.components.MediaControlButtons
+import com.google.android.horologist.media.ui.components.MediaInfoDisplay
 import com.google.android.horologist.media.ui.state.PlayerUiController
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
-import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 public typealias MediaDisplay = @Composable ColumnScope.(playerUiState: PlayerUiState) -> Unit
 
@@ -75,7 +70,7 @@ public fun PlayerScreen(
     volumeViewModel: VolumeViewModel,
     modifier: Modifier = Modifier,
     mediaDisplay: MediaDisplay = { playerUiState ->
-        DefaultPlayerScreenMediaDisplay(playerUiState.media, loading = !playerUiState.connected)
+        DefaultMediaInfoDisplay(playerUiState)
     },
     controlButtons: ControlButtons = { playerUiController, playerUiState ->
         DefaultPlayerScreenControlButtons(playerUiController, playerUiState)
@@ -102,24 +97,15 @@ public fun PlayerScreen(
  */
 @ExperimentalHorologistMediaUiApi
 @Composable
-public fun DefaultPlayerScreenMediaDisplay(
-    media: MediaUiModel?,
-    loading: Boolean,
+public fun DefaultMediaInfoDisplay(
+    playerUiState: PlayerUiState,
     modifier: Modifier = Modifier
 ) {
-    if (loading) {
-        LoadingMediaDisplay(modifier)
-    } else if (media != null) {
-        DefaultMediaDisplay(
-            media = media,
-            modifier = modifier
-        )
-    } else {
-        InfoMediaDisplay(
-            message = stringResource(R.string.horologist_nothing_playing),
-            modifier = modifier
-        )
-    }
+    MediaInfoDisplay(
+        media = playerUiState.media,
+        loading = !playerUiState.connected || playerUiState.media?.loading == true,
+        modifier = modifier
+    )
 }
 
 /**

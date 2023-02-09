@@ -105,13 +105,14 @@ public fun PlayPauseProgressButton(
         tapTargetSize = tapTargetSize
     ) {
         val progress by ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
-        if (trackPositionUiModel.showProgress) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clip(CircleShape)
-                    .background(backgroundColor)
-            ) {
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .clip(CircleShape)
+                .background(backgroundColor)
+        ) {
+            if (trackPositionUiModel.showProgress) {
                 CircularProgressIndicator(
                     modifier = Modifier.fillMaxSize(),
                     progress = progress,

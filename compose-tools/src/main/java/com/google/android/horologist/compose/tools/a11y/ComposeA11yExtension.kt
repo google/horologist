@@ -19,8 +19,8 @@
 package com.google.android.horologist.compose.tools.a11y
 
 import android.annotation.SuppressLint
+import android.graphics.Rect
 import android.view.View
-import androidx.compose.ui.graphics.toAndroidRect
 import androidx.compose.ui.node.RootForTest
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewRootForTest
@@ -79,8 +79,8 @@ public class ComposeA11yExtension : RenderExtension {
         val hasProgressAction = p0.config.getOrNull(SemanticsActions.SetProgress) != null
 
         if (contentDescription != null || stateDescription != null || onClickLabel != null || role != null || progress != null || text != null) {
-            val position = p0.boundsInRoot.toAndroidRect()
-            val touchBounds = p0.touchBoundsInRoot.toAndroidRect()
+            val position = Rect(p0.boundsInRoot.left.toInt(), p0.boundsInRoot.top.toInt(), p0.boundsInRoot.right.toInt(), p0.boundsInRoot.bottom.toInt())
+            val touchBounds = Rect(p0.touchBoundsInRoot.left.toInt(), p0.touchBoundsInRoot.top.toInt(), p0.touchBoundsInRoot.right.toInt(), p0.touchBoundsInRoot.bottom.toInt())
             fn(
                 AccessibilityState.Element(
                     position,

@@ -386,6 +386,7 @@ package com.google.android.horologist.media.data.service.download {
     property protected abstract android.app.PendingIntent downloadIntent;
     property protected abstract com.google.android.horologist.media.data.service.download.DownloadManagerListener downloadManagerListener;
     property protected abstract androidx.media3.exoplayer.offline.DownloadNotificationHelper downloadNotificationHelper;
+    property public androidx.lifecycle.Lifecycle lifecycle;
     property protected abstract androidx.media3.exoplayer.workmanager.WorkManagerScheduler workManagerScheduler;
   }
 

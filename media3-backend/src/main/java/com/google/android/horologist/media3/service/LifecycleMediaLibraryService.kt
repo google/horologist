@@ -64,7 +64,6 @@ public abstract class LifecycleMediaLibraryService : MediaLibraryService(), Life
         super.onDestroy()
     }
 
-    override fun getLifecycle(): Lifecycle {
-        return dispatcher.lifecycle
-    }
+    override val lifecycle: Lifecycle
+        get() = dispatcher.lifecycle
 }

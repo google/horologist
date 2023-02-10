@@ -77,9 +77,8 @@ public abstract class MediaDownloadService(
         return super.onStartCommand(intent, flags, startId)
     }
 
-    override fun getLifecycle(): Lifecycle {
-        return dispatcher.lifecycle
-    }
+    override val lifecycle: Lifecycle
+        get() = dispatcher.lifecycle
 
     override fun onDestroy() {
         downloadManagerListener.onDownloadServiceDestroyed()

@@ -54,7 +54,13 @@ public fun PlayPauseButton(
     backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
     progress: @Composable () -> Unit = {}
 ) {
-    Box(modifier = modifier.size(tapTargetSize).fillMaxSize().clip(CircleShape).background(backgroundColor), contentAlignment = Alignment.Center) {
+    Box(modifier = modifier
+        .size(tapTargetSize)
+        .fillMaxSize()
+        .clip(CircleShape)
+        .background(backgroundColor),
+        contentAlignment = Alignment.Center) {
+
         progress()
 
         if (playing) {

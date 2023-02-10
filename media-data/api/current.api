@@ -266,7 +266,7 @@ package com.google.android.horologist.media.data.mapper {
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaMapper {
     ctor public MediaMapper(com.google.android.horologist.media.data.mapper.MediaExtrasMapper mediaExtrasMapper);
-    method public com.google.android.horologist.media.model.Media map(androidx.media3.common.MediaItem mediaItem, androidx.media3.common.MediaMetadata? mediaMetadata, optional String defaultArtist);
+    method public com.google.android.horologist.media.model.Media map(androidx.media3.common.MediaItem mediaItem, androidx.media3.common.MediaMetadata mediaMetadata);
     method public com.google.android.horologist.media.model.Media map(com.google.android.horologist.media.data.database.model.MediaEntity media);
   }
 

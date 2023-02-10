@@ -171,8 +171,7 @@ class DataModule {
     fun mediaExtrasMapper(): MediaExtrasMapper = MediaExtrasMapperNoopImpl
 
     @Provides
-    fun mediaMapper(mediaExtrasMapper: MediaExtrasMapper): MediaMapper =
-        MediaMapper(mediaExtrasMapper)
+    fun mediaMapper(mediaExtrasMapper: MediaExtrasMapper): MediaMapper = MediaMapper(mediaExtrasMapper)
 
     @Provides
     fun playlistMapper(mediaMapper: MediaMapper): PlaylistMapper = PlaylistMapper(mediaMapper)

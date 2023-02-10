@@ -70,7 +70,7 @@ fun MediaChipPreviewNoArtwork() {
 @Composable
 fun MediaChipPreviewNoTitle() {
     MediaChip(
-        media = MediaUiModel(id = "id", artworkUri = "artworkUri"),
+        media = MediaUiModel(id = "id", title = "title", artworkUri = "artworkUri"),
         onClick = {},
         defaultTitle = "No title",
         placeholder = rememberVectorPainter(

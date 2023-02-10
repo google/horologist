@@ -66,9 +66,8 @@ import java.time.Instant
 public fun ActiveDurationText(
     checkpoint: ExerciseUpdate.ActiveDurationCheckpoint,
     state: ExerciseState,
-    modifier: Modifier = Modifier,
     content: @Composable (Duration) -> Unit = {
-        FormattedDurationText(modifier = modifier, duration = it)
+        FormattedDurationText(duration = it)
     }
 ) {
     var activeSeconds by remember {
@@ -202,12 +201,16 @@ internal fun ActiveDurationTextPreview() {
         )
     }
     ActiveDurationText(
-        modifier = Modifier.clickable {
-            state = state.flip()
-        },
         checkpoint = checkpoint,
         state = state
-    )
+    ) {
+        FormattedDurationText(
+            modifier = Modifier.clickable {
+                state = state.flip()
+            },
+            duration = it
+        )
+    }
 }
 
 private fun ExerciseState.flip(): ExerciseState {
@@ -229,13 +232,16 @@ internal fun ActiveDurationTextCustomSeparatorPreview() {
         )
     }
     ActiveDurationText(
-        modifier = Modifier.clickable {
-            state = state.flip()
-        },
         checkpoint = checkpoint,
         state = state
     ) {
         val formatter = remember { patternFormatter("%1\$02dh%2\$02dm%3\$02ds") }
-        FormattedDurationText(duration = it, formatter = formatter)
+        FormattedDurationText(
+            modifier = Modifier.clickable {
+                state = state.flip()
+            },
+            duration = it,
+            formatter = formatter
+        )
     }
 }

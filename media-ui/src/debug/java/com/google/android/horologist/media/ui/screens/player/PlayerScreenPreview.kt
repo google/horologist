@@ -356,6 +356,7 @@ fun DefaultMediaPreview() {
         }
     }
 }
+
 @Preview(
     name = "With custom media display",
     group = "Large Round",
@@ -388,7 +389,7 @@ fun PlayerScreenPreviewNotingPlayingDisplay() {
     ) {
         PagerScreen(count = 2) {
             PlayerScreen(
-                mediaDisplay = {DefaultPlayerScreenMediaDisplay(media = null, loading = false)},
+                mediaDisplay = { DefaultPlayerScreenMediaDisplay(media = null, loading = false) },
                 controlButtons = {
                     MediaControlButtons(
                         onPlayButtonClick = {},
@@ -398,7 +399,7 @@ fun PlayerScreenPreviewNotingPlayingDisplay() {
                         onSeekToPreviousButtonClick = {},
                         seekToPreviousButtonEnabled = false,
                         onSeekToNextButtonClick = {},
-                        seekToNextButtonEnabled = false,
+                        seekToNextButtonEnabled = false
                     )
                 },
                 buttons = {
@@ -415,7 +416,7 @@ fun PlayerScreenPreviewNotingPlayingDisplay() {
                         enabled = false
                     )
                 },
-                onVolumeChangeByScroll = {},
+                onVolumeChangeByScroll = {}
             )
         }
     }

@@ -27,7 +27,7 @@ import com.google.android.horologist.media.ui.R
  */
 @ExperimentalHorologistMediaUiApi
 @Composable
-public fun NothingPlayingDisplay(modifier: Modifier) {
+public fun NothingPlayingDisplay(modifier: Modifier = Modifier) {
     MessageMediaDisplay(
         message = stringResource(R.string.horologist_nothing_playing),
         modifier = modifier

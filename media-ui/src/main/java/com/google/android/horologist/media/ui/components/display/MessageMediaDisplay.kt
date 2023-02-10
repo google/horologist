@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.media.ui.components.display
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -34,9 +34,10 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 @Composable
 public fun MessageMediaDisplay(
     modifier: Modifier = Modifier,
-    message: String? = null
+    message: String
 ) {
-    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+    Box(modifier = modifier, contentAlignment = Alignment.Center) {
+        val style = MaterialTheme.typography.body2
         Text(
             text = message.orEmpty(),
             modifier = Modifier.fillMaxWidth(0.7f),
@@ -44,7 +45,8 @@ public fun MessageMediaDisplay(
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
             maxLines = 2,
-            style = MaterialTheme.typography.body2
+            style = style
         )
+        Text("", style = style, minLines = 2)
     }
 }

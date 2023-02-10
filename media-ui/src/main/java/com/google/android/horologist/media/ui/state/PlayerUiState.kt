@@ -65,6 +65,7 @@ public data class PlayerUiState(
     val seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     val connected: Boolean
 ) {
+    // TODO: Consider exposing PlayerState.Idle to be consumed in NothingPlaying screen.
     public companion object {
         /**
          * Value for UIs before a connected player is available.

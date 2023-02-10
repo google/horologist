@@ -64,7 +64,7 @@ fun UampMediaPlayerScreen(
             UampSettingsButtons(
                 volumeState = volumeState,
                 onVolumeClick = onVolumeClick,
-                enabled = it.connected
+                enabled = it.connected && it.media != null,
             )
         },
         controlButtons = { playerUiController, playerUiState ->

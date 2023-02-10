@@ -53,6 +53,7 @@ import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.background.RadialBackground
 import com.google.android.horologist.media.ui.components.display.TextMediaDisplay
+import com.google.android.horologist.media.ui.state.PlayerUiState.Companion.NotConnected
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.media.ui.uamp.UampTheme
 import kotlin.time.Duration.Companion.seconds
@@ -389,7 +390,7 @@ fun PlayerScreenPreviewNotingPlayingDisplay() {
     ) {
         PagerScreen(count = 2) {
             PlayerScreen(
-                mediaDisplay = { DefaultPlayerScreenMediaDisplay(media = null, loading = false) },
+                mediaDisplay = { DefaultMediaInfoDisplay(NotConnected) },
                 controlButtons = {
                     MediaControlButtons(
                         onPlayButtonClick = {},

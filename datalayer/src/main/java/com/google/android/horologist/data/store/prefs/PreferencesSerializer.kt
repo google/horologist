@@ -117,6 +117,7 @@ internal object PreferencesSerializer : Serializer<Preferences> {
             Value.ValueCase.VALUE_NOT_SET ->
                 throw CorruptionException("Value not set.")
             null -> throw CorruptionException("Value case is null.")
+            else -> throw CorruptionException("Value case is not supported.")
         }
     }
 }

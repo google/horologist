@@ -25,10 +25,10 @@ import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
-import com.google.android.horologist.media.ui.components.animated.AnimatedPlayerScreenMediaDisplay
+import com.google.android.horologist.media.ui.components.animated.AnimatedMediaInfoDisplay
 import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
+import com.google.android.horologist.media.ui.screens.player.DefaultMediaInfoDisplay
 import com.google.android.horologist.media.ui.screens.player.DefaultPlayerScreenControlButtons
-import com.google.android.horologist.media.ui.screens.player.DefaultPlayerScreenMediaDisplay
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiController
 import com.google.android.horologist.media.ui.state.PlayerUiState
@@ -51,9 +51,13 @@ fun UampMediaPlayerScreen(
         volumeViewModel = volumeViewModel,
         mediaDisplay = { playerUiState ->
             if (settingsState.animated) {
-                AnimatedPlayerScreenMediaDisplay(playerUiState.media, loading = !playerUiState.connected)
+                AnimatedMediaInfoDisplay(
+                    media = playerUiState.media,
+                    loading = !playerUiState.connected || playerUiState.media?.loading == true,
+                    modifier = modifier
+                )
             } else {
-                DefaultPlayerScreenMediaDisplay(playerUiState.media, loading = !playerUiState.connected)
+                DefaultMediaInfoDisplay(playerUiState)
             }
         },
         buttons = {

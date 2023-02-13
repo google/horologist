@@ -16,7 +16,6 @@
 
 @file:OptIn(
     ExperimentalHorologistMediaUiApi::class,
-    ExperimentalHorologistComposeToolsApi::class,
     ExperimentalFoundationApi::class
 )
 
@@ -44,7 +43,6 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.compose.pager.PagerScreen
-import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
@@ -53,8 +51,8 @@ import com.google.android.horologist.compose.tools.WearPreviewThemes
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.MediaControlButtons
-import com.google.android.horologist.media.ui.components.TextMediaDisplay
 import com.google.android.horologist.media.ui.components.background.RadialBackground
+import com.google.android.horologist.media.ui.components.display.TextMediaDisplay
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.media.ui.uamp.UampTheme
 import kotlin.time.Duration.Companion.seconds

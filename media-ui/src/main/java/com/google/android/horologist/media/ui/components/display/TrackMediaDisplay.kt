@@ -14,40 +14,25 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class)
-
-package com.google.android.horologist.media.ui.components
+package com.google.android.horologist.media.ui.components.display
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import com.google.android.horologist.compose.tools.WearPreview
+import androidx.compose.ui.Modifier
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
-@WearPreview
+/**
+ * A simple text only display of [MediaUiModel] showing artist and title in two separated rows.
+ */
+@ExperimentalHorologistMediaUiApi
 @Composable
-fun DefaultMediaDisplayPreview() {
-    DefaultMediaDisplay(
-        media = MediaUiModel(
-            id = "id",
-            title = "Song title",
-            subtitle = "Artist name"
-        )
-    )
-}
-
-@Preview(
-    "With long text",
-    backgroundColor = 0xff000000,
-    showBackground = true
-)
-@Composable
-fun DefaultMediaDisplayPreviewLongText() {
-    DefaultMediaDisplay(
-        media = MediaUiModel(
-            id = "id",
-            title = "I Predict That You Look Good In A Riot",
-            subtitle = "Arctic Monkeys feat Kaiser Chiefs"
-        )
+public fun TrackMediaDisplay(
+    media: MediaUiModel?,
+    modifier: Modifier = Modifier
+) {
+    TextMediaDisplay(
+        modifier = modifier,
+        title = media?.title,
+        subtitle = media?.subtitle
     )
 }

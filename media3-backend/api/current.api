@@ -267,6 +267,7 @@ package com.google.android.horologist.media3.service {
     method public androidx.media3.session.MediaLibraryService.MediaLibrarySession? onGetSession(androidx.media3.session.MediaSession.ControllerInfo controllerInfo);
     method @Deprecated public final void onStart(android.content.Intent? intent, int startId);
     method @CallSuper public final int onStartCommand(android.content.Intent? intent, int flags, int startId);
+    property public androidx.lifecycle.Lifecycle lifecycle;
     property protected abstract androidx.media3.session.MediaLibraryService.MediaLibrarySession mediaLibrarySession;
   }
 

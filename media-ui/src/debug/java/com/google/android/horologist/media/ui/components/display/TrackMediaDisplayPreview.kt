@@ -16,19 +16,23 @@
 
 @file:OptIn(ExperimentalHorologistMediaUiApi::class)
 
-package com.google.android.horologist.media.ui.components
+package com.google.android.horologist.media.ui.components.display
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
+import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 @WearPreview
 @Composable
-fun TextMediaDisplayPreview() {
-    TextMediaDisplay(
-        title = "Song title",
-        subtitle = "Artist name"
+fun TrackMediaDisplayPreview() {
+    TrackMediaDisplay(
+        media = MediaUiModel(
+            id = "id",
+            title = "Song title",
+            subtitle = "Artist name"
+        )
     )
 }
 
@@ -38,9 +42,12 @@ fun TextMediaDisplayPreview() {
     showBackground = true
 )
 @Composable
-fun TextMediaDisplayPreviewLongText() {
-    TextMediaDisplay(
-        title = "I Predict That You Look Good In A Riot",
-        subtitle = "Arctic Monkeys feat Kaiser Chiefs"
+fun TrackMediaDisplayPreviewLongText() {
+    TrackMediaDisplay(
+        media = MediaUiModel(
+            id = "id",
+            title = "I Predict That You Look Good In A Riot",
+            subtitle = "Arctic Monkeys feat Kaiser Chiefs"
+        )
     )
 }

@@ -29,9 +29,7 @@ import com.google.android.horologist.media.model.Media
  * Functions to map models from other layers and / or packages into a [Media].
  */
 @ExperimentalHorologistMediaDataApi
-public class MediaMapper(
-    private val mediaExtrasMapper: MediaExtrasMapper
-) {
+public class MediaMapper(private val mediaExtrasMapper: MediaExtrasMapper) {
 
     /**
      * Maps from a [MediaItem].
@@ -41,21 +39,16 @@ public class MediaMapper(
      */
     public fun map(
         mediaItem: MediaItem,
-        mediaMetadata: MediaMetadata?,
-        defaultArtist: String = ""
+        mediaMetadata: MediaMetadata
     ): Media = Media(
         id = mediaItem.mediaId,
         uri = mediaItem.localConfiguration?.uri?.toString() ?: "",
-        title = mediaMetadata?.title?.toString()
-            ?: mediaItem.mediaMetadata.displayTitle?.toString()
-            ?: mediaItem.mediaMetadata.title?.toString()
+        title = mediaMetadata.title?.toString() ?: "",
+        artist = mediaMetadata.artist?.toString()
+            ?: mediaMetadata.albumArtist?.toString()
+            ?: mediaMetadata.subtitle?.toString()
             ?: "",
-        artist = mediaMetadata?.artist?.toString()
-            ?: mediaItem.mediaMetadata.artist?.toString()
-            ?: mediaItem.mediaMetadata.albumArtist?.toString()
-            ?: defaultArtist,
-        artworkUri = mediaMetadata?.artworkUri?.toString()
-            ?: mediaItem.mediaMetadata.artworkUri?.toString(),
+        artworkUri = mediaMetadata.artworkUri?.toString(),
         extras = mediaExtrasMapper.map(mediaItem, mediaMetadata)
     )
 

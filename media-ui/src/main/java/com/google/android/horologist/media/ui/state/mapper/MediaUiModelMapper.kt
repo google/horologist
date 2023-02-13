@@ -30,11 +30,19 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 @ExperimentalHorologistMediaUiApi
 public object MediaUiModelMapper {
 
-    public fun map(media: Media): MediaUiModel = MediaUiModel(
-        id = media.id,
-        title = media.title,
-        subtitle = media.artist,
-        artworkUri = media.artworkUri,
-        artworkColor = media.artworkColor?.let { Color(it) }
-    )
+    public fun map(media: Media, defaultTitle: String = "", defaultArtist: String = ""): MediaUiModel {
+        var title = media.title
+        var artist = media.artist
+        if (title.isEmpty() && artist.isEmpty()) {
+            title = defaultTitle
+            artist = defaultArtist
+        }
+        return MediaUiModel(
+            id = media.id,
+            title = title,
+            subtitle = artist,
+            artworkUri = media.artworkUri,
+            artworkColor = media.artworkColor?.let { Color(it) }
+        )
+    }
 }

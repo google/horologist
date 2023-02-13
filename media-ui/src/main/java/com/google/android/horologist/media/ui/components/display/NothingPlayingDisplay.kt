@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,22 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.media.ui.components
+package com.google.android.horologist.media.ui.components.display
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.state.model.MediaUiModel
+import com.google.android.horologist.media.ui.R
 
 /**
- * A simple text only display of [MediaUiModel] showing artist and title in two separated rows.
+ * A media display indicating nothing is playing.
  */
 @ExperimentalHorologistMediaUiApi
 @Composable
-public fun DefaultMediaDisplay(
-    media: MediaUiModel?,
-    modifier: Modifier = Modifier
-) {
-    TextMediaDisplay(
-        modifier = modifier,
-        title = media?.title,
-        subtitle = media?.subtitle
+public fun NothingPlayingDisplay(modifier: Modifier) {
+    MessageMediaDisplay(
+        message = stringResource(R.string.horologist_nothing_playing),
+        modifier = modifier
     )
 }

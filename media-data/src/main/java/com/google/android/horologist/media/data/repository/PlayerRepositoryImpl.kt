@@ -319,7 +319,7 @@ public class PlayerRepositoryImpl(
     override fun getMediaAt(index: Int): Media? {
         checkNotClosed()
 
-        return player.value?.getMediaItemAt(index)?.let { mediaMapper.map(it, null) }
+        return player.value?.getMediaItemAt(index)?.let { mediaMapper.map(it, it.mediaMetadata) }
     }
 
     override fun getCurrentMediaIndex(): Int {

@@ -27,11 +27,11 @@ import kotlinx.coroutines.CoroutineScope
  * Default implementation for [TokenBundleRepository].
  */
 @ExperimentalHorologistAuthDataPhoneApi
-public class TokenBundleRepositoryImpl<TokenBundle>(
-    private val dataStore: DataStore<TokenBundle>
-) : TokenBundleRepository<TokenBundle> {
+public class TokenBundleRepositoryImpl<T>(
+    private val dataStore: DataStore<T>
+) : TokenBundleRepository<T> {
 
-    override suspend fun update(tokenBundle: TokenBundle) {
+    override suspend fun update(tokenBundle: T) {
         dataStore.updateData { tokenBundle }
     }
 
@@ -42,16 +42,16 @@ public class TokenBundleRepositoryImpl<TokenBundle>(
         /**
          * Factory method for [TokenBundleRepositoryImpl].
          *
-         * If multiple [token bundles][TokenBundle] are required to be shared, specify a [key] in
+         * If multiple [token bundles][T] are required to be shared, specify a [key] in
          * order to identify each one, otherwise the same [default][DEFAULT_TOKEN_BUNDLE_KEY] key
          * will be used and only a single token bundle will be persisted.
          */
-        public fun <TokenBundle> create(
+        public fun <T> create(
             registry: WearDataLayerRegistry,
             key: String = DEFAULT_TOKEN_BUNDLE_KEY,
             coroutineScope: CoroutineScope,
-            serializer: Serializer<TokenBundle>
-        ): TokenBundleRepositoryImpl<TokenBundle> = TokenBundleRepositoryImpl(
+            serializer: Serializer<T>
+        ): TokenBundleRepositoryImpl<T> = TokenBundleRepositoryImpl(
             registry.protoDataStore(
                 path = buildPath(key),
                 coroutineScope = coroutineScope,

@@ -23,14 +23,14 @@ package com.google.android.horologist.auth.data.phone.tokenshare {
 
 package com.google.android.horologist.auth.data.phone.tokenshare.impl {
 
-  @com.google.android.horologist.auth.data.phone.ExperimentalHorologistAuthDataPhoneApi public final class TokenBundleRepositoryImpl<TokenBundle> implements com.google.android.horologist.auth.data.phone.tokenshare.TokenBundleRepository<TokenBundle> {
-    ctor public TokenBundleRepositoryImpl(androidx.datastore.core.DataStore<TokenBundle> dataStore);
-    method public suspend Object? update(TokenBundle? tokenBundle, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  @com.google.android.horologist.auth.data.phone.ExperimentalHorologistAuthDataPhoneApi public final class TokenBundleRepositoryImpl<T> implements com.google.android.horologist.auth.data.phone.tokenshare.TokenBundleRepository<T> {
+    ctor public TokenBundleRepositoryImpl(androidx.datastore.core.DataStore<T> dataStore);
+    method public suspend Object? update(T? tokenBundle, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     field public static final com.google.android.horologist.auth.data.phone.tokenshare.impl.TokenBundleRepositoryImpl.Companion Companion;
   }
 
   public static final class TokenBundleRepositoryImpl.Companion {
-    method public <TokenBundle> com.google.android.horologist.auth.data.phone.tokenshare.impl.TokenBundleRepositoryImpl<TokenBundle> create(com.google.android.horologist.data.WearDataLayerRegistry registry, optional String key, kotlinx.coroutines.CoroutineScope coroutineScope, androidx.datastore.core.Serializer<TokenBundle> serializer);
+    method public <T> com.google.android.horologist.auth.data.phone.tokenshare.impl.TokenBundleRepositoryImpl<T> create(com.google.android.horologist.data.WearDataLayerRegistry registry, optional String key, kotlinx.coroutines.CoroutineScope coroutineScope, androidx.datastore.core.Serializer<T> serializer);
   }
 
 }

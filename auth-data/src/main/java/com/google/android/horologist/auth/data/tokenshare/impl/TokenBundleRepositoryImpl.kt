@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.data.tokenshare
+package com.google.android.horologist.auth.data.tokenshare.impl
 
 import androidx.datastore.core.Serializer
 import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
+import com.google.android.horologist.auth.data.tokenshare.TokenBundleRepository
 import com.google.android.horologist.data.TargetNodeId
 import com.google.android.horologist.data.WearDataLayerRegistry
 import kotlinx.coroutines.flow.Flow
@@ -26,13 +27,13 @@ import kotlinx.coroutines.flow.Flow
  * Default implementation of [TokenBundleRepository].
  */
 @ExperimentalHorologistAuthDataApi
-public class TokenBundleRepositoryImpl<TokenBundle>(
+public class TokenBundleRepositoryImpl<T>(
     private val registry: WearDataLayerRegistry,
-    private val serializer: Serializer<TokenBundle>,
+    private val serializer: Serializer<T>,
     private val path: String
-) : TokenBundleRepository<TokenBundle> {
+) : TokenBundleRepository<T> {
 
-    override val flow: Flow<TokenBundle>
+    override val flow: Flow<T>
         get() = registry.protoFlow(
             targetNodeId = TargetNodeId.PairedPhone,
             serializer = serializer,
@@ -46,15 +47,15 @@ public class TokenBundleRepositoryImpl<TokenBundle>(
         /**
          * Factory method for [TokenBundleRepositoryImpl].
          *
-         * If multiple [token bundles][TokenBundle] are available, specify the [key] of the specific
+         * If multiple [token bundles][T] are available, specify the [key] of the specific
          * token bundle wished to be retrieved. Otherwise the token bundle stored with the
          * [default][DEFAULT_TOKEN_BUNDLE_KEY] key will be used.
          */
-        public fun <TokenBundle> create(
+        public fun <T> create(
             registry: WearDataLayerRegistry,
-            serializer: Serializer<TokenBundle>,
+            serializer: Serializer<T>,
             key: String = DEFAULT_TOKEN_BUNDLE_KEY
-        ): TokenBundleRepositoryImpl<TokenBundle> = TokenBundleRepositoryImpl(
+        ): TokenBundleRepositoryImpl<T> = TokenBundleRepositoryImpl(
             registry = registry,
             serializer = serializer,
             path = buildPath(key)

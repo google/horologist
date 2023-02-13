@@ -23,7 +23,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.auth.data.tokenshare.TokenBundleRepository
-import com.google.android.horologist.auth.data.tokenshare.TokenBundleRepositoryImpl
+import com.google.android.horologist.auth.data.tokenshare.impl.TokenBundleRepositoryImpl
 import com.google.android.horologist.auth.sample.SampleApplication
 import com.google.android.horologist.auth.sample.shared.TOKEN_BUNDLE_CUSTOM_KEY
 import com.google.android.horologist.auth.sample.shared.TokenBundleSerializer

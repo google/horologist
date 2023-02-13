@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?><resources>
 <!--
- Copyright 2022 The Android Open Source Project
+ Copyright 2023 The Android Open Source Project
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
-      http://www.apache.org/licenses/LICENSE-2.0
+     http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,10 +19,10 @@
   <string name="horologist_play_button_content_description">Αναπαραγωγή</string>
   <string name="horologist_seek_to_next_button_content_description">Επόμενο</string>
   <string name="horologist_seek_to_previous_button_content_description">Προηγούμενο</string>
-  <string name="horologist_seek_forward_button_content_description">Προώθηση</string>
-  <string name="horologist_seek_forward_button_seconds_content_description">Προώθηση %s δευτερόλεπτα</string>
-  <string name="horologist_seek_back_button_content_description">Επαναφορά</string>
-  <string name="horologist_seek_back_button_seconds_content_description">Επαναφορά %s δευτερόλεπτα</string>
+  <string name="horologist_seek_forward_button_content_description">Μπροστά</string>
+  <string name="horologist_seek_forward_button_seconds_content_description">Μπροστά %s δευτερόλεπτα</string>
+  <string name="horologist_seek_back_button_content_description">Πίσω</string>
+  <string name="horologist_seek_back_button_seconds_content_description">Πίσω %s δευτερόλεπτα</string>
   <string name="horologist_shuffle_button_off_content_description">Λειτουργία τυχαίας αναπαραγωγής ανενεργή</string>
   <string name="horologist_shuffle_button_on_content_description">Λειτουργία τυχαίας αναπαραγωγής ενεργή</string>
   <string name="horologist_nothing_playing">Δεν γίνεται αναπαραγωγή</string>

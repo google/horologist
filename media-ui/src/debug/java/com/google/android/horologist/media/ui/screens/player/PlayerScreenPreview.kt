@@ -52,6 +52,7 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.background.RadialBackground
+import com.google.android.horologist.media.ui.components.display.NothingPlayingDisplay
 import com.google.android.horologist.media.ui.components.display.TextMediaDisplay
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.media.ui.uamp.UampTheme
@@ -350,6 +351,71 @@ fun DefaultMediaPreview() {
                 },
                 background = {
                     RadialBackground(color = Color.Yellow)
+                },
+                onVolumeChangeByScroll = {}
+            )
+        }
+    }
+}
+
+@Preview(
+    name = "With custom media display",
+    group = "Large Round",
+    device = Devices.WEAR_OS_LARGE_ROUND,
+    showSystemUi = true,
+    backgroundColor = BACKGROUND_COLOR,
+    showBackground = true
+)
+@Preview(
+    name = "With custom media display",
+    group = "Small Round",
+    device = Devices.WEAR_OS_SMALL_ROUND,
+    showSystemUi = true,
+    backgroundColor = BACKGROUND_COLOR,
+    showBackground = true
+)
+@Preview(
+    name = "With custom media display",
+    group = "Square",
+    device = Devices.WEAR_OS_SQUARE,
+    showSystemUi = true,
+    backgroundColor = BACKGROUND_COLOR,
+    showBackground = true
+)
+@Composable
+fun PlayerScreenPreviewNotingPlayingDisplay() {
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        timeText = { TimeText() }
+    ) {
+        PagerScreen(count = 2) {
+            PlayerScreen(
+                mediaDisplay = { NothingPlayingDisplay(Modifier) },
+                controlButtons = {
+                    MediaControlButtons(
+                        onPlayButtonClick = {},
+                        onPauseButtonClick = {},
+                        playPauseButtonEnabled = false,
+                        playing = false,
+                        onSeekToPreviousButtonClick = {},
+                        seekToPreviousButtonEnabled = false,
+                        onSeekToNextButtonClick = {},
+                        seekToNextButtonEnabled = false
+                    )
+                },
+                buttons = {
+                    SettingsButtons(
+                        volumeState = VolumeState(5, 10),
+                        onVolumeClick = { },
+                        onOutputClick = { },
+                        brandIcon = {
+                            SettingsButtonsDefaults.BrandIcon(
+                                R.drawable.ic_uamp,
+                                enabled = true
+                            )
+                        },
+                        enabled = false
+                    )
                 },
                 onVolumeChangeByScroll = {}
             )

@@ -18,7 +18,9 @@ package com.google.android.horologist.mediasample.data.service.complication
 
 import android.graphics.drawable.Icon
 import androidx.media3.common.MediaItem
+import androidx.wear.watchface.complications.data.ComplicationText
 import androidx.wear.watchface.complications.data.ComplicationType
+import androidx.wear.watchface.complications.data.PlainComplicationText
 import androidx.wear.watchface.complications.data.SmallImageType
 import androidx.wear.watchface.complications.datasource.ComplicationRequest
 import coil.ImageLoader
@@ -64,13 +66,18 @@ class MediaStatusComplicationService :
         }
     }
 
-    private fun notPlayingData() = Data(
-        text = getString(R.string.favorites),
-        title = getString(R.string.sample_app_name),
-        appIconRes = R.drawable.ic_baseline_queue_music_24,
-        launchIntent = intentBuilder.buildPlayerIntent(),
-        type = SmallImageType.ICON
-    )
+    private fun notPlayingData(): Data {
+        val mediaTitle = getString(R.string.favorites)
+        val mediaArtist = getString(R.string.sample_app_name)
+        return Data(
+            text = mediaTitle,
+            title = mediaArtist,
+            appIconRes = R.drawable.ic_baseline_queue_music_24,
+            launchIntent = intentBuilder.buildPlayerIntent(),
+            type = SmallImageType.ICON,
+            contentDescription = createContentDescription(mediaTitle, mediaArtist)
+        )
+    }
 
     private suspend fun whilePlayingData(mediaItem: MediaItem): Data {
         val bitmap = withTimeoutOrNull(2.seconds) {
@@ -89,7 +96,20 @@ class MediaStatusComplicationService :
             title = mediaArtist,
             icon = icon,
             type = SmallImageType.PHOTO,
-            launchIntent = intentBuilder.buildPlayerIntent()
+            launchIntent = intentBuilder.buildPlayerIntent(),
+            contentDescription = createContentDescription(mediaTitle, mediaArtist)
         )
     }
+
+    private fun createContentDescription(
+        mediaTitle: String,
+        mediaArtist: String
+    ): ComplicationText =
+        PlainComplicationText.Builder(
+            text = getString(
+                R.string.complication_content_description,
+                mediaTitle,
+                mediaArtist
+            )
+        ).build()
 }

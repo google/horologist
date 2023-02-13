@@ -73,4 +73,5 @@
     <string name="login">Sign-in</string>
     <string name="sample_guest_mode">Guest Mode</string>
     <string name="seen_login_details">Seen Login Details</string>
+    <string name="complication_content_description">UAMP\n%1$s\n%2$s</string>
 </resources>

@@ -17,21 +17,24 @@ package com.google.android.horologist.media.ui.complication {
   }
 
   public static final class MediaStatusTemplate.Data {
-    ctor public MediaStatusTemplate.Data(optional @DrawableRes Integer? appIconRes, optional android.graphics.drawable.Icon? icon, androidx.wear.watchface.complications.data.SmallImageType type, String title, String text, android.app.PendingIntent? launchIntent);
+    ctor public MediaStatusTemplate.Data(optional @DrawableRes Integer? appIconRes, optional android.graphics.drawable.Icon? icon, androidx.wear.watchface.complications.data.SmallImageType type, String title, String text, android.app.PendingIntent? launchIntent, optional androidx.wear.watchface.complications.data.ComplicationText? contentDescription);
     method public Integer? component1();
     method public android.graphics.drawable.Icon? component2();
     method public androidx.wear.watchface.complications.data.SmallImageType component3();
     method public String component4();
     method public String component5();
     method public android.app.PendingIntent? component6();
-    method public com.google.android.horologist.media.ui.complication.MediaStatusTemplate.Data copy(@DrawableRes Integer? appIconRes, android.graphics.drawable.Icon? icon, androidx.wear.watchface.complications.data.SmallImageType type, String title, String text, android.app.PendingIntent? launchIntent);
+    method public androidx.wear.watchface.complications.data.ComplicationText? component7();
+    method public com.google.android.horologist.media.ui.complication.MediaStatusTemplate.Data copy(@DrawableRes Integer? appIconRes, android.graphics.drawable.Icon? icon, androidx.wear.watchface.complications.data.SmallImageType type, String title, String text, android.app.PendingIntent? launchIntent, androidx.wear.watchface.complications.data.ComplicationText? contentDescription);
     method public Integer? getAppIconRes();
+    method public androidx.wear.watchface.complications.data.ComplicationText? getContentDescription();
     method public android.graphics.drawable.Icon? getIcon();
     method public android.app.PendingIntent? getLaunchIntent();
     method public String getText();
     method public String getTitle();
     method public androidx.wear.watchface.complications.data.SmallImageType getType();
     property public final Integer? appIconRes;
+    property public final androidx.wear.watchface.complications.data.ComplicationText? contentDescription;
     property public final android.graphics.drawable.Icon? icon;
     property public final android.app.PendingIntent? launchIntent;
     property public final String text;

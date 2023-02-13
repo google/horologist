@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+<!--
+ Copyright 2023 The Android Open Source Project
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+  <string name="horologist_check_your_phone_title">သင့်ဖုန်းကို ကြည့်ပါ</string>
+  <string name="horologist_auth_error_message">တစ်ခုခုမှားသွားသည်။ ထပ်စမ်းကြည့်ပါ။</string>
+  <string name="horologist_signedin_confirmation_greeting">မင်္ဂလာပါ %s</string>
+  <string name="horologist_signedin_confirmation_greeting_no_name">မင်္ဂလာပါ။</string>
+  <string name="horologist_signin_prompt_title">လက်မှတ်ထိုးဝင်ရန်</string>
+  <string name="horologist_sign_in_chip_label">လက်မှတ်ထိုးဝင်ရန်</string>
+  <string name="horologist_guest_mode_chip_label">အကောင့်မပါဘဲ သုံးရန်</string>
+  <string name="horologist_other_options_chip_label">အခြားနည်းလမ်းများ</string>
+  <string name="horologist_create_account_chip_label">အကောင့်ဖွင့်ရန်</string>
+  <string name="horologist_select_account_title">အကောင့်ရွေးရန်</string>
+  <string name="horologist_signin_placeholder_message">လက်မှတ်ထိုး ဝင်နေသည်…</string>
+</resources>

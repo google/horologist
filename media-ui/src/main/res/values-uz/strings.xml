@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?><resources>
 <!--
- Copyright 2022 The Android Open Source Project
+ Copyright 2023 The Android Open Source Project
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
-      http://www.apache.org/licenses/LICENSE-2.0
+     http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,7 +25,7 @@
   <string name="horologist_seek_back_button_seconds_content_description">%s soniya orqaga oʻtkazish</string>
   <string name="horologist_shuffle_button_off_content_description">Tasodifiy rejim oʻchiq</string>
   <string name="horologist_shuffle_button_on_content_description">Tasodifiy rejim yoniq</string>
-  <string name="horologist_nothing_playing">Ijro etilmayapti</string>
+  <string name="horologist_nothing_playing">Ijro qilinmayapti</string>
   <string name="horologist_browse_downloads_title">Yuklanmalar</string>
   <string name="horologist_browse_downloads_empty">Tinglash uchun musiqani yuklab oling</string>
   <string name="horologist_browse_library_title">Kutubxona</string>

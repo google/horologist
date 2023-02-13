@@ -20,6 +20,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.graphics.drawable.Icon
 import androidx.annotation.DrawableRes
+import androidx.wear.watchface.complications.data.ComplicationText
 import androidx.wear.watchface.complications.data.ComplicationType
 import androidx.wear.watchface.complications.data.LongTextComplicationData
 import androidx.wear.watchface.complications.data.ShortTextComplicationData
@@ -42,7 +43,8 @@ public class MediaStatusTemplate(
         public val type: SmallImageType,
         public val title: String,
         public val text: String,
-        public val launchIntent: PendingIntent?
+        public val launchIntent: PendingIntent?,
+        public val contentDescription: ComplicationText? = null
     )
 
     override fun previewData(): Data = Data(
@@ -65,7 +67,8 @@ public class MediaStatusTemplate(
             title = data.title,
             text = data.text,
             icon = data.appIconRes,
-            launchIntent = data.launchIntent
+            launchIntent = data.launchIntent,
+            contentDescription = data.contentDescription
         )
 
     override fun renderSmallImage(data: Data): SmallImageComplicationData? {
@@ -77,7 +80,8 @@ public class MediaStatusTemplate(
             icon = data.icon,
             type = data.type,
             name = data.text,
-            launchIntent = data.launchIntent
+            launchIntent = data.launchIntent,
+            contentDescription = data.contentDescription
         )
     }
 
@@ -87,7 +91,8 @@ public class MediaStatusTemplate(
             type = data.type,
             title = data.title,
             text = data.text,
-            launchIntent = data.launchIntent
+            launchIntent = data.launchIntent,
+            contentDescription = data.contentDescription
         )
     }
 }

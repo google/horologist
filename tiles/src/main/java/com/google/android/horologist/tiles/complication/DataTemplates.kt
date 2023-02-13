@@ -20,6 +20,7 @@ import android.app.PendingIntent
 import android.graphics.drawable.Icon
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.wear.watchface.complications.data.ComplicationText
 import androidx.wear.watchface.complications.data.LongTextComplicationData
 import androidx.wear.watchface.complications.data.MonochromaticImage
 import androidx.wear.watchface.complications.data.PlainComplicationText
@@ -37,13 +38,14 @@ public object DataTemplates {
         type: SmallImageType = SmallImageType.PHOTO,
         title: String,
         text: String,
-        launchIntent: PendingIntent?
+        launchIntent: PendingIntent?,
+        contentDescription: ComplicationText? = null
     ): LongTextComplicationData = LongTextComplicationData.Builder(
         text = PlainComplicationText.Builder(
             text = text
         )
             .build(),
-        contentDescription = PlainComplicationText.Builder(
+        contentDescription = contentDescription ?: PlainComplicationText.Builder(
             text = text
         )
             .build()
@@ -71,14 +73,15 @@ public object DataTemplates {
         icon: Icon,
         type: SmallImageType = SmallImageType.PHOTO,
         name: String,
-        launchIntent: PendingIntent?
+        launchIntent: PendingIntent?,
+        contentDescription: ComplicationText? = null
     ): SmallImageComplicationData = SmallImageComplicationData.Builder(
         smallImage = SmallImage.Builder(
             image = icon,
             type = type
         )
             .build(),
-        contentDescription = PlainComplicationText.Builder(
+        contentDescription = contentDescription ?: PlainComplicationText.Builder(
             text = name
         )
             .build()
@@ -90,13 +93,13 @@ public object DataTemplates {
         title: String,
         text: String,
         @DrawableRes icon: Int?,
-        launchIntent: PendingIntent?
+        launchIntent: PendingIntent?,
+        contentDescription: ComplicationText? = null
     ): ShortTextComplicationData = ShortTextComplicationData.Builder(
         PlainComplicationText.Builder(text)
             .build(),
-        PlainComplicationText.Builder(
-            text = text
-        ).build()
+        contentDescription = contentDescription ?: PlainComplicationText.Builder(text = text)
+            .build()
     )
         .apply {
             if (icon != null) {

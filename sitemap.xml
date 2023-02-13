@@ -16,36 +16,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://google.github.io/horologist/auth-composables/</loc>
-         <lastmod>2023-02-13</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://google.github.io/horologist/auth-data-phone/</loc>
-         <lastmod>2023-02-13</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://google.github.io/horologist/auth-data/</loc>
-         <lastmod>2023-02-13</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://google.github.io/horologist/auth-overview/</loc>
-         <lastmod>2023-02-13</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://google.github.io/horologist/auth-sample-apps/</loc>
-         <lastmod>2023-02-13</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://google.github.io/horologist/auth-ui/</loc>
-         <lastmod>2023-02-13</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://google.github.io/horologist/composables/</loc>
          <lastmod>2023-02-13</lastmod>
          <changefreq>daily</changefreq>

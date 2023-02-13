@@ -145,7 +145,7 @@ public fun SegmentedProgressIndicator(
         var currentStartAngle = startAngle + paddingAngle / 2
         var remainingProgress = progress.coerceIn(0.0f, 1.0f) * segmentableAngle
 
-        trackSegments.forEach { segment ->
+        for (segment in trackSegments) {
             val segmentAngle = (segment.weight * segmentableAngle) / totalWeight
             val currentEndAngle = currentStartAngle + segmentAngle - endDelta
             val startAngleWithDelta = currentStartAngle + endDelta

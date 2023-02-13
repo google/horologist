@@ -209,8 +209,8 @@ public class A11ySnapshotHandler(
                         drawItem("Progress \"${it.progress}\"")
                     }
                     if (it.customActions != null) {
-                        it.customActions.forEach {
-                            drawItem("Custom Action \"${it.label}\"")
+                        for (action in it.customActions) {
+                            drawItem("Custom Action \"${action.label}\"")
                         }
                     }
                     val end = index

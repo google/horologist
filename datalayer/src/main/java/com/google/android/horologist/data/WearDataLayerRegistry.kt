@@ -122,7 +122,7 @@ public class WearDataLayerRegistry(
 
     fun onDataChanged(dataEvents: List<DataEvent>) {
         runBlocking {
-            dataEvents.forEach { dataEvent ->
+            for (dataEvent in dataEvents) {
                 val listeners = protoDataListeners.filter { it.path == dataEvent.dataItem.uri.path }
 
                 if (listeners.isNotEmpty()) {
@@ -140,12 +140,12 @@ public class WearDataLayerRegistry(
         val path = dataEvent.dataItem.uri.path!!
         if (dataEvent.type == DataEvent.TYPE_CHANGED) {
             val data = dataEvent.dataItem.data!!
-            listeners.forEach {
-                it.dataAdded(nodeId, path, data)
+            for (listener in listeners) {
+                listener.dataAdded(nodeId, path, data)
             }
         } else {
-            listeners.forEach {
-                it.dataDeleted(nodeId, path)
+            for (listener in listeners) {
+                listener.dataDeleted(nodeId, path)
             }
         }
     }

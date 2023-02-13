@@ -60,7 +60,7 @@ internal object PreferencesSerializer : Serializer<Preferences> {
 
         val mutablePreferences = mutablePreferencesOf()
 
-        preferencesProto.preferencesMap.forEach { (name, value) ->
+        for ((name, value) in preferencesProto.preferencesMap) {
             addProtoEntryToPreferences(name, value, mutablePreferences)
         }
 

@@ -36,7 +36,7 @@ public class PKCEConfigRepositoryGoogleImpl(
         val uri = Uri.Builder()
             .encodedPath(encodedPath)
             .also { builder ->
-                queryParameters.forEach { (key, value) ->
+                for ((key, value) in queryParameters) {
                     builder.appendQueryParameter(key, value)
                 }
             }

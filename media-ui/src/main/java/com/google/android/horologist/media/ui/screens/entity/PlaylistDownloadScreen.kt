@@ -466,7 +466,7 @@ public fun createPlaylistDownloadScreenStateLoaded(
         var downloading = false
 
         var downloadedCount = 0
-        downloadMediaList.forEach {
+        for (it in downloadMediaList) {
             if (it is DownloadMediaUiModel.Downloaded) {
                 downloadedCount++
                 none = false

@@ -100,7 +100,7 @@ public class ComposeA11yExtension : RenderExtension {
             )
         }
 
-        p0.children.forEach {
+        for (it in p0.children) {
             processAccessibleChildren(it, fn)
         }
     }

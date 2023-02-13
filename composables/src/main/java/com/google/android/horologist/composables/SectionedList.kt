@@ -63,7 +63,7 @@ public fun SectionedList(
         modifier = modifier
             .fillMaxSize()
     ) {
-        sections.forEach { section ->
+        for (section in sections) {
             section.display(this)
         }
     }

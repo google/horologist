@@ -58,7 +58,7 @@ public fun CurvedScope.curveDataUsage(
 
     val networks = networkStatus.networks
     val types = networks.map { it.networkInfo.type }
-    networks.forEach {
+    for (it in networks) {
         curvedComposable(radialAlignment = CurvedAlignment.Radial.Outer) {
             if (pinnedNetworks.contains(it.networkInfo.type)) {
                 Icon(
@@ -86,7 +86,7 @@ public fun CurvedScope.curveDataUsage(
     if (networkUsage?.dataByType != null) {
         val keys = networkUsage.dataByType.keys
         val missingTypes = keys - types.toSet()
-        missingTypes.forEach {
+        for (it in missingTypes) {
             val usage = networkUsage.dataByType[it]
             if (usage != null && usage > 0) {
                 curvedComposable(radialAlignment = CurvedAlignment.Radial.Outer) {

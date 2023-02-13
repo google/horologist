@@ -47,7 +47,7 @@ public fun WidthConstrainedBox(
             .height(widths.size * comfortableHeight)
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
-            widths.forEach { width ->
+            for (width in widths) {
                 Text(width.toString(), style = MaterialTheme.typography.caption3)
                 Column(
                     modifier = Modifier

@@ -47,7 +47,7 @@ class NetworkChangeListService {
             )
         }
 
-        remotePlaylistsSet.forEach { playlist ->
+        for (playlist in remotePlaylistsSet) {
             add(
                 NetworkChangeList(
                     id = playlist.id,
@@ -75,7 +75,7 @@ class NetworkChangeListService {
             )
         }
 
-        remoteMediaSet.forEach { playlist ->
+        for (playlist in remoteMediaSet) {
             add(
                 NetworkChangeList(
                     id = playlist.id,

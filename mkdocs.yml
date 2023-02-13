@@ -15,6 +15,13 @@ repo_url: 'https://github.com/google/horologist'
 # Navigation
 nav:
   - 'Overview': index.md
+  - 'Auth':
+      - 'Overview': auth-overview.md
+      - 'Sample apps': auth-sample-apps.md
+      - 'Auth Composables lib': auth-composables.md
+      - 'Auth UI lib': auth-ui.md
+      - 'Auth Data lib': auth-data.md
+      - 'Auth Data Phone lib': auth-data-phone.md
   - 'Audio':
       - 'Audio Guide': audio.md
       - 'Audio UI Guide': audio-ui.md

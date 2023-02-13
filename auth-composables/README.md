@@ -2,7 +2,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.google.android.horologist/horologist-auth-composables)](https://search.maven.org/search?q=g:com.google.android.horologist)
 
-Composable screens for Authentication use cases, with no dependency on the `auth-data` module.
+For more information, visit the documentation: https://google.github.io/horologist/auth-composables
 
 ## Download
 

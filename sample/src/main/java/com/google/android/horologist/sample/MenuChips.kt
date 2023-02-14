@@ -22,8 +22,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Pages
-import androidx.compose.material.icons.filled.Panorama
 import androidx.compose.material.icons.filled.ReceiptLong
 import androidx.compose.material.icons.filled.ViewCarousel
 import androidx.compose.material.icons.filled.VolumeUp

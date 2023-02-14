@@ -246,6 +246,11 @@ package com.google.android.horologist.compose.navscaffold {
 
 package com.google.android.horologist.compose.pager {
 
+  public final class HorizontalPagerDefaults {
+    method @androidx.compose.runtime.Composable public androidx.compose.foundation.gestures.snapping.SnapFlingBehavior flingParams(androidx.compose.foundation.pager.PagerState pagerState);
+    field public static final com.google.android.horologist.compose.pager.HorizontalPagerDefaults INSTANCE;
+  }
+
   public final class PageScreenIndicatorState implements androidx.wear.compose.material.PageIndicatorState {
     ctor public PageScreenIndicatorState(androidx.compose.foundation.pager.PagerState state, androidx.compose.runtime.State<java.lang.Integer> pageCountState);
     method public int getPageCount();

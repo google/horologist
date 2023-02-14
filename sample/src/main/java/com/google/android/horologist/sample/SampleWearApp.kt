@@ -24,7 +24,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import androidx.wear.compose.material.rememberSwipeToDismissBoxState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
@@ -53,11 +55,18 @@ import java.time.LocalDateTime
 
 @Composable
 fun SampleWearApp() {
+    val swipeToDismissBoxState = rememberSwipeToDismissBoxState()
+    val navHostState =
+        rememberSwipeDismissableNavHostState(swipeToDismissBoxState = swipeToDismissBoxState)
     val navController = rememberSwipeDismissableNavController()
 
     var time by remember { mutableStateOf(LocalDateTime.now()) }
 
-    WearNavScaffold(startDestination = Screen.Menu.route, navController = navController) {
+    WearNavScaffold(
+        startDestination = Screen.Menu.route,
+        navController = navController,
+        state = navHostState
+    ) {
         scrollable(
             route = Screen.Menu.route
         ) {
@@ -216,7 +225,7 @@ fun SampleWearApp() {
             PagingItemScreen(it.arguments!!.getInt("id"))
         }
         composable(route = Screen.PagerScreen.route) {
-            SamplePagerScreen()
+            SamplePagerScreen(swipeToDismissBoxState)
         }
     }
 }

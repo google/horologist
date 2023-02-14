@@ -138,6 +138,8 @@ dependencies {
     debugImplementation(projects.composeTools)
     releaseCompileOnly(projects.composeTools)
 
+    debugImplementation(libs.androidx.complications.rendering)
+
     testImplementation(libs.junit)
     testImplementation(libs.androidx.test.ext.ktx)
     testImplementation(libs.kotlinx.coroutines.test)

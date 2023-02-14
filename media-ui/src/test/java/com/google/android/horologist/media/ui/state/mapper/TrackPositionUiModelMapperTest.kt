@@ -93,7 +93,8 @@ class TrackPositionUiModelMapperTest {
         val result = TrackPositionUiModelMapper.map(PlaybackStateEvent(playbackState, PlaybackStateEvent.Cause.Initial))
 
         // then
-        assertThat(result).isInstanceOf(TrackPositionUiModel.Hidden::class.java)
-        assertThat(result.showProgress).isEqualTo(false)
+        result as TrackPositionUiModel.Actual
+        assertThat(result.percent).isEqualTo(0.0f)
+        assertThat(result.showProgress).isEqualTo(true)
     }
 }

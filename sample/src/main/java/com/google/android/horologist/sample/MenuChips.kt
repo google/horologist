@@ -23,6 +23,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Pages
+import androidx.compose.material.icons.filled.Panorama
+import androidx.compose.material.icons.filled.ReceiptLong
+import androidx.compose.material.icons.filled.ViewCarousel
 import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -230,8 +233,24 @@ fun PagingChip(
         label = stringResource(R.string.paging_chip_label),
         content = {
             Icon(
-                imageVector = Icons.Default.Pages,
+                imageVector = Icons.Default.ReceiptLong,
                 contentDescription = stringResource(R.string.paging_chip_content_description)
+            )
+        }
+    )
+}
+
+@Composable
+fun PagerScreenChip(
+    navigateToRoute: () -> Unit
+) {
+    SampleChip(
+        onClick = { navigateToRoute() },
+        label = stringResource(R.string.pager_screen_chip_label),
+        content = {
+            Icon(
+                imageVector = Icons.Default.ViewCarousel,
+                contentDescription = stringResource(R.string.pager_screen_chip_content_description)
             )
         }
     )

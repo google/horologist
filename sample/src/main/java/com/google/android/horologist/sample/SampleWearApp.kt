@@ -39,6 +39,7 @@ import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.datalayer.DataLayerNodesScreen
 import com.google.android.horologist.datalayer.DataLayerNodesViewModel
 import com.google.android.horologist.networks.NetworkScreen
+import com.google.android.horologist.pager.SamplePagerScreen
 import com.google.android.horologist.paging.PagingItemScreen
 import com.google.android.horologist.paging.PagingScreen
 import com.google.android.horologist.rotary.RotaryMenuScreen
@@ -213,6 +214,9 @@ fun SampleWearApp() {
             )
         ) {
             PagingItemScreen(it.arguments!!.getInt("id"))
+        }
+        composable(route = Screen.PagerScreen.route) {
+            SamplePagerScreen()
         }
     }
 }

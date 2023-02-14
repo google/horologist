@@ -27,12 +27,12 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 @ExperimentalHorologistMediaUiApi
 @Composable
 public fun TrackMediaDisplay(
-    media: MediaUiModel?,
+    media: MediaUiModel,
     modifier: Modifier = Modifier
 ) {
     TextMediaDisplay(
         modifier = modifier,
-        title = media?.title,
-        subtitle = media?.subtitle
+        title = media.title,
+        subtitle = media.subtitle
     )
 }

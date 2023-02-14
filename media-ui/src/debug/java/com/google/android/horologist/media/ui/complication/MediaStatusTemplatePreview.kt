@@ -26,7 +26,7 @@ import com.google.android.horologist.media.ui.R
 
 @Composable
 @WearPreview
-fun AppLaunchComplicationPreviewDefaultDataTemp() {
+fun MediaStatusTemplatePreview() {
     val context = LocalContext.current
     val renderer = MediaStatusTemplate(context)
 

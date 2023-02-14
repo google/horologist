@@ -218,19 +218,19 @@ package com.google.android.horologist.media.ui.components.display {
   }
 
   public final class MessageMediaDisplayKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void MessageMediaDisplay(optional androidx.compose.ui.Modifier modifier, optional String? message);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void MessageMediaDisplay(optional androidx.compose.ui.Modifier modifier, String message);
   }
 
   public final class NothingPlayingDisplayKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void NothingPlayingDisplay(androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void NothingPlayingDisplay(optional androidx.compose.ui.Modifier modifier);
   }
 
   public final class TextMediaDisplayKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void TextMediaDisplay(optional androidx.compose.ui.Modifier modifier, optional String? title, optional String? subtitle);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void TextMediaDisplay(optional androidx.compose.ui.Modifier modifier, String title, String subtitle);
   }
 
   public final class TrackMediaDisplayKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void TrackMediaDisplay(com.google.android.horologist.media.ui.state.model.MediaUiModel? media, optional androidx.compose.ui.Modifier modifier);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void TrackMediaDisplay(com.google.android.horologist.media.ui.state.model.MediaUiModel media, optional androidx.compose.ui.Modifier modifier);
   }
 
 }

@@ -34,12 +34,12 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 @Composable
 public fun TextMediaDisplay(
     modifier: Modifier = Modifier,
-    title: String? = null,
-    subtitle: String? = null
+    title: String,
+    subtitle: String
 ) {
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
-            text = title.orEmpty(),
+            text = title,
             modifier = Modifier.fillMaxWidth(0.7f),
             color = MaterialTheme.colors.onBackground,
             textAlign = TextAlign.Center,
@@ -47,7 +47,7 @@ public fun TextMediaDisplay(
             style = MaterialTheme.typography.button
         )
         Text(
-            text = subtitle.orEmpty(),
+            text = subtitle,
             modifier = Modifier.fillMaxWidth(0.8f),
             color = MaterialTheme.colors.onBackground,
             textAlign = TextAlign.Center,

@@ -51,7 +51,7 @@ public fun <D> ComplicationRendererPreview(
     complicationRenderer: ComplicationTemplate<D>,
     data: D = complicationRenderer.previewData(),
     foregroundColor: Color = Color(0xffeea19a),
-    backgroundColor: Color = Color.Black,
+    backgroundColor: Color = Color.Black
 ) {
     val context = LocalContext.current
     val types = complicationRenderer.supportedTypes()
@@ -136,7 +136,7 @@ private fun <D> complicationDrawable(
     data: D,
     context: Context,
     foregroundColor: Color,
-    backgroundColor: Color,
+    backgroundColor: Color
 ): ComplicationDrawable {
     val complicationData = complicationRenderer.render(type, data)
 

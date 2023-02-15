@@ -25,11 +25,41 @@ import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
 class TrackPositionUiModelMapperTest {
+
+    @Test
+    fun givenZerosMediaPositionDuration_thenMapsZerosCorrectly() {
+        // given
+        val current = 0.seconds
+        val duration = 0.seconds
+        val playbackStateEvent = PlaybackStateEvent(
+            PlaybackState(
+                playerState = PlayerState.Playing,
+                isLive = false,
+                currentPosition = current,
+                duration = duration,
+                playbackSpeed = 1f
+            ),
+            timestamp = 0.toDuration(DurationUnit.SECONDS),
+            cause = PlaybackStateEvent.Cause.PositionDiscontinuity
+        )
+
+        // when
+        val result = TrackPositionUiModelMapper.map(playbackStateEvent)
+
+        // then
+        assertThat(result).isInstanceOf(TrackPositionUiModel.Actual::class.java)
+        result as TrackPositionUiModel.Actual
+        assertThat(result.percent).isEqualTo(0f)
+        assertThat(result.duration).isEqualTo(Duration.ZERO)
+        assertThat(result.position).isEqualTo(Duration.ZERO)
+
+    }
 
     @Test
     fun givenMediaPosition_thenMapsCorrectly() {
@@ -93,8 +123,7 @@ class TrackPositionUiModelMapperTest {
         val result = TrackPositionUiModelMapper.map(PlaybackStateEvent(playbackState, PlaybackStateEvent.Cause.Initial))
 
         // then
-        result as TrackPositionUiModel.Actual
-        assertThat(result.percent).isEqualTo(0.0f)
-        assertThat(result.showProgress).isEqualTo(true)
+        assertThat(result).isInstanceOf(TrackPositionUiModel.Hidden::class.java)
+        assertThat(result.showProgress).isEqualTo(false)
     }
 }

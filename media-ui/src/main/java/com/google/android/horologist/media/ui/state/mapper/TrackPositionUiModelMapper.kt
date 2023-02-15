@@ -35,11 +35,13 @@ public object TrackPositionUiModelMapper {
         val duration = event.playbackState.duration
         val durationMs = duration?.inWholeMilliseconds
         val currentPositionMs = currentPosition?.inWholeMilliseconds
-        if (event.playbackState.playerState == PlayerState.Loading) {
+        if (event.playbackState.playerState == PlayerState.Loading ||
+            currentPositionMs == 0L ||
+            durationMs == 0L) {
             return TrackPositionUiModel.Actual.ZERO
         }
-        if (currentPositionMs == null || durationMs == null || durationMs <= 0) {
-            return TrackPositionUiModel.Actual(0f, Duration.ZERO, Duration.ZERO)
+        if (currentPositionMs == null || durationMs == null || durationMs < 0) {
+            return TrackPositionUiModel.Hidden
         }
         val predictor = event.createPositionPredictor()
         if (event.playbackState.isPlaying && predictor != null) {

@@ -102,6 +102,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.wear)
     implementation(libs.compose.foundation.foundation)
+    implementation(libs.compose.material.iconscore)
+    implementation(libs.compose.material.iconsext)
     implementation(libs.compose.ui.toolingpreview)
     implementation(libs.kotlin.stdlib)
     implementation(libs.wearcompose.material)

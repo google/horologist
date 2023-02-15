@@ -87,28 +87,52 @@ class StreamlineSignInViewModelTest {
     }
 
     @Test
-    fun givenNoUserAuthenticated_whenOnIdleStateObserved_thenStateIsSignedOut() = runTest {
+    fun givenNoAccountsAvailable_whenOnIdleStateObserved_thenStateIsNoAccountsAvailable() = runTest {
         // when
         sut.onIdleStateObserved()
 
         // then
         sut.uiState.test {
-            assertThat(awaitItem()).isEqualTo(StreamlineSignInScreenState.SignedOut)
+            assertThat(awaitItem()).isEqualTo(StreamlineSignInScreenState.NoAccountsAvailable)
         }
     }
 
     @Test
-    fun givenUserAuthenticated_whenOnIdleStateObserved_thenStateIsSignedIn() = runTest {
+    fun givenSingleAccountAvailable_whenOnIdleStateObserved_thenStateIsSingleAccountAvailable() = runTest {
         // given
         val authUser = AuthUser()
-        fakeAuthUserRepository.authUser = authUser
+        fakeAuthUserRepository.authUserList = listOf(authUser)
 
         // when
         sut.onIdleStateObserved()
 
         // then
         sut.uiState.test {
-            assertThat(awaitItem()).isEqualTo(StreamlineSignInScreenState.SignedIn(authUser))
+            assertThat(awaitItem()).isEqualTo(
+                StreamlineSignInScreenState.SingleAccountAvailable(
+                    authUser
+                )
+            )
+        }
+    }
+
+    @Test
+    fun givenMultipleAccountsAvailable_whenOnIdleStateObserved_thenStateIsMultipleAccountsAvailable() = runTest {
+        // given
+        val authUser1 = AuthUser()
+        val authUser2 = AuthUser()
+        fakeAuthUserRepository.authUserList = listOf(authUser1, authUser2)
+
+        // when
+        sut.onIdleStateObserved()
+
+        // then
+        sut.uiState.test {
+            assertThat(awaitItem()).isEqualTo(
+                StreamlineSignInScreenState.MultipleAccountsAvailable(
+                    listOf(authUser1, authUser2)
+                )
+            )
         }
     }
 }

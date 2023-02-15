@@ -51,10 +51,22 @@ public open class StreamlineSignInViewModel(
             update = StreamlineSignInScreenState.Loading
         ) {
             viewModelScope.launch {
-                authUserRepository.getAuthenticated()?.let { authUser ->
-                    _uiState.value = StreamlineSignInScreenState.SignedIn(authUser)
-                } ?: run {
-                    _uiState.value = StreamlineSignInScreenState.SignedOut
+                val authUsers = authUserRepository.getAvailable()
+
+                when {
+                    authUsers.isEmpty() -> {
+                        _uiState.value = StreamlineSignInScreenState.NoAccountsAvailable
+                    }
+
+                    authUsers.size == 1 -> {
+                        _uiState.value =
+                            StreamlineSignInScreenState.SingleAccountAvailable(authUsers.first())
+                    }
+
+                    else -> {
+                        _uiState.value =
+                            StreamlineSignInScreenState.MultipleAccountsAvailable(authUsers)
+                    }
                 }
             }
         }
@@ -71,7 +83,13 @@ public sealed class StreamlineSignInScreenState {
 
     public object Loading : StreamlineSignInScreenState()
 
-    public data class SignedIn(val authUser: AuthUser) : StreamlineSignInScreenState()
+    public data class SingleAccountAvailable(
+        val authUser: AuthUser
+    ) : StreamlineSignInScreenState()
 
-    public object SignedOut : StreamlineSignInScreenState()
+    public data class MultipleAccountsAvailable(
+        val authUsers: List<AuthUser>
+    ) : StreamlineSignInScreenState()
+
+    public object NoAccountsAvailable : StreamlineSignInScreenState()
 }

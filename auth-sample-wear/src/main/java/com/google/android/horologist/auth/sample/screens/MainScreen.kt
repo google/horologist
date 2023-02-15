@@ -49,6 +49,8 @@ fun MainScreen(
         googleSignInSection(navigateToRoute)
 
         tokenShareSection(navigateToRoute)
+
+        commonScreensSection(navigateToRoute)
     }
 }
 
@@ -110,10 +112,6 @@ private fun SectionedListScope.googleSignInSection(navigateToRoute: (String) -> 
                 R.string.auth_menu_google_sign_in_prompt_item,
                 Screen.GoogleSignInPromptSampleScreen.route
             ),
-            Pair(
-                R.string.auth_menu_google_streamline_sign_in_item,
-                Screen.GoogleStreamlineSignInSampleScreen.route
-            ),
             Pair(R.string.auth_menu_google_sign_out_item, Screen.GoogleSignOutScreen.route)
         )
     ) {
@@ -146,6 +144,29 @@ private fun SectionedListScope.tokenShareSection(navigateToRoute: (String) -> Un
     ) {
         header {
             Title(stringResource(id = R.string.auth_menu_token_share_header))
+        }
+        loaded { (textId, route) ->
+            StandardChip(
+                label = stringResource(id = textId),
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { navigateToRoute(route) },
+                chipType = StandardChipType.Primary
+            )
+        }
+    }
+}
+
+private fun SectionedListScope.commonScreensSection(navigateToRoute: (String) -> Unit) {
+    section(
+        listOf(
+            Pair(
+                R.string.auth_menu_common_screens_streamline_sign_in_item,
+                Screen.StreamlineSignInMenuScreen.route
+            )
+        )
+    ) {
+        header {
+            Title(stringResource(id = R.string.auth_menu_common_screens_header))
         }
         loaded { (textId, route) ->
             StandardChip(

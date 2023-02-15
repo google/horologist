@@ -27,10 +27,11 @@ import com.google.android.horologist.auth.data.oauth.devicegrant.impl.DeviceGran
 import com.google.android.horologist.auth.data.oauth.pkce.impl.PKCEDefaultConfig
 import com.google.android.horologist.auth.data.oauth.pkce.impl.google.PKCEOAuthCodeGooglePayload
 import com.google.android.horologist.auth.sample.screens.MainScreen
+import com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInMenuScreen
+import com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInSampleScreen
 import com.google.android.horologist.auth.sample.screens.googlesignin.prompt.GoogleSignInPromptSampleScreen
 import com.google.android.horologist.auth.sample.screens.googlesignin.signin.GoogleSignInSampleViewModelFactory
 import com.google.android.horologist.auth.sample.screens.googlesignin.signout.GoogleSignOutScreen
-import com.google.android.horologist.auth.sample.screens.googlesignin.streamline.GoogleStreamlineSignInSampleScreen
 import com.google.android.horologist.auth.sample.screens.oauth.devicegrant.prompt.DeviceGrantSignInPromptScreen
 import com.google.android.horologist.auth.sample.screens.oauth.devicegrant.signin.DeviceGrantSampleViewModelFactory
 import com.google.android.horologist.auth.sample.screens.oauth.devicegrant.signout.DeviceGrantSignOutScreen
@@ -101,8 +102,17 @@ fun WearApp() {
                 columnState = it.columnState
             )
         }
-        composable(route = Screen.GoogleStreamlineSignInSampleScreen.route) {
-            GoogleStreamlineSignInSampleScreen(navController = navController)
+        scrollable(route = Screen.StreamlineSignInMenuScreen.route) {
+            StreamlineSignInMenuScreen(
+                navController = navController,
+                columnState = it.columnState
+            )
+        }
+        scrollable(route = Screen.StreamlineSignInSampleScreen.route) {
+            StreamlineSignInSampleScreen(
+                navController = navController,
+                columnState = it.columnState
+            )
         }
         composable(route = Screen.GoogleSignInScreen.route) {
             GoogleSignInScreen(

@@ -18,11 +18,13 @@ package com.google.android.horologist.test.toolbox.testdoubles
 
 import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
+
 class AuthUserRepositoryStub : AuthUserRepository {
 
     var authUser: AuthUser? = null
+    var authUserList: List<AuthUser> = emptyList()
 
-    override suspend fun getAuthenticated(): AuthUser? {
-        return authUser
-    }
+    override suspend fun getAuthenticated(): AuthUser? = authUser
+
+    override suspend fun getAvailable(): List<AuthUser> = authUserList
 }

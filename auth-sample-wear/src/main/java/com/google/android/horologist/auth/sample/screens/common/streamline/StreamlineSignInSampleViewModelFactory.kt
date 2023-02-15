@@ -14,24 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.ui.googlesignin.streamline
+package com.google.android.horologist.auth.sample.screens.common.streamline
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAuthUserRepository
-import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInViewModel
 
-/**
- * A [factory][ViewModelProvider.Factory] to create a [StreamlineSignInViewModel] with dependencies
- * with implementation for the Google Sign-In authentication method.
- */
-@ExperimentalHorologistAuthUiApi
-public val GoogleStreamlineSignInViewModelFactory: ViewModelProvider.Factory = viewModelFactory {
+public val StreamlineSignInSampleViewModelFactory: ViewModelProvider.Factory = viewModelFactory {
     initializer {
-        val application = this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY]!!
-
-        StreamlineSignInViewModel(GoogleSignInAuthUserRepository(application))
+        StreamlineSignInViewModel(AuthUserRepositoryStreamlineImpl)
     }
 }

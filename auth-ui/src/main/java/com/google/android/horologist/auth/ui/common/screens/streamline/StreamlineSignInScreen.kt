@@ -19,40 +19,51 @@ package com.google.android.horologist.auth.ui.common.screens.streamline
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
+import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
 import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 
 /**
- * A screen to streamline the sign in process.
+ * A composable to streamline the sign in process.
+ *
+ * The [content] of this composable would be displayed when the screen is in "loading" state. This
+ * is an optional param, in case of no other layout is expected to be displayed while this screen is
+ * loading, e.g. in the scenario where the app is already displaying the splash screen.
  *
  * The [viewModel] will take care of
  * [streamlining](https://developer.android.com/training/wearables/design/sign-in#streamline) the
- * process when the user is already signed in. [onAlreadySignedIn] should be used to navigate away
+ * process when the user is already signed in. [onSingleAccountAvailable] should be used to navigate away
  * from this screen in that scenario.
  *
- * [onSignedOut] should navigate the user to the sign in screen.
+ * Suggested usage for the screen:
+ * - [onSingleAccountAvailable] should display a
+ * [signed in confirmation dialog][SignedInConfirmationDialog] or navigate the user to the main
+ * screen of your app.
  *
+ * - [onMultipleAccountsAvailable] should navigate the user to the account selection screen.
+ *
+ * - [onNoAccountsAvailable] should navigate the user to the sign in screen.
  */
 @ExperimentalHorologistAuthUiApi
 @Composable
 public fun StreamlineSignInScreen(
-    onAlreadySignedIn: (authUser: AuthUser) -> Unit,
-    onSignedOut: () -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: StreamlineSignInViewModel = viewModel()
+    onSingleAccountAvailable: (authUser: AuthUser) -> Unit,
+    onMultipleAccountsAvailable: (authUsers: List<AuthUser>) -> Unit,
+    onNoAccountsAvailable: () -> Unit,
+    viewModel: StreamlineSignInViewModel = viewModel(),
+    content: @Composable () -> Unit = { }
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     StreamlineSignInScreen(
         state = state,
         onIdleStateObserved = { viewModel.onIdleStateObserved() },
-        onAlreadySignedIn = onAlreadySignedIn,
-        onSignedOut = onSignedOut,
-        modifier = modifier
+        onSingleAccountAvailable = onSingleAccountAvailable,
+        onMultipleAccountsAvailable = onMultipleAccountsAvailable,
+        onNoAccountsAvailable = onNoAccountsAvailable,
+        content = content
     )
 }
 
@@ -61,12 +72,11 @@ public fun StreamlineSignInScreen(
 internal fun StreamlineSignInScreen(
     state: StreamlineSignInScreenState,
     onIdleStateObserved: () -> Unit,
-    onAlreadySignedIn: (authUser: AuthUser) -> Unit,
-    onSignedOut: () -> Unit,
-    modifier: Modifier = Modifier
+    onSingleAccountAvailable: (authUser: AuthUser) -> Unit,
+    onMultipleAccountsAvailable: (authUsers: List<AuthUser>) -> Unit,
+    onNoAccountsAvailable: () -> Unit,
+    content: @Composable () -> Unit = { }
 ) {
-    SignInPlaceholderScreen(modifier = modifier)
-
     when (state) {
         StreamlineSignInScreenState.Idle -> {
             SideEffect {
@@ -75,15 +85,19 @@ internal fun StreamlineSignInScreen(
         }
 
         StreamlineSignInScreenState.Loading -> {
-            /* do nothing */
+            content()
         }
 
-        is StreamlineSignInScreenState.SignedIn -> {
-            onAlreadySignedIn(state.authUser)
+        is StreamlineSignInScreenState.SingleAccountAvailable -> {
+            onSingleAccountAvailable(state.authUser)
         }
 
-        StreamlineSignInScreenState.SignedOut -> {
-            onSignedOut()
+        is StreamlineSignInScreenState.MultipleAccountsAvailable -> {
+            onMultipleAccountsAvailable(state.authUsers)
+        }
+
+        StreamlineSignInScreenState.NoAccountsAvailable -> {
+            onNoAccountsAvailable()
         }
     }
 }

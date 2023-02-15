@@ -15,6 +15,7 @@
  */
 
 package com.google.android.horologist.auth.sample
+
 sealed class Screen(
     val route: String
 ) {
@@ -29,10 +30,12 @@ sealed class Screen(
     object DeviceGrantSignOutScreen : Screen("deviceGrantSignOutScreen")
 
     object GoogleSignInPromptSampleScreen : Screen("googleSignInPromptSampleScreen")
-    object GoogleStreamlineSignInSampleScreen : Screen("googleStreamlineSignInSampleScreen")
     object GoogleSignInScreen : Screen("googleSignInScreen")
     object GoogleSignOutScreen : Screen("googleSignOutScreen")
 
     object TokenShareDefaultKeyScreen : Screen("tokenShareDefaultKeyScreen")
     object TokenShareCustomKeyScreen : Screen("tokenShareCustomKeyScreen")
+
+    object StreamlineSignInMenuScreen : Screen("streamlineSignInMenuScreen")
+    object StreamlineSignInSampleScreen : Screen("streamlineSignInSampleScreen")
 }

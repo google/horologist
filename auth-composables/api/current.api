@@ -37,14 +37,17 @@ package com.google.android.horologist.auth.composables.dialogs {
 package com.google.android.horologist.auth.composables.model {
 
   @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public final class AccountUiModel {
-    ctor public AccountUiModel(String email, optional Object? avatar);
+    ctor public AccountUiModel(String email, optional String? name, optional Object? avatar);
     method public String component1();
-    method public Object? component2();
-    method public com.google.android.horologist.auth.composables.model.AccountUiModel copy(String email, Object? avatar);
+    method public String? component2();
+    method public Object? component3();
+    method public com.google.android.horologist.auth.composables.model.AccountUiModel copy(String email, String? name, Object? avatar);
     method public Object? getAvatar();
     method public String getEmail();
+    method public String? getName();
     property public final Object? avatar;
     property public final String email;
+    property public final String? name;
   }
 
 }

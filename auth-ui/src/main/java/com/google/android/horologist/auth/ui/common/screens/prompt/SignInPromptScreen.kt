@@ -30,8 +30,8 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.composables.R
+import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
-import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
@@ -57,7 +57,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 @Composable
 public fun SignInPromptScreen(
     message: String,
-    onAlreadySignedIn: (authUser: AuthUser) -> Unit,
+    onAlreadySignedIn: (account: AccountUiModel) -> Unit,
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     title: String = stringResource(id = R.string.horologist_signin_prompt_title),
@@ -85,7 +85,7 @@ internal fun SignInPromptScreen(
     title: String,
     message: String,
     onIdleStateObserved: () -> Unit,
-    onAlreadySignedIn: (authUser: AuthUser) -> Unit,
+    onAlreadySignedIn: (account: AccountUiModel) -> Unit,
     columnState: ScalingLazyColumnState,
     modifier: Modifier = Modifier,
     content: ScalingLazyListScope.() -> Unit
@@ -106,7 +106,7 @@ internal fun SignInPromptScreen(
         is SignInPromptScreenState.SignedIn -> {
             SignInPlaceholderScreen(modifier = modifier)
 
-            onAlreadySignedIn(state.authUser)
+            onAlreadySignedIn(state.account)
         }
 
         SignInPromptScreenState.SignedOut -> {

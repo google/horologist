@@ -18,10 +18,11 @@ package com.google.android.horologist.auth.ui.common.screens.streamline
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.auth.data.common.model.AuthUser
+import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.auth.ui.ext.compareAndSet
+import com.google.android.horologist.auth.ui.mapper.AccountUiModelMapper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -59,13 +60,15 @@ public open class StreamlineSignInViewModel(
                     }
 
                     authUsers.size == 1 -> {
-                        _uiState.value =
-                            StreamlineSignInScreenState.SingleAccountAvailable(authUsers.first())
+                        _uiState.value = StreamlineSignInScreenState.SingleAccountAvailable(
+                            AccountUiModelMapper.map(authUsers.first())
+                        )
                     }
 
                     else -> {
-                        _uiState.value =
-                            StreamlineSignInScreenState.MultipleAccountsAvailable(authUsers)
+                        _uiState.value = StreamlineSignInScreenState.MultipleAccountsAvailable(
+                            authUsers.map(AccountUiModelMapper::map)
+                        )
                     }
                 }
             }
@@ -84,11 +87,11 @@ public sealed class StreamlineSignInScreenState {
     public object Loading : StreamlineSignInScreenState()
 
     public data class SingleAccountAvailable(
-        val authUser: AuthUser
+        val account: AccountUiModel
     ) : StreamlineSignInScreenState()
 
     public data class MultipleAccountsAvailable(
-        val authUsers: List<AuthUser>
+        val accounts: List<AccountUiModel>
     ) : StreamlineSignInScreenState()
 
     public object NoAccountsAvailable : StreamlineSignInScreenState()

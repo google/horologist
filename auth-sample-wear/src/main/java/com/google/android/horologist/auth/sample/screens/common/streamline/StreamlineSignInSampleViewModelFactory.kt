@@ -19,10 +19,9 @@ package com.google.android.horologist.auth.sample.screens.common.streamline
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInViewModel
 
 public val StreamlineSignInSampleViewModelFactory: ViewModelProvider.Factory = viewModelFactory {
     initializer {
-        StreamlineSignInViewModel(AuthUserRepositoryStreamlineImpl)
+        StreamlineSignInSampleViewModel(AuthUserRepositoryStreamlineImpl)
     }
 }

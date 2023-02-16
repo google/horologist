@@ -19,6 +19,7 @@
 package com.google.android.horologist.auth.ui.common.screens.streamline
 
 import app.cash.turbine.test
+import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.test.toolbox.rules.MainDispatcherRule
@@ -100,7 +101,8 @@ class StreamlineSignInViewModelTest {
     @Test
     fun givenSingleAccountAvailable_whenOnIdleStateObserved_thenStateIsSingleAccountAvailable() = runTest {
         // given
-        val authUser = AuthUser()
+        val email = "user@example.com"
+        val authUser = AuthUser(email = email)
         fakeAuthUserRepository.authUserList = listOf(authUser)
 
         // when
@@ -109,9 +111,7 @@ class StreamlineSignInViewModelTest {
         // then
         sut.uiState.test {
             assertThat(awaitItem()).isEqualTo(
-                StreamlineSignInScreenState.SingleAccountAvailable(
-                    authUser
-                )
+                StreamlineSignInScreenState.SingleAccountAvailable(AccountUiModel(email = email))
             )
         }
     }
@@ -119,9 +119,10 @@ class StreamlineSignInViewModelTest {
     @Test
     fun givenMultipleAccountsAvailable_whenOnIdleStateObserved_thenStateIsMultipleAccountsAvailable() = runTest {
         // given
-        val authUser1 = AuthUser()
-        val authUser2 = AuthUser()
-        fakeAuthUserRepository.authUserList = listOf(authUser1, authUser2)
+        val email1 = "user1@example.com"
+        val email2 = "user2@example.com"
+        fakeAuthUserRepository.authUserList =
+            listOf(AuthUser(email = email1), AuthUser(email = email2))
 
         // when
         sut.onIdleStateObserved()
@@ -130,7 +131,7 @@ class StreamlineSignInViewModelTest {
         sut.uiState.test {
             assertThat(awaitItem()).isEqualTo(
                 StreamlineSignInScreenState.MultipleAccountsAvailable(
-                    listOf(authUser1, authUser2)
+                    listOf(AccountUiModel(email = email1), AccountUiModel(email = email2))
                 )
             )
         }

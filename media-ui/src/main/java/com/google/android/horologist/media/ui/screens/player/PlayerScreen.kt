@@ -36,6 +36,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
@@ -76,7 +77,8 @@ public fun PlayerScreen(
         DefaultPlayerScreenControlButtons(playerUiController, playerUiState)
     },
     buttons: SettingsButtons = {},
-    background: PlayerBackground = {}
+    background: PlayerBackground = {},
+    focusRequester: FocusRequester = rememberActiveFocusRequester()
 ) {
     val playerUiState by playerViewModel.playerUiState.collectAsStateWithLifecycle()
 
@@ -86,9 +88,11 @@ public fun PlayerScreen(
         buttons = {
             buttons(playerUiState)
         },
-        modifier = modifier,
-        background = { background(playerUiState) },
-        onVolumeChangeByScroll = volumeViewModel::onVolumeChangeByScroll
+        modifier = modifier.onVolumeChangeByScroll(
+            focusRequester,
+            volumeViewModel::onVolumeChangeByScroll
+        ),
+        background = { background(playerUiState) }
     )
 }
 
@@ -140,20 +144,14 @@ public fun PlayerScreen(
     controlButtons: @Composable RowScope.() -> Unit,
     buttons: @Composable RowScope.() -> Unit,
     modifier: Modifier = Modifier,
-    background: @Composable BoxScope.() -> Unit = {},
-    onVolumeChangeByScroll: (scrollPixels: Float) -> Unit
+    background: @Composable BoxScope.() -> Unit = {}
 ) {
     val isBig = LocalConfiguration.current.screenHeightDp > 210
     val isRound = LocalConfiguration.current.isScreenRound
 
-    val focusRequester = rememberActiveFocusRequester()
-
     Box(
         modifier = modifier
             .fillMaxSize()
-            .onRotaryInputAccumulated(onValueChange = onVolumeChangeByScroll)
-            .focusRequester(focusRequester)
-            .focusable()
     ) {
         background()
 
@@ -202,3 +200,11 @@ public fun PlayerScreen(
         }
     }
 }
+
+private fun Modifier.onVolumeChangeByScroll(
+    focusRequester: FocusRequester,
+    onVolumeChangeByScroll: (scrollPixels: Float) -> Unit
+) =
+    onRotaryInputAccumulated(onValueChange = onVolumeChangeByScroll)
+        .focusRequester(focusRequester)
+        .focusable()

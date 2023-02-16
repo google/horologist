@@ -39,7 +39,7 @@ public fun <T> DataClient.dataItemFlow(
     defaultValue: () -> T = { serializer.defaultValue }
 ): Flow<T> = callbackFlow {
     val listener = OnDataChangedListener {
-        val dataItem = it[it.count - 1].dataItem
+        val dataItem = it[it.getCount() - 1].dataItem
         val data = dataItem.data
         trySend(data)
     }

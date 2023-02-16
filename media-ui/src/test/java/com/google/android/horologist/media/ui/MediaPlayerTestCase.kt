@@ -116,8 +116,7 @@ fun MediaPlayerTestCase(
                                     mediaDisplay = { mediaDisplay() },
                                     controlButtons = { controlButtons() },
                                     buttons = { buttons() },
-                                    background = background,
-                                    onVolumeChangeByScroll = {}
+                                    background = background
                                 )
                             }
                         }

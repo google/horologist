@@ -24,7 +24,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import androidx.wear.compose.material.rememberSwipeToDismissBoxState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.audio.ui.VolumeScreen
 import com.google.android.horologist.composables.DatePicker
 import com.google.android.horologist.composables.TimePicker
@@ -39,6 +41,7 @@ import com.google.android.horologist.compose.navscaffold.scrollable
 import com.google.android.horologist.datalayer.DataLayerNodesScreen
 import com.google.android.horologist.datalayer.DataLayerNodesViewModel
 import com.google.android.horologist.networks.NetworkScreen
+import com.google.android.horologist.pager.SamplePagerScreen
 import com.google.android.horologist.paging.PagingItemScreen
 import com.google.android.horologist.paging.PagingScreen
 import com.google.android.horologist.rotary.RotaryMenuScreen
@@ -52,11 +55,18 @@ import java.time.LocalDateTime
 
 @Composable
 fun SampleWearApp() {
+    val swipeToDismissBoxState = rememberSwipeToDismissBoxState()
+    val navHostState =
+        rememberSwipeDismissableNavHostState(swipeToDismissBoxState = swipeToDismissBoxState)
     val navController = rememberSwipeDismissableNavController()
 
     var time by remember { mutableStateOf(LocalDateTime.now()) }
 
-    WearNavScaffold(startDestination = Screen.Menu.route, navController = navController) {
+    WearNavScaffold(
+        startDestination = Screen.Menu.route,
+        navController = navController,
+        state = navHostState
+    ) {
         scrollable(
             route = Screen.Menu.route
         ) {
@@ -213,6 +223,9 @@ fun SampleWearApp() {
             )
         ) {
             PagingItemScreen(it.arguments!!.getInt("id"))
+        }
+        composable(route = Screen.PagerScreen.route) {
+            SamplePagerScreen(swipeToDismissBoxState)
         }
     }
 }

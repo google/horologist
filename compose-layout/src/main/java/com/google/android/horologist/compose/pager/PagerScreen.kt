@@ -64,7 +64,12 @@ public fun PagerScreen(
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        HorizontalPager(modifier = modifier, pageCount = count, state = state) { page ->
+        HorizontalPager(
+            modifier = modifier,
+            pageCount = count,
+            state = state,
+            flingBehavior = HorizontalPagerDefaults.flingParams(state)
+        ) { page ->
             Box(
                 modifier = Modifier.fillMaxSize().run {
                     if (shape != null) {

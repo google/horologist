@@ -12,6 +12,7 @@ package com.google.android.horologist.media.ui.complication {
     ctor public MediaStatusTemplate(android.content.Context context);
     method public com.google.android.horologist.media.ui.complication.MediaStatusTemplate.Data previewData();
     method public androidx.wear.watchface.complications.data.LongTextComplicationData renderLongText(com.google.android.horologist.media.ui.complication.MediaStatusTemplate.Data data);
+    method public androidx.wear.watchface.complications.data.PhotoImageComplicationData? renderPhotoImage(com.google.android.horologist.media.ui.complication.MediaStatusTemplate.Data data);
     method public androidx.wear.watchface.complications.data.ShortTextComplicationData renderShortText(com.google.android.horologist.media.ui.complication.MediaStatusTemplate.Data data);
     method public androidx.wear.watchface.complications.data.SmallImageComplicationData? renderSmallImage(com.google.android.horologist.media.ui.complication.MediaStatusTemplate.Data data);
   }

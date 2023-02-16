@@ -23,6 +23,7 @@ import androidx.annotation.StringRes
 import androidx.wear.watchface.complications.data.ComplicationText
 import androidx.wear.watchface.complications.data.LongTextComplicationData
 import androidx.wear.watchface.complications.data.MonochromaticImage
+import androidx.wear.watchface.complications.data.PhotoImageComplicationData
 import androidx.wear.watchface.complications.data.PlainComplicationText
 import androidx.wear.watchface.complications.data.RangedValueComplicationData
 import androidx.wear.watchface.complications.data.ShortTextComplicationData
@@ -115,6 +116,21 @@ public object DataTemplates {
             )
                 .build()
         )
+        .setTapAction(launchIntent)
+        .build()
+
+    public fun ComplicationTemplate<*>.photoImage(
+        photoImage: Icon,
+        name: String,
+        launchIntent: PendingIntent?,
+        contentDescription: ComplicationText? = null
+    ): PhotoImageComplicationData = PhotoImageComplicationData.Builder(
+        photoImage,
+        contentDescription = contentDescription ?: PlainComplicationText.Builder(
+            text = name
+        )
+            .build()
+    )
         .setTapAction(launchIntent)
         .build()
 

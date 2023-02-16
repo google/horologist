@@ -22,6 +22,7 @@
 package com.google.android.horologist.auth.ui.common.screens.prompt
 
 import app.cash.turbine.test
+import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.test.toolbox.rules.MainDispatcherRule
@@ -103,15 +104,15 @@ class SignInPromptViewModelTest {
     @Test
     fun givenUserAuthenticated_whenOnIdleStateObserved_thenStateIsSignedIn() = runTest {
         // given
-        val authUser = AuthUser()
-        fakeAuthUserRepository.authUser = authUser
+        val email = "user@example.com"
+        fakeAuthUserRepository.authUser = AuthUser(email = email)
 
         // when
         sut.onIdleStateObserved()
 
         // then
         sut.uiState.test {
-            assertThat(awaitItem()).isEqualTo(SignInPromptScreenState.SignedIn(authUser))
+            assertThat(awaitItem()).isEqualTo(SignInPromptScreenState.SignedIn(AccountUiModel(email = email)))
         }
     }
 }

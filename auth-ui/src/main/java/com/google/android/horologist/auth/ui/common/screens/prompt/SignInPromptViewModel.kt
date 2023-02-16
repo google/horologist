@@ -18,10 +18,11 @@ package com.google.android.horologist.auth.ui.common.screens.prompt
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.auth.data.common.model.AuthUser
+import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.auth.ui.ext.compareAndSet
+import com.google.android.horologist.auth.ui.mapper.AccountUiModelMapper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -51,7 +52,8 @@ public open class SignInPromptViewModel(
         ) {
             viewModelScope.launch {
                 authUserRepository.getAuthenticated()?.let { authUser ->
-                    _uiState.value = SignInPromptScreenState.SignedIn(authUser)
+                    _uiState.value =
+                        SignInPromptScreenState.SignedIn(AccountUiModelMapper.map(authUser))
                 } ?: run {
                     _uiState.value = SignInPromptScreenState.SignedOut
                 }
@@ -70,7 +72,7 @@ public sealed class SignInPromptScreenState {
 
     public object Loading : SignInPromptScreenState()
 
-    public data class SignedIn(val authUser: AuthUser) : SignInPromptScreenState()
+    public data class SignedIn(val account: AccountUiModel) : SignInPromptScreenState()
 
     public object SignedOut : SignInPromptScreenState()
 }

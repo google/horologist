@@ -22,7 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
-import com.google.android.horologist.auth.data.common.model.AuthUser
+import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 
 /**
@@ -49,8 +49,8 @@ import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 @ExperimentalHorologistAuthUiApi
 @Composable
 public fun StreamlineSignInScreen(
-    onSingleAccountAvailable: (authUser: AuthUser) -> Unit,
-    onMultipleAccountsAvailable: (authUsers: List<AuthUser>) -> Unit,
+    onSingleAccountAvailable: (account: AccountUiModel) -> Unit,
+    onMultipleAccountsAvailable: (accounts: List<AccountUiModel>) -> Unit,
     onNoAccountsAvailable: () -> Unit,
     viewModel: StreamlineSignInViewModel = viewModel(),
     content: @Composable () -> Unit = { }
@@ -72,8 +72,8 @@ public fun StreamlineSignInScreen(
 internal fun StreamlineSignInScreen(
     state: StreamlineSignInScreenState,
     onIdleStateObserved: () -> Unit,
-    onSingleAccountAvailable: (authUser: AuthUser) -> Unit,
-    onMultipleAccountsAvailable: (authUsers: List<AuthUser>) -> Unit,
+    onSingleAccountAvailable: (account: AccountUiModel) -> Unit,
+    onMultipleAccountsAvailable: (accounts: List<AccountUiModel>) -> Unit,
     onNoAccountsAvailable: () -> Unit,
     content: @Composable () -> Unit = { }
 ) {
@@ -89,11 +89,11 @@ internal fun StreamlineSignInScreen(
         }
 
         is StreamlineSignInScreenState.SingleAccountAvailable -> {
-            onSingleAccountAvailable(state.authUser)
+            onSingleAccountAvailable(state.account)
         }
 
         is StreamlineSignInScreenState.MultipleAccountsAvailable -> {
-            onMultipleAccountsAvailable(state.authUsers)
+            onMultipleAccountsAvailable(state.accounts)
         }
 
         StreamlineSignInScreenState.NoAccountsAvailable -> {

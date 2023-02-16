@@ -97,7 +97,7 @@ class FakeStatePlayer(
         _duration = duration
         _currentMediaItem = currentMediaItem
 
-        listeners.forEach {
+        for (it in listeners) {
             it.onEvents(
                 this,
                 Player.Events(
@@ -115,7 +115,7 @@ class FakeStatePlayer(
         playbackSpeed: Float
     ) {
         _playbackSpeed = playbackSpeed
-        listeners.forEach {
+        for (it in listeners) {
             it.onEvents(
                 this,
                 Player.Events(FlagSet.Builder().add(EVENT_PLAYBACK_PARAMETERS_CHANGED).build())
@@ -131,7 +131,7 @@ class FakeStatePlayer(
         _playbackState = playbackState
         _playWhenReady = playWhenReady
 
-        listeners.forEach {
+        for (it in listeners) {
             it.onEvents(
                 this,
                 Player.Events(

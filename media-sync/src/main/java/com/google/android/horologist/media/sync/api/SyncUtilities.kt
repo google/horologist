@@ -101,7 +101,7 @@ public suspend fun Synchronizer.changeListSync(
     modelDeleter: suspend (model: String, ids: List<String>) -> Unit,
     modelUpdater: suspend (model: String, ids: List<String>) -> Unit
 ): Boolean = suspendRunCatching {
-    models.forEach { model ->
+    for (model in models) {
         // Fetch the change list since last sync (akin to a git fetch)
         val currentVersion = getChangeListVersions(model)
         val changeList = changeListFetcher(model, currentVersion)

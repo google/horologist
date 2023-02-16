@@ -62,7 +62,7 @@ public class PlaylistDownloadRepositoryImpl(
 
     override fun download(playlist: Playlist) {
         coroutineScope.launch {
-            playlist.mediaList.forEach { media ->
+            for (media in playlist.mediaList) {
                 mediaDownloadLocalDataSource.add(mediaId = media.id)
 
                 media3DownloadDataSource.download(media.id, media.uri.toUri())
@@ -71,7 +71,7 @@ public class PlaylistDownloadRepositoryImpl(
     }
 
     override fun remove(playlist: Playlist) {
-        playlist.mediaList.forEach { media ->
+        for (media in playlist.mediaList) {
             media3DownloadDataSource.removeDownload(media.id)
         }
     }

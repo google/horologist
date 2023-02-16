@@ -37,7 +37,7 @@ class AudioOffloadListenerList : AudioOffloadListener {
 
     override fun onExperimentalOffloadSchedulingEnabledChanged(offloadSchedulingEnabled: Boolean) {
         synchronized(audioOffloadListeners) {
-            audioOffloadListeners.forEach {
+            for (it in audioOffloadListeners) {
                 it.onExperimentalOffloadSchedulingEnabledChanged(offloadSchedulingEnabled)
             }
         }
@@ -45,7 +45,7 @@ class AudioOffloadListenerList : AudioOffloadListener {
 
     override fun onExperimentalSleepingForOffloadChanged(sleepingForOffload: Boolean) {
         synchronized(audioOffloadListeners) {
-            audioOffloadListeners.forEach {
+            for (it in audioOffloadListeners) {
                 it.onExperimentalSleepingForOffloadChanged(sleepingForOffload)
             }
         }
@@ -56,7 +56,7 @@ class AudioOffloadListenerList : AudioOffloadListener {
     // For now requires `media3.checkout=false` in local.properties
 //    override fun onExperimentalOffloadedPlayback(offloadedPlayback: Boolean) {
 //        synchronized(audioOffloadListeners) {
-//            audioOffloadListeners.forEach {
+//            for (it in audioOffloadListeners) {
 //                it.onExperimentalOffloadedPlayback(offloadedPlayback)
 //            }
 //        }

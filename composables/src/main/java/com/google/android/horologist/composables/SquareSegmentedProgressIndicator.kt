@@ -111,10 +111,10 @@ public fun SquareSegmentedProgressIndicator(
                 .fillMaxSize()
                 .progressSemantics(progress)
         ) {
-            calculatedSegments.forEach { segmentGroups ->
+            for (segmentGroups in calculatedSegments) {
                 drawPath(
                     path = Path().apply {
-                        segmentGroups.calculatedSegments.forEach {
+                        for (it in segmentGroups.calculatedSegments) {
                             it.drawIncomplete(this, progress)
                         }
                     },
@@ -123,7 +123,7 @@ public fun SquareSegmentedProgressIndicator(
                 )
                 drawPath(
                     path = Path().apply {
-                        segmentGroups.calculatedSegments.forEach {
+                        for (it in segmentGroups.calculatedSegments) {
                             it.drawCompleted(this, progress)
                         }
                     },

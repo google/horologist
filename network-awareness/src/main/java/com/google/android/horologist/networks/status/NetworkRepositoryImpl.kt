@@ -100,7 +100,7 @@ public class NetworkRepositoryImpl(
         ) {
             getOrBuild(network).apply {
                 linkProperties = networkLinkProperties
-                networkLinkProperties.linkAddresses.forEach {
+                for (it in networkLinkProperties.linkAddresses) {
                     linkAddresses[it.address] = network.id
                 }
             }
@@ -124,7 +124,7 @@ public class NetworkRepositoryImpl(
 
     init {
         @Suppress("DEPRECATION")
-        connectivityManager.allNetworks.forEach { network ->
+        for (network in connectivityManager.allNetworks) {
             getOrBuild(network).apply {
                 connectivityManager.getNetworkCapabilities(network)?.let {
                     this.networkCapabilities = it

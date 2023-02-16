@@ -116,7 +116,7 @@ public class MediaCollectionsTileRenderer(
         deviceParameters: DeviceParameters,
         resourceIds: MutableList<String>
     ) {
-        resourceState.images.forEach { (image, imageResource) ->
+        for ((image, imageResource) in resourceState.images) {
             if (imageResource != null) {
                 addIdToImageMapping(image, imageResource)
             }

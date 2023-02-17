@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string-array name="android_wear_capabilities">
+        <!-- Used to indicate that the app is installed on this device -->
+        <item>rubberband</item>
+    </string-array>
+</resources>

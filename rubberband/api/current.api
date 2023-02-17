@@ -1,0 +1,63 @@
+// Signature format: 4.0
+package com.google.android.horologist.rubberband {
+
+  public final class NodeStatus {
+    ctor public NodeStatus(String id, String displayName, boolean isAppInstalled, optional java.util.Set<java.lang.String> installedTiles);
+    method public String component1();
+    method public String component2();
+    method public boolean component3();
+    method public java.util.Set<java.lang.String> component4();
+    method public com.google.android.horologist.rubberband.NodeStatus copy(String id, String displayName, boolean isAppInstalled, java.util.Set<java.lang.String> installedTiles);
+    method public String getDisplayName();
+    method public String getId();
+    method public java.util.Set<java.lang.String> getInstalledTiles();
+    method public boolean isAppInstalled();
+    property public final String displayName;
+    property public final String id;
+    property public final java.util.Set<java.lang.String> installedTiles;
+    property public final boolean isAppInstalled;
+  }
+
+  public final class Rubberband {
+    ctor public Rubberband(android.content.Context context, optional String? appStoreUri);
+    method public suspend Object? connectedNodes(kotlin.coroutines.Continuation<? super java.util.List<? extends com.google.android.horologist.rubberband.NodeStatus>>);
+    method public suspend Object? installOnNode(String node, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? markTileAsInstalled(String tileName, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? markTileAsRemoved(String tileName, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? startCompanion(String node, kotlin.coroutines.Continuation<? super com.google.android.horologist.rubberband.RubberbandResult>);
+    method public suspend Object? startRemoteApp(String node, optional String componentPath, optional kotlin.coroutines.Continuation<? super com.google.android.horologist.rubberband.RubberbandResult>);
+    field public static final com.google.android.horologist.rubberband.Rubberband.Companion Companion;
+    field public static final String LAUNCH_COMPANION_APP = "/launch_companion_app";
+    field public static final String LAUNCH_REMOTE_APP = "/launch_remote_app";
+    field public static final String RUBBERBAND_INSTALLED = "rubberband";
+  }
+
+  public static final class Rubberband.Companion {
+  }
+
+  public final class RubberbandKt {
+    field public static final String TAG = "Rubberband";
+  }
+
+  public final class RubberbandListenerService extends com.google.android.gms.wearable.WearableListenerService {
+    ctor public RubberbandListenerService();
+  }
+
+  public enum RubberbandResult {
+    method public final byte[] getByteArray();
+    method public static com.google.android.horologist.rubberband.RubberbandResult valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.rubberband.RubberbandResult[] values();
+    property public final byte[] byteArray;
+    enum_constant public static final com.google.android.horologist.rubberband.RubberbandResult ERROR_ACTIVITY_NOT_FOUND;
+    enum_constant public static final com.google.android.horologist.rubberband.RubberbandResult ERROR_INVALID_COMPONENT;
+    enum_constant public static final com.google.android.horologist.rubberband.RubberbandResult ERROR_NO_COMPANION_FOUND;
+    enum_constant public static final com.google.android.horologist.rubberband.RubberbandResult ERROR_UNKNOWN_REQUEST;
+    enum_constant public static final com.google.android.horologist.rubberband.RubberbandResult SUCCESS;
+  }
+
+  public final class RubberbandResultKt {
+    method public static com.google.android.horologist.rubberband.RubberbandResult rubberBandResultFromByteArray(byte[] byteArray);
+  }
+
+}
+

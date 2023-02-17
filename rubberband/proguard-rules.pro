@@ -1,1 +1,0 @@
--keep class androidx.wear.remote.interactions.RemoteActivityHelper

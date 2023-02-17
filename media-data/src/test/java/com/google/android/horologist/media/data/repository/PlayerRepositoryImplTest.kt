@@ -762,7 +762,7 @@ class PlayerRepositoryImplTest {
         sut.setMedia(previousMedia)
 
         // when
-        val whenBlock = { sut.removeMedia(-1) }
+        sut.removeMedia(-1)
 
         // then
         assertThat(sut.getMediaCount()).isEqualTo(1)

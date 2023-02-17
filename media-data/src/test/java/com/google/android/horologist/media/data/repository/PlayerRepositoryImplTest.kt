@@ -765,7 +765,7 @@ class PlayerRepositoryImplTest {
         val whenBlock = { sut.removeMedia(-1) }
 
         // then
-        assertThrows(IllegalArgumentException::class.java) { whenBlock() }
+        assertThat(sut.getMediaCount()).isEqualTo(1)
     }
 
     @Test

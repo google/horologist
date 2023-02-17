@@ -238,8 +238,6 @@ dependencies {
     implementation(libs.kotlinx.coroutines.playservices)
 
     add("benchmarkImplementation", libs.androidx.runtime.tracing)
-    add("benchmarkImplementation", libs.androidx.tracing.perfetto)
-    add("benchmarkImplementation", libs.androidx.tracing.perfetto.binary)
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)

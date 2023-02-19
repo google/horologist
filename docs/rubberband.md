@@ -23,9 +23,9 @@ val rubberband = Rubberband(context)
 
 ## Typical use cases:
 
-1.  **Connection and installation status**.
+1.  **Connection and installation status**
 
-    This is  something that your app may do from time to time, or on start up.
+    This is something that your app may do from time to time, or on start up.
     
     ```kotlin
     val connectedNodes = rubberband.connectedNodes()
@@ -42,7 +42,18 @@ val rubberband = Rubberband(context)
     )
     ```
     
-1. **Installing the app on the other device**
+1.  **Responding to availability change**
+
+    Once you've established the app on both devices, you may wish to respond to when the partner 
+    device connects or disconnects. For example, you may only want to show a "launch workout" button
+    on the phone when the watch is connected.
+
+    ```kotlin
+    val nodes by rubberband.connectedAndInstalledNodes
+        .collectAsStateWithLifecycle()
+    ````
+    
+1.  **Installing the app on the other device**
     
     Where the app isn't installed on the other device - be that phone or watch - then the library offers
     a one step option to launch installation:

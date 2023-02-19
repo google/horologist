@@ -25,9 +25,13 @@ import androidx.wear.phone.interactions.PhoneTypeHelper
 import androidx.wear.remote.interactions.RemoteActivityHelper
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.wearable.CapabilityClient
+import com.google.android.gms.wearable.CapabilityClient.OnCapabilityChangedListener
 import com.google.android.gms.wearable.CapabilityInfo
+import com.google.android.gms.wearable.Node
 import com.google.android.gms.wearable.Wearable
 import com.google.android.gms.wearable.WearableStatusCodes
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.guava.await
 import kotlinx.coroutines.tasks.await
 
@@ -47,6 +51,7 @@ public const val TAG: String = "Rubberband"
 public class Rubberband(private val context: Context, private val appStoreUri: String? = null) {
     // The installation of individual Tiles is tracked via Local Capabilities with this prefix.
     private val tilePrefix = "rubberband_tile_"
+    private val installedCapabilityUri = "wear://*/$RUBBERBAND_INSTALLED"
 
     private val playStoreUri = "market://details?id=${context.packageName}"
 
@@ -85,6 +90,30 @@ public class Rubberband(private val context: Context, private val appStoreUri: S
                 isAppInstalled = installedNodes.contains(it.id),
                 installedTiles = nodesToTiles[it.id] ?: setOf()
             )
+        }
+    }
+
+    /**
+     * Creates a flow to keep the client updated with the set of connected devices with the app
+     * installed.
+     */
+    public val connectedAndInstalledNodes = callbackFlow<Set<Node>> {
+        val listener = object : OnCapabilityChangedListener {
+            override fun onCapabilityChanged(capability: CapabilityInfo) {
+                trySend(capability.nodes.filter { it.isNearby }.toSet())
+            }
+        }
+        val info =
+            capabilityClient.getCapability(installedCapabilityUri, CapabilityClient.FILTER_LITERAL)
+                .await()
+        trySend(info.nodes.filter { it.isNearby }.toSet())
+        capabilityClient.addListener(
+            listener,
+            Uri.parse(installedCapabilityUri),
+            CapabilityClient.FILTER_LITERAL
+        )
+        awaitClose {
+            capabilityClient.removeListener(listener)
         }
     }
 

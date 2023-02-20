@@ -16,23 +16,48 @@
 
 package com.google.android.horologist.auth.ui.common.screens.streamline
 
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
+import com.google.android.horologist.auth.ui.ext.compareAndSet
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 /**
  * A default implementation of [StreamlineSignInViewModel].
  */
 @ExperimentalHorologistAuthUiApi
 public class StreamlineSignInDefaultViewModel(
-    authUserRepository: AuthUserRepository
-) : StreamlineSignInViewModel(authUserRepository) {
+    private val authUserRepository: AuthUserRepository
+) : ViewModel() {
 
     private val _uiState =
-        MutableStateFlow<StreamlineSignInDefaultScreenState>(StreamlineSignInDefaultScreenState.ParentScreen)
-    public val defaultUiState: StateFlow<StreamlineSignInDefaultScreenState> = _uiState
+        MutableStateFlow<StreamlineSignInDefaultScreenState>(
+            StreamlineSignInDefaultScreenState.ParentState(
+                StreamlineSignInScreenState.Idle
+            )
+        )
+    public val uiState: StateFlow<StreamlineSignInDefaultScreenState> = _uiState
+
+    /**
+     * Indicate that the screen has observed the [idle][StreamlineSignInScreenState.Idle] state and
+     * that the view model can start its work.
+     */
+    public fun onIdleStateObserved() {
+        _uiState.compareAndSet(
+            expect = StreamlineSignInDefaultScreenState.ParentState(StreamlineSignInScreenState.Idle),
+            update = StreamlineSignInDefaultScreenState.ParentState(StreamlineSignInScreenState.Loading)
+        ) {
+            viewModelScope.launch {
+                _uiState.value = StreamlineSignInDefaultScreenState.ParentState(
+                    StreamlineSignInScreenStateProducer.onIdleStateObserved(authUserRepository)
+                )
+            }
+        }
+    }
 
     public fun onSingleAccountAvailable(account: AccountUiModel) {
         _uiState.value = StreamlineSignInDefaultScreenState.SignedIn(account)
@@ -54,7 +79,8 @@ public class StreamlineSignInDefaultViewModel(
 @ExperimentalHorologistAuthUiApi
 public sealed class StreamlineSignInDefaultScreenState {
 
-    public object ParentScreen : StreamlineSignInDefaultScreenState()
+    public data class ParentState(val state: StreamlineSignInScreenState) :
+        StreamlineSignInDefaultScreenState()
 
     public data class SignedIn(val account: AccountUiModel) : StreamlineSignInDefaultScreenState()
 

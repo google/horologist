@@ -30,6 +30,10 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
  * - displays the [SignedInConfirmationDialog] when there is a single account available;
  * - displays the [SelectAccountScreen] when there are multiple accounts available, then displays
  * the [SignedInConfirmationDialog] after the account is selected;
+ *
+ * The [content] of this composable would be displayed when the screen is in "loading" state. This
+ * is an optional param, in case of no other layout is expected to be displayed while this screen is
+ * loading, e.g. in the scenario where the app is already displaying the splash screen.
  */
 @ExperimentalHorologistAuthUiApi
 @Composable
@@ -41,15 +45,16 @@ public fun StreamlineSignInDefaultScreen(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit = { }
 ) {
-    val state by viewModel.defaultUiState.collectAsStateWithLifecycle()
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (state) {
-        StreamlineSignInDefaultScreenState.ParentScreen -> {
+        is StreamlineSignInDefaultScreenState.ParentState -> {
             StreamlineSignInScreen(
+                state = (state as StreamlineSignInDefaultScreenState.ParentState).state,
+                onIdleStateObserved = viewModel::onIdleStateObserved,
                 onSingleAccountAvailable = viewModel::onSingleAccountAvailable,
                 onMultipleAccountsAvailable = viewModel::onMultipleAccountsAvailable,
                 onNoAccountsAvailable = viewModel::onNoAccountsAvailable,
-                viewModel = viewModel,
                 content = content
             )
         }

@@ -28,14 +28,18 @@ import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 /**
  * A composable to streamline the sign in process.
  *
+ * This composable basically expose the states emitted by [StreamlineSignInViewModel] as callbacks.
+ * If you happen to need to use this composable, consider building your own composable screen and
+ * use [StreamlineSignInViewModel] directly.
+ *
  * The [content] of this composable would be displayed when the screen is in "loading" state. This
  * is an optional param, in case of no other layout is expected to be displayed while this screen is
  * loading, e.g. in the scenario where the app is already displaying the splash screen.
  *
  * The [viewModel] will take care of
  * [streamlining](https://developer.android.com/training/wearables/design/sign-in#streamline) the
- * process when the user is already signed in. [onSingleAccountAvailable] should be used to navigate away
- * from this screen in that scenario.
+ * process when the user is already signed in. [onSingleAccountAvailable] should be used to navigate
+ * away from this screen in that scenario.
  *
  * Suggested usage for the screen:
  * - [onSingleAccountAvailable] should display a
@@ -59,7 +63,7 @@ public fun StreamlineSignInScreen(
 
     StreamlineSignInScreen(
         state = state,
-        onIdleStateObserved = { viewModel.onIdleStateObserved() },
+        onIdleStateObserved = viewModel::onIdleStateObserved,
         onSingleAccountAvailable = onSingleAccountAvailable,
         onMultipleAccountsAvailable = onMultipleAccountsAvailable,
         onNoAccountsAvailable = onNoAccountsAvailable,

@@ -22,7 +22,6 @@ import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.auth.ui.ext.compareAndSet
-import com.google.android.horologist.auth.ui.mapper.AccountUiModelMapper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -52,25 +51,8 @@ public open class StreamlineSignInViewModel(
             update = StreamlineSignInScreenState.Loading
         ) {
             viewModelScope.launch {
-                val authUsers = authUserRepository.getAvailable()
-
-                when {
-                    authUsers.isEmpty() -> {
-                        _uiState.value = StreamlineSignInScreenState.NoAccountsAvailable
-                    }
-
-                    authUsers.size == 1 -> {
-                        _uiState.value = StreamlineSignInScreenState.SingleAccountAvailable(
-                            AccountUiModelMapper.map(authUsers.first())
-                        )
-                    }
-
-                    else -> {
-                        _uiState.value = StreamlineSignInScreenState.MultipleAccountsAvailable(
-                            authUsers.map(AccountUiModelMapper::map)
-                        )
-                    }
-                }
+                _uiState.value =
+                    StreamlineSignInScreenStateProducer.onIdleStateObserved(authUserRepository)
             }
         }
     }

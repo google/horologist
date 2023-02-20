@@ -22,12 +22,16 @@ import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.auth.ui.ext.compareAndSet
+import com.google.android.horologist.auth.ui.mapper.AccountUiModelMapper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 /**
- * A default implementation of [StreamlineSignInViewModel].
+ * A view model for the default implementation of a streamline sign-in screen.
+ *
+ * It checks if there is a user already signed in, and emits the appropriate
+ * [states][StreamlineSignInDefaultScreenState] through the [uiState] property.
  */
 @ExperimentalHorologistAuthUiApi
 public class StreamlineSignInDefaultViewModel(
@@ -35,52 +39,54 @@ public class StreamlineSignInDefaultViewModel(
 ) : ViewModel() {
 
     private val _uiState =
-        MutableStateFlow<StreamlineSignInDefaultScreenState>(
-            StreamlineSignInDefaultScreenState.ParentState(
-                StreamlineSignInScreenState.Idle
-            )
-        )
+        MutableStateFlow<StreamlineSignInDefaultScreenState>(StreamlineSignInDefaultScreenState.Idle)
     public val uiState: StateFlow<StreamlineSignInDefaultScreenState> = _uiState
 
     /**
-     * Indicate that the screen has observed the [idle][StreamlineSignInScreenState.Idle] state and
-     * that the view model can start its work.
+     * Indicate that the screen has observed the [idle][StreamlineSignInDefaultScreenState.Idle]
+     * state and that the view model can start its work.
      */
     public fun onIdleStateObserved() {
         _uiState.compareAndSet(
-            expect = StreamlineSignInDefaultScreenState.ParentState(StreamlineSignInScreenState.Idle),
-            update = StreamlineSignInDefaultScreenState.ParentState(StreamlineSignInScreenState.Loading)
+            expect = StreamlineSignInDefaultScreenState.Idle,
+            update = StreamlineSignInDefaultScreenState.Loading
         ) {
             viewModelScope.launch {
-                _uiState.value = StreamlineSignInDefaultScreenState.ParentState(
-                    StreamlineSignInScreenStateProducer.onIdleStateObserved(authUserRepository)
-                )
+                val authUsers = authUserRepository.getAvailable()
+
+                when {
+                    authUsers.isEmpty() -> {
+                        _uiState.value = StreamlineSignInDefaultScreenState.NoAccountsAvailable
+                    }
+
+                    authUsers.size == 1 -> {
+                        _uiState.value = StreamlineSignInDefaultScreenState.SignedIn(
+                            AccountUiModelMapper.map(authUsers.first())
+                        )
+                    }
+
+                    else -> {
+                        _uiState.value =
+                            StreamlineSignInDefaultScreenState.MultipleAccountsAvailable(
+                                authUsers.map(AccountUiModelMapper::map)
+                            )
+                    }
+                }
             }
         }
     }
 
-    public fun onSingleAccountAvailable(account: AccountUiModel) {
-        _uiState.value = StreamlineSignInDefaultScreenState.SignedIn(account)
-    }
-
-    public fun onMultipleAccountsAvailable(accounts: List<AccountUiModel>) {
-        _uiState.value = StreamlineSignInDefaultScreenState.MultipleAccountsAvailable(accounts)
-    }
-
     public fun onAccountSelected(account: AccountUiModel) {
         _uiState.value = StreamlineSignInDefaultScreenState.SignedIn(account)
-    }
-
-    public fun onNoAccountsAvailable() {
-        _uiState.value = StreamlineSignInDefaultScreenState.NoAccountsAvailable
     }
 }
 
 @ExperimentalHorologistAuthUiApi
 public sealed class StreamlineSignInDefaultScreenState {
 
-    public data class ParentState(val state: StreamlineSignInScreenState) :
-        StreamlineSignInDefaultScreenState()
+    public object Idle : StreamlineSignInDefaultScreenState()
+
+    public object Loading : StreamlineSignInDefaultScreenState()
 
     public data class SignedIn(val account: AccountUiModel) : StreamlineSignInDefaultScreenState()
 

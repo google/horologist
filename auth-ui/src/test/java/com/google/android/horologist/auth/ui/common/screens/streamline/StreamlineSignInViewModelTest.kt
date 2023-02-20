@@ -102,8 +102,7 @@ class StreamlineSignInViewModelTest {
     fun givenSingleAccountAvailable_whenOnIdleStateObserved_thenStateIsSingleAccountAvailable() = runTest {
         // given
         val email = "user@example.com"
-        val authUser = AuthUser(email = email)
-        fakeAuthUserRepository.authUserList = listOf(authUser)
+        fakeAuthUserRepository.authUserList = listOf(AuthUser(email = email))
 
         // when
         sut.onIdleStateObserved()

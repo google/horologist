@@ -17,6 +17,7 @@
 package com.google.android.horologist.auth.ui.common.screens.streamline
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -48,15 +49,14 @@ public fun StreamlineSignInDefaultScreen(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (state) {
-        is StreamlineSignInDefaultScreenState.ParentState -> {
-            StreamlineSignInScreen(
-                state = (state as StreamlineSignInDefaultScreenState.ParentState).state,
-                onIdleStateObserved = viewModel::onIdleStateObserved,
-                onSingleAccountAvailable = viewModel::onSingleAccountAvailable,
-                onMultipleAccountsAvailable = viewModel::onMultipleAccountsAvailable,
-                onNoAccountsAvailable = viewModel::onNoAccountsAvailable,
-                content = content
-            )
+        StreamlineSignInDefaultScreenState.Idle -> {
+            SideEffect {
+                viewModel.onIdleStateObserved()
+            }
+        }
+
+        StreamlineSignInDefaultScreenState.Loading -> {
+            content()
         }
 
         is StreamlineSignInDefaultScreenState.SignedIn -> {

@@ -22,6 +22,7 @@ import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.auth.ui.ext.compareAndSet
+import com.google.android.horologist.auth.ui.mapper.AccountUiModelMapper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -42,8 +43,8 @@ public open class StreamlineSignInViewModel(
     public val uiState: StateFlow<StreamlineSignInScreenState> = _uiState
 
     /**
-     * Indicate that the screen has observed the [idle][StreamlineSignInScreenState.Idle] state and that
-     * the view model can start its work.
+     * Indicate that the screen has observed the [idle][StreamlineSignInScreenState.Idle] state and
+     * that the view model can start its work.
      */
     public fun onIdleStateObserved() {
         _uiState.compareAndSet(
@@ -51,8 +52,25 @@ public open class StreamlineSignInViewModel(
             update = StreamlineSignInScreenState.Loading
         ) {
             viewModelScope.launch {
-                _uiState.value =
-                    StreamlineSignInScreenStateProducer.onIdleStateObserved(authUserRepository)
+                val authUsers = authUserRepository.getAvailable()
+
+                _uiState.value = when {
+                    authUsers.isEmpty() -> {
+                        StreamlineSignInScreenState.NoAccountsAvailable
+                    }
+
+                    authUsers.size == 1 -> {
+                        StreamlineSignInScreenState.SingleAccountAvailable(
+                            AccountUiModelMapper.map(authUsers.first())
+                        )
+                    }
+
+                    else -> {
+                        StreamlineSignInScreenState.MultipleAccountsAvailable(
+                            authUsers.map(AccountUiModelMapper::map)
+                        )
+                    }
+                }
             }
         }
     }

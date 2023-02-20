@@ -56,7 +56,7 @@ fun WearApp() {
             route = Screen.MainScreen.route
         ) {
             MainScreen(
-                navigateToRoute = { route -> navController.navigate(route) },
+                navigateToRoute = navController::navigate,
                 columnState = it.columnState
             )
         }
@@ -70,7 +70,7 @@ fun WearApp() {
         }
         composable(route = Screen.PKCESignInScreen.route) {
             PKCESignInScreen<PKCEDefaultConfig, PKCEOAuthCodeGooglePayload, TokenResponse>(
-                onAuthSucceed = { navController.popBackStack() },
+                onAuthSucceed = navController::popBackStack,
                 viewModel = viewModel(factory = PKCESampleViewModelFactory)
             )
         }
@@ -87,7 +87,7 @@ fun WearApp() {
         }
         composable(route = Screen.DeviceGrantSignInScreen.route) {
             DeviceGrantSignInScreen<DeviceGrantDefaultConfig, DeviceCodeResponse, String>(
-                onAuthSucceed = { navController.popBackStack() },
+                onAuthSucceed = navController::popBackStack,
                 viewModel = viewModel(factory = DeviceGrantSampleViewModelFactory)
             )
         }
@@ -116,8 +116,8 @@ fun WearApp() {
         }
         composable(route = Screen.GoogleSignInScreen.route) {
             GoogleSignInScreen(
-                onAuthCancelled = { navController.popBackStack() },
-                onAuthSucceed = { navController.popBackStack() },
+                onAuthCancelled = navController::popBackStack,
+                onAuthSucceed = navController::popBackStack,
                 viewModel = viewModel(factory = GoogleSignInSampleViewModelFactory)
             )
         }

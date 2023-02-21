@@ -243,7 +243,7 @@ subprojects {
                 manifestDir.mkdirs()
                 File(
                     manifestDir,
-                    "${project.group}_${project.name}.version"
+                    "com.google.android.horologist_${project.name}.version"
                 ).writeText("${versionName}\n")
             }
         }

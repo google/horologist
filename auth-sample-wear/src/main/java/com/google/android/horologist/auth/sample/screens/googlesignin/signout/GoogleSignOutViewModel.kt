@@ -19,6 +19,7 @@ package com.google.android.horologist.auth.sample.screens.googlesignin.signout
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
@@ -62,7 +63,7 @@ class GoogleSignOutViewModel(
 
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                val application = this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY]!!
+                val application = this[APPLICATION_KEY]!!
 
                 val googleSignInClient = GoogleSignIn.getClient(
                     application,

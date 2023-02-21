@@ -37,7 +37,7 @@ public object DataTemplates {
     public fun ComplicationTemplate<*>.longText(
         icon: Icon?,
         type: SmallImageType = SmallImageType.PHOTO,
-        title: String,
+        title: String?,
         text: String,
         launchIntent: PendingIntent?,
         contentDescription: ComplicationText? = null
@@ -60,13 +60,15 @@ public object DataTemplates {
                     ).build()
                 )
             }
+            if (title != null) {
+                setTitle(
+                    PlainComplicationText.Builder(
+                        text = title
+                    )
+                        .build()
+                )
+            }
         }
-        .setTitle(
-            PlainComplicationText.Builder(
-                text = title
-            )
-                .build()
-        )
         .setTapAction(launchIntent)
         .build()
 
@@ -91,7 +93,7 @@ public object DataTemplates {
         .build()
 
     public fun ComplicationTemplate<*>.shortText(
-        title: String,
+        title: String?,
         text: String,
         @DrawableRes icon: Int?,
         launchIntent: PendingIntent?,
@@ -109,13 +111,15 @@ public object DataTemplates {
                         .build()
                 )
             }
+            if (title != null) {
+                setTitle(
+                    PlainComplicationText.Builder(
+                        text = title
+                    )
+                        .build()
+                )
+            }
         }
-        .setTitle(
-            PlainComplicationText.Builder(
-                text = title
-            )
-                .build()
-        )
         .setTapAction(launchIntent)
         .build()
 

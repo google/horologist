@@ -43,7 +43,7 @@ public class MediaStatusTemplate(
         @DrawableRes public val appIconRes: Int? = null,
         public val icon: Icon? = null,
         public val type: SmallImageType,
-        public val title: String,
+        public val title: String?,
         public val text: String,
         public val launchIntent: PendingIntent?,
         public val contentDescription: ComplicationText? = null

@@ -17,6 +17,7 @@
 package com.google.android.horologist.auth.sample.screens.googlesignin.signin
 
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -25,7 +26,7 @@ import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInVie
 
 val GoogleSignInSampleViewModelFactory: ViewModelProvider.Factory = viewModelFactory {
     initializer {
-        val application = this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY]!!
+        val application = this[APPLICATION_KEY]!!
 
         val googleSignInClient = GoogleSignIn.getClient(
             application,

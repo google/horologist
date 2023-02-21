@@ -49,11 +49,11 @@ fun StreamlineSignInSampleScreen(
     modifier: Modifier = Modifier,
     viewModel: StreamlineSignInDefaultViewModel = viewModel(factory = StreamlineSignInSampleViewModelFactory)
 ) {
-    var showSignedInConfirmationDialog by rememberSaveable { mutableStateOf(false) }
+    var showNoAccountsAvailableDialog by rememberSaveable { mutableStateOf(false) }
 
     StreamlineSignInDefaultScreen(
-        onSignedInConfirmationDialogDismissOrTimeout = navController::popBackStack,
-        onNoAccountsAvailable = { showSignedInConfirmationDialog = true },
+        onSignedInConfirmationDialogDismissOrTimeout = { navController.popBackStack() },
+        onNoAccountsAvailable = { showNoAccountsAvailableDialog = true },
         columnState = columnState,
         viewModel = viewModel
     ) {
@@ -69,7 +69,7 @@ fun StreamlineSignInSampleScreen(
         }
     }
 
-    if (showSignedInConfirmationDialog) {
+    if (showNoAccountsAvailableDialog) {
         ConfirmationDialog(
             onTimeout = navController::popBackStack
         ) {

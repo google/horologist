@@ -22,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
+import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.composables.screens.SelectAccountScreen
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
@@ -39,7 +40,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 @ExperimentalHorologistAuthUiApi
 @Composable
 public fun StreamlineSignInDefaultScreen(
-    onSignedInConfirmationDialogDismissOrTimeout: () -> Unit,
+    onSignedInConfirmationDialogDismissOrTimeout: (account: AccountUiModel) -> Unit,
     onNoAccountsAvailable: () -> Unit,
     columnState: ScalingLazyColumnState,
     viewModel: StreamlineSignInDefaultViewModel,
@@ -62,7 +63,7 @@ public fun StreamlineSignInDefaultScreen(
         is StreamlineSignInDefaultScreenState.SignedIn -> {
             val account = (state as StreamlineSignInDefaultScreenState.SignedIn).account
             SignedInConfirmationDialog(
-                onDismissOrTimeout = onSignedInConfirmationDialogDismissOrTimeout,
+                onDismissOrTimeout = { onSignedInConfirmationDialogDismissOrTimeout(account) },
                 modifier = modifier,
                 name = account.name,
                 email = account.email

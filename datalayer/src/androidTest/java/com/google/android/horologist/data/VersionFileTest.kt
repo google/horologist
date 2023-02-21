@@ -20,7 +20,6 @@ package com.google.android.horologist.data
 
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import java.io.InputStreamReader
 

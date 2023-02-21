@@ -265,8 +265,11 @@ subprojects {
             if (isLibrary) {
                 val library = extensions.getByType(LibraryExtension::class)
 
-                val resources = library.sourceSets.findByName("main")?.resources
-                resources?.srcDir(outputDirectory)
+                val resources = library.sourceSets.findByName("main")?.resources!!
+                resources.srcDir(outputDirectory)
+                if (resources.includes.isNotEmpty()) {
+                    resources.include("META-INF/*.version")
+                }
 
                 library.libraryVariants.all {
                     processJavaResourcesProvider.get().dependsOn(generateVersionFile)

@@ -16,20 +16,25 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.google.android.horologist.datalayer">
+    package="com.google.android.horologist.datalayer.phone">
 
     <uses-sdk
         android:minSdkVersion="26"
         tools:ignore="GradleOverrides" />
 
-    <!--
-    Required to be able to identify the companion with NodeClient, via calls to
-    getCompanionPackageForNode().
--->
-    <queries>
-        <intent>
-            <action android:name="com.google.android.gms.wearable.CAPABILITY_CHANGED" />
-            <data android:scheme="wear" />
-        </intent>
-    </queries>
+    <application>
+        <service
+            android:name="com.google.android.horologist.datalayer.phone.PhoneDataLayerListenerService"
+            android:exported="true"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.REQUEST_RECEIVED" />
+                <data
+                    android:host="*"
+                    android:path="/launch_app"
+                    android:scheme="wear" />
+            </intent-filter>
+        </service>
+    </application>
+
 </manifest>

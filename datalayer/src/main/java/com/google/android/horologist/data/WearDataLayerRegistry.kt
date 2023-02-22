@@ -154,7 +154,10 @@ public class WearDataLayerRegistry(
         /**
          * Create an instance looking up Wearable DataClient and NodeClient using the given context.
          */
-        fun fromContext(application: Context, coroutineScope: CoroutineScope): WearDataLayerRegistry = WearDataLayerRegistry(
+        fun fromContext(
+            application: Context,
+            coroutineScope: CoroutineScope
+        ): WearDataLayerRegistry = WearDataLayerRegistry(
             dataClient = Wearable.getDataClient(application),
             nodeClient = Wearable.getNodeClient(application),
             messageClient = Wearable.getMessageClient(application),

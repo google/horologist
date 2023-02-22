@@ -53,10 +53,11 @@ include(":media-sample-benchmark")
 include(":media-sync")
 include(":compose-tools")
 include(":paparazzi")
-include(":rubberband")
 include(":network-awareness")
 include(":datalayer")
-include("health-composables")
+include(":datalayer-watch")
+include(":datalayer-phone")
+include(":health-composables")
 
 // Enable Gradle's version catalog support
 // https://docs.gradle.org/current/userguide/platforms.html

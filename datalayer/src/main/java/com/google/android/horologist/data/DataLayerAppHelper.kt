@@ -36,7 +36,7 @@ const val TAG = "DataLayerAppHelper"
  * apps as part of the user's journey.
  */
 abstract class DataLayerAppHelper(protected val context: Context) {
-    private val installedCapabilityUri = "wear://*/$DATA_LAYER_APP_HELPER_CAPABILITY"
+    private val installedDeviceCapabilityUri = "wear://*/$CAPABILITY_DEVICE_PREFIX"
 
     // The installation of individual Tiles is tracked via Local Capabilities with this prefix.
     protected val tilePrefix = "${DATA_LAYER_APP_HELPER_CAPABILITY}_tile_"
@@ -56,14 +56,21 @@ abstract class DataLayerAppHelper(protected val context: Context) {
         val capabilities =
             capabilityClient.getAllCapabilities(CapabilityClient.FILTER_REACHABLE).await()
         val nodesToTiles = mapNodesToTiles(capabilities)
-        val installedNodes = capabilities[DATA_LAYER_APP_HELPER_CAPABILITY]?.nodes?.map { it.id } ?: setOf()
+        val installedPhoneNodes = capabilities[PHONE_CAPABILITY]?.nodes?.map { it.id } ?: setOf()
+        val installedWatchNodes = capabilities[WATCH_CAPABILITY]?.nodes?.map { it.id } ?: setOf()
+        val allInstalledNodes = installedPhoneNodes + installedWatchNodes
 
         return nearbyNodes.map {
             AppHelperNodeStatus(
                 id = it.id,
                 displayName = it.displayName,
-                isAppInstalled = installedNodes.contains(it.id),
-                installedTiles = nodesToTiles[it.id] ?: setOf()
+                isAppInstalled = allInstalledNodes.contains(it.id),
+                installedTiles = nodesToTiles[it.id] ?: setOf(),
+                nodeType = when (it.id) {
+                    in installedPhoneNodes -> AppHelperNodeType.PHONE
+                    in installedWatchNodes -> AppHelperNodeType.WATCH
+                    else -> AppHelperNodeType.UNKNOWN
+                }
             )
         }
     }
@@ -79,13 +86,13 @@ abstract class DataLayerAppHelper(protected val context: Context) {
             }
         }
         val info =
-            capabilityClient.getCapability(installedCapabilityUri, CapabilityClient.FILTER_LITERAL)
+            capabilityClient.getCapability(installedDeviceCapabilityUri, CapabilityClient.FILTER_PREFIX)
                 .await()
         trySend(info.nodes.filter { it.isNearby }.toSet())
         capabilityClient.addListener(
             listener,
-            Uri.parse(installedCapabilityUri),
-            CapabilityClient.FILTER_LITERAL
+            Uri.parse(installedDeviceCapabilityUri),
+            CapabilityClient.FILTER_PREFIX
         )
         awaitClose {
             capabilityClient.removeListener(listener)
@@ -148,6 +155,9 @@ abstract class DataLayerAppHelper(protected val context: Context) {
 
     public companion object {
         public const val DATA_LAYER_APP_HELPER_CAPABILITY: String = "data_layer_app_helper"
+        public const val CAPABILITY_DEVICE_PREFIX = "${DATA_LAYER_APP_HELPER_CAPABILITY}_device"
+        public const val PHONE_CAPABILITY = "${CAPABILITY_DEVICE_PREFIX}_phone"
+        public const val WATCH_CAPABILITY = "${CAPABILITY_DEVICE_PREFIX}_watch"
         public const val LAUNCH_APP: String = "/launch_app"
     }
 }

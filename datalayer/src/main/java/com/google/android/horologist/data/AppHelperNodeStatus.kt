@@ -24,5 +24,12 @@ public data class AppHelperNodeStatus(
     val id: String,
     val displayName: String,
     val isAppInstalled: Boolean,
+    val nodeType: AppHelperNodeType,
     val installedTiles: Set<String> = setOf()
 )
+
+public enum class AppHelperNodeType {
+    UNKNOWN,
+    WATCH,
+    PHONE
+}

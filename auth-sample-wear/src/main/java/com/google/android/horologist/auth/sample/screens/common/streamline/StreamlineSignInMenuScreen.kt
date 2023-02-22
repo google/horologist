@@ -45,17 +45,17 @@ fun StreamlineSignInMenuScreen(
                 Triple(
                     R.string.common_screens_streamline_sign_in_single_account_item,
                     Screen.StreamlineSignInSampleScreen.route,
-                    AuthUserRepositoryStreamlineImpl.Mode.SINGLE_ACCOUNT_AVAILABLE
+                    StreamlineAccountRepositoryImpl.Mode.SINGLE_ACCOUNT_AVAILABLE
                 ),
                 Triple(
                     R.string.common_screens_streamline_sign_in_multiple_accounts_item,
                     Screen.StreamlineSignInSampleScreen.route,
-                    AuthUserRepositoryStreamlineImpl.Mode.MULTIPLE_ACCOUNTS_AVAILABLE
+                    StreamlineAccountRepositoryImpl.Mode.MULTIPLE_ACCOUNTS_AVAILABLE
                 ),
                 Triple(
                     R.string.common_screens_streamline_sign_in_no_accounts_item,
                     Screen.StreamlineSignInSampleScreen.route,
-                    AuthUserRepositoryStreamlineImpl.Mode.NO_ACCOUNTS_AVAILABLE
+                    StreamlineAccountRepositoryImpl.Mode.NO_ACCOUNTS_AVAILABLE
                 )
             )
         ) {
@@ -67,7 +67,7 @@ fun StreamlineSignInMenuScreen(
                     label = stringResource(id = textId),
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {
-                        AuthUserRepositoryStreamlineImpl.mode = mode
+                        StreamlineAccountRepositoryImpl.mode = mode
                         navController.navigate(route)
                     },
                     chipType = StandardChipType.Primary

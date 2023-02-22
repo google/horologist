@@ -29,9 +29,4 @@ public interface AuthUserRepository {
      * Returns the [authenticated user][AuthUser] or null if there is no user authenticated.
      */
     public suspend fun getAuthenticated(): AuthUser?
-
-    /**
-     * Returns the available users or an empty list if there are none available.
-     */
-    public suspend fun getAvailable(): List<AuthUser> = emptyList()
 }

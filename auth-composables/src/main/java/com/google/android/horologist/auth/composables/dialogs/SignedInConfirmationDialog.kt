@@ -21,6 +21,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -36,6 +37,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.MaterialTheme
@@ -49,6 +51,7 @@ import com.google.android.horologist.base.ui.components.ConfirmationDialog
 import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import java.time.Duration
 
+public val AVATAR_SIZE: Dp = 60.dp
 private const val AVATAR_BACKGROUND_COLOR = 0xFF4ECDE6
 private const val AVATAR_TEXT_COLOR = 0xFF202124
 private const val BOTTOM_PADDING_SCREEN_PERCENTAGE = 0.094
@@ -103,7 +106,35 @@ public fun SignedInConfirmationDialog(
     )
 }
 
+/**
+ * An implementation of [SignedInConfirmationDialog] allowing full customization of the avatar
+ * displayed.
+ * The recommended avatar size is [AVATAR_SIZE].
+ */
 @ExperimentalHorologistAuthComposablesApi
+@Composable
+public fun SignedInConfirmationDialog(
+    onDismissOrTimeout: () -> Unit,
+    modifier: Modifier = Modifier,
+    name: String? = null,
+    email: String? = null,
+    avatarContent: @Composable (ColumnScope.() -> Unit),
+    duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis)
+) {
+    ConfirmationDialog(
+        onTimeout = onDismissOrTimeout,
+        modifier = modifier,
+        durationMillis = duration.toMillis()
+    ) {
+        SignedInConfirmationDialogContent(
+            modifier = modifier,
+            name = name,
+            email = email,
+            avatar = avatarContent
+        )
+    }
+}
+
 @Composable
 internal fun SignedInConfirmationDialogContent(
     modifier: Modifier = Modifier,
@@ -111,24 +142,13 @@ internal fun SignedInConfirmationDialogContent(
     email: String? = null,
     avatar: Any? = null
 ) {
-    val configuration = LocalConfiguration.current
-    val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
-    val bottomPadding = (configuration.screenHeightDp * BOTTOM_PADDING_SCREEN_PERCENTAGE).dp
+    val hasName = name != null
+    val hasAvatar = avatar != null
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(horizontal = horizontalPadding)
-            .padding(bottom = bottomPadding),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        val hasName = name != null
-        val hasAvatar = avatar != null
-
+    val avatarParam: @Composable (ColumnScope.() -> Unit) = {
         Box(
             modifier = Modifier
-                .size(60.dp)
+                .size(AVATAR_SIZE)
                 .background(color = Color(AVATAR_BACKGROUND_COLOR), shape = CircleShape),
             contentAlignment = Alignment.Center
         ) {
@@ -151,6 +171,38 @@ internal fun SignedInConfirmationDialogContent(
                 )
             }
         }
+    }
+
+    SignedInConfirmationDialogContent(
+        modifier = modifier,
+        name = name,
+        email = email,
+        avatar = avatarParam
+    )
+}
+
+@Composable
+internal fun SignedInConfirmationDialogContent(
+    modifier: Modifier = Modifier,
+    name: String? = null,
+    email: String? = null,
+    avatar: @Composable (ColumnScope.() -> Unit)
+) {
+    val configuration = LocalConfiguration.current
+    val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
+    val bottomPadding = (configuration.screenHeightDp * BOTTOM_PADDING_SCREEN_PERCENTAGE).dp
+
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(horizontal = horizontalPadding)
+            .padding(bottom = bottomPadding),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        avatar()
+
+        val hasName = name != null
 
         Text(
             text = if (hasName) {

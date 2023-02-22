@@ -14,14 +14,18 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.test.toolbox.testdoubles
+package com.google.android.horologist.auth.data.common.repository
 
-import com.google.android.horologist.auth.data.common.model.AuthUser
-import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
+import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 
-class AuthUserRepositoryStub : AuthUserRepository {
+/**
+ * A repository of generic type [accounts][T] used by the streamline sign-in use cases.
+ */
+@ExperimentalHorologistAuthDataApi
+public interface StreamlineAccountRepository<T> {
 
-    var authUser: AuthUser? = null
-
-    override suspend fun getAuthenticated(): AuthUser? = authUser
+    /**
+     * Returns the available users or an empty list if there are none available.
+     */
+    public suspend fun getAvailable(): List<T>
 }

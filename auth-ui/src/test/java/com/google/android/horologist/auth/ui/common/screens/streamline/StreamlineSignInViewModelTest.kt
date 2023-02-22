@@ -22,8 +22,9 @@ import app.cash.turbine.test
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
+import com.google.android.horologist.auth.ui.mapper.AccountUiModelMapper
 import com.google.android.horologist.test.toolbox.rules.MainDispatcherRule
-import com.google.android.horologist.test.toolbox.testdoubles.AuthUserRepositoryStub
+import com.google.android.horologist.test.toolbox.testdoubles.StreamlineAccountRepositoryStub
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -36,26 +37,29 @@ class StreamlineSignInViewModelTest {
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
-    private val fakeAuthUserRepository = AuthUserRepositoryStub()
+    private val streamlineAccountRepository = StreamlineAccountRepositoryStub<AuthUser>()
 
-    private lateinit var sut: StreamlineSignInViewModel
+    private lateinit var sut: StreamlineSignInViewModel<AuthUser, AccountUiModel>
 
     @Before
     fun setUp() {
-        sut = StreamlineSignInViewModel(fakeAuthUserRepository)
+        sut = StreamlineSignInViewModel(
+            streamlineAccountRepository = streamlineAccountRepository,
+            uiModelMapper = AccountUiModelMapper::map
+        )
     }
 
     @Test
-    fun givenInitialState_thenStateIsIdle() {
+    fun givenInitialState_thenStateIsParentStateIdle() {
         // when
         val result = sut.uiState.value
 
         // then
-        assertThat(result).isEqualTo(StreamlineSignInScreenState.Idle)
+        assertThat(result).isInstanceOf(StreamlineSignInScreenState.Idle::class.java)
     }
 
     @Test
-    fun givenInitialState_whenOnIdleStateObserved_thenStateIsLoading() = runTest {
+    fun givenInitialState_whenOnIdleStateObserved_thenStateIsParentStateLoading() = runTest {
         // when
         val whenBlock = { sut.onIdleStateObserved() }
 
@@ -65,7 +69,7 @@ class StreamlineSignInViewModelTest {
 
             whenBlock()
 
-            assertThat(awaitItem()).isEqualTo(StreamlineSignInScreenState.Loading)
+            assertThat(awaitItem()).isInstanceOf(StreamlineSignInScreenState.Loading::class.java)
 
             skipItems(1)
         }
@@ -79,7 +83,7 @@ class StreamlineSignInViewModelTest {
 
         // then
         sut.uiState.test {
-            assertThat(awaitItem()).isNotEqualTo(StreamlineSignInScreenState.Idle)
+            assertThat(awaitItem()).isNotInstanceOf(StreamlineSignInScreenState.Idle::class.java)
 
             whenBlock()
 
@@ -94,7 +98,7 @@ class StreamlineSignInViewModelTest {
 
         // then
         sut.uiState.test {
-            assertThat(awaitItem()).isEqualTo(StreamlineSignInScreenState.NoAccountsAvailable)
+            assertThat(awaitItem()).isInstanceOf(StreamlineSignInScreenState.NoAccountsAvailable::class.java)
         }
     }
 
@@ -102,7 +106,7 @@ class StreamlineSignInViewModelTest {
     fun givenSingleAccountAvailable_whenOnIdleStateObserved_thenStateIsSingleAccountAvailable() = runTest {
         // given
         val email = "user@example.com"
-        fakeAuthUserRepository.authUserList = listOf(AuthUser(email = email))
+        streamlineAccountRepository.accountList = listOf(AuthUser(email = email))
 
         // when
         sut.onIdleStateObserved()
@@ -110,29 +114,22 @@ class StreamlineSignInViewModelTest {
         // then
         sut.uiState.test {
             assertThat(awaitItem()).isEqualTo(
-                StreamlineSignInScreenState.SingleAccountAvailable(AccountUiModel(email = email))
+                StreamlineSignInScreenState.SignedIn(AccountUiModel(email = email))
             )
         }
     }
 
     @Test
-    fun givenMultipleAccountsAvailable_whenOnIdleStateObserved_thenStateIsMultipleAccountsAvailable() = runTest {
+    fun whenOnAccountSelected_thenStateIsSignedIn() = runTest {
         // given
-        val email1 = "user1@example.com"
-        val email2 = "user2@example.com"
-        fakeAuthUserRepository.authUserList =
-            listOf(AuthUser(email = email1), AuthUser(email = email2))
+        val account = AccountUiModel(email = "email@example.com")
 
         // when
-        sut.onIdleStateObserved()
+        sut.onAccountSelected(account)
 
         // then
         sut.uiState.test {
-            assertThat(awaitItem()).isEqualTo(
-                StreamlineSignInScreenState.MultipleAccountsAvailable(
-                    listOf(AccountUiModel(email = email1), AccountUiModel(email = email2))
-                )
-            )
+            assertThat(awaitItem()).isEqualTo(StreamlineSignInScreenState.SignedIn(account))
         }
     }
 }

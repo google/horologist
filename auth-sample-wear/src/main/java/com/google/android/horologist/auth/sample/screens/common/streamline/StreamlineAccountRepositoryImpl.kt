@@ -17,15 +17,13 @@
 package com.google.android.horologist.auth.sample.screens.common.streamline
 
 import com.google.android.horologist.auth.data.common.model.AuthUser
-import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
+import com.google.android.horologist.auth.data.common.repository.StreamlineAccountRepository
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 
-object AuthUserRepositoryStreamlineImpl : AuthUserRepository {
+object StreamlineAccountRepositoryImpl : StreamlineAccountRepository<AuthUser> {
 
     var mode: Mode = Mode.NO_ACCOUNTS_AVAILABLE
-
-    override suspend fun getAuthenticated(): AuthUser? = null
 
     override suspend fun getAvailable(): List<AuthUser> {
         // simulate latency in fetching the accounts

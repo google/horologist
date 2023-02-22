@@ -16,12 +16,11 @@
 
 package com.google.android.horologist.test.toolbox.testdoubles
 
-import com.google.android.horologist.auth.data.common.model.AuthUser
-import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
+import com.google.android.horologist.auth.data.common.repository.StreamlineAccountRepository
 
-class AuthUserRepositoryStub : AuthUserRepository {
+class StreamlineAccountRepositoryStub<T> : StreamlineAccountRepository<T> {
 
-    var authUser: AuthUser? = null
+    var accountList: List<T> = emptyList()
 
-    override suspend fun getAuthenticated(): AuthUser? = authUser
+    override suspend fun getAvailable(): List<T> = accountList
 }

@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.auth.composables.screens
 
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -25,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
 import com.google.android.horologist.auth.composables.R
 import com.google.android.horologist.auth.composables.model.AccountUiModel
@@ -68,6 +70,47 @@ public fun SelectAccountScreen(
                 icon = account.avatar ?: defaultAvatar,
                 largeIcon = true,
                 onClick = { onAccountClicked(index, account) },
+                chipType = StandardChipType.Secondary
+            )
+        }
+    }
+}
+
+/**
+ * An implementation of [SelectAccountScreen] allowing full customization of the avatar displayed
+ * and any type for the account.
+ * The recommended avatar size is [ChipDefaults.LargeIconSize].
+ */
+@ExperimentalHorologistAuthComposablesApi
+@Composable
+public fun <T> SelectAccountScreen(
+    accounts: List<T>,
+    label: (account: T) -> String,
+    avatarContent: @Composable (BoxScope.(account: T) -> Unit),
+    onAccountClicked: (index: Int, account: T) -> Unit,
+    columnState: ScalingLazyColumnState,
+    modifier: Modifier = Modifier,
+    title: String = stringResource(id = R.string.horologist_select_account_title)
+) {
+    val configuration = LocalConfiguration.current
+    val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
+
+    ScalingLazyColumn(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(horizontal = horizontalPadding),
+        columnState = columnState
+    ) {
+        item { Title(text = title, modifier = Modifier.padding(bottom = 8.dp)) }
+
+        items(accounts.size) { index ->
+            val account = accounts[index]
+
+            StandardChip(
+                label = label(account),
+                onClick = { onAccountClicked(index, account) },
+                secondaryLabel = null,
+                icon = { avatarContent(account) },
                 chipType = StandardChipType.Secondary
             )
         }

@@ -17,6 +17,7 @@
 package com.google.android.horologist.auth.ui.googlesignin.mapper
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
 
@@ -29,6 +30,7 @@ public object AccountUiModelMapper {
     /**
      * Maps from a [GoogleSignInAccount].
      */
+    @OptIn(ExperimentalHorologistAuthComposablesApi::class)
     public fun map(
         account: GoogleSignInAccount,
         defaultEmail: String = ""

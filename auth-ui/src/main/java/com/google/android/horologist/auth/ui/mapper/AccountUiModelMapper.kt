@@ -30,7 +30,7 @@ public object AccountUiModelMapper {
     /**
      * Maps from a [AuthUser].
      */
-    @OptIn(ExperimentalHorologistAuthComposablesApi::class) // lint is complaining
+    @OptIn(ExperimentalHorologistAuthComposablesApi::class)
     public fun map(authUser: AuthUser, defaultEmail: String = ""): AccountUiModel = AccountUiModel(
         email = authUser.email ?: defaultEmail,
         name = authUser.displayName,

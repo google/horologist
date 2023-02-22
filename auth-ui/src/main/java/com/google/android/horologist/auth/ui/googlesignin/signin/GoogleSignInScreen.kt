@@ -155,9 +155,7 @@ public fun GoogleSignInScreen(
         SignedInConfirmationDialog(
             onDismissOrTimeout = { onAuthSucceed() },
             modifier = modifier,
-            name = successState.displayName,
-            email = successState.email,
-            avatar = successState.photoUrl
+            accountUiModel = successState.accountUiModel
         )
     }
 }

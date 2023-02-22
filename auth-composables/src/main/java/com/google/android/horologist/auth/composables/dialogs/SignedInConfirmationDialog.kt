@@ -44,6 +44,7 @@ import androidx.wear.compose.material.dialog.DialogDefaults
 import coil.compose.rememberAsyncImagePainter
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
 import com.google.android.horologist.auth.composables.R
+import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.base.ui.components.ConfirmationDialog
 import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import java.time.Duration
@@ -73,18 +74,40 @@ public fun SignedInConfirmationDialog(
     ) {
         SignedInConfirmationDialogContent(
             modifier = modifier,
-            displayName = name,
+            name = name,
             email = email,
             avatar = avatar
         )
     }
 }
 
+/**
+ * A [SignedInConfirmationDialog] that can display the name, email and avatar image of an
+ * [AccountUiModel].
+ */
+@ExperimentalHorologistAuthComposablesApi
+@Composable
+public fun SignedInConfirmationDialog(
+    onDismissOrTimeout: () -> Unit,
+    modifier: Modifier = Modifier,
+    accountUiModel: AccountUiModel,
+    duration: Duration = Duration.ofMillis(DialogDefaults.ShortDurationMillis)
+) {
+    SignedInConfirmationDialog(
+        onDismissOrTimeout = onDismissOrTimeout,
+        modifier = modifier,
+        name = accountUiModel.name,
+        email = accountUiModel.email,
+        avatar = accountUiModel.avatar,
+        duration = duration
+    )
+}
+
 @ExperimentalHorologistAuthComposablesApi
 @Composable
 internal fun SignedInConfirmationDialogContent(
     modifier: Modifier = Modifier,
-    displayName: String? = null,
+    name: String? = null,
     email: String? = null,
     avatar: Any? = null
 ) {
@@ -100,7 +123,7 @@ internal fun SignedInConfirmationDialogContent(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val hasName = displayName != null
+        val hasName = name != null
         val hasAvatar = avatar != null
 
         Box(
@@ -118,7 +141,7 @@ internal fun SignedInConfirmationDialogContent(
                 )
             } else if (hasName) {
                 Text(
-                    text = displayName!!.first().uppercase(),
+                    text = name!!.first().uppercase(),
                     modifier = Modifier
                         .align(Alignment.Center)
                         .fillMaxWidth(),
@@ -133,7 +156,7 @@ internal fun SignedInConfirmationDialogContent(
             text = if (hasName) {
                 stringResource(
                     id = R.string.horologist_signedin_confirmation_greeting,
-                    displayName!!
+                    name!!
                 )
             } else {
                 stringResource(id = R.string.horologist_signedin_confirmation_greeting_no_name)

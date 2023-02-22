@@ -147,6 +147,15 @@ package com.google.android.horologist.auth.ui.ext {
 
 }
 
+package com.google.android.horologist.auth.ui.googlesignin.mapper {
+
+  @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public final class AccountUiModelMapper {
+    method public com.google.android.horologist.auth.composables.model.AccountUiModel map(com.google.android.gms.auth.api.signin.GoogleSignInAccount account, optional String defaultEmail);
+    field public static final com.google.android.horologist.auth.ui.googlesignin.mapper.AccountUiModelMapper INSTANCE;
+  }
+
+}
+
 package com.google.android.horologist.auth.ui.googlesignin.prompt {
 
   public final class GoogleSignInPromptViewModelFactoryKt {
@@ -183,17 +192,11 @@ package com.google.android.horologist.auth.ui.googlesignin.signin {
   }
 
   public static final class GoogleSignInScreenState.Success extends com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreenState {
-    ctor public GoogleSignInScreenState.Success(String? displayName, String? email, android.net.Uri? photoUrl);
-    method public String? component1();
-    method public String? component2();
-    method public android.net.Uri? component3();
-    method public com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreenState.Success copy(String? displayName, String? email, android.net.Uri? photoUrl);
-    method public String? getDisplayName();
-    method public String? getEmail();
-    method public android.net.Uri? getPhotoUrl();
-    property public final String? displayName;
-    property public final String? email;
-    property public final android.net.Uri? photoUrl;
+    ctor public GoogleSignInScreenState.Success(com.google.android.horologist.auth.composables.model.AccountUiModel accountUiModel);
+    method public com.google.android.horologist.auth.composables.model.AccountUiModel component1();
+    method public com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreenState.Success copy(com.google.android.horologist.auth.composables.model.AccountUiModel accountUiModel);
+    method public com.google.android.horologist.auth.composables.model.AccountUiModel getAccountUiModel();
+    property public final com.google.android.horologist.auth.composables.model.AccountUiModel accountUiModel;
   }
 
   @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public class GoogleSignInViewModel extends androidx.lifecycle.ViewModel {

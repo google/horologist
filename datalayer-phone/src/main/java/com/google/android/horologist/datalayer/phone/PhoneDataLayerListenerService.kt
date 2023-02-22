@@ -16,8 +16,9 @@
 
 package com.google.android.horologist.datalayer.phone
 
+import com.google.android.horologist.data.DataLayerAppHelper
 import com.google.android.horologist.data.DataLayerAppHelperService
 
-class PhoneDataLayerListenerService : DataLayerAppHelperService() {
-    override val appHelper by lazy { PhoneDataLayerAppHelper(this) }
+public class PhoneDataLayerListenerService : DataLayerAppHelperService() {
+    public override val appHelper: DataLayerAppHelper by lazy { PhoneDataLayerAppHelper(this) }
 }

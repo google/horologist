@@ -9,8 +9,8 @@ package com.google.android.horologist.datalayer.phone {
 
   public final class PhoneDataLayerListenerService extends com.google.android.horologist.data.DataLayerAppHelperService {
     ctor public PhoneDataLayerListenerService();
-    method public com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper getAppHelper();
-    property public com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper appHelper;
+    method public com.google.android.horologist.data.DataLayerAppHelper getAppHelper();
+    property public com.google.android.horologist.data.DataLayerAppHelper appHelper;
   }
 
 }

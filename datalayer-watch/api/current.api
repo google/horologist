@@ -11,8 +11,8 @@ package com.google.android.horologist.datalayer.watch {
 
   public final class WearDataLayerListenerService extends com.google.android.horologist.data.DataLayerAppHelperService {
     ctor public WearDataLayerListenerService();
-    method public com.google.android.horologist.datalayer.watch.WearDataLayerAppHelper getAppHelper();
-    property public com.google.android.horologist.datalayer.watch.WearDataLayerAppHelper appHelper;
+    method public com.google.android.horologist.data.DataLayerAppHelper getAppHelper();
+    property public com.google.android.horologist.data.DataLayerAppHelper appHelper;
   }
 
 }

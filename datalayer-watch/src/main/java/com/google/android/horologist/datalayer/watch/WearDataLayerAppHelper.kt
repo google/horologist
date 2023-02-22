@@ -35,7 +35,7 @@ import kotlinx.coroutines.tasks.await
  * Subclass of [DataLayerAppHelper] for use on Wear devices.
  */
 @ExperimentalHorologistDataLayerApi
-class WearDataLayerAppHelper(context: Context, private val appStoreUri: String? = null) :
+public class WearDataLayerAppHelper(context: Context, private val appStoreUri: String? = null) :
     DataLayerAppHelper(context) {
     override suspend fun installOnNode(node: String) {
         if (appStoreUri != null &&

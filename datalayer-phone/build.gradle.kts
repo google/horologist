@@ -71,6 +71,15 @@ android {
     namespace = "com.google.android.horologist.datalayer.watch"
 }
 
+project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+        this.kotlinOptions {
+            freeCompilerArgs = freeCompilerArgs + "-Xexplicit-api=strict"
+        }
+    }
+}
+
 metalava {
     sourcePaths.setFrom("src/main")
     filename.set("api/current.api")

@@ -16,8 +16,9 @@
 
 package com.google.android.horologist.datalayer.watch
 
+import com.google.android.horologist.data.DataLayerAppHelper
 import com.google.android.horologist.data.DataLayerAppHelperService
 
-class WearDataLayerListenerService : DataLayerAppHelperService() {
-    override val appHelper by lazy { WearDataLayerAppHelper(this) }
+public class WearDataLayerListenerService : DataLayerAppHelperService() {
+    public override val appHelper: DataLayerAppHelper by lazy { WearDataLayerAppHelper(this) }
 }

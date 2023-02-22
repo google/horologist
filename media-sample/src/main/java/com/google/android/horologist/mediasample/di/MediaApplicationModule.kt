@@ -82,13 +82,12 @@ object MediaApplicationModule {
         appConfig: AppConfig,
         @IsEmulator isEmulator: Boolean
     ): PlaybackRules =
-        if (appConfig.playbackRules != null) {
-            appConfig.playbackRules
-        } else if (isEmulator) {
-            PlaybackRules.SpeakerAllowed
-        } else {
-            PlaybackRules.Normal
-        }
+        appConfig.playbackRules
+            ?: if (isEmulator) {
+                PlaybackRules.SpeakerAllowed
+            } else {
+                PlaybackRules.Normal
+            }
 
     @Singleton
     @Provides

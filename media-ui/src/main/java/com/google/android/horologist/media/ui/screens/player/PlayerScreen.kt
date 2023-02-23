@@ -88,10 +88,10 @@ public fun PlayerScreen(
         buttons = {
             buttons(playerUiState)
         },
-        modifier = modifier.onVolumeChangeByScroll(
-            focusRequester,
-            volumeViewModel::onVolumeChangeByScroll
-        ),
+        modifier = modifier,
+//            .onRotaryInputAccumulated(onValueChange = volumeViewModel::onVolumeChangeByScroll)
+//            .focusRequester(focusRequester)
+//            .focusable(),
         background = { background(playerUiState) }
     )
 }
@@ -200,11 +200,3 @@ public fun PlayerScreen(
         }
     }
 }
-
-private fun Modifier.onVolumeChangeByScroll(
-    focusRequester: FocusRequester,
-    onVolumeChangeByScroll: (scrollPixels: Float) -> Unit
-) =
-    onRotaryInputAccumulated(onValueChange = onVolumeChangeByScroll)
-        .focusRequester(focusRequester)
-        .focusable()

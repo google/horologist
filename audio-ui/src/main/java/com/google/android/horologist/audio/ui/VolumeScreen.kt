@@ -178,10 +178,10 @@ internal fun VolumeScreen(
     val focusRequester = rememberActiveFocusRequester()
     Scaffold(
         modifier = modifier
-            .fillMaxSize()
-            .onRotaryInputAccumulated(onValueChange = onVolumeChangeByScroll)
-            .focusRequester(focusRequester)
-            .focusable(),
+            .fillMaxSize(),
+//            .onRotaryInputAccumulated(onValueChange = onVolumeChangeByScroll)
+//            .focusRequester(focusRequester)
+//            .focusable(),
         positionIndicator = { if (showVolumeIndicator) VolumePositionIndicator(volumeState = volume, autoHide = false) }
     ) {
         val volumeState = volume()

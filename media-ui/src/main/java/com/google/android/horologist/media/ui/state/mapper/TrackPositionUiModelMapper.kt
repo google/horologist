@@ -35,7 +35,7 @@ public object TrackPositionUiModelMapper {
         val durationMs = duration?.inWholeMilliseconds
         val currentPositionMs = currentPosition?.inWholeMilliseconds
         if (event.playbackState.playerState == PlayerState.Loading) {
-            return TrackPositionUiModel.Actual.ZERO
+            return TrackPositionUiModel.Actual.LOADING
         }
         if (currentPositionMs == null || durationMs == null || durationMs <= 0) {
             return TrackPositionUiModel.Hidden

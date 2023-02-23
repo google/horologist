@@ -76,7 +76,7 @@ package com.google.android.horologist.media.ui.components {
 
   public final class PlayPauseButtonKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlayPauseButton(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseClick, boolean playing, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize, optional long backgroundColor, optional kotlin.jvm.functions.Function0<kotlin.Unit> progress);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlayPauseProgressButton(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseClick, boolean playing, com.google.android.horologist.media.ui.state.model.TrackPositionUiModel trackPositionUiModel, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize, optional long progressColour, optional long trackColor, optional long backgroundColor);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public static void PlayPauseProgressButton(kotlin.jvm.functions.Function0<kotlin.Unit> onPlayClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPauseClick, boolean playing, com.google.android.horologist.media.ui.state.model.TrackPositionUiModel trackPositionUiModel, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional androidx.wear.compose.material.ButtonColors colors, optional float iconSize, optional long tapTargetSize, optional float progressStrokeWidth, optional long progressColour, optional long trackColor, optional long backgroundColor);
   }
 
   public final class PodcastControlButtonsKt {
@@ -834,23 +834,28 @@ package com.google.android.horologist.media.ui.state.model {
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public abstract sealed class TrackPositionUiModel {
     method public abstract boolean getShouldAnimate();
     method public abstract boolean getShowProgress();
+    method public abstract boolean isLoading();
+    property public abstract boolean isLoading;
     property public abstract boolean shouldAnimate;
     property public abstract boolean showProgress;
   }
 
   public static final class TrackPositionUiModel.Actual extends com.google.android.horologist.media.ui.state.model.TrackPositionUiModel {
-    ctor public TrackPositionUiModel.Actual(float percent, long duration, long position, optional boolean shouldAnimate);
+    ctor public TrackPositionUiModel.Actual(float percent, long duration, long position, optional boolean shouldAnimate, optional boolean isLoading);
     method public float component1();
     method public long component2-UwyO8pc();
     method public long component3-UwyO8pc();
     method public boolean component4();
-    method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.Actual copy-vLdBGDU(float percent, long duration, long position, boolean shouldAnimate);
+    method public boolean component5();
+    method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.Actual copy-jKevqZI(float percent, long duration, long position, boolean shouldAnimate, boolean isLoading);
     method public long getDuration();
     method public float getPercent();
     method public long getPosition();
     method public boolean getShouldAnimate();
     method public boolean getShowProgress();
+    method public boolean isLoading();
     property public final long duration;
+    property public boolean isLoading;
     property public final float percent;
     property public final long position;
     property public boolean shouldAnimate;
@@ -859,26 +864,33 @@ package com.google.android.horologist.media.ui.state.model {
   }
 
   public static final class TrackPositionUiModel.Actual.Companion {
+    method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.Actual getLOADING();
     method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.Actual getZERO();
+    property public final com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.Actual LOADING;
     property public final com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.Actual ZERO;
   }
 
   public static final class TrackPositionUiModel.Hidden extends com.google.android.horologist.media.ui.state.model.TrackPositionUiModel {
     method public boolean getShouldAnimate();
     method public boolean getShowProgress();
+    method public boolean isLoading();
+    property public boolean isLoading;
     property public boolean shouldAnimate;
     property public boolean showProgress;
     field public static final com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.Hidden INSTANCE;
   }
 
   public static final class TrackPositionUiModel.Predictive extends com.google.android.horologist.media.ui.state.model.TrackPositionUiModel {
-    ctor public TrackPositionUiModel.Predictive(com.google.android.horologist.media.model.PositionPredictor predictor, optional boolean shouldAnimate);
+    ctor public TrackPositionUiModel.Predictive(com.google.android.horologist.media.model.PositionPredictor predictor, optional boolean shouldAnimate, optional boolean isLoading);
     method public com.google.android.horologist.media.model.PositionPredictor component1();
     method public boolean component2();
-    method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.Predictive copy(com.google.android.horologist.media.model.PositionPredictor predictor, boolean shouldAnimate);
+    method public boolean component3();
+    method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.Predictive copy(com.google.android.horologist.media.model.PositionPredictor predictor, boolean shouldAnimate, boolean isLoading);
     method public com.google.android.horologist.media.model.PositionPredictor getPredictor();
     method public boolean getShouldAnimate();
     method public boolean getShowProgress();
+    method public boolean isLoading();
+    property public boolean isLoading;
     property public final com.google.android.horologist.media.model.PositionPredictor predictor;
     property public boolean shouldAnimate;
     property public boolean showProgress;

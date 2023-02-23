@@ -16,12 +16,10 @@
 
 @file:Suppress("UnstableApiUsage")
 
-import com.google.protobuf.gradle.*
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
-    id("com.google.protobuf")
+    id("me.tylerbwong.gradle.metalava")
     kotlin("android")
 }
 
@@ -29,10 +27,8 @@ android {
     compileSdk = 33
 
     defaultConfig {
-        minSdk = 25
+        minSdk = 26
         //noinspection ExpiredTargetSdkVersion
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
@@ -72,55 +68,34 @@ android {
         baseline = file("quality/lint/lint-baseline.xml")
     }
 
-    namespace = "com.google.android.horologist.datalayer"
+    namespace = "com.google.android.horologist.datalayer.watch"
 }
 
-protobuf {
-    protoc {
-        artifact = "com.google.protobuf:protoc:3.21.4"
-    }
-    plugins {
-        id("javalite") {
-            artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
+project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+        this.kotlinOptions {
+            freeCompilerArgs = freeCompilerArgs + "-Xexplicit-api=strict"
         }
     }
-    generateProtoTasks {
-        all().forEach { task ->
-            task.builtins {
-                create("java") {
-                    option("lite")
-                }
-                create("kotlin") {
-                    option("lite")
-                }
-            }
-        }
-    }
+}
+
+metalava {
+    sourcePaths.setFrom("src/main")
+    filename.set("api/current.api")
+    reportLintsAsErrors.set(true)
 }
 
 dependencies {
+    implementation(projects.datalayer)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
 
     api(libs.playservices.wearable)
     implementation(libs.kotlinx.coroutines.playservices)
-    api(libs.androidx.datastore.preferences)
-    api(libs.androidx.datastore)
-    api(libs.protobuf.kotlin.lite)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.wear.remote.interactions)
     implementation(libs.androidx.wear.phone.interactions)
-
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.androidx.test.ext.ktx)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
-
-    androidTestImplementation(libs.compose.ui.test.junit4)
-    androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(libs.junit)
-    androidTestImplementation(libs.truth)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

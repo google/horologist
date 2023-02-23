@@ -44,7 +44,7 @@ public sealed class TrackPositionUiModel {
         override val showProgress: Boolean get() = true
 
         public companion object {
-            public val ZERO: Actual = Actual(0f, Duration.ZERO, Duration.ZERO)
+            public val ZRO: Actual = Actual(0f, Duration.ZERO, Duration.ZERO)
             public val LOADING: Actual =
                 Actual(0f, Duration.ZERO, Duration.ZERO, shouldAnimate = true, isLoading = true)
         }

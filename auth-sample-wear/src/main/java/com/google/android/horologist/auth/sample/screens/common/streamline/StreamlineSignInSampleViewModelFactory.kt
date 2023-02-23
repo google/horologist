@@ -19,10 +19,14 @@ package com.google.android.horologist.auth.sample.screens.common.streamline
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultViewModel
+import com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInViewModel
+import com.google.android.horologist.auth.ui.mapper.AccountUiModelMapper
 
 public val StreamlineSignInSampleViewModelFactory: ViewModelProvider.Factory = viewModelFactory {
     initializer {
-        StreamlineSignInDefaultViewModel(AuthUserRepositoryStreamlineImpl)
+        StreamlineSignInViewModel(
+            streamlineAccountRepository = StreamlineAccountRepositoryImpl,
+            uiModelMapper = AccountUiModelMapper::map
+        )
     }
 }

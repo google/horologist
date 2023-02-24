@@ -103,8 +103,8 @@ fun PlayPauseProgressButtonLoadingPreview() {
         onPlayClick = {},
         onPauseClick = {},
         enabled = true,
-        playing = false,
-        trackPositionUiModel = TrackPositionUiModel.Actual(0.5f, 50.seconds, 100.seconds, shouldAnimate = true, isLoading = true)
+        playing = true,
+        trackPositionUiModel = TrackPositionUiModel.Loading
     )
 }
 

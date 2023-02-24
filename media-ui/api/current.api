@@ -864,9 +864,7 @@ package com.google.android.horologist.media.ui.state.model {
   }
 
   public static final class TrackPositionUiModel.Actual.Companion {
-    method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.Actual getLOADING();
     method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.Actual getZERO();
-    property public final com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.Actual LOADING;
     property public final com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.Actual ZERO;
   }
 
@@ -878,6 +876,16 @@ package com.google.android.horologist.media.ui.state.model {
     property public boolean shouldAnimate;
     property public boolean showProgress;
     field public static final com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.Hidden INSTANCE;
+  }
+
+  public static final class TrackPositionUiModel.Loading extends com.google.android.horologist.media.ui.state.model.TrackPositionUiModel {
+    method public boolean getShouldAnimate();
+    method public boolean getShowProgress();
+    method public boolean isLoading();
+    property public boolean isLoading;
+    property public boolean shouldAnimate;
+    property public boolean showProgress;
+    field public static final com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.Loading INSTANCE;
   }
 
   public static final class TrackPositionUiModel.Predictive extends com.google.android.horologist.media.ui.state.model.TrackPositionUiModel {

@@ -104,8 +104,8 @@ class TrackPositionUiModelMapperTest {
         val result = TrackPositionUiModelMapper.map(playbackStateEvent)
 
         // then
-        assertThat(result).isInstanceOf(TrackPositionUiModel.Actual::class.java)
-        result as TrackPositionUiModel.Actual
+        assertThat(result).isInstanceOf(TrackPositionUiModel.Loading::class.java)
+        result as TrackPositionUiModel.Loading
         assertThat(result.isLoading).isTrue()
     }
 

@@ -66,7 +66,7 @@ fun PlaylistsScreenPreview() {
 fun PlaylistsScreenPreviewLoading() {
     PlaylistsScreen(
         columnState = belowTimeTextPreview(),
-        playlistsScreenState = PlaylistsScreenState.Loading(),
+        playlistsScreenState = PlaylistsScreenState.Loading,
         onPlaylistItemClick = { }
     )
 }
@@ -76,7 +76,7 @@ fun PlaylistsScreenPreviewLoading() {
 fun PlaylistsScreenPreviewFailed() {
     PlaylistsScreen(
         columnState = belowTimeTextPreview(),
-        playlistsScreenState = PlaylistsScreenState.Failed(),
+        playlistsScreenState = PlaylistsScreenState.Failed,
         onPlaylistItemClick = { }
     )
 }

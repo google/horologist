@@ -62,8 +62,8 @@ fun UampPlaylistsScreen(
             PlaylistsScreenState.Loaded(modifiedPlaylistList)
         }
 
-        is PlaylistsScreenState.Failed,
-        is PlaylistsScreenState.Loading -> uiState
+        PlaylistsScreenState.Failed,
+        PlaylistsScreenState.Loading -> uiState
     }
 
     PlaylistsScreen(
@@ -75,7 +75,7 @@ fun UampPlaylistsScreen(
     )
 
     // b/242302037 - it should stop listening to uiState emissions while dialog is presented
-    if (modifiedState is PlaylistsScreenState.Failed) {
+    if (modifiedState == PlaylistsScreenState.Failed) {
         Dialog(
             showDialog = true,
             onDismissRequest = onErrorDialogCancelClick,

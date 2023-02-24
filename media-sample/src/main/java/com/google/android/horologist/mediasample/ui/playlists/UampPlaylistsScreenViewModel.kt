@@ -40,13 +40,13 @@ class UampPlaylistsScreenViewModel @Inject constructor(
             if (it.isNotEmpty()) {
                 PlaylistsScreenState.Loaded(it.map(PlaylistUiModelMapper::map))
             } else {
-                PlaylistsScreenState.Failed()
+                PlaylistsScreenState.Failed
             }
         }.catch {
-            emit(PlaylistsScreenState.Failed())
+            emit(PlaylistsScreenState.Failed)
         }.stateIn(
             viewModelScope,
             started = SharingStarted.Eagerly,
-            initialValue = PlaylistsScreenState.Loading()
+            initialValue = PlaylistsScreenState.Loading
         )
 }

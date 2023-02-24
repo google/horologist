@@ -18,17 +18,8 @@
 
 package com.google.android.horologist.auth.composables.dialogs
 
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Face
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.wear.compose.material.Icon
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
-import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 
 @WearPreviewDevices
@@ -68,24 +59,5 @@ fun SignedInConfirmationDialogPreviewTruncation() {
     SignedInConfirmationDialogContent(
         name = "Wolfeschlegelsteinhausenbergerdorff",
         email = "wolfeschlegelsteinhausenbergerdorff@example.com"
-    )
-}
-
-@WearPreviewDevices
-@Composable
-fun SignedInConfirmationDialogPreviewCustomAvatar() {
-    SignedInConfirmationDialogContent(
-        name = "Maggie",
-        email = "maggie@example.com",
-        avatar = {
-            Icon(
-                imageVector = Icons.Default.Face,
-                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                modifier = Modifier
-                    .size(AVATAR_SIZE)
-                    .clip(CircleShape),
-                tint = Color.Yellow
-            )
-        }
     )
 }

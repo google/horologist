@@ -18,21 +18,9 @@
 
 package com.google.android.horologist.auth.composables.screens
 
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Android
-import androidx.compose.material.icons.filled.Face
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Icon
-import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi
 import com.google.android.horologist.auth.composables.model.AccountUiModel
-import com.google.android.horologist.base.ui.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 
@@ -60,37 +48,5 @@ fun SelectAccountScreenPreviewNoAvatar() {
         onAccountClicked = { _, _ -> },
         columnState = belowTimeTextPreview(),
         defaultAvatar = null
-    )
-}
-
-@WearPreviewDevices
-@Composable
-fun SelectAccountScreenPreviewCustomIcon() {
-    data class MyAccountModel(val label: String)
-
-    SelectAccountScreen(
-        accounts = listOf(
-            MyAccountModel(label = "maggie@example.com"),
-            MyAccountModel(label = "thisisaverylongemail@example.com")
-        ),
-        label = MyAccountModel::label,
-        avatarContent = { account ->
-            val icon = if (account.label.startsWith("m")) {
-                Icons.Default.Android
-            } else {
-                Icons.Default.Face
-            }
-            Icon(
-                imageVector = icon,
-                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .size(32.dp)
-                    .clip(CircleShape),
-                tint = MaterialTheme.colors.onSurfaceVariant
-            )
-        },
-        onAccountClicked = { _, _ -> },
-        columnState = belowTimeTextPreview()
     )
 }

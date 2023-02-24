@@ -44,9 +44,9 @@ import com.google.android.horologist.compose.tools.WearPreviewDevices
 @Composable
 fun SectionedListPreviewLoadingSection() {
     SectionedList {
-        downloadsSection(state = Section.State.Loading())
+        downloadsSection(state = Section.State.Loading)
 
-        favouritesSection(state = Section.State.Empty())
+        favouritesSection(state = Section.State.Empty)
     }
 }
 
@@ -56,7 +56,7 @@ fun SectionedListPreviewLoadedSection() {
     SectionedList {
         downloadsSection(state = Section.State.Loaded(downloads))
 
-        favouritesSection(state = Section.State.Failed())
+        favouritesSection(state = Section.State.Failed)
     }
 }
 
@@ -64,7 +64,7 @@ fun SectionedListPreviewLoadedSection() {
 @Composable
 fun SectionedListPreviewFailedSection() {
     SectionedList {
-        downloadsSection(state = Section.State.Failed())
+        downloadsSection(state = Section.State.Failed)
 
         favouritesSection(state = Section.State.Loaded(favourites))
     }
@@ -74,9 +74,9 @@ fun SectionedListPreviewFailedSection() {
 @Composable
 fun SectionedListPreviewEmptySection() {
     SectionedList {
-        downloadsSection(state = Section.State.Empty())
+        downloadsSection(state = Section.State.Empty)
 
-        favouritesSection(state = Section.State.Loading())
+        favouritesSection(state = Section.State.Loading)
     }
 }
 

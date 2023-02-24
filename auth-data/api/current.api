@@ -35,10 +35,7 @@ package com.google.android.horologist.auth.data.common.repository {
 
   @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface AuthUserRepository {
     method public suspend Object? getAuthenticated(kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.common.model.AuthUser>);
-  }
-
-  @com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi public interface StreamlineAccountRepository<T> {
-    method public suspend Object? getAvailable(kotlin.coroutines.Continuation<? super java.util.List<? extends T>>);
+    method public default suspend Object? getAvailable(kotlin.coroutines.Continuation<? super java.util.List<? extends com.google.android.horologist.auth.data.common.model.AuthUser>>);
   }
 
 }

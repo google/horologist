@@ -16,48 +16,75 @@
 
 package com.google.android.horologist.auth.ui.common.screens.streamline
 
-import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
-import com.google.android.horologist.auth.composables.screens.SelectAccountScreen
+import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
-import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
 /**
- * A composable to streamline the sign in process, that:
- * - displays the [SignedInConfirmationDialog] when there is a single account available;
- * - displays the [SelectAccountScreen] when there are multiple accounts available, then displays
- * the [SignedInConfirmationDialog] after the account is selected;
+ * A composable to streamline the sign in process.
+ *
+ * This composable basically expose the states emitted by [StreamlineSignInViewModel] as callbacks.
+ * If you happen to need to use this composable, consider building your own composable screen and
+ * use [StreamlineSignInViewModel] directly.
  *
  * The [content] of this composable would be displayed when the screen is in "loading" state. This
  * is an optional param, in case of no other layout is expected to be displayed while this screen is
  * loading, e.g. in the scenario where the app is already displaying the splash screen.
+ *
+ * The [viewModel] will take care of
+ * [streamlining](https://developer.android.com/training/wearables/design/sign-in#streamline) the
+ * process when the user is already signed in. [onSingleAccountAvailable] should be used to navigate
+ * away from this screen in that scenario.
+ *
+ * Suggested usage for the screen:
+ * - [onSingleAccountAvailable] should display a
+ * [signed in confirmation dialog][SignedInConfirmationDialog] or navigate the user to the main
+ * screen of your app.
+ *
+ * - [onMultipleAccountsAvailable] should navigate the user to the account selection screen.
+ *
+ * - [onNoAccountsAvailable] should navigate the user to the sign in screen.
  */
 @ExperimentalHorologistAuthUiApi
 @Composable
-public fun <DomainModel, UiModel> StreamlineSignInScreen(
-    accountName: (account: UiModel) -> String,
-    accountEmail: (account: UiModel) -> String,
-    selectAccountAvatarContent: @Composable (BoxScope.(account: UiModel) -> Unit),
-    signedInConfirmationAvatarContent: @Composable (ColumnScope.(account: UiModel) -> Unit),
-    onSignedInConfirmationDialogDismissOrTimeout: (account: UiModel) -> Unit,
+public fun StreamlineSignInScreen(
+    onSingleAccountAvailable: (account: AccountUiModel) -> Unit,
+    onMultipleAccountsAvailable: (accounts: List<AccountUiModel>) -> Unit,
     onNoAccountsAvailable: () -> Unit,
-    viewModel: StreamlineSignInViewModel<DomainModel, UiModel>,
-    columnState: ScalingLazyColumnState,
-    modifier: Modifier = Modifier,
+    viewModel: StreamlineSignInViewModel = viewModel(),
     content: @Composable () -> Unit = { }
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
+    StreamlineSignInScreen(
+        state = state,
+        onIdleStateObserved = viewModel::onIdleStateObserved,
+        onSingleAccountAvailable = onSingleAccountAvailable,
+        onMultipleAccountsAvailable = onMultipleAccountsAvailable,
+        onNoAccountsAvailable = onNoAccountsAvailable,
+        content = content
+    )
+}
+
+@OptIn(ExperimentalHorologistAuthUiApi::class)
+@Composable
+internal fun StreamlineSignInScreen(
+    state: StreamlineSignInScreenState,
+    onIdleStateObserved: () -> Unit,
+    onSingleAccountAvailable: (account: AccountUiModel) -> Unit,
+    onMultipleAccountsAvailable: (accounts: List<AccountUiModel>) -> Unit,
+    onNoAccountsAvailable: () -> Unit,
+    content: @Composable () -> Unit = { }
+) {
     when (state) {
         StreamlineSignInScreenState.Idle -> {
             SideEffect {
-                viewModel.onIdleStateObserved()
+                onIdleStateObserved()
             }
         }
 
@@ -65,65 +92,16 @@ public fun <DomainModel, UiModel> StreamlineSignInScreen(
             content()
         }
 
-        is StreamlineSignInScreenState.SignedIn -> {
-            val account = (state as StreamlineSignInScreenState.SignedIn).account
-            SignedInConfirmationDialog(
-                onDismissOrTimeout = { onSignedInConfirmationDialogDismissOrTimeout(account) },
-                modifier = modifier,
-                name = accountName(account),
-                email = accountEmail(account),
-                avatarContent = { signedInConfirmationAvatarContent(account) }
-            )
+        is StreamlineSignInScreenState.SingleAccountAvailable -> {
+            onSingleAccountAvailable(state.account)
         }
 
         is StreamlineSignInScreenState.MultipleAccountsAvailable -> {
-            val accounts =
-                (state as StreamlineSignInScreenState.MultipleAccountsAvailable).accounts
-            SelectAccountScreen(
-                accounts = accounts,
-                label = accountEmail,
-                avatarContent = selectAccountAvatarContent,
-                onAccountClicked = { _, account ->
-                    viewModel.onAccountSelected(account)
-                },
-                columnState = columnState,
-                modifier = modifier
-            )
+            onMultipleAccountsAvailable(state.accounts)
         }
 
         StreamlineSignInScreenState.NoAccountsAvailable -> {
             onNoAccountsAvailable()
         }
     }
-}
-
-/**
- * A [StreamlineSignInScreen] that uses a single model for domain and UI.
- */
-@ExperimentalHorologistAuthUiApi
-@Composable
-public fun <T> StreamlineSignInScreen(
-    accountName: (account: T) -> String,
-    accountEmail: (account: T) -> String,
-    selectAccountAvatarContent: @Composable (BoxScope.(account: T) -> Unit),
-    signedInConfirmationAvatarContent: @Composable (ColumnScope.(account: T) -> Unit),
-    onSignedInConfirmationDialogDismissOrTimeout: (account: T) -> Unit,
-    onNoAccountsAvailable: () -> Unit,
-    columnState: ScalingLazyColumnState,
-    singleModelViewModel: StreamlineSignInViewModel<T, T>,
-    modifier: Modifier = Modifier,
-    content: @Composable () -> Unit = { }
-) {
-    StreamlineSignInScreen(
-        accountName = accountName,
-        accountEmail = accountEmail,
-        selectAccountAvatarContent = selectAccountAvatarContent,
-        signedInConfirmationAvatarContent = signedInConfirmationAvatarContent,
-        onSignedInConfirmationDialogDismissOrTimeout = onSignedInConfirmationDialogDismissOrTimeout,
-        onNoAccountsAvailable = onNoAccountsAvailable,
-        viewModel = singleModelViewModel,
-        columnState = columnState,
-        modifier = modifier,
-        content = content
-    )
 }

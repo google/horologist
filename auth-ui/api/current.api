@@ -53,12 +53,54 @@ package com.google.android.horologist.auth.ui.common.screens.prompt {
 
 package com.google.android.horologist.auth.ui.common.screens.streamline {
 
-  public final class StreamlineSignInScreenKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static <DomainModel, UiModel> void StreamlineSignInScreen(kotlin.jvm.functions.Function1<? super UiModel,java.lang.String> accountName, kotlin.jvm.functions.Function1<? super UiModel,java.lang.String> accountEmail, kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.BoxScope,? super UiModel,kotlin.Unit> selectAccountAvatarContent, kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.ColumnScope,? super UiModel,kotlin.Unit> signedInConfirmationAvatarContent, kotlin.jvm.functions.Function1<? super UiModel,kotlin.Unit> onSignedInConfirmationDialogDismissOrTimeout, kotlin.jvm.functions.Function0<kotlin.Unit> onNoAccountsAvailable, com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInViewModel<DomainModel,UiModel> viewModel, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> content);
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static <T> void StreamlineSignInScreen(kotlin.jvm.functions.Function1<? super T,java.lang.String> accountName, kotlin.jvm.functions.Function1<? super T,java.lang.String> accountEmail, kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.BoxScope,? super T,kotlin.Unit> selectAccountAvatarContent, kotlin.jvm.functions.Function2<? super androidx.compose.foundation.layout.ColumnScope,? super T,kotlin.Unit> signedInConfirmationAvatarContent, kotlin.jvm.functions.Function1<? super T,kotlin.Unit> onSignedInConfirmationDialogDismissOrTimeout, kotlin.jvm.functions.Function0<kotlin.Unit> onNoAccountsAvailable, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInViewModel<T,T> singleModelViewModel, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> content);
+  public final class StreamlineSignInDefaultScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static void StreamlineSignInDefaultScreen(kotlin.jvm.functions.Function1<? super com.google.android.horologist.auth.composables.model.AccountUiModel,kotlin.Unit> onSignedInConfirmationDialogDismissOrTimeout, kotlin.jvm.functions.Function0<kotlin.Unit> onNoAccountsAvailable, com.google.android.horologist.compose.layout.ScalingLazyColumnState columnState, com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultViewModel viewModel, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> content);
   }
 
-  @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public abstract sealed class StreamlineSignInScreenState<T> {
+  @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public abstract sealed class StreamlineSignInDefaultScreenState {
+  }
+
+  public static final class StreamlineSignInDefaultScreenState.Idle extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultScreenState {
+    field public static final com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultScreenState.Idle INSTANCE;
+  }
+
+  public static final class StreamlineSignInDefaultScreenState.Loading extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultScreenState {
+    field public static final com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultScreenState.Loading INSTANCE;
+  }
+
+  public static final class StreamlineSignInDefaultScreenState.MultipleAccountsAvailable extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultScreenState {
+    ctor public StreamlineSignInDefaultScreenState.MultipleAccountsAvailable(java.util.List<com.google.android.horologist.auth.composables.model.AccountUiModel> accounts);
+    method public java.util.List<com.google.android.horologist.auth.composables.model.AccountUiModel> component1();
+    method public com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultScreenState.MultipleAccountsAvailable copy(java.util.List<com.google.android.horologist.auth.composables.model.AccountUiModel> accounts);
+    method public java.util.List<com.google.android.horologist.auth.composables.model.AccountUiModel> getAccounts();
+    property public final java.util.List<com.google.android.horologist.auth.composables.model.AccountUiModel> accounts;
+  }
+
+  public static final class StreamlineSignInDefaultScreenState.NoAccountsAvailable extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultScreenState {
+    field public static final com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultScreenState.NoAccountsAvailable INSTANCE;
+  }
+
+  public static final class StreamlineSignInDefaultScreenState.SignedIn extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultScreenState {
+    ctor public StreamlineSignInDefaultScreenState.SignedIn(com.google.android.horologist.auth.composables.model.AccountUiModel account);
+    method public com.google.android.horologist.auth.composables.model.AccountUiModel component1();
+    method public com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultScreenState.SignedIn copy(com.google.android.horologist.auth.composables.model.AccountUiModel account);
+    method public com.google.android.horologist.auth.composables.model.AccountUiModel getAccount();
+    property public final com.google.android.horologist.auth.composables.model.AccountUiModel account;
+  }
+
+  @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public final class StreamlineSignInDefaultViewModel extends androidx.lifecycle.ViewModel {
+    ctor public StreamlineSignInDefaultViewModel(com.google.android.horologist.auth.data.common.repository.AuthUserRepository authUserRepository);
+    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultScreenState> getUiState();
+    method public void onAccountSelected(com.google.android.horologist.auth.composables.model.AccountUiModel account);
+    method public void onIdleStateObserved();
+    property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultScreenState> uiState;
+  }
+
+  public final class StreamlineSignInScreenKt {
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public static void StreamlineSignInScreen(kotlin.jvm.functions.Function1<? super com.google.android.horologist.auth.composables.model.AccountUiModel,kotlin.Unit> onSingleAccountAvailable, kotlin.jvm.functions.Function1<? super java.util.List<com.google.android.horologist.auth.composables.model.AccountUiModel>,kotlin.Unit> onMultipleAccountsAvailable, kotlin.jvm.functions.Function0<kotlin.Unit> onNoAccountsAvailable, optional com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInViewModel viewModel, optional kotlin.jvm.functions.Function0<kotlin.Unit> content);
+  }
+
+  @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public abstract sealed class StreamlineSignInScreenState {
   }
 
   public static final class StreamlineSignInScreenState.Idle extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState {
@@ -69,37 +111,31 @@ package com.google.android.horologist.auth.ui.common.screens.streamline {
     field public static final com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState.Loading INSTANCE;
   }
 
-  public static final class StreamlineSignInScreenState.MultipleAccountsAvailable<T> extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState<T> {
-    ctor public StreamlineSignInScreenState.MultipleAccountsAvailable(java.util.List<? extends T> accounts);
-    method public java.util.List<T> component1();
-    method public com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState.MultipleAccountsAvailable<T> copy(java.util.List<? extends T> accounts);
-    method public java.util.List<T> getAccounts();
-    property public final java.util.List<T> accounts;
+  public static final class StreamlineSignInScreenState.MultipleAccountsAvailable extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState {
+    ctor public StreamlineSignInScreenState.MultipleAccountsAvailable(java.util.List<com.google.android.horologist.auth.composables.model.AccountUiModel> accounts);
+    method public java.util.List<com.google.android.horologist.auth.composables.model.AccountUiModel> component1();
+    method public com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState.MultipleAccountsAvailable copy(java.util.List<com.google.android.horologist.auth.composables.model.AccountUiModel> accounts);
+    method public java.util.List<com.google.android.horologist.auth.composables.model.AccountUiModel> getAccounts();
+    property public final java.util.List<com.google.android.horologist.auth.composables.model.AccountUiModel> accounts;
   }
 
   public static final class StreamlineSignInScreenState.NoAccountsAvailable extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState {
     field public static final com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState.NoAccountsAvailable INSTANCE;
   }
 
-  public static final class StreamlineSignInScreenState.SignedIn<T> extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState<T> {
-    ctor public StreamlineSignInScreenState.SignedIn(T? account);
-    method public T! component1();
-    method public com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState.SignedIn<T> copy(T! account);
-    method public T! getAccount();
-    property public final T! account;
+  public static final class StreamlineSignInScreenState.SingleAccountAvailable extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState {
+    ctor public StreamlineSignInScreenState.SingleAccountAvailable(com.google.android.horologist.auth.composables.model.AccountUiModel account);
+    method public com.google.android.horologist.auth.composables.model.AccountUiModel component1();
+    method public com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState.SingleAccountAvailable copy(com.google.android.horologist.auth.composables.model.AccountUiModel account);
+    method public com.google.android.horologist.auth.composables.model.AccountUiModel getAccount();
+    property public final com.google.android.horologist.auth.composables.model.AccountUiModel account;
   }
 
-  @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public final class StreamlineSignInViewModel<DomainModel, UiModel> extends androidx.lifecycle.ViewModel {
-    ctor public StreamlineSignInViewModel(com.google.android.horologist.auth.data.common.repository.StreamlineAccountRepository<DomainModel> streamlineAccountRepository, kotlin.jvm.functions.Function1<? super DomainModel,? extends UiModel> uiModelMapper);
-    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState<UiModel>> getUiState();
-    method public void onAccountSelected(UiModel? account);
-    method public void onIdleStateObserved();
-    property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState<UiModel>> uiState;
-    field public static final com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInViewModel.Companion Companion;
-  }
-
-  public static final class StreamlineSignInViewModel.Companion {
-    method public <T> com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInViewModel<T,T> createForSingleModel(com.google.android.horologist.auth.data.common.repository.StreamlineAccountRepository<T> streamlineAccountRepository);
+  @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public class StreamlineSignInViewModel extends androidx.lifecycle.ViewModel {
+    ctor public StreamlineSignInViewModel(com.google.android.horologist.auth.data.common.repository.AuthUserRepository authUserRepository);
+    method public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState> getUiState();
+    method public final void onIdleStateObserved();
+    property public final kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState> uiState;
   }
 
 }

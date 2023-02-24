@@ -55,7 +55,7 @@ class StreamlineSignInViewModelTest {
         val result = sut.uiState.value
 
         // then
-        assertThat(result).isInstanceOf(StreamlineSignInScreenState.Idle::class.java)
+        assertThat(result).isEqualTo(StreamlineSignInScreenState.Idle)
     }
 
     @Test
@@ -69,7 +69,7 @@ class StreamlineSignInViewModelTest {
 
             whenBlock()
 
-            assertThat(awaitItem()).isInstanceOf(StreamlineSignInScreenState.Loading::class.java)
+            assertThat(awaitItem()).isEqualTo(StreamlineSignInScreenState.Loading)
 
             skipItems(1)
         }
@@ -83,7 +83,7 @@ class StreamlineSignInViewModelTest {
 
         // then
         sut.uiState.test {
-            assertThat(awaitItem()).isNotInstanceOf(StreamlineSignInScreenState.Idle::class.java)
+            assertThat(awaitItem()).isNotEqualTo(StreamlineSignInScreenState.Idle)
 
             whenBlock()
 
@@ -98,7 +98,7 @@ class StreamlineSignInViewModelTest {
 
         // then
         sut.uiState.test {
-            assertThat(awaitItem()).isInstanceOf(StreamlineSignInScreenState.NoAccountsAvailable::class.java)
+            assertThat(awaitItem()).isEqualTo(StreamlineSignInScreenState.NoAccountsAvailable)
         }
     }
 

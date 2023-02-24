@@ -37,9 +37,8 @@ public class StreamlineSignInViewModel<DomainModel, UiModel>(
     private val uiModelMapper: (DomainModel) -> UiModel
 ) : ViewModel() {
 
-    private val idleState = StreamlineSignInScreenState.Idle<UiModel>()
-
-    private val _uiState = MutableStateFlow<StreamlineSignInScreenState<UiModel>>(idleState)
+    private val _uiState =
+        MutableStateFlow<StreamlineSignInScreenState<UiModel>>(StreamlineSignInScreenState.Idle)
     public val uiState: StateFlow<StreamlineSignInScreenState<UiModel>> = _uiState
 
     /**
@@ -48,15 +47,15 @@ public class StreamlineSignInViewModel<DomainModel, UiModel>(
      */
     public fun onIdleStateObserved() {
         _uiState.compareAndSet(
-            expect = idleState,
-            update = StreamlineSignInScreenState.Loading()
+            expect = StreamlineSignInScreenState.Idle,
+            update = StreamlineSignInScreenState.Loading
         ) {
             viewModelScope.launch {
                 val accounts = streamlineAccountRepository.getAvailable()
 
                 when {
                     accounts.isEmpty() -> {
-                        _uiState.value = StreamlineSignInScreenState.NoAccountsAvailable()
+                        _uiState.value = StreamlineSignInScreenState.NoAccountsAvailable
                     }
 
                     accounts.size == 1 -> {
@@ -98,16 +97,16 @@ public class StreamlineSignInViewModel<DomainModel, UiModel>(
 }
 
 @ExperimentalHorologistAuthUiApi
-public sealed class StreamlineSignInScreenState<T> {
+public sealed class StreamlineSignInScreenState<out T> {
 
-    public class Idle<T> : StreamlineSignInScreenState<T>()
+    public object Idle : StreamlineSignInScreenState<Nothing>()
 
-    public class Loading<T> : StreamlineSignInScreenState<T>()
+    public object Loading : StreamlineSignInScreenState<Nothing>()
 
     public data class SignedIn<T>(val account: T) : StreamlineSignInScreenState<T>()
 
     public data class MultipleAccountsAvailable<T>(val accounts: List<T>) :
         StreamlineSignInScreenState<T>()
 
-    public class NoAccountsAvailable<T> : StreamlineSignInScreenState<T>()
+    public object NoAccountsAvailable : StreamlineSignInScreenState<Nothing>()
 }

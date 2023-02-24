@@ -55,13 +55,13 @@ public fun <DomainModel, UiModel> StreamlineSignInScreen(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (state) {
-        is StreamlineSignInScreenState.Idle -> {
+        StreamlineSignInScreenState.Idle -> {
             SideEffect {
                 viewModel.onIdleStateObserved()
             }
         }
 
-        is StreamlineSignInScreenState.Loading -> {
+        StreamlineSignInScreenState.Loading -> {
             content()
         }
 
@@ -91,7 +91,7 @@ public fun <DomainModel, UiModel> StreamlineSignInScreen(
             )
         }
 
-        is StreamlineSignInScreenState.NoAccountsAvailable -> {
+        StreamlineSignInScreenState.NoAccountsAvailable -> {
             onNoAccountsAvailable()
         }
     }

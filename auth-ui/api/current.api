@@ -61,12 +61,12 @@ package com.google.android.horologist.auth.ui.common.screens.streamline {
   @com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi public abstract sealed class StreamlineSignInScreenState<T> {
   }
 
-  public static final class StreamlineSignInScreenState.Idle<T> extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState<T> {
-    ctor public StreamlineSignInScreenState.Idle();
+  public static final class StreamlineSignInScreenState.Idle extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState {
+    field public static final com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState.Idle INSTANCE;
   }
 
-  public static final class StreamlineSignInScreenState.Loading<T> extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState<T> {
-    ctor public StreamlineSignInScreenState.Loading();
+  public static final class StreamlineSignInScreenState.Loading extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState {
+    field public static final com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState.Loading INSTANCE;
   }
 
   public static final class StreamlineSignInScreenState.MultipleAccountsAvailable<T> extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState<T> {
@@ -77,8 +77,8 @@ package com.google.android.horologist.auth.ui.common.screens.streamline {
     property public final java.util.List<T> accounts;
   }
 
-  public static final class StreamlineSignInScreenState.NoAccountsAvailable<T> extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState<T> {
-    ctor public StreamlineSignInScreenState.NoAccountsAvailable();
+  public static final class StreamlineSignInScreenState.NoAccountsAvailable extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState {
+    field public static final com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState.NoAccountsAvailable INSTANCE;
   }
 
   public static final class StreamlineSignInScreenState.SignedIn<T> extends com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInScreenState<T> {

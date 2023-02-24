@@ -23,18 +23,12 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.wear.compose.foundation.RequestFocusWhenActive
 
-internal fun Modifier.rotaryVolumeControls(
+public fun Modifier.rotaryVolumeControls(
     focusRequester: FocusRequester,
-    onVolumeUp: () -> Unit,
-    onVolumeDown: () -> Unit
-) = composed {
+    onRotaryVolumeInput: (Float) -> Unit
+): Modifier = composed {
     RequestFocusWhenActive(focusRequester)
-    onRotaryInputAccumulated { pixels ->
-        when {
-            pixels > 0 -> onVolumeUp()
-            pixels < 0 -> onVolumeDown()
-        }
-        }
+    onRotaryInputAccumulated(onValueChange = onRotaryVolumeInput)
         .focusRequester(focusRequester)
         .focusable()
 }

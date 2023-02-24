@@ -17,8 +17,7 @@
 package com.google.android.horologist.audio.ui
 
 import android.media.AudioManager
-import androidx.compose.foundation.focusable
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -28,7 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -37,7 +36,6 @@ import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.InlineSlider
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Stepper
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.audio.AudioOutput
@@ -45,7 +43,7 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.components.DeviceChip
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
-import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
+import com.google.android.horologist.compose.rotaryinput.rotaryVolumeControls
 
 /**
  * Volume Screen with an [InlineSlider] and Increase/Decrease buttons for the Audio Stream Volume.
@@ -175,14 +173,12 @@ internal fun VolumeScreen(
     showVolumeIndicator: Boolean = true,
     onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)
 ) {
-    val focusRequester = rememberActiveFocusRequester()
-    Scaffold(
-        modifier = modifier
-            .fillMaxSize(),
-//            .onRotaryInputAccumulated(onValueChange = onVolumeChangeByScroll)
-//            .focusRequester(focusRequester)
-//            .focusable(),
-        positionIndicator = { if (showVolumeIndicator) VolumePositionIndicator(volumeState = volume, autoHide = false) }
+    val focusRequester: FocusRequester = rememberActiveFocusRequester()
+    Box(
+        modifier = modifier.rotaryVolumeControls(
+            focusRequester,
+            onRotaryVolumeInput = onVolumeChangeByScroll
+        )
     ) {
         val volumeState = volume()
         Stepper(
@@ -198,6 +194,13 @@ internal fun VolumeScreen(
             }
         ) {
             contentSlot()
+        }
+
+        if (showVolumeIndicator) {
+            VolumePositionIndicator(
+                volumeState = volume,
+                autoHide = false
+            )
         }
     }
 }

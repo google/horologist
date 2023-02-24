@@ -18,7 +18,6 @@
 
 package com.google.android.horologist.media.ui.screens.player
 
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -43,7 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import com.google.android.horologist.audio.ui.VolumeViewModel
-import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
+import com.google.android.horologist.compose.rotaryinput.rotaryVolumeControls
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.MediaInfoDisplay
@@ -88,10 +87,10 @@ public fun PlayerScreen(
         buttons = {
             buttons(playerUiState)
         },
-        modifier = modifier,
-//            .onRotaryInputAccumulated(onValueChange = volumeViewModel::onVolumeChangeByScroll)
-//            .focusRequester(focusRequester)
-//            .focusable(),
+        modifier = modifier.rotaryVolumeControls(
+            focusRequester,
+            volumeViewModel::onVolumeChangeByScroll
+        ),
         background = { background(playerUiState) }
     )
 }

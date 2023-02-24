@@ -403,6 +403,10 @@ package com.google.android.horologist.compose.rotaryinput {
     property public final float velocity;
   }
 
+  public final class RotaryVolumeControlsKt {
+    method public static androidx.compose.ui.Modifier rotaryVolumeControls(androidx.compose.ui.Modifier, androidx.compose.ui.focus.FocusRequester focusRequester, kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit> onRotaryVolumeInput);
+  }
+
   @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public final class ScalingLazyColumnRotaryScrollAdapter implements com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter {
     ctor public ScalingLazyColumnRotaryScrollAdapter(androidx.wear.compose.foundation.lazy.ScalingLazyListState scrollableState);
     method public float averageItemSize();

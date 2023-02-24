@@ -45,9 +45,16 @@ public sealed class TrackPositionUiModel {
 
         public companion object {
             public val ZERO: Actual = Actual(0f, Duration.ZERO, Duration.ZERO)
-            public val LOADING: Actual =
-                Actual(0f, Duration.ZERO, Duration.ZERO, shouldAnimate = true, isLoading = true)
         }
+    }
+
+    public object Loading : TrackPositionUiModel() {
+        override val showProgress: Boolean
+            get() = true
+        override val shouldAnimate: Boolean
+            get() = true
+        override val isLoading: Boolean
+            get() = true
     }
 
     public object Hidden : TrackPositionUiModel() {

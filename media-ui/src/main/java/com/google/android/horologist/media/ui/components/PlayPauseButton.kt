@@ -107,32 +107,29 @@ public fun PlayPauseProgressButton(
         onPlayClick = onPlayClick,
         onPauseClick = onPauseClick,
         enabled = enabled,
-        playing = if (trackPositionUiModel.isLoading) true else playing,
+        playing = playing,
         modifier = modifier,
         colors = colors,
         iconSize = iconSize,
         tapTargetSize = tapTargetSize,
         backgroundColor = backgroundColor
     ) {
-        if (trackPositionUiModel.showProgress) {
-            if (trackPositionUiModel.isLoading) {
-                CircularProgressIndicator(
-                    modifier = Modifier.fillMaxSize(),
-                    indicatorColor = progressColour,
-                    trackColor = trackColor,
-                    strokeWidth = progressStrokeWidth
-                )
-            } else {
-                val progress by ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
-
-                CircularProgressIndicator(
-                    modifier = Modifier.fillMaxSize(),
-                    progress = progress,
-                    indicatorColor = progressColour,
-                    trackColor = trackColor,
-                    strokeWidth = progressStrokeWidth
-                )
-            }
+        val progress by ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
+        if (trackPositionUiModel.showProgress && trackPositionUiModel.isLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier.fillMaxSize(),
+                indicatorColor = progressColour,
+                trackColor = trackColor,
+                strokeWidth = progressStrokeWidth
+            )
+        } else if (trackPositionUiModel.showProgress) {
+            CircularProgressIndicator(
+                modifier = Modifier.fillMaxSize(),
+                progress = progress,
+                indicatorColor = progressColour,
+                trackColor = trackColor,
+                strokeWidth = progressStrokeWidth
+            )
         }
     }
 }

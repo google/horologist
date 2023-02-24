@@ -66,9 +66,9 @@ class SectionedListTest {
 
             SectionedListPreview(columnState.state) {
                 SectionedList(columnState = columnState) {
-                    downloadsSection(state = Section.State.Loading())
+                    downloadsSection(state = Section.State.Loading)
 
-                    favouritesSection(state = Section.State.Empty())
+                    favouritesSection(state = Section.State.Empty)
                 }
             }
         }
@@ -83,7 +83,7 @@ class SectionedListTest {
                 SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Loaded(downloads))
 
-                    favouritesSection(state = Section.State.Failed())
+                    favouritesSection(state = Section.State.Failed)
                 }
             }
         }
@@ -98,7 +98,7 @@ class SectionedListTest {
                 SectionedList(columnState = columnState) {
                     downloadsSection(state = Section.State.Loaded(downloads))
 
-                    favouritesSection(state = Section.State.Failed())
+                    favouritesSection(state = Section.State.Failed)
                 }
             }
         }
@@ -111,7 +111,7 @@ class SectionedListTest {
 
             SectionedListPreview(columnState.state) {
                 SectionedList(columnState = columnState) {
-                    downloadsSection(state = Section.State.Failed())
+                    downloadsSection(state = Section.State.Failed)
 
                     favouritesSection(state = Section.State.Loaded(favourites))
                 }
@@ -126,7 +126,7 @@ class SectionedListTest {
 
             SectionedListPreview(columnState.state) {
                 SectionedList(columnState = columnState) {
-                    downloadsSection(state = Section.State.Failed())
+                    downloadsSection(state = Section.State.Failed)
 
                     favouritesSection(state = Section.State.Loaded(favourites))
                 }
@@ -141,9 +141,9 @@ class SectionedListTest {
 
             SectionedListPreview(columnState.state) {
                 SectionedList(columnState = columnState) {
-                    downloadsSection(state = Section.State.Empty())
+                    downloadsSection(state = Section.State.Empty)
 
-                    favouritesSection(state = Section.State.Loading())
+                    favouritesSection(state = Section.State.Loading)
                 }
             }
         }

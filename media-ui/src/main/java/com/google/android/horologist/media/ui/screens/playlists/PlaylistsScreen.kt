@@ -70,8 +70,8 @@ public fun <T> PlaylistsScreen(
                 Section.State.Loaded(playlistsScreenState.playlistList)
             }
 
-            is PlaylistsScreenState.Failed -> Section.State.Failed()
-            is PlaylistsScreenState.Loading -> Section.State.Loading()
+            is PlaylistsScreenState.Failed -> Section.State.Failed
+            is PlaylistsScreenState.Loading -> Section.State.Loading
         }
 
         section(state = sectionState) {

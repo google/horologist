@@ -334,9 +334,9 @@ package com.google.android.horologist.media.ui.screens.browse {
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class BrowseScreenScope {
     ctor public BrowseScreenScope();
     method public void button(com.google.android.horologist.media.ui.screens.browse.BrowseScreenPlaylistsSectionButton button);
-    method public <T> void downloadsSection(com.google.android.horologist.composables.Section.State<T> state, optional boolean displayFooterOnlyOnLoadedState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.screens.browse.BrowseScreenSectionScope<T>,kotlin.Unit> content);
+    method public <T> void downloadsSection(com.google.android.horologist.composables.Section.State<? extends T> state, optional boolean displayFooterOnlyOnLoadedState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.screens.browse.BrowseScreenSectionScope<T>,kotlin.Unit> content);
     method public void playlistsSection(java.util.List<com.google.android.horologist.media.ui.screens.browse.BrowseScreenPlaylistsSectionButton> buttons);
-    method public <T> void section(com.google.android.horologist.composables.Section.State<T> state, @StringRes int titleId, @StringRes int emptyMessageId, optional @StringRes Integer? failedMessageId, optional boolean displayFooterOnlyOnLoadedState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.screens.browse.BrowseScreenSectionScope<T>,kotlin.Unit> content);
+    method public <T> void section(com.google.android.horologist.composables.Section.State<? extends T> state, @StringRes int titleId, @StringRes int emptyMessageId, optional @StringRes Integer? failedMessageId, optional boolean displayFooterOnlyOnLoadedState, kotlin.jvm.functions.Function1<? super com.google.android.horologist.media.ui.screens.browse.BrowseScreenSectionScope<T>,kotlin.Unit> content);
   }
 
   @com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi public final class BrowseScreenSectionScope<T> {

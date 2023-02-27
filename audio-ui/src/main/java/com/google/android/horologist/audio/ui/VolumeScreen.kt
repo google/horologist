@@ -29,7 +29,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -70,16 +69,16 @@ public fun VolumeScreen(
 ) {
     val volumeState by volumeViewModel.volumeState.collectAsState()
     val audioOutput by volumeViewModel.audioOutput.collectAsState()
+    val focusRequester: FocusRequester = rememberActiveFocusRequester()
 
     VolumeScreen(
-        modifier = modifier,
+        modifier = modifier.rotaryControls(focusRequester, volumeViewModel::onVolumeChangeByScroll),
         volume = { volumeState },
         audioOutputUi = audioOutput.toAudioOutputUi(),
         increaseVolume = { volumeViewModel.increaseVolume() },
         decreaseVolume = { volumeViewModel.decreaseVolume() },
         onAudioOutputClick = { volumeViewModel.launchOutputSelection() },
         showVolumeIndicator = showVolumeIndicator,
-        onVolumeChangeByScroll = volumeViewModel::onVolumeChangeByScroll,
         increaseIcon = increaseIcon,
         decreaseIcon = decreaseIcon
     )
@@ -98,8 +97,7 @@ public fun VolumeScreen(
     modifier: Modifier = Modifier,
     increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
-    showVolumeIndicator: Boolean = true,
-    onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)? = null
+    showVolumeIndicator: Boolean = true
 ) {
     VolumeScreen(
         volume = volume,
@@ -124,8 +122,7 @@ public fun VolumeScreen(
         modifier = modifier,
         increaseIcon = increaseIcon,
         decreaseIcon = decreaseIcon,
-        showVolumeIndicator = showVolumeIndicator,
-        onVolumeChangeByScroll = onVolumeChangeByScroll
+        showVolumeIndicator = showVolumeIndicator
     )
 }
 
@@ -140,8 +137,7 @@ public fun VolumeWithLabelScreen(
     modifier: Modifier = Modifier,
     increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
-    showVolumeIndicator: Boolean = true,
-    onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)? = null
+    showVolumeIndicator: Boolean = true
 ) {
     VolumeScreen(
         volume = volume,
@@ -158,8 +154,7 @@ public fun VolumeWithLabelScreen(
         modifier = modifier,
         increaseIcon = increaseIcon,
         decreaseIcon = decreaseIcon,
-        showVolumeIndicator = showVolumeIndicator,
-        onVolumeChangeByScroll = onVolumeChangeByScroll
+        showVolumeIndicator = showVolumeIndicator
     )
 }
 
@@ -172,18 +167,9 @@ internal fun VolumeScreen(
     modifier: Modifier = Modifier,
     increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
-    showVolumeIndicator: Boolean = true,
-    onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)? = null
+    showVolumeIndicator: Boolean = true
 ) {
-    if (onVolumeChangeByScroll != null) {
-        val focusRequester: FocusRequester = rememberActiveFocusRequester()
-        Box(
-            modifier = modifier.fillMaxSize()
-                .rotaryControls(focusRequester, onVolumeChangeByScroll)
-        )
-    } else {
-        Box(modifier = modifier.fillMaxSize())
-    }
+    Box(modifier = modifier.fillMaxSize())
     val volumeState = volume()
     Stepper(
         value = volumeState.current.toFloat(),

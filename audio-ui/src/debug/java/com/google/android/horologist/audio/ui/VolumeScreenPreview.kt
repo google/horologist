@@ -54,9 +54,7 @@ fun VolumeScreenGuideWithLongText() {
                     .toAudioOutputUi(),
                 increaseVolume = { },
                 decreaseVolume = { },
-                onAudioOutputClick = {},
-                onVolumeChangeByScroll = {}
-
+                onAudioOutputClick = {}
             )
         }
     }
@@ -83,8 +81,7 @@ fun VolumeScreenPreview(
             audioOutputUi = audioOutput.toAudioOutputUi(),
             increaseVolume = { },
             decreaseVolume = { },
-            onAudioOutputClick = {},
-            onVolumeChangeByScroll = {}
+            onAudioOutputClick = {}
         )
     }
 }
@@ -112,8 +109,7 @@ fun VolumeScreenTheme(
                         .toAudioOutputUi(),
                     increaseVolume = { },
                     decreaseVolume = { },
-                    onAudioOutputClick = {},
-                    onVolumeChangeByScroll = {}
+                    onAudioOutputClick = {}
                 )
             }
         }
@@ -138,8 +134,7 @@ fun VolumeScreenWithLabel() {
             VolumeWithLabelScreen(
                 volume = { volume },
                 increaseVolume = { },
-                decreaseVolume = { },
-                onVolumeChangeByScroll = {}
+                decreaseVolume = { }
             )
         }
     }

@@ -17,7 +17,7 @@
 package com.google.android.horologist.audio.ui
 
 import android.media.AudioManager
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -36,6 +36,7 @@ import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.InlineSlider
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Stepper
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.audio.AudioOutput
@@ -43,7 +44,7 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.components.DeviceChip
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
-import com.google.android.horologist.compose.rotaryinput.rotaryVolumeControls
+import com.google.android.horologist.compose.rotaryinput.rotaryControls
 
 /**
  * Volume Screen with an [InlineSlider] and Increase/Decrease buttons for the Audio Stream Volume.
@@ -174,11 +175,18 @@ internal fun VolumeScreen(
     onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)
 ) {
     val focusRequester: FocusRequester = rememberActiveFocusRequester()
-    Box(
-        modifier = modifier.rotaryVolumeControls(
-            focusRequester,
-            onRotaryVolumeInput = onVolumeChangeByScroll
-        )
+    Scaffold(
+        modifier = modifier
+            .fillMaxSize()
+            .rotaryControls(
+                focusRequester,
+                onRotaryInput = onVolumeChangeByScroll
+            ),
+        positionIndicator = {
+            if (showVolumeIndicator) {
+                VolumePositionIndicator(volumeState = volume, autoHide = false)
+            }
+        }
     ) {
         val volumeState = volume()
         Stepper(

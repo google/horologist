@@ -324,6 +324,10 @@ package com.google.android.horologist.compose.rotaryinput {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public static com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rememberRotaryHapticFeedback(optional long throttleThresholdMs, optional kotlinx.coroutines.channels.Channel<com.google.android.horologist.compose.rotaryinput.RotaryHapticsType> hapticsChannel, optional com.google.android.horologist.compose.rotaryinput.RotaryHapticFeedback rotaryHaptics);
   }
 
+  public final class RotaryControlsKt {
+    method public static androidx.compose.ui.Modifier rotaryControls(androidx.compose.ui.Modifier, androidx.compose.ui.focus.FocusRequester focusRequester, kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit> onRotaryInput);
+  }
+
   @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public final class RotaryDefaults {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public com.google.android.horologist.compose.rotaryinput.RotaryScrollHandler rememberFlingHandler(androidx.compose.foundation.gestures.ScrollableState scrollableState, optional androidx.compose.foundation.gestures.FlingBehavior? flingBehavior, optional boolean isLowRes);
     method @androidx.compose.runtime.Composable @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public com.google.android.horologist.compose.rotaryinput.RotaryScrollHandler rememberSnapHandler(com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter rotaryScrollAdapter, optional com.google.android.horologist.compose.rotaryinput.SnapParameters snapParameters);
@@ -401,10 +405,6 @@ package com.google.android.horologist.compose.rotaryinput {
     method public void move(long currentTime, float delta);
     method public void start(long currentTime);
     property public final float velocity;
-  }
-
-  public final class RotaryVolumeControlsKt {
-    method public static androidx.compose.ui.Modifier rotaryVolumeControls(androidx.compose.ui.Modifier, androidx.compose.ui.focus.FocusRequester focusRequester, kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit> onRotaryVolumeInput);
   }
 
   @com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi public final class ScalingLazyColumnRotaryScrollAdapter implements com.google.android.horologist.compose.rotaryinput.RotaryScrollAdapter {

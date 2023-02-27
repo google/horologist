@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("UnstableApiUsage")
+
 import com.google.protobuf.gradle.id
 
 plugins {
@@ -71,7 +73,6 @@ android {
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi",
             "-opt-in=androidx.wear.compose.material.ExperimentalWearMaterialApi",
-            "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
             "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi",
             "-opt-in=com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi",
             "-opt-in=com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi",
@@ -188,4 +189,13 @@ dependencies {
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.ext.ktx)
+
+    constraints {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
+            because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
+        }
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0") {
+            because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
+        }
+    }
 }

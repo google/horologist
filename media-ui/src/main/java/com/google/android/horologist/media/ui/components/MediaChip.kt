@@ -55,7 +55,7 @@ public fun MediaChip(
     val title = media.title
 
     MediaChip(
-        title = title ?: defaultTitle,
+        title = title.takeIf { it.isNotEmpty() } ?: defaultTitle,
         artworkUri = artworkUri,
         onClick = onClick,
         modifier = modifier,

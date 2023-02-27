@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("UnstableApiUsage")
+
 plugins {
     id("com.android.application")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
@@ -74,6 +76,7 @@ android {
             "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi",
             "-opt-in=com.google.android.horologist.composables.ExperimentalHorologistComposablesApi",
             "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi",
+            "-opt-in=com.google.android.horologist.data.ExperimentalHorologistDataLayerApi",
         )
     }
 
@@ -87,16 +90,20 @@ android {
 dependencies {
     implementation(projects.authComposables)
     implementation(projects.authData)
+    implementation(projects.authSampleShared)
     implementation(projects.authUi)
     implementation(projects.baseUi)
     implementation(projects.composables)
     implementation(projects.composeLayout)
+    implementation(projects.datalayer)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.wear)
     implementation(libs.compose.foundation.foundation)
+    implementation(libs.compose.material.iconscore)
+    implementation(libs.compose.material.iconsext)
     implementation(libs.compose.ui.toolingpreview)
     implementation(libs.kotlin.stdlib)
     implementation(libs.wearcompose.material)
@@ -108,10 +115,20 @@ dependencies {
     implementation(libs.kotlinx.coroutines.playservices)
     implementation(libs.moshi.kotlin)
     implementation(libs.playservices.auth)
+    implementation(libs.playservices.wearable)
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(projects.composeTools)
     releaseCompileOnly(projects.composeTools)
+
+    constraints {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
+            because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
+        }
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0") {
+            because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
+        }
+    }
 }
 
 secrets {

@@ -14,29 +14,25 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalPagerApi::class)
+@file:OptIn(ExperimentalFoundationApi::class)
 
 package com.google.android.horologist.media.ui.screens.playerlibrarypager
 
-import androidx.compose.foundation.focusable
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusRequester
 import androidx.navigation.NavBackStackEntry
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.PagerState
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
-import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.layout.scrollAway
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.pager.PagerScreen
-import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import com.google.android.horologist.media.ui.navigation.NavigationScreens
 import java.util.concurrent.CancellationException
 
@@ -48,7 +44,6 @@ import java.util.concurrent.CancellationException
 @Composable
 public fun PlayerLibraryPagerScreen(
     pagerState: PagerState,
-    onVolumeChangeByScroll: (scrollPixels: Float) -> Unit,
     volumeState: () -> VolumeState,
     timeText: @Composable (Modifier) -> Unit,
     playerScreen: @Composable () -> Unit,
@@ -77,14 +72,7 @@ public fun PlayerLibraryPagerScreen(
     ) { page ->
         when (page) {
             0 -> {
-                val focusRequester =
-                    rememberActiveFocusRequester()
-
                 Scaffold(
-                    modifier = Modifier
-                        .onRotaryInputAccumulated(onValueChange = onVolumeChangeByScroll)
-                        .focusRequester(focusRequester)
-                        .focusable(),
                     timeText = {
                         timeText(Modifier)
                     },

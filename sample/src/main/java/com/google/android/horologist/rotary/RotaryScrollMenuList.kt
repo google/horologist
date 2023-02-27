@@ -43,20 +43,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
+import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults.scalingParams
+import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults.snapFlingBehavior
+import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
+import androidx.wear.compose.foundation.lazy.ScalingLazyListState
+import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
+import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.Card
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.CompactChip
-import androidx.wear.compose.material.ScalingLazyColumn
-import androidx.wear.compose.material.ScalingLazyColumnDefaults.scalingParams
-import androidx.wear.compose.material.ScalingLazyColumnDefaults.snapFlingBehavior
-import androidx.wear.compose.material.ScalingLazyListScope
-import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.base.ui.components.Title
 import com.google.android.horologist.composables.SectionedList
-import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.rotaryinput.rememberDisabledHaptic
 import com.google.android.horologist.compose.rotaryinput.rememberRotaryHapticFeedback
@@ -157,7 +157,6 @@ fun RotaryScrollWithFlingOrSnapScreen(
     isFling: Boolean,
     isSnap: Boolean
 ) {
-    val focusRequester = rememberActiveFocusRequester()
     var showList by remember { mutableStateOf(false) }
 
     var hapticsEnabled by remember { mutableStateOf(true) }
@@ -169,6 +168,7 @@ fun RotaryScrollWithFlingOrSnapScreen(
         val scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState()
         val rotaryHapticFeedback =
             if (hapticsEnabled) rememberRotaryHapticFeedback() else rememberDisabledHaptic()
+        val focusRequester = rememberActiveFocusRequester()
         ItemsListWithModifier(
             modifier = Modifier
                 .let {

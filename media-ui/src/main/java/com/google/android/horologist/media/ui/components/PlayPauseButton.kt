@@ -51,9 +51,17 @@ public fun PlayPauseButton(
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     iconSize: Dp = 30.dp,
     tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
+    backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
     progress: @Composable () -> Unit = {}
 ) {
-    Box(modifier = modifier.size(tapTargetSize), contentAlignment = Alignment.Center) {
+    Box(
+        modifier = modifier
+            .size(tapTargetSize)
+            .fillMaxSize()
+            .clip(CircleShape)
+            .background(backgroundColor),
+        contentAlignment = Alignment.Center
+    ) {
         progress()
 
         if (playing) {
@@ -102,23 +110,17 @@ public fun PlayPauseProgressButton(
         modifier = modifier,
         colors = colors,
         iconSize = iconSize,
-        tapTargetSize = tapTargetSize
+        tapTargetSize = tapTargetSize,
+        backgroundColor = backgroundColor
     ) {
         val progress by ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
         if (trackPositionUiModel.showProgress) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clip(CircleShape)
-                    .background(backgroundColor)
-            ) {
-                CircularProgressIndicator(
-                    modifier = Modifier.fillMaxSize(),
-                    progress = progress,
-                    indicatorColor = progressColour,
-                    trackColor = trackColor
-                )
-            }
+            CircularProgressIndicator(
+                modifier = Modifier.fillMaxSize(),
+                progress = progress,
+                indicatorColor = progressColour,
+                trackColor = trackColor
+            )
         }
     }
 }

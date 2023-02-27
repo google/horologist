@@ -134,10 +134,6 @@ class DeveloperOptionsScreenViewModel @Inject constructor(
         }
     }
 
-    fun logout() {
-        // TODO login and logout functionality
-    }
-
     fun showDialog(message: String) {
         snackbarManager.showMessage(
             UiMessage(

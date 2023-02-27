@@ -9,11 +9,11 @@ package com.google.android.horologist.base.ui {
 package com.google.android.horologist.base.ui.components {
 
   public final class AlertDialogKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi public static void AlertDialog(String body, kotlin.jvm.functions.Function0<kotlin.Unit> onCancelButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onOKButtonClick, boolean showDialog, androidx.wear.compose.material.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional String title, optional String okButtonContentDescription, optional String cancelButtonContentDescription);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi public static void AlertDialog(String body, kotlin.jvm.functions.Function0<kotlin.Unit> onCancelButtonClick, kotlin.jvm.functions.Function0<kotlin.Unit> onOKButtonClick, boolean showDialog, androidx.wear.compose.foundation.lazy.ScalingLazyListState scalingLazyListState, optional androidx.compose.ui.Modifier modifier, optional String title, optional String okButtonContentDescription, optional String cancelButtonContentDescription);
   }
 
   public final class ConfirmationDialogKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi public static void ConfirmationDialog(kotlin.jvm.functions.Function0<kotlin.Unit> onTimeout, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit>? icon, optional androidx.wear.compose.material.ScalingLazyListState scrollState, optional long durationMillis, optional long backgroundColor, optional long contentColor, optional long iconColor, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional androidx.compose.foundation.layout.PaddingValues contentPadding, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi public static void ConfirmationDialog(kotlin.jvm.functions.Function0<kotlin.Unit> onTimeout, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit>? icon, optional androidx.wear.compose.foundation.lazy.ScalingLazyListState scrollState, optional long durationMillis, optional long backgroundColor, optional long contentColor, optional long iconColor, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional androidx.compose.foundation.layout.PaddingValues contentPadding, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit> content);
   }
 
   public final class StandardButtonKt {
@@ -23,6 +23,8 @@ package com.google.android.horologist.base.ui.components {
   @com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi public enum StandardButtonSize {
     method public final float getIconSize();
     method public final float getTapTargetSize();
+    method public static com.google.android.horologist.base.ui.components.StandardButtonSize valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.base.ui.components.StandardButtonSize[] values();
     property public final float iconSize;
     property public final float tapTargetSize;
     enum_constant public static final com.google.android.horologist.base.ui.components.StandardButtonSize Default;
@@ -32,6 +34,8 @@ package com.google.android.horologist.base.ui.components {
   }
 
   @com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi public enum StandardButtonType {
+    method public static com.google.android.horologist.base.ui.components.StandardButtonType valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.base.ui.components.StandardButtonType[] values();
     enum_constant public static final com.google.android.horologist.base.ui.components.StandardButtonType IconOnly;
     enum_constant public static final com.google.android.horologist.base.ui.components.StandardButtonType Primary;
     enum_constant public static final com.google.android.horologist.base.ui.components.StandardButtonType Secondary;
@@ -49,6 +53,8 @@ package com.google.android.horologist.base.ui.components {
   }
 
   public enum StandardChipType {
+    method public static com.google.android.horologist.base.ui.components.StandardChipType valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.base.ui.components.StandardChipType[] values();
     enum_constant public static final com.google.android.horologist.base.ui.components.StandardChipType Primary;
     enum_constant public static final com.google.android.horologist.base.ui.components.StandardChipType Secondary;
   }

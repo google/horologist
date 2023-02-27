@@ -88,17 +88,17 @@ package com.google.android.horologist.compose.tools.a11y {
     ctor public ComposeA11yExtension();
     method public com.google.android.horologist.paparazzi.a11y.AccessibilityState getAccessibilityState();
     method public android.view.View renderView(android.view.View contentView);
-    method public void setAccessibilityState(com.google.android.horologist.paparazzi.a11y.AccessibilityState accessibilityState);
+    method public void setAccessibilityState(com.google.android.horologist.paparazzi.a11y.AccessibilityState);
     property public final com.google.android.horologist.paparazzi.a11y.AccessibilityState accessibilityState;
     field public com.google.android.horologist.paparazzi.a11y.AccessibilityState accessibilityState;
   }
 
   public final class ForceStateKt {
-    method public static void forceState(androidx.wear.compose.material.ScalingLazyListState, int topIndex, int topScrollOffset);
+    method public static void forceState(androidx.wear.compose.foundation.lazy.ScalingLazyListState, int topIndex, int topScrollOffset);
   }
 
   public final class TallPreviewKt {
-    method @androidx.compose.runtime.Composable public static void TallPreview(int width, int height, kotlin.jvm.functions.Function1<? super androidx.wear.compose.material.ScalingParams,kotlin.Unit> function);
+    method @androidx.compose.runtime.Composable public static void TallPreview(int width, int height, kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.lazy.ScalingParams,kotlin.Unit> function);
   }
 
 }
@@ -108,7 +108,7 @@ package com.google.android.horologist.compose.tools.coil {
   public final class FakeImageLoader implements coil.ImageLoader {
     ctor public FakeImageLoader(kotlin.jvm.functions.Function2<? super coil.request.ImageRequest,? super kotlin.coroutines.Continuation<? super coil.request.ImageResult>,?> imageFn);
     method public coil.request.Disposable enqueue(coil.request.ImageRequest request);
-    method public suspend Object? execute(coil.request.ImageRequest request, kotlin.coroutines.Continuation<? super coil.request.ImageResult> p);
+    method public suspend Object? execute(coil.request.ImageRequest request, kotlin.coroutines.Continuation<? super coil.request.ImageResult>);
     method public coil.ComponentRegistry getComponents();
     method public coil.request.DefaultRequestOptions getDefaults();
     method public coil.disk.DiskCache? getDiskCache();

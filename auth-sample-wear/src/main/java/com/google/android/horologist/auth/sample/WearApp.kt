@@ -27,6 +27,8 @@ import com.google.android.horologist.auth.data.oauth.devicegrant.impl.DeviceGran
 import com.google.android.horologist.auth.data.oauth.pkce.impl.PKCEDefaultConfig
 import com.google.android.horologist.auth.data.oauth.pkce.impl.google.PKCEOAuthCodeGooglePayload
 import com.google.android.horologist.auth.sample.screens.MainScreen
+import com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInMenuScreen
+import com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInSampleScreen
 import com.google.android.horologist.auth.sample.screens.googlesignin.prompt.GoogleSignInPromptSampleScreen
 import com.google.android.horologist.auth.sample.screens.googlesignin.signin.GoogleSignInSampleViewModelFactory
 import com.google.android.horologist.auth.sample.screens.googlesignin.signout.GoogleSignOutScreen
@@ -36,6 +38,8 @@ import com.google.android.horologist.auth.sample.screens.oauth.devicegrant.signo
 import com.google.android.horologist.auth.sample.screens.oauth.pkce.prompt.PKCESignInPromptScreen
 import com.google.android.horologist.auth.sample.screens.oauth.pkce.signin.PKCESampleViewModelFactory
 import com.google.android.horologist.auth.sample.screens.oauth.pkce.signout.PKCESignOutScreen
+import com.google.android.horologist.auth.sample.screens.tokenshare.customkey.TokenShareCustomKeyScreen
+import com.google.android.horologist.auth.sample.screens.tokenshare.defaultkey.TokenShareDefaultKeyScreen
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
 import com.google.android.horologist.auth.ui.oauth.devicegrant.signin.DeviceGrantSignInScreen
 import com.google.android.horologist.auth.ui.oauth.pkce.signin.PKCESignInScreen
@@ -52,7 +56,7 @@ fun WearApp() {
             route = Screen.MainScreen.route
         ) {
             MainScreen(
-                navigateToRoute = { route -> navController.navigate(route) },
+                navigateToRoute = navController::navigate,
                 columnState = it.columnState
             )
         }
@@ -66,7 +70,7 @@ fun WearApp() {
         }
         composable(route = Screen.PKCESignInScreen.route) {
             PKCESignInScreen<PKCEDefaultConfig, PKCEOAuthCodeGooglePayload, TokenResponse>(
-                onAuthSucceed = { navController.popBackStack() },
+                onAuthSucceed = navController::popBackStack,
                 viewModel = viewModel(factory = PKCESampleViewModelFactory)
             )
         }
@@ -83,7 +87,7 @@ fun WearApp() {
         }
         composable(route = Screen.DeviceGrantSignInScreen.route) {
             DeviceGrantSignInScreen<DeviceGrantDefaultConfig, DeviceCodeResponse, String>(
-                onAuthSucceed = { navController.popBackStack() },
+                onAuthSucceed = navController::popBackStack,
                 viewModel = viewModel(factory = DeviceGrantSampleViewModelFactory)
             )
         }
@@ -98,15 +102,33 @@ fun WearApp() {
                 columnState = it.columnState
             )
         }
+        scrollable(route = Screen.StreamlineSignInMenuScreen.route) {
+            StreamlineSignInMenuScreen(
+                navController = navController,
+                columnState = it.columnState
+            )
+        }
+        scrollable(route = Screen.StreamlineSignInSampleScreen.route) {
+            StreamlineSignInSampleScreen(
+                navController = navController,
+                columnState = it.columnState
+            )
+        }
         composable(route = Screen.GoogleSignInScreen.route) {
             GoogleSignInScreen(
-                onAuthCancelled = { navController.popBackStack() },
-                onAuthSucceed = { navController.popBackStack() },
+                onAuthCancelled = navController::popBackStack,
+                onAuthSucceed = navController::popBackStack,
                 viewModel = viewModel(factory = GoogleSignInSampleViewModelFactory)
             )
         }
         composable(route = Screen.GoogleSignOutScreen.route) {
             GoogleSignOutScreen(navController = navController)
+        }
+        scrollable(route = Screen.TokenShareDefaultKeyScreen.route) {
+            TokenShareDefaultKeyScreen(columnState = it.columnState)
+        }
+        scrollable(route = Screen.TokenShareCustomKeyScreen.route) {
+            TokenShareCustomKeyScreen(columnState = it.columnState)
         }
     }
 }

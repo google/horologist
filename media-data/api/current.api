@@ -21,19 +21,19 @@ package com.google.android.horologist.media.data.database {
 package com.google.android.horologist.media.data.database.dao {
 
   @androidx.room.Dao @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public interface MediaDao {
-    method @androidx.room.Query("\n        DELETE FROM MediaEntity\n        WHERE mediaId in (:mediaIds)\n    ") public suspend Object? delete(java.util.List<java.lang.String> mediaIds, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
-    method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.REPLACE) public suspend Object? upsert(java.util.List<com.google.android.horologist.media.data.database.model.MediaEntity> mediaList, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method @androidx.room.Query("\n        DELETE FROM MediaEntity\n        WHERE mediaId in (:mediaIds)\n    ") public suspend Object? delete(java.util.List<java.lang.String> mediaIds, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.REPLACE) public suspend Object? upsert(java.util.List<com.google.android.horologist.media.data.database.model.MediaEntity> mediaList, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
   @androidx.room.Dao @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public interface MediaDownloadDao {
-    method @androidx.room.Query("\n        DELETE FROM MediaDownloadEntity\n        WHERE mediaId = :mediaId\n    ") public suspend Object? delete(String mediaId, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
-    method @androidx.room.Query("\n        DELETE FROM MediaDownloadEntity\n        WHERE mediaId in (:mediaIds)\n    ") public suspend Object? delete(java.util.List<java.lang.String> mediaIds, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
-    method @androidx.room.Query("\n        SELECT * FROM MediaDownloadEntity\n        WHERE status = :status\n    ") public suspend Object? getAllByStatus(com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus status, kotlin.coroutines.Continuation<? super java.util.List<? extends com.google.android.horologist.media.data.database.model.MediaDownloadEntity>> p);
+    method @androidx.room.Query("\n        DELETE FROM MediaDownloadEntity\n        WHERE mediaId = :mediaId\n    ") public suspend Object? delete(String mediaId, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method @androidx.room.Query("\n        DELETE FROM MediaDownloadEntity\n        WHERE mediaId in (:mediaIds)\n    ") public suspend Object? delete(java.util.List<java.lang.String> mediaIds, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method @androidx.room.Query("\n        SELECT * FROM MediaDownloadEntity\n        WHERE status = :status\n    ") public suspend Object? getAllByStatus(com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus status, kotlin.coroutines.Continuation<? super java.util.List<? extends com.google.android.horologist.media.data.database.model.MediaDownloadEntity>>);
     method @androidx.room.Query("\n        SELECT * FROM MediaDownloadEntity\n        WHERE mediaId in (:mediaIds)\n    ") public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.MediaDownloadEntity>> getList(java.util.List<java.lang.String> mediaIds);
-    method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.IGNORE) public suspend Object? insert(com.google.android.horologist.media.data.database.model.MediaDownloadEntity mediaDownloadEntity, kotlin.coroutines.Continuation<? super java.lang.Long> p);
-    method @androidx.room.Query("\n        UPDATE MediaDownloadEntity\n        SET progress = :progress,\n        size = :size\n        WHERE mediaId = :mediaId\n    ") public suspend Object? updateProgress(String mediaId, float progress, long size, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
-    method @androidx.room.Query("\n        UPDATE MediaDownloadEntity\n        SET status = :status\n        WHERE mediaId = :mediaId\n    ") public suspend Object? updateStatus(String mediaId, com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus status, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
-    method @androidx.room.Update(entity=MediaDownloadEntity::class) public suspend Object? updateStatusAndProgress(com.google.android.horologist.media.data.database.dao.MediaDownloadDao.StatusAndProgress statusAndProgress, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.IGNORE) public suspend Object? insert(com.google.android.horologist.media.data.database.model.MediaDownloadEntity mediaDownloadEntity, kotlin.coroutines.Continuation<? super java.lang.Long>);
+    method @androidx.room.Query("\n        UPDATE MediaDownloadEntity\n        SET progress = :progress,\n        size = :size\n        WHERE mediaId = :mediaId\n    ") public suspend Object? updateProgress(String mediaId, float progress, long size, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method @androidx.room.Query("\n        UPDATE MediaDownloadEntity\n        SET status = :status\n        WHERE mediaId = :mediaId\n    ") public suspend Object? updateStatus(String mediaId, com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus status, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method @androidx.room.Update(entity=MediaDownloadEntity::class) public suspend Object? updateStatusAndProgress(com.google.android.horologist.media.data.database.dao.MediaDownloadDao.StatusAndProgress statusAndProgress, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     field public static final com.google.android.horologist.media.data.database.dao.MediaDownloadDao.Companion Companion;
     field public static final float DOWNLOAD_PROGRESS_END = 100.0f;
     field public static final float DOWNLOAD_PROGRESS_START = 0.0f;
@@ -64,9 +64,9 @@ package com.google.android.horologist.media.data.database.dao {
     method @androidx.room.Query("\n        DELETE FROM PlaylistEntity\n        WHERE playlistId in (:playlistIds)\n    ") public void delete(java.util.List<java.lang.String> playlistIds);
     method @androidx.room.Query("\n        SELECT * FROM PlaylistEntity\n        WHERE EXISTS (\n            SELECT 1 FROM PlaylistMediaEntity\n            WHERE PlaylistMediaEntity.playlistId = PlaylistEntity.playlistId\n            AND EXISTS (\n                SELECT 1 FROM MediaDownloadEntity\n                WHERE MediaDownloadEntity.mediaId = PlaylistMediaEntity.mediaId\n            )\n        )\n    ") @androidx.room.Transaction public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.PopulatedPlaylist>> getAllDownloaded();
     method @androidx.room.Query("\n        SELECT * FROM PlaylistEntity\n    ") @androidx.room.Transaction public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.PopulatedPlaylist>> getAllPopulated();
-    method @androidx.room.Query("\n        SELECT * FROM PlaylistEntity\n        WHERE playlistId = :playlistId\n    ") @androidx.room.Transaction public suspend Object? getPopulated(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.data.database.model.PopulatedPlaylist> p);
+    method @androidx.room.Query("\n        SELECT * FROM PlaylistEntity\n        WHERE playlistId = :playlistId\n    ") @androidx.room.Transaction public suspend Object? getPopulated(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.data.database.model.PopulatedPlaylist>);
     method @androidx.room.Query("\n        SELECT * FROM playlistentity\n        WHERE playlistId = :playlistId\n    ") @androidx.room.Transaction public kotlinx.coroutines.flow.Flow<com.google.android.horologist.media.data.database.model.PopulatedPlaylist> getPopulatedStream(String playlistId);
-    method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.REPLACE) public suspend Object? upsert(com.google.android.horologist.media.data.database.model.PlaylistEntity playlistEntity, java.util.List<com.google.android.horologist.media.data.database.model.MediaEntity> mediaEntityList, java.util.List<com.google.android.horologist.media.data.database.model.PlaylistMediaEntity> playlistMediaEntityList, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.REPLACE) public suspend Object? upsert(com.google.android.horologist.media.data.database.model.PlaylistEntity playlistEntity, java.util.List<com.google.android.horologist.media.data.database.model.MediaEntity> mediaEntityList, java.util.List<com.google.android.horologist.media.data.database.model.PlaylistMediaEntity> playlistMediaEntityList, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
   @androidx.room.Dao @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public interface PlaylistMediaDao {
@@ -120,6 +120,8 @@ package com.google.android.horologist.media.data.database.model {
   }
 
   public enum MediaDownloadEntityStatus {
+    method public static com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus valueOf(String name) throws java.lang.IllegalArgumentException;
+    method public static com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus[] values();
     enum_constant public static final com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus Downloaded;
     enum_constant public static final com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus Downloading;
     enum_constant public static final com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus Failed;
@@ -194,29 +196,29 @@ package com.google.android.horologist.media.data.datasource {
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaDownloadLocalDataSource {
     ctor public MediaDownloadLocalDataSource(com.google.android.horologist.media.data.database.dao.MediaDownloadDao mediaDownloadDao);
-    method public suspend Object? add(String mediaId, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
-    method public suspend Object? delete(String mediaId, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public suspend Object? add(String mediaId, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? delete(String mediaId, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.MediaDownloadEntity>> get(java.util.List<java.lang.String> mediaIds);
-    method public suspend Object? getAllDownloading(kotlin.coroutines.Continuation<? super java.util.List<? extends com.google.android.horologist.media.data.database.model.MediaDownloadEntity>> p);
-    method public suspend Object? setDownloaded(String mediaId, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
-    method public suspend Object? updateProgress(String mediaId, float progress, long size, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
-    method public suspend Object? updateStatus(String mediaId, com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus status, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public suspend Object? getAllDownloading(kotlin.coroutines.Continuation<? super java.util.List<? extends com.google.android.horologist.media.data.database.model.MediaDownloadEntity>>);
+    method public suspend Object? setDownloaded(String mediaId, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? updateProgress(String mediaId, float progress, long size, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? updateStatus(String mediaId, com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus status, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaLocalDataSource {
     ctor public MediaLocalDataSource(androidx.room.RoomDatabase roomDatabase, com.google.android.horologist.media.data.database.dao.MediaDao mediaDao, com.google.android.horologist.media.data.database.dao.PlaylistMediaDao playlistMediaDao, com.google.android.horologist.media.data.database.dao.MediaDownloadDao mediaDownloadDao);
-    method public suspend Object? delete(java.util.List<java.lang.String> mediaIds, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
-    method public suspend Object? upsert(java.util.List<com.google.android.horologist.media.model.Media> mediaList, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public suspend Object? delete(java.util.List<java.lang.String> mediaIds, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? upsert(java.util.List<com.google.android.horologist.media.model.Media> mediaList, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlaylistLocalDataSource {
     ctor public PlaylistLocalDataSource(androidx.room.RoomDatabase roomDatabase, com.google.android.horologist.media.data.database.dao.PlaylistDao playlistDao, com.google.android.horologist.media.data.database.dao.PlaylistMediaDao playlistMediaDao);
-    method public suspend Object? delete(java.util.List<java.lang.String> playlistIds, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public suspend Object? delete(java.util.List<java.lang.String> playlistIds, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.PopulatedPlaylist>> getAllDownloaded();
     method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.PopulatedPlaylist>> getAllPopulated();
-    method public suspend Object? getPopulated(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.data.database.model.PopulatedPlaylist> p);
+    method public suspend Object? getPopulated(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.data.database.model.PopulatedPlaylist>);
     method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.media.data.database.model.PopulatedPlaylist> getPopulatedStream(String playlistId);
-    method public suspend Object? upsert(java.util.List<com.google.android.horologist.media.model.Playlist> playlists, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public suspend Object? upsert(java.util.List<com.google.android.horologist.media.model.Playlist> playlists, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
 }
@@ -264,12 +266,12 @@ package com.google.android.horologist.media.data.mapper {
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class MediaMapper {
     ctor public MediaMapper(com.google.android.horologist.media.data.mapper.MediaExtrasMapper mediaExtrasMapper);
-    method public com.google.android.horologist.media.model.Media map(androidx.media3.common.MediaItem mediaItem, androidx.media3.common.MediaMetadata? mediaMetadata, optional String defaultArtist);
+    method public com.google.android.horologist.media.model.Media map(androidx.media3.common.MediaItem mediaItem, androidx.media3.common.MediaMetadata mediaMetadata);
     method public com.google.android.horologist.media.model.Media map(com.google.android.horologist.media.data.database.model.MediaEntity media);
   }
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlaybackStateMapper {
-    ctor public PlaybackStateMapper(optional kotlin.jvm.functions.Function0<java.lang.Long> timestampProvider);
+    ctor public PlaybackStateMapper(optional com.google.android.horologist.media.model.TimestampProvider timestampProvider);
     method public com.google.android.horologist.media.model.PlaybackStateEvent createEvent(androidx.media3.common.Player? player, com.google.android.horologist.media.model.PlaybackStateEvent.Cause cause);
   }
 
@@ -354,7 +356,7 @@ package com.google.android.horologist.media.data.repository {
 
   @com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi public final class PlaylistRepositoryImpl implements com.google.android.horologist.media.repository.PlaylistRepository {
     ctor public PlaylistRepositoryImpl(com.google.android.horologist.media.data.datasource.PlaylistLocalDataSource playlistLocalDataSource, com.google.android.horologist.media.data.mapper.PlaylistMapper playlistMapper);
-    method public suspend Object? get(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.model.Playlist> p);
+    method public suspend Object? get(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.model.Playlist>);
     method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.model.Playlist>> getAll();
     method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.model.Playlist>> getAllDownloaded();
   }
@@ -384,6 +386,7 @@ package com.google.android.horologist.media.data.service.download {
     property protected abstract android.app.PendingIntent downloadIntent;
     property protected abstract com.google.android.horologist.media.data.service.download.DownloadManagerListener downloadManagerListener;
     property protected abstract androidx.media3.exoplayer.offline.DownloadNotificationHelper downloadNotificationHelper;
+    property public androidx.lifecycle.Lifecycle lifecycle;
     property protected abstract androidx.media3.exoplayer.workmanager.WorkManagerScheduler workManagerScheduler;
   }
 

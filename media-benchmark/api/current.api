@@ -3,7 +3,7 @@ package com.google.android.horologist.media.benchmark {
 
   @org.junit.runner.RunWith(AndroidJUnit4::class) public abstract class BaseMediaBaselineProfile {
     ctor public BaseMediaBaselineProfile();
-    method public suspend Object? checkPlayingState(androidx.media3.session.MediaBrowser mediaController, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public suspend Object? checkPlayingState(androidx.media3.session.MediaBrowser mediaController, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method @org.junit.Rule public final androidx.benchmark.macro.junit4.BaselineProfileRule getBaselineRule();
     method public abstract com.google.android.horologist.media.benchmark.MediaApp getMediaApp();
     method public void onStartup(androidx.benchmark.macro.MacrobenchmarkScope);
@@ -15,13 +15,13 @@ package com.google.android.horologist.media.benchmark {
 
   @androidx.test.filters.LargeTest public abstract class BasePlaybackBenchmark {
     ctor public BasePlaybackBenchmark();
-    method public suspend Object? checkPlayingState(androidx.media3.session.MediaBrowser mediaController, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public suspend Object? checkPlayingState(androidx.media3.session.MediaBrowser mediaController, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method @org.junit.Rule public final androidx.benchmark.macro.junit4.MacrobenchmarkRule getBenchmarkRule();
     method public abstract com.google.android.horologist.media.benchmark.MediaApp getMediaApp();
     method public final com.google.common.util.concurrent.ListenableFuture<androidx.media3.session.MediaBrowser> getMediaControllerFuture();
     method public java.util.List<androidx.benchmark.macro.Metric> metrics();
     method public void onStartup(androidx.benchmark.macro.MacrobenchmarkScope);
-    method public final void setMediaControllerFuture(com.google.common.util.concurrent.ListenableFuture<androidx.media3.session.MediaBrowser> mediaControllerFuture);
+    method public final void setMediaControllerFuture(com.google.common.util.concurrent.ListenableFuture<androidx.media3.session.MediaBrowser>);
     method @org.junit.Test public final void startup();
     property @org.junit.Rule public final androidx.benchmark.macro.junit4.MacrobenchmarkRule benchmarkRule;
     property public abstract com.google.android.horologist.media.benchmark.MediaApp mediaApp;
@@ -59,8 +59,8 @@ package com.google.android.horologist.media.benchmark {
 
   public final class MediaControllerHelper {
     method public com.google.common.util.concurrent.ListenableFuture<androidx.media3.session.MediaBrowser> lookupController(android.content.ComponentName component);
-    method public suspend Object? startPlaying(androidx.media3.session.MediaController, androidx.media3.common.MediaItem mediaItem, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
-    method public suspend Object? stopPlaying(androidx.media3.session.MediaController, kotlin.coroutines.Continuation<? super kotlin.Unit> p);
+    method public suspend Object? startPlaying(androidx.media3.session.MediaController, androidx.media3.common.MediaItem mediaItem, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? stopPlaying(androidx.media3.session.MediaController, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     field public static final com.google.android.horologist.media.benchmark.MediaControllerHelper INSTANCE;
   }
 

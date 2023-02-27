@@ -106,7 +106,7 @@ allprojects {
 
     plugins.withId("com.vanniktech.maven.publish") {
         mavenPublishing {
-            publishToMavenCentral(SonatypeHost.DEFAULT)
+            publishToMavenCentral(SonatypeHost("https://google.oss.sonatype.org"))
         }
     }
 }
@@ -237,12 +237,14 @@ subprojects {
                 project.file("${project.buildDir}/generated/sources/generateVersionFile")
 
             doLast {
+                val versionName = project.properties.get("VERSION_NAME") as String
+
                 val manifestDir = File(outputDirectory, "META-INF")
                 manifestDir.mkdirs()
                 File(
                     manifestDir,
-                    "${project.group}_${project.name}.version"
-                ).writeText("${version}\n")
+                    "com.google.android.horologist_${project.name}.version"
+                ).writeText("${versionName}\n")
             }
         }
 
@@ -263,8 +265,11 @@ subprojects {
             if (isLibrary) {
                 val library = extensions.getByType(LibraryExtension::class)
 
-                val resources = library.sourceSets.findByName("main")?.resources
-                resources?.srcDir(outputDirectory)
+                val resources = library.sourceSets.findByName("main")?.resources!!
+                resources.srcDir(outputDirectory)
+                if (resources.includes.isNotEmpty()) {
+                    resources.include("META-INF/*.version")
+                }
 
                 library.libraryVariants.all {
                     processJavaResourcesProvider.get().dependsOn(generateVersionFile)

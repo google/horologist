@@ -71,4 +71,7 @@
     <string name="google_sign_out_success_message">Signed out successfully!</string>
     <string name="google_sign_in_prompt_already_signed_in_message">Already signed-in!</string>
     <string name="login">Sign-in</string>
+    <string name="sample_guest_mode">Guest Mode</string>
+    <string name="seen_login_details">Seen Login Details</string>
+    <string name="complication_content_description">UAMP\n%1$s\n%2$s</string>
 </resources>

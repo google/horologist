@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+<!--
+ Copyright 2023 The Android Open Source Project
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+  <string name="horologist_check_your_phone_title">Телефонды тексеріңіз.</string>
+  <string name="horologist_auth_error_message">Бірдеңе дұрыс болмады. Қайталап көріңіз.</string>
+  <string name="horologist_signedin_confirmation_greeting">Сәлеметсіз бе, %s!</string>
+  <string name="horologist_signedin_confirmation_greeting_no_name">Сәлеметсіз бе!</string>
+  <string name="horologist_signin_prompt_title">Аккаунтқа кіру</string>
+  <string name="horologist_sign_in_chip_label">Аккаунтқа кіру</string>
+  <string name="horologist_guest_mode_chip_label">Аккаунтсыз пайдалану</string>
+  <string name="horologist_other_options_chip_label">Басқа опциялар</string>
+  <string name="horologist_create_account_chip_label">Аккаунт жасау</string>
+  <string name="horologist_select_account_title">Аккаунт таңдау</string>
+  <string name="horologist_signin_placeholder_message">Аккаунтқа кіріп жатыр…</string>
+</resources>

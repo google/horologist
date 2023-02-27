@@ -123,6 +123,9 @@ fun MenuScreen(
         item {
             PagingChip { navigateToRoute(Screen.Paging.route) }
         }
+        item {
+            PagerScreenChip { navigateToRoute(Screen.PagerScreen.route) }
+        }
     }
 }
 

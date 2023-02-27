@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("UnstableApiUsage")
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
@@ -27,7 +29,6 @@ android {
 
     defaultConfig {
         minSdk = 26
-        targetSdk = 30
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -45,7 +46,6 @@ android {
     kotlinOptions {
         jvmTarget = "11"
         freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
             "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi",
             "-opt-in=com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi",
             "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi",
@@ -98,9 +98,9 @@ project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().config
 }
 
 metalava {
-    sourcePaths = mutableSetOf("src/main")
-    filename = "api/current.api"
-    reportLintsAsErrors = true
+    sourcePaths.setFrom("src/main")
+    filename.set("api/current.api")
+    reportLintsAsErrors.set(true)
 }
 
 dependencies {
@@ -137,6 +137,8 @@ dependencies {
     debugImplementation(projects.audioUi)
     debugImplementation(projects.composeTools)
     releaseCompileOnly(projects.composeTools)
+
+    debugImplementation(libs.androidx.complications.rendering)
 
     testImplementation(libs.junit)
     testImplementation(libs.androidx.test.ext.ktx)

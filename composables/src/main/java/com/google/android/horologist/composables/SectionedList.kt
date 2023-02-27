@@ -23,7 +23,7 @@ package com.google.android.horologist.composables
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.wear.compose.material.ScalingLazyListScope
+import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import com.google.android.horologist.composables.Section.Companion.DEFAULT_LOADING_CONTENT_COUNT
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
@@ -63,7 +63,7 @@ public fun SectionedList(
         modifier = modifier
             .fillMaxSize()
     ) {
-        sections.forEach { section ->
+        for (section in sections) {
             section.display(this)
         }
     }
@@ -76,7 +76,7 @@ internal fun <T> Section<T>.display(scope: ScalingLazyListScope) {
     }
 
     when (section.state) {
-        is Section.State.Loading -> {
+        Section.State.Loading -> {
             section.loadingContent?.let { content ->
                 scope.items(section.loadingContentCount) { SectionContentScope.content() }
             }
@@ -89,13 +89,13 @@ internal fun <T> Section<T>.display(scope: ScalingLazyListScope) {
             }
         }
 
-        is Section.State.Failed -> {
+        Section.State.Failed -> {
             section.failedContent?.let { content ->
                 scope.item { SectionContentScope.content() }
             }
         }
 
-        is Section.State.Empty -> {
+        Section.State.Empty -> {
             section.emptyContent?.let { content ->
                 scope.item { SectionContentScope.content() }
             }
@@ -127,16 +127,16 @@ public data class Section<T> constructor(
     /**
      * A state of a [Section].
      */
-    public sealed class State<T> {
-        public class Loading<T> : State<T>()
+    public sealed class State<out T> {
+        public object Loading : State<Nothing>()
 
         public data class Loaded<T>(
             val list: List<T>
         ) : State<T>()
 
-        public class Failed<T> : State<T>()
+        public object Failed : State<Nothing>()
 
-        public class Empty<T> : State<T>()
+        public object Empty : State<Nothing>()
     }
 
     internal companion object {

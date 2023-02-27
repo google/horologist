@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalCoroutinesApi::class
-)
-
 package com.google.android.horologist.mediasample.ui.entity
 
 import androidx.datastore.core.DataStore
@@ -38,7 +34,6 @@ import com.google.android.horologist.test.toolbox.testdoubles.FakePlayerReposito
 import com.google.android.horologist.test.toolbox.testdoubles.FakePlaylistDownloadDataSource
 import com.google.android.horologist.test.toolbox.testdoubles.FakePlaylistDownloadRepository
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule

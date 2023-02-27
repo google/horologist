@@ -19,6 +19,7 @@ package com.google.android.horologist.mediasample.ui.app
 import android.content.Intent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -29,7 +30,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
-import com.google.accompanist.pager.rememberPagerState
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
 import com.google.android.horologist.compose.navscaffold.composable
 import com.google.android.horologist.compose.navscaffold.scrollable
@@ -41,7 +41,6 @@ import com.google.android.horologist.media.ui.navigation.MediaNavController.navi
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToVolume
 import com.google.android.horologist.media.ui.navigation.MediaPlayerScaffold
 import com.google.android.horologist.mediasample.ui.auth.prompt.GoogleSignInPromptScreen
-import com.google.android.horologist.mediasample.ui.auth.prompt.UampSignInPromptViewModel
 import com.google.android.horologist.mediasample.ui.auth.signin.UampGoogleSignInViewModel
 import com.google.android.horologist.mediasample.ui.auth.signout.GoogleSignOutScreen
 import com.google.android.horologist.mediasample.ui.browse.UampBrowseScreen
@@ -60,11 +59,13 @@ import com.google.android.horologist.mediasample.ui.navigation.GoogleSignInPromp
 import com.google.android.horologist.mediasample.ui.navigation.GoogleSignInScreen
 import com.google.android.horologist.mediasample.ui.navigation.GoogleSignOutScreen
 import com.google.android.horologist.mediasample.ui.navigation.Samples
+import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleSignInPrompt
 import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreenViewModel
 import com.google.android.horologist.mediasample.ui.settings.DeveloperOptionsScreen
 import com.google.android.horologist.mediasample.ui.settings.UampSettingsScreen
+import kotlinx.coroutines.delay
 
 @Composable
 fun UampWearApp(
@@ -175,14 +176,14 @@ fun UampWearApp(
             settingsScreen = { columnState ->
                 UampSettingsScreen(
                     columnState = columnState,
-                    settingsScreenViewModel = hiltViewModel(),
+                    viewModel = hiltViewModel(),
                     navController = navController
                 )
             },
             navHostState = navHostState,
             pagerState = pagerState,
             snackbarViewModel = hiltViewModel<SnackbarViewModel>(),
-            volumeViewModel = hiltViewModel<VolumeViewModel>(),
+            volumeViewModel = volumeViewModel,
             timeText = timeText,
             deepLinkPrefix = appViewModel.deepLinkPrefix,
             navController = navController,
@@ -231,14 +232,14 @@ fun UampWearApp(
                     GoogleSignInPromptScreen(
                         navController = navController,
                         columnState = it.columnState,
-                        viewModel = hiltViewModel<UampSignInPromptViewModel>()
+                        viewModel = hiltViewModel()
                     )
                 }
 
                 composable(route = GoogleSignInScreen.navRoute) {
                     GoogleSignInScreen(
                         onAuthCancelled = { navController.popBackStack() },
-                        onAuthSucceed = { navController.popBackStack() },
+                        onAuthSucceed = { navController.navigateToLibrary() },
                         viewModel = hiltViewModel<UampGoogleSignInViewModel>()
                     )
                 }
@@ -268,6 +269,12 @@ fun UampWearApp(
             appViewModel.startupSetup(navigateToLibrary = {
                 navController.navigateToLibrary()
             })
+        }
+
+        if (appViewModel.shouldShowLoginPrompt()) {
+            // Allow screen to settle so it feels like a distinct step
+            delay(200)
+            navController.navigateToGoogleSignInPrompt()
         }
     }
 }

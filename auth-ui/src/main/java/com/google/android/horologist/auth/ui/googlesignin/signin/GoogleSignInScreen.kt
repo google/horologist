@@ -34,7 +34,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes.SIGN_IN_CANCELLED
 import com.google.android.gms.common.api.ApiException
@@ -83,16 +82,9 @@ public fun GoogleSignInScreen(
                     viewModel.onAccountSelected(account)
                 }
             } ?: run {
-                val googleSignInClient = GoogleSignIn.getClient(
-                    context,
-                    GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestEmail()
-                        .build()
-                )
-
                 val signInRequestLauncher = rememberLauncherForActivityResult(
                     contract = GoogleSignInContract(
-                        googleSignInClient
+                        viewModel.googleSignInClient
                     )
                 ) { result ->
 
@@ -163,9 +155,7 @@ public fun GoogleSignInScreen(
         SignedInConfirmationDialog(
             onDismissOrTimeout = { onAuthSucceed() },
             modifier = modifier,
-            name = successState.displayName,
-            email = successState.email,
-            avatar = successState.photoUrl
+            accountUiModel = successState.accountUiModel
         )
     }
 }

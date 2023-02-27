@@ -55,7 +55,7 @@ fun DeviceGrantSignOutScreen(
 
         DeviceGrantSignOutScreenState.Success -> {
             ConfirmationDialog(
-                onTimeout = { navController.popBackStack() }
+                onTimeout = navController::popBackStack
             ) {
                 Text(
                     modifier = Modifier.align(Alignment.CenterHorizontally),

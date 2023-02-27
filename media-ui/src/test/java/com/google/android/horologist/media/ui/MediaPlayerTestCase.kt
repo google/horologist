@@ -14,10 +14,14 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistComposeToolsApi::class)
+@file:OptIn(
+    ExperimentalHorologistMediaUiApi::class,
+    ExperimentalFoundationApi::class
+)
 
 package com.google.android.horologist.media.ui
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -37,11 +41,10 @@ import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.compose.pager.PagerScreen
-import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.background.RadialBackground
-import com.google.android.horologist.media.ui.screens.player.DefaultPlayerScreenMediaDisplay
+import com.google.android.horologist.media.ui.screens.player.DefaultMediaInfoDisplay
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
 
@@ -49,7 +52,7 @@ import com.google.android.horologist.media.ui.state.PlayerUiState
 fun MediaPlayerTestCase(
     playerUiState: PlayerUiState,
     mediaDisplay: @Composable ColumnScope.() -> Unit = {
-        DefaultPlayerScreenMediaDisplay(playerUiState)
+        DefaultMediaInfoDisplay(playerUiState)
     },
     controlButtons: @Composable RowScope.() -> Unit = {
         MediaControlButtons(

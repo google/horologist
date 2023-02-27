@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?><resources>
 <!--
- Copyright 2022 The Android Open Source Project
+ Copyright 2023 The Android Open Source Project
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
-      http://www.apache.org/licenses/LICENSE-2.0
+     http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,7 +21,7 @@
   <string name="horologist_volume_screen_not_connected_state">Bağlantı yoxdur</string>
   <string name="horologist_volume_screen_change_audio_output">Audio Çıxışını Dəyişin</string>
   <string name="horologist_speaker_name">Saatın Dinamiki</string>
-  <string name="horologist_output_none">Heç bir</string>
+  <string name="horologist_output_none">Heç biri</string>
   <string name="horologist_set_volume_content_description">Səsi Ayarlayın</string>
   <string name="horologist_audio_output_content_description">Audio Çıxış</string>
   <string name="horologist_volume_screen_volume_label">Səs</string>

@@ -64,4 +64,6 @@
     <string name="paging_items_waiting_message">Waiting for items to load from the backend</string>
     <string name="paging_chip_content_description">Paging</string>
     <string name="paging_chip_label">Paging</string>
+    <string name="pager_screen_chip_label">Pager Screen</string>
+    <string name="pager_screen_chip_content_description">Pager Screen</string>
 </resources>

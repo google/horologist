@@ -22,11 +22,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DataObject
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipColors
@@ -34,6 +36,8 @@ import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.ToggleChip
+import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.base.ui.components.StandardChipType
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
@@ -46,10 +50,12 @@ import com.google.android.horologist.mediasample.ui.navigation.navigateToGoogleS
 @Composable
 fun UampSettingsScreen(
     columnState: ScalingLazyColumnState,
-    @Suppress("UNUSED_PARAMETER") settingsScreenViewModel: SettingsScreenViewModel,
+    viewModel: SettingsScreenViewModel,
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
+    val screenState by viewModel.screenState.collectAsStateWithLifecycle()
+
     ScalingLazyColumn(
         columnState = columnState,
         modifier = modifier
@@ -61,20 +67,31 @@ fun UampSettingsScreen(
             }
         }
         item {
-            StandardChip(
-                label = stringResource(id = R.string.login),
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { navController.navigateToGoogleSignIn() },
-                chipType = StandardChipType.Primary
-            )
+            if (screenState.authUser == null) {
+                StandardChip(
+                    label = stringResource(id = R.string.login),
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = { navController.navigateToGoogleSignIn() },
+                    chipType = StandardChipType.Primary,
+                    enabled = !screenState.guestMode
+                )
+            } else {
+                StandardChip(
+                    label = stringResource(id = R.string.logout),
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = { navController.navigateToGoogleSignOutScreen() },
+                    chipType = StandardChipType.Primary
+                )
+            }
         }
         item {
-            StandardChip(
-                label = stringResource(id = R.string.logout),
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { navController.navigateToGoogleSignOutScreen() },
-                chipType = StandardChipType.Primary
-            )
+            CheckedSetting(
+                screenState.guestMode,
+                stringResource(id = R.string.sample_guest_mode),
+                enabled = screenState.writable
+            ) {
+                viewModel.setGuestMode(it)
+            }
         }
         item {
             ActionSetting(
@@ -90,6 +107,7 @@ fun UampSettingsScreen(
 @Composable
 fun ActionSetting(
     text: String,
+    modifier: Modifier = Modifier,
     icon: ImageVector? = null,
     enabled: Boolean = true,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
@@ -111,7 +129,7 @@ fun ActionSetting(
         onClick = onClick,
         label = labelParam,
         enabled = enabled,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         colors = colors,
         icon = {
             if (icon != null) {
@@ -119,5 +137,32 @@ fun ActionSetting(
             }
         },
         contentPadding = ChipDefaults.ContentPadding
+    )
+}
+
+@Composable
+fun CheckedSetting(
+    value: Boolean,
+    text: String,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    onCheckedChange: (Boolean) -> Unit
+) {
+    ToggleChip(
+        checked = value,
+        toggleControl = {
+            Icon(
+                imageVector = ToggleChipDefaults.checkboxIcon(checked = value),
+                contentDescription = if (value) stringResource(id = R.string.on) else stringResource(
+                    id = R.string.off
+                )
+            )
+        },
+        enabled = enabled,
+        onCheckedChange = onCheckedChange,
+        label = {
+            Text(text)
+        },
+        modifier = modifier.fillMaxWidth()
     )
 }

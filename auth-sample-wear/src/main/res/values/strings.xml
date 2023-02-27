@@ -24,8 +24,13 @@
     <string name="auth_menu_oauth_device_grant_sign_in_item">Sign in</string>
     <string name="auth_menu_oauth_device_grant_sign_out_item">Sign out</string>
     <string name="auth_menu_google_sign_in_header">Google Sign-In</string>
-    <string name="auth_menu_google_sign_in_item">Sign in</string>
+    <string name="auth_menu_google_sign_in_prompt_item">Sign-in Prompt</string>
     <string name="auth_menu_google_sign_out_item">Sign out</string>
+    <string name="auth_menu_token_share_header">Token Sharing</string>
+    <string name="auth_menu_token_share_default_key_item">Default Key</string>
+    <string name="auth_menu_token_share_custom_key_item">Custom Key</string>
+    <string name="auth_menu_common_screens_header">Common screens</string>
+    <string name="auth_menu_common_screens_streamline_sign_in_item">Streamline Sign-in</string>
     <string name="pkce_sign_in_prompt_message">Share workouts and compete with your friends and family</string>
     <string name="pkce_sign_in_prompt_already_signed_in_message">Already signed-in!</string>
     <string name="pkce_sign_out_success_message">Signed out successfully!</string>
@@ -35,4 +40,13 @@
     <string name="google_sign_in_prompt_message">Send messages and create chat groups with your friends</string>
     <string name="google_sign_out_success_message">Signed out successfully!</string>
     <string name="google_sign_in_prompt_already_signed_in_message">Already signed-in!</string>
+    <string name="token_share_default_key_title">Token Sharing</string>
+    <string name="token_share_default_key_message">Tokens emitted by the phone sample app, with the default key, while this is screen is visible will be displayed below:</string>
+    <string name="token_share_custom_key_title">Token Sharing</string>
+    <string name="token_share_custom_key_message">Tokens emitted by the phone sample app, with a custom key, while this is screen is visible will be displayed below:</string>
+    <string name="common_screens_streamline_sign_in_header">Streamline Sign-in</string>
+    <string name="common_screens_streamline_sign_in_no_accounts_item">No accounts available</string>
+    <string name="common_screens_streamline_sign_in_single_account_item">Single account available</string>
+    <string name="common_screens_streamline_sign_in_multiple_accounts_item">Multiple accounts available</string>
+    <string name="common_screens_streamline_no_accounts_message">Should navigate to add account screen.</string>
 </resources>

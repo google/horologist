@@ -66,7 +66,7 @@ public class DBDataRequestRepository(
             var wifi = 0L
             var unknown = 0L
 
-            list.forEach {
+            for (it in list) {
                 when (it.networkType) {
                     "ble" -> ble += it.bytesTotal
                     "cell" -> cell += it.bytesTotal

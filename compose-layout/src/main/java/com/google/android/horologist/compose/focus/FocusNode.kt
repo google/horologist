@@ -17,19 +17,8 @@
 package com.google.android.horologist.compose.focus
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
-import androidx.compose.runtime.compositionLocalOf
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.platform.LocalFocusManager
+import androidx.wear.compose.foundation.HierarchicalFocusCoordinator
 import kotlinx.coroutines.CoroutineScope
 
 /**
@@ -54,11 +43,16 @@ import kotlinx.coroutines.CoroutineScope
  * composition and requires the focus
  */
 @Composable
+@Deprecated(
+    "Replaced with Wear Compose",
+    replaceWith = ReplaceWith(
+        "HierarchicalFocusCoordinator(requiresFocus, content)",
+        imports = ["androidx.wear.compose.foundation.HierarchicalFocusCoordinator"]
+    )
+)
 public fun FocusControl(requiresFocus: () -> Boolean, content: @Composable () -> Unit) {
-    val focusManager = LocalFocusManager.current
-    FocusComposableImpl(
-        requiresFocus,
-        onFocusChanged = { if (it) focusManager.clearFocus() },
+    HierarchicalFocusCoordinator(
+        requiresFocus = requiresFocus,
         content = content
     )
 }
@@ -71,12 +65,15 @@ public fun FocusControl(requiresFocus: () -> Boolean, content: @Composable () ->
  * new state (if true, we are becoming active and should request focus).
  */
 @Composable
-public fun OnFocusChange(onFocusChanged: CoroutineScope.(Boolean) -> Unit) {
-    FocusComposableImpl(
-        focusEnabled = { true },
-        onFocusChanged = onFocusChanged,
-        content = {}
+@Deprecated(
+    "Replaced with Wear Compose",
+    replaceWith = ReplaceWith(
+        "OnFocusChange(onFocusChanged)",
+        imports = ["androidx.wear.compose.foundation.OnFocusChange"]
     )
+)
+public fun OnFocusChange(onFocusChanged: CoroutineScope.(Boolean) -> Unit) {
+    androidx.wear.compose.foundation.OnFocusChange(onFocusChanged = onFocusChanged)
 }
 
 /**
@@ -88,10 +85,15 @@ public fun OnFocusChange(onFocusChanged: CoroutineScope.(Boolean) -> Unit) {
  * @param focusRequester The associated [FocusRequester] to request focus on.
  */
 @Composable
+@Deprecated(
+    "Replaced with Wear Compose",
+    replaceWith = ReplaceWith(
+        "RequestFocusWhenActive(focusRequester)",
+        imports = ["androidx.wear.compose.foundation.RequestFocusWhenActive"]
+    )
+)
 public fun RequestFocusWhenActive(focusRequester: FocusRequester) {
-    OnFocusChange {
-        if (it) focusRequester.requestFocus()
-    }
+    androidx.wear.compose.foundation.RequestFocusWhenActive(focusRequester)
 }
 
 /**
@@ -103,57 +105,12 @@ public fun RequestFocusWhenActive(focusRequester: FocusRequester) {
  * Composable that is part of the composition.
  */
 @Composable
-public fun rememberActiveFocusRequester(): FocusRequester =
-    remember { FocusRequester() }.also { RequestFocusWhenActive(it) }
-
-/**
- * Implements a node in the Focus control tree (either a [FocusControl] or [OnFocusChange]).
- * Each [FocusComposableImpl] maps to a [FocusNode] in our internal representation, this is used to:
- * 1) Check that our parent is focused (or we have no explicit parent), to see if we can be focused.
- * 2) See if we have children. If not, we are a leaf node and will forward focus status updates to
- * the onFocusChanged callback.
- */
-@Composable
-internal fun FocusComposableImpl(
-    focusEnabled: () -> Boolean,
-    onFocusChanged: CoroutineScope.(Boolean) -> Unit,
-    content: @Composable () -> Unit
-) {
-    val parent by rememberUpdatedState(LocalFocusNodeParent.current)
-    // Node in our internal tree representation of the FocusComposableImpl
-    val node = remember {
-        FocusNode(
-            focused = derivedStateOf {
-                (parent?.focused?.value ?: true) && focusEnabled()
-            }
-        )
-    }
-    // Attach our note avatar to our parent's (and remove if we leave the composition).
-    parent?.let {
-        DisposableEffect(it) {
-            it.children.add(node)
-            onDispose {
-                it.children.remove(node)
-            }
-        }
-    }
-    CompositionLocalProvider(LocalFocusNodeParent provides node, content = content)
-    // If we are a leaf node, forward events to the onFocusChanged callback
-    LaunchedEffect(node.focused.value) {
-        if (node.children.isEmpty()) {
-            onFocusChanged(node.focused.value)
-        }
-    }
-}
-
-// Internal class used to represent a node in our tree of focus-aware components.
-internal class FocusNode(
-    val focused: State<Boolean>,
-    var children: SnapshotStateList<FocusNode> = mutableStateListOf()
+@Deprecated(
+    "Replaced with Wear Compose",
+    replaceWith = ReplaceWith(
+        "rememberActiveFocusRequester()",
+        imports = ["androidx.wear.compose.foundation.rememberActiveFocusRequester"]
+    )
 )
-
-// Composition Local used to keep a tree of focus-aware node (either controller nodes or
-// focus requesting nodes).
-// Nodes will register into their parent (unless they are the top ones) when they enter the
-// composition and are removed when they leave it.
-internal val LocalFocusNodeParent = compositionLocalOf<FocusNode?> { null }
+public fun rememberActiveFocusRequester(): FocusRequester =
+    androidx.wear.compose.foundation.rememberActiveFocusRequester()

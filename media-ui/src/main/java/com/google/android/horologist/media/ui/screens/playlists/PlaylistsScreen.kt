@@ -70,8 +70,8 @@ public fun <T> PlaylistsScreen(
                 Section.State.Loaded(playlistsScreenState.playlistList)
             }
 
-            is PlaylistsScreenState.Failed -> Section.State.Failed()
-            is PlaylistsScreenState.Loading -> Section.State.Loading()
+            PlaylistsScreenState.Failed -> Section.State.Failed
+            PlaylistsScreenState.Loading -> Section.State.Loading
         }
 
         section(state = sectionState) {
@@ -125,13 +125,13 @@ public fun PlaylistsScreen(
  * Represents the state of [PlaylistsScreen].
  */
 @ExperimentalHorologistMediaUiApi
-public sealed class PlaylistsScreenState<T> {
+public sealed class PlaylistsScreenState<out T> {
 
-    public class Loading<T> : PlaylistsScreenState<T>()
+    public object Loading : PlaylistsScreenState<Nothing>()
 
     public data class Loaded<T>(
         val playlistList: List<T>
     ) : PlaylistsScreenState<T>()
 
-    public class Failed<T> : PlaylistsScreenState<T>()
+    public object Failed : PlaylistsScreenState<Nothing>()
 }

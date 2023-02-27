@@ -747,10 +747,10 @@ class PlayerRepositoryImplTest {
         sut.connect(player) {}
 
         // when
-        val whenBlock = { sut.removeMedia(1) }
+        sut.removeMedia(1)
 
         // then
-        assertThrows(IllegalArgumentException::class.java) { whenBlock() }
+        assertThat(sut.getMediaCount()).isEqualTo(0)
     }
 
     @Test

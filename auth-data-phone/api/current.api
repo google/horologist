@@ -1,0 +1,37 @@
+// Signature format: 4.0
+package com.google.android.horologist.auth.data.phone {
+
+  @kotlin.RequiresOptIn(message="Horologist Auth Data Phone is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistAuthDataPhoneApi {
+  }
+
+}
+
+package com.google.android.horologist.auth.data.phone.common {
+
+  public final class LoggingKt {
+  }
+
+}
+
+package com.google.android.horologist.auth.data.phone.tokenshare {
+
+  @com.google.android.horologist.auth.data.phone.ExperimentalHorologistAuthDataPhoneApi public interface TokenBundleRepository<T> {
+    method public suspend Object? update(T? tokenBundle, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  }
+
+}
+
+package com.google.android.horologist.auth.data.phone.tokenshare.impl {
+
+  @com.google.android.horologist.auth.data.phone.ExperimentalHorologistAuthDataPhoneApi public final class TokenBundleRepositoryImpl<T> implements com.google.android.horologist.auth.data.phone.tokenshare.TokenBundleRepository<T> {
+    ctor public TokenBundleRepositoryImpl(androidx.datastore.core.DataStore<T> dataStore);
+    method public suspend Object? update(T? tokenBundle, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    field public static final com.google.android.horologist.auth.data.phone.tokenshare.impl.TokenBundleRepositoryImpl.Companion Companion;
+  }
+
+  public static final class TokenBundleRepositoryImpl.Companion {
+    method public <T> com.google.android.horologist.auth.data.phone.tokenshare.impl.TokenBundleRepositoryImpl<T> create(com.google.android.horologist.data.WearDataLayerRegistry registry, optional String key, kotlinx.coroutines.CoroutineScope coroutineScope, androidx.datastore.core.Serializer<T> serializer);
+  }
+
+}
+

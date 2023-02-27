@@ -71,7 +71,7 @@ fun DeviceGrantSignInPromptScreen(
         }
         item {
             GuestModeChip(
-                onClick = { navController.popBackStack() },
+                onClick = navController::popBackStack,
                 chipType = StandardChipType.Secondary
             )
         }

@@ -30,6 +30,7 @@ package com.google.android.horologist.auth.composables.dialogs {
 
   public final class SignedInConfirmationDialogKt {
     method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void SignedInConfirmationDialog(kotlin.jvm.functions.Function0<kotlin.Unit> onDismissOrTimeout, optional androidx.compose.ui.Modifier modifier, optional String? name, optional String? email, optional Object? avatar, optional java.time.Duration duration);
+    method @androidx.compose.runtime.Composable @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public static void SignedInConfirmationDialog(kotlin.jvm.functions.Function0<kotlin.Unit> onDismissOrTimeout, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.auth.composables.model.AccountUiModel accountUiModel, optional java.time.Duration duration);
   }
 
 }
@@ -37,14 +38,17 @@ package com.google.android.horologist.auth.composables.dialogs {
 package com.google.android.horologist.auth.composables.model {
 
   @com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi public final class AccountUiModel {
-    ctor public AccountUiModel(String email, optional Object? avatar);
+    ctor public AccountUiModel(String email, optional String? name, optional Object? avatar);
     method public String component1();
-    method public Object? component2();
-    method public com.google.android.horologist.auth.composables.model.AccountUiModel copy(String email, Object? avatar);
+    method public String? component2();
+    method public Object? component3();
+    method public com.google.android.horologist.auth.composables.model.AccountUiModel copy(String email, String? name, Object? avatar);
     method public Object? getAvatar();
     method public String getEmail();
+    method public String? getName();
     property public final Object? avatar;
     property public final String email;
+    property public final String? name;
   }
 
 }

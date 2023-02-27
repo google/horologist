@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("UnstableApiUsage")
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
@@ -30,7 +32,6 @@ android {
         //        on older devices (25).  We also don't want this to bleed into other modules via
         //        compose-tools which is used just for testing.
         minSdk = 25
-        targetSdk = 30
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -88,9 +89,9 @@ project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().config
 }
 
 metalava {
-    sourcePaths = mutableSetOf("src/main")
-    filename = "api/current.api"
-    reportLintsAsErrors = true
+    sourcePaths.setFrom("src/main")
+    filename.set("api/current.api")
+    reportLintsAsErrors.set(true)
 }
 
 dependencies {

@@ -18,6 +18,7 @@
 
 package com.google.android.horologist.media.ui.screens.player
 
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -35,16 +36,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import com.google.android.horologist.audio.ui.VolumeViewModel
+import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
-import com.google.android.horologist.media.ui.R
-import com.google.android.horologist.media.ui.components.DefaultMediaDisplay
-import com.google.android.horologist.media.ui.components.InfoMediaDisplay
-import com.google.android.horologist.media.ui.components.LoadingMediaDisplay
 import com.google.android.horologist.media.ui.components.MediaControlButtons
+import com.google.android.horologist.media.ui.components.MediaInfoDisplay
 import com.google.android.horologist.media.ui.state.PlayerUiController
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
@@ -66,15 +68,17 @@ public typealias PlayerBackground = @Composable BoxScope.(playerUiState: PlayerU
 @Composable
 public fun PlayerScreen(
     playerViewModel: PlayerViewModel,
+    volumeViewModel: VolumeViewModel,
     modifier: Modifier = Modifier,
     mediaDisplay: MediaDisplay = { playerUiState ->
-        DefaultPlayerScreenMediaDisplay(playerUiState)
+        DefaultMediaInfoDisplay(playerUiState)
     },
     controlButtons: ControlButtons = { playerUiController, playerUiState ->
         DefaultPlayerScreenControlButtons(playerUiController, playerUiState)
     },
     buttons: SettingsButtons = {},
-    background: PlayerBackground = {}
+    background: PlayerBackground = {},
+    focusRequester: FocusRequester = rememberActiveFocusRequester()
 ) {
     val playerUiState by playerViewModel.playerUiState.collectAsStateWithLifecycle()
 
@@ -84,7 +88,10 @@ public fun PlayerScreen(
         buttons = {
             buttons(playerUiState)
         },
-        modifier = modifier,
+        modifier = modifier.onVolumeChangeByScroll(
+            focusRequester,
+            volumeViewModel::onVolumeChangeByScroll
+        ),
         background = { background(playerUiState) }
     )
 }
@@ -94,24 +101,15 @@ public fun PlayerScreen(
  */
 @ExperimentalHorologistMediaUiApi
 @Composable
-public fun DefaultPlayerScreenMediaDisplay(
+public fun DefaultMediaInfoDisplay(
     playerUiState: PlayerUiState,
     modifier: Modifier = Modifier
 ) {
-    val media = playerUiState.media
-    if (!playerUiState.connected) {
-        LoadingMediaDisplay(modifier)
-    } else if (media != null) {
-        DefaultMediaDisplay(
-            media = media,
-            modifier = modifier
-        )
-    } else {
-        InfoMediaDisplay(
-            message = stringResource(R.string.horologist_nothing_playing),
-            modifier = modifier
-        )
-    }
+    MediaInfoDisplay(
+        media = playerUiState.media,
+        loading = !playerUiState.connected || playerUiState.media?.loading == true,
+        modifier = modifier
+    )
 }
 
 /**
@@ -152,7 +150,8 @@ public fun PlayerScreen(
     val isRound = LocalConfiguration.current.isScreenRound
 
     Box(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
+            .fillMaxSize()
     ) {
         background()
 
@@ -201,3 +200,11 @@ public fun PlayerScreen(
         }
     }
 }
+
+private fun Modifier.onVolumeChangeByScroll(
+    focusRequester: FocusRequester,
+    onVolumeChangeByScroll: (scrollPixels: Float) -> Unit
+) =
+    onRotaryInputAccumulated(onValueChange = onVolumeChangeByScroll)
+        .focusRequester(focusRequester)
+        .focusable()

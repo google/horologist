@@ -31,6 +31,7 @@ import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.proto.SampleProto.Data
 import com.google.android.horologist.data.proto.copy
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.emitAll
@@ -44,7 +45,7 @@ import kotlinx.coroutines.tasks.await
 public class DataLayerNodesViewModel(
     private val registry: WearDataLayerRegistry
 ) : ViewModel() {
-    val nodes = flow {
+    val nodes: SharedFlow<List<Node>> = flow {
         val self = registry.nodeClient.localNode.await()
         emit(registry.nodeClient.connectedNodes.await() + self)
     }.shareIn(
@@ -53,7 +54,7 @@ public class DataLayerNodesViewModel(
         replay = 1
     )
 
-    val protoState = flow {
+    val protoState: Flow<Map<String, Data>> = flow {
         val ids = nodes.first().map { it.id }
 
         val flow: Flow<Map<String, Data>> = combine(

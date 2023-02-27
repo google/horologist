@@ -18,6 +18,7 @@ package com.google.android.horologist.mediasample.ui.app
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
@@ -50,13 +51,17 @@ class MediaPlayerAppViewModel @Inject constructor(
     private val playerRepository: PlayerRepository,
     private val playlistRepository: PlaylistRepository,
     private val snackbarManager: SnackbarManager,
-    private val resourceProvider: ResourceProvider
+    private val resourceProvider: ResourceProvider,
+    private val authUserRepository: AuthUserRepository
 ) : ViewModel() {
 
     val deepLinkPrefix: String = appConfig.deeplinkUriPrefix
 
     val appState = settingsRepository.settingsFlow.map {
-        UampAppState(streamingMode = it.streamingMode)
+        UampAppState(
+            streamingMode = it.streamingMode,
+            guestMode = it.guestMode
+        )
     }.stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000), initialValue = UampAppState())
 
     @OptIn(FlowPreview::class)
@@ -143,8 +148,21 @@ class MediaPlayerAppViewModel @Inject constructor(
         // setMediaItems is a noop before this point
         playerRepository.connected.filter { it }.first()
     }
+
+    suspend fun shouldShowLoginPrompt(): Boolean {
+        return !isGuestMode() && !isLoggedIn()
+    }
+
+    suspend fun isGuestMode(): Boolean {
+        return appState.filter { it.guestMode != null }.first().guestMode == true
+    }
+
+    suspend fun isLoggedIn(): Boolean {
+        return authUserRepository.getAuthenticated() != null
+    }
 }
 
 data class UampAppState(
-    val streamingMode: Boolean? = null
+    val streamingMode: Boolean? = null,
+    val guestMode: Boolean? = null
 )

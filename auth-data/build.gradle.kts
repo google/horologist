@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("UnstableApiUsage")
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
@@ -27,7 +29,6 @@ android {
 
     defaultConfig {
         minSdk = 26
-        targetSdk = 30
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -43,7 +44,10 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-opt-in=kotlin.RequiresOptIn",
+            "-opt-in=com.google.android.horologist.data.ExperimentalHorologistDataLayerApi",
+        )
     }
 
     packagingOptions {
@@ -82,12 +86,16 @@ project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().config
 }
 
 metalava {
-    sourcePaths = mutableSetOf("src/main")
-    filename = "api/current.api"
-    reportLintsAsErrors = true
+    sourcePaths.setFrom("src/main")
+    filename.set("api/current.api")
+    reportLintsAsErrors.set(true)
 }
 
 dependencies {
+
+    implementation(projects.datalayer)
+
+    api(libs.androidx.datastore)
 
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
@@ -96,13 +104,11 @@ dependencies {
     implementation(libs.androidx.wear.phone.interactions)
     implementation(libs.androidx.wear.remote.interactions)
     implementation(libs.playservices.auth)
+    implementation(libs.playservices.wearable)
     implementation(libs.retrofit2.retrofit)
     implementation(libs.retrofit2.convertermoshi)
     implementation(libs.moshi.kotlin)
     ksp(libs.moshi.kotlin.codegen)
-
-    debugImplementation(projects.composeTools)
-    implementation(libs.compose.ui.toolingpreview)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

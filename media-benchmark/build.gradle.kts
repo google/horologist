@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("UnstableApiUsage")
+
 plugins {
     id("com.android.library")
     id("me.tylerbwong.gradle.metalava")
@@ -25,7 +27,6 @@ android {
 
     defaultConfig {
         minSdk = 28
-        targetSdk = 30
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -75,9 +76,9 @@ project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().config
 }
 
 metalava {
-    sourcePaths = mutableSetOf("src/main")
-    filename = "api/current.api"
-    reportLintsAsErrors = true
+    sourcePaths.setFrom("src/main")
+    filename.set("api/current.api")
+    reportLintsAsErrors.set(true)
 }
 
 dependencies {

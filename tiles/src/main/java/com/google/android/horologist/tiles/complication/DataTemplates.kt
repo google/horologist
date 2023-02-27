@@ -20,8 +20,10 @@ import android.app.PendingIntent
 import android.graphics.drawable.Icon
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.wear.watchface.complications.data.ComplicationText
 import androidx.wear.watchface.complications.data.LongTextComplicationData
 import androidx.wear.watchface.complications.data.MonochromaticImage
+import androidx.wear.watchface.complications.data.PhotoImageComplicationData
 import androidx.wear.watchface.complications.data.PlainComplicationText
 import androidx.wear.watchface.complications.data.RangedValueComplicationData
 import androidx.wear.watchface.complications.data.ShortTextComplicationData
@@ -35,15 +37,16 @@ public object DataTemplates {
     public fun ComplicationTemplate<*>.longText(
         icon: Icon?,
         type: SmallImageType = SmallImageType.PHOTO,
-        title: String,
+        title: String?,
         text: String,
-        launchIntent: PendingIntent?
+        launchIntent: PendingIntent?,
+        contentDescription: ComplicationText? = null
     ): LongTextComplicationData = LongTextComplicationData.Builder(
         text = PlainComplicationText.Builder(
             text = text
         )
             .build(),
-        contentDescription = PlainComplicationText.Builder(
+        contentDescription = contentDescription ?: PlainComplicationText.Builder(
             text = text
         )
             .build()
@@ -57,13 +60,15 @@ public object DataTemplates {
                     ).build()
                 )
             }
+            if (title != null) {
+                setTitle(
+                    PlainComplicationText.Builder(
+                        text = title
+                    )
+                        .build()
+                )
+            }
         }
-        .setTitle(
-            PlainComplicationText.Builder(
-                text = title
-            )
-                .build()
-        )
         .setTapAction(launchIntent)
         .build()
 
@@ -71,14 +76,15 @@ public object DataTemplates {
         icon: Icon,
         type: SmallImageType = SmallImageType.PHOTO,
         name: String,
-        launchIntent: PendingIntent?
+        launchIntent: PendingIntent?,
+        contentDescription: ComplicationText? = null
     ): SmallImageComplicationData = SmallImageComplicationData.Builder(
         smallImage = SmallImage.Builder(
             image = icon,
             type = type
         )
             .build(),
-        contentDescription = PlainComplicationText.Builder(
+        contentDescription = contentDescription ?: PlainComplicationText.Builder(
             text = name
         )
             .build()
@@ -87,16 +93,16 @@ public object DataTemplates {
         .build()
 
     public fun ComplicationTemplate<*>.shortText(
-        title: String,
+        title: String?,
         text: String,
         @DrawableRes icon: Int?,
-        launchIntent: PendingIntent?
+        launchIntent: PendingIntent?,
+        contentDescription: ComplicationText? = null
     ): ShortTextComplicationData = ShortTextComplicationData.Builder(
         PlainComplicationText.Builder(text)
             .build(),
-        PlainComplicationText.Builder(
-            text = text
-        ).build()
+        contentDescription = contentDescription ?: PlainComplicationText.Builder(text = text)
+            .build()
     )
         .apply {
             if (icon != null) {
@@ -105,13 +111,30 @@ public object DataTemplates {
                         .build()
                 )
             }
+            if (title != null) {
+                setTitle(
+                    PlainComplicationText.Builder(
+                        text = title
+                    )
+                        .build()
+                )
+            }
         }
-        .setTitle(
-            PlainComplicationText.Builder(
-                text = title
-            )
-                .build()
+        .setTapAction(launchIntent)
+        .build()
+
+    public fun ComplicationTemplate<*>.photoImage(
+        photoImage: Icon,
+        name: String,
+        launchIntent: PendingIntent?,
+        contentDescription: ComplicationText? = null
+    ): PhotoImageComplicationData = PhotoImageComplicationData.Builder(
+        photoImage,
+        contentDescription = contentDescription ?: PlainComplicationText.Builder(
+            text = name
         )
+            .build()
+    )
         .setTapAction(launchIntent)
         .build()
 

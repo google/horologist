@@ -14,10 +14,14 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalHorologistComposeToolsApi::class)
+@file:OptIn(
+    ExperimentalHorologistMediaUiApi::class,
+    ExperimentalFoundationApi::class
+)
 
 package com.google.android.horologist.media.ui.screens.player
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
@@ -39,7 +43,6 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.compose.pager.PagerScreen
-import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
@@ -48,8 +51,9 @@ import com.google.android.horologist.compose.tools.WearPreviewThemes
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.MediaControlButtons
-import com.google.android.horologist.media.ui.components.TextMediaDisplay
 import com.google.android.horologist.media.ui.components.background.RadialBackground
+import com.google.android.horologist.media.ui.components.display.NothingPlayingDisplay
+import com.google.android.horologist.media.ui.components.display.TextMediaDisplay
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.media.ui.uamp.UampTheme
 import kotlin.time.Duration.Companion.seconds
@@ -344,6 +348,70 @@ fun DefaultMediaPreview() {
                 },
                 background = {
                     RadialBackground(color = Color.Yellow)
+                }
+            )
+        }
+    }
+}
+
+@Preview(
+    name = "With custom media display",
+    group = "Large Round",
+    device = Devices.WEAR_OS_LARGE_ROUND,
+    showSystemUi = true,
+    backgroundColor = BACKGROUND_COLOR,
+    showBackground = true
+)
+@Preview(
+    name = "With custom media display",
+    group = "Small Round",
+    device = Devices.WEAR_OS_SMALL_ROUND,
+    showSystemUi = true,
+    backgroundColor = BACKGROUND_COLOR,
+    showBackground = true
+)
+@Preview(
+    name = "With custom media display",
+    group = "Square",
+    device = Devices.WEAR_OS_SQUARE,
+    showSystemUi = true,
+    backgroundColor = BACKGROUND_COLOR,
+    showBackground = true
+)
+@Composable
+fun PlayerScreenPreviewNotingPlayingDisplay() {
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        timeText = { TimeText() }
+    ) {
+        PagerScreen(count = 2) {
+            PlayerScreen(
+                mediaDisplay = { NothingPlayingDisplay(Modifier) },
+                controlButtons = {
+                    MediaControlButtons(
+                        onPlayButtonClick = {},
+                        onPauseButtonClick = {},
+                        playPauseButtonEnabled = false,
+                        playing = false,
+                        onSeekToPreviousButtonClick = {},
+                        seekToPreviousButtonEnabled = false,
+                        onSeekToNextButtonClick = {},
+                        seekToNextButtonEnabled = false
+                    )
+                },
+                buttons = {
+                    SettingsButtons(
+                        volumeState = VolumeState(5, 10),
+                        onVolumeClick = { },
+                        onOutputClick = { },
+                        brandIcon = {
+                            SettingsButtonsDefaults.BrandIcon(
+                                R.drawable.ic_uamp,
+                                enabled = true
+                            )
+                        },
+                        enabled = false
+                    )
                 }
             )
         }

@@ -36,7 +36,6 @@ import androidx.datastore.preferences.protobuf.InvalidProtocolBufferException
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
-import kotlin.jvm.Throws
 
 /**
  * Proto based serializer for Preferences.
@@ -60,7 +59,7 @@ internal object PreferencesSerializer : Serializer<Preferences> {
 
         val mutablePreferences = mutablePreferencesOf()
 
-        preferencesProto.preferencesMap.forEach { (name, value) ->
+        for ((name, value) in preferencesProto.preferencesMap) {
             addProtoEntryToPreferences(name, value, mutablePreferences)
         }
 
@@ -91,6 +90,7 @@ internal object PreferencesSerializer : Serializer<Preferences> {
             is Set<*> -> Value.newBuilder().setStringSet(
                 StringSet.newBuilder().addAllStrings(value as Set<String>)
             ).build()
+
             else -> throw IllegalStateException(
                 "PreferencesSerializer does not support type: ${value.javaClass.name}"
             )
@@ -106,6 +106,7 @@ internal object PreferencesSerializer : Serializer<Preferences> {
             Value.ValueCase.BOOLEAN ->
                 mutablePreferences[booleanPreferencesKey(name)] =
                     value.boolean
+
             Value.ValueCase.FLOAT -> mutablePreferences[floatPreferencesKey(name)] = value.float
             Value.ValueCase.DOUBLE -> mutablePreferences[doublePreferencesKey(name)] = value.double
             Value.ValueCase.INTEGER -> mutablePreferences[intPreferencesKey(name)] = value.integer
@@ -114,9 +115,12 @@ internal object PreferencesSerializer : Serializer<Preferences> {
             Value.ValueCase.STRING_SET ->
                 mutablePreferences[stringSetPreferencesKey(name)] =
                     value.stringSet.stringsList.toSet()
+
             Value.ValueCase.VALUE_NOT_SET ->
                 throw CorruptionException("Value not set.")
+
             null -> throw CorruptionException("Value case is null.")
+            else -> throw CorruptionException("Value case is not supported.")
         }
     }
 }

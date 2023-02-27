@@ -56,8 +56,8 @@ fun BrowseScreenPreview() {
 @Composable
 fun BrowseScreenPreviewLoading() {
     BrowseScreenPreviewSample(
-        trendingSectionState = Section.State.Loading(),
-        downloadsSectionState = Section.State.Loading()
+        trendingSectionState = Section.State.Loading,
+        downloadsSectionState = Section.State.Loading
     )
 }
 
@@ -65,8 +65,8 @@ fun BrowseScreenPreviewLoading() {
 @Composable
 fun BrowseScreenPreviewFailed() {
     BrowseScreenPreviewSample(
-        trendingSectionState = Section.State.Failed(),
-        downloadsSectionState = Section.State.Failed()
+        trendingSectionState = Section.State.Failed,
+        downloadsSectionState = Section.State.Failed
     )
 }
 

@@ -16,13 +16,15 @@
 
 package com.google.android.horologist.auth.ui.googlesignin.signin
 
-import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListener
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInEventListenerNoOpImpl
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
+import com.google.android.horologist.auth.ui.googlesignin.mapper.AccountUiModelMapper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -32,6 +34,7 @@ import kotlinx.coroutines.launch
  */
 @ExperimentalHorologistAuthUiApi
 public open class GoogleSignInViewModel(
+    public val googleSignInClient: GoogleSignInClient,
     private val googleSignInEventListener: GoogleSignInEventListener = GoogleSignInEventListenerNoOpImpl
 ) : ViewModel() {
 
@@ -58,9 +61,7 @@ public open class GoogleSignInViewModel(
         }
 
         _uiState.value = GoogleSignInScreenState.Success(
-            displayName = account.displayName,
-            email = account.email,
-            photoUrl = account.photoUrl
+            AccountUiModelMapper.map(account)
         )
     }
 
@@ -91,11 +92,7 @@ public sealed class GoogleSignInScreenState {
 
     public object SelectAccount : GoogleSignInScreenState()
 
-    public data class Success(
-        val displayName: String?,
-        val email: String?,
-        val photoUrl: Uri?
-    ) : GoogleSignInScreenState()
+    public data class Success(val accountUiModel: AccountUiModel) : GoogleSignInScreenState()
 
     public object Failed : GoogleSignInScreenState()
 

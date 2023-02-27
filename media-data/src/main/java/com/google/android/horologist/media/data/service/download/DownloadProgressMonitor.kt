@@ -56,7 +56,7 @@ public class DownloadProgressMonitor(
             val downloads = mediaDownloadLocalDataSource.getAllDownloading()
 
             if (downloads.isNotEmpty()) {
-                downloads.forEach {
+                for (it in downloads) {
                     downloadManager.downloadIndex.getDownload(it.mediaId)?.let { download ->
                         mediaDownloadLocalDataSource.updateProgress(
                             mediaId = download.request.id,

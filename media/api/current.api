@@ -9,6 +9,8 @@ package com.google.android.horologist.media {
 package com.google.android.horologist.media.model {
 
   @com.google.android.horologist.media.ExperimentalHorologistMediaApi public enum Command {
+    method public static com.google.android.horologist.media.model.Command valueOf(String name);
+    method public static com.google.android.horologist.media.model.Command[] values();
     enum_constant public static final com.google.android.horologist.media.model.Command PlayPause;
     enum_constant public static final com.google.android.horologist.media.model.Command SeekBack;
     enum_constant public static final com.google.android.horologist.media.model.Command SeekForward;
@@ -176,6 +178,8 @@ package com.google.android.horologist.media.model {
   }
 
   public enum PlaybackStateEvent.Cause {
+    method public static com.google.android.horologist.media.model.PlaybackStateEvent.Cause valueOf(String name);
+    method public static com.google.android.horologist.media.model.PlaybackStateEvent.Cause[] values();
     enum_constant public static final com.google.android.horologist.media.model.PlaybackStateEvent.Cause Initial;
     enum_constant public static final com.google.android.horologist.media.model.PlaybackStateEvent.Cause Other;
     enum_constant public static final com.google.android.horologist.media.model.PlaybackStateEvent.Cause ParametersChanged;
@@ -189,6 +193,8 @@ package com.google.android.horologist.media.model {
   }
 
   @com.google.android.horologist.media.ExperimentalHorologistMediaApi public enum PlayerState {
+    method public static com.google.android.horologist.media.model.PlayerState valueOf(String name);
+    method public static com.google.android.horologist.media.model.PlayerState[] values();
     enum_constant public static final com.google.android.horologist.media.model.PlayerState Idle;
     enum_constant public static final com.google.android.horologist.media.model.PlayerState Loading;
     enum_constant public static final com.google.android.horologist.media.model.PlayerState Playing;
@@ -233,6 +239,10 @@ package com.google.android.horologist.media.model {
     method public long predictDuration(long timestamp);
     method public float predictPercent(long timestamp);
     method public long predictPosition(long timestamp);
+  }
+
+  public fun interface TimestampProvider {
+    method public long getTimestamp();
   }
 
 }
@@ -288,7 +298,7 @@ package com.google.android.horologist.media.repository {
   }
 
   @com.google.android.horologist.media.ExperimentalHorologistMediaApi public interface PlaylistRepository {
-    method public suspend Object? get(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.model.Playlist> p);
+    method public suspend Object? get(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.model.Playlist>);
     method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.model.Playlist>> getAll();
     method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.model.Playlist>> getAllDownloaded();
   }

@@ -23,18 +23,19 @@ import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataA
 import com.google.android.horologist.media.model.PlaybackState
 import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.media.model.PlayerState
+import com.google.android.horologist.media.model.TimestampProvider
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * Maps a [Media3 player][Player] position into a [PlaybackState].
  */
 @ExperimentalHorologistMediaDataApi
-public class PlaybackStateMapper(private val timestampProvider: () -> Long = { SystemClock.elapsedRealtime() }) {
+public class PlaybackStateMapper(private val timestampProvider: TimestampProvider = TimestampProvider { SystemClock.elapsedRealtime() }) {
     public fun createEvent(player: Player?, cause: PlaybackStateEvent.Cause): PlaybackStateEvent =
         PlaybackStateEvent(
             playbackState = map(player),
             cause = cause,
-            timestamp = timestampProvider().milliseconds
+            timestamp = timestampProvider.getTimestamp().milliseconds
         )
 
     // should only be mapped as an event

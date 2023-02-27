@@ -26,20 +26,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.AutoCenteringParams
-import androidx.wear.compose.material.ScalingLazyColumn
-import androidx.wear.compose.material.ScalingLazyListAnchorType
-import androidx.wear.compose.material.ScalingLazyListScope
-import androidx.wear.compose.material.ScalingLazyListState
-import androidx.wear.compose.material.ScalingParams
-import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
+import androidx.wear.compose.foundation.lazy.AutoCenteringParams
+import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
+import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
+import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
+import androidx.wear.compose.foundation.lazy.ScalingLazyListState
+import androidx.wear.compose.foundation.lazy.ScalingParams
+import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 import com.google.android.horologist.compose.rotaryinput.rotaryWithSnap
 import com.google.android.horologist.compose.rotaryinput.toRotaryScrollAdapter
-import androidx.wear.compose.material.ScalingLazyColumnDefaults as WearScalingLazyColumnDefaults
+import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults as WearScalingLazyColumnDefaults
 
 /**
  * A Config and State object wrapping up all configuration for a [ScalingLazyColumn].

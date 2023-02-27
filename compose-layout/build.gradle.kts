@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("UnstableApiUsage")
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
@@ -27,7 +29,6 @@ android {
 
     defaultConfig {
         minSdk = 25
-        targetSdk = 30
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -76,9 +77,9 @@ kapt {
 }
 
 metalava {
-    sourcePaths = mutableSetOf("src/main")
-    filename = "api/current.api"
-    reportLintsAsErrors = true
+    sourcePaths.setFrom("src/main")
+    filename.set("api/current.api")
+    reportLintsAsErrors.set(true)
 }
 
 dependencies {
@@ -87,12 +88,11 @@ dependencies {
     api(libs.wearcompose.foundation)
     api(libs.wearcompose.navigation)
 
-    api(libs.accompanist.pager)
-
     api(libs.androidx.lifecycle.runtime.compose)
     api(libs.androidx.paging)
 
     implementation(libs.kotlin.stdlib)
+    implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.util)
     implementation(libs.androidx.wear)
     implementation(libs.androidx.lifecycle.viewmodel.compose)

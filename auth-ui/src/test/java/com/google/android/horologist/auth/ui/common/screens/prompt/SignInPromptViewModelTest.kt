@@ -22,10 +22,11 @@
 package com.google.android.horologist.auth.ui.common.screens.prompt
 
 import app.cash.turbine.test
+import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.model.AuthUser
-import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 import com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi
-import com.google.android.horologist.test.toolbox.MainDispatcherRule
+import com.google.android.horologist.test.toolbox.rules.MainDispatcherRule
+import com.google.android.horologist.test.toolbox.testdoubles.AuthUserRepositoryStub
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -103,23 +104,15 @@ class SignInPromptViewModelTest {
     @Test
     fun givenUserAuthenticated_whenOnIdleStateObserved_thenStateIsSignedIn() = runTest {
         // given
-        fakeAuthUserRepository.authUser = AuthUser()
+        val email = "user@example.com"
+        fakeAuthUserRepository.authUser = AuthUser(email = email)
 
         // when
         sut.onIdleStateObserved()
 
         // then
         sut.uiState.test {
-            assertThat(awaitItem()).isEqualTo(SignInPromptScreenState.SignedIn)
-        }
-    }
-
-    private class AuthUserRepositoryStub : AuthUserRepository {
-
-        var authUser: AuthUser? = null
-
-        override suspend fun getAuthenticated(): AuthUser? {
-            return authUser
+            assertThat(awaitItem()).isEqualTo(SignInPromptScreenState.SignedIn(AccountUiModel(email = email)))
         }
     }
 }

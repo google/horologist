@@ -98,7 +98,7 @@ public class WearConfiguredPlayer(
             // Flush our still not playing state, relevant since a MediaController
             // May assume play is successful if we don't error
             withContext(Dispatchers.Main) {
-                listeners.forEach {
+                for (it in listeners) {
                     it.onPlayWhenReadyChanged(false, PLAY_WHEN_READY_CHANGE_REASON_AUDIO_BECOMING_NOISY)
                     it.onIsPlayingChanged(false)
                 }

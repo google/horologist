@@ -39,7 +39,7 @@ public class PlaylistLocalDataSource(
 ) {
 
     public suspend fun upsert(playlists: List<Playlist>) {
-        playlists.forEach { playlist ->
+        for (playlist in playlists) {
             playlistDao.upsert(
                 PlaylistEntityMapper.map(playlist),
                 playlist.mediaList.map(MediaEntityMapper::map),

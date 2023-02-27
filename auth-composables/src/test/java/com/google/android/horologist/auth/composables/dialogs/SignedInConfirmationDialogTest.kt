@@ -50,7 +50,7 @@ class SignedInConfirmationDialogTest {
                     contentAlignment = Alignment.Center
                 ) {
                     SignedInConfirmationDialogContent(
-                        displayName = "Maggie",
+                        name = "Maggie",
                         email = "maggie@example.com",
                         avatar = android.R.drawable.sym_def_app_icon
                     )
@@ -85,7 +85,7 @@ class SignedInConfirmationDialogTest {
         paparazzi.snapshotInABox {
             FakeImageLoader.Resources.override {
                 SignedInConfirmationDialogContent(
-                    displayName = "Maggie",
+                    name = "Maggie",
                     avatar = android.R.drawable.sym_def_app_icon
                 )
             }
@@ -104,7 +104,7 @@ class SignedInConfirmationDialogTest {
         paparazzi.snapshotInABox {
             FakeImageLoader.Resources.override {
                 SignedInConfirmationDialogContent(
-                    displayName = "Wolfeschlegelsteinhausenbergerdorff",
+                    name = "Wolfeschlegelsteinhausenbergerdorff",
                     email = "wolfeschlegelsteinhausenbergerdorff@example.com",
                     avatar = android.R.drawable.sym_def_app_icon
                 )

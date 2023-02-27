@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.mediasample.ui.player
 
+import androidx.activity.compose.ReportDrawnAfter
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -24,14 +25,15 @@ import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
-import com.google.android.horologist.media.ui.components.animated.AnimatedPlayerScreenMediaDisplay
+import com.google.android.horologist.media.ui.components.animated.AnimatedMediaInfoDisplay
 import com.google.android.horologist.media.ui.components.background.ArtworkColorBackground
+import com.google.android.horologist.media.ui.screens.player.DefaultMediaInfoDisplay
 import com.google.android.horologist.media.ui.screens.player.DefaultPlayerScreenControlButtons
-import com.google.android.horologist.media.ui.screens.player.DefaultPlayerScreenMediaDisplay
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiController
 import com.google.android.horologist.media.ui.state.PlayerUiState
-import com.google.android.horologist.mediasample.ui.util.ReportFullyDrawn
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
 
 @Composable
 fun UampMediaPlayerScreen(
@@ -46,18 +48,23 @@ fun UampMediaPlayerScreen(
     PlayerScreen(
         modifier = modifier,
         playerViewModel = mediaPlayerScreenViewModel,
+        volumeViewModel = volumeViewModel,
         mediaDisplay = { playerUiState ->
             if (settingsState.animated) {
-                AnimatedPlayerScreenMediaDisplay(playerUiState)
+                AnimatedMediaInfoDisplay(
+                    media = playerUiState.media,
+                    loading = !playerUiState.connected || playerUiState.media?.loading == true,
+                    modifier = modifier
+                )
             } else {
-                DefaultPlayerScreenMediaDisplay(playerUiState)
+                DefaultMediaInfoDisplay(playerUiState)
             }
         },
         buttons = {
             UampSettingsButtons(
                 volumeState = volumeState,
                 onVolumeClick = onVolumeClick,
-                enabled = it.connected
+                enabled = it.connected && it.media != null
             )
         },
         controlButtons = { playerUiController, playerUiState ->
@@ -90,9 +97,8 @@ fun UampMediaPlayerScreen(
         }
     )
 
-    val player by mediaPlayerScreenViewModel.playerState.collectAsStateWithLifecycle()
-    if (player != null) {
-        ReportFullyDrawn()
+    ReportDrawnAfter {
+        mediaPlayerScreenViewModel.playerState.filterNotNull().first()
     }
 }
 

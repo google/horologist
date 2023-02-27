@@ -14,9 +14,14 @@
  * limitations under the License.
  */
 
+@file:Suppress("UnstableApiUsage")
+
+import com.google.protobuf.gradle.*
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.dokka")
+    id("com.google.protobuf")
     kotlin("android")
 }
 
@@ -24,9 +29,8 @@ android {
     compileSdk = 33
 
     defaultConfig {
-        minSdk = 21
+        minSdk = 25
         //noinspection ExpiredTargetSdkVersion
-        targetSdk = 30
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -71,6 +75,29 @@ android {
     namespace = "com.google.android.horologist.datalayer"
 }
 
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.21.4"
+    }
+    plugins {
+        id("javalite") {
+            artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
+        }
+    }
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                create("java") {
+                    option("lite")
+                }
+                create("kotlin") {
+                    option("lite")
+                }
+            }
+        }
+    }
+}
+
 dependencies {
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
@@ -80,6 +107,9 @@ dependencies {
     api(libs.androidx.datastore.preferences)
     api(libs.androidx.datastore)
     api(libs.protobuf.kotlin.lite)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.wear.remote.interactions)
+    implementation(libs.androidx.wear.phone.interactions)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

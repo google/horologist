@@ -29,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
@@ -36,7 +37,6 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Dialog
-import androidx.wear.compose.material.rememberScalingLazyListState
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreen
 import com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreenState
@@ -62,8 +62,8 @@ fun UampPlaylistsScreen(
             PlaylistsScreenState.Loaded(modifiedPlaylistList)
         }
 
-        is PlaylistsScreenState.Failed,
-        is PlaylistsScreenState.Loading -> uiState
+        PlaylistsScreenState.Failed,
+        PlaylistsScreenState.Loading -> uiState
     }
 
     PlaylistsScreen(
@@ -75,7 +75,7 @@ fun UampPlaylistsScreen(
     )
 
     // b/242302037 - it should stop listening to uiState emissions while dialog is presented
-    if (modifiedState is PlaylistsScreenState.Failed) {
+    if (modifiedState == PlaylistsScreenState.Failed) {
         Dialog(
             showDialog = true,
             onDismissRequest = onErrorDialogCancelClick,

@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package com.google.android.horologist.data;
+
+option java_package = "com.google.android.horologist.data";
+option java_multiple_files = true;
+
+
+message AppHelperResult {
+  AppHelperResultCode code = 1;
+}
+
+enum AppHelperResultCode {
+  SUCCESS = 0;
+  UNKNOWN_REQUEST = 1;
+  ACTIVITY_NOT_FOUND = 2;
+  INVALID_COMPONENT = 3;
+  NO_COMPANION_FOUND = 4;
+}
+
+message LaunchRequest {
+  oneof launch_config {
+    OwnAppConfig own_app = 1;
+    CompanionConfig companion = 2;
+    ActivityConfig activity = 3;
+  }
+}
+
+message OwnAppConfig {}
+
+message CompanionConfig {
+  string sourceNode = 1;
+}
+
+message ActivityConfig {
+  string packageName = 1;
+  string classFullName = 2;
+}

@@ -53,9 +53,7 @@ fun GoogleSignInPromptSampleScreen(
 
     SignInPromptScreen(
         message = stringResource(id = R.string.google_sign_in_prompt_message),
-        onAlreadySignedIn = {
-            showAlreadySignedInDialog = true
-        },
+        onAlreadySignedIn = { showAlreadySignedInDialog = true },
         columnState = columnState,
         modifier = modifier,
         viewModel = viewModel
@@ -72,7 +70,7 @@ fun GoogleSignInPromptSampleScreen(
         }
         item {
             GuestModeChip(
-                onClick = { navController.popBackStack() },
+                onClick = navController::popBackStack,
                 chipType = StandardChipType.Secondary
             )
         }

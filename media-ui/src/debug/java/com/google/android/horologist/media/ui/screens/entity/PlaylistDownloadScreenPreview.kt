@@ -35,7 +35,7 @@ fun PlaylistDownloadScreenPreviewLoading() {
     PlaylistDownloadScreen(
         columnState = belowTimeTextPreview(),
         playlistName = "Playlist name",
-        playlistDownloadScreenState = PlaylistDownloadScreenState.Loading(),
+        playlistDownloadScreenState = PlaylistDownloadScreenState.Loading,
         onDownloadButtonClick = { },
         onCancelDownloadButtonClick = { },
         onDownloadItemClick = { },
@@ -189,7 +189,7 @@ fun PlaylistDownloadScreenPreviewFailed() {
     PlaylistDownloadScreen(
         columnState = belowTimeTextPreview(),
         playlistName = "Playlist name",
-        playlistDownloadScreenState = PlaylistDownloadScreenState.Failed(),
+        playlistDownloadScreenState = PlaylistDownloadScreenState.Failed,
         onDownloadButtonClick = { },
         onCancelDownloadButtonClick = { },
         onDownloadItemClick = { },

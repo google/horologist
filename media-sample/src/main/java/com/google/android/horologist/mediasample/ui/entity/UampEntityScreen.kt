@@ -101,7 +101,7 @@ fun UampEntityScreen(
     )
 
     // b/243381431 - it should stop listening to uiState emissions while dialog is presented
-    if (uiState is PlaylistDownloadScreenState.Failed) {
+    if (uiState == PlaylistDownloadScreenState.Failed) {
         Dialog(
             showDialog = true,
             onDismissRequest = onErrorDialogCancelClick,

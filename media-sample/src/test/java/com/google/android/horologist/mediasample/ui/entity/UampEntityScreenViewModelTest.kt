@@ -109,7 +109,7 @@ class UampEntityScreenViewModelTest {
         )
 
         sut2.uiState.test {
-            assertThat(awaitItem()).isInstanceOf(PlaylistDownloadScreenState.Failed::class.java)
+            assertThat(awaitItem()).isEqualTo(PlaylistDownloadScreenState.Failed)
         }
     }
 

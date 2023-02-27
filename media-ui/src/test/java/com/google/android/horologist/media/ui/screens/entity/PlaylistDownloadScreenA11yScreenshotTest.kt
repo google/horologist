@@ -70,7 +70,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
             PlayerLibraryPreview(state = columnState.state) {
                 PlaylistDownloadScreen(
                     playlistName = "Playlist name",
-                    playlistDownloadScreenState = PlaylistDownloadScreenState.Loading(),
+                    playlistDownloadScreenState = PlaylistDownloadScreenState.Loading,
                     onDownloadButtonClick = { },
                     onCancelDownloadButtonClick = { },
                     onDownloadItemClick = { },
@@ -266,7 +266,7 @@ class PlaylistDownloadScreenA11yScreenshotTest {
             PlayerLibraryPreview(state = columnState.state) {
                 PlaylistDownloadScreen(
                     playlistName = "Playlist name",
-                    playlistDownloadScreenState = PlaylistDownloadScreenState.Failed(),
+                    playlistDownloadScreenState = PlaylistDownloadScreenState.Failed,
                     onDownloadButtonClick = { },
                     onCancelDownloadButtonClick = { },
                     onDownloadItemClick = { },

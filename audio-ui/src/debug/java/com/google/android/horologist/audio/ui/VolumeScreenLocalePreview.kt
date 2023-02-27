@@ -46,8 +46,7 @@ fun VolumeScreenLocalePreview() {
                 .toAudioOutputUi(),
             increaseVolume = { },
             decreaseVolume = { },
-            onAudioOutputClick = {},
-            onVolumeChangeByScroll = {}
+            onAudioOutputClick = {}
         )
     }
 }

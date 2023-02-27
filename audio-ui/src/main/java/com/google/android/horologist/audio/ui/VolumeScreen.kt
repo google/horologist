@@ -29,6 +29,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -44,7 +45,7 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.components.DeviceChip
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
-import com.google.android.horologist.compose.rotaryinput.rotaryControls
+import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulatedWithFocus
 
 /**
  * Volume Screen with an [InlineSlider] and Increase/Decrease buttons for the Audio Stream Volume.
@@ -72,7 +73,10 @@ public fun VolumeScreen(
     val focusRequester: FocusRequester = rememberActiveFocusRequester()
 
     VolumeScreen(
-        modifier = modifier.rotaryControls(focusRequester, volumeViewModel::onVolumeChangeByScroll),
+        modifier = modifier.onRotaryInputAccumulatedWithFocus(
+            focusRequester = focusRequester,
+            onValueChange = volumeViewModel::onVolumeChangeByScroll
+        ),
         volume = { volumeState },
         audioOutputUi = audioOutput.toAudioOutputUi(),
         increaseVolume = { volumeViewModel.increaseVolume() },

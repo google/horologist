@@ -96,12 +96,12 @@ public fun PlaylistDownloadScreen(
 ) {
     val entityScreenState: EntityScreenState<DownloadMediaUiModel> =
         when (playlistDownloadScreenState) {
-            is PlaylistDownloadScreenState.Loading -> EntityScreenState.Loading()
+            PlaylistDownloadScreenState.Loading -> EntityScreenState.Loading
             is PlaylistDownloadScreenState.Loaded -> EntityScreenState.Loaded(
                 playlistDownloadScreenState.mediaList
             )
 
-            is PlaylistDownloadScreenState.Failed -> EntityScreenState.Failed()
+            PlaylistDownloadScreenState.Failed -> EntityScreenState.Failed
         }
 
     EntityScreen(
@@ -263,8 +263,8 @@ private fun ButtonsContent(
     onPlayButtonClick: (PlaylistUiModel) -> Unit
 ) {
     when (state) {
-        is PlaylistDownloadScreenState.Failed,
-        is PlaylistDownloadScreenState.Loading -> {
+        PlaylistDownloadScreenState.Failed,
+        PlaylistDownloadScreenState.Loading -> {
             StandardChip(
                 label = stringResource(id = R.string.horologist_playlist_download_button_download),
                 onClick = { /* do nothing */ },
@@ -412,9 +412,9 @@ private fun <Collection> FirstButton(
  * Represents the state of [PlaylistDownloadScreen].
  */
 @ExperimentalHorologistMediaUiApi
-public sealed class PlaylistDownloadScreenState<Collection, Media> {
+public sealed class PlaylistDownloadScreenState<out Collection, out Media> {
 
-    public class Loading<Collection, Media> : PlaylistDownloadScreenState<Collection, Media>()
+    public object Loading : PlaylistDownloadScreenState<Nothing, Nothing>()
 
     public data class Loaded<Collection, Media>(
         val collectionModel: Collection,
@@ -444,7 +444,7 @@ public sealed class PlaylistDownloadScreenState<Collection, Media> {
         }
     }
 
-    public class Failed<Collection, Media> : PlaylistDownloadScreenState<Collection, Media>()
+    public object Failed : PlaylistDownloadScreenState<Nothing, Nothing>()
 }
 
 /**

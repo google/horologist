@@ -59,12 +59,12 @@ public fun PlaylistStreamingScreen(
 ) {
     val entityScreenState: EntityScreenState<DownloadMediaUiModel> =
         when (playlistDownloadScreenState) {
-            is PlaylistDownloadScreenState.Loading -> EntityScreenState.Loading()
+            PlaylistDownloadScreenState.Loading -> EntityScreenState.Loading
             is PlaylistDownloadScreenState.Loaded -> EntityScreenState.Loaded(
                 playlistDownloadScreenState.mediaList
             )
 
-            is PlaylistDownloadScreenState.Failed -> EntityScreenState.Failed()
+            PlaylistDownloadScreenState.Failed -> EntityScreenState.Failed
         }
 
     EntityScreen(

@@ -126,7 +126,7 @@ fun EntityScreenPreviewLoadedState() {
 fun EntityScreenPreviewLoadingState() {
     EntityScreen(
         columnState = belowTimeTextPreview(),
-        entityScreenState = EntityScreenState.Loading<String>(),
+        entityScreenState = EntityScreenState.Loading,
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },
         mediaContent = { },
@@ -139,7 +139,7 @@ fun EntityScreenPreviewLoadingState() {
 fun EntityScreenPreviewFailedState() {
     EntityScreen(
         columnState = belowTimeTextPreview(),
-        entityScreenState = EntityScreenState.Failed<String>(),
+        entityScreenState = EntityScreenState.Failed,
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
         loadingContent = { },
         mediaContent = { },

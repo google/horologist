@@ -103,7 +103,7 @@ public fun <Media> EntityScreen(
     failedContent: (@Composable () -> Unit)? = null
 ) {
     when (entityScreenState) {
-        is EntityScreenState.Loading -> {
+        EntityScreenState.Loading -> {
             EntityScreen(
                 headerContent = headerContent,
                 columnState = columnState,
@@ -124,7 +124,7 @@ public fun <Media> EntityScreen(
             )
         }
 
-        is EntityScreenState.Failed -> {
+        EntityScreenState.Failed -> {
             EntityScreen(
                 columnState = columnState,
                 headerContent = headerContent,
@@ -142,14 +142,14 @@ public fun <Media> EntityScreen(
  * Represents the state of [EntityScreen].
  */
 @ExperimentalHorologistMediaUiApi
-public sealed class EntityScreenState<Media> {
-    public class Loading<Media> : EntityScreenState<Media>()
+public sealed class EntityScreenState<out Media> {
+    public object Loading : EntityScreenState<Nothing>()
 
     public data class Loaded<Media>(
         val mediaList: List<Media>
     ) : EntityScreenState<Media>()
 
-    public class Failed<Media> : EntityScreenState<Media>()
+    public object Failed : EntityScreenState<Nothing>()
 }
 
 /**

@@ -61,14 +61,14 @@ class UampStreamingPlaylistScreenViewModel @Inject constructor(
                     downloadMediaList = playlistDownload.mediaList.map(DownloadMediaUiModelMapper::map)
                 )
             } else {
-                PlaylistDownloadScreenState.Failed()
+                PlaylistDownloadScreenState.Failed
             }
         }.catch {
-            emit(PlaylistDownloadScreenState.Failed())
+            emit(PlaylistDownloadScreenState.Failed)
         }.stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000),
-            PlaylistDownloadScreenState.Loading()
+            PlaylistDownloadScreenState.Loading
         )
 
     fun play(mediaId: String? = null) {

@@ -17,6 +17,7 @@
 package com.google.android.horologist.audio.ui
 
 import android.media.AudioManager
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -28,6 +29,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -36,7 +38,6 @@ import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.InlineSlider
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Stepper
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.audio.AudioOutput
@@ -98,7 +99,7 @@ public fun VolumeScreen(
     increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
     showVolumeIndicator: Boolean = true,
-    onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)
+    onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)? = null
 ) {
     VolumeScreen(
         volume = volume,
@@ -140,7 +141,7 @@ public fun VolumeWithLabelScreen(
     increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
     showVolumeIndicator: Boolean = true,
-    onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)
+    onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)? = null
 ) {
     VolumeScreen(
         volume = volume,
@@ -172,44 +173,37 @@ internal fun VolumeScreen(
     increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() },
     showVolumeIndicator: Boolean = true,
-    onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)
+    onVolumeChangeByScroll: ((scrollPixels: Float) -> Unit)? = null
 ) {
-    val focusRequester: FocusRequester = rememberActiveFocusRequester()
-    Scaffold(
-        modifier = modifier
-            .fillMaxSize()
-            .rotaryControls(
-                focusRequester,
-                onRotaryInput = onVolumeChangeByScroll
-            ),
-        positionIndicator = {
-            if (showVolumeIndicator) {
-                VolumePositionIndicator(volumeState = volume, autoHide = false)
-            }
+    if (onVolumeChangeByScroll != null) {
+        val focusRequester: FocusRequester = rememberActiveFocusRequester()
+        Box(
+            modifier = modifier.fillMaxSize()
+                .rotaryControls(focusRequester, onVolumeChangeByScroll)
+        )
+    } else {
+        Box(modifier = modifier.fillMaxSize())
+    }
+    val volumeState = volume()
+    Stepper(
+        value = volumeState.current.toFloat(),
+        onValueChange = { if (it > volumeState.current) increaseVolume() else decreaseVolume() },
+        steps = volumeState.max - 1,
+        valueRange = (0f..volumeState.max.toFloat()),
+        increaseIcon = {
+            increaseIcon()
+        },
+        decreaseIcon = {
+            decreaseIcon()
         }
     ) {
-        val volumeState = volume()
-        Stepper(
-            value = volumeState.current.toFloat(),
-            onValueChange = { if (it > volumeState.current) increaseVolume() else decreaseVolume() },
-            steps = volumeState.max - 1,
-            valueRange = (0f..volumeState.max.toFloat()),
-            increaseIcon = {
-                increaseIcon()
-            },
-            decreaseIcon = {
-                decreaseIcon()
-            }
-        ) {
-            contentSlot()
-        }
-
-        if (showVolumeIndicator) {
-            VolumePositionIndicator(
-                volumeState = volume,
-                autoHide = false
-            )
-        }
+        contentSlot()
+    }
+    if (showVolumeIndicator) {
+        VolumePositionIndicator(
+            volumeState = volume,
+            autoHide = false
+        )
     }
 }
 

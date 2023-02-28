@@ -45,6 +45,7 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.components.DeviceChip
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
+import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulatedWithFocus
 
 /**
@@ -59,8 +60,9 @@ import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulate
  * See [VolumeViewModel]
  * See [AudioManager.STREAM_MUSIC]
  */
-@OptIn(ExperimentalHorologistAudioUiApi::class)
 @Composable
+@ExperimentalHorologistAudioUiApi
+@OptIn(ExperimentalHorologistComposeLayoutApi::class)
 public fun VolumeScreen(
     modifier: Modifier = Modifier,
     volumeViewModel: VolumeViewModel = viewModel(factory = VolumeViewModel.Factory),

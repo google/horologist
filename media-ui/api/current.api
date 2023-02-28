@@ -879,13 +879,16 @@ package com.google.android.horologist.media.ui.state.model {
   }
 
   public static final class TrackPositionUiModel.Loading extends com.google.android.horologist.media.ui.state.model.TrackPositionUiModel {
+    ctor public TrackPositionUiModel.Loading(optional boolean shouldAnimate, optional boolean showProgress);
+    method public boolean component1();
+    method public boolean component2();
+    method public com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.Loading copy(boolean shouldAnimate, boolean showProgress);
     method public boolean getShouldAnimate();
     method public boolean getShowProgress();
     method public boolean isLoading();
     property public boolean isLoading;
     property public boolean shouldAnimate;
     property public boolean showProgress;
-    field public static final com.google.android.horologist.media.ui.state.model.TrackPositionUiModel.Loading INSTANCE;
   }
 
   public static final class TrackPositionUiModel.Predictive extends com.google.android.horologist.media.ui.state.model.TrackPositionUiModel {

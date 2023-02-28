@@ -48,7 +48,7 @@ public sealed class TrackPositionUiModel {
         }
     }
 
-    public data class Loading (
+    public data class Loading(
         public override val shouldAnimate: Boolean = false,
         public override val showProgress: Boolean = false
     ) : TrackPositionUiModel() {

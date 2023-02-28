@@ -121,6 +121,9 @@ jobs:
           fetch-depth: '500'
           lfs: 'true'
 
+      - name: Install pulseaudio
+        run: brew install pulseaudio
+
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 

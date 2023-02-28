@@ -115,7 +115,7 @@ public fun PlayPauseProgressButton(
         backgroundColor = backgroundColor
     ) {
         val progress by ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
-        if (trackPositionUiModel.showProgress && trackPositionUiModel.isLoading) {
+        if (trackPositionUiModel.isLoading) {
             CircularProgressIndicator(
                 modifier = Modifier.fillMaxSize(),
                 indicatorColor = progressColour,

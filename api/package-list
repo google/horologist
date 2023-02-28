@@ -40,6 +40,7 @@ com.google.android.horologist.auth.composables.screens
 com.google.android.horologist.auth.ui
 com.google.android.horologist.auth.ui.common.screens.prompt
 com.google.android.horologist.auth.ui.common.screens.streamline
+com.google.android.horologist.auth.ui.googlesignin.mapper
 com.google.android.horologist.auth.ui.googlesignin.prompt
 com.google.android.horologist.auth.ui.googlesignin.signin
 com.google.android.horologist.auth.ui.mapper
@@ -66,6 +67,10 @@ module:datalayer
 com.google.android.horologist.data
 com.google.android.horologist.data.store
 com.google.android.horologist.data.store.impl
+module:datalayer-phone
+com.google.android.horologist.datalayer.phone
+module:datalayer-watch
+com.google.android.horologist.datalayer.watch
 module:health-composables
 com.google.android.horologist.health.composables
 module:media

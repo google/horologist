@@ -85,6 +85,31 @@ class TrackPositionUiModelMapperTest {
     }
 
     @Test
+    fun givenLoadingPlayerState_thenMapsCorrectly() {
+        // given
+        val current = 1.seconds
+        val duration = 2.seconds
+        val playbackStateEvent = PlaybackStateEvent(
+            PlaybackState(
+                playerState = PlayerState.Loading,
+                isLive = false,
+                currentPosition = current,
+                duration = duration,
+                playbackSpeed = 1f
+            ),
+            cause = PlaybackStateEvent.Cause.PositionDiscontinuity
+        )
+
+        // when
+        val result = TrackPositionUiModelMapper.map(playbackStateEvent)
+
+        // then
+        assertThat(result).isInstanceOf(TrackPositionUiModel.Loading::class.java)
+        result as TrackPositionUiModel.Loading
+        assertThat(result.isLoading).isTrue()
+    }
+
+    @Test
     fun givenUnknownMediaPosition_thenMapsCorrectly() {
         // given
         val playbackState = PlaybackState.IDLE

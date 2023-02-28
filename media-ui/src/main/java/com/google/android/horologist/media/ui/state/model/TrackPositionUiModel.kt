@@ -24,10 +24,12 @@ import kotlin.time.Duration
 public sealed class TrackPositionUiModel {
     public abstract val showProgress: Boolean
     public abstract val shouldAnimate: Boolean
+    public abstract val isLoading: Boolean
 
     public data class Predictive(
         public val predictor: PositionPredictor,
-        public override val shouldAnimate: Boolean = false
+        public override val shouldAnimate: Boolean = false,
+        public override val isLoading: Boolean = false
     ) : TrackPositionUiModel() {
         override val showProgress: Boolean get() = true
     }
@@ -36,7 +38,8 @@ public sealed class TrackPositionUiModel {
         public val percent: Float,
         public val duration: Duration,
         public val position: Duration,
-        public override val shouldAnimate: Boolean = false
+        public override val shouldAnimate: Boolean = false,
+        public override val isLoading: Boolean = false
     ) : TrackPositionUiModel() {
         override val showProgress: Boolean get() = true
 
@@ -45,8 +48,16 @@ public sealed class TrackPositionUiModel {
         }
     }
 
+    public data class Loading(
+        public override val shouldAnimate: Boolean = false,
+        public override val showProgress: Boolean = false
+    ) : TrackPositionUiModel() {
+        override val isLoading: Boolean get() = true
+    }
+
     public object Hidden : TrackPositionUiModel() {
         override val showProgress: Boolean get() = false
         override val shouldAnimate: Boolean get() = false
+        override val isLoading: Boolean get() = false
     }
 }

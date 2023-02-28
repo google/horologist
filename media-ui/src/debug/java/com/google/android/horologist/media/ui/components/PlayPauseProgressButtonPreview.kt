@@ -93,6 +93,22 @@ fun PlayPauseProgressButtonPreview100() {
 }
 
 @Preview(
+    "Loading",
+    backgroundColor = 0xff000000,
+    showBackground = true
+)
+@Composable
+fun PlayPauseProgressButtonLoadingPreview() {
+    PlayPauseProgressButton(
+        onPlayClick = {},
+        onPauseClick = {},
+        enabled = true,
+        playing = true,
+        trackPositionUiModel = TrackPositionUiModel.Loading(showProgress = true)
+    )
+}
+
+@Preview(
     "On Background - Progress 50%",
     backgroundColor = 0xff000000,
     showBackground = true

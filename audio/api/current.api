@@ -5,7 +5,9 @@ package com.google.android.horologist.audio {
     method public String getId();
     method public String getName();
     method public default String getType();
+    method public boolean isPlayable();
     property public abstract String id;
+    property public abstract boolean isPlayable;
     property public abstract String name;
     property public default String type;
     field public static final com.google.android.horologist.audio.AudioOutput.Companion Companion;
@@ -15,13 +17,16 @@ package com.google.android.horologist.audio {
   }
 
   public static final class AudioOutput.BluetoothHeadset implements com.google.android.horologist.audio.AudioOutput {
-    ctor public AudioOutput.BluetoothHeadset(String id, String name);
+    ctor public AudioOutput.BluetoothHeadset(String id, String name, optional boolean isPlayable);
     method public String component1();
     method public String component2();
-    method public com.google.android.horologist.audio.AudioOutput.BluetoothHeadset copy(String id, String name);
+    method public boolean component3();
+    method public com.google.android.horologist.audio.AudioOutput.BluetoothHeadset copy(String id, String name, boolean isPlayable);
     method public String getId();
     method public String getName();
+    method public boolean isPlayable();
     property public String id;
+    property public boolean isPlayable;
     property public String name;
     property public String type;
   }
@@ -35,31 +40,39 @@ package com.google.android.horologist.audio {
   public static final class AudioOutput.None implements com.google.android.horologist.audio.AudioOutput {
     method public String getId();
     method public String getName();
+    method public boolean isPlayable();
     property public String id;
+    property public boolean isPlayable;
     property public String name;
     property public String type;
     field public static final com.google.android.horologist.audio.AudioOutput.None INSTANCE;
   }
 
   public static final class AudioOutput.Unknown implements com.google.android.horologist.audio.AudioOutput {
-    ctor public AudioOutput.Unknown(String id, String name);
+    ctor public AudioOutput.Unknown(String id, String name, optional boolean isPlayable);
     method public String component1();
     method public String component2();
-    method public com.google.android.horologist.audio.AudioOutput.Unknown copy(String id, String name);
+    method public boolean component3();
+    method public com.google.android.horologist.audio.AudioOutput.Unknown copy(String id, String name, boolean isPlayable);
     method public String getId();
     method public String getName();
+    method public boolean isPlayable();
     property public String id;
+    property public boolean isPlayable;
     property public String name;
   }
 
   public static final class AudioOutput.WatchSpeaker implements com.google.android.horologist.audio.AudioOutput {
-    ctor public AudioOutput.WatchSpeaker(String id, String name);
+    ctor public AudioOutput.WatchSpeaker(String id, String name, optional boolean isPlayable);
     method public String component1();
     method public String component2();
-    method public com.google.android.horologist.audio.AudioOutput.WatchSpeaker copy(String id, String name);
+    method public boolean component3();
+    method public com.google.android.horologist.audio.AudioOutput.WatchSpeaker copy(String id, String name, boolean isPlayable);
     method public String getId();
     method public String getName();
+    method public boolean isPlayable();
     property public String id;
+    property public boolean isPlayable;
     property public String name;
     property public String type;
   }

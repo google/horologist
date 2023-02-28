@@ -17,6 +17,7 @@
 package com.google.android.horologist.audio.ui.components
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DeviceUnknown
 import androidx.compose.material.icons.filled.Headphones
 import androidx.compose.material.icons.filled.VolumeOff
@@ -41,18 +42,22 @@ public data class AudioOutputUi(
 
 @Composable
 public fun AudioOutput.toAudioOutputUi(): AudioOutputUi {
-    return AudioOutputUi(
-        displayName = when (type) {
-            TYPE_WATCH -> stringResource(id = R.string.horologist_speaker_name)
-            TYPE_NONE -> stringResource(id = R.string.horologist_output_none)
-            else -> name
-        },
-        imageVector = when (type) {
-            TYPE_HEADPHONES -> Icons.Default.Headphones
-            TYPE_WATCH -> Icons.Default.Watch
-            TYPE_NONE -> Icons.Default.VolumeOff
-            else -> Icons.Default.DeviceUnknown
-        },
-        isConnected = this is AudioOutput.BluetoothHeadset
-    )
+    if (isPlayable) {
+        return AudioOutputUi(
+            displayName = when (type) {
+                TYPE_WATCH -> stringResource(id = R.string.horologist_speaker_name)
+                TYPE_NONE -> stringResource(id = R.string.horologist_output_none)
+                else -> name
+            },
+            imageVector = when (type) {
+                TYPE_HEADPHONES -> Icons.Default.Headphones
+                TYPE_WATCH -> Icons.Default.Watch
+                TYPE_NONE -> Icons.Default.VolumeOff
+                else -> Icons.Default.DeviceUnknown
+            },
+            isConnected = this is AudioOutput.BluetoothHeadset
+        )
+    } else {
+        return AudioOutputUi(displayName = stringResource(id = R.string.choose_device), imageVector = Icons.Default.Add, isConnected = false)
+    }
 }

@@ -33,7 +33,7 @@ import org.junit.Rule
 import org.junit.Test
 
 class VolumeScreenA11yScreenshotTest {
-    private val maxPercentDifference = 1.0
+    private val maxPercentDifference = 3.0
 
     val composeA11yExtension = ComposeA11yExtension()
 

@@ -48,13 +48,11 @@ public sealed class TrackPositionUiModel {
         }
     }
 
-    public object Loading : TrackPositionUiModel() {
-        override val showProgress: Boolean
-            get() = true
-        override val shouldAnimate: Boolean
-            get() = true
-        override val isLoading: Boolean
-            get() = true
+    public data class Loading (
+        public override val shouldAnimate: Boolean = false,
+        public override val showProgress: Boolean = false
+    ) : TrackPositionUiModel() {
+        override val isLoading: Boolean get() = true
     }
 
     public object Hidden : TrackPositionUiModel() {

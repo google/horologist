@@ -104,7 +104,7 @@ fun PlayPauseProgressButtonLoadingPreview() {
         onPauseClick = {},
         enabled = true,
         playing = true,
-        trackPositionUiModel = TrackPositionUiModel.Loading
+        trackPositionUiModel = TrackPositionUiModel.Loading(showProgress = true)
     )
 }
 

@@ -121,6 +121,9 @@ jobs:
           fetch-depth: '500'
           lfs: 'true'
 
+      - name: Install pulseaudio
+        run: brew install pulseaudio
+
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
@@ -152,6 +155,7 @@ jobs:
           api-level: ${{ matrix.api-level }}
           target: android-wear
           profile: wear_round_454
+          emulator-options: -no-window -no-snapshot
           script: ./scripts/run-instrumented-tests.sh --log-file=logcat.txt --run-affected --affected-base-ref=$BASE_REF --shard-index=${{ matrix.shard }} --shard-count=2 --macrobenchmark-rules=Microbenchmark
 
       - name: Upload logs

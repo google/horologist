@@ -60,8 +60,9 @@ import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulate
  * See [VolumeViewModel]
  * See [AudioManager.STREAM_MUSIC]
  */
-@OptIn(ExperimentalHorologistAudioUiApi::class, ExperimentalHorologistComposeLayoutApi::class)
 @Composable
+@ExperimentalHorologistAudioUiApi
+@OptIn(ExperimentalHorologistComposeLayoutApi::class)
 public fun VolumeScreen(
     modifier: Modifier = Modifier,
     volumeViewModel: VolumeViewModel = viewModel(factory = VolumeViewModel.Factory),

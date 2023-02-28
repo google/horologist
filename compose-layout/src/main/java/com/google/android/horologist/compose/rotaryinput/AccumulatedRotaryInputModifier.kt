@@ -18,7 +18,6 @@ package com.google.android.horologist.compose.rotaryinput
 
 import androidx.compose.foundation.focusable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.focus.FocusRequester

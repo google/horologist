@@ -311,9 +311,113 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Auth UI lib
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Auth UI lib
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#screens" class="md-nav__link">
+    Screens
+  </a>
+  
+    <nav class="md-nav" aria-label="Screens">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common" class="md-nav__link">
+    Common
+  </a>
+  
+    <nav class="md-nav" aria-label="Common">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signinpromptscreen" class="md-nav__link">
+    SignInPromptScreen
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#google-sign-in" class="md-nav__link">
+    Google Sign-In
+  </a>
+  
+    <nav class="md-nav" aria-label="Google Sign-In">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#googlesigninscreen" class="md-nav__link">
+    GoogleSignInScreen
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oauth" class="md-nav__link">
+    OAuth
+  </a>
+  
+    <nav class="md-nav" aria-label="OAuth">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pkcesigninscreen" class="md-nav__link">
+    PKCESignInScreen
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devicegrantsigninscreen" class="md-nav__link">
+    DeviceGrantSignInScreen
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -908,6 +1012,94 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#screens" class="md-nav__link">
+    Screens
+  </a>
+  
+    <nav class="md-nav" aria-label="Screens">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common" class="md-nav__link">
+    Common
+  </a>
+  
+    <nav class="md-nav" aria-label="Common">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signinpromptscreen" class="md-nav__link">
+    SignInPromptScreen
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#google-sign-in" class="md-nav__link">
+    Google Sign-In
+  </a>
+  
+    <nav class="md-nav" aria-label="Google Sign-In">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#googlesigninscreen" class="md-nav__link">
+    GoogleSignInScreen
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oauth" class="md-nav__link">
+    OAuth
+  </a>
+  
+    <nav class="md-nav" aria-label="OAuth">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pkcesigninscreen" class="md-nav__link">
+    PKCESignInScreen
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devicegrantsigninscreen" class="md-nav__link">
+    DeviceGrantSignInScreen
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -928,8 +1120,101 @@
 <p>This library contains a set of composables screens and components related to authentication.</p>
 <p>The previews of the composables can be found in the <code>debug</code> folder of the module source code.</p>
 <p>The composables of this module might depend on an implementation of the repositories defined
-in <a href="../auth-data/">auth-data</a> library. Some of them might depend on an external library instead (
-e.g. <a href="https://developers.google.com/identity">Identity</a>).</p>
+in <a href="../auth-data/">auth-data</a> library. Some of them might depend on an external library.</p>
+<h2 id="screens">Screens<a class="headerlink" href="#screens" title="Permanent link">&para;</a></h2>
+<h3 id="common">Common<a class="headerlink" href="#common" title="Permanent link">&para;</a></h3>
+<h4 id="signinpromptscreen">SignInPromptScreen<a class="headerlink" href="#signinpromptscreen" title="Permanent link">&para;</a></h4>
+<p>A screen to prompt users to sign in.</p>
+<p>It helps achieve to the following <a href="https://developer.android.com/training/wearables/apps/auth-wear">best practices</a>:</p>
+<ul>
+<li><a href="https://developer.android.com/training/wearables/design/sign-in#benefits">Explain sign-in benefits</a></li>
+<li><a href="https://developer.android.com/training/wearables/design/sign-in#alternatives">Provide alternatives</a></li>
+</ul>
+<h3 id="google-sign-in">Google Sign-In<a class="headerlink" href="#google-sign-in" title="Permanent link">&para;</a></h3>
+<h4 id="googlesigninscreen">GoogleSignInScreen<a class="headerlink" href="#googlesigninscreen" title="Permanent link">&para;</a></h4>
+<p>A screen for
+the <a href="https://developer.android.com/training/wearables/apps/auth-wear#Google-Sign-in">Google Sign-In</a>
+authentication method.</p>
+<p>It uses different screens from <a href="../auth-composables/">auth-composables</a> to display the full
+authentication flow.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/sign_in_placeholder_screen.png" height="120" width="120" ></th>
+<th align="center"><img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/select_account_screen.png" height="120" width="120" ></th>
+<th align="center"><img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120" ></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>It relies on
+the <a href="https://developers.google.com/identity/sign-in/android/start">Google Sign-In for Android</a>
+library for authentication and account selection. So an instance
+of <a href="https://developers.google.com/android/reference/com/google/android/gms/auth/api/signin/GoogleSignInClient">GoogleSignInClient</a>
+has to be provided to <code>GoogleSignInViewModel</code>.</p>
+<h3 id="oauth">OAuth<a class="headerlink" href="#oauth" title="Permanent link">&para;</a></h3>
+<h4 id="pkcesigninscreen">PKCESignInScreen<a class="headerlink" href="#pkcesigninscreen" title="Permanent link">&para;</a></h4>
+<p>A screen for
+the <a href="https://developer.android.com/training/wearables/apps/auth-wear#pkce">OAuth (PKCE)</a>
+authentication method.</p>
+<p>It uses different screens from <a href="../auth-composables/">auth-composables</a> to display the full
+authentication flow.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/sign_in_placeholder_screen.png" height="120" width="120" ></th>
+<th align="center"><img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/check_your_phone_screen.png" height="120" width="120" ></th>
+<th align="center"><img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120" ></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>A implementation for the following repositories are required to be provided:</p>
+<ul>
+<li>PKCEConfigRepository</li>
+<li>PKCEOAuthCodeRepository</li>
+<li>PKCETokenRepository</li>
+</ul>
+<h4 id="devicegrantsigninscreen">DeviceGrantSignInScreen<a class="headerlink" href="#devicegrantsigninscreen" title="Permanent link">&para;</a></h4>
+<p>A screen for
+the <a href="https://developer.android.com/training/wearables/apps/auth-wear#DAG">OAuth (Device Grant)</a>
+authentication method.</p>
+<p>It uses different screens from <a href="../auth-composables/">auth-composables</a> to display the full
+authentication flow.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/sign_in_placeholder_screen.png" height="120" width="120" ></th>
+<th align="center"><img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/check_your_phone_screen_code.png" height="120" width="120" ></th>
+<th align="center"><img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120" ></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>A implementation for the following repositories are required to be provided:</p>
+<ul>
+<li>DeviceGrantConfigRepository</li>
+<li>DeviceGrantVerificationInfoRepository</li>
+<li>DeviceGrantTokenRepository</li>
+</ul>
 
 
 

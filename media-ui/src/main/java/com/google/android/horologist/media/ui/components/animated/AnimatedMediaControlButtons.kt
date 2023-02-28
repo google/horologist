@@ -23,7 +23,6 @@ import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.ControlButtonLayout
-import com.google.android.horologist.media.ui.components.PlayPauseButton
 import com.google.android.horologist.media.ui.components.PlayPauseProgressButton
 import com.google.android.horologist.media.ui.components.controls.MediaButtonDefaults
 import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
@@ -60,7 +59,7 @@ public fun AnimatedMediaControlButtons(
         },
         middleButton = {
             if (trackPositionUiModel.showProgress) {
-                PlayPauseProgressButton(
+                AnimatedPlayPauseProgressButton(
                     onPlayClick = onPlayButtonClick,
                     onPauseClick = onPauseButtonClick,
                     enabled = playPauseButtonEnabled,
@@ -70,7 +69,7 @@ public fun AnimatedMediaControlButtons(
                     colors = colors
                 )
             } else {
-                PlayPauseButton(
+                AnimatedPlayPauseButton(
                     onPlayClick = onPlayButtonClick,
                     onPauseClick = onPauseButtonClick,
                     enabled = playPauseButtonEnabled,

@@ -20,7 +20,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
@@ -28,7 +27,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
@@ -53,7 +51,8 @@ import com.google.android.horologist.audio.ui.components.animated.LocalStaticPre
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.PlayPauseButton
-import com.google.android.horologist.media.ui.util.ifNan
+import com.google.android.horologist.media.ui.state.ProgressStateHolder
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
 @ExperimentalHorologistMediaUiApi
 @Composable
@@ -66,6 +65,7 @@ public fun AnimatedPlayPauseButton(
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     iconSize: Dp = 30.dp,
     tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
+    backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
     progress: @Composable () -> Unit = {}
 ) {
     if (LocalStaticPreview.current) {
@@ -78,7 +78,8 @@ public fun AnimatedPlayPauseButton(
             colors = colors,
             iconSize = iconSize,
             tapTargetSize = tapTargetSize,
-            progress = progress
+            progress = progress,
+            backgroundColor = backgroundColor
         )
     } else {
         val composition: LottieComposition? by rememberLottieComposition(
@@ -93,7 +94,12 @@ public fun AnimatedPlayPauseButton(
             clipSpec = clipSpec
         )
 
-        Box(modifier = modifier.size(tapTargetSize), contentAlignment = Alignment.Center) {
+        Box(
+            modifier = modifier
+                .size(tapTargetSize)
+                .background(backgroundColor),
+            contentAlignment = Alignment.Center,
+        ) {
             progress()
 
             val pauseContentDescription =
@@ -157,12 +163,13 @@ public fun AnimatedPlayPauseProgressButton(
     onPlayClick: () -> Unit,
     onPauseClick: () -> Unit,
     playing: Boolean,
-    percent: Float,
+    trackPositionUiModel: TrackPositionUiModel,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     iconSize: Dp = 30.dp,
     tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
+    progressStrokeWidth: Dp = 4.dp,
     progressColour: Color = MaterialTheme.colors.primary,
     trackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
     backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f)
@@ -175,20 +182,24 @@ public fun AnimatedPlayPauseProgressButton(
         modifier = modifier,
         colors = colors,
         iconSize = iconSize,
-        tapTargetSize = tapTargetSize
+        tapTargetSize = tapTargetSize,
+        backgroundColor = backgroundColor
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .clip(CircleShape)
-                .background(backgroundColor)
-        ) {
+        val progress by ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
+        if (trackPositionUiModel.isLoading) {
             CircularProgressIndicator(
-                modifier = Modifier
-                    .fillMaxSize(),
-                progress = percent.ifNan(0f),
+                modifier = Modifier.fillMaxSize(),
                 indicatorColor = progressColour,
-                trackColor = trackColor
+                trackColor = trackColor,
+                strokeWidth = progressStrokeWidth
+            )
+        } else if (trackPositionUiModel.showProgress) {
+            CircularProgressIndicator(
+                modifier = Modifier.fillMaxSize(),
+                progress = progress,
+                indicatorColor = progressColour,
+                trackColor = trackColor,
+                strokeWidth = progressStrokeWidth
             )
         }
     }

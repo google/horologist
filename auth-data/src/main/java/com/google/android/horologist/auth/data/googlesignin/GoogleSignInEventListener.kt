@@ -21,6 +21,8 @@ import com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi
 
 /**
  * A listener of events of the Google Sign-In authentication method.
+ *
+ * @sample com.google.android.horologist.auth.sample.screens.googlesignin.signin.GoogleSignInEventListenerSample
  */
 @ExperimentalHorologistAuthDataApi
 public interface GoogleSignInEventListener {

@@ -27,6 +27,8 @@ import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptV
 /**
  * A [factory][ViewModelProvider.Factory] to create a [SignInPromptViewModel] with dependencies with
  * implementation for the Google Sign-In authentication method.
+ *
+ * @sample com.google.android.horologist.auth.sample.screens.googlesignin.prompt.GoogleSignInPromptSampleScreen
  */
 @ExperimentalHorologistAuthUiApi
 public val GoogleSignInPromptViewModelFactory: ViewModelProvider.Factory = viewModelFactory {

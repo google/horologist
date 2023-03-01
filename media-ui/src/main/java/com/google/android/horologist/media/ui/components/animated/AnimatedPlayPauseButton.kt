@@ -44,7 +44,6 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
-import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.MaterialTheme
@@ -55,10 +54,8 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieClipSpec
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.android.horologist.audio.ui.components.animated.LocalStaticPreview
-import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
@@ -108,7 +105,7 @@ public fun AnimatedPlayPauseButton(
                 .fillMaxSize()
                 .clip(CircleShape)
                 .background(backgroundColor),
-            contentAlignment = Alignment.Center,
+            contentAlignment = Alignment.Center
         ) {
             progress()
 
@@ -153,7 +150,7 @@ public fun AnimatedPlayPauseButton(
 @Composable
 private fun animateLottieProgressAsState(
     playing: Boolean,
-    composition: LottieComposition?,
+    composition: LottieComposition?
 ): State<Float> {
     val clipSpec = remember { LottieClipSpec.Frame(max = 14) }
     val lottieProgress = animateLottieCompositionAsState(

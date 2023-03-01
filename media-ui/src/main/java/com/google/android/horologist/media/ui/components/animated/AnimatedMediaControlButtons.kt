@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.media.ui.components.animated
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -69,7 +68,7 @@ public fun AnimatedMediaControlButtons(
                     trackPositionUiModel = trackPositionUiModel,
                     modifier = Modifier.size(ButtonDefaults.LargeButtonSize)
                         .alpha(0.5f),
-                    colors = colors,
+                    colors = colors
                 )
             } else {
                 AnimatedPlayPauseButton(

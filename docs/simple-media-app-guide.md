@@ -29,7 +29,7 @@ setContent {
         mediaDisplay = {
             TextMediaDisplay(
                 title = "Song name",
-                artist = "Artist name"
+                subtitle = "Artist name"
             )
         },
         controlButtons = {

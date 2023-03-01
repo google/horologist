@@ -109,7 +109,10 @@ dependencies {
 
     implementation(libs.compose.material.iconscore)
     implementation(libs.compose.material.iconsext)
+    implementation(libs.compose.material.ripple)
 
+    implementation(libs.androidx.mediarouter)
+    implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.wear)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 

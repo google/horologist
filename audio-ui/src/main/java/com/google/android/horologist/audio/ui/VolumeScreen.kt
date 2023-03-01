@@ -17,36 +17,54 @@
 package com.google.android.horologist.audio.ui
 
 import android.media.AudioManager
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.VolumeDown
 import androidx.compose.material.icons.filled.VolumeUp
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import androidx.wear.compose.material.ContentAlpha
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.InlineSlider
+import androidx.wear.compose.material.LocalContentAlpha
+import androidx.wear.compose.material.LocalContentColor
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Stepper
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.contentColorFor
 import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.components.DeviceChip
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
+import com.google.android.horologist.audio.ui.state.VolumeViewModel
+import com.google.android.horologist.audio.ui.state.model.VolumeUiState
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
-import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulatedWithFocus
 
 /**
  * Volume Screen with an [InlineSlider] and Increase/Decrease buttons for the Audio Stream Volume.
@@ -70,20 +88,20 @@ public fun VolumeScreen(
     increaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.IncreaseIcon() },
     decreaseIcon: @Composable () -> Unit = { VolumeScreenDefaults.DecreaseIcon() }
 ) {
-    val volumeState by volumeViewModel.volumeState.collectAsState()
+    val volumeUiState by volumeViewModel.volumeUiState.collectAsState()
     val audioOutput by volumeViewModel.audioOutput.collectAsState()
     val focusRequester: FocusRequester = rememberActiveFocusRequester()
 
     VolumeScreen(
-        modifier = modifier.onRotaryInputAccumulatedWithFocus(
+        modifier = modifier.rotaryVolumeControls(
             focusRequester = focusRequester,
-            onValueChange = volumeViewModel::onVolumeChangeByScroll
+            onRotaryVolumeInput = volumeViewModel::changeVolume
         ),
-        volume = { volumeState },
+        volumeUiState = volumeUiState,
         audioOutputUi = audioOutput.toAudioOutputUi(),
-        increaseVolume = { volumeViewModel.increaseVolume() },
-        decreaseVolume = { volumeViewModel.decreaseVolume() },
-        onAudioOutputClick = { volumeViewModel.launchOutputSelection() },
+        increaseVolume = volumeViewModel::increaseVolume,
+        decreaseVolume = volumeViewModel::decreaseVolume,
+        onAudioOutputClick = volumeViewModel::launchOutputSelection,
         showVolumeIndicator = showVolumeIndicator,
         increaseIcon = increaseIcon,
         decreaseIcon = decreaseIcon
@@ -95,7 +113,7 @@ public fun VolumeScreen(
  */
 @Composable
 public fun VolumeScreen(
-    volume: () -> VolumeState,
+    volumeUiState: VolumeUiState,
     audioOutputUi: AudioOutputUi,
     increaseVolume: () -> Unit,
     decreaseVolume: () -> Unit,
@@ -106,12 +124,11 @@ public fun VolumeScreen(
     showVolumeIndicator: Boolean = true
 ) {
     VolumeScreen(
-        volume = volume,
+        volumeUiState = volumeUiState,
         contentSlot = {
-            val volumeState = volume()
             DeviceChip(
                 modifier = Modifier.padding(horizontal = 18.dp),
-                volumeDescription = volumeDescription(volumeState, audioOutputUi.isConnected),
+                volumeDescription = volumeDescription(volumeUiState, audioOutputUi.isConnected),
                 deviceName = audioOutputUi.displayName,
                 icon = {
                     Icon(
@@ -137,7 +154,7 @@ public fun VolumeScreen(
  */
 @Composable
 public fun VolumeWithLabelScreen(
-    volume: () -> VolumeState,
+    volumeUiState: VolumeUiState,
     increaseVolume: () -> Unit,
     decreaseVolume: () -> Unit,
     modifier: Modifier = Modifier,
@@ -146,7 +163,7 @@ public fun VolumeWithLabelScreen(
     showVolumeIndicator: Boolean = true
 ) {
     VolumeScreen(
-        volume = volume,
+        volumeUiState = volumeUiState,
         contentSlot = {
             Text(
                 stringResource(id = R.string.horologist_volume_screen_volume_label),
@@ -166,7 +183,7 @@ public fun VolumeWithLabelScreen(
 
 @Composable
 internal fun VolumeScreen(
-    volume: () -> VolumeState,
+    volumeUiState: VolumeUiState,
     contentSlot: @Composable () -> Unit,
     increaseVolume: () -> Unit,
     decreaseVolume: () -> Unit,
@@ -176,25 +193,80 @@ internal fun VolumeScreen(
     showVolumeIndicator: Boolean = true
 ) {
     Box(modifier = modifier.fillMaxSize())
-    val volumeState = volume()
-    Stepper(
-        value = volumeState.current.toFloat(),
-        onValueChange = { if (it > volumeState.current) increaseVolume() else decreaseVolume() },
-        steps = volumeState.max - 1,
-        valueRange = (0f..volumeState.max.toFloat()),
-        increaseIcon = {
-            increaseIcon()
-        },
-        decreaseIcon = {
-            decreaseIcon()
-        }
+    val backgroundColor = MaterialTheme.colors.background
+    val contentColor = contentColorFor(backgroundColor)
+    Column(
+        modifier = modifier.fillMaxSize().background(backgroundColor),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        contentSlot()
+        // Increase button.
+        FullScreenButton(
+            onClick = { increaseVolume() },
+            contentAlignment = Alignment.TopCenter,
+            paddingValues = PaddingValues(top = 22.dp),
+            iconColor = contentColor,
+            enabled = !volumeUiState.isMax,
+            content = increaseIcon
+        )
+        Box(
+            modifier = Modifier.fillMaxWidth().weight(0.3f),
+            contentAlignment = Alignment.Center
+        ) {
+            CompositionLocalProvider(
+                LocalContentColor provides contentColor
+            ) {
+                contentSlot()
+            }
+        }
+        // Decrease button.
+        FullScreenButton(
+            onClick = { decreaseVolume() },
+            contentAlignment = Alignment.BottomCenter,
+            paddingValues = PaddingValues(bottom = 22.dp),
+            iconColor = contentColor,
+            enabled = !volumeUiState.isMin,
+            content = decreaseIcon
+        )
     }
-    if (showVolumeIndicator) {
+    if (showVolumeIndicator && volumeUiState.current != null) {
         VolumePositionIndicator(
-            volumeState = volume,
+            volume = volumeUiState.current,
             autoHide = false
+        )
+    }
+}
+
+@Composable
+private fun ColumnScope.FullScreenButton(
+    onClick: () -> Unit,
+    contentAlignment: Alignment,
+    paddingValues: PaddingValues,
+    iconColor: Color,
+    enabled: Boolean,
+    content: @Composable () -> Unit
+) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val contentColor = if (enabled) iconColor else iconColor.copy(alpha = ContentAlpha.disabled)
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .weight(0.35f)
+            .clickable(
+                interactionSource,
+                null,
+                onClick = onClick,
+                enabled = enabled,
+                role = Role.Button
+            )
+            .wrapContentWidth()
+            .indication(interactionSource, rememberRipple(bounded = false))
+            .padding(paddingValues),
+        contentAlignment = contentAlignment
+    ) {
+        CompositionLocalProvider(
+            LocalContentColor provides contentColor,
+            LocalContentAlpha provides contentColor.alpha,
+            content = content
         )
     }
 }
@@ -222,9 +294,16 @@ public object VolumeScreenDefaults {
 }
 
 @Composable
-private fun volumeDescription(volumeState: VolumeState, isAudioOutputConnected: Boolean): String {
+private fun volumeDescription(volumeUiState: VolumeUiState, isAudioOutputConnected: Boolean): String {
     return if (isAudioOutputConnected) {
-        stringResource(id = R.string.horologist_volume_screen_connected_state, volumeState.current)
+        if (volumeUiState.current != null) {
+            stringResource(
+                id = R.string.horologist_volume_screen_connected_state,
+                volumeUiState.current
+            )
+        } else {
+            stringResource(id = R.string.horologist_volume_screen_not_connected_state)
+        }
     } else {
         stringResource(id = R.string.horologist_volume_screen_not_connected_state)
     }

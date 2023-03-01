@@ -23,7 +23,7 @@ import androidx.media3.datasource.cache.Cache
 import androidx.test.annotation.UiThreadTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
-import com.google.android.horologist.audio.SystemAudioRepository
+import com.google.android.horologist.audio.ui.state.SystemAudioRepository
 import com.google.android.horologist.media3.offload.AudioOffloadManager
 import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.mediasample.runner.FakeConfigModule

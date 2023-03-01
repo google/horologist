@@ -14,13 +14,19 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.audio
+package com.google.android.horologist.audio.ui.state.model
 
-public data class VolumeState(
-    public val current: Int?,
-    public val max: Int?,
-    public val min: Int?,
-    public val isMuted: Boolean,
-    public val absolutelyAdjustable: Boolean,
-    public val relativelyAdjustable: Boolean
-)
+/**
+ * Data class holding the current state of the volume system.
+ */
+public data class VolumeUiState(
+    public val current: Float?,
+    public val isMuted: Boolean = false,
+    public val adjustable: Boolean = false
+) {
+    public val isMax: Boolean
+        get() = current == 1f
+
+    public val isMin: Boolean
+        get() = current == 0f
+}

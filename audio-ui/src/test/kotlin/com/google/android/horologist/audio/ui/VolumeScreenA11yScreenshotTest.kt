@@ -20,7 +20,7 @@ package com.google.android.horologist.audio.ui
 
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.state.model.VolumeUiState
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
@@ -56,7 +56,7 @@ class VolumeScreenA11yScreenshotTest {
 
     @Test
     fun volumeScreenAtMinimums() {
-        val volumeState = VolumeState(
+        val volumeUiState = VolumeUiState.fromCurrentAndMax(
             current = 0,
             max = 100
         )
@@ -65,7 +65,7 @@ class VolumeScreenA11yScreenshotTest {
         paparazzi.snapshot {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
-                volumeState = volumeState,
+                volumeUiState = volumeUiState,
                 audioOutput = audioOutput
             )
         }

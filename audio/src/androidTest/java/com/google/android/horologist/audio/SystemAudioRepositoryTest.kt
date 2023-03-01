@@ -37,7 +37,7 @@ class SystemAudioRepositoryTest {
     fun testAudioOutputRepository() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
 
-        SystemAudioRepository.fromContext(context).use { repository ->
+        com.google.android.horologist.audio.ui.state.SystemAudioRepository.fromContext(context).use { repository ->
             assertThat(repository.audioOutput.value).isNotNull()
             assertThat(repository.available.value).isNotEmpty()
 
@@ -52,7 +52,7 @@ class SystemAudioRepositoryTest {
     fun testVolumeRepository() = runTest(dispatchTimeoutMs = 10000) {
         withContext(Dispatchers.Main) {
             val context = InstrumentationRegistry.getInstrumentation().targetContext
-            SystemAudioRepository.fromContext(context).use { repository ->
+            com.google.android.horologist.audio.ui.state.SystemAudioRepository.fromContext(context).use { repository ->
                 if (repository.volumeState.value.isMax) {
                     repository.decreaseVolume()
                 }

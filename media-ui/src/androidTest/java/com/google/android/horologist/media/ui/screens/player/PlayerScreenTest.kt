@@ -32,8 +32,8 @@ import androidx.test.filters.FlakyTest
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.audio.ui.VolumeViewModel
+import com.google.android.horologist.audio.ui.state.VolumeViewModel
+import com.google.android.horologist.audio.ui.state.model.VolumeUiState
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.PlayerState
@@ -55,7 +55,7 @@ class PlayerScreenTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    val volumeRepository = FakeVolumeRepository(VolumeState(5, 15))
+    val volumeRepository = FakeVolumeRepository(VolumeUiState.fromCurrentAndMax(5, 15))
     val audioOutputRepository = FakeAudioOutputRepository()
     val vibrator = InstrumentationRegistry.getInstrumentation().context.getSystemService(Vibrator::class.java)
     val volumeViewModel = VolumeViewModel(volumeRepository, audioOutputRepository, onCleared = {}, vibrator)

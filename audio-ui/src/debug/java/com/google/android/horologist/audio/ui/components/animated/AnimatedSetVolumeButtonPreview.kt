@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistAudioUiApi::class)
+
 package com.google.android.horologist.audio.ui.components.animated
 
 import androidx.compose.runtime.Composable
@@ -21,31 +23,30 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.wear.compose.material.Stepper
-import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.audio.ui.VolumeScreenDefaults.DecreaseIcon
-import com.google.android.horologist.audio.ui.VolumeScreenDefaults.IncreaseIcon
+import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
+import com.google.android.horologist.audio.ui.VolumeScreen
+import com.google.android.horologist.audio.ui.state.model.VolumeUiState
 import com.google.android.horologist.compose.tools.WearSmallRoundDevicePreview
 
 @WearSmallRoundDevicePreview
 @Composable
 fun AnimatedSetVolumeButtonPreview() {
-    var volumeState by remember { mutableStateOf(VolumeState(3, 5)) }
+    var volumeUiState by remember { mutableStateOf(VolumeUiState(0.6f)) }
 
     InteractivePreviewAware {
-        Stepper(
-            value = volumeState.current.toFloat(),
-            onValueChange = { volumeState = volumeState.copy(current = it.toInt()) },
-            steps = volumeState.max - 1,
-            valueRange = (0f..volumeState.max.toFloat()),
-            increaseIcon = {
-                IncreaseIcon()
+        VolumeScreen(
+            volumeUiState = volumeUiState,
+            increaseVolume = {
+                volumeUiState =
+                    VolumeUiState((volumeUiState.current!! + 0.2f).coerceAtMost(1f))
             },
-            decreaseIcon = {
-                DecreaseIcon()
+            decreaseVolume = {
+                volumeUiState =
+                    VolumeUiState((volumeUiState.current!! - 0.2f).coerceAtLeast(0f))
+            },
+            contentSlot = {
+                AnimatedSetVolumeButton(onVolumeClick = { }, volumeUiState = volumeUiState)
             }
-        ) {
-            AnimatedSetVolumeButton(onVolumeClick = { }, volumeState = volumeState)
-        }
+        )
     }
 }

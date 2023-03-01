@@ -17,7 +17,7 @@
 <resources>
     <string description="Content description of the increase volume button. It lets the user increase the volume of the current audio output of the watch. [CHAR_LIMIT=NONE]" name="horologist_volume_screen_volume_up_content_description">Increase Volume</string>
     <string description="Content description of the decrease volume button. It lets the user decrease the volume of the current audio output of the watch. [CHAR_LIMIT=NONE]" name="horologist_volume_screen_volume_down_content_description">Decrease Volume</string>
-    <string description="State description of device output chip. It lets the user know that this device is connected to the watch and what the current volume is. [CHAR_LIMIT=NONE]" name="horologist_volume_screen_connected_state">Connected, Volume %1$d</string>
+    <string description="State description of device output chip. It lets the user know that this device is connected to the watch and what the current volume is. [CHAR_LIMIT=NONE]" name="horologist_volume_screen_connected_state">Connected, Volume %1$f%</string>
     <string description="State description of device output chip. It lets the user know that this device is not connected to the watch. [CHAR_LIMIT=NONE]" name="horologist_volume_screen_not_connected_state">Not Connected</string>
     <string description="The description of the click action on the device output chip. It lets the user know the audio output can be changed by clicking on this chip. [CHAR_LIMIT=NONE]" name="horologist_volume_screen_change_audio_output">Change Audio Output</string>
     <string description="Indicates that the current audio output is the watch speaker. Appears on the device output button chip. [CHAR LIMIT=20]" name="horologist_speaker_name">Watch Speaker</string>

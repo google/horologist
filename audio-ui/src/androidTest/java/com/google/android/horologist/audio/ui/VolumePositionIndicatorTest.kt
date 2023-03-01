@@ -27,7 +27,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.printToLog
 import androidx.test.filters.MediumTest
-import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.state.model.VolumeUiState
 import org.junit.Rule
 import org.junit.Test
 
@@ -38,8 +38,8 @@ class VolumePositionIndicatorTest {
         mainClock.autoAdvance = false
     }
 
-    private var volumeState by mutableStateOf(
-        VolumeState(
+    private var volumeUiState by mutableStateOf(
+        VolumeUiState.fromCurrentAndMax(
             current = 50,
             max = 100
         )
@@ -50,7 +50,7 @@ class VolumePositionIndicatorTest {
         composeTestRule.setContent {
             VolumePositionIndicator(
                 modifier = Modifier.testTag(TEST_TAG),
-                volumeState = { volumeState },
+                volumeUiState = { volumeUiState },
                 autoHide = false
             )
         }
@@ -65,7 +65,7 @@ class VolumePositionIndicatorTest {
         composeTestRule.setContent {
             VolumePositionIndicator(
                 modifier = Modifier.testTag(TEST_TAG),
-                volumeState = { volumeState },
+                volumeUiState = { volumeUiState },
                 autoHide = true
             )
         }
@@ -74,7 +74,7 @@ class VolumePositionIndicatorTest {
 
         positionIndicator.assertDoesNotExist()
 
-        volumeState = volumeState.copy(current = 51)
+        volumeUiState = volumeUiState.copy(current = 51)
 
         composeTestRule.mainClock.advanceTimeByFrame()
         composeTestRule.mainClock.advanceTimeBy(500L)

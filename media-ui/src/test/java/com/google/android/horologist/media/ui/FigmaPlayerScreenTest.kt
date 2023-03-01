@@ -26,10 +26,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import app.cash.paparazzi.DeviceConfig
-import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
 import com.google.android.horologist.audio.ui.components.actions.SettingsButton
+import com.google.android.horologist.audio.ui.state.model.VolumeUiState
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
@@ -90,7 +90,7 @@ class FigmaPlayerScreenTest(
                 round = deviceConfig != DeviceConfig.WEAR_OS_SQUARE,
                 buttons = {
                     UampSettingsButtons(
-                        volumeState = VolumeState(10, 10),
+                        volumeUiState = VolumeUiState.fromCurrentAndMax(10, 10),
                         onVolumeClick = { }
                     )
                 }
@@ -111,7 +111,7 @@ class FigmaPlayerScreenTest(
 
 @Composable
 public fun UampSettingsButtons(
-    volumeState: VolumeState,
+    volumeUiState: VolumeUiState,
     onVolumeClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true
@@ -133,7 +133,7 @@ public fun UampSettingsButtons(
 
         SetVolumeButton(
             onVolumeClick = onVolumeClick,
-            volumeState = volumeState
+            volumeUiState = volumeUiState
         )
     }
 }

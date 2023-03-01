@@ -21,14 +21,14 @@ import androidx.wear.compose.material.Colors
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
+import com.google.android.horologist.audio.ui.state.model.VolumeUiState
 import com.google.android.horologist.compose.tools.RoundPreview
 
 @Composable
 fun VolumeScreenTestCase(
     colors: Colors = MaterialTheme.colors,
-    volumeState: VolumeState,
+    volumeUiState: VolumeUiState,
     audioOutput: AudioOutput
 ) {
     RoundPreview {
@@ -36,13 +36,13 @@ fun VolumeScreenTestCase(
             Scaffold(
                 positionIndicator = {
                     VolumePositionIndicator(
-                        volumeState = { volumeState },
+                        volumeUiState = { volumeUiState },
                         autoHide = false
                     )
                 }
             ) {
                 VolumeScreen(
-                    volume = { volumeState },
+                    volume = { volumeUiState },
                     audioOutputUi = audioOutput.toAudioOutputUi(),
                     increaseVolume = { },
                     decreaseVolume = { },

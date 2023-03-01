@@ -20,7 +20,7 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import android.os.StrictMode
-import com.google.android.horologist.audio.SystemAudioRepository
+import com.google.android.horologist.audio.ui.state.SystemAudioRepository
 import com.google.android.horologist.media3.audio.AudioOutputSelector
 import com.google.android.horologist.media3.audio.BluetoothSettingsOutputSelector
 import com.google.android.horologist.mediasample.di.CacheDir

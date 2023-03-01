@@ -36,10 +36,10 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeSource
 import androidx.wear.compose.material.TimeText
-import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
+import com.google.android.horologist.audio.ui.state.model.VolumeUiState
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.media.ui.components.MediaControlButtons
@@ -69,7 +69,7 @@ fun MediaPlayerTestCase(
     },
     buttons: @Composable RowScope.() -> Unit = {
         SettingsButtons(
-            volumeState = VolumeState(5, 10),
+            volumeUiState = VolumeUiState.fromCurrentAndMax(5, 10),
             onVolumeClick = { /*TODO*/ },
             onOutputClick = { },
             brandIcon = {
@@ -103,8 +103,8 @@ fun MediaPlayerTestCase(
                         )
                     },
                     positionIndicator = {
-                        VolumePositionIndicator(volumeState = {
-                            VolumeState(6, 10)
+                        VolumePositionIndicator(volumeUiState = {
+                            VolumeUiState.fromCurrentAndMax(6, 10)
                         })
                     }
                 ) {

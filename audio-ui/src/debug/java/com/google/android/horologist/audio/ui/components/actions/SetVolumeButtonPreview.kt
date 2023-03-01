@@ -18,7 +18,7 @@ package com.google.android.horologist.audio.ui.components.actions
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.state.model.VolumeUiState
 
 @Preview(
     name = "Other volume",
@@ -29,7 +29,7 @@ import com.google.android.horologist.audio.VolumeState
 fun SetVolumeButtonPreview() {
     SetVolumeButton(
         onVolumeClick = {},
-        volumeState = VolumeState(current = 4, max = 10)
+        volumeUiState = VolumeUiState(0.4f)
     )
 }
 
@@ -42,7 +42,7 @@ fun SetVolumeButtonPreview() {
 fun SetVolumeButtonPreviewMinVolume() {
     SetVolumeButton(
         onVolumeClick = {},
-        volumeState = VolumeState(current = 0, max = 10)
+        volumeUiState = VolumeUiState(0f)
     )
 }
 
@@ -55,6 +55,6 @@ fun SetVolumeButtonPreviewMinVolume() {
 fun SetVolumeButtonPreviewMaxVolume() {
     SetVolumeButton(
         onVolumeClick = {},
-        volumeState = VolumeState(current = 10, max = 10)
+        volumeUiState = VolumeUiState(1f)
     )
 }

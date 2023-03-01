@@ -29,7 +29,8 @@ import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performRotaryScrollInput
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
-import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.state.VolumeViewModel
+import com.google.android.horologist.audio.ui.state.model.VolumeUiState
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -45,7 +46,7 @@ class VolumeScreenTest {
     @Test
     fun testHaptics() = runTest {
         val rotaryPixelsForVolume = 136
-        val volumeRepository = FakeVolumeRepository(VolumeState(50, 100))
+        val volumeRepository = FakeVolumeRepository(VolumeUiState.fromCurrentAndMax(50, 100))
         val audioOutputRepository = FakeAudioOutputRepository()
 
         val context = InstrumentationRegistry.getInstrumentation().targetContext
@@ -81,6 +82,6 @@ class VolumeScreenTest {
         }
         composeTestRule.waitForIdle()
 
-        assertThat(volumeRepository.volumeState.value.current).isEqualTo(52)
+        assertThat(volumeRepository.volumeUiState.value.current).isEqualTo(52)
     }
 }

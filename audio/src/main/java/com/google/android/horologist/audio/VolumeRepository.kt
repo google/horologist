@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,15 @@ import kotlinx.coroutines.flow.StateFlow
  * A state repository for audio volume, typically the system AudioManager,
  * but possibly a remote app in paired situations.
  */
-public interface VolumeRepository : AutoCloseable {
-    /**
-     * The current volume state, including volume, min, max.
-     */
+public interface VolumeRepository {
     public val volumeState: StateFlow<VolumeState>
+
+    public fun setMuted(muted: Boolean)
+
+    /**
+     * Sets the volume to the requested percent.
+     */
+    public fun setVolume(volume: Int)
 
     /**
      * Increase the volume of the current audio output.

@@ -31,24 +31,24 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
+import com.google.android.horologist.audio.ui.state.model.VolumeUiState
 
 /**
  * Button to launch a screen to control the system volume.
  *
- * See [VolumeState]
+ * See [VolumeUiState]
  */
 @Composable
 public fun AnimatedSetVolumeButton(
     onVolumeClick: () -> Unit,
-    volumeState: VolumeState,
+    volumeUiState: VolumeUiState,
     modifier: Modifier = Modifier
 ) {
     if (LocalStaticPreview.current) {
         SetVolumeButton(
             onVolumeClick = onVolumeClick,
-            volumeState = volumeState,
+            volumeUiState = volumeUiState,
             modifier = modifier
         )
     } else {
@@ -60,12 +60,12 @@ public fun AnimatedSetVolumeButton(
         )
         val lottieAnimatable = rememberLottieAnimatable()
 
-        var lastVolume by remember { mutableStateOf(volumeState.current) }
+        var lastVolume by remember { mutableStateOf(volumeUiState.current) }
 
-        LaunchedEffect(volumeState) {
+        LaunchedEffect(volumeUiState) {
             val lastVolumeBefore = lastVolume
-            lastVolume = volumeState.current
-            if (volumeState.current > lastVolumeBefore) {
+            lastVolume = volumeUiState.current
+            if ((volumeUiState.current ?: 0f) > (lastVolumeBefore ?: 0f)) {
                 lottieAnimatable.animate(
                     iterations = 1,
                     composition = volumeUp

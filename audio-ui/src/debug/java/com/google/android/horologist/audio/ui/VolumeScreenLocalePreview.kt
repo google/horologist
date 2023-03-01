@@ -20,25 +20,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
+import com.google.android.horologist.audio.ui.state.model.VolumeUiState
 import com.google.android.horologist.compose.tools.WearLocalePreview
 
 @WearLocalePreview
 @Composable
 fun VolumeScreenLocalePreview() {
-    val volume = VolumeState(5, 10)
+    val volume = VolumeUiState(0.5f)
 
     Scaffold(
         positionIndicator = {
             VolumePositionIndicator(
-                volumeState = { volume },
+                volume = volume.current!!,
                 autoHide = false
             )
         }
     ) {
         VolumeScreen(
-            volume = { volume },
+            volumeUiState = volume,
             audioOutputUi = AudioOutput.WatchSpeaker(
                 id = "1",
                 name = LocalConfiguration.current.locales.get(0).displayName

@@ -36,11 +36,19 @@ import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistC
  */
 @ExperimentalHorologistComposeLayoutApi
 public fun Modifier.onRotaryInputAccumulatedWithFocus(
+    eventAccumulationThresholdMs: Long = RotaryInputConfigDefaults.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
+    minValueChangeDistancePx: Float = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
+    rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
     focusRequester: FocusRequester,
     onValueChange: (Float) -> Unit
 ): Modifier = composed {
     RequestFocusWhenActive(focusRequester)
-    onRotaryInputAccumulated(onValueChange = onValueChange)
+    onRotaryInputAccumulated(
+        eventAccumulationThresholdMs = eventAccumulationThresholdMs,
+        minValueChangeDistancePx = minValueChangeDistancePx,
+        rateLimitCoolDownMs = rateLimitCoolDownMs,
+        onValueChange = onValueChange
+    )
         .focusRequester(focusRequester)
         .focusable()
 }

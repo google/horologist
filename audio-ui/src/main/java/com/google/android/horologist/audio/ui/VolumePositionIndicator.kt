@@ -28,7 +28,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PositionIndicator
-import com.google.android.horologist.audio.VolumeState
 import kotlinx.coroutines.delay
 
 /**
@@ -40,7 +39,7 @@ import kotlinx.coroutines.delay
  */
 @Composable
 public fun VolumePositionIndicator(
-    volumeState: () -> VolumeState,
+    volume: Float,
     modifier: Modifier = Modifier,
     autoHide: Boolean = true
 ) {
@@ -48,7 +47,7 @@ public fun VolumePositionIndicator(
     var isInitial by remember { mutableStateOf(true) }
 
     if (autoHide) {
-        val current = volumeState().current
+        val current = volume
         LaunchedEffect(current) {
             if (isInitial) {
                 isInitial = false
@@ -70,11 +69,8 @@ public fun VolumePositionIndicator(
             // RSB indicator uses secondary colors (surface/onSurface)
             color = MaterialTheme.colors.secondary,
             value = {
-                volumeState().current.toFloat()
-            },
-            range = 0F.rangeTo(
-                volumeState().max.toFloat()
-            )
+                volume
+            }
         )
     }
 }

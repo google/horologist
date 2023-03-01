@@ -99,9 +99,6 @@ metalava {
 dependencies {
     implementation(libs.kotlin.stdlib)
 
-    implementation(libs.androidx.mediarouter)
-    implementation(libs.androidx.wear)
-    implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.kotlinx.coroutines.android)
 
     androidTestImplementation(libs.androidx.lifecycle.testing)

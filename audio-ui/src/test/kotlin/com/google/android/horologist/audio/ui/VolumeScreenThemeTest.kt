@@ -24,7 +24,7 @@ package com.google.android.horologist.audio.ui
 
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
-import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.state.model.VolumeUiState
 import com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.themeValues
@@ -44,7 +44,7 @@ class VolumeScreenThemeTest(
 
     @Test
     fun volumeScreenThemes() {
-        val volumeState = VolumeState(
+        val volumeUiState = VolumeUiState.fromCurrentAndMax(
             current = 50,
             max = 100
         )
@@ -53,7 +53,7 @@ class VolumeScreenThemeTest(
         paparazzi.snapshot(name = themeValue.safeName) {
             VolumeScreenTestCase(
                 colors = themeValue.colors,
-                volumeState = volumeState,
+                volumeUiState = volumeUiState,
                 audioOutput = audioOutput
             )
         }

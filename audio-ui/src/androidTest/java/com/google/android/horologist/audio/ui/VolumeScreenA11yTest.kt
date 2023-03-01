@@ -24,7 +24,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.test.filters.MediumTest
 import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.state.model.VolumeUiState
 import com.google.android.horologist.test.toolbox.matchers.assertHasClickLabel
 import com.google.android.horologist.test.toolbox.matchers.assertHasStateDescription
 import org.junit.Rule
@@ -37,8 +37,8 @@ class VolumeScreenA11yTest {
 
     @Test
     fun testLabelOrdering() {
-        val volumeState by mutableStateOf(
-            VolumeState(
+        val volumeUiState by mutableStateOf(
+            VolumeUiState.fromCurrentAndMax(
                 current = 5,
                 max = 10
             )
@@ -47,7 +47,7 @@ class VolumeScreenA11yTest {
 
         composeTestRule.setContent {
             VolumeScreenTestCase(
-                volumeState = volumeState,
+                volumeUiState = volumeUiState,
                 audioOutput = audioOutput
             )
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.audio
+package com.google.android.horologist.audio.ui.state
 
 import android.content.Context
 import androidx.mediarouter.app.SystemOutputSwitcherDialogController
@@ -22,6 +22,10 @@ import androidx.mediarouter.media.MediaControlIntent
 import androidx.mediarouter.media.MediaRouteSelector
 import androidx.mediarouter.media.MediaRouter
 import androidx.mediarouter.media.MediaRouter.RouteInfo
+import com.google.android.horologist.audio.AudioOutput
+import com.google.android.horologist.audio.AudioOutputRepository
+import com.google.android.horologist.audio.VolumeRepository
+import com.google.android.horologist.audio.VolumeState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -46,6 +50,14 @@ public class SystemAudioRepository(
 
     override fun decreaseVolume() {
         mediaRouter.selectedRoute.requestUpdateVolume(-1)
+    }
+
+    override fun setVolume(volume: Int) {
+        mediaRouter.selectedRoute.requestSetVolume(volume)
+    }
+
+    override fun setMuted(muted: Boolean) {
+        // not supported
     }
 
     override val audioOutput: StateFlow<AudioOutput>
@@ -138,7 +150,15 @@ private inline val MediaRouter.devices: List<AudioOutput>
 
 private inline val RouteInfo.volumeState: VolumeState
     get() {
-        return VolumeState(current = volume, max = volumeMax)
+        val fixed = volumeHandling == RouteInfo.PLAYBACK_VOLUME_FIXED
+        return VolumeState(
+            current = volume,
+            max = volumeMax,
+            min = 0,
+            isMuted = false,
+            absolutelyAdjustable = !fixed,
+            relativelyAdjustable = !fixed
+        )
     }
 
 private inline val RouteInfo.device: AudioOutput

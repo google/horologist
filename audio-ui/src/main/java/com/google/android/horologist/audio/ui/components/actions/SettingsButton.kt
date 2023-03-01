@@ -29,14 +29,14 @@ import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults.buttonColors
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
-import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.semantics.CustomSemanticsProperties.iconImageVector
+import com.google.android.horologist.audio.ui.state.model.VolumeUiState
 
 /**
  * Button to launch a screen to control the system volume.
  *
- * See [VolumeState]
+ * See [VolumeUiState]
  */
 @OptIn(ExperimentalHorologistAudioUiApi::class)
 @Composable

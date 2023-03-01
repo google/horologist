@@ -43,7 +43,7 @@ import androidx.media3.extractor.DefaultExtractorsFactory
 import androidx.media3.extractor.ExtractorsFactory
 import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaLibraryService.MediaLibrarySession
-import com.google.android.horologist.audio.SystemAudioRepository
+import com.google.android.horologist.audio.ui.state.SystemAudioRepository
 import com.google.android.horologist.media3.WearConfiguredPlayer
 import com.google.android.horologist.media3.audio.AudioOutputSelector
 import com.google.android.horologist.media3.config.WearMedia3Factory

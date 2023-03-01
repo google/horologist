@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.audio
+package com.google.android.horologist.audio.ui
 
 import android.content.Context
 import androidx.mediarouter.app.SystemOutputSwitcherDialogController

@@ -22,7 +22,7 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
-import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.state.model.VolumeUiState
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
@@ -34,7 +34,7 @@ class VolumeScreenIndividualTest {
 
     @Test
     fun volumeScreenAtMinimum() {
-        val volumeState = VolumeState(
+        val volumeUiState = VolumeUiState(
             current = 0,
             max = 100
         )
@@ -43,7 +43,7 @@ class VolumeScreenIndividualTest {
         paparazzi.snapshot {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
-                volumeState = volumeState,
+                volumeUiState = volumeUiState,
                 audioOutput = audioOutput
             )
         }
@@ -51,7 +51,7 @@ class VolumeScreenIndividualTest {
 
     @Test
     fun volumeScreenAtMaximum() {
-        val volumeState = VolumeState(
+        val volumeUiState = VolumeUiState.fromCurrentAndMax(
             current = 100,
             max = 100
         )
@@ -60,7 +60,7 @@ class VolumeScreenIndividualTest {
         paparazzi.snapshot {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
-                volumeState = volumeState,
+                volumeUiState = volumeUiState,
                 audioOutput = audioOutput
             )
         }
@@ -68,7 +68,7 @@ class VolumeScreenIndividualTest {
 
     @Test
     fun volumeScreenWithLongTest() {
-        val volumeState = VolumeState(
+        val volumeUiState = VolumeUiState.fromCurrentAndMax(
             current = 50,
             max = 100
         )
@@ -77,7 +77,7 @@ class VolumeScreenIndividualTest {
         paparazzi.snapshot {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
-                volumeState = volumeState,
+                volumeUiState = volumeUiState,
                 audioOutput = audioOutput
             )
         }
@@ -85,7 +85,7 @@ class VolumeScreenIndividualTest {
 
     @Test
     fun volumeScreenWithWatchSpeaker() {
-        val volumeState = VolumeState(
+        val volumeUiState = VolumeUiState.fromCurrentAndMax(
             current = 50,
             max = 100
         )
@@ -95,7 +95,7 @@ class VolumeScreenIndividualTest {
         paparazzi.snapshot {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
-                volumeState = volumeState,
+                volumeUiState = volumeUiState,
                 audioOutput = audioOutput
             )
         }
@@ -103,7 +103,7 @@ class VolumeScreenIndividualTest {
 
     @Test
     fun volumeScreenWithWatchSpeakerNotPlayable() {
-        val volumeState = VolumeState(
+        val volumeUiState = VolumeUiState.fromCurrentAndMax(
             current = 50,
             max = 100
         )
@@ -113,7 +113,7 @@ class VolumeScreenIndividualTest {
         paparazzi.snapshot {
             VolumeScreenTestCase(
                 colors = MaterialTheme.colors,
-                volumeState = volumeState,
+                volumeUiState = volumeUiState,
                 audioOutput = audioOutput
             )
         }
@@ -121,7 +121,7 @@ class VolumeScreenIndividualTest {
 
     @Test
     fun volumeScreenWithLabel() {
-        val volumeState = VolumeState(
+        val volumeUiState = VolumeUiState.fromCurrentAndMax(
             current = 50,
             max = 100
         )
@@ -130,13 +130,13 @@ class VolumeScreenIndividualTest {
             Scaffold(
                 positionIndicator = {
                     VolumePositionIndicator(
-                        volumeState = { volumeState },
+                        volumeUiState = { volumeUiState },
                         autoHide = false
                     )
                 }
             ) {
                 VolumeWithLabelScreen(
-                    volume = { volumeState },
+                    volume = { volumeUiState },
                     increaseVolume = { },
                     decreaseVolume = { },
                     showVolumeIndicator = false

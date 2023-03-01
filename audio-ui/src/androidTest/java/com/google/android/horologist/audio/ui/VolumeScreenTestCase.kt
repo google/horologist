@@ -19,24 +19,24 @@ package com.google.android.horologist.audio.ui
 import androidx.compose.runtime.Composable
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
+import com.google.android.horologist.audio.ui.state.model.VolumeUiState
 
 @Composable
 fun VolumeScreenTestCase(
-    volumeState: VolumeState,
+    volumeUiState: VolumeUiState,
     audioOutput: AudioOutput.BluetoothHeadset
 ) {
     Scaffold(
         positionIndicator = {
             VolumePositionIndicator(
-                volumeState = { volumeState },
+                volumeUiState = { volumeUiState },
                 autoHide = false
             )
         }
     ) {
         VolumeScreen(
-            volume = { volumeState },
+            volume = { volumeUiState },
             audioOutputUi = audioOutput.toAudioOutputUi(),
             increaseVolume = { },
             decreaseVolume = { },

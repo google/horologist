@@ -22,7 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material.MaterialTheme
-import com.google.android.horologist.audio.ui.VolumeViewModel
+import com.google.android.horologist.audio.ui.state.VolumeViewModel
 import com.google.android.horologist.media.ui.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaControlButtons
 import com.google.android.horologist.media.ui.components.animated.AnimatedMediaInfoDisplay
@@ -42,7 +42,7 @@ fun UampMediaPlayerScreen(
     onVolumeClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val volumeState by volumeViewModel.volumeState.collectAsStateWithLifecycle()
+    val volumeState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
     val settingsState by mediaPlayerScreenViewModel.settingsState.collectAsStateWithLifecycle()
 
     PlayerScreen(
@@ -62,7 +62,7 @@ fun UampMediaPlayerScreen(
         },
         buttons = {
             UampSettingsButtons(
-                volumeState = volumeState,
+                volumeUiState = volumeState,
                 onVolumeClick = onVolumeClick,
                 enabled = it.connected && it.media != null
             )

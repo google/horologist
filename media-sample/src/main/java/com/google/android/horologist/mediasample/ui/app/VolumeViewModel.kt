@@ -17,8 +17,8 @@
 package com.google.android.horologist.mediasample.ui.app
 
 import android.os.Vibrator
-import com.google.android.horologist.audio.SystemAudioRepository
-import com.google.android.horologist.audio.ui.VolumeViewModel
+import com.google.android.horologist.audio.ui.state.SystemAudioRepository
+import com.google.android.horologist.audio.ui.state.VolumeViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

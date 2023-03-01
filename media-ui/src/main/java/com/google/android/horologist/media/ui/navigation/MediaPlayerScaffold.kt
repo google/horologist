@@ -36,7 +36,7 @@ import androidx.wear.compose.navigation.SwipeDismissableNavHostState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
 import com.google.android.horologist.audio.ui.VolumeScreen
-import com.google.android.horologist.audio.ui.VolumeViewModel
+import com.google.android.horologist.audio.ui.state.VolumeViewModel
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.navscaffold.NavScaffoldViewModel
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
@@ -109,11 +109,11 @@ public fun MediaPlayerScaffold(
             it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
             it.positionIndicatorMode = NavScaffoldViewModel.PositionIndicatorMode.Off
 
-            val volumeState by volumeViewModel.volumeState.collectAsStateWithLifecycle()
+            val volumeState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
 
             PlayerLibraryPagerScreen(
                 pagerState = pagerState,
-                volumeState = { volumeState },
+                volumeUiState = volumeState,
                 timeText = timeText,
                 playerScreen = {
                     playerScreen()

@@ -26,8 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavBackStackEntry
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
-import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
+import com.google.android.horologist.audio.ui.state.model.VolumeUiState
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.layout.scrollAway
@@ -44,7 +44,7 @@ import java.util.concurrent.CancellationException
 @Composable
 public fun PlayerLibraryPagerScreen(
     pagerState: PagerState,
-    volumeState: () -> VolumeState,
+    volumeUiState: VolumeUiState,
     timeText: @Composable (Modifier) -> Unit,
     playerScreen: @Composable () -> Unit,
     libraryScreen: @Composable (ScalingLazyColumnState) -> Unit,
@@ -77,7 +77,7 @@ public fun PlayerLibraryPagerScreen(
                         timeText(Modifier)
                     },
                     positionIndicator = {
-                        VolumePositionIndicator(volumeState = volumeState)
+                        VolumePositionIndicator(volume = volumeUiState.current ?: 0f)
                     }
                 ) {
                     playerScreen()

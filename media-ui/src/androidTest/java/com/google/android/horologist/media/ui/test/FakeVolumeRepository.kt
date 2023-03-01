@@ -17,20 +17,20 @@
 package com.google.android.horologist.media.ui.test
 
 import com.google.android.horologist.audio.VolumeRepository
-import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.state.model.VolumeUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class FakeVolumeRepository constructor(initial: VolumeState) : VolumeRepository {
-    override val volumeState: MutableStateFlow<VolumeState> = MutableStateFlow(initial)
+class FakeVolumeRepository constructor(initial: VolumeUiState) : VolumeRepository {
+    override val volumeUiState: MutableStateFlow<VolumeUiState> = MutableStateFlow(initial)
 
     override fun increaseVolume() {
-        val current = volumeState.value
-        volumeState.value = current.copy(current = (current.current + 1).coerceAtMost(current.max))
+        val current = volumeUiState.value
+        volumeUiState.value = current.copy(current = (current.current + 1).coerceAtMost(current.max))
     }
 
     override fun decreaseVolume() {
-        val current = volumeState.value
-        volumeState.value = current.copy(current = (current.current - 1).coerceAtLeast(0))
+        val current = volumeUiState.value
+        volumeUiState.value = current.copy(current = (current.current - 1).coerceAtLeast(0))
     }
 
     override fun close() {

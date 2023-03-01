@@ -19,9 +19,11 @@
   <string name="horologist_time_picker_minute">Minut</string>
   <string name="horologist_time_picker_second">Sekund</string>
   <string name="horologist_time_picker_min">Min</string>
+  <string name="horologist_time_picker_period">Period</string>
   <string name="horologist_picker_day">Dag</string>
   <string name="horologist_picker_month">Månad</string>
   <string name="horologist_picker_year">År</string>
   <string name="horologist_picker_confirm_button_content_description">Bekräfta</string>
+  <string name="horologist_picker_next_button_content_description">Nästa</string>
   <string name="horologist_placeholderchip_content_description">Läser in</string>
 </resources>

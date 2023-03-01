@@ -30,9 +30,9 @@
   <string name="horologist_browse_downloads_empty">စတင်နားဆင်ရန် တေးဂီတ ဒေါင်းလုဒ်လုပ်ပါ</string>
   <string name="horologist_browse_library_title">ဒစ်ဂျစ်တိုက်</string>
   <string name="horologist_browse_library_playlists">အစီအစဉ်များ</string>
-  <string name="horologist_browse_library_playlists_button">အစီအစဉ်များ</string>
+  <string name="horologist_browse_library_playlists_button">ပလေးလစ်</string>
   <string name="horologist_browse_library_settings_button">ဆက်တင်များ</string>
-  <string name="horologist_browse_playlist_title">အစီအစဉ်များ</string>
+  <string name="horologist_browse_playlist_title">ပလေးလစ်</string>
   <string name="horologist_playlist_download_button_download">နာရီထဲဒေါင်းလုဒ်လုပ်ပါ</string>
   <string name="horologist_playlist_download_button_cancel">မလုပ်တော့</string>
   <string name="horologist_playlist_download_button_download_content_description">ဒေါင်းလုဒ်လုပ်နိုင်သည်</string>

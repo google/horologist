@@ -19,9 +19,11 @@
   <string name="horologist_time_picker_minute">Minuut</string>
   <string name="horologist_time_picker_second">Seconde</string>
   <string name="horologist_time_picker_min">Min</string>
+  <string name="horologist_time_picker_period">Periode</string>
   <string name="horologist_picker_day">Dag</string>
   <string name="horologist_picker_month">Maand</string>
   <string name="horologist_picker_year">Jaar</string>
   <string name="horologist_picker_confirm_button_content_description">Bevestigen</string>
+  <string name="horologist_picker_next_button_content_description">Volgende</string>
   <string name="horologist_placeholderchip_content_description">Laden</string>
 </resources>

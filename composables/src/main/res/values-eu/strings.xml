@@ -19,9 +19,11 @@
   <string name="horologist_time_picker_minute">Minutuak</string>
   <string name="horologist_time_picker_second">Segundoak</string>
   <string name="horologist_time_picker_min">Minutuak</string>
+  <string name="horologist_time_picker_period">Tartea</string>
   <string name="horologist_picker_day">Eguna</string>
   <string name="horologist_picker_month">Hilabetea</string>
   <string name="horologist_picker_year">Urtea</string>
   <string name="horologist_picker_confirm_button_content_description">Berretsi</string>
+  <string name="horologist_picker_next_button_content_description">Hurrengoa</string>
   <string name="horologist_placeholderchip_content_description">Kargatzen</string>
 </resources>

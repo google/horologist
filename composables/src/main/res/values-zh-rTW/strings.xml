@@ -19,9 +19,11 @@
   <string name="horologist_time_picker_minute">分鐘</string>
   <string name="horologist_time_picker_second">秒</string>
   <string name="horologist_time_picker_min">分</string>
+  <string name="horologist_time_picker_period">時段</string>
   <string name="horologist_picker_day">日</string>
   <string name="horologist_picker_month">月</string>
   <string name="horologist_picker_year">年</string>
   <string name="horologist_picker_confirm_button_content_description">確認</string>
+  <string name="horologist_picker_next_button_content_description">下一個挑選器</string>
   <string name="horologist_placeholderchip_content_description">載入中</string>
 </resources>

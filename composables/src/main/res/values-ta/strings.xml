@@ -19,9 +19,11 @@
   <string name="horologist_time_picker_minute">நிமிடம்</string>
   <string name="horologist_time_picker_second">வினாடி</string>
   <string name="horologist_time_picker_min">நிமி</string>
+  <string name="horologist_time_picker_period">மணிநேரம்</string>
   <string name="horologist_picker_day">நாள்</string>
   <string name="horologist_picker_month">மாதம்</string>
   <string name="horologist_picker_year">ஆண்டு</string>
   <string name="horologist_picker_confirm_button_content_description">உறுதிப்படுத்தும்</string>
+  <string name="horologist_picker_next_button_content_description">அடுத்ததற்குச் செல்லும்</string>
   <string name="horologist_placeholderchip_content_description">ஏற்றுகிறது</string>
 </resources>

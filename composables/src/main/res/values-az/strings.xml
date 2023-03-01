@@ -19,9 +19,11 @@
   <string name="horologist_time_picker_minute">Dəqiqə</string>
   <string name="horologist_time_picker_second">Saniyə</string>
   <string name="horologist_time_picker_min">Dəq</string>
+  <string name="horologist_time_picker_period">Müddət</string>
   <string name="horologist_picker_day">Gün</string>
   <string name="horologist_picker_month">Ay</string>
   <string name="horologist_picker_year">İl</string>
   <string name="horologist_picker_confirm_button_content_description">Təsdiq edin</string>
+  <string name="horologist_picker_next_button_content_description">Növbəti</string>
   <string name="horologist_placeholderchip_content_description">Yüklənir</string>
 </resources>

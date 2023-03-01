@@ -19,9 +19,11 @@
   <string name="horologist_time_picker_minute">الدقيقة</string>
   <string name="horologist_time_picker_second">الثانية</string>
   <string name="horologist_time_picker_min">الدقيقة</string>
+  <string name="horologist_time_picker_period">المدة</string>
   <string name="horologist_picker_day">اليوم</string>
   <string name="horologist_picker_month">الشهر</string>
   <string name="horologist_picker_year">السنة</string>
   <string name="horologist_picker_confirm_button_content_description">تأكيد</string>
+  <string name="horologist_picker_next_button_content_description">التالي</string>
   <string name="horologist_placeholderchip_content_description">جارٍ التحميل</string>
 </resources>

@@ -19,9 +19,11 @@
   <string name="horologist_time_picker_minute">నిమిషం</string>
   <string name="horologist_time_picker_second">సెకను</string>
   <string name="horologist_time_picker_min">కనిష్టం</string>
+  <string name="horologist_time_picker_period">వ్యవధి</string>
   <string name="horologist_picker_day">రోజు</string>
   <string name="horologist_picker_month">నెల</string>
   <string name="horologist_picker_year">సంవత్సరం</string>
   <string name="horologist_picker_confirm_button_content_description">నిర్ధారించండి</string>
+  <string name="horologist_picker_next_button_content_description">తర్వాత</string>
   <string name="horologist_placeholderchip_content_description">లోడ్ అవుతోంది</string>
 </resources>

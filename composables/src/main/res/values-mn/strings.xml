@@ -19,9 +19,11 @@
   <string name="horologist_time_picker_minute">Минут</string>
   <string name="horologist_time_picker_second">Секунд</string>
   <string name="horologist_time_picker_min">Мин</string>
+  <string name="horologist_time_picker_period">Хугацаа</string>
   <string name="horologist_picker_day">Өдөр</string>
   <string name="horologist_picker_month">Сар</string>
   <string name="horologist_picker_year">Он</string>
   <string name="horologist_picker_confirm_button_content_description">Баталгаажуулах</string>
+  <string name="horologist_picker_next_button_content_description">Дараах</string>
   <string name="horologist_placeholderchip_content_description">Ачаалж байна</string>
 </resources>

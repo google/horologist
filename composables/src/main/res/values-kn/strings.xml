@@ -19,9 +19,11 @@
   <string name="horologist_time_picker_minute">ನಿಮಿಷ</string>
   <string name="horologist_time_picker_second">ಸೆಕೆಂಡ್</string>
   <string name="horologist_time_picker_min">ನಿಮಿಷ</string>
+  <string name="horologist_time_picker_period">ಪೂರ್ಣ ವಿರಾಮ</string>
   <string name="horologist_picker_day">ದಿನ</string>
   <string name="horologist_picker_month">ತಿಂಗಳು</string>
   <string name="horologist_picker_year">ವರ್ಷ</string>
   <string name="horologist_picker_confirm_button_content_description">ಖಚಿತಪಡಿಸಿ</string>
+  <string name="horologist_picker_next_button_content_description">ಮುಂದಕ್ಕೆ</string>
   <string name="horologist_placeholderchip_content_description">ಲೋಡ್ ಆಗುತ್ತಿದೆ</string>
 </resources>

@@ -19,9 +19,11 @@
   <string name="horologist_time_picker_minute">Perc</string>
   <string name="horologist_time_picker_second">Mp.</string>
   <string name="horologist_time_picker_min">Perc</string>
+  <string name="horologist_time_picker_period">Időszak</string>
   <string name="horologist_picker_day">Nap</string>
   <string name="horologist_picker_month">Hónap</string>
   <string name="horologist_picker_year">Év</string>
   <string name="horologist_picker_confirm_button_content_description">Megerősítés</string>
+  <string name="horologist_picker_next_button_content_description">Következő</string>
   <string name="horologist_placeholderchip_content_description">Betöltés</string>
 </resources>

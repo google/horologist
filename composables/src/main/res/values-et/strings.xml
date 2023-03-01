@@ -19,9 +19,11 @@
   <string name="horologist_time_picker_minute">Minut</string>
   <string name="horologist_time_picker_second">Sekund</string>
   <string name="horologist_time_picker_min">Min</string>
+  <string name="horologist_time_picker_period">Periood</string>
   <string name="horologist_picker_day">Päev</string>
   <string name="horologist_picker_month">Kuu</string>
   <string name="horologist_picker_year">Aasta</string>
   <string name="horologist_picker_confirm_button_content_description">Kinnitamine</string>
+  <string name="horologist_picker_next_button_content_description">Järgmine</string>
   <string name="horologist_placeholderchip_content_description">Laadimine</string>
 </resources>

@@ -30,6 +30,8 @@ import com.google.android.horologist.base.ui.components.StandardChipType
 /**
  * An opinionated [Chip] to represent the "Guest mode" action.
  *
+ * <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/guest_mode_chip.png" height="120" width="120" >
+ *
  * @sample com.google.android.horologist.auth.sample.screens.googlesignin.prompt.GoogleSignInPromptSampleScreen
  */
 @ExperimentalHorologistAuthComposablesApi

@@ -219,7 +219,7 @@ public fun AnimatedPlayPauseProgressButton(
 @OptIn(ExperimentalHorologistMediaUiApi::class)
 @WearPreview
 @Composable
-fun PreviewButtons() {
+internal fun PreviewButtons() {
     var playing by remember { mutableStateOf(true) }
     Column {
         Text(text = if (playing) "Playing" else "Paused")

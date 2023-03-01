@@ -19,9 +19,11 @@
   <string name="horologist_time_picker_minute">മിനിറ്റ്</string>
   <string name="horologist_time_picker_second">സെക്കൻഡ്</string>
   <string name="horologist_time_picker_min">മിനിറ്റ്</string>
+  <string name="horologist_time_picker_period">കാലയളവ്</string>
   <string name="horologist_picker_day">ദിവസം</string>
   <string name="horologist_picker_month">മാസം</string>
   <string name="horologist_picker_year">വർഷം</string>
   <string name="horologist_picker_confirm_button_content_description">സ്ഥിരീകരിക്കുക</string>
+  <string name="horologist_picker_next_button_content_description">അടുത്തത്</string>
   <string name="horologist_placeholderchip_content_description">ലോഡ് ചെയ്യുന്നു</string>
 </resources>

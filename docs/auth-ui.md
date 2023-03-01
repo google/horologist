@@ -62,9 +62,9 @@ authentication flow.
 
 A implementation for the following repositories are required to be provided:
 
-- PKCEConfigRepository
-- PKCEOAuthCodeRepository
-- PKCETokenRepository
+- [PKCEConfigRepository](https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-config-repository/index.html)
+- [PKCEOAuthCodeRepository](https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-o-auth-code-repository/index.html)
+- [PKCETokenRepository](https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-token-repository/index.html)
 
 #### DeviceGrantSignInScreen
 
@@ -80,6 +80,6 @@ authentication flow.
 
 A implementation for the following repositories are required to be provided:
 
-- DeviceGrantConfigRepository
-- DeviceGrantVerificationInfoRepository
-- DeviceGrantTokenRepository
+- [DeviceGrantConfigRepository](https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-config-repository/index.html)
+- [DeviceGrantVerificationInfoRepository](https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-verification-info-repository/index.html)
+- [DeviceGrantTokenRepository](https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-token-repository/index.html)

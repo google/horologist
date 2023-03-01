@@ -25,6 +25,9 @@ import kotlinx.coroutines.flow.Flow
 
 /**
  * Default implementation of [TokenBundleRepository].
+ *
+ * @sample com.google.android.horologist.auth.sample.screens.tokenshare.customkey.TokenShareCustomKeyViewModel
+ * @sample com.google.android.horologist.auth.sample.screens.tokenshare.defaultkey.TokenShareDefaultKeyViewModel
  */
 @ExperimentalHorologistAuthDataApi
 public class TokenBundleRepositoryImpl<T>(

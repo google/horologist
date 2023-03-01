@@ -19,9 +19,11 @@
   <string name="horologist_time_picker_minute">წუთი</string>
   <string name="horologist_time_picker_second">წამი</string>
   <string name="horologist_time_picker_min">წთ</string>
+  <string name="horologist_time_picker_period">წერტილი</string>
   <string name="horologist_picker_day">დღე</string>
   <string name="horologist_picker_month">თვე</string>
   <string name="horologist_picker_year">წელი</string>
   <string name="horologist_picker_confirm_button_content_description">დადასტურება</string>
+  <string name="horologist_picker_next_button_content_description">შემდეგ</string>
   <string name="horologist_placeholderchip_content_description">იტვირთება</string>
 </resources>

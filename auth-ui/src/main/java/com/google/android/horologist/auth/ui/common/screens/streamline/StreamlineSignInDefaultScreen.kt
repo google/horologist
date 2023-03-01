@@ -36,6 +36,8 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
  * The [content] of this composable would be displayed when the screen is in "loading" state. This
  * is an optional param, in case of no other layout is expected to be displayed while this screen is
  * loading, e.g. in the scenario where the app is already displaying the splash screen.
+ *
+ * @sample com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInSampleScreen
  */
 @ExperimentalHorologistAuthUiApi
 @Composable

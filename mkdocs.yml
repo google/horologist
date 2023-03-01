@@ -15,6 +15,7 @@ repo_url: 'https://github.com/google/horologist'
 # Navigation
 nav:
   - 'Overview': index.md
+  - 'API': api/
   - 'Auth':
       - 'Overview': auth-overview.md
       - 'Sample apps': auth-sample-apps.md

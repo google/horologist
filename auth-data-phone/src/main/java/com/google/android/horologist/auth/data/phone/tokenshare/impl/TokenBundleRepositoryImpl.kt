@@ -25,6 +25,8 @@ import kotlinx.coroutines.CoroutineScope
 
 /**
  * Default implementation for [TokenBundleRepository].
+ *
+ * @sample com.google.android.horologist.auth.sample.MainActivity
  */
 @ExperimentalHorologistAuthDataPhoneApi
 public class TokenBundleRepositoryImpl<T>(

@@ -23,7 +23,8 @@ The following libraries are provided:
 - [auth-data-phone](auth-data-phone.md): implementation for Mobile apps for some of the
   authentication methods provided by the `auth-data` library.
 
-- The following sample apps are also provided:
+The following sample apps are also provided:
+
 - [auth-sample-wear](auth-sample-apps.md#wear-sample): sample wear app to authenticate using
   different methods.
 - [auth-sample-phone](auth-sample-apps.md#phone-sample): sample mobile app to authenticate using

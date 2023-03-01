@@ -19,9 +19,11 @@
   <string name="horologist_time_picker_minute">Minutė</string>
   <string name="horologist_time_picker_second">Sekundė</string>
   <string name="horologist_time_picker_min">Min.</string>
+  <string name="horologist_time_picker_period">Laikotarpis</string>
   <string name="horologist_picker_day">Diena</string>
   <string name="horologist_picker_month">Mėnuo</string>
   <string name="horologist_picker_year">Metai</string>
   <string name="horologist_picker_confirm_button_content_description">Patvirtinti</string>
+  <string name="horologist_picker_next_button_content_description">Kitas</string>
   <string name="horologist_placeholderchip_content_description">Įkeliama</string>
 </resources>

@@ -45,6 +45,11 @@ private val indicatorPadding = 8.dp
 private val iconSize = 48.dp
 private val progressBarStrokeWidth = 4.dp
 
+/**
+ * A screen to request the user to check their paired phone to proceed.
+ *
+ * <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/check_your_phone_screen.png"/>
+ */
 @ExperimentalHorologistAuthComposablesApi
 @Composable
 public fun CheckYourPhoneScreen(

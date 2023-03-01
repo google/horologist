@@ -19,6 +19,7 @@ package com.google.android.horologist.mediasample.ui.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.auth.data.common.model.AuthUser
+import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.data.auth.GoogleSignInAuthUserRepository
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.proto.copy
@@ -38,11 +39,21 @@ class SettingsScreenViewModel @Inject constructor(
         settingsRepository.settingsFlow,
         authUserRepository.authState
     ) { settings, authState ->
-        SettingsScreenState(authState, settings.guestMode, true)
+        SettingsScreenState(
+            authUser = authState,
+            guestMode = settings.guestMode,
+            writable = true,
+            showDeveloperOptions = BuildConfig.DEBUG
+        )
     }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
-        SettingsScreenState(null, false, false)
+        SettingsScreenState(
+            authUser = null,
+            guestMode = false,
+            writable = false,
+            showDeveloperOptions = BuildConfig.DEBUG
+        )
     )
 
     fun setGuestMode(enabled: Boolean) {
@@ -60,5 +71,6 @@ class SettingsScreenViewModel @Inject constructor(
 data class SettingsScreenState(
     val authUser: AuthUser?,
     val guestMode: Boolean,
-    val writable: Boolean
+    val writable: Boolean,
+    val showDeveloperOptions: Boolean
 )

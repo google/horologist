@@ -2,7 +2,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>TokenBundleRepository</title>
-</head><body><link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../scripts/main.js" async></script>
+</head><body><link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script src="https://unpkg.com/kotlin-playground@1" data-selector="code.runnablesample"></script><script src="https://unpkg.com/kotlin-playground@1" data-selector="code.runnablesample"></script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../scripts/main.js" async></script>
   
     <div id="container">
       <div id="leftColumn"><a href="../../../index.html">
@@ -26,8 +26,100 @@
             <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":auth-data:dokkaHtmlPartial/release"><div class="symbol monospace">interface <a href="index.html">TokenBundleRepository</a>&lt;<a href="index.html">T</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Repository of a bundle of information, related to auth tokens.</p></div></div>
           </div>
           <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Sources">Sources</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Sources">Sources</button><button class="section-tab" data-togglable="Samples">Samples</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
             <div class="tabs-section-body">
+              <h2 class="">Samples</h2>
+              <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Samples"><div class="content sourceset-depenent-content" data-active="" data-togglable=":auth-data:dokkaHtmlPartial/release"><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.google.android.horologist.auth.data.tokenshare.TokenBundleRepository
+import com.google.android.horologist.auth.data.tokenshare.impl.TokenBundleRepositoryImpl
+import com.google.android.horologist.auth.sample.SampleApplication
+import com.google.android.horologist.auth.sample.shared.TOKEN_BUNDLE_CUSTOM_KEY
+import com.google.android.horologist.auth.sample.shared.TokenBundleSerializer
+import com.google.android.horologist.auth.sample.shared.model.TokenBundleProto.TokenBundle
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.runningReduce
+import kotlinx.coroutines.flow.stateIn
+fun main() { 
+   //sampleStart 
+   class TokenShareCustomKeyViewModel(
+    tokenBundleRepository: TokenBundleRepository&lt;TokenBundle?&gt;
+) : ViewModel() {
+
+    public val uiState: StateFlow&lt;List&lt;TokenBundle?&gt;&gt; =
+        tokenBundleRepository.flow
+            .map { listOf(it) }
+            .runningReduce { accumulator, value -&gt; accumulator + value }
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+
+    companion object {
+        public val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val application = this[APPLICATION_KEY]!!
+
+                TokenShareCustomKeyViewModel(
+                    TokenBundleRepositoryImpl.create(
+                        registry = (application as SampleApplication).registry,
+                        serializer = TokenBundleSerializer,
+                        key = TOKEN_BUNDLE_CUSTOM_KEY
+                    )
+                )
+            }
+        }
+    }
+} 
+   //sampleEnd
+}</pre></code></div><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.google.android.horologist.auth.data.tokenshare.TokenBundleRepository
+import com.google.android.horologist.auth.data.tokenshare.impl.TokenBundleRepositoryImpl
+import com.google.android.horologist.auth.sample.SampleApplication
+import com.google.android.horologist.auth.sample.shared.TokenBundleSerializer
+import com.google.android.horologist.auth.sample.shared.model.TokenBundleProto.TokenBundle
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.runningReduce
+import kotlinx.coroutines.flow.stateIn
+fun main() { 
+   //sampleStart 
+   class TokenShareDefaultKeyViewModel(
+    tokenBundleRepository: TokenBundleRepository&lt;TokenBundle?&gt;
+) : ViewModel() {
+
+    public val uiState: StateFlow&lt;List&lt;TokenBundle?&gt;&gt; =
+        tokenBundleRepository.flow
+            .map { listOf(it) }
+            .runningReduce { accumulator, value -&gt; accumulator + value }
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+
+    companion object {
+        public val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val application = this[APPLICATION_KEY]!!
+
+                TokenShareDefaultKeyViewModel(
+                    TokenBundleRepositoryImpl.create(
+                        registry = (application as SampleApplication).registry,
+                        serializer = TokenBundleSerializer
+                    )
+                )
+            }
+        }
+    }
+} 
+   //sampleEnd
+}</pre></code></div></div></div>
               <h2 class="">Properties</h2>
               <div class="table" data-togglable="Properties"><a data-name="1627556375%2FProperties%2F975512598" anchor-label="flow" id="1627556375%2FProperties%2F975512598" data-filterable-set=":auth-data:dokkaHtmlPartial/release"></a>
                 <div class="table-row" data-filterable-current=":auth-data:dokkaHtmlPartial/release" data-filterable-set=":auth-data:dokkaHtmlPartial/release">

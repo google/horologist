@@ -33,10 +33,7 @@ module:auth-data-phone
 com.google.android.horologist.auth.data.phone
 com.google.android.horologist.auth.data.phone.tokenshare
 com.google.android.horologist.auth.data.phone.tokenshare.impl
-module:auth-sample-shared
-com.google.android.horologist.auth.sample.shared
 module:auth-ui
-com.google.android.horologist.auth.composables.screens
 com.google.android.horologist.auth.ui
 com.google.android.horologist.auth.ui.common.screens.prompt
 com.google.android.horologist.auth.ui.common.screens.streamline
@@ -111,7 +108,6 @@ com.google.android.horologist.media.ui.state
 com.google.android.horologist.media.ui.state.mapper
 com.google.android.horologist.media.ui.state.model
 com.google.android.horologist.media.ui.tiles
-com.google.android.horologist.media.ui.uamp
 module:media3-backend
 com.google.android.horologist.media3
 com.google.android.horologist.media3.audio

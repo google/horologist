@@ -2,7 +2,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>SignInPromptScreen</title>
-</head><body><link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script><script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script><link href="../../styles/style.css" rel="Stylesheet"><link href="../../styles/logo-styles.css" rel="Stylesheet"><link href="../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../scripts/main.js" async></script>
+</head><body><link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script><script src="https://unpkg.com/kotlin-playground@1" data-selector="code.runnablesample"></script><script src="https://unpkg.com/kotlin-playground@1" data-selector="code.runnablesample"></script><script src="https://unpkg.com/kotlin-playground@1" data-selector="code.runnablesample"></script><script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script><link href="../../styles/style.css" rel="Stylesheet"><link href="../../styles/logo-styles.css" rel="Stylesheet"><link href="../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../scripts/main.js" async></script>
   
     <div id="container">
       <div id="leftColumn"><a href="../../index.html">
@@ -29,7 +29,216 @@
   <div>
     <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":auth-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="-sign-in-prompt-screen.html">SignInPromptScreen</a>(message: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, onAlreadySignedIn: (account: <a href="../../auth-composables/com.google.android.horologist.auth.composables.model/-account-ui-model/index.html">AccountUiModel</a>) -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, columnState: <a href="../../compose-layout/com.google.android.horologist.compose.layout/-scaling-lazy-column-state/index.html">ScalingLazyColumnState</a>, modifier: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a> = Modifier, title: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = stringResource(id = R.string.horologist_signin_prompt_title), viewModel: <a href="-sign-in-prompt-view-model/index.html">SignInPromptViewModel</a> = viewModel(), content: <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/ScalingLazyListScope.html">ScalingLazyListScope</a>.() -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-<p class="paragraph">A screen to prompt users to sign in.</p><p class="paragraph">Through the <a href="-sign-in-prompt-screen.html">message</a> the <a href="https://developer.android.com/training/wearables/design/sign-in#benefits">sign-in benefits</a> are explained to the user.</p><p class="paragraph">The <a href="-sign-in-prompt-screen.html">viewModel</a> will take care of <a href="https://developer.android.com/training/wearables/design/sign-in#streamline">streamlining</a> the process when the user is already signed in. <a href="-sign-in-prompt-screen.html">onAlreadySignedIn</a> should be used to navigate away from this screen in that scenario.</p><p class="paragraph">The <a href="-sign-in-prompt-screen.html">content</a> should provide <a href="https://developer.android.com/training/wearables/design/sign-in#alternatives">sign-in alternatives</a>.</p></div>
+<p class="paragraph">A screen to prompt users to sign in.</p><p class="paragraph">Through the <a href="-sign-in-prompt-screen.html">message</a> the <a href="https://developer.android.com/training/wearables/design/sign-in#benefits">sign-in benefits</a> are explained to the user.</p><p class="paragraph">The <a href="-sign-in-prompt-screen.html">viewModel</a> will take care of <a href="https://developer.android.com/training/wearables/design/sign-in#streamline">streamlining</a> the process when the user is already signed in. <a href="-sign-in-prompt-screen.html">onAlreadySignedIn</a> should be used to navigate away from this screen in that scenario.</p><p class="paragraph">The <a href="-sign-in-prompt-screen.html">content</a> should provide <a href="https://developer.android.com/training/wearables/design/sign-in#alternatives">sign-in alternatives</a>.</p><h2 class="">Samples</h2><div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Samples"><div class="content sourceset-depenent-content" data-active="" data-togglable=":auth-ui:dokkaHtmlPartial/release"><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.wear.compose.material.Text
+import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.google.android.horologist.auth.composables.chips.GuestModeChip
+import com.google.android.horologist.auth.composables.chips.SignInChip
+import com.google.android.horologist.auth.sample.R
+import com.google.android.horologist.auth.sample.Screen
+import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
+import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
+import com.google.android.horologist.auth.ui.googlesignin.prompt.GoogleSignInPromptViewModelFactory
+import com.google.android.horologist.base.ui.components.ConfirmationDialog
+import com.google.android.horologist.base.ui.components.StandardChipType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.tools.WearPreviewDevices
+fun main() { 
+   //sampleStart 
+   var showAlreadySignedInDialog by rememberSaveable { mutableStateOf(false) }
+
+SignInPromptScreen(
+    message = stringResource(id = R.string.google_sign_in_prompt_message),
+    onAlreadySignedIn = { showAlreadySignedInDialog = true },
+    columnState = columnState,
+    modifier = modifier,
+    viewModel = viewModel
+) {
+    item {
+        SignInChip(
+            onClick = {
+                navController.navigate(Screen.GoogleSignInScreen.route) {
+                    popUpTo(Screen.MainScreen.route)
+                }
+            },
+            chipType = StandardChipType.Secondary
+        )
+    }
+    item {
+        GuestModeChip(
+            onClick = navController::popBackStack,
+            chipType = StandardChipType.Secondary
+        )
+    }
+}
+
+if (showAlreadySignedInDialog) {
+    ConfirmationDialog(
+        onTimeout = {
+            showAlreadySignedInDialog = false
+            navController.popBackStack()
+        }
+    ) {
+        Text(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            textAlign = TextAlign.Center,
+            text = stringResource(id = R.string.google_sign_in_prompt_already_signed_in_message)
+        )
+    }
+} 
+   //sampleEnd
+}</pre></code></div><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.wear.compose.material.Text
+import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.google.android.horologist.auth.composables.chips.GuestModeChip
+import com.google.android.horologist.auth.composables.chips.SignInChip
+import com.google.android.horologist.auth.sample.R
+import com.google.android.horologist.auth.sample.Screen
+import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
+import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
+import com.google.android.horologist.base.ui.components.ConfirmationDialog
+import com.google.android.horologist.base.ui.components.StandardChipType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.tools.WearPreviewDevices
+fun main() { 
+   //sampleStart 
+   var showAlreadySignedInDialog by rememberSaveable { mutableStateOf(false) }
+
+SignInPromptScreen(
+    message = stringResource(id = R.string.device_grant_sign_in_prompt_message),
+    onAlreadySignedIn = {
+        showAlreadySignedInDialog = true
+    },
+    columnState = columnState,
+    modifier = modifier,
+    viewModel = viewModel
+) {
+    item {
+        SignInChip(
+            onClick = {
+                navController.navigate(Screen.DeviceGrantSignInScreen.route) {
+                    popUpTo(Screen.MainScreen.route)
+                }
+            },
+            chipType = StandardChipType.Secondary
+        )
+    }
+    item {
+        GuestModeChip(
+            onClick = navController::popBackStack,
+            chipType = StandardChipType.Secondary
+        )
+    }
+}
+
+if (showAlreadySignedInDialog) {
+    ConfirmationDialog(
+        onTimeout = {
+            showAlreadySignedInDialog = false
+            navController.popBackStack()
+        }
+    ) {
+        Text(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            textAlign = TextAlign.Center,
+            text = stringResource(id = R.string.device_grant_sign_in_prompt_already_signed_in_message)
+        )
+    }
+} 
+   //sampleEnd
+}</pre></code></div><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.wear.compose.material.Text
+import com.google.android.horologist.auth.composables.chips.GuestModeChip
+import com.google.android.horologist.auth.composables.chips.SignInChip
+import com.google.android.horologist.auth.sample.R
+import com.google.android.horologist.auth.sample.Screen
+import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
+import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
+import com.google.android.horologist.base.ui.components.ConfirmationDialog
+import com.google.android.horologist.base.ui.components.StandardChipType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.layout.belowTimeTextPreview
+import com.google.android.horologist.compose.tools.WearPreviewDevices
+fun main() { 
+   //sampleStart 
+   var showAlreadySignedInDialog by rememberSaveable { mutableStateOf(false) }
+
+SignInPromptScreen(
+    message = stringResource(id = R.string.pkce_sign_in_prompt_message),
+    onAlreadySignedIn = {
+        showAlreadySignedInDialog = true
+    },
+    columnState = columnState,
+    modifier = modifier,
+    viewModel = viewModel
+) {
+    item {
+        SignInChip(
+            onClick = {
+                navController.navigate(Screen.PKCESignInScreen.route) {
+                    popUpTo(Screen.MainScreen.route)
+                }
+            },
+            chipType = StandardChipType.Secondary
+        )
+    }
+    item {
+        GuestModeChip(
+            onClick = navController::popBackStack,
+            chipType = StandardChipType.Secondary
+        )
+    }
+}
+
+if (showAlreadySignedInDialog) {
+    ConfirmationDialog(
+        onTimeout = {
+            showAlreadySignedInDialog = false
+            navController.popBackStack()
+        }
+    ) {
+        Text(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            textAlign = TextAlign.Center,
+            text = stringResource(id = R.string.pkce_sign_in_prompt_already_signed_in_message)
+        )
+    }
+} 
+   //sampleEnd
+}</pre></code></div></div></div></div>
           <h2 class="">Sources</h2>
           <div class="table" data-togglable="Sources"><a data-name="271957972%2FSource%2F1544609704" anchor-label="https://github.com/google/horologist/blob/main/auth-ui/src/main/java/com/google/android/horologist/auth/ui/common/screens/prompt/SignInPromptScreen.kt#L40" id="271957972%2FSource%2F1544609704" data-filterable-set=":auth-ui:dokkaHtmlPartial/main"></a>
             <div class="table-row" data-filterable-current=":auth-ui:dokkaHtmlPartial/main" data-filterable-set=":auth-ui:dokkaHtmlPartial/main">

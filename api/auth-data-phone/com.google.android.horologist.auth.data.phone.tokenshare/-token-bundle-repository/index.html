@@ -2,7 +2,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>TokenBundleRepository</title>
-</head><body><link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../scripts/main.js" async></script>
+</head><body><link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script src="https://unpkg.com/kotlin-playground@1" data-selector="code.runnablesample"></script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../scripts/main.js" async></script>
   
     <div id="container">
       <div id="leftColumn"><a href="../../../index.html">
@@ -26,8 +26,100 @@
             <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":auth-data-phone:dokkaHtmlPartial/release"><div class="symbol monospace">interface <a href="index.html">TokenBundleRepository</a>&lt;<a href="index.html">T</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Repository of a bundle of information, related to auth tokens.</p></div></div>
           </div>
           <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Sources">Sources</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Sources">Sources</button><button class="section-tab" data-togglable="Samples">Samples</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
             <div class="tabs-section-body">
+              <h2 class="">Samples</h2>
+              <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Samples"><div class="content sourceset-depenent-content" data-active="" data-togglable=":auth-data-phone:dokkaHtmlPartial/release"><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.lifecycleScope
+import com.google.android.horologist.auth.data.phone.tokenshare.TokenBundleRepository
+import com.google.android.horologist.auth.data.phone.tokenshare.impl.TokenBundleRepositoryImpl
+import com.google.android.horologist.auth.sample.shared.TOKEN_BUNDLE_CUSTOM_KEY
+import com.google.android.horologist.auth.sample.shared.TokenBundleSerializer
+import com.google.android.horologist.auth.sample.shared.model.TokenBundleProto.TokenBundle
+import com.google.android.horologist.auth.sample.ui.theme.HorologistTheme
+import com.google.android.horologist.data.WearDataLayerRegistry
+import kotlinx.coroutines.launch
+fun main() { 
+   //sampleStart 
+   class MainActivity : ComponentActivity() {
+
+    private lateinit var tokenBundleRepositoryDefaultKey: TokenBundleRepository&lt;TokenBundle?&gt;
+    private lateinit var tokenBundleRepositoryCustomKey: TokenBundleRepository&lt;TokenBundle?&gt;
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val registry = WearDataLayerRegistry.fromContext(
+            application = this@MainActivity.applicationContext,
+            coroutineScope = lifecycleScope
+        )
+
+        tokenBundleRepositoryDefaultKey = TokenBundleRepositoryImpl.create(
+            registry = registry,
+            coroutineScope = lifecycleScope,
+            serializer = TokenBundleSerializer
+        )
+
+        tokenBundleRepositoryCustomKey = TokenBundleRepositoryImpl.create(
+            registry = registry,
+            coroutineScope = lifecycleScope,
+            serializer = TokenBundleSerializer,
+            key = TOKEN_BUNDLE_CUSTOM_KEY
+        )
+
+        setContent {
+            HorologistTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    MainScreen(
+                        onUpdateTokenDefault = ::onUpdateTokenDefault,
+                        onUpdateTokenCustom = ::onUpdateTokenCustom
+                    )
+                }
+            }
+        }
+    }
+
+    private fun onUpdateTokenDefault() {
+        lifecycleScope.launch {
+            tokenBundleRepositoryDefaultKey.update(
+                TokenBundle.newBuilder()
+                    .setAccessToken("${System.currentTimeMillis()}")
+                    .build()
+            )
+        }
+    }
+
+    private fun onUpdateTokenCustom() {
+        lifecycleScope.launch {
+            tokenBundleRepositoryCustomKey.update(
+                TokenBundle.newBuilder()
+                    .setAccessToken("${System.currentTimeMillis()}")
+                    .build()
+            )
+        }
+    }
+} 
+   //sampleEnd
+}</pre></code></div></div></div>
               <h2 class="">Functions</h2>
               <div class="table" data-togglable="Functions"><a data-name="-276550302%2FFunctions%2F1703965333" anchor-label="update" id="-276550302%2FFunctions%2F1703965333" data-filterable-set=":auth-data-phone:dokkaHtmlPartial/release"></a>
                 <div class="table-row" data-filterable-current=":auth-data-phone:dokkaHtmlPartial/release" data-filterable-set=":auth-data-phone:dokkaHtmlPartial/release">

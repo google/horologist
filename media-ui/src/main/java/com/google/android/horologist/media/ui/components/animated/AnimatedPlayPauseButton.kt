@@ -18,6 +18,7 @@ package com.google.android.horologist.media.ui.components.animated
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -25,9 +26,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
@@ -40,16 +44,22 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
+import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.Text
 import com.airbnb.lottie.LottieComposition
+import com.airbnb.lottie.compose.LottieAnimatable
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieClipSpec
 import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.android.horologist.audio.ui.components.animated.LocalStaticPreview
+import com.google.android.horologist.base.ui.components.StandardChip
+import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.PlayPauseButton
@@ -89,12 +99,8 @@ public fun AnimatedPlayPauseButton(
                 "lottie/PlayPause.json"
             )
         )
-        val clipSpec = remember { LottieClipSpec.Frame(max = 14) }
-        val lottieProgress by animateLottieProgressAsState(
-            targetValue = if (playing) 1f else 0f,
-            composition = composition,
-            clipSpec = clipSpec
-        )
+        val lottieProgress =
+            animateLottieProgressAsState(playing = playing, composition = composition)
 
         Box(
             modifier = modifier
@@ -137,7 +143,7 @@ public fun AnimatedPlayPauseButton(
                         .align(Alignment.Center)
                         .graphicsLayer(alpha = LocalContentAlpha.current),
                     composition = composition,
-                    progress = { lottieProgress }
+                    progress = { lottieProgress.value }
                 )
             }
         }
@@ -146,19 +152,23 @@ public fun AnimatedPlayPauseButton(
 
 @Composable
 private fun animateLottieProgressAsState(
-    targetValue: Float,
+    playing: Boolean,
     composition: LottieComposition?,
-    clipSpec: LottieClipSpec?
 ): State<Float> {
-    val lottieAnimatable = rememberLottieAnimatable()
-    LaunchedEffect(targetValue) {
-        if (lottieAnimatable.progress < targetValue) {
-            lottieAnimatable.animate(composition, clipSpec = clipSpec, speed = 1f)
-        } else if (lottieAnimatable.progress > targetValue) {
-            lottieAnimatable.animate(composition, clipSpec = clipSpec, speed = -1f)
+    val clipSpec = remember { LottieClipSpec.Frame(max = 14) }
+    val lottieProgress = animateLottieCompositionAsState(
+        composition = composition,
+        clipSpec = clipSpec
+    ) as LottieAnimatable
+    LaunchedEffect(playing) {
+        val targetValue = if (playing) 1f else 0f
+        if (lottieProgress.progress < targetValue) {
+            lottieProgress.animate(composition, speed = 1f)
+        } else if (lottieProgress.progress > targetValue) {
+            lottieProgress.animate(composition, speed = -1f)
         }
     }
-    return lottieAnimatable
+    return lottieProgress
 }
 
 @ExperimentalHorologistMediaUiApi
@@ -206,5 +216,39 @@ public fun AnimatedPlayPauseProgressButton(
                 strokeWidth = progressStrokeWidth
             )
         }
+    }
+}
+
+@OptIn(ExperimentalHorologistMediaUiApi::class)
+@WearPreview
+@Composable
+fun PreviewButtons() {
+    var playing by remember { mutableStateOf(true) }
+    Column {
+        Text(text = if (playing) "Playing" else "Paused")
+        AnimatedPlayPauseButton(
+            onPlayClick = { playing = true },
+            onPauseClick = { playing = false },
+            playing = playing
+        )
+        Box {
+            AnimatedPlayPauseButton(
+                onPlayClick = { playing = true },
+                onPauseClick = { playing = false },
+                playing = playing,
+                modifier = Modifier.alpha(0.5f)
+            )
+            PlayPauseButton(
+                onPlayClick = { playing = true },
+                onPauseClick = { playing = false },
+                playing = playing,
+                modifier = Modifier.alpha(0.5f)
+            )
+        }
+        PlayPauseButton(
+            onPlayClick = { playing = true },
+            onPauseClick = { playing = false },
+            playing = playing
+        )
     }
 }

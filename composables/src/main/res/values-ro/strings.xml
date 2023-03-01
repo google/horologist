@@ -19,9 +19,11 @@
   <string name="horologist_time_picker_minute">Minut</string>
   <string name="horologist_time_picker_second">Secundă</string>
   <string name="horologist_time_picker_min">min.</string>
+  <string name="horologist_time_picker_period">Perioada</string>
   <string name="horologist_picker_day">Zi</string>
   <string name="horologist_picker_month">Lună</string>
   <string name="horologist_picker_year">An</string>
   <string name="horologist_picker_confirm_button_content_description">Confirmă</string>
+  <string name="horologist_picker_next_button_content_description">Înainte</string>
   <string name="horologist_placeholderchip_content_description">Se încarcă</string>
 </resources>

@@ -27,7 +27,7 @@
   <string name="horologist_shuffle_button_on_content_description">Mode aleatori activat</string>
   <string name="horologist_nothing_playing">No es reprodueix res</string>
   <string name="horologist_browse_downloads_title">Baixades</string>
-  <string name="horologist_browse_downloads_empty">Baixa música per començar a escoltar-ne</string>
+  <string name="horologist_browse_downloads_empty">Baixa música per escoltar-la</string>
   <string name="horologist_browse_library_title">Biblioteca</string>
   <string name="horologist_browse_library_playlists">Llistes de reproducció</string>
   <string name="horologist_browse_library_playlists_button">Llistes de reproducció</string>

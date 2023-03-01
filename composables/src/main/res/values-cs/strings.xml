@@ -19,9 +19,11 @@
   <string name="horologist_time_picker_minute">Minuty</string>
   <string name="horologist_time_picker_second">Sekundy</string>
   <string name="horologist_time_picker_min">Min</string>
+  <string name="horologist_time_picker_period">Období</string>
   <string name="horologist_picker_day">Den</string>
   <string name="horologist_picker_month">Měsíc</string>
   <string name="horologist_picker_year">Rok</string>
   <string name="horologist_picker_confirm_button_content_description">Potvrdit</string>
+  <string name="horologist_picker_next_button_content_description">Další</string>
   <string name="horologist_placeholderchip_content_description">Načítání</string>
 </resources>

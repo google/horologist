@@ -19,9 +19,11 @@
   <string name="horologist_time_picker_minute">분</string>
   <string name="horologist_time_picker_second">초</string>
   <string name="horologist_time_picker_min">분</string>
+  <string name="horologist_time_picker_period">기간</string>
   <string name="horologist_picker_day">일</string>
   <string name="horologist_picker_month">월</string>
   <string name="horologist_picker_year">연도</string>
   <string name="horologist_picker_confirm_button_content_description">확인</string>
+  <string name="horologist_picker_next_button_content_description">다음</string>
   <string name="horologist_placeholderchip_content_description">로드 중</string>
 </resources>

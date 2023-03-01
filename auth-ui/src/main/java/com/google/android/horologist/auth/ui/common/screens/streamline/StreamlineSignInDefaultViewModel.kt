@@ -32,6 +32,8 @@ import kotlinx.coroutines.launch
  *
  * It checks if there is a user already signed in, and emits the appropriate
  * [states][StreamlineSignInDefaultScreenState] through the [uiState] property.
+ *
+ * @sample com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInSampleScreen
  */
 @ExperimentalHorologistAuthUiApi
 public class StreamlineSignInDefaultViewModel(

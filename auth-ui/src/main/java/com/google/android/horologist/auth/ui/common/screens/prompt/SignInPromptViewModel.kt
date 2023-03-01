@@ -32,6 +32,10 @@ import kotlinx.coroutines.launch
  *
  * It checks if there is a user already signed in, and emits the appropriate
  * [states][SignInPromptScreenState] through the [uiState] property.
+ *
+ * @sample com.google.android.horologist.auth.sample.screens.googlesignin.prompt.GoogleSignInPromptSampleScreen
+ * @sample com.google.android.horologist.auth.sample.screens.oauth.devicegrant.prompt.DeviceGrantSignInPromptScreen
+ * @sample com.google.android.horologist.auth.sample.screens.oauth.pkce.prompt.PKCESignInPromptScreen
  */
 @ExperimentalHorologistAuthUiApi
 public open class SignInPromptViewModel(

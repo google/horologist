@@ -202,7 +202,12 @@ subprojects {
                 noAndroidSdkLink.set(false)
 
                 // Add samples from :sample module
-                samples.from(rootProject.file("sample/src/main/java/"))
+                samples.from(
+                    rootProject.file("auth-sample-phone/src/main/java/"),
+                    rootProject.file("auth-sample-wear/src/main/java/"),
+                    rootProject.file("media-sample/src/main/java/"),
+                    rootProject.file("sample/src/main/java/"),
+                )
 
                 // AndroidX + Compose docs
                 externalDocumentationLink {
@@ -221,6 +226,15 @@ subprojects {
                     // Suffix which is used to append the line number to the URL. Use #L for GitHub
                     remoteLineSuffix.set("#L")
                 }
+
+                perPackageOption {
+                    matchingRegex.set("com.google.android.horologist.auth.sample.shared.*")
+
+                    suppress.set(true)
+                }
+
+                // Remove composable previews from docs
+                suppressedFiles.from(file("src/debug/java"))
             }
         }
         if (plugins.hasPlugin("com.android.library")) {

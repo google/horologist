@@ -21,6 +21,10 @@ import com.google.android.horologist.auth.data.common.model.AuthUser
 
 /**
  * A repository of [AuthUser].
+ *
+ * @sample com.google.android.horologist.auth.sample.screens.oauth.devicegrant.data.DeviceGrantAuthUserRepositorySample
+ * @sample com.google.android.horologist.auth.sample.screens.oauth.pkce.data.PKCEAuthUserRepositorySample
+ * @sample com.google.android.horologist.auth.sample.screens.common.streamline.AuthUserRepositoryStreamlineImpl
  */
 @ExperimentalHorologistAuthDataApi
 public interface AuthUserRepository {

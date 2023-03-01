@@ -20,6 +20,8 @@ import com.google.android.horologist.auth.data.phone.ExperimentalHorologistAuthD
 
 /**
  * Repository of a bundle of information, related to auth tokens.
+ *
+ * @sample com.google.android.horologist.auth.sample.MainActivity
  */
 @ExperimentalHorologistAuthDataPhoneApi
 public interface TokenBundleRepository<T> {

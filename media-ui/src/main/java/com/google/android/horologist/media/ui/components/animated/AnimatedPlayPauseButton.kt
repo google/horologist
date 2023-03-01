@@ -17,14 +17,12 @@
 package com.google.android.horologist.media.ui.components.animated
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -97,9 +95,6 @@ public fun AnimatedPlayPauseButton(
             composition = composition,
             clipSpec = clipSpec
         )
-        SideEffect {
-//            println("lottie " + lottieProgress)
-        }
 
         Box(
             modifier = modifier
@@ -140,13 +135,9 @@ public fun AnimatedPlayPauseButton(
                     modifier = Modifier
                         .size(iconSize)
                         .align(Alignment.Center)
-                        .graphicsLayer(alpha = LocalContentAlpha.current)
-                        .border(1.dp, Color.Red),
+                        .graphicsLayer(alpha = LocalContentAlpha.current),
                     composition = composition,
-                    progress = {
-                        println("Lottie2 " + lottieProgress)
-                        lottieProgress
-                    }
+                    progress = { lottieProgress }
                 )
             }
         }

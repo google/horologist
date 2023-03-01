@@ -61,28 +61,16 @@ public fun AnimatedMediaControlButtons(
         },
         middleButton = {
             if (trackPositionUiModel.showProgress) {
-                Box {
-                    PlayPauseProgressButton(
-                        onPlayClick = onPlayButtonClick,
-                        onPauseClick = onPauseButtonClick,
-                        enabled = playPauseButtonEnabled,
-                        playing = playing,
-                        trackPositionUiModel = trackPositionUiModel,
-                        modifier = Modifier.size(ButtonDefaults.LargeButtonSize)
-                            .alpha(0.5f),
-                        colors = colors,
-                    )
-                    AnimatedPlayPauseProgressButton(
-                        onPlayClick = onPlayButtonClick,
-                        onPauseClick = onPauseButtonClick,
-                        enabled = playPauseButtonEnabled,
-                        playing = playing,
-                        trackPositionUiModel = trackPositionUiModel,
-                        modifier = Modifier.size(ButtonDefaults.LargeButtonSize)
-                            .alpha(0.5f),
-                        colors = colors,
-                    )
-                }
+                AnimatedPlayPauseProgressButton(
+                    onPlayClick = onPlayButtonClick,
+                    onPauseClick = onPauseButtonClick,
+                    enabled = playPauseButtonEnabled,
+                    playing = playing,
+                    trackPositionUiModel = trackPositionUiModel,
+                    modifier = Modifier.size(ButtonDefaults.LargeButtonSize)
+                        .alpha(0.5f),
+                    colors = colors,
+                )
             } else {
                 AnimatedPlayPauseButton(
                     onPlayClick = onPlayButtonClick,

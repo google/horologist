@@ -16,9 +16,11 @@
 
 package com.google.android.horologist.media.ui.components.animated
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
@@ -59,15 +61,28 @@ public fun AnimatedMediaControlButtons(
         },
         middleButton = {
             if (trackPositionUiModel.showProgress) {
-                AnimatedPlayPauseProgressButton(
-                    onPlayClick = onPlayButtonClick,
-                    onPauseClick = onPauseButtonClick,
-                    enabled = playPauseButtonEnabled,
-                    playing = playing,
-                    trackPositionUiModel = trackPositionUiModel,
-                    modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
-                    colors = colors
-                )
+                Box {
+                    PlayPauseProgressButton(
+                        onPlayClick = onPlayButtonClick,
+                        onPauseClick = onPauseButtonClick,
+                        enabled = playPauseButtonEnabled,
+                        playing = playing,
+                        trackPositionUiModel = trackPositionUiModel,
+                        modifier = Modifier.size(ButtonDefaults.LargeButtonSize)
+                            .alpha(0.5f),
+                        colors = colors,
+                    )
+                    AnimatedPlayPauseProgressButton(
+                        onPlayClick = onPlayButtonClick,
+                        onPauseClick = onPauseButtonClick,
+                        enabled = playPauseButtonEnabled,
+                        playing = playing,
+                        trackPositionUiModel = trackPositionUiModel,
+                        modifier = Modifier.size(ButtonDefaults.LargeButtonSize)
+                            .alpha(0.5f),
+                        colors = colors,
+                    )
+                }
             } else {
                 AnimatedPlayPauseButton(
                     onPlayClick = onPlayButtonClick,

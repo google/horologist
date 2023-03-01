@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.ui.components.controls
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -85,7 +86,8 @@ public fun MediaButton(
                     }
                 }
                 .align(Alignment.Center)
-                .semantics { iconImageVector = icon },
+                .semantics { iconImageVector = icon }
+                .border(1.dp, Color.Red),
             imageVector = icon,
             contentDescription = contentDescription
         )

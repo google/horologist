@@ -17,16 +17,20 @@
 package com.google.android.horologist.media.ui.components.animated
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
@@ -93,10 +97,15 @@ public fun AnimatedPlayPauseButton(
             composition = composition,
             clipSpec = clipSpec
         )
+        SideEffect {
+//            println("lottie " + lottieProgress)
+        }
 
         Box(
             modifier = modifier
                 .size(tapTargetSize)
+                .fillMaxSize()
+                .clip(CircleShape)
                 .background(backgroundColor),
             contentAlignment = Alignment.Center,
         ) {
@@ -131,9 +140,13 @@ public fun AnimatedPlayPauseButton(
                     modifier = Modifier
                         .size(iconSize)
                         .align(Alignment.Center)
-                        .graphicsLayer(alpha = LocalContentAlpha.current),
+                        .graphicsLayer(alpha = LocalContentAlpha.current)
+                        .border(1.dp, Color.Red),
                     composition = composition,
-                    progress = { lottieProgress }
+                    progress = {
+                        println("Lottie2 " + lottieProgress)
+                        lottieProgress
+                    }
                 )
             }
         }

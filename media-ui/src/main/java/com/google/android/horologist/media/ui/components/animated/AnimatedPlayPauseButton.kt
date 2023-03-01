@@ -18,7 +18,6 @@ package com.google.android.horologist.media.ui.components.animated
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -26,12 +25,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
@@ -47,7 +43,6 @@ import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Text
 import com.airbnb.lottie.LottieComposition
 import com.airbnb.lottie.compose.LottieAnimatable
 import com.airbnb.lottie.compose.LottieAnimation
@@ -56,7 +51,6 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.android.horologist.audio.ui.components.animated.LocalStaticPreview
-import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.PlayPauseButton
@@ -213,39 +207,5 @@ public fun AnimatedPlayPauseProgressButton(
                 strokeWidth = progressStrokeWidth
             )
         }
-    }
-}
-
-@OptIn(ExperimentalHorologistMediaUiApi::class)
-@WearPreview
-@Composable
-internal fun PreviewButtons() {
-    var playing by remember { mutableStateOf(true) }
-    Column {
-        Text(text = if (playing) "Playing" else "Paused")
-        AnimatedPlayPauseButton(
-            onPlayClick = { playing = true },
-            onPauseClick = { playing = false },
-            playing = playing
-        )
-        Box {
-            AnimatedPlayPauseButton(
-                onPlayClick = { playing = true },
-                onPauseClick = { playing = false },
-                playing = playing,
-                modifier = Modifier.alpha(0.5f)
-            )
-            PlayPauseButton(
-                onPlayClick = { playing = true },
-                onPauseClick = { playing = false },
-                playing = playing,
-                modifier = Modifier.alpha(0.5f)
-            )
-        }
-        PlayPauseButton(
-            onPlayClick = { playing = true },
-            onPauseClick = { playing = false },
-            playing = playing
-        )
     }
 }

@@ -19,8 +19,10 @@ package com.google.android.horologist.media.ui.components.animated
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
+import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.components.ControlButtonLayout
 import com.google.android.horologist.media.ui.components.PlayPauseProgressButton
@@ -46,6 +48,7 @@ public fun AnimatedMediaControlButtons(
     seekToNextButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
     trackPositionUiModel: TrackPositionUiModel,
+    progressColour: Color = MaterialTheme.colors.primary,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     ControlButtonLayout(
@@ -66,7 +69,8 @@ public fun AnimatedMediaControlButtons(
                     playing = playing,
                     trackPositionUiModel = trackPositionUiModel,
                     modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
-                    colors = colors
+                    colors = colors,
+                    progressColour = progressColour
                 )
             } else {
                 AnimatedPlayPauseButton(

@@ -60,12 +60,12 @@ public class PhoneDataLayerAppHelper(context: Context) :
         val launchPackage = companionLookup.getOrDefault(companionPackage, companionPackage)
 
         val intent = context.packageManager.getLaunchIntentForPackage(launchPackage)
-            ?: return AppHelperResultCode.NO_COMPANION_FOUND
+            ?: return AppHelperResultCode.APP_HELPER_RESULT_NO_COMPANION_FOUND
         try {
             context.startActivity(intent)
         } catch (e: ActivityNotFoundException) {
-            return AppHelperResultCode.ACTIVITY_NOT_FOUND
+            return AppHelperResultCode.APP_HELPER_RESULT_ACTIVITY_NOT_FOUND
         }
-        return AppHelperResultCode.SUCCESS
+        return AppHelperResultCode.APP_HELPER_RESULT_SUCCESS
     }
 }

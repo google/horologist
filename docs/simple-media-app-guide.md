@@ -13,7 +13,7 @@ This guide assumes that you are familiar with:
 
 ### 1 - Add dependency
 
-Add dependency on `media-ui` to your project’s `build.gradle`:
+Create a new project from Android Studio by choosing a Wear OS Empty Compose Activity. Add dependency on `media-ui` to your project’s `build.gradle`:
 
 ```groovy
 implementation "com.google.android.horologist:horologist-media-ui:$horologist_version"
@@ -69,11 +69,12 @@ None of the controls are working, as they were not implemented yet.
 
 ### 1 - Add dependencies
 
-Add dependency on `media-data`, `compose-layout` and `media3-exoplayer` to your project’s
+Add dependency on `media-data`, `audio-ui` and `media3-exoplayer` to your project’s
 build.gradle:
 
 ```groovy
 implementation "com.google.android.horologist:horologist-media-data:$horologist_version"
+implementation "com.google.android.horologist:horologist-audio-ui:$horologist_version"
 implementation("androidx.media3:media3-exoplayer:$media3_version")
 ```
 
@@ -106,12 +107,6 @@ init {
                 artist = "The Kyoto Connection"
             )
         )
-
-        // update the track position while app is in foreground
-        while (isActive) {
-            delay(1000)
-            playerRepository.updatePosition()
-        }
     }
 }
 ```
@@ -121,22 +116,40 @@ init {
 Change your `Activity`’s `onCreate` function to:
 
 ```kotlin
-val player = ExoPlayer.Builder(this).build()
+val player = ExoPlayer.Builder(this)
+        .setSeekForwardIncrementMs(5000L)
+        .setSeekBackIncrementMs(5000L)
+        .build()
 // ViewModels should NOT be created here like this
 val viewModel = MyViewModel(player)
+val volumeViewModel = createVolumeViewModel()
 
 PlayerScreen(
-    mediaDisplay = { playerUiState ->
-        DefaultMediaDisplay(media = playerUiState.media)
-    },
-    controlButtons = { playerUiState ->
-        PodcastControlButtons(
-            playerViewModel = viewModel,
-            playerUiState = playerUiState,
-        )
-    },
-    buttons = { }
+        playerViewModel = viewModel,
+        volumeViewModel = volumeViewModel,
+        mediaDisplay = { playerUiState: PlayerUiState ->
+          DefaultMediaInfoDisplay(playerUiState)
+        },
+        controlButtons = { playerUIController: PlayerUiController,
+                           playerUiState: PlayerUiState ->
+          PodcastControlButtons(
+                  playerController = playerUIController,
+                  playerUiState = playerUiState
+          )
+        },
+        buttons = { }
 )
+```
+Add `createVolumeViewModel` function to create a VolumeViewModel:
+
+```kotlin
+fun createVolumeViewModel(): VolumeViewModel {
+        val audioRepository = SystemAudioRepository.fromContext(application)
+        val vibrator: Vibrator = application.getSystemService(Vibrator::class.java)
+        return VolumeViewModel(audioRepository, audioRepository, onCleared = {
+            audioRepository.close()
+        }, vibrator)
+    }
 ```
 
 We are creating an instance of `ExoPlayer`, passing it to the `ViewModel`.

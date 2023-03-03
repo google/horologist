@@ -1148,7 +1148,7 @@ of playing a media which is hosted on the internet.</p>
 </ul>
 <h2 id="display-a-playerscreen">Display a PlayerScreen<a class="headerlink" href="#display-a-playerscreen" title="Permanent link">&para;</a></h2>
 <h3 id="1-add-dependency">1 - Add dependency<a class="headerlink" href="#1-add-dependency" title="Permanent link">&para;</a></h3>
-<p>Add dependency on <code>media-ui</code> to your project’s <code>build.gradle</code>:</p>
+<p>Create a new project from Android Studio by choosing a Wear OS Empty Compose Activity. Add dependency on <code>media-ui</code> to your project’s <code>build.gradle</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;com.google.android.horologist:horologist-media-ui:$horologist_version&quot;</span>
 </code></pre></div>
 <h3 id="2-add-playerscreen">2 - Add <code>PlayerScreen</code><a class="headerlink" href="#2-add-playerscreen" title="Permanent link">&para;</a></h3>
@@ -1158,7 +1158,7 @@ of playing a media which is hosted on the internet.</p>
 <span class="w">        </span><span class="n">mediaDisplay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="n">TextMediaDisplay</span><span class="p">(</span>
 <span class="w">                </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Song name&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="n">artist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Artist name&quot;</span>
+<span class="w">                </span><span class="n">subtitle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Artist name&quot;</span>
 <span class="w">            </span><span class="p">)</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="n">controlButtons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
@@ -1189,9 +1189,10 @@ provided by the UI library, as values to parameters of <code>PlayerScreen</code>
 <p>None of the controls are working, as they were not implemented yet.</p>
 <h2 id="make-the-screen-functional">Make the screen functional<a class="headerlink" href="#make-the-screen-functional" title="Permanent link">&para;</a></h2>
 <h3 id="1-add-dependencies">1 - Add dependencies<a class="headerlink" href="#1-add-dependencies" title="Permanent link">&para;</a></h3>
-<p>Add dependency on <code>media-data</code>, <code>compose-layout</code> and <code>media3-exoplayer</code> to your project’s
+<p>Add dependency on <code>media-data</code>, <code>audio-ui</code> and <code>media3-exoplayer</code> to your project’s
 build.gradle:</p>
 <div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;com.google.android.horologist:horologist-media-data:$horologist_version&quot;</span>
+<span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;com.google.android.horologist:horologist-audio-ui:$horologist_version&quot;</span>
 <span class="n">implementation</span><span class="o">(</span><span class="s2">&quot;androidx.media3:media3-exoplayer:$media3_version&quot;</span><span class="o">)</span>
 </code></pre></div>
 <h3 id="2-add-viewmodel">2 - Add <code>ViewModel</code><a class="headerlink" href="#2-add-viewmodel" title="Permanent link">&para;</a></h3>
@@ -1216,33 +1217,43 @@ set a media and update the position of the player every second:</p>
 <span class="w">                </span><span class="n">artist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;The Kyoto Connection&quot;</span>
 <span class="w">            </span><span class="p">)</span>
 <span class="w">        </span><span class="p">)</span>
-
-<span class="w">        </span><span class="c1">// update the track position while app is in foreground</span>
-<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">isActive</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">delay</span><span class="p">(</span><span class="m">1000</span><span class="p">)</span>
-<span class="w">            </span><span class="n">playerRepository</span><span class="p">.</span><span class="na">updatePosition</span><span class="p">()</span>
-<span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="4-create-an-instance-of-the-viewmodel">4 - Create an instance of the <code>ViewModel</code><a class="headerlink" href="#4-create-an-instance-of-the-viewmodel" title="Permanent link">&para;</a></h3>
 <p>Change your <code>Activity</code>’s <code>onCreate</code> function to:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">player</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ExoPlayer</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="na">build</span><span class="p">()</span>
+<p><div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">player</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ExoPlayer</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">setSeekForwardIncrementMs</span><span class="p">(</span><span class="m">5000L</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">setSeekBackIncrementMs</span><span class="p">(</span><span class="m">5000L</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">()</span>
 <span class="c1">// ViewModels should NOT be created here like this</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">viewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MyViewModel</span><span class="p">(</span><span class="n">player</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">volumeViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">createVolumeViewModel</span><span class="p">()</span>
 
 <span class="n">PlayerScreen</span><span class="p">(</span>
-<span class="w">    </span><span class="n">mediaDisplay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">playerUiState</span><span class="w"> </span><span class="o">-&gt;</span>
-<span class="w">        </span><span class="n">DefaultMediaDisplay</span><span class="p">(</span><span class="n">media</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">playerUiState</span><span class="p">.</span><span class="na">media</span><span class="p">)</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="n">controlButtons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">playerUiState</span><span class="w"> </span><span class="o">-&gt;</span>
-<span class="w">        </span><span class="n">PodcastControlButtons</span><span class="p">(</span>
-<span class="w">            </span><span class="n">playerViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">viewModel</span><span class="p">,</span>
-<span class="w">            </span><span class="n">playerUiState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">playerUiState</span><span class="p">,</span>
-<span class="w">        </span><span class="p">)</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="n">buttons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="n">playerViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">viewModel</span><span class="p">,</span>
+<span class="w">        </span><span class="n">volumeViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">volumeViewModel</span><span class="p">,</span>
+<span class="w">        </span><span class="n">mediaDisplay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">playerUiState</span><span class="p">:</span><span class="w"> </span><span class="n">PlayerUiState</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">          </span><span class="n">DefaultMediaInfoDisplay</span><span class="p">(</span><span class="n">playerUiState</span><span class="p">)</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="n">controlButtons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">playerUIController</span><span class="p">:</span><span class="w"> </span><span class="n">PlayerUiController</span><span class="p">,</span>
+<span class="w">                           </span><span class="n">playerUiState</span><span class="p">:</span><span class="w"> </span><span class="n">PlayerUiState</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">          </span><span class="n">PodcastControlButtons</span><span class="p">(</span>
+<span class="w">                  </span><span class="n">playerController</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">playerUIController</span><span class="p">,</span>
+<span class="w">                  </span><span class="n">playerUiState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">playerUiState</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="n">buttons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
 <span class="p">)</span>
+</code></pre></div>
+Add <code>createVolumeViewModel</code> function to create a VolumeViewModel:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">createVolumeViewModel</span><span class="p">():</span><span class="w"> </span><span class="n">VolumeViewModel</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">audioRepository</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SystemAudioRepository</span><span class="p">.</span><span class="na">fromContext</span><span class="p">(</span><span class="n">application</span><span class="p">)</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">vibrator</span><span class="p">:</span><span class="w"> </span><span class="n">Vibrator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">application</span><span class="p">.</span><span class="na">getSystemService</span><span class="p">(</span><span class="n">Vibrator</span><span class="o">::</span><span class="n">class</span><span class="p">.</span><span class="na">java</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">VolumeViewModel</span><span class="p">(</span><span class="n">audioRepository</span><span class="p">,</span><span class="w"> </span><span class="n">audioRepository</span><span class="p">,</span><span class="w"> </span><span class="n">onCleared</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">audioRepository</span><span class="p">.</span><span class="na">close</span><span class="p">()</span>
+<span class="w">        </span><span class="p">},</span><span class="w"> </span><span class="n">vibrator</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 </code></pre></div>
 <p>We are creating an instance of <code>ExoPlayer</code>, passing it to the <code>ViewModel</code>.</p>
 <p>Then for the <code>PlayerScreen</code> slots we are using:</p>

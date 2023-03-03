@@ -24,7 +24,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.rotary.RotaryScrollEvent
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
-import androidx.wear.compose.foundation.RequestFocusWhenActive
+import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 
 /**
@@ -36,12 +36,12 @@ import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistC
  */
 @ExperimentalHorologistComposeLayoutApi
 public fun Modifier.onRotaryInputAccumulatedWithFocus(
-    focusRequester: FocusRequester,
+    focusRequester: FocusRequester? = null,
     onValueChange: (Float) -> Unit
 ): Modifier = composed {
-    RequestFocusWhenActive(focusRequester)
+    val localFocusRequester = focusRequester ?: rememberActiveFocusRequester()
     onRotaryInputAccumulated(onValueChange = onValueChange)
-        .focusRequester(focusRequester)
+        .focusRequester(localFocusRequester)
         .focusable()
 }
 

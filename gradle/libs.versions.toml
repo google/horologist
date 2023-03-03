@@ -1,19 +1,19 @@
 [versions]
 affectedmoduledetector = "0.2.1"
-androidx-benchmark = "1.2.0-alpha09"
-androidx-compose-material = "1.4.0-beta01"
+androidx-benchmark = "1.2.0-alpha10"
+androidx-compose-material = "1.4.0-beta02"
 androidx-concurrent = "1.1.0"
 androidx-datastore = "1.0.0"
 androidx-health-services = "1.0.0-beta02"
 androidx-hilt = "1.0.0"
-androidx-media3 = "1.0.0-rc01"
+androidx-media3 = "1.0.0-rc02"
 androidx-test = "1.5.0-beta01"
 androidx-test-ext = "1.1.4-beta01"
-androidx-wear-watchface = "1.2.0-alpha06"
+androidx-wear-watchface = "1.2.0-alpha07"
 androidxActivity = "1.7.0-beta01"
 androidxCore = "1.9.0"
 androidxFragment = "1.5.5"
-androidxLifecycle = "2.6.0-beta01"
+androidxLifecycle = "2.6.0-rc01"
 androidxNavigation = "2.5.3"
 androidxPhoneInteractions = "1.1.0-alpha03"
 androidxRemoteInteractions = "1.0.0"
@@ -24,21 +24,21 @@ androidxWork = "2.8.0"
 androidxtiles = "1.1.0"
 app-cash-paparazzi = "1.2.0"
 app-cash-turbine = "0.12.1"
-benManes = "0.45.0"
+benManes = "0.46.0"
 com-squareup-okhttp3 = "4.10.0"
 com-squareup-retrofit2 = "2.9.0"
-compose = "1.4.0-beta01"
+compose = "1.4.0-beta02"
 compose-compiler = "1.4.0"
 composesnapshot = "-"
 dokka = "1.5.0"
 espresso = "3.5.1"
 googleSecretsGradlePlugin = "2.0.1"
-googledagger = "2.44.2"
-gradlePlugin = "7.4.1"
+googledagger = "2.45"
+gradlePlugin = "7.4.2"
 gradlePublishPlugin = "0.24.0"
 io-coil-kt = "2.2.2"
 junit = "4.13.2"
-kotlin = "1.8.0"
+kotlin = "1.8.10"
 kotlinxCoroutine = "1.6.4"
 ksp = "1.8.0-1.0.9"
 ktlint = "0.46.1"
@@ -46,20 +46,20 @@ metalava = "0.3.3"
 moshi = "1.14.0"
 playServicesAuth = "20.4.1"
 room = "2.5.0"
-runtimeTracing = "1.0.0-alpha02"
-spotless = "6.14.0"
+runtimeTracing = "1.0.0-alpha03"
+spotless = "6.16.0"
 tracingPerfetto = "1.0"
 tracingPerfettoBinary = "1.0"
 truth = "1.1.3"
 versionCatalogUpdate = "0.7.0"
-wearcompose = "1.2.0-alpha04"
+wearcompose = "1.2.0-alpha05"
 
 [libraries]
 affectedmoduledetector = { module = "com.dropbox.affectedmoduledetector:affectedmoduledetector", version.ref = "affectedmoduledetector" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
-androidx-annotation = "androidx.annotation:annotation:1.5.0"
+androidx-annotation = "androidx.annotation:annotation:1.6.0"
 androidx-benchmark-junit4 = { module = "androidx.benchmark:benchmark-junit4", version.ref = "androidx-benchmark" }
 androidx-benchmark-macro-junit4 = { module = "androidx.benchmark:benchmark-macro-junit4", version.ref = "androidx-benchmark" }
 androidx-complications-datasource-ktx = { module = "androidx.wear.watchface:watchface-complications-data-source-ktx", version.ref = "androidx-wear-watchface" }
@@ -88,7 +88,7 @@ androidx-media3-exoplayerworkmanager = { module = "androidx.media3:media3-exopla
 androidx-media3-session = { module = "androidx.media3:media3-session", version.ref = "androidx-media3" }
 androidx-media3-testutils = { module = "androidx.media3:media3-test-utils", version.ref = "androidx-media3" }
 androidx-media3-testutils-robolectric = { module = "androidx.media3:media3-test-utils-robolectric", version.ref = "androidx-media3" }
-androidx-mediarouter = "androidx.mediarouter:mediarouter:1.4.0-beta01"
+androidx-mediarouter = "androidx.mediarouter:mediarouter:1.4.0-beta02"
 androidx-metrics-performance = "androidx.metrics:metrics-performance:1.0.0-alpha03"
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidxNavigation" }
@@ -115,7 +115,7 @@ coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "io-coil-kt" }
 com-squareup-okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "com-squareup-okhttp3" }
 com-squareup-okhttp3-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "com-squareup-okhttp3" }
 compose-bom = "androidx.compose:compose-bom:2023.01.00"
-compose-foundation-foundation = "androidx.compose.foundation:foundation:1.3.1"
+compose-foundation-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose-material" }
 compose-material-iconscore = { module = "androidx.compose.material:material-icons-core", version.ref = "androidx-compose-material" }
 compose-material-iconsext = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidx-compose-material" }
 compose-material3 = { module = "androidx.compose.material3:material3" }
@@ -124,8 +124,8 @@ compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics", version.ref 
 compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
-compose-ui-toolingpreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
-compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "compose" }
+compose-ui-toolingpreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-compose-material" }
+compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "androidx-compose-material" }
 dagger-hiltandroid = { module = "com.google.dagger:hilt-android", version.ref = "googledagger" }
 dagger-hiltandroidcompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "googledagger" }
 dagger-hiltandroidplugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "googledagger" }
@@ -146,7 +146,7 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-playservices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutine" }
-lottie-compose = "com.airbnb.android:lottie-compose:5.2.0"
+lottie-compose = "com.airbnb.android:lottie-compose:6.0.0"
 metalavaGradle = { module = "me.tylerbwong.gradle.metalava:plugin", version.ref = "metalava" }
 moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }

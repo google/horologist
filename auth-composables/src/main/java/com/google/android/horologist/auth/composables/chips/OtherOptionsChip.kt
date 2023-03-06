@@ -29,6 +29,8 @@ import com.google.android.horologist.base.ui.components.StandardChipType
 
 /**
  * An opinionated [Chip] to represent the "Other options to authentication" action.
+ *
+ * <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/other_options_chip.png" height="120" width="120" >
  */
 @ExperimentalHorologistAuthComposablesApi
 @Composable

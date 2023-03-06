@@ -44,16 +44,18 @@ import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.MaterialTheme
 import com.airbnb.lottie.LottieComposition
+import com.airbnb.lottie.compose.LottieAnimatable
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieClipSpec
 import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.rememberLottieAnimatable
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.android.horologist.audio.ui.components.animated.LocalStaticPreview
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.PlayPauseButton
-import com.google.android.horologist.media.ui.util.ifNan
+import com.google.android.horologist.media.ui.state.ProgressStateHolder
+import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 
 @ExperimentalHorologistMediaUiApi
 @Composable
@@ -66,6 +68,7 @@ public fun AnimatedPlayPauseButton(
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     iconSize: Dp = 30.dp,
     tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
+    backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
     progress: @Composable () -> Unit = {}
 ) {
     if (LocalStaticPreview.current) {
@@ -78,7 +81,8 @@ public fun AnimatedPlayPauseButton(
             colors = colors,
             iconSize = iconSize,
             tapTargetSize = tapTargetSize,
-            progress = progress
+            progress = progress,
+            backgroundColor = backgroundColor
         )
     } else {
         val composition: LottieComposition? by rememberLottieComposition(
@@ -86,14 +90,17 @@ public fun AnimatedPlayPauseButton(
                 "lottie/PlayPause.json"
             )
         )
-        val clipSpec = remember { LottieClipSpec.Frame(max = 14) }
-        val lottieProgress by animateLottieProgressAsState(
-            targetValue = if (playing) 1f else 0f,
-            composition = composition,
-            clipSpec = clipSpec
-        )
+        val lottieProgress =
+            animateLottieProgressAsState(playing = playing, composition = composition)
 
-        Box(modifier = modifier.size(tapTargetSize), contentAlignment = Alignment.Center) {
+        Box(
+            modifier = modifier
+                .size(tapTargetSize)
+                .fillMaxSize()
+                .clip(CircleShape)
+                .background(backgroundColor),
+            contentAlignment = Alignment.Center
+        ) {
             progress()
 
             val pauseContentDescription =
@@ -127,7 +134,7 @@ public fun AnimatedPlayPauseButton(
                         .align(Alignment.Center)
                         .graphicsLayer(alpha = LocalContentAlpha.current),
                     composition = composition,
-                    progress = { lottieProgress }
+                    progress = { lottieProgress.value }
                 )
             }
         }
@@ -136,19 +143,23 @@ public fun AnimatedPlayPauseButton(
 
 @Composable
 private fun animateLottieProgressAsState(
-    targetValue: Float,
-    composition: LottieComposition?,
-    clipSpec: LottieClipSpec?
+    playing: Boolean,
+    composition: LottieComposition?
 ): State<Float> {
-    val lottieAnimatable = rememberLottieAnimatable()
-    LaunchedEffect(targetValue) {
-        if (lottieAnimatable.progress < targetValue) {
-            lottieAnimatable.animate(composition, clipSpec = clipSpec, speed = 1f)
-        } else if (lottieAnimatable.progress > targetValue) {
-            lottieAnimatable.animate(composition, clipSpec = clipSpec, speed = -1f)
+    val clipSpec = remember { LottieClipSpec.Frame(max = 14) }
+    val lottieProgress = animateLottieCompositionAsState(
+        composition = composition,
+        clipSpec = clipSpec
+    ) as LottieAnimatable
+    LaunchedEffect(playing) {
+        val targetValue = if (playing) 1f else 0f
+        if (lottieProgress.progress < targetValue) {
+            lottieProgress.animate(composition, speed = 1f)
+        } else if (lottieProgress.progress > targetValue) {
+            lottieProgress.animate(composition, speed = -1f)
         }
     }
-    return lottieAnimatable
+    return lottieProgress
 }
 
 @ExperimentalHorologistMediaUiApi
@@ -157,12 +168,13 @@ public fun AnimatedPlayPauseProgressButton(
     onPlayClick: () -> Unit,
     onPauseClick: () -> Unit,
     playing: Boolean,
-    percent: Float,
+    trackPositionUiModel: TrackPositionUiModel,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.iconButtonColors(),
     iconSize: Dp = 30.dp,
     tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
+    progressStrokeWidth: Dp = 4.dp,
     progressColour: Color = MaterialTheme.colors.primary,
     trackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
     backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f)
@@ -175,20 +187,24 @@ public fun AnimatedPlayPauseProgressButton(
         modifier = modifier,
         colors = colors,
         iconSize = iconSize,
-        tapTargetSize = tapTargetSize
+        tapTargetSize = tapTargetSize,
+        backgroundColor = backgroundColor
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .clip(CircleShape)
-                .background(backgroundColor)
-        ) {
+        val progress by ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
+        if (trackPositionUiModel.isLoading) {
             CircularProgressIndicator(
-                modifier = Modifier
-                    .fillMaxSize(),
-                progress = percent.ifNan(0f),
+                modifier = Modifier.fillMaxSize(),
                 indicatorColor = progressColour,
-                trackColor = trackColor
+                trackColor = trackColor,
+                strokeWidth = progressStrokeWidth
+            )
+        } else if (trackPositionUiModel.showProgress) {
+            CircularProgressIndicator(
+                modifier = Modifier.fillMaxSize(),
+                progress = progress,
+                indicatorColor = progressColour,
+                trackColor = trackColor,
+                strokeWidth = progressStrokeWidth
             )
         }
     }

@@ -31,7 +31,7 @@ public abstract class DataLayerAppHelperService : WearableListenerService() {
     public abstract val appHelper: DataLayerAppHelper
     override fun onRequest(node: String, path: String, byteArray: ByteArray): Task<ByteArray> {
         if (path != DataLayerAppHelper.LAUNCH_APP) {
-            return Tasks.forResult(byteArrayForResultCode(AppHelperResultCode.UNKNOWN_REQUEST))
+            return Tasks.forResult(byteArrayForResultCode(AppHelperResultCode.APP_HELPER_RESULT_UNKNOWN_REQUEST))
         }
 
         val request = LaunchRequest.parseFrom(byteArray)
@@ -39,7 +39,7 @@ public abstract class DataLayerAppHelperService : WearableListenerService() {
             request.hasOwnApp() -> launchOwnApp()
             request.hasActivity() -> launchActivity(request.activity)
             request.hasCompanion() -> launchCompanion(request.companion)
-            else -> AppHelperResultCode.UNKNOWN_REQUEST
+            else -> AppHelperResultCode.APP_HELPER_RESULT_UNKNOWN_REQUEST
         }
         return Tasks.forResult(byteArrayForResultCode(result))
     }
@@ -47,14 +47,14 @@ public abstract class DataLayerAppHelperService : WearableListenerService() {
     private fun launchOwnApp(): AppHelperResultCode {
         try {
             val intent = this.packageManager.getLaunchIntentForPackage(packageName)
-                ?: return AppHelperResultCode.ACTIVITY_NOT_FOUND
+                ?: return AppHelperResultCode.APP_HELPER_RESULT_ACTIVITY_NOT_FOUND
 
             startActivity(intent)
         } catch (e: ActivityNotFoundException) {
             Log.w(TAG, "Launch activity not found for : $packageName")
-            return AppHelperResultCode.ACTIVITY_NOT_FOUND
+            return AppHelperResultCode.APP_HELPER_RESULT_ACTIVITY_NOT_FOUND
         }
-        return AppHelperResultCode.SUCCESS
+        return AppHelperResultCode.APP_HELPER_RESULT_SUCCESS
     }
 
     /**
@@ -70,9 +70,9 @@ public abstract class DataLayerAppHelperService : WearableListenerService() {
             startActivity(intent)
         } catch (e: ActivityNotFoundException) {
             Log.w(TAG, "Activity not found: $activityConfig")
-            return AppHelperResultCode.ACTIVITY_NOT_FOUND
+            return AppHelperResultCode.APP_HELPER_RESULT_ACTIVITY_NOT_FOUND
         }
-        return AppHelperResultCode.SUCCESS
+        return AppHelperResultCode.APP_HELPER_RESULT_SUCCESS
     }
 
     /**

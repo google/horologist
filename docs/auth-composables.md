@@ -9,38 +9,22 @@ per [architecture overview](auth-overview.md#architecture-overview).
 
 ## Screens
 
-### SignInPlaceholderScreen
+- [SignInPlaceholderScreen](https://google.github.io/horologist/api/auth-composables/com.google.android.horologist.auth.composables.screens/-sign-in-placeholder-screen.html)
 
-<img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/sign_in_placeholder_screen.png" height="120" width="120" >
+- [SelectAccountScreen](https://google.github.io/horologist/api/auth-composables/com.google.android.horologist.auth.composables.screens/-select-account-screen.html)
 
-### SelectAccountScreen
-
-<img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/select_account_screen.png" height="120" width="120" >
-
-### CheckYourPhoneScreen
-
-<img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/check_your_phone_screen.png" height="120" width="120" >
+- [CheckYourPhoneScreen](https://google.github.io/horologist/api/auth-composables/com.google.android.horologist.auth.composables.screens/-check-your-phone-screen.html)
 
 ## Dialogs
 
-### SignedInConfirmationDialog
-
-<img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120" >
+- [SignedInConfirmationDialog](https://google.github.io/horologist/api/auth-composables/com.google.android.horologist.auth.composables.dialogs/-signed-in-confirmation-dialog.html)
 
 ## Chips
 
-### CreateAccountChip
+- [CreateAccountChip](https://google.github.io/horologist/api/auth-composables/com.google.android.horologist.auth.composables.chips/-create-account-chip.html)
 
-<img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/create_account_chip.png" height="120" width="120" >
+- [GuestModeChip](https://google.github.io/horologist/api/auth-composables/com.google.android.horologist.auth.composables.chips/-guest-mode-chip.html)
 
-### GuestModeChip
+- [OtherOptionsChip](https://google.github.io/horologist/api/auth-composables/com.google.android.horologist.auth.composables.chips/-other-options-chip.html)
 
-<img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/guest_mode_chip.png" height="120" width="120" >
-
-### OtherOptionsChip
-
-<img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/other_options_chip.png" height="120" width="120" >
-
-### SignInChip
-
-<img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/sign_in_chip.png" height="120" width="120" >
+- [SignInChip](https://google.github.io/horologist/api/auth-composables/com.google.android.horologist.auth.composables.chips/-sign-in-chip.html)

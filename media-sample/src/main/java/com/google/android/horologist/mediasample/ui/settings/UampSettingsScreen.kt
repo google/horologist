@@ -93,13 +93,15 @@ fun UampSettingsScreen(
                 viewModel.setGuestMode(it)
             }
         }
-        item {
-            ActionSetting(
-                text = stringResource(id = R.string.sample_developer_options),
-                icon = Icons.Default.DataObject,
-                colors = ChipDefaults.secondaryChipColors(),
-                onClick = { navController.navigateToDeveloperOptions() }
-            )
+        if (screenState.showDeveloperOptions) {
+            item {
+                ActionSetting(
+                    text = stringResource(id = R.string.sample_developer_options),
+                    icon = Icons.Default.DataObject,
+                    colors = ChipDefaults.secondaryChipColors(),
+                    onClick = { navController.navigateToDeveloperOptions() }
+                )
+            }
         }
     }
 }

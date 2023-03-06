@@ -146,7 +146,7 @@ abstract class DataLayerAppHelper(protected val context: Context) {
             .entries.filter { it.key.startsWith(tilePrefix) }
             .forEach { entry ->
                 val tileName = entry.key.removePrefix(tilePrefix)
-                entry.value.nodes.forEach { node ->
+                for (node in entry.value.nodes) {
                     idToTileSet.merge(node.id, setOf(tileName)) { s1, s2 -> s1 + s2 }
                 }
             }

@@ -96,6 +96,7 @@ dependencies {
     implementation(projects.composables)
     implementation(projects.composeLayout)
     implementation(projects.datalayer)
+    implementation(projects.datalayerWatch)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)

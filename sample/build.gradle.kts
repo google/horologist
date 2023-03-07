@@ -149,6 +149,7 @@ dependencies {
     implementation(projects.networkAwareness)
     implementation(projects.tiles)
     implementation(projects.datalayer)
+    implementation(projects.datalayerWatch)
 
     implementation(libs.compose.ui.util)
 

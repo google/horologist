@@ -28,7 +28,6 @@ android {
 
     defaultConfig {
         minSdk = 26
-        //noinspection ExpiredTargetSdkVersion
     }
 
     compileOptions {

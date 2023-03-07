@@ -45,7 +45,7 @@ public interface TargetNodeId {
     public object PairedPhone : TargetNodeId {
         override suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String? {
             val capabilitySearch = dataLayerRegistry.capabilityClient.getCapability(
-                HOROLOGIST_MOBILE,
+                HOROLOGIST_PHONE,
                 CapabilityClient.FILTER_ALL
             ).await()
 
@@ -65,7 +65,7 @@ public interface TargetNodeId {
     }
 
     companion object {
-        const val HOROLOGIST_MOBILE = "horologist_mobile"
+        const val HOROLOGIST_PHONE = "horologist_phone"
         const val HOROLOGIST_WATCH = "horologist_watch"
     }
 }

@@ -1064,10 +1064,9 @@ phone.</p>
 <p>Once you've established the app on both devices, you may wish to respond to when the partner
 device connects or disconnects. For example, you may only want to show a "launch workout" button
 on the phone when the watch is connected.</p>
-<p>```kotlin
-val nodes by appHelper.connectedAndInstalledNodes
-    .collectAsStateWithLifecycle()
-````</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">nodes</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">appHelper</span><span class="p">.</span><span class="na">connectedAndInstalledNodes</span>
+<span class="w">    </span><span class="p">.</span><span class="na">collectAsStateWithLifecycle</span><span class="p">()</span>
+</code></pre></div>
 </li>
 <li>
 <p><strong>Installing the app on the other device</strong></p>

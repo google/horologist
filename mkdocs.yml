@@ -32,6 +32,7 @@ nav:
       - 'Guide': compose-layout.md
   - 'Data Layer':
       - 'Guide': datalayer.md
+      - 'App Helpers': datalayer-helpers-guide.md
   - 'Media':
       - 'Overview': media-toolkit.md
       - 'Simple app guide': simple-media-app-guide.md

@@ -64,7 +64,7 @@ phone.
     ```kotlin
     val nodes by appHelper.connectedAndInstalledNodes
         .collectAsStateWithLifecycle()
-    ````
+    ```
 
 1.  **Installing the app on the other device**
 

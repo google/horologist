@@ -242,7 +242,10 @@ public fun TimePicker(
                         focusRequester = focusRequesterMinutes,
                         modifier = Modifier.size(40.dp, 100.dp),
                         onSelected = {
-                            doubleTapToNext(FocusableElement.MINUTES, FocusableElement.SECONDS)
+                            doubleTapToNext(
+                                FocusableElement.MINUTES,
+                                if (showSeconds) FocusableElement.SECONDS else FocusableElement.CONFIRM_BUTTON
+                            )
                         },
                         contentDescription = minuteContentDescription,
                         userScrollEnabled = !talkbackEnabled ||
@@ -251,7 +254,10 @@ public fun TimePicker(
                         TimePiece(
                             selected = focusedElement == FocusableElement.MINUTES,
                             onSelected = {
-                                doubleTapToNext(FocusableElement.MINUTES, FocusableElement.SECONDS)
+                                doubleTapToNext(
+                                    FocusableElement.MINUTES,
+                                    if (showSeconds) FocusableElement.SECONDS else FocusableElement.CONFIRM_BUTTON
+                                )
                             },
                             text = "%02d".format(minute),
                             style = textStyle,

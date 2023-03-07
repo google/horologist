@@ -51,6 +51,7 @@ phone.
         id=1e56d2,
         displayName=Pixel Watch,
         isAppInstalled=true,
+        installedComplications=[GoalsComplication],
         installedTiles=[SummaryTile]
     )
     ```
@@ -125,4 +126,20 @@ phone.
 
     ```kotlin
     wearAppHelper.markTileAsRemoved("SummaryTile")
+    ```
+
+1.  **Tracking Complication installation** (Wear-only)
+
+    To determine whether your Complication(s) are installed, add the following to your `ComplicationDataSourceService`:
+
+    In `onComplicationActivated`:
+
+    ```kotlin
+    wearAppHelper.markComplicationAsInstalled("GoalsComplication")
+    ```
+
+    In `onComplicationDeactivated`:
+
+    ```kotlin
+    wearAppHelper.markComplicationAsRemoved("GoalsComplication")
     ```

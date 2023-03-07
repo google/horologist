@@ -72,16 +72,7 @@ public class WearDataLayerAppHelper(context: Context, private val appStoreUri: S
      *
      * @param tileName The name of the tile.
      */
-    public suspend fun markTileAsInstalled(tileName: String) {
-        require(tileName.isNotEmpty())
-        try {
-            capabilityClient.addLocalCapability("$tilePrefix$tileName").await()
-        } catch (e: ApiException) {
-            if (e.statusCode != WearableStatusCodes.DUPLICATE_CAPABILITY) {
-                throw e
-            }
-        }
-    }
+    public suspend fun markTileAsInstalled(tileName: String): Unit = markSurfaceAsInstalled(tilePrefix, tileName)
 
     /**
      * Marks a tile as removed. Call this in [TileService#onTileRemoveEvent]. Supplying a name is
@@ -89,8 +80,39 @@ public class WearDataLayerAppHelper(context: Context, private val appStoreUri: S
      *
      * @param tileName The name of the tile.
      */
-    public suspend fun markTileAsRemoved(tileName: String) {
-        require(tileName.isNotEmpty())
-        capabilityClient.removeLocalCapability("$tilePrefix$tileName").await()
+    public suspend fun markTileAsRemoved(tileName: String): Unit = markSurfaceAsRemoved(tilePrefix, tileName)
+
+    /**
+     * Marks a complication as installed. Call this in
+     * [ComplicationDataSourceService#onComplicationActivated]. Supplying a name is mandatory to
+     * disambiguate from the installation or removal of other complications your app may have.
+     *
+     * @param complicationName The name of the complication.
+     */
+    public suspend fun markComplicationAsInstalled(complicationName: String): Unit = markSurfaceAsInstalled(complicationPrefix, complicationName)
+
+    /**
+     * Marks a complication as removed. Call this in
+     * [ComplicationDataSourceService#onComplicationDeactivated]. Supplying a name is mandatory to
+     * disambiguate from the installation or removal of other complications your app may have.
+     *
+     * @param complicationName The name of the complication.
+     */
+    public suspend fun markComplicationAsRemoved(complicationName: String): Unit = markSurfaceAsRemoved(complicationPrefix, complicationName)
+
+    private suspend fun markSurfaceAsInstalled(surfacePrefix: String, name: String) {
+        require(name.isNotEmpty())
+        try {
+            capabilityClient.addLocalCapability("$surfacePrefix$name").await()
+        } catch (e: ApiException) {
+            if (e.statusCode != WearableStatusCodes.DUPLICATE_CAPABILITY) {
+                throw e
+            }
+        }
+    }
+
+    private suspend fun markSurfaceAsRemoved(surfacePrefix: String, name: String) {
+        require(name.isNotEmpty())
+        capabilityClient.removeLocalCapability("$surfacePrefix$name").await()
     }
 }

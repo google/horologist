@@ -38,8 +38,10 @@ const val TAG = "DataLayerAppHelper"
 abstract class DataLayerAppHelper(protected val context: Context) {
     private val installedDeviceCapabilityUri = "wear://*/$CAPABILITY_DEVICE_PREFIX"
 
-    // The installation of individual Tiles is tracked via Local Capabilities with this prefix.
+    // The installation of individual Tiles or complications are tracked via Local Capabilities with
+    // these prefixes.
     protected val tilePrefix = "${DATA_LAYER_APP_HELPER_CAPABILITY}_tile_"
+    protected val complicationPrefix = "${DATA_LAYER_APP_HELPER_CAPABILITY}_complication_"
     protected val playStoreUri = "market://details?id=${context.packageName}"
 
     protected val capabilityClient by lazy { Wearable.getCapabilityClient(context) }
@@ -55,7 +57,8 @@ abstract class DataLayerAppHelper(protected val context: Context) {
         val nearbyNodes = connectedNodes.filter { it.isNearby }
         val capabilities =
             capabilityClient.getAllCapabilities(CapabilityClient.FILTER_REACHABLE).await()
-        val nodesToTiles = mapNodesToTiles(capabilities)
+        val nodesToTiles = mapNodesToSurface(tilePrefix, capabilities)
+        val nodesToComplications = mapNodesToSurface(complicationPrefix, capabilities)
         val installedPhoneNodes = capabilities[PHONE_CAPABILITY]?.nodes?.map { it.id } ?: setOf()
         val installedWatchNodes = capabilities[WATCH_CAPABILITY]?.nodes?.map { it.id } ?: setOf()
         val allInstalledNodes = installedPhoneNodes + installedWatchNodes
@@ -66,6 +69,7 @@ abstract class DataLayerAppHelper(protected val context: Context) {
                 displayName = it.displayName,
                 isAppInstalled = allInstalledNodes.contains(it.id),
                 installedTiles = nodesToTiles[it.id] ?: setOf(),
+                installedComplications = nodesToComplications[it.id] ?: setOf(),
                 nodeType = when (it.id) {
                     in installedPhoneNodes -> AppHelperNodeType.PHONE
                     in installedWatchNodes -> AppHelperNodeType.WATCH
@@ -138,19 +142,19 @@ abstract class DataLayerAppHelper(protected val context: Context) {
     }
 
     /**
-     * Creates a lookup to easily determine which devices have which Tiles installed on them.
+     * Creates a lookup to determine which devices have which a given surface installed on them.
      */
-    private fun mapNodesToTiles(capabilities: Map<String, CapabilityInfo>): Map<String, Set<String>> {
-        val idToTileSet = mutableMapOf<String, Set<String>>()
+    private fun mapNodesToSurface(surfacePrefix: String, capabilities: Map<String, CapabilityInfo>): Map<String, Set<String>> {
+        val idToSurfaceSet = mutableMapOf<String, Set<String>>()
         capabilities
-            .entries.filter { it.key.startsWith(tilePrefix) }
+            .entries.filter { it.key.startsWith(surfacePrefix) }
             .forEach { entry ->
-                val tileName = entry.key.removePrefix(tilePrefix)
+                val name = entry.key.removePrefix(surfacePrefix)
                 for (node in entry.value.nodes) {
-                    idToTileSet.merge(node.id, setOf(tileName)) { s1, s2 -> s1 + s2 }
+                    idToSurfaceSet.merge(node.id, setOf(name)) { s1, s2 -> s1 + s2 }
                 }
             }
-        return idToTileSet
+        return idToSurfaceSet
     }
 
     public companion object {

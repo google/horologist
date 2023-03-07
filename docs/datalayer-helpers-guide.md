@@ -62,9 +62,8 @@ phone.
     on the phone when the watch is connected.
 
     ```kotlin
-    val nodes by appHelper.connectedAndInstalledNodes
-        .collectAsStateWithLifecycle()
-    ````
+    val nodes by appHelper.connectedAndInstalledNodes.collectAsStateWithLifecycle()
+    ```
 
 1.  **Installing the app on the other device**
 

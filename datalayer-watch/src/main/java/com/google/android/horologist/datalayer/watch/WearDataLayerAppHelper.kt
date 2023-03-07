@@ -83,22 +83,22 @@ public class WearDataLayerAppHelper(context: Context, private val appStoreUri: S
     public suspend fun markTileAsRemoved(tileName: String): Unit = markSurfaceAsRemoved(tilePrefix, tileName)
 
     /**
-     * Marks a complication as installed. Call this in
+     * Marks a complication as active on the current watch face. Call this in
      * [ComplicationDataSourceService#onComplicationActivated]. Supplying a name is mandatory to
      * disambiguate from the installation or removal of other complications your app may have.
      *
      * @param complicationName The name of the complication.
      */
-    public suspend fun markComplicationAsInstalled(complicationName: String): Unit = markSurfaceAsInstalled(complicationPrefix, complicationName)
+    public suspend fun markComplicationAsActivated(complicationName: String): Unit = markSurfaceAsInstalled(complicationPrefix, complicationName)
 
     /**
-     * Marks a complication as removed. Call this in
+     * Marks a complication as deactivated. Call this in
      * [ComplicationDataSourceService#onComplicationDeactivated]. Supplying a name is mandatory to
      * disambiguate from the installation or removal of other complications your app may have.
      *
      * @param complicationName The name of the complication.
      */
-    public suspend fun markComplicationAsRemoved(complicationName: String): Unit = markSurfaceAsRemoved(complicationPrefix, complicationName)
+    public suspend fun markComplicationAsDeactivated(complicationName: String): Unit = markSurfaceAsRemoved(complicationPrefix, complicationName)
 
     private suspend fun markSurfaceAsInstalled(surfacePrefix: String, name: String) {
         require(name.isNotEmpty())

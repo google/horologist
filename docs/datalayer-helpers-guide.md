@@ -130,16 +130,16 @@ phone.
 
 1.  **Tracking Complication installation** (Wear-only)
 
-    To determine whether your Complication(s) are installed, add the following to your `ComplicationDataSourceService`:
+    To determine whether your Complication(s) are in-use, add the following to your `ComplicationDataSourceService`:
 
     In `onComplicationActivated`:
 
     ```kotlin
-    wearAppHelper.markComplicationAsInstalled("GoalsComplication")
+    wearAppHelper.markComplicationAsActivated("GoalsComplication")
     ```
 
     In `onComplicationDeactivated`:
 
     ```kotlin
-    wearAppHelper.markComplicationAsRemoved("GoalsComplication")
+    wearAppHelper.markComplicationAsDeactivated("GoalsComplication")
     ```

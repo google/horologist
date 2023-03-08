@@ -48,7 +48,7 @@ private val progressBarStrokeWidth = 4.dp
 /**
  * A screen to request the user to check their paired phone to proceed.
  *
- * <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/check_your_phone_screen.png"/>
+ * <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/check_your_phone_screen.png"  height="120" width="120"/>
  */
 @ExperimentalHorologistAuthComposablesApi
 @Composable
@@ -90,6 +90,12 @@ public fun CheckYourPhoneScreen(
     }
 }
 
+/**
+ * A screen to request the user to check their paired phone to proceed.
+ * It also allows a [message] to be displayed.
+ *
+ * <img src="https://raw.githubusercontent.com/google/horologist/main/docs/auth-composables/check_your_phone_screen_code.png"  height="120" width="120"/>
+ */
 @ExperimentalHorologistAuthComposablesApi
 @Composable
 public fun CheckYourPhoneScreen(

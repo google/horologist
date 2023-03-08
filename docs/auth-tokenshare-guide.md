@@ -50,15 +50,20 @@ your phone and watch apps must:
    )
    ```
 
+   This class should be created as a singleton in your app.
+
 3. Define the data to be transferred
 
    Define which authentication data that should be transferred from the phone to the watch. It can
-   be a data class with many properties. For this guide, we will pass a simple `String` instance.
+   be a data class with many properties, it can also be a [protocol buffer](https://protobuf.dev/).
+   For this guide, we will pass a simple `String` instance.
 
 4. Create a `Serializer` for the data
 
-   Create a `Serializer` class for the class defined to be transferred from the phone to
-   the watch (`String` for this guide):
+   Create
+   a [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) `Serializer`
+   class for the class defined to be transferred from the phone to the watch (`String` for this
+   guide):
 
    ```kotlin
    public object TokenSerializer : Serializer<String> {
@@ -74,7 +79,7 @@ your phone and watch apps must:
        }
    }   
    ```
-   
+
    This class should preferable be placed in a shared module between the phone and watch projects,
    but could also be duplicated in both projects.
 

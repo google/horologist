@@ -25,7 +25,8 @@ public data class AppHelperNodeStatus(
     val displayName: String,
     val isAppInstalled: Boolean,
     val nodeType: AppHelperNodeType,
-    val installedTiles: Set<String> = setOf()
+    val installedTiles: Set<String> = setOf(),
+    val installedComplications: Set<String> = setOf()
 )
 
 public enum class AppHelperNodeType {

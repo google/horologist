@@ -19,6 +19,7 @@ package com.google.android.horologist.datalayer.watch
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import androidx.wear.phone.interactions.PhoneTypeHelper
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.wearable.WearableStatusCodes
@@ -26,6 +27,7 @@ import com.google.android.horologist.data.AppHelperResult
 import com.google.android.horologist.data.AppHelperResultCode
 import com.google.android.horologist.data.DataLayerAppHelper
 import com.google.android.horologist.data.ExperimentalHorologistDataLayerApi
+import com.google.android.horologist.data.TAG
 import com.google.android.horologist.data.companionConfig
 import com.google.android.horologist.data.launchRequest
 import kotlinx.coroutines.guava.await
@@ -72,16 +74,7 @@ public class WearDataLayerAppHelper(context: Context, private val appStoreUri: S
      *
      * @param tileName The name of the tile.
      */
-    public suspend fun markTileAsInstalled(tileName: String) {
-        require(tileName.isNotEmpty())
-        try {
-            capabilityClient.addLocalCapability("$tilePrefix$tileName").await()
-        } catch (e: ApiException) {
-            if (e.statusCode != WearableStatusCodes.DUPLICATE_CAPABILITY) {
-                throw e
-            }
-        }
-    }
+    public suspend fun markTileAsInstalled(tileName: String): Unit = markSurfaceAsInstalled(tilePrefix, tileName)
 
     /**
      * Marks a tile as removed. Call this in [TileService#onTileRemoveEvent]. Supplying a name is
@@ -89,8 +82,46 @@ public class WearDataLayerAppHelper(context: Context, private val appStoreUri: S
      *
      * @param tileName The name of the tile.
      */
-    public suspend fun markTileAsRemoved(tileName: String) {
-        require(tileName.isNotEmpty())
-        capabilityClient.removeLocalCapability("$tilePrefix$tileName").await()
+    public suspend fun markTileAsRemoved(tileName: String): Unit = markSurfaceAsRemoved(tilePrefix, tileName)
+
+    /**
+     * Marks a complication as active on the current watch face. Call this in
+     * [ComplicationDataSourceService#onComplicationActivated]. Supplying a name is mandatory to
+     * disambiguate from the installation or removal of other complications your app may have.
+     *
+     * @param complicationName The name of the complication.
+     */
+    public suspend fun markComplicationAsActivated(complicationName: String): Unit = markSurfaceAsInstalled(complicationPrefix, complicationName)
+
+    /**
+     * Marks a complication as deactivated. Call this in
+     * [ComplicationDataSourceService#onComplicationDeactivated]. Supplying a name is mandatory to
+     * disambiguate from the installation or removal of other complications your app may have.
+     *
+     * @param complicationName The name of the complication.
+     */
+    public suspend fun markComplicationAsDeactivated(complicationName: String): Unit = markSurfaceAsRemoved(complicationPrefix, complicationName)
+
+    private suspend fun markSurfaceAsInstalled(surfacePrefix: String, name: String) {
+        require(name.isNotEmpty())
+        try {
+            capabilityClient.addLocalCapability("$surfacePrefix$name").await()
+        } catch (e: ApiException) {
+            if (e.statusCode != WearableStatusCodes.DUPLICATE_CAPABILITY) {
+                throw e
+            }
+        }
+    }
+
+    private suspend fun markSurfaceAsRemoved(surfacePrefix: String, name: String) {
+        require(name.isNotEmpty())
+        try {
+            capabilityClient.removeLocalCapability("$surfacePrefix$name").await()
+        } catch (e: ApiException) {
+            if (e.statusCode != WearableStatusCodes.UNKNOWN_CAPABILITY) {
+                throw e
+            }
+            Log.w(TAG, "Unknown capability: $surfacePrefix$name")
+        }
     }
 }

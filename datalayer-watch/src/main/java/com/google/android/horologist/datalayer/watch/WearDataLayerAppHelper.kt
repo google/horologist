@@ -19,6 +19,7 @@ package com.google.android.horologist.datalayer.watch
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import androidx.wear.phone.interactions.PhoneTypeHelper
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.wearable.WearableStatusCodes
@@ -26,6 +27,7 @@ import com.google.android.horologist.data.AppHelperResult
 import com.google.android.horologist.data.AppHelperResultCode
 import com.google.android.horologist.data.DataLayerAppHelper
 import com.google.android.horologist.data.ExperimentalHorologistDataLayerApi
+import com.google.android.horologist.data.TAG
 import com.google.android.horologist.data.companionConfig
 import com.google.android.horologist.data.launchRequest
 import kotlinx.coroutines.guava.await
@@ -113,6 +115,13 @@ public class WearDataLayerAppHelper(context: Context, private val appStoreUri: S
 
     private suspend fun markSurfaceAsRemoved(surfacePrefix: String, name: String) {
         require(name.isNotEmpty())
-        capabilityClient.removeLocalCapability("$surfacePrefix$name").await()
+        try {
+            capabilityClient.removeLocalCapability("$surfacePrefix$name").await()
+        } catch (e: ApiException) {
+            if (e.statusCode != WearableStatusCodes.UNKNOWN_CAPABILITY) {
+                throw e
+            }
+            Log.w(TAG, "Unknown capability: $surfacePrefix$name")
+        }
     }
 }

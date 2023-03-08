@@ -17,11 +17,11 @@
 package com.google.android.horologist.audio
 
 import android.content.Context
-import androidx.mediarouter.app.SystemOutputSwitcherDialogController
 import androidx.mediarouter.media.MediaControlIntent
 import androidx.mediarouter.media.MediaRouteSelector
 import androidx.mediarouter.media.MediaRouter
 import androidx.mediarouter.media.MediaRouter.RouteInfo
+import com.google.android.horologist.audio.BluetoothSettings.launchBluetoothSettings
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -96,13 +96,8 @@ public class SystemAudioRepository(
         _available.value = listOf()
     }
 
-    @Suppress("OVERRIDE_DEPRECATION")
     override fun launchOutputSelection(closeOnConnect: Boolean) {
-        launchOutputSelection()
-    }
-
-    override fun launchOutputSelection() {
-        SystemOutputSwitcherDialogController.showDialog(application)
+        application.launchBluetoothSettings(closeOnConnect)
     }
 
     public companion object {

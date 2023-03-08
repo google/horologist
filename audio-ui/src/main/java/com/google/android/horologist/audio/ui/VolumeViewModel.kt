@@ -73,7 +73,7 @@ public open class VolumeViewModel(
     }
 
     public fun launchOutputSelection() {
-        audioOutputRepository.launchOutputSelection()
+        audioOutputRepository.launchOutputSelection(closeOnConnect = false)
     }
 
     override fun onCleared() {

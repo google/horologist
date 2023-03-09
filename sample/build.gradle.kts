@@ -73,6 +73,7 @@ android {
         freeCompilerArgs = freeCompilerArgs + """
             androidx.compose.ui.ExperimentalComposeUiApi
             androidx.wear.compose.material.ExperimentalWearMaterialApi
+            androidx.wear.compose.foundation.ExperimentalWearFoundationApi
             com.google.android.horologist.audio.ExperimentalHorologistAudioApi
             com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
             com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi

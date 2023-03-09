@@ -18,8 +18,10 @@ package com.google.android.horologist.mediasample.ui.app
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.PlatformTextStyle
 import androidx.wear.compose.material.Colors
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.Typography
 
 public val UampColors = Colors(
     primary = Color(0xFF981F68),
@@ -32,9 +34,12 @@ public val UampColors = Colors(
     onError = Color.Black
 )
 
+@Suppress("DEPRECATION")
 @Composable
 public fun UampTheme(block: @Composable () -> Unit) {
-    MaterialTheme(colors = UampColors) {
+    val typography = newTypography()
+
+    MaterialTheme(colors = UampColors, typography = typography) {
         block()
     }
 }

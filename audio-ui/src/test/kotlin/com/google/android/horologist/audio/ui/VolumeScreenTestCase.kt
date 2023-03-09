@@ -24,6 +24,7 @@ import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.compose.tools.RoundPreview
+import com.google.android.horologist.compose.tools.newTypography
 
 @Composable
 fun VolumeScreenTestCase(
@@ -32,7 +33,7 @@ fun VolumeScreenTestCase(
     audioOutput: AudioOutput
 ) {
     RoundPreview {
-        MaterialTheme(colors = colors) {
+        MaterialTheme(colors = colors, typography = newTypography()) {
             Scaffold(
                 positionIndicator = {
                     VolumePositionIndicator(

@@ -42,6 +42,7 @@ import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.tools.RoundPreview
+import com.google.android.horologist.compose.tools.newTypography
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.background.RadialBackground
 import com.google.android.horologist.media.ui.screens.player.DefaultMediaInfoDisplay
@@ -92,7 +93,7 @@ fun MediaPlayerTestCase(
 ) {
     RoundPreview(round = round) {
         Box(modifier = Modifier.background(Color.Black)) {
-            MaterialTheme(colors = colors) {
+            MaterialTheme(colors = colors, typography = newTypography()) {
                 Scaffold(
                     timeText = {
                         TimeText(

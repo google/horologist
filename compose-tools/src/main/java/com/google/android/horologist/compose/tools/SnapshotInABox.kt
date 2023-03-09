@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.wear.compose.material.MaterialTheme
 import app.cash.paparazzi.Paparazzi
 
 /**
@@ -41,10 +42,12 @@ public fun Paparazzi.snapshotInABox(
     content: @Composable BoxScope.() -> Unit
 ) {
     this.snapshot {
-        Box(
-            modifier = boxModifier.background(Color.Black),
-            contentAlignment = Alignment.Center,
-            content = content
-        )
+        MaterialTheme(typography = newTypography()) {
+            Box(
+                modifier = boxModifier.background(Color.Black),
+                contentAlignment = Alignment.Center,
+                content = content
+            )
+        }
     }
 }

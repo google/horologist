@@ -43,7 +43,7 @@ import com.google.android.horologist.tiles.images.drawableResToImageResource
 import com.google.android.horologist.tiles.render.SingleTileLayoutRenderer
 
 /**
- * Tile that renders components with typical layouts and a theme colour.
+ * Tile that renders components with typical layouts and a theme color.
  */
 public class ThemePreviewTileRenderer(context: Context, private val thisTheme: Colors) :
     SingleTileLayoutRenderer<Unit, Unit>(context) {

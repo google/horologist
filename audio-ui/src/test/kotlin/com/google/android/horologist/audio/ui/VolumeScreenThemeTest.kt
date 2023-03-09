@@ -62,6 +62,6 @@ class VolumeScreenThemeTest(
     companion object {
         @JvmStatic
         @Parameterized.Parameters
-        fun colours() = themeValues
+        fun colors() = themeValues
     }
 }

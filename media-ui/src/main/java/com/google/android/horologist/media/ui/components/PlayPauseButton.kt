@@ -99,7 +99,7 @@ public fun PlayPauseProgressButton(
     iconSize: Dp = 30.dp,
     tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
     progressStrokeWidth: Dp = 4.dp,
-    progressColour: Color = MaterialTheme.colors.primary,
+    progressColor: Color = MaterialTheme.colors.primary,
     trackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
     backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f)
 ) {
@@ -118,7 +118,7 @@ public fun PlayPauseProgressButton(
         if (trackPositionUiModel.isLoading) {
             CircularProgressIndicator(
                 modifier = Modifier.fillMaxSize(),
-                indicatorColor = progressColour,
+                indicatorColor = progressColor,
                 trackColor = trackColor,
                 strokeWidth = progressStrokeWidth
             )
@@ -126,7 +126,7 @@ public fun PlayPauseProgressButton(
             CircularProgressIndicator(
                 modifier = Modifier.fillMaxSize(),
                 progress = progress,
-                indicatorColor = progressColour,
+                indicatorColor = progressColor,
                 trackColor = trackColor,
                 strokeWidth = progressStrokeWidth
             )

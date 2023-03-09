@@ -29,7 +29,7 @@ android {
     compileSdkPreview = "UpsideDownCake"
 
     defaultConfig {
-        minSdk = 25
+        minSdk = 23
         //noinspection ExpiredTargetSdkVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -109,7 +109,6 @@ dependencies {
     api(libs.protobuf.kotlin.lite)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.wear.remote.interactions)
-    implementation(libs.androidx.wear.phone.interactions)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

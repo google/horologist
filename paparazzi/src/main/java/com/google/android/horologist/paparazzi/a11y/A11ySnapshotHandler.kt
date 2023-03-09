@@ -28,8 +28,8 @@ import java.awt.image.BufferedImage
 import kotlin.math.max
 
 /**
- * A Paparazzi SnapshotHandler that renders the snapshot, with a light coloured overlay,
- * and adjacent to a legend with matching colours.
+ * A Paparazzi SnapshotHandler that renders the snapshot, with a light colored overlay,
+ * and adjacent to a legend with matching colors.
  */
 @ExperimentalHorologistPaparazziApi
 public class A11ySnapshotHandler(

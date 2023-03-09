@@ -1,20 +1,20 @@
 // Signature format: 4.0
 package com.google.android.horologist.datalayer.watch {
 
-  @com.google.android.horologist.data.ExperimentalHorologistDataLayerApi public final class WearDataLayerAppHelper extends com.google.android.horologist.data.DataLayerAppHelper {
-    ctor public WearDataLayerAppHelper(android.content.Context context, optional String? appStoreUri);
+  @com.google.android.horologist.data.ExperimentalHorologistDataLayerApi public final class WearDataLayerAppHelper extends com.google.android.horologist.data.apphelper.DataLayerAppHelper {
+    ctor public WearDataLayerAppHelper(android.content.Context context, com.google.android.horologist.data.WearDataLayerRegistry registry, kotlinx.coroutines.CoroutineScope scope, optional String? appStoreUri);
     method public suspend Object? installOnNode(String node, kotlin.coroutines.Continuation<? super kotlin.Unit>);
-    method public suspend Object? markComplicationAsActivated(String complicationName, kotlin.coroutines.Continuation<? super kotlin.Unit>);
-    method public suspend Object? markComplicationAsDeactivated(String complicationName, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? markComplicationAsActivated(String complicationName, int complicationInstanceId, androidx.wear.watchface.complications.data.ComplicationType complicationType, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? markComplicationAsDeactivated(String complicationName, int complicationInstanceId, androidx.wear.watchface.complications.data.ComplicationType complicationType, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? markTileAsInstalled(String tileName, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? markTileAsRemoved(String tileName, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? startCompanion(String node, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.AppHelperResultCode>);
   }
 
-  public final class WearDataLayerListenerService extends com.google.android.horologist.data.DataLayerAppHelperService {
+  public final class WearDataLayerListenerService extends com.google.android.horologist.data.apphelper.DataLayerAppHelperService {
     ctor public WearDataLayerListenerService();
-    method public com.google.android.horologist.data.DataLayerAppHelper getAppHelper();
-    property public com.google.android.horologist.data.DataLayerAppHelper appHelper;
+    method public com.google.android.horologist.data.apphelper.DataLayerAppHelper getAppHelper();
+    property public com.google.android.horologist.data.apphelper.DataLayerAppHelper appHelper;
   }
 
 }

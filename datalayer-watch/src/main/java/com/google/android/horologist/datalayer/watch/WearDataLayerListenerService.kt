@@ -16,9 +16,18 @@
 
 package com.google.android.horologist.datalayer.watch
 
-import com.google.android.horologist.data.DataLayerAppHelper
-import com.google.android.horologist.data.DataLayerAppHelperService
+import com.google.android.horologist.data.WearDataLayerRegistry
+import com.google.android.horologist.data.apphelper.DataLayerAppHelper
+import com.google.android.horologist.data.apphelper.DataLayerAppHelperService
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 
 public class WearDataLayerListenerService : DataLayerAppHelperService() {
-    public override val appHelper: DataLayerAppHelper by lazy { WearDataLayerAppHelper(this) }
+    private val serviceScope = CoroutineScope(Dispatchers.IO + Job())
+
+    public override val appHelper: DataLayerAppHelper by lazy {
+        val registry = WearDataLayerRegistry.fromContext(this, serviceScope)
+        WearDataLayerAppHelper(this, registry, serviceScope)
+    }
 }

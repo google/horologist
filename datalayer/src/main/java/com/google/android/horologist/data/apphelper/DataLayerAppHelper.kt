@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.data
+package com.google.android.horologist.data.apphelper
 
 import android.content.Context
 import android.net.Uri
@@ -22,9 +22,17 @@ import androidx.wear.remote.interactions.RemoteActivityHelper
 import com.google.android.gms.wearable.CapabilityClient
 import com.google.android.gms.wearable.CapabilityInfo
 import com.google.android.gms.wearable.Node
-import com.google.android.gms.wearable.Wearable
+import com.google.android.horologist.data.ActivityConfig
+import com.google.android.horologist.data.AppHelperResult
+import com.google.android.horologist.data.AppHelperResultCode
+import com.google.android.horologist.data.TargetNodeId
+import com.google.android.horologist.data.WearDataLayerRegistry
+import com.google.android.horologist.data.appHelperResult
+import com.google.android.horologist.data.launchRequest
+import com.google.android.horologist.data.ownAppConfig
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.tasks.await
 
 const val TAG = "DataLayerAppHelper"
@@ -35,30 +43,23 @@ const val TAG = "DataLayerAppHelper"
  * Provides utility functions for determining installation status and means to install and launch
  * apps as part of the user's journey.
  */
-abstract class DataLayerAppHelper(protected val context: Context) {
+abstract class DataLayerAppHelper(
+    protected val context: Context,
+    protected val registry: WearDataLayerRegistry
+) {
     private val installedDeviceCapabilityUri = "wear://*/$CAPABILITY_DEVICE_PREFIX"
-
-    // The installation of individual Tiles or complications are tracked via Local Capabilities with
-    // these prefixes.
-    protected val tilePrefix = "${DATA_LAYER_APP_HELPER_CAPABILITY}_tile_"
-    protected val complicationPrefix = "${DATA_LAYER_APP_HELPER_CAPABILITY}_complication_"
     protected val playStoreUri = "market://details?id=${context.packageName}"
-
-    protected val capabilityClient by lazy { Wearable.getCapabilityClient(context) }
-    protected val messageClient by lazy { Wearable.getMessageClient(context) }
-    protected val nodeClient by lazy { Wearable.getNodeClient(context) }
     protected val remoteActivityHelper by lazy { RemoteActivityHelper(context) }
 
     /**
      * Provides a list of connected nodes and the installation status of the app on these nodes.
      */
     public suspend fun connectedNodes(): List<AppHelperNodeStatus> {
-        val connectedNodes = nodeClient.connectedNodes.await()
+        val connectedNodes = registry.nodeClient.connectedNodes.await()
         val nearbyNodes = connectedNodes.filter { it.isNearby }
         val capabilities =
-            capabilityClient.getAllCapabilities(CapabilityClient.FILTER_REACHABLE).await()
-        val nodesToTiles = mapNodesToSurface(tilePrefix, capabilities)
-        val nodesToComplications = mapNodesToSurface(complicationPrefix, capabilities)
+            registry.capabilityClient.getAllCapabilities(CapabilityClient.FILTER_REACHABLE).await()
+
         val installedPhoneNodes = capabilities[PHONE_CAPABILITY]?.nodes?.map { it.id } ?: setOf()
         val installedWatchNodes = capabilities[WATCH_CAPABILITY]?.nodes?.map { it.id } ?: setOf()
         val allInstalledNodes = installedPhoneNodes + installedWatchNodes
@@ -68,8 +69,7 @@ abstract class DataLayerAppHelper(protected val context: Context) {
                 id = it.id,
                 displayName = it.displayName,
                 isAppInstalled = allInstalledNodes.contains(it.id),
-                installedTiles = nodesToTiles[it.id] ?: setOf(),
-                installedComplications = nodesToComplications[it.id] ?: setOf(),
+                surfacesInfo = getSurfaceStatus(it.id),
                 nodeType = when (it.id) {
                     in installedPhoneNodes -> AppHelperNodeType.PHONE
                     in installedWatchNodes -> AppHelperNodeType.WATCH
@@ -78,6 +78,12 @@ abstract class DataLayerAppHelper(protected val context: Context) {
             )
         }
     }
+
+    private suspend fun getSurfaceStatus(nodeId: String) = registry.protoFlow(
+        targetNodeId = TargetNodeId.SpecificNodeId(nodeId),
+        serializer = SurfaceInfoSerializer,
+        path = SURFACE_INFO_PATH
+    ).first()
 
     /**
      * Creates a flow to keep the client updated with the set of connected devices with the app
@@ -89,17 +95,21 @@ abstract class DataLayerAppHelper(protected val context: Context) {
                 trySend(capability.nodes.filter { it.isNearby }.toSet())
             }
         }
-        val info =
-            capabilityClient.getCapability(installedDeviceCapabilityUri, CapabilityClient.FILTER_PREFIX)
-                .await()
-        trySend(info.nodes.filter { it.isNearby }.toSet())
-        capabilityClient.addListener(
+        val allCaps =
+            registry.capabilityClient.getAllCapabilities(
+                CapabilityClient.FILTER_REACHABLE
+            ).await()
+        val installedCaps = allCaps.filter { it.key.startsWith(CAPABILITY_DEVICE_PREFIX) }
+            .values.flatMap { it.nodes }.filter { it.isNearby }.toSet()
+
+        trySend(installedCaps)
+        registry.capabilityClient.addListener(
             listener,
             Uri.parse(installedDeviceCapabilityUri),
             CapabilityClient.FILTER_PREFIX
         )
         awaitClose {
-            capabilityClient.removeListener(listener)
+            registry.capabilityClient.removeListener(listener)
         }
     }
 
@@ -128,7 +138,8 @@ abstract class DataLayerAppHelper(protected val context: Context) {
         config: ActivityConfig
     ): AppHelperResultCode {
         val request = launchRequest { activity = config }
-        val response = messageClient.sendRequest(node, LAUNCH_APP, request.toByteArray()).await()
+        val response =
+            registry.messageClient.sendRequest(node, LAUNCH_APP, request.toByteArray()).await()
         return AppHelperResult.parseFrom(response).code
     }
 
@@ -137,24 +148,9 @@ abstract class DataLayerAppHelper(protected val context: Context) {
      */
     public suspend fun startRemoteOwnApp(node: String): AppHelperResultCode {
         val request = launchRequest { ownApp = ownAppConfig { } }
-        val response = messageClient.sendRequest(node, LAUNCH_APP, request.toByteArray()).await()
+        val response =
+            registry.messageClient.sendRequest(node, LAUNCH_APP, request.toByteArray()).await()
         return AppHelperResult.parseFrom(response).code
-    }
-
-    /**
-     * Creates a lookup to determine which devices have which a given surface installed on them.
-     */
-    private fun mapNodesToSurface(surfacePrefix: String, capabilities: Map<String, CapabilityInfo>): Map<String, Set<String>> {
-        val idToSurfaceSet = mutableMapOf<String, Set<String>>()
-        capabilities
-            .entries.filter { it.key.startsWith(surfacePrefix) }
-            .forEach { entry ->
-                val name = entry.key.removePrefix(surfacePrefix)
-                for (node in entry.value.nodes) {
-                    idToSurfaceSet.merge(node.id, setOf(name)) { s1, s2 -> s1 + s2 }
-                }
-            }
-        return idToSurfaceSet
     }
 
     public companion object {
@@ -163,6 +159,7 @@ abstract class DataLayerAppHelper(protected val context: Context) {
         public const val PHONE_CAPABILITY = "${CAPABILITY_DEVICE_PREFIX}_phone"
         public const val WATCH_CAPABILITY = "${CAPABILITY_DEVICE_PREFIX}_watch"
         public const val LAUNCH_APP: String = "/launch_app"
+        public const val SURFACE_INFO_PATH: String = "/surface_info"
     }
 }
 

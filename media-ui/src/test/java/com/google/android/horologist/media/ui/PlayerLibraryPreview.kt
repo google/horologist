@@ -26,12 +26,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeSource
 import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.tools.RoundPreview
+import com.google.android.horologist.compose.tools.newTypography
 
 @Composable
 fun PlayerLibraryPreview(
@@ -40,26 +42,28 @@ fun PlayerLibraryPreview(
     function: @Composable () -> Unit
 ) {
     RoundPreview(round = round) {
-        PagerScreen(count = 2) {
-            if (it == 0) {
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    timeText = {
-                        TimeText(
-                            timeSource = object : TimeSource {
-                                override val currentTime: String
-                                    @Composable get() = "10:10"
+        MaterialTheme(typography = newTypography()) {
+            PagerScreen(count = 2) {
+                if (it == 0) {
+                    Scaffold(
+                        modifier = Modifier.fillMaxSize(),
+                        timeText = {
+                            TimeText(
+                                timeSource = object : TimeSource {
+                                    override val currentTime: String
+                                        @Composable get() = "10:10"
+                                }
+                            )
+                        },
+                        positionIndicator = {
+                            if (state != null) {
+                                PositionIndicator(state)
                             }
-                        )
-                    },
-                    positionIndicator = {
-                        if (state != null) {
-                            PositionIndicator(state)
                         }
-                    }
-                ) {
-                    Box(modifier = Modifier.background(Color.Black)) {
-                        function()
+                    ) {
+                        Box(modifier = Modifier.background(Color.Black)) {
+                            function()
+                        }
                     }
                 }
             }

@@ -45,16 +45,19 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
-        freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=com.google.android.horologist.audio.ExperimentalHorologistAudioApi",
-            "-opt-in=com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi",
-            "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi",
-            "-opt-in=com.google.android.horologist.composables.ExperimentalHorologistComposablesApi",
-            "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi",
-            "-opt-in=com.google.android.horologist.media.ExperimentalHorologistMediaApi",
-            "-opt-in=com.google.android.horologist.tiles.ExperimentalHorologistTilesApi",
-            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
-        )
+        // Allow for widescale experimental APIs in Alpha libraries we build upon
+        freeCompilerArgs = freeCompilerArgs + """
+            com.google.android.horologist.audio.ExperimentalHorologistAudioApi
+            com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
+            com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi
+            com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
+            com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
+            com.google.android.horologist.media.ExperimentalHorologistMediaApi
+            com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
+            androidx.wear.compose.foundation.ExperimentalWearFoundationApi
+            kotlin.RequiresOptIn
+            kotlinx.coroutines.ExperimentalCoroutinesApi
+            """.trim().split("\\s+".toRegex()).map { "-opt-in=$it" }
     }
 
     composeOptions {

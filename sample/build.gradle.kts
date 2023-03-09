@@ -90,7 +90,6 @@ android {
             kotlin.RequiresOptIn
             kotlinx.coroutines.ExperimentalCoroutinesApi
             """.trim().split("\\s+".toRegex()).map { "-opt-in=$it" }
-        )
     }
 
     composeOptions {

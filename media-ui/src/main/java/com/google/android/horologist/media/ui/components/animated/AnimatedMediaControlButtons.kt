@@ -48,7 +48,7 @@ public fun AnimatedMediaControlButtons(
     seekToNextButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
     trackPositionUiModel: TrackPositionUiModel,
-    progressColour: Color = MaterialTheme.colors.primary,
+    progressColor: Color = MaterialTheme.colors.primary,
     colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors
 ) {
     ControlButtonLayout(
@@ -70,7 +70,7 @@ public fun AnimatedMediaControlButtons(
                     trackPositionUiModel = trackPositionUiModel,
                     modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
                     colors = colors,
-                    progressColour = progressColour
+                    progressColor = progressColor
                 )
             } else {
                 AnimatedPlayPauseButton(

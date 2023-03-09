@@ -27,7 +27,7 @@ android {
     compileSdkPreview = "UpsideDownCake"
 
     defaultConfig {
-        minSdk = 26
+        minSdk = 23
     }
 
     compileOptions {
@@ -94,7 +94,6 @@ dependencies {
     implementation(libs.kotlinx.coroutines.playservices)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.wear.remote.interactions)
-    implementation(libs.androidx.wear.phone.interactions)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

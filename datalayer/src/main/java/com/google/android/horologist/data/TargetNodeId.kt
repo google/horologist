@@ -21,7 +21,7 @@ import kotlinx.coroutines.tasks.await
 
 /**
  * A selector for a Node to connect with over the data client without needing to resolve ahead of
- * time. The implementations could be anything from hardcoded value to querying the
+ * time. The implementations could be anything from a hardcoded value to querying the CapabilityClient.
  */
 public interface TargetNodeId {
     /**

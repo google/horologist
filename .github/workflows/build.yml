@@ -40,26 +40,25 @@ jobs:
       - name: Build (Debug)
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: --stacktrace \
-                assembleDebug
+          arguments: --stacktrace assembleDebug
 
       - name: Metalava compatibility check
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: --stacktrace \
+          arguments: --stacktrace
               metalavaCheckCompatibility metalavaCheckCompatibilityRelease
 
       - name: Code analysis
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: --stacktrace \
-              spotlessCheck \
+          arguments: --stacktrace
+              spotlessCheck
               lintDebug
 
       - name: Unit Tests
         run: |
-          ./scripts/run-unit-tests.sh \
-              --run-affected \
+          ./scripts/run-unit-tests.sh
+              --run-affected
               --affected-base-ref=$BASE_REF
 
       - name: Upload test results and reports
@@ -103,7 +102,7 @@ jobs:
       - name: Snapshot tests
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: --stacktrace \
+          arguments: --stacktrace
             verifyPaparazziDebug
 
       - name: Upload snapshot tests results
@@ -155,7 +154,7 @@ jobs:
       - name: Compile instrumentation tests
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: --stacktrace \
+          arguments: --stacktrace
             compileDebugAndroidTestSources
 
       - name: Run tests

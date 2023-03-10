@@ -36,26 +36,26 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
-        with:
-          gradle-home-cache-cleanup: true
 
       - name: Check GIT lfs images
         run: |
           ./scripts/git-lfs-check.sh
 
       - name: Build (Debug)
-        run: |
-          ./gradlew --scan --stacktrace \
-              assembleDebug
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: --stacktrace \
+                assembleDebug
 
       - name: Metalava compatibility check
-        run: |
-          ./gradlew --scan --stacktrace \
+        with:
+          arguments: --stacktrace \
               metalavaCheckCompatibility metalavaCheckCompatibilityRelease
 
       - name: Code analysis
-        run: |
-          ./gradlew --scan --stacktrace \
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: --stacktrace \
               spotlessCheck \
               lintDebug
 
@@ -75,13 +75,11 @@ jobs:
             **/build/reports/*
             **/build/reports/affectedModuleDetector/*
 
-      # Once this (https://github.com/cashapp/paparazzi/issues/388) is fixed, the changes introduced
-      # by this commit should be reverted to speed up and simplify the script again.
       - name: Snapshot tests
-        run: |
-          ./gradlew --scan --stacktrace \
-              clean \
-              verifyPaparazziDebug            
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: --stacktrace \
+              verifyPaparazziDebug
 
       - name: Upload snapshot tests results
         if: always()
@@ -129,13 +127,12 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
-        with:
-          gradle-home-cache-cleanup: true
 
       - name: Compile instrumentation tests
-        run: |
-          ./gradlew --scan --stacktrace \
-              compileDebugAndroidTestSources
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: --stacktrace \
+            compileDebugAndroidTestSources
 
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@v2

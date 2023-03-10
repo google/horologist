@@ -37,10 +37,6 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-      - name: Check GIT lfs images
-        run: |
-          ./scripts/git-lfs-check.sh
-
       - name: Build (Debug)
         uses: gradle/gradle-build-action@v2
         with:
@@ -75,11 +71,41 @@ jobs:
             **/build/reports/*
             **/build/reports/affectedModuleDetector/*
 
+  paparazzi:
+    # Skip build if head commit contains 'skip ci'
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # Fetch expanded history, which is needed for affected module detection
+          fetch-depth: '500'
+          lfs: 'true'
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 11
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Check GIT lfs images
+        run: |
+          ./scripts/git-lfs-check.sh
+
       - name: Snapshot tests
         uses: gradle/gradle-build-action@v2
         with:
           arguments: --stacktrace \
-              verifyPaparazziDebug
+            verifyPaparazziDebug
 
       - name: Upload snapshot tests results
         if: always()

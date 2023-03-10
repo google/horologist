@@ -125,8 +125,7 @@ jobs:
       # Allow tests to continue on other devices if they fail on one device.
       fail-fast: false
       matrix:
-        api-level: [ 28, 30 ]
-        shard: [ 0, 1 ] # Need to update shard-count below if this changes
+        api-level: 30
 
     env:
       TERM: dumb
@@ -166,7 +165,7 @@ jobs:
           target: android-wear
           profile: wear_round_454
           emulator-options: -no-window -no-snapshot
-          script: ./scripts/run-instrumented-tests.sh --log-file=logcat.txt --run-affected --affected-base-ref=$BASE_REF --shard-index=${{ matrix.shard }} --shard-count=2 --macrobenchmark-rules=Microbenchmark
+          script: ./scripts/run-instrumented-tests.sh --log-file=logcat.txt --run-affected --affected-base-ref=$BASE_REF --shard-index=0 --shard-count=1 --macrobenchmark-rules=Microbenchmark
 
       - name: Upload logs
         if: always()

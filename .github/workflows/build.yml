@@ -71,17 +71,29 @@ jobs:
             **/build/reports/*
             **/build/reports/affectedModuleDetector/*
 
-  paparazzi:
-    # Skip build if head commit contains 'skip ci'
-    if: "!contains(github.event.head_commit.message, 'skip ci')"
+  test:
+    runs-on: macos-latest
+    timeout-minutes: 50
 
-    runs-on: ubuntu-latest
-    timeout-minutes: 40
+    strategy:
+      # Allow tests to continue on other devices if they fail on one device.
+      fail-fast: false
+      matrix:
+        api-level: [ 28, 30 ]
+        shard: [ 0, 1 ] # Need to update shard-count below if this changes
+
+    env:
+      TERM: dumb
 
     steps:
       - uses: actions/checkout@v3
         with:
+          # Fetch expanded history, which is needed for affected module detection
+          fetch-depth: '500'
           lfs: 'true'
+
+      - name: Install pulseaudio
+        run: brew install pulseaudio
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
@@ -95,23 +107,33 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-      - name: Check GIT lfs images
-        run: |
-          ./scripts/git-lfs-check.sh
-
-      - name: Snapshot tests
+      - name: Compile instrumentation tests
         uses: gradle/gradle-build-action@v2
         with:
           arguments: --stacktrace \
-            verifyPaparazziDebug
+            compileDebugAndroidTestSources
 
-      - name: Upload snapshot tests results
+      - name: Run tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          target: android-wear
+          profile: wear_round_454
+          emulator-options: -no-window -no-snapshot
+          script: ./scripts/run-instrumented-tests.sh --log-file=logcat.txt --run-affected --affected-base-ref=$BASE_REF --shard-index=${{ matrix.shard }} --shard-count=2 --macrobenchmark-rules=Microbenchmark
+
+      - name: Upload logs
         if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: snapshot-test-results
+          name: logs-${{ matrix.api-level }}-${{ matrix.shard }}
+          path: logcat.txt
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results-${{ matrix.api-level }}-${{ matrix.shard }}
           path: |
-            **/build/test-results/*
             **/build/reports/*
-            **/build/reports/paparazzi/*
-            **/out/failures/
+            **/build/outputs/*/connected/*

@@ -22,15 +22,24 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
 import com.google.android.horologist.auth.data.phone.tokenshare.TokenBundleRepository
@@ -55,13 +64,13 @@ class MainActivity : ComponentActivity() {
             coroutineScope = lifecycleScope
         )
 
-        tokenBundleRepositoryDefaultKey = TokenBundleRepositoryImpl.create(
+        tokenBundleRepositoryDefaultKey = TokenBundleRepositoryImpl(
             registry = registry,
             coroutineScope = lifecycleScope,
             serializer = TokenBundleSerializer
         )
 
-        tokenBundleRepositoryCustomKey = TokenBundleRepositoryImpl.create(
+        tokenBundleRepositoryCustomKey = TokenBundleRepositoryImpl(
             registry = registry,
             coroutineScope = lifecycleScope,
             serializer = TokenBundleSerializer,
@@ -75,7 +84,16 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    val coroutineScope = rememberCoroutineScope()
+                    var apiAvailable by remember { mutableStateOf(false) }
+                    LaunchedEffect(Unit) {
+                        coroutineScope.launch {
+                            apiAvailable = tokenBundleRepositoryDefaultKey.isAvailable()
+                        }
+                    }
+
                     MainScreen(
+                        apiAvailable = apiAvailable,
                         onUpdateTokenDefault = ::onUpdateTokenDefault,
                         onUpdateTokenCustom = ::onUpdateTokenCustom
                     )
@@ -107,6 +125,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen(
+    apiAvailable: Boolean,
     onUpdateTokenDefault: () -> Unit,
     onUpdateTokenCustom: () -> Unit,
     modifier: Modifier = Modifier
@@ -120,15 +139,26 @@ fun MainScreen(
             onClick = {
                 onUpdateTokenDefault()
             },
-            modifier = Modifier.wrapContentHeight()
+            modifier = Modifier.wrapContentHeight(),
+            enabled = apiAvailable
         ) { Text(stringResource(R.string.token_share_button_update_token_default)) }
 
         Button(
             onClick = {
                 onUpdateTokenCustom()
             },
-            modifier = Modifier.wrapContentHeight()
+            modifier = Modifier.wrapContentHeight(),
+            enabled = apiAvailable
         ) { Text(stringResource(R.string.token_share_button_update_token_custom)) }
+
+        if (!apiAvailable) {
+            Text(
+                text = stringResource(R.string.token_share_message_api_unavailable),
+                modifier.fillMaxWidth(),
+                color = Color.Red,
+                textAlign = TextAlign.Center
+            )
+        }
     }
 }
 
@@ -137,6 +167,7 @@ fun MainScreen(
 fun GreetingPreview() {
     HorologistTheme {
         MainScreen(
+            apiAvailable = true,
             onUpdateTokenDefault = { },
             onUpdateTokenCustom = { }
         )

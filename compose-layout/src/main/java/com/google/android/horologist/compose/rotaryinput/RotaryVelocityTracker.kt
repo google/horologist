@@ -16,41 +16,33 @@
 
 package com.google.android.horologist.compose.rotaryinput
 
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.input.pointer.util.VelocityTracker
+import androidx.compose.ui.input.pointer.util.VelocityTracker1D
 
 /**
- * Intercepts VelocityTracker to provide support for rotary input.
+ * A wrapper around VelocityTracker to provide support for rotary input.
  */
 public class RotaryVelocityTracker {
-    // TODO(b/32830165): Current implementation of VelocityTracker resets the speed after 40ms
-    // if no motion events received. This threshold can't be changed.
-    // The solution will be to use updated impulse-based velocityTracker from Android
-    // or write similar in compose.
-    private var velocityTracker: VelocityTracker = VelocityTracker()
-    private var position: Float = 0f
+    private var velocityTracker: VelocityTracker1D = VelocityTracker1D(true)
 
     /**
-     * Retrieve the last computed Y velocity.
+     * Retrieve the last computed velocity.
      */
     public val velocity: Float
-        get() = velocityTracker.calculateVelocity().y
+        get() = velocityTracker.calculateVelocity()
 
     /**
      * Start tracking motion.
      */
     public fun start(currentTime: Long) {
         velocityTracker.resetTracking()
-        position = 0f
-        velocityTracker.addPosition(currentTime, Offset(0f, position))
+        velocityTracker.addDataPoint(currentTime, 0f)
     }
 
     /**
      * Continue tracking motion as the input rotates.
      */
     public fun move(currentTime: Long, delta: Float) {
-        position += delta
-        velocityTracker.addPosition(currentTime, Offset(0f, position))
+        velocityTracker.addDataPoint(currentTime, delta)
     }
 
     /**

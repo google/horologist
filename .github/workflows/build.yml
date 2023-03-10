@@ -125,7 +125,7 @@ jobs:
       # Allow tests to continue on other devices if they fail on one device.
       fail-fast: false
       matrix:
-        api-level: 30
+        api-level: [ 30 ]
 
     env:
       TERM: dumb

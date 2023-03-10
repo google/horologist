@@ -11,7 +11,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+
+  paparazzi:
     # Skip build if head commit contains 'skip ci'
     if: "!contains(github.event.head_commit.message, 'skip ci')"
 
@@ -21,8 +22,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          # Fetch expanded history, which is needed for affected module detection
-          fetch-depth: '500'
           lfs: 'true'
 
       - name: Copy CI gradle.properties
@@ -37,39 +36,26 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-      - name: Build (Debug)
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: --stacktrace \
-                assembleDebug
-
-      - name: Metalava compatibility check
-        with:
-          arguments: --stacktrace \
-              metalavaCheckCompatibility metalavaCheckCompatibilityRelease
-
-      - name: Code analysis
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: --stacktrace \
-              spotlessCheck \
-              lintDebug
-
-      - name: Unit Tests
+      - name: Check GIT lfs images
         run: |
-          ./scripts/run-unit-tests.sh \
-              --run-affected \
-              --affected-base-ref=$BASE_REF
+          ./scripts/git-lfs-check.sh
 
-      - name: Upload test results and reports
+      - name: Snapshot tests
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: --stacktrace \
+            verifyPaparazziDebug
+
+      - name: Upload snapshot tests results
         if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: build-results
+          name: snapshot-test-results
           path: |
             **/build/test-results/*
             **/build/reports/*
-            **/build/reports/affectedModuleDetector/*
+            **/build/reports/paparazzi/*
+            **/out/failures/
 
   test:
     runs-on: macos-latest

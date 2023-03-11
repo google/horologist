@@ -11,6 +11,9 @@ package com.google.android.horologist.datalayer.watch {
     method public suspend Object? startCompanion(String node, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.AppHelperResultCode>);
   }
 
+  public final class WearDataLayerAppHelperKt {
+  }
+
   public final class WearDataLayerListenerService extends com.google.android.horologist.data.DataLayerAppHelperService {
     ctor public WearDataLayerListenerService();
     method public com.google.android.horologist.data.DataLayerAppHelper getAppHelper();

@@ -27,11 +27,12 @@ import com.google.android.horologist.data.AppHelperResult
 import com.google.android.horologist.data.AppHelperResultCode
 import com.google.android.horologist.data.DataLayerAppHelper
 import com.google.android.horologist.data.ExperimentalHorologistDataLayerApi
-import com.google.android.horologist.data.TAG
 import com.google.android.horologist.data.companionConfig
 import com.google.android.horologist.data.launchRequest
 import kotlinx.coroutines.guava.await
 import kotlinx.coroutines.tasks.await
+
+private const val TAG = "DataLayerAppHelper"
 
 /**
  * Subclass of [DataLayerAppHelper] for use on Wear devices.

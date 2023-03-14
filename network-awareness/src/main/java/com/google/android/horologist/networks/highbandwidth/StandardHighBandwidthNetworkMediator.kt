@@ -179,8 +179,12 @@ public class StandardHighBandwidthNetworkMediator(
         request: HighBandwidthRequest
     ): Requests = requests.update(request.type) { countAndLease ->
         // Should only be here if count hasn't changed since scheduled
-        check(countAndLease.count == 0)
-        check(countAndLease.lease != null)
+        check(countAndLease.count == 0) {
+            "actuallyRelease called with count ${countAndLease.count}"
+        }
+        check(countAndLease.lease != null) {
+            "actuallyRelease called with no lease"
+        }
 
         releaseHighBandwidthNetwork(request, countAndLease.lease)
 

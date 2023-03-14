@@ -1085,8 +1085,8 @@ your phone and watch apps must:</p>
 </ul>
 <h2 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Add dependencies</li>
-</ol>
+<li>
+<p>Add dependencies</p>
 <p>Add the following dependencies to your project’s build.gradle.</p>
 <p>For the phone app project:</p>
 <div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="w"> </span><span class="o">{</span>
@@ -1100,42 +1100,42 @@ your phone and watch apps must:</p>
 <span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;com.google.android.horologist:horologist-datalayer:&lt;version&gt;&quot;</span>
 <span class="o">}</span>
 </code></pre></div>
-<ol>
-<li>Add capability to phone app project</li>
-</ol>
+</li>
+<li>
+<p>Add capability to phone app project</p>
 <p>On the phone app project, add a <code>wear.xml</code> file in the <code>res/values</code> folder with the following
-   content:</p>
+content:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;resources&gt;</span>
 <span class="w">    </span><span class="nt">&lt;string-array</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;android_wear_capabilities&quot;</span><span class="nt">&gt;</span>
 <span class="w">        </span><span class="nt">&lt;item&gt;</span>horologist_phone<span class="nt">&lt;/item&gt;</span>
 <span class="w">    </span><span class="nt">&lt;/string-array&gt;</span>
 <span class="nt">&lt;/resources&gt;</span>
 </code></pre></div>
-<ol>
-<li>Create a <code>WearDataLayerRegistry</code></li>
-</ol>
+</li>
+<li>
+<p>Create a <code>WearDataLayerRegistry</code></p>
 <p>In both projects, create an instance
-   of <a href="https://google.github.io/horologist/api/datalayer/com.google.android.horologist.data/-wear-data-layer-registry/index.html">WearDataLayerRegistry</a>
-   from the <a href="../datalayer/">datalayer</a>:</p>
+of <a href="https://google.github.io/horologist/api/datalayer/com.google.android.horologist.data/-wear-data-layer-registry/index.html">WearDataLayerRegistry</a>
+from the <a href="../datalayer/">datalayer</a>:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">registry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WearDataLayerRegistry</span><span class="p">.</span><span class="na">fromContext</span><span class="p">(</span>
 <span class="w">    </span><span class="n">application</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="c1">// application context,</span>
 <span class="w">    </span><span class="n">coroutineScope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="c1">// a coroutine scope</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>This class should be created as a singleton in your app.</p>
-<ol>
-<li>Define the data to be transferred</li>
-</ol>
+</li>
+<li>
+<p>Define the data to be transferred</p>
 <p>Define which authentication data that should be transferred from the phone to the watch. It can
-   be a data class with many properties, it can also be a <a href="https://protobuf.dev/">protocol buffer</a>.
-   For this guide, we will pass a simple <code>String</code> instance.</p>
-<ol>
-<li>Create a <code>Serializer</code> for the data</li>
-</ol>
+be a data class with many properties, it can also be a <a href="https://protobuf.dev/">protocol buffer</a>.
+For this guide, we will pass a simple <code>String</code> instance.</p>
+</li>
+<li>
+<p>Create a <code>Serializer</code> for the data</p>
 <p>Create
-   a <a href="https://developer.android.com/topic/libraries/architecture/datastore">DataStore</a> <code>Serializer</code>
-   class for the class defined to be transferred from the phone to the watch (<code>String</code> for this
-   guide):</p>
+a <a href="https://developer.android.com/topic/libraries/architecture/datastore">DataStore</a> <code>Serializer</code>
+class for the class defined to be transferred from the phone to the watch (<code>String</code> for this
+guide):</p>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="nc">TokenSerializer</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Serializer</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
 
@@ -1150,56 +1150,62 @@ your phone and watch apps must:</p>
 <span class="p">}</span><span class="w">   </span>
 </code></pre></div>
 <p>This class should preferable be placed in a shared module between the phone and watch projects,
-   but could also be duplicated in both projects.</p>
+but could also be duplicated in both projects.</p>
 <p>More information about this serialization
-   in <a href="https://medium.com/androiddevelopers/datastore-and-kotlin-serialization-8b25bf0be66c">this blog post</a>.</p>
+in <a href="https://medium.com/androiddevelopers/datastore-and-kotlin-serialization-8b25bf0be66c">this blog post</a>.</p>
+</li>
+</ol>
 <h2 id="send-authentication-data-from-the-phone">Send authentication data from the phone<a class="headerlink" href="#send-authentication-data-from-the-phone" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Create a <code>TokenBundleRepository</code> on the phone project</li>
-</ol>
+<li>
+<p>Create a <code>TokenBundleRepository</code> on the phone project</p>
 <p>Create an instance
-   of <a href="https://google.github.io/horologist/api/auth-data-phone/com.google.android.horologist.auth.data.phone.tokenshare/-token-bundle-repository/index.html">TokenBundleRepository</a>
-   on the phone app project:</p>
+of <a href="https://google.github.io/horologist/api/auth-data-phone/com.google.android.horologist.auth.data.phone.tokenshare/-token-bundle-repository/index.html">TokenBundleRepository</a>
+on the phone app project:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">tokenBundleRepository</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TokenBundleRepositoryImpl</span><span class="p">(</span>
 <span class="w">    </span><span class="n">registry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">registry</span><span class="p">,</span>
 <span class="w">    </span><span class="n">coroutineScope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="c1">// a coroutine scope,</span>
 <span class="w">    </span><span class="n">serializer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TokenSerializer</span>
 <span class="p">)</span><span class="w">   </span>
 </code></pre></div>
-<ol>
-<li>Check if the repository is available (optional)</li>
-</ol>
+</li>
+<li>
+<p>Check if the repository is available (optional)</p>
 <p>Before using the repository, you can check if it is available to be used on the current device
-   with:</p>
+with:</p>
 <div class="highlight"><pre><span></span><code><span class="n">tokenBundleRepositoryDefaultKey</span><span class="p">.</span><span class="na">isAvailable</span><span class="p">()</span>
 </code></pre></div>
 <p>If the repository is not available on the device, all the calls to it will fail silently.</p>
 <p>See the requirements
-   of <a href="https://developer.android.com/training/wearables/data/data-layer#send-and-sync-with-API">Wearable Data Layer API</a>.</p>
-<ol>
-<li>Send authentication data</li>
-</ol>
+of <a href="https://developer.android.com/training/wearables/data/data-layer#send-and-sync-with-API">Wearable Data Layer API</a>.</p>
+</li>
+<li>
+<p>Send authentication data</p>
 <p>The authentication data can be sent from the phone calling <code>update</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">tokenBundleRepositoryDefaultKey</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">)</span>
 </code></pre></div>
+</li>
+</ol>
 <h2 id="receive-authentication-data-on-the-watch">Receive authentication data on the watch<a class="headerlink" href="#receive-authentication-data-on-the-watch" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Create a <code>TokenBundleRepository</code> on the watch project</li>
-</ol>
+<li>
+<p>Create a <code>TokenBundleRepository</code> on the watch project</p>
 <p>Create an instance
-   of <a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.tokenshare/-token-bundle-repository/index.html">TokenBundleRepository</a>
-   on the watch app project:</p>
+of <a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.tokenshare/-token-bundle-repository/index.html">TokenBundleRepository</a>
+on the watch app project:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">tokenBundleRepository</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TokenBundleRepositoryImpl</span><span class="p">.</span><span class="na">create</span><span class="p">(</span>
 <span class="w">    </span><span class="n">registry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">registry</span><span class="p">,</span>
 <span class="w">    </span><span class="n">serializer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TokenSerializer</span>
 <span class="p">)</span>
 </code></pre></div>
-<ol>
-<li>Receive authentication data</li>
-</ol>
+</li>
+<li>
+<p>Receive authentication data</p>
 <p>The authentication data can be listened from the watch via the <code>flow</code> property:
-   <div class="highlight"><pre><span></span><code><span class="n">tokenBundleRepository</span><span class="p">.</span><span class="na">flow</span>
+<div class="highlight"><pre><span></span><code><span class="n">tokenBundleRepository</span><span class="p">.</span><span class="na">flow</span>
 </code></pre></div></p>
+</li>
+</ol>
 
 
 

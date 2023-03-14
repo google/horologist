@@ -1,5 +1,8 @@
 # Google Sign-In guide
 
+This guide will walk you through on how to display a screen on your watch app so that users can
+select their Google account to sign-in to your app.
+
 ## Requirements
 
 Follow the setup instructions for integrating Google Sign-in into an Android app
@@ -7,7 +10,7 @@ from [this link](https://developers.google.com/identity/sign-in/android/start-in
 
 ## Getting started
 
-1. Add dependencies
+1.  Add dependencies
 
    Add the following dependencies to your project’s build.gradle:
 
@@ -19,7 +22,7 @@ from [this link](https://developers.google.com/identity/sign-in/android/start-in
    }
    ```
 
-2. Create an instance of `GoogleSignInClient`
+2.  Create an instance of `GoogleSignInClient`
 
    Create an instance
    of [GoogleSignInClient](https://developers.google.com/android/reference/com/google/android/gms/auth/api/signin/GoogleSignInClient),
@@ -36,7 +39,7 @@ from [this link](https://developers.google.com/identity/sign-in/android/start-in
 
 ## Display the screen
 
-1. Create a ViewModel
+1.  Create a ViewModel
 
    Create your implementation of `GoogleSignInViewModel`, passing the `GoogleSignInClient` created:
    ```kotlin
@@ -45,7 +48,7 @@ from [this link](https://developers.google.com/identity/sign-in/android/start-in
    ) : GoogleSignInViewModel(googleSignInClient)
    ```   
 
-2. Display the screen
+2.  Display the screen
 
    Display the `GoogleSignInScreen` passing an instance of the `GoogleSignInViewModel` created:
 
@@ -64,11 +67,11 @@ from [this link](https://developers.google.com/identity/sign-in/android/start-in
 
 ## Retrieve the signed in account
 
-In order to have access to an instance of
+In order to have access an instance of
 the [GoogleSignInAccount](https://developers.google.com/android/reference/com/google/android/gms/auth/api/signin/GoogleSignInAccount)
 selected by the user, follow the steps:
 
-1. Implement `GoogleSignInEventListener`
+1.  Implement `GoogleSignInEventListener`
 
    ```kotlin
    class GoogleSignInEventListenerImpl : GoogleSignInEventListener {
@@ -78,7 +81,7 @@ selected by the user, follow the steps:
    }
    ```
 
-2. Pass the listener to the ViewModel
+2.  Pass the listener to the ViewModel
 
    Pass an instance of `GoogleSignInEventListener` to `GoogleSignInViewModel`:
 

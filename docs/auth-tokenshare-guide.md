@@ -15,7 +15,7 @@ your phone and watch apps must:
 
 ## Getting started
 
-1. Add dependencies
+1.  Add dependencies
 
    Add the following dependencies to your project’s build.gradle.
 
@@ -37,7 +37,7 @@ your phone and watch apps must:
    }
    ```
 
-2. Add capability to phone app project
+2.  Add capability to phone app project
 
    On the phone app project, add a `wear.xml` file in the `res/values` folder with the following
    content:
@@ -50,7 +50,7 @@ your phone and watch apps must:
    </resources>
    ```
 
-3. Create a `WearDataLayerRegistry`
+3.  Create a `WearDataLayerRegistry`
 
    In both projects, create an instance
    of [WearDataLayerRegistry](https://google.github.io/horologist/api/datalayer/com.google.android.horologist.data/-wear-data-layer-registry/index.html)
@@ -65,13 +65,13 @@ your phone and watch apps must:
 
    This class should be created as a singleton in your app.
 
-4. Define the data to be transferred
+4.  Define the data to be transferred
 
    Define which authentication data that should be transferred from the phone to the watch. It can
    be a data class with many properties, it can also be a [protocol buffer](https://protobuf.dev/).
    For this guide, we will pass a simple `String` instance.
 
-5. Create a `Serializer` for the data
+5.  Create a `Serializer` for the data
 
    Create
    a [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) `Serializer`
@@ -101,21 +101,21 @@ your phone and watch apps must:
 
 ## Send authentication data from the phone
 
-1. Create a `TokenBundleRepository` on the phone project
+1.  Create a `TokenBundleRepository` on the phone project
 
    Create an instance
    of [TokenBundleRepository](https://google.github.io/horologist/api/auth-data-phone/com.google.android.horologist.auth.data.phone.tokenshare/-token-bundle-repository/index.html)
    on the phone app project:
 
    ```kotlin
-   val tokenBundleRepository = TokenBundleRepositoryImpl.create(
+   val tokenBundleRepository = TokenBundleRepositoryImpl(
        registry = registry,
        coroutineScope = // a coroutine scope,
        serializer = TokenSerializer
    )   
    ```
 
-2. Check if the repository is available (optional)
+2.  Check if the repository is available (optional)
 
    Before using the repository, you can check if it is available to be used on the current device
    with:
@@ -129,7 +129,7 @@ your phone and watch apps must:
    See the requirements
    of [Wearable Data Layer API](https://developer.android.com/training/wearables/data/data-layer#send-and-sync-with-API).
 
-3. Send authentication data
+3.  Send authentication data
 
    The authentication data can be sent from the phone calling `update`:
 
@@ -139,7 +139,7 @@ your phone and watch apps must:
 
 ## Receive authentication data on the watch
 
-1. Create a `TokenBundleRepository` on the watch project
+1.  Create a `TokenBundleRepository` on the watch project
 
    Create an instance
    of [TokenBundleRepository](https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.tokenshare/-token-bundle-repository/index.html)
@@ -152,7 +152,7 @@ your phone and watch apps must:
    )
    ```
 
-2. Receive authentication data
+2.  Receive authentication data
 
    The authentication data can be listened from the watch via the `flow` property:
    ```kotlin

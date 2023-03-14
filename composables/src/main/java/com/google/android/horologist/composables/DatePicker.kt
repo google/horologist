@@ -201,7 +201,7 @@ public fun DatePicker(
                 val monthWidth = 80.dp
                 val yearWidth = 100.dp
                 val onPickerSelected = { current: FocusableElementDatePicker,
-                                         next: FocusableElementDatePicker ->
+                    next: FocusableElementDatePicker ->
                     if (pickerGroupState.selectedIndex != current.index) {
                         pickerGroupState.selectedIndex = current.index
                     } else {
@@ -226,7 +226,7 @@ public fun DatePicker(
                             )
                         ),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center,
+                    horizontalArrangement = Arrangement.Center
                 ) {
                     PickerGroup(
                         PickerGroupItemWithRSB(
@@ -361,14 +361,18 @@ private fun getPickerGroupRowOffset(
     touchExplorationServicesEnabled: Boolean,
     pickerGroupState: PickerGroupState
 ): Dp {
-    val currentOffset = (rowWidth -
-        (dayPickerWidth + monthPickerWidth + yearPickerWidth + spacerWidth.times(2))) / 2
+    val currentOffset = (
+        rowWidth -
+            (dayPickerWidth + monthPickerWidth + yearPickerWidth + spacerWidth.times(2))
+        ) / 2
 
     return if (touchExplorationServicesEnabled &&
-        pickerGroupState.selectedIndex < 0) {
+        pickerGroupState.selectedIndex < 0
+    ) {
         ((rowWidth - dayPickerWidth) / 2) - currentOffset
     } else if (touchExplorationServicesEnabled &&
-        pickerGroupState.selectedIndex > 2) {
+        pickerGroupState.selectedIndex > 2
+    ) {
         ((rowWidth - yearPickerWidth) / 2) -
             (dayPickerWidth + monthPickerWidth + spacerWidth.times(2) + currentOffset)
     } else {
@@ -459,7 +463,9 @@ private fun createDescriptionDatePicker(
     return when (pickerGroupState.selectedIndex) {
         FocusableElementDatePicker.NONE.index -> label
         else -> zeroCorrectedContentDescription(
-            value = selectedValue, prefix = "$label,", zeroString = zeroString
+            value = selectedValue,
+            prefix = "$label,",
+            zeroString = zeroString
         )
     }
 }

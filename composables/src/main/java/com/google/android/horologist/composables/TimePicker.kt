@@ -19,7 +19,6 @@ package com.google.android.horologist.composables
 import android.content.Context
 import android.view.accessibility.AccessibilityManager
 import androidx.compose.foundation.focusable
-import androidx.compose.foundation.gestures.FlingBehavior
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -62,8 +61,6 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Picker
-import androidx.wear.compose.material.PickerDefaults
 import androidx.wear.compose.material.PickerGroup
 import androidx.wear.compose.material.PickerGroupItem
 import androidx.wear.compose.material.PickerGroupState
@@ -183,7 +180,7 @@ public fun TimePicker(
         }
 
         val onPickerSelected = { current: FocusableElementsTimePicker,
-                                 next: FocusableElementsTimePicker ->
+            next: FocusableElementsTimePicker ->
             if (pickerGroupState.selectedIndex != current.index) {
                 pickerGroupState.selectedIndex = current.index
             } else {
@@ -404,11 +401,11 @@ public fun TimePickerWith12HourClock(
             periodState.selectedOption
         ) {
             derivedStateOf {
-                if (pickerGroupState.selectedIndex == FocusableElement12Hour.NONE.index)
+                if (pickerGroupState.selectedIndex == FocusableElement12Hour.NONE.index) {
                     periodString
-                else if (periodState.selectedOption == 0)
+                } else if (periodState.selectedOption == 0) {
                     amString
-                else pmString
+                } else pmString
             }
         }
         Box(
@@ -555,52 +552,14 @@ private fun Separator(width: Dp, textStyle: TextStyle) {
 }
 
 @Composable
-internal fun PickerWithRSB(
-    state: PickerState,
-    readOnly: Boolean,
-    modifier: Modifier,
-    focusRequester: FocusRequester,
-    contentDescription: String?,
-    readOnlyLabel: @Composable (BoxScope.() -> Unit)? = null,
-    userScrollEnabled: Boolean = true,
-    flingBehavior: FlingBehavior = PickerDefaults.flingBehavior(state = state),
-    onSelected: () -> Unit = {},
-    option: @Composable PickerScope.(optionIndex: Int) -> Unit
-) {
-    val coroutineScope = rememberCoroutineScope()
-    Picker(
-        state = state,
-        contentDescription = contentDescription,
-        onSelected = onSelected,
-        modifier = modifier
-            .onRotaryInputAccumulated {
-                coroutineScope.launch {
-                    if (it > 0) {
-                        state.scrollToOption(state.selectedOption + 1)
-                    } else {
-                        state.scrollToOption(state.selectedOption - 1)
-                    }
-                }
-            }
-            .focusRequester(focusRequester)
-            .focusable(),
-        flingBehavior = flingBehavior,
-        readOnly = readOnly,
-        readOnlyLabel = readOnlyLabel,
-        userScrollEnabled = userScrollEnabled,
-        option = option
-    )
-}
-
-@Composable
 internal fun PickerGroupItemWithRSB(
     pickerState: PickerState,
     modifier: Modifier,
     contentDescription: String?,
     focusRequester: FocusRequester?,
     onSelected: () -> Unit,
-    readOnlyLabel: @Composable() (BoxScope.() -> Unit)? = null,
-    option: @Composable() PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit
+    readOnlyLabel: @Composable (BoxScope.() -> Unit)? = null,
+    option: @Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit
 ): PickerGroupItem {
     val coroutineScope = rememberCoroutineScope()
     return PickerGroupItem(
@@ -681,7 +640,8 @@ internal class DefaultTouchExplorationStateProvider : TouchExplorationStateProvi
         }
     }
 
-    private class Listener : AccessibilityManager.AccessibilityStateChangeListener,
+    private class Listener :
+        AccessibilityManager.AccessibilityStateChangeListener,
         AccessibilityManager.TouchExplorationStateChangeListener {
 
         private var accessibilityEnabled by mutableStateOf(false)
@@ -721,7 +681,9 @@ private fun createDescription(
     return when (pickerGroupState.selectedIndex) {
         FocusableElementsTimePicker.NONE.index -> label
         else -> zeroCorrectedContentDescription(
-            value = selectedValue, zeroString = zeroString, suffix = label
+            value = selectedValue,
+            zeroString = zeroString,
+            suffix = label
         )
     }
 }
@@ -735,7 +697,9 @@ private fun createDescription12Hour(
     return when (pickerGroupState.selectedIndex) {
         FocusableElement12Hour.NONE.index -> label
         else -> zeroCorrectedContentDescription(
-            value = selectedValue, zeroString = zeroString, suffix = label
+            value = selectedValue,
+            zeroString = zeroString,
+            suffix = label
         )
     }
 }

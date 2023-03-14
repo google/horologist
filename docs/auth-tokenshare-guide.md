@@ -99,7 +99,9 @@ your phone and watch apps must:
    More information about this serialization
    in [this blog post](https://medium.com/androiddevelopers/datastore-and-kotlin-serialization-8b25bf0be66c).
 
-6. Create a `TokenBundleRepository` on the phone project
+## Send authentication data from the phone
+
+1. Create a `TokenBundleRepository` on the phone project
 
    Create an instance
    of [TokenBundleRepository](https://google.github.io/horologist/api/auth-data-phone/com.google.android.horologist.auth.data.phone.tokenshare/-token-bundle-repository/index.html)
@@ -113,7 +115,7 @@ your phone and watch apps must:
    )   
    ```
 
-7. Check if the repository is available (optional)
+2. Check if the repository is available (optional)
 
    Before using the repository, you can check if it is available to be used on the current device
    with:
@@ -127,7 +129,7 @@ your phone and watch apps must:
    See the requirements
    of [Wearable Data Layer API](https://developer.android.com/training/wearables/data/data-layer#send-and-sync-with-API).
 
-8. Send authentication data from the phone
+3. Send authentication data
 
    The authentication data can be sent from the phone calling `update`:
 
@@ -135,7 +137,9 @@ your phone and watch apps must:
    tokenBundleRepositoryDefaultKey.update("token")
    ```
 
-9. Create a `TokenBundleRepository` on the watch project
+## Receive authentication data on the watch
+
+1. Create a `TokenBundleRepository` on the watch project
 
    Create an instance
    of [TokenBundleRepository](https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.tokenshare/-token-bundle-repository/index.html)
@@ -148,9 +152,9 @@ your phone and watch apps must:
    )
    ```
 
-10. Receive authentication data on the watch
+2. Receive authentication data
 
-    The authentication data can be listened from the watch via the `flow` property:
-    ```kotlin
-    tokenBundleRepository.flow
-    ```   
+   The authentication data can be listened from the watch via the `flow` property:
+   ```kotlin
+   tokenBundleRepository.flow
+   ```   

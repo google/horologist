@@ -19,5 +19,5 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.google.android.horologist.auth.sample.shared">
 
-    <uses-sdk android:minSdkVersion="26" tools:ignore="GradleOverrides" />
+    <uses-sdk android:minSdkVersion="21" tools:ignore="GradleOverrides" />
 </manifest>

@@ -90,7 +90,10 @@ abstract class DataLayerAppHelper(protected val context: Context) {
             }
         }
         val info =
-            capabilityClient.getCapability(installedDeviceCapabilityUri, CapabilityClient.FILTER_PREFIX)
+            capabilityClient.getCapability(
+                installedDeviceCapabilityUri,
+                CapabilityClient.FILTER_PREFIX
+            )
                 .await()
         trySend(info.nodes.filter { it.isNearby }.toSet())
         capabilityClient.addListener(
@@ -144,14 +147,22 @@ abstract class DataLayerAppHelper(protected val context: Context) {
     /**
      * Creates a lookup to determine which devices have which a given surface installed on them.
      */
-    private fun mapNodesToSurface(surfacePrefix: String, capabilities: Map<String, CapabilityInfo>): Map<String, Set<String>> {
+    private fun mapNodesToSurface(
+        surfacePrefix: String,
+        capabilities: Map<String, CapabilityInfo>
+    ): Map<String, Set<String>> {
         val idToSurfaceSet = mutableMapOf<String, Set<String>>()
         capabilities
             .entries.filter { it.key.startsWith(surfacePrefix) }
             .forEach { entry ->
                 val name = entry.key.removePrefix(surfacePrefix)
                 for (node in entry.value.nodes) {
-                    idToSurfaceSet.merge(node.id, setOf(name)) { s1, s2 -> s1 + s2 }
+                    val previousValue = idToSurfaceSet[node.id]
+                    if (previousValue == null) {
+                        idToSurfaceSet[node.id] = setOf(name)
+                    } else {
+                        idToSurfaceSet[node.id] = previousValue + name
+                    }
                 }
             }
         return idToSurfaceSet

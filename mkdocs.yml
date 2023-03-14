@@ -24,6 +24,7 @@ nav:
       - 'Auth Data lib': auth-data.md
       - 'Auth Data Phone lib': auth-data-phone.md
       - 'Token sharing guide': auth-tokenshare-guide.md
+      - 'Google Sign-In guide': auth-googlesignin-guide.md
   - 'Audio':
       - 'Audio Guide': audio.md
       - 'Audio UI Guide': audio-ui.md

@@ -121,7 +121,7 @@ your phone and watch apps must:
     with:
 
     ```kotlin
-    tokenBundleRepositoryDefaultKey.isAvailable()
+    tokenBundleRepository.isAvailable()
     ```
 
     If the repository is not available on the device, all the calls to it will fail silently.
@@ -134,7 +134,7 @@ your phone and watch apps must:
     The authentication data can be sent from the phone calling `update`:
 
     ```kotlin
-    tokenBundleRepositoryDefaultKey.update("token")
+    tokenBundleRepository.update("token")
     ```
 
 ## Receive authentication data on the watch

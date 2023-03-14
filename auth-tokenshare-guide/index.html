@@ -1160,7 +1160,7 @@ your phone and watch apps must:</p>
 <p>Create an instance
    of <a href="https://google.github.io/horologist/api/auth-data-phone/com.google.android.horologist.auth.data.phone.tokenshare/-token-bundle-repository/index.html">TokenBundleRepository</a>
    on the phone app project:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">tokenBundleRepository</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TokenBundleRepositoryImpl</span><span class="p">.</span><span class="na">create</span><span class="p">(</span>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">tokenBundleRepository</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TokenBundleRepositoryImpl</span><span class="p">(</span>
 <span class="w">    </span><span class="n">registry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">registry</span><span class="p">,</span>
 <span class="w">    </span><span class="n">coroutineScope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="c1">// a coroutine scope,</span>
 <span class="w">    </span><span class="n">serializer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TokenSerializer</span>

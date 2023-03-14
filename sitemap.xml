@@ -31,6 +31,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://google.github.io/horologist/auth-googlesignin-guide/</loc>
+         <lastmod>2023-03-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://google.github.io/horologist/auth-overview/</loc>
          <lastmod>2023-03-14</lastmod>
          <changefreq>daily</changefreq>

@@ -342,9 +342,61 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Auth Data lib
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Auth Data lib
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#token-sharing" class="md-nav__link">
+    Token sharing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#google-sign-in" class="md-nav__link">
+    Google Sign-In
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oauth-pkce" class="md-nav__link">
+    OAuth (PKCE)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oauth-device-grant" class="md-nav__link">
+    OAuth (Device Grant)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -373,6 +425,20 @@
     <li class="md-nav__item">
       <a href="../auth-tokenshare-guide/" class="md-nav__link">
         Token sharing guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../auth-googlesignin-guide/" class="md-nav__link">
+        Google Sign-In guide
       </a>
     </li>
   
@@ -953,6 +1019,42 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#token-sharing" class="md-nav__link">
+    Token sharing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#google-sign-in" class="md-nav__link">
+    Google Sign-In
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oauth-pkce" class="md-nav__link">
+    OAuth (PKCE)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oauth-device-grant" class="md-nav__link">
+    OAuth (Device Grant)
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -970,7 +1072,52 @@
 
 
 <h1 id="auth-data">Auth Data<a class="headerlink" href="#auth-data" title="Permanent link">&para;</a></h1>
-<p>Documentation in progress..</p>
+<p>This library contains implementation for Wear apps for most of the authentication methods listed in
+the <a href="https://developer.android.com/training/wearables/apps/auth-wear">Authentication on wearables</a>
+guide.</p>
+<p>The repositories of this library are built mainly to support the components
+from <a href="../auth-ui/">auth-ui</a> library, but can be used with your own UI components.</p>
+<h2 id="token-sharing"><a href="https://developer.android.com/training/wearables/apps/auth-wear#tokens">Token sharing</a><a class="headerlink" href="#token-sharing" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.tokenshare/-token-bundle-repository/index.html">TokenBundleRepository</a><ul>
+<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.tokenshare.impl/-token-bundle-repository-impl/index.html">TokenBundleRepositoryImpl</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="google-sign-in"><a href="https://developer.android.com/training/wearables/apps/auth-wear#Google-Sign-in">Google Sign-In</a><a class="headerlink" href="#google-sign-in" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.googlesignin/-google-sign-in-auth-user-repository/index.html">GoogleSignInAuthUserRepository</a></li>
+</ul>
+<h2 id="oauth-pkce"><a href="https://developer.android.com/training/wearables/apps/auth-wear#pkce">OAuth (PKCE)</a><a class="headerlink" href="#oauth-pkce" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-config-repository/index.html">PKCEConfigRepository</a><ul>
+<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.pkce.impl.google/-p-k-c-e-config-repository-google-impl/index.html">PKCEConfigRepositoryGoogleImpl</a></li>
+</ul>
+</li>
+<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-o-auth-code-repository/index.html">PKCEOAuthCodeRepository</a><ul>
+<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.pkce.impl/-p-k-c-e-o-auth-code-repository-impl/index.html">PKCEOAuthCodeRepositoryImpl</a></li>
+</ul>
+</li>
+<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.pkce/-p-k-c-e-token-repository/index.html">PKCETokenRepository</a><ul>
+<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.pkce.impl.google/-p-k-c-e-token-repository-google-impl/index.html">PKCETokenRepositoryGoogleImpl</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="oauth-device-grant"><a href="https://developer.android.com/training/wearables/apps/auth-wear#DAG">OAuth (Device Grant)</a><a class="headerlink" href="#oauth-device-grant" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-config-repository/index.html">DeviceGrantConfigRepository</a><ul>
+<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.devicegrant.impl/-device-grant-config-repository-default-impl/index.html">DeviceGrantConfigRepositoryDefaultImpl</a></li>
+</ul>
+</li>
+<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-token-repository/index.html">DeviceGrantTokenRepository</a><ul>
+<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.devicegrant.impl.google/-device-grant-token-repository-google-impl/index.html">DeviceGrantTokenRepositoryGoogleImpl</a></li>
+</ul>
+</li>
+<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.devicegrant/-device-grant-verification-info-repository/index.html">DeviceGrantVerificationInfoRepository</a><ul>
+<li><a href="https://google.github.io/horologist/api/auth-data/com.google.android.horologist.auth.data.oauth.devicegrant.impl.google/-device-grant-verification-info-repository-google-impl/index.html">DeviceGrantVerificationInfoRepositoryGoogleImpl</a></li>
+</ul>
+</li>
+</ul>
 
 
 

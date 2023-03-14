@@ -18,7 +18,7 @@
         <link rel="prev" href="../auth-data-phone/">
       
       
-        <link rel="next" href="../audio/">
+        <link rel="next" href="../auth-googlesignin-guide/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.2">
@@ -408,10 +408,38 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#send-authentication-data-from-the-phone" class="md-nav__link">
+    Send authentication data from the phone
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#receive-authentication-data-on-the-watch" class="md-nav__link">
+    Receive authentication data on the watch
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../auth-googlesignin-guide/" class="md-nav__link">
+        Google Sign-In guide
+      </a>
     </li>
   
 
@@ -1011,6 +1039,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#send-authentication-data-from-the-phone" class="md-nav__link">
+    Send authentication data from the phone
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#receive-authentication-data-on-the-watch" class="md-nav__link">
+    Receive authentication data on the watch
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1059,6 +1101,17 @@ your phone and watch apps must:</p>
 <span class="o">}</span>
 </code></pre></div>
 <ol>
+<li>Add capability to phone app project</li>
+</ol>
+<p>On the phone app project, add a <code>wear.xml</code> file in the <code>res/values</code> folder with the following
+   content:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;resources&gt;</span>
+<span class="w">    </span><span class="nt">&lt;string-array</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;android_wear_capabilities&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;item&gt;</span>horologist_phone<span class="nt">&lt;/item&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/string-array&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</code></pre></div>
+<ol>
 <li>Create a <code>WearDataLayerRegistry</code></li>
 </ol>
 <p>In both projects, create an instance
@@ -1100,6 +1153,7 @@ your phone and watch apps must:</p>
    but could also be duplicated in both projects.</p>
 <p>More information about this serialization
    in <a href="https://medium.com/androiddevelopers/datastore-and-kotlin-serialization-8b25bf0be66c">this blog post</a>.</p>
+<h2 id="send-authentication-data-from-the-phone">Send authentication data from the phone<a class="headerlink" href="#send-authentication-data-from-the-phone" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Create a <code>TokenBundleRepository</code> on the phone project</li>
 </ol>
@@ -1113,11 +1167,22 @@ your phone and watch apps must:</p>
 <span class="p">)</span><span class="w">   </span>
 </code></pre></div>
 <ol>
-<li>Send authentication data from the phone</li>
+<li>Check if the repository is available (optional)</li>
+</ol>
+<p>Before using the repository, you can check if it is available to be used on the current device
+   with:</p>
+<div class="highlight"><pre><span></span><code><span class="n">tokenBundleRepositoryDefaultKey</span><span class="p">.</span><span class="na">isAvailable</span><span class="p">()</span>
+</code></pre></div>
+<p>If the repository is not available on the device, all the calls to it will fail silently.</p>
+<p>See the requirements
+   of <a href="https://developer.android.com/training/wearables/data/data-layer#send-and-sync-with-API">Wearable Data Layer API</a>.</p>
+<ol>
+<li>Send authentication data</li>
 </ol>
 <p>The authentication data can be sent from the phone calling <code>update</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">tokenBundleRepositoryDefaultKey</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">)</span>
 </code></pre></div>
+<h2 id="receive-authentication-data-on-the-watch">Receive authentication data on the watch<a class="headerlink" href="#receive-authentication-data-on-the-watch" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Create a <code>TokenBundleRepository</code> on the watch project</li>
 </ol>
@@ -1130,7 +1195,7 @@ your phone and watch apps must:</p>
 <span class="p">)</span>
 </code></pre></div>
 <ol>
-<li>Receive authentication data on the watch</li>
+<li>Receive authentication data</li>
 </ol>
 <p>The authentication data can be listened from the watch via the <code>flow</code> property:
    <div class="highlight"><pre><span></span><code><span class="n">tokenBundleRepository</span><span class="p">.</span><span class="na">flow</span>

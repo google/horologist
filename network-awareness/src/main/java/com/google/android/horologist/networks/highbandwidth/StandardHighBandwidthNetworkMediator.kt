@@ -155,7 +155,7 @@ public class StandardHighBandwidthNetworkMediator(
         val shouldCancelLease = countAndLease.count == 1
         if (shouldCancelLease) {
             check(pendingCancel == null)
-            pendingCancel = coroutineScope.launch(Dispatchers.Default) {
+            pendingCancel = coroutineScope.launch {
                 processCancel(request)
             }
         }

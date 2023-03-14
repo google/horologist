@@ -37,10 +37,6 @@ android {
     }
 
     compileOptions {
-        // Flag to enable support for the new language APIs
-        // For AGP 4.1+
-        isCoreLibraryDesugaringEnabled = true
-
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
@@ -110,8 +106,6 @@ metalava {
 }
 
 dependencies {
-    coreLibraryDesugaring(libs.desugar.jdk.libs)
-
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
 

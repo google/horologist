@@ -30,6 +30,7 @@ com-squareup-retrofit2 = "2.9.0"
 compose = "1.4.0-rc01"
 compose-compiler = "1.4.3"
 composesnapshot = "-"
+desugar_jdk_libs = "2.0.2"
 dokka = "1.5.0"
 espresso = "3.5.1"
 googleSecretsGradlePlugin = "2.0.1"
@@ -130,6 +131,7 @@ dagger-hiltandroid = { module = "com.google.dagger:hilt-android", version.ref = 
 dagger-hiltandroidcompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "googledagger" }
 dagger-hiltandroidplugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "googledagger" }
 dagger-hiltandroidtesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "googledagger" }
+desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 googleSecretsGradlePlugin = { module = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin", version.ref = "googleSecretsGradlePlugin" }

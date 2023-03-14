@@ -157,12 +157,7 @@ abstract class DataLayerAppHelper(protected val context: Context) {
             .forEach { entry ->
                 val name = entry.key.removePrefix(surfacePrefix)
                 for (node in entry.value.nodes) {
-                    val previousValue = idToSurfaceSet[node.id]
-                    if (previousValue == null) {
-                        idToSurfaceSet[node.id] = setOf(name)
-                    } else {
-                        idToSurfaceSet[node.id] = previousValue + name
-                    }
+                    idToSurfaceSet.merge(node.id, setOf(name)) { s1, s2 -> s1 + s2 }
                 }
             }
         return idToSurfaceSet

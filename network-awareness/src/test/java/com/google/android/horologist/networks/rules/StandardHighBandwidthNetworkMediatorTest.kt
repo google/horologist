@@ -19,35 +19,21 @@
 package com.google.android.horologist.networks.rules
 
 import com.google.android.horologist.networks.ExperimentalHorologistNetworksApi
-import com.google.android.horologist.networks.data.InMemoryDataRequestRepository
 import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.NetworkType.Wifi
-import com.google.android.horologist.networks.data.RequestType
 import com.google.android.horologist.networks.highbandwidth.StandardHighBandwidthNetworkMediator
-import com.google.android.horologist.networks.okhttp.NetworkSelectingCallFactory
-import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.requestType
-import com.google.android.horologist.networks.okhttp.networkInfo
 import com.google.android.horologist.networks.request.HighBandwidthRequest
-import com.google.android.horologist.networks.rules.helpers.ConfigurableNetworkingRules
-import com.google.android.horologist.networks.rules.helpers.DeadEndInterceptor
 import com.google.android.horologist.networks.rules.helpers.FakeNetworkRepository
 import com.google.android.horologist.networks.rules.helpers.FakeNetworkRequester
 import com.google.android.horologist.networks.rules.helpers.TestLogger
-import com.google.common.truth.Truth
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.job
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import org.junit.Assert
 import org.junit.Test
-import java.io.IOException
 import kotlin.time.Duration.Companion.seconds
 
 class StandardHighBandwidthNetworkMediatorTest {

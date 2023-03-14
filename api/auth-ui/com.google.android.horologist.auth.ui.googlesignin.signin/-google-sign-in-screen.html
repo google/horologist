@@ -1,46 +1,66 @@
+<!doctype html>
 <html>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>GoogleSignInScreen</title>
-</head><body><link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script><script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script><link href="../../styles/style.css" rel="Stylesheet"><link href="../../styles/logo-styles.css" rel="Stylesheet"><link href="../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../scripts/main.js" async></script>
-  
-    <div id="container">
-      <div id="leftColumn"><a href="../../index.html">
-            <div id="logo"></div>
-          </a>
-        <div id="paneSearch"></div>
-        <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <script type="text/javascript" src="../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
-
-        <div class="main-content" id="content" pageids="auth-ui::com.google.android.horologist.auth.ui.googlesignin.signin//GoogleSignInScreen/#kotlin.Function0[kotlin.Unit]#kotlin.Function0[kotlin.Unit]#androidx.compose.ui.Modifier#com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInViewModel#kotlin.Function1[com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreenState.Success,kotlin.Unit]/PointingToDeclaration//1442019308">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../index.html">auth-ui</a>/<a href="index.html">com.google.android.horologist.auth.ui.googlesignin.signin</a>/<a href="-google-sign-in-screen.html">GoogleSignInScreen</a></div>
-            <div class="pull-right d-flex">
-              <div id="searchBar"></div>
-            </div>
-          </div>
-          <div class="cover ">
-            <h1 class="cover"><span>Google</span><wbr><span>Sign</span><wbr><span>In</span><wbr><span>Screen</span></h1>
-          </div>
-<div class="divergent-group" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":auth-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="-google-sign-in-screen.html">GoogleSignInScreen</a>(onAuthCancelled: () -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, failedContent: <span>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()&nbsp;</span>() -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, modifier: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a> = Modifier, viewModel: <a href="-google-sign-in-view-model/index.html">GoogleSignInViewModel</a> = viewModel(), content: <span>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()&nbsp;</span>(successState: <a href="-google-sign-in-screen-state/-success/index.html">GoogleSignInScreenState.Success</a>) -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<p class="paragraph">A screen for the Google Sign-In authentication method.</p><p class="paragraph"><a href="-google-sign-in-screen.html">onAuthCancelled</a> should be used to navigate away from this screen.</p></div>
-<div class="divergent-group" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":auth-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="-google-sign-in-screen.html">GoogleSignInScreen</a>(onAuthCancelled: () -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, onAuthSucceed: () -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, modifier: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a> = Modifier, viewModel: <a href="-google-sign-in-view-model/index.html">GoogleSignInViewModel</a> = viewModel())<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<p class="paragraph">A <a href="-google-sign-in-screen.html">GoogleSignInScreen</a> with:</p><ul><li><p class="paragraph">SignedInConfirmationDialog as content for <a href="-google-sign-in-screen-state/-success/index.html">success</a> state;</p></li><li><p class="paragraph">AuthErrorScreen as content for <a href="-google-sign-in-screen-state/-failed/index.html">failed</a> state;</p></li></ul><p class="paragraph">Parameters <a href="-google-sign-in-screen.html">onAuthCancelled</a> and <a href="-google-sign-in-screen.html">onAuthSucceed</a> should be used to navigate away from this screen when these events happen.</p></div>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../index.html">
+<span>horologist</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":auth-ui:dokkaHtmlPartial/release">androidJvm</button>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageids="auth-ui::com.google.android.horologist.auth.ui.googlesignin.signin//GoogleSignInScreen/#kotlin.Function0[kotlin.Unit]#kotlin.Function0[kotlin.Unit]#androidx.compose.ui.Modifier#com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInViewModel#kotlin.Function1[com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreenState.Success,kotlin.Unit]/PointingToDeclaration//1442019308">
+  <div class="breadcrumbs"><a href="../index.html">auth-ui</a><span class="delimiter">/</span><a href="index.html">com.google.android.horologist.auth.ui.googlesignin.signin</a><span class="delimiter">/</span><span class="current">GoogleSignInScreen</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Google</span><wbr><span>Sign</span><wbr><span>In</span><wbr><span><span>Screen</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="-google-sign-in-screen.html"><span class="token function">GoogleSignInScreen</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">onAuthCancelled<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">failedContent<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a>&nbsp;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">viewModel<span class="token operator">: </span><a href="-google-sign-in-view-model/index.html">GoogleSignInViewModel</a><span class="token operator"> = </span>viewModel()<span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a>&nbsp;</span><span class="token punctuation">(</span><span class="token keyword"></span>successState<span class="token operator">: </span><a href="-google-sign-in-screen-state/-success/index.html">GoogleSignInScreenState.Success</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><p class="paragraph">A screen for the Google Sign-In authentication method.</p><p class="paragraph"><a href="-google-sign-in-screen.html">onAuthCancelled</a> should be used to navigate away from this screen.</p><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="-google-sign-in-screen.html"><span class="token function">GoogleSignInScreen</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">onAuthCancelled<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">onAuthSucceed<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">viewModel<span class="token operator">: </span><a href="-google-sign-in-view-model/index.html">GoogleSignInViewModel</a><span class="token operator"> = </span>viewModel()</span></span><span class="token punctuation">)</span></div><p class="paragraph">A <a href="-google-sign-in-screen.html">GoogleSignInScreen</a> with:</p><ul><li><p class="paragraph"><a href="../../auth-composables/com.google.android.horologist.auth.composables.dialogs/index.html">SignedInConfirmationDialog</a> as content for <a href="-google-sign-in-screen-state/-success/index.html">success</a> state;</p></li><li><p class="paragraph"><a href="../../auth-composables/com.google.android.horologist.auth.composables.screens/index.html">AuthErrorScreen</a> as content for <a href="-google-sign-in-screen-state/-failed/index.html">failed</a> state;</p></li></ul><p class="paragraph">Parameters <a href="-google-sign-in-screen.html">onAuthCancelled</a> and <a href="-google-sign-in-screen.html">onAuthSucceed</a> should be used to navigate away from this screen when these events happen.</p></div></div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
       </div>
     </div>
-  
-</body></html>
-
+</div>
+</body>
+</html>
 

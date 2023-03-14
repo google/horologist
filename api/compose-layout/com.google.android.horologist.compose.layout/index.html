@@ -1,162 +1,189 @@
+<!doctype html>
 <html>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>com.google.android.horologist.compose.layout</title>
-</head><body><link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script><script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script><link href="../../styles/style.css" rel="Stylesheet"><link href="../../styles/logo-styles.css" rel="Stylesheet"><link href="../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../scripts/main.js" async></script>
-  
-    <div id="container">
-      <div id="leftColumn"><a href="../../index.html">
-            <div id="logo"></div>
-          </a>
-        <div id="paneSearch"></div>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../index.html">
+<span>horologist</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":compose-layout:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
         <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <script type="text/javascript" src="../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
-
-        <div class="main-content" id="content" pageids="compose-layout::com.google.android.horologist.compose.layout////PointingToDeclaration//-1355565138">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../index.html">compose-layout</a>/<a href="index.html">com.google.android.horologist.compose.layout</a></div>
-            <div class="pull-right d-flex">
-              <div id="searchBar"></div>
-            </div>
-          </div>
-          <div class="cover ">
-            <h1 class="cover"><span>Package com.</span><wbr><span>google.</span><wbr><span>android.</span><wbr><span>horologist.</span><wbr><span>compose.</span><wbr><span>layout</span></h1>
-          </div>
-          <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Functions">Functions</button></div>
-            <div class="tabs-section-body">
-              <h2 class="">Types</h2>
-              <div class="table" data-togglable="Types"><a data-name="278614074%2FClasslikes%2F-1355565138" anchor-label="ScalingLazyColumnDefaults" id="278614074%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-scaling-lazy-column-defaults/index.html">ScalingLazyColumnDefaults</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="278614074%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">object <a href="-scaling-lazy-column-defaults/index.html">ScalingLazyColumnDefaults</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="package" id="content" pageids="compose-layout::com.google.android.horologist.compose.layout////PointingToDeclaration//-1355565138">
+  <div class="breadcrumbs"><a href="../index.html">compose-layout</a><span class="delimiter">/</span><span class="current">com.google.android.horologist.compose.layout</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
   </div>
-<a data-name="278614074%2FClasslikes%2F-1355565138" anchor-label="ScalingLazyColumnDefaults" id="278614074%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="278614074%2FClasslikes%2F-1355565138" anchor-label="ScalingLazyColumnDefaults" id="278614074%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>Default layouts for ScalingLazyColumnState, based on UX guidance.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="278333573%2FClasslikes%2F-1355565138" anchor-label="ScalingLazyColumnState" id="278333573%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-scaling-lazy-column-state/index.html">ScalingLazyColumnState</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="278333573%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="-scaling-lazy-column-state/index.html">ScalingLazyColumnState</a>(initialScrollPosition: <a href="-scaling-lazy-column-state/-scroll-position/index.html">ScalingLazyColumnState.ScrollPosition</a>, autoCentering: <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/AutoCenteringParams.html">AutoCenteringParams</a>?, anchorType: <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/ScalingLazyListAnchorType.html">ScalingLazyListAnchorType</a>, contentPadding: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/PaddingValues.html">PaddingValues</a>, rotaryMode: <a href="-scaling-lazy-column-state/-rotary-mode/index.html">ScalingLazyColumnState.RotaryMode</a>, reverseLayout: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, verticalArrangement: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/Arrangement.Vertical.html">Arrangement.Vertical</a>, horizontalAlignment: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Alignment.Horizontal.html">Alignment.Horizontal</a>, flingBehavior: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/FlingBehavior.html">FlingBehavior</a>?, userScrollEnabled: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, scalingParams: <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/ScalingParams.html">ScalingParams</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="278333573%2FClasslikes%2F-1355565138" anchor-label="ScalingLazyColumnState" id="278333573%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="278333573%2FClasslikes%2F-1355565138" anchor-label="ScalingLazyColumnState" id="278333573%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>A Config and State object wrapping up all configuration for a <a href="-scaling-lazy-column.html">ScalingLazyColumn</a>.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="2024786981%2FClasslikes%2F-1355565138" anchor-label="StateUtils" id="2024786981%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-state-utils/index.html">StateUtils</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2024786981%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">object <a href="-state-utils/index.html">StateUtils</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="278614074%2FClasslikes%2F-1355565138" anchor-label="ScalingLazyColumnDefaults" id="278614074%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-scaling-lazy-column-defaults/index.html"><span>Scaling</span><wbr><span>Lazy</span><wbr><span>Column</span><wbr><span><span>Defaults</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="278614074%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">object </span><a href="-scaling-lazy-column-defaults/index.html">ScalingLazyColumnDefaults</a></div><div class="brief "><p class="paragraph">Default layouts for ScalingLazyColumnState, based on UX guidance.</p></div></div></div>
                 </div>
               </div>
-              <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="1146533117%2FFunctions%2F-1355565138" anchor-label="belowTimeTextPreview" id="1146533117%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="below-time-text-preview.html">belowTimeTextPreview</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1146533117%2FFunctions%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="below-time-text-preview.html">belowTimeTextPreview</a>(): <a href="-scaling-lazy-column-state/index.html">ScalingLazyColumnState</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+            </div>
+          </div>
+<a data-name="278333573%2FClasslikes%2F-1355565138" anchor-label="ScalingLazyColumnState" id="278333573%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-scaling-lazy-column-state/index.html"><span>Scaling</span><wbr><span>Lazy</span><wbr><span>Column</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="278333573%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-scaling-lazy-column-state/index.html">ScalingLazyColumnState</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>initialScrollPosition<span class="token operator">: </span><a href="-scaling-lazy-column-state/-scroll-position/index.html">ScalingLazyColumnState.ScrollPosition</a><span class="token operator"> = </span>ScrollPosition(1, 0)<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>autoCentering<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/AutoCenteringParams.html">AutoCenteringParams</a><span class="token operator">?</span><span class="token operator"> = </span>AutoCenteringParams(
+        initialScrollPosition.index,
+        initialScrollPosition.offsetPx
+    )<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>anchorType<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/ScalingLazyListAnchorType.html">ScalingLazyListAnchorType</a><span class="token operator"> = </span>ScalingLazyListAnchorType.ItemCenter<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>contentPadding<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/PaddingValues.html">PaddingValues</a><span class="token operator"> = </span>PaddingValues(horizontal = 10.dp)<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>rotaryMode<span class="token operator">: </span><a href="-scaling-lazy-column-state/-rotary-mode/index.html">ScalingLazyColumnState.RotaryMode</a><span class="token operator"> = </span>RotaryMode.Fling<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>reverseLayout<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>verticalArrangement<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/Arrangement.Vertical.html">Arrangement.Vertical</a><span class="token operator"> = </span>Arrangement.spacedBy(
+            space = 4.dp,
+            alignment = if (!reverseLayout) Alignment.Top else Alignment.Bottom
+        )<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>horizontalAlignment<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Alignment.Horizontal.html">Alignment.Horizontal</a><span class="token operator"> = </span>Alignment.CenterHorizontally<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>flingBehavior<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/FlingBehavior.html">FlingBehavior</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>userScrollEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>scalingParams<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/ScalingParams.html">ScalingParams</a><span class="token operator"> = </span>WearScalingLazyColumnDefaults.scalingParams()</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A Config and State object wrapping up all configuration for a <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/package-summary.html">ScalingLazyColumn</a>. This allows defaults such as <a href="-scaling-lazy-column-defaults/below-time-text.html">ScalingLazyColumnDefaults.belowTimeText</a>.</p></div></div></div>
                 </div>
-<a data-name="-749026404%2FFunctions%2F-1355565138" anchor-label="fillMaxRectangle" id="-749026404%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="fill-max-rectangle.html">fillMaxRectangle</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-749026404%2FFunctions%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Stable.html">Stable</a>()</div></div>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="fill-max-rectangle.html">fillMaxRectangle</a>(): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-749026404%2FFunctions%2F-1355565138" anchor-label="fillMaxRectangle" id="-749026404%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-749026404%2FFunctions%2F-1355565138" anchor-label="fillMaxRectangle" id="-749026404%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>A <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a> for adding padding for round devices for rectangular content.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-1129253969%2FFunctions%2F-1355565138" anchor-label="ScalingLazyColumn" id="-1129253969%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-scaling-lazy-column.html">ScalingLazyColumn</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1129253969%2FFunctions%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="-scaling-lazy-column.html">ScalingLazyColumn</a>(columnState: <a href="-scaling-lazy-column-state/index.html">ScalingLazyColumnState</a>, modifier: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a> = Modifier, content: <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/ScalingLazyListScope.html">ScalingLazyListScope</a>.() -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-1862276248%2FFunctions%2F-1355565138" anchor-label="scrollAway" id="-1862276248%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="scroll-away.html">scrollAway</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1862276248%2FFunctions%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="scroll-away.html">scrollAway</a>(scalingLazyColumnState: <a href="-scaling-lazy-column-state/index.html">ScalingLazyColumnState</a>): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-1862276248%2FFunctions%2F-1355565138" anchor-label="scrollAway" id="-1862276248%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-1862276248%2FFunctions%2F-1355565138" anchor-label="scrollAway" id="-1862276248%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>Scroll an item vertically in/out of view based on a <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/ScalingLazyListState.html">ScalingLazyListState</a>.</div></div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2024786981%2FClasslikes%2F-1355565138" anchor-label="StateUtils" id="2024786981%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-state-utils/index.html"><span>State</span><wbr><span><span>Utils</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2024786981%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">object </span><a href="-state-utils/index.html">StateUtils</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1146533117%2FFunctions%2F-1355565138" anchor-label="belowTimeTextPreview" id="1146533117%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="below-time-text-preview.html"><span>below</span><wbr><span>Time</span><wbr><span>Text</span><wbr><span><span>Preview</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1146533117%2FFunctions%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="below-time-text-preview.html"><span class="token function">belowTimeTextPreview</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-scaling-lazy-column-state/index.html">ScalingLazyColumnState</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-749026404%2FFunctions%2F-1355565138" anchor-label="fillMaxRectangle" id="-749026404%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="fill-max-rectangle.html"><span>fill</span><wbr><span>Max</span><wbr><span><span>Rectangle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-749026404%2FFunctions%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Stable.html"><span class="token annotation builtin">Stable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token punctuation">.</span><a href="fill-max-rectangle.html"><span class="token function">fillMaxRectangle</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></div><div class="brief "><p class="paragraph">A <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a> for adding padding for round devices for rectangular content.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1129253969%2FFunctions%2F-1355565138" anchor-label="ScalingLazyColumn" id="-1129253969%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-scaling-lazy-column.html"><span>Scaling</span><wbr><span>Lazy</span><wbr><span><span>Column</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1129253969%2FFunctions%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="-scaling-lazy-column.html"><span class="token function">ScalingLazyColumn</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">columnState<span class="token operator">: </span><a href="-scaling-lazy-column-state/index.html">ScalingLazyColumnState</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/ScalingLazyListScope.html">ScalingLazyListScope</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1862276248%2FFunctions%2F-1355565138" anchor-label="scrollAway" id="-1862276248%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="scroll-away.html"><span>scroll</span><wbr><span><span>Away</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1862276248%2FFunctions%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token punctuation">.</span><a href="scroll-away.html"><span class="token function">scrollAway</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scalingLazyColumnState<span class="token operator">: </span><a href="-scaling-lazy-column-state/index.html">ScalingLazyColumnState</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></div><div class="brief "><p class="paragraph">Scroll an item vertically in/out of view based on a <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/ScalingLazyListState.html">ScalingLazyListState</a>. Typically used to scroll a TimeText item out of view as the user starts to scroll a <a href="-scaling-lazy-column.html">ScalingLazyColumn</a> of items upwards and bring additional items into view.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  
-</body></html>
-
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
 

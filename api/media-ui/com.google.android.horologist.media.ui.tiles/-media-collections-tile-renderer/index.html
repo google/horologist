@@ -1,243 +1,282 @@
+<!doctype html>
 <html>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>MediaCollectionsTileRenderer</title>
-</head><body><link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../scripts/main.js" async></script>
-  
-    <div id="container">
-      <div id="leftColumn"><a href="../../../index.html">
-            <div id="logo"></div>
-          </a>
-        <div id="paneSearch"></div>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>horologist</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":media-ui:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
         <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <script type="text/javascript" src="../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
-
-        <div class="main-content" id="content" pageids="media-ui::com.google.android.horologist.media.ui.tiles/MediaCollectionsTileRenderer///PointingToDeclaration//781136022">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../index.html">media-ui</a>/<a href="../index.html">com.google.android.horologist.media.ui.tiles</a>/<a href="index.html">MediaCollectionsTileRenderer</a></div>
-            <div class="pull-right d-flex">
-              <div id="searchBar"></div>
-            </div>
-          </div>
-          <div class="cover ">
-            <h1 class="cover"><span>Media</span><wbr><span>Collections</span><wbr><span>Tile</span><wbr><span>Renderer</span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="index.html">MediaCollectionsTileRenderer</a>(context: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>, materialTheme: <a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/material/Colors.html">Colors</a>, debugResourceMode: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>) : <a href="../../../tiles/com.google.android.horologist.tiles.render/-single-tile-layout-renderer/index.html">SingleTileLayoutRenderer</a>&lt;<a href="-media-collections-state/index.html">MediaCollectionsTileRenderer.MediaCollectionsState</a>, <a href="-resource-state/index.html">MediaCollectionsTileRenderer.ResourceState</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">A tile template showing two media collections and a primary chip that links to playlists.</p></div></div>
-          </div>
-          <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Sources">Sources</button></div>
-            <div class="tabs-section-body">
-              <h2 class="tabbedcontent">Constructors</h2>
-              <div class="table" data-togglable="Constructors"><a data-name="919244105%2FConstructors%2F781136022" anchor-label="MediaCollectionsTileRenderer" id="919244105%2FConstructors%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue TabbedContent">
-                    <div class=""><span class="inline-flex"><a href="-media-collections-tile-renderer.html">MediaCollectionsTileRenderer</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="919244105%2FConstructors%2F781136022"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="-media-collections-tile-renderer.html">MediaCollectionsTileRenderer</a>(context: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>, materialTheme: <a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/material/Colors.html">Colors</a>, debugResourceMode: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Types</h2>
-              <div class="table" data-togglable="Types"><a data-name="-1242775586%2FClasslikes%2F781136022" anchor-label="MediaCollection" id="-1242775586%2FClasslikes%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-media-collection/index.html">MediaCollection</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1242775586%2FClasslikes%2F781136022"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace">data class <a href="-media-collection/index.html">MediaCollection</a>(name: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, artworkId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, action: <a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/ActionBuilders.Action.html">ActionBuilders.Action</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="media-ui::com.google.android.horologist.media.ui.tiles/MediaCollectionsTileRenderer///PointingToDeclaration//781136022">
+  <div class="breadcrumbs"><a href="../../index.html">media-ui</a><span class="delimiter">/</span><a href="../index.html">com.google.android.horologist.media.ui.tiles</a><span class="delimiter">/</span><span class="current">MediaCollectionsTileRenderer</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Media</span><wbr><span>Collections</span><wbr><span>Tile</span><wbr><span><span>Renderer</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">MediaCollectionsTileRenderer</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">materialTheme<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/material/Colors.html">Colors</a><span class="token punctuation">, </span></span><span class="parameter ">debugResourceMode<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span> : <a href="../../../tiles/com.google.android.horologist.tiles.render/-single-tile-layout-renderer/index.html">SingleTileLayoutRenderer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-media-collections-state/index.html">MediaCollectionsTileRenderer.MediaCollectionsState</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-resource-state/index.html">MediaCollectionsTileRenderer.ResourceState</a><span class="token operator">&gt; </span></div><p class="paragraph">A tile template showing two media collections and a primary chip that links to playlists.</p></div></div>
   </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-1581360128%2FClasslikes%2F781136022" anchor-label="MediaCollectionsState" id="-1581360128%2FClasslikes%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-media-collections-state/index.html">MediaCollectionsState</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1581360128%2FClasslikes%2F781136022"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace">data class <a href="-media-collections-state/index.html">MediaCollectionsState</a>(<span>@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/StringRes.html">StringRes</a>()&nbsp;</span>chipName: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, chipAction: <a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/ActionBuilders.Action.html">ActionBuilders.Action</a>, collection1: <a href="-media-collection/index.html">MediaCollectionsTileRenderer.MediaCollection</a>, collection2: <a href="-media-collection/index.html">MediaCollectionsTileRenderer.MediaCollection</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1827602237%2FClasslikes%2F781136022" anchor-label="ResourceState" id="1827602237%2FClasslikes%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-resource-state/index.html">ResourceState</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1827602237%2FClasslikes%2F781136022"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace">data class <a href="-resource-state/index.html">ResourceState</a>(<span>@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/DrawableRes.html">DrawableRes</a>()&nbsp;</span>appIcon: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, images: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, <a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/ResourceBuilders.ImageResource.html">ResourceBuilders.ImageResource</a>?&gt;)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="55425568%2FFunctions%2F781136022" anchor-label="createTheme" id="55425568%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="create-theme.html">createTheme</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="55425568%2FFunctions%2F781136022"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace">open override fun <a href="create-theme.html">createTheme</a>(): <a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/material/Colors.html">Colors</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="745800226%2FFunctions%2F781136022" anchor-label="produceRequestedResources" id="745800226%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#-554793205%2FFunctions%2F781136022">produceRequestedResources</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="745800226%2FFunctions%2F781136022"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace">override fun <a href="index.html#-554793205%2FFunctions%2F781136022">produceRequestedResources</a>(resourceState: <a href="-resource-state/index.html">MediaCollectionsTileRenderer.ResourceState</a>, requestParams: <a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/RequestBuilders.ResourcesRequest.html">RequestBuilders.ResourcesRequest</a>): <a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/ResourceBuilders.Resources.html">ResourceBuilders.Resources</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace">open override fun <a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/ResourceBuilders.Resources.Builder.html">ResourceBuilders.Resources.Builder</a>.<a href="produce-requested-resources.html">produceRequestedResources</a>(resourceState: <a href="-resource-state/index.html">MediaCollectionsTileRenderer.ResourceState</a>, deviceParameters: <a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/DeviceParametersBuilders.DeviceParameters.html">DeviceParametersBuilders.DeviceParameters</a>, resourceIds: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>&gt;)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-1744223287%2FFunctions%2F781136022" anchor-label="renderTile" id="-1744223287%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="render-tile.html">renderTile</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1744223287%2FFunctions%2F781136022"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace">open override fun <a href="render-tile.html">renderTile</a>(state: <a href="-media-collections-state/index.html">MediaCollectionsTileRenderer.MediaCollectionsState</a>, deviceParameters: <a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/DeviceParametersBuilders.DeviceParameters.html">DeviceParametersBuilders.DeviceParameters</a>): <a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/LayoutElementBuilders.LayoutElement.html">LayoutElementBuilders.LayoutElement</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-1439580223%2FFunctions%2F781136022" anchor-label="renderTimeline" id="-1439580223%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#-1439580223%2FFunctions%2F781136022">renderTimeline</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1439580223%2FFunctions%2F781136022"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace">override fun <a href="index.html#-1439580223%2FFunctions%2F781136022">renderTimeline</a>(state: <a href="-media-collections-state/index.html">MediaCollectionsTileRenderer.MediaCollectionsState</a>, requestParams: <a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/RequestBuilders.TileRequest.html">RequestBuilders.TileRequest</a>): <a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/TileBuilders.Tile.html">TileBuilders.Tile</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Properties</h2>
-              <div class="table" data-togglable="Properties"><a data-name="-933382946%2FProperties%2F781136022" anchor-label="context" id="-933382946%2FProperties%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#-933382946%2FProperties%2F781136022">context</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-933382946%2FProperties%2F781136022"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><a data-name="-933382946%2FProperties%2F781136022" anchor-label="context" id="-933382946%2FProperties%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a><div class="symbol monospace">val <a href="index.html#-933382946%2FProperties%2F781136022">context</a>: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-1402130583%2FProperties%2F781136022" anchor-label="debugResourceMode" id="-1402130583%2FProperties%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#-1402130583%2FProperties%2F781136022">debugResourceMode</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1402130583%2FProperties%2F781136022"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><a data-name="-1402130583%2FProperties%2F781136022" anchor-label="debugResourceMode" id="-1402130583%2FProperties%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a><div class="symbol monospace">val <a href="index.html#-1402130583%2FProperties%2F781136022">debugResourceMode</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-1119194531%2FProperties%2F781136022" anchor-label="freshnessIntervalMillis" id="-1119194531%2FProperties%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#-1119194531%2FProperties%2F781136022">freshnessIntervalMillis</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1119194531%2FProperties%2F781136022"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><a data-name="-1119194531%2FProperties%2F781136022" anchor-label="freshnessIntervalMillis" id="-1119194531%2FProperties%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a><div class="symbol monospace">open val <a href="index.html#-1119194531%2FProperties%2F781136022">freshnessIntervalMillis</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="899686916%2FProperties%2F781136022" anchor-label="theme" id="899686916%2FProperties%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#899686916%2FProperties%2F781136022">theme</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="899686916%2FProperties%2F781136022"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><a data-name="899686916%2FProperties%2F781136022" anchor-label="theme" id="899686916%2FProperties%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a><div class="symbol monospace">val <a href="index.html#899686916%2FProperties%2F781136022">theme</a>: <a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/material/Colors.html">Colors</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Sources</h2>
-              <div class="table" data-togglable="Sources"><a data-name="-1074858254%2FSource%2F286127934" anchor-label="https://github.com/google/horologist/blob/main/media-ui/src/main/java/com/google/android/horologist/media/ui/tiles/MediaCollectionsTileRenderer.kt#L44" id="-1074858254%2FSource%2F286127934" data-filterable-set=":media-ui:dokkaHtmlPartial/main"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/main" data-filterable-set=":media-ui:dokkaHtmlPartial/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="https://github.com/google/horologist/blob/main/media-ui/src/main/java/com/google/android/horologist/media/ui/tiles/MediaCollectionsTileRenderer.kt#L44">androidJvm source</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1074858254%2FSource%2F286127934"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div></div>
-                  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="919244105%2FConstructors%2F781136022" anchor-label="MediaCollectionsTileRenderer" id="919244105%2FConstructors%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-media-collections-tile-renderer.html"><span>Media</span><wbr><span>Collections</span><wbr><span>Tile</span><wbr><span><span>Renderer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="919244105%2FConstructors%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">materialTheme<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/material/Colors.html">Colors</a><span class="token punctuation">, </span></span><span class="parameter ">debugResourceMode<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1242775586%2FClasslikes%2F781136022" anchor-label="MediaCollection" id="-1242775586%2FClasslikes%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-media-collection/index.html"><span>Media</span><wbr><span><span>Collection</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1242775586%2FClasslikes%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-media-collection/index.html">MediaCollection</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>artworkId<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>action<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/ActionBuilders.Action.html">ActionBuilders.Action</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1581360128%2FClasslikes%2F781136022" anchor-label="MediaCollectionsState" id="-1581360128%2FClasslikes%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-media-collections-state/index.html"><span>Media</span><wbr><span>Collections</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1581360128%2FClasslikes%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-media-collections-state/index.html">MediaCollectionsState</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/StringRes.html"><span class="token annotation builtin">StringRes</span></a>&nbsp;</span><span class="token keyword">val </span>chipName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>chipAction<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/ActionBuilders.Action.html">ActionBuilders.Action</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>collection1<span class="token operator">: </span><a href="-media-collection/index.html">MediaCollectionsTileRenderer.MediaCollection</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>collection2<span class="token operator">: </span><a href="-media-collection/index.html">MediaCollectionsTileRenderer.MediaCollection</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1827602237%2FClasslikes%2F781136022" anchor-label="ResourceState" id="1827602237%2FClasslikes%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-resource-state/index.html"><span>Resource</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1827602237%2FClasslikes%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-resource-state/index.html">ResourceState</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/DrawableRes.html"><span class="token annotation builtin">DrawableRes</span></a>&nbsp;</span><span class="token keyword">val </span>appIcon<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>images<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/ResourceBuilders.ImageResource.html">ResourceBuilders.ImageResource</a><span class="token operator">?</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="55425568%2FFunctions%2F781136022" anchor-label="createTheme" id="55425568%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="create-theme.html"><span>create</span><wbr><span><span>Theme</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="55425568%2FFunctions%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="create-theme.html"><span class="token function">createTheme</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/material/Colors.html">Colors</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-554793205%2FFunctions%2F781136022" anchor-label="produceRequestedResources" id="-554793205%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-554793205%2FFunctions%2F781136022"><span>produce</span><wbr><span>Requested</span><wbr><span><span>Resources</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-554793205%2FFunctions%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">override </span><span class="token keyword">fun </span><a href="index.html#-554793205%2FFunctions%2F781136022"><span class="token function">produceRequestedResources</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">resourceState<span class="token operator">: </span><a href="-resource-state/index.html">MediaCollectionsTileRenderer.ResourceState</a><span class="token punctuation">, </span></span><span class="parameter ">requestParams<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/RequestBuilders.ResourcesRequest.html">RequestBuilders.ResourcesRequest</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/ResourceBuilders.Resources.html">ResourceBuilders.Resources</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1724558371%2FFunctions%2F781136022" anchor-label="produceRequestedResources" id="1724558371%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="produce-requested-resources.html"><span>produce</span><wbr><span>Requested</span><wbr><span><span>Resources</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1724558371%2FFunctions%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/ResourceBuilders.Resources.Builder.html">ResourceBuilders.Resources.Builder</a><span class="token punctuation">.</span><a href="produce-requested-resources.html"><span class="token function">produceRequestedResources</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">resourceState<span class="token operator">: </span><a href="-resource-state/index.html">MediaCollectionsTileRenderer.ResourceState</a><span class="token punctuation">, </span></span><span class="parameter ">deviceParameters<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/DeviceParametersBuilders.DeviceParameters.html">DeviceParametersBuilders.DeviceParameters</a><span class="token punctuation">, </span></span><span class="parameter ">resourceIds<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1744223287%2FFunctions%2F781136022" anchor-label="renderTile" id="-1744223287%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="render-tile.html"><span>render</span><wbr><span><span>Tile</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1744223287%2FFunctions%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="render-tile.html"><span class="token function">renderTile</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="-media-collections-state/index.html">MediaCollectionsTileRenderer.MediaCollectionsState</a><span class="token punctuation">, </span></span><span class="parameter ">deviceParameters<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/DeviceParametersBuilders.DeviceParameters.html">DeviceParametersBuilders.DeviceParameters</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/LayoutElementBuilders.LayoutElement.html">LayoutElementBuilders.LayoutElement</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1439580223%2FFunctions%2F781136022" anchor-label="renderTimeline" id="-1439580223%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1439580223%2FFunctions%2F781136022"><span>render</span><wbr><span><span>Timeline</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1439580223%2FFunctions%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">override </span><span class="token keyword">fun </span><a href="index.html#-1439580223%2FFunctions%2F781136022"><span class="token function">renderTimeline</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="-media-collections-state/index.html">MediaCollectionsTileRenderer.MediaCollectionsState</a><span class="token punctuation">, </span></span><span class="parameter ">requestParams<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/RequestBuilders.TileRequest.html">RequestBuilders.TileRequest</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/TileBuilders.Tile.html">TileBuilders.Tile</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1809174681%2FProperties%2F781136022" anchor-label="context" id="-1809174681%2FProperties%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1809174681%2FProperties%2F781136022"><span><span>context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1809174681%2FProperties%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="index.html#-1809174681%2FProperties%2F781136022">context</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-724774222%2FProperties%2F781136022" anchor-label="debugResourceMode" id="-724774222%2FProperties%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-724774222%2FProperties%2F781136022"><span>debug</span><wbr><span>Resource</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-724774222%2FProperties%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="index.html#-724774222%2FProperties%2F781136022">debugResourceMode</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1882539290%2FProperties%2F781136022" anchor-label="freshnessIntervalMillis" id="-1882539290%2FProperties%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1882539290%2FProperties%2F781136022"><span>freshness</span><wbr><span>Interval</span><wbr><span><span>Millis</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1882539290%2FProperties%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">val </span><a href="index.html#-1882539290%2FProperties%2F781136022">freshnessIntervalMillis</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-164910387%2FProperties%2F781136022" anchor-label="theme" id="-164910387%2FProperties%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-164910387%2FProperties%2F781136022"><span><span>theme</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-164910387%2FProperties%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="index.html#-164910387%2FProperties%2F781136022">theme</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/material/Colors.html">Colors</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  
-</body></html>
-
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
 

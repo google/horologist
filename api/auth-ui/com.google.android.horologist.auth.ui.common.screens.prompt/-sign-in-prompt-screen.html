@@ -1,35 +1,60 @@
+<!doctype html>
 <html>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>SignInPromptScreen</title>
-</head><body><link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script><script src="https://unpkg.com/kotlin-playground@1" data-selector="code.runnablesample"></script><script src="https://unpkg.com/kotlin-playground@1" data-selector="code.runnablesample"></script><script src="https://unpkg.com/kotlin-playground@1" data-selector="code.runnablesample"></script><script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script><link href="../../styles/style.css" rel="Stylesheet"><link href="../../styles/logo-styles.css" rel="Stylesheet"><link href="../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../scripts/main.js" async></script>
-  
-    <div id="container">
-      <div id="leftColumn"><a href="../../index.html">
-            <div id="logo"></div>
-          </a>
-        <div id="paneSearch"></div>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script src="https://unpkg.com/kotlin-playground@1"></script><script src="https://unpkg.com/kotlin-playground@1"></script><script src="https://unpkg.com/kotlin-playground@1"></script><script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../index.html">
+<span>horologist</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":auth-ui:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
         <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <script type="text/javascript" src="../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
-
-        <div class="main-content" id="content" pageids="auth-ui::com.google.android.horologist.auth.ui.common.screens.prompt//SignInPromptScreen/#kotlin.String#kotlin.Function1[com.google.android.horologist.auth.composables.model.AccountUiModel,kotlin.Unit]#com.google.android.horologist.compose.layout.ScalingLazyColumnState#androidx.compose.ui.Modifier#kotlin.String#com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel#kotlin.Function1[androidx.wear.compose.foundation.lazy.ScalingLazyListScope,kotlin.Unit]/PointingToDeclaration//1442019308">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../index.html">auth-ui</a>/<a href="index.html">com.google.android.horologist.auth.ui.common.screens.prompt</a>/<a href="-sign-in-prompt-screen.html">SignInPromptScreen</a></div>
-            <div class="pull-right d-flex">
-              <div id="searchBar"></div>
-            </div>
-          </div>
-          <div class="cover ">
-            <h1 class="cover"><span>Sign</span><wbr><span>In</span><wbr><span>Prompt</span><wbr><span>Screen</span></h1>
-          </div>
-<div class="divergent-group" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":auth-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="-sign-in-prompt-screen.html">SignInPromptScreen</a>(message: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, onAlreadySignedIn: (account: <a href="../../auth-composables/com.google.android.horologist.auth.composables.model/-account-ui-model/index.html">AccountUiModel</a>) -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, columnState: <a href="../../compose-layout/com.google.android.horologist.compose.layout/-scaling-lazy-column-state/index.html">ScalingLazyColumnState</a>, modifier: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a> = Modifier, title: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = stringResource(id = R.string.horologist_signin_prompt_title), viewModel: <a href="-sign-in-prompt-view-model/index.html">SignInPromptViewModel</a> = viewModel(), content: <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/ScalingLazyListScope.html">ScalingLazyListScope</a>.() -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageids="auth-ui::com.google.android.horologist.auth.ui.common.screens.prompt//SignInPromptScreen/#kotlin.String#kotlin.Function1[com.google.android.horologist.auth.composables.model.AccountUiModel,kotlin.Unit]#com.google.android.horologist.compose.layout.ScalingLazyColumnState#androidx.compose.ui.Modifier#kotlin.String#com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel#kotlin.Function1[androidx.wear.compose.foundation.lazy.ScalingLazyListScope,kotlin.Unit]/PointingToDeclaration//1442019308">
+  <div class="breadcrumbs"><a href="../index.html">auth-ui</a><span class="delimiter">/</span><a href="index.html">com.google.android.horologist.auth.ui.common.screens.prompt</a><span class="delimiter">/</span><span class="current">SignInPromptScreen</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Sign</span><wbr><span>In</span><wbr><span>Prompt</span><wbr><span><span>Screen</span></span></h1>
   </div>
-<p class="paragraph">A screen to prompt users to sign in.</p><p class="paragraph">Through the <a href="-sign-in-prompt-screen.html">message</a> the <a href="https://developer.android.com/training/wearables/design/sign-in#benefits">sign-in benefits</a> are explained to the user.</p><p class="paragraph">The <a href="-sign-in-prompt-screen.html">viewModel</a> will take care of <a href="https://developer.android.com/training/wearables/design/sign-in#streamline">streamlining</a> the process when the user is already signed in. <a href="-sign-in-prompt-screen.html">onAlreadySignedIn</a> should be used to navigate away from this screen in that scenario.</p><p class="paragraph">The <a href="-sign-in-prompt-screen.html">content</a> should provide <a href="https://developer.android.com/training/wearables/design/sign-in#alternatives">sign-in alternatives</a>.</p><h2 class="">Samples</h2><div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Samples"><div class="content sourceset-depenent-content" data-active="" data-togglable=":auth-ui:dokkaHtmlPartial/release"><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import androidx.compose.runtime.Composable
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="-sign-in-prompt-screen.html"><span class="token function">SignInPromptScreen</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">message<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">onAlreadySignedIn<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>account<span class="token operator">: </span><a href="../../auth-composables/com.google.android.horologist.auth.composables.model/-account-ui-model/index.html">AccountUiModel</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">columnState<span class="token operator">: </span><a href="../../compose-layout/com.google.android.horologist.compose.layout/-scaling-lazy-column-state/index.html">ScalingLazyColumnState</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">title<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>stringResource(id = R.string.horologist_signin_prompt_title)<span class="token punctuation">, </span></span><span class="parameter ">viewModel<span class="token operator">: </span><a href="-sign-in-prompt-view-model/index.html">SignInPromptViewModel</a><span class="token operator"> = </span>viewModel()<span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/ScalingLazyListScope.html">ScalingLazyListScope</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><p class="paragraph">A screen to prompt users to sign in.</p><p class="paragraph">Through the <a href="-sign-in-prompt-screen.html">message</a> the <a href="https://developer.android.com/training/wearables/design/sign-in#benefits">sign-in benefits</a> are explained to the user.</p><p class="paragraph">The <a href="-sign-in-prompt-screen.html">viewModel</a> will take care of <a href="https://developer.android.com/training/wearables/design/sign-in#streamline">streamlining</a> the process when the user is already signed in. <a href="-sign-in-prompt-screen.html">onAlreadySignedIn</a> should be used to navigate away from this screen in that scenario.</p><p class="paragraph">The <a href="-sign-in-prompt-screen.html">content</a> should provide <a href="https://developer.android.com/training/wearables/design/sign-in#alternatives">sign-in alternatives</a>.</p><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -98,7 +123,7 @@ if (showAlreadySignedInDialog) {
     }
 } 
    //sampleEnd
-}</pre></code></div><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import androidx.compose.runtime.Composable
+}</code></pre></div><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -168,7 +193,7 @@ if (showAlreadySignedInDialog) {
     }
 } 
    //sampleEnd
-}</pre></code></div><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import androidx.compose.runtime.Composable
+}</code></pre></div><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -238,23 +263,13 @@ if (showAlreadySignedInDialog) {
     }
 } 
    //sampleEnd
-}</pre></code></div></div></div></div>
-          <h2 class="">Sources</h2>
-          <div class="table" data-togglable="Sources"><a data-name="271957972%2FSource%2F1544609704" anchor-label="https://github.com/google/horologist/blob/main/auth-ui/src/main/java/com/google/android/horologist/auth/ui/common/screens/prompt/SignInPromptScreen.kt#L40" id="271957972%2FSource%2F1544609704" data-filterable-set=":auth-ui:dokkaHtmlPartial/main"></a>
-            <div class="table-row" data-filterable-current=":auth-ui:dokkaHtmlPartial/main" data-filterable-set=":auth-ui:dokkaHtmlPartial/main">
-              <div class="main-subrow keyValue ">
-                <div class=""><span class="inline-flex"><a href="https://github.com/google/horologist/blob/main/auth-ui/src/main/java/com/google/android/horologist/auth/ui/common/screens/prompt/SignInPromptScreen.kt#L40">androidJvm source</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="271957972%2FSource%2F1544609704"></span>
-                      <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                    </span></span></div>
-                <div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+}</code></pre></div></div></div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
       </div>
     </div>
-  
-</body></html>
-
+</div>
+</body>
+</html>
 

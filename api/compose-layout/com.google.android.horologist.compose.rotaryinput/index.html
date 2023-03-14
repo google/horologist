@@ -1,536 +1,513 @@
+<!doctype html>
 <html>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>com.google.android.horologist.compose.rotaryinput</title>
-</head><body><link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script><script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script><link href="../../styles/style.css" rel="Stylesheet"><link href="../../styles/logo-styles.css" rel="Stylesheet"><link href="../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../scripts/main.js" async></script>
-  
-    <div id="container">
-      <div id="leftColumn"><a href="../../index.html">
-            <div id="logo"></div>
-          </a>
-        <div id="paneSearch"></div>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../index.html">
+<span>horologist</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":compose-layout:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
         <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <script type="text/javascript" src="../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
-
-        <div class="main-content" id="content" pageids="compose-layout::com.google.android.horologist.compose.rotaryinput////PointingToDeclaration//-1355565138">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../index.html">compose-layout</a>/<a href="index.html">com.google.android.horologist.compose.rotaryinput</a></div>
-            <div class="pull-right d-flex">
-              <div id="searchBar"></div>
-            </div>
-          </div>
-          <div class="cover ">
-            <h1 class="cover"><span>Package com.</span><wbr><span>google.</span><wbr><span>android.</span><wbr><span>horologist.</span><wbr><span>compose.</span><wbr><span>rotaryinput</span></h1>
-          </div>
-          <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Functions">Functions</button></div>
-            <div class="tabs-section-body">
-              <h2 class="">Types</h2>
-              <div class="table" data-togglable="Types"><a data-name="434036157%2FClasslikes%2F-1355565138" anchor-label="AnimationScrollBehavior" id="434036157%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-animation-scroll-behavior/index.html">AnimationScrollBehavior</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="434036157%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="-animation-scroll-behavior/index.html">AnimationScrollBehavior</a>(scrollableState: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/ScrollableState.html">ScrollableState</a>) : <a href="-rotary-scroll-behavior/index.html">RotaryScrollBehavior</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="package" id="content" pageids="compose-layout::com.google.android.horologist.compose.rotaryinput////PointingToDeclaration//-1355565138">
+  <div class="breadcrumbs"><a href="../index.html">compose-layout</a><span class="delimiter">/</span><span class="current">com.google.android.horologist.compose.rotaryinput</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
   </div>
-<a data-name="434036157%2FClasslikes%2F-1355565138" anchor-label="AnimationScrollBehavior" id="434036157%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="434036157%2FClasslikes%2F-1355565138" anchor-label="AnimationScrollBehavior" id="434036157%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>Animation implementation of <a href="-rotary-scroll-behavior/index.html">RotaryScrollBehavior</a>.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-1950365146%2FClasslikes%2F-1355565138" anchor-label="DefaultRotaryFlingBehavior" id="-1950365146%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-default-rotary-fling-behavior/index.html">DefaultRotaryFlingBehavior</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1950365146%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="-default-rotary-fling-behavior/index.html">DefaultRotaryFlingBehavior</a>(scrollableState: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/ScrollableState.html">ScrollableState</a>, flingBehavior: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/FlingBehavior.html">FlingBehavior</a>, viewConfiguration: <a href="https://developer.android.com/reference/kotlin/android/view/ViewConfiguration.html">ViewConfiguration</a>, flingTimeframe: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a>) : <a href="-rotary-fling-behavior/index.html">RotaryFlingBehavior</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-1950365146%2FClasslikes%2F-1355565138" anchor-label="DefaultRotaryFlingBehavior" id="-1950365146%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-1950365146%2FClasslikes%2F-1355565138" anchor-label="DefaultRotaryFlingBehavior" id="-1950365146%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>Default implementation of <a href="-rotary-fling-behavior/index.html">RotaryFlingBehavior</a></div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-145023278%2FClasslikes%2F-1355565138" anchor-label="DefaultRotaryHapticFeedback" id="-145023278%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-default-rotary-haptic-feedback/index.html">DefaultRotaryHapticFeedback</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-145023278%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="-default-rotary-haptic-feedback/index.html">DefaultRotaryHapticFeedback</a>(view: <a href="https://developer.android.com/reference/kotlin/android/view/View.html">View</a>) : <a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-145023278%2FClasslikes%2F-1355565138" anchor-label="DefaultRotaryHapticFeedback" id="-145023278%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-145023278%2FClasslikes%2F-1355565138" anchor-label="DefaultRotaryHapticFeedback" id="-145023278%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>Default Rotary implementation for <a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a></div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1620178499%2FClasslikes%2F-1355565138" anchor-label="DefaultSnapBehavior" id="1620178499%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-default-snap-behavior/index.html">DefaultSnapBehavior</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1620178499%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="-default-snap-behavior/index.html">DefaultSnapBehavior</a>(rotaryScrollAdapter: <a href="-rotary-scroll-adapter/index.html">RotaryScrollAdapter</a>, snapParameters: <a href="-snap-parameters/index.html">SnapParameters</a>) : <a href="-rotary-snap-behavior/index.html">RotarySnapBehavior</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="1620178499%2FClasslikes%2F-1355565138" anchor-label="DefaultSnapBehavior" id="1620178499%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="1620178499%2FClasslikes%2F-1355565138" anchor-label="DefaultSnapBehavior" id="1620178499%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>An animated implementation of <a href="-rotary-snap-behavior/index.html">RotarySnapBehavior</a>.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1295031686%2FClasslikes%2F-1355565138" anchor-label="GenericMotionRotaryInputAccumulator" id="1295031686%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-generic-motion-rotary-input-accumulator/index.html">GenericMotionRotaryInputAccumulator</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1295031686%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="-generic-motion-rotary-input-accumulator/index.html">GenericMotionRotaryInputAccumulator</a>(context: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>, onValueChange: (change: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>) -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, eventAccumulationThresholdMs: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a>, minValueChangeDistancePx: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, rateLimitCoolDownMs: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="1295031686%2FClasslikes%2F-1355565138" anchor-label="GenericMotionRotaryInputAccumulator" id="1295031686%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="1295031686%2FClasslikes%2F-1355565138" anchor-label="GenericMotionRotaryInputAccumulator" id="1295031686%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>Accumulator to trigger callbacks based on <a href="https://developer.android.com/reference/kotlin/android/view/MotionEvent.html">MotionEvent</a> from rotary input.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1420652799%2FClasslikes%2F-1355565138" anchor-label="RotaryDefaults" id="1420652799%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-rotary-defaults/index.html">RotaryDefaults</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1420652799%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">object <a href="-rotary-defaults/index.html">RotaryDefaults</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="1420652799%2FClasslikes%2F-1355565138" anchor-label="RotaryDefaults" id="1420652799%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="1420652799%2FClasslikes%2F-1355565138" anchor-label="RotaryDefaults" id="1420652799%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>Defaults for rotary modifiers</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-780340925%2FClasslikes%2F-1355565138" anchor-label="RotaryFlingBehavior" id="-780340925%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-rotary-fling-behavior/index.html">RotaryFlingBehavior</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-780340925%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">interface <a href="-rotary-fling-behavior/index.html">RotaryFlingBehavior</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-780340925%2FClasslikes%2F-1355565138" anchor-label="RotaryFlingBehavior" id="-780340925%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-780340925%2FClasslikes%2F-1355565138" anchor-label="RotaryFlingBehavior" id="-780340925%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>An interface for flinging with rotary</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1765989205%2FClasslikes%2F-1355565138" anchor-label="RotaryHapticFeedback" id="1765989205%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1765989205%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">interface <a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="1765989205%2FClasslikes%2F-1355565138" anchor-label="RotaryHapticFeedback" id="1765989205%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="1765989205%2FClasslikes%2F-1355565138" anchor-label="RotaryHapticFeedback" id="1765989205%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>Interface for Rotary haptic feedback</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-242787333%2FClasslikes%2F-1355565138" anchor-label="RotaryHapticsType" id="-242787333%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-rotary-haptics-type/index.html">RotaryHapticsType</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-242787333%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-inline/index.html">JvmInline</a>()</div></div>value class <a href="-rotary-haptics-type/index.html">RotaryHapticsType</a>(type: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-242787333%2FClasslikes%2F-1355565138" anchor-label="RotaryHapticsType" id="-242787333%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-242787333%2FClasslikes%2F-1355565138" anchor-label="RotaryHapticsType" id="-242787333%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>Rotary haptic types</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1940924659%2FClasslikes%2F-1355565138" anchor-label="RotaryInputConfigDefaults" id="1940924659%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-rotary-input-config-defaults/index.html">RotaryInputConfigDefaults</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1940924659%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">object <a href="-rotary-input-config-defaults/index.html">RotaryInputConfigDefaults</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="258150351%2FClasslikes%2F-1355565138" anchor-label="RotaryScrollAdapter" id="258150351%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-rotary-scroll-adapter/index.html">RotaryScrollAdapter</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="258150351%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">interface <a href="-rotary-scroll-adapter/index.html">RotaryScrollAdapter</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="258150351%2FClasslikes%2F-1355565138" anchor-label="RotaryScrollAdapter" id="258150351%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="258150351%2FClasslikes%2F-1355565138" anchor-label="RotaryScrollAdapter" id="258150351%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>An adapter which connects scrollableState to Rotary</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-829952078%2FClasslikes%2F-1355565138" anchor-label="RotaryScrollBehavior" id="-829952078%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-rotary-scroll-behavior/index.html">RotaryScrollBehavior</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-829952078%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">interface <a href="-rotary-scroll-behavior/index.html">RotaryScrollBehavior</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-829952078%2FClasslikes%2F-1355565138" anchor-label="RotaryScrollBehavior" id="-829952078%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-829952078%2FClasslikes%2F-1355565138" anchor-label="RotaryScrollBehavior" id="-829952078%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>An interface for scrolling behavior</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="477641780%2FClasslikes%2F-1355565138" anchor-label="RotaryScrollHandler" id="477641780%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-rotary-scroll-handler/index.html">RotaryScrollHandler</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="477641780%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">interface <a href="-rotary-scroll-handler/index.html">RotaryScrollHandler</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="477641780%2FClasslikes%2F-1355565138" anchor-label="RotaryScrollHandler" id="477641780%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="477641780%2FClasslikes%2F-1355565138" anchor-label="RotaryScrollHandler" id="477641780%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>An interface for handling scroll events</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="800682581%2FClasslikes%2F-1355565138" anchor-label="RotarySnapBehavior" id="800682581%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-rotary-snap-behavior/index.html">RotarySnapBehavior</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="800682581%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">interface <a href="-rotary-snap-behavior/index.html">RotarySnapBehavior</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="800682581%2FClasslikes%2F-1355565138" anchor-label="RotarySnapBehavior" id="800682581%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="800682581%2FClasslikes%2F-1355565138" anchor-label="RotarySnapBehavior" id="800682581%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>An interface for snapping with rotary</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-758926826%2FClasslikes%2F-1355565138" anchor-label="RotaryVelocityTracker" id="-758926826%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-rotary-velocity-tracker/index.html">RotaryVelocityTracker</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-758926826%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="-rotary-velocity-tracker/index.html">RotaryVelocityTracker</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-758926826%2FClasslikes%2F-1355565138" anchor-label="RotaryVelocityTracker" id="-758926826%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-758926826%2FClasslikes%2F-1355565138" anchor-label="RotaryVelocityTracker" id="-758926826%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>Intercepts VelocityTracker to provide support for rotary input.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="830111746%2FClasslikes%2F-1355565138" anchor-label="ScalingLazyColumnRotaryScrollAdapter" id="830111746%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-scaling-lazy-column-rotary-scroll-adapter/index.html">ScalingLazyColumnRotaryScrollAdapter</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="830111746%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="-scaling-lazy-column-rotary-scroll-adapter/index.html">ScalingLazyColumnRotaryScrollAdapter</a>(scrollableState: <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/ScalingLazyListState.html">ScalingLazyListState</a>) : <a href="-rotary-scroll-adapter/index.html">RotaryScrollAdapter</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="830111746%2FClasslikes%2F-1355565138" anchor-label="ScalingLazyColumnRotaryScrollAdapter" id="830111746%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="830111746%2FClasslikes%2F-1355565138" anchor-label="ScalingLazyColumnRotaryScrollAdapter" id="830111746%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>An implementation of rotary scroll adapter for ScalingLazyColumn</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-1841216658%2FClasslikes%2F-1355565138" anchor-label="SnapParameters" id="-1841216658%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-snap-parameters/index.html">SnapParameters</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1841216658%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="-snap-parameters/index.html">SnapParameters</a>(snapOffset: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-1841216658%2FClasslikes%2F-1355565138" anchor-label="SnapParameters" id="-1841216658%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-1841216658%2FClasslikes%2F-1355565138" anchor-label="SnapParameters" id="-1841216658%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>Parameters used for snapping</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1518772959%2FClasslikes%2F-1355565138" anchor-label="TimestampedDelta" id="1518772959%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-timestamped-delta/index.html">TimestampedDelta</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1518772959%2FClasslikes%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">data class <a href="-timestamped-delta/index.html">TimestampedDelta</a>(timestamp: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a>, delta: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="1518772959%2FClasslikes%2F-1355565138" anchor-label="TimestampedDelta" id="1518772959%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="1518772959%2FClasslikes%2F-1355565138" anchor-label="TimestampedDelta" id="1518772959%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>A rotary event object which contains a <a href="-timestamped-delta/timestamp.html">timestamp</a> of the rotary event and a scrolled <a href="-timestamped-delta/delta.html">delta</a>.</div></div>
-</div>
-                    </div>
-                  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="434036157%2FClasslikes%2F-1355565138" anchor-label="AnimationScrollBehavior" id="434036157%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-animation-scroll-behavior/index.html"><span>Animation</span><wbr><span>Scroll</span><wbr><span><span>Behavior</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="434036157%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-animation-scroll-behavior/index.html">AnimationScrollBehavior</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scrollableState<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/ScrollableState.html">ScrollableState</a></span></span><span class="token punctuation">)</span> : <a href="-rotary-scroll-behavior/index.html">RotaryScrollBehavior</a></div><div class="brief "><p class="paragraph">Animation implementation of <a href="-rotary-scroll-behavior/index.html">RotaryScrollBehavior</a>. This class does a smooth animation when the scroll by N pixels is done. This animation works well on Rsb(high-res) and Bezel(low-res) devices.</p></div></div></div>
                 </div>
               </div>
-              <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="1051563920%2FFunctions%2F-1355565138" anchor-label="batchRequestsWithinTimeframe" id="1051563920%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="batch-requests-within-timeframe.html">batchRequestsWithinTimeframe</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1051563920%2FFunctions%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">fun <span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span>&lt;<a href="-timestamped-delta/index.html">TimestampedDelta</a>&gt;.<a href="batch-requests-within-timeframe.html">batchRequestsWithinTimeframe</a>(timeframe: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a>): <span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span>&lt;<a href="-timestamped-delta/index.html">TimestampedDelta</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="1051563920%2FFunctions%2F-1355565138" anchor-label="batchRequestsWithinTimeframe" id="1051563920%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="1051563920%2FFunctions%2F-1355565138" anchor-label="batchRequestsWithinTimeframe" id="1051563920%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>Batching requests for scrolling events.</div></div>
-</div>
-                    </div>
-                  </div>
+            </div>
+          </div>
+<a data-name="-1950365146%2FClasslikes%2F-1355565138" anchor-label="DefaultRotaryFlingBehavior" id="-1950365146%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-default-rotary-fling-behavior/index.html"><span>Default</span><wbr><span>Rotary</span><wbr><span>Fling</span><wbr><span><span>Behavior</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1950365146%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-default-rotary-fling-behavior/index.html">DefaultRotaryFlingBehavior</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scrollableState<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/ScrollableState.html">ScrollableState</a><span class="token punctuation">, </span></span><span class="parameter ">flingBehavior<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/FlingBehavior.html">FlingBehavior</a><span class="token punctuation">, </span></span><span class="parameter ">viewConfiguration<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/view/ViewConfiguration.html">ViewConfiguration</a><span class="token punctuation">, </span></span><span class="parameter ">flingTimeframe<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span> : <a href="-rotary-fling-behavior/index.html">RotaryFlingBehavior</a></div><div class="brief "><p class="paragraph">Default implementation of <a href="-rotary-fling-behavior/index.html">RotaryFlingBehavior</a></p></div></div></div>
                 </div>
-<a data-name="-2120690065%2FFunctions%2F-1355565138" anchor-label="onRotaryInputAccumulated" id="-2120690065%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="on-rotary-input-accumulated.html">onRotaryInputAccumulated</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2120690065%2FFunctions%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="on-rotary-input-accumulated.html">onRotaryInputAccumulated</a>(eventAccumulationThresholdMs: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a> = RotaryInputConfigDefaults.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS, minValueChangeDistancePx: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a> = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX, rateLimitCoolDownMs: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a> = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS, onValueChange: (change: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>) -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-2120690065%2FFunctions%2F-1355565138" anchor-label="onRotaryInputAccumulated" id="-2120690065%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-2120690065%2FFunctions%2F-1355565138" anchor-label="onRotaryInputAccumulated" id="-2120690065%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>Accumulates the scroll distances from <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/input/rotary/RotaryScrollEvent.html">RotaryScrollEvent</a> and notifies changes with <a href="on-rotary-input-accumulated.html">onValueChange</a> once accumulated value is over the thresholds.</div></div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-145023278%2FClasslikes%2F-1355565138" anchor-label="DefaultRotaryHapticFeedback" id="-145023278%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-default-rotary-haptic-feedback/index.html"><span>Default</span><wbr><span>Rotary</span><wbr><span>Haptic</span><wbr><span><span>Feedback</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-145023278%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-default-rotary-haptic-feedback/index.html">DefaultRotaryHapticFeedback</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">view<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/view/View.html">View</a></span></span><span class="token punctuation">)</span> : <a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a></div><div class="brief "><p class="paragraph">Default Rotary implementation for <a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a></p></div></div></div>
                 </div>
-<a data-name="-4723534%2FFunctions%2F-1355565138" anchor-label="onRotaryInputAccumulatedWithFocus" id="-4723534%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="on-rotary-input-accumulated-with-focus.html">onRotaryInputAccumulatedWithFocus</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-4723534%2FFunctions%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="on-rotary-input-accumulated-with-focus.html">onRotaryInputAccumulatedWithFocus</a>(focusRequester: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/focus/FocusRequester.html">FocusRequester</a>? = null, onValueChange: (<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>) -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-4723534%2FFunctions%2F-1355565138" anchor-label="onRotaryInputAccumulatedWithFocus" id="-4723534%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-4723534%2FFunctions%2F-1355565138" anchor-label="onRotaryInputAccumulatedWithFocus" id="-4723534%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>A focusable modifier that accumulates the scroll distances from <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/input/rotary/RotaryScrollEvent.html">RotaryScrollEvent</a> and notifies changes with <a href="on-rotary-input-accumulated-with-focus.html">onValueChange</a> once accumulated value is over the thresholds.</div></div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1620178499%2FClasslikes%2F-1355565138" anchor-label="DefaultSnapBehavior" id="1620178499%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-default-snap-behavior/index.html"><span>Default</span><wbr><span>Snap</span><wbr><span><span>Behavior</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1620178499%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-default-snap-behavior/index.html">DefaultSnapBehavior</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">rotaryScrollAdapter<span class="token operator">: </span><a href="-rotary-scroll-adapter/index.html">RotaryScrollAdapter</a><span class="token punctuation">, </span></span><span class="parameter ">snapParameters<span class="token operator">: </span><a href="-snap-parameters/index.html">SnapParameters</a></span></span><span class="token punctuation">)</span> : <a href="-rotary-snap-behavior/index.html">RotarySnapBehavior</a></div><div class="brief "><p class="paragraph">An animated implementation of <a href="-rotary-snap-behavior/index.html">RotarySnapBehavior</a>. Uses animateScrollToItem method for snapping to the Nth item</p></div></div></div>
                 </div>
-<a data-name="-481829860%2FFunctions%2F-1355565138" anchor-label="rememberDefaultRotaryHapticFeedback" id="-481829860%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="remember-default-rotary-haptic-feedback.html">rememberDefaultRotaryHapticFeedback</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-481829860%2FFunctions%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="remember-default-rotary-haptic-feedback.html">rememberDefaultRotaryHapticFeedback</a>(): <a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1295031686%2FClasslikes%2F-1355565138" anchor-label="GenericMotionRotaryInputAccumulator" id="1295031686%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-generic-motion-rotary-input-accumulator/index.html"><span>Generic</span><wbr><span>Motion</span><wbr><span>Rotary</span><wbr><span>Input</span><wbr><span><span>Accumulator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1295031686%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-generic-motion-rotary-input-accumulator/index.html">GenericMotionRotaryInputAccumulator</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">onValueChange<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>change<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">eventAccumulationThresholdMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>RotaryInputConfigDefaults.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS<span class="token punctuation">, </span></span><span class="parameter ">minValueChangeDistancePx<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span>RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX<span class="token punctuation">, </span></span><span class="parameter ">rateLimitCoolDownMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Accumulator to trigger callbacks based on <a href="https://developer.android.com/reference/kotlin/android/view/MotionEvent.html">MotionEvent</a> from rotary input.</p></div></div></div>
                 </div>
-<a data-name="-868484483%2FFunctions%2F-1355565138" anchor-label="rememberDisabledHaptic" id="-868484483%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="remember-disabled-haptic.html">rememberDisabledHaptic</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-868484483%2FFunctions%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="remember-disabled-haptic.html">rememberDisabledHaptic</a>(): <a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-868484483%2FFunctions%2F-1355565138" anchor-label="rememberDisabledHaptic" id="-868484483%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-868484483%2FFunctions%2F-1355565138" anchor-label="rememberDisabledHaptic" id="-868484483%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>Remember disabled haptics</div></div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1420652799%2FClasslikes%2F-1355565138" anchor-label="RotaryDefaults" id="1420652799%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-rotary-defaults/index.html"><span>Rotary</span><wbr><span><span>Defaults</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1420652799%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">object </span><a href="-rotary-defaults/index.html">RotaryDefaults</a></div><div class="brief "><p class="paragraph">Defaults for rotary modifiers</p></div></div></div>
                 </div>
-<a data-name="-398772773%2FFunctions%2F-1355565138" anchor-label="rememberRotaryHapticFeedback" id="-398772773%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="remember-rotary-haptic-feedback.html">rememberRotaryHapticFeedback</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-398772773%2FFunctions%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="remember-rotary-haptic-feedback.html">rememberRotaryHapticFeedback</a>(throttleThresholdMs: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a> = 40, hapticsChannel: <span data-unresolved-link="kotlinx.coroutines.channels/Channel///PointingToDeclaration/">Channel</span>&lt;<a href="-rotary-haptics-type/index.html">RotaryHapticsType</a>&gt; = rememberHapticChannel(), rotaryHaptics: <a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a> = rememberDefaultRotaryHapticFeedback()): <a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-398772773%2FFunctions%2F-1355565138" anchor-label="rememberRotaryHapticFeedback" id="-398772773%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-398772773%2FFunctions%2F-1355565138" anchor-label="rememberRotaryHapticFeedback" id="-398772773%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>Remember rotary haptic feedback.</div></div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-780340925%2FClasslikes%2F-1355565138" anchor-label="RotaryFlingBehavior" id="-780340925%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-rotary-fling-behavior/index.html"><span>Rotary</span><wbr><span>Fling</span><wbr><span><span>Behavior</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-780340925%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-rotary-fling-behavior/index.html">RotaryFlingBehavior</a></div><div class="brief "><p class="paragraph">An interface for flinging with rotary</p></div></div></div>
                 </div>
-<a data-name="1408922234%2FFunctions%2F-1355565138" anchor-label="rotaryHandler" id="1408922234%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="rotary-handler.html">rotaryHandler</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1408922234%2FFunctions%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="rotary-handler.html">rotaryHandler</a>(rotaryScrollHandler: <a href="-rotary-scroll-handler/index.html">RotaryScrollHandler</a>, batchTimeframe: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a> = 0L, rotaryHaptics: <a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a>): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="1408922234%2FFunctions%2F-1355565138" anchor-label="rotaryHandler" id="1408922234%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="1408922234%2FFunctions%2F-1355565138" anchor-label="rotaryHandler" id="1408922234%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>A modifier which handles rotary events.</div></div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1765989205%2FClasslikes%2F-1355565138" anchor-label="RotaryHapticFeedback" id="1765989205%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-rotary-haptic-feedback/index.html"><span>Rotary</span><wbr><span>Haptic</span><wbr><span><span>Feedback</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1765989205%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a></div><div class="brief "><p class="paragraph">Interface for Rotary haptic feedback</p></div></div></div>
                 </div>
-<a data-name="538967059%2FFunctions%2F-1355565138" anchor-label="rotaryWithFling" id="538967059%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="rotary-with-fling.html">rotaryWithFling</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="538967059%2FFunctions%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="rotary-with-fling.html">rotaryWithFling</a>(focusRequester: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/focus/FocusRequester.html">FocusRequester</a>, scrollableState: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/ScrollableState.html">ScrollableState</a>, flingBehavior: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/FlingBehavior.html">FlingBehavior</a> = ScrollableDefaults.flingBehavior(), rotaryHaptics: <a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a> = rememberRotaryHapticFeedback()): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="538967059%2FFunctions%2F-1355565138" anchor-label="rotaryWithFling" id="538967059%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="538967059%2FFunctions%2F-1355565138" anchor-label="rotaryWithFling" id="538967059%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>A modifier which connects rotary events with scrollable.</div></div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-242787333%2FClasslikes%2F-1355565138" anchor-label="RotaryHapticsType" id="-242787333%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-rotary-haptics-type/index.html"><span>Rotary</span><wbr><span>Haptics</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-242787333%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-inline/index.html"><span class="token annotation builtin">JvmInline</span></a></div></div><span class="token keyword">value </span><span class="token keyword">class </span><a href="-rotary-haptics-type/index.html">RotaryHapticsType</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">type<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Rotary haptic types</p></div></div></div>
                 </div>
-<a data-name="458863547%2FFunctions%2F-1355565138" anchor-label="rotaryWithScroll" id="458863547%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="rotary-with-scroll.html">rotaryWithScroll</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="458863547%2FFunctions%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="rotary-with-scroll.html">rotaryWithScroll</a>(focusRequester: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/focus/FocusRequester.html">FocusRequester</a>, scrollableState: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/ScrollableState.html">ScrollableState</a>, rotaryHaptics: <a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a> = rememberRotaryHapticFeedback()): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="458863547%2FFunctions%2F-1355565138" anchor-label="rotaryWithScroll" id="458863547%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="458863547%2FFunctions%2F-1355565138" anchor-label="rotaryWithScroll" id="458863547%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>A modifier which connects rotary events with scrollable.</div></div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1940924659%2FClasslikes%2F-1355565138" anchor-label="RotaryInputConfigDefaults" id="1940924659%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-rotary-input-config-defaults/index.html"><span>Rotary</span><wbr><span>Input</span><wbr><span>Config</span><wbr><span><span>Defaults</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1940924659%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">object </span><a href="-rotary-input-config-defaults/index.html">RotaryInputConfigDefaults</a></div></div></div>
                 </div>
-<a data-name="1242686283%2FFunctions%2F-1355565138" anchor-label="rotaryWithSnap" id="1242686283%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="rotary-with-snap.html">rotaryWithSnap</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1242686283%2FFunctions%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a>.<a href="rotary-with-snap.html">rotaryWithSnap</a>(focusRequester: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/focus/FocusRequester.html">FocusRequester</a>, rotaryScrollAdapter: <a href="-rotary-scroll-adapter/index.html">RotaryScrollAdapter</a>, rotaryHaptics: <a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a> = rememberRotaryHapticFeedback()): <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="1242686283%2FFunctions%2F-1355565138" anchor-label="rotaryWithSnap" id="1242686283%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="1242686283%2FFunctions%2F-1355565138" anchor-label="rotaryWithSnap" id="1242686283%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>A modifier which connects rotary events with scrollable.</div></div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="258150351%2FClasslikes%2F-1355565138" anchor-label="RotaryScrollAdapter" id="258150351%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-rotary-scroll-adapter/index.html"><span>Rotary</span><wbr><span>Scroll</span><wbr><span><span>Adapter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="258150351%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-rotary-scroll-adapter/index.html">RotaryScrollAdapter</a></div><div class="brief "><p class="paragraph">An adapter which connects scrollableState to Rotary</p></div></div></div>
                 </div>
-<a data-name="-1948737020%2FFunctions%2F-1355565138" anchor-label="toRotaryScrollAdapter" id="-1948737020%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="to-rotary-scroll-adapter.html">toRotaryScrollAdapter</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1948737020%2FFunctions%2F-1355565138"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/ScalingLazyListState.html">ScalingLazyListState</a>.<a href="to-rotary-scroll-adapter.html">toRotaryScrollAdapter</a>(): <a href="-rotary-scroll-adapter/index.html">RotaryScrollAdapter</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-1948737020%2FFunctions%2F-1355565138" anchor-label="toRotaryScrollAdapter" id="-1948737020%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-1948737020%2FFunctions%2F-1355565138" anchor-label="toRotaryScrollAdapter" id="-1948737020%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>An extension function for creating <a href="-rotary-scroll-adapter/index.html">RotaryScrollAdapter</a> from <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/ScalingLazyListState.html">ScalingLazyListState</a></div></div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-829952078%2FClasslikes%2F-1355565138" anchor-label="RotaryScrollBehavior" id="-829952078%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-rotary-scroll-behavior/index.html"><span>Rotary</span><wbr><span>Scroll</span><wbr><span><span>Behavior</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-829952078%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-rotary-scroll-behavior/index.html">RotaryScrollBehavior</a></div><div class="brief "><p class="paragraph">An interface for scrolling behavior</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="477641780%2FClasslikes%2F-1355565138" anchor-label="RotaryScrollHandler" id="477641780%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-rotary-scroll-handler/index.html"><span>Rotary</span><wbr><span>Scroll</span><wbr><span><span>Handler</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="477641780%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-rotary-scroll-handler/index.html">RotaryScrollHandler</a></div><div class="brief "><p class="paragraph">An interface for handling scroll events</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="800682581%2FClasslikes%2F-1355565138" anchor-label="RotarySnapBehavior" id="800682581%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-rotary-snap-behavior/index.html"><span>Rotary</span><wbr><span>Snap</span><wbr><span><span>Behavior</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="800682581%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-rotary-snap-behavior/index.html">RotarySnapBehavior</a></div><div class="brief "><p class="paragraph">An interface for snapping with rotary</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-758926826%2FClasslikes%2F-1355565138" anchor-label="RotaryVelocityTracker" id="-758926826%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-rotary-velocity-tracker/index.html"><span>Rotary</span><wbr><span>Velocity</span><wbr><span><span>Tracker</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-758926826%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-rotary-velocity-tracker/index.html">RotaryVelocityTracker</a></div><div class="brief "><p class="paragraph">Intercepts VelocityTracker to provide support for rotary input.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="830111746%2FClasslikes%2F-1355565138" anchor-label="ScalingLazyColumnRotaryScrollAdapter" id="830111746%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-scaling-lazy-column-rotary-scroll-adapter/index.html"><span>Scaling</span><wbr><span>Lazy</span><wbr><span>Column</span><wbr><span>Rotary</span><wbr><span>Scroll</span><wbr><span><span>Adapter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="830111746%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-scaling-lazy-column-rotary-scroll-adapter/index.html">ScalingLazyColumnRotaryScrollAdapter</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>scrollableState<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/ScalingLazyListState.html">ScalingLazyListState</a></span></span><span class="token punctuation">)</span> : <a href="-rotary-scroll-adapter/index.html">RotaryScrollAdapter</a></div><div class="brief "><p class="paragraph">An implementation of rotary scroll adapter for ScalingLazyColumn</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1841216658%2FClasslikes%2F-1355565138" anchor-label="SnapParameters" id="-1841216658%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-snap-parameters/index.html"><span>Snap</span><wbr><span><span>Parameters</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1841216658%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-snap-parameters/index.html">SnapParameters</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>snapOffset<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Parameters used for snapping</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1518772959%2FClasslikes%2F-1355565138" anchor-label="TimestampedDelta" id="1518772959%2FClasslikes%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-timestamped-delta/index.html"><span>Timestamped</span><wbr><span><span>Delta</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1518772959%2FClasslikes%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-timestamped-delta/index.html">TimestampedDelta</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>timestamp<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>delta<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A rotary event object which contains a <a href="-timestamped-delta/timestamp.html">timestamp</a> of the rotary event and a scrolled <a href="-timestamped-delta/delta.html">delta</a>.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1051563920%2FFunctions%2F-1355565138" anchor-label="batchRequestsWithinTimeframe" id="1051563920%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="batch-requests-within-timeframe.html"><span>batch</span><wbr><span>Requests</span><wbr><span>Within</span><wbr><span><span>Timeframe</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1051563920%2FFunctions%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-timestamped-delta/index.html">TimestampedDelta</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="batch-requests-within-timeframe.html"><span class="token function">batchRequestsWithinTimeframe</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">timeframe<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-timestamped-delta/index.html">TimestampedDelta</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Batching requests for scrolling events. This function combines all events together (except first) within specified timeframe. Should help with performance on high-res devices.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2120690065%2FFunctions%2F-1355565138" anchor-label="onRotaryInputAccumulated" id="-2120690065%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-rotary-input-accumulated.html"><span>on</span><wbr><span>Rotary</span><wbr><span>Input</span><wbr><span><span>Accumulated</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2120690065%2FFunctions%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token punctuation">.</span><a href="on-rotary-input-accumulated.html"><span class="token function">onRotaryInputAccumulated</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventAccumulationThresholdMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>RotaryInputConfigDefaults.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS<span class="token punctuation">, </span></span><span class="parameter ">minValueChangeDistancePx<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span>RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX<span class="token punctuation">, </span></span><span class="parameter ">rateLimitCoolDownMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS<span class="token punctuation">, </span></span><span class="parameter ">onValueChange<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>change<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></div><div class="brief "><p class="paragraph">Accumulates the scroll distances from <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/input/rotary/RotaryScrollEvent.html">RotaryScrollEvent</a> and notifies changes with <a href="on-rotary-input-accumulated.html">onValueChange</a> once accumulated value is over the thresholds.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-4723534%2FFunctions%2F-1355565138" anchor-label="onRotaryInputAccumulatedWithFocus" id="-4723534%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-rotary-input-accumulated-with-focus.html"><span>on</span><wbr><span>Rotary</span><wbr><span>Input</span><wbr><span>Accumulated</span><wbr><span>With</span><wbr><span><span>Focus</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-4723534%2FFunctions%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token punctuation">.</span><a href="on-rotary-input-accumulated-with-focus.html"><span class="token function">onRotaryInputAccumulatedWithFocus</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">focusRequester<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/focus/FocusRequester.html">FocusRequester</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">onValueChange<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></div><div class="brief "><p class="paragraph">A focusable modifier that accumulates the scroll distances from <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/input/rotary/RotaryScrollEvent.html">RotaryScrollEvent</a> and notifies changes with <a href="on-rotary-input-accumulated-with-focus.html">onValueChange</a> once accumulated value is over the thresholds.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-481829860%2FFunctions%2F-1355565138" anchor-label="rememberDefaultRotaryHapticFeedback" id="-481829860%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remember-default-rotary-haptic-feedback.html"><span>remember</span><wbr><span>Default</span><wbr><span>Rotary</span><wbr><span>Haptic</span><wbr><span><span>Feedback</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-481829860%2FFunctions%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="remember-default-rotary-haptic-feedback.html"><span class="token function">rememberDefaultRotaryHapticFeedback</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-868484483%2FFunctions%2F-1355565138" anchor-label="rememberDisabledHaptic" id="-868484483%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remember-disabled-haptic.html"><span>remember</span><wbr><span>Disabled</span><wbr><span><span>Haptic</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-868484483%2FFunctions%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="remember-disabled-haptic.html"><span class="token function">rememberDisabledHaptic</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a></div><div class="brief "><p class="paragraph">Remember disabled haptics</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-398772773%2FFunctions%2F-1355565138" anchor-label="rememberRotaryHapticFeedback" id="-398772773%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remember-rotary-haptic-feedback.html"><span>remember</span><wbr><span>Rotary</span><wbr><span>Haptic</span><wbr><span><span>Feedback</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-398772773%2FFunctions%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="remember-rotary-haptic-feedback.html"><span class="token function">rememberRotaryHapticFeedback</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">throttleThresholdMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span><span class="token constant">40</span><span class="token punctuation">, </span></span><span class="parameter ">hapticsChannel<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.channels/Channel///PointingToDeclaration/">Channel</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-rotary-haptics-type/index.html">RotaryHapticsType</a><span class="token operator">&gt;</span><span class="token operator"> = </span>rememberHapticChannel()<span class="token punctuation">, </span></span><span class="parameter ">rotaryHaptics<span class="token operator">: </span><a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a><span class="token operator"> = </span>rememberDefaultRotaryHapticFeedback()</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a></div><div class="brief "><p class="paragraph">Remember rotary haptic feedback.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1408922234%2FFunctions%2F-1355565138" anchor-label="rotaryHandler" id="1408922234%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rotary-handler.html"><span>rotary</span><wbr><span><span>Handler</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1408922234%2FFunctions%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token punctuation">.</span><a href="rotary-handler.html"><span class="token function">rotaryHandler</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">rotaryScrollHandler<span class="token operator">: </span><a href="-rotary-scroll-handler/index.html">RotaryScrollHandler</a><span class="token punctuation">, </span></span><span class="parameter ">batchTimeframe<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span><span class="token constant">0</span><span class="token punctuation">, </span></span><span class="parameter ">rotaryHaptics<span class="token operator">: </span><a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></div><div class="brief "><p class="paragraph">A modifier which handles rotary events. It accepts ScrollHandler as the input - a class where main logic about how scroll should be handled is lying</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="538967059%2FFunctions%2F-1355565138" anchor-label="rotaryWithFling" id="538967059%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rotary-with-fling.html"><span>rotary</span><wbr><span>With</span><wbr><span><span>Fling</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="538967059%2FFunctions%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token punctuation">.</span><a href="rotary-with-fling.html"><span class="token function">rotaryWithFling</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">focusRequester<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/focus/FocusRequester.html">FocusRequester</a><span class="token punctuation">, </span></span><span class="parameter ">scrollableState<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/ScrollableState.html">ScrollableState</a><span class="token punctuation">, </span></span><span class="parameter ">flingBehavior<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/FlingBehavior.html">FlingBehavior</a><span class="token operator"> = </span>ScrollableDefaults.flingBehavior()<span class="token punctuation">, </span></span><span class="parameter ">rotaryHaptics<span class="token operator">: </span><a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a><span class="token operator"> = </span>rememberRotaryHapticFeedback()</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></div><div class="brief "><p class="paragraph">A modifier which connects rotary events with scrollable. This modifier supports fling.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="458863547%2FFunctions%2F-1355565138" anchor-label="rotaryWithScroll" id="458863547%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rotary-with-scroll.html"><span>rotary</span><wbr><span>With</span><wbr><span><span>Scroll</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="458863547%2FFunctions%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token punctuation">.</span><a href="rotary-with-scroll.html"><span class="token function">rotaryWithScroll</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">focusRequester<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/focus/FocusRequester.html">FocusRequester</a><span class="token punctuation">, </span></span><span class="parameter ">scrollableState<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/ScrollableState.html">ScrollableState</a><span class="token punctuation">, </span></span><span class="parameter ">rotaryHaptics<span class="token operator">: </span><a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a><span class="token operator"> = </span>rememberRotaryHapticFeedback()</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></div><div class="brief "><p class="paragraph">A modifier which connects rotary events with scrollable. This modifier only supports scroll without fling or snap. The screen containing the scrollable item should request the focus by calling requestFocus method</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1242686283%2FFunctions%2F-1355565138" anchor-label="rotaryWithSnap" id="1242686283%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rotary-with-snap.html"><span>rotary</span><wbr><span>With</span><wbr><span><span>Snap</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1242686283%2FFunctions%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token punctuation">.</span><a href="rotary-with-snap.html"><span class="token function">rotaryWithSnap</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">focusRequester<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/focus/FocusRequester.html">FocusRequester</a><span class="token punctuation">, </span></span><span class="parameter ">rotaryScrollAdapter<span class="token operator">: </span><a href="-rotary-scroll-adapter/index.html">RotaryScrollAdapter</a><span class="token punctuation">, </span></span><span class="parameter ">rotaryHaptics<span class="token operator">: </span><a href="-rotary-haptic-feedback/index.html">RotaryHapticFeedback</a><span class="token operator"> = </span>rememberRotaryHapticFeedback()</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></div><div class="brief "><p class="paragraph">A modifier which connects rotary events with scrollable. This modifier supports snap.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1948737020%2FFunctions%2F-1355565138" anchor-label="toRotaryScrollAdapter" id="-1948737020%2FFunctions%2F-1355565138" data-filterable-set=":compose-layout:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":compose-layout:dokkaHtmlPartial/release" data-filterable-set=":compose-layout:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-rotary-scroll-adapter.html"><span>to</span><wbr><span>Rotary</span><wbr><span>Scroll</span><wbr><span><span>Adapter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1948737020%2FFunctions%2F-1355565138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/ScalingLazyListState.html">ScalingLazyListState</a><span class="token punctuation">.</span><a href="to-rotary-scroll-adapter.html"><span class="token function">toRotaryScrollAdapter</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-rotary-scroll-adapter/index.html">RotaryScrollAdapter</a></div><div class="brief "><p class="paragraph">An extension function for creating <a href="-rotary-scroll-adapter/index.html">RotaryScrollAdapter</a> from <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/ScalingLazyListState.html">ScalingLazyListState</a></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  
-</body></html>
-
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
 

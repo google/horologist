@@ -1,133 +1,203 @@
+<!doctype html>
 <html>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>PlayerState</title>
-</head><body><link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../scripts/main.js" async></script>
-  
-    <div id="container">
-      <div id="leftColumn"><a href="../../../index.html">
-            <div id="logo"></div>
-          </a>
-        <div id="paneSearch"></div>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>horologist</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":media:dokkaHtmlPartial/main">jvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
         <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <script type="text/javascript" src="../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
-
-        <div class="main-content" id="content" pageids="media::com.google.android.horologist.media.model/PlayerState///PointingToDeclaration//-1611888266">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../index.html">media</a>/<a href="../index.html">com.google.android.horologist.media.model</a>/<a href="index.html">PlayerState</a></div>
-            <div class="pull-right d-flex">
-              <div id="searchBar"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="media::com.google.android.horologist.media.model/PlayerState///PointingToDeclaration//-1611888266">
+  <div class="breadcrumbs"><a href="../../index.html">media</a><span class="delimiter">/</span><a href="../index.html">com.google.android.horologist.media.model</a><span class="delimiter">/</span><span class="current">PlayerState</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Player</span><wbr><span><span>State</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">enum </span><a href="index.html">PlayerState</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">PlayerState</a><span class="token operator">&gt; </span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/google/horologist/blob/main/media/src/main/java/com/google/android/horologist/media/model/PlayerState.kt#L25">source</a>)</span></span></div><p class="paragraph">Represents the state of the player.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button><button class="section-tab" data-togglable="ENTRY">Entries</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="ENTRY">
+        <h2 class="">Entries</h2>
+        <div class="table"><a data-name="-174617901%2FClasslikes%2F-1611888266" anchor-label="Idle" id="-174617901%2FClasslikes%2F-1611888266" data-filterable-set=":media:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":media:dokkaHtmlPartial/main" data-filterable-set=":media:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-idle/index.html">Idle</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-174617901%2FClasslikes%2F-1611888266"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-idle/index.html">Idle</a></div></div><div class="brief "><p class="paragraph">Initial empty state. The player hasn't finished loading or doesn't have any media added.</p></div></div></div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="cover ">
-            <h1 class="cover"><span>Player</span><wbr><span>State</span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media:dokkaHtmlPartial/main"><div class="symbol monospace">enum <a href="index.html">PlayerState</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a>&lt;<a href="index.html">PlayerState</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Represents the state of the player.</p></div></div>
+<a data-name="2089155973%2FClasslikes%2F-1611888266" anchor-label="Loading" id="2089155973%2FClasslikes%2F-1611888266" data-filterable-set=":media:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":media:dokkaHtmlPartial/main" data-filterable-set=":media:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-loading/index.html">Loading</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2089155973%2FClasslikes%2F-1611888266"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-loading/index.html">Loading</a></div></div><div class="brief "><p class="paragraph">Playback is requested, but the player is not yet ready and is working towards playback. The player is expected to eventually reach <a href="-playing/index.html">Playing</a> from this state without further user action required.</p></div></div></div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Entries">Entries</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Sources">Sources</button></div>
-            <div class="tabs-section-body">
-              <h2 class="tabbedcontent">Entries</h2>
-              <div class="table" data-togglable="Entries"><a data-name="-2084258066%2FClasslikes%2F-1611888266" anchor-label="Playing" id="-2084258066%2FClasslikes%2F-1611888266" data-filterable-set=":media:dokkaHtmlPartial/main"></a>
-                <div class="table-row" data-filterable-current=":media:dokkaHtmlPartial/main" data-filterable-set=":media:dokkaHtmlPartial/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-playing/index.html">Playing</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2084258066%2FClasslikes%2F-1611888266"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-playing/index.html">Playing</a>()</div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief ">The player is playing and position is advancing.</div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-443564497%2FClasslikes%2F-1611888266" anchor-label="Stopped" id="-443564497%2FClasslikes%2F-1611888266" data-filterable-set=":media:dokkaHtmlPartial/main"></a>
-                <div class="table-row" data-filterable-current=":media:dokkaHtmlPartial/main" data-filterable-set=":media:dokkaHtmlPartial/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-stopped/index.html">Stopped</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-443564497%2FClasslikes%2F-1611888266"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-stopped/index.html">Stopped</a>()</div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief ">The player is able to continue or attempt playback.</div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1043356064%2FClasslikes%2F-1611888266" anchor-label="Loading" id="1043356064%2FClasslikes%2F-1611888266" data-filterable-set=":media:dokkaHtmlPartial/main"></a>
-                <div class="table-row" data-filterable-current=":media:dokkaHtmlPartial/main" data-filterable-set=":media:dokkaHtmlPartial/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-loading/index.html">Loading</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1043356064%2FClasslikes%2F-1611888266"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-loading/index.html">Loading</a>()</div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief ">Playback is requested, but the player is not yet ready and is working towards playback.</div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-992998510%2FClasslikes%2F-1611888266" anchor-label="Idle" id="-992998510%2FClasslikes%2F-1611888266" data-filterable-set=":media:dokkaHtmlPartial/main"></a>
-                <div class="table-row" data-filterable-current=":media:dokkaHtmlPartial/main" data-filterable-set=":media:dokkaHtmlPartial/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-idle/index.html">Idle</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-992998510%2FClasslikes%2F-1611888266"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-idle/index.html">Idle</a>()</div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief ">Initial empty state.</div></div></div>
-                      </div>
-                    </div>
-                  </div>
+<a data-name="2137755222%2FClasslikes%2F-1611888266" anchor-label="Stopped" id="2137755222%2FClasslikes%2F-1611888266" data-filterable-set=":media:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":media:dokkaHtmlPartial/main" data-filterable-set=":media:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-stopped/index.html">Stopped</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2137755222%2FClasslikes%2F-1611888266"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-stopped/index.html">Stopped</a></div></div><div class="brief "><p class="paragraph">The player is able to continue or attempt playback. Sending the play command will move from this state to either <a href="-loading/index.html">Loading</a> or <a href="-playing/index.html">Playing</a>.</p></div></div></div>
                 </div>
               </div>
-              <h2 class="">Properties</h2>
-              <div class="table" data-togglable="Properties"><a data-name="1423181318%2FProperties%2F-1611888266" anchor-label="name" id="1423181318%2FProperties%2F-1611888266" data-filterable-set=":media:dokkaHtmlPartial/main"></a>
-                <div class="table-row" data-filterable-current=":media:dokkaHtmlPartial/main" data-filterable-set=":media:dokkaHtmlPartial/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#1423181318%2FProperties%2F-1611888266">name</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1423181318%2FProperties%2F-1611888266"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media:dokkaHtmlPartial/main"><a data-name="1423181318%2FProperties%2F-1611888266" anchor-label="name" id="1423181318%2FProperties%2F-1611888266" data-filterable-set=":media:dokkaHtmlPartial/main"></a><div class="symbol monospace">val <a href="index.html#1423181318%2FProperties%2F-1611888266">name</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1846795128%2FProperties%2F-1611888266" anchor-label="ordinal" id="1846795128%2FProperties%2F-1611888266" data-filterable-set=":media:dokkaHtmlPartial/main"></a>
-                <div class="table-row" data-filterable-current=":media:dokkaHtmlPartial/main" data-filterable-set=":media:dokkaHtmlPartial/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#1846795128%2FProperties%2F-1611888266">ordinal</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1846795128%2FProperties%2F-1611888266"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media:dokkaHtmlPartial/main"><a data-name="1846795128%2FProperties%2F-1611888266" anchor-label="ordinal" id="1846795128%2FProperties%2F-1611888266" data-filterable-set=":media:dokkaHtmlPartial/main"></a><div class="symbol monospace">val <a href="index.html#1846795128%2FProperties%2F-1611888266">ordinal</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Sources</h2>
-              <div class="table" data-togglable="Sources"><a data-name="1026293774%2FSource%2F-1611888266" anchor-label="https://github.com/google/horologist/blob/main/media/src/main/java/com/google/android/horologist/media/model/PlayerState.kt#L21" id="1026293774%2FSource%2F-1611888266" data-filterable-set=":media:dokkaHtmlPartial/main"></a>
-                <div class="table-row" data-filterable-current=":media:dokkaHtmlPartial/main" data-filterable-set=":media:dokkaHtmlPartial/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="https://github.com/google/horologist/blob/main/media/src/main/java/com/google/android/horologist/media/model/PlayerState.kt#L21">jvm source</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1026293774%2FSource%2F-1611888266"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div></div>
-                  </div>
+            </div>
+          </div>
+<a data-name="-1265377033%2FClasslikes%2F-1611888266" anchor-label="Playing" id="-1265377033%2FClasslikes%2F-1611888266" data-filterable-set=":media:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":media:dokkaHtmlPartial/main" data-filterable-set=":media:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-playing/index.html">Playing</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1265377033%2FClasslikes%2F-1611888266"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-playing/index.html">Playing</a></div></div><div class="brief "><p class="paragraph">The player is playing and position is advancing.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="2132058115%2FFunctions%2F-1611888266" anchor-label="valueOf" id="2132058115%2FFunctions%2F-1611888266" data-filterable-set=":media:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":media:dokkaHtmlPartial/main" data-filterable-set=":media:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value-of.html"><span>value</span><wbr><span><span>Of</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2132058115%2FFunctions%2F-1611888266"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">PlayerState</a></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2081989041%2FFunctions%2F-1611888266" anchor-label="values" id="-2081989041%2FFunctions%2F-1611888266" data-filterable-set=":media:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":media:dokkaHtmlPartial/main" data-filterable-set=":media:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="values.html"><span><span>values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2081989041%2FFunctions%2F-1611888266"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">PlayerState</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-372974862%2FProperties%2F-1611888266" anchor-label="name" id="-372974862%2FProperties%2F-1611888266" data-filterable-set=":media:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":media:dokkaHtmlPartial/main" data-filterable-set=":media:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-playing/index.html#-372974862%2FProperties%2F-1611888266"><span><span>name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-372974862%2FProperties%2F-1611888266"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="-playing/index.html#-372974862%2FProperties%2F-1611888266">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-739389684%2FProperties%2F-1611888266" anchor-label="ordinal" id="-739389684%2FProperties%2F-1611888266" data-filterable-set=":media:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":media:dokkaHtmlPartial/main" data-filterable-set=":media:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-playing/index.html#-739389684%2FProperties%2F-1611888266"><span><span>ordinal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-739389684%2FProperties%2F-1611888266"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="-playing/index.html#-739389684%2FProperties%2F-1611888266">ordinal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  
-</body></html>
-
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
 

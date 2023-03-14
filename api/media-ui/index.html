@@ -1,276 +1,427 @@
+<!doctype html>
 <html>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>media-ui</title>
-</head><body><link href="../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../";</script><script type="text/javascript" src="../scripts/sourceset_dependencies.js" async></script><link href="../styles/style.css" rel="Stylesheet"><link href="../styles/logo-styles.css" rel="Stylesheet"><link href="../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../scripts/clipboard.js" async></script><script type="text/javascript" src="../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../scripts/main.js" async></script>
-  
-    <div id="container">
-      <div id="leftColumn"><a href="../index.html">
-            <div id="logo"></div>
-          </a>
-        <div id="paneSearch"></div>
+<link href="../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../scripts/sourceset_dependencies.js" async></script>
+<link href="../styles/style.css" rel="Stylesheet">
+<link href="../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../styles/main.css" rel="Stylesheet">
+<link href="../styles/prism.css" rel="Stylesheet">
+<link href="../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../scripts/main.js" defer></script>
+<script type="text/javascript" src="../scripts/prism.js" async></script>
+<script type="text/javascript" src="../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../index.html">
+<span>horologist</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":media-ui:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
         <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <script type="text/javascript" src="../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
-
-        <div class="main-content" id="content" pageids="media-ui::////PointingToDeclaration//781136022">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="index.html">media-ui</a></div>
-            <div class="pull-right d-flex">
-              <div id="searchBar"></div>
-            </div>
-          </div>
-          <div class="cover ">
-            <h1 class="cover"><span>media-ui</span></h1>
-          </div>
-          <h2 class="">Packages</h2>
-          <div class="table"><a data-name="729324925%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui" id="729324925%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-            <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="com.google.android.horologist.media.ui/index.html">com.google.android.horologist.media.ui</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="729324925%2FPackages%2F781136022"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-1116467053%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.complication" id="-1116467053%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-            <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="com.google.android.horologist.media.ui.complication/index.html">com.google.android.horologist.media.ui.complication</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1116467053%2FPackages%2F781136022"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-1319933397%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.components" id="-1319933397%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-            <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="com.google.android.horologist.media.ui.components/index.html">com.google.android.horologist.media.ui.components</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1319933397%2FPackages%2F781136022"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="1841243514%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.components.actions" id="1841243514%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-            <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="com.google.android.horologist.media.ui.components.actions/index.html">com.google.android.horologist.media.ui.components.actions</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1841243514%2FPackages%2F781136022"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="1244869194%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.components.animated" id="1244869194%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-            <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="com.google.android.horologist.media.ui.components.animated/index.html">com.google.android.horologist.media.ui.components.animated</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1244869194%2FPackages%2F781136022"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-157652779%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.components.background" id="-157652779%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-            <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="com.google.android.horologist.media.ui.components.background/index.html">com.google.android.horologist.media.ui.components.background</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-157652779%2FPackages%2F781136022"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-1409790563%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.components.controls" id="-1409790563%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-            <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="com.google.android.horologist.media.ui.components.controls/index.html">com.google.android.horologist.media.ui.components.controls</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1409790563%2FPackages%2F781136022"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-1450108673%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.components.display" id="-1450108673%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-            <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="com.google.android.horologist.media.ui.components.display/index.html">com.google.android.horologist.media.ui.components.display</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1450108673%2FPackages%2F781136022"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-587722839%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.navigation" id="-587722839%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-            <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="com.google.android.horologist.media.ui.navigation/index.html">com.google.android.horologist.media.ui.navigation</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-587722839%2FPackages%2F781136022"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="850254502%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.screens.browse" id="850254502%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-            <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="com.google.android.horologist.media.ui.screens.browse/index.html">com.google.android.horologist.media.ui.screens.browse</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="850254502%2FPackages%2F781136022"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-1547523393%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.screens.entity" id="-1547523393%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-            <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="com.google.android.horologist.media.ui.screens.entity/index.html">com.google.android.horologist.media.ui.screens.entity</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1547523393%2FPackages%2F781136022"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="783974461%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.screens.player" id="783974461%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-            <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="com.google.android.horologist.media.ui.screens.player/index.html">com.google.android.horologist.media.ui.screens.player</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="783974461%2FPackages%2F781136022"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="687359397%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.screens.playerlibrarypager" id="687359397%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-            <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="com.google.android.horologist.media.ui.screens.playerlibrarypager/index.html">com.google.android.horologist.media.ui.screens.playerlibrarypager</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="687359397%2FPackages%2F781136022"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="281257097%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.screens.playlists" id="281257097%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-            <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="com.google.android.horologist.media.ui.screens.playlists/index.html">com.google.android.horologist.media.ui.screens.playlists</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="281257097%2FPackages%2F781136022"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="845850108%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.semantics" id="845850108%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-            <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="com.google.android.horologist.media.ui.semantics/index.html">com.google.android.horologist.media.ui.semantics</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="845850108%2FPackages%2F781136022"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="44762138%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.snackbar" id="44762138%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-            <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="com.google.android.horologist.media.ui.snackbar/index.html">com.google.android.horologist.media.ui.snackbar</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="44762138%2FPackages%2F781136022"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-1136707424%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.state" id="-1136707424%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-            <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="com.google.android.horologist.media.ui.state/index.html">com.google.android.horologist.media.ui.state</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1136707424%2FPackages%2F781136022"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-1640780141%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.state.mapper" id="-1640780141%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-            <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="com.google.android.horologist.media.ui.state.mapper/index.html">com.google.android.horologist.media.ui.state.mapper</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1640780141%2FPackages%2F781136022"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="838030875%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.state.model" id="838030875%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-            <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="com.google.android.horologist.media.ui.state.model/index.html">com.google.android.horologist.media.ui.state.model</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="838030875%2FPackages%2F781136022"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-1772425580%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.tiles" id="-1772425580%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-            <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="com.google.android.horologist.media.ui.tiles/index.html">com.google.android.horologist.media.ui.tiles</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1772425580%2FPackages%2F781136022"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageids="media-ui::////PointingToDeclaration//781136022">
+  <div class="breadcrumbs"></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>media-ui</span></span></h1>
+  </div>
+  <h2 class="">Packages</h2>
+  <div class="table"><a data-name="729324925%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui" id="729324925%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.google.android.horologist.media.ui/index.html">com.google.android.horologist.media.ui</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="729324925%2FPackages%2F781136022"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+        <div></div>
       </div>
     </div>
-  
-</body></html>
-
+<a data-name="-1116467053%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.complication" id="-1116467053%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.google.android.horologist.media.ui.complication/index.html">com.google.android.horologist.media.ui.complication</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1116467053%2FPackages%2F781136022"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1319933397%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.components" id="-1319933397%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.google.android.horologist.media.ui.components/index.html">com.google.android.horologist.media.ui.components</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1319933397%2FPackages%2F781136022"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1841243514%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.components.actions" id="1841243514%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.google.android.horologist.media.ui.components.actions/index.html">com.google.android.horologist.media.ui.components.actions</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1841243514%2FPackages%2F781136022"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1244869194%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.components.animated" id="1244869194%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.google.android.horologist.media.ui.components.animated/index.html">com.google.android.horologist.media.ui.components.animated</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1244869194%2FPackages%2F781136022"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-157652779%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.components.background" id="-157652779%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.google.android.horologist.media.ui.components.background/index.html">com.google.android.horologist.media.ui.components.background</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-157652779%2FPackages%2F781136022"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1409790563%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.components.controls" id="-1409790563%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.google.android.horologist.media.ui.components.controls/index.html">com.google.android.horologist.media.ui.components.controls</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1409790563%2FPackages%2F781136022"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1450108673%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.components.display" id="-1450108673%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.google.android.horologist.media.ui.components.display/index.html">com.google.android.horologist.media.ui.components.display</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1450108673%2FPackages%2F781136022"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-587722839%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.navigation" id="-587722839%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.google.android.horologist.media.ui.navigation/index.html">com.google.android.horologist.media.ui.navigation</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-587722839%2FPackages%2F781136022"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="850254502%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.screens.browse" id="850254502%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.google.android.horologist.media.ui.screens.browse/index.html">com.google.android.horologist.media.ui.screens.browse</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="850254502%2FPackages%2F781136022"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1547523393%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.screens.entity" id="-1547523393%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.google.android.horologist.media.ui.screens.entity/index.html">com.google.android.horologist.media.ui.screens.entity</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1547523393%2FPackages%2F781136022"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="783974461%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.screens.player" id="783974461%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.google.android.horologist.media.ui.screens.player/index.html">com.google.android.horologist.media.ui.screens.player</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="783974461%2FPackages%2F781136022"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="687359397%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.screens.playerlibrarypager" id="687359397%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.google.android.horologist.media.ui.screens.playerlibrarypager/index.html">com.google.android.horologist.media.ui.screens.playerlibrarypager</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="687359397%2FPackages%2F781136022"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="281257097%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.screens.playlists" id="281257097%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.google.android.horologist.media.ui.screens.playlists/index.html">com.google.android.horologist.media.ui.screens.playlists</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="281257097%2FPackages%2F781136022"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="845850108%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.semantics" id="845850108%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.google.android.horologist.media.ui.semantics/index.html">com.google.android.horologist.media.ui.semantics</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="845850108%2FPackages%2F781136022"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="44762138%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.snackbar" id="44762138%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.google.android.horologist.media.ui.snackbar/index.html">com.google.android.horologist.media.ui.snackbar</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="44762138%2FPackages%2F781136022"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1136707424%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.state" id="-1136707424%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.google.android.horologist.media.ui.state/index.html">com.google.android.horologist.media.ui.state</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1136707424%2FPackages%2F781136022"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1640780141%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.state.mapper" id="-1640780141%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.google.android.horologist.media.ui.state.mapper/index.html">com.google.android.horologist.media.ui.state.mapper</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1640780141%2FPackages%2F781136022"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="838030875%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.state.model" id="838030875%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.google.android.horologist.media.ui.state.model/index.html">com.google.android.horologist.media.ui.state.model</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="838030875%2FPackages%2F781136022"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1772425580%2FPackages%2F781136022" anchor-label="com.google.android.horologist.media.ui.tiles" id="-1772425580%2FPackages%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.google.android.horologist.media.ui.tiles/index.html">com.google.android.horologist.media.ui.tiles</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1772425580%2FPackages%2F781136022"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
 

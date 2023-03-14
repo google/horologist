@@ -1,202 +1,248 @@
+<!doctype html>
 <html>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>WearDataLayerAppHelper</title>
-</head><body><link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../scripts/main.js" async></script>
-  
-    <div id="container">
-      <div id="leftColumn"><a href="../../../index.html">
-            <div id="logo"></div>
-          </a>
-        <div id="paneSearch"></div>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>horologist</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":datalayer-watch:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
         <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <script type="text/javascript" src="../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
-
-        <div class="main-content" id="content" pageids="datalayer-watch::com.google.android.horologist.datalayer.watch/WearDataLayerAppHelper///PointingToDeclaration//-1273487780">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../index.html">datalayer-watch</a>/<a href="../index.html">com.google.android.horologist.datalayer.watch</a>/<a href="index.html">WearDataLayerAppHelper</a></div>
-            <div class="pull-right d-flex">
-              <div id="searchBar"></div>
-            </div>
-          </div>
-          <div class="cover ">
-            <h1 class="cover"><span>Wear</span><wbr><span>Data</span><wbr><span>Layer</span><wbr><span>App</span><wbr><span>Helper</span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="index.html">WearDataLayerAppHelper</a>(context: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>, appStoreUri: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?) : <a href="../../../datalayer/com.google.android.horologist.data/-data-layer-app-helper/index.html">DataLayerAppHelper</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Subclass of <a href="../../../datalayer/com.google.android.horologist.data/-data-layer-app-helper/index.html">DataLayerAppHelper</a> for use on Wear devices.</p></div></div>
-          </div>
-          <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Sources">Sources</button></div>
-            <div class="tabs-section-body">
-              <h2 class="tabbedcontent">Constructors</h2>
-              <div class="table" data-togglable="Constructors"><a data-name="-1569952471%2FConstructors%2F-1273487780" anchor-label="WearDataLayerAppHelper" id="-1569952471%2FConstructors%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue TabbedContent">
-                    <div class=""><span class="inline-flex"><a href="-wear-data-layer-app-helper.html">WearDataLayerAppHelper</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1569952471%2FConstructors%2F-1273487780"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="-wear-data-layer-app-helper.html">WearDataLayerAppHelper</a>(context: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>, appStoreUri: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="119564086%2FFunctions%2F-1273487780" anchor-label="connectedNodes" id="119564086%2FFunctions%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#119564086%2FFunctions%2F-1273487780">connectedNodes</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="119564086%2FFunctions%2F-1273487780"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace">suspend fun <a href="index.html#119564086%2FFunctions%2F-1273487780">connectedNodes</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../../../datalayer/com.google.android.horologist.data/-app-helper-node-status/index.html">AppHelperNodeStatus</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="datalayer-watch::com.google.android.horologist.datalayer.watch/WearDataLayerAppHelper///PointingToDeclaration//-1273487780">
+  <div class="breadcrumbs"><a href="../../index.html">datalayer-watch</a><span class="delimiter">/</span><a href="../index.html">com.google.android.horologist.datalayer.watch</a><span class="delimiter">/</span><span class="current">WearDataLayerAppHelper</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Wear</span><wbr><span>Data</span><wbr><span>Layer</span><wbr><span>App</span><wbr><span><span>Helper</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">WearDataLayerAppHelper</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">appStoreUri<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span> : <a href="../../../datalayer/com.google.android.horologist.data/-data-layer-app-helper/index.html">DataLayerAppHelper</a></div><p class="paragraph">Subclass of <a href="../../../datalayer/com.google.android.horologist.data/-data-layer-app-helper/index.html">DataLayerAppHelper</a> for use on Wear devices.</p></div></div>
   </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="891974943%2FFunctions%2F-1273487780" anchor-label="installOnNode" id="891974943%2FFunctions%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="install-on-node.html">installOnNode</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="891974943%2FFunctions%2F-1273487780"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace">open suspend override fun <a href="install-on-node.html">installOnNode</a>(node: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-1524934992%2FFunctions%2F-1273487780" anchor-label="markTileAsInstalled" id="-1524934992%2FFunctions%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="mark-tile-as-installed.html">markTileAsInstalled</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1524934992%2FFunctions%2F-1273487780"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace">suspend fun <a href="mark-tile-as-installed.html">markTileAsInstalled</a>(tileName: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-1524934992%2FFunctions%2F-1273487780" anchor-label="markTileAsInstalled" id="-1524934992%2FFunctions%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-1524934992%2FFunctions%2F-1273487780" anchor-label="markTileAsInstalled" id="-1524934992%2FFunctions%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>Marks a tile as installed.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="967615190%2FFunctions%2F-1273487780" anchor-label="markTileAsRemoved" id="967615190%2FFunctions%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="mark-tile-as-removed.html">markTileAsRemoved</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="967615190%2FFunctions%2F-1273487780"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace">suspend fun <a href="mark-tile-as-removed.html">markTileAsRemoved</a>(tileName: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="967615190%2FFunctions%2F-1273487780" anchor-label="markTileAsRemoved" id="967615190%2FFunctions%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="967615190%2FFunctions%2F-1273487780" anchor-label="markTileAsRemoved" id="967615190%2FFunctions%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>Marks a tile as removed.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-1950747275%2FFunctions%2F-1273487780" anchor-label="startCompanion" id="-1950747275%2FFunctions%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="start-companion.html">startCompanion</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1950747275%2FFunctions%2F-1273487780"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace">open suspend override fun <a href="start-companion.html">startCompanion</a>(node: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="../../../datalayer/com.google.android.horologist.data/-app-helper-result-code/index.html">AppHelperResultCode</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-843375830%2FFunctions%2F-1273487780" anchor-label="startRemoteActivity" id="-843375830%2FFunctions%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#-843375830%2FFunctions%2F-1273487780">startRemoteActivity</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-843375830%2FFunctions%2F-1273487780"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace">suspend fun <a href="index.html#-843375830%2FFunctions%2F-1273487780">startRemoteActivity</a>(node: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, config: <a href="../../../datalayer/com.google.android.horologist.data/-activity-config/index.html">ActivityConfig</a>): <a href="../../../datalayer/com.google.android.horologist.data/-app-helper-result-code/index.html">AppHelperResultCode</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1710256619%2FFunctions%2F-1273487780" anchor-label="startRemoteOwnApp" id="1710256619%2FFunctions%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#1710256619%2FFunctions%2F-1273487780">startRemoteOwnApp</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1710256619%2FFunctions%2F-1273487780"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace">suspend fun <a href="index.html#1710256619%2FFunctions%2F-1273487780">startRemoteOwnApp</a>(node: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="../../../datalayer/com.google.android.horologist.data/-app-helper-result-code/index.html">AppHelperResultCode</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Properties</h2>
-              <div class="table" data-togglable="Properties"><a data-name="862112276%2FProperties%2F-1273487780" anchor-label="connectedAndInstalledNodes" id="862112276%2FProperties%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#862112276%2FProperties%2F-1273487780">connectedAndInstalledNodes</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="862112276%2FProperties%2F-1273487780"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><a data-name="862112276%2FProperties%2F-1273487780" anchor-label="connectedAndInstalledNodes" id="862112276%2FProperties%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a><div class="symbol monospace">val <a href="index.html#862112276%2FProperties%2F-1273487780">connectedAndInstalledNodes</a>: <span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/index.html">Set</a>&lt;<span data-unresolved-link="com.google.android.gms.wearable/Node///PointingToDeclaration/">Node</span>&gt;&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Sources</h2>
-              <div class="table" data-togglable="Sources"><a data-name="163866822%2FSource%2F-1755099336" anchor-label="https://github.com/google/horologist/blob/main/datalayer-watch/src/main/java/com/google/android/horologist/datalayer/watch/WearDataLayerAppHelper.kt#L34" id="163866822%2FSource%2F-1755099336" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/main"></a>
-                <div class="table-row" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/main" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="https://github.com/google/horologist/blob/main/datalayer-watch/src/main/java/com/google/android/horologist/datalayer/watch/WearDataLayerAppHelper.kt#L34">androidJvm source</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="163866822%2FSource%2F-1755099336"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div></div>
-                  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1569952471%2FConstructors%2F-1273487780" anchor-label="WearDataLayerAppHelper" id="-1569952471%2FConstructors%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-wear-data-layer-app-helper.html"><span>Wear</span><wbr><span>Data</span><wbr><span>Layer</span><wbr><span>App</span><wbr><span><span>Helper</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1569952471%2FConstructors%2F-1273487780"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">appStoreUri<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="119564086%2FFunctions%2F-1273487780" anchor-label="connectedNodes" id="119564086%2FFunctions%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#119564086%2FFunctions%2F-1273487780"><span>connected</span><wbr><span><span>Nodes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="119564086%2FFunctions%2F-1273487780"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="index.html#119564086%2FFunctions%2F-1273487780"><span class="token function">connectedNodes</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../../datalayer/com.google.android.horologist.data/-app-helper-node-status/index.html">AppHelperNodeStatus</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="891974943%2FFunctions%2F-1273487780" anchor-label="installOnNode" id="891974943%2FFunctions%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="install-on-node.html"><span>install</span><wbr><span>On</span><wbr><span><span>Node</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="891974943%2FFunctions%2F-1273487780"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="install-on-node.html"><span class="token function">installOnNode</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">node<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1910994633%2FFunctions%2F-1273487780" anchor-label="markComplicationAsActivated" id="-1910994633%2FFunctions%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="mark-complication-as-activated.html"><span>mark</span><wbr><span>Complication</span><wbr><span>As</span><wbr><span><span>Activated</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1910994633%2FFunctions%2F-1273487780"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="mark-complication-as-activated.html"><span class="token function">markComplicationAsActivated</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">complicationName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Marks a complication as active on the current watch face. Call this in ComplicationDataSourceService#onComplicationActivated. Supplying a name is mandatory to disambiguate from the installation or removal of other complications your app may have.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1411736874%2FFunctions%2F-1273487780" anchor-label="markComplicationAsDeactivated" id="-1411736874%2FFunctions%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="mark-complication-as-deactivated.html"><span>mark</span><wbr><span>Complication</span><wbr><span>As</span><wbr><span><span>Deactivated</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1411736874%2FFunctions%2F-1273487780"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="mark-complication-as-deactivated.html"><span class="token function">markComplicationAsDeactivated</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">complicationName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Marks a complication as deactivated. Call this in ComplicationDataSourceService#onComplicationDeactivated. Supplying a name is mandatory to disambiguate from the installation or removal of other complications your app may have.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1524934992%2FFunctions%2F-1273487780" anchor-label="markTileAsInstalled" id="-1524934992%2FFunctions%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="mark-tile-as-installed.html"><span>mark</span><wbr><span>Tile</span><wbr><span>As</span><wbr><span><span>Installed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1524934992%2FFunctions%2F-1273487780"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="mark-tile-as-installed.html"><span class="token function">markTileAsInstalled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tileName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Marks a tile as installed. Call this in TileService#onTileAddEvent. Supplying a name is mandatory to disambiguate from the installation or removal of other tiles your app may have.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="967615190%2FFunctions%2F-1273487780" anchor-label="markTileAsRemoved" id="967615190%2FFunctions%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="mark-tile-as-removed.html"><span>mark</span><wbr><span>Tile</span><wbr><span>As</span><wbr><span><span>Removed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="967615190%2FFunctions%2F-1273487780"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="mark-tile-as-removed.html"><span class="token function">markTileAsRemoved</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tileName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Marks a tile as removed. Call this in TileService#onTileRemoveEvent. Supplying a name is mandatory to disambiguate from the installation or removal of other tiles your app may have.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1950747275%2FFunctions%2F-1273487780" anchor-label="startCompanion" id="-1950747275%2FFunctions%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="start-companion.html"><span>start</span><wbr><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1950747275%2FFunctions%2F-1273487780"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="start-companion.html"><span class="token function">startCompanion</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">node<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../datalayer/com.google.android.horologist.data/-app-helper-result-code/index.html">AppHelperResultCode</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-843375830%2FFunctions%2F-1273487780" anchor-label="startRemoteActivity" id="-843375830%2FFunctions%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-843375830%2FFunctions%2F-1273487780"><span>start</span><wbr><span>Remote</span><wbr><span><span>Activity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-843375830%2FFunctions%2F-1273487780"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="index.html#-843375830%2FFunctions%2F-1273487780"><span class="token function">startRemoteActivity</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">node<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">config<span class="token operator">: </span><a href="../../../datalayer/com.google.android.horologist.data/-activity-config/index.html">ActivityConfig</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../datalayer/com.google.android.horologist.data/-app-helper-result-code/index.html">AppHelperResultCode</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1710256619%2FFunctions%2F-1273487780" anchor-label="startRemoteOwnApp" id="1710256619%2FFunctions%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1710256619%2FFunctions%2F-1273487780"><span>start</span><wbr><span>Remote</span><wbr><span>Own</span><wbr><span><span>App</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1710256619%2FFunctions%2F-1273487780"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="index.html#1710256619%2FFunctions%2F-1273487780"><span class="token function">startRemoteOwnApp</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">node<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../datalayer/com.google.android.horologist.data/-app-helper-result-code/index.html">AppHelperResultCode</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-158014343%2FProperties%2F-1273487780" anchor-label="connectedAndInstalledNodes" id="-158014343%2FProperties%2F-1273487780" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":datalayer-watch:dokkaHtmlPartial/release" data-filterable-set=":datalayer-watch:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-158014343%2FProperties%2F-1273487780"><span>connected</span><wbr><span>And</span><wbr><span>Installed</span><wbr><span><span>Nodes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-158014343%2FProperties%2F-1273487780"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datalayer-watch:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="index.html#-158014343%2FProperties%2F-1273487780">connectedAndInstalledNodes</a><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="com.google.android.gms.wearable/Node///PointingToDeclaration/">Node</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  
-</body></html>
-
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
 

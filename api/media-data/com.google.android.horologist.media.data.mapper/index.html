@@ -1,279 +1,284 @@
+<!doctype html>
 <html>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>com.google.android.horologist.media.data.mapper</title>
-</head><body><link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script><script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script><link href="../../styles/style.css" rel="Stylesheet"><link href="../../styles/logo-styles.css" rel="Stylesheet"><link href="../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../scripts/main.js" async></script>
-  
-    <div id="container">
-      <div id="leftColumn"><a href="../../index.html">
-            <div id="logo"></div>
-          </a>
-        <div id="paneSearch"></div>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../index.html">
+<span>horologist</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":media-data:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
         <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <script type="text/javascript" src="../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
-
-        <div class="main-content" id="content" pageids="media-data::com.google.android.horologist.media.data.mapper////PointingToDeclaration//1521834560">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../index.html">media-data</a>/<a href="index.html">com.google.android.horologist.media.data.mapper</a></div>
-            <div class="pull-right d-flex">
-              <div id="searchBar"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="package" id="content" pageids="media-data::com.google.android.horologist.media.data.mapper////PointingToDeclaration//1521834560">
+  <div class="breadcrumbs"><a href="../index.html">media-data</a><span class="delimiter">/</span><span class="current">com.google.android.horologist.media.data.mapper</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="527310454%2FClasslikes%2F1521834560" anchor-label="CommandMapper" id="527310454%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-command-mapper/index.html"><span>Command</span><wbr><span><span>Mapper</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="527310454%2FClasslikes%2F1521834560"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">object </span><a href="-command-mapper/index.html">CommandMapper</a></div><div class="brief "><p class="paragraph">Maps <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.Command.html">Player.Command</a> into a <a href="../../media/com.google.android.horologist.media.model/-command/index.html">Command</a>.</p></div></div></div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="cover ">
-            <h1 class="cover"><span>Package com.</span><wbr><span>google.</span><wbr><span>android.</span><wbr><span>horologist.</span><wbr><span>media.</span><wbr><span>data.</span><wbr><span>mapper</span></h1>
-          </div>
-          <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button></div>
-            <div class="tabs-section-body">
-              <h2 class="">Types</h2>
-              <div class="table" data-togglable="Types"><a data-name="527310454%2FClasslikes%2F1521834560" anchor-label="CommandMapper" id="527310454%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-command-mapper/index.html">CommandMapper</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="527310454%2FClasslikes%2F1521834560"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">object <a href="-command-mapper/index.html">CommandMapper</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="527310454%2FClasslikes%2F1521834560" anchor-label="CommandMapper" id="527310454%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="527310454%2FClasslikes%2F1521834560" anchor-label="CommandMapper" id="527310454%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>Maps <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.Command.html">Player.Command</a> into a <a href="../../media/com.google.android.horologist.media.model/-command/index.html">Command</a>.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
 <a data-name="-2124614571%2FClasslikes%2F1521834560" anchor-label="MediaDownloadMapper" id="-2124614571%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-media-download-mapper/index.html">MediaDownloadMapper</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2124614571%2FClasslikes%2F1521834560"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">object <a href="-media-download-mapper/index.html">MediaDownloadMapper</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-2124614571%2FClasslikes%2F1521834560" anchor-label="MediaDownloadMapper" id="-2124614571%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-2124614571%2FClasslikes%2F1521834560" anchor-label="MediaDownloadMapper" id="-2124614571%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>Functions to map models from other layers and / or packages into a <a href="../../media/com.google.android.horologist.media.model/-media-download/index.html">MediaDownload</a>.</div></div>
-</div>
-                    </div>
-                  </div>
+          <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-media-download-mapper/index.html"><span>Media</span><wbr><span>Download</span><wbr><span><span>Mapper</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2124614571%2FClasslikes%2F1521834560"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">object </span><a href="-media-download-mapper/index.html">MediaDownloadMapper</a></div><div class="brief "><p class="paragraph">Functions to map models from other layers and / or packages into a <a href="../../media/com.google.android.horologist.media.model/-media-download/index.html">MediaDownload</a>.</p></div></div></div>
                 </div>
+              </div>
+            </div>
+          </div>
 <a data-name="8508995%2FClasslikes%2F1521834560" anchor-label="MediaDownloadStatusMapper" id="8508995%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-media-download-status-mapper/index.html">MediaDownloadStatusMapper</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="8508995%2FClasslikes%2F1521834560"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">object <a href="-media-download-status-mapper/index.html">MediaDownloadStatusMapper</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="8508995%2FClasslikes%2F1521834560" anchor-label="MediaDownloadStatusMapper" id="8508995%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="8508995%2FClasslikes%2F1521834560" anchor-label="MediaDownloadStatusMapper" id="8508995%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>Functions to map models from other layers and / or packages into a <a href="../../media/com.google.android.horologist.media.model/-media-download/-status/index.html">MediaDownload.Status</a>.</div></div>
-</div>
-                    </div>
-                  </div>
+          <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-media-download-status-mapper/index.html"><span>Media</span><wbr><span>Download</span><wbr><span>Status</span><wbr><span><span>Mapper</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="8508995%2FClasslikes%2F1521834560"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">object </span><a href="-media-download-status-mapper/index.html">MediaDownloadStatusMapper</a></div><div class="brief "><p class="paragraph">Functions to map models from other layers and / or packages into a <a href="../../media/com.google.android.horologist.media.model/-media-download/-status/index.html">MediaDownload.Status</a>.</p></div></div></div>
                 </div>
+              </div>
+            </div>
+          </div>
 <a data-name="45394522%2FClasslikes%2F1521834560" anchor-label="MediaExtrasMapper" id="45394522%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-media-extras-mapper/index.html">MediaExtrasMapper</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="45394522%2FClasslikes%2F1521834560"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">interface <a href="-media-extras-mapper/index.html">MediaExtrasMapper</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="45394522%2FClasslikes%2F1521834560" anchor-label="MediaExtrasMapper" id="45394522%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="45394522%2FClasslikes%2F1521834560" anchor-label="MediaExtrasMapper" id="45394522%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>Custom implementation to populate <a href="../../media/com.google.android.horologist.media.model/-media/extras.html">Media.extras</a> with values from <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a>.</div></div>
-</div>
-                    </div>
-                  </div>
+          <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-media-extras-mapper/index.html"><span>Media</span><wbr><span>Extras</span><wbr><span><span>Mapper</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="45394522%2FClasslikes%2F1521834560"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-media-extras-mapper/index.html">MediaExtrasMapper</a></div><div class="brief "><p class="paragraph">Custom implementation to populate <a href="../../media/com.google.android.horologist.media.model/-media/extras.html">Media.extras</a> with values from <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a>.</p></div></div></div>
                 </div>
+              </div>
+            </div>
+          </div>
 <a data-name="-1188690216%2FClasslikes%2F1521834560" anchor-label="MediaExtrasMapperNoopImpl" id="-1188690216%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-media-extras-mapper-noop-impl/index.html">MediaExtrasMapperNoopImpl</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1188690216%2FClasslikes%2F1521834560"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">object <a href="-media-extras-mapper-noop-impl/index.html">MediaExtrasMapperNoopImpl</a> : <a href="-media-extras-mapper/index.html">MediaExtrasMapper</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+          <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-media-extras-mapper-noop-impl/index.html"><span>Media</span><wbr><span>Extras</span><wbr><span>Mapper</span><wbr><span>Noop</span><wbr><span><span>Impl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1188690216%2FClasslikes%2F1521834560"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">object </span><a href="-media-extras-mapper-noop-impl/index.html">MediaExtrasMapperNoopImpl</a> : <a href="-media-extras-mapper/index.html">MediaExtrasMapper</a></div></div></div>
                 </div>
+              </div>
+            </div>
+          </div>
 <a data-name="1188585607%2FClasslikes%2F1521834560" anchor-label="MediaItemExtrasMapper" id="1188585607%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-media-item-extras-mapper/index.html">MediaItemExtrasMapper</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1188585607%2FClasslikes%2F1521834560"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">interface <a href="-media-item-extras-mapper/index.html">MediaItemExtrasMapper</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="1188585607%2FClasslikes%2F1521834560" anchor-label="MediaItemExtrasMapper" id="1188585607%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="1188585607%2FClasslikes%2F1521834560" anchor-label="MediaItemExtrasMapper" id="1188585607%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>Custom implementation to populate <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a> with values from <a href="../../media/com.google.android.horologist.media.model/-media/extras.html">Media.extras</a>.</div></div>
-</div>
-                    </div>
-                  </div>
+          <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-media-item-extras-mapper/index.html"><span>Media</span><wbr><span>Item</span><wbr><span>Extras</span><wbr><span><span>Mapper</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1188585607%2FClasslikes%2F1521834560"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-media-item-extras-mapper/index.html">MediaItemExtrasMapper</a></div><div class="brief "><p class="paragraph">Custom implementation to populate <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a> with values from <a href="../../media/com.google.android.horologist.media.model/-media/extras.html">Media.extras</a>.</p></div></div></div>
                 </div>
+              </div>
+            </div>
+          </div>
 <a data-name="-516210683%2FClasslikes%2F1521834560" anchor-label="MediaItemExtrasMapperNoopImpl" id="-516210683%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-media-item-extras-mapper-noop-impl/index.html">MediaItemExtrasMapperNoopImpl</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-516210683%2FClasslikes%2F1521834560"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">object <a href="-media-item-extras-mapper-noop-impl/index.html">MediaItemExtrasMapperNoopImpl</a> : <a href="-media-item-extras-mapper/index.html">MediaItemExtrasMapper</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+          <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-media-item-extras-mapper-noop-impl/index.html"><span>Media</span><wbr><span>Item</span><wbr><span>Extras</span><wbr><span>Mapper</span><wbr><span>Noop</span><wbr><span><span>Impl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-516210683%2FClasslikes%2F1521834560"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">object </span><a href="-media-item-extras-mapper-noop-impl/index.html">MediaItemExtrasMapperNoopImpl</a> : <a href="-media-item-extras-mapper/index.html">MediaItemExtrasMapper</a></div></div></div>
                 </div>
+              </div>
+            </div>
+          </div>
 <a data-name="838545130%2FClasslikes%2F1521834560" anchor-label="MediaItemMapper" id="838545130%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-media-item-mapper/index.html">MediaItemMapper</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="838545130%2FClasslikes%2F1521834560"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="-media-item-mapper/index.html">MediaItemMapper</a>(mediaItemExtrasMapper: <a href="-media-item-extras-mapper/index.html">MediaItemExtrasMapper</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="838545130%2FClasslikes%2F1521834560" anchor-label="MediaItemMapper" id="838545130%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="838545130%2FClasslikes%2F1521834560" anchor-label="MediaItemMapper" id="838545130%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>Maps a <a href="../../media/com.google.android.horologist.media.model/-media/index.html">Media</a> into a <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a>.</div></div>
-</div>
-                    </div>
-                  </div>
+          <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-media-item-mapper/index.html"><span>Media</span><wbr><span>Item</span><wbr><span><span>Mapper</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="838545130%2FClasslikes%2F1521834560"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-media-item-mapper/index.html">MediaItemMapper</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mediaItemExtrasMapper<span class="token operator">: </span><a href="-media-item-extras-mapper/index.html">MediaItemExtrasMapper</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Maps a <a href="../../media/com.google.android.horologist.media.model/-media/index.html">Media</a> into a <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a>.</p></div></div></div>
                 </div>
+              </div>
+            </div>
+          </div>
 <a data-name="1945899773%2FClasslikes%2F1521834560" anchor-label="MediaMapper" id="1945899773%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-media-mapper/index.html">MediaMapper</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1945899773%2FClasslikes%2F1521834560"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="-media-mapper/index.html">MediaMapper</a>(mediaExtrasMapper: <a href="-media-extras-mapper/index.html">MediaExtrasMapper</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="1945899773%2FClasslikes%2F1521834560" anchor-label="MediaMapper" id="1945899773%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="1945899773%2FClasslikes%2F1521834560" anchor-label="MediaMapper" id="1945899773%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>Functions to map models from other layers and / or packages into a <a href="../../media/com.google.android.horologist.media.model/-media/index.html">Media</a>.</div></div>
-</div>
-                    </div>
-                  </div>
+          <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-media-mapper/index.html"><span>Media</span><wbr><span><span>Mapper</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1945899773%2FClasslikes%2F1521834560"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-media-mapper/index.html">MediaMapper</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mediaExtrasMapper<span class="token operator">: </span><a href="-media-extras-mapper/index.html">MediaExtrasMapper</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Functions to map models from other layers and / or packages into a <a href="../../media/com.google.android.horologist.media.model/-media/index.html">Media</a>.</p></div></div></div>
                 </div>
+              </div>
+            </div>
+          </div>
 <a data-name="-556957589%2FClasslikes%2F1521834560" anchor-label="PlaybackStateMapper" id="-556957589%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-playback-state-mapper/index.html">PlaybackStateMapper</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-556957589%2FClasslikes%2F1521834560"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="-playback-state-mapper/index.html">PlaybackStateMapper</a>(timestampProvider: <a href="../../media/com.google.android.horologist.media.model/-timestamp-provider/index.html">TimestampProvider</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-556957589%2FClasslikes%2F1521834560" anchor-label="PlaybackStateMapper" id="-556957589%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-556957589%2FClasslikes%2F1521834560" anchor-label="PlaybackStateMapper" id="-556957589%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>Maps a <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.html">Media3 player</a> position into a <a href="../../media/com.google.android.horologist.media.model/-playback-state/index.html">PlaybackState</a>.</div></div>
-</div>
-                    </div>
-                  </div>
+          <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-playback-state-mapper/index.html"><span>Playback</span><wbr><span>State</span><wbr><span><span>Mapper</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-556957589%2FClasslikes%2F1521834560"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-playback-state-mapper/index.html">PlaybackStateMapper</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">timestampProvider<span class="token operator">: </span><a href="../../media/com.google.android.horologist.media.model/-timestamp-provider/index.html">TimestampProvider</a><span class="token operator"> = </span>TimestampProvider { SystemClock.elapsedRealtime() }</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Maps a <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.html">Media3 player</a> position into a <a href="../../media/com.google.android.horologist.media.model/-playback-state/index.html">PlaybackState</a>.</p></div></div></div>
                 </div>
+              </div>
+            </div>
+          </div>
 <a data-name="2112225905%2FClasslikes%2F1521834560" anchor-label="PlayerStateMapper" id="2112225905%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-player-state-mapper/index.html">PlayerStateMapper</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2112225905%2FClasslikes%2F1521834560"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">object <a href="-player-state-mapper/index.html">PlayerStateMapper</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="2112225905%2FClasslikes%2F1521834560" anchor-label="PlayerStateMapper" id="2112225905%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="2112225905%2FClasslikes%2F1521834560" anchor-label="PlayerStateMapper" id="2112225905%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>Maps a <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.html">Media3 player</a> into a <a href="../../media/com.google.android.horologist.media.model/-player-state/index.html">PlayerState</a>.</div></div>
-</div>
-                    </div>
-                  </div>
+          <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-player-state-mapper/index.html"><span>Player</span><wbr><span>State</span><wbr><span><span>Mapper</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2112225905%2FClasslikes%2F1521834560"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">object </span><a href="-player-state-mapper/index.html">PlayerStateMapper</a></div><div class="brief "><p class="paragraph">Maps a <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.html">Media3 player</a> into a <a href="../../media/com.google.android.horologist.media.model/-player-state/index.html">PlayerState</a>.</p></div></div></div>
                 </div>
+              </div>
+            </div>
+          </div>
 <a data-name="-1034352091%2FClasslikes%2F1521834560" anchor-label="PlaylistDownloadMapper" id="-1034352091%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-playlist-download-mapper/index.html">PlaylistDownloadMapper</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1034352091%2FClasslikes%2F1521834560"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="-playlist-download-mapper/index.html">PlaylistDownloadMapper</a>(playlistMapper: <a href="-playlist-mapper/index.html">PlaylistMapper</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-1034352091%2FClasslikes%2F1521834560" anchor-label="PlaylistDownloadMapper" id="-1034352091%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-1034352091%2FClasslikes%2F1521834560" anchor-label="PlaylistDownloadMapper" id="-1034352091%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>Functions to map models from other layers and / or packages into a <a href="../../media/com.google.android.horologist.media.model/-playlist-download/index.html">PlaylistDownload</a>.</div></div>
-</div>
-                    </div>
-                  </div>
+          <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-playlist-download-mapper/index.html"><span>Playlist</span><wbr><span>Download</span><wbr><span><span>Mapper</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1034352091%2FClasslikes%2F1521834560"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-playlist-download-mapper/index.html">PlaylistDownloadMapper</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">playlistMapper<span class="token operator">: </span><a href="-playlist-mapper/index.html">PlaylistMapper</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Functions to map models from other layers and / or packages into a <a href="../../media/com.google.android.horologist.media.model/-playlist-download/index.html">PlaylistDownload</a>.</p></div></div></div>
                 </div>
+              </div>
+            </div>
+          </div>
 <a data-name="2081618125%2FClasslikes%2F1521834560" anchor-label="PlaylistMapper" id="2081618125%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-playlist-mapper/index.html">PlaylistMapper</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2081618125%2FClasslikes%2F1521834560"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="-playlist-mapper/index.html">PlaylistMapper</a>(mediaMapper: <a href="-media-mapper/index.html">MediaMapper</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="2081618125%2FClasslikes%2F1521834560" anchor-label="PlaylistMapper" id="2081618125%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="2081618125%2FClasslikes%2F1521834560" anchor-label="PlaylistMapper" id="2081618125%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>Functions to map models from other layers and / or packages into a <a href="../../media/com.google.android.horologist.media.model/-playlist/index.html">Playlist</a>.</div></div>
-</div>
-                    </div>
-                  </div>
+          <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-playlist-mapper/index.html"><span>Playlist</span><wbr><span><span>Mapper</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2081618125%2FClasslikes%2F1521834560"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-playlist-mapper/index.html">PlaylistMapper</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mediaMapper<span class="token operator">: </span><a href="-media-mapper/index.html">MediaMapper</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Functions to map models from other layers and / or packages into a <a href="../../media/com.google.android.horologist.media.model/-playlist/index.html">Playlist</a>.</p></div></div></div>
                 </div>
+              </div>
+            </div>
+          </div>
 <a data-name="-1783940234%2FClasslikes%2F1521834560" anchor-label="SetCommandMapper" id="-1783940234%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-set-command-mapper/index.html">SetCommandMapper</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1783940234%2FClasslikes%2F1521834560"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace">object <a href="-set-command-mapper/index.html">SetCommandMapper</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-1783940234%2FClasslikes%2F1521834560" anchor-label="SetCommandMapper" id="-1783940234%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-1783940234%2FClasslikes%2F1521834560" anchor-label="SetCommandMapper" id="-1783940234%2FClasslikes%2F1521834560" data-filterable-set=":media-data:dokkaHtmlPartial/release"></a>Maps <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.Commands.html">Player.Commands</a> into a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/index.html">Set</a> of <a href="../../media/com.google.android.horologist.media.model/-command/index.html">Command</a>.</div></div>
-</div>
-                    </div>
-                  </div>
+          <div class="table-row" data-filterable-current=":media-data:dokkaHtmlPartial/release" data-filterable-set=":media-data:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-set-command-mapper/index.html"><span>Set</span><wbr><span>Command</span><wbr><span><span>Mapper</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1783940234%2FClasslikes%2F1521834560"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-data:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">object </span><a href="-set-command-mapper/index.html">SetCommandMapper</a></div><div class="brief "><p class="paragraph">Maps <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.Commands.html">Player.Commands</a> into a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/index.html">Set</a> of <a href="../../media/com.google.android.horologist.media.model/-command/index.html">Command</a>.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
       </div>
     </div>
-  
-</body></html>
-
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
 

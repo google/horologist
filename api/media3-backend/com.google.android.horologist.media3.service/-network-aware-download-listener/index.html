@@ -1,187 +1,199 @@
+<!doctype html>
 <html>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>NetworkAwareDownloadListener</title>
-</head><body><link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../scripts/main.js" async></script>
-  
-    <div id="container">
-      <div id="leftColumn"><a href="../../../index.html">
-            <div id="logo"></div>
-          </a>
-        <div id="paneSearch"></div>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>horologist</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":media3-backend:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
         <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <script type="text/javascript" src="../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
-
-        <div class="main-content" id="content" pageids="media3-backend::com.google.android.horologist.media3.service/NetworkAwareDownloadListener///PointingToDeclaration//2137855293">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../index.html">media3-backend</a>/<a href="../index.html">com.google.android.horologist.media3.service</a>/<a href="index.html">NetworkAwareDownloadListener</a></div>
-            <div class="pull-right d-flex">
-              <div id="searchBar"></div>
-            </div>
-          </div>
-          <div class="cover ">
-            <h1 class="cover"><span>Network</span><wbr><span>Aware</span><wbr><span>Download</span><wbr><span>Listener</span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media3-backend:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="index.html">NetworkAwareDownloadListener</a>(appEventLogger: <a href="../../com.google.android.horologist.media3.logging/-error-reporter/index.html">ErrorReporter</a>, highBandwidthNetworkMediator: <a href="../../../network-awareness/com.google.android.horologist.networks.highbandwidth/-high-bandwidth-network-mediator/index.html">HighBandwidthNetworkMediator</a>, networkingRulesEngine: <a href="../../../network-awareness/com.google.android.horologist.networks.rules/-networking-rules-engine/index.html">NetworkingRulesEngine</a>) : <a href="https://developer.android.com/reference/androidx/media3/exoplayer/offline/DownloadManager.Listener.html">DownloadManager.Listener</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Simple implementation of <a href="https://developer.android.com/reference/androidx/media3/exoplayer/offline/DownloadManager.Listener.html">DownloadManager.Listener</a> for downloading with a required high bandwidth network. Also includes event logging.</p></div></div>
-          </div>
-          <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Sources">Sources</button></div>
-            <div class="tabs-section-body">
-              <h2 class="tabbedcontent">Constructors</h2>
-              <div class="table" data-togglable="Constructors"><a data-name="648169701%2FConstructors%2F2137855293" anchor-label="NetworkAwareDownloadListener" id="648169701%2FConstructors%2F2137855293" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue TabbedContent">
-                    <div class=""><span class="inline-flex"><a href="-network-aware-download-listener.html">NetworkAwareDownloadListener</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="648169701%2FConstructors%2F2137855293"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media3-backend:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="-network-aware-download-listener.html">NetworkAwareDownloadListener</a>(appEventLogger: <a href="../../com.google.android.horologist.media3.logging/-error-reporter/index.html">ErrorReporter</a>, highBandwidthNetworkMediator: <a href="../../../network-awareness/com.google.android.horologist.networks.highbandwidth/-high-bandwidth-network-mediator/index.html">HighBandwidthNetworkMediator</a>, networkingRulesEngine: <a href="../../../network-awareness/com.google.android.horologist.networks.rules/-networking-rules-engine/index.html">NetworkingRulesEngine</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="865761078%2FFunctions%2F2137855293" anchor-label="onDownloadChanged" id="865761078%2FFunctions%2F2137855293" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="on-download-changed.html">onDownloadChanged</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="865761078%2FFunctions%2F2137855293"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media3-backend:dokkaHtmlPartial/release"><div class="symbol monospace">open override fun <a href="on-download-changed.html">onDownloadChanged</a>(downloadManager: <a href="https://developer.android.com/reference/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a>, download: <a href="https://developer.android.com/reference/androidx/media3/exoplayer/offline/Download.html">Download</a>, finalException: <a href="https://developer.android.com/reference/kotlin/java/lang/Exception.html">Exception</a>?)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="media3-backend::com.google.android.horologist.media3.service/NetworkAwareDownloadListener///PointingToDeclaration//2137855293">
+  <div class="breadcrumbs"><a href="../../index.html">media3-backend</a><span class="delimiter">/</span><a href="../index.html">com.google.android.horologist.media3.service</a><span class="delimiter">/</span><span class="current">NetworkAwareDownloadListener</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Network</span><wbr><span>Aware</span><wbr><span>Download</span><wbr><span><span>Listener</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media3-backend:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">NetworkAwareDownloadListener</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">appEventLogger<span class="token operator">: </span><a href="../../com.google.android.horologist.media3.logging/-error-reporter/index.html">ErrorReporter</a><span class="token punctuation">, </span></span><span class="parameter ">highBandwidthNetworkMediator<span class="token operator">: </span><a href="../../../network-awareness/com.google.android.horologist.networks.highbandwidth/-high-bandwidth-network-mediator/index.html">HighBandwidthNetworkMediator</a><span class="token punctuation">, </span></span><span class="parameter ">networkingRulesEngine<span class="token operator">: </span><a href="../../../network-awareness/com.google.android.horologist.networks.rules/-networking-rules-engine/index.html">NetworkingRulesEngine</a></span></span><span class="token punctuation">)</span> : <a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/DownloadManager.Listener.html">DownloadManager.Listener</a></div><p class="paragraph">Simple implementation of <a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/DownloadManager.Listener.html">DownloadManager.Listener</a> for downloading with a required high bandwidth network. Also includes event logging.</p></div></div>
   </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="2098251929%2FFunctions%2F2137855293" anchor-label="onDownloadRemoved" id="2098251929%2FFunctions%2F2137855293" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="on-download-removed.html">onDownloadRemoved</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2098251929%2FFunctions%2F2137855293"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media3-backend:dokkaHtmlPartial/release"><div class="symbol monospace">open override fun <a href="on-download-removed.html">onDownloadRemoved</a>(downloadManager: <a href="https://developer.android.com/reference/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a>, download: <a href="https://developer.android.com/reference/androidx/media3/exoplayer/offline/Download.html">Download</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1386447885%2FFunctions%2F2137855293" anchor-label="onDownloadsPausedChanged" id="1386447885%2FFunctions%2F2137855293" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="on-downloads-paused-changed.html">onDownloadsPausedChanged</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1386447885%2FFunctions%2F2137855293"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media3-backend:dokkaHtmlPartial/release"><div class="symbol monospace">open override fun <a href="on-downloads-paused-changed.html">onDownloadsPausedChanged</a>(downloadManager: <a href="https://developer.android.com/reference/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a>, downloadsPaused: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="348946992%2FFunctions%2F2137855293" anchor-label="onIdle" id="348946992%2FFunctions%2F2137855293" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="on-idle.html">onIdle</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="348946992%2FFunctions%2F2137855293"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media3-backend:dokkaHtmlPartial/release"><div class="symbol monospace">open override fun <a href="on-idle.html">onIdle</a>(downloadManager: <a href="https://developer.android.com/reference/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="306313700%2FFunctions%2F2137855293" anchor-label="onInitialized" id="306313700%2FFunctions%2F2137855293" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="on-initialized.html">onInitialized</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="306313700%2FFunctions%2F2137855293"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media3-backend:dokkaHtmlPartial/release"><div class="symbol monospace">open override fun <a href="on-initialized.html">onInitialized</a>(downloadManager: <a href="https://developer.android.com/reference/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-125288453%2FFunctions%2F2137855293" anchor-label="onRequirementsStateChanged" id="-125288453%2FFunctions%2F2137855293" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="on-requirements-state-changed.html">onRequirementsStateChanged</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-125288453%2FFunctions%2F2137855293"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media3-backend:dokkaHtmlPartial/release"><div class="symbol monospace">open override fun <a href="on-requirements-state-changed.html">onRequirementsStateChanged</a>(downloadManager: <a href="https://developer.android.com/reference/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a>, requirements: <a href="https://developer.android.com/reference/androidx/media3/exoplayer/scheduler/Requirements.html">Requirements</a>, notMetRequirements: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1358268876%2FFunctions%2F2137855293" anchor-label="onWaitingForRequirementsChanged" id="1358268876%2FFunctions%2F2137855293" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="on-waiting-for-requirements-changed.html">onWaitingForRequirementsChanged</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1358268876%2FFunctions%2F2137855293"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media3-backend:dokkaHtmlPartial/release"><div class="symbol monospace">open override fun <a href="on-waiting-for-requirements-changed.html">onWaitingForRequirementsChanged</a>(downloadManager: <a href="https://developer.android.com/reference/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a>, waitingForRequirements: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Sources</h2>
-              <div class="table" data-togglable="Sources"><a data-name="361619081%2FSource%2F1706535927" anchor-label="https://github.com/google/horologist/blob/main/media3-backend/src/main/java/com/google/android/horologist/media3/service/NetworkAwareDownloadListener.kt#L34" id="361619081%2FSource%2F1706535927" data-filterable-set=":media3-backend:dokkaHtmlPartial/main"></a>
-                <div class="table-row" data-filterable-current=":media3-backend:dokkaHtmlPartial/main" data-filterable-set=":media3-backend:dokkaHtmlPartial/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="https://github.com/google/horologist/blob/main/media3-backend/src/main/java/com/google/android/horologist/media3/service/NetworkAwareDownloadListener.kt#L34">androidJvm source</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="361619081%2FSource%2F1706535927"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div></div>
-                  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="648169701%2FConstructors%2F2137855293" anchor-label="NetworkAwareDownloadListener" id="648169701%2FConstructors%2F2137855293" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-network-aware-download-listener.html"><span>Network</span><wbr><span>Aware</span><wbr><span>Download</span><wbr><span><span>Listener</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="648169701%2FConstructors%2F2137855293"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media3-backend:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">appEventLogger<span class="token operator">: </span><a href="../../com.google.android.horologist.media3.logging/-error-reporter/index.html">ErrorReporter</a><span class="token punctuation">, </span></span><span class="parameter ">highBandwidthNetworkMediator<span class="token operator">: </span><a href="../../../network-awareness/com.google.android.horologist.networks.highbandwidth/-high-bandwidth-network-mediator/index.html">HighBandwidthNetworkMediator</a><span class="token punctuation">, </span></span><span class="parameter ">networkingRulesEngine<span class="token operator">: </span><a href="../../../network-awareness/com.google.android.horologist.networks.rules/-networking-rules-engine/index.html">NetworkingRulesEngine</a></span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="865761078%2FFunctions%2F2137855293" anchor-label="onDownloadChanged" id="865761078%2FFunctions%2F2137855293" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-download-changed.html"><span>on</span><wbr><span>Download</span><wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="865761078%2FFunctions%2F2137855293"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media3-backend:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-download-changed.html"><span class="token function">onDownloadChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">downloadManager<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a><span class="token punctuation">, </span></span><span class="parameter ">download<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/Download.html">Download</a><span class="token punctuation">, </span></span><span class="parameter ">finalException<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/index.html">Exception</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2098251929%2FFunctions%2F2137855293" anchor-label="onDownloadRemoved" id="2098251929%2FFunctions%2F2137855293" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-download-removed.html"><span>on</span><wbr><span>Download</span><wbr><span><span>Removed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2098251929%2FFunctions%2F2137855293"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media3-backend:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-download-removed.html"><span class="token function">onDownloadRemoved</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">downloadManager<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a><span class="token punctuation">, </span></span><span class="parameter ">download<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/Download.html">Download</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1386447885%2FFunctions%2F2137855293" anchor-label="onDownloadsPausedChanged" id="1386447885%2FFunctions%2F2137855293" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-downloads-paused-changed.html"><span>on</span><wbr><span>Downloads</span><wbr><span>Paused</span><wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1386447885%2FFunctions%2F2137855293"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media3-backend:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-downloads-paused-changed.html"><span class="token function">onDownloadsPausedChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">downloadManager<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a><span class="token punctuation">, </span></span><span class="parameter ">downloadsPaused<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="348946992%2FFunctions%2F2137855293" anchor-label="onIdle" id="348946992%2FFunctions%2F2137855293" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-idle.html"><span>on</span><wbr><span><span>Idle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="348946992%2FFunctions%2F2137855293"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media3-backend:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-idle.html"><span class="token function">onIdle</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">downloadManager<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="306313700%2FFunctions%2F2137855293" anchor-label="onInitialized" id="306313700%2FFunctions%2F2137855293" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-initialized.html"><span>on</span><wbr><span><span>Initialized</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="306313700%2FFunctions%2F2137855293"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media3-backend:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-initialized.html"><span class="token function">onInitialized</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">downloadManager<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-125288453%2FFunctions%2F2137855293" anchor-label="onRequirementsStateChanged" id="-125288453%2FFunctions%2F2137855293" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-requirements-state-changed.html"><span>on</span><wbr><span>Requirements</span><wbr><span>State</span><wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-125288453%2FFunctions%2F2137855293"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media3-backend:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-requirements-state-changed.html"><span class="token function">onRequirementsStateChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">downloadManager<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a><span class="token punctuation">, </span></span><span class="parameter ">requirements<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/scheduler/Requirements.html">Requirements</a><span class="token punctuation">, </span></span><span class="parameter ">notMetRequirements<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1358268876%2FFunctions%2F2137855293" anchor-label="onWaitingForRequirementsChanged" id="1358268876%2FFunctions%2F2137855293" data-filterable-set=":media3-backend:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media3-backend:dokkaHtmlPartial/release" data-filterable-set=":media3-backend:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-waiting-for-requirements-changed.html"><span>on</span><wbr><span>Waiting</span><wbr><span>For</span><wbr><span>Requirements</span><wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1358268876%2FFunctions%2F2137855293"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media3-backend:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-waiting-for-requirements-changed.html"><span class="token function">onWaitingForRequirementsChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">downloadManager<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a><span class="token punctuation">, </span></span><span class="parameter ">waitingForRequirements<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  
-</body></html>
-
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
 

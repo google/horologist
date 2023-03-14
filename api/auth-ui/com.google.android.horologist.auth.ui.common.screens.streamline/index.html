@@ -1,145 +1,168 @@
+<!doctype html>
 <html>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>com.google.android.horologist.auth.ui.common.screens.streamline</title>
-</head><body><link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script><script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script><link href="../../styles/style.css" rel="Stylesheet"><link href="../../styles/logo-styles.css" rel="Stylesheet"><link href="../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../scripts/main.js" async></script>
-  
-    <div id="container">
-      <div id="leftColumn"><a href="../../index.html">
-            <div id="logo"></div>
-          </a>
-        <div id="paneSearch"></div>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../index.html">
+<span>horologist</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":auth-ui:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
         <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <script type="text/javascript" src="../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
-
-        <div class="main-content" id="content" pageids="auth-ui::com.google.android.horologist.auth.ui.common.screens.streamline////PointingToDeclaration//1442019308">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../index.html">auth-ui</a>/<a href="index.html">com.google.android.horologist.auth.ui.common.screens.streamline</a></div>
-            <div class="pull-right d-flex">
-              <div id="searchBar"></div>
-            </div>
-          </div>
-          <div class="cover ">
-            <h1 class="cover"><span>Package com.</span><wbr><span>google.</span><wbr><span>android.</span><wbr><span>horologist.</span><wbr><span>auth.</span><wbr><span>ui.</span><wbr><span>common.</span><wbr><span>screens.</span><wbr><span>streamline</span></h1>
-          </div>
-          <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Functions">Functions</button></div>
-            <div class="tabs-section-body">
-              <h2 class="">Types</h2>
-              <div class="table" data-togglable="Types"><a data-name="-795251531%2FClasslikes%2F1442019308" anchor-label="StreamlineSignInDefaultScreenState" id="-795251531%2FClasslikes%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-streamline-sign-in-default-screen-state/index.html">StreamlineSignInDefaultScreenState</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-795251531%2FClasslikes%2F1442019308"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":auth-ui:dokkaHtmlPartial/release"><div class="symbol monospace">sealed class <a href="-streamline-sign-in-default-screen-state/index.html">StreamlineSignInDefaultScreenState</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="package" id="content" pageids="auth-ui::com.google.android.horologist.auth.ui.common.screens.streamline////PointingToDeclaration//1442019308">
+  <div class="breadcrumbs"><a href="../index.html">auth-ui</a><span class="delimiter">/</span><span class="current">com.google.android.horologist.auth.ui.common.screens.streamline</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
   </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="-853186602%2FClasslikes%2F1442019308" anchor-label="StreamlineSignInDefaultViewModel" id="-853186602%2FClasslikes%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-streamline-sign-in-default-view-model/index.html">StreamlineSignInDefaultViewModel</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-853186602%2FClasslikes%2F1442019308"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":auth-ui:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="-streamline-sign-in-default-view-model/index.html">StreamlineSignInDefaultViewModel</a>(authUserRepository: <a href="../../auth-data/com.google.android.horologist.auth.data.common.repository/-auth-user-repository/index.html">AuthUserRepository</a>) : <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/ViewModel.html">ViewModel</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-853186602%2FClasslikes%2F1442019308" anchor-label="StreamlineSignInDefaultViewModel" id="-853186602%2FClasslikes%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-853186602%2FClasslikes%2F1442019308" anchor-label="StreamlineSignInDefaultViewModel" id="-853186602%2FClasslikes%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a>A view model for the default implementation of a streamline sign-in screen.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="1943205572%2FClasslikes%2F1442019308" anchor-label="StreamlineSignInScreenState" id="1943205572%2FClasslikes%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-streamline-sign-in-screen-state/index.html">StreamlineSignInScreenState</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1943205572%2FClasslikes%2F1442019308"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":auth-ui:dokkaHtmlPartial/release"><div class="symbol monospace">sealed class <a href="-streamline-sign-in-screen-state/index.html">StreamlineSignInScreenState</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="1943205572%2FClasslikes%2F1442019308" anchor-label="StreamlineSignInScreenState" id="1943205572%2FClasslikes%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="1943205572%2FClasslikes%2F1442019308" anchor-label="StreamlineSignInScreenState" id="1943205572%2FClasslikes%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a>The states for a streamline sign-in screen.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="503851429%2FClasslikes%2F1442019308" anchor-label="StreamlineSignInViewModel" id="503851429%2FClasslikes%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-streamline-sign-in-view-model/index.html">StreamlineSignInViewModel</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="503851429%2FClasslikes%2F1442019308"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":auth-ui:dokkaHtmlPartial/release"><div class="symbol monospace">open class <a href="-streamline-sign-in-view-model/index.html">StreamlineSignInViewModel</a>(authUserRepository: <a href="../../auth-data/com.google.android.horologist.auth.data.common.repository/-auth-user-repository/index.html">AuthUserRepository</a>) : <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/ViewModel.html">ViewModel</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="503851429%2FClasslikes%2F1442019308" anchor-label="StreamlineSignInViewModel" id="503851429%2FClasslikes%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="503851429%2FClasslikes%2F1442019308" anchor-label="StreamlineSignInViewModel" id="503851429%2FClasslikes%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a>A view model for a streamline sign-in screen.</div></div>
-</div>
-                    </div>
-                  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-795251531%2FClasslikes%2F1442019308" anchor-label="StreamlineSignInDefaultScreenState" id="-795251531%2FClasslikes%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-streamline-sign-in-default-screen-state/index.html"><span>Streamline</span><wbr><span>Sign</span><wbr><span>In</span><wbr><span>Default</span><wbr><span>Screen</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-795251531%2FClasslikes%2F1442019308"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="-streamline-sign-in-default-screen-state/index.html">StreamlineSignInDefaultScreenState</a></div></div></div>
                 </div>
               </div>
-              <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="-926421706%2FFunctions%2F1442019308" anchor-label="StreamlineSignInDefaultScreen" id="-926421706%2FFunctions%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-streamline-sign-in-default-screen.html">StreamlineSignInDefaultScreen</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-926421706%2FFunctions%2F1442019308"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":auth-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="-streamline-sign-in-default-screen.html">StreamlineSignInDefaultScreen</a>(onSignedInConfirmationDialogDismissOrTimeout: (account: <a href="../../auth-composables/com.google.android.horologist.auth.composables.model/-account-ui-model/index.html">AccountUiModel</a>) -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, onNoAccountsAvailable: () -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, columnState: <a href="../../compose-layout/com.google.android.horologist.compose.layout/-scaling-lazy-column-state/index.html">ScalingLazyColumnState</a>, viewModel: <a href="-streamline-sign-in-default-view-model/index.html">StreamlineSignInDefaultViewModel</a>, modifier: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a> = Modifier, content: <span>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()&nbsp;</span>() -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a> = { })<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-926421706%2FFunctions%2F1442019308" anchor-label="StreamlineSignInDefaultScreen" id="-926421706%2FFunctions%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-926421706%2FFunctions%2F1442019308" anchor-label="StreamlineSignInDefaultScreen" id="-926421706%2FFunctions%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a>An opinionated implementation of <a href="-streamline-sign-in-screen.html">StreamlineSignInScreen</a> that:<ul><li><p class="paragraph">displays the SignedInConfirmationDialog when there is a single account available;</p></li><li><p class="paragraph">displays the SelectAccountScreen when there are multiple accounts available, then displays the SignedInConfirmationDialog after the account is selected;</p></li></ul>The <a href="-streamline-sign-in-default-screen.html">content</a> of this composable would be displayed when the screen is in "loading" state.</div></div>
-</div>
-                    </div>
-                  </div>
+            </div>
+          </div>
+<a data-name="-853186602%2FClasslikes%2F1442019308" anchor-label="StreamlineSignInDefaultViewModel" id="-853186602%2FClasslikes%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-streamline-sign-in-default-view-model/index.html"><span>Streamline</span><wbr><span>Sign</span><wbr><span>In</span><wbr><span>Default</span><wbr><span>View</span><wbr><span><span>Model</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-853186602%2FClasslikes%2F1442019308"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-streamline-sign-in-default-view-model/index.html">StreamlineSignInDefaultViewModel</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">authUserRepository<span class="token operator">: </span><a href="../../auth-data/com.google.android.horologist.auth.data.common.repository/-auth-user-repository/index.html">AuthUserRepository</a></span></span><span class="token punctuation">)</span> : <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/ViewModel.html">ViewModel</a></div><div class="brief "><p class="paragraph">A view model for the default implementation of a streamline sign-in screen.</p></div></div></div>
                 </div>
-<a data-name="-1616472187%2FFunctions%2F1442019308" anchor-label="StreamlineSignInScreen" id="-1616472187%2FFunctions%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-streamline-sign-in-screen.html">StreamlineSignInScreen</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1616472187%2FFunctions%2F1442019308"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":auth-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="-streamline-sign-in-screen.html">StreamlineSignInScreen</a>(onSingleAccountAvailable: (account: <a href="../../auth-composables/com.google.android.horologist.auth.composables.model/-account-ui-model/index.html">AccountUiModel</a>) -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, onMultipleAccountsAvailable: (accounts: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../../auth-composables/com.google.android.horologist.auth.composables.model/-account-ui-model/index.html">AccountUiModel</a>&gt;) -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, onNoAccountsAvailable: () -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, viewModel: <a href="-streamline-sign-in-view-model/index.html">StreamlineSignInViewModel</a> = viewModel(), content: <span>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()&nbsp;</span>() -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a> = { })<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-1616472187%2FFunctions%2F1442019308" anchor-label="StreamlineSignInScreen" id="-1616472187%2FFunctions%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-1616472187%2FFunctions%2F1442019308" anchor-label="StreamlineSignInScreen" id="-1616472187%2FFunctions%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a>A composable to streamline the sign in process.</div></div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1943205572%2FClasslikes%2F1442019308" anchor-label="StreamlineSignInScreenState" id="1943205572%2FClasslikes%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-streamline-sign-in-screen-state/index.html"><span>Streamline</span><wbr><span>Sign</span><wbr><span>In</span><wbr><span>Screen</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1943205572%2FClasslikes%2F1442019308"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="-streamline-sign-in-screen-state/index.html">StreamlineSignInScreenState</a></div><div class="brief "><p class="paragraph">The states for a streamline sign-in screen.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="503851429%2FClasslikes%2F1442019308" anchor-label="StreamlineSignInViewModel" id="503851429%2FClasslikes%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-streamline-sign-in-view-model/index.html"><span>Streamline</span><wbr><span>Sign</span><wbr><span>In</span><wbr><span>View</span><wbr><span><span>Model</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="503851429%2FClasslikes%2F1442019308"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-streamline-sign-in-view-model/index.html">StreamlineSignInViewModel</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">authUserRepository<span class="token operator">: </span><a href="../../auth-data/com.google.android.horologist.auth.data.common.repository/-auth-user-repository/index.html">AuthUserRepository</a></span></span><span class="token punctuation">)</span> : <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/ViewModel.html">ViewModel</a></div><div class="brief "><p class="paragraph">A view model for a streamline sign-in screen.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-926421706%2FFunctions%2F1442019308" anchor-label="StreamlineSignInDefaultScreen" id="-926421706%2FFunctions%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-streamline-sign-in-default-screen.html"><span>Streamline</span><wbr><span>Sign</span><wbr><span>In</span><wbr><span>Default</span><wbr><span><span>Screen</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-926421706%2FFunctions%2F1442019308"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="-streamline-sign-in-default-screen.html"><span class="token function">StreamlineSignInDefaultScreen</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">onSignedInConfirmationDialogDismissOrTimeout<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>account<span class="token operator">: </span><a href="../../auth-composables/com.google.android.horologist.auth.composables.model/-account-ui-model/index.html">AccountUiModel</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">onNoAccountsAvailable<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">columnState<span class="token operator">: </span><a href="../../compose-layout/com.google.android.horologist.compose.layout/-scaling-lazy-column-state/index.html">ScalingLazyColumnState</a><span class="token punctuation">, </span></span><span class="parameter ">viewModel<span class="token operator">: </span><a href="-streamline-sign-in-default-view-model/index.html">StreamlineSignInDefaultViewModel</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a>&nbsp;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{ }</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">An opinionated implementation of <a href="-streamline-sign-in-screen.html">StreamlineSignInScreen</a> that:</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1616472187%2FFunctions%2F1442019308" anchor-label="StreamlineSignInScreen" id="-1616472187%2FFunctions%2F1442019308" data-filterable-set=":auth-ui:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":auth-ui:dokkaHtmlPartial/release" data-filterable-set=":auth-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-streamline-sign-in-screen.html"><span>Streamline</span><wbr><span>Sign</span><wbr><span>In</span><wbr><span><span>Screen</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1616472187%2FFunctions%2F1442019308"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":auth-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="-streamline-sign-in-screen.html"><span class="token function">StreamlineSignInScreen</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">onSingleAccountAvailable<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>account<span class="token operator">: </span><a href="../../auth-composables/com.google.android.horologist.auth.composables.model/-account-ui-model/index.html">AccountUiModel</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">onMultipleAccountsAvailable<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>accounts<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../auth-composables/com.google.android.horologist.auth.composables.model/-account-ui-model/index.html">AccountUiModel</a><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">onNoAccountsAvailable<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">viewModel<span class="token operator">: </span><a href="-streamline-sign-in-view-model/index.html">StreamlineSignInViewModel</a><span class="token operator"> = </span>viewModel()<span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a>&nbsp;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{ }</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A composable to streamline the sign in process.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  
-</body></html>
-
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
 

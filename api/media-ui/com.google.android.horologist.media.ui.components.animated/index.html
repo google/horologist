@@ -1,177 +1,194 @@
+<!doctype html>
 <html>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>com.google.android.horologist.media.ui.components.animated</title>
-</head><body><link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script><script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script><link href="../../styles/style.css" rel="Stylesheet"><link href="../../styles/logo-styles.css" rel="Stylesheet"><link href="../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../scripts/main.js" async></script>
-  
-    <div id="container">
-      <div id="leftColumn"><a href="../../index.html">
-            <div id="logo"></div>
-          </a>
-        <div id="paneSearch"></div>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../index.html">
+<span>horologist</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":media-ui:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
         <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <script type="text/javascript" src="../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
-
-        <div class="main-content" id="content" pageids="media-ui::com.google.android.horologist.media.ui.components.animated////PointingToDeclaration//781136022">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../index.html">media-ui</a>/<a href="index.html">com.google.android.horologist.media.ui.components.animated</a></div>
-            <div class="pull-right d-flex">
-              <div id="searchBar"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="package" id="content" pageids="media-ui::com.google.android.horologist.media.ui.components.animated////PointingToDeclaration//781136022">
+  <div class="breadcrumbs"><a href="../index.html">media-ui</a><span class="delimiter">/</span><span class="current">com.google.android.horologist.media.ui.components.animated</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="439459576%2FFunctions%2F781136022" anchor-label="AnimatedMediaButton" id="439459576%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-animated-media-button.html"><span>Animated</span><wbr><span>Media</span><wbr><span><span>Button</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="439459576%2FFunctions%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="-animated-media-button.html"><span class="token function">AnimatedMediaButton</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">onClick<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">composition<span class="token operator">: </span><span data-unresolved-link="com.airbnb.lottie/LottieComposition///PointingToDeclaration/">LottieComposition</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">lottieAnimatable<span class="token operator">: </span><span data-unresolved-link="com.airbnb.lottie.compose/LottieAnimatable///PointingToDeclaration/">LottieAnimatable</span><span class="token punctuation">, </span></span><span class="parameter ">contentDescription<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">colors<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/ButtonColors.html">ButtonColors</a><span class="token operator"> = </span>ButtonDefaults.iconButtonColors()<span class="token punctuation">, </span></span><span class="parameter ">dynamicProperties<span class="token operator">: </span><span data-unresolved-link="com.airbnb.lottie.compose/LottieDynamicProperties///PointingToDeclaration/">LottieDynamicProperties</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">iconSize<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a><span class="token operator"> = </span>30.dp<span class="token punctuation">, </span></span><span class="parameter ">tapTargetSize<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/DpSize.html">DpSize</a><span class="token operator"> = </span>DpSize(48.dp, 60.dp)<span class="token punctuation">, </span></span><span class="parameter ">iconAlign<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Alignment.Horizontal.html">Alignment.Horizontal</a><span class="token operator"> = </span>Alignment.CenterHorizontally</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A base button for media controls.</p></div></div></div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="cover ">
-            <h1 class="cover"><span>Package com.</span><wbr><span>google.</span><wbr><span>android.</span><wbr><span>horologist.</span><wbr><span>media.</span><wbr><span>ui.</span><wbr><span>components.</span><wbr><span>animated</span></h1>
-          </div>
-          <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button></div>
-            <div class="tabs-section-body">
-              <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="439459576%2FFunctions%2F781136022" anchor-label="AnimatedMediaButton" id="439459576%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-animated-media-button.html">AnimatedMediaButton</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="439459576%2FFunctions%2F781136022"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="-animated-media-button.html">AnimatedMediaButton</a>(onClick: () -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, composition: <span data-unresolved-link="com.airbnb.lottie/LottieComposition///PointingToDeclaration/">LottieComposition</span>?, lottieAnimatable: <span data-unresolved-link="com.airbnb.lottie.compose/LottieAnimatable///PointingToDeclaration/">LottieAnimatable</span>, contentDescription: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, modifier: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a> = Modifier, enabled: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = true, colors: <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/ButtonColors.html">ButtonColors</a> = ButtonDefaults.iconButtonColors(), dynamicProperties: <span data-unresolved-link="com.airbnb.lottie.compose/LottieDynamicProperties///PointingToDeclaration/">LottieDynamicProperties</span>? = null, iconSize: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a> = 30.dp, tapTargetSize: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/DpSize.html">DpSize</a> = DpSize(48.dp, 60.dp), iconAlign: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Alignment.Horizontal.html">Alignment.Horizontal</a> = Alignment.CenterHorizontally)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="439459576%2FFunctions%2F781136022" anchor-label="AnimatedMediaButton" id="439459576%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="439459576%2FFunctions%2F781136022" anchor-label="AnimatedMediaButton" id="439459576%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>A base button for media controls.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
 <a data-name="-1383622985%2FFunctions%2F781136022" anchor-label="AnimatedMediaControlButtons" id="-1383622985%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-animated-media-control-buttons.html">AnimatedMediaControlButtons</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1383622985%2FFunctions%2F781136022"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="-animated-media-control-buttons.html">AnimatedMediaControlButtons</a>(onPlayButtonClick: () -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, onPauseButtonClick: () -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, playPauseButtonEnabled: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, playing: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, onSeekToPreviousButtonClick: () -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, seekToPreviousButtonEnabled: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, onSeekToNextButtonClick: () -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, seekToNextButtonEnabled: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, modifier: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a> = Modifier, trackPositionUiModel: <a href="../com.google.android.horologist.media.ui.state.model/-track-position-ui-model/index.html">TrackPositionUiModel</a>, progressColour: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a> = MaterialTheme.colors.primary, colors: <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/ButtonColors.html">ButtonColors</a> = MediaButtonDefaults.mediaButtonDefaultColors)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-1383622985%2FFunctions%2F781136022" anchor-label="AnimatedMediaControlButtons" id="-1383622985%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-1383622985%2FFunctions%2F781136022" anchor-label="AnimatedMediaControlButtons" id="-1383622985%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>Standard media control buttons, showing <a href="../com.google.android.horologist.media.ui.components.controls/-seek-to-previous-button.html">SeekToPreviousButton</a>, <a href="../com.google.android.horologist.media.ui.components/-play-pause-progress-button.html">PlayPauseProgressButton</a> and <a href="../com.google.android.horologist.media.ui.components.controls/-seek-to-next-button.html">SeekToNextButton</a>.</div></div>
-</div>
-                    </div>
-                  </div>
+          <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-animated-media-control-buttons.html"><span>Animated</span><wbr><span>Media</span><wbr><span>Control</span><wbr><span><span>Buttons</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1383622985%2FFunctions%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="-animated-media-control-buttons.html"><span class="token function">AnimatedMediaControlButtons</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">onPlayButtonClick<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">onPauseButtonClick<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">playPauseButtonEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">playing<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">onSeekToPreviousButtonClick<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">seekToPreviousButtonEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">onSeekToNextButtonClick<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">seekToNextButtonEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">trackPositionUiModel<span class="token operator">: </span><a href="../com.google.android.horologist.media.ui.state.model/-track-position-ui-model/index.html">TrackPositionUiModel</a><span class="token punctuation">, </span></span><span class="parameter ">progressColor<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token operator"> = </span>MaterialTheme.colors.primary<span class="token punctuation">, </span></span><span class="parameter ">colors<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/ButtonColors.html">ButtonColors</a><span class="token operator"> = </span>MediaButtonDefaults.mediaButtonDefaultColors</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Standard media control buttons, showing <a href="../com.google.android.horologist.media.ui.components.controls/-seek-to-previous-button.html">SeekToPreviousButton</a>, <a href="../com.google.android.horologist.media.ui.components/-play-pause-progress-button.html">PlayPauseProgressButton</a> and <a href="../com.google.android.horologist.media.ui.components.controls/-seek-to-next-button.html">SeekToNextButton</a>.</p></div></div></div>
                 </div>
+              </div>
+            </div>
+          </div>
 <a data-name="-1705886764%2FFunctions%2F781136022" anchor-label="AnimatedMediaInfoDisplay" id="-1705886764%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-animated-media-info-display.html">AnimatedMediaInfoDisplay</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1705886764%2FFunctions%2F781136022"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="-animated-media-info-display.html">AnimatedMediaInfoDisplay</a>(media: <a href="../com.google.android.horologist.media.ui.state.model/-media-ui-model/index.html">MediaUiModel</a>?, loading: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, modifier: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a> = Modifier)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-1705886764%2FFunctions%2F781136022" anchor-label="AnimatedMediaInfoDisplay" id="-1705886764%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-1705886764%2FFunctions%2F781136022" anchor-label="AnimatedMediaInfoDisplay" id="-1705886764%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>Animated MediaDisplay implementation for PlayerScreen including player status.</div></div>
-</div>
-                    </div>
-                  </div>
+          <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-animated-media-info-display.html"><span>Animated</span><wbr><span>Media</span><wbr><span>Info</span><wbr><span><span>Display</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1705886764%2FFunctions%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="-animated-media-info-display.html"><span class="token function">AnimatedMediaInfoDisplay</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">media<span class="token operator">: </span><a href="../com.google.android.horologist.media.ui.state.model/-media-ui-model/index.html">MediaUiModel</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">loading<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Animated MediaDisplay implementation for PlayerScreen including player status.</p></div></div></div>
                 </div>
+              </div>
+            </div>
+          </div>
 <a data-name="-2096647518%2FFunctions%2F781136022" anchor-label="AnimatedPlayPauseButton" id="-2096647518%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-animated-play-pause-button.html">AnimatedPlayPauseButton</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2096647518%2FFunctions%2F781136022"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="-animated-play-pause-button.html">AnimatedPlayPauseButton</a>(onPlayClick: () -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, onPauseClick: () -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, playing: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, modifier: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a> = Modifier, enabled: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = true, colors: <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/ButtonColors.html">ButtonColors</a> = ButtonDefaults.iconButtonColors(), iconSize: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a> = 30.dp, tapTargetSize: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/DpSize.html">DpSize</a> = DpSize(60.dp, 60.dp), backgroundColor: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a> = MaterialTheme.colors.onBackground.copy(alpha = 0.10f), progress: <span>@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()&nbsp;</span>() -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a> = {})<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+          <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-animated-play-pause-button.html"><span>Animated</span><wbr><span>Play</span><wbr><span>Pause</span><wbr><span><span>Button</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2096647518%2FFunctions%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="-animated-play-pause-button.html"><span class="token function">AnimatedPlayPauseButton</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">onPlayClick<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">onPauseClick<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">playing<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">colors<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/ButtonColors.html">ButtonColors</a><span class="token operator"> = </span>ButtonDefaults.iconButtonColors()<span class="token punctuation">, </span></span><span class="parameter ">iconSize<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a><span class="token operator"> = </span>30.dp<span class="token punctuation">, </span></span><span class="parameter ">tapTargetSize<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/DpSize.html">DpSize</a><span class="token operator"> = </span>DpSize(60.dp, 60.dp)<span class="token punctuation">, </span></span><span class="parameter ">backgroundColor<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token operator"> = </span>MaterialTheme.colors.onBackground.copy(alpha = 0.10f)<span class="token punctuation">, </span></span><span class="parameter ">progress<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a>&nbsp;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}</span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
+              </div>
+            </div>
+          </div>
 <a data-name="-2136693259%2FFunctions%2F781136022" anchor-label="AnimatedPlayPauseProgressButton" id="-2136693259%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-animated-play-pause-progress-button.html">AnimatedPlayPauseProgressButton</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2136693259%2FFunctions%2F781136022"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="-animated-play-pause-progress-button.html">AnimatedPlayPauseProgressButton</a>(onPlayClick: () -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, onPauseClick: () -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, playing: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, trackPositionUiModel: <a href="../com.google.android.horologist.media.ui.state.model/-track-position-ui-model/index.html">TrackPositionUiModel</a>, modifier: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a> = Modifier, enabled: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = true, colors: <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/ButtonColors.html">ButtonColors</a> = ButtonDefaults.iconButtonColors(), iconSize: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a> = 30.dp, tapTargetSize: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/DpSize.html">DpSize</a> = DpSize(60.dp, 60.dp), progressStrokeWidth: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a> = 4.dp, progressColour: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a> = MaterialTheme.colors.primary, trackColor: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a> = MaterialTheme.colors.onSurface.copy(alpha = 0.10f), backgroundColor: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a> = MaterialTheme.colors.onBackground.copy(alpha = 0.10f))<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+          <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-animated-play-pause-progress-button.html"><span>Animated</span><wbr><span>Play</span><wbr><span>Pause</span><wbr><span>Progress</span><wbr><span><span>Button</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2136693259%2FFunctions%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="-animated-play-pause-progress-button.html"><span class="token function">AnimatedPlayPauseProgressButton</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">onPlayClick<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">onPauseClick<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">playing<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">trackPositionUiModel<span class="token operator">: </span><a href="../com.google.android.horologist.media.ui.state.model/-track-position-ui-model/index.html">TrackPositionUiModel</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">colors<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/ButtonColors.html">ButtonColors</a><span class="token operator"> = </span>ButtonDefaults.iconButtonColors()<span class="token punctuation">, </span></span><span class="parameter ">iconSize<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a><span class="token operator"> = </span>30.dp<span class="token punctuation">, </span></span><span class="parameter ">tapTargetSize<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/DpSize.html">DpSize</a><span class="token operator"> = </span>DpSize(60.dp, 60.dp)<span class="token punctuation">, </span></span><span class="parameter ">progressStrokeWidth<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a><span class="token operator"> = </span>4.dp<span class="token punctuation">, </span></span><span class="parameter ">progressColor<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token operator"> = </span>MaterialTheme.colors.primary<span class="token punctuation">, </span></span><span class="parameter ">trackColor<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token operator"> = </span>MaterialTheme.colors.onSurface.copy(alpha = 0.10f)<span class="token punctuation">, </span></span><span class="parameter ">backgroundColor<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token operator"> = </span>MaterialTheme.colors.onBackground.copy(alpha = 0.10f)</span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
+              </div>
+            </div>
+          </div>
 <a data-name="-1481692980%2FFunctions%2F781136022" anchor-label="AnimatedSeekToNextButton" id="-1481692980%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-animated-seek-to-next-button.html">AnimatedSeekToNextButton</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1481692980%2FFunctions%2F781136022"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="-animated-seek-to-next-button.html">AnimatedSeekToNextButton</a>(onClick: () -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, modifier: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a> = Modifier, enabled: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = true, colors: <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/ButtonColors.html">ButtonColors</a> = ButtonDefaults.iconButtonColors(), iconSize: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a> = 30.dp, tapTargetSize: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/DpSize.html">DpSize</a> = DpSize(48.dp, 60.dp))<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+          <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-animated-seek-to-next-button.html"><span>Animated</span><wbr><span>Seek</span><wbr><span>To</span><wbr><span>Next</span><wbr><span><span>Button</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1481692980%2FFunctions%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="-animated-seek-to-next-button.html"><span class="token function">AnimatedSeekToNextButton</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">onClick<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">colors<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/ButtonColors.html">ButtonColors</a><span class="token operator"> = </span>ButtonDefaults.iconButtonColors()<span class="token punctuation">, </span></span><span class="parameter ">iconSize<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a><span class="token operator"> = </span>30.dp<span class="token punctuation">, </span></span><span class="parameter ">tapTargetSize<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/DpSize.html">DpSize</a><span class="token operator"> = </span>DpSize(48.dp, 60.dp)</span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
+              </div>
+            </div>
+          </div>
 <a data-name="-463818288%2FFunctions%2F781136022" anchor-label="AnimatedSeekToPreviousButton" id="-463818288%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-animated-seek-to-previous-button.html">AnimatedSeekToPreviousButton</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-463818288%2FFunctions%2F781136022"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="-animated-seek-to-previous-button.html">AnimatedSeekToPreviousButton</a>(onClick: () -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>, modifier: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a> = Modifier, enabled: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = true, colors: <a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/ButtonColors.html">ButtonColors</a> = ButtonDefaults.iconButtonColors(), iconSize: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a> = 30.dp, tapTargetSize: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/DpSize.html">DpSize</a> = DpSize(48.dp, 60.dp))<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+          <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-animated-seek-to-previous-button.html"><span>Animated</span><wbr><span>Seek</span><wbr><span>To</span><wbr><span>Previous</span><wbr><span><span>Button</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-463818288%2FFunctions%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="-animated-seek-to-previous-button.html"><span class="token function">AnimatedSeekToPreviousButton</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">onClick<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">colors<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/material/ButtonColors.html">ButtonColors</a><span class="token operator"> = </span>ButtonDefaults.iconButtonColors()<span class="token punctuation">, </span></span><span class="parameter ">iconSize<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a><span class="token operator"> = </span>30.dp<span class="token punctuation">, </span></span><span class="parameter ">tapTargetSize<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/DpSize.html">DpSize</a><span class="token operator"> = </span>DpSize(48.dp, 60.dp)</span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
+              </div>
+            </div>
+          </div>
 <a data-name="-117133304%2FFunctions%2F781136022" anchor-label="MarqueeTextMediaDisplay" id="-117133304%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>
-                <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-marquee-text-media-display.html">MarqueeTextMediaDisplay</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-117133304%2FFunctions%2F781136022"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html">Composable</a>()</div></div>fun <a href="-marquee-text-media-display.html">MarqueeTextMediaDisplay</a>(modifier: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a> = Modifier, title: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, artist: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-117133304%2FFunctions%2F781136022" anchor-label="MarqueeTextMediaDisplay" id="-117133304%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-117133304%2FFunctions%2F781136022" anchor-label="MarqueeTextMediaDisplay" id="-117133304%2FFunctions%2F781136022" data-filterable-set=":media-ui:dokkaHtmlPartial/release"></a>An animated text only display showing scrolling title and still artist in two separated rows.</div></div>
-</div>
-                    </div>
-                  </div>
+          <div class="table-row" data-filterable-current=":media-ui:dokkaHtmlPartial/release" data-filterable-set=":media-ui:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-marquee-text-media-display.html"><span>Marquee</span><wbr><span>Text</span><wbr><span>Media</span><wbr><span><span>Display</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-117133304%2FFunctions%2F781136022"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media-ui:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="-marquee-text-media-display.html"><span class="token function">MarqueeTextMediaDisplay</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">title<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">artist<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">An animated text only display showing scrolling title and still artist in two separated rows.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
       </div>
     </div>
-  
-</body></html>
-
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
 

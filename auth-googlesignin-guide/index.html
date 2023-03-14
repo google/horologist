@@ -1107,15 +1107,19 @@ according to your requirements, for example:</p>
 <ol>
 <li>
 <p>Create a ViewModel</p>
-<p>Create your implementation of <code>GoogleSignInViewModel</code>, passing the <code>GoogleSignInClient</code> created:
+<p>Create your implementation 
+of <a href="https://google.github.io/horologist/api/auth-ui/com.google.android.horologist.auth.ui.googlesignin.signin/-google-sign-in-view-model/index.html">GoogleSignInViewModel</a>, 
+passing the <code>GoogleSignInClient</code> created:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">MyGoogleSignInViewModel</span><span class="p">(</span>
 <span class="w">    </span><span class="n">googleSignInClient</span><span class="p">:</span><span class="w"> </span><span class="n">GoogleSignInClient</span><span class="p">,</span>
 <span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">GoogleSignInViewModel</span><span class="p">(</span><span class="n">googleSignInClient</span><span class="p">)</span>
-</code></pre></div></p>
+</code></pre></div>
 </li>
 <li>
 <p>Display the screen</p>
-<p>Display the <code>GoogleSignInScreen</code> passing an instance of the <code>GoogleSignInViewModel</code> created:</p>
+<p>Display 
+the <a href="https://google.github.io/horologist/api/auth-ui/com.google.android.horologist.auth.ui.googlesignin.signin/-google-sign-in-screen.html">GoogleSignInScreen</a> 
+passing an instance of the <code>GoogleSignInViewModel</code> created:</p>
 <div class="highlight"><pre><span></span><code>GoogleSignInScreen(
    onAuthCancelled = { /* code to navigate to another screen on this event */ },
    onAuthSucceed = { /* code to navigate to another screen on this event */ },

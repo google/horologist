@@ -25,7 +25,6 @@ import com.google.android.horologist.networks.request.HighBandwidthRequest
 import com.google.android.horologist.networks.request.NetworkLease
 import com.google.android.horologist.networks.request.NetworkRequester
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -155,7 +154,7 @@ public class StandardHighBandwidthNetworkMediator(
         val shouldCancelLease = countAndLease.count == 1
         if (shouldCancelLease) {
             check(pendingCancel == null)
-            pendingCancel = coroutineScope.launch(Dispatchers.Default) {
+            pendingCancel = coroutineScope.launch {
                 processCancel(request)
             }
         }
@@ -179,8 +178,12 @@ public class StandardHighBandwidthNetworkMediator(
         request: HighBandwidthRequest
     ): Requests = requests.update(request.type) { countAndLease ->
         // Should only be here if count hasn't changed since scheduled
-        check(countAndLease.count == 0)
-        check(countAndLease.lease != null)
+        check(countAndLease.count == 0) {
+            "actuallyRelease called with count ${countAndLease.count}"
+        }
+        check(countAndLease.lease != null) {
+            "actuallyRelease called with no lease"
+        }
 
         releaseHighBandwidthNetwork(request, countAndLease.lease)
 

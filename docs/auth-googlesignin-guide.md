@@ -12,58 +12,63 @@ from [this link](https://developers.google.com/identity/sign-in/android/start-in
 
 1.  Add dependencies
 
-   Add the following dependencies to your project’s build.gradle:
+    Add the following dependencies to your project’s build.gradle:
 
-   ```groovy
-   dependencies {
-       implementation "com.google.android.horologist:horologist-auth-composables:<version>"
-       implementation "com.google.android.horologist:horologist-auth-ui:<version>"
-       implementation "com.google.android.horologist:horologist-base-ui:<version>"
-   }
-   ```
+    ```groovy
+    dependencies {
+        implementation "com.google.android.horologist:horologist-auth-composables:<version>"
+        implementation "com.google.android.horologist:horologist-auth-ui:<version>"
+        implementation "com.google.android.horologist:horologist-base-ui:<version>"
+    }
+    ```
 
-2.  Create an instance of `GoogleSignInClient`
+1.  Create an instance of `GoogleSignInClient`
 
-   Create an instance
-   of [GoogleSignInClient](https://developers.google.com/android/reference/com/google/android/gms/auth/api/signin/GoogleSignInClient),
-   according to your requirements, for example:
+    Create an instance
+    of [GoogleSignInClient](https://developers.google.com/android/reference/com/google/android/gms/auth/api/signin/GoogleSignInClient),
+    according to your requirements, for example:
 
-   ```kotlin
-   val googleSignInClient = GoogleSignIn.getClient(
-       applicationContext,
-       GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-           .requestEmail()
-           .build()
-   )
-   ```
+    ```kotlin
+    val googleSignInClient = GoogleSignIn.getClient(
+        applicationContext,
+        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+    )
+    ```
 
 ## Display the screen
 
 1.  Create a ViewModel
 
-   Create your implementation of `GoogleSignInViewModel`, passing the `GoogleSignInClient` created:
-   ```kotlin
-   class MyGoogleSignInViewModel(
-       googleSignInClient: GoogleSignInClient,
-   ) : GoogleSignInViewModel(googleSignInClient)
-   ```   
+    Create your implementation 
+    of [GoogleSignInViewModel](https://google.github.io/horologist/api/auth-ui/com.google.android.horologist.auth.ui.googlesignin.signin/-google-sign-in-view-model/index.html), 
+    passing the `GoogleSignInClient` created:
 
-2.  Display the screen
+    ```kotlin
+    class MyGoogleSignInViewModel(
+        googleSignInClient: GoogleSignInClient,
+    ) : GoogleSignInViewModel(googleSignInClient)
+    ```   
 
-   Display the `GoogleSignInScreen` passing an instance of the `GoogleSignInViewModel` created:
+1.  Display the screen
 
-   ```koltin
-   GoogleSignInScreen(
-      onAuthCancelled = { /* code to navigate to another screen on this event */ },
-      onAuthSucceed = { /* code to navigate to another screen on this event */ },
-      viewModel = hiltViewModel<MyGoogleSignInViewModel>()
-   )
-   ```
+    Display 
+    the [GoogleSignInScreen](https://google.github.io/horologist/api/auth-ui/com.google.android.horologist.auth.ui.googlesignin.signin/-google-sign-in-screen.html) 
+    passing an instance of the `GoogleSignInViewModel` created:
 
-   This sample uses Hilt to retrieve an instance of the ViewModel, but you should use what suits
-   your project best,
-   see [this link](https://developer.android.com/topic/libraries/architecture/viewmodel/viewmodel-cheatsheet)
-   for more info.
+    ```koltin
+    GoogleSignInScreen(
+       onAuthCancelled = { /* code to navigate to another screen on this event */ },
+       onAuthSucceed = { /* code to navigate to another screen on this event */ },
+       viewModel = hiltViewModel<MyGoogleSignInViewModel>()
+    )
+    ```
+
+This sample uses Hilt to retrieve an instance of the ViewModel, but you should use what suits
+your project best,
+see [this link](https://developer.android.com/topic/libraries/architecture/viewmodel/viewmodel-cheatsheet)
+for more info.
 
 ## Retrieve the signed in account
 
@@ -73,21 +78,21 @@ selected by the user, follow the steps:
 
 1.  Implement `GoogleSignInEventListener`
 
-   ```kotlin
-   class GoogleSignInEventListenerImpl : GoogleSignInEventListener {
-       override suspend fun onSignedIn(account: GoogleSignInAccount) {
-           // your implementation using the account parameter
-       }
-   }
-   ```
+    ```kotlin
+    class GoogleSignInEventListenerImpl : GoogleSignInEventListener {
+        override suspend fun onSignedIn(account: GoogleSignInAccount) {
+            // your implementation using the account parameter
+        }
+    }
+    ```
 
-2.  Pass the listener to the ViewModel
+1.  Pass the listener to the ViewModel
 
-   Pass an instance of `GoogleSignInEventListener` to `GoogleSignInViewModel`:
+    Pass an instance of `GoogleSignInEventListener` to `GoogleSignInViewModel`:
 
-   ```kotlin
-   class MyGoogleSignInViewModel(
-       googleSignInClient: GoogleSignInClient,
-       googleSignInEventListener: GoogleSignInEventListener,
-   ) : GoogleSignInViewModel(googleSignInClient, googleSignInEventListener)
-   ```
+    ```kotlin
+    class MyGoogleSignInViewModel(
+     googleSignInClient: GoogleSignInClient,
+     googleSignInEventListener: GoogleSignInEventListener,
+    ) : GoogleSignInViewModel(googleSignInClient, googleSignInEventListener)
+    ```

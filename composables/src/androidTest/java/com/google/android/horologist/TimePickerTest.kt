@@ -107,7 +107,7 @@ class TimePickerTest {
     }
 
     @Test
-    fun content_description_exists_for_hour_picker() {
+    fun content_description_exists_for_plural_hours() {
         composeTestRule.setContent {
             TimePicker(
                 onTimeConfirm = {},
@@ -119,7 +119,19 @@ class TimePickerTest {
     }
 
     @Test
-    fun content_description_exists_for_minute_picker() {
+    fun content_description_exists_for_singular_hour() {
+        composeTestRule.setContent {
+            TimePicker(
+                onTimeConfirm = {},
+                time = LocalTime.of(1, 1, 1)
+            )
+        }
+
+        composeTestRule.onNodeWithContentDescription("1 hour", ignoreCase = true).assertExists()
+    }
+
+    @Test
+    fun content_description_exists_for_plural_minutes() {
         composeTestRule.setContent {
             TimePicker(
                 onTimeConfirm = {},
@@ -131,7 +143,19 @@ class TimePickerTest {
     }
 
     @Test
-    fun content_description_exists_for_second_picker() {
+    fun content_description_exists_for_singular_minute() {
+        composeTestRule.setContent {
+            TimePicker(
+                onTimeConfirm = {},
+                time = LocalTime.of(1, 1, 1)
+            )
+        }
+
+        composeTestRule.onNodeWithContentDescription("1 minute", ignoreCase = true).assertExists()
+    }
+
+    @Test
+    fun content_description_exists_for_plural_seconds() {
         composeTestRule.setContent {
             TimePicker(
                 onTimeConfirm = {},
@@ -140,5 +164,17 @@ class TimePickerTest {
         }
 
         composeTestRule.onNodeWithContentDescription("31 seconds", ignoreCase = true).assertExists()
+    }
+
+    @Test
+    fun content_description_exists_for_singular_second() {
+        composeTestRule.setContent {
+            TimePicker(
+                onTimeConfirm = {},
+                time = LocalTime.of(1, 1, 1)
+            )
+        }
+
+        composeTestRule.onNodeWithContentDescription("1 second", ignoreCase = true).assertExists()
     }
 }

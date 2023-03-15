@@ -41,7 +41,7 @@ public fun Modifier.onRotaryInputAccumulatedWithFocus(
     showNow: Boolean = false,
 ): Modifier = composed {
     val localFocusRequester = focusRequester ?: rememberActiveFocusRequester()
-    onRotaryInputAccumulated(onValueChange = onValueChange, showNow = showNow)
+    onRotaryInputAccumulated(onValueChange = onValueChange)
         .focusRequester(localFocusRequester)
         .focusable()
 }
@@ -60,8 +60,7 @@ public fun Modifier.onRotaryInputAccumulated(
     eventAccumulationThresholdMs: Long = RotaryInputConfigDefaults.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
     minValueChangeDistancePx: Float = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
     rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
-    onValueChange: (change: Float) -> Unit,
-    showNow: Boolean = false
+    onValueChange: (change: Float) -> Unit
 ): Modifier = composed {
     val rotaryInputAccumulator = remember {
         RotaryInputAccumulator(
@@ -71,12 +70,7 @@ public fun Modifier.onRotaryInputAccumulated(
             onValueChange = onValueChange
         )
     }
-    return@composed onRotaryScrollEvent { event ->
-        rotaryInputAccumulator.onRotaryScrollEvent(
-            event,
-            showNow
-        )
-    }
+    return@composed onRotaryScrollEvent(rotaryInputAccumulator::onRotaryScrollEvent)
 }
 
 /**
@@ -85,7 +79,7 @@ public fun Modifier.onRotaryInputAccumulated(
  * @param event the [RotaryScrollEvent] to be processed.
  */
 @ExperimentalHorologistComposeLayoutApi
-internal fun RotaryInputAccumulator.onRotaryScrollEvent(event: RotaryScrollEvent, showNow: Boolean = false): Boolean {
+internal fun RotaryInputAccumulator.onRotaryScrollEvent(event: RotaryScrollEvent): Boolean {
     onRotaryScroll(event.verticalScrollPixels, event.uptimeMillis)
     return true
 }

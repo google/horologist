@@ -35,7 +35,7 @@ internal class RotaryInputAccumulator(
      * @param scrollPixels the amount to scroll in pixels of the event.
      * @param eventTimeMillis the time in milliseconds at which this even occurred
      */
-    public fun onRotaryScroll(scrollPixels: Float, eventTimeMillis: Long, showNow: Boolean = false) {
+    public fun onRotaryScroll(scrollPixels: Float, eventTimeMillis: Long) {
         val timeSinceLastAccumulatedMs = eventTimeMillis - lastAccumulatedEventTimeMs
         lastAccumulatedEventTimeMs = eventTimeMillis
         if (timeSinceLastAccumulatedMs > eventAccumulationThresholdMs) {
@@ -43,10 +43,10 @@ internal class RotaryInputAccumulator(
         } else {
             accumulatedDistance += scrollPixels
         }
-        onEventAccumulated(eventTimeMillis, showNow = showNow)
+        onEventAccumulated(eventTimeMillis)
     }
 
-    private fun onEventAccumulated(eventTimeMs: Long, showNow: Boolean = false) {
+    private fun onEventAccumulated(eventTimeMs: Long) {
         if (abs(accumulatedDistance) < minValueChangeDistancePx ||
             eventTimeMs - lastUpdateTimeMs < rateLimitCoolDownMs
         ) {

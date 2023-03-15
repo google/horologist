@@ -23,7 +23,7 @@ plugins {
 }
 
 android {
-    compileSdkPreview = "UpsideDownCake"
+    compileSdk = 33
 
     defaultConfig {
         applicationId = "com.google.android.horologist.auth.sample"

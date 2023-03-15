@@ -58,7 +58,7 @@ public class PhoneDataLayerAppHelper(context: Context, registry: WearDataLayerRe
          * example, Samsung devices report the plugin packages that handle comms with GW4, GW5
          * etc, whereas the package name for the companion *app* is different.
          */
-        val launchPackage = companionLookup.getOrDefault(companionPackage, companionPackage)
+        val launchPackage = companionLookup[companionPackage] ?: companionPackage
 
         val intent = context.packageManager.getLaunchIntentForPackage(launchPackage)
             ?: return AppHelperResultCode.APP_HELPER_RESULT_NO_COMPANION_FOUND

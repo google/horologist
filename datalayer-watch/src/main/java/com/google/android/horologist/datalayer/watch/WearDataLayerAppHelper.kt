@@ -35,6 +35,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.guava.await
 import kotlinx.coroutines.tasks.await
 
+private const val TAG = "DataLayerAppHelper"
+
 /**
  * Subclass of [DataLayerAppHelper] for use on Wear devices.
  */

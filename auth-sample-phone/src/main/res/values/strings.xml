@@ -18,4 +18,5 @@
     <string name="app_name">Horologist Auth Sample</string>
     <string name="token_share_button_update_token_default">Update token - default key</string>
     <string name="token_share_button_update_token_custom">Update token - custom key</string>
+    <string name="token_share_message_api_unavailable">This device does not have capability to communicate to Wearable Data Layer API</string>
 </resources>

@@ -19,7 +19,7 @@
     package="com.google.android.horologist.datalayer.phone">
 
     <uses-sdk
-        android:minSdkVersion="26"
+        android:minSdkVersion="23"
         tools:ignore="GradleOverrides" />
 
     <application>

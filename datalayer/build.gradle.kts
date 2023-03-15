@@ -23,6 +23,7 @@ plugins {
     id("org.jetbrains.dokka")
     id("com.google.protobuf")
     kotlin("android")
+    id("me.tylerbwong.gradle.metalava")
 }
 
 android {
@@ -96,6 +97,12 @@ protobuf {
             }
         }
     }
+}
+
+metalava {
+    sourcePaths.setFrom("src/main")
+    filename.set("api/current.api")
+    reportLintsAsErrors.set(true)
 }
 
 dependencies {

@@ -34,35 +34,25 @@ jobs:
           distribution: 'zulu'
           java-version: 11
 
-      - name: Generate cache key
-        run: ./checksum.sh checksum.txt
-
-      - uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches/modules-*
-            ~/.gradle/caches/jars-*
-            ~/.gradle/caches/build-cache-*
-          key: gradle-${{ hashFiles('checksum.txt') }}
-
-      - name: Check GIT lfs images
-        run: |
-          ./scripts/git-lfs-check.sh
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
 
       - name: Build (Debug)
-        run: |
-          ./gradlew --scan --stacktrace \
-              assembleDebug
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: --stacktrace assembleDebug
 
       - name: Metalava compatibility check
-        run: |
-          ./gradlew --scan --stacktrace \
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: --stacktrace
               metalavaCheckCompatibility metalavaCheckCompatibilityRelease
 
       - name: Code analysis
-        run: |
-          ./gradlew --scan --stacktrace \
-              spotlessCheck \
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: --stacktrace
+              spotlessCheck
               lintDebug
 
       - name: Unit Tests
@@ -81,13 +71,39 @@ jobs:
             **/build/reports/*
             **/build/reports/affectedModuleDetector/*
 
-      # Once this (https://github.com/cashapp/paparazzi/issues/388) is fixed, the changes introduced
-      # by this commit should be reverted to speed up and simplify the script again.
-      - name: Snapshot tests
+  paparazzi:
+    # Skip build if head commit contains 'skip ci'
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          lfs: 'true'
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 11
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Check GIT lfs images
         run: |
-          ./gradlew --scan --stacktrace \
-              clean \
-              verifyPaparazziDebug            
+          ./scripts/git-lfs-check.sh
+
+      - name: Snapshot tests
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: --stacktrace
+            verifyPaparazziDebug
 
       - name: Upload snapshot tests results
         if: always()
@@ -108,8 +124,7 @@ jobs:
       # Allow tests to continue on other devices if they fail on one device.
       fail-fast: false
       matrix:
-        api-level: [ 28, 30 ]
-        shard: [ 0, 1 ] # Need to update shard-count below if this changes
+        api-level: [ 30 ]
 
     env:
       TERM: dumb
@@ -133,21 +148,14 @@ jobs:
           distribution: 'zulu'
           java-version: 11
 
-      - name: Generate cache key
-        run: ./checksum.sh checksum.txt
-
-      - uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches/modules-*
-            ~/.gradle/caches/jars-*
-            ~/.gradle/caches/build-cache-*
-          key: gradle-${{ hashFiles('checksum.txt') }}
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
 
       - name: Compile instrumentation tests
-        run: |
-          ./gradlew --scan --stacktrace \
-              compileDebugAndroidTestSources
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: --stacktrace
+            compileDebugAndroidTestSources
 
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@v2
@@ -156,7 +164,7 @@ jobs:
           target: android-wear
           profile: wear_round_454
           emulator-options: -no-window -no-snapshot
-          script: ./scripts/run-instrumented-tests.sh --log-file=logcat.txt --run-affected --affected-base-ref=$BASE_REF --shard-index=${{ matrix.shard }} --shard-count=2 --macrobenchmark-rules=Microbenchmark
+          script: ./scripts/run-instrumented-tests.sh --log-file=logcat.txt --run-affected --affected-base-ref=$BASE_REF --shard-index=0 --shard-count=1 --macrobenchmark-rules=Microbenchmark
 
       - name: Upload logs
         if: always()

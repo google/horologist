@@ -35,7 +35,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.tasks.await
 
-const val TAG = "DataLayerAppHelper"
+internal const val TAG = "DataLayerAppHelper"
 
 /**
  * Base class on which of the Wear and Phone DataLayerAppHelpers are build.
@@ -95,6 +95,7 @@ abstract class DataLayerAppHelper(
                 trySend(capability.nodes.filter { it.isNearby }.toSet())
             }
         }
+
         val allCaps =
             registry.capabilityClient.getAllCapabilities(
                 CapabilityClient.FILTER_REACHABLE

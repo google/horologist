@@ -28,6 +28,5 @@ public class VolumeState(
 }
 
 fun VolumeState.cloneWithNewCurrent(current: Int): VolumeState = VolumeState(current, this.max)
-fun VolumeState.cloneWithNewMax(max: Int): VolumeState = VolumeState(this.current, max)
 fun VolumeState.clone(): VolumeState = VolumeState(this.current, this.max)
 

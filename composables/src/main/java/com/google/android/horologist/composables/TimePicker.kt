@@ -161,8 +161,7 @@ public fun TimePicker(
             R.plurals.horologist_time_picker_seconds_content_description
         )
 
-        val onPickerSelected = { current: FocusableElementsTimePicker,
-            next: FocusableElementsTimePicker ->
+        val onPickerSelected = { current: FocusableElementsTimePicker, next: FocusableElementsTimePicker ->
             if (pickerGroupState.selectedIndex != current.index) {
                 pickerGroupState.selectedIndex = current.index
             } else {
@@ -538,7 +537,6 @@ internal fun PickerGroupItemWithRSB(
         modifier = modifier.onRotaryInputAccumulatedWithFocus(
             focusRequester = focusRequester
         ) {
-            println("Rajat ===> PickerGroupItemWithRSB --> change = $it")
             coroutineScope.launch {
                 if (it > 0) {
                     pickerState.scrollToOption(pickerState.selectedOption + 1)

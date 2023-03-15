@@ -199,8 +199,7 @@ public fun DatePicker(
                 val dayWidth = 54.dp
                 val monthWidth = 80.dp
                 val yearWidth = 100.dp
-                val onPickerSelected = { current: FocusableElementDatePicker,
-                    next: FocusableElementDatePicker ->
+                val onPickerSelected = { current: FocusableElementDatePicker, next: FocusableElementDatePicker ->
                     if (pickerGroupState.selectedIndex != current.index) {
                         pickerGroupState.selectedIndex = current.index
                     } else {

@@ -60,6 +60,7 @@ include(":datalayer")
 include(":datalayer-watch")
 include(":datalayer-phone")
 include(":health-composables")
+include(":logo")
 
 // Enable Gradle's version catalog support
 // https://docs.gradle.org/current/userguide/platforms.html

@@ -44,7 +44,7 @@ class SampleTileService : SuspendingTileService() {
     }
 
     override suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources {
-        val imageResource = drawableResToImageResource(R.drawable.ic_uamp)
+        val imageResource = drawableResToImageResource(R.drawable.ic_stat_horologist)
 
         return renderer.produceRequestedResources(
             SampleTileRenderer.ResourceState(imageResource),

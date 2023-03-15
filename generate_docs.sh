@@ -30,6 +30,10 @@ mkdir $DOCS_ROOT
 # Create a copy of our docs at our $DOCS_ROOT
 cp -a docs/* $DOCS_ROOT
 
+# Copy the logo
+mkdir $DOCS_ROOT/logo
+cp -a logo/*.svg $DOCS_ROOT/logo
+
 cp README.md $DOCS_ROOT/index.md
 cp CONTRIBUTING.md $DOCS_ROOT/contributing.md
 

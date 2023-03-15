@@ -33,7 +33,8 @@
         android:name=".ui.app.MediaApplication"
         android:appCategory="audio"
         android:allowBackup="false"
-        android:icon="@drawable/ic_uamp"
+        android:icon="@mipmap/ic_horologist"
+        android:roundIcon="@mipmap/ic_horologist_round"
         android:label="@string/sample_app_name"
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
@@ -90,7 +91,7 @@
         <service
             android:name=".data.service.complication.MediaStatusComplicationService"
             android:exported="true"
-            android:icon="@drawable/ic_uamp"
+            android:icon="@mipmap/ic_horologist"
             android:label="@string/sample_media_collection"
             android:permission="com.google.android.wearable.permission.BIND_COMPLICATION_PROVIDER">
             <intent-filter>
@@ -109,7 +110,7 @@
             android:name=".data.service.tile.MediaCollectionsTileService"
             android:description="@string/sample_app_name"
             android:exported="true"
-            android:icon="@drawable/ic_uamp"
+            android:icon="@mipmap/ic_horologist"
             android:label="@string/sample_app_name"
             android:permission="com.google.android.wearable.permission.BIND_TILE_PROVIDER">
             <intent-filter>
@@ -118,7 +119,7 @@
 
             <meta-data
                 android:name="androidx.wear.tiles.PREVIEW"
-                android:resource="@drawable/ic_uamp" />
+                android:resource="@mipmap/ic_horologist" />
         </service>
 
         <service android:name=".data.service.download.MediaDownloadServiceImpl"

@@ -74,7 +74,7 @@ fun MediaPlayerTestCase(
             onOutputClick = { },
             brandIcon = {
                 SettingsButtonsDefaults.BrandIcon(
-                    R.drawable.ic_uamp,
+                    R.drawable.ic_stat_horologist,
                     enabled = playerUiState.connected
                 )
             },

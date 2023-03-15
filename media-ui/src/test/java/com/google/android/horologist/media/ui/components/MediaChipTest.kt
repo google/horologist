@@ -42,7 +42,7 @@ class MediaChipTest {
             FakeImageLoader.Resources.override {
                 MediaChip(
                     title = "Red Hot Chilli Peppers",
-                    artworkUri = R.drawable.ic_uamp,
+                    artworkUri = R.drawable.horologist_logo,
                     onClick = {}
                 )
             }
@@ -68,7 +68,7 @@ class MediaChipTest {
             FakeImageLoader.Resources.override {
                 MediaChip(
                     title = "Very very very very very very very very very very very long title",
-                    artworkUri = R.drawable.ic_uamp,
+                    artworkUri = R.drawable.horologist_logo,
                     onClick = {}
                 )
             }

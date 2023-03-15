@@ -140,6 +140,7 @@ dependencies {
     implementation(projects.tiles)
     implementation(projects.datalayer)
     implementation(projects.datalayerWatch)
+    implementation(projects.logo)
 
     implementation(libs.compose.ui.util)
 

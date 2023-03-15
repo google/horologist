@@ -37,8 +37,7 @@ import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistC
 @ExperimentalHorologistComposeLayoutApi
 public fun Modifier.onRotaryInputAccumulatedWithFocus(
     focusRequester: FocusRequester? = null,
-    onValueChange: (Float) -> Unit,
-    showNow: Boolean = false,
+    onValueChange: (Float) -> Unit
 ): Modifier = composed {
     val localFocusRequester = focusRequester ?: rememberActiveFocusRequester()
     onRotaryInputAccumulated(onValueChange = onValueChange)

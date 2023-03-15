@@ -83,12 +83,10 @@ public fun PlayerScreen(
     val playerUiState by playerViewModel.playerUiState.collectAsStateWithLifecycle()
     val volumeState by volumeViewModel.volumeState.collectAsStateWithLifecycle()
 
-    val volumePositionIndicator = VolumePositionIndicator(volumeState = { volumeState }, autoHide = true)
-
     Scaffold(
         modifier = modifier
             .fillMaxSize(),
-        positionIndicator = { volumePositionIndicator }
+        positionIndicator = { VolumePositionIndicator(volumeState = { volumeState }, autoHide = true) }
     ) {
         PlayerScreen(
             mediaDisplay = { mediaDisplay(playerUiState) },

@@ -38,10 +38,10 @@ import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistC
 public fun Modifier.onRotaryInputAccumulatedWithFocus(
     focusRequester: FocusRequester? = null,
     onValueChange: (Float) -> Unit,
-    additionalTask: (() -> Unit)? = null
+    showNow: Boolean = false,
 ): Modifier = composed {
     val localFocusRequester = focusRequester ?: rememberActiveFocusRequester()
-    onRotaryInputAccumulated(onValueChange = onValueChange, additionalTask = additionalTask)
+    onRotaryInputAccumulated(onValueChange = onValueChange, showNow = showNow)
         .focusRequester(localFocusRequester)
         .focusable()
 }
@@ -61,7 +61,7 @@ public fun Modifier.onRotaryInputAccumulated(
     minValueChangeDistancePx: Float = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
     rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
     onValueChange: (change: Float) -> Unit,
-    additionalTask: (() -> Unit)? = null
+    showNow: Boolean = false
 ): Modifier = composed {
     val rotaryInputAccumulator = remember {
         RotaryInputAccumulator(
@@ -71,8 +71,12 @@ public fun Modifier.onRotaryInputAccumulated(
             onValueChange = onValueChange
         )
     }
-    if (additionalTask != null) additionalTask()
-    return@composed onRotaryScrollEvent(rotaryInputAccumulator::onRotaryScrollEvent)
+    return@composed onRotaryScrollEvent { event ->
+        rotaryInputAccumulator.onRotaryScrollEvent(
+            event,
+            showNow
+        )
+    }
 }
 
 /**
@@ -81,7 +85,7 @@ public fun Modifier.onRotaryInputAccumulated(
  * @param event the [RotaryScrollEvent] to be processed.
  */
 @ExperimentalHorologistComposeLayoutApi
-internal fun RotaryInputAccumulator.onRotaryScrollEvent(event: RotaryScrollEvent): Boolean {
+internal fun RotaryInputAccumulator.onRotaryScrollEvent(event: RotaryScrollEvent, showNow: Boolean = false): Boolean {
     onRotaryScroll(event.verticalScrollPixels, event.uptimeMillis)
     return true
 }

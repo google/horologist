@@ -19,10 +19,15 @@ package com.google.android.horologist.audio
 /**
  * Data class holding the current state of the volume system.
  */
-public data class VolumeState(
+public class VolumeState(
     public val current: Int,
     public val max: Int
 ) {
     public val isMax: Boolean
         get() = current >= max
 }
+
+fun VolumeState.cloneWithNewCurrent(current: Int): VolumeState = VolumeState(current, this.max)
+fun VolumeState.cloneWithNewMax(max: Int): VolumeState = VolumeState(this.current, max)
+fun VolumeState.clone(): VolumeState = VolumeState(this.current, this.max)
+

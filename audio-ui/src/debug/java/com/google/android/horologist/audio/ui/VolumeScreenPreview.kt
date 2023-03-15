@@ -26,6 +26,7 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.cloneWithNewCurrent
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
@@ -43,7 +44,7 @@ fun VolumeScreenGuideWithLongText() {
         Scaffold(
             positionIndicator = {
                 VolumePositionIndicator(
-                    volumeState = { volume.copy(current = 5) },
+                    volumeState = { volume.cloneWithNewCurrent(current = 5) },
                     autoHide = false
                 )
             }
@@ -98,7 +99,7 @@ fun VolumeScreenTheme(
             Scaffold(
                 positionIndicator = {
                     VolumePositionIndicator(
-                        volumeState = { volume.copy(current = 5) },
+                        volumeState = { volume.cloneWithNewCurrent(current = 5) },
                         autoHide = false
                     )
                 }
@@ -126,7 +127,7 @@ fun VolumeScreenWithLabel() {
         Scaffold(
             positionIndicator = {
                 VolumePositionIndicator(
-                    volumeState = { volume.copy(current = 5) },
+                    volumeState = { volume.cloneWithNewCurrent(current = 5) },
                     autoHide = false
                 )
             }

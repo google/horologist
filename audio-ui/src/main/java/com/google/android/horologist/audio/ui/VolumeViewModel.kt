@@ -21,9 +21,11 @@ import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.audio.AudioOutput
@@ -31,7 +33,13 @@ import com.google.android.horologist.audio.AudioOutputRepository
 import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.audio.VolumeRepository
 import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.clone
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 
 /**
  * ViewModel for a Volume Control Screen.
@@ -50,9 +58,17 @@ public open class VolumeViewModel(
     private val onCleared: () -> Unit = {},
     private val vibrator: Vibrator
 ) : ViewModel() {
-    public val volumeState: StateFlow<VolumeState> = volumeRepository.volumeState
-
+    private var clonedState = MutableStateFlow<VolumeState?>(null)
+    public val volumeState: StateFlow<VolumeState> =
+        combine(volumeRepository.volumeState, clonedState) { it, clonedState ->
+            clonedState ?: it
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = VolumeState(0, 0)
+        )
     public val audioOutput: StateFlow<AudioOutput> = audioOutputRepository.audioOutput
+
 
     public fun increaseVolumeWithHaptics() {
         increaseVolume()
@@ -65,11 +81,21 @@ public open class VolumeViewModel(
     }
 
     public fun increaseVolume() {
-        volumeRepository.increaseVolume()
+        if (volumeState.value.isMax) {
+            clonedState.update { volumeState.value.clone() }
+        } else {
+            clonedState.update { null }
+            volumeRepository.increaseVolume()
+        }
     }
 
     public fun decreaseVolume() {
-        volumeRepository.decreaseVolume()
+        if (volumeState.value.current == 0) {
+            clonedState.update { volumeState.value.clone() }
+        } else {
+            clonedState.update { null }
+            volumeRepository.decreaseVolume()
+        }
     }
 
     public fun launchOutputSelection() {

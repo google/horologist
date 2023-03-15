@@ -23,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.wear.compose.material.Stepper
 import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.cloneWithNewCurrent
 import com.google.android.horologist.audio.ui.VolumeScreenDefaults.DecreaseIcon
 import com.google.android.horologist.audio.ui.VolumeScreenDefaults.IncreaseIcon
 import com.google.android.horologist.compose.tools.WearSmallRoundDevicePreview
@@ -35,7 +36,7 @@ fun AnimatedSetVolumeButtonPreview() {
     InteractivePreviewAware {
         Stepper(
             value = volumeState.current.toFloat(),
-            onValueChange = { volumeState = volumeState.copy(current = it.toInt()) },
+            onValueChange = { volumeState = volumeState.cloneWithNewCurrent(current = it.toInt()) },
             steps = volumeState.max - 1,
             valueRange = (0f..volumeState.max.toFloat()),
             increaseIcon = {

@@ -44,7 +44,7 @@ public object PlayerUiStateMapper {
         seekForwardIncrement: Duration?
     ): PlayerUiState {
         val playPauseCommandAvailable = availableCommands.contains(Command.PlayPause) && currentState != PlayerState.Idle
-
+//        android.util.Log.d("START_UP_TEST", "currentState=${currentState}")
         return PlayerUiState(
             playEnabled = playPauseCommandAvailable,
             pauseEnabled = playPauseCommandAvailable,

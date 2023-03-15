@@ -267,7 +267,8 @@ fun UampWearApp(
             }
         } else {
             appViewModel.startupSetup(navigateToLibrary = {
-                navController.navigateToLibrary()
+//                navController.navigateToLibrary()
+                navController.navigateToPlayer()
             })
         }
 

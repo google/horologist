@@ -37,10 +37,11 @@ import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistC
 @ExperimentalHorologistComposeLayoutApi
 public fun Modifier.onRotaryInputAccumulatedWithFocus(
     focusRequester: FocusRequester? = null,
-    onValueChange: (Float) -> Unit
+    onValueChange: (Float) -> Unit,
+    additionalTask: (() -> Unit)? = null
 ): Modifier = composed {
     val localFocusRequester = focusRequester ?: rememberActiveFocusRequester()
-    onRotaryInputAccumulated(onValueChange = onValueChange)
+    onRotaryInputAccumulated(onValueChange = onValueChange, additionalTask = additionalTask)
         .focusRequester(localFocusRequester)
         .focusable()
 }
@@ -59,7 +60,8 @@ public fun Modifier.onRotaryInputAccumulated(
     eventAccumulationThresholdMs: Long = RotaryInputConfigDefaults.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
     minValueChangeDistancePx: Float = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
     rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
-    onValueChange: (change: Float) -> Unit
+    onValueChange: (change: Float) -> Unit,
+    additionalTask: (() -> Unit)? = null
 ): Modifier = composed {
     val rotaryInputAccumulator = remember {
         RotaryInputAccumulator(
@@ -69,6 +71,7 @@ public fun Modifier.onRotaryInputAccumulated(
             onValueChange = onValueChange
         )
     }
+    if (additionalTask != null) additionalTask()
     return@composed onRotaryScrollEvent(rotaryInputAccumulator::onRotaryScrollEvent)
 }
 

@@ -40,6 +40,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import androidx.wear.compose.material.Scaffold
+import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulatedWithFocus
 import com.google.android.horologist.media.ui.ExperimentalHorologistMediaUiApi
@@ -79,19 +81,29 @@ public fun PlayerScreen(
     focusRequester: FocusRequester = rememberActiveFocusRequester()
 ) {
     val playerUiState by playerViewModel.playerUiState.collectAsStateWithLifecycle()
+    val volumeState by volumeViewModel.volumeState.collectAsStateWithLifecycle()
 
-    PlayerScreen(
-        mediaDisplay = { mediaDisplay(playerUiState) },
-        controlButtons = { controlButtons(playerViewModel.playerUiController, playerUiState) },
-        buttons = {
-            buttons(playerUiState)
-        },
-        modifier = modifier.onRotaryInputAccumulatedWithFocus(
-            focusRequester = focusRequester,
-            onValueChange = volumeViewModel::onVolumeChangeByScroll
-        ),
-        background = { background(playerUiState) }
-    )
+    val volumePositionIndicator = VolumePositionIndicator(volumeState = { volumeState }, autoHide = true)
+
+    Scaffold(
+        modifier = modifier
+            .fillMaxSize(),
+        positionIndicator = { volumePositionIndicator }
+    ) {
+        PlayerScreen(
+            mediaDisplay = { mediaDisplay(playerUiState) },
+            controlButtons = { controlButtons(playerViewModel.playerUiController, playerUiState) },
+            buttons = {
+                buttons(playerUiState)
+            },
+            modifier = modifier.onRotaryInputAccumulatedWithFocus(
+                focusRequester = focusRequester,
+                onValueChange = volumeViewModel::onVolumeChangeByScroll,
+            ),
+            background = { background(playerUiState) }
+        )
+    }
+
 }
 
 /**

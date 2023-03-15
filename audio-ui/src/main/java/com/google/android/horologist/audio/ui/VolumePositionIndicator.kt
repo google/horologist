@@ -42,11 +42,12 @@ import kotlinx.coroutines.delay
 public fun VolumePositionIndicator(
     volumeState: () -> VolumeState,
     modifier: Modifier = Modifier,
-    autoHide: Boolean = true
+    autoHide: Boolean = true,
+    showNow: Boolean = false,
 ) {
-    var actuallyVisible by remember { mutableStateOf(!autoHide) }
+    var actuallyVisible by remember { mutableStateOf(!autoHide || showNow) }
     var isInitial by remember { mutableStateOf(true) }
-
+    android.util.Log.d("VolumeTest", "actuallyVisible=${actuallyVisible}")
     if (autoHide) {
         val current = volumeState().current
         LaunchedEffect(current) {

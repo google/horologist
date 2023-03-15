@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.data
+package com.google.android.horologist.data.apphelper
+
+import com.google.android.horologist.data.SurfacesInfo
 
 /**
  * Represents a node on the network, and the installation status of the app. The node can be a
@@ -25,8 +27,7 @@ public data class AppHelperNodeStatus(
     val displayName: String,
     val isAppInstalled: Boolean,
     val nodeType: AppHelperNodeType,
-    val installedTiles: Set<String> = setOf(),
-    val installedComplications: Set<String> = setOf()
+    val surfacesInfo: SurfacesInfo = SurfacesInfo.getDefaultInstance()
 )
 
 public enum class AppHelperNodeType {

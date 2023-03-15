@@ -37,3 +37,14 @@ message ActivityConfig {
   string packageName = 1;
   string classFullName = 2;
 }
+
+message ComplicationInfo {
+  string name = 1;
+  int32 instanceId = 2;
+  string type = 3;
+}
+
+message SurfacesInfo {
+  repeated string tileNames = 1;
+  repeated ComplicationInfo complications = 2;
+}

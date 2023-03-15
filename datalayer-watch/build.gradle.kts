@@ -92,6 +92,7 @@ dependencies {
 
     api(libs.playservices.wearable)
     implementation(libs.kotlinx.coroutines.playservices)
+    implementation(libs.androidx.complications.datasource.ktx)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.wear.remote.interactions)
     implementation(libs.androidx.wear.phone.interactions)

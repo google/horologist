@@ -21,8 +21,9 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import com.google.android.horologist.data.AppHelperResultCode
-import com.google.android.horologist.data.DataLayerAppHelper
 import com.google.android.horologist.data.ExperimentalHorologistDataLayerApi
+import com.google.android.horologist.data.WearDataLayerRegistry
+import com.google.android.horologist.data.apphelper.DataLayerAppHelper
 import kotlinx.coroutines.guava.await
 import kotlinx.coroutines.tasks.await
 
@@ -30,8 +31,8 @@ import kotlinx.coroutines.tasks.await
  * Subclass of [DataLayerAppHelper] for use on phones.
  */
 @ExperimentalHorologistDataLayerApi
-public class PhoneDataLayerAppHelper(context: Context) :
-    DataLayerAppHelper(context) {
+public class PhoneDataLayerAppHelper(context: Context, registry: WearDataLayerRegistry) :
+    DataLayerAppHelper(context, registry) {
     /**
      * Some devices report back a different packageName from getCompanionPackageForNode() than is
      * the actual package of the Companion app. Where this is the case, this lookup ensures the
@@ -50,7 +51,7 @@ public class PhoneDataLayerAppHelper(context: Context) :
     }
 
     override suspend fun startCompanion(node: String): AppHelperResultCode {
-        val companionPackage = nodeClient.getCompanionPackageForNode(node).await()
+        val companionPackage = registry.nodeClient.getCompanionPackageForNode(node).await()
 
         /**
          * Some devices report the wrong companion for actually launching the Companion app: For

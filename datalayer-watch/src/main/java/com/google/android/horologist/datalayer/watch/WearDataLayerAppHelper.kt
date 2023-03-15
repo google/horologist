@@ -19,16 +19,19 @@ package com.google.android.horologist.datalayer.watch
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import androidx.wear.phone.interactions.PhoneTypeHelper
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.wearable.WearableStatusCodes
+import androidx.wear.watchface.complications.data.ComplicationType
 import com.google.android.horologist.data.AppHelperResult
 import com.google.android.horologist.data.AppHelperResultCode
-import com.google.android.horologist.data.DataLayerAppHelper
 import com.google.android.horologist.data.ExperimentalHorologistDataLayerApi
+import com.google.android.horologist.data.WearDataLayerRegistry
+import com.google.android.horologist.data.apphelper.DataLayerAppHelper
+import com.google.android.horologist.data.apphelper.SurfaceInfoSerializer
 import com.google.android.horologist.data.companionConfig
+import com.google.android.horologist.data.complicationInfo
+import com.google.android.horologist.data.copy
 import com.google.android.horologist.data.launchRequest
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.guava.await
 import kotlinx.coroutines.tasks.await
 
@@ -38,8 +41,21 @@ private const val TAG = "DataLayerAppHelper"
  * Subclass of [DataLayerAppHelper] for use on Wear devices.
  */
 @ExperimentalHorologistDataLayerApi
-public class WearDataLayerAppHelper(context: Context, private val appStoreUri: String? = null) :
-    DataLayerAppHelper(context) {
+public class WearDataLayerAppHelper(
+    context: Context,
+    registry: WearDataLayerRegistry,
+    scope: CoroutineScope,
+    private val appStoreUri: String? = null
+) :
+    DataLayerAppHelper(context, registry) {
+
+    private val surfaceInfoDataStore by lazy {
+        registry.protoDataStore(
+            path = DataLayerAppHelper.SURFACE_INFO_PATH,
+            coroutineScope = scope,
+            serializer = SurfaceInfoSerializer
+        )
+    }
     override suspend fun installOnNode(node: String) {
         if (appStoreUri != null &&
             PhoneTypeHelper.getPhoneDeviceType(context) == PhoneTypeHelper.DEVICE_TYPE_IOS
@@ -57,14 +73,14 @@ public class WearDataLayerAppHelper(context: Context, private val appStoreUri: S
     }
 
     override suspend fun startCompanion(node: String): AppHelperResultCode {
-        val localNode = nodeClient.localNode.await()
+        val localNode = registry.nodeClient.localNode.await()
         val request = launchRequest {
             companion = companionConfig {
                 sourceNode = localNode.id
             }
         }
         val response =
-            messageClient.sendRequest(node, LAUNCH_APP, request.toByteArray())
+            registry.messageClient.sendRequest(node, LAUNCH_APP, request.toByteArray())
                 .await()
         return AppHelperResult.parseFrom(response).code
     }
@@ -75,7 +91,14 @@ public class WearDataLayerAppHelper(context: Context, private val appStoreUri: S
      *
      * @param tileName The name of the tile.
      */
-    public suspend fun markTileAsInstalled(tileName: String): Unit = markSurfaceAsInstalled(tilePrefix, tileName)
+    public suspend fun markTileAsInstalled(tileName: String) {
+        surfaceInfoDataStore.updateData {
+                info ->
+            info.copy {
+                if (!tileNames.contains(tileName)) tileNames.add(tileName)
+            }
+        }
+    }
 
     /**
      * Marks a tile as removed. Call this in [TileService#onTileRemoveEvent]. Supplying a name is
@@ -83,46 +106,72 @@ public class WearDataLayerAppHelper(context: Context, private val appStoreUri: S
      *
      * @param tileName The name of the tile.
      */
-    public suspend fun markTileAsRemoved(tileName: String): Unit = markSurfaceAsRemoved(tilePrefix, tileName)
-
-    /**
-     * Marks a complication as active on the current watch face. Call this in
-     * [ComplicationDataSourceService#onComplicationActivated]. Supplying a name is mandatory to
-     * disambiguate from the installation or removal of other complications your app may have.
-     *
-     * @param complicationName The name of the complication.
-     */
-    public suspend fun markComplicationAsActivated(complicationName: String): Unit = markSurfaceAsInstalled(complicationPrefix, complicationName)
-
-    /**
-     * Marks a complication as deactivated. Call this in
-     * [ComplicationDataSourceService#onComplicationDeactivated]. Supplying a name is mandatory to
-     * disambiguate from the installation or removal of other complications your app may have.
-     *
-     * @param complicationName The name of the complication.
-     */
-    public suspend fun markComplicationAsDeactivated(complicationName: String): Unit = markSurfaceAsRemoved(complicationPrefix, complicationName)
-
-    private suspend fun markSurfaceAsInstalled(surfacePrefix: String, name: String) {
-        require(name.isNotEmpty())
-        try {
-            capabilityClient.addLocalCapability("$surfacePrefix$name").await()
-        } catch (e: ApiException) {
-            if (e.statusCode != WearableStatusCodes.DUPLICATE_CAPABILITY) {
-                throw e
+    public suspend fun markTileAsRemoved(tileName: String) {
+        surfaceInfoDataStore.updateData {
+                info ->
+            info.copy {
+                if (tileNames.contains(tileName)) {
+                    val reducedTiles = tileNames.filter { it != tileName }
+                    tileNames.clear()
+                    tileNames.addAll(reducedTiles)
+                }
             }
         }
     }
 
-    private suspend fun markSurfaceAsRemoved(surfacePrefix: String, name: String) {
-        require(name.isNotEmpty())
-        try {
-            capabilityClient.removeLocalCapability("$surfacePrefix$name").await()
-        } catch (e: ApiException) {
-            if (e.statusCode != WearableStatusCodes.UNKNOWN_CAPABILITY) {
-                throw e
+    /**
+     * Marks a complication as activated. Call this in
+     * [ComplicationDataSourceService#onComplicationActivated].
+     *
+     * @param complicationName The name of the complication, to disambiguate from others.
+     * @param complicationInstanceId Passed from onComplicationActivated
+     * @param complicationType Passedfrom onComplicationActivated
+     */
+    public suspend fun markComplicationAsActivated(
+        complicationName: String,
+        complicationInstanceId: Int,
+        complicationType: ComplicationType
+    ) {
+        surfaceInfoDataStore.updateData {
+                info ->
+            val complication = complicationInfo {
+                name = complicationName
+                instanceId = complicationInstanceId
+                type = complicationType.name
             }
-            Log.w(TAG, "Unknown capability: $surfacePrefix$name")
+            info.copy {
+                if (!complications.contains(complication)) complications.add(complication)
+            }
+        }
+    }
+
+    /**
+     * Marks a complication as deactivated. Call this in
+     * [ComplicationDataSourceService#onComplicationDeactivated].
+     *
+     * @param complicationName The name of the complication, to disambiguate from others.
+     * @param complicationInstanceId Passed from onComplicationDeactivated
+     * @param complicationType Passedfrom onComplicationDeactivated
+     */
+    public suspend fun markComplicationAsDeactivated(
+        complicationName: String,
+        complicationInstanceId: Int,
+        complicationType: ComplicationType
+    ) {
+        surfaceInfoDataStore.updateData {
+                info ->
+            val complication = complicationInfo {
+                name = complicationName
+                instanceId = complicationInstanceId
+                type = complicationType.name
+            }
+            info.copy {
+                if (complications.contains(complication)) {
+                    val reducedComplications = complications.filter { it != complication }
+                    complications.clear()
+                    complications.addAll(reducedComplications)
+                }
+            }
         }
     }
 }

@@ -105,4 +105,40 @@ class TimePickerTest {
 
         composeTestRule.onNodeWithTag("time").assertTextEquals("11:59")
     }
+
+    @Test
+    fun content_description_exists_for_hour_picker() {
+        composeTestRule.setContent {
+            TimePicker(
+                onTimeConfirm = {},
+                time = LocalTime.of(11, 59, 31)
+            )
+        }
+
+        composeTestRule.onNodeWithContentDescription("11 hours", ignoreCase = true).assertExists()
+    }
+
+    @Test
+    fun content_description_exists_for_minute_picker() {
+        composeTestRule.setContent {
+            TimePicker(
+                onTimeConfirm = {},
+                time = LocalTime.of(11, 59, 31)
+            )
+        }
+
+        composeTestRule.onNodeWithContentDescription("59 minutes", ignoreCase = true).assertExists()
+    }
+
+    @Test
+    fun content_description_exists_for_second_picker() {
+        composeTestRule.setContent {
+            TimePicker(
+                onTimeConfirm = {},
+                time = LocalTime.of(11, 59, 31)
+            )
+        }
+
+        composeTestRule.onNodeWithContentDescription("31 seconds", ignoreCase = true).assertExists()
+    }
 }

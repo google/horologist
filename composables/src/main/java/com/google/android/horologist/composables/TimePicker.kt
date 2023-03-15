@@ -72,7 +72,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TouchExplorationStateProvider
 import androidx.wear.compose.material.rememberPickerGroupState
 import androidx.wear.compose.material.rememberPickerState
-import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulatedWithFocus
+import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
 import kotlinx.coroutines.launch
 import java.time.LocalTime
 import java.time.temporal.ChronoField
@@ -161,16 +161,17 @@ public fun TimePicker(
             R.plurals.horologist_time_picker_seconds_content_description
         )
 
-        val onPickerSelected = { current: FocusableElementsTimePicker, next: FocusableElementsTimePicker ->
-            if (pickerGroupState.selectedIndex != current.index) {
-                pickerGroupState.selectedIndex = current.index
-            } else {
-                pickerGroupState.selectedIndex = next.index
-                if (next == FocusableElementsTimePicker.CONFIRM_BUTTON) {
-                    focusRequesterConfirmButton.requestFocus()
+        val onPickerSelected =
+            { current: FocusableElementsTimePicker, next: FocusableElementsTimePicker ->
+                if (pickerGroupState.selectedIndex != current.index) {
+                    pickerGroupState.selectedIndex = current.index
+                } else {
+                    pickerGroupState.selectedIndex = next.index
+                    if (next == FocusableElementsTimePicker.CONFIRM_BUTTON) {
+                        focusRequesterConfirmButton.requestFocus()
+                    }
                 }
             }
-        }
 
         Box(modifier = modifier.fillMaxSize()) {
             Column(
@@ -526,7 +527,7 @@ internal fun PickerGroupItemWithRSB(
     val coroutineScope = rememberCoroutineScope()
     return PickerGroupItem(
         pickerState = pickerState,
-        modifier = modifier.onRotaryInputAccumulatedWithFocus {
+        modifier = modifier.onRotaryInputAccumulated {
             coroutineScope.launch {
                 if (it > 0) {
                     pickerState.scrollToOption(pickerState.selectedOption + 1)

@@ -96,6 +96,42 @@ class DatePickerTest {
     }
 
     @Test
+    fun content_description_exists_for_day_picker() {
+        composeTestRule.setContent {
+            DatePicker(
+                onDateConfirm = {},
+                date = LocalDate.of(2022, 4, 25)
+            )
+        }
+
+        composeTestRule.onNodeWithContentDescription("Day, 25", ignoreCase = true).assertExists()
+    }
+
+    @Test
+    fun content_description_exists_for_month_picker() {
+        composeTestRule.setContent {
+            DatePicker(
+                onDateConfirm = {},
+                date = LocalDate.of(2022, 4, 25)
+            )
+        }
+
+        composeTestRule.onNodeWithContentDescription("April", ignoreCase = true).assertExists()
+    }
+
+    @Test
+    fun content_description_exists_for_year_picker() {
+        composeTestRule.setContent {
+            DatePicker(
+                onDateConfirm = {},
+                date = LocalDate.of(2022, 4, 25)
+            )
+        }
+
+        composeTestRule.onNodeWithContentDescription("Year, 2022", ignoreCase = true).assertExists()
+    }
+
+    @Test
     fun current_values_checked_in_date_picker_state() {
         val date = LocalDate.of(2022, 4, 25)
 

@@ -98,6 +98,8 @@ private inline fun debugLog(generateMsg: () -> String) {
  * @param scrollableState Scrollable state which will be scrolled while receiving rotary events
  * @param flingBehavior Logic describing fling behavior.
  * @param rotaryHaptics Class which will handle haptic feedback
+ * @param reverseDirection Reverse the direction of scrolling. Should be aligned with
+ * Scrollable `reverseDirection` parameter
  */
 @ExperimentalHorologistComposeLayoutApi
 @Suppress("ComposableModifierFactory")
@@ -106,9 +108,11 @@ public fun Modifier.rotaryWithFling(
     focusRequester: FocusRequester,
     scrollableState: ScrollableState,
     flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
-    rotaryHaptics: RotaryHapticFeedback = rememberRotaryHapticFeedback()
+    rotaryHaptics: RotaryHapticFeedback = rememberRotaryHapticFeedback(),
+    reverseDirection: Boolean = false
 ): Modifier = rotaryHandler(
     rotaryScrollHandler = RotaryDefaults.rememberFlingHandler(scrollableState, flingBehavior),
+    reverseDirection = reverseDirection,
     rotaryHaptics = rotaryHaptics
 )
     .focusRequester(focusRequester)
@@ -128,6 +132,8 @@ public fun Modifier.rotaryWithFling(
  * @param focusRequester Requests the focus for rotary input
  * @param scrollableState Scrollable state which will be scrolled while receiving rotary events
  * @param rotaryHaptics Class which will handle haptic feedback
+ * @param reverseDirection Reverse the direction of scrolling. Should be aligned with
+ * Scrollable `reverseDirection` parameter
  */
 @ExperimentalHorologistComposeLayoutApi
 @Suppress("ComposableModifierFactory")
@@ -135,9 +141,11 @@ public fun Modifier.rotaryWithFling(
 public fun Modifier.rotaryWithScroll(
     focusRequester: FocusRequester,
     scrollableState: ScrollableState,
-    rotaryHaptics: RotaryHapticFeedback = rememberRotaryHapticFeedback()
+    rotaryHaptics: RotaryHapticFeedback = rememberRotaryHapticFeedback(),
+    reverseDirection: Boolean = false
 ): Modifier = rotaryHandler(
     rotaryScrollHandler = RotaryDefaults.rememberFlingHandler(scrollableState, null),
+    reverseDirection = reverseDirection,
     rotaryHaptics = rotaryHaptics
 )
     .focusRequester(focusRequester)
@@ -158,6 +166,8 @@ public fun Modifier.rotaryWithScroll(
  * @param focusRequester Requests the focus for rotary input
  * @param rotaryScrollAdapter A connection between scrollable objects and rotary events
  * @param rotaryHaptics Class which will handle haptic feedback
+ * @param reverseDirection Reverse the direction of scrolling. Should be aligned with
+ * Scrollable `reverseDirection` parameter
  */
 @ExperimentalHorologistComposeLayoutApi
 @Suppress("ComposableModifierFactory")
@@ -165,9 +175,11 @@ public fun Modifier.rotaryWithScroll(
 public fun Modifier.rotaryWithSnap(
     focusRequester: FocusRequester,
     rotaryScrollAdapter: RotaryScrollAdapter,
-    rotaryHaptics: RotaryHapticFeedback = rememberRotaryHapticFeedback()
+    rotaryHaptics: RotaryHapticFeedback = rememberRotaryHapticFeedback(),
+    reverseDirection: Boolean = false
 ): Modifier = rotaryHandler(
     rotaryScrollHandler = RotaryDefaults.rememberSnapHandler(rotaryScrollAdapter),
+    reverseDirection = reverseDirection,
     rotaryHaptics = rotaryHaptics
 )
     .focusRequester(focusRequester)
@@ -727,6 +739,7 @@ public class DefaultSnapBehavior(
 public fun Modifier.rotaryHandler(
     rotaryScrollHandler: RotaryScrollHandler,
     batchTimeframe: Long = 0L,
+    reverseDirection: Boolean,
     rotaryHaptics: RotaryHapticFeedback
 ): Modifier = composed {
     val channel = rememberTimestampChannel()
@@ -751,7 +764,7 @@ public fun Modifier.rotaryHandler(
                 channel.trySend(
                     TimestampedDelta(
                         it.uptimeMillis,
-                        it.verticalScrollPixels
+                        it.verticalScrollPixels * sign(if (reverseDirection) -1f else 1f)
                     )
                 )
                 true

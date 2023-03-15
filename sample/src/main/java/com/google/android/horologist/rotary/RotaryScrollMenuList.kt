@@ -85,6 +85,10 @@ fun RotaryMenuScreen(
                     Screen.RotaryScrollScreen.route
                 ),
                 Pair(
+                    R.string.rotarymenu_scroll_list_reversed,
+                    Screen.RotaryScrollReversedScreen.route
+                ),
+                Pair(
                     R.string.rotarymenu_scroll_with_fling,
                     Screen.RotaryScrollWithFlingScreen.route
                 )
@@ -140,12 +144,18 @@ fun RotaryMenuScreen(
 
 @Composable
 fun RotaryScrollScreen(
+    reverseDirection: Boolean = false,
     scalingLazyListState: ScalingLazyListState = rememberScalingLazyListState(),
     focusRequester: FocusRequester = rememberActiveFocusRequester()
 ) {
     ItemsListWithModifier(
+        reverseDirection = reverseDirection,
         modifier = Modifier
-            .rotaryWithScroll(focusRequester, scalingLazyListState),
+            .rotaryWithScroll(
+                reverseDirection = reverseDirection,
+                focusRequester = focusRequester,
+                scrollableState = scalingLazyListState
+            ),
         scrollableState = scalingLazyListState
     ) {
         ChipsList {}
@@ -288,6 +298,7 @@ private fun ScrollPreferences(
 
 @Composable
 private fun ItemsListWithModifier(
+    reverseDirection: Boolean = false,
     modifier: Modifier,
     scrollableState: ScalingLazyListState,
     items: ScalingLazyListScope.() -> Unit
@@ -296,6 +307,7 @@ private fun ItemsListWithModifier(
     ScalingLazyColumn(
         modifier = modifier.fillMaxSize(),
         state = scrollableState,
+        reverseLayout = reverseDirection,
         flingBehavior = flingBehavior,
         scalingParams = scalingParams(),
         horizontalAlignment = Alignment.Start,

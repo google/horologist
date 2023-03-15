@@ -41,6 +41,7 @@ sealed class Screen(
     object RotaryMenuScreen : Screen("rotaryMenuScreen")
 
     object RotaryScrollScreen : Screen("rotaryScrollScreen")
+    object RotaryScrollReversedScreen : Screen("rotaryScrollReversedScreen")
     object RotaryScrollWithFlingScreen : Screen("rotaryScrollWithFlingScreen")
     object RotarySnapListScreen : Screen("rotarySnapListScreen")
 

@@ -202,6 +202,9 @@ fun SampleWearApp() {
         composable(route = Screen.RotaryScrollScreen.route) {
             RotaryScrollScreen()
         }
+        composable(route = Screen.RotaryScrollReversedScreen.route) {
+            RotaryScrollScreen(reverseDirection = true)
+        }
         composable(route = Screen.RotaryScrollWithFlingScreen.route) {
             RotaryScrollWithFlingOrSnapScreen(isFling = true, isSnap = false)
         }

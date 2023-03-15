@@ -204,7 +204,6 @@ public fun TimePicker(
                         PickerGroupItemWithRSB(
                             pickerState = hourState,
                             modifier = Modifier.size(40.dp, 100.dp),
-                            focusRequester = remember { FocusRequester() },
                             onSelected = {
                                 onPickerSelected(
                                     FocusableElementsTimePicker.HOURS,
@@ -217,7 +216,6 @@ public fun TimePicker(
                         PickerGroupItemWithRSB(
                             pickerState = minuteState,
                             modifier = Modifier.size(40.dp, 100.dp),
-                            focusRequester = remember { FocusRequester() },
                             onSelected = {
                                 onPickerSelected(
                                     FocusableElementsTimePicker.MINUTES,
@@ -234,7 +232,6 @@ public fun TimePicker(
                             PickerGroupItemWithRSB(
                                 pickerState = secondState,
                                 modifier = Modifier.size(40.dp, 100.dp),
-                                focusRequester = remember { FocusRequester() },
                                 onSelected = {
                                     onPickerSelected(
                                         FocusableElementsTimePicker.SECONDS,
@@ -424,7 +421,6 @@ public fun TimePickerWith12HourClock(
                         PickerGroupItemWithRSB(
                             pickerState = hourState,
                             modifier = Modifier.size(48.dp, 100.dp),
-                            focusRequester = remember { FocusRequester() },
                             onSelected = {
                                 doubleTapToNext(
                                     FocusableElement12Hour.HOURS,
@@ -437,8 +433,6 @@ public fun TimePickerWith12HourClock(
                         PickerGroupItemWithRSB(
                             pickerState = minuteState,
                             modifier = Modifier.size(48.dp, 100.dp),
-                            focusRequester = remember { FocusRequester() },
-
                             onSelected = {
                                 doubleTapToNext(
                                     FocusableElement12Hour.MINUTES,
@@ -451,7 +445,6 @@ public fun TimePickerWith12HourClock(
                         PickerGroupItemWithRSB(
                             pickerState = periodState,
                             modifier = Modifier.size(64.dp, 100.dp),
-                            focusRequester = remember { FocusRequester() },
                             contentDescription = periodContentDescription,
                             onSelected = {
                                 doubleTapToNext(
@@ -526,7 +519,6 @@ internal fun PickerGroupItemWithRSB(
     pickerState: PickerState,
     modifier: Modifier,
     contentDescription: String?,
-    focusRequester: FocusRequester?,
     onSelected: () -> Unit,
     readOnlyLabel: @Composable (BoxScope.() -> Unit)? = null,
     option: @Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit
@@ -534,9 +526,7 @@ internal fun PickerGroupItemWithRSB(
     val coroutineScope = rememberCoroutineScope()
     return PickerGroupItem(
         pickerState = pickerState,
-        modifier = modifier.onRotaryInputAccumulatedWithFocus(
-            focusRequester = focusRequester
-        ) {
+        modifier = modifier.onRotaryInputAccumulatedWithFocus {
             coroutineScope.launch {
                 if (it > 0) {
                     pickerState.scrollToOption(pickerState.selectedOption + 1)
@@ -546,7 +536,6 @@ internal fun PickerGroupItemWithRSB(
             }
         },
         contentDescription = contentDescription,
-        focusRequester = focusRequester,
         onSelected = onSelected,
         readOnlyLabel = readOnlyLabel,
         option = option

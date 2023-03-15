@@ -230,7 +230,6 @@ public fun DatePicker(
                         PickerGroupItemWithRSB(
                             pickerState = datePickerState.dayState,
                             modifier = Modifier.size(dayWidth, 100.dp),
-                            focusRequester = remember { FocusRequester() },
                             onSelected = {
                                 onPickerSelected(
                                     FocusableElementDatePicker.DAY,
@@ -245,7 +244,6 @@ public fun DatePicker(
                         PickerGroupItemWithRSB(
                             pickerState = datePickerState.monthState,
                             modifier = Modifier.size(monthWidth, 100.dp),
-                            focusRequester = remember { FocusRequester() },
                             onSelected = {
                                 onPickerSelected(
                                     FocusableElementDatePicker.MONTH,
@@ -260,7 +258,6 @@ public fun DatePicker(
                         PickerGroupItemWithRSB(
                             pickerState = datePickerState.yearState,
                             modifier = Modifier.size(yearWidth, 100.dp),
-                            focusRequester = remember { FocusRequester() },
                             onSelected = {
                                 onPickerSelected(
                                     FocusableElementDatePicker.YEAR,

@@ -18,6 +18,7 @@ package com.google.android.horologist.composables
 
 import android.content.Context
 import android.view.accessibility.AccessibilityManager
+import androidx.annotation.PluralsRes
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -49,6 +50,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.focused
@@ -70,7 +72,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TouchExplorationStateProvider
 import androidx.wear.compose.material.rememberPickerGroupState
 import androidx.wear.compose.material.rememberPickerState
-import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulated
+import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulatedWithFocus
 import kotlinx.coroutines.launch
 import java.time.LocalTime
 import java.time.temporal.ChronoField
@@ -117,7 +119,7 @@ public fun TimePicker(
         initiallySelectedOption = time.second
     )
 
-    val touchExplorationStateProvider = DefaultTouchExplorationStateProvider()
+    val touchExplorationStateProvider = remember { DefaultTouchExplorationStateProvider() }
     val touchExplorationServicesEnabled by touchExplorationStateProvider
         .touchExplorationState()
 
@@ -137,47 +139,27 @@ public fun TimePicker(
         val hourString = stringResource(R.string.horologist_time_picker_hour)
         val minuteString = stringResource(R.string.horologist_time_picker_minute)
         val secondString = stringResource(R.string.horologist_time_picker_second)
-        val zeroString = stringResource(R.string.horologist_picker_zero_content_description)
 
-        val hourContentDescription by remember(
-            pickerGroupState.selectedIndex,
-            hourState.selectedOption
-        ) {
-            derivedStateOf {
-                createDescription(
-                    pickerGroupState,
-                    hourState.selectedOption,
-                    hourString,
-                    zeroString
-                )
-            }
-        }
-        val minuteContentDescription by remember(
-            pickerGroupState.selectedIndex,
-            minuteState.selectedOption
-        ) {
-            derivedStateOf {
-                createDescription(
-                    pickerGroupState,
-                    minuteState.selectedOption,
-                    minuteString,
-                    zeroString
-                )
-            }
-        }
-        val secondContentDescription by remember(
-            pickerGroupState.selectedIndex,
-            secondState.selectedOption
-        ) {
-            derivedStateOf {
-                createDescription(
-                    pickerGroupState,
-                    secondState.selectedOption,
-                    secondString,
-                    zeroString
-                )
-            }
-        }
+        val hourContentDescription = createDescription(
+            pickerGroupState,
+            hourState.selectedOption,
+            hourString,
+            R.plurals.horologist_time_picker_hours_content_description
+        )
+
+        val minuteContentDescription = createDescription(
+            pickerGroupState,
+            minuteState.selectedOption,
+            minuteString,
+            R.plurals.horologist_time_picker_minutes_content_description
+        )
+
+        val secondContentDescription = createDescription(
+            pickerGroupState,
+            secondState.selectedOption,
+            secondString,
+            R.plurals.horologist_time_picker_seconds_content_description
+        )
 
         val onPickerSelected = { current: FocusableElementsTimePicker,
             next: FocusableElementsTimePicker ->
@@ -348,11 +330,14 @@ public fun TimePickerWith12HourClock(
         repeatItems = false
     )
 
-    val touchExplorationStateProvider = DefaultTouchExplorationStateProvider()
+    val touchExplorationStateProvider = remember { DefaultTouchExplorationStateProvider() }
+
     val touchExplorationServicesEnabled by touchExplorationStateProvider
         .touchExplorationState()
 
     MaterialTheme(typography = typography) {
+        // When the time picker loads, none of the individual pickers are selected in talkback mode,
+        // otherwise hours picker should be focused.
         val pickerGroupState =
             if (touchExplorationServicesEnabled) {
                 rememberPickerGroupState(FocusableElement12Hour.NONE.index)
@@ -365,34 +350,20 @@ public fun TimePickerWith12HourClock(
         val hourString = stringResource(R.string.horologist_time_picker_hour)
         val minuteString = stringResource(R.string.horologist_time_picker_minute)
         val periodString = stringResource(R.string.horologist_time_picker_period)
-        val zeroString = stringResource(R.string.horologist_picker_zero_content_description)
 
-        val hoursContentDescription by remember(
-            pickerGroupState.selectedIndex,
-            hourState.selectedOption
-        ) {
-            derivedStateOf {
-                createDescription12Hour(
-                    pickerGroupState,
-                    hourState.selectedOption + 1,
-                    hourString,
-                    zeroString
-                )
-            }
-        }
-        val minutesContentDescription by remember(
-            pickerGroupState.selectedIndex,
-            minuteState.selectedOption
-        ) {
-            derivedStateOf {
-                createDescription12Hour(
-                    pickerGroupState,
-                    minuteState.selectedOption,
-                    minuteString,
-                    zeroString
-                )
-            }
-        }
+        val hoursContentDescription = createDescription12Hour(
+            pickerGroupState,
+            hourState.selectedOption + 1,
+            hourString,
+            R.plurals.horologist_time_picker_hours_content_description
+        )
+
+        val minutesContentDescription = createDescription12Hour(
+            pickerGroupState,
+            minuteState.selectedOption,
+            minuteString,
+            R.plurals.horologist_time_picker_minutes_content_description
+        )
 
         val amString = stringResource(R.string.horologist_time_picker_am)
         val pmString = stringResource(R.string.horologist_time_picker_pm)
@@ -564,7 +535,10 @@ internal fun PickerGroupItemWithRSB(
     val coroutineScope = rememberCoroutineScope()
     return PickerGroupItem(
         pickerState = pickerState,
-        modifier = modifier.onRotaryInputAccumulated {
+        modifier = modifier.onRotaryInputAccumulatedWithFocus(
+            focusRequester = focusRequester
+        ) {
+            println("Rajat ===> PickerGroupItemWithRSB --> change = $it")
             coroutineScope.launch {
                 if (it > 0) {
                     pickerState.scrollToOption(pickerState.selectedOption + 1)
@@ -672,48 +646,30 @@ internal class DefaultTouchExplorationStateProvider : TouchExplorationStateProvi
     }
 }
 
+@Composable
 private fun createDescription(
     pickerGroupState: PickerGroupState,
     selectedValue: Int,
     label: String,
-    zeroString: String
+    @PluralsRes resourceId: Int
 ): String {
     return when (pickerGroupState.selectedIndex) {
         FocusableElementsTimePicker.NONE.index -> label
-        else -> zeroCorrectedContentDescription(
-            value = selectedValue,
-            zeroString = zeroString,
-            suffix = label
-        )
+        else -> pluralStringResource(resourceId, selectedValue, selectedValue)
     }
 }
 
+@Composable
 private fun createDescription12Hour(
     pickerGroupState: PickerGroupState,
     selectedValue: Int,
     label: String,
-    zeroString: String
+    @PluralsRes resourceId: Int
 ): String {
     return when (pickerGroupState.selectedIndex) {
         FocusableElement12Hour.NONE.index -> label
-        else -> zeroCorrectedContentDescription(
-            value = selectedValue,
-            zeroString = zeroString,
-            suffix = label
-        )
+        else -> pluralStringResource(resourceId, selectedValue, selectedValue)
     }
-}
-
-internal fun zeroCorrectedContentDescription(
-    value: Int,
-    zeroString: String,
-    prefix: String = "",
-    suffix: String = ""
-): String {
-    val word = if (value == 0) {
-        zeroString
-    } else "$value"
-    return "$prefix $word $suffix"
 }
 
 private enum class FocusableElementsTimePicker(val index: Int) {

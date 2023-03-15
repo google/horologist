@@ -101,11 +101,13 @@ public fun DatePicker(
             fontSize = with(LocalDensity.current) { 34.dp.toSp() }
         )
     )
-    val touchExplorationStateProvider = DefaultTouchExplorationStateProvider()
+    val touchExplorationStateProvider = remember { DefaultTouchExplorationStateProvider() }
     val touchExplorationServicesEnabled by touchExplorationStateProvider
         .touchExplorationState()
 
     MaterialTheme(typography = typography) {
+        // When the time picker loads, none of the individual pickers are selected in talkback mode,
+        // otherwise day picker should be focused.
         val pickerGroupState = if (touchExplorationServicesEnabled) {
             rememberPickerGroupState(FocusableElementDatePicker.NONE.index)
         } else {
@@ -118,7 +120,6 @@ public fun DatePicker(
         val yearString = stringResource(R.string.horologist_picker_year)
         val monthString = stringResource(R.string.horologist_picker_month)
         val dayString = stringResource(R.string.horologist_picker_day)
-        val zeroString = stringResource(R.string.horologist_picker_zero_content_description)
 
         LaunchedEffect(
             datePickerState.yearState.selectedOption,
@@ -141,8 +142,7 @@ public fun DatePicker(
                 createDescriptionDatePicker(
                     pickerGroupState,
                     datePickerState.currentYear(),
-                    yearString,
-                    zeroString
+                    yearString
                 )
             }
         }
@@ -166,8 +166,7 @@ public fun DatePicker(
                 createDescriptionDatePicker(
                     pickerGroupState,
                     datePickerState.currentDay(),
-                    dayString,
-                    zeroString
+                    dayString
                 )
             }
         }
@@ -457,16 +456,11 @@ internal class DatePickerState constructor(
 private fun createDescriptionDatePicker(
     pickerGroupState: PickerGroupState,
     selectedValue: Int,
-    label: String,
-    zeroString: String
+    label: String
 ): String {
     return when (pickerGroupState.selectedIndex) {
         FocusableElementDatePicker.NONE.index -> label
-        else -> zeroCorrectedContentDescription(
-            value = selectedValue,
-            prefix = "$label,",
-            zeroString = zeroString
-        )
+        else -> "$label, $selectedValue"
     }
 }
 

@@ -25,7 +25,7 @@ plugins {
 }
 
 android {
-    compileSdkPreview = "UpsideDownCake"
+    compileSdk = 33
 
     defaultConfig {
         //        Tiles is API 26, but if we don't stop this here, then we can't run the sample app

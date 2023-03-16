@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2023 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,9 +14,12 @@
   ~ limitations under the License.
   -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.google.android.horologist.auth.sample.shared">
-
-    <uses-sdk android:minSdkVersion="21" tools:ignore="GradleOverrides" />
-</manifest>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string-array
+        name="android_wear_capabilities"
+        translatable="false"
+        tools:ignore="UnusedResources">
+        <!-- declaring the provided capabilities -->
+        <item>horologist_phone</item>
+    </string-array>
+</resources>

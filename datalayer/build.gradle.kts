@@ -23,10 +23,11 @@ plugins {
     id("org.jetbrains.dokka")
     id("com.google.protobuf")
     kotlin("android")
+    id("me.tylerbwong.gradle.metalava")
 }
 
 android {
-    compileSdkPreview = "UpsideDownCake"
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 23
@@ -96,6 +97,12 @@ protobuf {
             }
         }
     }
+}
+
+metalava {
+    sourcePaths.setFrom("src/main")
+    filename.set("api/current.api")
+    reportLintsAsErrors.set(true)
 }
 
 dependencies {

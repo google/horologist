@@ -24,7 +24,7 @@ plugins {
 }
 
 android {
-    compileSdkPreview = "UpsideDownCake"
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 26
@@ -92,6 +92,7 @@ dependencies {
 
     api(libs.playservices.wearable)
     implementation(libs.kotlinx.coroutines.playservices)
+    implementation(libs.androidx.complications.datasource.ktx)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.wear.remote.interactions)
     implementation(libs.androidx.wear.phone.interactions)

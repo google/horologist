@@ -27,4 +27,9 @@ import com.google.android.horologist.auth.data.phone.ExperimentalHorologistAuthD
 public interface TokenBundleRepository<T> {
 
     public suspend fun update(tokenBundle: T)
+
+    /**
+     * Check if this repository is available to be used on this device.
+     */
+    public suspend fun isAvailable(): Boolean
 }

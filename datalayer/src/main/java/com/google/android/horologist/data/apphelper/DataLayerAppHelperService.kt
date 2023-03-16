@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.data
+package com.google.android.horologist.data.apphelper
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -22,6 +22,10 @@ import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import com.google.android.gms.wearable.WearableListenerService
+import com.google.android.horologist.data.ActivityConfig
+import com.google.android.horologist.data.AppHelperResultCode
+import com.google.android.horologist.data.CompanionConfig
+import com.google.android.horologist.data.LaunchRequest
 import kotlinx.coroutines.runBlocking
 
 /**
@@ -29,6 +33,7 @@ import kotlinx.coroutines.runBlocking
  */
 public abstract class DataLayerAppHelperService : WearableListenerService() {
     public abstract val appHelper: DataLayerAppHelper
+
     override fun onRequest(node: String, path: String, byteArray: ByteArray): Task<ByteArray> {
         if (path != DataLayerAppHelper.LAUNCH_APP) {
             return Tasks.forResult(byteArrayForResultCode(AppHelperResultCode.APP_HELPER_RESULT_UNKNOWN_REQUEST))

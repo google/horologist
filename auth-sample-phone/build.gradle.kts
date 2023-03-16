@@ -22,7 +22,7 @@ plugins {
 }
 
 android {
-    compileSdkPreview = "UpsideDownCake"
+    compileSdk = 33
 
     defaultConfig {
         applicationId = "com.google.android.horologist.auth.sample"
@@ -97,7 +97,6 @@ dependencies {
     implementation(projects.authDataPhone)
     implementation(projects.authSampleShared)
     implementation(projects.datalayer)
-    implementation(projects.datalayerPhone)
 
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.lifecycle.runtime)

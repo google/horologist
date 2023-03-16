@@ -23,7 +23,7 @@ plugins {
 
 android {
     namespace = "com.google.android.horologist.mediasample.benchmark"
-    compileSdkPreview = "UpsideDownCake"
+    compileSdk = 33
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

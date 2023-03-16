@@ -25,7 +25,7 @@ plugins {
 }
 
 android {
-    compileSdkPreview = "UpsideDownCake"
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 25
@@ -46,7 +46,6 @@ android {
         jvmTarget = "11"
         // Allow for widescale experimental APIs in Alpha libraries we build upon
         freeCompilerArgs = freeCompilerArgs + """
-            androidx.wear.compose.foundation.ExperimentalWearFoundationApi
             kotlin.RequiresOptIn
             """.trim().split("\\s+".toRegex()).map { "-opt-in=$it" }
     }

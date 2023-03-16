@@ -16,56 +16,75 @@
 
 package com.google.android.horologist.auth.data.phone.tokenshare.impl
 
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
+import com.google.android.gms.common.GoogleApiAvailability
+import com.google.android.gms.common.api.AvailabilityException
 import com.google.android.horologist.auth.data.phone.ExperimentalHorologistAuthDataPhoneApi
+import com.google.android.horologist.auth.data.phone.common.TAG
 import com.google.android.horologist.auth.data.phone.tokenshare.TokenBundleRepository
+import com.google.android.horologist.auth.data.phone.tokenshare.impl.TokenBundleRepositoryImpl.Companion.DEFAULT_TOKEN_BUNDLE_KEY
 import com.google.android.horologist.data.WearDataLayerRegistry
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.tasks.await
 
 /**
  * Default implementation for [TokenBundleRepository].
+ *
+ * If multiple [token bundles][T] are required to be shared, specify a [key] in
+ * order to identify each one, otherwise the same [default][DEFAULT_TOKEN_BUNDLE_KEY] key
+ * will be used and only a single token bundle will be persisted.
  *
  * @sample com.google.android.horologist.auth.sample.MainActivity
  */
 @ExperimentalHorologistAuthDataPhoneApi
 public class TokenBundleRepositoryImpl<T>(
-    private val dataStore: DataStore<T>
+    private val registry: WearDataLayerRegistry,
+    private val key: String = DEFAULT_TOKEN_BUNDLE_KEY,
+    private val coroutineScope: CoroutineScope,
+    private val serializer: Serializer<T>
 ) : TokenBundleRepository<T> {
 
     override suspend fun update(tokenBundle: T) {
-        dataStore.updateData { tokenBundle }
+        getDataStore()?.updateData { tokenBundle }
     }
 
-    public companion object {
+    override suspend fun isAvailable(): Boolean {
+        return try {
+            GoogleApiAvailability.getInstance()
+                .checkApiAvailability(registry.dataClient)
+                .await()
 
-        private const val DEFAULT_TOKEN_BUNDLE_KEY = "/horologist_token_bundle"
+            true
+        } catch (e: AvailabilityException) {
+            Log.d(
+                TAG,
+                "DataClient API is not available in this device. TokenBundleRepository will fail silently and all functionality will be no-op."
+            )
+            false
+        }
+    }
 
-        /**
-         * Factory method for [TokenBundleRepositoryImpl].
-         *
-         * If multiple [token bundles][T] are required to be shared, specify a [key] in
-         * order to identify each one, otherwise the same [default][DEFAULT_TOKEN_BUNDLE_KEY] key
-         * will be used and only a single token bundle will be persisted.
-         */
-        public fun <T> create(
-            registry: WearDataLayerRegistry,
-            key: String = DEFAULT_TOKEN_BUNDLE_KEY,
-            coroutineScope: CoroutineScope,
-            serializer: Serializer<T>
-        ): TokenBundleRepositoryImpl<T> = TokenBundleRepositoryImpl(
+    private suspend fun getDataStore(): DataStore<T>? =
+        if (isAvailable()) {
             registry.protoDataStore(
                 path = buildPath(key),
                 coroutineScope = coroutineScope,
                 serializer = serializer
             )
-        )
+        } else {
+            null
+        }
 
-        private fun buildPath(key: String) =
-            if (key.startsWith("/")) {
-                key
-            } else {
-                "/$key"
-            }
+    private fun buildPath(key: String) =
+        if (key.startsWith("/")) {
+            key
+        } else {
+            "/$key"
+        }
+
+    public companion object {
+        private const val DEFAULT_TOKEN_BUNDLE_KEY = "/horologist_token_bundle"
     }
 }

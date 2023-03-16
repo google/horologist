@@ -23,7 +23,7 @@ plugins {
 }
 
 android {
-    compileSdkPreview = "UpsideDownCake"
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 28
@@ -96,7 +96,7 @@ dependencies {
     api(libs.androidx.benchmark.macro.junit4)
     api(libs.androidx.benchmark.junit4)
     api(libs.androidx.test.rules)
-    api("androidx.test:annotation:1.0.1")
+    api(libs.annotation)
 }
 
 // Not publishing it until it's ready

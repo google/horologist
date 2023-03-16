@@ -25,7 +25,7 @@ plugins {
 }
 
 android {
-    compileSdkPreview = "UpsideDownCake"
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 26
@@ -54,7 +54,6 @@ android {
             com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
             com.google.android.horologist.media.ExperimentalHorologistMediaApi
             com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
-            androidx.wear.compose.foundation.ExperimentalWearFoundationApi
             kotlin.RequiresOptIn
             kotlinx.coroutines.ExperimentalCoroutinesApi
             """.trim().split("\\s+".toRegex()).map { "-opt-in=$it" }

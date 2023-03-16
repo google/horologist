@@ -76,9 +76,9 @@ public fun PlayerLibraryPagerScreen(
                     timeText = {
                         timeText(Modifier)
                     },
-//                    positionIndicator = {
-//                        VolumePositionIndicator(volumeState = volumeState)
-//                    }
+                    positionIndicator = {
+                        VolumePositionIndicator(volumeState = volumeState)
+                    }
                 ) {
                     playerScreen()
                 }

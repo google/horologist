@@ -109,11 +109,12 @@ public fun MediaPlayerScaffold(
             it.timeTextMode = NavScaffoldViewModel.TimeTextMode.Off
             it.positionIndicatorMode = NavScaffoldViewModel.PositionIndicatorMode.Off
 
-            val volumeState by volumeViewModel.volumeState.collectAsStateWithLifecycle()
+//            val volumeState by volumeViewModel.volumeState.collectAsStateWithLifecycle()
+            val volumeState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
 
             PlayerLibraryPagerScreen(
                 pagerState = pagerState,
-                volumeState = { volumeState },
+                volumeUiState = { volumeState },
                 timeText = timeText,
                 playerScreen = {
                     playerScreen()

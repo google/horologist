@@ -49,15 +49,13 @@ public fun VolumePositionIndicator(
 
     if (autoHide) {
         val current = volumeState().current
-        val updating = volumeState().updating
-        LaunchedEffect(current, updating) {
+        LaunchedEffect(current) {
             if (isInitial) {
                 isInitial = false
             } else {
                 actuallyVisible = true
                 delay(2000)
                 actuallyVisible = false
-                volumeState().updating = false
             }
         }
     }
@@ -76,6 +74,49 @@ public fun VolumePositionIndicator(
             },
             range = 0F.rangeTo(
                 volumeState().max.toFloat()
+            )
+        )
+    }
+}
+
+@OptIn(ExperimentalHorologistAudioUiApi::class)
+@Composable
+public fun VolumePositionIndicator2(
+    volumeUiState: () -> VolumeViewModel.VolumeUiState,
+    modifier: Modifier = Modifier,
+    autoHide: Boolean = true
+) {
+    var actuallyVisible by remember { mutableStateOf(!autoHide) }
+    var isInitial by remember { mutableStateOf(true) }
+
+    if (autoHide) {
+        val current = volumeUiState().current
+        val timestamp = volumeUiState().timestamp
+        LaunchedEffect(current, timestamp) {
+            if (isInitial) {
+                isInitial = false
+            } else {
+                actuallyVisible = true
+                delay(2000)
+                actuallyVisible = false
+            }
+        }
+    }
+
+    AnimatedVisibility(
+        visible = actuallyVisible,
+        enter = fadeIn(),
+        exit = fadeOut()
+    ) {
+        PositionIndicator(
+            modifier = modifier,
+            // RSB indicator uses secondary colors (surface/onSurface)
+            color = MaterialTheme.colors.secondary,
+            value = {
+                volumeUiState().current.toFloat()
+            },
+            range = 0F.rangeTo(
+                volumeUiState().max.toFloat()
             )
         )
     }

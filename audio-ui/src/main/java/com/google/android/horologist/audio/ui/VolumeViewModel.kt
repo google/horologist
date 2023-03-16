@@ -39,6 +39,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 
+
 /**
  * ViewModel for a Volume Control Screen.
  *
@@ -56,19 +57,20 @@ public open class VolumeViewModel(
     private val onCleared: () -> Unit = {},
     private val vibrator: Vibrator
 ) : ViewModel() {
-    // We need to emit a new volume state with updating set to true for the VolumePositionIndicator
-    // to detect an attempt in changing volume to show the volume bar.
-    private var clonedState = MutableStateFlow<VolumeState?>(null)
-    public val volumeState: StateFlow<VolumeState> =
-        combine(volumeRepository.volumeState, clonedState) { it, clonedState ->
-            clonedState ?: it
+    public val volumeState: StateFlow<VolumeState> = volumeRepository.volumeState
+
+    // Keep a timestamp that always updates when we attempt ot update volume (even when it's already
+    // at min/max)
+    private var timestamp = MutableStateFlow<Long>(System.currentTimeMillis())
+    public val volumeUiState: StateFlow<VolumeUiState> =
+        combine(volumeRepository.volumeState, timestamp) { it, timestamp ->
+            VolumeUiState(timestamp = timestamp, volumeState = it)
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = VolumeState(0, 0)
+            initialValue = VolumeUiState()
         )
     public val audioOutput: StateFlow<AudioOutput> = audioOutputRepository.audioOutput
-
     public fun increaseVolumeWithHaptics() {
         increaseVolume()
         if (!volumeState.value.isMax) {
@@ -84,12 +86,20 @@ public open class VolumeViewModel(
     }
 
     public fun increaseVolume() {
-        clonedState.update { volumeRepository.volumeState.value.copy(updating = true) }
+//        clonedState.update { volumeRepository.volumeState.value.copy(updating = true) }
+        Log.d("VolumeTest", "increaseVolume")
+        if (volumeState.value.isMax) {
+            timestamp.update { System.currentTimeMillis() }
+        }
         volumeRepository.increaseVolume()
     }
 
     public fun decreaseVolume() {
-        clonedState.update { volumeRepository.volumeState.value.copy(updating = true) }
+//        clonedState.update { volumeRepository.volumeState.value.copy(updating = true) }
+        Log.d("VolumeTest", "decreaseVolume")
+        if (volumeState.value.current == 0) {
+            timestamp.update { System.currentTimeMillis() }
+        }
         volumeRepository.decreaseVolume()
     }
 
@@ -137,5 +147,24 @@ public open class VolumeViewModel(
                 }, vibrator)
             }
         }
+    }
+
+    public data class VolumeUiState(
+        var timestamp: Long = System.currentTimeMillis(),
+        val current: Int = 0,
+        val max: Int = 0,
+        val isMax: Boolean = false,
+    ) {
+        public constructor(volumeState: VolumeUiState): this(
+            timestamp = System.currentTimeMillis(),
+            current = volumeState.current,
+            max = volumeState.max,
+            isMax = volumeState.isMax)
+
+        public constructor(timestamp: Long, volumeState: VolumeState): this(
+            timestamp = timestamp,
+            current = volumeState.current,
+            max = volumeState.max,
+            isMax = volumeState.isMax)
     }
 }

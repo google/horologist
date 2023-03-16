@@ -69,7 +69,6 @@ public open class VolumeViewModel(
         )
     public val audioOutput: StateFlow<AudioOutput> = audioOutputRepository.audioOutput
 
-
     public fun increaseVolumeWithHaptics() {
         increaseVolume()
         if (!volumeState.value.isMax) {

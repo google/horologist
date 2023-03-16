@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistAudioUiApi::class)
+
 package com.google.android.horologist.audio.ui
 
 import android.media.AudioManager
@@ -188,7 +190,7 @@ internal fun VolumeScreen(
     }
     if (showVolumeIndicator) {
         VolumePositionIndicator(
-            volumeState = volume,
+            volumeUiState = { VolumeViewModel.VolumeUiState(volumeState = volumeState) },
             autoHide = false
         )
     }

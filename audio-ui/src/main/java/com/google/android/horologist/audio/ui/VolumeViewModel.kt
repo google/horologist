@@ -39,7 +39,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 
-
 /**
  * ViewModel for a Volume Control Screen.
  *
@@ -86,20 +85,12 @@ public open class VolumeViewModel(
     }
 
     public fun increaseVolume() {
-//        clonedState.update { volumeRepository.volumeState.value.copy(updating = true) }
-        Log.d("VolumeTest", "increaseVolume")
-        if (volumeState.value.isMax) {
-            timestamp.update { System.currentTimeMillis() }
-        }
+        timestamp.update { System.currentTimeMillis() }
         volumeRepository.increaseVolume()
     }
 
     public fun decreaseVolume() {
-//        clonedState.update { volumeRepository.volumeState.value.copy(updating = true) }
-        Log.d("VolumeTest", "decreaseVolume")
-        if (volumeState.value.current == 0) {
-            timestamp.update { System.currentTimeMillis() }
-        }
+        timestamp.update { System.currentTimeMillis() }
         volumeRepository.decreaseVolume()
     }
 
@@ -153,18 +144,20 @@ public open class VolumeViewModel(
         var timestamp: Long = System.currentTimeMillis(),
         val current: Int = 0,
         val max: Int = 0,
-        val isMax: Boolean = false,
+        val isMax: Boolean = false
     ) {
-        public constructor(volumeState: VolumeUiState): this(
+        public constructor(volumeState: VolumeState) : this(
             timestamp = System.currentTimeMillis(),
             current = volumeState.current,
             max = volumeState.max,
-            isMax = volumeState.isMax)
+            isMax = volumeState.isMax
+        )
 
-        public constructor(timestamp: Long, volumeState: VolumeState): this(
+        public constructor(timestamp: Long, volumeState: VolumeState) : this(
             timestamp = timestamp,
             current = volumeState.current,
             max = volumeState.max,
-            isMax = volumeState.isMax)
+            isMax = volumeState.isMax
+        )
     }
 }

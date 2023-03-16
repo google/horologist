@@ -21,7 +21,6 @@ import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.util.Log
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -33,7 +32,6 @@ import com.google.android.horologist.audio.AudioOutputRepository
 import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.audio.VolumeRepository
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.audio.clone
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -58,6 +56,8 @@ public open class VolumeViewModel(
     private val onCleared: () -> Unit = {},
     private val vibrator: Vibrator
 ) : ViewModel() {
+    // We need to emit a new volume state with updating set to true for the VolumePositionIndicator
+    // to detect an attempt in changing volume to show the volume bar.
     private var clonedState = MutableStateFlow<VolumeState?>(null)
     public val volumeState: StateFlow<VolumeState> =
         combine(volumeRepository.volumeState, clonedState) { it, clonedState ->
@@ -72,30 +72,26 @@ public open class VolumeViewModel(
 
     public fun increaseVolumeWithHaptics() {
         increaseVolume()
-        performHaptics()
+        if (!volumeState.value.isMax) {
+            performHaptics()
+        }
     }
 
     public fun decreaseVolumeWithHaptics() {
         decreaseVolume()
-        performHaptics()
+        if (volumeState.value.current != 0) {
+            performHaptics()
+        }
     }
 
     public fun increaseVolume() {
-        if (volumeState.value.isMax) {
-            clonedState.update { volumeState.value.clone() }
-        } else {
-            clonedState.update { null }
-            volumeRepository.increaseVolume()
-        }
+        clonedState.update { volumeRepository.volumeState.value.copy(updating = true) }
+        volumeRepository.increaseVolume()
     }
 
     public fun decreaseVolume() {
-        if (volumeState.value.current == 0) {
-            clonedState.update { volumeState.value.clone() }
-        } else {
-            clonedState.update { null }
-            volumeRepository.decreaseVolume()
-        }
+        clonedState.update { volumeRepository.volumeState.value.copy(updating = true) }
+        volumeRepository.decreaseVolume()
     }
 
     public fun launchOutputSelection() {

@@ -18,8 +18,22 @@
     <string description="Lets the user know that the time unit being changed is hour. Appears on the top of the TimePicker component. [CHAR_LIMIT=8]" name="horologist_time_picker_hour">Hour</string>
     <string description="Lets the user know that the time unit being changed is minute. Appears on the top of the TimePicker component. [CHAR_LIMIT=8]" name="horologist_time_picker_minute">Minute</string>
     <string description="Lets the user know that the time unit being changed is second. Appears on the top of the TimePicker component. [CHAR_LIMIT=8]" name="horologist_time_picker_second">Second</string>
+    <plurals description="Content description of the current number of hours being selected in TimePicker component. [CHAR_LIMIT=NONE]" name="horologist_time_picker_hours_content_description">
+        <item quantity="one">%d Hour</item>
+        <item quantity="other">%d Hours</item>
+    </plurals>
+    <plurals description="Content description of the current number of hours being selected in TimePicker component. [CHAR_LIMIT=NONE]" name="horologist_time_picker_minutes_content_description">
+        <item quantity="one">%d Minute</item>
+        <item quantity="other">%d Minutes</item>
+    </plurals>
+    <plurals description="Content description of the current number of hours being selected in TimePicker component. [CHAR_LIMIT=NONE]" name="horologist_time_picker_seconds_content_description">
+        <item quantity="one">%d Second</item>
+        <item quantity="other">%d Seconds</item>
+    </plurals>
     <string description="Lets the user know that this picker is to change the value of the minute time unit. Appears on the TimePickerWith12HourClock component, on top of the minute picker. [CHAR_LIMIT=8]" name="horologist_time_picker_min">Min</string>
     <string description="Content description of the period picker in TimePickerWith12HourClock. It lets the user select the period for 12H time format. [CHAR_LIMIT=NONE]" name="horologist_time_picker_period">Period</string>
+    <string description="Content description of the period before noon in TimePickerWith12HourClock. [CHAR_LIMIT=4]" name="horologist_time_picker_am">AM</string>
+    <string description="Content description of the period after noon in TimePickerWith12HourClock. [CHAR_LIMIT=4]" name="horologist_time_picker_pm">PM</string>
     <string description="Lets the user know that this picker is to change the value of the day date unit. Appears on the DatePicker component, on top of the day picker. [CHAR_LIMIT=8]" name="horologist_picker_day">Day</string>
     <string description="Lets the user know that this picker is to change the value of the month date unit. Appears on the DatePicker component, on top of the month picker. [CHAR_LIMIT=8]" name="horologist_picker_month">Month</string>
     <string description="Lets the user know that this picker is to change the value of the year date unit. Appears on the DatePicker component, on top of the year picker. [CHAR_LIMIT=8]" name="horologist_picker_year">Year</string>

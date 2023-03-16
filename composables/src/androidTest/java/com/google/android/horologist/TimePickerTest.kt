@@ -105,4 +105,76 @@ class TimePickerTest {
 
         composeTestRule.onNodeWithTag("time").assertTextEquals("11:59")
     }
+
+    @Test
+    fun content_description_exists_for_plural_hours() {
+        composeTestRule.setContent {
+            TimePicker(
+                onTimeConfirm = {},
+                time = LocalTime.of(11, 59, 31)
+            )
+        }
+
+        composeTestRule.onNodeWithContentDescription("11 hours", ignoreCase = true).assertExists()
+    }
+
+    @Test
+    fun content_description_exists_for_singular_hour() {
+        composeTestRule.setContent {
+            TimePicker(
+                onTimeConfirm = {},
+                time = LocalTime.of(1, 1, 1)
+            )
+        }
+
+        composeTestRule.onNodeWithContentDescription("1 hour", ignoreCase = true).assertExists()
+    }
+
+    @Test
+    fun content_description_exists_for_plural_minutes() {
+        composeTestRule.setContent {
+            TimePicker(
+                onTimeConfirm = {},
+                time = LocalTime.of(11, 59, 31)
+            )
+        }
+
+        composeTestRule.onNodeWithContentDescription("59 minutes", ignoreCase = true).assertExists()
+    }
+
+    @Test
+    fun content_description_exists_for_singular_minute() {
+        composeTestRule.setContent {
+            TimePicker(
+                onTimeConfirm = {},
+                time = LocalTime.of(1, 1, 1)
+            )
+        }
+
+        composeTestRule.onNodeWithContentDescription("1 minute", ignoreCase = true).assertExists()
+    }
+
+    @Test
+    fun content_description_exists_for_plural_seconds() {
+        composeTestRule.setContent {
+            TimePicker(
+                onTimeConfirm = {},
+                time = LocalTime.of(11, 59, 31)
+            )
+        }
+
+        composeTestRule.onNodeWithContentDescription("31 seconds", ignoreCase = true).assertExists()
+    }
+
+    @Test
+    fun content_description_exists_for_singular_second() {
+        composeTestRule.setContent {
+            TimePicker(
+                onTimeConfirm = {},
+                time = LocalTime.of(1, 1, 1)
+            )
+        }
+
+        composeTestRule.onNodeWithContentDescription("1 second", ignoreCase = true).assertExists()
+    }
 }

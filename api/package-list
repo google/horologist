@@ -62,6 +62,7 @@ com.google.android.horologist.compose.tools.a11y
 com.google.android.horologist.compose.tools.coil
 module:datalayer
 com.google.android.horologist.data
+com.google.android.horologist.data.apphelper
 com.google.android.horologist.data.store
 com.google.android.horologist.data.store.impl
 module:datalayer-phone

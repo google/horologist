@@ -764,7 +764,7 @@ public fun Modifier.rotaryHandler(
                 channel.trySend(
                     TimestampedDelta(
                         it.uptimeMillis,
-                        it.verticalScrollPixels * sign(if (reverseDirection) -1f else 1f)
+                        it.verticalScrollPixels * if (reverseDirection) -1f else 1f
                     )
                 )
                 true

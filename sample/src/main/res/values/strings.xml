@@ -44,6 +44,7 @@
 
     <string name="rotarymenu_scroll">Scroll</string>
     <string name="rotarymenu_scroll_list">Scroll list</string>
+    <string name="rotarymenu_scroll_list_reversed">Reversed scroll list</string>
     <string name="rotarymenu_scroll_with_fling">Scroll with fling</string>
     <string name="rotarymenu_snap">Snap</string>
     <string name="rotarymenu_snap_list">Snap list</string>

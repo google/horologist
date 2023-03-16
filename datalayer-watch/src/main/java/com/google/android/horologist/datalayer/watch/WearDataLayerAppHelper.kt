@@ -202,8 +202,8 @@ public class WearDataLayerAppHelper(
         this.copy { timestamp = 0 } == other.copy { timestamp = 0 }
 
     /**
-     * Compares equality of [ComplicationInfo] excluding timestamp, as when the Tile was added is
-     * not relevant.
+     * Compares equality of [ComplicationInfo] excluding timestamp, as when the Complication was
+     * added is not relevant.
      */
     private fun ComplicationInfo.equalWithoutTimestamp(other: ComplicationInfo): Boolean =
         this.copy { timestamp = 0 } == other.copy { timestamp = 0 }

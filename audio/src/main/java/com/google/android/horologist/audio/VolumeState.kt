@@ -21,8 +21,7 @@ package com.google.android.horologist.audio
  */
 public data class VolumeState(
     public val current: Int,
-    public val max: Int,
-    public var updating: Boolean = false
+    public val max: Int
 ) {
     public val isMax: Boolean
         get() = current >= max

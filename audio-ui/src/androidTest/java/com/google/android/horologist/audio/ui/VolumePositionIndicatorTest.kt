@@ -31,6 +31,7 @@ import com.google.android.horologist.audio.VolumeState
 import org.junit.Rule
 import org.junit.Test
 
+@OptIn(ExperimentalHorologistAudioUiApi::class)
 @MediumTest
 class VolumePositionIndicatorTest {
     @get:Rule
@@ -50,7 +51,7 @@ class VolumePositionIndicatorTest {
         composeTestRule.setContent {
             VolumePositionIndicator(
                 modifier = Modifier.testTag(TEST_TAG),
-                volumeState = { volumeState },
+                volumeUiState = { VolumeViewModel.VolumeUiState(volumeState = volumeState) },
                 autoHide = false
             )
         }
@@ -65,7 +66,7 @@ class VolumePositionIndicatorTest {
         composeTestRule.setContent {
             VolumePositionIndicator(
                 modifier = Modifier.testTag(TEST_TAG),
-                volumeState = { volumeState },
+                volumeUiState = { VolumeViewModel.VolumeUiState(volumeState = volumeState) },
                 autoHide = true
             )
         }

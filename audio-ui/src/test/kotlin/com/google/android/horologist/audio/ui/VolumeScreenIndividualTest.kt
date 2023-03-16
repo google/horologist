@@ -28,6 +28,7 @@ import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test
 
+@OptIn(ExperimentalHorologistAudioUiApi::class)
 class VolumeScreenIndividualTest {
     @get:Rule
     val paparazzi = WearPaparazzi()
@@ -130,7 +131,7 @@ class VolumeScreenIndividualTest {
             Scaffold(
                 positionIndicator = {
                     VolumePositionIndicator(
-                        volumeState = { volumeState },
+                        volumeUiState = { VolumeViewModel.VolumeUiState(volumeState = volumeState) },
                         autoHide = false
                     )
                 }

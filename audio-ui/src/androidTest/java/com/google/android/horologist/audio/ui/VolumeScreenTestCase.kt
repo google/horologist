@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistAudioUiApi::class)
+
 package com.google.android.horologist.audio.ui
 
 import androidx.compose.runtime.Composable
@@ -30,7 +32,7 @@ fun VolumeScreenTestCase(
     Scaffold(
         positionIndicator = {
             VolumePositionIndicator(
-                volumeState = { volumeState },
+                volumeUiState = { VolumeViewModel.VolumeUiState(volumeState = volumeState) },
                 autoHide = false
             )
         }

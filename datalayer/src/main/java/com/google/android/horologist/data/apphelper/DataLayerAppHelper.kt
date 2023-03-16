@@ -90,10 +90,9 @@ abstract class DataLayerAppHelper(
      * installed.
      */
     public val connectedAndInstalledNodes = callbackFlow<Set<Node>> {
-        val listener = object : CapabilityClient.OnCapabilityChangedListener {
-            override fun onCapabilityChanged(capability: CapabilityInfo) {
-                trySend(capability.nodes.filter { it.isNearby }.toSet())
-            }
+        val listener = CapabilityClient.OnCapabilityChangedListener { capability ->
+            @Suppress("UNUSED_VARIABLE")
+            val unused = trySend(capability.nodes.filter { it.isNearby }.toSet())
         }
 
         val allCaps =
@@ -103,7 +102,9 @@ abstract class DataLayerAppHelper(
         val installedCaps = allCaps.filter { it.key.startsWith(CAPABILITY_DEVICE_PREFIX) }
             .values.flatMap { it.nodes }.filter { it.isNearby }.toSet()
 
-        trySend(installedCaps)
+        @Suppress("UNUSED_VARIABLE")
+        val unused = trySend(installedCaps)
+
         registry.capabilityClient.addListener(
             listener,
             Uri.parse(installedDeviceCapabilityUri),

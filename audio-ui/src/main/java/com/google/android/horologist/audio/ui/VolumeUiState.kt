@@ -18,7 +18,6 @@ package com.google.android.horologist.audio.ui
 
 import com.google.android.horologist.audio.VolumeState
 
-
 /*
 * A UI state for volume which contains the same information as VolumeState but with an additional
 * timestamp. The timestamp is used for compose to know that a trigger has happened so @compose

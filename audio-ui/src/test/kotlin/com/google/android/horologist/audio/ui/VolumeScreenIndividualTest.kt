@@ -14,21 +14,19 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistAudioApi::class, ExperimentalHorologistPaparazziApi::class)
+@file:OptIn(ExperimentalHorologistPaparazziApi::class)
 
 package com.google.android.horologist.audio.ui
 
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.audio.ExperimentalHorologistAudioApi
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test
 
-@OptIn(ExperimentalHorologistAudioUiApi::class)
 class VolumeScreenIndividualTest {
     @get:Rule
     val paparazzi = WearPaparazzi()
@@ -131,7 +129,7 @@ class VolumeScreenIndividualTest {
             Scaffold(
                 positionIndicator = {
                     VolumePositionIndicator(
-                        volumeUiState = { VolumeViewModel.VolumeUiState(volumeState = volumeState) },
+                        volumeUiState = { VolumeUiState(volumeState = volumeState) },
                         autoHide = false
                     )
                 }

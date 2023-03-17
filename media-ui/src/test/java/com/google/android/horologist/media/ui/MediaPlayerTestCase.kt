@@ -50,6 +50,7 @@ import com.google.android.horologist.media.ui.screens.player.DefaultMediaInfoDis
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MediaPlayerTestCase(
     playerUiState: PlayerUiState,

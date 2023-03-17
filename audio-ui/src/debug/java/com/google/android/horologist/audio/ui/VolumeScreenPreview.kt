@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistAudioUiApi::class)
-
 package com.google.android.horologist.audio.ui
 
 import androidx.compose.foundation.layout.Box
@@ -40,7 +38,7 @@ import com.google.android.horologist.compose.tools.WearSmallRoundDevicePreview
 @Composable
 fun VolumeScreenGuideWithLongText() {
     val volume = VolumeState(5, 10)
-    val volumeUiState = VolumeViewModel.VolumeUiState(volumeState = volume)
+    val volumeUiState = VolumeUiState(volumeState = volume)
 
     Box(modifier = Modifier.fillMaxSize()) {
         Scaffold(
@@ -70,7 +68,7 @@ fun VolumeScreenPreview(
     @PreviewParameter(AudioOutputProvider::class) audioOutput: AudioOutput
 ) {
     val volume = VolumeState(5, 10)
-    val volumeUiState = VolumeViewModel.VolumeUiState(volumeState = volume)
+    val volumeUiState = VolumeUiState(volumeState = volume)
 
     Scaffold(
         positionIndicator = {
@@ -96,7 +94,7 @@ fun VolumeScreenTheme(
     @PreviewParameter(WearPreviewThemes::class) themeValues: ThemeValues
 ) {
     val volume = VolumeState(5, 10)
-    val volumeUiState = VolumeViewModel.VolumeUiState(volumeState = volume)
+    val volumeUiState = VolumeUiState(volumeState = volume)
 
     MaterialTheme(themeValues.colors) {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -126,7 +124,7 @@ fun VolumeScreenTheme(
 @Composable
 fun VolumeScreenWithLabel() {
     val volume = VolumeState(5, 10)
-    val volumeUiState = VolumeViewModel.VolumeUiState(volume)
+    val volumeUiState = VolumeUiState(volume)
 
     Box(modifier = Modifier.fillMaxSize()) {
         Scaffold(

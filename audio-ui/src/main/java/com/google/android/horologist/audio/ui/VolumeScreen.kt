@@ -190,7 +190,7 @@ internal fun VolumeScreen(
     }
     if (showVolumeIndicator) {
         VolumePositionIndicator(
-            volumeUiState = { VolumeViewModel.VolumeUiState(volumeState = volumeState) },
+            volumeUiState = { VolumeUiState(volumeState = volumeState) },
             autoHide = false
         )
     }

@@ -139,25 +139,4 @@ public open class VolumeViewModel(
             }
         }
     }
-
-    public data class VolumeUiState(
-        var timestamp: Long = System.currentTimeMillis(),
-        val current: Int = 0,
-        val max: Int = 0,
-        val isMax: Boolean = false
-    ) {
-        public constructor(volumeState: VolumeState) : this(
-            timestamp = System.currentTimeMillis(),
-            current = volumeState.current,
-            max = volumeState.max,
-            isMax = volumeState.isMax
-        )
-
-        public constructor(timestamp: Long, volumeState: VolumeState) : this(
-            timestamp = timestamp,
-            current = volumeState.current,
-            max = volumeState.max,
-            isMax = volumeState.isMax
-        )
-    }
 }

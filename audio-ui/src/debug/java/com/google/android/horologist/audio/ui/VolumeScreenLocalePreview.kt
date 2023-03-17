@@ -24,12 +24,11 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.compose.tools.WearLocalePreview
 
-@OptIn(ExperimentalHorologistAudioUiApi::class)
 @WearLocalePreview
 @Composable
 fun VolumeScreenLocalePreview() {
     val volume = VolumeState(5, 10)
-    val volumeUiState = VolumeViewModel.VolumeUiState(volumeState = volume)
+    val volumeUiState = VolumeUiState(volumeState = volume)
 
     Scaffold(
         positionIndicator = {

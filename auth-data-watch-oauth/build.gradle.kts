@@ -46,7 +46,7 @@ android {
         jvmTarget = "11"
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-opt-in=kotlin.RequiresOptIn",
-            "-opt-in=com.google.android.horologist.data.ExperimentalHorologistDataLayerApi",
+            "-opt-in=com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi",
         )
     }
 
@@ -73,7 +73,7 @@ android {
 
     resourcePrefix = "horologist_"
 
-    namespace = "com.google.android.horologist.auth.data"
+    namespace = "com.google.android.horologist.auth.data.watch.oauth"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -93,17 +93,15 @@ metalava {
 
 dependencies {
 
-    implementation(projects.datalayer)
-
-    api(libs.androidx.datastore)
+    implementation(projects.authData)
 
     implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.androidx.corektx)
-    implementation(libs.androidx.wear)
     implementation(libs.androidx.wear.phone.interactions)
-    implementation(libs.playservices.auth)
-    implementation(libs.playservices.wearable)
+    implementation(libs.androidx.wear.remote.interactions)
+    implementation(libs.retrofit2.retrofit)
+    implementation(libs.retrofit2.convertermoshi)
+    implementation(libs.moshi.kotlin)
+    ksp(libs.moshi.kotlin.codegen)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

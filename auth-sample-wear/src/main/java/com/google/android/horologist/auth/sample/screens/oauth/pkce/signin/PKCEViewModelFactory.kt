@@ -20,10 +20,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthServiceFactory
-import com.google.android.horologist.auth.data.oauth.pkce.impl.PKCEOAuthCodeRepositoryImpl
-import com.google.android.horologist.auth.data.oauth.pkce.impl.google.PKCEConfigRepositoryGoogleImpl
-import com.google.android.horologist.auth.data.oauth.pkce.impl.google.PKCETokenRepositoryGoogleImpl
+import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.GoogleOAuthServiceFactory
+import com.google.android.horologist.auth.data.watch.oauth.pkce.impl.PKCEOAuthCodeRepositoryImpl
+import com.google.android.horologist.auth.data.watch.oauth.pkce.impl.google.PKCEConfigRepositoryGoogleImpl
+import com.google.android.horologist.auth.data.watch.oauth.pkce.impl.google.PKCETokenRepositoryGoogleImpl
 import com.google.android.horologist.auth.sample.BuildConfig
 import com.google.android.horologist.auth.sample.SampleApplication
 import com.google.android.horologist.auth.ui.oauth.pkce.signin.PKCESignInViewModel
@@ -37,7 +37,9 @@ val PKCESampleViewModelFactory: ViewModelProvider.Factory = viewModelFactory {
                 clientId = BuildConfig.OAUTH_PKCE_CLIENT_ID,
                 clientSecret = BuildConfig.OAUTH_PKCE_CLIENT_SECRET
             ),
-            pkceOAuthCodeRepository = PKCEOAuthCodeRepositoryImpl(application),
+            pkceOAuthCodeRepository = PKCEOAuthCodeRepositoryImpl(
+                application
+            ),
             pkceTokenRepository = PKCETokenRepositoryGoogleImpl(
                 GoogleOAuthServiceFactory(
                     okHttpClient = application.okHttpClient,

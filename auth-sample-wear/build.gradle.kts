@@ -72,6 +72,7 @@ android {
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-opt-in=com.google.android.horologist.auth.composables.ExperimentalHorologistAuthComposablesApi",
             "-opt-in=com.google.android.horologist.auth.data.ExperimentalHorologistAuthDataApi",
+            "-opt-in=com.google.android.horologist.auth.data.watch.oauth.ExperimentalHorologistAuthDataWatchOAuthApi",
             "-opt-in=com.google.android.horologist.auth.ui.ExperimentalHorologistAuthUiApi",
             "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistBaseUiApi",
             "-opt-in=com.google.android.horologist.composables.ExperimentalHorologistComposablesApi",
@@ -90,6 +91,7 @@ android {
 dependencies {
     implementation(projects.authComposables)
     implementation(projects.authData)
+    implementation(projects.authDataWatchOauth)
     implementation(projects.authSampleShared)
     implementation(projects.authUi)
     implementation(projects.baseUi)

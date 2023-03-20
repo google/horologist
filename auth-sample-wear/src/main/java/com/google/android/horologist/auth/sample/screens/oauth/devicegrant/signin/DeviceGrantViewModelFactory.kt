@@ -20,10 +20,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.google.android.horologist.auth.data.oauth.common.impl.google.api.GoogleOAuthServiceFactory
-import com.google.android.horologist.auth.data.oauth.devicegrant.impl.DeviceGrantConfigRepositoryDefaultImpl
-import com.google.android.horologist.auth.data.oauth.devicegrant.impl.google.DeviceGrantTokenRepositoryGoogleImpl
-import com.google.android.horologist.auth.data.oauth.devicegrant.impl.google.DeviceGrantVerificationInfoRepositoryGoogleImpl
+import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.GoogleOAuthServiceFactory
+import com.google.android.horologist.auth.data.watch.oauth.devicegrant.impl.DeviceGrantConfigRepositoryDefaultImpl
+import com.google.android.horologist.auth.data.watch.oauth.devicegrant.impl.google.DeviceGrantTokenRepositoryGoogleImpl
+import com.google.android.horologist.auth.data.watch.oauth.devicegrant.impl.google.DeviceGrantVerificationInfoRepositoryGoogleImpl
 import com.google.android.horologist.auth.sample.BuildConfig
 import com.google.android.horologist.auth.sample.SampleApplication
 import com.google.android.horologist.auth.ui.oauth.devicegrant.signin.DeviceGrantViewModel

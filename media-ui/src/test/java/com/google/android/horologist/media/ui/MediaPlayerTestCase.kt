@@ -14,12 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistMediaUiApi::class,
-    ExperimentalFoundationApi::class,
-    ExperimentalFoundationApi::class,
-    ExperimentalHorologistMediaUiApi::class
-)
+@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalFoundationApi::class)
 
 package com.google.android.horologist.media.ui
 

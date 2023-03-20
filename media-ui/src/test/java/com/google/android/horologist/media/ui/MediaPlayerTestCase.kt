@@ -17,7 +17,7 @@
 @file:OptIn(
     ExperimentalHorologistMediaUiApi::class,
     ExperimentalFoundationApi::class,
-    ExperimentalFoundationApi::class
+    ExperimentalFoundationApi::class, ExperimentalHorologistMediaUiApi::class
 )
 
 package com.google.android.horologist.media.ui
@@ -39,9 +39,9 @@ import androidx.wear.compose.material.TimeSource
 import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
-import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
+import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.media.ui.components.MediaControlButtons
@@ -108,7 +108,7 @@ fun MediaPlayerTestCase(
                     positionIndicator = {
                         VolumePositionIndicator(
                             volumeUiState = {
-                                VolumeUiState(volumeState = VolumeState(6, 10))
+                                VolumeUiStateMapper.map(volumeState = VolumeState(6, 10))
                             }
                         )
                     }

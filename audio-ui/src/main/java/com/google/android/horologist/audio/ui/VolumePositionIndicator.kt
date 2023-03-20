@@ -45,11 +45,10 @@ public fun VolumePositionIndicator(
 ) {
     var actuallyVisible by remember { mutableStateOf(!autoHide) }
     var isInitial by remember { mutableStateOf(true) }
+    val uiState = volumeUiState()
 
     if (autoHide) {
-        val current = volumeUiState().current
-        val timestamp = volumeUiState().timestamp
-        LaunchedEffect(current, timestamp) {
+        LaunchedEffect(uiState.current, uiState.timestamp) {
             if (isInitial) {
                 isInitial = false
             } else {
@@ -70,10 +69,10 @@ public fun VolumePositionIndicator(
             // RSB indicator uses secondary colors (surface/onSurface)
             color = MaterialTheme.colors.secondary,
             value = {
-                volumeUiState().current.toFloat()
+                uiState.current.toFloat()
             },
             range = 0F.rangeTo(
-                volumeUiState().max.toFloat()
+                uiState.max.toFloat()
             )
         )
     }

@@ -59,7 +59,7 @@ public open class VolumeViewModel(
 ) : ViewModel() {
     public val volumeState: StateFlow<VolumeState> = volumeRepository.volumeState
 
-    // Keep a timestamp that always updates when we attempt ot update volume (even when it's already
+    // Keep a timestamp that always updates when we attempt to update volume (even when it's already
     // at min/max)
     private var timestamp = MutableStateFlow(System.currentTimeMillis())
     public val volumeUiState: StateFlow<VolumeUiState> =
@@ -80,7 +80,7 @@ public open class VolumeViewModel(
 
     public fun decreaseVolumeWithHaptics() {
         decreaseVolume()
-        if (volumeState.value.isMin) {
+        if (!volumeState.value.isMin) {
             performHaptics()
         }
     }

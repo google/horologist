@@ -21,11 +21,11 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
-import com.google.android.horologist.auth.data.oauth.common.impl.google.api.DeviceCodeResponse
-import com.google.android.horologist.auth.data.oauth.common.impl.google.api.TokenResponse
-import com.google.android.horologist.auth.data.oauth.devicegrant.impl.DeviceGrantDefaultConfig
-import com.google.android.horologist.auth.data.oauth.pkce.impl.PKCEDefaultConfig
-import com.google.android.horologist.auth.data.oauth.pkce.impl.google.PKCEOAuthCodeGooglePayload
+import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.DeviceCodeResponse
+import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.TokenResponse
+import com.google.android.horologist.auth.data.watch.oauth.devicegrant.impl.DeviceGrantDefaultConfig
+import com.google.android.horologist.auth.data.watch.oauth.pkce.impl.PKCEDefaultConfig
+import com.google.android.horologist.auth.data.watch.oauth.pkce.impl.google.PKCEOAuthCodeGooglePayload
 import com.google.android.horologist.auth.sample.screens.MainScreen
 import com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInMenuScreen
 import com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInSampleScreen

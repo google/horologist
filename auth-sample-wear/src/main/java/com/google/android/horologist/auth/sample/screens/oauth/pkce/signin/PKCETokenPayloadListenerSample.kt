@@ -17,8 +17,8 @@
 package com.google.android.horologist.auth.sample.screens.oauth.pkce.signin
 
 import com.google.android.horologist.auth.data.common.model.AuthUser
-import com.google.android.horologist.auth.data.oauth.common.impl.google.api.TokenResponse
 import com.google.android.horologist.auth.data.oauth.pkce.PKCETokenPayloadListener
+import com.google.android.horologist.auth.data.watch.oauth.common.impl.google.api.TokenResponse
 import com.google.android.horologist.auth.sample.screens.oauth.pkce.data.PKCEAuthUserRepositorySample
 
 object PKCETokenPayloadListenerSample : PKCETokenPayloadListener<TokenResponse> {

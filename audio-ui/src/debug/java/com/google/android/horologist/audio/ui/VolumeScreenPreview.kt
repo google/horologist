@@ -27,6 +27,7 @@ import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
+import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.WearLargeRoundDevicePreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
@@ -38,7 +39,7 @@ import com.google.android.horologist.compose.tools.WearSmallRoundDevicePreview
 @Composable
 fun VolumeScreenGuideWithLongText() {
     val volume = VolumeState(5, 10)
-    val volumeUiState = VolumeUiState(volumeState = volume)
+    val volumeUiState = VolumeUiStateMapper.map(volumeState = volume)
 
     Box(modifier = Modifier.fillMaxSize()) {
         Scaffold(
@@ -68,7 +69,7 @@ fun VolumeScreenPreview(
     @PreviewParameter(AudioOutputProvider::class) audioOutput: AudioOutput
 ) {
     val volume = VolumeState(5, 10)
-    val volumeUiState = VolumeUiState(volumeState = volume)
+    val volumeUiState = VolumeUiStateMapper.map(volumeState = volume)
 
     Scaffold(
         positionIndicator = {
@@ -94,7 +95,7 @@ fun VolumeScreenTheme(
     @PreviewParameter(WearPreviewThemes::class) themeValues: ThemeValues
 ) {
     val volume = VolumeState(5, 10)
-    val volumeUiState = VolumeUiState(volumeState = volume)
+    val volumeUiState = VolumeUiStateMapper.map(volumeState = volume)
 
     MaterialTheme(themeValues.colors) {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -124,7 +125,7 @@ fun VolumeScreenTheme(
 @Composable
 fun VolumeScreenWithLabel() {
     val volume = VolumeState(5, 10)
-    val volumeUiState = VolumeUiState(volume)
+    val volumeUiState = VolumeUiStateMapper.map(volumeState = volume)
 
     Box(modifier = Modifier.fillMaxSize()) {
         Scaffold(

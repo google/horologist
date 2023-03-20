@@ -22,12 +22,14 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.paparazzi.ExperimentalHorologistPaparazziApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test
 
 class VolumeScreenIndividualTest {
+    @OptIn(ExperimentalHorologistPaparazziApi::class)
     @get:Rule
     val paparazzi = WearPaparazzi()
 
@@ -129,7 +131,7 @@ class VolumeScreenIndividualTest {
             Scaffold(
                 positionIndicator = {
                     VolumePositionIndicator(
-                        volumeUiState = { VolumeUiState(volumeState = volumeState) },
+                        volumeUiState = { VolumeUiStateMapper.map(volumeState = volumeState) },
                         autoHide = false
                     )
                 }

@@ -44,6 +44,7 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.components.DeviceChip
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
+import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulatedWithFocus
 
@@ -190,7 +191,7 @@ internal fun VolumeScreen(
     }
     if (showVolumeIndicator) {
         VolumePositionIndicator(
-            volumeUiState = { VolumeUiState(volumeState = volumeState) },
+            volumeUiState = { VolumeUiStateMapper.map(volumeState = volumeState) },
             autoHide = false
         )
     }

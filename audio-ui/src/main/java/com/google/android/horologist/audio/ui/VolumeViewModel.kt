@@ -32,6 +32,7 @@ import com.google.android.horologist.audio.AudioOutputRepository
 import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.audio.VolumeRepository
 import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -60,10 +61,10 @@ public open class VolumeViewModel(
 
     // Keep a timestamp that always updates when we attempt ot update volume (even when it's already
     // at min/max)
-    private var timestamp = MutableStateFlow<Long>(System.currentTimeMillis())
+    private var timestamp = MutableStateFlow(System.currentTimeMillis())
     public val volumeUiState: StateFlow<VolumeUiState> =
         combine(volumeRepository.volumeState, timestamp) { it, timestamp ->
-            VolumeUiState(timestamp = timestamp, volumeState = it)
+            VolumeUiStateMapper.map(timestamp = timestamp, volumeState = it)
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
@@ -79,7 +80,7 @@ public open class VolumeViewModel(
 
     public fun decreaseVolumeWithHaptics() {
         decreaseVolume()
-        if (volumeState.value.current != 0) {
+        if (volumeState.value.isMin) {
             performHaptics()
         }
     }

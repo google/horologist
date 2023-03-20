@@ -17,7 +17,8 @@
 @file:OptIn(
     ExperimentalHorologistMediaUiApi::class,
     ExperimentalFoundationApi::class,
-    ExperimentalFoundationApi::class, ExperimentalHorologistMediaUiApi::class
+    ExperimentalFoundationApi::class,
+    ExperimentalHorologistMediaUiApi::class
 )
 
 package com.google.android.horologist.media.ui

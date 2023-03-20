@@ -43,7 +43,7 @@ public fun SetVolumeButton(
         onClick = onVolumeClick,
         enabled = enabled,
         imageVector = when {
-            volumeState.current == 0 -> Icons.Default.VolumeMute
+            volumeState.isMin -> Icons.Default.VolumeMute
             volumeState.isMax -> Icons.Default.VolumeUp
             else -> Icons.Default.VolumeDown
         },

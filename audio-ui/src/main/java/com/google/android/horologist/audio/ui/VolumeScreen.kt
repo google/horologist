@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistAudioUiApi::class)
+
 package com.google.android.horologist.audio.ui
 
 import android.media.AudioManager
@@ -42,6 +44,7 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.components.DeviceChip
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
+import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi
 import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulatedWithFocus
 
@@ -188,7 +191,7 @@ internal fun VolumeScreen(
     }
     if (showVolumeIndicator) {
         VolumePositionIndicator(
-            volumeState = volume,
+            volumeUiState = { VolumeUiStateMapper.map(volumeState = volumeState) },
             autoHide = false
         )
     }

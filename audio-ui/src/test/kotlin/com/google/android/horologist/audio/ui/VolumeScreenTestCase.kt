@@ -23,6 +23,7 @@ import androidx.wear.compose.material.Scaffold
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
+import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.compose.tools.RoundPreview
 
 @Composable
@@ -36,7 +37,7 @@ fun VolumeScreenTestCase(
             Scaffold(
                 positionIndicator = {
                     VolumePositionIndicator(
-                        volumeState = { volumeState },
+                        volumeUiState = { VolumeUiStateMapper.map(volumeState = volumeState) },
                         autoHide = false
                     )
                 }

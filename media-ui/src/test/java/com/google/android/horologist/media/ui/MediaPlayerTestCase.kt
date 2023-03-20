@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(
-    ExperimentalHorologistMediaUiApi::class,
-    ExperimentalFoundationApi::class
-)
+@file:OptIn(ExperimentalHorologistMediaUiApi::class, ExperimentalFoundationApi::class)
 
 package com.google.android.horologist.media.ui
 
@@ -40,6 +37,7 @@ import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumePositionIndicator
 import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
+import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.media.ui.components.MediaControlButtons
@@ -48,6 +46,7 @@ import com.google.android.horologist.media.ui.screens.player.DefaultMediaInfoDis
 import com.google.android.horologist.media.ui.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MediaPlayerTestCase(
     playerUiState: PlayerUiState,
@@ -103,9 +102,11 @@ fun MediaPlayerTestCase(
                         )
                     },
                     positionIndicator = {
-                        VolumePositionIndicator(volumeState = {
-                            VolumeState(6, 10)
-                        })
+                        VolumePositionIndicator(
+                            volumeUiState = {
+                                VolumeUiStateMapper.map(volumeState = VolumeState(6, 10))
+                            }
+                        )
                     }
                 ) {
                     Box(modifier = Modifier.fillMaxSize()) {

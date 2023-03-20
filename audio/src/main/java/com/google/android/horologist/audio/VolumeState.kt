@@ -25,4 +25,7 @@ public data class VolumeState(
 ) {
     public val isMax: Boolean
         get() = current >= max
+
+    public val isMin: Boolean
+        get() = current == 0
 }

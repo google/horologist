@@ -24,6 +24,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.audio.AudioOutput
@@ -31,7 +32,13 @@ import com.google.android.horologist.audio.AudioOutputRepository
 import com.google.android.horologist.audio.SystemAudioRepository
 import com.google.android.horologist.audio.VolumeRepository
 import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 
 /**
  * ViewModel for a Volume Control Screen.
@@ -52,23 +59,39 @@ public open class VolumeViewModel(
 ) : ViewModel() {
     public val volumeState: StateFlow<VolumeState> = volumeRepository.volumeState
 
+    // Keep a timestamp that always updates when we attempt to update volume (even when it's already
+    // at min/max)
+    private var timestamp = MutableStateFlow(System.currentTimeMillis())
+    public val volumeUiState: StateFlow<VolumeUiState> =
+        combine(volumeRepository.volumeState, timestamp) { it, timestamp ->
+            VolumeUiStateMapper.map(timestamp = timestamp, volumeState = it)
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = VolumeUiState()
+        )
     public val audioOutput: StateFlow<AudioOutput> = audioOutputRepository.audioOutput
-
     public fun increaseVolumeWithHaptics() {
         increaseVolume()
-        performHaptics()
+        if (!volumeState.value.isMax) {
+            performHaptics()
+        }
     }
 
     public fun decreaseVolumeWithHaptics() {
         decreaseVolume()
-        performHaptics()
+        if (!volumeState.value.isMin) {
+            performHaptics()
+        }
     }
 
     public fun increaseVolume() {
+        timestamp.update { System.currentTimeMillis() }
         volumeRepository.increaseVolume()
     }
 
     public fun decreaseVolume() {
+        timestamp.update { System.currentTimeMillis() }
         volumeRepository.decreaseVolume()
     }
 

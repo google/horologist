@@ -23,7 +23,9 @@ import androidx.wear.phone.interactions.PhoneTypeHelper
 import androidx.wear.watchface.complications.data.ComplicationType
 import com.google.android.horologist.data.AppHelperResult
 import com.google.android.horologist.data.AppHelperResultCode
+import com.google.android.horologist.data.ComplicationInfo
 import com.google.android.horologist.data.ExperimentalHorologistDataLayerApi
+import com.google.android.horologist.data.TileInfo
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.apphelper.DataLayerAppHelper
 import com.google.android.horologist.data.apphelper.SurfaceInfoSerializer
@@ -31,6 +33,7 @@ import com.google.android.horologist.data.companionConfig
 import com.google.android.horologist.data.complicationInfo
 import com.google.android.horologist.data.copy
 import com.google.android.horologist.data.launchRequest
+import com.google.android.horologist.data.tileInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.guava.await
 import kotlinx.coroutines.tasks.await
@@ -94,8 +97,15 @@ public class WearDataLayerAppHelper(
     public suspend fun markTileAsInstalled(tileName: String) {
         surfaceInfoDataStore.updateData {
                 info ->
+            val tile = tileInfo {
+                timestamp = System.currentTimeMillis()
+                name = tileName
+            }
             info.copy {
-                if (!tileNames.contains(tileName)) tileNames.add(tileName)
+                val exists = tiles.find { it.equalWithoutTimestamp(tile) } != null
+                if (!exists) {
+                    tiles.add(tile)
+                }
             }
         }
     }
@@ -109,11 +119,15 @@ public class WearDataLayerAppHelper(
     public suspend fun markTileAsRemoved(tileName: String) {
         surfaceInfoDataStore.updateData {
                 info ->
+            val tile = tileInfo {
+                timestamp = System.currentTimeMillis()
+                name = tileName
+            }
             info.copy {
-                if (tileNames.contains(tileName)) {
-                    val reducedTiles = tileNames.filter { it != tileName }
-                    tileNames.clear()
-                    tileNames.addAll(reducedTiles)
+                val filtered = tiles.filter { !tile.equalWithoutTimestamp(it) }
+                if (filtered.size != tiles.size) {
+                    tiles.clear()
+                    tiles.addAll(filtered)
                 }
             }
         }
@@ -135,12 +149,16 @@ public class WearDataLayerAppHelper(
         surfaceInfoDataStore.updateData {
                 info ->
             val complication = complicationInfo {
+                timestamp = System.currentTimeMillis()
                 name = complicationName
                 instanceId = complicationInstanceId
                 type = complicationType.name
             }
             info.copy {
-                if (!complications.contains(complication)) complications.add(complication)
+                val exists = complications.find { it.equalWithoutTimestamp(complication) } != null
+                if (!exists) {
+                    complications.add(complication)
+                }
             }
         }
     }
@@ -161,17 +179,32 @@ public class WearDataLayerAppHelper(
         surfaceInfoDataStore.updateData {
                 info ->
             val complication = complicationInfo {
+                timestamp = System.currentTimeMillis()
                 name = complicationName
                 instanceId = complicationInstanceId
                 type = complicationType.name
             }
             info.copy {
-                if (complications.contains(complication)) {
-                    val reducedComplications = complications.filter { it != complication }
+                val filtered = complications.filter { !complication.equalWithoutTimestamp(it) }
+                if (filtered.size != complications.size) {
                     complications.clear()
-                    complications.addAll(reducedComplications)
+                    complications.addAll(filtered)
                 }
             }
         }
     }
+
+    /**
+     * Compares equality of [TileInfo] excluding timestamp, as when the Tile was added is not
+     * relevant.
+     */
+    private fun TileInfo.equalWithoutTimestamp(other: TileInfo): Boolean =
+        this.copy { timestamp = 0 } == other.copy { timestamp = 0 }
+
+    /**
+     * Compares equality of [ComplicationInfo] excluding timestamp, as when the Complication was
+     * added is not relevant.
+     */
+    private fun ComplicationInfo.equalWithoutTimestamp(other: ComplicationInfo): Boolean =
+        this.copy { timestamp = 0 } == other.copy { timestamp = 0 }
 }

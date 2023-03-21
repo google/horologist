@@ -39,12 +39,18 @@ message ActivityConfig {
 }
 
 message ComplicationInfo {
-  string name = 1;
-  int32 instanceId = 2;
-  string type = 3;
+  int64 timestamp = 1;
+  string name = 2;
+  int32 instanceId = 3;
+  string type = 4;
+}
+
+message TileInfo {
+  int64 timestamp = 1;
+  string name = 2;
 }
 
 message SurfacesInfo {
-  repeated string tileNames = 1;
+  repeated TileInfo tiles = 1;
   repeated ComplicationInfo complications = 2;
 }

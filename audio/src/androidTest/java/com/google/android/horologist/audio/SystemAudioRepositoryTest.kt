@@ -19,6 +19,7 @@ package com.google.android.horologist.audio
 import androidx.test.annotation.UiThreadTest
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

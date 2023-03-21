@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalHorologistApi::class)
-
 package com.google.android.horologist.audio.ui
 
 import android.media.AudioManager
@@ -62,7 +60,6 @@ import com.google.android.horologist.compose.rotaryinput.onRotaryInputAccumulate
  */
 @Composable
 @ExperimentalHorologistApi
-@OptIn(ExperimentalHorologistApi::class)
 public fun VolumeScreen(
     modifier: Modifier = Modifier,
     volumeViewModel: VolumeViewModel = viewModel(factory = VolumeViewModel.Factory),

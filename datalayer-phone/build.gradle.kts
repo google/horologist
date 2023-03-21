@@ -67,7 +67,7 @@ android {
         baseline = file("quality/lint/lint-baseline.xml")
     }
 
-    namespace = "com.google.android.horologist.datalayer.watch"
+    namespace = "com.google.android.horologist.datalayer.phone"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

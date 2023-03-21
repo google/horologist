@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media3
 
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media3.logging.ErrorReporter
 
 @OptIn(ExperimentalHorologistApi::class)

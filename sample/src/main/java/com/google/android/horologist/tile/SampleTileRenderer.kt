@@ -48,7 +48,6 @@ import com.google.android.horologist.tile.SampleTileRenderer.Companion.Icon1
 import com.google.android.horologist.tile.SampleTileRenderer.Companion.Image1
 import com.google.android.horologist.tile.SampleTileRenderer.Companion.TileIcon
 import com.google.android.horologist.tile.SampleTileRenderer.Companion.TileImage
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.tiles.components.NoOpClickable
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 import com.google.android.horologist.tiles.images.toImageResource

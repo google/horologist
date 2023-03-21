@@ -16,8 +16,8 @@
 
 package com.google.android.horologist.media3.audio
 
-import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.audio.AudioOutput
 
 /**
  * Strategy interface for different audio output switchers.

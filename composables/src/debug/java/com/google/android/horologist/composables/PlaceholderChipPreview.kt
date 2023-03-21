@@ -20,6 +20,7 @@ package com.google.android.horologist.composables
 
 import androidx.compose.runtime.Composable
 import androidx.wear.compose.material.ChipDefaults
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.WearPreview
 
 @WearPreview

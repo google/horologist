@@ -25,8 +25,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.withFrameMillis
 import androidx.wear.compose.material.ProgressIndicatorDefaults
-import com.google.android.horologist.media.model.TimestampProvider
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.media.model.TimestampProvider
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.coroutineScope

@@ -15,8 +15,6 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistApi::class,
-    ExperimentalHorologistApi::class,
     ExperimentalHorologistApi::class
 )
 
@@ -28,10 +26,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
 import com.google.android.horologist.compose.tools.snapshotInABox
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test

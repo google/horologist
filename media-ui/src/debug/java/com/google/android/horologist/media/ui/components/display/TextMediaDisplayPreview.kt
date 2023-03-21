@@ -20,8 +20,8 @@ package com.google.android.horologist.media.ui.components.display
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.compose.tools.WearPreview
 
 @WearPreview
 @Composable

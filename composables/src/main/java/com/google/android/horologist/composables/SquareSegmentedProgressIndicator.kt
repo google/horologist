@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ProgressIndicatorDefaults
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * SquareSegmentedProgressIndicator represents a segmented progress indicator with

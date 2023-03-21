@@ -30,7 +30,6 @@ import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import app.cash.paparazzi.RenderExtension
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.paparazzi.a11y.AccessibilityState
 
 /**

@@ -15,20 +15,16 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistApi::class,
-    ExperimentalHorologistApi::class,
     ExperimentalHorologistApi::class
 )
 
 package com.google.android.horologist.audio.ui
 
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.AudioOutput
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.VolumeState
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.themeValues
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test

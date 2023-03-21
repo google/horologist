@@ -28,6 +28,7 @@ import com.google.android.gms.wearable.MessageClient
 import com.google.android.gms.wearable.NodeClient
 import com.google.android.gms.wearable.PutDataRequest
 import com.google.android.gms.wearable.Wearable
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.store.ProtoDataListener
 import com.google.android.horologist.data.store.impl.ProtoDataListenerRegistration
 import com.google.android.horologist.data.store.impl.WearLocalDataStore

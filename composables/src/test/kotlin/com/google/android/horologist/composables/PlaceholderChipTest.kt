@@ -15,8 +15,6 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistApi::class,
-    ExperimentalHorologistApi::class,
     ExperimentalHorologistApi::class
 )
 
@@ -25,7 +23,6 @@ package com.google.android.horologist.composables
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.snapshotInABox
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import org.junit.Rule
 import org.junit.Test

@@ -18,8 +18,8 @@
 
 package com.google.android.horologist.media.ui.state.mapper
 
-import com.google.android.horologist.media.model.Playlist
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.media.model.Playlist
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test

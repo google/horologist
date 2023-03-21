@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistApi::class)
+
 package com.google.android.horologist.data.apphelper
 
 import android.content.Context
@@ -22,6 +24,7 @@ import androidx.wear.remote.interactions.RemoteActivityHelper
 import com.google.android.gms.wearable.CapabilityClient
 import com.google.android.gms.wearable.CapabilityInfo
 import com.google.android.gms.wearable.Node
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.ActivityConfig
 import com.google.android.horologist.data.AppHelperResult
 import com.google.android.horologist.data.AppHelperResultCode

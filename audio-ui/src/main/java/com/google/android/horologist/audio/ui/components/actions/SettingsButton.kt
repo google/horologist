@@ -29,8 +29,8 @@ import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults.buttonColors
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
-import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.semantics.CustomSemanticsProperties.iconImageVector
 
 /**

@@ -19,12 +19,12 @@ package com.google.android.horologist.auth.ui.oauth.pkce.signin
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.wear.phone.interactions.authentication.CodeVerifier
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.data.oauth.pkce.PKCEConfigRepository
 import com.google.android.horologist.auth.data.oauth.pkce.PKCEOAuthCodeRepository
 import com.google.android.horologist.auth.data.oauth.pkce.PKCETokenPayloadListener
 import com.google.android.horologist.auth.data.oauth.pkce.PKCETokenPayloadListenerNoOpImpl
 import com.google.android.horologist.auth.data.oauth.pkce.PKCETokenRepository
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.ui.ext.compareAndSet
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

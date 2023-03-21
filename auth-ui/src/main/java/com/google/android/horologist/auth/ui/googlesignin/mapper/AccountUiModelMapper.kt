@@ -19,7 +19,6 @@ package com.google.android.horologist.auth.ui.googlesignin.mapper
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.model.AccountUiModel
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * Functions to map models from Google Sign In into a [AccountUiModel].

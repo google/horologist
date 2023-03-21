@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+package com.google.android.horologist.annotations
+
 @RequiresOptIn(
     message = "Horologist API is experimental. The API may be changed in the future."
 )

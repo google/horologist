@@ -16,8 +16,8 @@
 
 package com.google.android.horologist.datalayer
 
-import com.google.android.horologist.components.SampleApplication
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.components.SampleApplication
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.WearDataService
 

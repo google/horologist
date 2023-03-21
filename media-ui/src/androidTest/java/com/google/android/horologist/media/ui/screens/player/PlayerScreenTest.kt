@@ -32,12 +32,12 @@ import androidx.test.filters.FlakyTest
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.PlayerState
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.media.ui.test.FakeAudioOutputRepository
 import com.google.android.horologist.media.ui.test.FakeVolumeRepository

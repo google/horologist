@@ -1,14 +1,14 @@
 // Signature format: 4.0
 package com.google.android.horologist.media.data {
 
-  @kotlin.RequiresOptIn(message="Horologist Media is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistApi {
+  @kotlin.RequiresOptIn(message="Horologist Media is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistMediaDataApi {
   }
 
 }
 
 package com.google.android.horologist.media.data.database {
 
-  @androidx.room.Database(entities={MediaDownloadEntity::class, MediaEntity::class, PlaylistEntity::class, PlaylistMediaEntity::class}, version=1, exportSchema=false) @com.google.android.horologist.media.data.ExperimentalHorologistApi public abstract class MediaDatabase extends androidx.room.RoomDatabase {
+  @androidx.room.Database(entities={MediaDownloadEntity::class, MediaEntity::class, PlaylistEntity::class, PlaylistMediaEntity::class}, version=1, exportSchema=false) @com.google.android.horologist.annotations.ExperimentalHorologistApi public abstract class MediaDatabase extends androidx.room.RoomDatabase {
     ctor public MediaDatabase();
     method public abstract com.google.android.horologist.media.data.database.dao.MediaDao mediaDao();
     method public abstract com.google.android.horologist.media.data.database.dao.MediaDownloadDao mediaDownloadDao();
@@ -20,12 +20,12 @@ package com.google.android.horologist.media.data.database {
 
 package com.google.android.horologist.media.data.database.dao {
 
-  @androidx.room.Dao @com.google.android.horologist.media.data.ExperimentalHorologistApi public interface MediaDao {
+  @androidx.room.Dao @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface MediaDao {
     method @androidx.room.Query("\n        DELETE FROM MediaEntity\n        WHERE mediaId in (:mediaIds)\n    ") public suspend Object? delete(java.util.List<java.lang.String> mediaIds, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.REPLACE) public suspend Object? upsert(java.util.List<com.google.android.horologist.media.data.database.model.MediaEntity> mediaList, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
-  @androidx.room.Dao @com.google.android.horologist.media.data.ExperimentalHorologistApi public interface MediaDownloadDao {
+  @androidx.room.Dao @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface MediaDownloadDao {
     method @androidx.room.Query("\n        DELETE FROM MediaDownloadEntity\n        WHERE mediaId = :mediaId\n    ") public suspend Object? delete(String mediaId, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method @androidx.room.Query("\n        DELETE FROM MediaDownloadEntity\n        WHERE mediaId in (:mediaIds)\n    ") public suspend Object? delete(java.util.List<java.lang.String> mediaIds, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method @androidx.room.Query("\n        SELECT * FROM MediaDownloadEntity\n        WHERE status = :status\n    ") public suspend Object? getAllByStatus(com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus status, kotlin.coroutines.Continuation<? super java.util.List<? extends com.google.android.horologist.media.data.database.model.MediaDownloadEntity>>);
@@ -60,7 +60,7 @@ package com.google.android.horologist.media.data.database.dao {
     property public final com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus status;
   }
 
-  @androidx.room.Dao @com.google.android.horologist.media.data.ExperimentalHorologistApi public interface PlaylistDao {
+  @androidx.room.Dao @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface PlaylistDao {
     method @androidx.room.Query("\n        DELETE FROM PlaylistEntity\n        WHERE playlistId in (:playlistIds)\n    ") public void delete(java.util.List<java.lang.String> playlistIds);
     method @androidx.room.Query("\n        SELECT * FROM PlaylistEntity\n        WHERE EXISTS (\n            SELECT 1 FROM PlaylistMediaEntity\n            WHERE PlaylistMediaEntity.playlistId = PlaylistEntity.playlistId\n            AND EXISTS (\n                SELECT 1 FROM MediaDownloadEntity\n                WHERE MediaDownloadEntity.mediaId = PlaylistMediaEntity.mediaId\n            )\n        )\n    ") @androidx.room.Transaction public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.PopulatedPlaylist>> getAllDownloaded();
     method @androidx.room.Query("\n        SELECT * FROM PlaylistEntity\n    ") @androidx.room.Transaction public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.PopulatedPlaylist>> getAllPopulated();
@@ -69,7 +69,7 @@ package com.google.android.horologist.media.data.database.dao {
     method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.REPLACE) public suspend Object? upsert(com.google.android.horologist.media.data.database.model.PlaylistEntity playlistEntity, java.util.List<com.google.android.horologist.media.data.database.model.MediaEntity> mediaEntityList, java.util.List<com.google.android.horologist.media.data.database.model.PlaylistMediaEntity> playlistMediaEntityList, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
-  @androidx.room.Dao @com.google.android.horologist.media.data.ExperimentalHorologistApi public interface PlaylistMediaDao {
+  @androidx.room.Dao @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface PlaylistMediaDao {
     method @androidx.room.Query("\n        DELETE FROM PlaylistMediaEntity\n        WHERE mediaId in (:mediaIds)\n    ") public void deleteByMediaId(java.util.List<java.lang.String> mediaIds);
     method @androidx.room.Query("\n        DELETE FROM PlaylistMediaEntity\n        WHERE playlistId in (:playlistIds)\n    ") public void deleteByPlaylistId(java.util.List<java.lang.String> playlistIds);
   }
@@ -78,22 +78,22 @@ package com.google.android.horologist.media.data.database.dao {
 
 package com.google.android.horologist.media.data.database.mapper {
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class MediaDownloadEntityStatusMapper {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class MediaDownloadEntityStatusMapper {
     method public com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus map(@androidx.media3.exoplayer.offline.Download.State int state);
     field public static final com.google.android.horologist.media.data.database.mapper.MediaDownloadEntityStatusMapper INSTANCE;
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class MediaEntityMapper {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class MediaEntityMapper {
     method public com.google.android.horologist.media.data.database.model.MediaEntity map(com.google.android.horologist.media.model.Media media);
     field public static final com.google.android.horologist.media.data.database.mapper.MediaEntityMapper INSTANCE;
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class PlaylistEntityMapper {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PlaylistEntityMapper {
     method public com.google.android.horologist.media.data.database.model.PlaylistEntity map(com.google.android.horologist.media.model.Playlist playlist);
     field public static final com.google.android.horologist.media.data.database.mapper.PlaylistEntityMapper INSTANCE;
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class PlaylistMediaEntityMapper {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PlaylistMediaEntityMapper {
     method public com.google.android.horologist.media.data.database.model.PlaylistMediaEntity map(com.google.android.horologist.media.model.Playlist playlist, com.google.android.horologist.media.model.Media media);
     field public static final com.google.android.horologist.media.data.database.mapper.PlaylistMediaEntityMapper INSTANCE;
   }
@@ -102,7 +102,7 @@ package com.google.android.horologist.media.data.database.mapper {
 
 package com.google.android.horologist.media.data.database.model {
 
-  @androidx.room.Entity @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class MediaDownloadEntity {
+  @androidx.room.Entity @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class MediaDownloadEntity {
     ctor public MediaDownloadEntity(@androidx.room.PrimaryKey String mediaId, com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus status, float progress, long size);
     method public String component1();
     method public com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus component2();
@@ -128,7 +128,7 @@ package com.google.android.horologist.media.data.database.model {
     enum_constant public static final com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus NotDownloaded;
   }
 
-  @androidx.room.Entity @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class MediaEntity {
+  @androidx.room.Entity @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class MediaEntity {
     ctor public MediaEntity(@androidx.room.PrimaryKey String mediaId, @androidx.room.ColumnInfo String mediaUrl, @androidx.room.ColumnInfo String artworkUrl, @androidx.room.ColumnInfo String? title, @androidx.room.ColumnInfo String? artist);
     method public String component1();
     method public String component2();
@@ -148,7 +148,7 @@ package com.google.android.horologist.media.data.database.model {
     property public final String? title;
   }
 
-  @androidx.room.Entity @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class PlaylistEntity {
+  @androidx.room.Entity @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PlaylistEntity {
     ctor public PlaylistEntity(@androidx.room.PrimaryKey String playlistId, String name, String? artworkUri);
     method public String component1();
     method public String component2();
@@ -162,7 +162,7 @@ package com.google.android.horologist.media.data.database.model {
     property public final String playlistId;
   }
 
-  @androidx.room.Entity(primaryKeys={"playlistId", "mediaId"}, indices={}) @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class PlaylistMediaEntity {
+  @androidx.room.Entity(primaryKeys={"playlistId", "mediaId"}, indices={}) @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PlaylistMediaEntity {
     ctor public PlaylistMediaEntity(String playlistId, String mediaId);
     method public String component1();
     method public String component2();
@@ -173,7 +173,7 @@ package com.google.android.horologist.media.data.database.model {
     property public final String playlistId;
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class PopulatedPlaylist {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PopulatedPlaylist {
     ctor public PopulatedPlaylist(@androidx.room.Embedded com.google.android.horologist.media.data.database.model.PlaylistEntity playlist, @androidx.room.Relation(parentColumn="playlistId", entityColumn="mediaId", associateBy=) java.util.List<com.google.android.horologist.media.data.database.model.MediaEntity> mediaList);
     method public com.google.android.horologist.media.data.database.model.PlaylistEntity component1();
     method public java.util.List<com.google.android.horologist.media.data.database.model.MediaEntity> component2();
@@ -188,13 +188,13 @@ package com.google.android.horologist.media.data.database.model {
 
 package com.google.android.horologist.media.data.datasource {
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class Media3DownloadDataSource {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class Media3DownloadDataSource {
     ctor public Media3DownloadDataSource(android.content.Context context, Class<? extends androidx.media3.exoplayer.offline.DownloadService> downloadService);
     method public void download(String id, android.net.Uri uri);
     method public void removeDownload(String id);
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class MediaDownloadLocalDataSource {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class MediaDownloadLocalDataSource {
     ctor public MediaDownloadLocalDataSource(com.google.android.horologist.media.data.database.dao.MediaDownloadDao mediaDownloadDao);
     method public suspend Object? add(String mediaId, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? delete(String mediaId, kotlin.coroutines.Continuation<? super kotlin.Unit>);
@@ -205,13 +205,13 @@ package com.google.android.horologist.media.data.datasource {
     method public suspend Object? updateStatus(String mediaId, com.google.android.horologist.media.data.database.model.MediaDownloadEntityStatus status, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class MediaLocalDataSource {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class MediaLocalDataSource {
     ctor public MediaLocalDataSource(androidx.room.RoomDatabase roomDatabase, com.google.android.horologist.media.data.database.dao.MediaDao mediaDao, com.google.android.horologist.media.data.database.dao.PlaylistMediaDao playlistMediaDao, com.google.android.horologist.media.data.database.dao.MediaDownloadDao mediaDownloadDao);
     method public suspend Object? delete(java.util.List<java.lang.String> mediaIds, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? upsert(java.util.List<com.google.android.horologist.media.model.Media> mediaList, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class PlaylistLocalDataSource {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PlaylistLocalDataSource {
     ctor public PlaylistLocalDataSource(androidx.room.RoomDatabase roomDatabase, com.google.android.horologist.media.data.database.dao.PlaylistDao playlistDao, com.google.android.horologist.media.data.database.dao.PlaylistMediaDao playlistMediaDao);
     method public suspend Object? delete(java.util.List<java.lang.String> playlistIds, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.data.database.model.PopulatedPlaylist>> getAllDownloaded();
@@ -225,72 +225,72 @@ package com.google.android.horologist.media.data.datasource {
 
 package com.google.android.horologist.media.data.mapper {
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class CommandMapper {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class CommandMapper {
     method public com.google.android.horologist.media.model.Command map(@androidx.media3.common.Player.Command int command);
     field public static final com.google.android.horologist.media.data.mapper.CommandMapper INSTANCE;
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class MediaDownloadMapper {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class MediaDownloadMapper {
     method public com.google.android.horologist.media.model.MediaDownload map(com.google.android.horologist.media.model.Media media, com.google.android.horologist.media.data.database.model.MediaDownloadEntity mediaDownloadEntity);
     method public java.util.List<com.google.android.horologist.media.model.MediaDownload> map(com.google.android.horologist.media.model.Playlist playlist, java.util.List<com.google.android.horologist.media.data.database.model.MediaDownloadEntity> mediaDownloadEntityList);
     field public static final com.google.android.horologist.media.data.mapper.MediaDownloadMapper INSTANCE;
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class MediaDownloadStatusMapper {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class MediaDownloadStatusMapper {
     method public com.google.android.horologist.media.model.MediaDownload.Status map(com.google.android.horologist.media.data.database.model.MediaDownloadEntity mediaDownloadEntity);
     field public static final com.google.android.horologist.media.data.mapper.MediaDownloadStatusMapper INSTANCE;
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public interface MediaExtrasMapper {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface MediaExtrasMapper {
     method public java.util.Map<java.lang.String,java.lang.Object> map(androidx.media3.common.MediaItem mediaItem, androidx.media3.common.MediaMetadata? mediaMetadata);
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class MediaExtrasMapperNoopImpl implements com.google.android.horologist.media.data.mapper.MediaExtrasMapper {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class MediaExtrasMapperNoopImpl implements com.google.android.horologist.media.data.mapper.MediaExtrasMapper {
     method public java.util.Map<java.lang.String,java.lang.Object> map(androidx.media3.common.MediaItem mediaItem, androidx.media3.common.MediaMetadata? mediaMetadata);
     field public static final com.google.android.horologist.media.data.mapper.MediaExtrasMapperNoopImpl INSTANCE;
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public interface MediaItemExtrasMapper {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface MediaItemExtrasMapper {
     method public void map(com.google.android.horologist.media.model.Media media, androidx.media3.common.MediaItem.Builder mediaItemBuilder, androidx.media3.common.MediaMetadata.Builder mediaMetadataBuilder, androidx.media3.common.MediaItem.RequestMetadata.Builder requestMetadataBuilder);
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class MediaItemExtrasMapperNoopImpl implements com.google.android.horologist.media.data.mapper.MediaItemExtrasMapper {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class MediaItemExtrasMapperNoopImpl implements com.google.android.horologist.media.data.mapper.MediaItemExtrasMapper {
     method public void map(com.google.android.horologist.media.model.Media media, androidx.media3.common.MediaItem.Builder mediaItemBuilder, androidx.media3.common.MediaMetadata.Builder mediaMetadataBuilder, androidx.media3.common.MediaItem.RequestMetadata.Builder requestMetadataBuilder);
     field public static final com.google.android.horologist.media.data.mapper.MediaItemExtrasMapperNoopImpl INSTANCE;
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class MediaItemMapper {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class MediaItemMapper {
     ctor public MediaItemMapper(com.google.android.horologist.media.data.mapper.MediaItemExtrasMapper mediaItemExtrasMapper);
     method public androidx.media3.common.MediaItem map(com.google.android.horologist.media.model.Media mediaItem);
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class MediaMapper {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class MediaMapper {
     ctor public MediaMapper(com.google.android.horologist.media.data.mapper.MediaExtrasMapper mediaExtrasMapper);
     method public com.google.android.horologist.media.model.Media map(androidx.media3.common.MediaItem mediaItem, androidx.media3.common.MediaMetadata mediaMetadata);
     method public com.google.android.horologist.media.model.Media map(com.google.android.horologist.media.data.database.model.MediaEntity media);
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class PlaybackStateMapper {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PlaybackStateMapper {
     ctor public PlaybackStateMapper(optional com.google.android.horologist.media.model.TimestampProvider timestampProvider);
     method public com.google.android.horologist.media.model.PlaybackStateEvent createEvent(androidx.media3.common.Player? player, com.google.android.horologist.media.model.PlaybackStateEvent.Cause cause);
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class PlayerStateMapper {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PlayerStateMapper {
     method public com.google.android.horologist.media.model.PlayerState map(androidx.media3.common.Player player);
     field public static final com.google.android.horologist.media.data.mapper.PlayerStateMapper INSTANCE;
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class PlaylistDownloadMapper {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PlaylistDownloadMapper {
     ctor public PlaylistDownloadMapper(com.google.android.horologist.media.data.mapper.PlaylistMapper playlistMapper);
     method public com.google.android.horologist.media.model.PlaylistDownload map(com.google.android.horologist.media.data.database.model.PopulatedPlaylist populatedPlaylist, java.util.List<com.google.android.horologist.media.data.database.model.MediaDownloadEntity> mediaDownloadEntity);
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class PlaylistMapper {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PlaylistMapper {
     ctor public PlaylistMapper(com.google.android.horologist.media.data.mapper.MediaMapper mediaMapper);
     method public com.google.android.horologist.media.model.Playlist map(com.google.android.horologist.media.data.database.model.PopulatedPlaylist populatedPlaylist);
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class SetCommandMapper {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class SetCommandMapper {
     method public java.util.Set<com.google.android.horologist.media.model.Command> map(androidx.media3.common.Player.Commands commands);
     field public static final com.google.android.horologist.media.data.mapper.SetCommandMapper INSTANCE;
   }
@@ -299,12 +299,12 @@ package com.google.android.horologist.media.data.mapper {
 
 package com.google.android.horologist.media.data.repository {
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class MediaDownloadRepositoryImpl implements com.google.android.horologist.media.repository.MediaDownloadRepository {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class MediaDownloadRepositoryImpl implements com.google.android.horologist.media.repository.MediaDownloadRepository {
     ctor public MediaDownloadRepositoryImpl(com.google.android.horologist.media.data.datasource.Media3DownloadDataSource media3DownloadDataSource);
     method public void remove(String mediaId);
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class PlayerRepositoryImpl implements java.io.Closeable com.google.android.horologist.media.repository.PlayerRepository {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PlayerRepositoryImpl implements java.io.Closeable com.google.android.horologist.media.repository.PlayerRepository {
     ctor public PlayerRepositoryImpl(optional com.google.android.horologist.media.data.mapper.MediaMapper mediaMapper, optional com.google.android.horologist.media.data.mapper.MediaItemMapper mediaItemMapper, optional com.google.android.horologist.media.data.mapper.PlaybackStateMapper playbackStateMapper);
     method public void addMedia(com.google.android.horologist.media.model.Media media);
     method public void addMedia(int index, com.google.android.horologist.media.model.Media media);
@@ -347,14 +347,14 @@ package com.google.android.horologist.media.data.repository {
     property public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> shuffleModeEnabled;
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class PlaylistDownloadRepositoryImpl implements com.google.android.horologist.media.repository.PlaylistDownloadRepository {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PlaylistDownloadRepositoryImpl implements com.google.android.horologist.media.repository.PlaylistDownloadRepository {
     ctor public PlaylistDownloadRepositoryImpl(kotlinx.coroutines.CoroutineScope coroutineScope, com.google.android.horologist.media.data.datasource.PlaylistLocalDataSource playlistLocalDataSource, com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource mediaDownloadLocalDataSource, com.google.android.horologist.media.data.datasource.Media3DownloadDataSource media3DownloadDataSource, com.google.android.horologist.media.data.mapper.PlaylistDownloadMapper playlistDownloadMapper);
     method public void download(com.google.android.horologist.media.model.Playlist playlist);
     method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.media.model.PlaylistDownload> get(String playlistId);
     method public void remove(com.google.android.horologist.media.model.Playlist playlist);
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class PlaylistRepositoryImpl implements com.google.android.horologist.media.repository.PlaylistRepository {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PlaylistRepositoryImpl implements com.google.android.horologist.media.repository.PlaylistRepository {
     ctor public PlaylistRepositoryImpl(com.google.android.horologist.media.data.datasource.PlaylistLocalDataSource playlistLocalDataSource, com.google.android.horologist.media.data.mapper.PlaylistMapper playlistMapper);
     method public suspend Object? get(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.model.Playlist>);
     method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.model.Playlist>> getAll();
@@ -365,16 +365,16 @@ package com.google.android.horologist.media.data.repository {
 
 package com.google.android.horologist.media.data.service.download {
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class DownloadManagerListener implements androidx.media3.exoplayer.offline.DownloadManager.Listener {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class DownloadManagerListener implements androidx.media3.exoplayer.offline.DownloadManager.Listener {
     ctor public DownloadManagerListener(kotlinx.coroutines.CoroutineScope coroutineScope, com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource mediaDownloadLocalDataSource, com.google.android.horologist.media.data.service.download.DownloadProgressMonitor downloadProgressMonitor);
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public final class DownloadProgressMonitor {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class DownloadProgressMonitor {
     ctor public DownloadProgressMonitor(kotlinx.coroutines.CoroutineScope coroutineScope, com.google.android.horologist.media.data.datasource.MediaDownloadLocalDataSource mediaDownloadLocalDataSource);
     field public static final long UPDATE_INTERVAL_MILLIS = 1000L; // 0x3e8L
   }
 
-  @com.google.android.horologist.media.data.ExperimentalHorologistApi public abstract class MediaDownloadService extends androidx.media3.exoplayer.offline.DownloadService implements androidx.lifecycle.LifecycleOwner {
+  @com.google.android.horologist.annotations.ExperimentalHorologistApi public abstract class MediaDownloadService extends androidx.media3.exoplayer.offline.DownloadService implements androidx.lifecycle.LifecycleOwner {
     ctor public MediaDownloadService(int foregroundNotificationId, long foregroundNotificationUpdateInterval, String? channelId, @StringRes int channelNameResourceId, @StringRes int channelDescriptionResourceId, @DrawableRes int notificationIcon);
     method protected abstract android.app.PendingIntent getDownloadIntent();
     method protected abstract com.google.android.horologist.media.data.service.download.DownloadManagerListener getDownloadManagerListener();

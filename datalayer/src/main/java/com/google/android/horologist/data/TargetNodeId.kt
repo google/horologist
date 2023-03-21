@@ -14,9 +14,12 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistApi::class)
+
 package com.google.android.horologist.data
 
 import com.google.android.gms.wearable.CapabilityClient
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.tasks.await
 
 /**

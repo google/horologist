@@ -1,14 +1,14 @@
 // Signature format: 4.0
 package com.google.android.horologist.media {
 
-  @kotlin.RequiresOptIn(message="Horologist Media is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistApi {
+  @kotlin.RequiresOptIn(message="Horologist Media is experimental. The API may be changed in the future.") @kotlin.annotation.Retention(kotlin.annotation.AnnotationRetention.BINARY) public @interface ExperimentalHorologistMediaApi {
   }
 
 }
 
 package com.google.android.horologist.media.model {
 
-  @com.google.android.horologist.media.ExperimentalHorologistApi public enum Command {
+  public enum Command {
     method public static com.google.android.horologist.media.model.Command valueOf(String name);
     method public static com.google.android.horologist.media.model.Command[] values();
     enum_constant public static final com.google.android.horologist.media.model.Command PlayPause;
@@ -30,7 +30,7 @@ package com.google.android.horologist.media.model {
     method public String toString();
   }
 
-  @com.google.android.horologist.media.ExperimentalHorologistApi public final class Media {
+  public final class Media {
     ctor public Media(String id, String uri, String title, String artist, optional String? artworkUri, optional Integer? artworkColor, optional java.util.Map<java.lang.String,?> extras);
     method public String component1();
     method public String component2();
@@ -59,7 +59,7 @@ package com.google.android.horologist.media.model {
     property public final String uri;
   }
 
-  @com.google.android.horologist.media.ExperimentalHorologistApi public final class MediaDownload {
+  public final class MediaDownload {
     ctor public MediaDownload(com.google.android.horologist.media.model.Media media, com.google.android.horologist.media.model.MediaDownload.Status status, com.google.android.horologist.media.model.MediaDownload.Size size);
     method public com.google.android.horologist.media.model.Media component1();
     method public com.google.android.horologist.media.model.MediaDownload.Status component2();
@@ -127,7 +127,7 @@ package com.google.android.horologist.media.model {
     method public String toString();
   }
 
-  @com.google.android.horologist.media.ExperimentalHorologistApi public final class PlaybackState {
+  public final class PlaybackState {
     ctor public PlaybackState(com.google.android.horologist.media.model.PlayerState playerState, boolean isLive, kotlin.time.Duration? currentPosition, kotlin.time.Duration? duration, float playbackSpeed);
     method public com.google.android.horologist.media.model.PlayerState component1();
     method public boolean component2();
@@ -158,7 +158,7 @@ package com.google.android.horologist.media.model {
     property public final com.google.android.horologist.media.model.PlaybackState IDLE;
   }
 
-  @com.google.android.horologist.media.ExperimentalHorologistApi public final class PlaybackStateEvent {
+  public final class PlaybackStateEvent {
     ctor public PlaybackStateEvent(com.google.android.horologist.media.model.PlaybackState playbackState, com.google.android.horologist.media.model.PlaybackStateEvent.Cause cause, optional kotlin.time.Duration? timestamp);
     method public com.google.android.horologist.media.model.PlaybackState component1();
     method public com.google.android.horologist.media.model.PlaybackStateEvent.Cause component2();
@@ -192,7 +192,7 @@ package com.google.android.horologist.media.model {
     property public final com.google.android.horologist.media.model.PlaybackStateEvent INITIAL;
   }
 
-  @com.google.android.horologist.media.ExperimentalHorologistApi public enum PlayerState {
+  public enum PlayerState {
     method public static com.google.android.horologist.media.model.PlayerState valueOf(String name);
     method public static com.google.android.horologist.media.model.PlayerState[] values();
     enum_constant public static final com.google.android.horologist.media.model.PlayerState Idle;
@@ -201,7 +201,7 @@ package com.google.android.horologist.media.model {
     enum_constant public static final com.google.android.horologist.media.model.PlayerState Stopped;
   }
 
-  @com.google.android.horologist.media.ExperimentalHorologistApi public final class Playlist {
+  public final class Playlist {
     ctor public Playlist(String id, String name, optional String? artworkUri, java.util.List<com.google.android.horologist.media.model.Media> mediaList);
     method public String component1();
     method public String component2();
@@ -221,7 +221,7 @@ package com.google.android.horologist.media.model {
     property public final String name;
   }
 
-  @com.google.android.horologist.media.ExperimentalHorologistApi public final class PlaylistDownload {
+  public final class PlaylistDownload {
     ctor public PlaylistDownload(com.google.android.horologist.media.model.Playlist playlist, java.util.List<com.google.android.horologist.media.model.MediaDownload> mediaList);
     method public com.google.android.horologist.media.model.Playlist component1();
     method public java.util.List<com.google.android.horologist.media.model.MediaDownload> component2();
@@ -249,11 +249,11 @@ package com.google.android.horologist.media.model {
 
 package com.google.android.horologist.media.repository {
 
-  @com.google.android.horologist.media.ExperimentalHorologistApi public interface MediaDownloadRepository {
+  public interface MediaDownloadRepository {
     method public void remove(String mediaId);
   }
 
-  @com.google.android.horologist.media.ExperimentalHorologistApi public interface PlayerRepository {
+  public interface PlayerRepository {
     method public void addMedia(com.google.android.horologist.media.model.Media media);
     method public void addMedia(int index, com.google.android.horologist.media.model.Media media);
     method public void clearMediaList();
@@ -291,13 +291,13 @@ package com.google.android.horologist.media.repository {
     property public abstract kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> shuffleModeEnabled;
   }
 
-  @com.google.android.horologist.media.ExperimentalHorologistApi public interface PlaylistDownloadRepository {
+  public interface PlaylistDownloadRepository {
     method public void download(com.google.android.horologist.media.model.Playlist playlist);
     method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.media.model.PlaylistDownload> get(String playlistId);
     method public void remove(com.google.android.horologist.media.model.Playlist playlist);
   }
 
-  @com.google.android.horologist.media.ExperimentalHorologistApi public interface PlaylistRepository {
+  public interface PlaylistRepository {
     method public suspend Object? get(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.model.Playlist>);
     method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.model.Playlist>> getAll();
     method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.model.Playlist>> getAllDownloaded();

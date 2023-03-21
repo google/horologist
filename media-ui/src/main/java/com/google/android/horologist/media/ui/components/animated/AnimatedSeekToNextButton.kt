@@ -29,8 +29,8 @@ import androidx.wear.compose.material.ButtonDefaults
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.google.android.horologist.audio.ui.components.animated.LocalStaticPreview
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.audio.ui.components.animated.LocalStaticPreview
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.controls.SeekToNextButton
 

@@ -18,12 +18,12 @@ package com.google.android.horologist.auth.ui.oauth.devicegrant.signin
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantConfigRepository
 import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantTokenPayloadListener
 import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantTokenPayloadListenerNoOpImpl
 import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantTokenRepository
 import com.google.android.horologist.auth.data.oauth.devicegrant.DeviceGrantVerificationInfoRepository
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.ui.ext.compareAndSet
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

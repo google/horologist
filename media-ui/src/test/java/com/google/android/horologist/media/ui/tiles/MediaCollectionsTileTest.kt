@@ -15,8 +15,6 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistApi::class,
-    ExperimentalHorologistApi::class,
     ExperimentalHorologistApi::class
 )
 
@@ -34,10 +32,8 @@ import app.cash.paparazzi.DeviceConfig
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.RoundPreview
 import com.google.android.horologist.compose.tools.TileLayoutPreview
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.uamp.UampColors
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 import org.junit.Rule

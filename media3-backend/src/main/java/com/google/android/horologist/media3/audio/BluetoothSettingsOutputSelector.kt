@@ -16,9 +16,9 @@
 
 package com.google.android.horologist.media3.audio
 
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.AudioOutputRepository
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withTimeoutOrNull

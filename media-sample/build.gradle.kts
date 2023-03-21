@@ -99,21 +99,7 @@ android {
             androidx.compose.foundation.ExperimentalFoundationApi
             androidx.compose.ui.ExperimentalComposeUiApi
             androidx.wear.compose.material.ExperimentalWearMaterialApi
-            com.google.android.horologist.audio.ExperimentalHorologistApi
-            com.google.android.horologist.audio.ui.ExperimentalHorologistApi
-            com.google.android.horologist.auth.composables.ExperimentalHorologistApi
-            com.google.android.horologist.auth.data.ExperimentalHorologistApi
-            com.google.android.horologist.auth.ui.ExperimentalHorologistApi
-            com.google.android.horologist.base.ui.ExperimentalHorologistApi
-            com.google.android.horologist.composables.ExperimentalHorologistApi
-            com.google.android.horologist.compose.navscaffold.ExperimentalHorologistApi
-            com.google.android.horologist.compose.tools.ExperimentalHorologistApi
-            com.google.android.horologist.media.ExperimentalHorologistApi
-            com.google.android.horologist.media.data.ExperimentalHorologistApi
-            com.google.android.horologist.media.ui.ExperimentalHorologistApi
-            com.google.android.horologist.media3.ExperimentalHorologistApi
-            com.google.android.horologist.networks.ExperimentalHorologistApi
-            com.google.android.horologist.tiles.ExperimentalHorologistApi
+            com.google.android.horologist.annotations.ExperimentalHorologistApi
             kotlin.RequiresOptIn
             kotlinx.coroutines.ExperimentalCoroutinesApi
             """.trim().split("\\s+".toRegex()).map { "-opt-in=$it" }

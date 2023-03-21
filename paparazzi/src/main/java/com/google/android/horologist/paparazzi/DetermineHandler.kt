@@ -19,6 +19,7 @@ package com.google.android.horologist.paparazzi
 import app.cash.paparazzi.HtmlReportWriter
 import app.cash.paparazzi.SnapshotHandler
 import app.cash.paparazzi.SnapshotVerifier
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 @ExperimentalHorologistApi
 public val isVerifying: Boolean =

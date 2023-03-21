@@ -34,6 +34,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ProgressIndicatorDefaults
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlin.math.asin
 
 /**

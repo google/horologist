@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.LocalContentColor
 import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import kotlinx.coroutines.delay
 import kotlin.math.roundToInt
 import kotlin.time.Duration

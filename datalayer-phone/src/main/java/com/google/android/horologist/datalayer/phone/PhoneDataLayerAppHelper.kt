@@ -20,8 +20,8 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import com.google.android.horologist.data.AppHelperResultCode
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.data.AppHelperResultCode
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.apphelper.DataLayerAppHelper
 import kotlinx.coroutines.guava.await

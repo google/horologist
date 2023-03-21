@@ -16,8 +16,8 @@
 
 package com.google.android.horologist.media.ui.state.model
 
-import com.google.android.horologist.media.model.PositionPredictor
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.media.model.PositionPredictor
 import kotlin.time.Duration
 
 @ExperimentalHorologistApi

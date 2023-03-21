@@ -21,7 +21,6 @@ package com.google.android.horologist.media.data.mapper
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.data.database.model.MediaEntity
 import com.google.android.horologist.media.model.Media
 

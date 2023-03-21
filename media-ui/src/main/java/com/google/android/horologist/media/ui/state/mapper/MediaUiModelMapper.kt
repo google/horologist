@@ -21,7 +21,6 @@ package com.google.android.horologist.media.ui.state.mapper
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.Media
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 /**

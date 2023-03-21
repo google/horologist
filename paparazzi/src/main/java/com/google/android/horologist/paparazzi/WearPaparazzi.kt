@@ -21,6 +21,7 @@ import app.cash.paparazzi.Paparazzi
 import app.cash.paparazzi.RenderExtension
 import app.cash.paparazzi.SnapshotHandler
 import com.android.ide.common.rendering.api.SessionParams
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 private const val DefaultMaxPercentDifference = 0.1
 

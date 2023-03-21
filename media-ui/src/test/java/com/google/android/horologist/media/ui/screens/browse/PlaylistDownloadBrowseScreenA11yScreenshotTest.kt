@@ -15,8 +15,6 @@
  */
 
 @file:OptIn(
-    ExperimentalHorologistApi::class,
-    ExperimentalHorologistApi::class,
     ExperimentalHorologistApi::class
 )
 
@@ -25,12 +23,10 @@ package com.google.android.horologist.media.ui.screens.browse
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.a11y.ComposeA11yExtension
 import com.google.android.horologist.compose.tools.coil.FakeImageLoader
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.PlayerLibraryPreview
 import com.google.android.horologist.media.ui.components.positionedState
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.paparazzi.RoundNonFullScreenDevice
 import com.google.android.horologist.paparazzi.WearPaparazzi
 import com.google.android.horologist.paparazzi.WearSnapshotHandler

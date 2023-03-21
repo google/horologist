@@ -20,8 +20,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAuthUserRepository
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAuthUserRepository
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
 
 /**

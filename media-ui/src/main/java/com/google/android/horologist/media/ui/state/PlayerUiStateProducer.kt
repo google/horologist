@@ -20,7 +20,6 @@ package com.google.android.horologist.media.ui.state
 
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.repository.PlayerRepository
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.state.mapper.PlayerUiStateMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine

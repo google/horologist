@@ -44,6 +44,7 @@ import androidx.wear.compose.material.PlaceholderDefaults
 import androidx.wear.compose.material.placeholder
 import androidx.wear.compose.material.placeholderShimmer
 import androidx.wear.compose.material.rememberPlaceholderState
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * A placeholder chip to be displayed while the contents of the [Chip] is being loaded.

@@ -45,12 +45,12 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.base.ui.components.StandardButton
 import com.google.android.horologist.base.ui.components.StandardChip
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.compose.layout.belowTimeTextPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 @WearPreviewDevices
 @Composable

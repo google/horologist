@@ -45,7 +45,7 @@ android {
     kotlinOptions {
         jvmTarget = "11"
         freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=com.google.android.horologist.media.ExperimentalHorologistApi",
+            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
             "-opt-in=kotlin.RequiresOptIn"
         )
     }

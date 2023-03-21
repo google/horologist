@@ -22,9 +22,9 @@
 package com.google.android.horologist.auth.ui.common.screens.prompt
 
 import app.cash.turbine.test
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.model.AuthUser
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.test.toolbox.rules.MainDispatcherRule
 import com.google.android.horologist.test.toolbox.testdoubles.AuthUserRepositoryStub
 import com.google.common.truth.Truth.assertThat

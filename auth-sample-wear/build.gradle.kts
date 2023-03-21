@@ -70,14 +70,7 @@ android {
 
         // Allow for widescale experimental APIs in Alpha libraries we build upon
         freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=com.google.android.horologist.auth.composables.ExperimentalHorologistApi",
-            "-opt-in=com.google.android.horologist.auth.data.ExperimentalHorologistApi",
-            "-opt-in=com.google.android.horologist.auth.data.watch.oauth.ExperimentalHorologistApi",
-            "-opt-in=com.google.android.horologist.auth.ui.ExperimentalHorologistApi",
-            "-opt-in=com.google.android.horologist.base.ui.ExperimentalHorologistApi",
-            "-opt-in=com.google.android.horologist.composables.ExperimentalHorologistApi",
-            "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistApi",
-            "-opt-in=com.google.android.horologist.data.ExperimentalHorologistApi",
+            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
         )
     }
 

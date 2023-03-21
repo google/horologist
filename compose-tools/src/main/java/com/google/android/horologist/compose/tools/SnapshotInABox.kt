@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import app.cash.paparazzi.Paparazzi
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
  * Paparazzi extension function to default wrap our snapshots in a box

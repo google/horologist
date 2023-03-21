@@ -20,7 +20,6 @@ package com.google.android.horologist.media.ui.state.mapper
 
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.Playlist
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 
 /**

@@ -20,8 +20,8 @@ package com.google.android.horologist.media.ui.components.animated
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.android.horologist.audio.ui.components.animated.InteractivePreviewAware
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.audio.ui.components.animated.InteractivePreviewAware
 
 @Preview(
     name = "Enabled",

@@ -38,7 +38,6 @@ import androidx.wear.tiles.material.Colors
 import androidx.wear.tiles.material.CompactChip
 import androidx.wear.tiles.material.layouts.PrimaryLayout
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.tiles.render.SingleTileLayoutRenderer
 
 /**

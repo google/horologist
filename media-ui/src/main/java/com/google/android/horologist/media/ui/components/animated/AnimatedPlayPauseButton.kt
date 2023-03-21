@@ -153,31 +153,31 @@ private fun animateLottieProgressAsState(
     playing: Boolean,
     composition: LottieComposition?
 ): State<Float> {
-    if (!playing) {
-        return remember {
-            mutableStateOf(0f)
-        }
-    } else {
-        return remember {
-            mutableStateOf(1f)
-        }
-    }
-
-//    val clipSpec = remember { LottieClipSpec.Frame(max = 14) }
-//    val lottieProgress = animateLottieCompositionAsState(
-//        composition = composition,
-//        clipSpec = clipSpec
-//    ) as LottieAnimatable
-//    LaunchedEffect(playing) {
-//        android.util.Log.d("START_UP_TEST", "playing=${playing}")
-//        val targetValue = if (playing) 1f else 0f
-//        if (lottieProgress.progress < targetValue) {
-//            lottieProgress.animate(composition, speed = 1f)
-//        } else if (lottieProgress.progress > targetValue) {
-//            lottieProgress.animate(composition, speed = -1f)
+//    if (!playing) {
+//        return remember {
+//            mutableStateOf(0f)
+//        }
+//    } else {
+//        return remember {
+//            mutableStateOf(1f)
 //        }
 //    }
-//    return lottieProgress
+
+    val clipSpec = remember { LottieClipSpec.Frame(max = 14) }
+    val lottieProgress = animateLottieCompositionAsState(
+        composition = composition,
+        clipSpec = clipSpec
+    ) as LottieAnimatable
+    LaunchedEffect(playing) {
+        android.util.Log.d("START_UP_TEST", "playing=${playing}")
+        val targetValue = if (playing) 1f else 0f
+        if (lottieProgress.progress < targetValue) {
+            lottieProgress.animate(composition, speed = 1f)
+        } else if (lottieProgress.progress > targetValue) {
+            lottieProgress.animate(composition, speed = -1f)
+        }
+    }
+    return lottieProgress
 }
 
 @ExperimentalHorologistApi

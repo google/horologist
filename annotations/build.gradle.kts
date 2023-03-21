@@ -17,65 +17,16 @@
 @file:Suppress("UnstableApiUsage")
 
 plugins {
-    id("com.android.library")
+    id("java-library")
+    id("org.jetbrains.kotlin.jvm")
     id("org.jetbrains.dokka")
     id("org.jetbrains.kotlin.kapt")
     id("me.tylerbwong.gradle.metalava")
-    kotlin("android")
 }
 
-android {
-    compileSdk = 33
-
-    defaultConfig {
-        minSdk = 25
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    buildFeatures {
-        buildConfig = false
-    }
-
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-
-    packagingOptions {
-        resources {
-            excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1")
-        }
-    }
-
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-        animationsDisabled = true
-    }
-
-    lint {
-        checkReleaseBuilds = false
-        textReport = true
-    }
-    namespace = "com.google.android.horologist.annotations"
-}
-
-kapt {
-    correctErrorTypes = true
-}
-
-project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        this.kotlinOptions {
-            freeCompilerArgs = freeCompilerArgs + "-Xexplicit-api=strict"
-        }
-    }
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
 metalava {

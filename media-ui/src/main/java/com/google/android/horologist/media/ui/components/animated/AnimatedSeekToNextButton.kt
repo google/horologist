@@ -16,16 +16,20 @@
 
 package com.google.android.horologist.media.ui.components.animated
 
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
+import androidx.wear.compose.material.Icon
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
@@ -52,22 +56,36 @@ public fun AnimatedSeekToNextButton(
             colors = colors
         )
     } else {
-        val composition by rememberLottieComposition(
+        val composition = rememberLottieComposition(
             spec = LottieCompositionSpec.Asset("lottie/Next.json")
         )
         val lottieAnimatable = rememberLottieAnimatable()
-
-        AnimatedMediaButton(
-            modifier = modifier,
-            onClick = onClick,
-            contentDescription = stringResource(id = R.string.horologist_seek_to_next_button_content_description),
-            enabled = enabled,
-            colors = colors,
-            iconSize = iconSize,
-            tapTargetSize = tapTargetSize,
-            composition = composition,
-            lottieAnimatable = lottieAnimatable,
-            iconAlign = Alignment.End
-        )
+        if (!composition.isLoading) {
+            AnimatedMediaButton(
+                modifier = modifier,
+                onClick = onClick,
+                contentDescription = stringResource(id = R.string.horologist_seek_to_next_button_content_description),
+                enabled = enabled,
+                colors = colors,
+                iconSize = iconSize,
+                tapTargetSize = tapTargetSize,
+                composition = composition.value,
+                lottieAnimatable = lottieAnimatable,
+                iconAlign = Alignment.End
+            )
+        } else {
+            Button(
+                onClick = onClick,
+                modifier = modifier.size(tapTargetSize),
+                enabled = enabled,
+                colors = colors
+            ) {
+                Icon(
+                    modifier = Modifier.size(iconSize),
+                    imageVector = LottiePlaceholders.Next,
+                    contentDescription = null
+                )
+            }
+        }
     }
 }

@@ -25,27 +25,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.flowWithLifecycle
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.CircularProgressIndicator
+import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.LocalContentAlpha
 import androidx.wear.compose.material.MaterialTheme
 import com.airbnb.lottie.LottieComposition
@@ -61,7 +58,6 @@ import com.google.android.horologist.media.ui.R
 import com.google.android.horologist.media.ui.components.PlayPauseButton
 import com.google.android.horologist.media.ui.state.ProgressStateHolder
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
-import kotlinx.coroutines.flow.Flow
 
 @ExperimentalHorologistApi
 @Composable
@@ -91,13 +87,18 @@ public fun AnimatedPlayPauseButton(
             backgroundColor = backgroundColor
         )
     } else {
-        val composition: LottieComposition? by rememberLottieComposition(
+        val composition = rememberLottieComposition(
             spec = LottieCompositionSpec.Asset(
                 "lottie/PlayPause.json"
             )
         )
+        val isCompositionReady by produceState(initialValue = false, producer = {
+            composition.await()
+            value = false
+        })
         val lottieProgress =
-            animateLottieProgressAsState(playing = playing, composition = composition)
+            animateLottieProgressAsState(playing = playing, composition = composition.value)
+
         Box(
             modifier = modifier
                 .size(tapTargetSize)
@@ -133,16 +134,25 @@ public fun AnimatedPlayPauseButton(
                 enabled = enabled,
                 colors = colors
             ) {
-                LottieAnimation(
-                    modifier = Modifier
-                        .size(iconSize)
-                        .align(Alignment.Center)
-                        .graphicsLayer(alpha = LocalContentAlpha.current),
-                    composition = composition,
-                    progress = {
-                        lottieProgress.value
-                    }
-                )
+                if (!composition.isLoading) {
+//                if (isCompositionReady) {
+                    LottieAnimation(
+                        modifier = Modifier
+                            .size(iconSize)
+                            .align(Alignment.Center)
+                            .graphicsLayer(alpha = LocalContentAlpha.current),
+                        composition = composition.value,
+                        progress = { lottieProgress.value }
+                    )
+                } else {
+                    Icon(
+                        modifier = Modifier
+                            .size(iconSize)
+                            .align(Alignment.Center),
+                        imageVector = if (playing) LottiePlaceholders.Pause else LottiePlaceholders.Play,
+                        contentDescription = null
+                    )
+                }
             }
         }
     }
@@ -153,23 +163,12 @@ private fun animateLottieProgressAsState(
     playing: Boolean,
     composition: LottieComposition?
 ): State<Float> {
-//    if (!playing) {
-//        return remember {
-//            mutableStateOf(0f)
-//        }
-//    } else {
-//        return remember {
-//            mutableStateOf(1f)
-//        }
-//    }
-
     val clipSpec = remember { LottieClipSpec.Frame(max = 14) }
     val lottieProgress = animateLottieCompositionAsState(
         composition = composition,
         clipSpec = clipSpec
     ) as LottieAnimatable
     LaunchedEffect(playing) {
-        android.util.Log.d("START_UP_TEST", "playing=${playing}")
         val targetValue = if (playing) 1f else 0f
         if (lottieProgress.progress < targetValue) {
             lottieProgress.animate(composition, speed = 1f)
@@ -208,7 +207,6 @@ public fun AnimatedPlayPauseProgressButton(
         tapTargetSize = tapTargetSize,
         backgroundColor = backgroundColor
     ) {
-        // android.util.Log.d("START_UP_TEST", "playing=${playing}")
         val progress by ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
         if (trackPositionUiModel.isLoading) {
             CircularProgressIndicator(
@@ -228,4 +226,3 @@ public fun AnimatedPlayPauseProgressButton(
         }
     }
 }
-
